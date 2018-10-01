@@ -437,6 +437,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             replyViewAbs.isUserInteractionEnabled = true
         }
         
+        if forwardViewAbs != nil {
+            let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
+            forwardViewAbs.addGestureRecognizer(onForwardClick)
+            forwardViewAbs.isUserInteractionEnabled = true
+        }
+        
         if imgFileAbs != nil {
             let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
             imgFileAbs.addGestureRecognizer(onFileClick)
@@ -482,6 +488,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!, cell: self)
+    }
+    
+    func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
     }
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {

@@ -2686,10 +2686,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnOriginalMessageWhenReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
-        
-    }
-    
     func didTapOnSenderAvatar(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
         if let sender = cellMessage.authorUser {
             self.selectedUserToSeeTheirInfo = sender
@@ -2704,6 +2700,16 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let replyMessage = cellMessage.repliedTo {
             goToPosition(cellMessage: replyMessage)
+        }
+    }
+    
+    func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+        if let forwardMessage = cellMessage.forwardedFrom {
+            if let room = forwardMessage.authorRoom {
+                IGHelper.openChatRoom(room: room, viewController: self)
+            } else if let user = forwardMessage.authorUser {
+                IGHelper.openUserProfile(user: user, viewController: self)
+            }
         }
     }
     

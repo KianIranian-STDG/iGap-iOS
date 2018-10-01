@@ -74,7 +74,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "Contact Info")
         
-        if IGAppManager.sharedManager.userID() != user?.id && !(room?.isReadOnly)! && !IGCall.callPageIsEnable {
+        if IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
             navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
             navigaitonItem.rightViewContainer?.addAction {
                 let storyBoard = UIStoryboard(name: "Main" , bundle:nil)
@@ -102,17 +102,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if let room = self.room {
-            switch room.type {
-            case .chat:
-                return 4
-            case .group:
-                return 2
-            case .channel:
-                return 2
-            }
-        }
-        return 1
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,20 +110,10 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
         case 0:
             return 4
         case 1:
-            if let room = self.room {
-                switch room.type {
-                case .chat:
-                    if isCloud() { // hide block contact for mine profile
-                        return 2
-                    }
-                    return 3
-                case .group:
-                    return 2
-                case .channel:
-                    return 2
-                }
+            if isCloud() { // hide block contact for mine profile
+                return 2
             }
-            return 2
+            return 3
         case 2:
             return 1
         case 3:
@@ -743,7 +723,10 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
     }
 
     func isCloud() -> Bool{
-        return room!.chatRoom?.peer?.id == IGAppManager.sharedManager.userID()
+        if user != nil {
+            return user?.id == IGAppManager.sharedManager.userID()
+        }
+        return false
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
