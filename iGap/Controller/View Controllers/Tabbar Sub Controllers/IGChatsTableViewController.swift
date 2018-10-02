@@ -64,14 +64,6 @@ class IGChatsTableViewController: UITableViewController {
                 break
             }
         }
-        if IGAppManager.sharedManager.isUserLoggiedIn() {
-            self.fetchRoomList()
-        } else {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.fetchRoomList),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,31 +79,6 @@ class IGChatsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    //MARK: Room List actions
-    @objc private func fetchRoomList() {
-        isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success { (responseProtoMessage) in
-            DispatchQueue.main.async {
-                self.isLoadingMoreRooms = false
-                switch responseProtoMessage {
-                case let response as IGPClientGetRoomListResponse:
-                    self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: response)
-                default:
-                    break;
-                }
-            }
-            }.error({ (errorCode, waitTime) in
-                
-            }).send()
-    }
-    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {

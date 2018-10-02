@@ -137,6 +137,15 @@ class IGAppManager: NSObject {
         return false
     }
     
+    /**
+     * reset app value after than connection lost
+     **/
+    public func resetApp(){
+        IGDownloadManager.sharedManager.pauseAllDownloads()
+        IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
+        IGRecentsTableViewController.needGetRoomList = true // for allow user that get room list after than logged in again
+    }
+    
     public func setUserLoginSuccessful() {
         isUserLoggedIn.value = true
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName), object: nil)

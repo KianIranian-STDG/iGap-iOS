@@ -34,6 +34,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
     static var needGetInfo: Bool = true
+    static var needGetRoomList: Bool = true
     
     private let disposeBag = DisposeBag()
     
@@ -331,9 +332,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     }
     
     @objc private func fetchRoomList() {
+        if !IGRecentsTableViewController.needGetRoomList {
+            return
+        }
+        
+        IGRecentsTableViewController.needGetRoomList = false
+        
         let clientCondition = IGClientCondition()
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success { (responseProtoMessage) in
+        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success ({ (responseProtoMessage) in
             self.isLoadingMoreRooms = false
             DispatchQueue.main.async {
                 switch responseProtoMessage {
@@ -344,9 +351,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                     break;
                 }
             }
-            }.error({ (errorCode, waitTime) in
-                
-            }).send()
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                IGRecentsTableViewController.needGetRoomList = true
+                self.fetchRoomList()
+            default:
+                break
+            }
+        }).send()
     }
     
     @objc private func saveAndSendContacts() {
