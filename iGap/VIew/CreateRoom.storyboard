@@ -297,7 +297,7 @@ Cg
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2nu-RP-gSA" customClass="SSRadioButton" customModule="iGap" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2nu-RP-gSA" customClass="SSRadioButton" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="18" width="28" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="28" id="tLY-v1-GtM"/>
@@ -336,7 +336,7 @@ Cg
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection footerTitle="footer" id="l35-8p-c4L">
+                            <tableViewSection id="l35-8p-c4L">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="64c-h9-P2Z">
                                         <rect key="frame" x="0.0" y="279" width="375" height="44"/>
