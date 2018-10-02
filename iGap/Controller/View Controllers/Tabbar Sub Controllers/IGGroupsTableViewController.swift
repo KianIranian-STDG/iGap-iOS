@@ -46,7 +46,6 @@ class IGGroupsTableViewController: UITableViewController {
             switch changes {
             case .initial:
                 self.tableView.reloadData()
-                self.setTabbarBadge()
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 print("updating groups VC")
@@ -56,7 +55,6 @@ class IGGroupsTableViewController: UITableViewController {
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.endUpdates()
-                self.setTabbarBadge()
                 break
             case .error(let err):
                 // An error occurred while opening the Realm file on the background worker thread
@@ -351,18 +349,6 @@ class IGGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 78.0
     }
-    
-    //MARK: - Tabbar badge
-    func setTabbarBadge() {
-        //        var unreadCount = 0
-        //        rooms.forEach{unreadCount += Int($0.unreadCount)}
-        //        if unreadCount == 0 {
-        //            self.tabBarController?.tabBar.items?[2].badgeValue = nil
-        //        } else {
-        //            self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
-        //        }
-    }
-    
 }
 
 extension IGGroupsTableViewController {

@@ -701,8 +701,49 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         
         unreadCount = rooms!.sum(ofProperty: "unreadCount")
         if unreadCount == 0 {
+            self.tabBarController?.tabBar.items?[0].badgeValue = nil
+            self.tabBarController?.tabBar.items?[1].badgeValue = nil
             self.tabBarController?.tabBar.items?[2].badgeValue = nil
+            self.tabBarController?.tabBar.items?[3].badgeValue = nil
         } else {
+            let predicateChat = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.chat.rawValue)
+            let predicateGroup = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.group.rawValue)
+            let predicateChannel = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.channel.rawValue)
+
+            var countChat : Int32 = 0
+            var countGroup : Int32 = 0
+            var countChannel : Int32 = 0
+            
+            for chat in rooms!.filter(predicateChat) {
+                countChat += chat.unreadCount
+            }
+            
+            for group in rooms!.filter(predicateGroup) {
+                countGroup += group.unreadCount
+            }
+            
+            for channel in rooms!.filter(predicateChannel) {
+                countChannel += channel.unreadCount
+            }
+            
+            if countChannel == 0 {
+                self.tabBarController?.tabBar.items?[0].badgeValue = nil
+            } else {
+                self.tabBarController?.tabBar.items?[0].badgeValue = "\(countChannel)"
+            }
+            
+            if countGroup == 0 {
+                self.tabBarController?.tabBar.items?[1].badgeValue = nil
+            } else {
+                self.tabBarController?.tabBar.items?[1].badgeValue = "\(countGroup)"
+            }
+            
+            if countChat == 0 {
+                self.tabBarController?.tabBar.items?[3].badgeValue = nil
+            } else {
+                self.tabBarController?.tabBar.items?[3].badgeValue = "\(countChat)"
+            }
+            
             self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
         }
     }
