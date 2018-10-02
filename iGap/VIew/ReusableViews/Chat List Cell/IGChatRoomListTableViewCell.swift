@@ -344,21 +344,17 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
                     self.lastMessageLabel.text = lastMessage.message
                 case .image:
-                    self.lastMessageLabel.text = "Image"
+                    self.lastMessageLabel.text = "Image message"
                 case .video:
-                    self.lastMessageLabel.text = "Video"
+                    self.lastMessageLabel.text = "Video message"
                 case .gif:
-                    self.lastMessageLabel.text = "Gif"
+                    self.lastMessageLabel.text = "Gif message"
                 case .audio:
                     self.lastMessageLabel.text = "Audio message"
                 case .voice:
                     self.lastMessageLabel.text = "Voice message"
                 case .file:
-                    if let name = lastMessage.attachment?.name {
-                        self.lastMessageLabel.text = name
-                    } else {
-                        self.lastMessageLabel.text = "File"
-                    }
+                    self.lastMessageLabel.text = "File message"
                 default:
                     self.lastMessageLabel.text = "Some other type of message"
                     break
