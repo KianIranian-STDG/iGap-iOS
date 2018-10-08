@@ -16,30 +16,18 @@ import IGProtoBuff
 class IGSettingContactBlockListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
     
     var chooseBlockContactFromPrivacyandSecurityPage:Bool = false
-    var blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
+    var blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter("isBlocked == 1")
     var notificationToken: NotificationToken?
     
     var hud = MBProgressHUD()
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchBlockedContactsFromServer()
-        hud.hide(animated: true)
-        self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Edit", title: "BlockedList")
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-
-        if blockedUsers.count == 0 {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }else{
-            navigationItem.rightViewContainer?.addAction {
-                self.editButtonClicked()
-            }
-        }
         
+        self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        
+        setNavigationItem()
         fetchBlockedContactsFromServer()
+        
         let predicate = NSPredicate(format: "isBlocked == 1")
         blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
         self.notificationToken = blockedUsers.observe { (changes: RealmCollectionChange) in
@@ -48,7 +36,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
                 self.tableView.reloadData()
                 break
             case .update(_, let deletions, let insertions, let modifications):
-                print("update")
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
@@ -64,15 +51,29 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
         }
     }
     
+    private func setNavigationItem(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        var rightItemText : String? = nil
+        if blockedUsers.count > 0 {
+            rightItemText = "Edit"
+        }
+        navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: "BlockedList")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+        navigationItem.rightViewContainer?.addAction {
+            self.editButtonClicked()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
+        setNavigationItem()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-
-    }
-        override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -81,7 +82,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return blockedUsers.count + 1
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -123,7 +123,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if tableView.isEditing == true {
-            print("delete")
             if let unBlockedUserId : Int64 = blockedUsers[indexPath.row].id {
                 unblockedUser(blockedUserId: unBlockedUserId)
             }
@@ -136,8 +135,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
         }
         return true
     }
-    
-    
     
     func setupEditBtn(){
         let editBtn = UIButton()
@@ -204,6 +201,7 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             
         }).send()
     }
+    
     func unblockedUser(blockedUserId : Int64){
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
@@ -233,6 +231,7 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             }
         }).send()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier{
             switch identifier{
