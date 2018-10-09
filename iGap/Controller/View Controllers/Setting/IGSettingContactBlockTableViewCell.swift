@@ -9,8 +9,9 @@
  */
 
 import UIKit
+import MGSwipeTableCell
 
-class IGSettingContactBlockTableViewCell: UITableViewCell {
+class IGSettingContactBlockTableViewCell: MGSwipeTableCell {
 
     @IBOutlet weak var blockedContactName: UILabel!
     override func awakeFromNib() {
