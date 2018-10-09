@@ -169,7 +169,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     
-    func logoutAndShowRegisterViewController() {
+    func logoutAndShowRegisterViewController(mainRoot: Bool = false) {
+        if mainRoot {
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle:nil).instantiateInitialViewController()
+        }
+        
         IGAppManager.sharedManager.clearDataOnLogout()
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")

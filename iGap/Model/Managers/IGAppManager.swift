@@ -330,7 +330,7 @@ class IGAppManager: NSObject {
                 }).error({ (errorCode, waitTime) in
                     self.isTryingToLoginUser = false
                     switch errorCode {
-                    case .userLoginFaield, .userLoginFaieldUserIsBlocked:
+                    case .userLoginFailed, .userLoginFaieldUserIsBlocked:
                         DispatchQueue.main.async {
                             let appDelegate = UIApplication.shared.delegate as! AppDelegate
                             appDelegate.showLoginFaieldAlert()
