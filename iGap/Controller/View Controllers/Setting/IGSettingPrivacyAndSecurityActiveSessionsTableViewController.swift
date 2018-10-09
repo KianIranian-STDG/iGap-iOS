@@ -28,12 +28,11 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        getActiveSessionList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-
+        getActiveSessionList()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -169,16 +168,14 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
                 popoverController.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
             }
             present(logoutConfirmAlertView, animated: true, completion: nil)
-
         }
     }
     
     func getActiveSessionList() {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
+        IGGlobal.prgShow(self.view)
         IGUserSessionGetActiveListRequest.Generator.generate().success({ protoResponse in
             DispatchQueue.main.async {
-                self.hud.hide(animated: true)
+                IGGlobal.prgHide()
                 switch protoResponse {
                 case let activeSessionListProtoResponse as IGPUserSessionGetActiveListResponse:
                      let allSessions = IGUserSessionGetActiveListRequest.Handler.interpret(response: activeSessionListProtoResponse)
@@ -196,18 +193,18 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
                 }
             }
         }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            DispatchQueue.main.async {
+                IGGlobal.prgHide()
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
+                default:
+                    break
                 }
-            default:
-                break
             }
-            self.hud.hide(animated: true)
         }).send()
     }
     
