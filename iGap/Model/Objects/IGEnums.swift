@@ -62,6 +62,10 @@ enum IGLanguage: Int {
     case fa_ir
 }
 
+enum AlertState: Int {
+    case Ok
+    case No
+}
 
 enum IGRoomMessageStatus: Int {
     case unknown = -1

@@ -51,6 +51,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
     var mode: String?
     var room: IGRoom?
     var hud = MBProgressHUD()
+    var addAdminOrModeratorCount: Int = 0
     
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
     var contactSections: [Section]?
@@ -221,6 +222,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let channelAddAdminResponse as IGPChannelAddAdminResponse :
+                            self.manageClosePage()
                             IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
                             self.hud.hide(animated: true)
                         default:
@@ -228,6 +230,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                         }
                     }
                 }).error ({ (errorCode, waitTime) in
+                    self.manageClosePage()
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
@@ -239,7 +242,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                         }
                     case .canNotAddThisUserAsAdminToChannel:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
+                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in channel", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.hud.hide(animated: true)
@@ -252,10 +255,6 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     
                 }).send()
             }
-            if self.navigationController is IGNavigationController {
-                self.navigationController?.popViewController(animated: true)
-            }
-
         }
     }
     
@@ -273,15 +272,16 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let channelAddModeratorResponse as IGPChannelAddModeratorResponse:
+                            self.manageClosePage()
                             IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
                             self.hud.hide(animated: true)
-                            
                         default:
                             break
                         }
                     }
 
                 }).error ({ (errorCode, waitTime) in
+                    self.manageClosePage()
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
@@ -305,12 +305,16 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     }
                     
                 }).send()
-                
             }
+        }
+    }
+    
+    private func manageClosePage(){
+        addAdminOrModeratorCount += 1
+        if selectedUsers.count == addAdminOrModeratorCount {
             if self.navigationController is IGNavigationController {
                 self.navigationController?.popViewController(animated: true)
             }
-
         }
     }
     
