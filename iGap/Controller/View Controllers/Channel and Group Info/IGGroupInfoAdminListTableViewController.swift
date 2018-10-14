@@ -29,60 +29,55 @@ class IGGroupInfoAdminListTableViewController: UITableViewController , UIGesture
     var noDataTitle : String?
     var hud = MBProgressHUD()
     var filterRole : IGRoomFilterRole!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if mode == "Admin" {
             navigationTitle = "Admins"
             noDataTitle = "This group has no admin."
             filterRole = .admin
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld" , adminsRole , (room?.id)!)
             members =  try! Realm().objects(IGGroupMember.self).filter(predicate!)
-        }
-        if mode == "Moderator" {
+        } else if mode == "Moderator" {
             navigationTitle = "Moderators"
             filterRole = .moderator
             noDataTitle = "This group has no moderator."
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
             members =  try! Realm().objects(IGGroupMember.self).filter(predicate!)
         }
+        
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
                 self.tableView.reloadData()
                 break
-            case .update(_, let _, let _, let _):
-                print("updating admins tableV")
-                // Query messages have changed, so apply them to the TableView
+            case .update(_, _, _, _):
                 self.tableView.reloadData()
                 break
             case .error(let err):
-                // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(err)")
                 break
             }
         }
+        setNavigationItem()
+    }
+    
+    private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "Add", title: navigationTitle)
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-
+        
         navigationItem.rightViewContainer?.addAction {
             self.performSegue(withIdentifier: "showContactToAddModeratorOrAdmin", sender: self)
         }
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         fetchGroupAdminOrModeratorFromServer()
-        
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if members.count > 0 {
@@ -103,103 +98,136 @@ class IGGroupInfoAdminListTableViewController: UITableViewController , UIGesture
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return members.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupAdminCell", for: indexPath) as! IGGroupAdminListTableViewCell
         cell.setUser(members[indexPath.row])
         
+        var kickText = "remove admin"
+        if mode == "Moderator" {
+            kickText = "remove moderator"
+        }
+        
+        let btnKick = MGSwipeButton(title: kickText, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            if self.mode == "Admin" {
+                if let adminUserId: Int64 = self.members[indexPath.row].userID {
+                    self.kickAdmin(adminUserID: adminUserId)
+                }
+            } else if self.mode == "Moderator" {
+                if let moderatorUserId: Int64 = self.members[indexPath.row].userID {
+                    self.kickModerator(moderatorUserId: moderatorUserId)
+                }
+            }
+            return true
+        })
+        
+        let buttons = [btnKick]
+        cell.rightButtons = buttons
+        removeButtonsUnderline(buttons: buttons)
+        
+        cell.rightSwipeSettings.transition = MGSwipeTransition.border
+        cell.rightExpansion.buttonIndex = 0
+        cell.rightExpansion.fillOnTrigger = true
+        cell.rightExpansion.threshold = 1.5
+        cell.clipsToBounds = true
+        cell.swipeBackgroundColor = UIColor.clear
+        
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        cell.layoutMargins = UIEdgeInsets.zero
+        cell.layer.cornerRadius = 10
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        let kickText = "Kick"
-        return kickText
-        
+    private func removeButtonsUnderline(buttons: [UIButton]){
+        for btn in buttons {
+            btn.removeUnderline()
+        }
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if tableView.isEditing == true {
-            print("delete")
-            if mode == "Admin" {
-                if let adminUserId: Int64 = members[indexPath.row].userID {
-                    kickAdmin(adminUserID: adminUserId)
-                }
-            }
-            if mode == "Moderator" {
-                if let moderatorUserId: Int64 = members[indexPath.row].userID {
-                    kickModerator(moderatorUserId: moderatorUserId)
-                }
-            }
-        }
+    func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
+        let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+            alertClouser(AlertState.Ok)
+        })
+        let cancel = UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+            alertClouser(AlertState.No)
+        })
         
+        option.addAction(ok)
+        option.addAction(cancel)
+        self.present(option, animated: true, completion: nil)
     }
     
     func kickAdmin(adminUserID: Int64) {
         if let groupRoom = room {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: adminUserID ).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let groupKickAdminResponse as IGPGroupKickAdminResponse:
-                        IGGroupKickAdminRequest.Handler.interpret( response : groupKickAdminResponse)
-                        self.hud.hide(animated: true)
-                    default:
-                        break
-                    }
+            kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
+                if state == AlertState.Ok {
+                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    self.hud.mode = .indeterminate
+                    IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: adminUserID ).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let groupKickAdminResponse as IGPGroupKickAdminResponse:
+                                IGGroupKickAdminRequest.Handler.interpret( response : groupKickAdminResponse)
+                                self.hud.hide(animated: true)
+                            default:
+                                break
+                            }
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        switch errorCode {
+                        case .timeout:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.hud.hide(animated: true)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                        }
+                    }).send()
                 }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                default:
-                    break
-                }
-                
-            }).send()
+            })
         }
     }
     
     func kickModerator(moderatorUserId: Int64) {
         if let groupRoom = room {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGGroupKickModeratorRequest.Generator.generate(memberId: moderatorUserId, roomId: groupRoom.id).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let groupKickModeratorResponse as IGPGroupKickModeratorResponse:
-                        IGGroupKickModeratorRequest.Handler.interpret( response : groupKickModeratorResponse)
-                        self.hud.hide(animated: true)
-                    default:
-                        break
-                    }
+            kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
+                if state == AlertState.Ok {
+                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    self.hud.mode = .indeterminate
+                    IGGroupKickModeratorRequest.Generator.generate(memberId: moderatorUserId, roomId: groupRoom.id).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let groupKickModeratorResponse as IGPGroupKickModeratorResponse:
+                                IGGroupKickModeratorRequest.Handler.interpret( response : groupKickModeratorResponse)
+                                self.hud.hide(animated: true)
+                            default:
+                                break
+                            }
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        switch errorCode {
+                        case .timeout:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.hud.hide(animated: true)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                        }
+                    }).send()
                 }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                default:
-                    break
-                }
-                
-            }).send()
-            
+            })
         }
     }
     
@@ -216,9 +244,6 @@ class IGGroupInfoAdminListTableViewController: UITableViewController , UIGesture
                         let igmember = IGGroupMember(igpMember: member, roomId: (self.room?.id)!)
                         self.allMembers.append(igmember)
                     }
-                    
-                    //self.tableView.reloadData()
-                    
                 default:
                     break
                 }
@@ -238,22 +263,13 @@ class IGGroupInfoAdminListTableViewController: UITableViewController , UIGesture
             }
             
         }).send()
-        
     }
 
-    
-    
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "showContactToAddModeratorOrAdmin" {
             let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
             destination.mode = mode
             destination.room = room
         }
     }
-
 }

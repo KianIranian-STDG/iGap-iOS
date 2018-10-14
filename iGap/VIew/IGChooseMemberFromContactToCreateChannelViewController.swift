@@ -215,7 +215,6 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
         
         for member in selectedUsers {
             if let channelRoom = room {
-                print(channelRoom.id)
                 self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                 self.hud.mode = .indeterminate
                 IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in

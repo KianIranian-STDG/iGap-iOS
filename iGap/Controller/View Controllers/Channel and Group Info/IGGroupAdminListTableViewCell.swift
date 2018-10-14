@@ -9,8 +9,9 @@
  */
 
 import UIKit
+import MGSwipeTableCell
 
-class IGGroupAdminListTableViewCell: UITableViewCell {
+class IGGroupAdminListTableViewCell: MGSwipeTableCell {
 
     @IBOutlet weak var groupAdminLastRecentlyLabel: UILabel!
     @IBOutlet weak var groupAdminNameLabel: UILabel!
