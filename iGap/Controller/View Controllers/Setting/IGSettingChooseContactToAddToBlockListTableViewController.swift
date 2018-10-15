@@ -16,6 +16,8 @@ import IGProtoBuff
 
 class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewController , UISearchResultsUpdating ,UINavigationControllerDelegate , UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var chooseBlockContactFromPrivacyandSecurityPage : Bool = true
     class User:NSObject {
         let registredUser: IGRegisteredUser
@@ -35,105 +37,57 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
     
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
     var contactSections : [Section]?
+    var sections : [Section]!
+    var notificationToken: NotificationToken?
     let collation = UILocalizedIndexedCollation.current()
     var filteredTableData = [CNContact]()
-    var resultSearchController = UISearchController()
-    var segmentControl : UISegmentedControl!
     var hud = MBProgressHUD()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchBar()
-        resultSearchController.searchBar.delegate = self
+        
+        setNavigationItem()
+        
+        searchBar.delegate = self
         self.tableView.sectionIndexBackgroundColor = UIColor.clear
-        if chooseBlockContactFromPrivacyandSecurityPage == true {
-            let centerSegmentView = UIView(frame: CGRect(x: 0, y:-5, width: 145, height: 50))
-            segmentControl = UISegmentedControl(items: ["Contacts","Chats"])
-            segmentControl.setWidth(70.5, forSegmentAt: 0)
-            segmentControl.setWidth(70.5, forSegmentAt: 1)
-            segmentControl.selectedSegmentIndex = 0
-            segmentControl.backgroundColor = UIColor.white
-            segmentControl.tintColor = UIColor.organizationalColor()
-            segmentControl.addTarget(self, action: #selector(IGSettingChooseContactToAddToBlockListTableViewController.segmentIndexChanged), for: UIControlEvents.valueChanged)
-            //centerSegmentView.addSubview(segmentControl)
-            
-            let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.addNavigationViewItems(rightItemText: "Cancle", title: "Choose Contact")
-            //navigationItem.titleView = centerSegmentView
-            navigationItem.navigationController = self.navigationController as? IGNavigationController
-            let navigationController = self.navigationController as! IGNavigationController
-            navigationController.interactivePopGestureRecognizer?.delegate = self
-            navigationItem.rightViewContainer?.addAction {
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popViewController(animated: true)
-                }
+        
+        self.notificationToken = contacts.observe { (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self.tableView.reloadData()
+            case .update(_,_,_,_):
+                self.tableView.reloadData()
+            case .error(let err):
+                fatalError("\(err)")
+                break
             }
         }
-    }
-    func segmentIndexChanged(){
-        switch segmentControl.selectedSegmentIndex {
-        case 0:
-            print("contacts")
-        case 1:
-            print("Chats")
-        default:
-            break;
-        }
-    }
-    func setBarbuttonItem(){
-        //doneButton
-        self.tableView.allowsMultipleSelectionDuringEditing = true
-        let doneButtonView = UIView(frame: CGRect(x:10, y:0,width: 100,height: 64))
-        let doneBtn = UIButton()
-        doneBtn.frame = CGRect(x: 38, y: -8 , width: 60, height: 60)
-        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize, weight: UIFontWeightSemibold)
-        let normalTitleColor = UIColor.organizationalColor()
-        let attrs = [NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor]
-        let doneTitle = NSAttributedString(string: "Done", attributes: attrs)
-        doneBtn.setAttributedTitle(doneTitle, for: .normal)
-        doneBtn.addTarget(self, action: #selector(IGSettingChooseContactToAddToBlockListTableViewController.doneButtonClicked), for: UIControlEvents.touchUpInside)
-        doneButtonView.addSubview(doneBtn)
-        let topRightbarButtonItem = UIBarButtonItem(customView: doneButtonView)
-        self.navigationItem.rightBarButtonItem = topRightbarButtonItem
-        if tableView.indexPathsForSelectedRows == nil {
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-        }
-        //cancel button
-        let leftView = UIView(frame: CGRect(x:10, y:0,width: 100,height: 64))
-        let cancelBtn = UIButton()
-        cancelBtn.frame = CGRect(x: 8, y: -8, width: 60, height: 60)
-        cancelBtn.setTitle("Cancel", for: UIControlState.normal)
-        cancelBtn.setTitleColor(UIColor.organizationalColor(), for: .normal)
-        cancelBtn.addTarget(self, action: #selector(IGSettingChooseContactToAddToBlockListTableViewController.cancelButtonClicked), for: UIControlEvents.touchUpInside)
-        leftView.addSubview(cancelBtn)
-        let topLeftbarButtonItem = UIBarButtonItem(customView: leftView)
-        self.navigationItem.leftBarButtonItem = topLeftbarButtonItem
-    }
-    func cancelButtonClicked(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    func doneButtonClicked(){
         
+        sections = fillContacts()
     }
     
-    func setupSearchBar(){
-        self.resultSearchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.dimsBackgroundDuringPresentation = false
-            controller.searchBar.sizeToFit()
-            self.tableView.tableHeaderView = controller.searchBar
-            let textFieldInsideSearchBar = controller.searchBar.value(forKey: "searchField") as? UITextField
-            textFieldInsideSearchBar?.layer.cornerRadius = 15
-            textFieldInsideSearchBar?.clipsToBounds = true
-            return controller
-        })()
-        // Reload the table
-        self.tableView.reloadData()
+    private func setNavigationItem(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Choose Contact")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
-    var sections : [Section]{
-        if self.contactSections != nil {
+    
+    func fillContacts(filterContact: Bool = false , searchText : String = "") -> [IGSettingChooseContactToAddToBlockListTableViewController.Section]{
+        if self.contactSections != nil && !filterContact {
             return self.contactSections!
         }
+        
+        if !searchText.isEmpty {
+            let predicate = NSPredicate(format: "((displayName BEGINSWITH[c] %@) OR (displayName CONTAINS[c] %@)) AND (isInContacts = 1)", searchText , searchText)
+            contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
+        } else if filterContact {
+            let predicate = NSPredicate(format: "isInContacts = 1")
+            contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
+        }
+        
         let users :[User] = contacts.map{ (registredUser) -> User in
             let user = User(registredUser: registredUser )
             
@@ -141,7 +95,7 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
             return user
         }
         var sections = [Section]()
-        for i in 0..<self.collation.sectionIndexTitles.count{
+        for _ in 0..<self.collation.sectionIndexTitles.count{
             sections.append(Section())
         }
         for user in users {
@@ -154,51 +108,30 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
         return self.contactSections!
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return self.sections.count
     }
     
-    // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        if (self.resultSearchController.isActive) {
-            return 1
-        }else{
-            return self.sections.count
-        }
-    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        if (self.resultSearchController.isActive) {
-            return self.filteredTableData.count
-        }else{
-            return self.sections[section].users.count
-        }
+        return self.sections[section].users.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ChooseContactToBlockedCell", for: indexPath) as! IGSettingChooseContactToAddToBlockListTableViewCell
-        if (self.resultSearchController.isActive) {
-            contactsCell.contactNameLable?.text = filteredTableData[indexPath.row].givenName + filteredTableData[indexPath.row].familyName
-        }else{
-            let user = self.sections[indexPath.section].users[indexPath.row]
-            contactsCell.setUser(user.registredUser)
-            
-        }
+        let user = self.sections[indexPath.section].users[indexPath.row]
+        contactsCell.setUser(user.registredUser)
         cell = contactsCell
         return cell
     }
+    
     override func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int) -> String {
         var titleOfHeader = ""
-        if resultSearchController.isActive == false {
-            tableView.headerView(forSection: section)?.backgroundColor = UIColor.red
-            if !self.sections[section].users.isEmpty {
-                titleOfHeader =  self.collation.sectionTitles[section]
-            }else{
-                
-                titleOfHeader =  ""
-            }
+        tableView.headerView(forSection: section)?.backgroundColor = UIColor.red
+        if !self.sections[section].users.isEmpty {
+            titleOfHeader = self.collation.sectionTitles[section]
+        } else {
+            titleOfHeader = ""
         }
         return titleOfHeader
     }
@@ -206,12 +139,9 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return self.collation.sectionIndexTitles
     }
+    
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return self.collation.section(forSectionIndexTitle: index)
-    }
-    
-    func predicateForContacts(matchingName name: String) -> NSPredicate{
-        return predicateForContacts(matchingName: self.resultSearchController.searchBar.text!)
     }
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -219,12 +149,9 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if resultSearchController.isActive == false {
-            // let cell = tableView.cellForRow(at: indexPath)
-            let user = self.sections[indexPath.section].users[indexPath.row]
-            if let blockedUserId : Int64 = user.registredUser.id {
-                showLogoutActionSheet(userID: blockedUserId)
-            }
+        let user = self.sections[indexPath.section].users[indexPath.row]
+        if let blockedUserId : Int64 = user.registredUser.id {
+            blockContact(userID: blockedUserId)
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -260,7 +187,8 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
             }
         }).send()
     }
-    func showLogoutActionSheet(userID: Int64){
+    
+    func blockContact(userID: Int64){
         let blockConfirmAlertView = UIAlertController(title: "Are you sure you want to Block this contact?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let blockAction = UIAlertAction(title: "Block", style:.default , handler: {
             (alert: UIAlertAction) -> Void in
@@ -289,19 +217,16 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
         }
         present(blockConfirmAlertView, animated: true, completion: nil)
     }
-
 }
 
 extension IGSettingChooseContactToAddToBlockListTableViewController : UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-        for ob: UIView in ((searchBar.subviews[0] )).subviews {
-            if let z = ob as? UIButton {
-                let btn: UIButton = z
-                btn.setTitleColor(UIColor.organizationalColor(), for: .normal)
-            }
-        }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        sections = fillContacts(filterContact: true, searchText: searchText)
+        self.tableView.reloadData()
+    }
 }
 

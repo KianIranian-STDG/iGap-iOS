@@ -827,15 +827,38 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
 
+    private func clearContacts(){
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    for contact in try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1") {
+                        contact.isInContacts = false
+                        IGDatabaseManager.shared.realm.add(contact, update: true)
+                    }
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue() //.addAsHighPriorityToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
     func saveContactsToDatabase(_ contacts:[IGContact]) {
-        
+        clearContacts()
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 for contact in contacts {
                     try! IGDatabaseManager.shared.realm.write {
                         IGDatabaseManager.shared.realm.add(contact, update: true)
-                        
                     }
                 }
                 IGFactory.shared.performInFactoryQueue {

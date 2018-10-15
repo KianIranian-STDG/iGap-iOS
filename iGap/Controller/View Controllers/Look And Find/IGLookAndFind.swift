@@ -93,49 +93,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    private func openChatRoom(searchResult: IGRealmClientSearchUsername){
-        
-        if existRoomInLocal(roomId: searchResult.room.id) {
-            DispatchQueue.main.async {
-                let room = searchResult.room
-                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-                roomVC.room = room
-                roomVC.openChatFromLink = false
-                self.navigationController!.pushViewController(roomVC, animated: true)
-            }
-        } else {
-            IGClientSubscribeToRoomRequest.Generator.generate(roomId: searchResult.room.id).success { (responseProtoMessage) in
-                DispatchQueue.main.async {
-                    let room = searchResult.room
-                    let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-                    roomVC.room = room
-                    roomVC.openChatFromLink = true
-                    self.navigationController!.pushViewController(roomVC, animated: true)
-                }
-                }.error({ (errorCode, waitTime) in
-                    switch errorCode {
-                    case .timeout:
-                        self.openChatRoom(searchResult: searchResult)
-                    default:
-                        break
-                    }
-                }).send()
-        }
-    }
-    
-    private func openUserProfile(searchResult: IGRealmClientSearchUsername){
-        let user = searchResult.user
-        let room = searchResult.room
-        let storyboard : UIStoryboard = UIStoryboard(name: "profile", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "IGRegistredUserInfoTableViewController") as! IGRegistredUserInfoTableViewController
-        destinationVC.user = user
-        destinationVC.previousRoomId = 0
-        destinationVC.room = room
-        self.navigationController!.pushViewController(destinationVC, animated: true)
-    }
-    
     //****************** SearchBar ******************
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {}
@@ -194,15 +151,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    /* check that room exist in local and user is participant in this room */
-    private func existRoomInLocal(roomId: Int64) -> Bool{
-        let predicate = NSPredicate(format: "id = %lld AND isParticipant = 1", roomId)
-        if let _ = try! Realm().objects(IGRoom.self).filter(predicate).first {
-            return true
-        }
-        return false
-    }
-    
     //****************** tableView ******************
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -226,9 +174,9 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         let searchResult = self.searchResults![indexPath.row]
         
         if searchResult.type == IGPClientSearchUsernameResponse.IGPResult.IGPType.room.rawValue {
-            openChatRoom(searchResult: searchResult)
+            IGHelper.openChatRoom(room: searchResult.room, viewController: self)
         } else {
-            openUserProfile(searchResult: searchResult)
+            IGHelper.openUserProfile(user: searchResult.user, room: searchResult.room, viewController: self)
         }
     }
     

@@ -9,8 +9,9 @@
  */
 
 import UIKit
+import MGSwipeTableCell
 
-class IGChannelInfoMemberListTableViewCell: UITableViewCell {
+class IGChannelInfoMemberListTableViewCell: MGSwipeTableCell {
     
     @IBOutlet weak var memberUserNameLabel: UILabel!
     @IBOutlet weak var memberAvatarView: IGAvatarView!

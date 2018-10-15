@@ -34,6 +34,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
     static var needGetInfo: Bool = true
+    static var needGetRoomList: Bool = true
     
     private let disposeBag = DisposeBag()
     
@@ -331,9 +332,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     }
     
     @objc private func fetchRoomList() {
+        if !IGRecentsTableViewController.needGetRoomList {
+            return
+        }
+        
+        IGRecentsTableViewController.needGetRoomList = false
+        
         let clientCondition = IGClientCondition()
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success { (responseProtoMessage) in
+        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success ({ (responseProtoMessage) in
             self.isLoadingMoreRooms = false
             DispatchQueue.main.async {
                 switch responseProtoMessage {
@@ -344,9 +351,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                     break;
                 }
             }
-            }.error({ (errorCode, waitTime) in
-                
-            }).send()
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                IGRecentsTableViewController.needGetRoomList = true
+                self.fetchRoomList()
+            default:
+                break
+            }
+        }).send()
     }
     
     @objc private func saveAndSendContacts() {
@@ -688,8 +701,49 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         
         unreadCount = rooms!.sum(ofProperty: "unreadCount")
         if unreadCount == 0 {
+            self.tabBarController?.tabBar.items?[0].badgeValue = nil
+            self.tabBarController?.tabBar.items?[1].badgeValue = nil
             self.tabBarController?.tabBar.items?[2].badgeValue = nil
+            self.tabBarController?.tabBar.items?[3].badgeValue = nil
         } else {
+            let predicateChat = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.chat.rawValue)
+            let predicateGroup = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.group.rawValue)
+            let predicateChannel = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.channel.rawValue)
+
+            var countChat : Int32 = 0
+            var countGroup : Int32 = 0
+            var countChannel : Int32 = 0
+            
+            for chat in rooms!.filter(predicateChat) {
+                countChat += chat.unreadCount
+            }
+            
+            for group in rooms!.filter(predicateGroup) {
+                countGroup += group.unreadCount
+            }
+            
+            for channel in rooms!.filter(predicateChannel) {
+                countChannel += channel.unreadCount
+            }
+            
+            if countChannel == 0 {
+                self.tabBarController?.tabBar.items?[0].badgeValue = nil
+            } else {
+                self.tabBarController?.tabBar.items?[0].badgeValue = "\(countChannel)"
+            }
+            
+            if countGroup == 0 {
+                self.tabBarController?.tabBar.items?[1].badgeValue = nil
+            } else {
+                self.tabBarController?.tabBar.items?[1].badgeValue = "\(countGroup)"
+            }
+            
+            if countChat == 0 {
+                self.tabBarController?.tabBar.items?[3].badgeValue = nil
+            } else {
+                self.tabBarController?.tabBar.items?[3].badgeValue = "\(countChat)"
+            }
+            
             self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
         }
     }

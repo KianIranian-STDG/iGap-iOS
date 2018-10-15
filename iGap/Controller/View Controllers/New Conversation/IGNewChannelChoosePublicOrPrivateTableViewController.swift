@@ -36,20 +36,27 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         radioButtonController = SSRadioButtonsController(buttons: publicChannelButton, privateChannel)
         radioButtonController!.delegate = self
         radioButtonController!.shouldLetDeSelect = true
+        
         channelLinkTextField.delegate = self
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        channelLinkTextField.text = invitedLink
         channelLinkTextField.isUserInteractionEnabled = false
+        
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.sectionIndexBackgroundColor = UIColor.white
-        self.tableView.contentInset = UIEdgeInsetsMake(-1.0, 0, 0, 0)
-        print(self.tableView.sectionHeaderHeight)
+        tableView.contentInset = UIEdgeInsetsMake(-1.0, 0, 0, 0)
+        
         privateChannelCell.selectionStyle = UITableViewCellSelectionStyle.none
         publicChannelCell.selectionStyle = UITableViewCellSelectionStyle.none
-        //channelNameEntryCell.selectionStyle = UITableViewCellSelectionStyle.none
+        setNavigation()
+    }
+    
+    private func setNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Next", title: "New Channel")
+        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "Next", title: "New Channel")
         navigationItem.navigationController = self.navigationController as! IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -234,6 +241,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
         }
         return numberOfRows
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         didSelectButton(radioButtonController?.selectedButton())
     }
@@ -241,18 +249,15 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         var footerText : String = ""
         if section == 1 {
-        
-        if radioButtonController?.selectedButton() == publicChannelButton {
-            footerText = "People can share this link whith others and find your channel using iGap search."
+            if radioButtonController?.selectedButton() == publicChannelButton {
+                footerText = "People can share this link whith others and find your channel using iGap search."
+            } else {
+                footerText = "People can join your channel by following this link.you can change the link at any time."
+            }
         }
-        if radioButtonController?.selectedButton() == privateChannel {
-            footerText = "People can join your channel by following this link.you can change the link at any time."
-          
-        }
-        
-      }
         return footerText
     }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var headerText : String = ""
         if section == 0 {

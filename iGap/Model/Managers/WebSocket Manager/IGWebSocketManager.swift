@@ -171,7 +171,7 @@ extension IGWebSocketManager: WebSocketDelegate {
         DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
             self.connectAndAddTimeoutHandler()
         }
-        IGDownloadManager.sharedManager.pauseAllDownloads()
+        IGAppManager.sharedManager.resetApp()
     }
     
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {

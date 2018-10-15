@@ -431,6 +431,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
         mainBubbleViewAbs.isUserInteractionEnabled = true
         
+        if replyViewAbs != nil {
+            let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
+            replyViewAbs.addGestureRecognizer(onReplyClick)
+            replyViewAbs.isUserInteractionEnabled = true
+        }
+        
+        if forwardViewAbs != nil {
+            let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
+            forwardViewAbs.addGestureRecognizer(onForwardClick)
+            forwardViewAbs.isUserInteractionEnabled = true
+        }
+        
         if imgFileAbs != nil {
             let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
             imgFileAbs.addGestureRecognizer(onFileClick)
@@ -472,6 +484,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self, imageView: imgMediaAbs)
+    }
+    
+    func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!, cell: self)
+    }
+    
+    func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
     }
     
     func didTapOnForwardedAttachment(_ gestureRecognizer: UITapGestureRecognizer) {

@@ -46,7 +46,6 @@ class IGChatsTableViewController: UITableViewController {
             switch changes {
             case .initial:
                 self.tableView.reloadData()
-                self.setTabbarBadge()
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 print("updating chats VC")
@@ -56,21 +55,12 @@ class IGChatsTableViewController: UITableViewController {
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.endUpdates()
-                self.setTabbarBadge()
                 break
             case .error(let err):
                 // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(err)")
                 break
             }
-        }
-        if IGAppManager.sharedManager.isUserLoggiedIn() {
-            self.fetchRoomList()
-        } else {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.fetchRoomList),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
         }
     }
     
@@ -87,31 +77,6 @@ class IGChatsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    //MARK: Room List actions
-    @objc private func fetchRoomList() {
-        isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success { (responseProtoMessage) in
-            DispatchQueue.main.async {
-                self.isLoadingMoreRooms = false
-                switch responseProtoMessage {
-                case let response as IGPClientGetRoomListResponse:
-                    self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: response)
-                default:
-                    break;
-                }
-            }
-            }.error({ (errorCode, waitTime) in
-                
-            }).send()
-    }
-    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -386,19 +351,8 @@ class IGChatsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 78.0
     }
-    
-    //MARK: - Tabbar badge
-    func setTabbarBadge() {
-        //        var unreadCount = 0
-        //        rooms.forEach{unreadCount += Int($0.unreadCount)}
-        //        if unreadCount == 0 {
-        //            self.tabBarController?.tabBar.items?[1].badgeValue = nil
-        //        } else {
-        //            self.tabBarController?.tabBar.items?[1].badgeValue = "\(unreadCount)"
-        //        }
-    }
-    
 }
+
 extension IGChatsTableViewController {
     func clearChatMessageHistory(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)

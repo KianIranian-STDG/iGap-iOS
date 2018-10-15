@@ -135,8 +135,12 @@ class IGSettingContactsTableViewController: UITableViewController,UISearchResult
     
     override func viewDidAppear(_ animated: Bool) {
         if IGSettingAddContactViewController.reloadAfterAddContact && tableView != nil {
-            sections = fillContacts(filterContact: true)
-            tableView.reloadData()
+            IGGlobal.prgShow(self.view)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                IGGlobal.prgHide()
+                self.sections = self.fillContacts(filterContact: true)
+                self.tableView.reloadData()
+            }
         }
         self.navigationController?.extendedLayoutIncludesOpaqueBars = true
         self.tableView.isUserInteractionEnabled = true

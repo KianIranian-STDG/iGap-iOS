@@ -52,7 +52,7 @@ enum IGError: String {
     case userLoginBadPayload                = "109"
     case userLoginBadPayloadInvalidToken    = "109.1"
     case userLoginInternalServerError       = "110"
-    case userLoginFaield                    = "111"    // Go to registration page
+    case userLoginFailed                    = "111"    // Go to registration page
     case userLoginFaieldUserIsBlocked       = "111.4"
     
     //in response to 103 (User Profile Set Email)
@@ -242,17 +242,23 @@ class IGErrorRequest : IGRequest {
                 if appDelegate.isNeedToSetNickname {
                     appDelegate.showRegistrationSetpProfileInfo()
                 }
+                break
+                
             case .loginRequest:
                 let appManager = IGAppManager.sharedManager
                 appManager.login()
+                break
                 
+            case .userLoginFailed:
+                DispatchQueue.main.async {
+                    (UIApplication.shared.delegate as! AppDelegate).logoutAndShowRegisterViewController(mainRoot: true)
+                    IGWebSocketManager.sharedManager.closeConnection()
+                }
+                break
                 
             default:
                 break
             }
-            
-            
-            
             
             return (errorCodeEnum, waitTime)
         }

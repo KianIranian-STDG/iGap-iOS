@@ -12,34 +12,23 @@ import UIKit
 import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
+import MGSwipeTableCell
 
 class IGSettingContactBlockListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
     
     var chooseBlockContactFromPrivacyandSecurityPage:Bool = false
-    var blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
+    var blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter("isBlocked == 1")
     var notificationToken: NotificationToken?
     
     var hud = MBProgressHUD()
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchBlockedContactsFromServer()
-        hud.hide(animated: true)
-        self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Edit", title: "BlockedList")
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-
-        if blockedUsers.count == 0 {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }else{
-            navigationItem.rightViewContainer?.addAction {
-                self.editButtonClicked()
-            }
-        }
         
+        self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        
+        setNavigationItem()
         fetchBlockedContactsFromServer()
+        
         let predicate = NSPredicate(format: "isBlocked == 1")
         blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
         self.notificationToken = blockedUsers.observe { (changes: RealmCollectionChange) in
@@ -48,7 +37,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
                 self.tableView.reloadData()
                 break
             case .update(_, let deletions, let insertions, let modifications):
-                print("update")
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
@@ -64,15 +52,27 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
         }
     }
     
+    private func setNavigationItem(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "BlockedList")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    private func removeButtonsUnderline(buttons: [UIButton]){
+        for btn in buttons {
+            btn.removeUnderline()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
+        setNavigationItem()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-
-    }
-        override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -81,7 +81,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return blockedUsers.count + 1
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,43 +90,52 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             cell.blockedContactName.text = "Block Contact..."
             cell.blockedContactName.textColor = UIColor.organizationalColor()
             cell.accessoryType = UITableViewCellAccessoryType.none
-        }else{
+        } else {
             cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         }
+        
+        let btnUnblock = MGSwipeButton(title: "Unblock", backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            self.unblockedUser(blockedUserId: self.blockedUsers[indexPath.row].id)
+            return true
+        })
+        
+        let buttons = [btnUnblock]
+        cell.rightButtons = buttons
+        removeButtonsUnderline(buttons: buttons)
+        
+        cell.rightSwipeSettings.transition = MGSwipeTransition.border
+        cell.rightExpansion.buttonIndex = 0
+        cell.rightExpansion.fillOnTrigger = true
+        cell.rightExpansion.threshold = 1.5
+        
+        cell.layer.cornerRadius = 10
+        cell.clipsToBounds = true
+        cell.swipeBackgroundColor = UIColor.clear
+        
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        cell.layoutMargins = UIEdgeInsets.zero
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
+        let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
         if indexPath.row == lastRowIndex{
-            self.tableView.isUserInteractionEnabled = false
+            self.tableView.isUserInteractionEnabled = true
             performSegue(withIdentifier: "GoToChooseContactAddToBlockListPage", sender: self)
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-           let footerText = "You will not recieve messages from people on the block list."
-        return footerText
+        return "You will not recieve messages from people on the block list."
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-          let headerText = "Blocked contacts"
-        return headerText
+        return "Blocked contacts"
     }
     
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        let unblockedText = "Unblock"
-        return unblockedText
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if tableView.isEditing == true {
-            print("delete")
-            if let unBlockedUserId : Int64 = blockedUsers[indexPath.row].id {
-                unblockedUser(blockedUserId: unBlockedUserId)
-            }
-        }
+        return "Unblock"
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -135,44 +143,6 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             return false
         }
         return true
-    }
-    
-    
-    
-    func setupEditBtn(){
-        let editBtn = UIButton()
-        editBtn.setTitleColor(UIColor.organizationalColor(), for: .normal)
-        editBtn.frame = CGRect(x:-100,y: 300, width:70, height: 60)
-        editBtn.setTitle(("Edit"), for: UIControlState.normal)
-        editBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
-        editBtn.contentHorizontalAlignment = .right
-        editBtn.addTarget(self, action: #selector(IGSettingContactBlockListTableViewController.editButtonClicked), for: UIControlEvents.touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: editBtn)
-        barButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 0)
-        self.navigationItem.rightBarButtonItem = barButtonItem
-    }
-    
-    func editButtonClicked(){
-        self.tableView.allowsMultipleSelectionDuringEditing = false
-        self.tableView.setEditing(true, animated: true)
-        let doneBtn = UIButton()
-        doneBtn.frame = CGRect(x:8, y:300, width:75, height:0)
-        doneBtn.setTitleColor(UIColor.organizationalColor(), for: .normal)
-        doneBtn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
-        let normalTitleColor = UIColor.organizationalColor()
-        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize, weight: UIFontWeightSemibold)
-        let attrs = [NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor]
-        let doneTitle = NSAttributedString(string: "Done", attributes: attrs)
-        doneBtn.setAttributedTitle(doneTitle, for: .normal)
-        doneBtn.addTarget(self, action: #selector(IGSettingContactBlockListTableViewController.doneButtonClicked), for: UIControlEvents.touchUpInside)
-        let topRightbarButtonItem = UIBarButtonItem(customView: doneBtn)
-        topRightbarButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 0)
-        self.navigationItem.rightBarButtonItem = topRightbarButtonItem
-    }
-    
-    func doneButtonClicked(){
-        tableView?.setEditing(false, animated: true)
-        setupEditBtn()
     }
     
     func fetchBlockedContactsFromServer(){
@@ -204,20 +174,21 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             
         }).send()
     }
+    
     func unblockedUser(blockedUserId : Int64){
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
         IGUserContactsUnBlockRequest.Generator.generate(unBlockedUserId: blockedUserId).success({
             (protoResponse) in
-          DispatchQueue.main.async {
-            switch protoResponse {
-            case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
-                IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
-                self.hud.hide(animated: true)
-            default:
-                break
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
+                    IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
+                    self.hud.hide(animated: true)
+                default:
+                    break
+                }
             }
-          }
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
@@ -233,6 +204,7 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             }
         }).send()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier{
             switch identifier{

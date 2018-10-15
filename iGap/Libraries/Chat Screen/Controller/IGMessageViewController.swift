@@ -135,6 +135,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var hud = MBProgressHUD()
     let locationManager = CLLocationManager()
     
+    let MAX_TEXT_LENGHT = 4096
+    let MAX_TEXT_ATTACHMENT_LENGHT = 200
+    
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
     var getMessageLimit = 25
@@ -220,6 +223,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         if customizeBackItem {
             navigationItem.backViewContainer?.addAction {
+                // if call page is enable set "isFirstEnterToApp" true for open "IGRecentsTableViewController" automatically
+                AppDelegate.isFirstEnterToApp = true
                 self.performSegue(withIdentifier: "showRoomList", sender: self)
             }
         }
@@ -1023,6 +1028,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    @IBAction func didTapOnPinView(_ sender: UIButton) {
+        if let pinMessage = room?.pinMessage {
+            goToPosition(cellMessage: pinMessage)
+        }
+    }
+    
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
         if currentAttachment == nil && inputTextView.text == "" && selectedMessageToForwardToThisRoom == nil {
@@ -1076,27 +1087,29 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 return
             }
             
-            let message = IGRoomMessage(body: inputTextView.text)
-            
             if currentAttachment != nil {
+                
+                let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
+                
+                let message = IGRoomMessage(body: messageText)
                 currentAttachment?.status = .processingForUpload
                 message.attachment = currentAttachment?.detach()
                 IGAttachmentManager.sharedManager.add(attachment: currentAttachment!)
                 switch currentAttachment!.type {
                 case .image:
-                    if inputTextView.text == "" {
+                    if messageText == "" {
                         message.type = .image
                     } else {
                         message.type = .imageAndText
                     }
                 case .video:
-                    if inputTextView.text == "" {
+                    if messageText == "" {
                         message.type = .video
                     } else {
                         message.type = .videoAndText
                     }
                 case .audio:
-                    if inputTextView.text == "" {
+                    if messageText == "" {
                         message.type = .audio
                     } else {
                         message.type = .audioAndText
@@ -1104,7 +1117,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 case .voice:
                     message.type = .voice
                 case .file:
-                    if inputTextView.text == "" {
+                    if messageText == "" {
                         message.type = .file
                     } else {
                         message.type = .fileAndText
@@ -1112,30 +1125,55 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 default:
                     break
                 }
+                
+                message.roomId = self.room!.id
+                
+                let detachedMessage = message.detach()
+                
+                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                message.forwardedFrom = selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                IGMessageSender.defaultSender.send(message: message, to: room!)
+                
+                self.inputBarSendButton.isHidden = true
+                self.inputBarRecordButton.isHidden = false
+                self.inputTextView.text = ""
+                self.currentAttachment = nil
+                self.selectedMessageToForwardToThisRoom = nil
+                self.selectedMessageToReply = nil
+                self.setInputBarHeight()
+                
             } else {
-                if (selectedMessageToReply == nil && selectedMessageToForwardToThisRoom == nil && self.inputTextView.text.isEmpty) {
-                    self.inputTextView.text = ""
-                    return
+                
+                let messages = inputTextView.text.split(limit: MAX_TEXT_LENGHT)
+                for i in 0..<messages.count {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
+                        let message = IGRoomMessage(body: messages[i])
+                        if (self.selectedMessageToReply == nil && self.selectedMessageToForwardToThisRoom == nil && messages[i].isEmpty) {
+                            self.inputTextView.text = ""
+                            return
+                        }
+                        
+                        message.type = .text
+                        message.roomId = self.room!.id
+                        
+                        let detachedMessage = message.detach()
+                        
+                        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                        message.forwardedFrom = self.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                        message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                        IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                        
+                        self.inputBarSendButton.isHidden = true
+                        self.inputBarRecordButton.isHidden = false
+                        self.inputTextView.text = ""
+                        self.currentAttachment = nil
+                        self.selectedMessageToForwardToThisRoom = nil
+                        self.selectedMessageToReply = nil
+                        self.setInputBarHeight()
+                    }
                 }
-                message.type = .text
             }
-            
-            message.roomId = self.room!.id
-            
-            let detachedMessage = message.detach()
-            
-            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-            message.forwardedFrom = selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-            message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-            IGMessageSender.defaultSender.send(message: message, to: room!)
-            
-            self.inputBarSendButton.isHidden = true
-            self.inputBarRecordButton.isHidden = false
-            self.inputTextView.text = ""
-            self.selectedMessageToForwardToThisRoom = nil
-            self.selectedMessageToReply = nil
-            self.currentAttachment = nil
-            self.setInputBarHeight()
         }
     }
     
@@ -2333,19 +2371,10 @@ extension IGMessageViewController: GrowingTextViewDelegate {
                                                        repeats:  false)
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-//        self.sendTyping()
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        self.sendCancelTyping()
-    }
-    
     func textViewDidChangeHeight(_ height: CGFloat) {
         inputTextViewHeight = height
         setInputBarHeight()
     }
-    
     
     func setInputBarHeight() {
         let height = max(self.inputTextViewHeight - 16, 22)
@@ -2542,6 +2571,18 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
   
+    func goToPosition(cellMessage: IGRoomMessage){
+        var count = 0
+        for message in self.messages {
+            if cellMessage.id == message.id {
+                let indexPath = IndexPath(row: 0, section: count)
+                self.collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+                break
+            }
+            count+=1
+        }
+    }
+    
     /******* overrided method for show file attachment (use from UIDocumentInteractionControllerDelegate) *******/
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
@@ -2647,10 +2688,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
-    func didTapOnOriginalMessageWhenReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
-        
-    }
-    
     func didTapOnSenderAvatar(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
         if let sender = cellMessage.authorUser {
             self.selectedUserToSeeTheirInfo = sender
@@ -2660,7 +2697,22 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnHashtag(hashtagText: String) {
         
-        
+    }
+    
+    func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+        if let replyMessage = cellMessage.repliedTo {
+            goToPosition(cellMessage: replyMessage)
+        }
+    }
+    
+    func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+        if let forwardMessage = cellMessage.forwardedFrom {
+            if let room = forwardMessage.authorRoom {
+                IGHelper.openChatRoom(room: room, viewController: self)
+            } else if let user = forwardMessage.authorUser {
+                IGHelper.openUserProfile(user: user, viewController: self)
+            }
+        }
     }
     
     func didTapOnMention(mentionText: String) {

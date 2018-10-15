@@ -449,4 +449,13 @@ extension IGRoom {
             }).send()
         }
     }
+    
+    /* check that room exist in local and user is participant in this room */
+    static func existRoomInLocal(roomId: Int64) -> Bool{
+        let predicate = NSPredicate(format: "id = %lld AND isParticipant = 1", roomId)
+        if let _ = try! Realm().objects(IGRoom.self).filter(predicate).first {
+            return true
+        }
+        return false
+    }
 }

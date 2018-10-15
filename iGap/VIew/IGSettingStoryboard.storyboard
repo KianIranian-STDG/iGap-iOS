@@ -1345,7 +1345,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BlockListCell" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BlockListCell" rowHeight="50" id="Ti6-nw-aJD" customClass="IGSettingContactsBlockListTableViewCell" customModule="iGap" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BlockListCell" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BlockListCell" rowHeight="50" id="Ti6-nw-aJD" customClass="IGSettingContactsBlockListTableViewCell" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ti6-nw-aJD" id="E43-5A-bhk">
@@ -2161,7 +2161,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BlockedCell" id="YKV-Mz-XeZ" customClass="IGSettingContactBlockTableViewCell" customModule="iGap" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BlockedCell" id="YKV-Mz-XeZ" customClass="IGSettingContactBlockTableViewCell" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YKV-Mz-XeZ" id="7XQ-XT-k7w">
@@ -4560,9 +4560,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="e0g-V8-6kn">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChooseContactToBlockedCell" rowHeight="50" id="tNC-Te-kYI" customClass="IGSettingChooseContactToAddToBlockListTableViewCell" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tNC-Te-kYI" id="JiW-ur-UPh">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="49.666666666666664"/>
@@ -4614,6 +4619,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Choose Contact" id="8KS-8O-xdx" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <connections>
+                        <outlet property="searchBar" destination="e0g-V8-6kn" id="NBp-D2-PQL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmZ-Yp-lBp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

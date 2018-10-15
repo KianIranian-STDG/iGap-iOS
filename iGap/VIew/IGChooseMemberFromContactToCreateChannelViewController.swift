@@ -177,27 +177,33 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
     
     
     func requestToCreateChannel(){
-        for member in self.selectedUsers {
-            let room = IGRoom(igpRoom: igpRoom)
-            IGChannelAddMemberRequest.Generator.generate(userID: member.registredUser.id , channel: room).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let channelAddMemberResponse as IGPChannelAddMemberResponse :
-                        IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
-                        if self.navigationController is IGNavigationController {
-                            self.navigationController?.popToRootViewController(animated: true)
+        if self.selectedUsers.count > 0 {
+            for member in self.selectedUsers {
+                let room = IGRoom(igpRoom: igpRoom)
+                IGChannelAddMemberRequest.Generator.generate(userID: member.registredUser.id , channel: room).success({ (protoResponse) in
+                    DispatchQueue.main.async {
+                        switch protoResponse {
+                        case let channelAddMemberResponse as IGPChannelAddMemberResponse :
+                            IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
+                            self.openChannel()
+                        default:
+                            break
                         }
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": self.igpRoom.igpID])
-                    default:
-                        break
                     }
-                }
-                
-                
-            }).error({ (errorCode, waitTime) in
-                
-            }).send()
+                }).error({ (errorCode, waitTime) in
+                    
+                }).send()
+            }
+        } else {
+            openChannel()
         }
+    }
+    
+    private func openChannel(){
+        if self.navigationController is IGNavigationController {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": self.igpRoom.igpID])
     }
     
     func requestToAddAdminInChannel() {

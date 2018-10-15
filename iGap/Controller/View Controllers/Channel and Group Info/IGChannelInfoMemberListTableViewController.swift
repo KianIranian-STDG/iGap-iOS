@@ -13,9 +13,10 @@ import SwiftProtobuf
 import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
+import MGSwipeTableCell
 
 class IGChannelInfoMemberListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
-
+    
     var allMember = [IGChannelMember]()
     var room : IGRoom?
     var hud = MBProgressHUD()
@@ -24,10 +25,15 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     var mode : String? = "Members"
     var notificationToken: NotificationToken?
     var myRole : IGChannelMember.IGRole?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         myRole = room?.channelRoom?.role
+        
+        setNavigationItem()
         fetchChannelMemberFromServer()
+        
         let predicate = NSPredicate(format: "roomID = %lld", (room?.id)!)
         members =  try! Realm().objects(IGChannelMember.self).filter(predicate)
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
@@ -48,77 +54,211 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                 // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(err)")
                 break
-
             }
         }
+    }
+
+    private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         if myRole == .admin || myRole == .owner {
-        navigationItem.addNavigationViewItems(rightItemText: "Add", title: "Members")
+            navigationItem.addNavigationViewItems(rightItemText: "Add", title: "Members")
         } else {
-           navigationItem.addNavigationViewItems(rightItemText: nil, title: "Members")
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: "Members")
         }
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.rightViewContainer?.addAction {
             self.performSegue(withIdentifier: "showContactsToAddMember", sender: self)
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-            return members.count
+        return members.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let memberCell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! IGChannelInfoMemberListTableViewCell
-        memberCell.setUser(members[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! IGChannelInfoMemberListTableViewCell
         
-        return memberCell
+        let member = members[indexPath.row]
+        cell.setUser(member)
         
-    }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if members[indexPath.row].role != .owner {
+            let btnKick = MGSwipeButton(title: detectSwipeTitle(memberRole: member.role), backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+                self.detectSwipeAction(member: self.members[indexPath.row])
+                return true
+            })
+            
+            let buttons = [btnKick]
+            cell.rightButtons = buttons
+            removeButtonsUnderline(buttons: buttons)
+            
+            cell.rightSwipeSettings.transition = MGSwipeTransition.border
+            cell.rightExpansion.buttonIndex = 0
+            cell.rightExpansion.fillOnTrigger = true
+            cell.rightExpansion.threshold = 1.5
+            cell.clipsToBounds = true
+            cell.swipeBackgroundColor = UIColor.clear
+            
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            cell.layoutMargins = UIEdgeInsets.zero
+        }
         
+        cell.layer.cornerRadius = 10
+        
+        return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        let kickText = "Kick"
-        return kickText
+    private func detectSwipeTitle(memberRole: IGChannelMember.IGRole!) -> String {
+        var kickTitle: String = ""
         
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if tableView.isEditing == true {
-            if let selectedMemberId = members[indexPath.row].user?.id {
-                self.kickMember(memberUserId: selectedMemberId)
+        switch myRole! {
+        case .owner:
+            if memberRole == .admin {
+                kickTitle = "remove admin"
+            } else if memberRole == .moderator {
+                kickTitle = "remove moderator"
+            } else if memberRole == .member {
+                kickTitle = "kick member"
             }
+            break
+            
+        case .admin:
+            if memberRole == .moderator {
+                kickTitle = "remove moderator"
+            } else if memberRole == .member {
+                kickTitle = "kick member"
+            }
+            break
+            
+        case .moderator:
+            if memberRole == .member {
+                kickTitle = "kick member"
+            }
+            break
+            
+        case .member:
+            // do nothing
+            break
+        }
+        
+        return kickTitle
+    }
+    
+    private func detectSwipeAction(member: IGChannelMember) {
+        switch myRole! {
+        case .owner:
+            if member.role == .admin {
+                kickAdmin(userId: member.userID)
+            } else if member.role == .moderator {
+                kickModerator(userId: member.userID)
+            } else if member.role == .member {
+                kickMember(userId: member.userID)
+            }
+            break
+            
+        case .admin:
+            if member.role == .moderator {
+                kickModerator(userId: member.userID)
+            } else if member.role == .member {
+                kickMember(userId: member.userID)
+            }
+            break
+            
+        case .moderator:
+            if member.role == .member {
+                kickMember(userId: member.userID)
+            }
+            break
+            
+        case .member:
+            // do nothing
+            break
         }
     }
     
-    func kickMember(memberUserId: Int64) {
+    private func removeButtonsUnderline(buttons: [UIButton]){
+        for btn in buttons {
+            btn.removeUnderline()
+        }
+    }
+    
+    func kickAdmin(userId: Int64) {
+        if let channelRoom = room {
+            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.hud.mode = .indeterminate
+            IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let channelKickAdminResponse as IGPChannelKickAdminResponse:
+                        IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
+                        self.tableView.reloadData()
+                        self.hud.hide(animated: true)
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                switch errorCode {
+                case .timeout:
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.hud.hide(animated: true)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                default:
+                    break
+                }
+                
+            }).send()
+        }
+    }
+    
+    func kickModerator(userId: Int64) {
+        if let channelRoom = room {
+            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.hud.mode = .indeterminate
+            IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let channelKickModeratorResponse as IGPChannelKickModeratorResponse:
+                        IGChannelKickModeratorRequest.Handler.interpret( response : channelKickModeratorResponse)
+                        self.hud.hide(animated: true)
+                        self.tableView.reloadData()
+                        
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                switch errorCode {
+                case .timeout:
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.hud.hide(animated: true)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                default:
+                    break
+                }
+                
+            }).send()
+        }
+    }
+
+    
+    func kickMember(userId: Int64) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
-        IGChannelKickMemberRequest.Generator.generate(roomID: (room?.id)!, memberID: memberUserId).success({
+        IGChannelKickMemberRequest.Generator.generate(roomID: (room?.id)!, memberID: userId).success({
             (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
@@ -144,10 +284,8 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             }
             
         }).send()
-
     }
     
-
     
     func fetchChannelMemberFromServer() {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -183,11 +321,9 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             }
             
         }).send()
-        
     }
-
     
-    // MARK: - Navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showContactsToAddMember" {
             let destination = segue.destination as! IGChooseMemberFromContactToCreateChannelViewController
@@ -195,7 +331,4 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             destination.room = room
         }
     }
-
- 
-
 }
