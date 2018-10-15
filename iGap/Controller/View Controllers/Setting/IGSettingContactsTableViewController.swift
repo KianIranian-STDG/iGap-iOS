@@ -87,17 +87,11 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addressBookDidChange), name: NSNotification.Name.CNContactStoreDidChange, object: nil)
-        
         sections = fillContacts()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         fetchBlockedContactsFromServer()
-    }
-    
-    @objc func addressBookDidChange() {
-        tableView.reloadData()
     }
     
     func fetchBlockedContactsFromServer() {

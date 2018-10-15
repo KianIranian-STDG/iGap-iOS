@@ -19,6 +19,7 @@ import MGSwipeTableCell
 import MBProgressHUD
 import UserNotifications
 import Contacts
+import AddressBook
 
 class IGRecentsTableViewController: UITableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate {
     
@@ -237,6 +238,19 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                                                selector: #selector(segueToChatNotificationReceived(_:)),
                                                name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
                                                object: nil)
+        
+        /* detect contact change */
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addressBookDidChange(_:)),
+                                               name: NSNotification.Name.CNContactStoreDidChange,
+                                               object: nil)
+    }
+    
+    func addressBookDidChange(_ notification: UITapGestureRecognizer) {
+        if !IGContactManager.syncedPhoneBookContact {
+            IGContactManager.syncedPhoneBookContact = true
+            IGContactManager.sharedManager.manageContact()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -261,12 +275,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         self.tableView.isUserInteractionEnabled = true
         //self.notificationToken?.stop()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     //MARK: Room List actions
     @objc private func userDidLogin() {

@@ -16,6 +16,7 @@ class IGContactManager: NSObject {
     static let sharedManager = IGContactManager()
     
     static var importedContact: Bool = false
+    static var syncedPhoneBookContact: Bool = false // for update contact after than notified from 'CNContactStore'
     private var contactStore = CNContactStore()
     private var contacts = [IGContact]()
     private var contactsStruct = [ContactsStruct]()
