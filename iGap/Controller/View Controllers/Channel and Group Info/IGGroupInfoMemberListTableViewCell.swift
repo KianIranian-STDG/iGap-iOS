@@ -9,8 +9,9 @@
  */
 
 import UIKit
+import MGSwipeTableCell
 
-class IGGroupInfoMemberListTableViewCell: UITableViewCell {
+class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
 
     @IBOutlet weak var groupMemberRecentlyStatus: UILabel!
     @IBOutlet weak var groupMemberAvatarView: IGAvatarView!

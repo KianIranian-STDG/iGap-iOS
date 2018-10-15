@@ -10,7 +10,8 @@
 
 import UIKit
 import MGSwipeTableCell
-class IGChannelInfoAdminsTableViewCell: UITableViewCell {
+
+class IGChannelInfoAdminsTableViewCell: MGSwipeTableCell {
 
     @IBOutlet weak var adminRecentlyStatusLabel: UILabel!
     

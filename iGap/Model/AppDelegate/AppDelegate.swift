@@ -110,6 +110,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         IGAppManager.sharedManager.setUserUpdateStatus(status: .exactly)
         
+        /* change this values for import contact after than contact changed in phone contact */
+        IGContactManager.syncedPhoneBookContact = false
+        IGContactManager.importedContact = false
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

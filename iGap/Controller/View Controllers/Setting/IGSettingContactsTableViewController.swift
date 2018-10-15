@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGSettingContactsTableViewController: UITableViewController,UISearchResultsUpdating , UIGestureRecognizerDelegate, IGCallFromContactListObserver {
+class IGSettingContactsTableViewController: UITableViewController, UISearchResultsUpdating, UIGestureRecognizerDelegate, IGCallFromContactListObserver {
     
     class User:NSObject {
         let registredUser: IGRegisteredUser
@@ -49,8 +49,6 @@ class IGSettingContactsTableViewController: UITableViewController,UISearchResult
         super.viewDidLoad()
         
         IGSettingContactsTableViewController.callDelegate = self
-        
-        //setupSearchBar()
         self.tableView.sectionIndexBackgroundColor = UIColor.clear
         resultSearchController.searchBar.delegate = self
         searchBar.delegate = self
@@ -89,17 +87,11 @@ class IGSettingContactsTableViewController: UITableViewController,UISearchResult
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addressBookDidChange), name: NSNotification.Name.CNContactStoreDidChange, object: nil)
-        
         sections = fillContacts()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         fetchBlockedContactsFromServer()
-    }
-    
-    @objc func addressBookDidChange() {
-        tableView.reloadData()
     }
     
     func fetchBlockedContactsFromServer() {
@@ -435,27 +427,11 @@ class IGSettingContactsTableViewController: UITableViewController,UISearchResult
         }
     }
     
-    
     func predicateForContacts(matchingName name: String) -> NSPredicate{
         return predicateForContacts(matchingName: self.resultSearchController.searchBar.text!)
     }
-    
-    
-    func setupSearchBar(){
-        self.resultSearchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.dimsBackgroundDuringPresentation = false
-            controller.searchBar.sizeToFit()
-            self.tableView.tableHeaderView = controller.searchBar
-            let textFieldInsideSearchBar = controller.searchBar.value(forKey: "searchField") as? UITextField
-            textFieldInsideSearchBar?.layer.cornerRadius = 15
-            textFieldInsideSearchBar?.clipsToBounds = true
-            return controller
-        })()
-        self.tableView.reloadData()
-    }
 }
+
 extension IGSettingContactsTableViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

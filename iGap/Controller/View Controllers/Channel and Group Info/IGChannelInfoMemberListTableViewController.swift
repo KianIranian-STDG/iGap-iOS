@@ -187,103 +187,148 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         }
     }
     
+    func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
+        let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+            alertClouser(AlertState.Ok)
+        })
+        let cancel = UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+            alertClouser(AlertState.No)
+        })
+        
+        option.addAction(ok)
+        option.addAction(cancel)
+        self.present(option, animated: true, completion: nil)
+    }
+    
     func kickAdmin(userId: Int64) {
         if let channelRoom = room {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let channelKickAdminResponse as IGPChannelKickAdminResponse:
-                        IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
-                        self.tableView.reloadData()
-                        self.hud.hide(animated: true)
-                    default:
-                        break
-                    }
+            kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
+                if state == AlertState.Ok {
+                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    self.hud.mode = .indeterminate
+                    IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let channelKickAdminResponse as IGPChannelKickAdminResponse:
+                                IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
+                                self.tableView.reloadData()
+                                self.hud.hide(animated: true)
+                            default:
+                                break
+                            }
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        switch errorCode {
+                        case .timeout:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.hud.hide(animated: true)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                        }
+                        
+                    }).send()
                 }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                default:
-                    break
-                }
-                
-            }).send()
+            })
         }
     }
     
     func kickModerator(userId: Int64) {
         if let channelRoom = room {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let channelKickModeratorResponse as IGPChannelKickModeratorResponse:
-                        IGChannelKickModeratorRequest.Handler.interpret( response : channelKickModeratorResponse)
-                        self.hud.hide(animated: true)
-                        self.tableView.reloadData()
+            kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
+                if state == AlertState.Ok {
+                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    self.hud.mode = .indeterminate
+                    IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let channelKickModeratorResponse as IGPChannelKickModeratorResponse:
+                                IGChannelKickModeratorRequest.Handler.interpret( response : channelKickModeratorResponse)
+                                self.hud.hide(animated: true)
+                                self.tableView.reloadData()
+                                
+                            default:
+                                break
+                            }
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        switch errorCode {
+                        case .timeout:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.hud.hide(animated: true)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                        }
                         
-                    default:
-                        break
-                    }
+                    }).send()
                 }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                default:
-                    break
-                }
-                
-            }).send()
+            })
         }
     }
 
     
     func kickMember(userId: Int64) {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
-        IGChannelKickMemberRequest.Generator.generate(roomID: (room?.id)!, memberID: userId).success({
-            (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let kickMemberResponse as IGPChannelKickMemberResponse:
-                    IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
-                    self.hud.hide(animated: true)
-                default:
-                    break
+        if let _ = room {
+            kickAlert(title: "Kick Member", message: "Are you sure you want to kick this member?", alertClouser: { (state) -> Void in
+                if state == AlertState.Ok {
+                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    self.hud.mode = .indeterminate
+                    IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({
+                        (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let kickMemberResponse as IGPChannelKickMemberResponse:
+                                IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
+                                self.hud.hide(animated: true)
+                            default:
+                                break
+                            }
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        switch errorCode {
+                        case .timeout:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.hud.hide(animated: true)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                        }
+                        
+                    }).send()
                 }
-            }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
-            
-        }).send()
+            })
+        }
+    }
+    
+    private func showAlertView(title: String, message: String?, subtitles: [String], alertClouser: @escaping ((_ title :String) -> Void), hasCancel: Bool = true){
+        let option = UIAlertController(title: title, message: message, preferredStyle: IGGlobal.detectAlertStyle())
+        
+        for subtitle in subtitles {
+            let action = UIAlertAction(title: subtitle, style: .default, handler: { (action) in
+                alertClouser(action.title!)
+            })
+            option.addAction(action)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        option.addAction(cancel)
+        
+        self.present(option, animated: true, completion: {})
     }
     
     

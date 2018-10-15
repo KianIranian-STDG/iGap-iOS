@@ -101,16 +101,18 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             channelTypeCell.accessoryType = .none
             channelTypeTrailingConstraint.constant = 10
             cameraButton.isHidden = true
-
             break
+            
         case .owner :
             deleteChannelLabel.text = "Delete Channel"
             channelSignMessageCell.isHidden = false
             cameraButton.isHidden = false
-           break
+            break
+            
         case .admin :
             channelSignMessageCell.isHidden = true
             cameraButton.isHidden = false
+            break
         }
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
@@ -519,6 +521,9 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         case 0:
             return 4
         case 1:
+            if (myRole == .member || myRole == .moderator) {
+                return 0
+            }
             return 3
         case 2 :
             return 1
@@ -589,7 +594,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         if indexPath.section == 1 && indexPath.row == 2 && adminAndModeratorCell.isHidden == true {
             return 0.0
         }
-        if indexPath.section == 1 && indexPath.row == 1 && allMemberCell.isHidden == true {
+        if indexPath.section == 1 && indexPath.row == 0 && allMemberCell.isHidden == true {
             return 0.0
         }
         if indexPath.section == 0 && indexPath.row == 3 && channelLinkCell.isHidden == true {
@@ -597,18 +602,16 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         }
         if indexPath.section == 2 && indexPath.row == 0 && sharedMediaCell.isHidden == true {
             return 0.0
-       }
-       if indexPath.section == 2 && indexPath.row == 1 && notificationCell.isHidden == true {
+        }
+        if indexPath.section == 2 && indexPath.row == 1 && notificationCell.isHidden == true {
             return 0.0
         }
-        if indexPath.section == 1 && indexPath.row == 0 && channelSignMessageCell.isHidden == true {
+        if indexPath.section == 1 && indexPath.row == 2 && channelSignMessageCell.isHidden == true {
             return 0.0
         }
         
         return 44.0
-        
     }
-
     
     func showDeleteChannelActionSheet() {
         var title : String!
