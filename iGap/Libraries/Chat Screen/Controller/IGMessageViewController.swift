@@ -2779,8 +2779,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         //TODO: handle "igap.net/join"
     }
     func didTapOnRoomLink(link: String) {
-        let token = link.chopPrefix(22)
-        self.requestToCheckInvitedLink(invitedLink: token)
+        let strings = link.split(separator: "/")
+        let token = strings[strings.count-1]
+        self.requestToCheckInvitedLink(invitedLink: String(token))
+    }
+    
+    func didTapOnBotAction(action: String){
+        inputTextView.text = action
+        self.didTapOnSendButton(self.inputBarSendButton)
     }
     
     func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
