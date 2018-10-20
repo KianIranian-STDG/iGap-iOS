@@ -87,8 +87,10 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         let member = members[indexPath.row]
         cell.setUser(member)
         
-        if members[indexPath.row].role != .owner {
-            let btnKick = MGSwipeButton(title: detectSwipeTitle(memberRole: member.role), backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+        let swipeOption = detectSwipeOption(memberRole: member.role)
+        
+        if swipeOption.showOption {
+            let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
                 self.detectSwipeAction(member: self.members[indexPath.row])
                 return true
             })
@@ -113,7 +115,8 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         return cell
     }
     
-    private func detectSwipeTitle(memberRole: IGChannelMember.IGRole!) -> String {
+    private func detectSwipeOption(memberRole: IGChannelMember.IGRole!) -> (showOption:Bool, kickTitle:String) {
+        var showOption = true
         var kickTitle: String = ""
         
         switch myRole! {
@@ -124,6 +127,8 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                 kickTitle = "remove moderator"
             } else if memberRole == .member {
                 kickTitle = "kick member"
+            } else {
+                showOption = false
             }
             break
             
@@ -132,21 +137,25 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                 kickTitle = "remove moderator"
             } else if memberRole == .member {
                 kickTitle = "kick member"
+            } else {
+                showOption = false
             }
             break
             
         case .moderator:
             if memberRole == .member {
                 kickTitle = "kick member"
+            } else {
+                showOption = false
             }
             break
             
         case .member:
-            // do nothing
+            showOption = false
             break
         }
         
-        return kickTitle
+        return (showOption, kickTitle)
     }
     
     private func detectSwipeAction(member: IGChannelMember) {

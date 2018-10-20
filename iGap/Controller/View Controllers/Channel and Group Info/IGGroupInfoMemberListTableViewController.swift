@@ -82,7 +82,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
         let member = members[indexPath.row]
         cell.setUser(member)
         
-        let swipeOption = detectSwipeTitle(memberRole: member.role)
+        let swipeOption = detectSwipeOption(memberRole: member.role)
         
         if swipeOption.showOption {
             let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
@@ -110,7 +110,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
         return cell
     }
 
-    private func detectSwipeTitle(memberRole: IGGroupMember.IGRole!) -> (showOption:Bool, kickTitle:String) {
+    private func detectSwipeOption(memberRole: IGGroupMember.IGRole!) -> (showOption:Bool, kickTitle:String) {
         var showOption = true
         var kickTitle: String = ""
         
