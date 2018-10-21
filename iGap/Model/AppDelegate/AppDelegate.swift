@@ -116,6 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        IGAppManager.sharedManager.setUserUpdateStatus(status: .online)        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

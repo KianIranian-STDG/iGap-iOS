@@ -605,6 +605,7 @@ class IGGroupDeleteRequest : IGRequest {
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPGroupDeleteResponse){
             let groupID = responseProtoMessage.igpRoomID
+            IGFactory.shared.markAllMessagesAsRead(roomId: groupID)
             IGFactory.shared.setDeleteRoom(roomID: groupID)
             IGFactory.shared.deleteAllMessages(roomId: groupID)
         }
