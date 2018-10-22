@@ -394,6 +394,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         txtMessage?.font = IGMessageCollectionViewCell.messageBodyTextViewFont()
         txtMessage?.customize { (label) in
+            let customInvitedLink = ActiveType.custom(pattern: "^\\/\\w+")
+            label.enabledTypes.append(customInvitedLink)
+            label.customColor[customInvitedLink] = UIColor.organizationalColor()
+            
+            label.handleCustomTap(for:customInvitedLink) {
+                self.delegate?.didTapOnBotAction(action: $0)
+            }
+        }
+        
+        txtMessage?.customize { (label) in
             let customInvitedLink = ActiveType.custom(pattern: "((?:http|https)://)?[iGap\\.net]+(\\.\\w{0})?(/(?<=/)(?:[\\join./]+[a-zA-Z0-9]{2,}))") //look for iGap.net/join/
             label.enabledTypes.append(customInvitedLink)
             label.hashtagColor = UIColor.organizationalColor()
