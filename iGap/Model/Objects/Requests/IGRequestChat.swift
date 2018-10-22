@@ -290,6 +290,7 @@ class IGChatDeleteRequest: IGRequest {
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPChatDeleteResponse) {
             let roomId = responseProtoMessage.igpRoomID
+            IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
             IGFactory.shared.setDeleteRoom(roomID : roomId)
             IGFactory.shared.deleteAllMessages(roomId: roomId)
         }

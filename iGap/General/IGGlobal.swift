@@ -759,6 +759,9 @@ extension String {
     }
     
     func substring(offset: Int) -> String{
+        if self.count < offset {
+            return self
+        }
         let index = self.index(self.startIndex, offsetBy: offset)
         return String(self.prefix(upTo: index))
     }

@@ -1995,7 +1995,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         
         if message.type == .log {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
-            let bubbleSize = IGMessageCollectionViewCellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
+            //let bubbleSize = IGMessageCollectionViewCellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
+            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
             cell.setMessage(message,
                             isIncommingMessage: true,
                             shouldShowAvatar: false,
@@ -2120,7 +2121,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
         
-            let bubbleSize = IGMessageCollectionViewCellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
+            //let bubbleSize = IGMessageCollectionViewCellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
+            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
             cell.setMessage(message,
                             isIncommingMessage: isIncommingMessage,
                             shouldShowAvatar: shouldShowAvatar,

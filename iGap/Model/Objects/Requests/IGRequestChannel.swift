@@ -149,6 +149,7 @@ class IGChannelDeleteRequest: IGRequest {
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPChannelDeleteResponse) -> Int64 {
             let igpRoomId = responseProtoMessage.igpRoomID
+            IGFactory.shared.markAllMessagesAsRead(roomId: igpRoomId)
             IGFactory.shared.setDeleteRoom(roomID: igpRoomId)
             IGFactory.shared.deleteAllMessages(roomId: igpRoomId)
             return igpRoomId
