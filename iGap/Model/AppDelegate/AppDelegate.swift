@@ -208,8 +208,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.rootViewController?.present(callQualityPage, animated: true, completion: nil)
     }
     
-    func showLoginFaieldAlert() {
-        let badLoginAC = UIAlertController(title: "Login Failed", message: "There was a problem logging you in. Please login again", preferredStyle: .alert)
+    func showLoginFaieldAlert(title: String = "Login Failed", message: String = "There was a problem logging you in. Please login again") {
+        let badLoginAC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) in
             self.logoutAndShowRegisterViewController()
         })
