@@ -53,6 +53,9 @@ enum IGError: String {
     case userLoginBadPayloadInvalidToken    = "109.1"
     case userLoginInternalServerError       = "110"
     case userLoginFailed                    = "111"    // Go to registration page
+    case userLoginFailedOne                   = "111.1"
+    case userLoginFailedTwo                   = "111.2"
+    case userLoginFailedThree                   = "111.3"
     case userLoginFaieldUserIsBlocked       = "111.4"
     
     //in response to 103 (User Profile Set Email)

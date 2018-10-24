@@ -123,17 +123,32 @@ class IGAppManager: NSObject {
     }
     
     public func isUserPreviouslyLoggedIn() -> Bool {
-        if let sessionInto = realm.objects(IGSessionInfo.self).first {
-            if sessionInto.loginToken != nil {
-                _loginToken = sessionInto.loginToken
-                _username = sessionInto.username
-                _userID = sessionInto.userID
-                _nickname = sessionInto.nickname
-                _authorHash = sessionInto.authorHash
+        if let sessionInfo = realm.objects(IGSessionInfo.self).first {
+            if sessionInfo.loginToken != nil {
+                fillUserInfo(sessionInfo: sessionInfo)
                 return true
             }
         }
         return false
+    }
+    
+    private func fillUserInfo(sessionInfo: IGSessionInfo? = nil){
+        
+        var info : IGSessionInfo?
+        if sessionInfo == nil {
+            let realm = try! Realm()
+            info = realm.objects(IGSessionInfo.self).first
+        } else {
+            info = sessionInfo
+        }
+        
+        if info != nil {
+            _loginToken = info?.loginToken
+            _username = info?.username
+            _userID = info?.userID
+            _nickname = info?.nickname
+            _authorHash = info?.authorHash
+        }
     }
     
     /**
@@ -302,8 +317,13 @@ class IGAppManager: NSObject {
     public func login() {
         if !self.isTryingToLoginUser {
             self.isTryingToLoginUser = true
-            if let token = _loginToken, let hash = _authorHash {
-                IGUserLoginRequest.Generator.generate(token: token).success({ (responseProto) in
+            
+            if _loginToken == nil {
+                fillUserInfo()
+            }
+            
+            if _loginToken != nil {
+                IGUserLoginRequest.Generator.generate(token: _loginToken!).success({ (responseProto) in
                     DispatchQueue.main.async {
                         self.isTryingToLoginUser = false
                         switch responseProto {
@@ -321,10 +341,10 @@ class IGAppManager: NSObject {
                 }).error({ (errorCode, waitTime) in
                     self.isTryingToLoginUser = false
                     switch errorCode {
-                    case .userLoginFailed, .userLoginFaieldUserIsBlocked:
+                    case .userLoginFailed, .userLoginFailedOne, .userLoginFailedTwo, .userLoginFailedThree, .userLoginFaieldUserIsBlocked:
                         DispatchQueue.main.async {
                             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                            appDelegate.showLoginFaieldAlert()
+                            appDelegate.showLoginFaieldAlert(title: "Login Failed. Code: \(errorCode)")
                         }
                     default:
                         break
@@ -335,7 +355,7 @@ class IGAppManager: NSObject {
                     // no token or no author hash
                     self.isTryingToLoginUser = false
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.showLoginFaieldAlert()
+                    appDelegate.showLoginFaieldAlert(title: "Login Failed" , message: "User info not exist")
                 }
             }
             
