@@ -448,7 +448,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         
-        let predicate = NSPredicate(format: "roomId = %lld AND id >= %lld AND isDeleted == false AND id != %lld", self.room!.id, lastId, 0)
+        let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
         let messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
         
         DispatchQueue.main.async {
@@ -531,13 +531,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
         IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
         let navigationItem = self.navigationItem as! IGNavigationItem
-//        _ = Observable.from(object: room!)
-//            .subscribe(onNext: {aRoom in
-//                print ("room changed")
-//                
-//            })
-        
-        
         if let roomVariable = IGRoomManager.shared.varible(for: room!) {
             roomVariable.asObservable().subscribe({ (event) in
                 if event.element == self.room! {
@@ -547,32 +540,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     }
                 }
             }).disposed(by: disposeBag)
-//            _ = Observable.from(roomVariable).subscribe(onNext: { (roomVariable) in
-//                print ("room changed")
-//            }, onError: nil, onCompleted: nil, onDisposed: nil)
-//            roomVariableFromRoomManagerCache = roomVariable
-//            roomVariableFromRoomManagerCache?.asObservable().subscribe({ (event) in
-//                DispatchQueue.main.async {
-//                    if self.roomVariableFromRoomManagerCache?.value.id != room.id {
-//                        return
-//                    }
-//                    navigationItem.updateNavigationBarForRoom(aRoom)
-//                    
-//                    
-//                    
-//                    
-//                    
-//                }
-//            }).addDisposableTo(disposeBag)
         }
         
-        
-        AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
-            
-        }
+        AVAudioSession.sharedInstance().requestRecordPermission { (granted) in }
         
         self.setMessagesRead()
-        
     }
     
 
@@ -598,14 +570,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        //TODO: check performance
         self.collectionView!.collectionViewLayout.invalidateLayout()
     }
     
@@ -846,7 +812,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         var message = "Are you sure unpin this message?"
         var title = "Unpin For All Users"
-        var titleMe = "Unpin Just For Me"
+        let titleMe = "Unpin Just For Me"
         if messageId != 0 {
             message = "Are you sure pin this message?"
             title = "Pin"
@@ -901,7 +867,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         var message = "Are you sure unpin this message?"
         var title = "Unpin"
-        var titleMe = "Unpin Just For Me"
+        let titleMe = "Unpin Just For Me"
         if messageId != 0 {
             message = "Are you sure pin this message?"
             title = "Pin"
