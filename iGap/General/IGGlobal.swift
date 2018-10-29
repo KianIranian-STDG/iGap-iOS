@@ -133,6 +133,10 @@ class IGGlobal {
         }
         return .alert
     }
+    
+    public class func getCurrentMillis()->Int64{
+        return  Int64(NSDate().timeIntervalSince1970 * 1000)
+    }
 }
 
 extension UIViewController {
