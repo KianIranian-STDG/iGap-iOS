@@ -126,15 +126,15 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
         }
         
         switch operatorType {
-        case .irancell:
+        case .irancell?:
             btnOperator.setTitle(operatorIrancell, for: UIControlState.normal)
             break
             
-        case .mci:
+        case .mci?:
             btnOperator.setTitle(operatorMCI, for: UIControlState.normal)
             break
             
-        case .rightel:
+        case .rightel?:
             btnOperator.setTitle(operatorRightel, for: UIControlState.normal)
             break
             
@@ -304,7 +304,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
             return
         }
         
-        if (phoneNumber.characters.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber!.substring(offset: 4))] == nil) {
+        if (phoneNumber!.characters.count) < 11 || !phoneNumber!.isNumber ||  (operatorDictionary[(phoneNumber!.substring(offset: 4))] == nil) {
             showErrorAlertView(title: "Error", message: "phone number is wrong!")
             return
         }

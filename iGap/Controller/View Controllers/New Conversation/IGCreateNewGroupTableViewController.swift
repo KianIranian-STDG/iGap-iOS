@@ -32,7 +32,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
     override func viewDidLoad() {
         super.viewDidLoad()
         addBottomBorder()
-        groupNameCell.selectionStyle = UITableViewCellSelectionStyle.none
+        groupNameCell.selectionStyle = UITableViewCell.SelectionStyle.none
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
         groupAvatarImage.addGestureRecognizer(tap)
         groupAvatarImage.isUserInteractionEnabled = true
@@ -54,7 +54,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
         super.viewWillAppear(animated)
         groupNameTextField.becomeFirstResponder()
     }
-    func didTapOnChangeImage() {
+    @objc func didTapOnChangeImage() {
         choosePhotoActionSheet(sender : groupAvatarImage)
         
     }
@@ -148,7 +148,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
             }
         }
         optionMenu.view.tintColor = UIColor.organizationalColor()
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) == true {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
             print ("I don't have a camera.")
         }

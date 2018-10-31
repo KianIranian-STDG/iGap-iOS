@@ -120,8 +120,8 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
         
         billId = billInfo[0..<13]
         payId = billInfo[13..<30]
-        let companyType = billInfo[11..<12]
-        let price = billInfo[13..<21]
+        let companyType : String = billInfo[11..<12]
+        let price : String = billInfo[13..<21]
         
         if setText {
             edtBillingID.text = billId

@@ -98,7 +98,7 @@ class IGRegistrationStepVerificationCodeViewController: UIViewController, UIGest
         
     }
     
-    func updateCountDown() {
+    @objc func updateCountDown() {
         self.delayBeforeSendingAgaing! -= 1
         if self.delayBeforeSendingAgaing! > 0 {
             let fixedText = "Didn't receive the text message?\nPlease wait"
@@ -118,7 +118,7 @@ class IGRegistrationStepVerificationCodeViewController: UIViewController, UIGest
         }
     }
     
-    func tapFunction(sender:UITapGestureRecognizer) {
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
         manageGetRegisterationCode()
     }
     

@@ -62,8 +62,8 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
 
     func nextButtonClicked(){
         if CodeEntryTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: "Alert", message: "Please fill in the Delete Code field. ", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Alert", message: "Please fill in the Delete Code field. ", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
         } else {
@@ -120,7 +120,7 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
         return 0
     }
 
-    func updateCountDown() {
+    @objc func updateCountDown() {
         self.delayBeforeSendingAgaing! -= 1
         if self.delayBeforeSendingAgaing!>0 {
             let fixedText = "Didn't receive the text message?\nPlease wait"
@@ -136,7 +136,7 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
         }
     }
     
-    func tapFunction(sender:UITapGestureRecognizer) {
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
         getDeleteToken()
     }
     

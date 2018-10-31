@@ -156,8 +156,8 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                 
                 let productName = Bundle.main.infoDictionary!["CFBundleName"]!
                 
-                let alert = UIAlertController(title: "Unable to access contacts", message: "\(productName) does not have access to contacts. Kindly enable it in privacy settings ", preferredStyle: UIAlertControllerStyle.alert)
-                let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {  action in
+                let alert = UIAlertController(title: "Unable to access contacts", message: "\(productName) does not have access to contacts. Kindly enable it in privacy settings ", preferredStyle: UIAlertController.Style.alert)
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: {  action in
                     completion([], error)
                     self.dismiss(animated: true, completion: {
                         self.contactDelegate?.epContactPicker(self, didContactFetchFailed: error)
@@ -192,8 +192,8 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                         contactsArray.append(contact)
                         var key: String = "#"
                         //If ordering has to be happening via family name change it here.
-                        if let firstLetter : String! = contact.givenName[0..<1] , firstLetter.containsAlphabets() {
-                            key = firstLetter.uppercased()
+                        if let firstLetter : String! = contact.givenName[0..<1] , (firstLetter?.containsAlphabets())! {
+                            key = (firstLetter?.uppercased())!
                         }
                         var contacts = [CNContact]()
                         

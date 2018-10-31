@@ -101,8 +101,8 @@ class IGSetNickNameTableViewController: UITableViewController , UITextFieldDeleg
     
     func doneButtonClicked(){
         if nickNameTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: "Alert", message: "Please fill in the Nickname field. ", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            let alert = UIAlertController(title: "Alert", message: "Please fill in the Nickname field. ", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
         } else {

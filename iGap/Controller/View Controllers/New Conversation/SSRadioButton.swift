@@ -73,7 +73,7 @@ class SSRadioButton: UIButton {
         fillCircleLayer.fillColor = UIColor.clear.cgColor
         fillCircleLayer.strokeColor = UIColor.clear.cgColor
         layer.addSublayer(fillCircleLayer)
-        self.titleEdgeInsets = UIEdgeInsetsMake(0, (4*circleRadius + 4*circleLayer.lineWidth), 0, 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (4*circleRadius + 4*circleLayer.lineWidth), bottom: 0, right: 0)
         self.toggleButon()
     }
     /**
@@ -101,7 +101,7 @@ class SSRadioButton: UIButton {
         circleLayer.path = circlePath().cgPath
         fillCircleLayer.frame = bounds
         fillCircleLayer.path = fillCirclePath().cgPath
-        self.titleEdgeInsets = UIEdgeInsetsMake(0, (2*circleRadius + 4*circleLayer.lineWidth), 0, 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (2*circleRadius + 4*circleLayer.lineWidth), bottom: 0, right: 0)
     }
     
     override func prepareForInterfaceBuilder() {

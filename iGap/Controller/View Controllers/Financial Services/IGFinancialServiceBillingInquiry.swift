@@ -263,13 +263,13 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 return
             }
             
-            if (phoneNumber.characters.count != 11 || !phoneNumber.isNumber) {
+            if (phoneNumber!.characters.count != 11 || !phoneNumber!.isNumber) {
                 showErrorAlertView(title: "Error", message: "phone number is wrong!")
                 return
             }
             
             IGGlobal.prgShow(self.view)
-            IGBillInquiryMci.Generator.generate(mobileNumber: Int64(phoneNumber)!).success({ (protoResponse) in
+            IGBillInquiryMci.Generator.generate(mobileNumber: Int64(phoneNumber!)!).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let billInquiryMciResponse = protoResponse as? IGPBillInquiryMciResponse {
                     self.manageInquiryMci(lastTerm: billInquiryMciResponse.igpLastTerm, midTerm: billInquiryMciResponse.igpMidTerm)
@@ -295,7 +295,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 return
             }
             
-            if (phoneNumber.characters.count < 5 || !phoneNumber.isNumber) {
+            if (phoneNumber!.characters.count < 5 || !phoneNumber!.isNumber) {
                 showErrorAlertView(title: "Error", message: "phone number is wrong!")
                 return
             }
@@ -305,13 +305,13 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 return
             }
             
-            if (provisionCode.characters.count < 1 || !provisionCode.isNumber) {
+            if (provisionCode!.characters.count < 1 || !provisionCode!.isNumber) {
                 showErrorAlertView(title: "Error", message: "phone number is wrong!")
                 return
             }
             
             IGGlobal.prgShow(self.view)
-            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode)!, telephoneNumber: Int64(phoneNumber)!).success({ (protoResponse) in
+            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode!)!, telephoneNumber: Int64(phoneNumber!)!).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let billInquiryMciResponse = protoResponse as? IGPBillInquiryTelecomResponse {
                     self.manageInquiryTelecom(lastTerm: billInquiryMciResponse.igpLastTerm, midTerm: billInquiryMciResponse.igpMidTerm)

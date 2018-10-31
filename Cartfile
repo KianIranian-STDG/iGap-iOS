@@ -1,4 +1,4 @@
-github "TakeScoop/SwiftyRSA" "0.5.0"
+github "TakeScoop/SwiftyRSA"
 github "realm/realm-cocoa"
 github "ReactiveX/RxSwift" ~> 4.0
 github "jdg/MBProgressHUD" ~> 1.1.0
@@ -14,7 +14,7 @@ github "ninjaprox/NVActivityIndicatorView"
 github "Anakros/WebRTC"
 github "evgenyneu/Cosmos" ~> 15.0
 github "cornerAnt/Digger"
-github "inspace-io/INSPhotoGallery"
+github "inspace-io/INSPhotoGallery" "1.2.6"
 
 github "RooyeKhat-Media/Gifu" "v3.0.0-a"
 github "RooyeKhat-Media/ALCameraViewController" "3.0.3"
