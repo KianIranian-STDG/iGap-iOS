@@ -34,6 +34,7 @@ class IGAppManager: NSObject {
     var isUserLoggedIn:   Variable<Bool>
     var isTryingToLoginUser: Bool = false
     var currentMessagesNotificationToekn: NotificationToken?
+    public var isFirstGetRoomList: Bool = true
     
     private var _loginToken: String?
     private var _username: String?
@@ -156,6 +157,7 @@ class IGAppManager: NSObject {
      * reset app value after than connection lost
      **/
     public func resetApp(){
+        IGAppManager.sharedManager.isFirstGetRoomList = true
         IGDownloadManager.sharedManager.pauseAllDownloads()
         IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
         IGRecentsTableViewController.needGetRoomList = true // for allow user that get room list after than logged in again
