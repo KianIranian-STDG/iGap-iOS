@@ -827,7 +827,7 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
 
-    private func clearContacts(){
+    func clearContacts(){
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -852,7 +852,6 @@ class IGFactory: NSObject {
     }
     
     func saveContactsToDatabase(_ contacts:[IGContact]) {
-        clearContacts()
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {

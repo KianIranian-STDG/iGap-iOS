@@ -11,18 +11,20 @@
 import UIKit
 import Contacts
 import IGProtoBuff
+import RealmSwift
 
 class IGContactManager: NSObject {
-    static let sharedManager = IGContactManager()
     
+    static let sharedManager = IGContactManager()
     static var importedContact: Bool = false
     static var syncedPhoneBookContact: Bool = false // for update contact after than notified from 'CNContactStore'
     private var contactStore = CNContactStore()
-    private var contacts = [IGContact]()
     private var contactsStruct = [ContactsStruct]()
-    private var contactsStructChunk = [[ContactsStruct]]()
+    private var results: [CNContact] = []
+    private var resultsChunk = [[CNContact]]()
     private var contactIndex = 0
     private var CONTACT_IMPORT_LIMIT = 100
+    
     private override init() {
         super.init()
     }
@@ -39,6 +41,7 @@ class IGContactManager: NSObject {
                 return
             }
             IGContactManager.importedContact = true
+            IGFactory.shared.clearContacts()
             savePhoneContactsToDatabase()
             sendContactsToServer()
         } else {
@@ -64,8 +67,6 @@ class IGContactManager: NSObject {
             print("Error fetching containers")
         }
         
-        var results: [CNContact] = []
-        
         // Iterate all containers and append their contacts to our results array
         for container in allContainers {
             let fetchPredicate = CNContact.predicateForContactsInContainer(withIdentifier: container.identifier)
@@ -78,46 +79,45 @@ class IGContactManager: NSObject {
             }
         }
         
-        for contact in results {
-            for phone in contact.phoneNumbers {
-                contacts.append(IGContact(phoneNumber: phone.value.stringValue, firstName: contact.givenName, lastName: contact.familyName))
-                
-                var structContact = ContactsStruct()
-                structContact.phoneNumber = phone.value.stringValue
-                structContact.firstName = contact.givenName
-                structContact.lastName = contact.familyName
-                contactsStruct.append(structContact)
-            }
-        }
-        
-        IGFactory.shared.saveContactsToDatabase(contacts)
+        resultsChunk = results.chunks(CONTACT_IMPORT_LIMIT)
     }
     
-   private func sendContactsToServer() {
-        contactIndex = 0
-        contactsStructChunk = contactsStruct.chunks(CONTACT_IMPORT_LIMIT)
-        if contactsStructChunk.count == 0 {
-            return
+    private func sendContactsToServer() {
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.0) {
+            if self.resultsChunk.count == 0 || self.contactIndex >= self.resultsChunk.count{
+                self.getContactListFromServer()
+                return
+            }
+            
+            var contactsStruct = [ContactsStruct]()
+            let result = self.resultsChunk[self.contactIndex]
+            
+            let realm = try! Realm()
+            try! realm.write {
+                for contact in result {
+                    for phone in contact.phoneNumbers {
+                        realm.add(IGContact(phoneNumber: phone.value.stringValue, firstName: contact.givenName, lastName: contact.familyName), update: true)
+                        
+                        var structContact = ContactsStruct()
+                        structContact.phoneNumber = phone.value.stringValue
+                        structContact.firstName = contact.givenName
+                        structContact.lastName = contact.familyName
+                        contactsStruct.append(structContact)
+                    }
+                }
+            }
+            
+            self.sendContact(phoneContacts: contactsStruct)
+            self.contactIndex += 1
         }
-        sendContact(phoneContacts: contactsStructChunk[0])
-        contactIndex += 1
     }
     
     private func sendContact(phoneContacts : [ContactsStruct]){
         IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts).success ({ (protoResponse) in
-            switch protoResponse {
-            case let contactImportResponse as IGPUserContactsImportResponse:
+            if let contactImportResponse = protoResponse as? IGPUserContactsImportResponse {
                 IGUserContactsImportRequest.Handler.interpret(response: contactImportResponse)
-                if self.contactIndex < self.contactsStructChunk.count {
-                    self.sendContact(phoneContacts: self.contactsStructChunk[self.contactIndex])
-                }
-                self.contactIndex += 1
-                
-                break
-            default:
-                break
+                self.sendContactsToServer()
             }
-            self.getContactListFromServer()
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
