@@ -122,7 +122,6 @@
 		FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8001E5D7D4400556283 /* ActiveBuilder.swift */; };
 		FA0CC8081E5D7D4400556283 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8021E5D7D4400556283 /* ActiveLabel.swift */; };
 		FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8031E5D7D4400556283 /* ActiveType.swift */; };
-		FA0CC80A1E5D7D4400556283 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA0CC8041E5D7D4400556283 /* Info.plist */; };
 		FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8051E5D7D4400556283 /* RegexParser.swift */; };
 		FA0CC80C1E5D7D4400556283 /* StringTrimExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8061E5D7D4400556283 /* StringTrimExtension.swift */; };
 		FA0CC8121E5DD99400556283 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8111E5DD99400556283 /* Thread.swift */; };
@@ -159,6 +158,7 @@
 		FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF041E5C224F00CF8A32 /* UIImageView.swift */; };
 		FA42EF111E5C224F00CF8A32 /* ImageSourceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF071E5C224F00CF8A32 /* ImageSourceHelpers.swift */; };
 		FA42EF151E5C593500CF8A32 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF141E5C593500CF8A32 /* TTTAttributedLabel.m */; };
+        FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858E1E2E10EC00B26940 /* INSPhotoGalleryFramework.framework */; };
 		FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */; };
 		FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */; };
 		FA4CCFBE212306CE0019028B /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4CCFBC212306CE0019028B /* Contacts.framework */; };
@@ -321,13 +321,11 @@
 		FAF796051DAA392F0030509B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF796001DAA392F0030509B /* Assets.xcassets */; };
 		FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796011DAA392F0030509B /* LaunchScreen.storyboard */; };
 		FAF796071DAA392F0030509B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796031DAA392F0030509B /* Main.storyboard */; };
-		FAF7960A1DAA39460030509B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAF796091DAA39460030509B /* Info.plist */; };
 		FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF7960E1DAA39660030509B /* AppDelegate.swift */; };
 		FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985891E2E10EC00B26940 /* AKMaskField.framework */; };
 		FAF985A11E2E10EC00B26940 /* CameraViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858A1E2E10EC00B26940 /* CameraViewController.framework */; };
 		FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858B1E2E10EC00B26940 /* CryptoSwift.framework */; };
 		FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858D1E2E10EC00B26940 /* GrowingTextView.framework */; };
-		FAF985A51E2E10EC00B26940 /* INSPhotoGalleryFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858E1E2E10EC00B26940 /* INSPhotoGalleryFramework.framework */; };
 		FAF985A61E2E10EC00B26940 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858F1E2E10EC00B26940 /* MBProgressHUD.framework */; };
 		FAF985A71E2E10EC00B26940 /* MGSwipeTableCell.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985901E2E10EC00B26940 /* MGSwipeTableCell.framework */; };
 		FAF985A81E2E10EC00B26940 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985911E2E10EC00B26940 /* pop.framework */; };
@@ -704,6 +702,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+                FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */,
 				FA4CCFBE212306CE0019028B /* Contacts.framework in Frameworks */,
 				FA4CCFBF212306CE0019028B /* ContactsUI.framework in Frameworks */,
 				FA367E7E210459E900FA5A91 /* Digger.framework in Frameworks */,
@@ -721,7 +720,6 @@
 				FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */,
 				FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */,
 				FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */,
-				FAF985A51E2E10EC00B26940 /* INSPhotoGalleryFramework.framework in Frameworks */,
 				FAF985A61E2E10EC00B26940 /* MBProgressHUD.framework in Frameworks */,
 				FAF985A71E2E10EC00B26940 /* MGSwipeTableCell.framework in Frameworks */,
 				FAC42C851E36267400F2CB5C /* Fabric.framework in Frameworks */,
@@ -1647,12 +1645,10 @@
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
-				FAF7960A1DAA39460030509B /* Info.plist in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
-				FA0CC80A1E5D7D4400556283 /* Info.plist in Resources */,
 				FA5656BE204AB18F00DB46F0 /* igap_signaling.mp3 in Resources */,
 				FA786D58206A575300608A2D /* profile.storyboard in Resources */,
 				FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */,
@@ -1734,7 +1730,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+            shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
