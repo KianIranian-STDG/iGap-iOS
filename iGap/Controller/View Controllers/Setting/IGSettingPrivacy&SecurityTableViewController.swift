@@ -85,6 +85,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         }
         
         showPrivacyInfo()
+        requestToGetUserPrivacy()
     }
     
     func showPrivacyInfo(){
@@ -172,6 +173,76 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
                 break
             }
         }
+    }
+    
+    private func requestToGetUserPrivacy() {
+        //get user voice call privacy
+        IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .voiceCalling).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
+                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .voiceCalling)
+                default:
+                    break
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            
+        }).send()
+        //get user avatar privacy
+        IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .avatar).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
+                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .avatar)
+                default:
+                    break
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            
+        }).send()
+        //get userStatusPrivacy
+        IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .userStatus).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
+                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .userStatus)
+                default:
+                    break
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            
+        }).send()
+        
+        //get channelInviteUser Privacy
+        IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .channelInvite).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
+                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .channelInvite)
+                default:
+                    break
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            
+        }).send()
+        
+        //get group Invite user privacy
+        IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .groupInvite).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
+                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .groupInvite)
+                default:
+                    break
+                }
+            }
+        }).error({ (errorCode, waitTime) in
+            
+        }).send()
     }
     
     override func viewWillAppear(_ animated: Bool) {
