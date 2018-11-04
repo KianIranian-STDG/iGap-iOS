@@ -91,6 +91,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
     private let disposeBag = DisposeBag()
+    var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
     var allowForGetHistory: Bool = true
     var recorder: AVAudioRecorder?
     var isRecordingVoice = false
@@ -2330,13 +2331,25 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
 extension IGMessageViewController: GrowingTextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.setSendAndRecordButtonStates()
-        self.sendTyping()
-        typingStatusExpiryTimer.invalidate()
-        typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
-                                                       target:   self,
-                                                       selector: #selector(sendCancelTyping),
-                                                       userInfo: nil,
-                                                       repeats:  false)
+        if allowSendTyping() {
+            self.sendTyping()
+            typingStatusExpiryTimer.invalidate()
+            typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
+                                                           target:   self,
+                                                           selector: #selector(sendCancelTyping),
+                                                           userInfo: nil,
+                                                           repeats:  false)
+        }
+    }
+    
+    func allowSendTyping() -> Bool {
+        let currentTime = IGGlobal.getCurrentMillis()
+        if (currentTime - self.latestTypeTime) < 1000 {
+            self.latestTypeTime = currentTime
+            return false
+        }
+        self.latestTypeTime = currentTime
+        return true
     }
     
     func textViewDidChangeHeight(_ height: CGFloat) {
@@ -2901,8 +2914,18 @@ extension IGMessageViewController {
         IGClientActionManager.shared.sendTyping(for: self.room!)
     }
     @objc fileprivate func sendCancelTyping() {
-        typingStatusExpiryTimer.invalidate()
-        IGClientActionManager.shared.cancelTying(for: self.room!)
+        
+        if !self.allowSendTyping() {
+            typingStatusExpiryTimer.invalidate()
+            typingStatusExpiryTimer = Timer.scheduledTimer(timeInterval: 1.0,
+                                                           target:   self,
+                                                           selector: #selector(sendCancelTyping),
+                                                           userInfo: nil,
+                                                           repeats:  false)
+        } else {
+            typingStatusExpiryTimer.invalidate()
+            IGClientActionManager.shared.cancelTying(for: self.room!)
+        }
     }
     
     fileprivate func sendRecordingVoice() {
