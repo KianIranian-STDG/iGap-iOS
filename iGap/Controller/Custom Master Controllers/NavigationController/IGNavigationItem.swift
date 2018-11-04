@@ -275,6 +275,7 @@ class IGNavigationItem: UINavigationItem {
     func addiGapLogo() {
         
         if IGCall.callPageIsEnable {
+            AppDelegate.isFirstEnterToApp = false
             return
         }
         
