@@ -537,9 +537,25 @@ class IGNavigationItem: UINavigationItem {
         return verified
     }
     
+    private func isBot(room: IGRoom) -> Bool {
+        if room.type == .chat {
+            if let user = room.chatRoom?.peer {
+                if user.isBot {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     private func setLastSeenLabelForUser(_ user: IGRegisteredUser , room : IGRoom) {
         
         if isCloud(room: room){
+            return
+        }
+        
+        if isBot(room: room){
+            self.centerViewSubLabel!.text = "Bot"
             return
         }
         
