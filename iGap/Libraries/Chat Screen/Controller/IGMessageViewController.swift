@@ -141,7 +141,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var botCommandsDictionary : [String:String] = [:]
     let BUTTON_HEIGHT = 50
-    let BUTTON_SPACE = 5
+    let BUTTON_SPACE = 10
     let BUTTON_ROW_SPACE : CGFloat = 5
     let screenWidth = UIScreen.main.bounds.width
     
@@ -168,7 +168,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        removeButtonsUnderline(buttons: [joinButton, inputBarRecordButton, btnScrollToBottom,
+        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
                                          btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
@@ -243,20 +243,24 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 inputBarContainerView.isHidden = true
                 collectionViewTopInsetOffset = -54.0 + 8.0
-                
-
             }
-        } else {
-            
         }
         
-        
-
-        
-        
-//        let predicate = NSPredicate(format: "roomId = %d AND isDeleted == false", self.room!.id)
-//        messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(byProperty: "creationTime")
-//        messages = try! IGFactory.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(byProperty: "creationTime")
+        if isBotRoom() {
+            let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
+            let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
+            if messagesCount == 0 {
+                inputBarContainerView.isHidden = true
+                joinButton.isHidden = false
+                joinButton.setTitle("Start", for: UIControlState.normal)
+                joinButton.layer.cornerRadius = 5
+                joinButton.layer.masksToBounds = false
+                joinButton.layer.shadowColor = UIColor.black.cgColor
+                joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+                joinButton.layer.shadowRadius = 4.0
+                joinButton.layer.shadowOpacity = 0.15
+            }
+        }
         
         let messagesWithMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", self.room!.id, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue)
         messagesWithMedia = try! Realm().objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
@@ -353,13 +357,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    private func isBotRoom() -> Bool{
+        return (room?.chatRoom?.peer?.isBot)!
+    }
+    
     private func manageKeyboard(){
         if let chatRoom = self.room?.chatRoom {
             if (chatRoom.peer?.isBot)! {
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
                 let latestMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).last
                 
-                if latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
+                if latestMessage != nil && latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
                     
                     if latestMessage!.message != nil && !(latestMessage!.message?.isEmpty)! && (latestMessage!.message?.contains("/"))! {
                         self.botCommandsDictionary = [:]
@@ -375,9 +383,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     } else {
                         self.makeKeyboard()
                     }
-                    
-                } else {
-                    //self.inputTextView.resignFirstResponder()
                 }
             }
         }
@@ -461,18 +466,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         let btn = UIButton()
         btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
-        //btn.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
         btn.setTitle(text, for: UIControlState.normal)
         btn.removeUnderline()
         parentView.addSubview(btn)
         
-        btn.backgroundColor = UIColor.gray
+        btn.backgroundColor = UIColor.swipeBlueGray()
         btn.layer.masksToBounds = false
-        //btn.layer.borderWidth = 0.5
-        //btn.layer.borderColor = UIColor.gray.cgColor
         btn.layer.cornerRadius = 5.0
-        btn.layer.shadowOffset = CGSize(width: 0, height: 2)
-        btn.layer.shadowRadius = 2.0
+        btn.layer.shadowOffset = CGSize(width: 1, height: 3)
+        btn.layer.shadowRadius = 3.0
         btn.layer.shadowOpacity = 0.5
         
         btn.snp.makeConstraints { (make) in
@@ -1534,6 +1536,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @IBAction func didTapOnJoinButton(_ sender: UIButton) {
+        
+        if isBotRoom() {
+            inputTextView.text = "/Start"
+            self.didTapOnSendButton(self.inputBarSendButton)
+            
+            self.joinButton.isHidden = true
+            self.inputBarContainerView.isHidden = false
+            return
+        }
+        
         var username: String?
         if room?.channelRoom != nil {
             if let channelRoom = room?.channelRoom {

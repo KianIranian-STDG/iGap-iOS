@@ -430,7 +430,7 @@ class IGNavigationItem: UINavigationItem {
             make.trailing.equalTo(callView.snp.leading)
         }
         
-        if userId != 0 && userId != IGAppManager.sharedManager.userID() && !room.isReadOnly { // check isReadOnly for iGapMessanger
+        if userId != 0 && userId != IGAppManager.sharedManager.userID() && !room.isReadOnly && !(room.chatRoom?.peer?.isBot)! { // check isReadOnly for iGapMessanger
             let callViewLabel = UILabel()
             callViewLabel.textColor = UIColor.white
             callViewLabel.textAlignment = .center
