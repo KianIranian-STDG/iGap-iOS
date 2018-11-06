@@ -345,3 +345,13 @@ enum IGOperator: Int {
     case mci
     case rightel
 }
+
+enum CommandState {
+    case Odd
+    case Even
+}
+
+enum ButtonState {
+    case First
+    case Second
+}

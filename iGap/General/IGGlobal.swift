@@ -805,6 +805,12 @@ extension String {
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
+    
+    var lines: [String] {
+        var result: [String] = []
+        enumerateLines { line, _ in result.append(line) }
+        return result
+    }
 }
 
 extension Float {

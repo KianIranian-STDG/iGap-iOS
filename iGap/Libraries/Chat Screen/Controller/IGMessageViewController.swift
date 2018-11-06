@@ -139,6 +139,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let MAX_TEXT_LENGHT = 4096
     let MAX_TEXT_ATTACHMENT_LENGHT = 200
     
+    var botCommandsDictionary : [String:String] = [:]
+    let BUTTON_HEIGHT = 50
+    let BUTTON_SPACE = 5
+    let BUTTON_ROW_SPACE : CGFloat = 5
+    let screenWidth = UIScreen.main.bounds.width
+    
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
     var getMessageLimit = 25
@@ -347,6 +353,148 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    private func manageKeyboard(){
+        if let chatRoom = self.room?.chatRoom {
+            if (chatRoom.peer?.isBot)! {
+                let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
+                let latestMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).last
+                
+                if latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
+                    
+                    if latestMessage!.message != nil && !(latestMessage!.message?.isEmpty)! && (latestMessage!.message?.contains("/"))! {
+                        self.botCommandsDictionary = [:]
+                        for lineMessage in (latestMessage!.message?.lines)! {
+                            
+                            let finalMessage = lineMessage.split(separator: "-")
+                            if finalMessage.count == 2 {
+                                self.botCommandsDictionary[finalMessage[1].description] = finalMessage[0].description
+                            }
+                        }
+                        
+                        self.makeKeyboard(botCommands: self.botCommandsDictionary)
+                    } else {
+                        self.makeKeyboard()
+                    }
+                    
+                } else {
+                    //self.inputTextView.resignFirstResponder()
+                }
+            }
+        }
+    }
+
+    private func makeKeyboard(botCommands: [String:String]? = nil) {
+        
+        if botCommands == nil {
+            inputTextView.inputView = nil
+            inputTextView.reloadInputViews()
+            return
+        }
+        
+        var rowIndex = 1
+        var commandIndex = 1
+        let commandsCount : Int! = botCommands?.count
+        let rowsCount = commandsCount / 2 + commandsCount % 2
+        let childHeight = (rowsCount * BUTTON_HEIGHT) + (rowsCount * BUTTON_SPACE) + BUTTON_SPACE
+        var keyboardHeight = 200
+        var commandState: CommandState = CommandState.Odd
+        
+        if childHeight < keyboardHeight {
+            keyboardHeight = childHeight
+        }
+        
+        if commandsCount % 2 == 0 {
+            commandState = CommandState.Even
+        }
+        
+        
+        let parent = UIScrollView()
+        parent.backgroundColor = UIColor.white
+        parent.frame = CGRect(x: 0, y: 0, width: Int(screenWidth), height: keyboardHeight)
+        
+        let child = UIView()
+        parent.addSubview(child)
+        
+        child.snp.makeConstraints { (make) in
+            make.top.equalTo(parent.snp.top)
+            make.left.equalTo(parent.snp.left)
+            make.right.equalTo(parent.snp.right)
+            make.bottom.equalTo(parent.snp.bottom)
+            make.height.equalTo(childHeight)
+        }
+        
+        for command in botCommands! {
+            
+            var buttonState = ButtonState.First
+            if commandIndex % 2 == 0 {
+                buttonState = ButtonState.Second
+            }
+            
+            var showSingle = false
+            
+            if rowsCount == rowIndex && commandState == CommandState.Odd {
+                showSingle = true
+            }
+            
+            makeBotButton(parentView: parent, row: rowIndex, buttonState: buttonState, text: command.key, showSingle: showSingle)
+            
+            if commandIndex % 2 == 0 {
+                rowIndex += 1
+            }
+            
+            commandIndex += 1
+        }
+        
+        inputTextView.inputView = parent
+        inputTextView.reloadInputViews()
+        if !inputTextView.becomeFirstResponder() {
+            inputTextView.becomeFirstResponder()
+        }
+    }
+    
+    private func makeBotButton(parentView: UIView, row: Int, buttonState: ButtonState, text: String, showSingle: Bool = false){
+        let topOffset = (row - 1) * BUTTON_HEIGHT + (row - 1) * BUTTON_SPACE + BUTTON_SPACE
+        var rowSpace : CGFloat = 5.0
+        if buttonState == ButtonState.Second && !showSingle {
+            rowSpace = ((screenWidth/2 - 7.5) + (BUTTON_ROW_SPACE * 2))
+        }
+            
+        let btn = UIButton()
+        btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
+        //btn.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
+        btn.setTitle(text, for: UIControlState.normal)
+        btn.removeUnderline()
+        parentView.addSubview(btn)
+        
+        btn.backgroundColor = UIColor.gray
+        btn.layer.masksToBounds = false
+        //btn.layer.borderWidth = 0.5
+        //btn.layer.borderColor = UIColor.gray.cgColor
+        btn.layer.cornerRadius = 5.0
+        btn.layer.shadowOffset = CGSize(width: 0, height: 2)
+        btn.layer.shadowRadius = 2.0
+        btn.layer.shadowOpacity = 0.5
+        
+        btn.snp.makeConstraints { (make) in
+            make.left.equalTo(parentView.snp.left).offset(rowSpace)
+            make.top.equalTo(parentView.snp.top).offset(topOffset)
+            if showSingle {
+                make.width.equalTo((screenWidth) - (BUTTON_ROW_SPACE * 2))
+                make.right.equalTo(parentView.snp.right).offset(rowSpace)
+            } else {
+                make.width.equalTo((screenWidth/2) - 7.5)
+            }
+            make.height.equalTo(BUTTON_HEIGHT)
+        }
+    }
+    
+    func onBotButtonClick(sender: UIButton!) {
+        let text : String! = sender.titleLabel?.text!
+        let botCommand = botCommandsDictionary[text]
+        inputTextView.text = botCommand
+        self.didTapOnSendButton(self.inputBarSendButton)
+    }
+    
     private func setBackground() {
         
         if let color = IGWallpaperPreview.chatSolidColor {
@@ -399,6 +547,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                             self.collectionView.reloadData()
                         }
                     }
+                    
+                    self.manageKeyboard()
                 }
                 
                 break
