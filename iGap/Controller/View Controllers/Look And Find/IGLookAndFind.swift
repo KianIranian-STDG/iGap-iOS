@@ -176,11 +176,70 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         if searchResult.type == IGPClientSearchUsernameResponse.IGPResult.IGPType.room.rawValue {
             IGHelper.openChatRoom(room: searchResult.room, viewController: self)
         } else {
-            IGHelper.openUserProfile(user: searchResult.user, room: searchResult.room, viewController: self)
+            if searchResult.user.isBot {
+                createChat(selectedUser: searchResult.user)
+            } else {
+                IGHelper.openUserProfile(user: searchResult.user, room: searchResult.room, viewController: self)
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70.0
+    }
+    
+    func createChat(selectedUser: IGRegisteredUser) {
+        IGGlobal.prgShow(self.view)
+        IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                    
+                    IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let clientGetRoomResponse as IGPClientGetRoomResponse:
+                                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                                let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
+                                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                                roomVC.room = room
+                                self.navigationController!.pushViewController(roomVC, animated: true)
+                            default:
+                                break
+                            }
+                            IGGlobal.prgHide()
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            switch errorCode {
+                            case .timeout:
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
+                            default:
+                                break
+                            }
+                            IGGlobal.prgHide()
+                        }
+                    }).send()
+                    
+                    IGGlobal.prgHide()
+                    break
+                default:
+                    break
+                }
+            }
+            
+        }).error({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+            let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
+            
+            let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertC.addAction(cancel)
+            self.present(alertC, animated: true, completion: nil)
+        }).send()
     }
 }
