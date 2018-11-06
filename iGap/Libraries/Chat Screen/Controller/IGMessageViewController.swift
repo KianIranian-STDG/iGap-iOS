@@ -358,7 +358,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func isBotRoom() -> Bool{
-        return (room?.chatRoom?.peer?.isBot)!
+        if let chatRoom = room?.chatRoom {
+            return (chatRoom.peer?.isBot)!
+        }
+        return false
     }
     
     private func manageKeyboard(){
