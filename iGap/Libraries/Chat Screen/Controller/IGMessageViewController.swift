@@ -354,6 +354,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
+        } else if isBotRoom() {
+            self.manageKeyboard()
         }
     }
     
@@ -377,7 +379,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         for lineMessage in (latestMessage!.message?.lines)! {
                             
                             let finalMessage = lineMessage.split(separator: "-")
-                            if finalMessage.count == 2 {
+                            if finalMessage.count == 2 && finalMessage[0].description.starts(with: "/") {
                                 self.botCommandsDictionary[finalMessage[1].description] = finalMessage[0].description
                             }
                         }
@@ -393,7 +395,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
     private func makeKeyboard(botCommands: [String:String]? = nil) {
         
-        if botCommands == nil {
+        if botCommands == nil || botCommands?.count == 0 {
             inputTextView.inputView = nil
             inputTextView.reloadInputViews()
             return
