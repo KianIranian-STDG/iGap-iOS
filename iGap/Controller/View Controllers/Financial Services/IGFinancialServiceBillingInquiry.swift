@@ -78,7 +78,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
     private func manageButtonsView(buttons: [UIButton], enable: Bool = true){
         if enable {
             for btn in buttons {
-                btn.removeUnderline()
+                //btn.removeUnderline()
                 btn.layer.cornerRadius = 5
                 btn.layer.borderWidth = 1
                 btn.layer.borderColor = UIColor.iGapColor().cgColor
@@ -87,7 +87,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }
         } else {
             for btn in buttons {
-                btn.removeUnderline()
+                //btn.removeUnderline()
                 btn.layer.cornerRadius = 5
                 btn.layer.borderWidth = 1
                 btn.layer.borderColor = UIColor.gray.cgColor
@@ -144,8 +144,9 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
     }
     
     private func fetchPaymentToken(billId: String, payId: String){
+        IGGlobal.prgShow(self.view)
         IGMplGetBillToken.Generator.generate(billId: Int64(billId)!, payId: Int64(payId)!).success({ (protoResponse) in
-            
+            IGGlobal.prgHide()
             if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
                     self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
@@ -155,18 +156,18 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }
             
         }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                IGGlobal.prgHide()
+                switch errorCode {
+                case .timeout:
                     let alert = UIAlertController(title: "Timeout", message: "Please try again later!", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
+                default:
+                    break
                 }
-            default:
-                break
             }
-            
         }).send()
     }
     

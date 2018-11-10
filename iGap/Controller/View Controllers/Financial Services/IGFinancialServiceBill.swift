@@ -81,7 +81,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
     
     private func manageButtonsView(buttons: [UIButton]){
         for btn in buttons {
-            btn.removeUnderline()
+            //btn.removeUnderline()
             btn.layer.cornerRadius = 5
             btn.layer.borderWidth = 1
             btn.layer.borderColor = UIColor.iGapColor().cgColor
@@ -122,7 +122,9 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
         payId = billInfo[13..<30]
         let companyType : String = billInfo[11..<12]
         let price : String = billInfo[13..<21]
-        
+        print("ZZZ || billInfo: \(billInfo)")
+        print("ZZZ || billId: \(billId)")
+        print("ZZZ || payId: \(payId)")
         if setText {
             edtBillingID.text = billId
             edtPaymentCode.text = payId
