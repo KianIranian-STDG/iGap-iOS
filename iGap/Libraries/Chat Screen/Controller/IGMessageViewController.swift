@@ -90,6 +90,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerView: UIView!
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
+    let btnChangeKeyboard = UIButton()
     private let disposeBag = DisposeBag()
     var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
     var allowForGetHistory: Bool = true
@@ -144,6 +145,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let BUTTON_SPACE = 10
     let BUTTON_ROW_SPACE : CGFloat = 5
     let screenWidth = UIScreen.main.bounds.width
+    var isCustomKeyboard = false
+    var isKeyboardButtonCreated = false
+    let KEYBOARD_CUSTOM_ICON = ""
+    let KEYBOARD_MAIN_ICON = ""
     
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
@@ -259,6 +264,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
                 joinButton.layer.shadowRadius = 4.0
                 joinButton.layer.shadowOpacity = 0.15
+            } else {
+                makeKeyboardButton()
+                self.manageKeyboard()
             }
         }
         
@@ -354,8 +362,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
-        } else if isBotRoom() {
-            self.manageKeyboard()
         }
     }
     
@@ -366,7 +372,39 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return false
     }
     
+    private func makeKeyboardButton(){
+        if isKeyboardButtonCreated {
+            return
+        }
+        isKeyboardButtonCreated = true
+        btnChangeKeyboard.addTarget(self, action: #selector(onKeyboardChangeClick), for: .touchUpInside)
+        btnChangeKeyboard.titleLabel?.font = UIFont.iGapFontico(ofSize: 18.0)
+        btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
+        btnChangeKeyboard.backgroundColor = inputBarLeftView.backgroundColor
+        btnChangeKeyboard.layer.masksToBounds = false
+        btnChangeKeyboard.layer.cornerRadius = 5.0
+        self.view.addSubview(btnChangeKeyboard)
+        
+        btnChangeKeyboard.snp.makeConstraints { (make) in
+            make.right.equalTo(inputBarRightiew.snp.left)
+            make.centerY.equalTo(inputBarRightiew.snp.centerY)
+            make.width.equalTo(38)
+            make.height.equalTo(38)
+        }
+        
+        inputTextView.snp.makeConstraints { (make) in
+            make.right.equalTo(btnChangeKeyboard.snp.left)
+            make.left.equalTo(inputBarLeftView.snp.right)
+        }
+    }
+    
     private func manageKeyboard(){
+        
+        if !self.joinButton.isHidden {
+            self.joinButton.isHidden = true
+            self.inputBarContainerView.isHidden = false
+        }
+        
         if let chatRoom = self.room?.chatRoom {
             if (chatRoom.peer?.isBot)! {
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
@@ -380,7 +418,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                             
                             let finalMessage = lineMessage.split(separator: "-")
                             if finalMessage.count == 2 && finalMessage[0].description.starts(with: "/") {
-                                self.botCommandsDictionary[finalMessage[1].description] = finalMessage[0].description
+                                self.botCommandsDictionary[finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines)] = finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines)
                             }
                         }
                         
@@ -395,11 +433,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
     private func makeKeyboard(botCommands: [String:String]? = nil) {
         
+        makeKeyboardButton()
+        
         if botCommands == nil || botCommands?.count == 0 {
+            isCustomKeyboard = false
+            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
             inputTextView.inputView = nil
             inputTextView.reloadInputViews()
             return
         }
+        isCustomKeyboard = true
+        btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
         
         var rowIndex = 1
         var commandIndex = 1
@@ -500,6 +544,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let botCommand = botCommandsDictionary[text]
         inputTextView.text = botCommand
         self.didTapOnSendButton(self.inputBarSendButton)
+    }
+    
+    func onKeyboardChangeClick(){
+        if isCustomKeyboard {
+            isCustomKeyboard = false
+            makeKeyboard()
+        } else {
+            isCustomKeyboard = true
+            makeKeyboard(botCommands: botCommandsDictionary)
+        }
     }
     
     private func setBackground() {
