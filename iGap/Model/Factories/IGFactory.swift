@@ -1933,15 +1933,17 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
     
-    func markAllMessagesAsRead(roomId: Int64) {
+    func markAllMessagesAsRead(roomId: Int64, clearId: Int64 = 0) {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> set messages read room id: \(roomId)")
                 let predicate = NSPredicate(format: "id = %lld", roomId)
                 if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                    try! IGDatabaseManager.shared.realm.write {
-                        roomInDb.unreadCount = 0
+                    /* if clearId is lower than latest messageId don't clear message */
+                    if clearId == 0 || roomInDb.lastMessage == nil || (roomInDb.lastMessage?.id)! <= clearId {
+                        try! IGDatabaseManager.shared.realm.write {
+                            roomInDb.unreadCount = 0
+                        }
                     }
                 }
                 IGFactory.shared.performInFactoryQueue {
