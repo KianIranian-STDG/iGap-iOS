@@ -573,7 +573,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.botCommandsArray.append("بازگشت به منو اصلی")
             self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
         } else if let message = myLastMessage()?.message {
-            if !message.contains("/start") {
+            if !message.contains("/start") && !message.contains("/back") {
                 self.botCommandsArray.append("بازگشت به منو اصلی")
                 self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
             }
