@@ -425,7 +425,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         for lineMessage in (latestMessage!.message?.lines)! {
                             
                             let finalMessage = lineMessage.split(separator: "-")
-                            if finalMessage.count == 2 && finalMessage[0].description.starts(with: "/") {
+                            if finalMessage.count == 2 && finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines).starts(with: "/") {
                                 self.botCommandsArray.append(finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines))
                                 self.botCommandsDictionary[finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines)] = finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines)
                             }
@@ -573,7 +573,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.botCommandsArray.append("بازگشت به منو اصلی")
             self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
         } else if let message = myLastMessage()?.message {
-            if !message.contains("/start") && !message.contains("/back") {
+            if !message.lowercased().contains("/start") && !message.lowercased().contains("/back") {
                 self.botCommandsArray.append("بازگشت به منو اصلی")
                 self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
             }
