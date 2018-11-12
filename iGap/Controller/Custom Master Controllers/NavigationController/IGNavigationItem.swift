@@ -430,7 +430,7 @@ class IGNavigationItem: UINavigationItem {
             make.trailing.equalTo(callView.snp.leading)
         }
         
-        if userId != 0 && userId != IGAppManager.sharedManager.userID() && !room.isReadOnly { // check isReadOnly for iGapMessanger
+        if userId != 0 && userId != IGAppManager.sharedManager.userID() && !room.isReadOnly && !(room.chatRoom?.peer?.isBot)! { // check isReadOnly for iGapMessanger
             let callViewLabel = UILabel()
             callViewLabel.textColor = UIColor.white
             callViewLabel.textAlignment = .center
@@ -537,9 +537,25 @@ class IGNavigationItem: UINavigationItem {
         return verified
     }
     
+    private func isBot(room: IGRoom) -> Bool {
+        if room.type == .chat {
+            if let user = room.chatRoom?.peer {
+                if user.isBot {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     private func setLastSeenLabelForUser(_ user: IGRegisteredUser , room : IGRoom) {
         
         if isCloud(room: room){
+            return
+        }
+        
+        if isBot(room: room){
+            self.centerViewSubLabel!.text = "Bot"
             return
         }
         

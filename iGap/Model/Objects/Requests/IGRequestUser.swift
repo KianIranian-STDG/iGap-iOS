@@ -319,6 +319,7 @@ class IGUserContactsGetListRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage: IGPUserContactsGetListResponse) {
+            IGFactory.shared.clearContacts()
             let registredUsers = responseProtoMessage.igpRegisteredUser
             IGFactory.shared.saveRegistredContactsUsers(registredUsers)
         }

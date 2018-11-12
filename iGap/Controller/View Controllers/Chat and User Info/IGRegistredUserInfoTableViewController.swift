@@ -74,7 +74,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "Contact Info")
         
-        if IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
+        if !isBotRoom() && IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
             navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
             navigaitonItem.rightViewContainer?.addAction {
                 let storyBoard = UIStoryboard(name: "Main" , bundle:nil)
@@ -92,15 +92,12 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func isBotRoom() -> Bool{
+        return (user?.isBot)!
     }
-
-    // MARK: - Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
@@ -113,6 +110,11 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             if isCloud() { // hide block contact for mine profile
                 return 2
             }
+            
+            if isBotRoom() {
+                return 1
+            }
+            
             return 3
         case 2:
             return 1

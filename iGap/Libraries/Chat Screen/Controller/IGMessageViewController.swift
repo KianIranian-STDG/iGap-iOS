@@ -90,6 +90,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerView: UIView!
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
+    let btnChangeKeyboard = UIButton()
     private let disposeBag = DisposeBag()
     var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
     var allowForGetHistory: Bool = true
@@ -139,6 +140,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let MAX_TEXT_LENGHT = 4096
     let MAX_TEXT_ATTACHMENT_LENGHT = 200
     
+    var botCommandsDictionary : [String:String] = [:]
+    let BUTTON_HEIGHT = 50
+    let BUTTON_SPACE = 10
+    let BUTTON_ROW_SPACE : CGFloat = 5
+    let screenWidth = UIScreen.main.bounds.width
+    var isCustomKeyboard = false
+    var isKeyboardButtonCreated = false
+    let KEYBOARD_CUSTOM_ICON = ""
+    let KEYBOARD_MAIN_ICON = ""
+    
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
     var getMessageLimit = 25
@@ -162,7 +173,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        removeButtonsUnderline(buttons: [joinButton, inputBarRecordButton, btnScrollToBottom,
+        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
                                          btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
@@ -237,20 +248,27 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 inputBarContainerView.isHidden = true
                 collectionViewTopInsetOffset = -54.0 + 8.0
-                
-
             }
-        } else {
-            
         }
         
-        
-
-        
-        
-//        let predicate = NSPredicate(format: "roomId = %d AND isDeleted == false", self.room!.id)
-//        messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(byProperty: "creationTime")
-//        messages = try! IGFactory.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(byProperty: "creationTime")
+        if isBotRoom() {
+            let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
+            let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
+            if messagesCount == 0 {
+                inputBarContainerView.isHidden = true
+                joinButton.isHidden = false
+                joinButton.setTitle("Start", for: UIControlState.normal)
+                joinButton.layer.cornerRadius = 5
+                joinButton.layer.masksToBounds = false
+                joinButton.layer.shadowColor = UIColor.black.cgColor
+                joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+                joinButton.layer.shadowRadius = 4.0
+                joinButton.layer.shadowOpacity = 0.15
+            } else {
+                makeKeyboardButton()
+                self.manageKeyboard()
+            }
+        }
         
         let messagesWithMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", self.room!.id, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue)
         messagesWithMedia = try! Realm().objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
@@ -347,6 +365,197 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    private func isBotRoom() -> Bool{
+        if let chatRoom = room?.chatRoom {
+            return (chatRoom.peer?.isBot)!
+        }
+        return false
+    }
+    
+    private func makeKeyboardButton(){
+        if isKeyboardButtonCreated {
+            return
+        }
+        isKeyboardButtonCreated = true
+        btnChangeKeyboard.addTarget(self, action: #selector(onKeyboardChangeClick), for: .touchUpInside)
+        btnChangeKeyboard.titleLabel?.font = UIFont.iGapFontico(ofSize: 18.0)
+        btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
+        btnChangeKeyboard.backgroundColor = inputBarLeftView.backgroundColor
+        btnChangeKeyboard.layer.masksToBounds = false
+        btnChangeKeyboard.layer.cornerRadius = 5.0
+        self.view.addSubview(btnChangeKeyboard)
+        
+        btnChangeKeyboard.snp.makeConstraints { (make) in
+            make.right.equalTo(inputBarRightiew.snp.left)
+            make.centerY.equalTo(inputBarRightiew.snp.centerY)
+            make.width.equalTo(38)
+            make.height.equalTo(38)
+        }
+        
+        inputTextView.snp.makeConstraints { (make) in
+            make.right.equalTo(btnChangeKeyboard.snp.left)
+            make.left.equalTo(inputBarLeftView.snp.right)
+        }
+    }
+    
+    private func manageKeyboard(){
+        
+        if !self.joinButton.isHidden {
+            self.joinButton.isHidden = true
+            self.inputBarContainerView.isHidden = false
+        }
+        
+        if let chatRoom = self.room?.chatRoom {
+            if (chatRoom.peer?.isBot)! {
+                let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
+                let latestMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).last
+                
+                if latestMessage != nil && latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
+                    
+                    if latestMessage!.message != nil && !(latestMessage!.message?.isEmpty)! && (latestMessage!.message?.contains("/"))! {
+                        self.botCommandsDictionary = [:]
+                        for lineMessage in (latestMessage!.message?.lines)! {
+                            
+                            let finalMessage = lineMessage.split(separator: "-")
+                            if finalMessage.count == 2 && finalMessage[0].description.starts(with: "/") {
+                                self.botCommandsDictionary[finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines)] = finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines)
+                            }
+                        }
+                        
+                        self.makeKeyboard(botCommands: self.botCommandsDictionary)
+                    } else {
+                        self.makeKeyboard()
+                    }
+                }
+            }
+        }
+    }
+
+    private func makeKeyboard(botCommands: [String:String]? = nil) {
+        
+        makeKeyboardButton()
+        
+        if botCommands == nil || botCommands?.count == 0 {
+            isCustomKeyboard = false
+            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+            inputTextView.inputView = nil
+            inputTextView.reloadInputViews()
+            return
+        }
+        isCustomKeyboard = true
+        btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
+        
+        var rowIndex = 1
+        var commandIndex = 1
+        let commandsCount : Int! = botCommands?.count
+        let rowsCount = commandsCount / 2 + commandsCount % 2
+        let childHeight = (rowsCount * BUTTON_HEIGHT) + (rowsCount * BUTTON_SPACE) + BUTTON_SPACE
+        var keyboardHeight = 200
+        var commandState: CommandState = CommandState.Odd
+        
+        if childHeight < keyboardHeight {
+            keyboardHeight = childHeight
+        }
+        
+        if commandsCount % 2 == 0 {
+            commandState = CommandState.Even
+        }
+        
+        
+        let parent = UIScrollView()
+        parent.backgroundColor = UIColor.white
+        parent.frame = CGRect(x: 0, y: 0, width: Int(screenWidth), height: keyboardHeight)
+        
+        let child = UIView()
+        parent.addSubview(child)
+        
+        child.snp.makeConstraints { (make) in
+            make.top.equalTo(parent.snp.top)
+            make.left.equalTo(parent.snp.left)
+            make.right.equalTo(parent.snp.right)
+            make.bottom.equalTo(parent.snp.bottom)
+            make.height.equalTo(childHeight)
+        }
+        
+        for command in botCommands! {
+            
+            var buttonState = ButtonState.First
+            if commandIndex % 2 == 0 {
+                buttonState = ButtonState.Second
+            }
+            
+            var showSingle = false
+            
+            if rowsCount == rowIndex && commandState == CommandState.Odd {
+                showSingle = true
+            }
+            
+            makeBotButton(parentView: parent, row: rowIndex, buttonState: buttonState, text: command.key, showSingle: showSingle)
+            
+            if commandIndex % 2 == 0 {
+                rowIndex += 1
+            }
+            
+            commandIndex += 1
+        }
+        
+        inputTextView.inputView = parent
+        inputTextView.reloadInputViews()
+        if !inputTextView.becomeFirstResponder() {
+            inputTextView.becomeFirstResponder()
+        }
+    }
+    
+    private func makeBotButton(parentView: UIView, row: Int, buttonState: ButtonState, text: String, showSingle: Bool = false){
+        let topOffset = (row - 1) * BUTTON_HEIGHT + (row - 1) * BUTTON_SPACE + BUTTON_SPACE
+        var rowSpace : CGFloat = 5.0
+        if buttonState == ButtonState.Second && !showSingle {
+            rowSpace = ((screenWidth/2 - 7.5) + (BUTTON_ROW_SPACE * 2))
+        }
+            
+        let btn = UIButton()
+        btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
+        btn.setTitle(text, for: UIControlState.normal)
+        btn.removeUnderline()
+        parentView.addSubview(btn)
+        
+        btn.backgroundColor = UIColor.swipeBlueGray()
+        btn.layer.masksToBounds = false
+        btn.layer.cornerRadius = 5.0
+        btn.layer.shadowOffset = CGSize(width: 1, height: 3)
+        btn.layer.shadowRadius = 3.0
+        btn.layer.shadowOpacity = 0.5
+        
+        btn.snp.makeConstraints { (make) in
+            make.left.equalTo(parentView.snp.left).offset(rowSpace)
+            make.top.equalTo(parentView.snp.top).offset(topOffset)
+            if showSingle {
+                make.width.equalTo((screenWidth) - (BUTTON_ROW_SPACE * 2))
+                make.right.equalTo(parentView.snp.right).offset(rowSpace)
+            } else {
+                make.width.equalTo((screenWidth/2) - 7.5)
+            }
+            make.height.equalTo(BUTTON_HEIGHT)
+        }
+    }
+    
+    func onBotButtonClick(sender: UIButton!) {
+        let text : String! = sender.titleLabel?.text!
+        let botCommand = botCommandsDictionary[text]
+        inputTextView.text = botCommand
+        self.didTapOnSendButton(self.inputBarSendButton)
+    }
+    
+    func onKeyboardChangeClick(){
+        if isCustomKeyboard {
+            isCustomKeyboard = false
+            makeKeyboard()
+        } else {
+            isCustomKeyboard = true
+            makeKeyboard(botCommands: botCommandsDictionary)
+        }
+    }
+    
     private func setBackground() {
         
         if let color = IGWallpaperPreview.chatSolidColor {
@@ -399,6 +608,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                             self.collectionView.reloadData()
                         }
                     }
+                    
+                    self.manageKeyboard()
                 }
                 
                 break
@@ -1384,6 +1595,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @IBAction func didTapOnJoinButton(_ sender: UIButton) {
+        
+        if isBotRoom() {
+            inputTextView.text = "/Start"
+            self.didTapOnSendButton(self.inputBarSendButton)
+            
+            self.joinButton.isHidden = true
+            self.inputBarContainerView.isHidden = false
+            return
+        }
+        
         var username: String?
         if room?.channelRoom != nil {
             if let channelRoom = room?.channelRoom {
@@ -2708,7 +2929,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                     switch clientResponse.clientResolveUsernametype {
                     case .user:
                         self.selectedUserToSeeTheirInfo = clientResponse.user
-                        self.openUserProfile()
+                        if (clientResponse.user?.isBot)! {
+                            self.createChat(selectedUser: clientResponse.user!)
+                        } else {
+                            self.openUserProfile()
+                        }
                     case .room:
                         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                         let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
@@ -2768,6 +2993,62 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnBotAction(action: String){
         inputTextView.text = action
         self.didTapOnSendButton(self.inputBarSendButton)
+    }
+    
+    func createChat(selectedUser: IGRegisteredUser) {
+        let hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
+        hud.mode = .indeterminate
+        IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                    
+                    IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let clientGetRoomResponse as IGPClientGetRoomResponse:
+                                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                                let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
+                                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                                roomVC.room = room
+                                self.navigationController!.pushViewController(roomVC, animated: true)
+                            default:
+                                break
+                            }
+                            self.hud.hide(animated: true)
+                        }
+                    }).error ({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            switch errorCode {
+                            case .timeout:
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
+                            default:
+                                break
+                            }
+                            self.hud.hide(animated: true)
+                        }
+                    }).send()
+                    
+                    hud.hide(animated: true)
+                    break
+                default:
+                    break
+                }
+            }
+            
+        }).error({ (errorCode, waitTime) in
+            hud.hide(animated: true)
+            let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
+            
+            let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertC.addAction(cancel)
+            self.present(alertC, animated: true, completion: nil)
+        }).send()
     }
     
     func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {

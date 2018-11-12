@@ -90,7 +90,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
     
     func showPrivacyInfo(){
         
-        if (userPrivacy?.isInvalidated)! {
+        if (userPrivacy == nil || (userPrivacy?.isInvalidated)!) {
             return
         }
         

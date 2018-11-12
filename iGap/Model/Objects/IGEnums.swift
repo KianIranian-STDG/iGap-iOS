@@ -339,3 +339,19 @@ enum IGTwoStepEmail: Int {
     case verifyEmail
     case recoverPassword
 }
+
+enum IGOperator: Int {
+    case irancell
+    case mci
+    case rightel
+}
+
+enum CommandState {
+    case Odd
+    case Even
+}
+
+enum ButtonState {
+    case First
+    case Second
+}

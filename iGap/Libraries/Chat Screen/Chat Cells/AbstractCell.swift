@@ -394,7 +394,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         txtMessage?.font = IGMessageCollectionViewCell.messageBodyTextViewFont()
         txtMessage?.customize { (label) in
-            let customInvitedLink = ActiveType.custom(pattern: "^\\/\\w+")
+            let customInvitedLink = ActiveType.custom(pattern: "([/])\\w+")
             label.enabledTypes.append(customInvitedLink)
             label.customColor[customInvitedLink] = UIColor.organizationalColor()
             

@@ -47,6 +47,7 @@ class IGRegisteredUser: Object {
     @objc dynamic var isInContacts:       Bool                        = false
     @objc dynamic var isBlocked:          Bool                        = false
     @objc dynamic var isVerified:         Bool                        = false
+    @objc dynamic var isBot:              Bool                        = false
     @objc dynamic var lastSeenStatusRaw:  IGLastSeenStatus.RawValue   = IGLastSeenStatus.longTimeAgo.rawValue
     
     //ignored properties
@@ -137,6 +138,7 @@ class IGRegisteredUser: Object {
         }
         
         self.isVerified = igpUser.igpVerified
+        self.isBot = igpUser.igpBot
     }
     
     //detach from current realm
