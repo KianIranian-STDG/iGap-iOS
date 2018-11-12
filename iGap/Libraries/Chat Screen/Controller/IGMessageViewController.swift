@@ -141,6 +141,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let MAX_TEXT_ATTACHMENT_LENGHT = 200
     
     var botCommandsDictionary : [String:String] = [:]
+    var botCommandsArray : [String] = []
     let BUTTON_HEIGHT = 50
     let BUTTON_SPACE = 10
     let BUTTON_ROW_SPACE : CGFloat = 5
@@ -149,6 +150,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var isKeyboardButtonCreated = false
     let KEYBOARD_CUSTOM_ICON = ""
     let KEYBOARD_MAIN_ICON = ""
+    let returnText = "/back"
     
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
@@ -265,8 +267,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 joinButton.layer.shadowRadius = 4.0
                 joinButton.layer.shadowOpacity = 0.15
             } else {
+                manageKeyboard()
                 makeKeyboardButton()
-                self.manageKeyboard()
+                
+                if botCommandsDictionary.count == 0 { // if not exist any command in latest message show default icon for change keyboard action button
+                    btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+                    addStartButton(force: true)
+                }
             }
         }
         
@@ -414,16 +421,20 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     
                     if latestMessage!.message != nil && !(latestMessage!.message?.isEmpty)! && (latestMessage!.message?.contains("/"))! {
                         self.botCommandsDictionary = [:]
+                        self.botCommandsArray = []
                         for lineMessage in (latestMessage!.message?.lines)! {
                             
                             let finalMessage = lineMessage.split(separator: "-")
-                            if finalMessage.count == 2 && finalMessage[0].description.starts(with: "/") {
+                            if finalMessage.count == 2 && finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines).starts(with: "/") {
+                                self.botCommandsArray.append(finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines))
                                 self.botCommandsDictionary[finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines)] = finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines)
                             }
                         }
                         
+                        addStartButton()
                         self.makeKeyboard(botCommands: self.botCommandsDictionary)
                     } else {
+                        addStartButton()
                         self.makeKeyboard()
                     }
                 }
@@ -477,8 +488,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             make.height.equalTo(childHeight)
         }
         
-        for command in botCommands! {
-            
+        for cmd in botCommandsArray {
             var buttonState = ButtonState.First
             if commandIndex % 2 == 0 {
                 buttonState = ButtonState.Second
@@ -490,7 +500,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 showSingle = true
             }
             
-            makeBotButton(parentView: parent, row: rowIndex, buttonState: buttonState, text: command.key, showSingle: showSingle)
+            makeBotButton(parentView: parent, row: rowIndex, buttonState: buttonState, text: cmd, showSingle: showSingle)
             
             if commandIndex % 2 == 0 {
                 rowIndex += 1
@@ -515,11 +525,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         let btn = UIButton()
         btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
         btn.setTitle(text, for: UIControlState.normal)
         btn.removeUnderline()
         parentView.addSubview(btn)
         
-        btn.backgroundColor = UIColor.swipeBlueGray()
+        btn.backgroundColor = UIColor.organizationalColor()
         btn.layer.masksToBounds = false
         btn.layer.cornerRadius = 5.0
         btn.layer.shadowOffset = CGSize(width: 1, height: 3)
@@ -554,6 +565,27 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             isCustomKeyboard = true
             makeKeyboard(botCommands: botCommandsDictionary)
         }
+    }
+    
+    /* add return to main menu button for bot custom keyboard when latest message isn't "/start" */
+    private func addStartButton(force: Bool = false){
+        if force {
+            self.botCommandsArray.append("بازگشت به منو اصلی")
+            self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
+        } else if let message = myLastMessage()?.message {
+            if !message.lowercased().contains("/start") && !message.lowercased().contains("/back") {
+                self.botCommandsArray.append("بازگشت به منو اصلی")
+                self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
+            }
+        }
+    }
+    
+    private func myLastMessage() -> IGRoomMessage? {
+        if let authorHash = IGAppManager.sharedManager.authorHash() {
+            let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND authorHash CONTAINS[cd] %@ AND id != %lld", self.room!.id, authorHash,0)
+            return try! Realm().objects(IGRoomMessage.self).filter(predicate).last
+        }
+        return nil
     }
     
     private func setBackground() {

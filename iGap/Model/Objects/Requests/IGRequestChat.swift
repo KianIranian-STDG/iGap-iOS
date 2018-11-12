@@ -263,7 +263,7 @@ class IGChatClearMessageRequest : IGRequest {
             let roomId = responseProtoMessage.igpRoomID
             let clearId = responseProtoMessage.igpClearID
             IGFactory.shared.setClearMessageHistory(roomId, clearID: clearId)
-            IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
+            IGFactory.shared.markAllMessagesAsRead(roomId: roomId, clearId: clearId)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

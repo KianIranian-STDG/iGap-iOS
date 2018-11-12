@@ -110,6 +110,11 @@ class IGWebSocketManager: NSObject {
     }
     
     fileprivate func connectAndAddTimeoutHandler() {
+        
+        if self.socket.isConnected {
+            return
+        }
+        
         IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
         self.socket.connect()
         connectionProblemTimerDelay=3.0;
