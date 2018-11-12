@@ -290,8 +290,12 @@ class IGClientUnsubscribeFromRoomRequest: IGRequest {
 class IGClientSearchUsernameRequest: IGRequest {
     class Generator: IGRequest.Generator {
         class func generate(query: String) -> IGRequestWrapper {
+            var searchText = query
+            if query.starts(with: "@") {
+                searchText = String(searchText.dropFirst())
+            }
             var clientSearchUsername = IGPClientSearchUsername()
-            clientSearchUsername.igpQuery = query
+            clientSearchUsername.igpQuery = searchText
             return IGRequestWrapper(message: clientSearchUsername, actionID: 612)
         }
     }
