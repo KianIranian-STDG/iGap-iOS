@@ -88,12 +88,42 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         requestToGetUserPrivacy()
     }
     
-    func showPrivacyInfo(){
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.isUserInteractionEnabled = true
+        numberOfBlockedContacts.text = "\(blockedUsers.count) Contact "
         
+        fetchBlockedContactsFromServer()
+        showPrivacyInfo()
+    }
+    
+    func showPrivacyInfo(){
         if (userPrivacy == nil || (userPrivacy?.isInvalidated)!) {
             return
         }
         
+        setAvatarPrivacy()
+        setStatusPrivacy()
+        setChannelInvitePrivacy()
+        setGroupInvitePrivacy()
+        setCallPrivacy()
+    }
+    
+    private func requestToGetUserPrivacy() {
+        requestToGetCallPrivacy()
+        requestToGetGroupPrivacy()
+        requestToGetStatusPrivacy()
+        requestToGetAvatarPrivacy()
+        requestToGetChannelPrivacy()
+    }
+    
+    private func getUserPrivacy(){
+        userPrivacy = try! Realm().objects(IGUserPrivacy.self).filter("primaryKeyId == 1").first
+    }
+    
+    private func setAvatarPrivacy(needUpdate: Bool = false){
+        if needUpdate {
+            getUserPrivacy()
+        }
         if let avatarPrivacy = userPrivacy?.avatar {
             avatarUserPrivacy = avatarPrivacy
             switch  avatarPrivacy{
@@ -108,8 +138,12 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
                 break
             }
         }
-        
-        
+    }
+    
+    private func setStatusPrivacy(needUpdate: Bool = false){
+        if needUpdate {
+            getUserPrivacy()
+        }
         if let userStatePrivacy = userPrivacy?.userStatus {
             lastSeenUserPrivacy = userStatePrivacy
             switch userStatePrivacy {
@@ -124,8 +158,12 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
                 break
             }
         }
-        
-        
+    }
+    
+    private func setChannelInvitePrivacy(needUpdate: Bool = false){
+        if needUpdate {
+            getUserPrivacy()
+        }
         if let channelInvitePrivacy = userPrivacy?.channelInvite {
             channelInviteUserPrivacy = channelInvitePrivacy
             switch channelInvitePrivacy {
@@ -141,8 +179,12 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
                 break
             }
         }
-        
-        
+    }
+    
+    private func setGroupInvitePrivacy(needUpdate: Bool = false){
+        if needUpdate {
+            getUserPrivacy()
+        }
         if let groupInvitePrivacy = userPrivacy?.groupInvite {
             groupInviteUserPrivacy = groupInvitePrivacy
             switch groupInvitePrivacy {
@@ -158,7 +200,12 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
                 
             }
         }
-        
+    }
+    
+    private func setCallPrivacy(needUpdate: Bool = false){
+        if needUpdate {
+            getUserPrivacy()
+        }
         if let callPrivacy = userPrivacy?.voiceCalling {
             self.callPrivacy = callPrivacy
             switch callPrivacy {
@@ -175,83 +222,125 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         }
     }
     
-    private func requestToGetUserPrivacy() {
-        //get user voice call privacy
+    private func requestToGetCallPrivacy() {
         IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .voiceCalling).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
                     IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .voiceCalling)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        self.setCallPrivacy(needUpdate: true)
+                    }
                 default:
                     break
                 }
             }
         }).error({ (errorCode, waitTime) in
-            
+            switch errorCode {
+            case .timeout:
+                self.requestToGetCallPrivacy()
+                break
+            default:
+                break
+            }
         }).send()
-        //get user avatar privacy
+    }
+    
+    private func requestToGetAvatarPrivacy() {
         IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .avatar).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
                     IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .avatar)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        self.setAvatarPrivacy(needUpdate: true)
+                    }
                 default:
                     break
                 }
             }
         }).error({ (errorCode, waitTime) in
-            
+            switch errorCode {
+            case .timeout:
+                self.requestToGetAvatarPrivacy()
+                break
+            default:
+                break
+            }
         }).send()
-        //get userStatusPrivacy
+    }
+    
+    private func requestToGetStatusPrivacy() {
         IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .userStatus).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
                     IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .userStatus)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        self.setStatusPrivacy(needUpdate: true)
+                    }
                 default:
                     break
                 }
             }
         }).error({ (errorCode, waitTime) in
-            
+            switch errorCode {
+            case .timeout:
+                self.requestToGetStatusPrivacy()
+                break
+            default:
+                break
+            }
         }).send()
-        
-        //get channelInviteUser Privacy
+    }
+    
+    private func requestToGetChannelPrivacy() {
         IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .channelInvite).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
                     IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .channelInvite)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        self.setChannelInvitePrivacy(needUpdate: true)
+                    }
                 default:
                     break
                 }
             }
         }).error({ (errorCode, waitTime) in
-            
+            switch errorCode {
+            case .timeout:
+                self.requestToGetChannelPrivacy()
+                break
+            default:
+                break
+            }
         }).send()
-        
-        //get group Invite user privacy
+    }
+    
+    private func requestToGetGroupPrivacy() {
         IGUserPrivacyGetRuleRequest.Generator.generate(privacyType: .groupInvite).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
                     IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .groupInvite)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                        self.setGroupInvitePrivacy(needUpdate: true)
+                    }
                 default:
                     break
                 }
             }
         }).error({ (errorCode, waitTime) in
-            
+            switch errorCode {
+            case .timeout:
+                self.requestToGetGroupPrivacy()
+                break
+            default:
+                break
+            }
         }).send()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.tableView.isUserInteractionEnabled = true
-        numberOfBlockedContacts.text = "\(blockedUsers.count) Contact "
-        
-        fetchBlockedContactsFromServer()
-        showPrivacyInfo()
-    }    
     
     func fetchBlockedContactsFromServer(){
         IGUserContactsGetBlockedListRequest.Generator.generate().success({ (protoResponse) in
@@ -299,12 +388,36 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         selectedIndexPath = indexPath
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToBlockListPageFromPrivacyAndSecurity", sender: self)
-            } else {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "GoToWhoCanSeeYourPrivacyAndPolicyPage", sender: self)
+                return
+            } else if indexPath.row == 1 {
+                if userPrivacy?.avatar == nil {
+                    alertWaiting()
+                    return
+                }
+            } else if indexPath.row == 2 {
+                if userPrivacy?.userStatus == nil {
+                    alertWaiting()
+                    return
+                }
+            } else if indexPath.row == 3 {
+                if userPrivacy?.groupInvite == nil {
+                    alertWaiting()
+                    return
+                }
+            } else if indexPath.row == 4 {
+                if userPrivacy?.channelInvite == nil {
+                    alertWaiting()
+                    return
+                }
+            } else if indexPath.row == 4 {
+                if userPrivacy?.voiceCalling == nil {
+                    alertWaiting()
+                    return
+                }
             }
+            performSegue(withIdentifier: "GoToWhoCanSeeYourPrivacyAndPolicyPage", sender: self)
+            
         } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0 :
@@ -351,11 +464,16 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         }
     }
 
+    private func alertWaiting(){
+        let alert = UIAlertController(title: "Please Wait", message: "Please wait for detect your privacy info", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func goBackToPrivacyAndSecurityList(seque:UIStoryboardSegue){
         numberOfBlockedContacts.text = "\(blockedUsers.count) users"
     }
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let whoCanSeeYourPrivacyAndSetting = segue.destination as? IGPrivacyAndSecurityWhoCanSeeTableViewController {

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zUu-ma-Fzj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zUu-ma-Fzj">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,7 +27,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NO-Sq-9OI" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="137" y="119" width="100" height="100"/>
+                                    <rect key="frame" x="137.66666666666666" y="119" width="100" height="100"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="FJL-Ht-PYp"/>
@@ -37,7 +35,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdJ-KJ-h0A">
-                                    <rect key="frame" x="211" y="186" width="24" height="26"/>
+                                    <rect key="frame" x="211.66666666666666" y="186" width="24" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="itm-A2-666"/>
                                         <constraint firstAttribute="height" constant="26" id="j5o-Mb-6fY"/>
@@ -48,7 +46,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVd-v2-fme" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="145" y="227" width="86.333333333333314" height="20.333333333333343"/>
+                                    <rect key="frame" x="144.33333333333334" y="227" width="86.333333333333343" height="20.333333333333343"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -401,7 +399,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Teg-Jy-NyI">
-                                                    <rect key="frame" x="8" y="11" width="359" height="21"/>
+                                                    <rect key="frame" x="8" y="11.333333333333336" width="359" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="jtd-tB-VLK"/>
                                                     </constraints>
@@ -775,7 +773,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3T7-QM-gBX">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -848,7 +846,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpM-Ki-ynU" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="346" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="346" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1182,7 +1180,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yv2-rX-ywR">
-                                                    <rect key="frame" x="178" y="12" width="58" height="20.333333333333329"/>
+                                                    <rect key="frame" x="178" y="11.666666666666666" width="58" height="20.333333333333336"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeK-bN-bp0" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="58" height="20.333333333333332"/>
@@ -1243,7 +1241,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLf-ZK-PS9" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="21" y="8" width="372.66666666666669" height="192"/>
+                                    <rect key="frame" x="21" y="28" width="372.66666666666669" height="192"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="192" id="cvn-rE-G79"/>
                                     </constraints>
@@ -1255,7 +1253,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Settings_Change_Number" translatesAutoresizingMaskIntoConstraints="NO" id="oHH-I0-4cv">
-                                    <rect key="frame" x="134.66666666666666" y="213" width="144.99999999999997" height="100"/>
+                                    <rect key="frame" x="134.66666666666666" y="233" width="144.99999999999997" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="145" id="5Z5-Ok-EXu"/>
                                         <constraint firstAttribute="height" constant="100" id="NJ9-ht-W63"/>
@@ -1282,7 +1280,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6p-99-Bg9">
-                                                    <rect key="frame" x="137" y="4.6666666666666679" width="140" height="35"/>
+                                                    <rect key="frame" x="137" y="4.3333333333333321" width="140" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <state key="normal" title="Change Number"/>
                                                 </button>
@@ -1417,7 +1415,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my5-ts-kFc" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="292" y="10" width="84" height="28"/>
+                                            <rect key="frame" x="292" y="10.000000000000002" width="84" height="27.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1723,15 +1721,15 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="IG_Settings_Selected_Tick" translatesAutoresizingMaskIntoConstraints="NO" id="OYe-bd-Crt">
-                                                    <rect key="frame" x="20" y="10" width="20" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Settings_Selected_Tick" translatesAutoresizingMaskIntoConstraints="NO" id="OYe-bd-Crt">
+                                                    <rect key="frame" x="20" y="13.333333333333332" width="20" height="19.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="OkD-hk-rEP"/>
                                                         <constraint firstAttribute="width" constant="20" id="sIa-dJ-g8Q"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyB-6R-EB6" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="48" y="10" width="330" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyB-6R-EB6" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="48" y="13.333333333333332" width="330" height="20.999999999999996"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1754,14 +1752,14 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3Z-QY-9gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="48" y="10" width="330" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3Z-QY-9gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="48" y="13.333333333333332" width="330" height="20.999999999999996"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="IG_Settings_Selected_Tick" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-wt-90i">
-                                                    <rect key="frame" x="20" y="10" width="20" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Settings_Selected_Tick" translatesAutoresizingMaskIntoConstraints="NO" id="dW0-wt-90i">
+                                                    <rect key="frame" x="20" y="13.333333333333332" width="20" height="19.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="dtY-mq-nkC"/>
                                                         <constraint firstAttribute="height" constant="20" id="m2D-2F-3vQ"/>
@@ -1785,14 +1783,14 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7F-xq-Qbb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="48" y="10" width="330" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7F-xq-Qbb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="48" y="13.333333333333332" width="330" height="20.999999999999996"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="IG_Settings_Selected_Tick" translatesAutoresizingMaskIntoConstraints="NO" id="bDQ-u0-b8R">
-                                                    <rect key="frame" x="20" y="10" width="20" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Settings_Selected_Tick" translatesAutoresizingMaskIntoConstraints="NO" id="bDQ-u0-b8R">
+                                                    <rect key="frame" x="20" y="13.333333333333332" width="20" height="19.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="A4V-Rm-cl9"/>
                                                         <constraint firstAttribute="width" constant="20" id="plV-6D-mpw"/>
@@ -1853,7 +1851,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DOw-Dh-iQL">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1884,7 +1882,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xJP-1T-gyk">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1911,7 +1909,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k63-kR-OXz">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1938,7 +1936,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOb-lk-AWq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="334" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="334" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1972,7 +1970,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMA-13-FTn">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1999,7 +1997,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XXI-Gk-vzD">
-                                                    <rect key="frame" x="339" y="8" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="8.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2026,7 +2024,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqJ-t7-tKL">
-                                                    <rect key="frame" x="334" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="334" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2060,7 +2058,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SpF-L4-MKm">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2087,7 +2085,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wy6-Dn-TfG">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2114,7 +2112,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hlS-x1-C4U">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2170,7 +2168,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jZ6-r4-kOk">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -2306,7 +2304,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="MBc-ts-cgP">
-                                                    <rect key="frame" x="20" y="1" width="395" height="40"/>
+                                                    <rect key="frame" x="20" y="1" width="395" height="39.666666666666664"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -2891,7 +2889,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhw-QB-h72" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="305.33333333333331" y="9" width="70.666666666666686" height="21"/>
+                                                    <rect key="frame" x="305.33333333333331" y="9.0000000000000018" width="70.666666666666686" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -2920,8 +2918,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5t-hj-6yn" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="340.66666666666669" y="10" width="33.333333333333314" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5t-hj-6yn" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="300.33333333333331" y="10.000000000000002" width="73.666666666666686" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2950,8 +2948,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EveryBody" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIi-Ye-zob" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="308" y="10" width="69" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIi-Ye-zob" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="303.33333333333331" y="10.000000000000002" width="73.666666666666686" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2980,8 +2978,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nobody" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQs-cY-Zgo" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="325" y="10" width="51" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQs-cY-Zgo" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="302.33333333333331" y="10.000000000000002" width="73.666666666666686" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3010,8 +3008,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nobody" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLc-TO-d0d" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="325" y="10" width="51" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLc-TO-d0d" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="302.33333333333331" y="10" width="73.666666666666686" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3040,8 +3038,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nobody" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMX-Ih-EI8" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="325" y="10" width="51" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMX-Ih-EI8" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="302.33333333333331" y="10" width="73.666666666666686" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3153,7 +3151,7 @@ Please wait 0:59</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UdO-Gc-nJJ">
-                                                    <rect key="frame" x="339" y="8" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="8.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57o-Ex-jWf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="27" y="13" width="88" height="16"/>
@@ -3308,7 +3306,7 @@ Please wait 0:59</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fR-42-Vwb">
-                                                    <rect key="frame" x="339" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="339" y="6.0000000000000018" width="51" height="31.666666666666671"/>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Device Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q37-UO-79z" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="27" y="13" width="155" height="16"/>
@@ -3402,7 +3400,7 @@ Please wait 0:59</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extra Large" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZ4-tx-B24" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="8" width="112" height="28"/>
+                                                    <rect key="frame" x="15" y="8.0000000000000018" width="112" height="28.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3633,13 +3631,13 @@ Please wait 0:59</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urp-R6-Zhr" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="334" y="10" width="42" height="21"/>
+                                            <rect key="frame" x="334" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Nb-Ww-3cc" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="15" y="10" width="42" height="21"/>
+                                            <rect key="frame" x="15" y="10.666666666666664" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3667,7 +3665,7 @@ Please wait 0:59</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWV-Un-LZY" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="334" y="10" width="42" height="21"/>
+                                            <rect key="frame" x="334" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3676,7 +3674,7 @@ Please wait 0:59</string>
                                             <rect key="frame" x="27" y="13" width="13" height="20"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRv-Gg-QgD" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="50" y="10" width="42" height="21"/>
+                                            <rect key="frame" x="50" y="10.666666666666664" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3742,7 +3740,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2U-V4-NaU" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="339" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="339" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3772,7 +3770,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVl-pj-LCd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="339" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="339" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3802,7 +3800,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQu-Qi-ayy" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="339" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="339" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3832,7 +3830,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lc3-Ls-QsC" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="339" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="339" y="10.000000000000002" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3860,7 +3858,7 @@ Please wait 0:59</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRV-S5-PJC" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="170.66666666666666" y="11" width="73" height="21"/>
+                                                    <rect key="frame" x="170.66666666666666" y="11.333333333333336" width="73" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.75" green="0.1318976188" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4228,7 +4226,7 @@ Please wait 0:59</string>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O61-fS-jjK">
-                                <rect key="frame" x="93.000000000000014" y="139.33333333333334" width="173.33333333333337" height="17"/>
+                                <rect key="frame" x="93.000000000000014" y="139" width="173.33333333333337" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -4757,7 +4755,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="if away from 1 hour" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvj-Ck-3eX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="232" y="10" width="144" height="21"/>
+                                                    <rect key="frame" x="232" y="10.000000000000002" width="144" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4847,7 +4845,7 @@ Please wait 0:59</string>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPw-aq-I1F">
-                            <rect key="frame" x="10" y="11" width="25" height="3"/>
+                            <rect key="frame" x="10" y="10.666666666666666" width="25" height="3"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="3" id="U4z-9i-qwk"/>
@@ -4855,7 +4853,7 @@ Please wait 0:59</string>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z78-EQ-WU5">
-                            <rect key="frame" x="59" y="11" width="25" height="3"/>
+                            <rect key="frame" x="58.666666666666657" y="10.666666666666666" width="25" height="3"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="25" id="A9s-Qv-zBA"/>
@@ -4863,7 +4861,7 @@ Please wait 0:59</string>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6y-60-Uf2">
-                            <rect key="frame" x="107" y="11" width="25" height="3"/>
+                            <rect key="frame" x="106.66666666666667" y="10.666666666666666" width="25.000000000000014" height="3"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="25" id="gu4-BT-qVV"/>
@@ -4871,7 +4869,7 @@ Please wait 0:59</string>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOE-gc-zFn">
-                            <rect key="frame" x="155" y="11" width="25" height="3"/>
+                            <rect key="frame" x="155" y="10.666666666666666" width="25" height="3"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="3" id="RsH-w5-LnS"/>
@@ -4914,7 +4912,7 @@ Please wait 0:59</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CbL-PM-EpP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="15" y="10" width="42" height="30"/>
+                                            <rect key="frame" x="15" y="10.000000000000002" width="42" height="29.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -4967,7 +4965,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DM8-M1-JLs">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -4998,7 +4996,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F45-ce-9li">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -5029,7 +5027,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWh-DW-APw">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5060,7 +5058,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qbl-08-CoZ">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5091,7 +5089,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ME6-Om-fs1">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5122,7 +5120,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t1O-a7-cOt">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5153,7 +5151,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4wC-3u-aRM">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5184,7 +5182,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recommended" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1e-hx-7Du">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5280,7 +5278,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHP-wP-wSy">
-                                                    <rect key="frame" x="111" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="111" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5369,7 +5367,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TXu-ft-r7B">
-                                                    <rect key="frame" x="16" y="0.0" width="140" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="140" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5390,7 +5388,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-Nj-cio">
-                                                    <rect key="frame" x="16" y="0.0" width="137.66666666666666" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="137.66666666666666" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5411,7 +5409,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Hint" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XB2-yM-fix">
-                                                    <rect key="frame" x="16" y="0.0" width="95.333333333333329" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="95.333333333333329" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5432,7 +5430,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Security Questions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLV-Rq-8HM">
-                                                    <rect key="frame" x="16" y="0.0" width="209" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="209" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5453,7 +5451,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set/Change Recovery Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4D-Sl-db8">
-                                                    <rect key="frame" x="16" y="0.0" width="211" height="44"/>
+                                                    <rect key="frame" x="16" y="0.0" width="211" height="43.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -5517,7 +5515,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xeP-rS-rPp">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -5548,7 +5546,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGl-ap-zdP">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -5608,7 +5606,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dcA-yG-BLS">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5639,7 +5637,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Qm-4E-Jy8">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5670,7 +5668,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5jL-3c-dRy">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5701,7 +5699,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ytv-KK-RtF">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5763,7 +5761,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recommended" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BLh-J9-J8i">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5823,7 +5821,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recommended" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGD-Nr-Kbt">
-                                                    <rect key="frame" x="119" y="7" width="287" height="30"/>
+                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5873,14 +5871,14 @@ kay*****@gm**.com</string>
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="imageView:B4L-Ci-VXo:image" translatesAutoresizingMaskIntoConstraints="NO" id="B4L-Ci-VXo">
-                                            <rect key="frame" x="27" y="13" width="60" height="60"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:B4L-Ci-VXo:image" translatesAutoresizingMaskIntoConstraints="NO" id="B4L-Ci-VXo">
+                                            <rect key="frame" x="27" y="13.000000000000004" width="60" height="59.333333333333343"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="L0p-Ad-6hU"/>
                                                 <constraint firstAttribute="height" constant="60" id="PIY-Gm-a7s"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IB-bg-5sJ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IB-bg-5sJ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="102" y="13" width="51.666666666666657" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="CIK-9P-4ZR"/>
@@ -5889,8 +5887,8 @@ kay*****@gm**.com</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqV-AP-TOy" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="39" width="33" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqV-AP-TOy" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="102" y="39.333333333333329" width="33" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="59v-wm-hgG"/>
                                             </constraints>
@@ -5898,8 +5896,8 @@ kay*****@gm**.com</string>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SL-Ip-LUL" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="58" width="31" height="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SL-Ip-LUL" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="102" y="57.333333333333329" width="31" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="Xvn-Qs-G5I"/>
                                             </constraints>
@@ -5963,7 +5961,7 @@ kay*****@gm**.com</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terminate all sessions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k03-0O-m8P" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="12" width="398" height="21"/>
+                                            <rect key="frame" x="8" y="11.333333333333336" width="398" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.75" green="0.1318976188" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -6277,7 +6275,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HV3-l5-jB1">
-                                                    <rect key="frame" x="122.33333333333334" y="7" width="275.66666666666663" height="30"/>
+                                                    <rect key="frame" x="122.33333333333334" y="7.0000000000000018" width="275.66666666666663" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -6338,7 +6336,7 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bio" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="F4Y-Uf-GO9">
-                                                    <rect key="frame" x="20" y="1" width="395" height="40"/>
+                                                    <rect key="frame" x="20" y="1" width="395" height="41.666666666666664"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -6412,10 +6410,10 @@ Afg
     <inferredMetricsTieBreakers>
         <segue reference="DaW-k4-iW0"/>
         <segue reference="Oa0-mY-XGu"/>
-        <segue reference="P15-0g-TjZ"/>
+        <segue reference="Qum-5d-uYe"/>
         <segue reference="Xzv-Yc-EAf"/>
         <segue reference="vpP-Vs-3F7"/>
         <segue reference="drr-8R-XU7"/>
-        <segue reference="FWu-Ni-6zD"/>
+        <segue reference="7wc-J4-g56"/>
     </inferredMetricsTieBreakers>
 </document>
