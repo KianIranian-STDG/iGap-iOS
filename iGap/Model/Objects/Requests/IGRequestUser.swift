@@ -144,6 +144,8 @@ class IGUserLoginRequest : IGRequest {
     class Handler : IGRequest.Handler{
         
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
+            AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
+            AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive)
             getToken()

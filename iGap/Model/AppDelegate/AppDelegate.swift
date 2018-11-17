@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     internal static var usernameRegister: String?
     internal static var authorHashRegister: String?
     internal static var isFirstEnterToApp: Bool = true
+    internal static var isUpdateAvailable : Bool = false
+    internal static var isDeprecatedClient : Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        let config = Realm.Configuration(schemaVersion: try! schemaVersionAtURL(Realm.Configuration.defaultConfiguration.fileURL!) + 1)

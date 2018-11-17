@@ -222,6 +222,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         self.addRoomChangeNotificationBlock()
         
         if IGAppManager.sharedManager.isUserLoggiedIn() {
+            self.checkAppVersion()
             if IGRecentsTableViewController.needGetInfo {
                 self.fetchRoomList()
                 self.saveAndSendContacts()
@@ -277,10 +278,25 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     //MARK: Room List actions
     @objc private func userDidLogin() {
+        self.checkAppVersion()
         self.checkPermission()
         self.addRoomChangeNotificationBlock()
         self.fetchRoomList()
         self.saveAndSendContacts()
+    }
+    
+    /* check app need update or is deprecated now and don't allow */
+    private func checkAppVersion() {
+        
+        if AppDelegate.isDeprecatedClient {
+            let alert = UIAlertController(title: "Deprecated App", message: "Your app is deprecated. please install latest verion!", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+        } else if AppDelegate.isUpdateAvailable {
+            let alert = UIAlertController(title: "Update Exist", message: "Your app is an old version of iGap. please install latest verion!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func checkPermission() {
