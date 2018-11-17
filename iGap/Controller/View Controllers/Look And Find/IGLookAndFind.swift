@@ -170,18 +170,8 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // IGRegistredUserInfoTableViewController
-        
         let searchResult = self.searchResults![indexPath.row]
-        
-        if searchResult.type == IGPClientSearchUsernameResponse.IGPResult.IGPType.room.rawValue {
-            IGHelper.openChatRoom(room: searchResult.room, viewController: self)
-        } else {
-            if searchResult.user.isBot {
-                createChat(selectedUser: searchResult.user)
-            } else {
-                IGHelper.openUserProfile(user: searchResult.user, room: searchResult.room, viewController: self)
-            }
-        }
+        IGHelper.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: searchResult.type)!, user: searchResult.user, room: searchResult.room)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

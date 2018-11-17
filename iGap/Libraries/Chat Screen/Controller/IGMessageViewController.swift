@@ -2941,61 +2941,18 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let forwardMessage = cellMessage.forwardedFrom {
-            if let room = forwardMessage.authorRoom {
-                IGHelper.openChatRoom(room: room, viewController: self)
-            } else if let user = forwardMessage.authorUser {
-                IGHelper.openUserProfile(user: user, viewController: self)
+            
+            var usernameType : IGPClientSearchUsernameResponse.IGPResult.IGPType = .room
+            if forwardMessage.authorUser != nil {
+                usernameType = .user
             }
+            
+            IGHelper.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser, room: forwardMessage.authorRoom)
         }
     }
     
     func didTapOnMention(mentionText: String) {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
-        IGClientResolveUsernameRequest.Generator.generate(username: mentionText).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let clientResolvedUsernameResponse as IGPClientResolveUsernameResponse:
-                    let clientResponse = IGClientResolveUsernameRequest.Handler.interpret(response: clientResolvedUsernameResponse)
-                    
-                    switch clientResponse.clientResolveUsernametype {
-                    case .user:
-                        self.selectedUserToSeeTheirInfo = clientResponse.user
-                        if (clientResponse.user?.isBot)! {
-                            self.createChat(selectedUser: clientResponse.user!)
-                        } else {
-                            self.openUserProfile()
-                        }
-                    case .room:
-                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-                        self.inputTextView.resignFirstResponder()
-                        messagesVc.room = clientResponse.room
-                        self.navigationController!.pushViewController(messagesVc, animated:false)
-
-                        break
-                    }
-                default:
-                    break
-                }
-                self.inputTextView.resignFirstResponder()
-                self.hud.hide(animated: true)
-            }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
-            self.hud.hide(animated: true)
-        }).send()
+        IGHelper.checkUsernameAndOpenPage(viewController: self, username: mentionText)
     }
     
     func didTapOnURl(url: URL) {
