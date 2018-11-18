@@ -321,7 +321,6 @@ class IGGroupsTableViewController: UITableViewController {
         cell.rightExpansion.fillOnTrigger = true
         cell.rightExpansion.threshold = 1.5
         
-        cell.layer.cornerRadius = 10
         cell.clipsToBounds = true
         cell.swipeBackgroundColor = UIColor.clear
         

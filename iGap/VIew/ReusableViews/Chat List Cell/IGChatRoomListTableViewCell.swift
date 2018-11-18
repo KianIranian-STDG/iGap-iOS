@@ -257,7 +257,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 }
             }
 
-            if room.pinId > 0 {
+            if room.pinId > 0 && !IGHelperDoctoriGap.isDoctoriGapRoom(room: room) {
                 lastMessageStatusContainerView.isHidden = false
                 deliveryStateImageView.isHidden = false
                 unreadCountLabel.isHidden = true

@@ -729,6 +729,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */,
 				FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */,
 				FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */,
 				FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */,
@@ -738,7 +739,6 @@
 				FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */,
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
 				FAC0F08420F0AF4900182758 /* PecPayment.framework in Frameworks */,
-				FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */,
 				931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */,
 				FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */,
 				FAF78EAD1E2EA77700C6F523 /* DBAttachmentPickerControllerLibrary.framework in Frameworks */,
