@@ -213,6 +213,11 @@ extension UIColor {
         return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:1.0)
     }
     
+    //MARK: General Colors
+    class func doctorBotPinColor() -> UIColor { // iGap Color
+        return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:0.2)
+    }
+    
     class func organizationalColorLight() -> UIColor {
         return UIColor(red:180.0/255.0, green:255.0/255.0, blue:255.0/255.0, alpha:1.0)
     }
