@@ -273,12 +273,16 @@ class IGChatsTableViewController: UITableViewController {
                 alertC.addAction(clear)
             }
             
-            alertC.addAction(pin)
+            if !IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+                alertC.addAction(pin)
+            }
             alertC.addAction(mute)
             alertC.addAction(report)
             
             if room.chatRoom != nil {
-                alertC.addAction(remove)
+                if !IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+                    alertC.addAction(remove)
+                }
             } else {
                 if let groupRoom = room.groupRoom {
                     if groupRoom.role == .owner {
@@ -307,7 +311,10 @@ class IGChatsTableViewController: UITableViewController {
             return true
         })
         
-        let buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
+        var buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
+        if IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+            buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
+        }
         cell.rightButtons = buttons
         removeButtonsUnderline(buttons: buttons)
         

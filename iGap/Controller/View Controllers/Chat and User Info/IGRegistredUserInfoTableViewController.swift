@@ -117,6 +117,9 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             
             return 3
         case 2:
+            if IGHelperDoctoriGap.isDoctoriGapUser(userId: (user?.id)!) {
+                return 0
+            }
             return 1
         case 3:
             return 1

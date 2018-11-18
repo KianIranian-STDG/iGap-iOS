@@ -187,6 +187,31 @@ class IGRoom: Object {
         
         return detachedRoom
     }
+    
+    internal static func fetchUsername(room: IGRoom) -> String? {
+        if let chat = room.chatRoom {
+            return chat.peer?.username
+        } else if let group = room.groupRoom {
+            if let publicExtra = group.publicExtra {
+                return publicExtra.username
+            }
+        } else if let channel = room.channelRoom {
+            if let publicExtra = channel.publicExtra {
+                return publicExtra.username
+            }
+        }
+        return nil
+    }
+    
+    /* check room is pinned or not */
+    internal static func isPin(roomId: Int64) -> Bool {
+         if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+            if room.pinId != 0 {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 

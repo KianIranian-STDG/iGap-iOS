@@ -164,6 +164,8 @@
 		FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858E1E2E10EC00B26940 /* INSPhotoGalleryFramework.framework */; };
 		FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */; };
 		FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */; };
+		FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */; };
+		FA4CFD0921A0519B005FCBF2 /* IGHelperDoctoriGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CFD0821A0519B005FCBF2 /* IGHelperDoctoriGap.swift */; };
 		FA4F47B8214D0C5400ABE7A0 /* IGRealmWallpaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */; };
 		FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */; };
 		FA50A8C41DD35E8500C6D2EA /* IGAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50A8C31DD35E8500C6D2EA /* IGAppManager.swift */; };
@@ -523,6 +525,8 @@
 		FA42EF141E5C593500CF8A32 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMusicViewController.swift; sourceTree = "<group>"; };
 		FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGMusicViewController.xib; sourceTree = "<group>"; };
+		FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPreferences.swift; sourceTree = "<group>"; };
+		FA4CFD0821A0519B005FCBF2 /* IGHelperDoctoriGap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperDoctoriGap.swift; sourceTree = "<group>"; };
 		FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmWallpaper.swift; sourceTree = "<group>"; };
 		FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWallpaperPreview.swift; sourceTree = "<group>"; };
 		FA5097D21DEDA18000A44699 /* iGap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iGap-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -983,6 +987,7 @@
 		FA41C6EE1DC9DFBD00598383 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				FA4CFD0521A046BA005FCBF2 /* Helpers */,
 				FA41C6EF1DC9DFD600598383 /* IGGlobal.swift */,
 				FAC34DB31E1A3F7E00BB9823 /* IGRealm.swift */,
 				FAA932F41DF45748002CC631 /* IGEnums.swift */,
@@ -1049,6 +1054,15 @@
 				FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */,
 			);
 			path = "Music Player";
+			sourceTree = "<group>";
+		};
+		FA4CFD0521A046BA005FCBF2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */,
+				FA4CFD0821A0519B005FCBF2 /* IGHelperDoctoriGap.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FA50A8C61DD35EFD00C6D2EA /* Splash and Register */ = {
@@ -1849,6 +1863,7 @@
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
+				FA4CFD0921A0519B005FCBF2 /* IGHelperDoctoriGap.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
@@ -1881,6 +1896,7 @@
 				932D1AB71E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift in Sources */,
 				FA9F73592127E589004418E5 /* EPContact.swift in Sources */,
 				93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */,
+				FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */,
 				FA9F735B2127E589004418E5 /* EPExtensions.swift in Sources */,
 				FAEA75DD1DDB035400C387F1 /* IGRoomMessageContact.swift in Sources */,
 				FA50A8D11DD35EFD00C6D2EA /* IGRegistrationStepVerificationCodeViewController.swift in Sources */,

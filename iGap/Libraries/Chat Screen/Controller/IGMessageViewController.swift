@@ -254,6 +254,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         if isBotRoom() {
+            
+            if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
+                IGApi.callWebService()
+            }
+            
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
             let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
             if messagesCount == 0 {
@@ -2499,8 +2504,12 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         if scrollView.contentOffset.y > 100 {
             self.scrollToBottomContainerView.isHidden = false
         } else {
-            if room!.isReadOnly {
-                scrollToBottomContainerViewConstraint.constant = -40
+            if isBotRoom() && IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
+                scrollToBottomContainerViewConstraint.constant = CGFloat(DOCTOR_BOT_HEIGHT)
+            } else {
+                if room!.isReadOnly {
+                    scrollToBottomContainerViewConstraint.constant = -40
+                }
             }
             self.scrollToBottomContainerView.isHidden = true
         }

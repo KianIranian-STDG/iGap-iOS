@@ -63,6 +63,7 @@ class IGClientGetRoomListRequest : IGRequest {
             if IGAppManager.sharedManager.isFirstGetRoomList {
                 IGAppManager.sharedManager.isFirstGetRoomList = false
                 IGFactory.shared.removeRoomParticipant(igpRooms: responseProtoMessage.igpRooms)
+                IGHelperDoctoriGap.doctoriGapCreator()
             }
             
             let igpRooms: Array<IGPRoom> = responseProtoMessage.igpRooms

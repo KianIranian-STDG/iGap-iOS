@@ -420,9 +420,9 @@ private extension RTCClient {
         
         if self.isVideoCall {
             if !AVCaptureState.isVideoDisabled {
-                let videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
-                let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
-                localStream.addVideoTrack(videoTrack)
+//                let videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
+//                let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
+//                localStream.addVideoTrack(videoTrack)
             } else {
                 // show alert for video permission disabled
                 let error = NSError.init(domain: ErrorDomain.videoPermissionDenied, code: 0, userInfo: nil)
