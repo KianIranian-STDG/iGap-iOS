@@ -1180,7 +1180,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yv2-rX-ywR">
-                                                    <rect key="frame" x="178" y="11.666666666666666" width="58" height="20.333333333333336"/>
+                                                    <rect key="frame" x="178" y="11.666666666666668" width="58" height="20.333333333333332"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeK-bN-bp0" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="58" height="20.333333333333332"/>
@@ -1452,7 +1452,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfS-DV-hwR" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="86" y="5" width="42" height="25"/>
+                                            <rect key="frame" x="86" y="5" width="178" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="b7R-DX-b8Q"/>
                                             </constraints>
@@ -1461,7 +1461,11 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Blocked)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-Fl-71A" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="136" y="5" width="73" height="25"/>
+                                            <rect key="frame" x="269" y="6" width="75" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="75" id="khV-Lk-Xdw"/>
+                                                <constraint firstAttribute="height" constant="25" id="wsp-mE-Pe5"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.75" green="0.1318976188" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1491,14 +1495,14 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="AfS-DV-hwR" firstAttribute="leading" secondItem="vzn-zu-Jl3" secondAttribute="trailing" constant="18" id="08N-MK-2SR"/>
+                                        <constraint firstAttribute="trailing" secondItem="AfS-DV-hwR" secondAttribute="trailing" constant="150" id="1ls-N9-dZg"/>
                                         <constraint firstAttribute="trailing" secondItem="7nz-yi-dbc" secondAttribute="trailing" constant="10" id="BJt-FK-eJ3"/>
-                                        <constraint firstItem="fMq-Fl-71A" firstAttribute="bottom" secondItem="AfS-DV-hwR" secondAttribute="bottom" id="HoH-Gh-RgH"/>
                                         <constraint firstItem="Tbh-Uh-fyc" firstAttribute="leading" secondItem="vzn-zu-Jl3" secondAttribute="trailing" constant="18" id="IFM-CR-i8a"/>
-                                        <constraint firstItem="fMq-Fl-71A" firstAttribute="leading" secondItem="AfS-DV-hwR" secondAttribute="trailing" constant="8" id="IfL-o0-L09"/>
                                         <constraint firstItem="7nz-yi-dbc" firstAttribute="centerY" secondItem="vzn-zu-Jl3" secondAttribute="centerY" id="PO0-7N-2di"/>
                                         <constraint firstItem="AfS-DV-hwR" firstAttribute="top" secondItem="Bfj-Wm-it9" secondAttribute="topMargin" constant="-6" id="W2e-1X-CWc"/>
-                                        <constraint firstItem="fMq-Fl-71A" firstAttribute="top" secondItem="AfS-DV-hwR" secondAttribute="top" id="bdO-RO-jko"/>
+                                        <constraint firstItem="7nz-yi-dbc" firstAttribute="leading" secondItem="fMq-Fl-71A" secondAttribute="trailing" constant="10" id="aWE-oe-DLK"/>
                                         <constraint firstItem="Tbh-Uh-fyc" firstAttribute="top" secondItem="AfS-DV-hwR" secondAttribute="bottom" constant="2" id="eDL-xD-us8"/>
+                                        <constraint firstItem="fMq-Fl-71A" firstAttribute="top" secondItem="Bfj-Wm-it9" secondAttribute="top" constant="6" id="ks4-kX-hkN"/>
                                         <constraint firstItem="AfS-DV-hwR" firstAttribute="top" secondItem="vzn-zu-Jl3" secondAttribute="top" id="oMp-zY-fTd"/>
                                         <constraint firstItem="vzn-zu-Jl3" firstAttribute="bottom" secondItem="AfS-DV-hwR" secondAttribute="bottom" constant="15" id="qKi-hj-Wvd"/>
                                         <constraint firstItem="vzn-zu-Jl3" firstAttribute="leading" secondItem="Bfj-Wm-it9" secondAttribute="leadingMargin" constant="8" id="sx1-hq-fIh"/>
@@ -6414,6 +6418,6 @@ Afg
         <segue reference="Xzv-Yc-EAf"/>
         <segue reference="vpP-Vs-3F7"/>
         <segue reference="drr-8R-XU7"/>
-        <segue reference="7wc-J4-g56"/>
+        <segue reference="FWu-Ni-6zD"/>
     </inferredMetricsTieBreakers>
 </document>

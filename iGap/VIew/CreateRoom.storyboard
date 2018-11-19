@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -88,7 +86,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CL7-HS-5nd">
-                                                    <rect key="frame" x="14.5" y="0.0" width="356" height="43"/>
+                                                    <rect key="frame" x="14.5" y="0.0" width="356" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -178,7 +176,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FOE-Rw-87J">
-                                                    <rect key="frame" x="15" y="0.0" width="356" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="356" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -304,7 +302,7 @@ Cg
                                                     </constraints>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDt-JA-dTg" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="53" y="-1" width="295" height="73"/>
+                                                    <rect key="frame" x="53" y="-1" width="295" height="72"/>
                                                     <attributedString key="attributedText">
                                                         <fragment>
                                                             <string key="content">Private Channel
@@ -346,7 +344,7 @@ Cg
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="naR-Gk-XLR">
-                                                    <rect key="frame" x="28" y="0.0" width="344.5" height="43"/>
+                                                    <rect key="frame" x="28" y="0.0" width="344.5" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -408,10 +406,10 @@ Cg
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ssk-HD-4rm">
-                                            <rect key="frame" x="15" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="15" y="7" width="30" height="30.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7j-SI-Opt" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="53" y="15" width="96" height="15"/>
+                                            <rect key="frame" x="53" y="15" width="96" height="14.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -441,7 +439,7 @@ Cg
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TI-Zf-RD1" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="53" y="15" width="42" height="16"/>
+                                            <rect key="frame" x="53" y="15" width="262" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -478,6 +476,7 @@ Cg
                                         <constraint firstAttribute="trailing" secondItem="W2s-us-xzi" secondAttribute="trailing" constant="10" id="Zkr-P9-sO2"/>
                                         <constraint firstItem="W2s-us-xzi" firstAttribute="centerY" secondItem="9TI-Zf-RD1" secondAttribute="centerY" id="cNL-tw-ohu"/>
                                         <constraint firstItem="3Hq-9g-RUN" firstAttribute="centerY" secondItem="yoE-Oh-Mng" secondAttribute="centerY" id="rM4-kV-mU5"/>
+                                        <constraint firstItem="W2s-us-xzi" firstAttribute="leading" secondItem="9TI-Zf-RD1" secondAttribute="trailing" id="sr1-G3-uf8"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
