@@ -203,6 +203,10 @@ class IGRoom: Object {
         return nil
     }
     
+    internal static func getRoomInfo(roomId: Int64) -> IGRoom {
+        return try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first!
+    }
+    
     /* check room is pinned or not */
     internal static func isPin(roomId: Int64) -> Bool {
          if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {

@@ -163,10 +163,9 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                 self.navigationController!.pushViewController(createChannel, animated: true)
             })
-            let searchInCurrentRoom = UIAlertAction(title: "Find Local Room", style: .default, handler: { (action) in
+            let searchInCurrentRoom = UIAlertAction(title: "Look And Find", style: .default, handler: { (action) in
                 let storyboard : UIStoryboard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
                 let lookAndFind = storyboard.instantiateViewController(withIdentifier: "IGLookAndFind") as! IGLookAndFind
-                lookAndFind.searchLocal = true
                 self.navigationController!.pushViewController(lookAndFind, animated: true)
             })
             

@@ -12,34 +12,57 @@ import RealmSwift
 import Foundation
 import IGProtoBuff
 
-/* UNUSED REALM CLASS */
-class IGRealmClientSearchUsername: Object {
+enum IGSearchType {
+    case room
+    case user
+    case message
+    case hashtag
+}
+
+struct IGLookAndFindStruct {
     
-    @objc dynamic var room        : IGRoom!
-    @objc dynamic var user        : IGRegisteredUser!
-    @objc dynamic var type        : IGPClientSearchUsernameResponse.IGPResult.IGPType.RawValue = 0
+    var room        : IGRoom!
+    var user        : IGRegisteredUser!
+    var message     : IGRoomMessage!
+    var type        : IGSearchType!
+    var isHeader    : Bool = false
     
-    convenience init(searchUsernameResult: IGPClientSearchUsernameResponse.IGPResult) {
-        self.init()
-        
+    init(searchUsernameResult: IGPClientSearchUsernameResponse.IGPResult) {
         self.room = setRoom(room: searchUsernameResult.igpRoom)
         self.user = setUser(user: searchUsernameResult.igpUser)
-        self.type = searchUsernameResult.igpType.rawValue
+        if searchUsernameResult.igpType == .room {
+            self.type = .room
+        } else {
+            self.type = .user
+        }
     }
     
-    convenience init(room: IGRoom) {
-        self.init()
+    init(type: IGSearchType) {
+        self.type = type
+        self.isHeader = true
+    }
+    
+    init(room: IGRoom) {
         self.room = room
-        self.user = nil
-        self.type = IGPClientSearchUsernameResponse.IGPResult.IGPType.room.rawValue
+        self.type = .room
     }
     
-    convenience init(room: IGRoom, user: IGRegisteredUser) {
-        self.init()
+    init(user: IGRegisteredUser) {
+        self.user = user
+        self.type = .user
+    }
+    
+    init(message: IGRoomMessage, type: IGSearchType) {
+        self.message = message
+        self.type = type
+    }
+    
+    init(room: IGRoom, user: IGRegisteredUser) {
         self.room = room
         self.user = user
-        self.type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
+        self.type = .user
     }
+    
     
     public func setRoom(room: IGPRoom) -> IGRoom{
         let predicate = NSPredicate(format: "id = %lld", room.igpID)

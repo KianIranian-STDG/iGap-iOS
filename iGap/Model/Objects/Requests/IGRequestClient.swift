@@ -297,7 +297,7 @@ class IGClientSearchUsernameRequest: IGRequest {
             }
             var clientSearchUsername = IGPClientSearchUsername()
             clientSearchUsername.igpQuery = searchText
-            return IGRequestWrapper(message: clientSearchUsername, actionID: 612)
+            return IGRequestWrapper(message: clientSearchUsername, actionID: 612, identity: query)
         }
     }
     class Handler: IGRequest.Handler {

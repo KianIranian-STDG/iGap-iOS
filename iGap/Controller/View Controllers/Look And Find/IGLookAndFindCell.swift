@@ -17,40 +17,72 @@ class IGLookAndFindCell: UITableViewCell {
     @IBOutlet weak var txtIcon: UILabel!
     @IBOutlet weak var txtResultName: UILabel!
     @IBOutlet weak var txtResultUsername: UILabel!
+    @IBOutlet weak var txtHeader: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    
-    func setSearchResult(result: IGRealmClientSearchUsername){
-        
-        if result.type == IGPClientSearchUsernameResponse.IGPResult.IGPType.room.rawValue { // room
+    func setSearchResult(result: IGLookAndFindStruct){
+        if result.type == .room {
             setRoom(room: result.room)
-        } else { // user
+        } else if result.type == .user {
             setUser(user: result.user)
+        } else if result.type == .message || result.type == .hashtag {
+            setMessage(message: result.message)
         }
     }
     
-    private func setRoom(room: IGRoom){
+    func setHeader(type: IGSearchType){
+        if type == .room {
+            txtHeader.text = "Rooms"
+        } else if type == .user {
+            txtHeader.text = "Contacts"
+        } else if type == .message {
+            txtHeader.text = "Messages"
+        } else if type == .hashtag {
+            txtHeader.text = "Hashtag"
+        }
+    }
+    
+    private func setRoom(room: IGRoom, message: String? = nil) {
         txtResultName.text = room.title
         
-        if room.type == IGRoom.IGType.group {
-            txtResultUsername.text = room.groupRoom?.publicExtra?.username
-            txtIcon.text = ""
+        if message != nil {
+            txtResultUsername.text = message
+            if room.type == .chat {
+                txtIcon.text = ""
+            } else if room.type == .group {
+                txtIcon.text = ""
+            } else if room.type == .channel {
+                txtIcon.text = ""
+            }
         } else {
-            txtResultUsername.text = room.channelRoom?.publicExtra?.username
-            txtIcon.text = ""
+            if room.type == IGRoom.IGType.group {
+                txtResultUsername.text = room.groupRoom?.publicExtra?.username
+                txtIcon.text = ""
+            } else {
+                txtResultUsername.text = room.channelRoom?.publicExtra?.username
+                txtIcon.text = ""
+            }
         }
         
         avatarView.setRoom(room)
     }
     
-    private func setUser(user: IGRegisteredUser){
+    private func setUser(user: IGRegisteredUser, message: String? = nil) {
         txtResultName.text = user.displayName
-        txtResultUsername.text = user.username
+        if message != nil {
+            txtResultUsername.text = message
+        } else {
+            txtResultUsername.text = user.username
+        }
         txtIcon.text = ""
         
         avatarView.setUser(user)
+    }
+    
+    private func setMessage(message: IGRoomMessage){
+        setRoom(room: IGRoom.getRoomInfo(roomId: message.roomId), message: message.message)
     }
 }
