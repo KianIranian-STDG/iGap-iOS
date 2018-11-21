@@ -25,9 +25,9 @@ class IGLookAndFindCell: UITableViewCell {
     }
     
     func setSearchResult(result: IGLookAndFindStruct){
-        if result.type == .room {
+        if result.type == .channel || result.type == .group {
             setRoom(room: result.room)
-        } else if result.type == .user {
+        } else if result.type == .user { // users & bots
             setUser(user: result.user)
         } else if result.type == .message || result.type == .hashtag {
             setMessage(message: result.message)
@@ -35,10 +35,14 @@ class IGLookAndFindCell: UITableViewCell {
     }
     
     func setHeader(type: IGSearchType){
-        if type == .room {
-            txtHeader.text = "Rooms"
+        if type == .channel {
+            txtHeader.text = "Channels"
+        } else if type == .group {
+            txtHeader.text = "Groups"
         } else if type == .user {
             txtHeader.text = "Contacts"
+        } else if type == .bot {
+            txtHeader.text = "Bots"
         } else if type == .message {
             txtHeader.text = "Messages"
         } else if type == .hashtag {
@@ -59,10 +63,13 @@ class IGLookAndFindCell: UITableViewCell {
                 txtIcon.text = ""
             }
         } else {
-            if room.type == IGRoom.IGType.group {
+            if room.type == IGRoom.IGType.chat {
+                txtResultUsername.text = room.chatRoom?.peer?.username
+                txtIcon.text = ""
+            } else if room.type == IGRoom.IGType.group {
                 txtResultUsername.text = room.groupRoom?.publicExtra?.username
                 txtIcon.text = ""
-            } else {
+            } else if room.type == IGRoom.IGType.channel {
                 txtResultUsername.text = room.channelRoom?.publicExtra?.username
                 txtIcon.text = ""
             }

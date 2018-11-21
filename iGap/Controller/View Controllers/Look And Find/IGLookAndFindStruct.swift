@@ -13,8 +13,10 @@ import Foundation
 import IGProtoBuff
 
 enum IGSearchType {
-    case room
+    case bot
     case user
+    case channel
+    case group
     case message
     case hashtag
 }
@@ -31,7 +33,11 @@ struct IGLookAndFindStruct {
         self.room = setRoom(room: searchUsernameResult.igpRoom)
         self.user = setUser(user: searchUsernameResult.igpUser)
         if searchUsernameResult.igpType == .room {
-            self.type = .room
+            if searchUsernameResult.igpRoom.igpType == .channel {
+                self.type = .channel
+            } else {
+                self.type = .group
+            }
         } else {
             self.type = .user
         }
@@ -44,7 +50,11 @@ struct IGLookAndFindStruct {
     
     init(room: IGRoom) {
         self.room = room
-        self.type = .room
+        if room.type == .channel {
+            self.type = .channel
+        } else {
+            self.type = .group
+        }
     }
     
     init(user: IGRegisteredUser) {

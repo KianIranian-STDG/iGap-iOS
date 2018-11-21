@@ -43,7 +43,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     private func search(query: String){
-        if query.starts(with: "#") || !IGGlobal.matches(for: "[A-Za-z0-9]", in: query) {
+        if query.starts(with: "#") || !IGGlobal.matches(for: "[A-Za-z0-9]", in: query) || query.contains(" ") {
             fillResutl(searchText: query)
             return
         }
@@ -74,7 +74,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
      * current text and if is different search again with current info
      */
     private func checkSearchState(){
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.searching = false
             if self.latestSearchText != self.searchBar.text {
                 self.search(query: self.latestSearchText)
@@ -83,18 +83,22 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     private func fillResutl(searchText: String, isUsername: Bool = false){
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.findResult = []
             let realm = try! Realm()
             
             if isUsername {
-                self.fillRoom(realm: realm, searchText: searchText)
+                self.fillBot(realm: realm, searchText: searchText)
                 self.fillUser(realm: realm, searchText: searchText)
+                self.fillRoom(realm: realm, searchText: searchText, roomType: .channel)
+                self.fillRoom(realm: realm, searchText: searchText, roomType: .group)
             } else if searchText.starts(with: "#") {
                 self.fillHashtag(realm: realm, searchText: searchText)
             } else {
-                self.fillRoom(realm: realm, searchText: searchText, searchTitle: true)
+                self.fillBot(realm: realm, searchText: searchText, searchDisplayName: true)
                 self.fillUser(realm: realm, searchText: searchText, searchDisplayName: true)
+                self.fillRoom(realm: realm, searchText: searchText, searchTitle: true, roomType: .channel)
+                self.fillRoom(realm: realm, searchText: searchText, searchTitle: true, roomType: .group)
                 self.fillMessage(realm: realm, searchText: searchText)
                 self.fillHashtag(realm: realm, searchText: searchText)
             }
@@ -103,29 +107,49 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    private func fillRoom(realm: Realm, searchText: String, searchTitle: Bool = false) {
-        var predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@) OR (channelRoom.publicExtra.username CONTAINS[c] %@)", searchText, searchText)
-        if searchTitle {
-            predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@) OR (channelRoom.publicExtra.username CONTAINS[c] %@) OR (title CONTAINS[c] %@)", searchText, searchText, searchText)
+    private func fillRoom(realm: Realm, searchText: String, searchTitle: Bool = false, roomType: IGSearchType) {
+        let sortProperties = [SortDescriptor(keyPath: "isParticipant", ascending: false)]
+        var predicate : NSPredicate!
+        if roomType == .channel {
+            predicate = NSPredicate(format: "(channelRoom.publicExtra.username CONTAINS[c] %@)", searchText, searchText)
+            if searchTitle {
+                predicate = NSPredicate(format: "(channelRoom.publicExtra.username CONTAINS[c] %@) OR ((title CONTAINS[c] %@) AND typeRaw = %d)", searchText, searchText, searchText, IGRoom.IGType.channel.rawValue)
+            }
+        } else { // group
+            predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@)", searchText, searchText)
+            if searchTitle {
+                predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@) OR ((title CONTAINS[c] %@) AND typeRaw = %d)", searchText, searchText, searchText, IGRoom.IGType.group.rawValue)
+            }
         }
-        let rooms = realm.objects(IGRoom.self).filter(predicate)
+        let rooms = realm.objects(IGRoom.self).filter(predicate).sorted(by: sortProperties)
         if rooms.count > 0 {
-            self.findResult.append(IGLookAndFindStruct(type: .room))
+            self.findResult.append(IGLookAndFindStruct(type: roomType))
         }
         for room in rooms {
             self.findResult.append(IGLookAndFindStruct(room: room))
         }
     }
     
-    private func fillUser(realm: Realm, searchText: String, searchDisplayName: Bool = false) {
-        
-        var predicate = NSPredicate(format: "(username CONTAINS[c] %@)", searchText)
+    private func fillBot(realm: Realm, searchText: String, searchDisplayName: Bool = false){
+        fillUser(realm: realm, searchText: searchText, searchDisplayName: searchDisplayName, isBot: true)
+    }
+    
+    private func fillUser(realm: Realm, searchText: String, searchDisplayName: Bool = false, isBot: Bool = false) {
+        let sortProperties = [SortDescriptor(keyPath: "isInContacts", ascending: false)]
+        var predicate : NSPredicate!
         if searchDisplayName {
-            predicate = NSPredicate(format: "(username CONTAINS[c] %@) OR (displayName CONTAINS[c] %@)", searchText, searchText)
+            predicate = NSPredicate(format: "((username CONTAINS[c] %@) OR (displayName CONTAINS[c] %@)) AND (isBot == %@)", searchText, searchText, NSNumber(value: isBot))
+        } else {
+            predicate = NSPredicate(format: "(username CONTAINS[c] %@) AND (isBot == %@)", searchText, NSNumber(value: isBot))
         }
-        let users = realm.objects(IGRegisteredUser.self).filter(predicate)
+        
+        let users = realm.objects(IGRegisteredUser.self).filter(predicate).sorted(by: sortProperties)
         if users.count > 0 {
-            self.findResult.append(IGLookAndFindStruct(type: .user))
+            if isBot {
+                self.findResult.append(IGLookAndFindStruct(type: .bot))
+            } else {
+                self.findResult.append(IGLookAndFindStruct(type: .user))
+            }
         }
         for user in users {
             self.findResult.append(IGLookAndFindStruct(user: user))
