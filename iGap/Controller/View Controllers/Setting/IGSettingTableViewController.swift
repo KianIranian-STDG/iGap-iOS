@@ -313,9 +313,9 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         switch section {
         case 0:
             if IGAppManager.sharedManager.mplActive() {
-                return 9
+                return 8
             }
-            return 8
+            return 7
         case 1:
             return 1
         case 2:
@@ -327,7 +327,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !IGAppManager.sharedManager.mplActive() && indexPath.section == 0 { // hide block contact for mine profile
-            if indexPath.row >= 4 {
+            if indexPath.row >= 3 {
                 return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 1, section: 0))
             }
             return super.tableView(tableView, cellForRowAt: indexPath)
@@ -340,7 +340,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         if indexPath.section == 0 {
             
             var rowIndex = indexPath.row
-            if !IGAppManager.sharedManager.mplActive() && indexPath.row >= 4 {
+            if !IGAppManager.sharedManager.mplActive() && indexPath.row >= 3 {
                 rowIndex = rowIndex + 1
             }
             
@@ -353,34 +353,20 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             } else if rowIndex == 2 {
                 manageOpenMap()
             } else if rowIndex == 3 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "showLookAndFind", sender: self)
-            } else if rowIndex == 4 {
                 manageFinancialServiceChoose()
+            } else if rowIndex == 4 {
+                self.tableView.isUserInteractionEnabled = false
+                performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
             } else if rowIndex == 5 {
                 self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
-            } else if rowIndex == 6 {
-                self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToPrivacyAndPolicySettingsPage", sender: self)
-            } else if rowIndex == 7 {
+            } else if rowIndex == 6 {
                 shareContent = "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net"
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
-                present(activityViewController, animated: true, completion: {})
-            } else if rowIndex == 8 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
-            } else if rowIndex == 9 {
+                present(activityViewController, animated: true, completion: nil)
+            } else if rowIndex == 7 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToAboutSettingPage", sender: self)
-            } else if rowIndex == 10 {
-                showLogoutActionSheet()
-            } else if rowIndex == 11 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "GoToChatSettingPage", sender: self)
-            } else if rowIndex == 12 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "GoToNotificationSettingsPage", sender: self)
             }
                 
         } else if indexPath.section == 1 && indexPath.row == 0 {
