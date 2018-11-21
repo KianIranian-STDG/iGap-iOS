@@ -82,14 +82,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    private func deleteBeforeSearch(){
-        let realm = try! Realm()
-        let searchResults = try! Realm().objects(IGRealmClientSearchUsername.self)
-        try! realm.write {
-            realm.delete(searchResults)
-        }
-    }
-    
     private func fillResutl(searchText: String, isUsername: Bool = false){
         DispatchQueue.main.async {
             self.findResult = []
@@ -239,7 +231,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.findResult[indexPath.row].isHeader {
-            return 40.0
+            return 30.0
         }
         return 70.0
     }

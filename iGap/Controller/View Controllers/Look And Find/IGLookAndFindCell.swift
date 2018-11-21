@@ -21,6 +21,7 @@ class IGLookAndFindCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
     }
     
     func setSearchResult(result: IGLookAndFindStruct){

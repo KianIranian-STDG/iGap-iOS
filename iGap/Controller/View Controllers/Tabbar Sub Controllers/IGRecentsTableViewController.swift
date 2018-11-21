@@ -288,10 +288,10 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     private func checkAppVersion() {
         
         if AppDelegate.isDeprecatedClient {
-            let alert = UIAlertController(title: "Deprecated App", message: "Your app is deprecated. please install latest verion!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Alert", message: "Version is deprecated please update to use", preferredStyle: .alert)
             self.present(alert, animated: true, completion: nil)
         } else if AppDelegate.isUpdateAvailable {
-            let alert = UIAlertController(title: "Update Exist", message: "Your app is an old version of iGap. please install latest verion!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Update", message: "New version is available", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
