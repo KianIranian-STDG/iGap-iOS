@@ -377,7 +377,179 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    private func isBotRoom() -> Bool{
+    func onBotDataRecieve(results: [IGApiStruct]) {
+        DispatchQueue.main.async {
+            if results.count == 0 {
+                return
+            }
+            
+            if self.room!.isReadOnly {
+                self.collectionViewTopInsetOffset = 0
+            } else {
+                self.collectionViewTopInsetOffset = CGFloat(self.DOCTOR_BOT_HEIGHT)
+            }
+            
+            self.apiStructArray = results
+            self.doctorBotView(results: results)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: true)
+            }
+        }
+    }
+    
+    private func doctorBotView(results: [IGApiStruct]){
+        
+        let parent = UIScrollView()
+        let child = UIView()
+        
+        parent.showsHorizontalScrollIndicator = false
+        parent.backgroundColor = UIColor.clear
+        parent.frame = CGRect(x: 0, y: 0, width: Int(screenWidth), height: DOCTOR_BOT_HEIGHT)
+        parent.layer.cornerRadius = 8
+        
+        self.view.addSubview(parent)
+        parent.addSubview(child)
+        
+        parent.snp.makeConstraints { (make) in
+            make.left.equalTo(self.view.snp.left).offset(7)
+            make.right.equalTo(self.view.snp.right).offset(-7)
+            if (room?.isReadOnly)! {
+                make.bottom.equalTo(self.view.snp.bottom).offset(-5)
+            } else {
+                make.bottom.equalTo(inputBarContainerView.snp.top)
+            }
+            make.height.equalTo(DOCTOR_BOT_HEIGHT)
+        }
+        
+        leftSpace = DOCTOR_BUTTON_SPACE
+        
+        for result in results {
+            makeDoctorBotButtonView(parent: parent, result: result)
+        }
+        
+        child.snp.makeConstraints { (make) in
+            make.top.equalTo(parent.snp.top)
+            make.left.equalTo(parent.snp.left)
+            make.right.equalTo(parent.snp.right)
+            make.bottom.equalTo(parent.snp.bottom)
+            make.width.equalTo(leftSpace)
+        }
+    }
+    
+    private func makeDoctorBotButtonView(parent: UIView, result: IGApiStruct){
+        let text : String = result.favoriteName
+        let textColor : UIColor = UIColor(hexString: "#\(result.favoriteColor ?? "#222222")")
+        let backgroundColor : UIColor = UIColor(hexString: "#\(result.favoriteBgColor ?? "#ffffff")")
+        let imageData = Data(base64Encoded: result.favoriteImage)!
+        var hasImage = true
+        
+        if result.favoriteImage.isEmpty {
+            hasImage = false
+        }
+        
+        let font = UIFont.igFont(ofSize: 17.0)
+        let textWidth = text.width(withConstrainedHeight: CGFloat(DOCTOR_BOT_HEIGHT), font: font)
+        var mainViewWith : CGFloat = 0
+        
+        let mainView = UIView()
+        parent.addSubview(mainView)
+        
+        let btn = UIButton()
+        mainView.addSubview(btn)
+        
+        var img : UIImageView!
+        if hasImage {
+            img = UIImageView()
+            mainView.addSubview(img)
+            
+            mainViewWith = DOCTOR_IMAGE_SIZE + (3 * DOCOTR_IN_BUTTON_SPACE) + textWidth
+        } else {
+            mainViewWith = (2 * DOCOTR_IN_BUTTON_SPACE) + textWidth
+        }
+        
+        /***** Main View *****/
+        mainView.backgroundColor = backgroundColor
+        mainView.layer.masksToBounds = false
+        mainView.layer.cornerRadius = 20.0
+        mainView.layer.shadowOffset = CGSize(width: -2, height: 3)
+        mainView.layer.shadowRadius = 3.0
+        mainView.layer.shadowOpacity = 0.3
+        mainView.snp.makeConstraints { (make) in
+            make.top.equalTo(parent.snp.top).offset(DOCTOR_BUTTON_VERTICAL_SPACE)
+            make.bottom.equalTo(parent.snp.bottom).offset(DOCTOR_BUTTON_VERTICAL_SPACE)
+            make.centerY.equalTo(parent.snp.centerY)
+            make.left.equalTo(leftSpace)
+            make.width.equalTo(mainViewWith)
+        }
+
+        
+        /***** Button View *****/
+        btn.addTarget(self, action: #selector(onDoctorBotClick), for: .touchUpInside)
+        btn.titleLabel?.font = font
+        btn.setTitle(text, for: UIControlState.normal)
+        btn.setTitleColor(textColor, for: UIControlState.normal)
+        btn.removeUnderline()
+        
+        btn.snp.makeConstraints { (make) in
+            make.top.equalTo(mainView.snp.top)
+            make.bottom.equalTo(mainView.snp.bottom)
+            make.right.equalTo(mainView.snp.right).offset(-DOCOTR_IN_BUTTON_SPACE)
+            make.centerY.equalTo(mainView.snp.centerY)
+            if hasImage {
+                make.left.equalTo(img.snp.right).offset(DOCOTR_IN_BUTTON_SPACE)
+            } else {
+                make.left.equalTo(mainView.snp.left).offset(DOCOTR_IN_BUTTON_SPACE)
+            }
+        }
+        
+        
+        /***** Image View *****/
+        if hasImage {
+            if let image = UIImage(data: imageData) {
+                img.image = image
+            }
+            
+            img.snp.makeConstraints { (make) in
+                make.left.equalTo(mainView.snp.left).offset(DOCOTR_IN_BUTTON_SPACE)
+                make.centerY.equalTo(mainView.snp.centerY)
+                make.width.equalTo(DOCTOR_IMAGE_SIZE)
+                make.height.equalTo(DOCTOR_IMAGE_SIZE)
+            }
+        }
+        
+        
+        leftSpace += DOCTOR_BUTTON_SPACE + mainViewWith
+    }
+    
+    func onDoctorBotClick(sender: UIButton!) {
+        let value : String! = detectBotValue(name: sender.titleLabel?.text!)
+        
+        if value.starts(with: "@") {
+            if let username = IGRoom.fetchUsername(room: room!) { // if username is for current room don't open this room again
+                if username == value.dropFirst() {
+                    return
+                }
+            }
+            IGHelperChatOpener.checkUsernameAndOpenPage(viewController: self, username: value)
+        } else {
+            inputTextView.text = value
+            self.didTapOnSendButton(self.inputBarSendButton)
+        }
+    }
+    
+    func detectBotValue(name: String?) -> String? {
+        if name != nil {
+            for apiStruct in apiStructArray {
+                if apiStruct.favoriteName == name {
+                    return apiStruct.favoriteValue
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    func isBotRoom() -> Bool{
         if let chatRoom = room?.chatRoom {
             return (chatRoom.peer?.isBot)!
         }
@@ -2956,12 +3128,12 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 usernameType = .user
             }
             
-            IGHelper.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser, room: forwardMessage.authorRoom)
+            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser, room: forwardMessage.authorRoom)
         }
     }
     
     func didTapOnMention(mentionText: String) {
-        IGHelper.checkUsernameAndOpenPage(viewController: self, username: mentionText)
+        IGHelperChatOpener.checkUsernameAndOpenPage(viewController: self, username: mentionText)
     }
     
     func didTapOnURl(url: URL) {

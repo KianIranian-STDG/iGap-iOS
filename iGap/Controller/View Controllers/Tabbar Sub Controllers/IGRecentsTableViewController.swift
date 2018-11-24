@@ -246,6 +246,8 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                                                selector: #selector(addressBookDidChange(_:)),
                                                name: NSNotification.Name.CNContactStoreDidChange,
                                                object: nil)
+        
+        IGHelperView.makeSearchView(searchBar: searchBar)
     }
     
     func addressBookDidChange(_ notification: UITapGestureRecognizer) {

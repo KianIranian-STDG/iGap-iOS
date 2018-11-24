@@ -10,19 +10,7 @@
 
 import UIKit
 
-class IGHelper {
-    
-    internal static let shareLinkPrefixGroup = "Open this link to join my iGap Group"
-    internal static let shareLinkPrefixChannel = "Open this link to join my iGap Channel"
-    
-    internal static func shareText(message: String, viewController: UIViewController){
-        let textToShare = [message]
-        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = viewController.view
-        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
-        viewController.present(activityViewController, animated: true, completion: nil)
-    }
-    
+class IGHelperChatOpener {
     
     /**
      * open chat room with room id if exist in realm otherwise
@@ -68,6 +56,7 @@ class IGHelper {
         destinationVC.previousRoomId = 0
         destinationVC.room = room
         viewController.navigationController!.pushViewController(destinationVC, animated: true)
+        viewController.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     /**
@@ -87,7 +76,7 @@ class IGHelper {
                     if clientResponse.clientResolveUsernametype == .user {
                         usernameType = .user
                     }
-                    IGHelper.manageOpenChatOrProfile(viewController: viewController, usernameType: usernameType, user: clientResponse.user, room: clientResponse.room)
+                    IGHelperChatOpener.manageOpenChatOrProfile(viewController: viewController, usernameType: usernameType, user: clientResponse.user, room: clientResponse.room)
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -113,9 +102,9 @@ class IGHelper {
         switch usernameType {
         case .user:
             if (user!.isBot) {
-                IGHelper.createChat(viewController: viewController, selectedUser: user!)
+                IGHelperChatOpener.createChat(viewController: viewController, selectedUser: user!)
             } else {
-                IGHelper.openUserProfile(user: user! , room: nil, viewController: viewController)
+                IGHelperChatOpener.openUserProfile(user: user! , room: nil, viewController: viewController)
             }
             break
         case .room:
@@ -123,6 +112,7 @@ class IGHelper {
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
             messagesVc.room = room
             viewController.navigationController!.pushViewController(messagesVc, animated:false)
+            viewController.navigationController?.setNavigationBarHidden(false, animated: true)
             break
         default:
             break
@@ -152,6 +142,7 @@ class IGHelper {
                                 let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
                                 roomVC.room = room
                                 viewController.navigationController!.pushViewController(roomVC, animated: true)
+                                viewController.navigationController?.setNavigationBarHidden(false, animated: true)
                             default:
                                 break
                             }

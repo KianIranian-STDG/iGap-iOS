@@ -143,7 +143,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="VL4-ST-kOS">
+                        <searchBar key="tableHeaderView" contentMode="center" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="VL4-ST-kOS">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1013,7 +1013,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1075,7 +1075,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1118,7 +1118,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" barStyle="black" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1525,8 +1525,8 @@
         <image name="back1" width="450" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l1W-zY-RFK"/>
-        <segue reference="I27-tX-EAz"/>
+        <segue reference="k9M-cr-cw2"/>
+        <segue reference="R4P-x7-LEg"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

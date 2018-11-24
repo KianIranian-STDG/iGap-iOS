@@ -67,16 +67,20 @@ class IGChannelsTableViewController: UITableViewController {
                 break
             }
         }
+        
+        IGHelperView.makeSearchView(searchBar: searchBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if AppDelegate.isFirstEnterToApp {
             DispatchQueue.main.async {
+                self.navigationController?.hero.isEnabled = true
+                self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
                 self.tabBarController?.selectedIndex = 2
             }
         } else if IGGlobal.heroTabIndex != -1 {
             DispatchQueue.main.async {
-                //self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
+                self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
                 self.tabBarController?.selectedIndex = 2//IGGlobal.heroTabIndex
             }
             IGGlobal.heroTabIndex = -1

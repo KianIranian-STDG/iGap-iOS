@@ -27,7 +27,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         super.viewDidLoad()
         searchBar.delegate = self
         searchBar.hero.id = "searchBar"
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
         setNavigationItem()
         tableView.delegate = self
         tableView.dataSource = self
@@ -35,6 +34,17 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         tableView.tableHeaderView?.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         self.view.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        
+        IGHelperView.makeSearchView(searchBar: searchBar)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func setNavigationItem(){
@@ -247,6 +257,9 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // IGRegistredUserInfoTableViewController
         
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
+        
         let searchResult = self.findResult[indexPath.row]
         
         var room = searchResult.room
@@ -258,7 +271,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
         }
         
-        IGHelper.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room)
+        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

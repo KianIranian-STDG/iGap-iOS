@@ -63,6 +63,8 @@ class IGChatsTableViewController: UITableViewController {
                 break
             }
         }
+        
+        IGHelperView.makeSearchView(searchBar: searchBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -684,7 +684,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             })
             
             let shareAction = UIAlertAction(title: "Share", style: .default, handler: { (alert: UIAlertAction) -> Void in
-                IGHelper.shareText(message: IGHelper.shareLinkPrefixChannel + "\n" + channelLink!, viewController: self)
+                IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixChannel + "\n" + channelLink!, viewController: self)
             })
             
             let changeAction = UIAlertAction(title: "Change", style: .default, handler: { (alert: UIAlertAction) -> Void in

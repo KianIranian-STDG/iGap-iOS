@@ -693,7 +693,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             })
             
             let shareAction = UIAlertAction(title: "Share", style: .default, handler: { (alert: UIAlertAction) -> Void in
-                IGHelper.shareText(message: IGHelper.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
+                IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
             })
             
             let changeAction = UIAlertAction(title: "Change", style: .default, handler: { (alert: UIAlertAction) -> Void in
