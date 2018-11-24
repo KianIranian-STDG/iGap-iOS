@@ -2490,12 +2490,27 @@ class IGFactory: NSObject {
                             draftInDb.message = draft.message
                             draftInDb.replyTo = draft.replyTo
                             roomInDb.draft = draftInDb
-                            roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                            
+                            if draft.message.isEmpty {
+                                let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (roomInDb.lastMessage?.id)!, roomInDb.id)
+                                if let messageInDb = try! IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
+                                    roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                                }
+                            } else {
+                                roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                            }
                         }
                     } else {
                         try! IGDatabaseManager.shared.realm.write {
                             roomInDb.draft = draft
-                            roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                            if draft.message.isEmpty {
+                                let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (roomInDb.lastMessage?.id)!, roomInDb.id)
+                                if let messageInDb = try! IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
+                                    roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                                }
+                            } else {
+                                roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                            }
                         }
                     }
                 }
