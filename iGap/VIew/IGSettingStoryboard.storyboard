@@ -3389,8 +3389,9 @@ Please wait 0:59</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="write at least 5 character" translatesAutoresizingMaskIntoConstraints="NO" id="X2Y-Zv-GpG">
+                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="write at least 5 character" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X2Y-Zv-GpG">
                                 <rect key="frame" x="0.0" y="64" width="414" height="56"/>
+                                <color key="barTintColor" red="0.0" green="0.73763555290000005" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IdF-f2-Pb7">
@@ -3499,7 +3500,7 @@ Please wait 0:59</string>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="3ty-LH-bZJ" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
-                        <outlet property="searchBar" destination="X2Y-Zv-GpG" id="9wf-RF-IL8"/>
+                        <outlet property="searchBar" destination="X2Y-Zv-GpG" id="ikf-LK-cVC"/>
                         <outlet property="tableView" destination="IdF-f2-Pb7" id="8Y7-L1-Etj"/>
                     </connections>
                 </viewController>

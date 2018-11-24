@@ -20,6 +20,7 @@ import MBProgressHUD
 import UserNotifications
 import Contacts
 import AddressBook
+import Hero
 
 class IGRecentsTableViewController: UITableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate {
     
@@ -37,6 +38,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     static var needGetInfo: Bool = true
     static var needGetRoomList: Bool = true
     
+    @IBOutlet weak var searchBar: UISearchBar!
     private let disposeBag = DisposeBag()
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
@@ -75,7 +77,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 
                 let alertController = UIAlertController(title: "Clear Call History", message: "Are you sure you want to clear all incoming and outgoing calls?", preferredStyle: IGGlobal.detectAlertStyle())
                 let clearCallLog = UIAlertAction(title: "Clear", style: .default, handler: { (action) in
-                    if let userId = IGAppManager.sharedManager.userID() {
+                    if IGAppManager.sharedManager.userID() != nil {
                         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         hud.mode = .indeterminate
                         
@@ -194,6 +196,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     override func viewDidLoad() {
         super.viewDidLoad()
         IGRecentsTableViewController.messageReceiveDelegat = self
+        searchBar.delegate = self
         
         let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         self.rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
@@ -1339,5 +1342,18 @@ extension IGRecentsTableViewController {
                     
                 }).send()
         }
+    }
+}
+
+extension IGRecentsTableViewController: UISearchBarDelegate{
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
+        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+        lookAndFind.hero.isEnabled = true
+        self.searchBar.hero.id = "searchBar"
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.hero.replaceViewController(with: lookAndFind)
+        return true
     }
 }

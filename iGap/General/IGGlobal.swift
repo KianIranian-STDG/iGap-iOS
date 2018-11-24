@@ -23,6 +23,8 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 class IGGlobal {
     
+    static var heroTabIndex : Int = -1
+    
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()

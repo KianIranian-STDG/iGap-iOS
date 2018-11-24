@@ -28,10 +28,11 @@ class IGChatsTableViewController: UITableViewController {
     var connectionStatus: IGAppManager.ConnectionStatus?
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        searchBar.delegate = self
         let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         let predicate = NSPredicate(format: "typeRaw = %d AND isParticipant = 1", IGRoom.IGType.chat.rawValue)
         rooms = try! Realm().objects(IGRoom.self).filter(predicate).sorted(by: sortProperties)
@@ -736,5 +737,18 @@ extension IGChatsTableViewController {
                     
                 }).send()
         }
+    }
+}
+
+extension IGChatsTableViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
+        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+        lookAndFind.hero.isEnabled = true
+        self.searchBar.hero.id = "searchBar"
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.hero.replaceViewController(with: lookAndFind)
+        return true
     }
 }

@@ -12,6 +12,7 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
+import Hero
 
 class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
 
@@ -24,8 +25,10 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationItem()
         searchBar.delegate = self
+        searchBar.hero.id = "searchBar"
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        setNavigationItem()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -187,12 +190,17 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {}
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {}
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
+        self.searchBar.hero.id = "searchBar"
+        self.hero.replaceViewController(with: mainView)
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
         
-        if let text = searchBar.text {
+        if let text = searchBar.text, !text.isEmpty {
             self.search(query: text)
         }
     }

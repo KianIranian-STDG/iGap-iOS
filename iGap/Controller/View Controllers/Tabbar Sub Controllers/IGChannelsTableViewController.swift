@@ -30,12 +30,13 @@ class IGChannelsTableViewController: UITableViewController {
     var hud = MBProgressHUD()
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        searchBar.delegate = self
         let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         let predicate = NSPredicate(format: "typeRaw = %d AND isParticipant = 1", IGRoom.IGType.channel.rawValue)
         rooms = try! Realm().objects(IGRoom.self).filter(predicate).sorted(by: sortProperties)
@@ -73,6 +74,12 @@ class IGChannelsTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self.tabBarController?.selectedIndex = 2
             }
+        } else if IGGlobal.heroTabIndex != -1 {
+            DispatchQueue.main.async {
+                //self.navigationController?.hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .slide(direction: .right))
+                self.tabBarController?.selectedIndex = 2//IGGlobal.heroTabIndex
+            }
+            IGGlobal.heroTabIndex = -1
         } else {
             if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
                 navigationItem.addiGapLogo()
@@ -790,5 +797,18 @@ extension IGChannelsTableViewController {
                     
                 }).send()
         }
+    }
+}
+
+extension IGChannelsTableViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
+        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+        lookAndFind.hero.isEnabled = true
+        self.searchBar.hero.id = "searchBar"
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.hero.replaceViewController(with: lookAndFind)
+        return true
     }
 }
