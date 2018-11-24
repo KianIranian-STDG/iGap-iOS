@@ -459,7 +459,8 @@ extension IGRoom {
 
 extension IGRoom {
     func saveDraft( _ body: String?, replyToMessage: IGRoomMessage?) {
-        let draft = IGRoomDraft(message: body, replyTo: replyToMessage?.id, roomId: self.id)
+        let finalBody = body?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let draft = IGRoomDraft(message: finalBody, replyTo: replyToMessage?.id, roomId: self.id)
         IGFactory.shared.save(draft: draft)
         switch self.type {
         case .chat:
