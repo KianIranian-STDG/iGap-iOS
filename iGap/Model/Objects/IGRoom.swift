@@ -134,7 +134,11 @@ class IGRoom: Object {
             let realm = try! Realm()
             if let messageInDb = realm.objects(IGRoomMessage.self).filter(predicate).first {
                 self.lastMessage = IGRoomMessage(value: messageInDb)
-                self.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                if igpRoom.hasIgpDraft && !igpRoom.igpDraft.igpMessage.isEmpty {
+                    self.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                } else {
+                    self.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                }
             } else {
                 
             }

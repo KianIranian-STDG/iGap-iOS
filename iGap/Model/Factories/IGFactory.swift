@@ -2490,12 +2490,12 @@ class IGFactory: NSObject {
                             draftInDb.message = draft.message
                             draftInDb.replyTo = draft.replyTo
                             roomInDb.draft = draftInDb
-                            //roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                            roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
                         }
                     } else {
-                       try! IGDatabaseManager.shared.realm.write {
+                        try! IGDatabaseManager.shared.realm.write {
                             roomInDb.draft = draft
-                            //roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                            roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
                         }
                     }
                 }
