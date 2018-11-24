@@ -142,7 +142,6 @@ class IGHelperChatOpener {
                                 let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
                                 roomVC.room = room
                                 viewController.navigationController!.pushViewController(roomVC, animated: true)
-                                viewController.navigationController?.setNavigationBarHidden(false, animated: true)
                             default:
                                 break
                             }
