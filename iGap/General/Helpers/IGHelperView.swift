@@ -13,14 +13,20 @@
 
 class IGHelperView {
     
-    internal static func makeSearchView(searchBar: UISearchBar){
+    internal static func makeSearchView(searchBar: UISearchBar, centerPlaceholder: Bool = false){
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.darkGray
         
         let textFieldInsideSearchBarLabel = textFieldInsideSearchBar!.value(forKey: "placeholderLabel") as? UILabel
-        textFieldInsideSearchBarLabel?.textColor = UIColor.darkGray
         textFieldInsideSearchBarLabel?.font = UIFont.igFont(ofSize: 14)
-        searchBar.frame = CGRect(x: 0, y: 0, width: searchBar.frame.width, height: 38)
+        searchBar.frame = CGRect(x: 0, y: 0, width: searchBar.frame.width, height: 44)
+        
+        if centerPlaceholder {
+            let placeholderText : String! = textFieldInsideSearchBarLabel?.text
+            let placeholderWidth = placeholderText.width(withConstrainedHeight: 44, font: UIFont.igFont(ofSize: 14)) + 35
+            let offset = UIOffset(horizontal: (searchBar.frame.width - (placeholderWidth)) / 2, vertical: 0)
+            searchBar.setPositionAdjustment(offset, for: .search)
+        }
     }
 
 }
