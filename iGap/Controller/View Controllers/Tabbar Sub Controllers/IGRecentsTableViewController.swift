@@ -723,6 +723,8 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             
             self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
         }
+        
+        UIApplication.shared.applicationIconBadgeNumber = unreadCount
     }
     
     

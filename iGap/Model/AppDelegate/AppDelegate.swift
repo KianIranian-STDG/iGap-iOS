@@ -91,6 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         _ = IGWebSocketManager.sharedManager
         _ = IGFactory.shared
         
+        UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: UIUserNotificationType(rawValue: UIUserNotificationType.sound.rawValue | UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue), categories: nil ))
+        
         UITabBar.appearance().tintColor = UIColor.white
         //UITabBar.appearance().barTintColor = UIColor(red: 0.0, green: 176.0/255.0, blue: 191.0/255.0, alpha: 1.0)
         
