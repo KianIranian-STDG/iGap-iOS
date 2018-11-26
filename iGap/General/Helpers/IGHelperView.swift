@@ -14,6 +14,11 @@
 class IGHelperView {
     
     internal static func makeSearchView(searchBar: UISearchBar, centerPlaceholder: Bool = false){
+        
+        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.removeUnderline()
+        }
+        
         let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = UIColor.darkGray
         

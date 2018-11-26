@@ -3389,17 +3389,19 @@ Please wait 0:59</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="write at least 5 character" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X2Y-Zv-GpG">
-                                <rect key="frame" x="0.0" y="64" width="414" height="56"/>
-                                <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IdF-f2-Pb7">
-                                <rect key="frame" x="0.0" y="120" width="414" height="616"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" placeholder="write at leaste 5 character" showsCancelButton="YES" id="AjB-Cm-0gz">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="2" vertical="0.0"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LookUpSearch" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LookUpSearch" rowHeight="70" id="rsp-b7-KeM" customClass="IGLookAndFindCell" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="72" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rsp-b7-KeM" id="R9h-W0-5A5">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="69.666666666666671"/>
@@ -3455,7 +3457,7 @@ Please wait 0:59</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HeaderSearch" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderSearch" rowHeight="30" id="EiO-IY-HEh" customClass="IGLookAndFindCell" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="98" width="414" height="30"/>
+                                        <rect key="frame" x="0.0" y="142" width="414" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EiO-IY-HEh" id="Y4M-zx-8Ds">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="29.666666666666668"/>
@@ -3489,18 +3491,15 @@ Please wait 0:59</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="X2Y-Zv-GpG" secondAttribute="trailing" id="89f-Qe-HG8"/>
                             <constraint firstAttribute="bottomMargin" secondItem="IdF-f2-Pb7" secondAttribute="bottom" id="JZ4-Yb-p7G"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IdF-f2-Pb7" secondAttribute="trailing" constant="-20" id="KuU-TS-ryX"/>
-                            <constraint firstItem="X2Y-Zv-GpG" firstAttribute="leading" secondItem="lKc-6s-ogZ" secondAttribute="leading" id="Kwg-i3-KbP"/>
-                            <constraint firstItem="IdF-f2-Pb7" firstAttribute="top" secondItem="X2Y-Zv-GpG" secondAttribute="bottom" id="Q8e-4F-mGR"/>
                             <constraint firstItem="IdF-f2-Pb7" firstAttribute="leading" secondItem="lKc-6s-ogZ" secondAttribute="leadingMargin" constant="-20" id="gdd-gC-mpM"/>
-                            <constraint firstItem="X2Y-Zv-GpG" firstAttribute="top" secondItem="mw1-49-S9c" secondAttribute="bottom" symbolic="YES" id="t7H-2z-7zG"/>
+                            <constraint firstItem="IdF-f2-Pb7" firstAttribute="top" secondItem="mw1-49-S9c" secondAttribute="bottom" id="qmr-ya-M5A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="3ty-LH-bZJ" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
-                        <outlet property="searchBar" destination="X2Y-Zv-GpG" id="ikf-LK-cVC"/>
+                        <outlet property="searchBar" destination="AjB-Cm-0gz" id="3Z5-PQ-1Qu"/>
                         <outlet property="tableView" destination="IdF-f2-Pb7" id="8Y7-L1-Etj"/>
                     </connections>
                 </viewController>
