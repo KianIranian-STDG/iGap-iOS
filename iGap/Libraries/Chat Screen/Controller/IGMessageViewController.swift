@@ -272,12 +272,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 joinButton.layer.shadowRadius = 4.0
                 joinButton.layer.shadowOpacity = 0.15
             } else {
-                manageKeyboard()
-                makeKeyboardButton()
-                
-                if botCommandsDictionary.count == 0 { // if not exist any command in latest message show default icon for change keyboard action button
-                    btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
-                    addStartButton(force: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self.manageKeyboard()
+                    self.makeKeyboardButton()
+                    
+                    if self.botCommandsDictionary.count == 0 { // if not exist any command in latest message show default icon for change keyboard action button
+                        self.btnChangeKeyboard.setTitle(self.KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+                        self.addStartButton(force: true)
+                    }
                 }
             }
         }
