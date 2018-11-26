@@ -2491,13 +2491,15 @@ class IGFactory: NSObject {
                             draftInDb.replyTo = draft.replyTo
                             roomInDb.draft = draftInDb
                             
-                            if draft.message.isEmpty {
-                                let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (roomInDb.lastMessage?.id)!, roomInDb.id)
-                                if let messageInDb = try! IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
-                                    roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                            if let lastMessage = roomInDb.lastMessage {
+                                if draft.message.isEmpty {
+                                    let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (lastMessage.id), roomInDb.id)
+                                    if let messageInDb = try! IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
+                                        roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                                    }
+                                } else {
+                                    roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
                                 }
-                            } else {
-                                roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
                             }
                         }
                     } else {

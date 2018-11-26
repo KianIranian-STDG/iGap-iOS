@@ -176,6 +176,7 @@ class IGForwardMessageTableViewController: UITableViewController {
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                         self.dismiss(animated: true, completion: {
                             //segue to created chat
+                            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
                                                             object: nil,
                                                             userInfo: ["room": roomId])

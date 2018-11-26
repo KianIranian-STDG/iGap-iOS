@@ -128,8 +128,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var selectedMessageToEdit: IGRoomMessage?
     var selectedMessageToReply: IGRoomMessage?
-    var selectedMessageToForwardToThisRoom:   IGRoomMessage?
-    var selectedMessageToForwardFromThisRoom: IGRoomMessage?
+    static var selectedMessageToForwardToThisRoom: IGRoomMessage?
+    static var selectedMessageToForwardFromThisRoom: IGRoomMessage?
     var currentAttachment: IGFile?
     var selectedUserToSeeTheirInfo: IGRegisteredUser?
     var selectedChannelToSeeTheirInfo: IGChannelRoom?
@@ -929,9 +929,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         setBackground()
         
-        if let forwardMsg = selectedMessageToForwardToThisRoom {
+        if let forwardMsg = IGMessageViewController.selectedMessageToForwardToThisRoom {
             self.forwardOrReplyMessage(forwardMsg, isReply: false)
-        } else if let draft = self.room!.draft {
+        }
+        
+        if let draft = self.room!.draft {
             if draft.message != "" || draft.replyTo != -1 {
                 inputTextView.text = draft.message
                 inputTextView.placeholder = "Write here ..."
@@ -970,6 +972,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
 
     override func viewWillDisappear(_ animated: Bool) {
+        if !inputBarOriginalMessageView.isHidden { // maybe has forward
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+        }
+        self.view.endEditing(true)
         super.viewWillDisappear(animated)
         IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
@@ -1079,7 +1085,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let detachedMessage = message.detach()
         
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        message.forwardedFrom = selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+        message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         IGMessageSender.defaultSender.send(message: message, to: room!)
         
@@ -1087,7 +1093,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.inputBarSendButton.isHidden = true
             self.inputBarRecordButton.isHidden = false
             self.inputTextView.text = ""
-            self.selectedMessageToForwardToThisRoom = nil
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
             self.currentAttachment = nil
             self.setInputBarHeight()
@@ -1423,7 +1429,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
-        if currentAttachment == nil && inputTextView.text == "" && selectedMessageToForwardToThisRoom == nil {
+        if currentAttachment == nil && inputTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil {
             return
         }
         
@@ -1518,7 +1524,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 let detachedMessage = message.detach()
                 
                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                message.forwardedFrom = selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                 message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                 IGMessageSender.defaultSender.send(message: message, to: room!)
                 
@@ -1526,7 +1532,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.inputBarRecordButton.isHidden = false
                 self.inputTextView.text = ""
                 self.currentAttachment = nil
-                self.selectedMessageToForwardToThisRoom = nil
+                IGMessageViewController.selectedMessageToForwardToThisRoom = nil
                 self.selectedMessageToReply = nil
                 self.setInputBarHeight()
                 
@@ -1536,7 +1542,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 for i in 0..<messages.count {
                     DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
                         let message = IGRoomMessage(body: messages[i])
-                        if (self.selectedMessageToReply == nil && self.selectedMessageToForwardToThisRoom == nil && messages[i].isEmpty) {
+                        if (self.selectedMessageToReply == nil && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && messages[i].isEmpty) {
                             self.inputTextView.text = ""
                             return
                         }
@@ -1547,7 +1553,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         let detachedMessage = message.detach()
                         
                         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                        message.forwardedFrom = self.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                        message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                         message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                         IGMessageSender.defaultSender.send(message: message, to: self.room!)
                         
@@ -1555,7 +1561,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         self.inputBarRecordButton.isHidden = false
                         self.inputTextView.text = ""
                         self.currentAttachment = nil
-                        self.selectedMessageToForwardToThisRoom = nil
+                        IGMessageViewController.selectedMessageToForwardToThisRoom = nil
                         self.selectedMessageToReply = nil
                         self.setInputBarHeight()
                     }
@@ -1756,7 +1762,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         message.roomId = self.room!.id
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        message.forwardedFrom = self.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+        message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         IGMessageSender.defaultSender.send(message: message, to: self.room!)
         
@@ -1764,7 +1770,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.inputBarSendButton.isHidden = true
             self.inputBarRecordButton.isHidden = false
             self.inputTextView.text = ""
-            self.selectedMessageToForwardToThisRoom = nil
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
             self.currentAttachment = nil
             self.setInputBarHeight()
@@ -1789,7 +1795,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @IBAction func didTapOnCancelReplyOrForwardButton(_ sender: UIButton) {
-        self.selectedMessageToForwardToThisRoom = nil
+        IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         self.selectedMessageToReply = nil
         if self.selectedMessageToEdit != nil {
             self.selectedMessageToEdit = nil
@@ -2095,7 +2101,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     fileprivate func editMessage(_ message: IGRoomMessage) {
         self.selectedMessageToEdit = message
         self.selectedMessageToReply = nil
-        self.selectedMessageToForwardToThisRoom = nil
+        IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         
         self.inputTextView.text = message.message
         inputTextView.placeholder = "Write here ..."
@@ -2112,12 +2118,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.selectedMessageToEdit = nil
         if isReply {
             prefix = "reply"
-            self.selectedMessageToForwardToThisRoom = nil
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = message
         } else {
             prefix = "forward"
             self.selectedMessageToReply = nil
-            self.selectedMessageToForwardFromThisRoom = message
+            IGMessageViewController.selectedMessageToForwardFromThisRoom = message
             self.setSendAndRecordButtonStates()
         }
         
@@ -2277,7 +2283,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK: UI states
     func setSendAndRecordButtonStates() {
-        if self.selectedMessageToForwardToThisRoom != nil {
+        if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
             inputBarSendButton.isHidden = false
             inputBarRecordButton.isHidden = true
         } else {
@@ -2811,7 +2817,7 @@ extension IGMessageViewController: GrowingTextViewDelegate {
             inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight + 8
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false
-        } else if selectedMessageToForwardToThisRoom != nil {
+        } else if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
             inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight + 8
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false
@@ -2911,7 +2917,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.forwardOrReplyMessage(cellMessage)
         })
         let forward = UIAlertAction(title: "Forward", style: .default, handler: { (action) in
-            self.selectedMessageToForwardFromThisRoom = cellMessage
+            IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
             self.performSegue(withIdentifier: "showForwardMessageTable", sender: self)
         })
         let edit = UIAlertAction(title: "Edit", style: .default, handler: { (action) in
@@ -3325,15 +3331,16 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
 extension IGMessageViewController : IGForwardMessageDelegate {
     func didSelectRoomToForwardMessage(room: IGRoom) {
         if room.id == self.room?.id {
-            self.forwardOrReplyMessage(self.selectedMessageToForwardFromThisRoom!, isReply: false)
+            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
+            self.forwardOrReplyMessage(IGMessageViewController.selectedMessageToForwardFromThisRoom!, isReply: false)
             return
         }
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
         self.inputTextView.resignFirstResponder()
         messagesVc.room = room
-        messagesVc.selectedMessageToForwardToThisRoom = self.selectedMessageToForwardFromThisRoom
-        self.selectedMessageToForwardFromThisRoom = nil
+        IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
+        IGMessageViewController.selectedMessageToForwardFromThisRoom = nil
         self.navigationController!.pushViewController(messagesVc, animated:false)
     }
 }
