@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        
 //        _ = try! Realm()
         let config = Realm.Configuration(
-            schemaVersion: 18,
+            schemaVersion: 19,
             
             // Set the block which will be called automatically when opening a Realm with
             // a schema version lower than the one set above
@@ -80,6 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     //version 0.6.5 build 472
                 } else if (oldSchemaVersion < 18) {
                     //version 0.6.7 build 474
+                } else if (oldSchemaVersion < 19) {
+                    //version 0.7.0 build 477, add priority in IGRoom
                 }
         })
         Realm.Configuration.defaultConfiguration = config

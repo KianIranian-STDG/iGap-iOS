@@ -433,4 +433,21 @@ class IGClientRegisterDeviceRequest: IGRequest {
     }
 }
 
+class IGClientGetPromoteRequest: IGRequest {
+    class Generator: IGRequest.Generator {
+        class func generate() -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPClientGetPromote(), actionID: 618)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientGetPromoteResponse) {
+            for promote in responseProtoMessage.igpPromote {
+                //promote.igpID
+                //promote.igpType
+            }
+        }
+        
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
 

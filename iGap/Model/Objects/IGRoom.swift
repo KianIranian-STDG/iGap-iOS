@@ -44,6 +44,7 @@ class IGRoom: Object {
     @objc dynamic var pinId:              Int64                   = 0
     @objc dynamic var pinMessage:         IGRoomMessage?
     @objc dynamic var deletedPinMessageId:Int64                   = 0
+    @objc dynamic var priority:           Int32                   = 0
     
     //ignored properties
     var currenctActionsByUsers = Dictionary<String, (IGRegisteredUser, IGClientAction)>() //actorId, action
@@ -129,6 +130,7 @@ class IGRoom: Object {
         self.initilas = igpRoom.igpInitials
         self.colorString = igpRoom.igpColor
         self.unreadCount = igpRoom.igpUnreadCount
+        self.priority = igpRoom.igpPriority
         if igpRoom.hasIgpLastMessage {
             let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpRoom.igpLastMessage.igpMessageID, igpRoom.igpID)
             let realm = try! Realm()
