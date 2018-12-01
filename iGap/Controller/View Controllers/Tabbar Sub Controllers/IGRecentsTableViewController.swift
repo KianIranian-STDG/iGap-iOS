@@ -165,11 +165,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                 self.navigationController!.pushViewController(createChannel, animated: true)
             })
-            let searchInCurrentRoom = UIAlertAction(title: "Look And Find", style: .default, handler: { (action) in
-                let storyboard : UIStoryboard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let lookAndFind = storyboard.instantiateViewController(withIdentifier: "IGLookAndFind") as! IGLookAndFind
-                self.navigationController!.pushViewController(lookAndFind, animated: true)
-            })
             
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                 
@@ -179,7 +174,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             alertController.addAction(newChat)
             alertController.addAction(newGroup)
             alertController.addAction(newChannel)
-            alertController.addAction(searchInCurrentRoom)
             alertController.addAction(cancel)
             
             self.present(alertController, animated: true, completion: nil)
