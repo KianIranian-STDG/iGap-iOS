@@ -176,8 +176,12 @@ class IGClientSearchRoomHistoryRequest : IGRequest {
 class IGClientResolveUsernameRequest: IGRequest {
     class Generator: IGRequest.Generator {
         class func generate(username: String) -> IGRequestWrapper {
+            var finalUsername = username
+            if username.starts(with: "@"){
+                finalUsername = String(username.dropFirst())
+            }
             var clientResolveUsernameRequestMessage = IGPClientResolveUsername()
-            clientResolveUsernameRequestMessage.igpUsername = username
+            clientResolveUsernameRequestMessage.igpUsername = finalUsername
             return IGRequestWrapper(message: clientResolveUsernameRequestMessage, actionID: 606)
         }
     }

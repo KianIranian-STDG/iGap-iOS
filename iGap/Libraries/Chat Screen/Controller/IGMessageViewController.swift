@@ -50,7 +50,7 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol {
 
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
@@ -152,6 +152,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let KEYBOARD_MAIN_ICON = ""
     let returnText = "/back"
     
+    let DOCTOR_BOT_HEIGHT = 50 // height size for main doctor bot view (Hint: size of custom button is lower than this size -> (DOCTOR_BOT_HEIGHT - (2 * DOCTOR_BUTTON_VERTICAL_SPACE)) )
+    let DOCTOR_BUTTON_VERTICAL_SPACE = 6 // space between top & bottom of a custom button with doctor bot parent view
+    let DOCTOR_BUTTON_SPACE : CGFloat = 10 // space between each button
+    let DOCOTR_IN_BUTTON_SPACE : CGFloat = 10 // space between button and image and mainView in a custom button
+    let DOCTOR_IMAGE_SIZE : CGFloat = 25 // width and height size for image
+    var leftSpace : CGFloat = 0 // space each button from start of scroll view (Hint: this value will be changed programatically)
+    var apiStructArray : [IGApiStruct] = []
+    
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
     var getMessageLimit = 25
@@ -174,6 +182,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        IGApi.apiBotProtocol = self
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
@@ -556,6 +566,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             return (chatRoom.peer?.isBot)!
         }
         return false
+    }
+    
+    func isDoctoriGap() -> Bool {
+        return room?.chatRoom?.peer?.username.lowercased() == "drigap"
     }
     
     private func makeKeyboardButton(){
@@ -1202,7 +1216,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
             UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIViewAnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
                 self.inputBarViewBottomConstraint.constant = bottomConstraint
-                //self.setCollectionViewInset()
                 self.view.layoutIfNeeded()
             }, completion: { (completed) in
                 

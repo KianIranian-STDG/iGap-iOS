@@ -11,7 +11,19 @@
 import UIKit
 import IGProtoBuff
 
-class IGHelperChatOpener {
+class IGHelper {
+    
+    internal static let shareLinkPrefixGroup = "Open this link to join my iGap Group"
+    internal static let shareLinkPrefixChannel = "Open this link to join my iGap Channel"
+    
+    internal static func shareText(message: String, viewController: UIViewController){
+        let textToShare = [message]
+        let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = viewController.view
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        viewController.present(activityViewController, animated: true, completion: nil)
+    }
+    
     
     /**
      * open chat room with room id if exist in realm otherwise
@@ -48,7 +60,10 @@ class IGHelperChatOpener {
     }
     
     
-    /* open user profile */
+    /**
+     * use this method for open profile from search username page(IGLookAndFind)
+     * and when user clicked on forwarded message view
+     **/
     
     internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil, viewController: UIViewController){
         let storyboard : UIStoryboard = UIStoryboard(name: "profile", bundle: nil)
@@ -57,8 +72,8 @@ class IGHelperChatOpener {
         destinationVC.previousRoomId = 0
         destinationVC.room = room
         viewController.navigationController!.pushViewController(destinationVC, animated: true)
-        viewController.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
     
     /**
      * resolve username info and open chat or profile with received data
@@ -68,21 +83,36 @@ class IGHelperChatOpener {
         IGGlobal.prgShow(viewController.view)
         IGClientResolveUsernameRequest.Generator.generate(username: username).success({ (protoResponse) in
             DispatchQueue.main.async {
-                IGGlobal.prgHide()
-                
-                if let clientResolvedUsernameResponse = protoResponse as? IGPClientResolveUsernameResponse {
+                switch protoResponse {
+                case let clientResolvedUsernameResponse as IGPClientResolveUsernameResponse:
+                    
                     let clientResponse = IGClientResolveUsernameRequest.Handler.interpret(response: clientResolvedUsernameResponse)
                     
-                    var usernameType : IGPClientSearchUsernameResponse.IGPResult.IGPType = .room
-                    if clientResponse.clientResolveUsernametype == .user {
-                        usernameType = .user
+                    switch clientResponse.clientResolveUsernametype {
+                    case .user:
+                        if (clientResponse.user?.isBot)! {
+                            IGHelper.createChat(viewController: viewController, selectedUser: clientResponse.user!)
+                        } else {
+                            IGHelper.openUserProfile(user: clientResponse.user! , room: nil, viewController: viewController)
+                        }
+                        break
+                    case .room:
+                        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                        messagesVc.room = clientResponse.room
+                        viewController.navigationController!.pushViewController(messagesVc, animated:false)
+                        break
+                    default:
+                        break
                     }
-                    IGHelperChatOpener.manageOpenChatOrProfile(viewController: viewController, usernameType: usernameType, user: clientResponse.user, room: clientResponse.room)
+                    IGGlobal.prgHide()
+                    
+                default:
+                    break
                 }
             }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
-                IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
                     let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
@@ -92,38 +122,10 @@ class IGHelperChatOpener {
                 default:
                     break
                 }
+                IGGlobal.prgHide()
             }
         }).send()
     }
-    
-    /**
-     * open chat room if username is for room or bot otherwise open user profile
-     **/
-    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?){
-        switch usernameType {
-        case .user:
-            if (user!.isBot) {
-                IGHelperChatOpener.createChat(viewController: viewController, selectedUser: user!)
-            } else {
-                IGHelperChatOpener.openUserProfile(user: user! , room: nil, viewController: viewController)
-            }
-            break
-        case .room:
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-            messagesVc.room = room
-            viewController.navigationController!.pushViewController(messagesVc, animated:false)
-            viewController.navigationController?.setNavigationBarHidden(false, animated: true)
-            break
-        default:
-            break
-        }
-    }
-    
-    
-    /**
-     * create chat with contact and then open chat room
-     **/
     
     internal static func createChat(viewController: UIViewController, selectedUser: IGRegisteredUser) {
         IGGlobal.prgShow(viewController.view)

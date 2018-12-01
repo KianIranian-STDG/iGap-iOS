@@ -390,39 +390,36 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                 self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                 self.hud.mode = .indeterminate
                 let user = self.sections[indexPath.section - 1 ].users[indexPath.row]
-                if user.registredUser.isBlocked == false {
-                    IGChatGetRoomRequest.Generator.generate(peerId: user.registredUser.id).success({ (protoResponse) in
-                        switch protoResponse {
-                        case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                            let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                            self.dismiss(animated: true, completion: {
-                                //segue to created chat
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                                object: nil,
-                                                                userInfo: ["room": roomId])
-                            })
-                            break
-                        default:
-                            break
-                        }
-                        
-                    }).error({ (errorCode, waitTime) in
+                IGChatGetRoomRequest.Generator.generate(peerId: user.registredUser.id).success({ (protoResponse) in
+                    switch protoResponse {
+                    case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        self.dismiss(animated: true, completion: {
+                            //segue to created chat
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
+                                                            object: nil,
+                                                            userInfo: ["room": roomId])
+                        })
+                        break
+                    default:
+                        break
+                    }
+                    
+                }).error({ (errorCode, waitTime) in
+                    DispatchQueue.main.async {
+                        self.hud.hide(animated: true)
                         switch errorCode {
                         case .timeout:
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                self.hud.hide(animated: true)
-                                self.present(alert, animated: true, completion: nil)
-                            }
+                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
                         default:
                             break
-                            
                         }
-                        
-                    }).send()
-                }
+                    }
+                    
+                }).send()
             }
         }
     }
