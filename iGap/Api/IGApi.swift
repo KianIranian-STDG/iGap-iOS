@@ -53,7 +53,9 @@ public class IGApi {
             if response != nil {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data!, options: []) as! Dictionary<String, AnyObject>
-                    jsonParse(jsonResponse: json["favorite"]!)
+                    if let jsonData = json["favorite"] {
+                        jsonParse(jsonResponse: jsonData)
+                    }
                 } catch {
                     print("error")
                 }
