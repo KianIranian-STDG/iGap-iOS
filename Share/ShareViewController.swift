@@ -322,6 +322,10 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
                     if let image = UIImage(data: imageData!) {
                         self.shareImageOriginal = image
                     }
+                } else if let imageData = item as? Data {
+                    if let image = UIImage(data: imageData) {
+                        self.shareImageOriginal = image
+                    }
                 } else {
                     return
                 }

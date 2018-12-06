@@ -37,7 +37,7 @@
                                                         <constraint firstAttribute="height" constant="54" id="Oc2-Nl-8Ob"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Chat_List_Type_Group" translatesAutoresizingMaskIntoConstraints="NO" id="DYw-jt-xy7">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DYw-jt-xy7">
                                                     <rect key="frame" x="74" y="27" width="16" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="3gF-2W-IXB"/>
@@ -236,7 +236,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IG_Chat_List_Type_Group" width="16" height="16"/>
         <image name="IG_Chat_Screen_Send" width="38" height="38"/>
         <image name="IG_New_Group_Deselect_User" width="20" height="20"/>
     </resources>
