@@ -35,7 +35,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        Realm.Configuration.defaultConfiguration = config
 //        
 //        _ = try! Realm()
+        
+        let fileURL = FileManager.default
+            .containerURL(forSecurityApplicationGroupIdentifier: "group.im.iGap")!
+            .appendingPathComponent("default.realm")
+        
+        if !FileManager.default.fileExists(atPath: fileURL.path) {
+            let defaultRealmPath = Realm.Configuration.defaultConfiguration.fileURL!
+            if FileManager.default.fileExists(atPath: defaultRealmPath.path) {
+                do {
+                    try FileManager.default.copyItem(atPath: defaultRealmPath.path, toPath: fileURL.path)
+                } catch let error as NSError {
+                    print("error occurred, here are the details:\n \(error)")
+                }
+            }
+        }
+        
         let config = Realm.Configuration(
+            fileURL: fileURL,
             schemaVersion: 19,
             
             // Set the block which will be called automatically when opening a Realm with
@@ -81,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 } else if (oldSchemaVersion < 18) {
                     //version 0.6.7 build 474
                 } else if (oldSchemaVersion < 19) {
-                    //version 0.7.0 build 477, add priority in IGRoom
+                    //version 0.7.0 build 477, add priority in IGRoom , add IGShareInfo
                 }
         })
         Realm.Configuration.defaultConfiguration = config
@@ -124,7 +141,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        IGAppManager.sharedManager.setUserUpdateStatus(status: .online)        
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
+            IGHelperGetShareData.getShareDate()
+            IGAppManager.sharedManager.setUserUpdateStatus(status: .online)
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
