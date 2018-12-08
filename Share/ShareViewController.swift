@@ -62,9 +62,16 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
     var shareVideoName: String!
     var shareGifData: Data!
     var shareGifName: String!
+    var shareFileData: Data!
+    var shareFileName: String!
     
     let shareWebIdentifiers = [String(kUTTypePropertyList)]
     let shareGifIdentifiers = [String(kUTTypeGIF)]
+    
+    let shareFileIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF),
+                                String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
+                                String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
+                                String(kUTTypeRTFD)]
     
     let shareTextIdentifiers = [String(kUTTypeText), String(kUTTypePlainText), String(kUTTypeUTF8PlainText),
                                 String(kUTTypeUTF16ExternalPlainText), String(kUTTypeUTF16PlainText),
@@ -79,8 +86,6 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
                                  String(kUTTypeMPEG), String(kUTTypeMPEG2Video), String(kUTTypeMPEG2TransportStream),
                                  String(kUTTypeMPEG4), String(kUTTypeAppleProtectedMPEG4Video), String(kUTTypeAVIMovie),
                                  String(kUTTypeMPEG2Video)]
-    
-    
     
     
     let SUITE_NAME = "group.im.iGap"
@@ -98,6 +103,9 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
     let GIF = "gif"
     let GIF_DATA = "gifData"
     let GIF_NAME = "gifName"
+    let FILE = "file"
+    let FILE_DATA = "fileData"
+    let FILE_NAME = "fileName"
     let URL = "url"
     
     @IBAction func btnClick(_ sender: UIButton) {
@@ -126,6 +134,7 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         getImageShareData()
         getVideoShareData()
         getGifShareData()
+        getFileShareData()
         
         ShareConfig.configRealm()
         checkSyncInfo()
@@ -280,6 +289,14 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
             }
             break
             
+        case FILE:
+            for fileIdentifier in shareFileIdentifiers {
+                if itemProvider!.hasItemConformingToTypeIdentifier(fileIdentifier) {
+                    return fileIdentifier
+                }
+            }
+            break
+            
         default:
             break
         }
@@ -293,9 +310,18 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         
         if let identifier = allowShareData(itemProvider: itemProvider, shareType: TEXT) {
             itemProvider!.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: { (item, error) -> Void in
-                let text = item as! String
-                self.shareType = self.TEXT
-                self.shareText = text
+                
+                if let url = item as? URL{
+                    let fileData = FileManager.default.contents(atPath: url.path)
+                    self.shareFileName = url.lastPathComponent
+                    self.shareFileData = fileData
+                    self.shareType = self.FILE
+                }
+                
+                if let text = item as? String {
+                    self.shareText = text
+                    self.shareType = self.TEXT
+                }
             })
         } else {
             print("error getTextShareData")
@@ -390,6 +416,23 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         }
     }
     
+    private func getFileShareData(){
+        let extensionItem = extensionContext?.inputItems.first as! NSExtensionItem
+        let itemProvider = extensionItem.attachments?.first
+        if let identifier = allowShareData(itemProvider: itemProvider, shareType: FILE) {
+            itemProvider!.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: { (item, error) in
+                if let url = item as? URL{
+                    let fileData = FileManager.default.contents(atPath: url.path)
+                    self.shareFileName = url.lastPathComponent
+                    self.shareFileData = fileData
+                    self.shareType = self.FILE
+                }
+            })
+        } else {
+            print("error getFileShareData")
+        }
+    }
+    
     private func shareDataToApp(){
         if !hasShareData() {return}
         
@@ -438,6 +481,17 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
             case GIF:
                 for (_, info) in selectedItems.enumerated() {
                     dict.append([GIF_DATA: self.shareGifData! , GIF_NAME: self.shareGifName , ID: info.id, TYPE: info.type])
+                }
+                
+                let finalData = NSKeyedArchiver.archivedData(withRootObject: dict)
+                
+                userDefault.set(finalData, forKey: self.shareType!)
+                userDefault.synchronize()
+                break
+                
+            case FILE:
+                for (_, info) in selectedItems.enumerated() {
+                    dict.append([FILE_DATA: self.shareFileData! , FILE_NAME: self.shareFileName , ID: info.id, TYPE: info.type])
                 }
                 
                 let finalData = NSKeyedArchiver.archivedData(withRootObject: dict)

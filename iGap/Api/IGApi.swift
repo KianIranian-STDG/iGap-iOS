@@ -40,7 +40,7 @@ public class IGApi {
         let signkey : String = "unknown_webservice_key"
         let encMsg = encryption(text: signkey)
         
-        var request = URLRequest(url: URL(string: "http://185.238.92.111:8080/rest/igap/getData")!)
+        var request = URLRequest(url: URL(string: "http://botapi.igap.net:8080/rest/igap/getData")!)
         
         let params = ["key": encMsg]
         request.setURLEncodedFormData(parameters: params)

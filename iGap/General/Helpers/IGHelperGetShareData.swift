@@ -29,7 +29,9 @@ class IGHelperGetShareData {
     private static let GIF = "gif"
     private static let GIF_DATA = "gifData"
     private static let GIF_NAME = "gifName"
-    private static let AUDIO = "audio"
+    private static let FILE = "file"
+    private static let FILE_DATA = "fileData"
+    private static let FILE_NAME = "fileName"
     private static let URL = "url"
     
     private static var userIdArray : [Int64] = []
@@ -171,6 +173,28 @@ class IGHelperGetShareData {
                             }
                         } else {
                             sendGifMessage(id: id, gifData: gifData, gifName: gifName)
+                        }
+                    }
+                }
+            }
+            
+            if let outData = userDefault.value(forKey: FILE) as? Data { // gif
+                clearShareData(userDefault: userDefault, key: FILE)
+                
+                let dict = NSKeyedUnarchiver.unarchiveObject(with: outData) as? [[String: Any]]
+                for info in dict! {
+                    if let data = info as? NSDictionary {
+                        let fileData = data.value(forKey: FILE_DATA) as! Data
+                        let fileName = data.value(forKey: FILE_NAME) as! String
+                        let type = data.value(forKey: TYPE) as! Int
+                        let id = data.value(forKey: ID) as! Int64
+                        
+                        if type == 4 {
+                            chatRoomCreator(userId: id) { (roomId) in
+                                sendFileMessage(id: roomId, fileData: fileData, fileName: fileName)
+                            }
+                        } else {
+                            sendFileMessage(id: id, fileData: fileData, fileName: fileName)
                         }
                     }
                 }
@@ -345,6 +369,43 @@ class IGHelperGetShareData {
         let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
         let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
         try! FileManager.default.copyItem(atPath: gifUrl.path, toPath: pathOnDiskFinal)
+        
+        return attachment
+    }
+    
+    /************************************************************************************************************/
+    /******************************************** Manage Shared File *******************************************/
+    /************************************************************************************************************/
+    
+    internal static func sendFileMessage(id: Int64, fileData: Data, fileName: String){
+        guard let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", id)).first else {
+            return
+        }
+        
+        sendFileMessage(room: room, attachment: manageFile(fileData: fileData, filename: fileName))
+    }
+    
+    private static func manageFile(fileData: Data, filename: String) -> IGFile {
+        
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDisk = documents + "/" + randomString + filename
+        
+        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
+        let fileSize = Int(fileData.count)
+        
+        // write data to my fileUrl
+        try! fileData.write(to: fileUrl)
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.fileNameOnDisk = randomString + filename
+        attachment.name = filename
+        attachment.type = .file
+        
+        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
+        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
         
         return attachment
     }
