@@ -20,6 +20,7 @@ class IGShareInfo: Object {
     @objc dynamic  var initials:      String?
     @objc dynamic  var initialsColor: String?
     @objc dynamic  var imageData:     Data?
+    @objc dynamic  var isParticipant: Bool                     = false
 
     
     override static func primaryKey() -> String {
@@ -37,6 +38,7 @@ class IGShareInfo: Object {
         self.initials = igpRoom.igpInitials
         self.initialsColor = igpRoom.igpColor
         self.imageData = imageData
+        self.isParticipant = true
     }
     
     /* use this constructor for fill contacts info into the share info */
@@ -50,5 +52,6 @@ class IGShareInfo: Object {
         self.initials = igpUser.igpInitials
         self.initialsColor = igpUser.igpColor
         self.imageData = imageData
+        self.isParticipant = true
     }
 }

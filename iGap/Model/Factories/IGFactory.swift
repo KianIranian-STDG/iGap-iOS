@@ -86,6 +86,7 @@ fileprivate class IGFactoryTask: NSObject {
                     room.isParticipant = true
                     try! IGDatabaseManager.shared.realm.write {
                         IGDatabaseManager.shared.realm.add(room, update: true)
+                        IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room), update: true)
                     }
                     IGFactory.shared.performInFactoryQueue {
                         self.success!()
@@ -725,6 +726,7 @@ class IGFactory: NSObject {
     
     //TODO: merge with leftRoomInDatabase
     func setDeleteRoom(roomID : Int64){
+        IGFactory.shared.deleteShareInfo(id: roomID, isContact: false)
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -874,8 +876,13 @@ class IGFactory: NSObject {
     }
     
     func contactDelete(phone: Int64) {
-        let task = IGFactoryTask()
         
+        let predicate = NSPredicate(format: "phone == %lld", phone)
+        if let contact = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
+            IGFactory.shared.deleteShareInfo(id: contact.id)
+        }
+        
+        let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 
@@ -1119,6 +1126,7 @@ class IGFactory: NSObject {
     
     //TODO: merge with setDeleteRoom
     func leftRoomInDatabase(roomID: Int64, memberId: Int64) {
+        IGFactory.shared.deleteShareInfo(id: roomID, isContact: false)
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -1268,6 +1276,7 @@ class IGFactory: NSObject {
                     user.isInContacts = true
                     try! IGDatabaseManager.shared.realm.write {
                         IGDatabaseManager.shared.realm.add(user, update: true)
+                        IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: true)
                     }
                     let predicate = NSPredicate(format: "id = %lld", user.id)
                     if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
@@ -1856,6 +1865,93 @@ class IGFactory: NSObject {
                         if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                             roomInDb.isParticipant = false
                         }
+
+                        let predicateShareInfo = NSPredicate(format: "id = %lld AND type != %d", roomId, 4)
+                        /* set "isParticipant = false" and after get all rooms clear all share info if yet "isParticipant == false" */
+                        if let shareInfoInDb = IGDatabaseManager.shared.realm.objects(IGShareInfo.self).filter(predicateShareInfo).first {
+                            shareInfoInDb.isParticipant = false
+                        }
+                    }
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    /* clear share info if "isParticipant == false" */
+    func deleteShareInfo(removeRoom: Bool = true){
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                
+                var predicate = NSPredicate(format: "isParticipant != 1 AND type == %d", 4) //  contact == 4
+                if removeRoom {
+                    predicate = NSPredicate(format: "isParticipant != 1 AND type != %d", 4)
+                }
+                let shareInfos = IGDatabaseManager.shared.realm.objects(IGShareInfo.self).filter(predicate)
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.delete(shareInfos)
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    func deleteShareInfo(id: Int64, isContact: Bool = true){
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                
+                var predicate = NSPredicate(format: "id == %lld AND type == %d", id, 4) //  contact == 4
+                if !isContact {
+                    predicate = NSPredicate(format: "id == %lld AND type != %d", id, 4)
+                }
+                let shareInfos = IGDatabaseManager.shared.realm.objects(IGShareInfo.self).filter(predicate)
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.delete(shareInfos)
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    func removeShareInfoContactParticipant(){
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                
+                let predicate = NSPredicate(format: "isParticipant == 1 AND type == %d", 4) //  contact == 4
+                let shareInfos = IGDatabaseManager.shared.realm.objects(IGShareInfo.self).filter(predicate)
+                try! IGDatabaseManager.shared.realm.write {
+                    for shareInfo in shareInfos {
+                        shareInfo.isParticipant = false
                     }
                 }
                 
@@ -1919,6 +2015,7 @@ class IGFactory: NSObject {
                 }
                 try! IGDatabaseManager.shared.realm.write {
                     IGDatabaseManager.shared.realm.add(room, update: true)
+                    IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room), update: true)
                 }
                 IGFactory.shared.performInFactoryQueue {
                     task.success!()

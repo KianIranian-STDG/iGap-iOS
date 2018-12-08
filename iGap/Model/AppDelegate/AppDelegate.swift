@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         if IGAppManager.sharedManager.isUserLoggiedIn() {
-            IGHelperGetShareData.getShareDate()
+            IGHelperGetShareData.manageShareDate()
             IGAppManager.sharedManager.setUserUpdateStatus(status: .online)
         }
     }

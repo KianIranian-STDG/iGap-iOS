@@ -322,9 +322,11 @@ class IGUserContactsGetListRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage: IGPUserContactsGetListResponse) {
+            IGFactory.shared.removeShareInfoContactParticipant() // set participant = false
             IGFactory.shared.clearContacts()
             let registredUsers = responseProtoMessage.igpRegisteredUser
             IGFactory.shared.saveRegistredContactsUsers(registredUsers)
+            IGFactory.shared.deleteShareInfo(removeRoom: false) // remove all share info if "participant == false"; HINT : run this code after "saveRegistredContactsUsers"
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }

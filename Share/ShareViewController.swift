@@ -123,6 +123,7 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         getVideoShareData()
         
         ShareConfig.configRealm()
+        checkSyncInfo()
         fillRecentChats()
         self.bottomView.isHidden = true
         super.viewDidLoad()
@@ -150,6 +151,19 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         button.layer.borderColor = UIColor.darkGray.cgColor
         button.layer.masksToBounds = false
         button.layer.cornerRadius = button.frame.width / 2
+    }
+    
+    private func checkSyncInfo(){
+        let realm = try! Realm()
+        let recentChats = realm.objects(IGShareInfo.self).filter(NSPredicate(format: "type != %d" , 4))
+        let contacts = realm.objects(IGShareInfo.self).filter(NSPredicate(format: "type == %d" , 4))
+        
+        if recentChats.count == 0 || contacts.count == 0 {
+            let alert = UIAlertController(title: "Hint", message: "Please open iGap for sync your info with this page!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     private func isContactList() -> Bool{

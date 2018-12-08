@@ -68,6 +68,9 @@ class IGClientGetRoomListRequest : IGRequest {
             
             let igpRooms: Array<IGPRoom> = responseProtoMessage.igpRooms
             IGFactory.shared.saveRoomsToDatabase(igpRooms, ignoreLastMessage: false)
+            if igpRooms.count < 40 {
+                IGFactory.shared.deleteShareInfo()
+            }
             return igpRooms.count
         }
         override class func handlePush(responseProtoMessage: Message) {}

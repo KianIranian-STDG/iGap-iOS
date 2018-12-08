@@ -276,7 +276,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     //MARK: Room List actions
     @objc private func userDidLogin() {
-        IGHelperGetShareData.getShareDate()
+        IGHelperGetShareData.manageShareDate()
         self.checkAppVersion()
         self.checkPermission()
         self.addRoomChangeNotificationBlock()

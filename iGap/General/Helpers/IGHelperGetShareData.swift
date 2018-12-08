@@ -38,7 +38,7 @@ class IGHelperGetShareData {
     /********************************************* Get Shared Data **********************************************/
     /************************************************************************************************************/
     
-    internal static func getShareDate(){
+    internal static func manageShareDate(){
         sendMessageDelay = 0.0
         addedUserIdArray = []
         userIdArray = []
