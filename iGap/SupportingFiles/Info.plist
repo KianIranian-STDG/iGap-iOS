@@ -32,6 +32,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -70,6 +72,8 @@ This is the option to choose a photo from your gallery and send it to someone el
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>audio</string>
+		<string>fetch</string>
 		<string>remote-notification</string>
 		<string>voip</string>
 	</array>

@@ -393,6 +393,49 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         txtMessage?.font = IGMessageCollectionViewCell.messageBodyTextViewFont()
+        
+        txtMessage?.customize {(lable) in
+            //let customInvitedLink = ActiveType.custom(pattern: "((?:http|https)://)?[igap\\.net]+(\\.\\w{0})?(/(?<=/)(?:[\\join./]+[a-zA-Z0-9]{2,}))") //look for iGap.net/join/
+            //lable.enabledTypes.append(customInvitedLink)
+            lable.hashtagColor = UIColor.organizationalColor()
+            lable.mentionColor = UIColor.organizationalColor()
+            lable.URLColor = UIColor.organizationalColor()
+            lable.botColor = UIColor.organizationalColor()
+            lable.EmailColor = UIColor.organizationalColor()
+            //lable.customColor[customInvitedLink] = UIColor.organizationalColor()
+            
+            lable.handleURLTap { url in
+                print("didTapOnURl ", url)
+                self.delegate?.didTapOnURl(url: url)
+            }
+            
+            lable.handleEmailTap { email in
+                print("didTapOnEmail ", email)
+                self.delegate?.didTapOnEmail(email: email.absoluteString)
+            }
+            
+            lable.handleBotTap {bot in
+                print("didTapOnBotAction ", bot)
+                self.delegate?.didTapOnBotAction(action: bot)
+            }
+            
+            lable.handleMentionTap { mention in
+                print("didTapOnMention ", mention)
+                self.delegate?.didTapOnMention(mentionText: mention )
+            }
+            
+            lable.handleHashtagTap { hashtag in
+                print("didTapOnHashtag ", hashtag)
+                self.delegate?.didTapOnHashtag(hashtagText: hashtag)
+            }
+            
+            /*lable.handleCustomTap(for:customInvitedLink) {
+                print("didTapOnRoomLink ", $0)
+                self.delegate?.didTapOnRoomLink(link: $0)
+            }*/
+        }
+        
+        /*
         txtMessage?.customize { (label) in
             let customInvitedLink = ActiveType.custom(pattern: "([/])\\w+")
             label.enabledTypes.append(customInvitedLink)
@@ -426,7 +469,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             label.handleCustomTap(for:customInvitedLink) {
                 self.delegate?.didTapOnRoomLink(link: $0)
             }
-        }
+        }*/
+        
     }
     
     /*

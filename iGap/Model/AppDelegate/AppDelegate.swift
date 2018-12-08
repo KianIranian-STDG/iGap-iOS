@@ -236,5 +236,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             NotificationCenter.default.post(IGNotificationStatusBarTapped)
         }
     }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print("didReceiveRemoteNotification")
+        // Print full message.
+        print("%@", userInfo)
+    }
 }
 

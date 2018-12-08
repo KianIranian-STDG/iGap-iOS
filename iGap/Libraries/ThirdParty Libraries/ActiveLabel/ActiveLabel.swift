@@ -21,7 +21,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     // MARK: - public properties
     open weak var delegate: ActiveLabelDelegate?
 
-    open var enabledTypes: [ActiveType] = [.mention, .hashtag, .url , .custom(pattern: "igap.net/")]
+    open var enabledTypes: [ActiveType] = [.mention, .hashtag, .url , .bot , .email, .custom(pattern: "")]
 
     open var urlMaximumLength: Int?
     
@@ -39,10 +39,22 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     @IBInspectable open var hashtagSelectedColor: UIColor? {
         didSet { updateTextStorage(parseText: false) }
     }
+    @IBInspectable open var botColor: UIColor = .blue {
+        didSet { updateTextStorage(parseText: false) }
+    }
+    @IBInspectable open var botSelectedColor: UIColor? {
+        didSet { updateTextStorage(parseText: false) }
+    }
     @IBInspectable open var URLColor: UIColor = .blue {
         didSet { updateTextStorage(parseText: false) }
     }
     @IBInspectable open var URLSelectedColor: UIColor? {
+        didSet { updateTextStorage(parseText: false) }
+    }
+    @IBInspectable open var EmailColor: UIColor = .blue {
+        didSet { updateTextStorage(parseText: false) }
+    }
+    @IBInspectable open var EmailSelectedColor: UIColor? {
         didSet { updateTextStorage(parseText: false) }
     }
     open var customColor: [ActiveType : UIColor] = [:] {
@@ -82,6 +94,14 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     open func handleURLTap(_ handler: @escaping (URL) -> ()) {
         urlTapHandler = handler
     }
+    
+    open func handleEmailTap(_ handler: @escaping (URL) -> ()) {
+        emailTapHandler = handler
+    }
+    
+    open func handleBotTap(_ handler: @escaping (String) -> ()) {
+        botTapHandler = handler
+    }
 
     open func handleCustomTap(for type: ActiveType, handler: @escaping (String) -> ()) {
         customTapHandlers[type] = handler
@@ -95,8 +115,12 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             mentionTapHandler = nil
         case .url:
             urlTapHandler = nil
+        case .email:
+            emailTapHandler = nil
         case .custom:
             customTapHandlers[type] = nil
+        case .bot:
+            botTapHandler = nil
         }
     }
 
@@ -212,7 +236,10 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention(let userHandle): didTapMention(userHandle)
             case .hashtag(let hashtag): didTapHashtag(hashtag)
             case .url(let originalURL, _): didTapStringURL(originalURL)
+            case .email(let originalEmail, _): didTapStringEmail(originalEmail)
             case .custom(let element): didTap(element, for: selectedElement.type)
+            case .bot(let botCommand): didTapBot(botCommand)
+                
             }
             
             let when = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -237,7 +264,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     
     internal var mentionTapHandler: ((String) -> ())?
     internal var hashtagTapHandler: ((String) -> ())?
+    internal var botTapHandler: ((String) -> ())?
     internal var urlTapHandler: ((URL) -> ())?
+    internal var emailTapHandler: ((URL) -> ())?
     internal var customTapHandlers: [ActiveType : ((String) -> ())] = [:]
     
     fileprivate var mentionFilterPredicate: ((String) -> Bool)?
@@ -318,7 +347,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention: attributes[NSForegroundColorAttributeName] = mentionColor
             case .hashtag: attributes[NSForegroundColorAttributeName] = hashtagColor
             case .url: attributes[NSForegroundColorAttributeName] = URLColor
+            case .email: attributes[NSForegroundColorAttributeName] = EmailColor
             case .custom: attributes[NSForegroundColorAttributeName] = customColor[type] ?? defaultCustomColor
+            case .bot: attributes[NSForegroundColorAttributeName] = botColor
             }
             
             if let highlightFont = hightlightFont {
@@ -398,9 +429,12 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention: selectedColor = mentionSelectedColor ?? mentionColor
             case .hashtag: selectedColor = hashtagSelectedColor ?? hashtagColor
             case .url: selectedColor = URLSelectedColor ?? URLColor
+            case .email: selectedColor = EmailSelectedColor ?? EmailColor
             case .custom:
                 let possibleSelectedColor = customSelectedColor[selectedElement.type] ?? customColor[selectedElement.type]
                 selectedColor = possibleSelectedColor ?? defaultCustomColor
+            case .bot: selectedColor = botSelectedColor ?? botColor
+                
             }
             attributes[NSForegroundColorAttributeName] = selectedColor
         } else {
@@ -409,7 +443,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention: unselectedColor = mentionColor
             case .hashtag: unselectedColor = hashtagColor
             case .url: unselectedColor = URLColor
+            case .email: unselectedColor = EmailColor
             case .custom: unselectedColor = customColor[selectedElement.type] ?? defaultCustomColor
+            case .bot: unselectedColor = botColor
             }
             attributes[NSForegroundColorAttributeName] = unselectedColor
         }
@@ -492,6 +528,14 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         }
         hashtagHandler(hashtag)
     }
+    
+    fileprivate func didTapBot(_ bot: String) {
+        guard let botHandler = botTapHandler else {
+            delegate?.didSelect(bot, type: .bot)
+            return
+        }
+        botHandler(bot)
+    }
 
     fileprivate func didTapStringURL(_ stringURL: String) {
         guard let urlHandler = urlTapHandler, let url = URL(string: stringURL) else {
@@ -499,6 +543,14 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             return
         }
         urlHandler(url)
+    }
+    
+    fileprivate func didTapStringEmail(_ stringURL: String) {
+        guard let emailHandler = emailTapHandler, let url = URL(string: stringURL) else {
+            delegate?.didSelect(stringURL, type: .url)
+            return
+        }
+        emailHandler(url)
     }
 
     fileprivate func didTap(_ element: String, for type: ActiveType) {

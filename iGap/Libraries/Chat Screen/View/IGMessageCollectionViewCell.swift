@@ -148,9 +148,9 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
         var textWithTime = ""
         if addArbitraryTexts {
             if isEdited {
-                textWithTime = text.appending("xxxxxxxxxxxxx")
+                textWithTime = text.appending("xxxxxxxxxxxxxxx")
             } else {
-                textWithTime = text.appending("xxxxxxxx")
+                textWithTime = text.appending("xxxxxxxxxx")
             }
         } else {
             textWithTime = text.appending("")

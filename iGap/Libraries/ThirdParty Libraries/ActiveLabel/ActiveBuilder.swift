@@ -14,9 +14,9 @@ struct ActiveBuilder {
 
     static func createElements(type: ActiveType, from text: String, range: NSRange, filterPredicate: ActiveFilterPredicate?) -> [ElementTuple] {
         switch type {
-        case .mention, .hashtag:
+        case .mention, .hashtag, .bot:
             return createElementsIgnoringFirstCharacter(from: text, for: type, range: range, filterPredicate: filterPredicate)
-        case .url:
+        case .url, .email:
             return createElements(from: text, for: type, range: range, filterPredicate: filterPredicate)
         case .custom:
             return createElements(from: text, for: type, range: range, minLength: 1, filterPredicate: filterPredicate)

@@ -57,6 +57,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var collectionView: IGMessageCollectionView!
     @IBOutlet weak var inputBarContainerView: UIView!
     @IBOutlet weak var inputTextView: GrowingTextView!
+    
     @IBOutlet weak var inputTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputBarHeightContainerConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputBarHeightConstraint: NSLayoutConstraint!
@@ -324,9 +325,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.delegate = self
         inputTextView.placeholder = "Write here ..."
         inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-        inputTextView.maxHeight = 83.0 // almost 4 lines
-        inputTextView.contentInset = UIEdgeInsets(top: -5, left: 0, bottom: -5, right: 0)
-        
+        inputTextView.maxHeight = 166.0 // almost 8 lines
+        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        inputTextView.layer.borderColor = UIColor.gray.cgColor
+        inputTextView.layer.borderWidth = 0.4
+        inputTextView.layer.cornerRadius = 6.0
+        inputTextView.layer.masksToBounds = true
         
         inputBarLeftView.layer.cornerRadius = 6.0//19.0
         inputBarLeftView.layer.masksToBounds = true
@@ -345,6 +349,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         inputBarView.layer.cornerRadius = 6.0//19.0
         inputBarView.layer.masksToBounds = true
+        inputBarView.layer.backgroundColor = inputBarLeftView.backgroundColor?.cgColor
         
         inputBarRecordView.layer.cornerRadius = 6.0//19.0
         inputBarRecordView.layer.masksToBounds = false
@@ -568,9 +573,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return false
     }
     
-    func isDoctoriGap() -> Bool {
+    /*func isDoctoriGap() -> Bool {
         return room?.chatRoom?.peer?.username.lowercased() == "drigap"
-    }
+    }*/
     
     private func makeKeyboardButton(){
         if isKeyboardButtonCreated {
@@ -588,8 +593,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         btnChangeKeyboard.snp.makeConstraints { (make) in
             make.right.equalTo(inputBarRightiew.snp.left)
             make.centerY.equalTo(inputBarRightiew.snp.centerY)
-            make.width.equalTo(38)
-            make.height.equalTo(38)
+            make.width.equalTo(33)
+            make.height.equalTo(33)
         }
         
         inputTextView.snp.makeConstraints { (make) in
@@ -2812,8 +2817,14 @@ extension IGMessageViewController: GrowingTextViewDelegate {
         setInputBarHeight()
     }
     
+    func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat) {
+        inputTextViewHeight = height
+        setInputBarHeight()
+    }
+    
     func setInputBarHeight() {
-        let height = max(self.inputTextViewHeight - 16, 22)
+        let height = max(self.inputTextViewHeight - 16, 20)
+        print("Height input bar : ", height)
         var inputBarHeight = height + 16.0
         if currentAttachment != nil {
             inputBarAttachmentViewBottomConstraint.constant = inputBarHeight + 8
@@ -2841,7 +2852,7 @@ extension IGMessageViewController: GrowingTextViewDelegate {
             inputBarOriginalMessageView.isHidden = true
         }
         
-        inputTextViewHeightConstraint.constant = height
+        inputTextViewHeightConstraint.constant = inputBarHeight - 5
         inputBarHeightConstraint.constant = inputBarHeight
         inputBarHeightContainerConstraint.constant = inputBarHeight + 16
 //        UIView.animate(withDuration: 0.2) {
@@ -3019,6 +3030,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     
+    
+    
     /******* overrided method for show file attachment (use from UIDocumentInteractionControllerDelegate) *******/
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
@@ -3157,17 +3170,26 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         IGHelperChatOpener.checkUsernameAndOpenPage(viewController: self, username: mentionText)
     }
     
+    func didTapOnEmail(email: String) {
+        if let url = URL(string: "mailto:\(email)") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     func didTapOnURl(url: URL) {
         var urlString = url.absoluteString
+        let urlStringLower = url.absoluteString.lowercased()
         
-        if urlString.contains("https://iGap.net/join") || urlString.contains("http://iGap.net/join") {
+        if urlStringLower.contains("https://igap.net/join") || urlStringLower.contains("http://igap.net/join") ||  urlStringLower.contains("igap.net/join") {
             didTapOnRoomLink(link: urlString)
             return
         }
         
-        urlString = urlString.lowercased()
-        
-        if !(urlString.contains("https://")) && !(urlString.contains("http://")) {
+        if !(urlStringLower.contains("https://")) && !(urlStringLower.contains("http://")) {
             urlString = "http://" + urlString
         }
         if let urlToOpen = URL(string: urlString) {
@@ -3182,7 +3204,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnBotAction(action: String){
-        inputTextView.text = action
+        var myaction : String = action
+        if !(myaction.contains("/")) {
+            myaction = "/"+myaction
+        }
+        inputTextView.text = myaction
         self.didTapOnSendButton(self.inputBarSendButton)
     }
     
