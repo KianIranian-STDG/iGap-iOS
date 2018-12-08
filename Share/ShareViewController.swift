@@ -60,6 +60,8 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
     var shareImageOriginal: UIImage!
     var shareVideoData: Data!
     var shareVideoName: String!
+    var shareGifData: Data!
+    var shareGifName: String!
     
     let shareWebIdentifiers = [String(kUTTypePropertyList)]
     let shareGifIdentifiers = [String(kUTTypeGIF)]
@@ -94,6 +96,8 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
     let VIDEO_DATA = "videoData"
     let VIDEO_NAME = "videoName"
     let GIF = "gif"
+    let GIF_DATA = "gifData"
+    let GIF_NAME = "gifName"
     let URL = "url"
     
     @IBAction func btnClick(_ sender: UIButton) {
@@ -121,6 +125,7 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         getWebShareData()
         getImageShareData()
         getVideoShareData()
+        getGifShareData()
         
         ShareConfig.configRealm()
         checkSyncInfo()
@@ -375,9 +380,9 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
             itemProvider!.loadItem(forTypeIdentifier: identifier, options: nil, completionHandler: { (item, error) in
                 if let url = item as? URL{
                     let fileData = FileManager.default.contents(atPath: url.path)
-                    self.shareVideoName = url.lastPathComponent
-                    self.shareVideoData = fileData
-                    self.shareType = self.VIDEO
+                    self.shareGifName = url.lastPathComponent
+                    self.shareGifData = fileData
+                    self.shareType = self.GIF
                 }
             })
         } else {
@@ -422,6 +427,17 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
             case VIDEO:
                 for (_, info) in selectedItems.enumerated() {
                     dict.append([VIDEO_DATA: self.shareVideoData! , VIDEO_NAME: self.shareVideoName , ID: info.id, TYPE: info.type])
+                }
+                
+                let finalData = NSKeyedArchiver.archivedData(withRootObject: dict)
+                
+                userDefault.set(finalData, forKey: self.shareType!)
+                userDefault.synchronize()
+                break
+                
+            case GIF:
+                for (_, info) in selectedItems.enumerated() {
+                    dict.append([GIF_DATA: self.shareGifData! , GIF_NAME: self.shareGifName , ID: info.id, TYPE: info.type])
                 }
                 
                 let finalData = NSKeyedArchiver.archivedData(withRootObject: dict)

@@ -26,6 +26,9 @@ class IGHelperGetShareData {
     private static let VIDEO = "video"
     private static let VIDEO_DATA = "videoData"
     private static let VIDEO_NAME = "videoName"
+    private static let GIF = "gif"
+    private static let GIF_DATA = "gifData"
+    private static let GIF_NAME = "gifName"
     private static let AUDIO = "audio"
     private static let URL = "url"
     
@@ -141,11 +144,33 @@ class IGHelperGetShareData {
                         let id = data.value(forKey: ID) as! Int64
                         
                         if type == 4 {
-                            chatRoomCreator(userId: id) { (userId) in
-                                sendVideoMessage(id: id, videoData: videoData, videoName: videoName)
+                            chatRoomCreator(userId: id) { (roomId) in
+                                sendVideoMessage(id: roomId, videoData: videoData, videoName: videoName)
                             }
                         } else {
                             sendVideoMessage(id: id, videoData: videoData, videoName: videoName)
+                        }
+                    }
+                }
+            }
+            
+            if let outData = userDefault.value(forKey: GIF) as? Data { // gif
+                clearShareData(userDefault: userDefault, key: GIF)
+                
+                let dict = NSKeyedUnarchiver.unarchiveObject(with: outData) as? [[String: Any]]
+                for info in dict! {
+                    if let data = info as? NSDictionary {
+                        let gifData = data.value(forKey: GIF_DATA) as! Data
+                        let gifName = data.value(forKey: GIF_NAME) as! String
+                        let type = data.value(forKey: TYPE) as! Int
+                        let id = data.value(forKey: ID) as! Int64
+                        
+                        if type == 4 {
+                            chatRoomCreator(userId: id) { (roomId) in
+                                sendGifMessage(id: roomId, gifData: gifData, gifName: gifName)
+                            }
+                        } else {
+                            sendGifMessage(id: id, gifData: gifData, gifName: gifName)
                         }
                     }
                 }
@@ -282,6 +307,48 @@ class IGHelperGetShareData {
         return attachment
     }
     
+    /************************************************************************************************************/
+    /******************************************** Manage Shared Gif *******************************************/
+    /************************************************************************************************************/
+    
+    internal static func sendGifMessage(id: Int64, gifData: Data, gifName: String){
+        guard let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", id)).first else {
+            return
+        }
+        
+        sendFileMessage(room: room, attachment: manageGif(gifData: gifData, filename: gifName))
+    }
+    
+    private static func manageGif(gifData: Data, filename: String) -> IGFile {
+        
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDisk = documents + "/" + randomString + filename
+        
+        let gifUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
+        let fileSize = Int(gifData.count)
+        
+        // write data to my fileUrl
+        try! gifData.write(to: gifUrl)
+        
+        let uiImage = UIImage.gifImageWithURL(gifUrl.absoluteString)
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.fileNameOnDisk = randomString + filename
+        attachment.name = filename
+        attachment.attachedImage = uiImage
+        attachment.type = .gif
+        attachment.height = Double((uiImage?.size.height)!)
+        attachment.width = Double((uiImage?.size.width)!)
+        
+        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
+        try! FileManager.default.copyItem(atPath: gifUrl.path, toPath: pathOnDiskFinal)
+        
+        return attachment
+    }
+    
     
     /************************************************************************************************************/
     /********************************************* Send File Message ********************************************/
@@ -290,7 +357,6 @@ class IGHelperGetShareData {
     private static func sendFileMessage(room: IGRoom, attachment: IGFile){
         sendMessageDelay = sendMessageDelay + 1
         DispatchQueue.main.asyncAfter(deadline: .now() + sendMessageDelay) {
-            //let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
             let messageText = ""
             let message = IGRoomMessage(body: messageText)
             attachment.status = .processingForUpload
@@ -303,26 +369,40 @@ class IGHelperGetShareData {
                 } else {
                     message.type = .imageAndText
                 }
+                break
+                
+            case .gif:
+                message.type = .gif
+                break
+                
             case .video:
                 if messageText == "" {
                     message.type = .video
                 } else {
                     message.type = .videoAndText
                 }
+                break
+                
             case .audio:
                 if messageText == "" {
                     message.type = .audio
                 } else {
                     message.type = .audioAndText
                 }
+                break
+                
             case .voice:
                 message.type = .voice
+                break
+                
             case .file:
                 if messageText == "" {
                     message.type = .file
                 } else {
                     message.type = .fileAndText
                 }
+                break
+                
             default:
                 break
             }
