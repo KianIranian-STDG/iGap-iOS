@@ -1430,6 +1430,22 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return (singleDelete,bothDelete)
     }
     
+    func allowShare(_ cellMessage: IGRoomMessage) -> Bool {
+        
+        var message = cellMessage
+        if let forward = cellMessage.forwardedFrom {
+            message = forward
+        }
+        
+        if (message.type == .file || message.type == .fileAndText ||
+            message.type == .image || message.type == .imageAndText ||
+            message.type == .video || message.type == .videoAndText ||
+            message.type == .gif) && IGGlobal.isFileExist(path: message.attachment!.path(), fileSize: message.attachment!.size) {
+            return true
+        }
+        return false
+    }
+    
     
     @IBAction func didTapOnPinClose(_ sender: UIButton) {
         if groupPinGranted() {
@@ -2957,6 +2973,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         })
         
+        let share = UIAlertAction(title: "Share", style: .default, handler: { (action) in
+            var finalMessage = cellMessage
+            if let forward = cellMessage.forwardedFrom {
+                finalMessage = forward
+            }
+            IGHelperPopular.shareAttachment(url: finalMessage.attachment?.path(), viewController: self)
+        })
+        
         let report = UIAlertAction(title: "Report", style: .default, handler: { (action) in
             self.report(room: self.room!, message: cellMessage)
         })
@@ -3000,6 +3024,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         //Edit
         if self.allowEdit(cellMessage){
             alertC.addAction(edit)
+        }
+        
+        //Share
+        if self.allowShare(cellMessage){
+            alertC.addAction(share)
         }
         
         alertC.addAction(report)
