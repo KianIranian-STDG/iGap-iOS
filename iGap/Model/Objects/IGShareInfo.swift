@@ -13,14 +13,16 @@ import UIKit
 import IGProtoBuff
 
 class IGShareInfo: Object {
-    @objc dynamic  var id:            Int64                    = -1
-    @objc dynamic  var itemId:        Int64                    = -1 // for contact & chatRoom is userId otherwise is roomId
-    @objc dynamic  var type:          IGPRoom.IGPType.RawValue = 0
-    @objc dynamic  var title:         String?
-    @objc dynamic  var initials:      String?
-    @objc dynamic  var initialsColor: String?
-    @objc dynamic  var imageData:     Data?
-    @objc dynamic  var isParticipant: Bool                     = false
+    @objc dynamic  var id:              Int64                    = -1
+    @objc dynamic  var itemId:          Int64                    = -1 // for contact & chatRoom is userId otherwise is roomId
+    @objc dynamic  var type:            IGPRoom.IGPType.RawValue = 0
+    @objc dynamic  var title:           String?
+    @objc dynamic  var initials:        String?
+    @objc dynamic  var initialsColor:   String?
+    @objc dynamic  var imageData:       Data?
+    @objc dynamic  var isParticipant:   Bool                     = false
+    @objc dynamic  var sortimgTimestamp:Double                   = 0.0
+    @objc dynamic  var pinId:           Int64                    = 0
 
     
     override static func primaryKey() -> String {
@@ -39,6 +41,10 @@ class IGShareInfo: Object {
         self.initialsColor = igpRoom.igpColor
         self.imageData = imageData
         self.isParticipant = true
+        if igpRoom.hasIgpLastMessage {
+            self.sortimgTimestamp = Date(timeIntervalSince1970: TimeInterval(igpRoom.igpLastMessage.igpCreateTime)).timeIntervalSinceReferenceDate
+        }
+        self.pinId = igpRoom.igpPinID
     }
     
     /* use this constructor for fill contacts info into the share info */

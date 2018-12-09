@@ -187,13 +187,15 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
     func fillRecentChats() {
         var predicate : NSPredicate!
         
+        let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
+        
         if searchText != nil && !searchText!.isEmpty {
             predicate = NSPredicate(format: "((title BEGINSWITH[c] %@) OR (title CONTAINS[c] %@)) AND (type != %d)", searchText! , searchText!, 4)
         } else {
             predicate = NSPredicate(format: "type != %d" , 4)
         }
         
-        shareInfoList = try! Realm().objects(IGShareInfo.self).filter(predicate)
+        shareInfoList = try! Realm().objects(IGShareInfo.self).filter(predicate).sorted(by: sortProperties)
         tableView.reloadData()
     }
     
