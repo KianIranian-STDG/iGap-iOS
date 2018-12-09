@@ -604,6 +604,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func manageKeyboard(){
+        if !isBotRoom() {return}
         
         if !self.joinButton.isHidden {
             self.joinButton.isHidden = true

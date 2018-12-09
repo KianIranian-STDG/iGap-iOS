@@ -275,7 +275,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
         }
         
-        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room)
+        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, openChatFromLink: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

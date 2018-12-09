@@ -3397,7 +3397,7 @@ Please wait 0:59</string>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     <offsetWrapper key="searchFieldBackgroundPositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LookUpSearch" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LookUpSearch" rowHeight="70" id="rsp-b7-KeM" customClass="IGLookAndFindCell" customModule="iGap" customModuleProvider="target">

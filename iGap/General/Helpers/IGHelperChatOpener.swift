@@ -99,7 +99,7 @@ class IGHelperChatOpener {
     /**
      * open chat room if username is for room or bot otherwise open user profile
      **/
-    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?){
+    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?, openChatFromLink: Bool = false){
         switch usernameType {
         case .user:
             if (user!.isBot) {
@@ -112,6 +112,7 @@ class IGHelperChatOpener {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
             messagesVc.room = room
+            messagesVc.openChatFromLink = openChatFromLink
             viewController.navigationController!.pushViewController(messagesVc, animated:false)
             viewController.navigationController?.setNavigationBarHidden(false, animated: true)
             break
