@@ -243,7 +243,8 @@ class IGRoomMessage: Object {
         } else if isReply {
             prefix = "R_"
         }
-        return "\(prefix)\(messageID)_\(roomID)"
+        // generate random string for create a distinction for upload same file simultaneously
+        return "\(prefix)\(messageID)_\(roomID)" + IGGlobal.randomString(length: 3)
     }
     
     internal static func detectPinMessage(message: IGRoomMessage) -> String{
