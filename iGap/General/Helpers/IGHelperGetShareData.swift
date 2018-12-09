@@ -487,7 +487,12 @@ class IGHelperGetShareData {
     }
     
     
-    internal static func setRealmShareInfo(igpRoom: IGPRoom, igRoom: IGRoom) -> IGShareInfo {
+    internal static func setRealmShareInfo(igpRoom: IGPRoom, igRoom: IGRoom) -> IGShareInfo? {
+        
+        /* if room is readOnly don't set data to IGShareInfo, because in this state user can't set message to room */
+        if igpRoom.igpReadOnly {
+            return nil
+        }
         
         var imageData : Data?
         var id : Int64!

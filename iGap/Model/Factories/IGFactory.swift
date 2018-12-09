@@ -86,7 +86,9 @@ fileprivate class IGFactoryTask: NSObject {
                     room.isParticipant = true
                     try! IGDatabaseManager.shared.realm.write {
                         IGDatabaseManager.shared.realm.add(room, update: true)
-                        IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room), update: true)
+                        if let roomInfo = IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room) {
+                            IGDatabaseManager.shared.realm.add(roomInfo, update: true)
+                        }
                     }
                     IGFactory.shared.performInFactoryQueue {
                         self.success!()
@@ -2015,7 +2017,9 @@ class IGFactory: NSObject {
                 }
                 try! IGDatabaseManager.shared.realm.write {
                     IGDatabaseManager.shared.realm.add(room, update: true)
-                    IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room), update: true)
+                    if let roomInfo = IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room) {
+                        IGDatabaseManager.shared.realm.add(roomInfo, update: true)
+                    }
                 }
                 IGFactory.shared.performInFactoryQueue {
                     task.success!()

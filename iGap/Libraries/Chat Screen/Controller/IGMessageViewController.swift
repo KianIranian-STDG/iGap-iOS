@@ -3234,6 +3234,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnBotAction(action: String){
+        if !isBotRoom() {return}
+        
         var myaction : String = action
         if !(myaction.contains("/")) {
             myaction = "/"+myaction
