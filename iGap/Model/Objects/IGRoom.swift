@@ -31,6 +31,7 @@ class IGRoom: Object {
     @objc dynamic var initilas:           String?
     @objc dynamic var colorString:        String                  = "FFFFFF"
     @objc dynamic var unreadCount:        Int32                   = 0
+    @objc dynamic var badgeUnreadCount:   Int32                   = 0 // use this value just for show unread count on app icon, always overrid 'unreadCount' value to currect variable
     @objc dynamic var isReadOnly:     	  Bool                    = false
     @objc dynamic var isParticipant:  	  Bool                    = false
     @objc dynamic var draft:              IGRoomDraft?
@@ -130,6 +131,7 @@ class IGRoom: Object {
         self.initilas = igpRoom.igpInitials
         self.colorString = igpRoom.igpColor
         self.unreadCount = igpRoom.igpUnreadCount
+        self.badgeUnreadCount = igpRoom.igpUnreadCount
         self.priority = igpRoom.igpPriority
         if igpRoom.hasIgpLastMessage {
             let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpRoom.igpLastMessage.igpMessageID, igpRoom.igpID)
@@ -217,6 +219,18 @@ class IGRoom: Object {
             }
         }
         return false
+    }
+    
+    /* update unread count when app is in background */
+    internal static func updateUnreadCount(roomId: Int64) -> Int {
+        let realm = try! Realm()
+        try! realm.write {
+            if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+                room.badgeUnreadCount = room.badgeUnreadCount + 1
+            }
+        }
+        let count : Int = realm.objects(IGRoom.self).filter("isParticipant = 1").sum(ofProperty: "badgeUnreadCount")
+        return count
     }
 }
 

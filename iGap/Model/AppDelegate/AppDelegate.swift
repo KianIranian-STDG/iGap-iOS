@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     internal static var isFirstEnterToApp: Bool = true
     internal static var isUpdateAvailable : Bool = false
     internal static var isDeprecatedClient : Bool = false
+    internal static var appIsInBackground : Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        let config = Realm.Configuration(schemaVersion: try! schemaVersionAtURL(Realm.Configuration.defaultConfiguration.fileURL!) + 1)
@@ -133,6 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        AppDelegate.appIsInBackground = true
         IGAppManager.sharedManager.setUserUpdateStatus(status: .exactly)
         
         /* change this values for import contact after than contact changed in phone contact */
@@ -141,6 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        AppDelegate.appIsInBackground = false
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             IGHelperGetShareData.manageShareDate()
             IGAppManager.sharedManager.setUserUpdateStatus(status: .online)
@@ -179,6 +182,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
 
         application.registerForRemoteNotifications()
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        if let roomId = userInfo["roomId"] as? String {
+            let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
+            application.applicationIconBadgeNumber = unreadCount
+        }
     }
     /******************* Notificaton End *******************/
     
@@ -255,12 +265,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if statusBarRect.contains(touchPoint) {
             NotificationCenter.default.post(IGNotificationStatusBarTapped)
         }
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        print("didReceiveRemoteNotification")
-        // Print full message.
-        print("%@", userInfo)
     }
 }
 

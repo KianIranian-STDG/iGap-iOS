@@ -532,7 +532,11 @@ class IGFactory: NSObject {
                 }
                 IGDatabaseManager.shared.realm.beginWrite()
                 if shouldIncreamentUnreadCount {
-                    roomInDb.unreadCount += 1
+                    let unreadCount = roomInDb.unreadCount + 1
+                    if !AppDelegate.appIsInBackground {
+                        roomInDb.badgeUnreadCount = unreadCount
+                    }
+                    roomInDb.unreadCount = unreadCount
                 }
                 roomInDb.lastMessage = lastMessage
                 if let messageTime = lastMessage?.creationTime?.timeIntervalSinceReferenceDate {
@@ -2043,6 +2047,7 @@ class IGFactory: NSObject {
                     /* if clearId is lower than latest messageId don't clear message */
                     if clearId == 0 || roomInDb.lastMessage == nil || (roomInDb.lastMessage?.id)! <= clearId {
                         try! IGDatabaseManager.shared.realm.write {
+                            roomInDb.badgeUnreadCount = 0
                             roomInDb.unreadCount = 0
                         }
                     }
