@@ -119,7 +119,7 @@ public class RTCClient: NSObject {
         }
     }
     
-    static func getInstance() -> RTCClient{
+    static func getInstance() -> RTCClient {
         if RTCClient.instanceValue == nil {
             instanceValue = RTCClient(iceServers: IGAppManager.iceServersStatic)
             return instanceValue
@@ -136,7 +136,7 @@ public class RTCClient: NSObject {
         
         if iceServers.count == 0 {
             let realm = try! Realm()
-            if let signaling = try! realm.objects(IGSignaling.self).first {
+            if let signaling = realm.objects(IGSignaling.self).first {
                 for ice in signaling.iceServer {
                     IGAppManager.iceServersStatic.append(RTCIceServer(urlStrings:[ice.url],username:ice.username,credential:ice.credential))
                 }
@@ -279,7 +279,7 @@ public class RTCClient: NSObject {
     }
     
     public func createAnswerForOfferReceived(withRemoteSDP remoteSdp: String?) {
-        guard let remoteSdp = remoteSdp, let peerConnection = self.peerConnection else {
+        guard let remoteSdp = remoteSdp, let _ = self.peerConnection else {
             return
         }
         // Add remote description
@@ -315,6 +315,47 @@ public class RTCClient: NSObject {
         } else {
             self.remoteIceCandidates.append(iceCandidate)
         }
+    }
+    
+    /*********************************************************/
+    /********************* Switch Camera *********************/
+    /*********************************************************/
+    var useBackCamera: Bool = false
+    
+    func switchCamera() {
+        useBackCamera = !useBackCamera
+        self.switchCamera(useBackCamera: useBackCamera)
+    }
+    
+    private func switchCamera(useBackCamera: Bool) -> Void {
+        
+        let localStream = self.peerConnection?.localStreams.first
+        
+        if let videoTrack = localStream?.videoTracks.first {
+            localStream?.removeVideoTrack(videoTrack)
+        }
+        
+        let localVideoTrack = createLocalVideoTrack(useBackCamera: useBackCamera)
+        localStream?.addVideoTrack(localVideoTrack)
+        
+        self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: localVideoTrack)
+        
+        if let ls = localStream {
+            peerConnection?.remove(ls)
+            peerConnection?.add(ls)
+        }
+    }
+    
+    private func createLocalVideoTrack(useBackCamera: Bool) -> RTCVideoTrack {
+        
+        let factory = self.connectionFactory
+        factory.mediaStream(withStreamId: "RTCmS")
+        
+        let videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
+        videoSource.useBackCamera = useBackCamera
+        
+        let videoTrack = self.connectionFactory.videoTrack(with: videoSource, trackId: "RTCvS0")
+        return videoTrack
     }
     
     /*********************************************************/

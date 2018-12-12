@@ -28,8 +28,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var btnMute: UIButton!
     @IBOutlet weak var btnChat: UIButton!
     @IBOutlet weak var btnSpeaker: UIButton!
+    @IBOutlet weak var btnSwitchCamera: UIButton!
     @IBOutlet weak var localCameraView: RTCEAGLVideoView!
     @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
+    
+    let SWITCH_CAMERA_DELAY : Int64 = 3000
     
     var userId: Int64!
     var isIncommingCall: Bool!
@@ -45,6 +48,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private var recordedTime: Int = 0
     private var player: AVAudioPlayer?
     private var remoteTrackAdded: Bool = false
+    private var latestSwitchCamera: Int64 = IGGlobal.getCurrentMillis()
     
     internal static var callStateStatic: String!
     internal static var sendLeaveRequest = true
@@ -76,12 +80,20 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         isMuteEnable = !isMuteEnable
     }
     
+    @IBAction func btnSwitchCamera(_ sender: UIButton) {
+        let currentTimeMillis = IGGlobal.getCurrentMillis()
+        if currentTimeMillis - SWITCH_CAMERA_DELAY > latestSwitchCamera {
+            latestSwitchCamera = currentTimeMillis
+            RTCClient.getInstance().switchCamera()
+        }
+    }
+    
     @IBAction func btnChat(_ sender: UIButton) {
         IGRecentsTableViewController.needGetInfo = false
         
         let realm = try! Realm()
         let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", userId)
-        if let roomInfo = try! realm.objects(IGRoom.self).filter(predicate).first {
+        if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
             room = roomInfo
             performSegue(withIdentifier: "showRoomMessages", sender: self)
         } else {
@@ -144,11 +156,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         IGCall.staticReturnToCall = self
         IGCall.callPageIsEnable = true
         
+        localCameraViewCustomize()
         buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
         buttonViewCustomize(button: btnCancel, color: UIColor.red, imgName: "IG_Nav_Bar_Plus")
         buttonViewCustomize(button: btnMute, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "IG_Tabbar_Call_On")
         buttonViewCustomize(button: btnChat, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         buttonViewCustomize(button: btnSpeaker, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
+        buttonViewCustomize(button: btnSwitchCamera, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         
         
         let realm = try! Realm()
@@ -171,6 +185,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             playSound(sound: "igap_signaling", repeatEnable: true)
             outgoingCall()
         }
+    }
+    
+    private func localCameraViewCustomize(){
+        localCameraView.layer.cornerRadius = 10
+        localCameraView.layer.borderWidth = 0.3
+        localCameraView.layer.borderColor = UIColor.white.cgColor
+        localCameraView.layer.masksToBounds = true
     }
     
     private func buttonViewCustomize(button: UIButton, color: UIColor, imgName: String = ""){
@@ -213,11 +234,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             remoteCameraView.isHidden = false
             localCameraView.isHidden = false
             imgAvatar.isHidden = true
+            btnSwitchCamera.isEnabled = true
             
         } else if callType == .voiceCalling {
             remoteCameraView.isHidden = true
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
+            btnSwitchCamera.isEnabled = false
             
             if let avatar = userInfo.avatar {
                 setImageMain(avatar: avatar)
@@ -244,7 +267,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 make.bottom.equalTo(btnChat.snp.top).offset(-54)
                 make.width.equalTo(70)
                 make.height.equalTo(70)
-                make.centerX.equalTo(btnChat.snp.centerX)
+                make.centerX.equalTo(self.view.snp.centerX)
             }
         }
     }
@@ -495,7 +518,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         IGSignalingGetLogRequest.Generator.generate(offset: Int32(0), limit: 1).success { (responseProtoMessage) in
             
             if let logResponse = responseProtoMessage as? IGPSignalingGetLogResponse {
-                IGSignalingGetLogRequest.Handler.interpret(response: logResponse)
+               let _ = IGSignalingGetLogRequest.Handler.interpret(response: logResponse)
             }
             
             }.error({ (errorCode, waitTime) in
