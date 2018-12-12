@@ -240,6 +240,7 @@ public class RTCClient: NSObject {
     
     public func makeOffer(userId: Int64) {
         guard let peerConnection = self.peerConnection else {
+            configure()
             return
         }
         

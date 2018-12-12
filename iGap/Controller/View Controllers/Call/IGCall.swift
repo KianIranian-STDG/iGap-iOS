@@ -81,10 +81,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnSwitchCamera(_ sender: UIButton) {
-        let currentTimeMillis = IGGlobal.getCurrentMillis()
-        if currentTimeMillis - SWITCH_CAMERA_DELAY > latestSwitchCamera {
-            latestSwitchCamera = currentTimeMillis
-            RTCClient.getInstance().switchCamera()
+        DispatchQueue.main.async {
+            let currentTimeMillis = IGGlobal.getCurrentMillis()
+            if currentTimeMillis - self.SWITCH_CAMERA_DELAY > self.latestSwitchCamera {
+                self.latestSwitchCamera = currentTimeMillis
+                RTCClient.getInstance().switchCamera()
+            }
         }
     }
     
@@ -171,6 +173,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             return
         }
         txtCallerName.text = userRegisteredInfo.displayName
+        txtCallState.text = "Communicating..."
+        callType = .videoCalling
         setCallMode(callType: callType, userInfo: userRegisteredInfo)
         
         RTCClient.getInstance()
@@ -178,12 +182,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             .initVideoCallObserver(videoDelegate: self)
             .setCallType(callType: callType)
         
-        if isIncommingCall {
-            incommingCall()
-            playSound(sound: "tone", repeatEnable: true)
+        
+        manageView(stateAnswer: isIncommingCall)
+        if self.isIncommingCall {
+            self.incommingCall()
         } else {
-            playSound(sound: "igap_signaling", repeatEnable: true)
-            outgoingCall()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.outgoingCall()
+            }
         }
     }
     
@@ -218,14 +224,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             return
         }
         delegate.onStateChange(state: RTCClientConnectionState.IncommingCall)
-        manageView(stateAnswer: true)
     }
     
     private func outgoingCall() {
         RTCClient.getInstance().callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
         RTCClient.getInstance().startConnection()
         RTCClient.getInstance().makeOffer(userId: userId)
-        manageView(stateAnswer: false)
     }
     
     private func setCallMode(callType: IGPSignalingOffer.IGPType, userInfo: IGRegisteredUser){
@@ -253,12 +257,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             btnMute.isHidden = true
             btnSpeaker.isHidden = true
             btnChat.isHidden = true
+            btnSwitchCamera.isHidden = true
             txtCallTime.isHidden = true
 
         } else {
             btnMute.isHidden = false
             btnSpeaker.isHidden = false
             btnChat.isHidden = false
+            btnSwitchCamera.isHidden = false
             txtCallTime.isHidden = false
             btnAnswer.isHidden = true
             txtCallTime.isHidden = true
@@ -269,6 +275,20 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 make.height.equalTo(70)
                 make.centerX.equalTo(self.view.snp.centerX)
             }
+        }
+    }
+    
+    private func enabelActions(enable: Bool = true){
+        if enable {
+            btnMute.isEnabled = true
+            btnSpeaker.isEnabled = true
+            btnChat.isEnabled = true
+            btnSwitchCamera.isEnabled = true
+        } else {
+            btnMute.isEnabled = false
+            btnSpeaker.isEnabled = false
+            btnChat.isEnabled = false
+            btnSwitchCamera.isEnabled = false
         }
     }
     
@@ -401,6 +421,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
             case .IncommingCall:
                 self.txtCallState.text = "IncommingCall..."
+                self.playSound(sound: "tone", repeatEnable: true)
                 break
                 
             case .Ringing:
@@ -410,6 +431,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
             case .Dialing:
                 self.txtCallState.text = "Dialing..."
+                self.playSound(sound: "igap_signaling", repeatEnable: true)
                 break
                 
             case .signalingOfferForbiddenYouAreTalkingWithYourOtherDevices:
