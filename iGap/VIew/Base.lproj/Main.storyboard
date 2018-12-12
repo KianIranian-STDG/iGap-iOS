@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -333,10 +333,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kJ-5f-LV9" customClass="RTCEAGLVideoView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="qkh-A9-QLp">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-QA-fx6">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvO-Hc-A9H" customClass="RTCEAGLVideoView">
+                                <rect key="frame" x="259" y="40" width="100" height="130"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="LwH-AB-7W8"/>
+                                    <constraint firstAttribute="height" constant="130" id="TzV-JS-VMG"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-QA-fx6" customClass="RTCCameraPreviewView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.26510139579999997" green="0.56691289420000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -454,6 +466,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9Qi-La-Dbk" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="0b1-Gr-kTi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mvO-Hc-A9H" secondAttribute="trailing" id="1xl-u4-B1k"/>
                             <constraint firstItem="32k-QA-fx6" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leading" id="3ci-yD-mDv"/>
                             <constraint firstItem="1s0-8u-bJd" firstAttribute="top" secondItem="u14-h2-GtB" secondAttribute="bottom" constant="5" id="60N-gT-svn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1s0-8u-bJd" secondAttribute="trailing" id="7mc-bK-x9A"/>
@@ -473,15 +486,20 @@
                             <constraint firstAttribute="trailingMargin" secondItem="9Qi-La-Dbk" secondAttribute="trailing" id="ZbY-wX-tYy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fFu-Of-z9o" secondAttribute="trailing" id="aG7-bg-vtf"/>
                             <constraint firstItem="9Qi-La-Dbk" firstAttribute="top" secondItem="1s0-8u-bJd" secondAttribute="bottom" constant="5" id="aTZ-w5-zsb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2kJ-5f-LV9" secondAttribute="trailing" constant="-16" id="c4Y-6t-E1I"/>
+                            <constraint firstItem="2kJ-5f-LV9" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="-20" id="eDv-NO-eqm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qkh-A9-QLp" secondAttribute="trailing" constant="-16" id="eGw-JU-NMk"/>
                             <constraint firstAttribute="bottomMargin" secondItem="u6D-Vd-Lv8" secondAttribute="bottom" constant="150" id="iKP-L4-TzT"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="2kJ-5f-LV9" secondAttribute="bottom" id="jm1-3q-dt2"/>
                             <constraint firstAttribute="bottomMargin" secondItem="qkh-A9-QLp" secondAttribute="bottom" id="k2v-Ti-rwB"/>
                             <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="uIr-0Q-6G0" secondAttribute="bottom" constant="26" id="kEa-q7-LEm"/>
                             <constraint firstItem="32k-QA-fx6" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="top" id="n93-rt-U0h"/>
                             <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="cOE-9I-nlw" secondAttribute="bottom" constant="26" id="o16-Yl-qY9"/>
+                            <constraint firstItem="mvO-Hc-A9H" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="20" id="ocH-uh-N13"/>
                             <constraint firstItem="HVS-4z-ILw" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="pOy-Kw-QuE"/>
                             <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="HVS-4z-ILw" secondAttribute="bottom" constant="26" id="t0D-RF-R46"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="wCh-GH-vkS"/>
+                            <constraint firstItem="2kJ-5f-LV9" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="-16" id="yAN-Jb-pjo"/>
                             <constraint firstItem="uIr-0Q-6G0" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="zMq-Uj-K4G"/>
                         </constraints>
                     </view>
@@ -493,6 +511,8 @@
                         <outlet property="btnMute" destination="uIr-0Q-6G0" id="3Rb-pT-RD4"/>
                         <outlet property="btnSpeaker" destination="cOE-9I-nlw" id="YZu-as-T5j"/>
                         <outlet property="imgAvatar" destination="qkh-A9-QLp" id="9FM-Es-iFn"/>
+                        <outlet property="localCameraView" destination="mvO-Hc-A9H" id="AwU-cA-z4l"/>
+                        <outlet property="remoteCameraView" destination="2kJ-5f-LV9" id="HE2-yF-LeK"/>
                         <outlet property="txtCallState" destination="1s0-8u-bJd" id="27z-gf-jyJ"/>
                         <outlet property="txtCallTime" destination="9Qi-La-Dbk" id="Rtk-Bb-YRx"/>
                         <outlet property="txtCallerName" destination="u14-h2-GtB" id="kD5-66-yjs"/>
@@ -503,7 +523,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GDr-R3-fmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3894" y="-3761"/>
+            <point key="canvasLocation" x="3893.5999999999999" y="-3761.4692653673164"/>
         </scene>
         <!--Title-->
         <scene sceneID="i1D-ip-Yi3">
@@ -1510,22 +1530,22 @@
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Chat_Screen_Attachment" width="76" height="76"/>
-        <image name="IG_Chat_Screen_Record" width="76" height="76"/>
-        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="411.42855834960938" height="411.42855834960938"/>
-        <image name="IG_Chat_Screen_Send" width="76" height="76"/>
-        <image name="IG_Splash_Cute_5" width="1671.4285888671875" height="1285.7142333984375"/>
-        <image name="IG_Tabbar_Call_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Call_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Channel_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Channel_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Chat_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Chat_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Group_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Group_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Recent_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Recent_On" width="74" height="74"/>
-        <image name="Location_Marker" width="19.200000762939453" height="19.200000762939453"/>
+        <image name="IG_Chat_Screen_Attachment" width="38" height="38"/>
+        <image name="IG_Chat_Screen_Record" width="38" height="38"/>
+        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
+        <image name="IG_Chat_Screen_Send" width="38" height="38"/>
+        <image name="IG_Splash_Cute_5" width="162" height="125"/>
+        <image name="IG_Tabbar_Call_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Call_On" width="37" height="37"/>
+        <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Channel_On" width="37" height="37"/>
+        <image name="IG_Tabbar_Chat_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Chat_On" width="37" height="37"/>
+        <image name="IG_Tabbar_Group_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Group_On" width="37" height="37"/>
+        <image name="IG_Tabbar_Recent_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Recent_On" width="37" height="37"/>
+        <image name="Location_Marker" width="40" height="40"/>
         <image name="back1" width="450" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>

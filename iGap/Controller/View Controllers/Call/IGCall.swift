@@ -13,8 +13,9 @@ import RealmSwift
 import AVFoundation
 import IGProtoBuff
 import SnapKit
+import WebRTC
 
-class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
+class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver {
 
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var viewTransparent: UIView!
@@ -27,17 +28,23 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
     @IBOutlet weak var btnMute: UIButton!
     @IBOutlet weak var btnChat: UIButton!
     @IBOutlet weak var btnSpeaker: UIButton!
+    @IBOutlet weak var localCameraView: RTCEAGLVideoView!
+    @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
     
     var userId: Int64!
-    var userInfo: IGRegisteredUser!
-    var room: IGRoom!
     var isIncommingCall: Bool!
-    var isSpeakerEnable = false
-    var isMuteEnable = false
-    var callIsConnected = false
-    var callTimer: Timer!
-    var recordedTime: Int = 0
-    var player: AVAudioPlayer?
+    var callSdp: String?
+    var callType: IGPSignalingOffer.IGPType = .voiceCalling
+
+    private var remoteTrack: RTCVideoTrack!
+    private var room: IGRoom!
+    private var isSpeakerEnable = false
+    private var isMuteEnable = false
+    private var callIsConnected = false
+    private var callTimer: Timer!
+    private var recordedTime: Int = 0
+    private var player: AVAudioPlayer?
+    private var remoteTrackAdded: Bool = false
     
     internal static var callStateStatic: String!
     internal static var sendLeaveRequest = true
@@ -146,14 +153,16 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
         
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
-        guard let userRegisteredInfo = try! realm.objects(IGRegisteredUser.self).filter(predicate).first else {
+        guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
             return
         }
-        userInfo = userRegisteredInfo
         txtCallerName.text = userRegisteredInfo.displayName
+        setCallMode(callType: callType, userInfo: userRegisteredInfo)
         
-        
-        RTCClient.getInstance().initCallStateObserver(stateDelegate: self)
+        RTCClient.getInstance()
+            .initCallStateObserver(stateDelegate: self)
+            .initVideoCallObserver(videoDelegate: self)
+            .setCallType(callType: callType)
         
         if isIncommingCall {
             incommingCall()
@@ -161,10 +170,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
         } else {
             playSound(sound: "igap_signaling", repeatEnable: true)
             outgoingCall()
-        }
-        
-        if let avatar = userRegisteredInfo.avatar {
-            setImageMain(avatar: avatar)
         }
     }
     
@@ -185,6 +190,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
     }
     
     private func incommingCall() {
+        RTCClient.getInstance().startConnection()
+        RTCClient.getInstance().sendRinging()
+        RTCClient.getInstance().createAnswerForOfferReceived(withRemoteSDP: callSdp)
         guard let delegate = RTCClient.getInstance().callStateDelegate else {
             return
         }
@@ -197,6 +205,24 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
         RTCClient.getInstance().startConnection()
         RTCClient.getInstance().makeOffer(userId: userId)
         manageView(stateAnswer: false)
+    }
+    
+    private func setCallMode(callType: IGPSignalingOffer.IGPType, userInfo: IGRegisteredUser){
+        
+        if callType == .videoCalling {
+            remoteCameraView.isHidden = false
+            localCameraView.isHidden = false
+            imgAvatar.isHidden = true
+            
+        } else if callType == .voiceCalling {
+            remoteCameraView.isHidden = true
+            localCameraView.isHidden = true
+            imgAvatar.isHidden = false
+            
+            if let avatar = userInfo.avatar {
+                setImageMain(avatar: avatar)
+            }
+        }
     }
     
     private func manageView(stateAnswer: Bool){
@@ -223,6 +249,25 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
         }
     }
     
+    private func addRemoteVideoTrack(){
+        
+        if remoteTrackAdded { return }
+        remoteTrackAdded = true
+        
+        DispatchQueue.main.async {
+            if self.remoteCameraView == nil {
+                let videoView = RTCEAGLVideoView(frame: self.view.bounds)
+                if let local = self.localCameraView {
+                    self.view.insertSubview(videoView, belowSubview: local)
+                } else {
+                    self.view.addSubview(videoView)
+                }
+                self.remoteCameraView = videoView
+            }
+            self.remoteTrack.add(self.remoteCameraView!)
+        }
+    }
+    
     private func speakerState(state: AVAudioSessionPortOverride){
         let audioSession = AVAudioSession.sharedInstance()
         
@@ -239,6 +284,24 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
         }
     }
     
+    func onRemoteVideoCallStream(videoTrack: RTCVideoTrack) {
+        self.remoteTrack = videoTrack
+        if callIsConnected {
+            addRemoteVideoTrack()
+        }
+    }
+    
+    func onLocalVideoCallStream(videoTrack: RTCVideoTrack) {
+        DispatchQueue.main.async {
+            if self.localCameraView == nil {
+                let videoView = RTCEAGLVideoView(frame: CGRect(x: 0, y: 0, width:100, height: 100))
+                self.view.addSubview(videoView)
+                self.localCameraView = videoView
+            }
+            videoTrack.add(self.self.localCameraView!)
+        }
+    }
+    
     func onStateChange(state: RTCClientConnectionState) {
         
         DispatchQueue.main.async {
@@ -249,6 +312,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
                 break
                 
             case .Connected:
+                self.addRemoteVideoTrack()
+                
                 self.txtCallTime.isHidden = false
                 self.txtCallState.text = "Connected"
                 
@@ -505,7 +570,3 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver {
         }
     }
 }
-
-
-
-

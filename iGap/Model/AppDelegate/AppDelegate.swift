@@ -231,11 +231,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         })
     }
     
-    func showCallPage(userId: Int64 , isIncommmingCall: Bool = true){
+    func showCallPage(userId: Int64 , isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let callPage = storyboard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
         callPage.userId = userId
         callPage.isIncommingCall = isIncommmingCall
+        callPage.callType = type
+        callPage.callSdp = sdp
         self.window?.rootViewController?.present(callPage, animated: true, completion: nil)
     }
     

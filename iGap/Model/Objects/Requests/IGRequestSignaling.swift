@@ -63,16 +63,10 @@ class IGSignalingOfferRequest : IGRequest {
             switch responseProtoMessage {
             case let offerProtoResponse as IGPSignalingOfferResponse:
                 
-                if offerProtoResponse.igpType != .voiceCalling {
-                    return
-                }
-                
-                RTCClient.getInstance().startConnection()
-                RTCClient.getInstance().sendRinging()
-                RTCClient.getInstance().createAnswerForOfferReceived(withRemoteSDP: offerProtoResponse.igpCallerSdp)
-                
                 DispatchQueue.main.async {
-                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: offerProtoResponse.igpCallerUserID)
+                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: offerProtoResponse.igpCallerUserID,
+                                                                                 sdp: offerProtoResponse.igpCallerSdp,
+                                                                                 type: offerProtoResponse.igpType)
                 }
                 
                 break

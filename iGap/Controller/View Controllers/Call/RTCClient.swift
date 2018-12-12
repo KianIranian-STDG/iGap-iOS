@@ -91,6 +91,7 @@ public class RTCClient: NSObject {
     fileprivate var remoteIceCandidates: [RTCIceCandidate] = []
     fileprivate var isVideoCall = true
     var callStateDelegate: CallStateObserver!
+    var videoCallDelegate: VideoCallObserver!
     static var needNewInstance = true
     
     internal static var mediaStream: RTCMediaStream!
@@ -120,7 +121,7 @@ public class RTCClient: NSObject {
     
     static func getInstance() -> RTCClient{
         if RTCClient.instanceValue == nil {
-            instanceValue = RTCClient(iceServers: IGAppManager.iceServersStatic,videoCall: false)
+            instanceValue = RTCClient(iceServers: IGAppManager.iceServersStatic)
             return instanceValue
         }
         return instanceValue
@@ -130,9 +131,8 @@ public class RTCClient: NSObject {
         super.init()
     }
     
-    public convenience init(iceServers: [RTCIceServer], videoCall: Bool = false) {
+    public convenience init(iceServers: [RTCIceServer]) {
         self.init()
-        self.isVideoCall = videoCall
         
         if iceServers.count == 0 {
             let realm = try! Realm()
@@ -183,8 +183,22 @@ public class RTCClient: NSObject {
         }
     }
     
-    func initCallStateObserver(stateDelegate: CallStateObserver){
+    func initCallStateObserver(stateDelegate: CallStateObserver) -> RTCClient{
         callStateDelegate = stateDelegate
+        return self
+    }
+    
+    func initVideoCallObserver(videoDelegate: VideoCallObserver) -> RTCClient{
+        videoCallDelegate = videoDelegate
+        return self
+    }
+    
+    func setCallType(callType: IGPSignalingOffer.IGPType) {
+        if callType == .videoCalling {
+            self.isVideoCall = true
+        } else {
+            self.isVideoCall = false
+        }
     }
     
     public func configure() {
@@ -206,9 +220,10 @@ public class RTCClient: NSObject {
             self.delegate?.rtcClient(client: self, didReceiveLocalAudioTrack: localAudioTrack)
         }
         
-        //if let localVideoTrack = localStream.videoTracks.first {
-        //    self.delegate?.rtcClient(client: self, didReceiveLocalVideoTrack: localVideoTrack)
-        //}
+        if let localVideoTrack = localStream.videoTracks.first {
+            self.delegate?.rtcClient(client: self, didReceiveLocalVideoTrack: localVideoTrack)
+            self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: localVideoTrack)
+        }
     }
     
     public func disconnect() {
@@ -307,7 +322,13 @@ public class RTCClient: NSObject {
     /*********************************************************/
     
     private func sendOffer(userId: Int64, sdp: String){
-        IGSignalingOfferRequest.Generator.generate(calledUserId: userId, type: IGPSignalingOffer.IGPType.voiceCalling,callerSdp: sdp).success({ (protoResponse) in
+        
+        var type = IGPSignalingOffer.IGPType.voiceCalling
+        if isVideoCall {
+            type = IGPSignalingOffer.IGPType.videoCalling
+        }
+        
+        IGSignalingOfferRequest.Generator.generate(calledUserId: userId, type: type, callerSdp: sdp).success({ (protoResponse) in
         }).error ({ (errorCode, waitTime) in
             
             guard let delegate = self.callStateDelegate else {
@@ -423,6 +444,7 @@ private extension RTCClient {
                 let videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
                 let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
                 localStream.addVideoTrack(videoTrack)
+                self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: videoTrack)
             } else {
                 // show alert for video permission disabled
                 let error = NSError.init(domain: ErrorDomain.videoPermissionDenied, code: 0, userInfo: nil)
@@ -481,9 +503,10 @@ extension RTCClient: RTCPeerConnectionDelegate {
             self.delegate?.rtcClient(client: self, didReceiveRemoteAudioTrack: stream.audioTracks[0])
         }
         
-        //if stream.videoTracks.count > 0 {
-        //    self.delegate?.rtcClient(client: self, didReceiveRemoteVideoTrack: stream.videoTracks[0])
-        //}
+        if stream.videoTracks.count > 0 {
+            self.delegate?.rtcClient(client: self, didReceiveRemoteVideoTrack: stream.videoTracks.first!)
+            self.videoCallDelegate?.onRemoteVideoCallStream(videoTrack: stream.videoTracks.first!)
+        }
     }
     
     public func peerConnection(_ peerConnection: RTCPeerConnection, didRemove stream: RTCMediaStream) {
