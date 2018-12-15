@@ -77,11 +77,9 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
         if !isBotRoom() && IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
             navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
             navigaitonItem.rightViewContainer?.addAction {
-                let storyBoard = UIStoryboard(name: "Main" , bundle:nil)
-                let callPage = storyBoard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
-                callPage.userId = (self.user?.id)!
-                callPage.isIncommingCall = false
-                self.present(callPage, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: (self.user?.id)!, isIncommmingCall: false)
+                }
             }
         }
         

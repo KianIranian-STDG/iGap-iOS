@@ -235,12 +235,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         if isIncommmingCall || !showAlert {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let callPage = storyboard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
+            let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
             callPage.userId = userId
             callPage.isIncommingCall = isIncommmingCall
             callPage.callType = type
             callPage.callSdp = sdp
-            self.window?.rootViewController?.present(callPage, animated: true, completion: nil)
+            
+            var currentController = self.window?.rootViewController
+            if let presentedController = currentController!.presentedViewController {
+                currentController = presentedController
+            }
+            currentController!.present(callPage, animated: true, completion: nil)
             
         } else {
             let callAlert = UIAlertController(title: nil, message: "Select the type of call", preferredStyle: IGGlobal.detectAlertStyle())

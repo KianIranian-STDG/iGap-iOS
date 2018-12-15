@@ -324,7 +324,7 @@
         <!--Call-->
         <scene sceneID="gZz-0U-mVt">
             <objects>
-                <viewController storyboardIdentifier="IGCallShowing" id="2ww-xn-MCr" customClass="IGCall" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGCall" id="2ww-xn-MCr" customClass="IGCall" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PG3-bZ-M6c"/>
                         <viewControllerLayoutGuide type="bottom" id="lP5-6W-aPE"/>

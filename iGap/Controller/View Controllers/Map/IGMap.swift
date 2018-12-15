@@ -296,12 +296,11 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
             return
         }
         
-        let userId = userIdDictionary[sender.tag]
-        let storyBoard = UIStoryboard(name: "Main" , bundle:nil)
-        let callPage = storyBoard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
-        callPage.userId = userId
-        callPage.isIncommingCall = false
-        self.present(callPage, animated: true, completion: nil)
+        if let userId = userIdDictionary[sender.tag] {
+            DispatchQueue.main.async {
+                (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false)
+            }
+        }
     }
     
     func openNearbyDistanceList(){
@@ -477,13 +476,14 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
                     let igpUser = userInfoResponse.igpUser
                     IGFactory.shared.saveRegistredUsers([igpUser])
                     
-                    let nearbyCoordinate = self.userNoInfoDictionary[igpUser.igpID]!
-                    if nearbyCoordinate.igpHasComment {
-                        self.getUserComment(userId: igpUser.igpID)
-                    } else {
-                        self.usersCommentDictionary[nearbyCoordinate.igpUserID] = ""
-                        self.addMarker(userId: igpUser.igpID, lat: nearbyCoordinate.igpLat, lon: nearbyCoordinate.igpLon)
-                        self.userNoInfoDictionary.removeValue(forKey: igpUser.igpID)
+                    if let nearbyCoordinate = self.userNoInfoDictionary[igpUser.igpID] {
+                        if nearbyCoordinate.igpHasComment {
+                            self.getUserComment(userId: igpUser.igpID)
+                        } else {
+                            self.usersCommentDictionary[nearbyCoordinate.igpUserID] = ""
+                            self.addMarker(userId: igpUser.igpID, lat: nearbyCoordinate.igpLat, lon: nearbyCoordinate.igpLon)
+                            self.userNoInfoDictionary.removeValue(forKey: igpUser.igpID)
+                        }
                     }
                     
                     break
