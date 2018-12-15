@@ -11,6 +11,7 @@
 import UIKit
 import SwiftProtobuf
 import RealmSwift
+import IGProtoBuff
 
 class IGCallListTableViewCell: UITableViewCell {
     
@@ -100,6 +101,10 @@ class IGCallListTableViewCell: UITableViewCell {
             
         default:
             break
+        }
+        
+        if callLog.signalingOfferType == IGPSignalingOffer.IGPType.videoCalling.rawValue {
+            callStateView.text = ""
         }
     }
     
