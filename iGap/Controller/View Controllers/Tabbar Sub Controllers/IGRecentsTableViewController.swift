@@ -76,6 +76,13 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             if IGTabBarController.currentTabStatic == .Call {
                 
                 let alertController = UIAlertController(title: "Clear Call History", message: "Are you sure you want to clear all incoming and outgoing calls?", preferredStyle: IGGlobal.detectAlertStyle())
+                
+                let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
+                    let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                    createChat.forceCall = true
+                    self.navigationController!.pushViewController(createChat, animated: true)
+                })
+                
                 let clearCallLog = UIAlertAction(title: "Clear", style: .default, handler: { (action) in
                     if IGAppManager.sharedManager.userID() != nil {
                         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -112,6 +119,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 
+                alertController.addAction(newChat)
                 alertController.addAction(clearCallLog)
                 alertController.addAction(cancel)
                 

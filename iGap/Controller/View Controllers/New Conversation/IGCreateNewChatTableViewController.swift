@@ -24,6 +24,7 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
     let collation = UILocalizedIndexedCollation.current()
     var resultSearchController = UISearchController()
     var sections : [Section]!
+    var forceCall: Bool = false
     
     internal static var callDelegate: IGCallFromContactListObserver!
     
@@ -56,7 +57,11 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
 
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: nil, title: "New Conversation")
+        var title = "New Conversation"
+        if forceCall {
+            title = "New Call"
+        }
+        navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: nil, title: title)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -157,6 +162,15 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
+            
+            if forceCall {
+                let user = self.sections[indexPath.section].users[indexPath.row]
+                DispatchQueue.main.async {
+                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.registredUser.id, isIncommmingCall: false)
+                }
+                return
+            }
+            
             IGGlobal.prgShow(self.view)
             let user = self.sections[indexPath.section].users[indexPath.row]
             IGChatGetRoomRequest.Generator.generate(peerId: user.registredUser.id).success({ (protoResponse) in
