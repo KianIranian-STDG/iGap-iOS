@@ -88,6 +88,7 @@ public class RTCClient: NSObject {
     fileprivate var iceServers: [RTCIceServer] = []
     fileprivate var peerConnection: RTCPeerConnection?
     fileprivate var connectionFactory: RTCPeerConnectionFactory = RTCPeerConnectionFactory()
+    fileprivate var videoSource: RTCAVFoundationVideoSource!
     fileprivate var remoteIceCandidates: [RTCIceCandidate] = []
     fileprivate var isVideoCall = true
     var callStateDelegate: CallStateObserver!
@@ -133,6 +134,15 @@ public class RTCClient: NSObject {
     
     func getPeerConnection() -> RTCPeerConnection? {
         return self.peerConnection
+    }
+    
+    func getVideoSourceInstance() -> RTCAVFoundationVideoSource {
+        if self.videoSource == nil {
+            let factory = self.connectionFactory
+            factory.mediaStream(withStreamId: "RTCmS")
+            self.videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
+        }
+        return self.videoSource
     }
     
     public override init() {
@@ -366,8 +376,7 @@ public class RTCClient: NSObject {
         
         let factory = self.connectionFactory
         factory.mediaStream(withStreamId: "RTCmS")
-        
-        let videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
+        let videoSource = getVideoSourceInstance()
         videoSource.useBackCamera = useBackCamera
         
         let videoTrack = self.connectionFactory.videoTrack(with: videoSource, trackId: "RTCvS0")
@@ -498,7 +507,7 @@ private extension RTCClient {
         
         if self.isVideoCall {
             if !AVCaptureState.isVideoDisabled {
-                let videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
+                let videoSource = getVideoSourceInstance()
                 let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
                 localStream.addVideoTrack(videoTrack)
                 self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: videoTrack)
