@@ -22,6 +22,7 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
     var hud = MBProgressHUD()
     var placeholderLabel : UILabel!
     var myRole : IGGroupMember.IGRole?
+    var descriptionSize: CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -55,9 +56,9 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
             groupDescriptionTextView.isUserInteractionEnabled = false
             if room?.groupRoom?.roomDescription == "" {
                 groupDescriptionTextView.text = "No Description"
-                
             }
         }
+        descriptionSize = groupDescriptionTextView.text.height(withConstrainedWidth: self.view.frame.width, font: groupDescriptionTextView.font!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -75,6 +76,13 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if descriptionSize < 100 {
+            return 100
+        }
+        return descriptionSize
     }
     
     func changeGroupDescription() {

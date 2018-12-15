@@ -20,6 +20,7 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
     var hud = MBProgressHUD()
     var placeholderLabel : UILabel!
     var myRole : IGChannelMember.IGRole!
+    var descriptionSize: CGFloat!
     override func viewDidLoad() {
         super.viewDidLoad()
         channelDescriptionTextView.text = room?.channelRoom?.roomDescription
@@ -48,12 +49,12 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
         } else {
             navigationItem.addNavigationViewItems(rightItemText: nil, title: "Description")
             channelDescriptionTextView.isUserInteractionEnabled = false
-            print(room?.channelRoom?.roomDescription)
             if room?.channelRoom?.roomDescription == "" {
                 channelDescriptionTextView.text = "No Description"
             }
         }
         
+        descriptionSize = channelDescriptionTextView.text.height(withConstrainedWidth: self.view.frame.width, font: channelDescriptionTextView.font!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,6 +73,14 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
         // #warning Incomplete implementation, return the number of rows
         return 1
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if descriptionSize < 100 {
+            return 100
+        }
+        return descriptionSize
+    }
+    
     func changeChannelDescription() {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
