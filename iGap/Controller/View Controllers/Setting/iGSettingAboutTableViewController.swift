@@ -56,11 +56,13 @@ class IGSettingAboutTableViewController: UITableViewController , UIGestureRecogn
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        /*
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 UIApplication.shared.openURL(URL(string: "itms://itunes.apple.com/us/app/igap/id1198257696?ls=1&mt=8")!)
             }
         }
+        */
         if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
