@@ -60,12 +60,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     /************************************************/
     
     @IBAction func btnAnswer(_ sender: UIButton) {
-        RTCClient.getInstance().answerCall()
+        stopSound()
+        txtCallState.text = "Communicating..."
+        RTCClient.getInstance()?.answerCall()
         manageView(stateAnswer: false)
     }
     
     @IBAction func btnCancel(_ sender: UIButton) {
-        RTCClient.getInstance().sendLeaveCall()
+        RTCClient.getInstance()?.sendLeaveCall()
         self.playSound(sound: "igap_disconnect")
         self.dismmis()
     }
@@ -85,7 +87,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             let currentTimeMillis = IGGlobal.getCurrentMillis()
             if currentTimeMillis - self.SWITCH_CAMERA_DELAY > self.latestSwitchCamera {
                 self.latestSwitchCamera = currentTimeMillis
-                RTCClient.getInstance().switchCamera()
+                RTCClient.getInstance(justReturn: true)?.switchCamera()
             }
         }
     }
@@ -174,10 +176,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
         txtCallerName.text = userRegisteredInfo.displayName
         txtCallState.text = "Communicating..."
-        callType = .videoCalling
+        
         setCallMode(callType: callType, userInfo: userRegisteredInfo)
         
-        RTCClient.getInstance()
+        RTCClient.getInstance()?
             .initCallStateObserver(stateDelegate: self)
             .initVideoCallObserver(videoDelegate: self)
             .setCallType(callType: callType)
@@ -217,19 +219,35 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func incommingCall() {
-        RTCClient.getInstance().startConnection()
-        RTCClient.getInstance().sendRinging()
-        RTCClient.getInstance().createAnswerForOfferReceived(withRemoteSDP: callSdp)
-        guard let delegate = RTCClient.getInstance().callStateDelegate else {
+        
+        guard let connection = RTCClient.getInstance() else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.incommingCall()
+            }
+            return
+        }
+        
+        if connection.getPeerConnection() == nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                RTCClient.getInstance()?.configure()
+                self.incommingCall()
+            }
+            return
+        }
+        
+        connection.startConnection()
+        connection.sendRinging()
+        connection.createAnswerForOfferReceived(withRemoteSDP: callSdp)
+        guard let delegate = RTCClient.getInstance()?.callStateDelegate else {
             return
         }
         delegate.onStateChange(state: RTCClientConnectionState.IncommingCall)
     }
     
     private func outgoingCall() {
-        RTCClient.getInstance().callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
-        RTCClient.getInstance().startConnection()
-        RTCClient.getInstance().makeOffer(userId: userId)
+        RTCClient.getInstance()?.callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
+        RTCClient.getInstance()?.startConnection()
+        RTCClient.getInstance()?.makeOffer(userId: userId)
     }
     
     private func setCallMode(callType: IGPSignalingOffer.IGPType, userInfo: IGRegisteredUser){
@@ -245,6 +263,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
             btnSwitchCamera.isEnabled = false
+            btnSwitchCamera.setTitle("", for: UIControlState.normal)
             
             if let avatar = userInfo.avatar {
                 setImageMain(avatar: avatar)
@@ -293,6 +312,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func addRemoteVideoTrack(){
+        guard let remote = self.remoteTrack else {
+            return
+        }
         
         if remoteTrackAdded { return }
         remoteTrackAdded = true
@@ -307,7 +329,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 }
                 self.remoteCameraView = videoView
             }
-            self.remoteTrack.add(self.remoteCameraView!)
+            remote.add(self.remoteCameraView!)
         }
     }
     
@@ -381,7 +403,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 self.txtCallState.text = "Disconnected"
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
-                RTCClient.getInstance().callStateDelegate = nil
+                RTCClient.getInstance(justReturn: true)?.callStateDelegate = nil
                 break
                 
             case .Missed:
@@ -500,7 +522,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func dismmis() {
-        RTCClient.getInstance().disconnect()
+        RTCClient.getInstance(justReturn: true)?.disconnect()
         IGCall.callPageIsEnable = false
         callIsConnected = false
         
@@ -518,6 +540,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.stopSound()
             self.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
         }
@@ -562,9 +585,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
         
-            if player != nil {
-                player?.stop()
-            }
+            stopSound()
             
             player = try AVAudioPlayer(contentsOf: url)
             guard let player = player else { return }
@@ -575,6 +596,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             
         } catch let error {
             print(error.localizedDescription)
+        }
+    }
+    
+    func stopSound(){
+        if player != nil {
+            player?.stop()
         }
     }
     

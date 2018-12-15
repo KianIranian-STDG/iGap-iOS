@@ -1711,6 +1711,7 @@ class IGFactory: NSObject {
                         signaling.secretChat = configuration.igpSecretChat
                         signaling.screenSharing = configuration.igpScreenSharing
                         
+                        signaling.iceServer.removeAll()
                         for iceServer in configuration.igpIceServer {
                             signaling.iceServer.append(IGIceServer(iceServer: iceServer))
                         }

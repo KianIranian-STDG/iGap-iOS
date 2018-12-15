@@ -231,14 +231,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         })
     }
     
-    func showCallPage(userId: Int64 , isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let callPage = storyboard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
-        callPage.userId = userId
-        callPage.isIncommingCall = isIncommmingCall
-        callPage.callType = type
-        callPage.callSdp = sdp
-        self.window?.rootViewController?.present(callPage, animated: true, completion: nil)
+    func showCallPage(userId: Int64 , isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, showAlert: Bool = true){
+        
+        if isIncommmingCall || !showAlert {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let callPage = storyboard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
+            callPage.userId = userId
+            callPage.isIncommingCall = isIncommmingCall
+            callPage.callType = type
+            callPage.callSdp = sdp
+            self.window?.rootViewController?.present(callPage, animated: true, completion: nil)
+            
+        } else {
+            let callAlert = UIAlertController(title: nil, message: "Select the type of call", preferredStyle: IGGlobal.detectAlertStyle())
+            let voiceCall = UIAlertAction(title: "Voice Call", style: .default, handler: { (action) in
+                self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
+            })
+            let videoCall = UIAlertAction(title: "Video Call", style: .default, handler: { (action) in
+                self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.videoCalling, showAlert: false)
+            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            callAlert.addAction(voiceCall)
+            callAlert.addAction(videoCall)
+            callAlert.addAction(cancel)
+            
+            self.window?.rootViewController?.present(callAlert, animated: true, completion: nil)
+        }
     }
     
     func showCallQualityPage(rateId: Int64){

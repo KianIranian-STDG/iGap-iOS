@@ -14,12 +14,11 @@ import IGProtoBuff
 
 class IGSignaling: Object {
     
-    var voiceCalling:          Bool                  = true
-    var videoCalling:          Bool                  = true
-    var secretChat:            Bool                  = true
-    var screenSharing:         Bool                  = true
+    @objc dynamic var voiceCalling:          Bool                  = true
+    @objc dynamic var videoCalling:          Bool                  = true
+    @objc dynamic var secretChat:            Bool                  = true
+    @objc dynamic var screenSharing:         Bool                  = true
     var iceServer = List<IGIceServer>()
-    
     
     convenience init(signalingConfiguration: IGPSignalingGetConfigurationResponse) {
         self.init()
@@ -37,9 +36,9 @@ class IGSignaling: Object {
 
 class IGIceServer: Object {
     
-    var url        = ""
-    var credential = ""
-    var username   = ""
+    @objc dynamic var url        = ""
+    @objc dynamic var credential = ""
+    @objc dynamic var username   = ""
 
     convenience init(iceServer: IGPSignalingGetConfigurationResponse.IGPIceServer) {
         self.init()

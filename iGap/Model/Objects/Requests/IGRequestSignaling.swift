@@ -89,7 +89,7 @@ class IGSignalingRingingRequest : IGRequest {
         class func interpret(response reponseProtoMessage:IGPSignalingRingingResponse)  {}
 
         override class func handlePush(responseProtoMessage: Message) {
-            guard let delegate = RTCClient.getInstance().callStateDelegate else {
+            guard let delegate = RTCClient.getInstance()?.callStateDelegate else {
                 return
             }
             delegate.onStateChange(state: RTCClientConnectionState.Ringing)
@@ -115,7 +115,7 @@ class IGSignalingAcceptRequest : IGRequest {
             switch responseProtoMessage {
             case let acceptProtoResponse as IGPSignalingAcceptResponse:
                 IGCall.sendLeaveRequest = true
-                RTCClient.getInstance().handleAnswerReceived(withRemoteSDP: acceptProtoResponse.igpCalledSdp)
+                RTCClient.getInstance()?.handleAnswerReceived(withRemoteSDP: acceptProtoResponse.igpCalledSdp)
             default:
                 break
             }
@@ -141,7 +141,7 @@ class IGSignalingCandidateRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let candidateResponse as IGPSignalingCandidateResponse:
-                RTCClient.getInstance().addIceCandidate(iceCandidate: RTCIceCandidate(sdp: candidateResponse.igpPeerCandidate,sdpMLineIndex: candidateResponse.igpPeerSdpMLineIndex ,sdpMid: candidateResponse.igpPeerSdpMID))
+                RTCClient.getInstance()?.addIceCandidate(iceCandidate: RTCIceCandidate(sdp: candidateResponse.igpPeerCandidate,sdpMLineIndex: candidateResponse.igpPeerSdpMLineIndex ,sdpMid: candidateResponse.igpPeerSdpMID))
                 break
             default:
                 break
@@ -161,7 +161,7 @@ class IGSignalingLeaveRequest : IGRequest {
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPSignalingLeaveResponse)  {
             
-            guard let delegate = RTCClient.getInstance().callStateDelegate else {
+            guard let delegate = RTCClient.getInstance()?.callStateDelegate else {
                 return
             }
             
@@ -203,7 +203,7 @@ class IGSignalingLeaveRequest : IGRequest {
                 break
             }
             
-            RTCClient.getInstance().disconnect()
+            RTCClient.getInstance(justReturn: true)?.disconnect()
         }
 
         override class func handlePush(responseProtoMessage: Message) {
@@ -265,7 +265,7 @@ class IGSignalingGetLogRequest : IGRequest {
         
         override class func handlePush(responseProtoMessage: Message) {
             if let callLogResponse = responseProtoMessage as? IGPSignalingGetLogResponse {
-                self.interpret(response: callLogResponse)
+                let _ = self.interpret(response: callLogResponse)
             }
         }
     }

@@ -97,7 +97,7 @@ class IGWebSocketManager: NSObject {
             IGAppManager.sharedManager.setNetworkConnectionStatus(.waitingForNetwork)
             IGAppManager.sharedManager.isUserLoggedIn.value = false
             self.socket.disconnect(forceTimeout:0)
-            guard let delegate = RTCClient.getInstance().callStateDelegate else {
+            guard let delegate = RTCClient.getInstance(justReturn: true)?.callStateDelegate else {
                 return
             }
             delegate.onStateChange(state: .Disconnected)

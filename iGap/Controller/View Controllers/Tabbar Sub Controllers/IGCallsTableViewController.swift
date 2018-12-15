@@ -127,11 +127,9 @@ class IGCallsTableViewController: UITableViewController {
         selectedRowUser = callLogList![indexPath.row].registeredUser
         self.tableView.isUserInteractionEnabled = false
         
-        let storyBoard = UIStoryboard(name: "Main" , bundle:nil)
-        let callPage = storyBoard.instantiateViewController(withIdentifier: "IGCallShowing") as! IGCall
-        callPage.userId = selectedRowUser!.id
-        callPage.isIncommingCall = false
-        self.present(callPage, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: self.selectedRowUser!.id, isIncommmingCall: false)
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

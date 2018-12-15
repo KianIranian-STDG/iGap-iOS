@@ -119,12 +119,20 @@ public class RTCClient: NSObject {
         }
     }
     
-    static func getInstance() -> RTCClient {
+    /* if set "justReturn = true" won't be create instance from RTCClinet and just will be returned current value */
+    static func getInstance(justReturn: Bool = false) -> RTCClient? {
+        if justReturn {
+            return instanceValue
+        }
         if RTCClient.instanceValue == nil {
             instanceValue = RTCClient(iceServers: IGAppManager.iceServersStatic)
             return instanceValue
         }
         return instanceValue
+    }
+    
+    func getPeerConnection() -> RTCPeerConnection? {
+        return self.peerConnection
     }
     
     public override init() {
@@ -238,9 +246,16 @@ public class RTCClient: NSObject {
         self.delegate?.rtcClient(client: self, didChangeState: .disconnected)
     }
     
+    public func clearConnection(){
+        if self.peerConnection != nil {
+            self.peerConnection?.close()
+            self.peerConnection = nil
+        }
+        RTCClient.instanceValue = nil
+    }
+    
     public func makeOffer(userId: Int64) {
         guard let peerConnection = self.peerConnection else {
-            configure()
             return
         }
         
@@ -260,7 +275,7 @@ public class RTCClient: NSObject {
         /* Hint: should set this value after than received called sdp for avoid from send candicate before send accept
          * because candidate will be runned when set local and remote description
          */
-        RTCClient.getInstance().handleSdpGenerated(sdpDescription: RTCClient.offerSdp)
+        RTCClient.getInstance()?.handleSdpGenerated(sdpDescription: RTCClient.offerSdp)
         
         guard let remoteSdp = remoteSdp else {
             return
@@ -564,7 +579,7 @@ extension RTCClient: RTCPeerConnectionDelegate {
         guard let delegate = callStateDelegate else {
             return
         }
-        
+
         switch newState.rawValue {
             
         case 0://RTCIceConnectionStateNew
