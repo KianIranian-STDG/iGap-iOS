@@ -352,11 +352,6 @@ class IGNavigationItem: UINavigationItem {
                 }
             }
             
-            self.centerViewSubLabel!.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.centerViewMainLabel!.snp.bottom).offset(3)
-                make.leading.equalTo(self.centerViewContainer!.snp.leading).offset(5)
-            }
-            
             self.centerViewSubLabel!.text = room.currentActionString()
         } else {
             
@@ -463,12 +458,13 @@ class IGNavigationItem: UINavigationItem {
         
         self.centerViewSubLabel = UILabel()//frame: CGRect(x: 0, y: 20, width: 200, height: 16))
         self.centerViewSubLabel!.textColor = UIColor.white
-        self.centerViewSubLabel!.textAlignment = .center
+        self.centerViewSubLabel!.textAlignment = .left
         self.centerViewSubLabel!.font = UIFont.igFont(ofSize: 12.0, weight: .regular)//boldSystemFont(ofSize: 12)
         self.centerViewContainer!.addSubview(self.centerViewSubLabel!)
         self.centerViewSubLabel!.snp.makeConstraints { (make) in
             make.top.equalTo(self.centerViewMainLabel!.snp.bottom).offset(-3)
             make.leading.equalTo(self.centerViewContainer!.snp.leading).offset(5)
+            make.trailing.equalTo((self.titleView?.snp.trailing)!).offset(-80)
         }
         
         let verifiedFrame = CGRect(x: 20, y: 5, width: 25, height: 25)
