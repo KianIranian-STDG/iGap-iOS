@@ -75,7 +75,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             
             if IGTabBarController.currentTabStatic == .Call {
                 
-                let alertController = UIAlertController(title: "Clear Call History", message: "Are you sure you want to clear all incoming and outgoing calls?", preferredStyle: IGGlobal.detectAlertStyle())
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
                 
                 let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
                     let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
@@ -83,7 +83,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                     self.navigationController!.pushViewController(createChat, animated: true)
                 })
                 
-                let clearCallLog = UIAlertAction(title: "Clear", style: .default, handler: { (action) in
+                let clearCallLog = UIAlertAction(title: "Clear Call History", style: .default, handler: { (action) in
                     if IGAppManager.sharedManager.userID() != nil {
                         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         hud.mode = .indeterminate
@@ -678,8 +678,8 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     //MARK: - Tabbar badge
     func setTabbarBadge() {
         var unreadCount = 0
-        
-        unreadCount = rooms!.sum(ofProperty: "unreadCount")
+        let rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue)
+        unreadCount = rooms.sum(ofProperty: "unreadCount")
         if unreadCount == 0 {
             self.tabBarController?.tabBar.items?[0].badgeValue = nil
             self.tabBarController?.tabBar.items?[1].badgeValue = nil
@@ -694,15 +694,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             var countGroup : Int32 = 0
             var countChannel : Int32 = 0
             
-            for chat in rooms!.filter(predicateChat) {
+            for chat in rooms.filter(predicateChat) {
                 countChat += chat.unreadCount
             }
             
-            for group in rooms!.filter(predicateGroup) {
+            for group in rooms.filter(predicateGroup) {
                 countGroup += group.unreadCount
             }
             
-            for channel in rooms!.filter(predicateChannel) {
+            for channel in rooms.filter(predicateChannel) {
                 countChannel += channel.unreadCount
             }
             

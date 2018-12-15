@@ -229,7 +229,7 @@ class IGRoom: Object {
                 room.badgeUnreadCount = room.badgeUnreadCount + 1
             }
         }
-        let count : Int = realm.objects(IGRoom.self).filter("isParticipant = 1").sum(ofProperty: "badgeUnreadCount")
+        let count : Int = realm.objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue).sum(ofProperty: "badgeUnreadCount")
         return count
     }
 }
