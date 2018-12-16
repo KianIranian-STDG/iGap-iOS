@@ -137,7 +137,7 @@ public class RTCClient: NSObject {
     }
     
     func getVideoSourceInstance(completion: @escaping ((_ videoSource :RTCAVFoundationVideoSource) -> Void)) {
-        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.0) {
+        DispatchQueue.global(qos: .background).async {
             if self.videoSource == nil {
                 let factory = self.connectionFactory
                 factory.mediaStream(withStreamId: "RTCmS")
@@ -235,24 +235,25 @@ public class RTCClient: NSObject {
         initialisePeerConnection()
     }
     
-    public func startConnection() {
+    public func startConnection(onPrepareConnection: @escaping (() -> Void)) {
         guard let peerConnection = self.peerConnection else {
             return
         }
         self.state = .connecting
         
         IGCall.callStateStatic = "Connecting..."
-        let localStream = self.localStream()
-        peerConnection.add(localStream)
-        
-        if let localAudioTrack = localStream.audioTracks.first {
-            self.delegate?.rtcClient(client: self, didReceiveLocalAudioTrack: localAudioTrack)
-        }
-        
-        if let localVideoTrack = localStream.videoTracks.first {
-            self.delegate?.rtcClient(client: self, didReceiveLocalVideoTrack: localVideoTrack)
-            self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: localVideoTrack)
-        }
+        self.localStream(onPrepareLocalStream: { (localStream) -> Void in
+            peerConnection.add(localStream)
+            if let localAudioTrack = localStream.audioTracks.first {
+                self.delegate?.rtcClient(client: self, didReceiveLocalAudioTrack: localAudioTrack)
+            }
+            
+            if let localVideoTrack = localStream.videoTracks.first {
+                self.delegate?.rtcClient(client: self, didReceiveLocalVideoTrack: localVideoTrack)
+                self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: localVideoTrack)
+            }
+            onPrepareConnection()
+        })
     }
     
     public func disconnect() {
@@ -510,26 +511,11 @@ private extension RTCClient {
     }
     
     // Generate local stream and keep it live and add to new peer connection
-    func localStream() -> RTCMediaStream {
+    func localStream(onPrepareLocalStream: @escaping ((_ localStream :RTCMediaStream) -> Void)) {
         let factory = self.connectionFactory
         let localStream = factory.mediaStream(withStreamId: "RTCmS")
         
         RTCClient.mediaStream = localStream
-        
-        if self.isVideoCall {
-            if !AVCaptureState.isVideoDisabled {
-                let _ = getVideoSourceInstance(completion: { (videoSource) -> Void in
-                    let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
-                    localStream.addVideoTrack(videoTrack)
-                    self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: videoTrack)
-                })
-            } else {
-                // show alert for video permission disabled
-                let error = NSError.init(domain: ErrorDomain.videoPermissionDenied, code: 0, userInfo: nil)
-                self.delegate?.rtcClient(client: self, didReceiveError: error)
-            }
-        }
-        
         if !AVCaptureState.isAudioDisabled {
             let audioTrack = factory.audioTrack(withTrackId: "RTCaS0")
             localStream.addAudioTrack(audioTrack)
@@ -538,7 +524,23 @@ private extension RTCClient {
             let error = NSError.init(domain: ErrorDomain.audioPermissionDenied, code: 0, userInfo: nil)
             self.delegate?.rtcClient(client: self, didReceiveError: error)
         }
-        return localStream
+        
+        if self.isVideoCall {
+            if !AVCaptureState.isVideoDisabled {
+                let _ = getVideoSourceInstance(completion: { (videoSource) -> Void in
+                    let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
+                    localStream.addVideoTrack(videoTrack)
+                    self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: videoTrack)
+                    onPrepareLocalStream(localStream)
+                })
+            } else {
+                // show alert for video permission disabled
+                let error = NSError.init(domain: ErrorDomain.videoPermissionDenied, code: 0, userInfo: nil)
+                self.delegate?.rtcClient(client: self, didReceiveError: error)
+            }
+        } else {
+            onPrepareLocalStream(localStream)
+        }
     }
     
     func initialisePeerConnectionFactory () {

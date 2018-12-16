@@ -186,10 +186,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         
         manageView(stateAnswer: isIncommingCall)
-        if self.isIncommingCall {
-            self.incommingCall()
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.isIncommingCall {
+                self.incommingCall()
+            } else {
                 self.outgoingCall()
             }
         }
@@ -235,19 +235,21 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             return
         }
         
-        connection.startConnection()
-        connection.sendRinging()
-        connection.createAnswerForOfferReceived(withRemoteSDP: callSdp)
-        guard let delegate = RTCClient.getInstance()?.callStateDelegate else {
-            return
-        }
-        delegate.onStateChange(state: RTCClientConnectionState.IncommingCall)
+        connection.startConnection(onPrepareConnection: { () -> Void in
+            connection.sendRinging()
+            connection.createAnswerForOfferReceived(withRemoteSDP: self.callSdp)
+            guard let delegate = RTCClient.getInstance()?.callStateDelegate else {
+                return
+            }
+            delegate.onStateChange(state: RTCClientConnectionState.IncommingCall)
+        })
     }
     
     private func outgoingCall() {
         RTCClient.getInstance()?.callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
-        RTCClient.getInstance()?.startConnection()
-        RTCClient.getInstance()?.makeOffer(userId: userId)
+        RTCClient.getInstance()?.startConnection(onPrepareConnection: { () -> Void in
+            RTCClient.getInstance()?.makeOffer(userId: self.userId)
+        })
     }
     
     private func setCallMode(callType: IGPSignalingOffer.IGPType, userInfo: IGRegisteredUser){
