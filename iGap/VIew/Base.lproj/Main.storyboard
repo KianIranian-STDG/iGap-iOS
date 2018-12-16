@@ -462,6 +462,17 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By iGap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Z1-yk-cb3">
+                                <rect key="frame" x="112.5" y="532" width="150" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="E3y-ke-Xhf"/>
+                                    <constraint firstAttribute="width" constant="150" id="xmP-RM-0YO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WV3-zu-yPC">
                                 <rect key="frame" x="272.5" y="571" width="70" height="70"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -484,12 +495,14 @@
                             <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="HVS-4z-ILw" secondAttribute="bottom" constant="26" id="1ed-q9-8LX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mvO-Hc-A9H" secondAttribute="trailing" id="1xl-u4-B1k"/>
                             <constraint firstItem="32k-QA-fx6" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leading" id="3ci-yD-mDv"/>
+                            <constraint firstItem="9Z1-yk-cb3" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="3ft-PA-jlt"/>
                             <constraint firstItem="1s0-8u-bJd" firstAttribute="top" secondItem="u14-h2-GtB" secondAttribute="bottom" constant="5" id="60N-gT-svn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1s0-8u-bJd" secondAttribute="trailing" id="7mc-bK-x9A"/>
                             <constraint firstItem="u14-h2-GtB" firstAttribute="top" secondItem="fFu-Of-z9o" secondAttribute="bottom" constant="5" id="8xa-VI-dxd"/>
                             <constraint firstItem="HVS-4z-ILw" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="-40" id="99F-Bh-KqL"/>
                             <constraint firstItem="u6D-Vd-Lv8" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="55" id="B4c-pU-7FQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="u14-h2-GtB" secondAttribute="trailing" id="BY6-pT-m4s"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="9Z1-yk-cb3" secondAttribute="bottom" constant="110" id="BkP-vF-KGk"/>
                             <constraint firstAttribute="bottomMargin" secondItem="B2M-WZ-eh7" secondAttribute="bottom" constant="150" id="CtP-ak-LiN"/>
                             <constraint firstAttribute="trailing" secondItem="32k-QA-fx6" secondAttribute="trailing" id="GEZ-n6-8UF"/>
                             <constraint firstItem="1s0-8u-bJd" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="HXp-fz-cX2"/>

@@ -32,7 +32,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var localCameraView: RTCEAGLVideoView!
     @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
     
-    let SWITCH_CAMERA_DELAY : Int64 = 3000
+    let SWITCH_CAMERA_DELAY : Int64 = 2000
     
     var userId: Int64!
     var isIncommingCall: Bool!
