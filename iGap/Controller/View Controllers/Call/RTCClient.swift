@@ -136,6 +136,17 @@ public class RTCClient: NSObject {
         return self.peerConnection
     }
     
+    func getVideoSourceInstance(completion: @escaping ((_ videoSource :RTCAVFoundationVideoSource) -> Void)) {
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 0.0) {
+            if self.videoSource == nil {
+                let factory = self.connectionFactory
+                factory.mediaStream(withStreamId: "RTCmS")
+                self.videoSource = factory.avFoundationVideoSource(with: self.mediaConstraint)
+            }
+            completion(self.videoSource)
+        }
+    }
+    
     func getVideoSourceInstance() -> RTCAVFoundationVideoSource {
         if self.videoSource == nil {
             let factory = self.connectionFactory
@@ -507,10 +518,11 @@ private extension RTCClient {
         
         if self.isVideoCall {
             if !AVCaptureState.isVideoDisabled {
-                let videoSource = getVideoSourceInstance()
-                let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
-                localStream.addVideoTrack(videoTrack)
-                self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: videoTrack)
+                let _ = getVideoSourceInstance(completion: { (videoSource) -> Void in
+                    let videoTrack = factory.videoTrack(with: videoSource, trackId: "RTCvS0")
+                    localStream.addVideoTrack(videoTrack)
+                    self.videoCallDelegate?.onLocalVideoCallStream(videoTrack: videoTrack)
+                })
             } else {
                 // show alert for video permission disabled
                 let error = NSError.init(domain: ErrorDomain.videoPermissionDenied, code: 0, userInfo: nil)
