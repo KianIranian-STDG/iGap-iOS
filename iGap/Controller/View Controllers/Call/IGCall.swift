@@ -138,12 +138,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBAction func btnSpeaker(_ sender: UIButton) {
         if isSpeakerEnable {
             speakerState(state: AVAudioSessionPortOverride.none)
-            btnSpeaker.setTitle("", for: UIControlState.normal)
         } else {
             speakerState(state: AVAudioSessionPortOverride.speaker)
-            btnSpeaker.setTitle("", for: UIControlState.normal)
         }
-        isSpeakerEnable = !isSpeakerEnable
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -259,6 +256,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = false
             imgAvatar.isHidden = true
             btnSwitchCamera.isEnabled = true
+            speakerState(state: AVAudioSessionPortOverride.speaker)
             
         } else if callType == .voiceCalling {
             remoteCameraView.isHidden = true
@@ -336,6 +334,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func speakerState(state: AVAudioSessionPortOverride){
+        if state == .none {
+            btnSpeaker.setTitle("", for: UIControlState.normal)
+            isSpeakerEnable = false
+        } else {
+            btnSpeaker.setTitle("", for: UIControlState.normal)
+            isSpeakerEnable = true
+        }
+        
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
@@ -390,8 +396,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 }
                 
                 do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-                    try AVAudioSession.sharedInstance().setActive(true)
+                    let audioSession = AVAudioSession.sharedInstance()
+                    try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+                    try audioSession.setActive(true)
+                    if self.callType == .videoCalling && self.isSpeakerEnable {
+                        try audioSession.overrideOutputAudioPort(.speaker)
+                    }
                 } catch let error {
                     print(error.localizedDescription)
                 }
