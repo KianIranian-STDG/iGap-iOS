@@ -2852,6 +2852,8 @@ extension IGMessageViewController: GrowingTextViewDelegate {
             inputBarAttachmentView.isHidden = true
         }
         
+        inputTextViewHeightConstraint.constant = inputBarHeight - 5
+        
         if selectedMessageToEdit != nil {
             inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight + 8
             inputBarHeight += 36.0
@@ -2869,7 +2871,7 @@ extension IGMessageViewController: GrowingTextViewDelegate {
             inputBarOriginalMessageView.isHidden = true
         }
         
-        inputTextViewHeightConstraint.constant = inputBarHeight - 5
+        
         inputBarHeightConstraint.constant = inputBarHeight
         inputBarHeightContainerConstraint.constant = inputBarHeight + 16
 //        UIView.animate(withDuration: 0.2) {
