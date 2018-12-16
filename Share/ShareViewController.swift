@@ -231,15 +231,23 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         return self.contactSections!
     }
     
-    private func enableButton(enable: Bool = true){
+    private func enableBottomView(enable: Bool = true){
         DispatchQueue.main.async {
             if enable {
                 UIView.transition(with: self.bottomView, duration: 0.5, options: .transitionCurlDown, animations: {
                     self.bottomView.isHidden = !enable
+                }, completion: { (completed) in
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
+                    }, completion: nil)
                 })
             } else {
                 UIView.transition(with: self.bottomView, duration: 0.5, options: .transitionCurlUp, animations: {
                     self.bottomView.isHidden = !enable
+                }, completion: { (completed) in
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                    }, completion: nil)
                 })
             }
             self.btnShareData.isEnabled = enable
@@ -540,7 +548,7 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         }, completion: nil)
         
         if bottomView.isHidden {
-            enableButton()
+            enableBottomView()
         }
     }
 
@@ -558,7 +566,7 @@ class ShareViewController: UIViewController, UITableViewDelegate , UITableViewDa
         self.selectedContactItemsIdDic.removeValue(forKey: itemId)
         
         if selectedItems.count == 0 {
-            enableButton(enable: false)
+            enableBottomView(enable: false)
         }
     }
     
