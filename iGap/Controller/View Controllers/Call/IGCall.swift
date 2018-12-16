@@ -411,7 +411,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 }
                 break
                 
-            case .Finished, .Disconnected:
+            case .Finished, .Disconnected, .Accepted:
                 self.txtCallState.text = "Disconnected"
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
