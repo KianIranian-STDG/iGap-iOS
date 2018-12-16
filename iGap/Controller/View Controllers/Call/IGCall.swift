@@ -256,6 +256,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = false
             imgAvatar.isHidden = true
             btnSwitchCamera.isEnabled = true
+            txtiGap.text = "iGap Video Call"
             speakerState(state: AVAudioSessionPortOverride.speaker)
             
         } else if callType == .voiceCalling {
@@ -263,6 +264,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
             btnSwitchCamera.isEnabled = false
+            txtiGap.text = "iGap Voice Call"
             btnSwitchCamera.setTitle("", for: UIControlState.normal)
             
             if let avatar = userInfo.avatar {
