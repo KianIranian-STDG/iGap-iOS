@@ -659,15 +659,26 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
+        let mainWidth = self.mainView.frame.width
+        let videoWidth = size.width
+        let videoHeight = size.height
         
-        let videoViewLeft: Double = Double((self.mainView.frame.width - size.width) / 2)
-        let videoViewTop: Double = Double((self.mainView.frame.height - size.height) / 2)
+        var finalWidth : CGFloat = 0
+        var finalHeight : CGFloat = 0
+    
+        let ratio : CGFloat = mainWidth / videoWidth
+
+        finalWidth = mainWidth
+        finalHeight = videoHeight * ratio
+        
+        let videoViewLeft: Double = Double((self.mainView.frame.width - finalWidth) / 2)
+        let videoViewTop: Double = Double((self.mainView.frame.height - finalHeight) / 2)
         
         self.remoteCameraView.frame = CGRect(
             x: CGFloat(videoViewLeft),
             y: CGFloat(videoViewTop),
-            width: CGFloat(size.width),
-            height: CGFloat(size.height)
+            width: finalWidth,
+            height: finalHeight
         )
     }
 }
