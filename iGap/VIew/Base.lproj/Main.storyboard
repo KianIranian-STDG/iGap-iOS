@@ -143,7 +143,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="center" searchBarStyle="minimal" placeholder="start your search with tap on view" id="VL4-ST-kOS">
+                        <searchBar key="tableHeaderView" contentMode="center" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="VL4-ST-kOS">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -333,8 +333,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="2kJ-5f-LV9" customClass="RTCEAGLVideoView">
+                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kJ-5f-LV9" customClass="RTCEAGLVideoView">
                                 <rect key="frame" x="0.0" y="-5" width="375" height="672"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="qkh-A9-QLp">
@@ -519,18 +520,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="fFu-Of-z9o" secondAttribute="trailing" id="aG7-bg-vtf"/>
                             <constraint firstItem="9Qi-La-Dbk" firstAttribute="top" secondItem="1s0-8u-bJd" secondAttribute="bottom" constant="5" id="aTZ-w5-zsb"/>
                             <constraint firstItem="HVS-4z-ILw" firstAttribute="leading" secondItem="uIr-0Q-6G0" secondAttribute="trailing" constant="10" id="bRx-dQ-ehT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2kJ-5f-LV9" secondAttribute="trailing" constant="-16" id="c4Y-6t-E1I"/>
                             <constraint firstItem="cOE-9I-nlw" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="40" id="dWp-78-7YW"/>
-                            <constraint firstItem="2kJ-5f-LV9" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="-25" id="eDv-NO-eqm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qkh-A9-QLp" secondAttribute="trailing" constant="-16" id="eGw-JU-NMk"/>
                             <constraint firstAttribute="bottomMargin" secondItem="u6D-Vd-Lv8" secondAttribute="bottom" constant="150" id="iKP-L4-TzT"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="2kJ-5f-LV9" secondAttribute="bottom" id="jm1-3q-dt2"/>
                             <constraint firstAttribute="bottomMargin" secondItem="qkh-A9-QLp" secondAttribute="bottom" id="k2v-Ti-rwB"/>
                             <constraint firstItem="32k-QA-fx6" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="top" id="n93-rt-U0h"/>
                             <constraint firstItem="mvO-Hc-A9H" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="20" id="ocH-uh-N13"/>
                             <constraint firstAttribute="bottomMargin" secondItem="WV3-zu-yPC" secondAttribute="bottom" constant="26" id="s0J-n2-wiX"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="wCh-GH-vkS"/>
-                            <constraint firstItem="2kJ-5f-LV9" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="-16" id="yAN-Jb-pjo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gkI-S8-jAz"/>
@@ -543,6 +540,7 @@
                         <outlet property="btnSwitchCamera" destination="WV3-zu-yPC" id="A4a-IG-oFY"/>
                         <outlet property="imgAvatar" destination="qkh-A9-QLp" id="9FM-Es-iFn"/>
                         <outlet property="localCameraView" destination="mvO-Hc-A9H" id="AwU-cA-z4l"/>
+                        <outlet property="mainView" destination="yza-sH-gpU" id="Z59-BN-T1F"/>
                         <outlet property="remoteCameraView" destination="2kJ-5f-LV9" id="HE2-yF-LeK"/>
                         <outlet property="txtCallState" destination="1s0-8u-bJd" id="27z-gf-jyJ"/>
                         <outlet property="txtCallTime" destination="9Qi-La-Dbk" id="Rtk-Bb-YRx"/>
@@ -1065,7 +1063,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -1128,7 +1126,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -1172,7 +1170,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
+                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>

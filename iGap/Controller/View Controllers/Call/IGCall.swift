@@ -15,8 +15,9 @@ import IGProtoBuff
 import SnapKit
 import WebRTC
 
-class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver {
+class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate {
 
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var imgAvatar: UIImageView!
     @IBOutlet weak var viewTransparent: UIView!
     @IBOutlet weak var txtiGap: UILabel!
@@ -154,6 +155,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.remoteCameraView.delegate = self
         IGCall.staticReturnToCall = self
         IGCall.callPageIsEnable = true
         
@@ -654,5 +656,18 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 })
             }
         }
+    }
+    
+    func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
+        
+        let videoViewLeft: Double = Double((self.mainView.frame.width - size.width) / 2)
+        let videoViewTop: Double = Double((self.mainView.frame.height - size.height) / 2)
+        
+        self.remoteCameraView.frame = CGRect(
+            x: CGFloat(videoViewLeft),
+            y: CGFloat(videoViewTop),
+            width: CGFloat(size.width),
+            height: CGFloat(size.height)
+        )
     }
 }
