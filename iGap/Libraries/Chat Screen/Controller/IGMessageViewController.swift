@@ -795,7 +795,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         } else if let wallpaper = IGWallpaperPreview.chatWallpaper {
             chatBackground.image = UIImage(data: wallpaper as Data)
         } else {
-            chatBackground.image = UIImage(named: "back1")
+            if IGGlobal.hasBigScreen() {
+                chatBackground.image = UIImage(named: "iGap-Chat-BG-H")
+            } else {
+                chatBackground.image = UIImage(named: "iGap-Chat-BG-V")
+            }
         }
     }
     

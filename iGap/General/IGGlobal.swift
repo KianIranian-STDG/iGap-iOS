@@ -137,6 +137,14 @@ class IGGlobal {
         return .alert
     }
     
+    public class func hasBigScreen() -> Bool {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return false
+        }
+        
+        return true
+    }
+    
     public class func getCurrentMillis()->Int64{
         return  Int64(NSDate().timeIntervalSince1970 * 1000)
     }

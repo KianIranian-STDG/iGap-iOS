@@ -72,7 +72,13 @@ class IGSettingChatWallpaperLibraryCollectionViewController: UICollectionViewCon
         } else { // if not exist wallpapers in local get from server
             
             IGGlobal.prgShow(self.view)
-            IGInfoWallpaperRequest.Generator.generate(fit: IGPInfoWallpaper.IGPFit.phone).success({ (protoResponse) in
+            
+            var fit = IGPInfoWallpaper.IGPFit.phone
+            if IGGlobal.hasBigScreen() {
+                fit = IGPInfoWallpaper.IGPFit.tablet
+            }
+            
+            IGInfoWallpaperRequest.Generator.generate(fit: fit).success({ (protoResponse) in
                 if let wallpaperResponse = protoResponse as? IGPInfoWallpaperResponse {
                     IGInfoWallpaperRequest.Handler.interpret(response: wallpaperResponse)
                     
