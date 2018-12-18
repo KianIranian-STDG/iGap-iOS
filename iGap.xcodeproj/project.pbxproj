@@ -217,6 +217,7 @@
 		FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA80F59F204ABC5900F0EE74 /* tone.mp3 */; };
 		FA8204382025C97300A795D5 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8204362025C97300A795D5 /* ImageCell.swift */; };
 		FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA82043A2025C99300A795D5 /* ImageCell.xib */; };
+		FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA84D49E21C918C9009597B7 /* webServiceKey.txt */; };
 		FA8560AA1FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8560A91FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift */; };
 		FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA865C7120789C2600B9D585 /* MapKit.framework */; };
 		FA865C752078A32000B9D585 /* IGMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA865C742078A32000B9D585 /* IGMap.swift */; };
@@ -624,6 +625,7 @@
 		FA80F59F204ABC5900F0EE74 /* tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tone.mp3; sourceTree = "<group>"; };
 		FA8204362025C97300A795D5 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		FA82043A2025C99300A795D5 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		FA84D49E21C918C9009597B7 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
 		FA8560A91FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift; sourceTree = "<group>"; };
 		FA865C7120789C2600B9D585 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FA865C742078A32000B9D585 /* IGMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMap.swift; sourceTree = "<group>"; };
@@ -1632,6 +1634,7 @@
 				FAB8210E20D7D589003938BB /* module.modulemap */,
 				FA27F74120BD780300EC6A97 /* secret.key */,
 				FA27F73F20BD77ED00EC6A97 /* api.key */,
+				FA84D49E21C918C9009597B7 /* webServiceKey.txt */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -1828,6 +1831,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,

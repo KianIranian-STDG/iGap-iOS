@@ -37,7 +37,10 @@ public class IGApi {
     
     // Call WebService
     public static func callWebService() {
-        let signkey : String = "unknown_webservice_key"
+       
+        let path = Bundle.main.path(forResource: "webServiceKey", ofType: "txt")
+        let signkey : String = try! NSString(contentsOfFile: path!, encoding: String.Encoding.utf8.rawValue) as String
+        
         let encMsg = encryption(text: signkey)
         
         var request = URLRequest(url: URL(string: "http://botapi.igap.net:8080/rest/igap/getData")!)
