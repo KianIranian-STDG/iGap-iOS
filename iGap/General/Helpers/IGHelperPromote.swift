@@ -21,7 +21,9 @@ class IGHelperPromote {
      * check type of promoted room and make chat if promote type is user Otherwise get room info and join to room(group/channel)
      **/
     internal static func promoteManager(promoteList: [IGPClientGetPromoteResponse.IGPPromote], position: Int = 0) {
-        IGFactory.shared.clearPromoteRooms()
+        if position == 0 {
+            IGFactory.shared.clearPromoteRooms()
+        }
         
         if promoteList.count <= position {
             return
