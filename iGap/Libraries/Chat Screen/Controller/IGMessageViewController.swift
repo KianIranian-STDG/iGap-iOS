@@ -2156,6 +2156,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     fileprivate func forwardOrReplyMessage(_ message: IGRoomMessage, isReply: Bool = true) {
         
+        var finalMessage = message
+        if let forwardMessage = message.forwardedFrom {
+            finalMessage = forwardMessage
+        }
+        
         var prefix = ""
         
         self.selectedMessageToEdit = nil
@@ -2176,7 +2181,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.inputBarOriginalMessageViewSenderNameLabel.text = room.title
         }
         
-        let textMessage = message.message
+        let textMessage = finalMessage.message
         if textMessage != nil && !(textMessage?.isEmpty)! {
             self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
         } else if message.contact != nil {
