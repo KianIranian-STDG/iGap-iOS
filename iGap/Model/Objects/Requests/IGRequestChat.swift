@@ -177,7 +177,7 @@ class IGChatUpdateStatusRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response:IGPChatUpdateStatusResponse) {
-            IGFactory.shared.updateMessageStatus(response.igpMessageID, roomID: response.igpRoomID, status: response.igpStatus, statusVersion: response.igpStatusVersion)
+            IGFactory.shared.updateMessageStatus(response.igpMessageID, roomID: response.igpRoomID, status: response.igpStatus, statusVersion: response.igpStatusVersion, updaterAuthorHash: response.igpUpdaterAuthorHash, response: response.igpResponse)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

@@ -578,7 +578,14 @@ class IGFactory: NSObject {
     }
     
     //for an already sent message (sent -> delivered -> seen)
-    func updateMessageStatus(_ messageID: Int64, roomID: Int64, status: IGPRoomMessageStatus, statusVersion: Int64) {
+    func updateMessageStatus(_ messageID: Int64, roomID: Int64, status: IGPRoomMessageStatus, statusVersion: Int64, updaterAuthorHash: String, response: IGPResponse) {
+        
+        if response.igpID.isEmpty { // update status isn't from current device
+            if IGAppManager.sharedManager.authorHash() == updaterAuthorHash && status == .seen {
+                markAllMessagesAsRead(roomId: roomID, clearId: messageID)
+            }
+        }
+        
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
