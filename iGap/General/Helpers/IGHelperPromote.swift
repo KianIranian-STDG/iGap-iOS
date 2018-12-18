@@ -22,7 +22,7 @@ class IGHelperPromote {
      **/
     internal static func promoteManager(promoteList: [IGPClientGetPromoteResponse.IGPPromote], position: Int = 0) {
         if position == 0 {
-            IGFactory.shared.clearPromoteRooms()
+            clearUnPromoteRooms(promoteList: promoteList)
         }
         
         if promoteList.count <= position {
@@ -39,6 +39,36 @@ class IGHelperPromote {
             IGHelperPromote.getRoomAndPin(roomId: promote.igpID, compeletion: {
                 promoteManager(promoteList: promoteList, position: position + 1)
             })
+        }
+    }
+    
+    
+    
+    /**
+     * clear unPromote rooms if before was promoted
+     **/
+    private static func clearUnPromoteRooms(promoteList: [IGPClientGetPromoteResponse.IGPPromote]){
+        
+        var array1: Array<Int64> = Array()
+        var array2: Array<Int64> = Array()
+        
+        for promote in promoteList {
+            array1.append(promote.igpID)
+        }
+        
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "isPromote == true")
+        for room in realm.objects(IGRoom.self).filter(predicate) {
+            if room.type == .chat {
+                array2.append((room.chatRoom?.peer?.id)!)
+            } else {
+                array2.append(room.id)
+            }
+        }
+        
+        let differenceRoomId = array1.difference(from: array2)
+        for roomId in differenceRoomId {
+            IGFactory.shared.clearPromote(roomId: roomId)
         }
     }
     

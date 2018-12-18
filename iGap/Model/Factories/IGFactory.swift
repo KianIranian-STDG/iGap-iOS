@@ -2142,13 +2142,13 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
     
-    func clearPromoteRooms() {
+    func clearPromote(roomId: Int64) {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    let predicate = NSPredicate(format: "isPromote == true")
-                    for room in IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate) {
+                    let predicate = NSPredicate(format: "id = %lld", roomId)
+                    if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                         room.isPromote = false
                     }
                 }

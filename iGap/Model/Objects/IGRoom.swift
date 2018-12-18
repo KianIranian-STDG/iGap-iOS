@@ -162,6 +162,12 @@ class IGRoom: Object {
         }
         
         self.pinMessage = IGRoomMessage(igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID)
+        
+        if IGHelperPromote.isPromotedRoom(roomId: igpRoom.igpID) {
+            self.isPromote = true
+        } else {
+            self.isPromote = false
+        }
     }
     
     
