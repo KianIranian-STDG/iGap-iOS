@@ -115,7 +115,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             
             return 3
         case 2:
-            if IGHelperDoctoriGap.isDoctoriGapUser(userId: (user?.id)!) {
+            if IGHelperPromote.isPromotedRoom(userId: (user?.id)!) {
                 return 0
             }
             return 1

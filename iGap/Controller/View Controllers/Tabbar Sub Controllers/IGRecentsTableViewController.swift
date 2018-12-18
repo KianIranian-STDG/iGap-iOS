@@ -374,6 +374,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             DispatchQueue.main.async {
                 switch responseProtoMessage {
                 case let response as IGPClientGetRoomListResponse:
+                    self.fetchPromotedRooms()
                     self.sendClientCondition(clientCondition: clientCondition)
                     self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: response)
                 default:
@@ -385,6 +386,21 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             case .timeout:
                 IGRecentsTableViewController.needGetRoomList = true
                 self.fetchRoomList()
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    private func fetchPromotedRooms() {
+        IGClientGetPromoteRequest.Generator.generate().success ({ (responseProtoMessage) in
+            if let promoteResponse = responseProtoMessage as? IGPClientGetPromoteResponse {
+                IGClientGetPromoteRequest.Handler.interpret(response: promoteResponse)
+            }
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.fetchPromotedRooms()
             default:
                 break
             }
@@ -588,14 +604,14 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 alertC.addAction(clear)
             }
             
-            if !IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+            if !IGHelperPromote.isPromotedRoom(room: room) {
                 alertC.addAction(pin)
             }
             alertC.addAction(mute)
             alertC.addAction(report)
             
             if room.chatRoom != nil {
-                if !IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+                if !IGHelperPromote.isPromotedRoom(room: room) {
                     alertC.addAction(remove)
                 }
             } else {
@@ -625,7 +641,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         
         
         var buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
-        if IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+        if IGHelperPromote.isPromotedRoom(room: room) {
             buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
         }
         cell.rightButtons = buttons

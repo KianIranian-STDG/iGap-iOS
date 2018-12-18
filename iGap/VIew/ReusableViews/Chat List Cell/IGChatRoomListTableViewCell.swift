@@ -183,13 +183,6 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         }
         
         if room.pinId > 0 {
-            /*
-            if IGHelperDoctoriGap.isDoctoriGapRoom(room: room) {
-                contentView.backgroundColor = UIColor.doctorBotPinColor()
-            } else {
-                contentView.backgroundColor = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-            }
-            */
             contentView.backgroundColor = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
         } else {
             contentView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
@@ -260,7 +253,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 }
             }
 
-            if room.pinId > 0 && !IGHelperDoctoriGap.isDoctoriGapRoom(room: room) {
+            if room.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: room) {
                 lastMessageStatusContainerView.isHidden = false
                 deliveryStateImageView.isHidden = false
                 unreadCountLabel.isHidden = true

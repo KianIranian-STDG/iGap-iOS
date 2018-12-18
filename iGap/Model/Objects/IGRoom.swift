@@ -46,6 +46,7 @@ class IGRoom: Object {
     @objc dynamic var pinMessage:         IGRoomMessage?
     @objc dynamic var deletedPinMessageId:Int64                   = 0
     @objc dynamic var priority:           Int32                   = 0
+    @objc dynamic var isPromote:          Bool                    = false
     
     //ignored properties
     var currenctActionsByUsers = Dictionary<String, (IGRegisteredUser, IGClientAction)>() //actorId, action
@@ -207,10 +208,6 @@ class IGRoom: Object {
         return nil
     }
     
-    internal static func getRoomInfo(roomId: Int64) -> IGRoom {
-        return try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first!
-    }
-    
     /* check room is pinned or not */
     internal static func isPin(roomId: Int64) -> Bool {
          if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
@@ -231,6 +228,42 @@ class IGRoom: Object {
         }
         let count : Int = realm.objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue).sum(ofProperty: "badgeUnreadCount")
         return count
+    }
+    
+    
+    internal static func getRoomIdWithUsername(username: String) -> Int64? {
+        
+        var roomId: Int64? = nil
+        let realm = try! Realm()
+        try! realm.write {
+            if let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "(groupRoom.publicExtra.username = %@) OR (channelRoom.publicExtra.username = %@)" , username, username)).first {
+                roomId = room.id
+            }
+        }
+        return roomId
+    }
+    
+    
+    internal static func getRoomInfo(roomId: Int64) -> IGRoom? {
+        
+        var roomInfo: IGRoom? = nil
+        let realm = try! Realm()
+        try! realm.write {
+            if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+                roomInfo = room
+            }
+        }
+        return roomInfo
+    }
+    
+    
+    internal static func setParticipant(roomId: Int64, isParticipant: Bool) {
+        let realm = try! Realm()
+        try! realm.write {
+            if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld" ,roomId)).first {
+                room.isParticipant = isParticipant
+            }
+        }
     }
 }
 
@@ -497,11 +530,18 @@ extension IGRoom {
     }
     
     /* check that room exist in local and user is participant in this room */
-    static func existRoomInLocal(roomId: Int64) -> Bool{
-        let predicate = NSPredicate(format: "id = %lld AND isParticipant = 1", roomId)
-        if let _ = try! Realm().objects(IGRoom.self).filter(predicate).first {
-            return true
+    static func existRoomInLocal(roomId: Int64 = 0, userId: Int64 = 0) -> IGRoom? {
+        if roomId != 0 {
+            let predicate = NSPredicate(format: "id = %lld AND isParticipant = 1", roomId)
+            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                return room
+            }
+        } else if userId != 0 {
+            let predicate = NSPredicate(format: "chatRoom.peer.id = %lld AND isParticipant = 1", userId)
+            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                return room
+            }
         }
-        return false
+        return nil
     }
 }

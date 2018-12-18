@@ -305,14 +305,14 @@ class IGChannelsTableViewController: UITableViewController {
                 alertC.addAction(clear)
             }
             
-            if !IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+            if !IGHelperPromote.isPromotedRoom(room: room) {
                 alertC.addAction(pin)
             }
             alertC.addAction(mute)
             alertC.addAction(report)
             
             if room.chatRoom != nil {
-                if !IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+                if !IGHelperPromote.isPromotedRoom(room: room) {
                     alertC.addAction(remove)
                 }
             } else {
@@ -344,7 +344,7 @@ class IGChannelsTableViewController: UITableViewController {
         })
         
         var buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
-        if IGHelperDoctoriGap.isDoctoriGapRoom(room: room){
+        if IGHelperPromote.isPromotedRoom(room: room) {
             buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
         }
         cell.rightButtons = buttons

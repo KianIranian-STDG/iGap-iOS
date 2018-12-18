@@ -165,7 +165,6 @@
 		FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */; };
 		FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */; };
 		FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */; };
-		FA4CFD0921A0519B005FCBF2 /* IGHelperDoctoriGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CFD0821A0519B005FCBF2 /* IGHelperDoctoriGap.swift */; };
 		FA4F47B8214D0C5400ABE7A0 /* IGRealmWallpaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */; };
 		FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */; };
 		FA50A8C41DD35E8500C6D2EA /* IGAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50A8C31DD35E8500C6D2EA /* IGAppManager.swift */; };
@@ -182,6 +181,8 @@
 		FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656AE204AB18D00DB46F0 /* igap_disconnect.mp3 */; };
 		FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656AF204AB18D00DB46F0 /* igap_ringing.mp3 */; };
 		FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */; };
+		FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */; };
+		FA5CFC4E21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5CFC4D21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift */; };
 		FA5E159D1E0FD76300EC19A1 /* IGAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E159C1E0FD76300EC19A1 /* IGAvatarView.swift */; };
 		FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E159E1E0FFFD800EC19A1 /* IGTappableView.swift */; };
 		FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EC5D81E06728C006E2850 /* IGChatRoomListTableViewCell.swift */; };
@@ -570,7 +571,6 @@
 		FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMusicViewController.swift; sourceTree = "<group>"; };
 		FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGMusicViewController.xib; sourceTree = "<group>"; };
 		FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPreferences.swift; sourceTree = "<group>"; };
-		FA4CFD0821A0519B005FCBF2 /* IGHelperDoctoriGap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperDoctoriGap.swift; sourceTree = "<group>"; };
 		FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmWallpaper.swift; sourceTree = "<group>"; };
 		FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWallpaperPreview.swift; sourceTree = "<group>"; };
 		FA5097D21DEDA18000A44699 /* iGap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iGap-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -588,6 +588,8 @@
 		FA5656AE204AB18D00DB46F0 /* igap_disconnect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_disconnect.mp3; sourceTree = "<group>"; };
 		FA5656AF204AB18D00DB46F0 /* igap_ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_ringing.mp3; sourceTree = "<group>"; };
 		FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_busy.mp3; sourceTree = "<group>"; };
+		FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPromote.swift; sourceTree = "<group>"; };
+		FA5CFC4D21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGHelperDoctoriGap.swift; sourceTree = "<group>"; };
 		FA5E159C1E0FD76300EC19A1 /* IGAvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGAvatarView.swift; sourceTree = "<group>"; };
 		FA5E159E1E0FFFD800EC19A1 /* IGTappableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTappableView.swift; sourceTree = "<group>"; };
 		FA5EC5D81E06728C006E2850 /* IGChatRoomListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChatRoomListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1139,9 +1141,10 @@
 				FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */,
 				FA5301DC2150D12B00A95C2C /* IGHelperChatOpener.swift */,
 				FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */,
-				FA4CFD0821A0519B005FCBF2 /* IGHelperDoctoriGap.swift */,
+				FA5CFC4D21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift */,
 				FA86D44721A95CB0007B80D7 /* IGHelperView.swift */,
 				FA86D44921A96955007B80D7 /* IGHelperPopular.swift */,
+				FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2009,6 +2012,7 @@
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGNewGroupBottomViewCollectionCell.swift in Sources */,
+				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
 				FA96EF4E1DEB0431009BE640 /* IGMessageSender.swift in Sources */,
 				FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */,
 				FA09538A1E1B97E20043ED3F /* IGCreateNewGroupTableViewController.swift in Sources */,
@@ -2025,6 +2029,7 @@
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
 				FA8F22521DD89C6B005A90D1 /* IGChatRoom.swift in Sources */,
 				FA09535E1E1B97700043ED3F /* IGSettingContactBlockListTableViewController.swift in Sources */,
+				FA5CFC4E21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift in Sources */,
 				FA96EF541DEB09A6009BE640 /* IGRequestChat.swift in Sources */,
 				FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */,
 				93193F301E5812CA0039AC0C /* IGGroupInfoMemberListTableViewController.swift in Sources */,
@@ -2036,7 +2041,6 @@
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
-				FA4CFD0921A0519B005FCBF2 /* IGHelperDoctoriGap.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,

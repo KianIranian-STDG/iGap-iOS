@@ -63,7 +63,6 @@ class IGClientGetRoomListRequest : IGRequest {
             if IGAppManager.sharedManager.isFirstGetRoomList {
                 IGAppManager.sharedManager.isFirstGetRoomList = false
                 IGFactory.shared.removeRoomParticipant(igpRooms: responseProtoMessage.igpRooms)
-                IGHelperDoctoriGap.doctoriGapCreator()
             }
             
             let igpRooms: Array<IGPRoom> = responseProtoMessage.igpRooms
@@ -88,10 +87,9 @@ class IGClientGetRoomRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPClientGetRoomResponse) {
+        class func interpret(response responseProtoMessage:IGPClientGetRoomResponse, ignoreLastMessage: Bool = true) {
             let igpRoom = responseProtoMessage.igpRoom
-            
-            IGFactory.shared.saveRoomsToDatabase([igpRoom], ignoreLastMessage: true)
+            IGFactory.shared.saveRoomsToDatabase([igpRoom], ignoreLastMessage: ignoreLastMessage)
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }
@@ -246,14 +244,15 @@ class IGClientJoinByInviteLinkRequest: IGRequest {
 
 class IGClientJoinByUsernameRequest: IGRequest {
     class Generator: IGRequest.Generator {
-        class func generate(userName: String) -> IGRequestWrapper {
+        class func generate(userName: String, identity: String = "") -> IGRequestWrapper {
             var clientJoinByUsernameRequestMessage = IGPClientJoinByUsername()
             clientJoinByUsernameRequestMessage.igpUsername = userName
-            return IGRequestWrapper(message: clientJoinByUsernameRequestMessage, actionID: 609)
+            return IGRequestWrapper(message: clientJoinByUsernameRequestMessage, actionID: 609, identity: identity)
         }
     }
     class Handler: IGRequest.Handler {
-        class func interpret( response responseProtoMessage : IGPClientJoinByUsernameResponse) {
+        class func interpret( response responseProtoMessage : IGPClientJoinByUsernameResponse, roomId: Int64) {
+            IGRoom.setParticipant(roomId: roomId, isParticipant: true)
         }
          override class func handlePush(responseProtoMessage: Message) {}
     }
@@ -448,10 +447,7 @@ class IGClientGetPromoteRequest: IGRequest {
     }
     class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage : IGPClientGetPromoteResponse) {
-            for promote in responseProtoMessage.igpPromote {
-                //promote.igpID
-                //promote.igpType
-            }
+            IGHelperPromote.promoteManager(promoteList: responseProtoMessage.igpPromote)
         }
         
         override class func handlePush(responseProtoMessage: Message) {}

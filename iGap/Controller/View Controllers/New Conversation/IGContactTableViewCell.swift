@@ -27,7 +27,9 @@ class IGContactTableViewCell: UITableViewCell {
     }
     
     func setUser(_ user: IGRegisteredUser) {
-        btnCall.removeUnderline()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.btnCall.removeUnderline()
+        }
         contactNameLable.text = user.displayName
         userAvatarView.setUser(user)
         self.userRegister = user

@@ -19,8 +19,8 @@ class IGRequestWrapper :NSObject {
     
     var id       = ""
     var actionId = 0
-    var message  : RequestMessage!  // = GeneratedMessageBuilder()
-    var identity = ""
+    var message  : RequestMessage!
+    var identity = "" // If you give identity, then the request data also returns
     var time     : Int?
     var IV       = Data()
     

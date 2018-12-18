@@ -122,7 +122,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var messageCellIdentifer = IGMessageCollectionViewCell.cellReuseIdentifier()
     var logMessageCellIdentifer = IGMessageLogCollectionViewCell.cellReuseIdentifier()
     var room : IGRoom?
-    var openChatFromLink: Bool = false
+    var openChatFromLink: Bool = false // set true this param when user not joined to this room
     var customizeBackItem: Bool = false
     //let currentLoggedInUserID = IGAppManager.sharedManager.userID()
     let currentLoggedInUserAuthorHash = IGAppManager.sharedManager.authorHash()
@@ -547,7 +547,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     return
                 }
             }
-            IGHelperChatOpener.checkUsernameAndOpenPage(viewController: self, username: value)
+            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: self, username: value)
         } else {
             inputTextView.text = value
             self.didTapOnSendButton(self.inputBarSendButton)
@@ -1884,7 +1884,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let clientJoinbyUsernameResponse as IGPClientJoinByUsernameResponse:
-                        IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse)
+                        if let roomId = self.room?.id {
+                            IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
+                        }
                         self.joinButton.isHidden = true
                         self.hud.hide(animated: true)
                         self.collectionViewTopInsetOffset = -54.0 + 8.0
@@ -3203,7 +3205,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnMention(mentionText: String) {
-        IGHelperChatOpener.checkUsernameAndOpenPage(viewController: self, username: mentionText)
+        IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: self, username: mentionText)
     }
     
     func didTapOnEmail(email: String) {

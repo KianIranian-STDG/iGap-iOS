@@ -10,6 +10,7 @@
 
 import UIKit
 import IGProtoBuff
+import RealmSwift
 
 class IGHelperChatOpener {
     
@@ -19,7 +20,7 @@ class IGHelperChatOpener {
      **/
     
     internal static func openChatRoom(room: IGRoom, viewController: UIViewController){
-        if IGRoom.existRoomInLocal(roomId: room.id) {
+        if IGRoom.existRoomInLocal(roomId: room.id) != nil {
             DispatchQueue.main.async {
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
@@ -48,8 +49,10 @@ class IGHelperChatOpener {
     }
     
     
-    /* open user profile */
     
+    /**
+     * open user profile
+     **/
     internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil, viewController: UIViewController){
         let storyboard : UIStoryboard = UIStoryboard(name: "profile", bundle: nil)
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "IGRegistredUserInfoTableViewController") as! IGRegistredUserInfoTableViewController
@@ -60,11 +63,25 @@ class IGHelperChatOpener {
         viewController.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    
+    
+    /**
+     * open room(group/channel)
+     **/
+    internal static func openRoom(room: IGRoom, viewController: UIViewController){
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+        messagesVc.room = room
+        viewController.navigationController!.pushViewController(messagesVc, animated:false)
+        viewController.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    
+    
     /**
      * resolve username info and open chat or profile with received data
      **/
- 
-    internal static func checkUsernameAndOpenPage(viewController: UIViewController, username: String){
+    internal static func checkUsernameAndOpenRoom(viewController: UIViewController, username: String){
         IGGlobal.prgShow(viewController.view)
         IGClientResolveUsernameRequest.Generator.generate(username: username).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -96,6 +113,8 @@ class IGHelperChatOpener {
         }).send()
     }
     
+    
+    
     /**
      * open chat room if username is for room or bot otherwise open user profile
      **/
@@ -103,18 +122,13 @@ class IGHelperChatOpener {
         switch usernameType {
         case .user:
             if (user!.isBot) {
-                IGHelperChatOpener.createChat(viewController: viewController, selectedUser: user!)
+                IGHelperChatOpener.createChat(viewController: viewController, userId: (user?.id)!)
             } else {
                 IGHelperChatOpener.openUserProfile(user: user! , room: nil, viewController: viewController)
             }
             break
         case .room:
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-            messagesVc.room = room
-            messagesVc.openChatFromLink = openChatFromLink
-            viewController.navigationController!.pushViewController(messagesVc, animated:false)
-            viewController.navigationController?.setNavigationBarHidden(false, animated: true)
+            IGHelperChatOpener.openRoom(room: room!, viewController: viewController)
             break
         default:
             break
@@ -122,61 +136,33 @@ class IGHelperChatOpener {
     }
     
     
+    
     /**
      * create chat with contact and then open chat room
      **/
-    
-    internal static func createChat(viewController: UIViewController, selectedUser: IGRegisteredUser) {
-        IGGlobal.prgShow(viewController.view)
-        IGChatGetRoomRequest.Generator.generate(peerId: selectedUser.id).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                    
-                    IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let clientGetRoomResponse as IGPClientGetRoomResponse:
-                                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
-                                let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
-                                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-                                roomVC.room = room
-                                viewController.navigationController!.pushViewController(roomVC, animated: true)
-                            default:
-                                break
-                            }
-                            IGGlobal.prgHide()
-                        }
-                    }).error ({ (errorCode, waitTime) in
-                        DispatchQueue.main.async {
-                            switch errorCode {
-                            case .timeout:
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alert.addAction(okAction)
-                                viewController.present(alert, animated: true, completion: nil)
-                            default:
-                                break
-                            }
-                            IGGlobal.prgHide()
-                        }
-                    }).send()
-                    
+    internal static func createChat(viewController: UIViewController, userId: Int64) {
+        if let room = IGRoom.existRoomInLocal(userId: userId) {
+            openRoom(room: room, viewController: viewController)
+        } else {
+            IGGlobal.prgShow(viewController.view)
+            IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
+                DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    break
-                default:
-                    break
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
+                        let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
+                        openRoom(room: room, viewController: viewController)
+                    }
                 }
-            }
-            
-        }).error({ (errorCode, waitTime) in
-            IGGlobal.prgHide()
-            let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertC.addAction(cancel)
-            viewController.present(alertC, animated: true, completion: nil)
-        }).send()
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
+                    let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertC.addAction(cancel)
+                    viewController.present(alertC, animated: true, completion: nil)
+                }
+            }).send()
+        }
     }
 }

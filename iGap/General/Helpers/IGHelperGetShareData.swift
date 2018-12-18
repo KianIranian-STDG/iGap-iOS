@@ -463,9 +463,6 @@ class IGHelperGetShareData {
                     message.type = .fileAndText
                 }
                 break
-                
-            default:
-                break
             }
             
             message.roomId = room.id

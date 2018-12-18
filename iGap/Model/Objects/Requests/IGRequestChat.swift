@@ -15,10 +15,10 @@ import SwiftProtobuf
 class IGChatGetRoomRequest : IGRequest {
     class Generator : IGRequest.Generator{
         //action id = 200
-        class func generate(peerId: Int64) -> IGRequestWrapper {
+        class func generate(peerId: Int64, identity: String = "") -> IGRequestWrapper {
             var chatGetRoomRequestMessage = IGPChatGetRoom()
             chatGetRoomRequestMessage.igpPeerID = peerId
-            return IGRequestWrapper(message: chatGetRoomRequestMessage, actionID: 200)
+            return IGRequestWrapper(message: chatGetRoomRequestMessage, actionID: 200, identity: identity)
         }
     }
     
