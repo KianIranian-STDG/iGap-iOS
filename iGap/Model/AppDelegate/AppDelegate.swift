@@ -52,60 +52,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
         
-        let config = Realm.Configuration(
+        let config = Realm.Configuration (
             fileURL: fileURL,
-            schemaVersion: 21,
+            schemaVersion: 21,//HINT: change schemaVersion in 'ShareConfig'
             
-            // Set the block which will be called automatically when opening a Realm with
-            // a schema version lower than the one set above
-            migrationBlock: { migration, oldSchemaVersion in
-                // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                if (oldSchemaVersion < 1) {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
-                } else if (oldSchemaVersion < 2) {
-                    //Logout users. due to the missing of authorHash
-                } else if (oldSchemaVersion < 3) {
-                    //version 0.0.5 build 290
-                } else if (oldSchemaVersion < 4) {
-                    //version 0.0.6 build 291
-                } else if (oldSchemaVersion < 5) {
-                    //version 0.0.7 build 292
-                } else if (oldSchemaVersion < 6) {
-                    //version 0.0.8 build 293
-                } else if (oldSchemaVersion < 7) { //version 0.1.0 : 7
-                    //version 0.0.11
-                } else if (oldSchemaVersion < 8) {
-                    //version 0.1.5 build 449
-                } else if (oldSchemaVersion < 9) {
-                    //version 0.2.0 build 452
-                } else if (oldSchemaVersion < 10) {
-                    //version 0.3.0 build 453
-                } else if (oldSchemaVersion < 11) {
-                    //version 0.3.1 build 454
-                } else if (oldSchemaVersion < 12) {
-                    //version 0.3.2 build 455
-                } else if (oldSchemaVersion < 13) {
-                    //version 0.4.6 build 461
-                } else if (oldSchemaVersion < 14) {
-                    //version 0.4.7 build 462
-                } else if (oldSchemaVersion < 15) {
-                    //version 0.4.8 build 463
-                } else if (oldSchemaVersion < 16) {
-                    //version 0.6.0 build 467
-                } else if (oldSchemaVersion < 17) {
-                    //version 0.6.5 build 472
-                } else if (oldSchemaVersion < 18) {
-                    //version 0.6.7 build 474
-                } else if (oldSchemaVersion < 19) {
-                    //version 0.6.9 build 476 add priority in IGRoom
-                } else if (oldSchemaVersion < 20) {
-                    //version 0.7.1 build 478 add IGShareInfo
-                } else if (oldSchemaVersion < 21) {
-                    //version 0.7.2 build 479 add isPromote Option
-                }
-        })
+            /**
+             * Set the block which will be called automatically when opening a Realm with a schema version lower than the one set above
+             **/
+            migrationBlock: { migration, oldSchemaVersion in }
+        )
         Realm.Configuration.defaultConfiguration = config
         _ = try! Realm()
         

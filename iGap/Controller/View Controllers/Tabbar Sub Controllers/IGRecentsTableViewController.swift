@@ -200,7 +200,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
         
-        let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
+        let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         self.rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
         
         self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())

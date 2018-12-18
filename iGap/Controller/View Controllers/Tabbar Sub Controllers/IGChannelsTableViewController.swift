@@ -37,7 +37,7 @@ class IGChannelsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
+        let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         let predicate = NSPredicate(format: "typeRaw = %d AND isParticipant = 1", IGRoom.IGType.channel.rawValue)
         rooms = try! Realm().objects(IGRoom.self).filter(predicate).sorted(by: sortProperties)
         
