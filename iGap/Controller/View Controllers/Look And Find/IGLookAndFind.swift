@@ -180,7 +180,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             finalSearchText = "#"+finalSearchText
         }
         
-        let predicate = NSPredicate(format: "(message CONTAINS[c] %@)", finalSearchText)
+        let predicate = NSPredicate(format: "roomId != %lld AND (message CONTAINS[c] %@ OR forwardedFrom.message CONTAINS[c] %@)", -1, finalSearchText, finalSearchText)
         let messages = realm.objects(IGRoomMessage.self).filter(predicate)
         if messages.count > 0 {
             if checkHashtag {
