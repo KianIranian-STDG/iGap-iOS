@@ -2175,20 +2175,20 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.setSendAndRecordButtonStates()
         }
         
-        if let user = message.authorUser {
+        if let user = finalMessage.authorUser {
             self.inputBarOriginalMessageViewSenderNameLabel.text = user.displayName
-        } else if let room = message.authorRoom {
+        } else if let room = finalMessage.authorRoom {
             self.inputBarOriginalMessageViewSenderNameLabel.text = room.title
         }
         
         let textMessage = finalMessage.message
         if textMessage != nil && !(textMessage?.isEmpty)! {
             self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
-        } else if message.contact != nil {
+        } else if finalMessage.contact != nil {
             self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) contact message"
-        } else if message.location != nil {
+        } else if finalMessage.location != nil {
             self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) location message"
-        } else if let file = message.attachment {
+        } else if let file = finalMessage.attachment {
             self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))' message"
         }
         
