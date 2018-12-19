@@ -341,7 +341,6 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             contactsCell.rightExpansion.fillOnTrigger = true
             contactsCell.rightExpansion.threshold = 1.5
             
-            contactsCell.layer.cornerRadius = 10
             contactsCell.clipsToBounds = true
             contactsCell.swipeBackgroundColor = UIColor.clear
             
