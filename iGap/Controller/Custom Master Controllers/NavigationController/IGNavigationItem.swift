@@ -464,7 +464,7 @@ class IGNavigationItem: UINavigationItem {
         self.centerViewSubLabel!.snp.makeConstraints { (make) in
             make.top.equalTo(self.centerViewMainLabel!.snp.bottom).offset(-3)
             make.leading.equalTo(self.centerViewContainer!.snp.leading).offset(5)
-            make.trailing.equalTo((self.titleView?.snp.trailing)!).offset(-80)
+            make.trailing.lessThanOrEqualTo((self.titleView?.snp.trailing)!).offset(-80)
         }
         
         let verifiedFrame = CGRect(x: 20, y: 5, width: 25, height: 25)

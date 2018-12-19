@@ -123,6 +123,7 @@
                 <outlet property="lastMessageStatusContainerViewWidthConstraint" destination="OWv-tU-iRl" id="o4z-BK-ZIy"/>
                 <outlet property="mainView" destination="H2p-sc-9uM" id="4nV-FS-Egh"/>
                 <outlet property="nameLabel" destination="ojI-a5-iIf" id="cf8-gx-tEn"/>
+                <outlet property="roomTitleLabelLeftConstraint" destination="zgq-TG-hTB" id="AY6-XF-taE"/>
                 <outlet property="roomTypeIndicatorImageView" destination="cZr-RY-NKD" id="Luj-HS-mpZ"/>
                 <outlet property="timeLabel" destination="2b6-Og-2B6" id="lsy-qc-QyG"/>
                 <outlet property="unreadCountLabel" destination="nTe-f6-GT6" id="dhc-Ad-jcD"/>
