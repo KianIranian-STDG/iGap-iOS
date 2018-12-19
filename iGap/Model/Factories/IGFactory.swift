@@ -205,6 +205,44 @@ fileprivate class IGFactoryTask: NSObject {
         self.task = task
     }
     
+    /* create room if new message recieved and room not exist */
+    convenience init(createRoomTask roomId: Int64?) {
+        self.init()
+        let task = {
+            if let id = roomId, id != 0 {
+                IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                    
+                    let predicate = NSPredicate(format: "id = %lld", id)
+                    if try! Realm().objects(IGRoom.self).filter(predicate).first == nil {
+                        IGClientGetRoomRequest.Generator.generate(roomId: id).success({ (responseProto) in
+                            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                                if let clientGetRoomResponse = responseProto as? IGPClientGetRoomResponse {
+                                    let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
+                                    try! IGDatabaseManager.shared.realm.write {
+                                        IGDatabaseManager.shared.realm.add(room, update: true)
+                                    }
+                                }
+                                IGFactory.shared.performInFactoryQueue {
+                                    self.success!()
+                                }
+                            }
+                            
+                        }).error({ (errorCode, waitTime) in
+                            self.error!()
+                        }).send()
+                    } else {
+                        IGFactory.shared.performInFactoryQueue {
+                            self.success!()
+                        }
+                    }
+                }
+            } else {
+                self.success!()
+            }
+        }
+        self.task = task
+    }
+    
     //MARK: Public Setters
     func success(_ success: @escaping ()->()) -> IGFactoryTask {
         self.success = success
@@ -382,7 +420,7 @@ class IGFactory: NSObject {
         }
         
         //Step 3: create room if this is a new conversation
-        let task = IGFactoryTask(dependencyRoomTask: roomId, isParticipane: true)
+        let task = IGFactoryTask(createRoomTask: roomId)
         tasks.append(task)
         
         //Step 4: create a task for all messages
