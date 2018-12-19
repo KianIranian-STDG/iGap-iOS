@@ -649,12 +649,15 @@ extension UIImageView {
                     }
                 }
             } catch {
+                imagesMap[file.token!] = self
                 IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
                     DispatchQueue.main.async {
-                        let path = file.path()
-                        if let data = try? Data(contentsOf: path!) {
-                            if let image = UIImage(data: data) {
-                                self.image = image
+                        if let imageMain = imagesMap[attachment.token!] {
+                            let path = attachment.path()
+                            if let data = try? Data(contentsOf: path!) {
+                                if let image = UIImage(data: data) {
+                                    imageMain.image = image
+                                }
                             }
                         }
                     }

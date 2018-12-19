@@ -18,14 +18,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="78.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8d-pT-dyD" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="12" y="12.5" width="54" height="54"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="54" id="RNt-iX-awR"/>
-                            <constraint firstAttribute="width" constant="54" id="rge-2K-LxL"/>
-                        </constraints>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelqg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtp-vX-p7f" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                         <rect key="frame" x="82" y="53.5" width="235" height="15"/>
                         <constraints>
@@ -105,35 +97,32 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="j5O-4W-jNd" secondAttribute="trailing" constant="20" id="89g-Mo-hfX"/>
-                    <constraint firstItem="wtp-vX-p7f" firstAttribute="leading" secondItem="D8d-pT-dyD" secondAttribute="trailing" constant="16" id="BSb-ns-roR"/>
-                    <constraint firstItem="ojI-a5-iIf" firstAttribute="leading" secondItem="D8d-pT-dyD" secondAttribute="trailing" constant="40" id="DJ3-ZZ-JUm"/>
                     <constraint firstItem="wkw-rV-l3F" firstAttribute="centerY" secondItem="pyp-q7-jR9" secondAttribute="centerY" id="FwV-WV-96P"/>
                     <constraint firstAttribute="bottom" secondItem="wtp-vX-p7f" secondAttribute="bottom" constant="10" id="Le2-um-Yz0"/>
-                    <constraint firstItem="D8d-pT-dyD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="MOt-eW-lhH"/>
                     <constraint firstItem="mQH-ck-rj3" firstAttribute="leading" secondItem="wtp-vX-p7f" secondAttribute="trailing" constant="20" id="Sb2-Wr-lsW"/>
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="leading" secondItem="pyp-q7-jR9" secondAttribute="trailing" constant="5" id="Wh2-7E-Bsb"/>
+                    <constraint firstItem="wtp-vX-p7f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="82" id="WuA-el-2nc"/>
                     <constraint firstItem="ojI-a5-iIf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YBc-x6-aXr"/>
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="YGR-YU-lO1"/>
+                    <constraint firstItem="cZr-RY-NKD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="66" id="ZQK-mk-PfS"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="leading" secondItem="wkw-rV-l3F" secondAttribute="trailing" constant="8" id="agQ-O5-Lhv"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="gtC-pN-UhD"/>
                     <constraint firstItem="cZr-RY-NKD" firstAttribute="top" secondItem="ojI-a5-iIf" secondAttribute="top" id="m9m-En-IE8"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ojI-a5-iIf" secondAttribute="trailing" constant="90" id="n2s-HV-Uwi"/>
-                    <constraint firstItem="D8d-pT-dyD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nj6-cg-XlE"/>
-                    <constraint firstItem="cZr-RY-NKD" firstAttribute="leading" secondItem="D8d-pT-dyD" secondAttribute="trailing" constant="16" id="r9a-mK-rTB"/>
                     <constraint firstAttribute="trailing" secondItem="2b6-Og-2B6" secondAttribute="trailing" constant="20" id="rTd-HL-qe4"/>
                     <constraint firstItem="j5O-4W-jNd" firstAttribute="centerY" secondItem="wtp-vX-p7f" secondAttribute="centerY" id="sI0-Cc-BTM"/>
+                    <constraint firstItem="ojI-a5-iIf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="90" id="zgq-TG-hTB"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="avatarView" destination="D8d-pT-dyD" id="xl2-5p-QgR"/>
                 <outlet property="deliveryStateImageView" destination="mQH-ck-rj3" id="BRU-Jn-s2L"/>
                 <outlet property="imgMute" destination="pyp-q7-jR9" id="Zci-d3-xoW"/>
                 <outlet property="imgVerified" destination="wkw-rV-l3F" id="rsR-ME-PTZ"/>
                 <outlet property="lastMessageLabel" destination="wtp-vX-p7f" id="Gz8-NP-Vl3"/>
                 <outlet property="lastMessageStatusContainerView" destination="j5O-4W-jNd" id="nlr-FW-14L"/>
                 <outlet property="lastMessageStatusContainerViewWidthConstraint" destination="OWv-tU-iRl" id="o4z-BK-ZIy"/>
+                <outlet property="mainView" destination="H2p-sc-9uM" id="4nV-FS-Egh"/>
                 <outlet property="nameLabel" destination="ojI-a5-iIf" id="cf8-gx-tEn"/>
-                <outlet property="roomTitleLabelLeftConstraint" destination="DJ3-ZZ-JUm" id="qFi-ft-zsM"/>
                 <outlet property="roomTypeIndicatorImageView" destination="cZr-RY-NKD" id="Luj-HS-mpZ"/>
                 <outlet property="timeLabel" destination="2b6-Og-2B6" id="lsy-qc-QyG"/>
                 <outlet property="unreadCountLabel" destination="nTe-f6-GT6" id="dhc-Ad-jcD"/>

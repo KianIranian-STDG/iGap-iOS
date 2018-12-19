@@ -25,10 +25,11 @@ import RxRealm
 import RxSwift
 import RxCocoa
 import MBProgressHUD
+import SnapKit
 
 class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
-    @IBOutlet weak var avatarView: IGAvatarView!
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -41,6 +42,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     @IBOutlet weak var imgMute: UIImageView!
     @IBOutlet weak var imgVerified: UIImageView!
     
+    var avatarImage: IGAvatarView!
     let currentLoggedInUserID = IGAppManager.sharedManager.userID()
     
     var room: IGRoom?
@@ -123,10 +125,30 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     }
 
     
+    
+    private func makeAvatarImage() -> IGAvatarView {
+        if avatarImage != nil {
+            avatarImage.removeFromSuperview()
+            avatarImage = nil
+        }
+        
+        let frame = CGRect(x:0 ,y:0 ,width:54 ,height:54)
+        avatarImage = IGAvatarView(frame: frame)
+        mainView.addSubview(avatarImage)
+        
+        avatarImage.snp.makeConstraints { (make) in
+            make.leading.equalTo(mainView.snp.leading).offset(12)
+            make.width.equalTo(54)
+            make.height.equalTo(54)
+            make.centerY.equalTo(mainView.snp.centerY)
+        }
+        
+        return avatarImage
+    }
+    
     func initialConfiguration() {
         self.selectionStyle = .none
         lastMessageStatusContainerView.backgroundColor = UIColor.red
-        avatarView.clean()
         nameLabel.text = ""
         lastMessageLabel.text = ""
         timeLabel.text = ""
@@ -142,7 +164,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     //MARK: Configure
     func setRoom(room: IGRoom) {
         self.room = room
-        avatarView.setRoom(room)
+        makeAvatarImage().setRoom(room)
         
         switch room.type {
         case .chat:
