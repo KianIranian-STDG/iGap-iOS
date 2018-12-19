@@ -28,7 +28,7 @@ class IGSettingNotificationTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         doNotDistrubSwitch.addTarget(self, action: #selector(IGSettingNotificationTableViewController.stateChanged), for: UIControlEvents.valueChanged)
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1170,6 +1170,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -1214,6 +1215,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rfh-bM-Tni">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -1221,7 +1223,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rfh-bM-Tni" id="TQt-49-JBH">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1559,27 +1563,27 @@
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Chat_Screen_Attachment" width="38" height="38"/>
-        <image name="IG_Chat_Screen_Record" width="38" height="38"/>
-        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
-        <image name="IG_Chat_Screen_Send" width="38" height="38"/>
-        <image name="IG_Splash_Cute_5" width="162" height="125"/>
-        <image name="IG_Tabbar_Call_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Call_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Recent_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Recent_On" width="37" height="37"/>
-        <image name="Location_Marker" width="40" height="40"/>
+        <image name="IG_Chat_Screen_Attachment" width="76" height="76"/>
+        <image name="IG_Chat_Screen_Record" width="76" height="76"/>
+        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="411.42855834960938" height="411.42855834960938"/>
+        <image name="IG_Chat_Screen_Send" width="76" height="76"/>
+        <image name="IG_Splash_Cute_5" width="1671.4285888671875" height="1285.7142333984375"/>
+        <image name="IG_Tabbar_Call_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Call_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Channel_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Channel_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Group_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Group_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Recent_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Recent_On" width="74" height="74"/>
+        <image name="Location_Marker" width="19.200000762939453" height="19.200000762939453"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jRj-hY-oEr"/>
-        <segue reference="4Pl-n5-pIH"/>
+        <segue reference="l1W-zY-RFK"/>
+        <segue reference="I27-tX-EAz"/>
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>
 </document>

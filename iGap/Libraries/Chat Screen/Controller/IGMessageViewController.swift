@@ -308,7 +308,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.collectionView.delegate = self
 
 
-        let bgColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        let bgColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
         self.view.backgroundColor = bgColor
         self.view.superview?.backgroundColor = bgColor

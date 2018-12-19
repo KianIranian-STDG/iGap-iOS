@@ -24,7 +24,7 @@ class IGGroupInfoEditNameTableViewController: UITableViewController , UITextFiel
         super.viewDidLoad()
         groupNameTextField.delegate = self
         groupNameTextField.becomeFirstResponder()
-        self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Name")
         navigationItem.navigationController = self.navigationController as? IGNavigationController

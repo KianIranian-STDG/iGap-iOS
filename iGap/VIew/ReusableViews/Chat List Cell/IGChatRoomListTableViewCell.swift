@@ -69,7 +69,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         lastMessageStatusContainerView.layer.cornerRadius = 9.0
         lastMessageStatusContainerView.layer.masksToBounds = true
         
-        contentView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+        contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.initialConfiguration()
         
         
@@ -207,7 +207,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         if room.pinId > 0 {
             contentView.backgroundColor = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
         } else {
-            contentView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
+            contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
         
         if room.unreadCount > 0 {
