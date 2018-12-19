@@ -511,6 +511,12 @@ extension IGRoom {
 extension IGRoom {
     func saveDraft( _ body: String?, replyToMessage: IGRoomMessage?) {
         let finalBody = body?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if (self.draft == nil || (self.draft?.message.isEmpty)!) && (finalBody == nil || (finalBody?.isEmpty)!) { //if before really has draft ro currently exist new draft
+            return
+        }
+        
+        
         let draft = IGRoomDraft(message: finalBody, replyTo: replyToMessage?.id, roomId: self.id)
         IGFactory.shared.save(draft: draft)
         switch self.type {
