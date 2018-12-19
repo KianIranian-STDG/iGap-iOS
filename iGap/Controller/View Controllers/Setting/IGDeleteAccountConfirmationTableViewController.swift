@@ -28,7 +28,7 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
         super.viewDidLoad()
         addBottomBorder()
         self.navigationController?.navigationBar.tintColor = UIColor.organizationalColor()
-        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let currentUserId = IGAppManager.sharedManager.userID()
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", currentUserId!)

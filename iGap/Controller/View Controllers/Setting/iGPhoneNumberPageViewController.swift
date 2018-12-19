@@ -15,7 +15,7 @@ class iGPhoneNumberPageViewController: UIViewController {
     let greenColor = UIColor.organizationalColor()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        self.view.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         setBarbuttonItem()
     }
     @IBAction func changeNumberButtonClicked(_ sender: UIButton) {}
