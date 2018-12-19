@@ -635,7 +635,7 @@ extension UIImageView {
                     
                     var image: UIImage?
                     let path = file.path()
-                    if IGGlobal.isFileExist(path: path) {
+                    if IGGlobal.isFileExist(path: path, fileSize: file.size) {
                         image = UIImage(contentsOfFile: path!.path)
                     }
                     
