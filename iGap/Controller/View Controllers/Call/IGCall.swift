@@ -57,6 +57,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
 
     private static var allowEndCallKit = true
+    internal static var callTypeStatic: IGPSignalingOffer.IGPType = .voiceCalling
     internal static var callUUID = UUID()
     internal static var callStateStatic: String!
     internal static var sendLeaveRequest = true
@@ -195,7 +196,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if self.isIncommingCall {
                 self.incommingCall()
-                if #available(iOS 10.0, *) {
+                if #available(iOS 10.0, *), self.callType == .voiceCalling {
                     let provider = CXProvider(configuration: CXProviderConfiguration(localizedName: "iGap"))
                     provider.setDelegate(self, queue: nil)
                     let update = CXCallUpdate()
@@ -362,7 +363,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func outgoingCall(displayName: String) {
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, *), callType == .voiceCalling {
             let provider = CXProvider(configuration: CXProviderConfiguration(localizedName: "iGap"))
             provider.setDelegate(self, queue: nil)
             let controller = CXCallController()

@@ -63,6 +63,9 @@ class IGSignalingOfferRequest : IGRequest {
             IGCall.sendLeaveRequest = true
             if let offerProtoResponse = responseProtoMessage as? IGPSignalingOfferResponse {
                 
+                // is need to set this value after than call really connected?
+                IGCall.callTypeStatic = offerProtoResponse.igpType
+                
                 /* reject video call if user cellular call is connected  */
                 if offerProtoResponse.igpType == .videoCalling && IGCallEventListener.callState == CTCallStateConnected {
                     IGSignalingLeaveRequest.Generator.generate().success({ (protoResponse) in }).error ({ (errorCode, waitTime) in }).send()

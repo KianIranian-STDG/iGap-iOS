@@ -10,6 +10,7 @@
 
 import UIKit
 import CoreTelephony
+import IGProtoBuff
 
 class IGCallEventListener {
     static let sharedManager = IGCallEventListener()
@@ -20,6 +21,20 @@ class IGCallEventListener {
         IGCallEventListener.callCenter.callEventHandler = { (call:CTCall!) in
             IGCallEventListener.callState = call.callState
             print("CallKit || call.callState: \(call.callState)")
+            
+            if call.callState == CTCallStateConnected {
+                if IGCall.callTypeStatic == .videoCalling {
+                    self.sendSessionHold(isOnHold: true)
+                }
+            } else if call.callState == CTCallStateDisconnected {
+                if IGCall.callTypeStatic == .videoCalling {
+                    self.sendSessionHold(isOnHold: false)
+                }
+            }
         }
+    }
+    
+    private func sendSessionHold(isOnHold: Bool){
+        IGSignalingSessionHoldRequest.Generator.generate(isOnHold: isOnHold).success ({ (responseProtoMessage) in }).error({ (errorCode, waitTime) in }).send()
     }
 }
