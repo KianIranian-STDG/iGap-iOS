@@ -116,8 +116,12 @@ class IGUserLoginRequest : IGRequest {
                 userLoginRequestMessage.igpAppVersion = "0.0.0"
             }
             
-            if let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? Int {
-                userLoginRequestMessage.igpAppBuildVersion = Int32(buildVersion)
+            if let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                if let buildV = Int32(buildVersion) {
+                    userLoginRequestMessage.igpAppBuildVersion = Int32(buildV)
+                } else {
+                   userLoginRequestMessage.igpAppBuildVersion = Int32(1)
+                }
             } else {
                 userLoginRequestMessage.igpAppBuildVersion = Int32(1)
             }
