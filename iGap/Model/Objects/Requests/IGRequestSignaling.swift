@@ -14,6 +14,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
 import WebRTC
+import CoreTelephony
 
 class IGSignalingGetConfigurationRequest : IGRequest {
     class Generator : IGRequest.Generator{
@@ -60,18 +61,19 @@ class IGSignalingOfferRequest : IGRequest {
 
         override class func handlePush(responseProtoMessage: Message) {
             IGCall.sendLeaveRequest = true
-            switch responseProtoMessage {
-            case let offerProtoResponse as IGPSignalingOfferResponse:
+            if let offerProtoResponse = responseProtoMessage as? IGPSignalingOfferResponse {
+                
+                /* reject video call if user cellular call is connected  */
+                if offerProtoResponse.igpType == .videoCalling && IGCallEventListener.callState == CTCallStateConnected {
+                    IGSignalingLeaveRequest.Generator.generate().success({ (protoResponse) in }).error ({ (errorCode, waitTime) in }).send()
+                    return
+                }
                 
                 DispatchQueue.main.async {
                     (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: offerProtoResponse.igpCallerUserID,
                                                                                  sdp: offerProtoResponse.igpCallerSdp,
                                                                                  type: offerProtoResponse.igpType)
                 }
-                
-                break
-            default:
-                break
             }
         }
     }

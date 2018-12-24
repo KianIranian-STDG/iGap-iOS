@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         _ = IGDatabaseManager.shared
         _ = IGWebSocketManager.sharedManager
         _ = IGFactory.shared
+        _ = IGCallEventListener.sharedManager // detect cellular call state
         
         UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: UIUserNotificationType(rawValue: UIUserNotificationType.sound.rawValue | UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue), categories: nil ))
         
