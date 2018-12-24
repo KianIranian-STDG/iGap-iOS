@@ -217,16 +217,18 @@ class IGSignalingLeaveRequest : IGRequest {
 
 class IGSignalingSessionHoldRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(hold: Bool) -> IGRequestWrapper {
+        class func generate(isOnHold: Bool) -> IGRequestWrapper {
             var sessionHoldRequestMessage = IGPSignalingSessionHold()
-            sessionHoldRequestMessage.igpHold = hold
+            sessionHoldRequestMessage.igpHold = isOnHold
             return IGRequestWrapper(message: sessionHoldRequestMessage, actionID: 906)
         }
     }
 
     class Handler : IGRequest.Handler{
         class func interpret(response reponseProtoMessage:IGPSignalingSessionHoldResponse)  {
-
+            if reponseProtoMessage.igpResponse.igpID.isEmpty { // received response without send request
+                IGCall.callHold?.onHoldCall(isOnHold: reponseProtoMessage.igpHold)
+            }
         }
 
         override class func handlePush(responseProtoMessage: Message) {

@@ -14,8 +14,9 @@ import AVFoundation
 import IGProtoBuff
 import SnapKit
 import WebRTC
+import CallKit
 
-class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate {
+class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate, CXProviderDelegate, CallHoldObserver {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var imgAvatar: UIImageView!
@@ -32,6 +33,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var btnSwitchCamera: UIButton!
     @IBOutlet weak var localCameraView: RTCEAGLVideoView!
     @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
+    @IBOutlet weak var holdView: UIView!
+    @IBOutlet weak var txtHold: UILabel!
     
     let SWITCH_CAMERA_DELAY : Int64 = 2000
     
@@ -50,27 +53,27 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private var player: AVAudioPlayer?
     private var remoteTrackAdded: Bool = false
     private var latestSwitchCamera: Int64 = IGGlobal.getCurrentMillis()
+    private var isOnHold = false
     
+
+    private static var allowEndCallKit = true
+    internal static var callUUID = UUID()
     internal static var callStateStatic: String!
     internal static var sendLeaveRequest = true
     internal static var callPageIsEnable = false // this varibale will be used for detect that call page is enable or no. connection state of call isn't important now!
     internal static var staticReturnToCall: ReturnToCallObserver!
+    internal static var callHold: CallHoldObserver!
 
     /************************************************/
     /***************** User Actions *****************/
     /************************************************/
     
     @IBAction func btnAnswer(_ sender: UIButton) {
-        stopSound()
-        txtCallState.text = "Communicating..."
-        RTCClient.getInstance()?.answerCall()
-        manageView(stateAnswer: false)
+        answerCall()
     }
     
     @IBAction func btnCancel(_ sender: UIButton) {
-        RTCClient.getInstance()?.sendLeaveCall()
-        self.playSound(sound: "igap_disconnect")
-        self.dismmis()
+        endCall()
     }
     
     @IBAction func btnMute(_ sender: UIButton) {
@@ -155,8 +158,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        IGCall.allowEndCallKit = true
+        IGCall.callUUID = UUID()
+        
         self.remoteCameraView.delegate = self
         IGCall.staticReturnToCall = self
+        IGCall.callHold = self
         IGCall.callPageIsEnable = true
         
         localCameraViewCustomize()
@@ -166,7 +173,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         buttonViewCustomize(button: btnChat, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         buttonViewCustomize(button: btnSpeaker, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         buttonViewCustomize(button: btnSwitchCamera, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        
+        self.holdView.layer.cornerRadius = 10
         
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
@@ -188,10 +195,120 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if self.isIncommingCall {
                 self.incommingCall()
+                if #available(iOS 10.0, *) {
+                    let provider = CXProvider(configuration: CXProviderConfiguration(localizedName: "iGap"))
+                    provider.setDelegate(self, queue: nil)
+                    let update = CXCallUpdate()
+                    update.remoteHandle = CXHandle(type: .generic, value: userRegisteredInfo.displayName)
+                    provider.reportNewIncomingCall(with: IGCall.callUUID, update: update, completion: { error in })
+                }
             } else {
-                self.outgoingCall()
+                self.outgoingCall(displayName: userRegisteredInfo.displayName)
             }
         }
+    }
+    
+    
+    /******************** CallKit Callback Start ********************/
+    @available(iOS 10.0, *)
+    func providerDidReset(_ provider: CXProvider) {
+        print("CallKit || providerDidReset")
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        print("CallKit || CXAnswerCallAction")
+        action.fulfill()
+        answerCall()
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        if self.isOnHold {
+            print("CallKit || Don't CXEndCallAction")
+            return
+        }
+        
+        if action.callUUID == IGCall.callUUID {
+            IGCall.allowEndCallKit = false
+            print("CallKit || CXEndCallAction fulfill")
+            action.fulfill()
+            endCall()
+        } else {
+            print("CallKit || CXEndCallAction fail")
+            action.fail()
+        }
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
+        print("CallKit || 1")
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, perform action: CXSetHeldCallAction) {
+        print("CallKit || 2 action.isOnHold: \(action.isOnHold)")
+        
+        self.isOnHold = action.isOnHold
+        hold(isOnHold: action.isOnHold)
+        action.fulfill()
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, perform action: CXPlayDTMFCallAction) {
+        print("CallKit || 3")
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
+        print("CallKit || 4")
+    }
+    
+    @available(iOS 10.0, *)
+    func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) {
+        print("CallKit || 5")
+    }
+    
+    func onHoldCall(isOnHold: Bool) {
+       hold(isOnHold: isOnHold, sendHoldRequest: false)
+    }
+    
+    private func hold(isOnHold: Bool, sendHoldRequest: Bool = true){
+        
+        if sendHoldRequest {
+            IGSignalingSessionHoldRequest.Generator.generate(isOnHold: isOnHold).success ({ (responseProtoMessage) in }).error({ (errorCode, waitTime) in }).send()
+        }
+        
+        holdCallView(isOnHold: isOnHold)
+        
+        for audioTrack in RTCClient.mediaStream.audioTracks {
+            audioTrack.isEnabled = !isOnHold
+        }
+        
+        for videoTrack in RTCClient.mediaStream.videoTracks {
+            videoTrack.isEnabled = !isOnHold
+        }
+    }
+    
+    private func holdCallView(isOnHold: Bool){
+        DispatchQueue.main.async {
+            self.holdView.isHidden = !isOnHold
+        }
+    }
+    
+    /******************** CallKit Callback END ********************/
+    
+    private func answerCall(){
+        stopSound()
+        txtCallState.text = "Communicating..."
+        RTCClient.getInstance()?.answerCall()
+        manageView(stateAnswer: false)
+    }
+    
+    private func endCall(){
+        RTCClient.getInstance()?.sendLeaveCall()
+        self.playSound(sound: "igap_disconnect")
+        self.dismmis()
     }
     
     private func localCameraViewCustomize(){
@@ -244,7 +361,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         })
     }
     
-    private func outgoingCall() {
+    private func outgoingCall(displayName: String) {
+        if #available(iOS 10.0, *) {
+            let provider = CXProvider(configuration: CXProviderConfiguration(localizedName: "iGap"))
+            provider.setDelegate(self, queue: nil)
+            let controller = CXCallController()
+            let transaction = CXTransaction(action: CXStartCallAction(call: IGCall.callUUID, handle: CXHandle(type: .generic, value: displayName)))
+            controller.request(transaction, completion: { error in })
+        }
+        
         RTCClient.getInstance()?.callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
         RTCClient.getInstance()?.startConnection(onPrepareConnection: { () -> Void in
             RTCClient.getInstance()?.makeOffer(userId: self.userId)
@@ -459,7 +584,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
             case .IncommingCall:
                 self.txtCallState.text = "IncommingCall..."
-                self.playSound(sound: "tone", repeatEnable: true)
+                //self.playSound(sound: "tone", repeatEnable: true)
                 break
                 
             case .Ringing:
@@ -537,7 +662,26 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         self.txtCallTime.text = minute + ":" + seconds
     }
     
+    private func endCallkit(){
+        if !IGCall.allowEndCallKit {
+            return
+        }
+        
+        IGCall.allowEndCallKit = false
+        
+        if #available(iOS 10.0, *) {
+            let controller = CXCallController()
+            let transaction = CXTransaction(action: CXEndCallAction(call: IGCall.callUUID))
+            controller.request(transaction,completion: { error in
+                print("CallKit || Error: \(String(describing: error))")
+            })
+        }
+    }
+    
     private func dismmis() {
+        
+        endCallkit()
+        
         RTCClient.getInstance(justReturn: true)?.disconnect()
         IGCall.callPageIsEnable = false
         callIsConnected = false

@@ -303,6 +303,7 @@
 		FAC42C851E36267400F2CB5C /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC42C831E36267400F2CB5C /* Fabric.framework */; };
 		FAC42C861E36267400F2CB5C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC42C841E36267400F2CB5C /* Crashlytics.framework */; };
 		FAC5B690204C08580018E017 /* ReturnToCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5B68F204C08580018E017 /* ReturnToCallObserver.swift */; };
+		FAC7554C21D0B589001AB608 /* CallHoldObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7554B21D0B589001AB608 /* CallHoldObserver.swift */; };
 		FAD1D35C21B956BE0035FF25 /* IGProtoBuff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */; };
 		FAD2B5821DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2B5811DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift */; };
 		FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2BB0B1E0E993100761B11 /* IGDotActivityIndicator.swift */; };
@@ -717,6 +718,7 @@
 		FAC42C831E36267400F2CB5C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		FAC42C841E36267400F2CB5C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		FAC5B68F204C08580018E017 /* ReturnToCallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnToCallObserver.swift; sourceTree = "<group>"; };
+		FAC7554B21D0B589001AB608 /* CallHoldObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHoldObserver.swift; sourceTree = "<group>"; };
 		FAD2B5811DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDownloadUploadIndicatorView.swift; sourceTree = "<group>"; };
 		FAD2BB0B1E0E993100761B11 /* IGDotActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDotActivityIndicator.swift; sourceTree = "<group>"; };
 		FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTabBarController.swift; sourceTree = "<group>"; };
@@ -890,11 +892,12 @@
 				FA03C19B2042945D008812E3 /* IGCall.swift */,
 				FA03C19F20429D46008812E3 /* RTCClient.swift */,
 				FA03C1A120429DB5008812E3 /* AVCaptureState.swift */,
-				FAC5B68F204C08580018E017 /* ReturnToCallObserver.swift */,
-				FA899B6E2046DFC8001A33CB /* CallStateObserver.swift */,
 				FA98F837204D37670070424E /* IGCallQuality.swift */,
-				FAF45931205021AF005E0539 /* IGCallFromContactListObserver.swift */,
+				FA899B6E2046DFC8001A33CB /* CallStateObserver.swift */,
 				FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */,
+				FAF45931205021AF005E0539 /* IGCallFromContactListObserver.swift */,
+				FAC5B68F204C08580018E017 /* ReturnToCallObserver.swift */,
+				FAC7554B21D0B589001AB608 /* CallHoldObserver.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -2187,6 +2190,7 @@
 				FA42EF0B1E5C224F00CF8A32 /* GIFAnimatable.swift in Sources */,
 				FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */,
 				93AA67CC1E4F40260053380C /* IGChannelInfoMemberListInviteLinkTableViewCell.swift in Sources */,
+				FAC7554C21D0B589001AB608 /* CallHoldObserver.swift in Sources */,
 				FA5E159D1E0FD76300EC19A1 /* IGAvatarView.swift in Sources */,
 				93321E7A1E5C127E004D4454 /* IGForwardMessageTableViewController.swift in Sources */,
 				FA0953411E1B97700043ED3F /* IGActiveSessionObject.swift in Sources */,

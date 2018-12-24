@@ -489,6 +489,29 @@
                                     <action selector="btnSwitchCamera:" destination="2ww-xn-MCr" eventType="touchUpInside" id="uQP-1o-x9c"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-Ar-egN">
+                                <rect key="frame" x="112.5" y="316" width="150" height="35"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call On Hold" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYi-p7-mDU">
+                                        <rect key="frame" x="30.5" y="8.5" width="89" height="18"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="89" id="BwE-L7-6vh"/>
+                                            <constraint firstAttribute="height" constant="18" id="ViC-7A-x50"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="vYi-p7-mDU" firstAttribute="centerY" secondItem="Bw1-Ar-egN" secondAttribute="centerY" id="2Jw-IF-QfD"/>
+                                    <constraint firstAttribute="height" constant="35" id="CKs-VI-PNm"/>
+                                    <constraint firstItem="vYi-p7-mDU" firstAttribute="centerX" secondItem="Bw1-Ar-egN" secondAttribute="centerX" id="T6o-jZ-jdM"/>
+                                    <constraint firstAttribute="width" constant="150" id="k6X-Kn-OjS"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -509,6 +532,7 @@
                             <constraint firstItem="1s0-8u-bJd" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="HXp-fz-cX2"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="top" secondItem="PG3-bZ-M6c" secondAttribute="bottom" constant="10" id="LEQ-Og-dAZ"/>
                             <constraint firstItem="WV3-zu-yPC" firstAttribute="leading" secondItem="cOE-9I-nlw" secondAttribute="trailing" constant="10" id="Lvd-TS-LqT"/>
+                            <constraint firstItem="Bw1-Ar-egN" firstAttribute="centerY" secondItem="yza-sH-gpU" secondAttribute="centerY" id="N9w-Jx-CWy"/>
                             <constraint firstItem="qkh-A9-QLp" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="-20" id="NRt-sc-aUT"/>
                             <constraint firstItem="B2M-WZ-eh7" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="-55" id="VOD-nZ-IQ5"/>
                             <constraint firstItem="u14-h2-GtB" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="Ww9-Gd-O8a"/>
@@ -527,6 +551,7 @@
                             <constraint firstItem="32k-QA-fx6" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="top" id="n93-rt-U0h"/>
                             <constraint firstItem="mvO-Hc-A9H" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="20" id="ocH-uh-N13"/>
                             <constraint firstAttribute="bottomMargin" secondItem="WV3-zu-yPC" secondAttribute="bottom" constant="26" id="s0J-n2-wiX"/>
+                            <constraint firstItem="Bw1-Ar-egN" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="vLA-Z0-AZ1"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="wCh-GH-vkS"/>
                         </constraints>
                     </view>
@@ -538,6 +563,7 @@
                         <outlet property="btnMute" destination="uIr-0Q-6G0" id="3Rb-pT-RD4"/>
                         <outlet property="btnSpeaker" destination="cOE-9I-nlw" id="YZu-as-T5j"/>
                         <outlet property="btnSwitchCamera" destination="WV3-zu-yPC" id="A4a-IG-oFY"/>
+                        <outlet property="holdView" destination="Bw1-Ar-egN" id="t9t-9G-k6S"/>
                         <outlet property="imgAvatar" destination="qkh-A9-QLp" id="9FM-Es-iFn"/>
                         <outlet property="localCameraView" destination="mvO-Hc-A9H" id="AwU-cA-z4l"/>
                         <outlet property="mainView" destination="yza-sH-gpU" id="Z59-BN-T1F"/>
@@ -545,6 +571,7 @@
                         <outlet property="txtCallState" destination="1s0-8u-bJd" id="27z-gf-jyJ"/>
                         <outlet property="txtCallTime" destination="9Qi-La-Dbk" id="Rtk-Bb-YRx"/>
                         <outlet property="txtCallerName" destination="u14-h2-GtB" id="kD5-66-yjs"/>
+                        <outlet property="txtHold" destination="vYi-p7-mDU" id="qdL-jq-m8E"/>
                         <outlet property="txtiGap" destination="fFu-Of-z9o" id="esE-h0-fzo"/>
                         <outlet property="viewTransparent" destination="32k-QA-fx6" id="Cza-Ee-Yn3"/>
                         <segue destination="CFP-Hu-weJ" kind="presentation" identifier="showRoomMessages" id="QJB-pO-R8A"/>
