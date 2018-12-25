@@ -341,13 +341,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="qkh-A9-QLp">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvO-Hc-A9H" customClass="RTCEAGLVideoView">
+                            <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mvO-Hc-A9H" customClass="RTCEAGLVideoView">
                                 <rect key="frame" x="259" y="40" width="100" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="LwH-AB-7W8"/>
-                                    <constraint firstAttribute="height" constant="130" id="TzV-JS-VMG"/>
-                                </constraints>
                             </view>
                             <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-QA-fx6" customClass="RTCCameraPreviewView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -527,7 +524,6 @@
                         <constraints>
                             <constraint firstItem="9Qi-La-Dbk" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="0b1-Gr-kTi"/>
                             <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="HVS-4z-ILw" secondAttribute="bottom" constant="26" id="1ed-q9-8LX"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mvO-Hc-A9H" secondAttribute="trailing" id="1xl-u4-B1k"/>
                             <constraint firstItem="32k-QA-fx6" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leading" id="3ci-yD-mDv"/>
                             <constraint firstItem="9Z1-yk-cb3" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="3ft-PA-jlt"/>
                             <constraint firstItem="1s0-8u-bJd" firstAttribute="top" secondItem="u14-h2-GtB" secondAttribute="bottom" constant="5" id="60N-gT-svn"/>
@@ -559,7 +555,6 @@
                             <constraint firstAttribute="bottomMargin" secondItem="u6D-Vd-Lv8" secondAttribute="bottom" constant="150" id="iKP-L4-TzT"/>
                             <constraint firstAttribute="bottomMargin" secondItem="qkh-A9-QLp" secondAttribute="bottom" id="k2v-Ti-rwB"/>
                             <constraint firstItem="32k-QA-fx6" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="top" id="n93-rt-U0h"/>
-                            <constraint firstItem="mvO-Hc-A9H" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="20" id="ocH-uh-N13"/>
                             <constraint firstAttribute="bottomMargin" secondItem="WV3-zu-yPC" secondAttribute="bottom" constant="26" id="s0J-n2-wiX"/>
                             <constraint firstItem="Bw1-Ar-egN" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="vLA-Z0-AZ1"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="wCh-GH-vkS"/>

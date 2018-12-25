@@ -171,6 +171,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         IGCall.callUUID = UUID()
         
         self.remoteCameraView.delegate = self
+        self.localCameraView.delegate = self
         IGCall.staticReturnToCall = self
         IGCall.callHold = self
         IGCall.callPageIsEnable = true
@@ -736,27 +737,55 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
-        let mainWidth = self.mainView.frame.width
-        let videoWidth = size.width
-        let videoHeight = size.height
         
-        var finalWidth : CGFloat = 0
-        var finalHeight : CGFloat = 0
-    
-        let ratio : CGFloat = mainWidth / videoWidth
-
-        finalWidth = mainWidth
-        finalHeight = videoHeight * ratio
-        
-        let videoViewLeft: Double = Double((self.mainView.frame.width - finalWidth) / 2)
-        let videoViewTop: Double = Double((self.mainView.frame.height - finalHeight) / 2)
-        
-        self.remoteCameraView.frame = CGRect(
-            x: CGFloat(videoViewLeft),
-            y: CGFloat(videoViewTop),
-            width: finalWidth,
-            height: finalHeight
-        )
+        if videoView.viewWithTag(1) != nil { //localCameraView frame
+            
+            let mainWidth : CGFloat = 100
+            let videoWidth = size.width
+            let videoHeight = size.height
+            
+            var finalWidth : CGFloat = 0
+            var finalHeight : CGFloat = 0
+            
+            let ratio : CGFloat = mainWidth / videoWidth
+            
+            finalWidth = mainWidth
+            finalHeight = videoHeight * ratio
+            
+            let videoViewLeft: Double = Double((self.mainView.frame.width - (finalWidth+20)))
+            let videoViewTop: Double = Double(40)
+            
+            self.localCameraView.frame = CGRect(
+                x: CGFloat(videoViewLeft),
+                y: CGFloat(videoViewTop),
+                width: finalWidth,
+                height: finalHeight
+            )
+            
+        } else { // remoteCameraView frame
+            
+            let mainWidth = self.mainView.frame.width
+            let videoWidth = size.width
+            let videoHeight = size.height
+            
+            var finalWidth : CGFloat = 0
+            var finalHeight : CGFloat = 0
+            
+            let ratio : CGFloat = mainWidth / videoWidth
+            
+            finalWidth = mainWidth
+            finalHeight = videoHeight * ratio
+            
+            let videoViewLeft: Double = Double((self.mainView.frame.width - finalWidth) / 2)
+            let videoViewTop: Double = Double((self.mainView.frame.height - finalHeight) / 2)
+            
+            self.remoteCameraView.frame = CGRect(
+                x: CGFloat(videoViewLeft),
+                y: CGFloat(videoViewTop),
+                width: finalWidth,
+                height: finalHeight
+            )
+        }
     }
     
     /***************************** Call Manager Callbacks *****************************/
