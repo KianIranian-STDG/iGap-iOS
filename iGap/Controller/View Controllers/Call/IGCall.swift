@@ -37,6 +37,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var txtHold: UILabel!
     
     let SWITCH_CAMERA_DELAY : Int64 = 2000
+    let mainWidth = UIScreen.main.bounds.width
+    let mainHeight = UIScreen.main.bounds.height
     
     var userId: Int64!
     var isIncommingCall: Bool!
@@ -55,6 +57,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private var latestSwitchCamera: Int64 = IGGlobal.getCurrentMillis()
     private var isOnHold = false
     private var phoneNumber: String!
+    private var latestRemoteVideoSize: CGSize!
+    private var latestLocalVideoSize: CGSize!
 
     private static var allowEndCallKit = true
     internal static var callTypeStatic: IGPSignalingOffer.IGPType = .voiceCalling
@@ -65,8 +69,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     internal static var staticReturnToCall: ReturnToCallObserver!
     internal static var callHold: CallHoldObserver!
     
-    // override this method for enable landscape orientation
-    func canRotate() -> Void {}
     /************************************************/
     /***************** User Actions *****************/
     /************************************************/
@@ -742,56 +744,98 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
+    // override this method for enable landscape orientation
+    func canRotate() -> Void {}
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if latestLocalVideoSize != nil {
+            manageLocalVideoView(size: latestLocalVideoSize)
+        }
+        if latestRemoteVideoSize != nil {
+            manageRemoteVideoView(size: latestRemoteVideoSize)
+        }
+    }
+    
     func videoView(_ videoView: RTCEAGLVideoView, didChangeVideoSize size: CGSize) {
         
         if videoView.viewWithTag(1) != nil { //localCameraView frame
-            
-            let mainWidth : CGFloat = 100
-            let videoWidth = size.width
-            let videoHeight = size.height
-            
-            var finalWidth : CGFloat = 0
-            var finalHeight : CGFloat = 0
-            
-            let ratio : CGFloat = mainWidth / videoWidth
-            
-            finalWidth = mainWidth
-            finalHeight = videoHeight * ratio
-            
-            let videoViewLeft: Double = Double((self.mainView.frame.width - (finalWidth+20)))
-            let videoViewTop: Double = Double(40)
-            
-            self.localCameraView.frame = CGRect(
-                x: CGFloat(videoViewLeft),
-                y: CGFloat(videoViewTop),
-                width: finalWidth,
-                height: finalHeight
-            )
+            latestLocalVideoSize = size
+            manageLocalVideoView(size: size)
             
         } else { // remoteCameraView frame
+            latestRemoteVideoSize = size
+            manageRemoteVideoView(size: size)
+        }
+    }
+    
+    private func manageRemoteVideoView(size: CGSize){
+        
+        let videoWidth = size.width
+        let videoHeight = size.height
+        
+        var finalWidth: CGFloat = 0
+        var finalHeight: CGFloat = 0
+        var videoViewLeft: Double = 0
+        var videoViewTop: Double = 0
+        
+        var ratio : CGFloat = mainWidth / videoWidth
+        
+        if UIDevice.current.orientation.isLandscape {
             
-            let mainWidth = self.mainView.frame.width
-            let videoWidth = size.width
-            let videoHeight = size.height
+            ratio = mainWidth / videoHeight
             
-            var finalWidth : CGFloat = 0
-            var finalHeight : CGFloat = 0
+            finalWidth = videoWidth * ratio
+            finalHeight = mainWidth
             
-            let ratio : CGFloat = mainWidth / videoWidth
+            videoViewLeft = Double((mainHeight - finalWidth) / 2)
+            videoViewTop = Double((mainWidth - finalHeight) / 2)
+            
+        } else {
             
             finalWidth = mainWidth
             finalHeight = videoHeight * ratio
             
-            let videoViewLeft: Double = Double((self.mainView.frame.width - finalWidth) / 2)
-            let videoViewTop: Double = Double((self.mainView.frame.height - finalHeight) / 2)
-            
-            self.remoteCameraView.frame = CGRect(
-                x: CGFloat(videoViewLeft),
-                y: CGFloat(videoViewTop),
-                width: finalWidth,
-                height: finalHeight
-            )
+            videoViewLeft = Double((mainWidth - finalWidth) / 2)
+            videoViewTop = Double((mainHeight - finalHeight) / 2)
         }
+        
+        self.remoteCameraView.frame = CGRect(
+            x: CGFloat(videoViewLeft),
+            y: CGFloat(videoViewTop),
+            width: finalWidth,
+            height: finalHeight
+        )
+    }
+    
+    private func manageLocalVideoView(size: CGSize){
+        
+        var mainWidth : CGFloat = 100
+        var videoViewTop: Double = Double(40)
+        
+        if size.width > size.height {
+            mainWidth = 150
+            videoViewTop = Double(20)
+        }
+        
+        let videoWidth = size.width
+        let videoHeight = size.height
+        
+        var finalWidth : CGFloat = 0
+        var finalHeight : CGFloat = 0
+        
+        let ratio : CGFloat = mainWidth / videoWidth
+        
+        finalWidth = mainWidth
+        finalHeight = videoHeight * ratio
+        
+        let videoViewLeft: Double = Double((self.mainView.frame.width - (finalWidth + 20)))
+        
+        self.localCameraView.frame = CGRect(
+            x: CGFloat(videoViewLeft),
+            y: CGFloat(videoViewTop),
+            width: finalWidth,
+            height: finalHeight
+        )
     }
     
     /***************************** Call Manager Callbacks *****************************/
