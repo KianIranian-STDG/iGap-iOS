@@ -70,7 +70,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     /************************************************/
     
     @IBAction func btnAnswer(_ sender: UIButton) {
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, *), callType == .voiceCalling{
             CallManager.sharedInstance.startCall(phoneNumber: phoneNumber)
         } else {
             answerCall()
@@ -78,7 +78,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnCancel(_ sender: UIButton) {
-        if #available(iOS 10.0, *) {
+        if #available(iOS 10.0, *), callType == .voiceCalling{
             CallManager.sharedInstance.endCall()
         } else {
             dismmis()
@@ -520,7 +520,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
             case .IncommingCall:
                 self.txtCallState.text = "IncommingCall..."
-                //self.playSound(sound: "tone", repeatEnable: true)
+                if self.callType == .videoCalling {
+                    self.playSound(sound: "tone", repeatEnable: true)
+                }
                 break
                 
             case .Ringing:
