@@ -577,6 +577,7 @@
                         <outlet property="txtCallTime" destination="9Qi-La-Dbk" id="Rtk-Bb-YRx"/>
                         <outlet property="txtCallerName" destination="u14-h2-GtB" id="kD5-66-yjs"/>
                         <outlet property="txtHold" destination="vYi-p7-mDU" id="qdL-jq-m8E"/>
+                        <outlet property="txtPowerediGap" destination="9Z1-yk-cb3" id="U0F-Y9-cGm"/>
                         <outlet property="txtiGap" destination="fFu-Of-z9o" id="esE-h0-fzo"/>
                         <outlet property="viewTransparent" destination="32k-QA-fx6" id="Cza-Ee-Yn3"/>
                         <segue destination="CFP-Hu-weJ" kind="presentation" identifier="showRoomMessages" id="QJB-pO-R8A"/>

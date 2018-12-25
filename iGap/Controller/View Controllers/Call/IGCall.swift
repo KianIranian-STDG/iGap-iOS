@@ -25,6 +25,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var txtCallerName: UILabel!
     @IBOutlet weak var txtCallState: UILabel!
     @IBOutlet weak var txtCallTime: UILabel!
+    @IBOutlet weak var txtPowerediGap: UILabel!
     @IBOutlet weak var btnAnswer: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnMute: UIButton!
@@ -44,7 +45,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     var isIncommingCall: Bool!
     var callSdp: String?
     var callType: IGPSignalingOffer.IGPType = .voiceCalling
-
+    var bottomViewsIsHidden = false
+    
     private var remoteTrack: RTCVideoTrack!
     private var room: IGRoom!
     private var isSpeakerEnable = false
@@ -69,9 +71,89 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     internal static var staticReturnToCall: ReturnToCallObserver!
     internal static var callHold: CallHoldObserver!
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRoomMessages" {
+            let navigationController = segue.destination as! IGNavigationController
+            let messageViewController = navigationController.topViewController as! IGMessageViewController
+            messageViewController.room = room
+            messageViewController.customizeBackItem = true
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = false //enable sleep mode
+        UIDevice.current.isProximityMonitoringEnabled = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = true //disable sleep mode
+        UIDevice.current.isProximityMonitoringEnabled = true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if #available(iOS 10.0, *) {
+            CallManager.sharedInstance.delegate = self
+        }
+        
+        IGCall.allowEndCallKit = true
+        IGCall.callUUID = UUID()
+        
+        self.remoteCameraView.delegate = self
+        self.localCameraView.delegate = self
+        IGCall.staticReturnToCall = self
+        IGCall.callHold = self
+        IGCall.callPageIsEnable = true
+        
+        localCameraViewCustomize()
+        buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
+        buttonViewCustomize(button: btnCancel, color: UIColor.red, imgName: "IG_Nav_Bar_Plus")
+        buttonViewCustomize(button: btnMute, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "IG_Tabbar_Call_On")
+        buttonViewCustomize(button: btnChat, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
+        buttonViewCustomize(button: btnSpeaker, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
+        buttonViewCustomize(button: btnSwitchCamera, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
+        self.holdView.layer.cornerRadius = 10
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
+        mainView.addGestureRecognizer(gesture)
+        
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", userId)
+        guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
+            return
+        }
+        phoneNumber = String(describing: userRegisteredInfo.phone)
+        txtCallerName.text = userRegisteredInfo.displayName
+        txtCallState.text = "Communicating..."
+        
+        setCallMode(callType: callType, userInfo: userRegisteredInfo)
+        
+        RTCClient.getInstance()?
+            .initCallStateObserver(stateDelegate: self)
+            .initVideoCallObserver(videoDelegate: self)
+            .setCallType(callType: callType)
+        
+        
+        manageView(stateAnswer: isIncommingCall)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.isIncommingCall {
+                self.incommingCall()
+                if #available(iOS 10.0, *), self.callType == .voiceCalling {
+                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
+                }
+            } else {
+                self.outgoingCall(displayName: userRegisteredInfo.displayName)
+            }
+        }
+    }
+    
     /************************************************/
-    /***************** User Actions *****************/
-    /************************************************/
+    /************** User Actions Start **************/
     
     @IBAction func btnAnswer(_ sender: UIButton) {
         if #available(iOS 10.0, *), callType == .voiceCalling{
@@ -90,7 +172,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnMute(_ sender: UIButton) {
-       muteManager()
+        muteManager()
     }
     
     @IBAction func btnSwitchCamera(_ sender: UIButton) {
@@ -137,15 +219,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRoomMessages" {
-            let navigationController = segue.destination as! IGNavigationController
-            let messageViewController = navigationController.topViewController as! IGMessageViewController
-            messageViewController.room = room
-            messageViewController.customizeBackItem = true
-        }
-    }
-    
     @IBAction func btnSpeaker(_ sender: UIButton) {
         if isSpeakerEnable {
             speakerState(state: AVAudioSessionPortOverride.none)
@@ -154,74 +227,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+    @objc func tapOnMainView(sender : UITapGestureRecognizer) {
+        changeBottomViewsVisibility()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        UIApplication.shared.isIdleTimerDisabled = false //enable sleep mode
-        UIDevice.current.isProximityMonitoringEnabled = false
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        UIApplication.shared.isIdleTimerDisabled = true //disable sleep mode
-        UIDevice.current.isProximityMonitoringEnabled = true
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        if #available(iOS 10.0, *) {
-            CallManager.sharedInstance.delegate = self
-        }
-        
-        IGCall.allowEndCallKit = true
-        IGCall.callUUID = UUID()
-        
-        self.remoteCameraView.delegate = self
-        self.localCameraView.delegate = self
-        IGCall.staticReturnToCall = self
-        IGCall.callHold = self
-        IGCall.callPageIsEnable = true
-        
-        localCameraViewCustomize()
-        buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
-        buttonViewCustomize(button: btnCancel, color: UIColor.red, imgName: "IG_Nav_Bar_Plus")
-        buttonViewCustomize(button: btnMute, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "IG_Tabbar_Call_On")
-        buttonViewCustomize(button: btnChat, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        buttonViewCustomize(button: btnSpeaker, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        buttonViewCustomize(button: btnSwitchCamera, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        self.holdView.layer.cornerRadius = 10
-        
-        let realm = try! Realm()
-        let predicate = NSPredicate(format: "id = %lld", userId)
-        guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
-            return
-        }
-        phoneNumber = String(describing: userRegisteredInfo.phone)
-        txtCallerName.text = userRegisteredInfo.displayName
-        txtCallState.text = "Communicating..."
-        
-        setCallMode(callType: callType, userInfo: userRegisteredInfo)
-        
-        RTCClient.getInstance()?
-            .initCallStateObserver(stateDelegate: self)
-            .initVideoCallObserver(videoDelegate: self)
-            .setCallType(callType: callType)
-        
-        
-        manageView(stateAnswer: isIncommingCall)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if self.isIncommingCall {
-                self.incommingCall()
-                if #available(iOS 10.0, *), self.callType == .voiceCalling {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
-                }
-            } else {
-                self.outgoingCall(displayName: userRegisteredInfo.displayName)
-            }
-        }
-    }
+    /*************** User Actions End ***************/
+    /************************************************/
     
     func onHoldCall(isOnHold: Bool) {
        hold(isOnHold: isOnHold, sendHoldRequest: false)
@@ -378,6 +389,31 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             btnSpeaker.isEnabled = false
             btnChat.isEnabled = false
             btnSwitchCamera.isEnabled = false
+        }
+    }
+    
+    private func changeBottomViewsVisibility(){
+        if !callIsConnected {return}
+        
+        bottomViewsIsHidden = !bottomViewsIsHidden
+        
+        animateView(view: btnChat, isHidden: bottomViewsIsHidden)
+        animateView(view: btnMute, isHidden: bottomViewsIsHidden)
+        animateView(view: btnCancel, isHidden: bottomViewsIsHidden)
+        animateView(view: btnSpeaker, isHidden: bottomViewsIsHidden)
+        animateView(view: btnSwitchCamera, isHidden: bottomViewsIsHidden)
+        animateView(view: txtPowerediGap, isHidden: bottomViewsIsHidden)
+    }
+    
+    private func animateView(view: UIView, isHidden: Bool){
+        if isHidden {
+            UIView.transition(with: view, duration: 0.5, options: .transitionFlipFromBottom, animations: {
+                view.isHidden = isHidden
+            }, completion: { (completed) in })
+        } else {
+            UIView.transition(with: view, duration: 0.5, options: .transitionFlipFromTop, animations: {
+                view.isHidden = isHidden
+            }, completion: { (completed) in })
         }
     }
     
