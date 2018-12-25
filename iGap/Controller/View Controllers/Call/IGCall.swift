@@ -64,7 +64,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     internal static var callPageIsEnable = false // this varibale will be used for detect that call page is enable or no. connection state of call isn't important now!
     internal static var staticReturnToCall: ReturnToCallObserver!
     internal static var callHold: CallHoldObserver!
-
+    
+    // override this method for enable landscape orientation
+    func canRotate() -> Void {}
     /************************************************/
     /***************** User Actions *****************/
     /************************************************/
@@ -148,6 +150,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         } else {
             speakerState(state: AVAudioSessionPortOverride.speaker)
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
