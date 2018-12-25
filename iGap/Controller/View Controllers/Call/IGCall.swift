@@ -151,10 +151,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = false //enable sleep mode
         UIDevice.current.isProximityMonitoringEnabled = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = true //disable sleep mode
         UIDevice.current.isProximityMonitoringEnabled = true
     }
     
@@ -311,7 +313,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         if callType == .videoCalling {
             remoteCameraView.isHidden = false
             localCameraView.isHidden = false
-            imgAvatar.isHidden = true
+            //imgAvatar.isHidden = true
             btnSwitchCamera.isEnabled = true
             txtiGap.text = "iGap Video Call"
             speakerState(state: AVAudioSessionPortOverride.speaker)
@@ -323,10 +325,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             btnSwitchCamera.isEnabled = false
             txtiGap.text = "iGap Voice Call"
             btnSwitchCamera.setTitle("", for: UIControlState.normal)
-            
-            if let avatar = userInfo.avatar {
-                setImageMain(avatar: avatar)
-            }
+        }
+        
+        if let avatar = userInfo.avatar {
+            setImageMain(avatar: avatar)
         }
     }
     
@@ -379,6 +381,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         remoteTrackAdded = true
         
         DispatchQueue.main.async {
+            self.imgAvatar.isHidden = true
+            
             if self.remoteCameraView == nil {
                 let videoView = RTCEAGLVideoView(frame: self.view.bounds)
                 if let local = self.localCameraView {
@@ -704,7 +708,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     
                     if image != nil {
                         self.imgAvatar.image = image
-                        self.viewTransparent.isHidden = false
+                        if callType == .voiceCalling {
+                            self.viewTransparent.isHidden = false
+                        }
                     } else {
                         throw NSError(domain: "asa", code: 1234, userInfo: nil)
                     }
@@ -715,7 +721,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                         let path = originalFile.path()
                         if let data = try? Data(contentsOf: path!) {
                             if let image = UIImage(data: data) {
-                                self.viewTransparent.isHidden = false
+                                if self.callType == .voiceCalling {
+                                    self.viewTransparent.isHidden = false
+                                }
                                 self.imgAvatar.image = image
                             }
                         }
