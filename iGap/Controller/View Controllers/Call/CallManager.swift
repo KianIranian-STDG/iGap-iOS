@@ -20,6 +20,7 @@ protocol CallManagerDelegate : class {
     func callDidEnd()
     func callDidHold(isOnHold : Bool)
     func callDidFail()
+    func callDidMute(isMuted : Bool)
 }
 
 @available(iOS 10.0, *)
@@ -129,7 +130,9 @@ class CallManager: NSObject, CXProviderDelegate {
         action.fulfill()
     }
     
-    func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {}
+    func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
+        delegate?.callDidMute(isMuted: action.isMuted)
+    }
     
     func provider(_ provider: CXProvider, perform action: CXSetGroupCallAction) {}
     

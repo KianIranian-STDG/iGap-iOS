@@ -86,13 +86,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnMute(_ sender: UIButton) {
-        if isMuteEnable {
-            btnMute.setTitle("", for: UIControlState.normal)
-        } else {
-            btnMute.setTitle("", for: UIControlState.normal)
-        }
-        muteCall(mute: isMuteEnable)
-        isMuteEnable = !isMuteEnable
+       muteManager()
     }
     
     @IBAction func btnSwitchCamera(_ sender: UIButton) {
@@ -416,10 +410,18 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    private func muteCall(mute: Bool){
-        for audioTrack in RTCClient.mediaStream.audioTracks {
-            audioTrack.isEnabled = mute
+    private func muteManager(){
+        if isMuteEnable {
+            btnMute.setTitle("", for: UIControlState.normal)
+        } else {
+            btnMute.setTitle("", for: UIControlState.normal)
         }
+        
+        for audioTrack in RTCClient.mediaStream.audioTracks {
+            audioTrack.isEnabled = isMuteEnable
+        }
+        
+        isMuteEnable = !isMuteEnable
     }
     
     func onRemoteVideoCallStream(videoTrack: RTCVideoTrack) {
@@ -765,5 +767,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     func callDidFail() {
         dismmis()
+    }
+    
+    func callDidMute(isMuted: Bool) {
+        muteManager()
     }
 }
