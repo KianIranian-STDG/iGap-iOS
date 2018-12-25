@@ -57,14 +57,12 @@ class IGSignalingOfferRequest : IGRequest {
     class Handler : IGRequest.Handler{
         class func interpret(response reponseProtoMessage:IGPSignalingOfferResponse) {
             IGCall.sendLeaveRequest = true
+            IGCall.callTypeStatic = reponseProtoMessage.igpType
         }
 
         override class func handlePush(responseProtoMessage: Message) {
-            IGCall.sendLeaveRequest = true
             if let offerProtoResponse = responseProtoMessage as? IGPSignalingOfferResponse {
-                
-                // is need to set this value after than call really connected?
-                IGCall.callTypeStatic = offerProtoResponse.igpType
+                IGSignalingOfferRequest.Handler.interpret(response: offerProtoResponse)
                 
                 /* reject video call if user cellular call is connected  */
                 if offerProtoResponse.igpType == .videoCalling && IGCallEventListener.callState == CTCallStateConnected {

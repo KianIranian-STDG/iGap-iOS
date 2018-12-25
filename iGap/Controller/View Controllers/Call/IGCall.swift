@@ -16,7 +16,7 @@ import SnapKit
 import WebRTC
 import CallKit
 
-class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate, CXProviderDelegate, CallHoldObserver {
+class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate, CallHoldObserver, CallManagerDelegate {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var imgAvatar: UIImageView!
@@ -54,7 +54,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private var remoteTrackAdded: Bool = false
     private var latestSwitchCamera: Int64 = IGGlobal.getCurrentMillis()
     private var isOnHold = false
-    
+    private var phoneNumber: String!
 
     private static var allowEndCallKit = true
     internal static var callTypeStatic: IGPSignalingOffer.IGPType = .voiceCalling
@@ -70,11 +70,19 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     /************************************************/
     
     @IBAction func btnAnswer(_ sender: UIButton) {
-        answerCall()
+        if #available(iOS 10.0, *) {
+            CallManager.sharedInstance.startCall(phoneNumber: phoneNumber)
+        } else {
+            answerCall()
+        }
     }
     
     @IBAction func btnCancel(_ sender: UIButton) {
-        endCall()
+        if #available(iOS 10.0, *) {
+            CallManager.sharedInstance.endCall()
+        } else {
+            dismmis()
+        }
     }
     
     @IBAction func btnMute(_ sender: UIButton) {
@@ -159,6 +167,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if #available(iOS 10.0, *) {
+            CallManager.sharedInstance.delegate = self
+        }
+        
         IGCall.allowEndCallKit = true
         IGCall.callUUID = UUID()
         
@@ -181,6 +193,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
             return
         }
+        phoneNumber = String(describing: userRegisteredInfo.phone)
         txtCallerName.text = userRegisteredInfo.displayName
         txtCallState.text = "Communicating..."
         
@@ -197,77 +210,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             if self.isIncommingCall {
                 self.incommingCall()
                 if #available(iOS 10.0, *), self.callType == .voiceCalling {
-                    let provider = CXProvider(configuration: CXProviderConfiguration(localizedName: "iGap"))
-                    provider.setDelegate(self, queue: nil)
-                    let update = CXCallUpdate()
-                    update.remoteHandle = CXHandle(type: .generic, value: userRegisteredInfo.displayName)
-                    provider.reportNewIncomingCall(with: IGCall.callUUID, update: update, completion: { error in })
+                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
                 }
             } else {
                 self.outgoingCall(displayName: userRegisteredInfo.displayName)
             }
         }
-    }
-    
-    
-    /******************** CallKit Callback Start ********************/
-    @available(iOS 10.0, *)
-    func providerDidReset(_ provider: CXProvider) {
-        print("CallKit || providerDidReset")
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        print("CallKit || CXAnswerCallAction")
-        action.fulfill()
-        answerCall()
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-        if self.isOnHold {
-            print("CallKit || Don't CXEndCallAction")
-            return
-        }
-        
-        if action.callUUID == IGCall.callUUID {
-            IGCall.allowEndCallKit = false
-            print("CallKit || CXEndCallAction fulfill")
-            action.fulfill()
-            endCall()
-        } else {
-            print("CallKit || CXEndCallAction fail")
-            action.fail()
-        }
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
-        print("CallKit || 1")
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, perform action: CXSetHeldCallAction) {
-        print("CallKit || 2 action.isOnHold: \(action.isOnHold)")
-        
-        self.isOnHold = action.isOnHold
-        hold(isOnHold: action.isOnHold)
-        action.fulfill()
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, perform action: CXPlayDTMFCallAction) {
-        print("CallKit || 3")
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
-        print("CallKit || 4")
-    }
-    
-    @available(iOS 10.0, *)
-    func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) {
-        print("CallKit || 5")
     }
     
     func onHoldCall(isOnHold: Bool) {
@@ -297,19 +245,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    /******************** CallKit Callback END ********************/
-    
     private func answerCall(){
         stopSound()
         txtCallState.text = "Communicating..."
         RTCClient.getInstance()?.answerCall()
         manageView(stateAnswer: false)
-    }
-    
-    private func endCall(){
-        RTCClient.getInstance()?.sendLeaveCall()
-        self.playSound(sound: "igap_disconnect")
-        self.dismmis()
     }
     
     private func localCameraViewCustomize(){
@@ -363,14 +303,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func outgoingCall(displayName: String) {
-        if #available(iOS 10.0, *), callType == .voiceCalling {
-            let provider = CXProvider(configuration: CXProviderConfiguration(localizedName: "iGap"))
-            provider.setDelegate(self, queue: nil)
-            let controller = CXCallController()
-            let transaction = CXTransaction(action: CXStartCallAction(call: IGCall.callUUID, handle: CXHandle(type: .generic, value: displayName)))
-            controller.request(transaction, completion: { error in })
+        if #available(iOS 10.0, *), self.callType == .voiceCalling {
+            CallManager.sharedInstance.startCall(phoneNumber: phoneNumber)
         }
-        
         RTCClient.getInstance()?.callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
         RTCClient.getInstance()?.startConnection(onPrepareConnection: { () -> Void in
             RTCClient.getInstance()?.makeOffer(userId: self.userId)
@@ -663,25 +598,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         self.txtCallTime.text = minute + ":" + seconds
     }
     
-    private func endCallkit(){
-        if !IGCall.allowEndCallKit {
-            return
-        }
-        
-        IGCall.allowEndCallKit = false
-        
-        if #available(iOS 10.0, *) {
-            let controller = CXCallController()
-            let transaction = CXTransaction(action: CXEndCallAction(call: IGCall.callUUID))
-            controller.request(transaction,completion: { error in
-                print("CallKit || Error: \(String(describing: error))")
-            })
-        }
-    }
-    
     private func dismmis() {
-        
-        endCallkit()
+        if #available(iOS 10.0, *) {
+            CallManager.sharedInstance.endCall()
+        }
         
         RTCClient.getInstance(justReturn: true)?.disconnect()
         IGCall.callPageIsEnable = false
@@ -825,5 +745,23 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             width: finalWidth,
             height: finalHeight
         )
+    }
+    
+    /***************************** Call Manager Callbacks *****************************/
+    
+    func callDidAnswer() {
+        answerCall()
+    }
+    
+    func callDidEnd() {
+        dismmis()
+    }
+    
+    func callDidHold(isOnHold: Bool) {
+        hold(isOnHold: isOnHold)
+    }
+    
+    func callDidFail() {
+        dismmis()
     }
 }

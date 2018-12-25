@@ -407,6 +407,9 @@ public class RTCClient: NSObject {
         }
         
         IGSignalingOfferRequest.Generator.generate(calledUserId: userId, type: type, callerSdp: sdp).success({ (protoResponse) in
+            if let signalingOfferResponse = protoResponse as? IGPSignalingOfferResponse {
+                IGSignalingOfferRequest.Handler.interpret(response: signalingOfferResponse)
+            }
         }).error ({ (errorCode, waitTime) in
             
             guard let delegate = self.callStateDelegate else {
