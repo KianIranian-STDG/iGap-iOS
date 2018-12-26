@@ -257,11 +257,17 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    private func answerCall(){
+    private func answerCall(withDelay: Bool = false){
         stopSound()
         txtCallState.text = "Communicating..."
-        RTCClient.getInstance()?.answerCall()
         manageView(stateAnswer: false)
+        if withDelay {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
+                RTCClient.getInstance()?.answerCall()
+            }
+        } else {
+            RTCClient.getInstance()?.answerCall()
+        }
     }
     
     private func localCameraViewCustomize(){
@@ -895,9 +901,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     /***************************** Call Manager Callbacks *****************************/
     
     func callDidAnswer() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.answerCall()
-        }
+        answerCall(withDelay: true)
     }
     
     func callDidEnd() {
