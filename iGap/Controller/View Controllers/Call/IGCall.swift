@@ -332,6 +332,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private func setCallMode(callType: IGPSignalingOffer.IGPType, userInfo: IGRegisteredUser){
         
         if callType == .videoCalling {
+            
+            if #available(iOS 10.0, *) {
+                do {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                } catch {
+                    print("error AVAudioSessionModeVideoChat")
+                }
+            }
+            
             remoteCameraView.isHidden = false
             localCameraView.isHidden = false
             //imgAvatar.isHidden = true
@@ -340,6 +349,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             speakerState(state: AVAudioSessionPortOverride.speaker)
             
         } else if callType == .voiceCalling {
+            
+            if #available(iOS 10.0, *) {
+                do {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                } catch {
+                    print("error AVAudioSessionModeVoiceChat")
+                }
+            }
+            
             remoteCameraView.isHidden = true
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
