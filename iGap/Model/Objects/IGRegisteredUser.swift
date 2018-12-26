@@ -150,7 +150,15 @@ class IGRegisteredUser: Object {
         }
         return detachedUser
     }
-    
+
+    internal static func getUserIdWithPhone(phone: String?) -> Int64? {
+        if phone != nil && !(phone?.isEmpty)! , let phoneNumber = Int64(phone!) {
+            if let user = try! Realm().objects(IGRegisteredUser.self).filter(NSPredicate(format: "phone = %lld", phoneNumber)).first {
+                return user.id
+            }
+        }
+        return nil
+    }
 }
 
 

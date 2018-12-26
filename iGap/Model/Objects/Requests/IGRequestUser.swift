@@ -153,6 +153,10 @@ class IGUserLoginRequest : IGRequest {
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive)
             getToken()
+            
+            if #available(iOS 10.0, *) {
+                CallManager.nativeCallManager()
+            }
         }
         
         class func getToken(){

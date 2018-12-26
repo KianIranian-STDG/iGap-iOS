@@ -324,7 +324,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         if #available(iOS 10.0, *), self.callType == .voiceCalling {
             CallManager.sharedInstance.startCall(phoneNumber: phoneNumber)
         }
-        RTCClient.getInstance()?.callStateDelegate.onStateChange(state: RTCClientConnectionState.Dialing)
+        RTCClient.getInstance()?.callStateDelegate?.onStateChange(state: RTCClientConnectionState.Dialing)
         RTCClient.getInstance()?.startConnection(onPrepareConnection: { () -> Void in
             RTCClient.getInstance()?.makeOffer(userId: self.userId)
         })

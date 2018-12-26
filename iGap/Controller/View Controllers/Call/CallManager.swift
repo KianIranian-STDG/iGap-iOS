@@ -26,6 +26,7 @@ protocol CallManagerDelegate : class {
 @available(iOS 10.0, *)
 class CallManager: NSObject, CXProviderDelegate {
     
+    internal static var waitingPhoneCall: String?
     var provider : CXProvider?
     var callController : CXCallController?
     var currentCall : UUID?
@@ -109,9 +110,9 @@ class CallManager: NSObject, CXProviderDelegate {
     
     // If provider:executeTransaction:error: returned NO, each perform*CallAction method is called sequentially for each action in the transaction
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
-        //provider.reportOutgoingCall(with: action.callUUID, startedConnectingAt: nil)
-        //provider.reportOutgoingCall(with: action.callUUID, connectedAt: nil)
-        //action.fulfill()
+        provider.reportOutgoingCall(with: action.callUUID, startedConnectingAt: nil)
+        provider.reportOutgoingCall(with: action.callUUID, connectedAt: nil)
+        action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
@@ -155,4 +156,13 @@ class CallManager: NSObject, CXProviderDelegate {
         print("CallKit || didDeactivate audioSession")
     }
     */
+    
+    internal static func nativeCallManager(){
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
+            if let userId = IGRegisteredUser.getUserIdWithPhone(phone: waitingPhoneCall){
+                (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false, showAlert: false)
+            }
+            waitingPhoneCall = nil
+        }
+    }
 }

@@ -16,6 +16,7 @@ import FirebaseMessaging
 import Firebase
 import UserNotifications
 import IGProtoBuff
+import Intents
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -256,7 +257,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if let rootViewController = self.topViewControllerWithRootViewController(rootViewController: window?.rootViewController) {
-            if (rootViewController.responds(to: (Selector(("canRotate"))))) {
+            if (rootViewController.responds(to: (#selector(IGCall.canRotate)))) {
                 // Unlock landscape view orientations for this view controller
                 return .allButUpsideDown;
             }
@@ -275,6 +276,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return topViewControllerWithRootViewController(rootViewController: rootViewController.presentedViewController)
         }
         return rootViewController
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if #available(iOS 10.0, *) {
+            if let interaction = userActivity.interaction {
+                var personHandle: INPersonHandle?
+                if let startVideoCallIntent = interaction.intent as? INStartVideoCallIntent {
+                    personHandle = startVideoCallIntent.contacts?[0].personHandle
+                } else if let startAudioCallIntent = interaction.intent as? INStartAudioCallIntent {
+                    personHandle = startAudioCallIntent.contacts?[0].personHandle
+                }
+                CallManager.waitingPhoneCall = personHandle?.value
+                CallManager.nativeCallManager()
+            }
+        }
+        return true
     }
 }
 
