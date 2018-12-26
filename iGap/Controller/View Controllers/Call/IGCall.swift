@@ -95,6 +95,17 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     override func viewDidLoad() {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", userId)
+        guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
+            return
+        }
+        phoneNumber = String(describing: userRegisteredInfo.phone)
+        IGCall.callUUID = UUID()
+        if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
+            CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
+        }
+        
         super.viewDidLoad()
 
         if #available(iOS 10.0, *) {
@@ -102,7 +113,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
         
         IGCall.allowEndCallKit = true
-        IGCall.callUUID = UUID()
         
         self.remoteCameraView.delegate = self
         self.localCameraView.delegate = self
@@ -122,12 +132,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
         mainView.addGestureRecognizer(gesture)
         
-        let realm = try! Realm()
-        let predicate = NSPredicate(format: "id = %lld", userId)
-        guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
-            return
-        }
-        phoneNumber = String(describing: userRegisteredInfo.phone)
         txtCallerName.text = userRegisteredInfo.displayName
         txtCallState.text = "Communicating..."
         
@@ -143,9 +147,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if self.isIncommingCall {
                 self.incommingCall()
-                if #available(iOS 10.0, *), self.callType == .voiceCalling {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
-                }
             } else {
                 self.outgoingCall(displayName: userRegisteredInfo.displayName)
             }
@@ -877,7 +878,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     /***************************** Call Manager Callbacks *****************************/
     
     func callDidAnswer() {
-        answerCall()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.answerCall()
+        }
     }
     
     func callDidEnd() {
