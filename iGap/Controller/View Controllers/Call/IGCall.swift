@@ -105,20 +105,17 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
             CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
         }
-        
         super.viewDidLoad()
 
         if #available(iOS 10.0, *) {
             CallManager.sharedInstance.delegate = self
         }
-        
-        IGCall.allowEndCallKit = true
-        
         self.remoteCameraView.delegate = self
         self.localCameraView.delegate = self
         IGCall.staticReturnToCall = self
         IGCall.callHold = self
         IGCall.callPageIsEnable = true
+        IGCall.allowEndCallKit = true
         
         localCameraViewCustomize()
         buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
@@ -127,23 +124,21 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         buttonViewCustomize(button: btnChat, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         buttonViewCustomize(button: btnSpeaker, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         buttonViewCustomize(button: btnSwitchCamera, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        self.holdView.layer.cornerRadius = 10
+        setCallMode(callType: callType, userInfo: userRegisteredInfo)
+        manageView(stateAnswer: isIncommingCall)
         
-        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
-        mainView.addGestureRecognizer(gesture)
-        
+        holdView.layer.cornerRadius = 10
         txtCallerName.text = userRegisteredInfo.displayName
         txtCallState.text = "Communicating..."
         
-        setCallMode(callType: callType, userInfo: userRegisteredInfo)
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
+        mainView.addGestureRecognizer(gesture)
         
         RTCClient.getInstance()?
             .initCallStateObserver(stateDelegate: self)
             .initVideoCallObserver(videoDelegate: self)
             .setCallType(callType: callType)
         
-        
-        manageView(stateAnswer: isIncommingCall)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if self.isIncommingCall {
                 self.incommingCall()
@@ -342,7 +337,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             }
             
             remoteCameraView.isHidden = false
-            localCameraView.isHidden = false
+            //localCameraView.isHidden = false
             //imgAvatar.isHidden = true
             btnSwitchCamera.isEnabled = true
             txtiGap.text = "iGap Video Call"
@@ -506,7 +501,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 self.view.addSubview(videoView)
                 self.localCameraView = videoView
             }
-            videoTrack.add(self.self.localCameraView!)
+            videoTrack.add(self.localCameraView!)
         }
     }
     
@@ -891,6 +886,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             width: finalWidth,
             height: finalHeight
         )
+        
+        if localCameraView.isHidden {
+            localCameraView.isHidden = false
+        }
     }
     
     /***************************** Call Manager Callbacks *****************************/
