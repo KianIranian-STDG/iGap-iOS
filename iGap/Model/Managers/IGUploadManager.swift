@@ -24,29 +24,14 @@ class IGUploadManager {
     private var pendingUploads = [IGUploadTask]()
     private var currentUploadingTask: IGUploadTask?
     
-    //MARK - Class compressor
-    class func compressVideo() {
-        
-    }
-    
     class func compress(image: UIImage) -> UIImage {
         let scale: CGFloat = 0.5
         let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-        
-        
         UIGraphicsBeginImageContext(newSize)
         image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         return newImage!
-        
-//        UIGraphicsBeginImageContext(newSize)
-//        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-//        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-//        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        return scaledImage!
     }
 
     
@@ -199,10 +184,6 @@ class IGUploadManager {
                 }
             }
         }).send()
-    }
-    
-    private func uploadNextChunk(task: IGUploadTask, data: NSData, offset: Int64, limit: Int32) {
-        
     }
     
     //Step 4: Check for file state

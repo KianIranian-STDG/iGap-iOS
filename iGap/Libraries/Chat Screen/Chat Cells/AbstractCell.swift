@@ -684,7 +684,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     func updateAttachmentDownloadUploadIndicatorView() {
         
         if let attachment = self.attachment {
-            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) { // attachment.status == .ready ||
+            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) && attachment.status == .downloading {
                 
                 if finalRoomMessage.type == .video || finalRoomMessage.type == .videoAndText {
                     makeVideoPlayView()
@@ -718,7 +718,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                     indicatorViewAbs.setFileType(.outgoingFile)
                 }
                 indicatorViewAbs.setState(attachment.status)
-                if attachment.status == .downloading ||  attachment.status == .uploading {
+                if attachment.status == .downloading || attachment.status == .uploading {
                     indicatorViewAbs.setPercentage(self.attachment!.downloadUploadPercent)
                 }
                 break
