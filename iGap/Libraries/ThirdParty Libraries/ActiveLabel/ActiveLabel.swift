@@ -538,7 +538,10 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     }
 
     fileprivate func didTapStringURL(_ stringURL: String) {
-        guard let urlHandler = urlTapHandler, let url = URL(string: stringURL) else {
+        let finalUrl = stringURL.replacingOccurrences(of: "%E2%80%8C", with: "-")
+        let escapedString = finalUrl.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+        let finalUrl1 = escapedString?.replacingOccurrences(of: "%3A", with: ":")
+        guard let urlHandler = urlTapHandler, let url = URL(string: finalUrl1!) else {
             delegate?.didSelect(stringURL, type: .url)
             return
         }
@@ -547,7 +550,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     
     fileprivate func didTapStringEmail(_ stringURL: String) {
         guard let emailHandler = emailTapHandler, let url = URL(string: stringURL) else {
-            delegate?.didSelect(stringURL, type: .url)
+            delegate?.didSelect(stringURL, type: .email)
             return
         }
         emailHandler(url)
