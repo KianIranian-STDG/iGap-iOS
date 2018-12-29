@@ -294,6 +294,7 @@
 		FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB798AD21A5681C0019FC92 /* Hero.framework */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */; };
+		FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */; };
 		FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABE83AA20FDB43E00D94F01 /* Digger.framework */; };
 		FAC0F08420F0AF4900182758 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC0F08320F0AF4900182758 /* PecPayment.framework */; };
 		FAC0F08520F0AF4900182758 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAC0F08320F0AF4900182758 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -712,6 +713,7 @@
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		FAB8210E20D7D589003938BB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGSecurityManager.swift; path = "Security Manager/IGSecurityManager.swift"; sourceTree = "<group>"; };
+		FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallAudioManager.swift; sourceTree = "<group>"; };
 		FABE83AA20FDB43E00D94F01 /* Digger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Digger.framework; path = Carthage/Build/iOS/Digger.framework; sourceTree = "<group>"; };
 		FAC0F08320F0AF4900182758 /* PecPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PecPayment.framework; sourceTree = "<group>"; };
 		FAC0F08820F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceBillQrScanner.swift; sourceTree = "<group>"; };
@@ -897,13 +899,14 @@
 				FA03C19F20429D46008812E3 /* RTCClient.swift */,
 				FA03C1A120429DB5008812E3 /* AVCaptureState.swift */,
 				FA98F837204D37670070424E /* IGCallQuality.swift */,
+				FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */,
+				FAC7555521D12D6D001AB608 /* CallManager.swift */,
 				FA899B6E2046DFC8001A33CB /* CallStateObserver.swift */,
 				FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */,
 				FAF45931205021AF005E0539 /* IGCallFromContactListObserver.swift */,
 				FAC5B68F204C08580018E017 /* ReturnToCallObserver.swift */,
 				FAC7554B21D0B589001AB608 /* CallHoldObserver.swift */,
 				FAC7554F21D0CF7E001AB608 /* IGCallEventListener.swift */,
-				FAC7555521D12D6D001AB608 /* CallManager.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -2003,6 +2006,7 @@
 				FAEC02D71F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift in Sources */,
 				FAEEB0C31E1BC11600B6775F /* IGContact.swift in Sources */,
 				FA0953491E1B97700043ED3F /* IGSetNickNameTableViewController.swift in Sources */,
+				FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */,
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
 				FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */,

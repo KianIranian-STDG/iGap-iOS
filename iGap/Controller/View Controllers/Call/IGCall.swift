@@ -216,11 +216,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnSpeaker(_ sender: UIButton) {
-        if isSpeakerEnable {
-            speakerState(state: AVAudioSessionPortOverride.none)
-        } else {
-            speakerState(state: AVAudioSessionPortOverride.speaker)
-        }
+        IGCallAudioManager.sharedInstance.manageAudioState(viewController: self)
     }
     
     @objc func tapOnMainView(sender : UITapGestureRecognizer) {
@@ -336,7 +332,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             
             if #available(iOS 10.0, *) {
                 do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                    try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
                 } catch {
                     print("error AVAudioSessionModeVideoChat")
                 }
@@ -347,13 +343,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             //imgAvatar.isHidden = true
             btnSwitchCamera.isEnabled = true
             txtiGap.text = "iGap Video Call"
-            speakerState(state: AVAudioSessionPortOverride.speaker)
+            IGCallAudioManager.sharedInstance.setSpeaker(button: btnSpeaker)
             
         } else if callType == .voiceCalling {
             
             if #available(iOS 10.0, *) {
                 do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                    try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
                 } catch {
                     print("error AVAudioSessionModeVoiceChat")
                 }
@@ -461,24 +457,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    private func speakerState(state: AVAudioSessionPortOverride){
-        if state == .none {
-            btnSpeaker.setTitle("", for: UIControlState.normal)
-            isSpeakerEnable = false
-        } else {
-            btnSpeaker.setTitle("", for: UIControlState.normal)
-            isSpeakerEnable = true
-        }
-        
-        let audioSession = AVAudioSession.sharedInstance()
-        
-        do {
-            try audioSession.overrideOutputAudioPort(state)
-        } catch let error as NSError {
-            print("audioSession error: \(error.localizedDescription)")
-        }
-    }
-    
     private func muteManager(){
         if isMuteEnable {
             btnMute.setTitle("", for: UIControlState.normal)
@@ -532,11 +510,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 }
                 
                 do {
-                    let audioSession = AVAudioSession.sharedInstance()
-                    try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-                    try audioSession.setActive(true)
+                    try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayAndRecord)
+                    try IGCallAudioManager.sharedAudioInstance.setActive(true)
                     if self.callType == .videoCalling && self.isSpeakerEnable {
-                        try audioSession.overrideOutputAudioPort(.speaker)
+                        try IGCallAudioManager.sharedAudioInstance.overrideOutputAudioPort(.speaker)
                     }
                 } catch let error {
                     print(error.localizedDescription)
@@ -736,8 +713,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         guard let url = Bundle.main.url(forResource: sound, withExtension: "mp3") else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
+            try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayback)
+            try IGCallAudioManager.sharedAudioInstance.setActive(true)
         
             stopSound()
             
