@@ -26,15 +26,6 @@ class IGCallsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let realm = try! Realm()
-        let allLogs = try! Realm().objects(IGRealmCallLog.self)
-        if !allLogs.isEmpty {
-            try! realm.write {
-                realm.delete(allLogs)
-            }
-        }
-        
-        
         let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
         callLogList = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties)
         
