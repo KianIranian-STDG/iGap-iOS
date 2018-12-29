@@ -19,32 +19,41 @@ class IGCallAudioManager {
     private static var audioSession: AVAudioSession?
     var isSpeakerEnable = false
     var blutoothDevice: String?
+    var btnAudioState: UIButton?
     
     class var sharedInstance : IGCallAudioManager {
         return sharedManager
     }
     
-    class var sharedAudioInstance : AVAudioSession {
-        if audioSession == nil {
-            audioSession = AVAudioSession.sharedInstance()
-        }
-        return audioSession!
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRouteChange(_:)), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
-    init() {
-        // TODO - fetch current audio state
+    @objc func handleRouteChange(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let reasonRaw = userInfo[AVAudioSessionRouteChangeReasonKey] as? NSNumber,
+            let reason = AVAudioSessionRouteChangeReason(rawValue: reasonRaw.uintValue)
+            else { fatalError("Strange... could not get routeChange")
+        }
+        
+        if reason == .oldDeviceUnavailable || reason == .newDeviceAvailable {
+            if btnAudioState != nil {
+                fetchAudioState(btnAudioState: btnAudioState!)
+            }
+        }
     }
     
     public func setSpeaker(button: UIButton) {
         do {
-            try IGCallAudioManager.sharedAudioInstance.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
             button.setTitle("", for: UIControlState.normal)
         } catch let error {
             print("error: \(error)")
         }
     }
     
-    public func manageAudioState(viewController: UIViewController){
+    public func manageAudioState(viewController: UIViewController, btnAudioState: UIButton){
+        self.btnAudioState = btnAudioState
         var deviceAction = UIAlertAction()
         var headphonesExist = false
         
@@ -57,6 +66,7 @@ class IGCallAudioManager {
                     (alert: UIAlertAction!) -> Void in
                     do {
                         try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                     } catch let error as NSError {
                         print("audioSession error turning off speaker: \(error.localizedDescription)")
                     }
@@ -71,12 +81,15 @@ class IGCallAudioManager {
                 for description in currentRoute.outputs {
                     if description.portType == AVAudioSessionPortBluetoothA2DP {
                         localAction.setValue(true, forKey: "checked")
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                         break
                     }else if description.portType == AVAudioSessionPortBluetoothHFP {
                         localAction.setValue(true, forKey: "checked")
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                         break
                     }else if description.portType == AVAudioSessionPortBluetoothLE{
                         localAction.setValue(true, forKey: "checked")
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                         break
                     }
                 }
@@ -90,6 +103,7 @@ class IGCallAudioManager {
                     
                     do {
                         try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                     } catch let error as NSError {
                         print("audioSession error turning off speaker: \(error.localizedDescription)")
                     }
@@ -104,17 +118,17 @@ class IGCallAudioManager {
                 for description in currentRoute.outputs {
                     if description.portType == AVAudioSessionPortBuiltInMic || description.portType  == AVAudioSessionPortBuiltInReceiver {
                         deviceAction.setValue(true, forKey: "checked")
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                         break
                     }
                 }
                 
             } else if input.portType == AVAudioSessionPortHeadphones || input.portType == AVAudioSessionPortHeadsetMic {
                 headphonesExist = true
-                let localAction = UIAlertAction(title: "Headphones", style: .default, handler: {
-                    (alert: UIAlertAction!) -> Void in
-                    
+                let localAction = UIAlertAction(title: "Headphones", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     do {
                         try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                     } catch let error as NSError {
                         print("audioSession error turning off speaker: \(error.localizedDescription)")
                     }
@@ -128,9 +142,11 @@ class IGCallAudioManager {
                 for description in currentRoute.outputs {
                     if description.portType == AVAudioSessionPortHeadphones {
                         localAction.setValue(true, forKey: "checked")
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                         break
                     } else if description.portType == AVAudioSessionPortHeadsetMic {
                         localAction.setValue(true, forKey: "checked")
+                        btnAudioState.setTitle("", for: UIControlState.normal)
                         break
                     }
                 }
@@ -143,11 +159,10 @@ class IGCallAudioManager {
             optionMenu.addAction(deviceAction)
         }
         
-        let speakerOutput = UIAlertAction(title: "Speaker", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            
+        let speakerOutput = UIAlertAction(title: "Speaker", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             do {
                 try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+                btnAudioState.setTitle("", for: UIControlState.normal)
             } catch let error as NSError {
                 print("audioSession error turning on speaker: \(error.localizedDescription)")
             }
@@ -155,6 +170,7 @@ class IGCallAudioManager {
         for description in currentRoute.outputs {
             if description.portType == AVAudioSessionPortBuiltInSpeaker{
                 speakerOutput.setValue(true, forKey: "checked")
+                btnAudioState.setTitle("", for: UIControlState.normal)
                 break
             }
         }
@@ -163,9 +179,61 @@ class IGCallAudioManager {
         
         let cancelAction = UIAlertAction(title: "Hide", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            
         })
         optionMenu.addAction(cancelAction)
         viewController.present(optionMenu, animated: true, completion: nil)
+    }
+    
+    public func fetchAudioState(btnAudioState: UIButton){
+        DispatchQueue.main.async {
+            self.btnAudioState = btnAudioState
+            
+            let audioSession = AVAudioSession.sharedInstance()
+            let currentRoute = audioSession.currentRoute
+            for input in audioSession.availableInputs!{
+                if input.portType == AVAudioSessionPortBluetoothA2DP || input.portType == AVAudioSessionPortBluetoothHFP || input.portType == AVAudioSessionPortBluetoothLE{
+                    
+                    for description in currentRoute.outputs {
+                        if description.portType == AVAudioSessionPortBluetoothA2DP {
+                            btnAudioState.setTitle("", for: UIControlState.normal)
+                            break
+                        }else if description.portType == AVAudioSessionPortBluetoothHFP {
+                            btnAudioState.setTitle("", for: UIControlState.normal)
+                            break
+                        }else if description.portType == AVAudioSessionPortBluetoothLE{
+                            btnAudioState.setTitle("", for: UIControlState.normal)
+                            break
+                        }
+                    }
+                    
+                } else if input.portType == AVAudioSessionPortBuiltInMic || input.portType == AVAudioSessionPortBuiltInReceiver  {
+                    
+                    for description in currentRoute.outputs {
+                        if description.portType == AVAudioSessionPortBuiltInMic || description.portType  == AVAudioSessionPortBuiltInReceiver {
+                            btnAudioState.setTitle("", for: UIControlState.normal)
+                            break
+                        }
+                    }
+                    
+                } else if input.portType == AVAudioSessionPortHeadphones || input.portType == AVAudioSessionPortHeadsetMic {
+                    for description in currentRoute.outputs {
+                        if description.portType == AVAudioSessionPortHeadphones {
+                            btnAudioState.setTitle("", for: UIControlState.normal)
+                            break
+                        } else if description.portType == AVAudioSessionPortHeadsetMic {
+                            btnAudioState.setTitle("", for: UIControlState.normal)
+                            break
+                        }
+                    }
+                }
+            }
+            
+            for description in currentRoute.outputs {
+                if description.portType == AVAudioSessionPortBuiltInSpeaker{
+                    btnAudioState.setTitle("", for: UIControlState.normal)
+                    break
+                }
+            }
+        }
     }
 }

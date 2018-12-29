@@ -216,7 +216,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     @IBAction func btnSpeaker(_ sender: UIButton) {
-        IGCallAudioManager.sharedInstance.manageAudioState(viewController: self)
+        IGCallAudioManager.sharedInstance.manageAudioState(viewController: self, btnAudioState: btnSpeaker)
     }
     
     @objc func tapOnMainView(sender : UITapGestureRecognizer) {
@@ -332,7 +332,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             
             if #available(iOS 10.0, *) {
                 do {
-                    try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
                 } catch {
                     print("error AVAudioSessionModeVideoChat")
                 }
@@ -349,7 +349,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             
             if #available(iOS 10.0, *) {
                 do {
-                    try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
                 } catch {
                     print("error AVAudioSessionModeVoiceChat")
                 }
@@ -510,11 +510,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 }
                 
                 do {
-                    try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayAndRecord)
-                    try IGCallAudioManager.sharedAudioInstance.setActive(true)
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .allowBluetooth)
+                    try AVAudioSession.sharedInstance().setActive(true)
                     if self.callType == .videoCalling && self.isSpeakerEnable {
-                        try IGCallAudioManager.sharedAudioInstance.overrideOutputAudioPort(.speaker)
+                        try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
                     }
+                    IGCallAudioManager.sharedInstance.fetchAudioState(btnAudioState: self.btnSpeaker)
                 } catch let error {
                     print(error.localizedDescription)
                 }
@@ -713,8 +714,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         guard let url = Bundle.main.url(forResource: sound, withExtension: "mp3") else { return }
         
         do {
-            try IGCallAudioManager.sharedAudioInstance.setCategory(AVAudioSessionCategoryPlayback)
-            try IGCallAudioManager.sharedAudioInstance.setActive(true)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
         
             stopSound()
             
