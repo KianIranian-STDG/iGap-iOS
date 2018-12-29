@@ -241,15 +241,20 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         for audioTrack in RTCClient.mediaStream.audioTracks {
             audioTrack.isEnabled = !isOnHold
         }
-        
+       
+        /*
         for videoTrack in RTCClient.mediaStream.videoTracks {
             videoTrack.isEnabled = !isOnHold
         }
+        */
     }
     
     private func holdCallView(isOnHold: Bool){
         DispatchQueue.main.async {
             self.holdView.isHidden = !isOnHold
+            if self.callType == .videoCalling {
+                self.imgAvatar.isHidden = !isOnHold
+            }
         }
     }
     
@@ -512,7 +517,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 do {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .allowBluetooth)
                     try AVAudioSession.sharedInstance().setActive(true)
-                    if self.callType == .videoCalling && self.isSpeakerEnable {
+                    if self.callType == .videoCalling && self.btnSpeaker.titleLabel?.text == "" { // is videoCalling && current state is speaker enable
                         try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
                     }
                     IGCallAudioManager.sharedInstance.fetchAudioState(btnAudioState: self.btnSpeaker)

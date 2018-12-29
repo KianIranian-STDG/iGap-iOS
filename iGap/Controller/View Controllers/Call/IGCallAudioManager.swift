@@ -45,7 +45,7 @@ class IGCallAudioManager {
     
     public func setSpeaker(button: UIButton) {
         do {
-            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
             button.setTitle("", for: UIControlState.normal)
         } catch let error {
             print("error: \(error)")
