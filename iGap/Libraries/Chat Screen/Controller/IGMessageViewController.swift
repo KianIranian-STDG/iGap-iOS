@@ -2136,7 +2136,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK: Actions for tap and hold on messages
     fileprivate func copyMessage(_ message: IGRoomMessage) {
-        if let text = message.message {
+        if let text = message.getFinalMessage().message {
             UIPasteboard.general.string = text
         }
     }

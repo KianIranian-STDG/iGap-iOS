@@ -356,4 +356,11 @@ class IGRoomMessage: Object {
         
         return detachedMessage
     }
+    
+    public func getFinalMessage() -> IGRoomMessage {
+        if let forward = self.forwardedFrom {
+            return forward
+        }
+        return self
+    }
 }

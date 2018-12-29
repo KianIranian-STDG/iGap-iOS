@@ -1080,7 +1080,7 @@ class IGFactory: NSObject {
             
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 IGDatabaseManager.shared.realm.beginWrite()
-                for (index, igpMember) in igpMembers.enumerated() {
+                for (_, igpMember) in igpMembers.enumerated() {
                     let predicate = NSPredicate(format: "id = %lld", igpMember.igpUserID )
                     if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
                         let channelMember = IGChannelMember(igpMember: igpMember, roomId: roomId)
