@@ -92,39 +92,25 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     func getUserAvatarAgain(_ aNotification: Notification) {
         if let userId = aNotification.userInfo?["user"] as? Int64{
             let predicate = NSPredicate(format: "id = %lld", userId )
+            /*
             if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
-             // setUserStatus(userInDb)
+                setUserStatus(userInDb)
             }
+            */
             IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
-                 DispatchQueue.main.async {
-                  switch protoResponse {
-                  case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                    let roomId =  IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                    if self.room?.id == roomId {
-                        self.setRoom(room: self.room!)
+                DispatchQueue.main.async {
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
+                        let roomId =  IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        if self.room?.id == roomId {
+                            self.setRoom(room: self.room!)
+                        }
                     }
-                default:
-                    break
                 }
-                }
-                
-                //avatarView.setUser(user)
-                
-            }).error({ (errorCode, waitTime) in
-                
-            }).send()
-            
-            
+            }).error({ (errorCode, waitTime) in }).send()
         }
     }
     
-    func setUserStatus(_ user: IGRegisteredUser) {
-        
-
-        
-    }
-
-    
+    func setUserStatus(_ user: IGRegisteredUser) {}
     
     private func makeAvatarImage() -> IGAvatarView {
         if avatarImage != nil {
@@ -352,6 +338,10 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             }
             self.lastMessageLabel.text = "Draft: \(draft.message)"
         } else if let lastMessage = room.lastMessage {
+            if lastMessage.isDeleted {
+                self.lastMessageLabel.text = "Deleted Message"
+                return
+            }
             self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
             if let forwarded = lastMessage.forwardedFrom {
                 if let user = forwarded.authorUser {
