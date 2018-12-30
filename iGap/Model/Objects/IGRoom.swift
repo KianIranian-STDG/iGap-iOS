@@ -47,6 +47,7 @@ class IGRoom: Object {
     @objc dynamic var deletedPinMessageId:Int64                   = 0
     @objc dynamic var priority:           Int32                   = 0
     @objc dynamic var isPromote:          Bool                    = false
+    @objc dynamic var isDeleted:          Bool                    = false // if this value is true should be delete current room
     
     //ignored properties
     var currenctActionsByUsers = Dictionary<String, (IGRegisteredUser, IGClientAction)>() //actorId, action

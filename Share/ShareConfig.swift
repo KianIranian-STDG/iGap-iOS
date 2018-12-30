@@ -20,7 +20,7 @@ class ShareConfig {
         
         let config = Realm.Configuration (
             fileURL: fileURL,
-            schemaVersion: 21,
+            schemaVersion: 22,
             
             /**
              * Set the block which will be called automatically when opening a Realm with a schema version lower than the one set above

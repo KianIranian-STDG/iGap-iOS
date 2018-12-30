@@ -48,28 +48,20 @@ class IGClientConditionRequest : IGRequest {
 
 class IGClientGetRoomListRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(offset: Int32, limit: Int32) -> IGRequestWrapper {
+        class func generate(offset: Int32, limit: Int32, identity: String = "") -> IGRequestWrapper {
             var clientGetRoomListRequestMessage = IGPClientGetRoomList()
             var pagination = IGPPagination()
             pagination.igpLimit = limit
             pagination.igpOffset = offset
             clientGetRoomListRequestMessage.igpPagination = pagination
-            return IGRequestWrapper(message: clientGetRoomListRequestMessage, actionID: 601)
+            return IGRequestWrapper(message: clientGetRoomListRequestMessage, actionID: 601, identity: identity)
         }
     }
     
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPClientGetRoomListResponse) -> Int {
-            if IGAppManager.sharedManager.isFirstGetRoomList {
-                IGAppManager.sharedManager.isFirstGetRoomList = false
-                IGFactory.shared.removeRoomParticipant(igpRooms: responseProtoMessage.igpRooms)
-            }
-            
             let igpRooms: Array<IGPRoom> = responseProtoMessage.igpRooms
             IGFactory.shared.saveRoomsToDatabase(igpRooms, ignoreLastMessage: false)
-            if igpRooms.count < 40 {
-                IGFactory.shared.deleteShareInfo()
-            }
             return igpRooms.count
         }
         override class func handlePush(responseProtoMessage: Message) {}

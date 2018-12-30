@@ -717,7 +717,7 @@ extension IGGroupsTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
         if remaining < 100 {
-            self.loadMoreRooms()
+            //self.loadMoreRooms()
         }
     }
 }
@@ -726,10 +726,10 @@ extension IGGroupsTableViewController {
 
 extension IGGroupsTableViewController {
     func loadMoreRooms() {
-        if !isLoadingMoreRooms && numberOfRoomFetchedInLastRequest % 40 == 0 {
+        if !isLoadingMoreRooms && numberOfRoomFetchedInLastRequest % IGAppManager.sharedManager.LOAD_ROOM_LIMIT == 0 {
             isLoadingMoreRooms = true
             let offset = rooms!.count
-            IGClientGetRoomListRequest.Generator.generate(offset: Int32(offset), limit: 40).success { (responseProtoMessage) in
+            IGClientGetRoomListRequest.Generator.generate(offset: Int32(offset), limit: Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)).success ({ (responseProtoMessage) in
                 DispatchQueue.main.async {
                     self.isLoadingMoreRooms = false
                     switch responseProtoMessage {
@@ -739,9 +739,7 @@ extension IGGroupsTableViewController {
                         break;
                     }
                 }
-                }.error({ (errorCode, waitTime) in
-                    
-                }).send()
+            }).error({ (errorCode, waitTime) in}).send()
         }
     }
 }

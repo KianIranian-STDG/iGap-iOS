@@ -36,7 +36,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
     static var needGetInfo: Bool = true
-    static var needGetRoomList: Bool = true
     
     @IBOutlet weak var searchBar: UISearchBar!
     private let disposeBag = DisposeBag()
@@ -352,39 +351,51 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     }
     
     private func sendClientCondition(clientCondition: IGClientCondition) {
-        IGClientConditionRequest.Generator.generate(clientCondition: clientCondition).success { (responseProto) in
-            
-            }.error { (errorCode, waitTime) in
-                
-            }.send()
+        IGClientConditionRequest.Generator.generate(clientCondition: clientCondition).success ({ (responseProto) in }).error ({ (errorCode, waitTime) in }).send()
     }
     
-    @objc private func fetchRoomList() {
-        if !IGRecentsTableViewController.needGetRoomList {
-            return
+    @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {
+        
+        var clientCondition: IGClientCondition?
+        if offset == 0 { // is first page
+            clientCondition = IGClientCondition()
         }
         
-        IGRecentsTableViewController.needGetRoomList = false
-        
-        let clientCondition = IGClientCondition()
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: 0, limit: 40).success ({ (responseProtoMessage) in
+        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit, identity: "identity").successPowerful ({ (responseProtoMessage, requestWrapper) in
             self.isLoadingMoreRooms = false
             DispatchQueue.main.async {
-                switch responseProtoMessage {
-                case let response as IGPClientGetRoomListResponse:
-                    self.fetchPromotedRooms()
-                    self.sendClientCondition(clientCondition: clientCondition)
-                    self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: response)
-                default:
-                    break;
+                
+                var newOffset: Int32!
+                var newLimit: Int32!
+                
+                if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
+                    if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
+                        
+                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
+                        newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
+                        
+                        if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
+                            IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
+                            self.fetchPromotedRooms()
+                            self.sendClientCondition(clientCondition: clientCondition!)
+                        }
+                        
+                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
+                        
+                        if getRoomListResponse.igpRooms.count != 0 {
+                            self.fetchRoomList(offset: newOffset, limit: newLimit)
+                        } else {
+                            IGFactory.shared.removeDeletedRooms()
+                            IGFactory.shared.deleteShareInfo()
+                        }
+                    }
                 }
             }
         }).error({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                IGRecentsTableViewController.needGetRoomList = true
-                self.fetchRoomList()
+                self.fetchRoomList(offset: offset, limit: limit)
             default:
                 break
             }
@@ -1223,7 +1234,7 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let deleteChannel as IGPChannelDeleteResponse:
-                    IGChannelDeleteRequest.Handler.interpret(response: deleteChannel)
+                    let _ = IGChannelDeleteRequest.Handler.interpret(response: deleteChannel)
                 default:
                     break
                 }
@@ -1340,7 +1351,7 @@ extension IGRecentsTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
         if remaining < 100 {
-            self.loadMoreRooms()
+            //self.loadMoreRooms()
         }
     }
 }
@@ -1349,10 +1360,10 @@ extension IGRecentsTableViewController {
 
 extension IGRecentsTableViewController {
     func loadMoreRooms() {
-        if !isLoadingMoreRooms && numberOfRoomFetchedInLastRequest % 40 == 0 {
+        if !isLoadingMoreRooms && numberOfRoomFetchedInLastRequest % IGAppManager.sharedManager.LOAD_ROOM_LIMIT == 0 {
             isLoadingMoreRooms = true
             let offset = rooms!.count
-            IGClientGetRoomListRequest.Generator.generate(offset: Int32(offset), limit: 40).success { (responseProtoMessage) in
+            IGClientGetRoomListRequest.Generator.generate(offset: Int32(offset), limit: Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)).success ({ (responseProtoMessage) in
                 DispatchQueue.main.async {
                     self.isLoadingMoreRooms = false
                     switch responseProtoMessage {
@@ -1362,9 +1373,7 @@ extension IGRecentsTableViewController {
                         break;
                     }
                 }
-                }.error({ (errorCode, waitTime) in
-                    
-                }).send()
+            }).error({ (errorCode, waitTime) in }).send()
         }
     }
 }

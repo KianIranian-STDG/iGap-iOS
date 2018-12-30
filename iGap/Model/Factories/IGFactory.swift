@@ -1891,8 +1891,8 @@ class IGFactory: NSObject {
     //MARK: --------------------------------------------------------
     //MARK: ▶︎▶︎ Rooms
     
-    /* change participant value to "false" for rooms that not exist in server response */
-    func removeRoomParticipant(igpRooms : [IGPRoom]){
+    /* change isDeleted value to "true" for rooms that not exist in server response */
+    func markRoomsAsDeleted(igpRooms : [IGPRoom]){
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -1915,7 +1915,7 @@ class IGFactory: NSObject {
                     for roomId in differenceRoomId {
                         let predicate = NSPredicate(format: "id = %lld", roomId)
                         if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                            roomInDb.isParticipant = false
+                            roomInDb.isDeleted = true
                         }
 
                         let predicateShareInfo = NSPredicate(format: "id = %lld AND type != %d", roomId, 4)
@@ -1931,11 +1931,33 @@ class IGFactory: NSObject {
                 }
             }
         }
-        task.success {
+        task.success ({
             self.removeTaskFromQueueAndPerformNext(task)
-            }.error {
-                self.removeTaskFromQueueAndPerformNext(task)
-            }.addToQueue()
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    func removeDeletedRooms(){
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    let rooms = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1"))
+                    IGDatabaseManager.shared.realm.delete(rooms)
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
         self.performNextFactoryTaskIfPossible()
     }
     
