@@ -236,4 +236,19 @@ class IGCallAudioManager {
             }
         }
     }
+    
+    public func hasBluetoothDevice() -> Bool {
+        let audioSession = AVAudioSession.sharedInstance()
+        let currentRoute = audioSession.currentRoute
+        for input in audioSession.availableInputs!{
+            if input.portType == AVAudioSessionPortBluetoothA2DP || input.portType == AVAudioSessionPortBluetoothHFP || input.portType == AVAudioSessionPortBluetoothLE{
+                for description in currentRoute.outputs {
+                    if description.portType == AVAudioSessionPortBluetoothA2DP || description.portType == AVAudioSessionPortBluetoothHFP || description.portType == AVAudioSessionPortBluetoothLE{
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
 }
