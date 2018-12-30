@@ -2406,7 +2406,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        self.collectionView = collectionView as! IGMessageCollectionView
+        self.collectionView = collectionView as? IGMessageCollectionView
         let message = messages![indexPath.section]
         var isIncommingMessage = true
         var shouldShowAvatar = false
@@ -2832,7 +2832,8 @@ extension IGMessageViewController: GrowingTextViewDelegate {
     
     func allowSendTyping() -> Bool {
         let currentTime = IGGlobal.getCurrentMillis()
-        if (currentTime - self.latestTypeTime) < 1000 {
+        let difference = currentTime - self.latestTypeTime
+        if difference < 1000 {
             self.latestTypeTime = currentTime
             return false
         }
@@ -2852,7 +2853,6 @@ extension IGMessageViewController: GrowingTextViewDelegate {
     
     func setInputBarHeight() {
         let height = max(self.inputTextViewHeight - 16, 20)
-        print("Height input bar : ", height)
         var inputBarHeight = height + 16.0
         
         inputTextViewHeightConstraint.constant = inputBarHeight - 5

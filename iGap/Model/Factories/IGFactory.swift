@@ -414,10 +414,12 @@ class IGFactory: NSObject {
         }
         
         //Step 2: create tasks for rooms
+        /*
         for roomId in roomIDs {
             let task = IGFactoryTask(dependencyRoomTask: roomId, isParticipane: false)
             tasks.append(task)
         }
+        */
         
         //Step 3: create room if this is a new conversation
         let task = IGFactoryTask(createRoomTask: roomId)
