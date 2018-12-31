@@ -73,7 +73,11 @@ class IGDownloadManager {
     
     func download(file: IGFile, previewType: IGFile.PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
         
-        if IGDownloadManager.sharedManager.isDownloading(token: file.token!) {
+        guard let token = file.token else {
+            return
+        }
+        
+        if IGDownloadManager.sharedManager.isDownloading(token: token) {
             IGDownloadManager.sharedManager.pauseDownload(attachment: file)
             return
         }

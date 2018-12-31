@@ -12,9 +12,7 @@ import UIKit
 import SnapKit
 
 protocol IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTapOnStart(_ indicator: IGDownloadUploadIndicatorView)
-    func downloadUploadIndicatorDidTapOnCancel(_ indicator: IGDownloadUploadIndicatorView)
-    
+    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView)
 }
 
 class IGDownloadUploadIndicatorView: UIView {
@@ -91,7 +89,7 @@ class IGDownloadUploadIndicatorView: UIView {
     }
     
     func didTapOnView() {
-        self.delegate?.downloadUploadIndicatorDidTapOnStart(self)
+        self.delegate?.downloadUploadIndicatorDidTap(self)
     }
     
     func setFileType(_ type: IndicatorType) {

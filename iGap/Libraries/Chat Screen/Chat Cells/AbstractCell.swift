@@ -669,7 +669,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                         imgMediaAbs.prepareForAnimation(withGIFData: data)
                         imgMediaAbs.startAnimatingGIF()
                     } else {
-                        self.downloadUploadIndicatorDidTapOnStart(indicatorViewAbs)
+                        self.downloadUploadIndicatorDidTap(indicatorViewAbs)
                     }
                 }
                 */
@@ -684,8 +684,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     func updateAttachmentDownloadUploadIndicatorView() {
         
         if let attachment = self.attachment {
-            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) && attachment.status == .downloading {
-                
+            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) && !attachment.isInUploadLevels() {
                 if finalRoomMessage.type == .video || finalRoomMessage.type == .videoAndText {
                     makeVideoPlayView()
                 }
@@ -707,7 +706,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             case .video, .image, .gif:
                 indicatorViewAbs.setFileType(.media)
                 indicatorViewAbs.setState(attachment.status)
-                if attachment.status == .downloading ||  attachment.status == .uploading {
+                if attachment.status == .downloading || attachment.status == .uploading {
                     indicatorViewAbs.setPercentage(attachment.downloadUploadPercent)
                 }
                 break
@@ -1181,28 +1180,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
  */
 
 extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTapOnStart(_ indicator: IGDownloadUploadIndicatorView) {
+    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
         
         if let attachment = self.attachment {
-            
-            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
-                
-            }, failure: {
-                
-            })
+            if attachment.status == .downloading || attachment.status == .downloadFailed || attachment.status == .downloadPause {
+                IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
+            } else if attachment.status == .uploading || attachment.status == .uploadFailed || attachment.status == .uploadPause {
+                IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
+            }
         }
-        if let forwardAttachment = self.forwardedAttachment {
-            
-            IGDownloadManager.sharedManager.download(file: forwardAttachment, previewType: .originalFile, completion: { (attachment) -> Void in
-                
-            }, failure: {
-                
-            })
-        }
-    }
-    
-    func downloadUploadIndicatorDidTapOnCancel(_ indicator: IGDownloadUploadIndicatorView) {
-        
     }
 }
 

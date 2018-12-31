@@ -33,6 +33,14 @@ class IGMessageSender {
         }
     }
     
+    func removeMessagesWithAttachmentTask(primaryKeyId: String){
+        if let task = getAttachemntTaskWithMessagePrimaryKeyId(primaryKeyId: primaryKeyId) {
+            if let index = messagesWithAttachmentArray.index(of: task) {
+                messagesWithAttachmentArray.remove(at: index)
+            }
+        }
+    }
+    
     //MARK: Queue Handler
     private func addTaskToPlainMessagesQueue(_ task: IGMessageSenderTask) {
         plainMessagesArray.append(task)
@@ -55,6 +63,15 @@ class IGMessageSender {
             messagesWithAttachmentArray.remove(at: index)
             addTaskToPlainMessagesQueue(task)
         }
+    }
+    
+    private func getAttachemntTaskWithMessagePrimaryKeyId(primaryKeyId: String) -> IGMessageSenderTask? {
+        for task in messagesWithAttachmentArray {
+            if task.message.attachment!.primaryKeyId! == primaryKeyId {
+                return task
+            }
+        }
+        return nil
     }
     
     
@@ -140,7 +157,7 @@ class IGMessageSender {
     
     private func uploadAttahcmentForNextRequest() {
         if let nextMessageToUpload = messagesWithAttachmentArray.first {
-            let nextMessageUploadTask = IGUploadManager.sharedManager.upload(file: nextMessageToUpload.message.attachment!, start: {
+            if let nextMessageUploadTask = IGUploadManager.sharedManager.upload(file: nextMessageToUpload.message.attachment!, start: {
                 self.fileUploadStarted(nextMessageToUpload)
             }, progress: { (progress) in
                 
@@ -154,8 +171,9 @@ class IGMessageSender {
             }, failure: { 
                 //TODO: check what will happen if upload failes.
                 self.fileUploadEnded(nextMessageToUpload)
-            })
-            nextMessageToUpload.uploadTask = nextMessageUploadTask
+            }) {
+                nextMessageToUpload.uploadTask = nextMessageUploadTask
+            }
         }
     }
     

@@ -575,7 +575,7 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
                             self.forwardedMessageMediaImageView.prepareForAnimation(withGIFData: data)
                             self.forwardedMessageMediaImageView.startAnimatingGIF()
                         } else {
-                            self.downloadUploadIndicatorDidTapOnStart(self.forwardedMediaDownloadUploadIndicatorView)
+                            self.downloadUploadIndicatorDidTap(self.forwardedMediaDownloadUploadIndicatorView)
                             
                         }
                     }
@@ -735,7 +735,7 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
                         self.mediaImageView.prepareForAnimation(withGIFData: data)
                         self.mediaImageView.startAnimatingGIF()
                     } else {
-                        self.downloadUploadIndicatorDidTapOnStart(self.mediaDownloadUploadIndicatorView)
+                        self.downloadUploadIndicatorDidTap(self.mediaDownloadUploadIndicatorView)
                     }
                 }
                 
@@ -1145,7 +1145,7 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
 
 
 extension IGMessageCollectionViewCell: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTapOnStart(_ indicator: IGDownloadUploadIndicatorView) {
+    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
         if self.attachment?.status == .downloading {
             return
         }
@@ -1165,10 +1165,6 @@ extension IGMessageCollectionViewCell: IGDownloadUploadIndicatorViewDelegate {
             })
 
         }
-    }
-    
-    func downloadUploadIndicatorDidTapOnCancel(_ indicator: IGDownloadUploadIndicatorView) {
-        
     }
 }
 

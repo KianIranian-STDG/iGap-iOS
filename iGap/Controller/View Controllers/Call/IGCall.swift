@@ -518,7 +518,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .allowBluetooth)
                     try AVAudioSession.sharedInstance().setActive(true)
                     
-                    // if is videoCalling && current state is speaker enable && not paired bluetooth device THEN set current audio state to speaker
+                    // if is videoCalling && current btn title state is speaker enable && not paired bluetooth device THEN set current audio state to speaker
                     if self.callType == .videoCalling && self.btnSpeaker.titleLabel?.text == "" && !IGCallAudioManager.sharedInstance.hasBluetoothDevice() {
                         try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
                     }

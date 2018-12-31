@@ -30,7 +30,7 @@ protocol IGMessageGeneralCollectionViewCellDelegate {
 class IGMessageGeneralCollectionViewCell: UICollectionViewCell {
     var cellMessage: IGRoomMessage?
     var attachment: IGFile?
-    var forwardedAttachment: IGFile?
+    var forwardedAttachment: IGFile? //deprecated!. Not Used In Code.
     var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
     func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: RoomMessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {}

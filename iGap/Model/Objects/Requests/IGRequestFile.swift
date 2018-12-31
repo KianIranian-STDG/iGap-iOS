@@ -22,10 +22,10 @@ enum IGFileUploadingStatus {
 
 class IGFileUploadOptionRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(size: Int64) -> IGRequestWrapper {
+        class func generate(size: Int64, identity: String) -> IGRequestWrapper {
             var uploadOptionRequestMessage = IGPFileUploadOption()
             uploadOptionRequestMessage.igpSize = size
-            return IGRequestWrapper(message: uploadOptionRequestMessage, actionID: 700)
+            return IGRequestWrapper(message: uploadOptionRequestMessage, actionID: 700, identity: identity)
         }
     }
     
@@ -42,14 +42,14 @@ class IGFileUploadOptionRequest : IGRequest {
 //MARK: -
 class IGFileUploadInitRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(initialBytes: Data, finalBytes: Data, size: Int64, hash: Data, name: String) -> IGRequestWrapper {
+        class func generate(initialBytes: Data, finalBytes: Data, size: Int64, hash: Data, name: String, identity: String) -> IGRequestWrapper {
             var uploadInitRequestMessage = IGPFileUploadInit()
             uploadInitRequestMessage.igpFirstBytes = initialBytes
             uploadInitRequestMessage.igpLastBytes = finalBytes
             uploadInitRequestMessage.igpSize = size
             uploadInitRequestMessage.igpFileHash = hash
             uploadInitRequestMessage.igpFileName = name
-            return IGRequestWrapper(message: uploadInitRequestMessage, actionID: 701)
+            return IGRequestWrapper(message: uploadInitRequestMessage, actionID: 701, identity: identity)
         }
     }
     
@@ -69,12 +69,12 @@ class IGFileUploadInitRequest : IGRequest {
 //MARK: -
 class IGFileUploadRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(token: String, offset: Int64, data: Data) -> IGRequestWrapper {
+        class func generate(token: String, offset: Int64, data: Data, identity: String) -> IGRequestWrapper {
             var uploadRequestMessage = IGPFileUpload()
             uploadRequestMessage.igpToken = token
             uploadRequestMessage.igpOffset = offset
             uploadRequestMessage.igpBytes = data
-            return IGRequestWrapper(message: uploadRequestMessage, actionID: 702)
+            return IGRequestWrapper(message: uploadRequestMessage, actionID: 702, identity: identity)
         }
     }
     
@@ -94,10 +94,10 @@ class IGFileUploadRequest : IGRequest {
 //MARK: -
 class IGFileUploadStatusRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(token: String) -> IGRequestWrapper {
+        class func generate(token: String, identity: String = "") -> IGRequestWrapper {
             var uploadStatusRequestMessage = IGPFileUploadStatus()
             uploadStatusRequestMessage.igpToken = token
-            return IGRequestWrapper(message: uploadStatusRequestMessage, actionID: 703)
+            return IGRequestWrapper(message: uploadStatusRequestMessage, actionID: 703, identity: identity)
         }
     }
     

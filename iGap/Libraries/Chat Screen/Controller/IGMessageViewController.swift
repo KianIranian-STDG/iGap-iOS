@@ -934,23 +934,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    func deleteForTest(){
-        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", self.room!.id)
-        let message = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-
-        if message.count > 100 {
-            
-            let predicateDelete = NSPredicate(format: "roomId = %lld AND id <= %lld ", self.room!.id , message.toArray()[100].id)
-            let messageDelete = try! Realm().objects(IGRoomMessage.self).filter(predicateDelete).sorted(by: sortProperties)
-            
-            let realm = try! Realm()
-            try! realm.write {
-                realm.delete(messageDelete)
-            }
-        }
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         
         setBackground()

@@ -106,11 +106,9 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
     }
 }
 extension IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTapOnStart(_ indicator: IGDownloadUploadIndicatorView) {
+    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
         if let attachment = self.attachment {
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
         }
     }
-    
-    func downloadUploadIndicatorDidTapOnCancel(_ indicator: IGDownloadUploadIndicatorView) {}
 }
