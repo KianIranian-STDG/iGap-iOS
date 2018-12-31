@@ -392,7 +392,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
 var unsecureResponseActionID : [Int] = [30001,30002,30003]
 
 //login is not required for these methods
-var actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn : [Int] = [100, 101, 102,131,132, 500, 501, 502, 503, 802]
+var actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn : [Int] = [100, 101, 102,131,132, 500, 501, 502, 503, 802, 201, 310, 410]
 
 
 class IGRequestManager {
@@ -425,7 +425,7 @@ class IGRequestManager {
             
         }, onDisposed: {
             
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         
         IGAppManager.sharedManager.isUserLoggedIn.asObservable().subscribe(onNext: { (loginState) in
@@ -455,12 +455,10 @@ class IGRequestManager {
             //TODO: handle batch requests
             var shouldSendRequest = false
             
-            if IGAppManager.sharedManager.connectionStatus.value == .connected || IGAppManager.sharedManager.connectionStatus.value == .iGap {
-                if IGAppManager.sharedManager.isUserLoggedIn.value {
-                    shouldSendRequest = true
-                } else if actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn.contains(requestWrapper.actionId) {
-                    shouldSendRequest = true
-                }
+            if IGAppManager.sharedManager.isUserLoggedIn.value {
+                shouldSendRequest = true
+            } else if actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn.contains(requestWrapper.actionId) {
+                shouldSendRequest = true
             }
             
             if shouldSendRequest {
@@ -548,7 +546,9 @@ class IGRequestManager {
                         }
                     }
                     resolvedRequests[response.igpID] = correspondingRequestWrapper
-                    pendingRequests[response.igpID]  = nil
+                    if pendingRequests[response.igpID] != nil {
+                        pendingRequests[response.igpID] = nil
+                    }
                 } else if resolvedRequests[response.igpID] != nil {
                     print ("✦ \(NSDate.timeIntervalSinceReferenceDate) -----XXX Response is already resolved")
                 } else {

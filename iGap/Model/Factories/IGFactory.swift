@@ -518,6 +518,29 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
     
+    
+    func updateIgpMessagesToDatabase(_ igpMessage: IGPRoomMessage, primaryKeyId: String, roomId: Int64) {
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    let message = IGRoomMessage(igpMessage: igpMessage, roomId: roomId)
+                    message.primaryKeyId = primaryKeyId
+                    IGDatabaseManager.shared.realm.add(message, update: true)
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
     func saveNewlyWriitenMessageToDatabase(_ message: IGRoomMessage) {
         let task = IGFactoryTask()
         task.task = {
@@ -613,6 +636,30 @@ class IGFactory: NSObject {
         }.error {
             self.removeTaskFromQueueAndPerformNext(task)
         }.addToQueue() //.addAsHighPriorityToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    func updateMessageStatus(primaryKeyId: String, status: IGRoomMessageStatus) {
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                let predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId)
+                try! IGDatabaseManager.shared.realm.write {
+                    if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
+                        message.status = status
+                    }
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue() //.addAsHighPriorityToQueue()
         self.performNextFactoryTaskIfPossible()
     }
     
@@ -718,7 +765,7 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
     
-    func deleteMessageWithFilePrimaryKeyId(primaryKeyId: String?) {
+    func deleteMessageWithPrimaryKeyId(primaryKeyId: String?, hasAttachment: Bool = false) {
         if primaryKeyId == nil {
             return
         }
@@ -726,7 +773,12 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let predicate = NSPredicate(format: "attachment.primaryKeyId = %@", primaryKeyId!)
+                var predicate: NSPredicate!
+                if hasAttachment {
+                    predicate = NSPredicate(format: "attachment.primaryKeyId = %@", primaryKeyId!)
+                } else {
+                    predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId!)
+                }
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
                         IGDatabaseManager.shared.realm.delete(messageInDb)
@@ -780,7 +832,7 @@ class IGFactory: NSObject {
                     //TODO: This is not efficient (try to commit write after changing data)
                     IGDatabaseManager.shared.realm.beginWrite()
                     for message in messages {
-                        if message.id <= clearID {
+                        if message.id <= clearID && !(message.status == .sending || message.status == .failed) {
                             message.isDeleted = true
                         }
                     }

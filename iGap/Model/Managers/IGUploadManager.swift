@@ -66,7 +66,7 @@ class IGUploadManager {
         removeFromQueueAndStartNext(task: getTaskWithPrimaryKeyId(primaryKeyId: attachment.primaryKeyId!))
         IGAttachmentManager.sharedManager.setProgress(0.0, for: attachment)
         IGAttachmentManager.sharedManager.setStatus(.uploadPause, for: attachment)
-        IGFactory.shared.deleteMessageWithFilePrimaryKeyId(primaryKeyId: attachment.primaryKeyId)
+        IGFactory.shared.deleteMessageWithPrimaryKeyId(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
     }
     
     //MARK: - Private methods

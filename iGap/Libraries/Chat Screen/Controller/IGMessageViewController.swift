@@ -1459,136 +1459,129 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         inputTextView.text = inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if connectionStatus == .waitingForNetwork || connectionStatus == .connecting {
-            let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            if selectedMessageToEdit != nil {
-                switch room!.type {
-                case .chat:
-                    IGChatEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text,  room: room!).success({ (protoResponse) in
-                        IGChatEditMessageRequest.Handler.interpret(response: protoResponse)
-                    }).error({ (errorCode, waitTime) in
-                        
-                    }).send()
-                case .group:
-                    IGGroupEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text, room: room!).success({ (protoResponse) in
-                        switch protoResponse {
-                        case let response as IGPGroupEditMessageResponse:
-                            IGGroupEditMessageRequest.Handler.interpret(response: response)
-                        default:
-                            break
-                        }
-                    }).error({ (errorCode, waitTime) in
-                        
-                    }).send()
-                case .channel:
-                    IGChannelEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text, room: room!).success({ (protoResponse) in
-                        switch protoResponse {
-                        case let response as IGPChannelEditMessageResponse:
-                            IGChannelEditMessageRequest.Handler.interpret(response: response)
-                        default:
-                            break
-                        }
-                    }).error({ (errorCode, waitTime) in
-                        
-                    }).send()
-                }
-                
-                selectedMessageToEdit = nil
-                self.inputTextView.text = ""
-                self.setInputBarHeight()
-                self.sendCancelTyping()
-                return
+        if selectedMessageToEdit != nil {
+            switch room!.type {
+            case .chat:
+                IGChatEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text,  room: room!).success({ (protoResponse) in
+                    IGChatEditMessageRequest.Handler.interpret(response: protoResponse)
+                }).error({ (errorCode, waitTime) in
+                    
+                }).send()
+            case .group:
+                IGGroupEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text, room: room!).success({ (protoResponse) in
+                    switch protoResponse {
+                    case let response as IGPGroupEditMessageResponse:
+                        IGGroupEditMessageRequest.Handler.interpret(response: response)
+                    default:
+                        break
+                    }
+                }).error({ (errorCode, waitTime) in
+                    
+                }).send()
+            case .channel:
+                IGChannelEditMessageRequest.Generator.generate(message: selectedMessageToEdit!, newText: inputTextView.text, room: room!).success({ (protoResponse) in
+                    switch protoResponse {
+                    case let response as IGPChannelEditMessageResponse:
+                        IGChannelEditMessageRequest.Handler.interpret(response: response)
+                    default:
+                        break
+                    }
+                }).error({ (errorCode, waitTime) in
+                    
+                }).send()
             }
             
-            if currentAttachment != nil {
-                
-                let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
-                
-                let message = IGRoomMessage(body: messageText)
-                currentAttachment?.status = .processingForUpload
-                message.attachment = currentAttachment?.detach()
-                IGAttachmentManager.sharedManager.add(attachment: currentAttachment!)
-                switch currentAttachment!.type {
-                case .image:
-                    if messageText == "" {
-                        message.type = .image
-                    } else {
-                        message.type = .imageAndText
-                    }
-                case .video:
-                    if messageText == "" {
-                        message.type = .video
-                    } else {
-                        message.type = .videoAndText
-                    }
-                case .audio:
-                    if messageText == "" {
-                        message.type = .audio
-                    } else {
-                        message.type = .audioAndText
-                    }
-                case .voice:
-                    message.type = .voice
-                case .file:
-                    if messageText == "" {
-                        message.type = .file
-                    } else {
-                        message.type = .fileAndText
-                    }
-                default:
-                    break
+            selectedMessageToEdit = nil
+            self.inputTextView.text = ""
+            self.setInputBarHeight()
+            self.sendCancelTyping()
+            return
+        }
+        
+        if currentAttachment != nil {
+            
+            let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
+            
+            let message = IGRoomMessage(body: messageText)
+            currentAttachment?.status = .processingForUpload
+            message.attachment = currentAttachment?.detach()
+            IGAttachmentManager.sharedManager.add(attachment: currentAttachment!)
+            switch currentAttachment!.type {
+            case .image:
+                if messageText == "" {
+                    message.type = .image
+                } else {
+                    message.type = .imageAndText
                 }
-                
-                message.roomId = self.room!.id
-                
-                let detachedMessage = message.detach()
-                
-                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                IGMessageSender.defaultSender.send(message: message, to: room!)
-                
-                self.inputBarSendButton.isHidden = true
-                self.inputBarRecordButton.isHidden = false
-                self.inputTextView.text = ""
-                self.currentAttachment = nil
-                IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-                self.selectedMessageToReply = nil
-                self.setInputBarHeight()
-                
-            } else {
-                
-                let messages = inputTextView.text.split(limit: MAX_TEXT_LENGHT)
-                for i in 0..<messages.count {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
-                        let message = IGRoomMessage(body: messages[i])
-                        if (self.selectedMessageToReply == nil && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && messages[i].isEmpty) {
-                            self.inputTextView.text = ""
-                            return
-                        }
-                        
-                        message.type = .text
-                        message.roomId = self.room!.id
-                        
-                        let detachedMessage = message.detach()
-                        
-                        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                        message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                        message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                        IGMessageSender.defaultSender.send(message: message, to: self.room!)
-                        
-                        self.inputBarSendButton.isHidden = true
-                        self.inputBarRecordButton.isHidden = false
+            case .video:
+                if messageText == "" {
+                    message.type = .video
+                } else {
+                    message.type = .videoAndText
+                }
+            case .audio:
+                if messageText == "" {
+                    message.type = .audio
+                } else {
+                    message.type = .audioAndText
+                }
+            case .voice:
+                message.type = .voice
+            case .file:
+                if messageText == "" {
+                    message.type = .file
+                } else {
+                    message.type = .fileAndText
+                }
+            default:
+                break
+            }
+            
+            message.roomId = self.room!.id
+            
+            let detachedMessage = message.detach()
+            
+            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+            message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+            message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+            IGMessageSender.defaultSender.send(message: message, to: room!)
+            
+            self.inputBarSendButton.isHidden = true
+            self.inputBarRecordButton.isHidden = false
+            self.inputTextView.text = ""
+            self.currentAttachment = nil
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+            self.selectedMessageToReply = nil
+            self.setInputBarHeight()
+            
+        } else {
+            
+            let messages = inputTextView.text.split(limit: MAX_TEXT_LENGHT)
+            for i in 0..<messages.count {
+                DispatchQueue.main.asyncAfter(deadline: .now() + (Double(i) * 0.5)) {
+                    let message = IGRoomMessage(body: messages[i])
+                    if (self.selectedMessageToReply == nil && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && messages[i].isEmpty) {
                         self.inputTextView.text = ""
-                        self.currentAttachment = nil
-                        IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-                        self.selectedMessageToReply = nil
-                        self.setInputBarHeight()
+                        return
                     }
+                    
+                    message.type = .text
+                    message.roomId = self.room!.id
+                    
+                    let detachedMessage = message.detach()
+                    
+                    IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                    message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                    message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                    IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                    
+                    self.inputBarSendButton.isHidden = true
+                    self.inputBarRecordButton.isHidden = false
+                    self.inputTextView.text = ""
+                    self.currentAttachment = nil
+                    IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+                    self.selectedMessageToReply = nil
+                    self.setInputBarHeight()
                 }
             }
         }
@@ -2928,6 +2921,19 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
 //MARK: - IGMessageGeneralCollectionViewCellDelegate
 extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+        
+        if cellMessage.status == IGRoomMessageStatus.sending {
+            return
+        }
+        
+        if cellMessage.status == IGRoomMessageStatus.failed {
+            manageFailedMessage(cellMessage: cellMessage, cell: cell)
+        } else {
+            manageSendedMessage(cellMessage: cellMessage, cell: cell)
+        }
+    }
+    
+    private func manageSendedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let copy = UIAlertAction(title: "Copy", style: .default, handler: { (action) in
             self.copyMessage(cellMessage)
@@ -2967,7 +2973,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
             }else {
-            self.editMessage(cellMessage)
+                self.editMessage(cellMessage)
             }
         })
         
@@ -3040,6 +3046,32 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             alertC.addAction(deleteForBoth)
         }
         
+        alertC.addAction(cancel)
+        
+        self.present(alertC, animated: true, completion: nil)
+    }
+    
+    private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+        let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        
+        let resend = UIAlertAction(title: "Resend Message", style: .default, handler: { (action) in
+            DispatchQueue.main.async {
+                IGMessageSender.defaultSender.resend(message: cellMessage, to: self.room!)
+            }
+        })
+        
+        let delete = UIAlertAction(title: "Delete", style: .default, handler: { (action) in
+            if let attachment = cellMessage.attachment {
+                IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
+            } else {
+                IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: cellMessage.primaryKeyId)
+            }
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertC.addAction(resend)
+        alertC.addAction(delete)
         alertC.addAction(cancel)
         
         self.present(alertC, animated: true, completion: nil)

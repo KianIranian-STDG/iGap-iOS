@@ -33,12 +33,34 @@ class IGMessageSender {
         }
     }
     
+    func resend(message: IGRoomMessage, to room: IGRoom) {
+        IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
+        let message = makeCopyOfMessage(message: message)
+        send(message: message, to: room)
+    }
+    
     func removeMessagesWithAttachmentTask(primaryKeyId: String){
-        if let task = getAttachemntTaskWithMessagePrimaryKeyId(primaryKeyId: primaryKeyId) {
+        if let task = getAttachemntTaskWithFilePrimaryKeyId(primaryKeyId: primaryKeyId) {
             if let index = messagesWithAttachmentArray.index(of: task) {
                 messagesWithAttachmentArray.remove(at: index)
             }
         }
+    }
+    
+    func failedMessage(primaryKeyId: String){
+        IGFactory.shared.updateMessageStatus(primaryKeyId: primaryKeyId, status: .failed)
+    }
+    
+    func deleteFailedMessage(primaryKeyId: String?, hasAttachment: Bool = false) {
+        if primaryKeyId == nil {return}
+        
+        if hasAttachment {
+            removeMessagesWithAttachmentTask(primaryKeyId: primaryKeyId!) // do this for file
+        } else {
+            removeTaskFromPlainMessagesQueue(getPlainTaskWithMessagePrimaryKeyId(primaryKeyId: primaryKeyId!))
+        }
+        
+        IGFactory.shared.deleteMessageWithPrimaryKeyId(primaryKeyId: primaryKeyId, hasAttachment: hasAttachment)
     }
     
     //MARK: Queue Handler
@@ -47,8 +69,10 @@ class IGMessageSender {
         sendNextPlainRequest()
     }
     
-    fileprivate func removeTaskFromPlainMessagesQueue(_ task: IGMessageSenderTask) {
-        if let index = plainMessagesArray.index(of: task) {
+    fileprivate func removeTaskFromPlainMessagesQueue(_ task: IGMessageSenderTask?) {
+        if task == nil {return}
+        
+        if let index = plainMessagesArray.index(of: task!) {
             plainMessagesArray.remove(at: index)
         }
     }
@@ -65,7 +89,16 @@ class IGMessageSender {
         }
     }
     
-    private func getAttachemntTaskWithMessagePrimaryKeyId(primaryKeyId: String) -> IGMessageSenderTask? {
+    private func getPlainTaskWithMessagePrimaryKeyId(primaryKeyId: String) -> IGMessageSenderTask? {
+        for task in plainMessagesArray {
+            if task.message.primaryKeyId! == primaryKeyId {
+                return task
+            }
+        }
+        return nil
+    }
+    
+    private func getAttachemntTaskWithFilePrimaryKeyId(primaryKeyId: String) -> IGMessageSenderTask? {
         for task in messagesWithAttachmentArray {
             if task.message.attachment!.primaryKeyId! == primaryKeyId {
                 return task
@@ -81,25 +114,25 @@ class IGMessageSender {
             switch nextMessageTask.room.type {
             case .chat:
                 IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
-                    //update message to success
-                    
                     DispatchQueue.main.async {
-                        switch protoResponse {
-                        case let response as IGPChatSendMessageResponse:
-                            IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: response.igpRoomMessage)
-                            break
-                        default:
-                            break
+                        if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse {
+                            
+                            if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
+                                IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                            } else {
+                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: chatSendMessageResponse.igpRoomMessage)
+                            }
+                            
+                            self.removeTaskFromPlainMessagesQueue(nextMessageTask)
+                            self.sendNextPlainRequest()
                         }
-                        
-                        self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                        self.sendNextPlainRequest()
                     }
-                    
                     
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
-                        //TODO: update message to failed
+                        if let task = self.plainMessagesArray.first {
+                            self.failedMessage(primaryKeyId: task.message.primaryKeyId!)
+                        }
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
                     }
@@ -107,22 +140,22 @@ class IGMessageSender {
                 }).send()
             case .group:
                 IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
-                    
                     DispatchQueue.main.async {
-                        //update message to success
-                        switch protoResponse {
-                        case let response as IGPGroupSendMessageResponse:
-                            IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: response.igpRoomMessage)
-                        default:
-                            break
+                        if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse {
+                            if !groupSendMessageResponse.igpResponse.igpID.isEmpty {
+                                IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                            } else {
+                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: groupSendMessageResponse.igpRoomMessage)
+                            }
                         }
-                        
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
                     }
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
-                        //TODO: update message to failed
+                        if let task = self.plainMessagesArray.first {
+                            self.failedMessage(primaryKeyId: task.message.primaryKeyId!)
+                        }
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
                     }
@@ -132,12 +165,12 @@ class IGMessageSender {
             case .channel:
                 IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
                     DispatchQueue.main.async {
-                        //update message to success
-                        switch protoResponse {
-                        case let response as IGPChannelSendMessageResponse:
-                            IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: response.igpRoomMessage)
-                        default:
-                            break
+                        if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse {
+                            if !channelSendMessageResponse.igpResponse.igpID.isEmpty {
+                                IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                            } else {
+                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: channelSendMessageResponse.igpRoomMessage)
+                            }
                         }
                         
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
@@ -145,7 +178,9 @@ class IGMessageSender {
                     }
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
-                        //TODO: update message to failed
+                        if let task = self.plainMessagesArray.first {
+                            self.failedMessage(primaryKeyId: task.message.primaryKeyId!)
+                        }
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
                     }
@@ -229,6 +264,21 @@ class IGMessageSender {
         }
     }
 
+    
+    private func makeCopyOfMessage(message: IGRoomMessage) -> IGRoomMessage{
+        let finalMessage = IGRoomMessage()
+        finalMessage.id = message.id
+        finalMessage.isDeleted = message.isDeleted
+        finalMessage.message = message.message
+        finalMessage.creationTime = message.creationTime
+        finalMessage.status = message.status
+        finalMessage.temporaryId = message.temporaryId
+        finalMessage.primaryKeyId = message.primaryKeyId
+        finalMessage.randomId = message.randomId
+        finalMessage.authorUser = message.authorUser
+        finalMessage.authorHash = message.authorHash
+        return finalMessage
+    }
 }
 
 
