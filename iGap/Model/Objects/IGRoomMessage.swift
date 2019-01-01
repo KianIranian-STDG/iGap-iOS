@@ -127,7 +127,7 @@ class IGRoomMessage: Object {
             if self.attachment?.fileNameOnDisk == nil {
                 self.attachment!.downloadUploadPercent = 0.0
                 self.attachment!.status = .readyToDownload
-            } else {
+            } else if !(self.attachment?.isInUploadLevels())!{
                 self.attachment!.downloadUploadPercent = 1.0
                 self.attachment!.status = .ready
             }

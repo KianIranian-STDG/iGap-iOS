@@ -52,6 +52,12 @@ class IGUploadManager {
         return uploadTask
     }
     
+    func pauseAllUploads(){
+        for task in pendingUploads {
+            cancelUpload(attachment: task.file, deleteMessage: false)
+        }
+    }
+    
     func cancelUpload(attachment: IGFile, deleteMessage: Bool = true) {
         if attachment.primaryKeyId == nil {
             return
@@ -113,12 +119,17 @@ class IGUploadManager {
     
     //Step 1: Get Upload options (initil bytes limit, final bytes limit, max connection)
     private func getUploadOptions(for task: IGUploadTask) {
+        
+        guard let fileData = task.file.data else {
+            return
+        }
+        
         DispatchQueue.main.async {
             if let startClousure = task.startCallBack {
                 startClousure()
             }
         }
-        IGFileUploadOptionRequest.Generator.generate(size: Int64((task.file.data!.count)), identity: task.file.primaryKeyId!).successPowerful ({ (protoMessage, requestWrapper) in
+        IGFileUploadOptionRequest.Generator.generate(size: Int64((fileData.count)), identity: task.file.primaryKeyId!).successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadOptionReponse as IGPFileUploadOptionResponse:
                 task.status = .uploading

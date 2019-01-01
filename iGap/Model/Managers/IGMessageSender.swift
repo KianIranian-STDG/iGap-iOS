@@ -11,6 +11,7 @@
 import UIKit
 import IGProtoBuff
 import SwiftProtobuf
+import RealmSwift
 
 class IGMessageSender {
     static let defaultSender = IGMessageSender()
@@ -37,6 +38,24 @@ class IGMessageSender {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
         let message = makeCopyOfMessage(message: message)
         send(message: message, to: room)
+    }
+    
+    func resendAllSendingMessage(roomId: Int64 = 0){
+        var count:Double = 0
+        let realm = try! Realm()
+        var predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
+        if roomId != 0 {
+            predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.sending.rawValue)
+        }
+        
+        for message in realm.objects(IGRoomMessage.self).filter(predicate) {
+            count = count + 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + count){
+                if let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first {
+                    IGMessageSender.defaultSender.resend(message: message, to: room)
+                }
+            }
+        }
     }
     
     func removeMessagesWithAttachmentTask(primaryKeyId: String){

@@ -159,6 +159,7 @@ class IGAppManager: NSObject {
      **/
     public func resetApp(){
         IGDownloadManager.sharedManager.pauseAllDownloads()
+        IGUploadManager.sharedManager.pauseAllUploads()
         IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
     }
     

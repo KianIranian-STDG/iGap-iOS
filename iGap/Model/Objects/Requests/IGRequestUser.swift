@@ -152,6 +152,8 @@ class IGUserLoginRequest : IGRequest {
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive)
+            IGUploadManager.sharedManager.pauseAllUploads()
+            IGMessageSender.defaultSender.resendAllSendingMessage()
             getToken()
             
             if #available(iOS 10.0, *) {
@@ -162,7 +164,7 @@ class IGUserLoginRequest : IGRequest {
         class func getToken(){
             InstanceID.instanceID().instanceID { (result, error) in
                 if let error = error {
-                    print("XXX Error fetching remote instange ID: \(error)")
+                    print("Error fetching remote instange ID: \(error)")
                 } else if let result = result {
                     self.sendAPNToken(token: result.token)
                 }

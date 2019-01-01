@@ -60,7 +60,7 @@ class IGDownloadUploadIndicatorView: UIView {
         self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.addSubview(backgroundView!)
         backgroundView!.backgroundColor = UIColor.black
-        backgroundView?.alpha = 0.5
+        backgroundView?.alpha = 0.0
         self.backgroundView?.snp.makeConstraints({ (make) in
             make.center.equalTo(self.snp.center)
             make.width.equalTo(self.snp.width)
@@ -101,7 +101,7 @@ class IGDownloadUploadIndicatorView: UIView {
         
         backgroundView?.alpha = 0.5
         sizeLabel?.alpha = 1.0
-        downlaodUploadProgressPathWidth = 5.0
+        downlaodUploadProgressPathWidth = 3.0
         downloadUploadPercentageLabel?.textColor = UIColor.white
         downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 5.0, weight: 2)
         

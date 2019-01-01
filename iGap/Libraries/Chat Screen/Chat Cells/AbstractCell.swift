@@ -1185,14 +1185,14 @@ extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
     func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
         
         if let attachment = self.attachment {
-            if attachment.status == .downloading || attachment.status == .downloadFailed || attachment.status == .downloadPause {
-                IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
-            } else if attachment.status == .uploading {
+            if attachment.status == .uploading {
                 IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
             } else if attachment.status == .uploadFailed || attachment.status == .uploadPause {
                 if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
                     IGMessageSender.defaultSender.resend(message: self.finalRoomMessage, to: room)
                 }
+            } else {
+                IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
             }
         }
     }
