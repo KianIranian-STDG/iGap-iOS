@@ -1042,7 +1042,7 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
             case .video, .image, .gif:
 //                self.mediaDownloadUploadIndicatorView.isHidden = false
 //                self.attachmentDownloadUploadIndicatorView.isHidden = true
-                self.mediaDownloadUploadIndicatorView.setFileType(.media)
+                self.mediaDownloadUploadIndicatorView.setFileType(.downloadFile)
                 self.mediaDownloadUploadIndicatorView.setState(attachment.status)
                 if attachment.status == .downloading ||  attachment.status == .uploading {
                     self.mediaDownloadUploadIndicatorView.setPercentage(attachment.downloadUploadPercent)
@@ -1050,9 +1050,9 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
                 
             case .audio, .voice, .file:
                 if self.isIncommingMessage {
-                    self.attachmentDownloadUploadIndicatorView.setFileType(.incommingFile)
+                    self.attachmentDownloadUploadIndicatorView.setFileType(.downloadFile)
                 } else {
-                    self.attachmentDownloadUploadIndicatorView.setFileType(.outgoingFile)
+                    self.attachmentDownloadUploadIndicatorView.setFileType(.uploadFile)
                 }
                 self.attachmentDownloadUploadIndicatorView.setState(attachment.status)
                 if attachment.status == .downloading ||  attachment.status == .uploading {
@@ -1102,7 +1102,7 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
             
             switch attachment.type {
             case .video, .image, .gif:
-                self.forwardedMediaDownloadUploadIndicatorView.setFileType(.media)
+                self.forwardedMediaDownloadUploadIndicatorView.setFileType(.downloadFile)
                 self.forwardedMediaDownloadUploadIndicatorView.setState(attachment.status)
                 if attachment.status == .downloading ||  attachment.status == .uploading {
                     self.forwardedMediaDownloadUploadIndicatorView.setPercentage(attachment.downloadUploadPercent)

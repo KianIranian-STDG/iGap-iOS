@@ -94,7 +94,7 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
             
             switch attachment.type {
             case .video, .image:
-                self.mediaDownloadIndicator.setFileType(.media)
+                self.mediaDownloadIndicator.setFileType(.downloadFile)
                 self.mediaDownloadIndicator.setState(attachment.status)
                 if attachment.status == .downloading ||  attachment.status == .uploading {
                     self.mediaDownloadIndicator.setPercentage(attachment.downloadUploadPercent)

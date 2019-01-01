@@ -120,7 +120,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
             
             switch attachment.type {
             case .audio, .voice:
-                self.indicatorView.setFileType(.media)
+                self.indicatorView.setFileType(.downloadFile)
                 self.indicatorView.setState(attachment.status)
                 if attachment.status == .downloading || attachment.status == .uploading {
                     self.indicatorView.setPercentage(attachment.downloadUploadPercent)

@@ -351,7 +351,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     }
     
     private func sendClientCondition(clientCondition: IGClientCondition) {
-        IGClientConditionRequest.Generator.generate(clientCondition: clientCondition).success ({ (responseProto) in }).error ({ (errorCode, waitTime) in }).send()
+        //IGClientConditionRequest.Generator.generate(clientCondition: clientCondition).success ({ (responseProto) in }).error ({ (errorCode, waitTime) in }).send()
     }
     
     @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {

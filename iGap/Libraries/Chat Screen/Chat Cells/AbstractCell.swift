@@ -694,7 +694,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     func updateAttachmentDownloadUploadIndicatorView() {
         
         if let attachment = self.attachment {
-            if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) && !attachment.isInUploadLevels() {
+            let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+            if fileExist && !attachment.isInUploadLevels() {
                 if finalRoomMessage.type == .video || finalRoomMessage.type == .videoAndText {
                     makeVideoPlayView()
                 }
@@ -712,25 +713,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 return
             }
             
-            switch attachment.type {
-            case .video, .image, .gif:
-                indicatorViewAbs.setFileType(.media)
-                indicatorViewAbs.setState(attachment.status)
-                if attachment.status == .downloading || attachment.status == .uploading {
-                    indicatorViewAbs.setPercentage(attachment.downloadUploadPercent)
-                }
-                break
-            case .audio, .voice, .file:
-                if self.isIncommingMessage {
-                    indicatorViewAbs.setFileType(.incommingFile)
-                } else {
-                    indicatorViewAbs.setFileType(.outgoingFile)
-                }
-                indicatorViewAbs.setState(attachment.status)
-                if attachment.status == .downloading || attachment.status == .uploading {
-                    indicatorViewAbs.setPercentage(self.attachment!.downloadUploadPercent)
-                }
-                break
+            if self.isIncommingMessage || !fileExist {
+                indicatorViewAbs.setFileType(.downloadFile)
+            } else {
+                indicatorViewAbs.setFileType(.uploadFile)
+            }
+            indicatorViewAbs.setState(attachment.status)
+            if attachment.status == .downloading || attachment.status == .uploading {
+                indicatorViewAbs.setPercentage(attachment.downloadUploadPercent)
             }
         }
     }
@@ -1197,8 +1187,12 @@ extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
         if let attachment = self.attachment {
             if attachment.status == .downloading || attachment.status == .downloadFailed || attachment.status == .downloadPause {
                 IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
-            } else if attachment.status == .uploading || attachment.status == .uploadFailed || attachment.status == .uploadPause {
+            } else if attachment.status == .uploading {
                 IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
+            } else if attachment.status == .uploadFailed || attachment.status == .uploadPause {
+                if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
+                    IGMessageSender.defaultSender.resend(message: self.finalRoomMessage, to: room)
+                }
             }
         }
     }

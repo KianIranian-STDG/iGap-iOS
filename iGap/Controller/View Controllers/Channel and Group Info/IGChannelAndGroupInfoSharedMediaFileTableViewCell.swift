@@ -99,7 +99,7 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
             
             switch attachment.type {
             case .file:
-                self.indicatorView.setFileType(.media)
+                self.indicatorView.setFileType(.downloadFile)
                 self.indicatorView.setState(attachment.status)
                 if attachment.status == .downloading || attachment.status == .uploading {
                     self.indicatorView.setPercentage(attachment.downloadUploadPercent)

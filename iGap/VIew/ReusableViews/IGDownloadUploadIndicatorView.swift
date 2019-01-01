@@ -18,9 +18,8 @@ protocol IGDownloadUploadIndicatorViewDelegate {
 class IGDownloadUploadIndicatorView: UIView {
     
     enum IndicatorType {
-        case media
-        case incommingFile
-        case outgoingFile
+        case downloadFile
+        case uploadFile
     }
     
     var delegate: IGDownloadUploadIndicatorViewDelegate?
@@ -44,8 +43,8 @@ class IGDownloadUploadIndicatorView: UIView {
     private var currentPercent = 0.0
     private var nextPercent    = 0.0
     
-    private var downloadImageName: String = ""
-    private var downloadUploadText = ""
+    private var indicatorImage: String = ""
+    private var indicatorText = ""
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -93,35 +92,21 @@ class IGDownloadUploadIndicatorView: UIView {
     }
     
     func setFileType(_ type: IndicatorType) {
-        switch type {
-        case .media:
-            downloadImageName = "IG_Message_Cell_Attachment_Download"
-            backgroundView?.alpha = 0.5
-            sizeLabel?.alpha = 1.0
-            downlaodUploadProgressPathWidth = 5.0
-            downloadUploadPercentageLabel?.textColor = UIColor.white
-            downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 5.0, weight: 2)
-            break
-        case .incommingFile:
-            downloadImageName = "IG_Message_Cell_Attachment_Download_File"
-            backgroundView?.alpha = 0.0
-            sizeLabel?.alpha = 0.0
-            downlaodUploadProgressPathWidth = 2.0
-            downloadUploadPercentageLabel?.textColor = UIColor.black
-            downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 4.0, weight: 2)
-            break
-        case .outgoingFile:
-            downloadImageName = "IG_Message_Cell_Attachment_Download_File_Outgoing"
-            backgroundView?.alpha = 0.0
-            sizeLabel?.alpha = 0.0
-            downlaodUploadProgressPathWidth = 2.0
-            downloadUploadPercentageLabel?.textColor = UIColor.white
-            downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 4.0, weight: 2)
-            break
+        
+        if type == .downloadFile {
+            indicatorImage = "IG_Message_Cell_Attachment_Download"
+        } else {
+            indicatorImage = "IG_Message_Cell_Attachment_Upload"
         }
         
+        backgroundView?.alpha = 0.5
+        sizeLabel?.alpha = 1.0
+        downlaodUploadProgressPathWidth = 5.0
+        downloadUploadPercentageLabel?.textColor = UIColor.white
+        downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 5.0, weight: 2)
+        
         self.addDownloadButtonIfNeeded() //In case of reuse
-        self.downloadButton?.setImage(UIImage(named:downloadImageName), for: .normal)
+        self.downloadButton?.setImage(UIImage(named:indicatorImage), for: .normal)
     }
     
     
@@ -133,7 +118,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadUploadView?.removeFromSuperview()
             self.downloadUploadView = nil
             self.isHidden = false
-            self.downloadUploadText = "Processing"
+            self.indicatorText = "Processing"
             break
         case .downloading:
             self.downloadUploadView?.isHidden = false
@@ -142,7 +127,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadButton = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.downloadUploadText = "Downloading"
+            self.indicatorText = "Downloading"
             break
         case .processingAfterDownload:
             break
@@ -153,7 +138,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadUploadView?.removeFromSuperview()
             self.downloadUploadView = nil
             self.isHidden = false
-            self.downloadUploadText = "Download Paused"
+            self.indicatorText = "Download Paused"
             break
         case .downloadFailed:
             break
@@ -165,6 +150,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadButton = nil
             self.sizeLabel = nil
             self.isHidden = false
+            self.indicatorText = "Processing"
             break
         case .uploading:
             self.downloadUploadView?.isHidden = false
@@ -173,7 +159,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadButton = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.downloadUploadText = "Uploading"
+            self.indicatorText = "Uploading"
             break
         case .waitingForServerProcess:
             break
@@ -184,7 +170,7 @@ class IGDownloadUploadIndicatorView: UIView {
             break
             
         case .ready:
-            self.downloadUploadText = ""
+            self.indicatorText = ""
             self.downloadUploadView?.removeFromSuperview()
             self.downloadButton?.removeFromSuperview()
             self.sizeLabel?.removeFromSuperview()
@@ -218,7 +204,7 @@ class IGDownloadUploadIndicatorView: UIView {
         let nextValue = percent
         
         
-        downloadUploadPercentageLabel?.text = "\(self.downloadUploadText)\n\(String(format: "%.2f", percent*100))%"
+        downloadUploadPercentageLabel?.text = "\(self.indicatorText)\n\(String(format: "%.2f", percent*100))%"
         
         animation.toValue = nextValue
         
@@ -240,7 +226,7 @@ class IGDownloadUploadIndicatorView: UIView {
     private func addDownloadButtonIfNeeded() {
         if self.downloadButton == nil {
             self.downloadButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            self.downloadButton?.setImage(UIImage(named:downloadImageName), for: .normal)
+            self.downloadButton?.setImage(UIImage(named:indicatorImage), for: .normal)
             self.downloadButton?.addTarget(self, action: #selector(didTapOnView), for: .touchUpInside)
             self.addSubview(self.downloadButton!)
             self.downloadButton?.snp.makeConstraints({ (make) in
