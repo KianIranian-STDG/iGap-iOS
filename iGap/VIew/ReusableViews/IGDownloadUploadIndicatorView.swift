@@ -151,6 +151,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.sizeLabel = nil
             self.isHidden = false
             self.indicatorText = "Processing"
+            setPercentage(0.0)
             break
         case .uploading:
             self.downloadUploadView?.isHidden = false
@@ -167,6 +168,7 @@ class IGDownloadUploadIndicatorView: UIView {
         case .uploadPause:
             break
         case .uploadFailed:
+            self.downloadUploadView?.isHidden = true
             break
             
         case .ready:
