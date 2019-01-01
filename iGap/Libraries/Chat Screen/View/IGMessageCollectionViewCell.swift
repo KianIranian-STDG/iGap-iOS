@@ -142,6 +142,7 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
         paragraph.lineBreakMode = .byWordWrapping
         paragraph.lineSpacing = 4
         paragraph.paragraphSpacing = -2
+        paragraph.headIndent = 100
         
         //add an arbitrary string as time text to calculate whether the time fits in the currnt line or it should 
         //be moved to a new line
