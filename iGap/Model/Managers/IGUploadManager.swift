@@ -44,10 +44,6 @@ class IGUploadManager {
     @discardableResult
     func upload(file:IGFile, start:UploadStartCallback, progress:UploadProgressCallback, completion:UploadCompleteCallback, failure:UploadFailedCallback) -> IGUploadTask? {
 
-        if !IGAppManager.sharedManager.isUserLoggiedIn() { // if isn't login don't start upload
-            return nil
-        }
-        
         let uploadTask = IGUploadTask(file: file, start: start, progress: progress, completion: completion, failure: failure)
         performInUploadQueue {
             self.addToQueue(task: uploadTask)
@@ -56,7 +52,7 @@ class IGUploadManager {
         return uploadTask
     }
     
-    func cancelUpload(attachment: IGFile) {
+    func cancelUpload(attachment: IGFile, deleteMessage: Bool = true) {
         if attachment.primaryKeyId == nil {
             return
         }
@@ -64,9 +60,10 @@ class IGUploadManager {
         IGRequestManager.sharedManager.cancelRequest(identity: attachment.primaryKeyId!)
         IGMessageSender.defaultSender.removeMessagesWithAttachmentTask(primaryKeyId: attachment.primaryKeyId!)
         removeFromQueueAndStartNext(task: getTaskWithPrimaryKeyId(primaryKeyId: attachment.primaryKeyId!))
-        IGAttachmentManager.sharedManager.setProgress(0.0, for: attachment)
-        IGAttachmentManager.sharedManager.setStatus(.uploadPause, for: attachment)
-        IGFactory.shared.deleteMessageWithPrimaryKeyId(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
+        IGAttachmentManager.sharedManager.setStatus(.uploadFailed, for: attachment)
+        if deleteMessage {
+            IGFactory.shared.deleteMessageWithPrimaryKeyId(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
+        }
     }
     
     //MARK: - Private methods
@@ -121,7 +118,7 @@ class IGUploadManager {
                 startClousure()
             }
         }
-        IGFileUploadOptionRequest.Generator.generate(size: Int64((task.file.data!.count)), identity: task.file.primaryKeyId!).successPowerful { (protoMessage, requestWrapper) in
+        IGFileUploadOptionRequest.Generator.generate(size: Int64((task.file.data!.count)), identity: task.file.primaryKeyId!).successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadOptionReponse as IGPFileUploadOptionResponse:
                 task.status = .uploading
@@ -132,7 +129,8 @@ class IGUploadManager {
             default:
                 break
             }
-        }.error({ (errorCode, waitTime) in
+        }).error({ (errorCode, waitTime) in
+            IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
             DispatchQueue.main.async {
@@ -149,13 +147,13 @@ class IGUploadManager {
         let initialBytes = fileData.subdata(with: NSMakeRange(0, Int(task.finalBytesLimit!)))
         let size = Int(task.file.data!.count)
         let finalBytes = fileData.subdata(with: NSMakeRange(size - Int(task.finalBytesLimit!), Int(task.finalBytesLimit!)))
-        let reqW = IGFileUploadInitRequest.Generator.generate(initialBytes: initialBytes,
+        let request = IGFileUploadInitRequest.Generator.generate(initialBytes: initialBytes,
                                                               finalBytes: finalBytes ,
                                                               size: Int64(task.file.data!.count),
                                                               hash: task.file.sha256Hash!,
                                                               name: task.file.name!,
                                                               identity: task.file.primaryKeyId!)
-        reqW.successPowerful { (protoMessage, requestWrapper) in
+        request.successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadInitReponse as IGPFileUploadInitResponse:
                 let response = IGFileUploadInitRequest.Handler.interpret(response: fileUploadInitReponse)
@@ -172,7 +170,8 @@ class IGUploadManager {
             default:
                 break
             }
-        }.error({ (errorCode, waitTime) in
+        }).error({ (errorCode, waitTime) in
+            IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
             DispatchQueue.main.async {
@@ -187,7 +186,7 @@ class IGUploadManager {
     private func uploadAChunk(task: IGUploadTask, offset: Int64, limit: Int32) {
         let fileData = NSData(data: task.file.data!)
         let bytes = fileData.subdata(with: NSMakeRange(Int(offset), Int(limit)))
-        IGFileUploadRequest.Generator.generate(token: task.token!, offset: offset, data: bytes, identity: task.file.primaryKeyId!).successPowerful { (protoMessage, requestWrapper) in
+        IGFileUploadRequest.Generator.generate(token: task.token!, offset: offset, data: bytes, identity: task.file.primaryKeyId!).successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadReponse as IGPFileUploadResponse:
                 let response = IGFileUploadRequest.Handler.interpret(response: fileUploadReponse)
@@ -204,7 +203,8 @@ class IGUploadManager {
             default:
                 break
             }
-        }.error({ (errorCode, waitTime) in
+        }).error({ (errorCode, waitTime) in
+            IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
             DispatchQueue.main.async {
@@ -217,7 +217,7 @@ class IGUploadManager {
     
     //Step 4: Check for file state
     private func checkStatus(for task: IGUploadTask) {
-        IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task.file.primaryKeyId!).successPowerful { (protoMessage, requestWrapper) in
+        IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task.file.primaryKeyId!).successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadStatusResponse as IGPFileUploadStatusResponse:
                 let response = IGFileUploadStatusRequest.Handler.interpret(response: fileUploadStatusResponse)
@@ -259,7 +259,8 @@ class IGUploadManager {
             default:
                 break
             }
-        }.error({ (errorCode, waitTime) in
+        }).error({ (errorCode, waitTime) in
+            IGMessageSender.defaultSender.faileFileMessage(uploadTask: task)
             task.status = .failed
             self.removeFromQueueAndStartNext(task: task)
             DispatchQueue.main.async {

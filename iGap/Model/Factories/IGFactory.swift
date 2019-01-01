@@ -639,11 +639,18 @@ class IGFactory: NSObject {
         self.performNextFactoryTaskIfPossible()
     }
     
-    func updateMessageStatus(primaryKeyId: String, status: IGRoomMessageStatus) {
+    func updateMessageStatus(primaryKeyId: String, status: IGRoomMessageStatus, hasAttachment: Bool = false) {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId)
+                var predicate: NSPredicate!
+                
+                if hasAttachment {
+                    predicate = NSPredicate(format: "attachment.primaryKeyId = %@", primaryKeyId)
+                } else {
+                    predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId)
+                }
+                
                 try! IGDatabaseManager.shared.realm.write {
                     if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                         message.status = status

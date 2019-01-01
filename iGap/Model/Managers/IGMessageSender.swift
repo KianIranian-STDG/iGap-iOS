@@ -47,8 +47,13 @@ class IGMessageSender {
         }
     }
     
-    func failedMessage(primaryKeyId: String){
-        IGFactory.shared.updateMessageStatus(primaryKeyId: primaryKeyId, status: .failed)
+    func faileMessage(primaryKeyId: String){
+        IGFactory.shared.updateMessageStatus(primaryKeyId: primaryKeyId, status: .failed, hasAttachment: false)
+    }
+    
+    func faileFileMessage(uploadTask: IGUploadTask) {
+        IGUploadManager.sharedManager.cancelUpload(attachment: uploadTask.file, deleteMessage: false)
+        IGFactory.shared.updateMessageStatus(primaryKeyId: uploadTask.file.primaryKeyId!, status: .failed, hasAttachment: true)
     }
     
     func deleteFailedMessage(primaryKeyId: String?, hasAttachment: Bool = false) {
@@ -131,7 +136,7 @@ class IGMessageSender {
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         if let task = self.plainMessagesArray.first {
-                            self.failedMessage(primaryKeyId: task.message.primaryKeyId!)
+                            self.faileMessage(primaryKeyId: task.message.primaryKeyId!)
                         }
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
@@ -154,7 +159,7 @@ class IGMessageSender {
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         if let task = self.plainMessagesArray.first {
-                            self.failedMessage(primaryKeyId: task.message.primaryKeyId!)
+                            self.faileMessage(primaryKeyId: task.message.primaryKeyId!)
                         }
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
@@ -179,7 +184,7 @@ class IGMessageSender {
                 }).error({ (errorCode, waitTime) in
                     DispatchQueue.main.async {
                         if let task = self.plainMessagesArray.first {
-                            self.failedMessage(primaryKeyId: task.message.primaryKeyId!)
+                            self.faileMessage(primaryKeyId: task.message.primaryKeyId!)
                         }
                         self.removeTaskFromPlainMessagesQueue(nextMessageTask)
                         self.sendNextPlainRequest()
@@ -268,8 +273,9 @@ class IGMessageSender {
     private func makeCopyOfMessage(message: IGRoomMessage) -> IGRoomMessage{
         let finalMessage = IGRoomMessage()
         finalMessage.id = message.id
-        finalMessage.isDeleted = message.isDeleted
         finalMessage.message = message.message
+        finalMessage.type = message.type
+        finalMessage.isDeleted = message.isDeleted
         finalMessage.creationTime = message.creationTime
         finalMessage.status = message.status
         finalMessage.temporaryId = message.temporaryId
@@ -277,6 +283,7 @@ class IGMessageSender {
         finalMessage.randomId = message.randomId
         finalMessage.authorUser = message.authorUser
         finalMessage.authorHash = message.authorHash
+        finalMessage.attachment = message.attachment
         return finalMessage
     }
 }
