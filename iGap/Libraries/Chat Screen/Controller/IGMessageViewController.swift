@@ -934,8 +934,27 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    private func getUserInfo(){
+        guard let userId = self.room?.chatRoom?.peer?.id else {
+            return
+        }
         
+        IGUserInfoRequest.Generator.generate(userID: userId).success({ (protoResponse) in
+            if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
+                IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
+            }
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.getUserInfo()
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getUserInfo()
         setBackground()
         
         if let forwardMsg = IGMessageViewController.selectedMessageToForwardToThisRoom {

@@ -584,7 +584,7 @@ class IGNavigationItem: UINavigationItem {
                 break
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { // TODO - saeed - use realm notification listener
                 self.setLastSeenLabelForUser(user , room: room)
             }
         }

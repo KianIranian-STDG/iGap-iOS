@@ -544,7 +544,11 @@ class IGUserInfoRequest : IGRequest {
         }
     }
     
-    class Handler : IGRequest.Handler{
+    class Handler : IGRequest.Handler {
+        
+        class func interpret(response responseProtoMessage: IGPUserInfoResponse) {
+            IGFactory.shared.saveRegistredUsers([responseProtoMessage.igpUser])
+        }
         
         override class func handlePush(responseProtoMessage: Message) {}
     }
