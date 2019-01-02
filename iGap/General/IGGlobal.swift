@@ -680,7 +680,7 @@ extension UIImage {
     
     class func originalImage(for attachment: IGFile) -> UIImage? {
         if let path = attachment.path() {
-            if IGGlobal.isFileExist(path: path) {
+            if IGGlobal.isFileExist(path: path, fileSize: attachment.size) {
                 if let image = UIImage(contentsOfFile: path.path) {
                     return image
                 }
@@ -688,18 +688,8 @@ extension UIImage {
         }
         if let attachedImage = attachment.attachedImage {
             return attachedImage
-        } else {
-            if let path = attachment.path() {
-                do {
-                    let data = try Data(contentsOf: path)
-                    return UIImage(data: data)
-                } catch  {
-                    return nil
-                }
-            }
-            
-            return nil
         }
+        return nil
     }
     
     /****** Gif ******/
