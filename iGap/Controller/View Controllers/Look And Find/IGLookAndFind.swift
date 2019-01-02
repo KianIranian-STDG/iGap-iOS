@@ -213,7 +213,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
-        
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
         if let text = searchBar.text, !text.isEmpty {
             self.search(query: text)
         }
