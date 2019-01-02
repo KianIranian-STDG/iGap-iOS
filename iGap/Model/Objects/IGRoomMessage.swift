@@ -123,13 +123,13 @@ class IGRoomMessage: Object {
                 self.attachment = fileInDb
             } else {
                 self.attachment = IGFile(igpFile: igpMessage.igpAttachment, messageType: self.type)
-            }
-            if self.attachment?.fileNameOnDisk == nil {
-                self.attachment!.downloadUploadPercent = 0.0
-                self.attachment!.status = .readyToDownload
-            } else if !(self.attachment?.isInUploadLevels())!{
-                self.attachment!.downloadUploadPercent = 1.0
-                self.attachment!.status = .ready
+                if self.attachment?.fileNameOnDisk == nil {
+                    self.attachment!.downloadUploadPercent = 0.0
+                    self.attachment!.status = .readyToDownload
+                } else if !(self.attachment?.isInUploadLevels())!{
+                    self.attachment!.downloadUploadPercent = 1.0
+                    self.attachment!.status = .ready
+                }
             }
         }
         if igpMessage.hasIgpAuthor {
