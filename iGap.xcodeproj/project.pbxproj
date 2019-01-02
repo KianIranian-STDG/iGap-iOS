@@ -61,7 +61,6 @@
 		FA0953411E1B97700043ED3F /* IGActiveSessionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */; };
 		FA0953421E1B97700043ED3F /* IGActiveSessionsParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */; };
 		FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */; };
-		FA0953441E1B97700043ED3F /* IGDeleteAccountReasonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953121E1B97700043ED3F /* IGDeleteAccountReasonTableViewController.swift */; };
 		FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */; };
 		FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */; };
 		FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */; };
@@ -468,7 +467,6 @@
 		FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGActiveSessionObject.swift; sourceTree = "<group>"; };
 		FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGActiveSessionsParentCell.swift; sourceTree = "<group>"; };
 		FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountConfirmationTableViewController.swift; sourceTree = "<group>"; };
-		FA0953121E1B97700043ED3F /* IGDeleteAccountReasonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountReasonTableViewController.swift; sourceTree = "<group>"; };
 		FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountTableViewController.swift; sourceTree = "<group>"; };
 		FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iGPhoneNumberPageViewController.swift; sourceTree = "<group>"; };
 		FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGPrivacyAndSecurityWhoCanSeeTableViewController.swift; sourceTree = "<group>"; };
@@ -936,7 +934,6 @@
 				FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */,
 				FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */,
 				FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */,
-				FA0953121E1B97700043ED3F /* IGDeleteAccountReasonTableViewController.swift */,
 				FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */,
 				FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */,
 				FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */,
@@ -2147,7 +2144,6 @@
 				FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */,
 				FA98F838204D37670070424E /* IGCallQuality.swift in Sources */,
 				FA0CC80C1E5D7D4400556283 /* StringTrimExtension.swift in Sources */,
-				FA0953441E1B97700043ED3F /* IGDeleteAccountReasonTableViewController.swift in Sources */,
 				FA0953711E1B97700043ED3F /* IGSettingTableViewController.swift in Sources */,
 				FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */,
 				932D1ABE1E7426AD000F0D97 /* IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell.swift in Sources */,
