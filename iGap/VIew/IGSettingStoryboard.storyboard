@@ -1652,7 +1652,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
         <!--Why didi yoy delete-->
         <scene sceneID="N5P-LC-mQm">
             <objects>
-                <tableViewController storyboardIdentifier="DeleteAccountReasonPage" id="Tx5-4h-fSk" customClass="IGDeleteAccountReasonTableViewController" customModule="iGap" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DeleteAccountReasonPage" id="Tx5-4h-fSk" customClass="IGDeleteAccountReasonViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="pqQ-2k-RJf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -216,6 +216,7 @@
 		FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA80F59F204ABC5900F0EE74 /* tone.mp3 */; };
 		FA8204382025C97300A795D5 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8204362025C97300A795D5 /* ImageCell.swift */; };
 		FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA82043A2025C99300A795D5 /* ImageCell.xib */; };
+		FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */; };
 		FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA84D49E21C918C9009597B7 /* webServiceKey.txt */; };
 		FA8560AA1FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8560A91FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift */; };
 		FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA865C7120789C2600B9D585 /* MapKit.framework */; };
@@ -627,6 +628,7 @@
 		FA80F59F204ABC5900F0EE74 /* tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tone.mp3; sourceTree = "<group>"; };
 		FA8204362025C97300A795D5 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		FA82043A2025C99300A795D5 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountReasonViewController.swift; sourceTree = "<group>"; };
 		FA84D49E21C918C9009597B7 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
 		FA8560A91FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift; sourceTree = "<group>"; };
 		FA865C7120789C2600B9D585 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -935,6 +937,7 @@
 				FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */,
 				FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */,
 				FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */,
+				FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */,
 				FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */,
 				FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */,
 				FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */,
@@ -2178,6 +2181,7 @@
 				FAD2B5821DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift in Sources */,
 				93AA67C21E4F37D10053380C /* IGChannelInfoMemberListTableViewController.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
+				FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */,
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,

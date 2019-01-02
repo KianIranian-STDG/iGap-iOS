@@ -173,8 +173,8 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToDeleteReasenPage" {
             let deleteReasonNavigationController = segue.destination as! UINavigationController
-            if deleteReasonNavigationController.topViewController is IGDeleteAccountReasonTableViewController {
-                let deleteReasenVC = deleteReasonNavigationController.topViewController as! IGDeleteAccountReasonTableViewController
+            if deleteReasonNavigationController.topViewController is IGDeleteAccountReasonViewController {
+                let deleteReasenVC = deleteReasonNavigationController.topViewController as! IGDeleteAccountReasonViewController
                 if let deleteCode = CodeEntryTextField.text {
                     deleteReasenVC.token = deleteCode.uppercased()
                     print(deleteCode)
