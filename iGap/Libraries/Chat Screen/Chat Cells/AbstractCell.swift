@@ -937,7 +937,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     
     private func makeStatus(){
-        let size:CGFloat = 10
+        let size:CGFloat = 15
         if imgStatusAbs == nil {
             imgStatusAbs = UIImageView()
             imgStatusAbs.layer.cornerRadius = size/2
@@ -965,15 +965,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     private func makeTime(statusExist: Bool){
         if txtTimeAbs == nil {
             txtTimeAbs = UILabel()
-            txtTimeAbs.font = UIFont.igFont(ofSize: 9.0)
+            txtTimeAbs.font = UIFont.igFont(ofSize: 11.0)
             mainBubbleViewAbs.addSubview(txtTimeAbs)
         }
         
         txtTimeAbs.snp.makeConstraints{ (make) in
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-15)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-20)
             make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-11)
-            make.width.equalTo(30)
-            make.height.equalTo(11)
+            make.width.equalTo(35)
+            make.height.equalTo(13)
         }
     }
     

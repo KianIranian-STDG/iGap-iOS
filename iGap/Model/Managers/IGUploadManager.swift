@@ -55,6 +55,7 @@ class IGUploadManager {
     func pauseAllUploads(){
         for task in pendingUploads {
             cancelUpload(attachment: task.file, deleteMessage: false)
+            IGFactory.shared.updateMessageStatus(primaryKeyId: task.file.primaryKeyId!, status: .failed, hasAttachment: true)
         }
     }
     
