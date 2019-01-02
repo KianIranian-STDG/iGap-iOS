@@ -844,9 +844,9 @@ class IGFactory: NSObject {
                         }
                     }
                     room.clearId = clearID
+                    room.lastMessage = nil
                     try! IGDatabaseManager.shared.realm.commitWrite()
                     
-                    self.updateRoomLastMessageIfPossible(roomID: roomID)
                     IGFactory.shared.performInFactoryQueue {
                         task.success!()
                     }
