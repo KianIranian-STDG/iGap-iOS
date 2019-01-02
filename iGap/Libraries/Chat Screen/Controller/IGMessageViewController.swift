@@ -58,6 +58,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var inputBarContainerView: UIView!
     @IBOutlet weak var inputTextView: GrowingTextView!
     
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var inputTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputBarHeightContainerConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputBarHeightConstraint: NSLayoutConstraint!
@@ -203,7 +204,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         }).disposed(by: disposeBag)
         
-
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
+        mainView.addGestureRecognizer(gesture)
         
         self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }
@@ -392,6 +394,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
+    }
+    
+    @objc func tapOnMainView(sender : UITapGestureRecognizer) {
+        self.view.endEditing(true)
     }
     
     func onBotDataRecieve(results: [IGApiStruct]) {
