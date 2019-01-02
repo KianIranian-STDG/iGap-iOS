@@ -3073,13 +3073,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let resend = UIAlertAction(title: "Resend Message", style: .default, handler: { (action) in
+        let resend = UIAlertAction(title: "Send Again", style: .default, handler: { (action) in
             DispatchQueue.main.async {
                 IGMessageSender.defaultSender.resend(message: cellMessage, to: self.room!)
             }
         })
         
-        let delete = UIAlertAction(title: "Delete", style: .default, handler: { (action) in
+        let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
             if let attachment = cellMessage.attachment {
                 IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
             } else {
