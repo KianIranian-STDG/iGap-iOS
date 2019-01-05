@@ -226,8 +226,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         }).disposed(by: disposeBag)
         
+        /*
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
         mainView.addGestureRecognizer(gesture)
+        */
         
         self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }

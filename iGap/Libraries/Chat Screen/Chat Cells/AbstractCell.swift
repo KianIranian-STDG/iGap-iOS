@@ -493,12 +493,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         if mainBubbleViewAbs != nil {
             let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
-            let tapOnCell = UITapGestureRecognizer(target: self, action: #selector(didTapOnCell(_:)))
-            
             tapAndHold.minimumPressDuration = 0.2
-            
             mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
-            mainBubbleViewAbs.addGestureRecognizer(tapOnCell)
+            
+            if self.attachment != nil {
+                let tapOnCell = UITapGestureRecognizer(target: self, action: #selector(didTapAttachmentOnCell(_:)))
+                mainBubbleViewAbs.addGestureRecognizer(tapOnCell)
+            }
             
             mainBubbleViewAbs.isUserInteractionEnabled = true
         }
@@ -554,7 +555,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
     }
     
-    func didTapOnCell(_ gestureRecognizer: UITapGestureRecognizer) {
+    func didTapAttachmentOnCell(_ gestureRecognizer: UITapGestureRecognizer) {
         if finalRoomMessage.attachment != nil {
             didTapOnAttachment(gestureRecognizer)
         }
