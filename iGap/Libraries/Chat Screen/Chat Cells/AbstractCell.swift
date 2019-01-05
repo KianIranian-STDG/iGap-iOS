@@ -490,10 +490,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
      */
     
     func manageGustureRecognizers() {
-        let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
-        tapAndHold.minimumPressDuration = 0.2
-        mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
-        mainBubbleViewAbs.isUserInteractionEnabled = true
+        
+        if mainBubbleViewAbs != nil {
+            let tapAndHold = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnCell(_:)))
+            let tapOnCell = UITapGestureRecognizer(target: self, action: #selector(didTapOnCell(_:)))
+            
+            tapAndHold.minimumPressDuration = 0.2
+            
+            mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
+            mainBubbleViewAbs.addGestureRecognizer(tapOnCell)
+            
+            mainBubbleViewAbs.isUserInteractionEnabled = true
+        }
         
         if replyViewAbs != nil {
             let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
@@ -543,6 +551,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!, cell: self)
         default:
             break
+        }
+    }
+    
+    func didTapOnCell(_ gestureRecognizer: UITapGestureRecognizer) {
+        if finalRoomMessage.attachment != nil {
+            didTapOnAttachment(gestureRecognizer)
         }
     }
     
