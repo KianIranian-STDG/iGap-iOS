@@ -111,21 +111,25 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var reportMessageId: Int64?
     
     let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
-                                String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
-                                String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
-                                String(kUTTypeRTFD), // file end
-                                String(kUTTypeGIF), // gif
-                                String(kUTTypeText), String(kUTTypePlainText), String(kUTTypeUTF8PlainText), // text start
-                                String(kUTTypeUTF16ExternalPlainText), String(kUTTypeUTF16PlainText),
-                                String(kUTTypeDelimitedText), String(kUTTypeRTF), // text end
-                                String(kUTTypeImage), String(kUTTypeJPEG), String(kUTTypeJPEG2000), // image start
-                                String(kUTTypeTIFF), String(kUTTypePICT), String(kUTTypePNG), String(kUTTypeQuickTimeImage),
-                                String(kUTTypeAppleICNS), String(kUTTypeBMP), String(kUTTypeICO), String(kUTTypeRawImage),
-                                String(kUTTypeScalableVectorGraphics), // image end
-                                String(kUTTypeMovie), String(kUTTypeVideo), String(kUTTypeQuickTimeMovie), // video start
-                                String(kUTTypeMPEG), String(kUTTypeMPEG2Video), String(kUTTypeMPEG2TransportStream),
-                                String(kUTTypeMPEG4), String(kUTTypeAppleProtectedMPEG4Video), String(kUTTypeAVIMovie),
-                                String(kUTTypeMPEG2Video)] // video end
+        String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
+        String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
+        String(kUTTypeRTFD), // file end
+        String(kUTTypeGIF), // gif
+        String(kUTTypeText), String(kUTTypePlainText), String(kUTTypeUTF8PlainText), // text start
+        String(kUTTypeUTF16ExternalPlainText), String(kUTTypeUTF16PlainText),
+        String(kUTTypeDelimitedText), String(kUTTypeRTF), // text end
+        String(kUTTypeImage), String(kUTTypeJPEG), String(kUTTypeJPEG2000), // image start
+        String(kUTTypeTIFF), String(kUTTypePICT), String(kUTTypePNG), String(kUTTypeQuickTimeImage),
+        String(kUTTypeAppleICNS), String(kUTTypeBMP), String(kUTTypeICO), String(kUTTypeRawImage),
+        String(kUTTypeScalableVectorGraphics), // image end
+        String(kUTTypeMovie), String(kUTTypeVideo), String(kUTTypeQuickTimeMovie), // video start
+        String(kUTTypeMPEG), String(kUTTypeMPEG2Video), String(kUTTypeMPEG2TransportStream),
+        String(kUTTypeMPEG4), String(kUTTypeAppleProtectedMPEG4Video), String(kUTTypeAVIMovie),
+        String(kUTTypeMPEG2Video),// video end
+        String(kUTTypeAudiovisualContent), String(kUTTypeAudio), String(kUTTypeMP3), // audio start
+        String(kUTTypeMPEG4Audio), String(kUTTypeAppleProtectedMPEG4Audio), String(kUTTypeAudioInterchangeFileFormat),
+        String(kUTTypeWaveformAudio), String(kUTTypeMIDIAudio)] // audio end
+    
     
     
     //var messages = [IGRoomMessage]()
