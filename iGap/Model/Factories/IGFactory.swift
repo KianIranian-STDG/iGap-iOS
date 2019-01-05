@@ -466,6 +466,12 @@ class IGFactory: NSObject {
                     let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", message.id, roomId)
                     if let messageInDb = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
                         message.primaryKeyId = messageInDb.primaryKeyId
+                        
+                        // update attachment type with server resposne. e.g. user send file message but get gif message in response, so we need update type
+                        // TODO - saeed - update all file params with server response
+                        if let attachment = message.attachment {
+                            attachment.type = IGFile.getFileType(messageType: message.type)
+                        }
                     }
 
                     if isFromSendMessage {

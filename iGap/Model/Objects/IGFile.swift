@@ -351,6 +351,41 @@ class IGFile: Object {
     public func isInUploadLevels() -> Bool {
         return self.status == .uploading || self.status == .uploadPause || self.status == .processingForUpload || self.status == .uploadFailed
     }
+    
+    public static func getFileType(messageType: IGRoomMessageType) -> IGFile.FileType {
+        var fileType = IGFile.FileType.file
+        
+        switch messageType {
+        case .audio, .audioAndText:
+            fileType = .audio
+            break
+            
+        case .image, .imageAndText:
+            fileType = .image
+            break
+            
+        case .video, .videoAndText:
+            fileType = .video
+            break
+            
+        case .voice:
+            fileType = .voice
+            break
+            
+        case .gif, .gifAndText:
+            fileType = .gif
+            break
+            
+        case .file, .fileAndText:
+            fileType = .file
+            break
+            
+        default:
+            break
+        }
+        
+        return fileType
+    }
 }
 
 
