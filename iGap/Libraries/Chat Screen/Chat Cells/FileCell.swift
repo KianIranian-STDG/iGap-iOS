@@ -78,6 +78,7 @@ class FileCell: AbstractCell {
         if txtFileName == nil {
             txtFileName = UILabel()
             txtFileName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            txtFileName.lineBreakMode = .byTruncatingMiddle
             txtFileName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtFileName)
         }

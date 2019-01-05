@@ -24,6 +24,7 @@ import RxSwift
 import RxCocoa
 import MBProgressHUD
 import ContactsUI
+import MobileCoreServices
 
 class IGHeader: UICollectionReusableView {
     
@@ -50,7 +51,7 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate {
 
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
@@ -108,6 +109,23 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var collectionViewTopInsetOffset: CGFloat = 0.0
     var connectionStatus : IGAppManager.ConnectionStatus?
     var reportMessageId: Int64?
+    
+    let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
+                                String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
+                                String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
+                                String(kUTTypeRTFD), // file end
+                                String(kUTTypeGIF), // gif
+                                String(kUTTypeText), String(kUTTypePlainText), String(kUTTypeUTF8PlainText), // text start
+                                String(kUTTypeUTF16ExternalPlainText), String(kUTTypeUTF16PlainText),
+                                String(kUTTypeDelimitedText), String(kUTTypeRTF), // text end
+                                String(kUTTypeImage), String(kUTTypeJPEG), String(kUTTypeJPEG2000), // image start
+                                String(kUTTypeTIFF), String(kUTTypePICT), String(kUTTypePNG), String(kUTTypeQuickTimeImage),
+                                String(kUTTypeAppleICNS), String(kUTTypeBMP), String(kUTTypeICO), String(kUTTypeRawImage),
+                                String(kUTTypeScalableVectorGraphics), // image end
+                                String(kUTTypeMovie), String(kUTTypeVideo), String(kUTTypeQuickTimeMovie), // video start
+                                String(kUTTypeMPEG), String(kUTTypeMPEG2Video), String(kUTTypeMPEG2TransportStream),
+                                String(kUTTypeMPEG4), String(kUTTypeAppleProtectedMPEG4Video), String(kUTTypeAVIMovie),
+                                String(kUTTypeMPEG2Video)] // video end
     
     
     //var messages = [IGRoomMessage]()
@@ -1627,6 +1645,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.attachmentPicker()
         })
         
+        let document = UIAlertAction(title: "Document", style: .default, handler: { (action) in
+            self.documentPicker()
+        })
+        
         let contact = UIAlertAction(title: "Contact", style: .default, handler: { (action) in
             self.openContact()
         })
@@ -1640,6 +1662,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         alertC.addAction(camera)
         alertC.addAction(galley)
+        alertC.addAction(document)
         alertC.addAction(contact)
         alertC.addAction(location)
         alertC.addAction(cancel)
@@ -1653,6 +1676,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         mediaPicker.sourceType = sourceType
         mediaPicker.mediaTypes = ["public.image", "public.movie"]
         self.present(mediaPicker, animated: true, completion: nil)
+    }
+    
+    func documentPicker(){
+        let documentPicker: UIDocumentPickerViewController = UIDocumentPickerViewController(documentTypes: documentPickerIdentifiers, in: UIDocumentPickerMode.import)
+        documentPicker.delegate = self
+        documentPicker.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+        self.present(documentPicker, animated: true, completion: nil)
     }
     
     /***** overrided method for pick media *****/
@@ -1674,6 +1704,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         default: // manage file?
             break
+        }
+    }
+    
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        let myURL = url as URL
+        if let data = try? Data(contentsOf: myURL) {
+            let filename = myURL.lastPathComponent
+            manageFile(fileData: data, filename: filename)
         }
     }
     
@@ -1751,6 +1789,36 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
+        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+        
+        self.didSelectAttachment(attachment)
+    }
+    
+    func manageFile(fileData: Data, filename: String) {
+        
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDisk = documents + "/" + randomString + filename
+        
+        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
+        let fileSize = Int(fileData.count)
+        
+        // write data to my fileUrl
+        try! fileData.write(to: fileUrl)
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.fileNameOnDisk = randomString + filename
+        attachment.name = filename
+        attachment.type = .file
+        
+        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
+        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
+
+        self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
+        self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
         self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
         self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         
@@ -2116,7 +2184,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func didFinishRecording(success: Bool) {
-        print((recorder?.url)!)
         recorder = nil
     }
     
@@ -2127,6 +2194,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.inputBarSendButton.isHidden = false
         self.inputBarRecordButton.isHidden = true
         self.inputBarAttachmentViewFileNameLabel.text  = currentAttachment?.name
+        self.inputBarAttachmentViewFileNameLabel.lineBreakMode = .byTruncatingMiddle
         self.inputBarAttachmentViewFileSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: currentAttachment!.size)
     }
 

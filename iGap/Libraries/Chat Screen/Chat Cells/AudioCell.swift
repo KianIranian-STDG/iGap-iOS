@@ -80,6 +80,7 @@ class AudioCell: AbstractCell {
         if txtAudioName == nil {
             txtAudioName = UILabel()
             txtAudioName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            txtAudioName.lineBreakMode = .byTruncatingMiddle
             txtAudioName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtAudioName)
         }

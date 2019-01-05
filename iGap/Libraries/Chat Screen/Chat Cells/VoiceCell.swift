@@ -59,6 +59,7 @@ class VoiceCell: AbstractCell {
         if txtVoiceRecorderName == nil {
             txtVoiceRecorderName = UILabel()
             txtVoiceRecorderName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            txtVoiceRecorderName.lineBreakMode = .byTruncatingMiddle
             txtVoiceRecorderName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtVoiceRecorderName)
         }

@@ -71,8 +71,10 @@ class IGMessageSender {
     }
     
     func faileFileMessage(uploadTask: IGUploadTask) {
-        IGUploadManager.sharedManager.cancelUpload(attachment: uploadTask.file, deleteMessage: false)
-        IGFactory.shared.updateMessageStatus(primaryKeyId: uploadTask.file.primaryKeyId!, status: .failed, hasAttachment: true)
+        DispatchQueue.main.async {
+            IGUploadManager.sharedManager.cancelUpload(attachment: uploadTask.file, deleteMessage: false)
+            IGFactory.shared.updateMessageStatus(primaryKeyId: uploadTask.file.primaryKeyId!, status: .failed, hasAttachment: true)
+        }
     }
     
     func deleteFailedMessage(primaryKeyId: String?, hasAttachment: Bool = false) {
