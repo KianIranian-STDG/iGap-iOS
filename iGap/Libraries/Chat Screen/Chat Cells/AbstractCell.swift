@@ -48,7 +48,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
 
     var realmRoomMessage: IGRoomMessage!
     var finalRoomMessage: IGRoomMessage!
-    var messageSizes: RoomMessageCalculatedSize!
+    var messageSizes: MessageCalculatedSize!
     var isIncommingMessage: Bool!
     var shouldShowAvatar: Bool!
     var isPreviousMessageFromSameSender: Bool!
@@ -71,7 +71,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         self.backgroundColor = UIColor.clear
     }
     
-    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: RoomMessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         self.realmRoomMessage = message
         self.isIncommingMessage = isIncommingMessage
         self.shouldShowAvatar = shouldShowAvatar
@@ -122,16 +122,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     private func manageTextMessage(){
         
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
-            txtMessageAbs.font = IGMessageCollectionViewCell.messageBodyTextViewFont()
+            txtMessageAbs.font = CellSizeCalculator.messageBodyTextViewFont()
             messageViewAbs?.isHidden = false
             txtMessageAbs?.isHidden = false
             messageViewAbs?.backgroundColor = UIColor.clear
             txtMessageAbs?.textColor = UIColor.chatBubbleTextColor(isIncommingMessage: isIncommingMessage)
-            if isForward {
-                txtMessageHeightConstraintAbs?.constant = messageSizes.forwardedMessageBodyHeight
-            } else {
-                txtMessageHeightConstraintAbs?.constant = messageSizes.messageBodyHeight
-            }
+            txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.text = finalRoomMessage.message
         } else {
             txtMessageHeightConstraintAbs?.constant = 0
@@ -402,7 +398,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             return
         }
         
-        txtMessage?.font = IGMessageCollectionViewCell.messageBodyTextViewFont()
+        txtMessage?.font = CellSizeCalculator.messageBodyTextViewFont()
         
         txtMessage?.customize {(lable) in
             //let customInvitedLink = ActiveType.custom(pattern: "((?:http|https)://)?[igap\\.net]+(\\.\\w{0})?(/(?<=/)(?:[\\join./]+[a-zA-Z0-9]{2,}))") //look for iGap.net/join/
@@ -1068,14 +1064,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             
             if isForward {
                 imgMediaTopAbs = make.top.equalTo(forwardViewAbs.snp.bottom).constraint
-                imgMediaHeightAbs = make.height.equalTo(messageSizes.forwardedMessageAttachmentHeight).constraint
             } else if isReply {
                 imgMediaTopAbs = make.top.equalTo(replyViewAbs.snp.bottom).constraint
-                imgMediaHeightAbs = make.height.equalTo(messageSizes.MessageAttachmentHeight).constraint
             } else {
                 imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).constraint
-                imgMediaHeightAbs = make.height.equalTo(messageSizes.MessageAttachmentHeight).constraint
             }
+            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }

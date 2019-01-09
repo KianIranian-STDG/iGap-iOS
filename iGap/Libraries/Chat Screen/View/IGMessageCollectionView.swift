@@ -16,7 +16,6 @@ protocol IGMessageCollectionViewDataSource : UICollectionViewDataSource {
 
 class IGMessageCollectionView: UICollectionView {
     
-//    var dataStorage: IGMessageCollectionViewDataSource?
     let layout = IGMessageCollectionViewFlowLayout()
     
     override func awakeFromNib() {
@@ -30,23 +29,16 @@ class IGMessageCollectionView: UICollectionView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        //fatalError("init(coder:) has not been implemented")
         super.init(coder: aDecoder)
         configureCollectionView()
     }
     
     func configureCollectionView() {
-//        self.translatesAutoresizingMaskIntoConstraints = true
         
         self.backgroundColor = UIColor.clear
         self.keyboardDismissMode = .interactive
         self.alwaysBounceVertical = true
         self.bounces = true
-        
-//        let bgImage = UIImageView();
-//        bgImage.image = UIImage(named: "IG_Chat_Screen_Background");
-//        bgImage.contentMode = .scaleToFill
-//        self.backgroundView = bgImage
         
         self.setCollectionViewLayout(layout, animated: true)
         self.register(TextCell.nib(), forCellWithReuseIdentifier: TextCell.cellReuseIdentifier())
@@ -58,18 +50,11 @@ class IGMessageCollectionView: UICollectionView {
         self.register(VoiceCell.nib(), forCellWithReuseIdentifier: VoiceCell.cellReuseIdentifier())
         self.register(AudioCell.nib(), forCellWithReuseIdentifier: AudioCell.cellReuseIdentifier())
         self.register(LocationCell.nib(), forCellWithReuseIdentifier: LocationCell.cellReuseIdentifier())
-        self.register(IGMessageCollectionViewCell.nib(), forCellWithReuseIdentifier: IGMessageCollectionViewCell.cellReuseIdentifier())
         self.register(IGMessageLogCollectionViewCell.nib(), forCellWithReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier())
         self.register(IGMessageLogCollectionViewCell.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier())
-        
-        
-        
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return true
     }
-    
-
-    
 }

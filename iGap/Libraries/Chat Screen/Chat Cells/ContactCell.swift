@@ -33,7 +33,13 @@ class ContactCell: AbstractCell {
         return NSStringFromClass(self)
     }
     
-    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: RoomMessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+    class func getContactHeight(_ contact: IGRoomMessageContact) -> CGFloat {
+        let numberOfInfos = contact.emails.count + contact.phones.count
+        let height = numberOfInfos * 15
+        return CGFloat(height)
+    }
+    
+    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
         super.setMessage(message, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         makeContact()

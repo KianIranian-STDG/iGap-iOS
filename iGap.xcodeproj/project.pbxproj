@@ -319,10 +319,8 @@
 		FAD580861DDC49A200A242DE /* IGMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD580851DDC49A200A242DE /* IGMessageViewController.swift */; };
 		FAD580881DDC4C6900A242DE /* IGMessageCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD580871DDC4C6900A242DE /* IGMessageCollectionViewFlowLayout.swift */; };
 		FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5808E1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift */; };
-		FAD580941DDC5C4E00A242DE /* IGMessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD580921DDC5C4E00A242DE /* IGMessageCollectionViewCell.swift */; };
 		FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAD580931DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib */; };
 		FAD580971DDC61DD00A242DE /* IGMessageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD580961DDC61DD00A242DE /* IGMessageCollectionView.swift */; };
-		FAD580991DDC67EB00A242DE /* IGMessageCollectionViewCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD580981DDC67EB00A242DE /* IGMessageCollectionViewCellSizeCalculator.swift */; };
 		FAD744FA21B940D400801D2E /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FAD744F021B940D400801D2E /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FAD7450021B940F800801D2E /* IGHelperGetShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */; };
 		FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD7451621B9447B00801D2E /* IGShareInfo.swift */; };
@@ -736,10 +734,8 @@
 		FAD580851DDC49A200A242DE /* IGMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageViewController.swift; sourceTree = "<group>"; };
 		FAD580871DDC4C6900A242DE /* IGMessageCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		FAD5808E1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageGeneralCollectionViewCell.swift; sourceTree = "<group>"; };
-		FAD580921DDC5C4E00A242DE /* IGMessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAD580931DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGMessageCollectionViewCell.xib; sourceTree = "<group>"; };
 		FAD580961DDC61DD00A242DE /* IGMessageCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageCollectionView.swift; sourceTree = "<group>"; };
-		FAD580981DDC67EB00A242DE /* IGMessageCollectionViewCellSizeCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMessageCollectionViewCellSizeCalculator.swift; sourceTree = "<group>"; };
 		FAD744F021B940D400801D2E /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperGetShareData.swift; sourceTree = "<group>"; };
 		FAD7450121B9411900801D2E /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
@@ -1540,7 +1536,6 @@
 			isa = PBXGroup;
 			children = (
 				FA6B602D201E0483008460CF /* CellSizeCalculator.swift */,
-				FAD580981DDC67EB00A242DE /* IGMessageCollectionViewCellSizeCalculator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1550,7 +1545,6 @@
 			children = (
 				FAD580961DDC61DD00A242DE /* IGMessageCollectionView.swift */,
 				FAD5808E1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift */,
-				FAD580921DDC5C4E00A242DE /* IGMessageCollectionViewCell.swift */,
 				FAD580931DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib */,
 				FAD57EDF1E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift */,
 				FAD57EE01E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib */,
@@ -2158,7 +2152,6 @@
 				FAA9DFB61F4B1CB50076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangePasswordTableViewController.swift in Sources */,
 				FA8D056D20739C96007861E7 /* IGSettingAddContactViewController.swift in Sources */,
 				FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */,
-				FAD580941DDC5C4E00A242DE /* IGMessageCollectionViewCell.swift in Sources */,
 				FA8204382025C97300A795D5 /* ImageCell.swift in Sources */,
 				FA27F74020BD77ED00EC6A97 /* api.key in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
@@ -2236,7 +2229,6 @@
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
 				93193F3C1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift in Sources */,
 				FA09538B1E1B97E20043ED3F /* IGNewChannelChoosePublicOrPrivateTableViewController.swift in Sources */,
-				FAD580991DDC67EB00A242DE /* IGMessageCollectionViewCellSizeCalculator.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */,
 				93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */,

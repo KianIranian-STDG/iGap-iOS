@@ -10,13 +10,70 @@
 
 import UIKit
 
-typealias MessageCalculatedSize = (bubbleSize: CGSize,
-    forwardedMessageBodyHeight: CGFloat,
-    forwardedMessageAttachmentHeight: CGFloat,
-    messageBodyHeight: CGFloat,
-    MessageAttachmentHeight: CGFloat)
+typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: CGFloat)
 
 class CellSizeCalculator: NSObject {
+    
+    struct ConstantSizes {
+        struct Bubble {
+            struct Height {
+                struct Minimum {
+                    static let Attachment: CGFloat = 50.0
+                }
+                struct Maximum {
+                    static let Attachment: CGFloat = 400.0
+                }
+            }
+            struct Width {
+                struct Minimum {
+                    static let Text:       CGFloat = 50.0
+                    static let Attachment: CGFloat = 50.0
+                }
+                struct Maximum {
+                    static let Text:        CGFloat = 300.0
+                    static let Attachment:  CGFloat = 300.0
+                }
+            }
+        }
+        
+        struct Text {
+            static let Height: CGFloat = 30.0
+        }
+        
+        struct Media { // pictural file --> image, video, gif
+            static let ExtraHeight: CGFloat = 50.0
+            static let ExtraHeightWithText: CGFloat = 25.0
+        }
+        
+        struct Audio {
+            static let Width: CGFloat = 250.0
+            static let Height: CGFloat = 95.0
+        }
+        
+        struct Voice {
+            static let Width: CGFloat = 230.0
+            static let Height: CGFloat = 80.0
+        }
+        
+        struct File {
+            static let Width: CGFloat = 250.0
+            static let Height: CGFloat = 70.0
+        }
+        
+        struct Location {
+            static let Width: CGFloat = 230.0
+            static let Height: CGFloat = 130.0
+        }
+        
+        struct Contact {
+            static let Width: CGFloat = 230.0
+            static let Height: CGFloat = 70.0
+        }
+        
+        struct Log {
+            static let Height: CGFloat = 30.0
+        }
+    }
     
     var cache : NSCache<NSString, AnyObject>
     
@@ -25,28 +82,22 @@ class CellSizeCalculator: NSObject {
     private override init() {
         cache = NSCache()
         cache.countLimit = 200
-        cache.name = "im.igap.cache.IGMessageCollectionViewCellSizeCalculator"
+        cache.name = "im.igap.cache.CellSizeCalculator"
     }
     
-    //min image=> 50 x 50
+    class func messageBodyTextViewFont() -> UIFont {
+        return UIFont.igFont(ofSize: 15.0)
+    }
     
-    func mainBubbleCountainerSize(for message:IGRoomMessage) -> RoomMessageCalculatedSize {
+    func mainBubbleCountainerSize(for message:IGRoomMessage) -> MessageCalculatedSize {
         
         let cacheKey = "\(String(describing: message.primaryKeyId))_\(message.messageVersion)" as NSString
         let cachedSize = cache.object(forKey: cacheKey)
         if cachedSize != nil {
-            return cachedSize as! RoomMessageCalculatedSize
+            return cachedSize as! MessageCalculatedSize
         }
-        
-        var maximumWidth: CGFloat = 0.0
-        if message.authorRoom != nil { //channel
-            maximumWidth = IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.MaximumForChannels
-        } else {
-            maximumWidth = IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum
-        }
-        
+
         var finalSize = CGSize.zero
-        var messageBodyHeight: CGFloat = 0.0
         var messageAttachmentHeight: CGFloat = 0.0
         
         var finalMessage = message
@@ -57,103 +108,107 @@ class CellSizeCalculator: NSObject {
             finalSize.height += 54
         }
         
+        let text = finalMessage.message as NSString?
+        
         if finalMessage.attachment != nil {
             let attachmentFrame = mediaFrame(media: finalMessage.attachment!,
-                                             maxWidth:  maximumWidth,
-                                             maxHeight: IGMessageCollectionViewCell.ConstantSizes.Bubble.Height.Maximum.AttachmentFiled,
-                                             minWidth:  IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum,
-                                             minHeight: IGMessageCollectionViewCell.ConstantSizes.Bubble.Height.Minimum.WithAttachment)
+                                             maxWidth:  ConstantSizes.Bubble.Width.Maximum.Attachment,
+                                             maxHeight: ConstantSizes.Bubble.Height.Maximum.Attachment,
+                                             minWidth:  ConstantSizes.Bubble.Width.Minimum.Attachment,
+                                             minHeight: ConstantSizes.Bubble.Height.Minimum.Attachment)
             
             switch finalMessage.type {
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
                 messageAttachmentHeight = attachmentFrame.height
+                if text != nil && text != "" {
+                    finalSize.height += ConstantSizes.Media.ExtraHeightWithText
+                } else {
+                    finalSize.height += ConstantSizes.Media.ExtraHeight
+                }
+                
                 finalSize.height += attachmentFrame.height
-                finalSize.width = max(finalSize.width, attachmentFrame.width)
-                finalSize.width = min(finalSize.width, maximumWidth)
+                finalSize.width = attachmentFrame.width
                 break
                 
-            case .audio:
-                finalSize.width = max(finalSize.width, attachmentFrame.width)
-                finalSize.width = min(finalSize.width, maximumWidth)
-                finalSize.height += 50
-                break
-                
-            case .audioAndText:
-                finalSize.width = max(finalSize.width, attachmentFrame.width)
-                finalSize.width = min(finalSize.width, maximumWidth)
-                finalSize.height += 70
+            case .audio, .audioAndText:
+                finalSize.width = ConstantSizes.Audio.Width
+                finalSize.height += ConstantSizes.Audio.Height
                 break
                 
             case .voice:
-                finalSize.width = max(finalSize.width, attachmentFrame.width)
-                finalSize.width = min(finalSize.width, maximumWidth)
-                finalSize.height += 40.0
+                finalSize.width = ConstantSizes.Voice.Width
+                finalSize.height += ConstantSizes.Voice.Height
                 break
                 
-            case .file:
-                finalSize.width = max(finalSize.width, attachmentFrame.width)
-                finalSize.width = min(finalSize.width, maximumWidth)
-                finalSize.height += 20.0
-                break
-                
-            case .fileAndText:
-                finalSize.width = max(finalSize.width, attachmentFrame.width)
-                finalSize.width = min(finalSize.width, maximumWidth)
-                finalSize.height += 40.0
+            case .file, .fileAndText:
+                finalSize.width = ConstantSizes.Voice.Width
+                finalSize.height += ConstantSizes.File.Height
                 break
                 
             case .location: break
-            case .log:
-                finalSize.height = 30.0
-                break
+            case .log: break
             case .contact: break
             case .text: break
             case .unknown: break
             }
-        }
-        
-        let text = finalMessage.message as NSString?
-        if text != nil && text != "" {
-            let stringRect = IGMessageCollectionViewCell.bodyRect(text: text!, isEdited: finalMessage.isEdited)
-            finalSize.height += stringRect.height
-            finalSize.width = max(finalSize.width, stringRect.width + 20)
-            finalSize.width = min(finalSize.width, maximumWidth)
-            messageBodyHeight = stringRect.height
-        } else {
-            finalSize.height += 40.0
-        }
-        
-        if finalMessage.type == .log {
-            finalSize.height = 30
-        } else if finalMessage.type == .contact {
-            let contactSize = IGContactInMessageCellView.sizeForContact(finalMessage.contact!)
-            if (finalSize.height == 0) { // use this block for avoid from contact small show (bad view) before when message is in sending state
-                finalSize.height = 40
+            
+            if text != nil && text != "" {
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
+                finalSize.height += stringRect.height
             }
-            finalSize.width = contactSize.width
-            finalSize.height += contactSize.height
+            
+        } else if finalMessage.type == .log {
+            finalSize.height = ConstantSizes.Log.Height
+            
+        } else if finalMessage.type == .contact {
+            let contactHeight = ContactCell.getContactHeight(finalMessage.contact!)
+            finalSize.width = ConstantSizes.Contact.Width
+            finalSize.height += ConstantSizes.Contact.Height
+            finalSize.height += contactHeight
             
         } else if finalMessage.type == .location {
-            let locationSize = LocationCell.sizeForLocation()
-            finalSize.width = locationSize.width
-            finalSize.height += locationSize.height
-            messageAttachmentHeight = locationSize.height
+            finalSize.width = ConstantSizes.Location.Width
+            finalSize.height += ConstantSizes.Location.Height
+            messageAttachmentHeight = finalSize.height
             
-        } else {
-            finalSize.height = max(IGMessageCollectionViewCell.ConstantSizes.Bubble.Height.Minimum.TextOnly + 6, finalSize.height)
+        } else { // Text Message
+            if text != nil && text != "" {
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
+                finalSize.height += ConstantSizes.Text.Height
+                finalSize.height += stringRect.height
+                finalSize.width = stringRect.width
+            }
         }
         
-        finalSize.height += 10
-        
-        let result = (finalSize,
-                      messageBodyHeight,
-                      messageAttachmentHeight,
-                      messageBodyHeight,
-                      messageAttachmentHeight)
-        
+        let result = (finalSize, messageAttachmentHeight)
         cache.setObject(result as AnyObject, forKey: cacheKey)
-        
         return result
+    }
+    
+    
+    class func getStringStyle() -> [String: Any]{
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+        paragraph.lineSpacing = 0.1
+        paragraph.paragraphSpacing = 0
+        return [NSFontAttributeName: messageBodyTextViewFont(), NSParagraphStyleAttributeName: paragraph]
+    }
+    
+    class func bodyRect(text: NSString, isEdited: Bool) -> CGSize {
+        let string = text as String
+        var textWithTime = string.replacingOccurrences( of:"[^a-z \n]", with: "a", options: .regularExpression)
+        
+        if isEdited {
+            textWithTime = textWithTime.appending("xxxxxxxxxxxxxxxxxxx") // e.g. 12:00 edited
+        } else {
+            textWithTime = textWithTime.appending("xxxxxxxxxx") // e.g. 12:00
+        }
+        
+        let stringRect = textWithTime.boundingRect(
+            with: CGSize(width: ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: getStringStyle(), context: nil)
+        
+        return stringRect.size
     }
     
     func mediaFrame(media: IGFile, maxWidth: CGFloat, maxHeight: CGFloat, minWidth: CGFloat, minHeight: CGFloat) -> CGSize {

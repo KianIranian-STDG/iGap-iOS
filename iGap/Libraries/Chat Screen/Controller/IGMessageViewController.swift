@@ -142,7 +142,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
     var notificationToken: NotificationToken?
     
-    var messageCellIdentifer = IGMessageCollectionViewCell.cellReuseIdentifier()
     var logMessageCellIdentifer = IGMessageLogCollectionViewCell.cellReuseIdentifier()
     var room : IGRoom?
     var openChatFromLink: Bool = false // set true this param when user not joined to this room
@@ -2608,56 +2607,9 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.delegate = self
             return cell
             
-        } else {
-        
-            let cell: IGMessageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: messageCellIdentifer, for: indexPath) as! IGMessageCollectionViewCell
-            
-            var isIncommingMessage = true
-            if let senderHash = message.authorHash {
-                if senderHash == IGAppManager.sharedManager.authorHash() {
-                    isIncommingMessage = false
-                }
-            }
-            
-            
-            var shouldShowAvatar = false
-            if room?.groupRoom != nil {
-                shouldShowAvatar = true
-            }
-            if !isIncommingMessage {
-                shouldShowAvatar = false
-            }
-            
-            
-            var isPreviousMessageFromSameSender = false
-            var isNextMessageFromSameSender = false
-            
-
-            if messages!.indices.contains(indexPath.section + 1){
-                let previousMessage = messages![(indexPath.section + 1)]
-                if previousMessage.type != .log && message.authorHash == previousMessage.authorHash {
-                    isPreviousMessageFromSameSender = true
-                }
-            }
-            
-            if messages!.indices.contains(indexPath.section - 1){
-                let nextMessage = messages![(indexPath.section - 1)]
-                if message.authorHash == nextMessage.authorHash {
-                    isNextMessageFromSameSender = true
-                }
-            }
-        
-            //let bubbleSize = IGMessageCollectionViewCellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
-            cell.setMessage(message,
-                            isIncommingMessage: isIncommingMessage,
-                            shouldShowAvatar: shouldShowAvatar,
-                            messageSizes:bubbleSize,
-                            isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,
-                            isNextMessageFromSameSender: isNextMessageFromSameSender)
-            cell.delegate = self
-            return cell
         }
+        
+        return UICollectionViewCell()  // TODO - saeed - make a default item for show unknown cell
     }
     
     

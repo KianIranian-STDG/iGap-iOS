@@ -33,7 +33,7 @@ class LocationCell: AbstractCell {
         return NSURL(fileURLWithPath: documents).appendingPathComponent("\(latitude)_\(longitude)")
     }
     
-    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: RoomMessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
         makeLocationView()
         super.setMessage(message, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
@@ -81,7 +81,7 @@ class LocationCell: AbstractCell {
         }
     }
     
-    private func manageLocationViewPosition(messageSizes: RoomMessageCalculatedSize){
+    private func manageLocationViewPosition(messageSizes: MessageCalculatedSize){
         imgMediaAbs.snp.makeConstraints { (make) in
             
             make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
@@ -97,7 +97,7 @@ class LocationCell: AbstractCell {
             } else {
                 imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).constraint
             }
-            imgMediaHeightAbs = make.height.equalTo(messageSizes.MessageAttachmentHeight).constraint
+            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }

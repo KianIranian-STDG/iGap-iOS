@@ -33,7 +33,7 @@ class IGMessageGeneralCollectionViewCell: UICollectionViewCell {
     var forwardedAttachment: IGFile? //deprecated!. Not Used In Code.
     var delegate: IGMessageGeneralCollectionViewCellDelegate?
     
-    func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: RoomMessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {}
+    func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {}
     
     func setMultipleSelectionMode(_ multipleSelectionMode: Bool) {}
 }

@@ -12,7 +12,7 @@ import UIKit
 
 class IGMessageCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
-    let messageContainerSizeCalculator = IGMessageCollectionViewCellSizeCalculator.sharedCalculator
+    let messageContainerSizeCalculator = CellSizeCalculator.sharedCalculator
     let messageCellSize = CellSizeCalculator.sharedCalculator
     var _collectionView : IGMessageCollectionView?
     var _insertIndexPaths = [IndexPath]()
@@ -42,11 +42,11 @@ class IGMessageCollectionViewFlowLayout: UICollectionViewFlowLayout {
     }
     
     
-    func size(for message:IGRoomMessage) -> RoomMessageCalculatedSize {
+    func size(for message:IGRoomMessage) -> MessageCalculatedSize {
         return messageContainerSizeCalculator.mainBubbleCountainerSize(for: message)
     }
     
-    func sizeCell(for message:IGRoomMessage) -> RoomMessageCalculatedSize {
+    func sizeCell(for message:IGRoomMessage) -> MessageCalculatedSize {
         return messageCellSize.mainBubbleCountainerSize(for: message)
     }
     
