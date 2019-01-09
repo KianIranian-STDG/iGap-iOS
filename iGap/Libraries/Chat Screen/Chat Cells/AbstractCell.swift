@@ -129,6 +129,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtMessageAbs?.textColor = UIColor.chatBubbleTextColor(isIncommingMessage: isIncommingMessage)
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.text = finalRoomMessage.message
+            txtMessageAbs.attributedText = NSAttributedString(string: finalRoomMessage.message!, attributes: CellSizeCalculator.getStringStyle())
         } else {
             txtMessageHeightConstraintAbs?.constant = 0
             messageViewAbs?.isHidden = true
