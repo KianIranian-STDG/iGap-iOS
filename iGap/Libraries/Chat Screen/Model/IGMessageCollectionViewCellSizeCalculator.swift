@@ -117,7 +117,7 @@ class IGMessageCollectionViewCellSizeCalculator: NSObject {
             
             //body
             if let text = originalMessage.message as NSString? {
-                let stringRect = IGMessageCollectionViewCell.bodyRect(text: text, isEdited: false, addArbitraryTexts: false)
+                let stringRect = IGMessageCollectionViewCell.bodyRect(text: text, isEdited: false)
                 finalSize.height += stringRect.height
                 finalSize.width = max(finalSize.width, stringRect.width)
                 finalSize.width = min(finalSize.width, maximumWidth)
@@ -168,7 +168,7 @@ class IGMessageCollectionViewCellSizeCalculator: NSObject {
         }
         
         if let text = message.message as NSString? {
-            let stringRect = IGMessageCollectionViewCell.bodyRect(text: text, isEdited: message.isEdited, addArbitraryTexts: true)
+            let stringRect = IGMessageCollectionViewCell.bodyRect(text: text, isEdited: message.isEdited)
             finalSize.height += stringRect.height
             //finalSize.width = min(finalSize.width, stringRect.width + 25)
             finalSize.width = max(finalSize.width, stringRect.width + 25)

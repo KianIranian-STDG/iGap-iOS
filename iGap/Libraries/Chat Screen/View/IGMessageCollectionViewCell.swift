@@ -98,7 +98,6 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
     
     
     @IBOutlet weak var bodyView: UIView!
-//    @IBOutlet weak var bodyTextView: UITextView!
     @IBOutlet weak var bodyLabel: ActiveLabel!
     @IBOutlet weak var bodyViewHeightConstraint: NSLayoutConstraint!
     
@@ -132,78 +131,37 @@ class IGMessageCollectionViewCell: IGMessageGeneralCollectionViewCell {
         return UIFont.igFont(ofSize: 14.0)
     }
     
-    /*
-     * addArbitraryTexts:
-     *  is true when cell should show "edited" and time
-     *  is false when calculating height for the original message in a forwarded message
-     */
-    class func bodyRect(text: NSString, isEdited: Bool, addArbitraryTexts: Bool) -> CGSize {
+    class func getStringStyle() -> [String: Any]{
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
-        paragraph.lineSpacing = 4
-        paragraph.paragraphSpacing = -2
-        paragraph.headIndent = 100
+        paragraph.lineSpacing = 0.1
+        paragraph.paragraphSpacing = 0
+        return [NSFontAttributeName: IGMessageCollectionViewCell.messageBodyTextViewFont(),NSParagraphStyleAttributeName: paragraph]
+    }
+    
+    class func bodyRect(text: NSString, isEdited: Bool) -> CGSize {
+        let string = text as String
+        var textWithTime = string.replacingOccurrences( of:"[^a-z \n]", with: "a", options: .regularExpression)
         
-        //add an arbitrary string as time text to calculate whether the time fits in the currnt line or it should 
-        //be moved to a new line
-        var textWithTime = ""
-        if addArbitraryTexts {
-            if isEdited {
-                textWithTime = text.appending("xxxxxxxxxxxxxxx")
-            } else {
-                textWithTime = text.appending("xxxxxxxxxx")
-            }
+        if isEdited {
+            textWithTime = textWithTime.appending("xxxxxxxxxxxxxxxxxxx") // e.g. 12:00 edited
         } else {
-            textWithTime = text.appending("")
+            textWithTime = textWithTime.appending("xxxxxxxxxx") // e.g. 12:00
         }
-        let attributes: [String: Any] = [NSFontAttributeName: messageBodyTextViewFont(),
-                                         NSParagraphStyleAttributeName: paragraph]
-        var stringRect = textWithTime.boundingRect(with: CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum,
-                                                                height:CGFloat.greatestFiniteMagnitude),
-                                                   options: [.usesLineFragmentOrigin, .usesFontLeading], //, .truncatesLastVisibleLine, .usesDeviceMetrics],
-                                                   attributes: attributes,
+        
+        var stringRect = textWithTime.boundingRect(with: CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum, height:CGFloat.greatestFiniteMagnitude),
+                                                   options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                                   attributes: getStringStyle(),
                                                    context: nil)
         
-        //var stringSize = stringRect.integral.size
         stringRect.size.height = stringRect.height * 0.95 + 20
         return stringRect.size
-//        
-//        let attrString = NSAttributedString(string: text as String, attributes: attributes)
-//        let framesetter = CTFramesetterCreateWithAttributedString(attrString)
-//        let targetSize = CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum,
-//                                height:CGFloat.greatestFiniteMagnitude)
-//        let fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, attrString.length), nil, targetSize, nil)
-//        //CFRelease(framesetter);
-//        
-////        return fitSize
-//
-////        let view = UITextView(frame: CGRect(x: 0, y: 0, width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum, height: 0))
-////        view.text = text as String
-////        let size = view.sizeThatFits(CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum, height: CGFloat.greatestFiniteMagnitude))
-////        //return size
-//        
-//        
-//        
-//        
-//        
-////        return attrString.boundingRect(with: CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Maximum,
-////                                                    height:CGFloat.greatestFiniteMagnitude),
-////                                       options: [.usesLineFragmentOrigin, .usesFontLeading],
-////                                       context: nil)
-//        
-//        
-////        sting.a
-////        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString: someString attributes:attributesDictionary];
-////        [string appendAttributedString: [[NSAttributedString alloc] initWithString: anotherString];
-////        CGRect rect = [string boundingRectWithSize:constraint options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) context:nil];
-        
     }
     
     class func replyToLabelRect(username: NSString) -> CGRect {
         let attributes: [String: UIFont] = [NSFontAttributeName: messageBodyTextViewFont()]
         let text = ""
-        let stringRect = text.boundingRect(with: CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Minimum,
-                                                        height:CGFloat.greatestFiniteMagnitude),
+        let stringRect = text.boundingRect(with: CGSize(width: IGMessageCollectionViewCell.ConstantSizes.Bubble.Width.Minimum, height:CGFloat.greatestFiniteMagnitude),
                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
                                            attributes: attributes,
                                            context: nil)

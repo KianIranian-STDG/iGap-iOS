@@ -114,7 +114,7 @@ class CellSizeCalculator: NSObject {
         
         let text = finalMessage.message as NSString?
         if text != nil && text != "" {
-            let stringRect = IGMessageCollectionViewCell.bodyRect(text: text!, isEdited: finalMessage.isEdited, addArbitraryTexts: true)
+            let stringRect = IGMessageCollectionViewCell.bodyRect(text: text!, isEdited: finalMessage.isEdited)
             finalSize.height += stringRect.height
             finalSize.width = max(finalSize.width, stringRect.width + 20)
             finalSize.width = min(finalSize.width, maximumWidth)
@@ -143,7 +143,7 @@ class CellSizeCalculator: NSObject {
             finalSize.height = max(IGMessageCollectionViewCell.ConstantSizes.Bubble.Height.Minimum.TextOnly + 6, finalSize.height)
         }
         
-        finalSize.height += 7.5
+        finalSize.height += 10
         
         let result = (finalSize,
                       messageBodyHeight,
