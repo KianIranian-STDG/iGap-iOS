@@ -86,7 +86,7 @@ class CellSizeCalculator: NSObject {
     }
     
     class func messageBodyTextViewFont() -> UIFont {
-        return UIFont.igFont(ofSize: 14.0)
+        return UIFont.igFont(ofSize: 15.0)
     }
     
     func mainBubbleCountainerSize(for message:IGRoomMessage) -> MessageCalculatedSize {
@@ -189,15 +189,11 @@ class CellSizeCalculator: NSObject {
     class func getStringStyle() -> [String: Any]{
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
-        //paragraph.lineSpacing = 0.1
-        //paragraph.paragraphSpacing = 0
         return [NSFontAttributeName: messageBodyTextViewFont(), NSParagraphStyleAttributeName: paragraph]
     }
     
     class func bodyRect(text: NSString, isEdited: Bool) -> CGSize {
-        let string = text as String
-        var textWithTime = string.replacingOccurrences( of:"[^a-z \n]", with: "a", options: .regularExpression)
-        
+        var textWithTime = text as String
         if isEdited {
             textWithTime = textWithTime.appending("xxxxxxxxxxxxxxxxxxx") // e.g. 12:00 edited
         } else {
