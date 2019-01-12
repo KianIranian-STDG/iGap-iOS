@@ -1006,6 +1006,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     
     private func makeTime(statusExist: Bool){
+        removeTime()
+        
         if txtTimeAbs == nil {
             txtTimeAbs = UILabel()
             txtTimeAbs.font = UIFont.igFont(ofSize: 11.0)
@@ -1013,7 +1015,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         txtTimeAbs.snp.makeConstraints{ (make) in
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-20)
+            if statusExist {
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-20)
+            } else {
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-2)
+            }
             make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-11)
             make.width.equalTo(35)
             make.height.equalTo(13)
