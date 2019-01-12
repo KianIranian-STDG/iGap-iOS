@@ -130,6 +130,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.text = finalRoomMessage.message
             txtMessageAbs.attributedText = NSAttributedString(string: finalRoomMessage.message!, attributes: CellSizeCalculator.getStringStyle())
+            
+            if finalRoomMessage.message!.isRTL() {
+                txtMessageAbs.textAlignment = NSTextAlignment.right
+            } else {
+                txtMessageAbs.textAlignment = NSTextAlignment.left
+            }
+            
         } else {
             txtMessageHeightConstraintAbs?.constant = 0
             messageViewAbs?.isHidden = true
@@ -152,15 +159,27 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if finalRoomMessage.attachment == nil {
             if isForward {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(3)
+                    if (finalRoomMessage.message?.isRTL())! {
+                        make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
+                    } else {
+                        make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(10)
+                    }
                 }
             } else if isReply {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(3)
+                    if (finalRoomMessage.message?.isRTL())! {
+                        make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
+                    } else {
+                        make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(10)
+                    }
                 }
             } else {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
+                    if let rtl = finalRoomMessage.message?.isRTL(), rtl{
+                        make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
+                    } else {
+                        make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
+                    }
                 }
             }
             
@@ -182,7 +201,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 makeImage(finalRoomMessage.type)
                 
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    make.top.equalTo(imgMediaAbs.snp.bottom)
+                    if (finalRoomMessage.message?.isRTL())! {
+                        make.top.equalTo(imgMediaAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
+                    } else {
+                        make.top.equalTo(imgMediaAbs.snp.bottom)
+                    }
                 }
                 break
                 
@@ -198,7 +221,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 break
             case .audioAndText:
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    make.top.equalTo(imgFileAbs.snp.bottom)
+                    if (finalRoomMessage.message?.isRTL())! {
+                        make.top.equalTo(imgFileAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
+                    } else {
+                        make.top.equalTo(imgFileAbs.snp.bottom)
+                    }
                 }
                 break
                 
@@ -210,7 +237,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 break
             case .fileAndText:
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    make.top.equalTo(imgFileAbs.snp.bottom)
+                    if (finalRoomMessage.message?.isRTL())! {
+                        make.top.equalTo(imgFileAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
+                    } else {
+                        make.top.equalTo(imgFileAbs.snp.bottom)
+                    }
                 }
                 break
                 

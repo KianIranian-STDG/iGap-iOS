@@ -119,7 +119,7 @@ class IGGlobal {
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString = ""
         for _ in 0..<length {
-            let rand = Int(arc4random_uniform(UInt32(letters.characters.count)))
+            let rand = Int(arc4random_uniform(UInt32(letters.count)))
             randomString.append(letters[rand])
         }
         return randomString
@@ -167,7 +167,7 @@ extension UIColor {
         var int = UInt32()
         Scanner(string: hex).scanHexInt32(&int)
         let a, r, g, b: UInt32
-        switch hex.characters.count {
+        switch hex.count {
         case 3: // RGB (12-bit)
             (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
         case 6: // RGB (24-bit)
@@ -703,16 +703,12 @@ extension UIImage {
     }
     
     public class func gifImageWithURL(_ gifUrl:String) -> UIImage? {
-        guard let bundleURL:URL? = URL(string: gifUrl)
-            else {
-                print("image named \"\(gifUrl)\" doesn't exist")
-                return nil
-        }
-        guard let imageData = try? Data(contentsOf: bundleURL!) else {
-            print("image named \"\(gifUrl)\" into NSData")
+        guard let bundleURL:URL = URL(string: gifUrl) else {
             return nil
         }
-        
+        guard let imageData = try? Data(contentsOf: bundleURL) else {
+            return nil
+        }
         return gifImageWithData(imageData)
     }
     
@@ -968,6 +964,14 @@ extension String {
             }
         }
         return stringArray
+    }
+    
+    /* detect first character should be write RTL or LTR */
+    func isRTL() -> Bool {
+        if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(self.first!)) {
+            return true
+        }
+        return false
     }
     
     subscript(_ range: CountableRange<Int>) -> String {

@@ -26,8 +26,8 @@ class CellSizeCalculator: NSObject {
             }
             struct Width {
                 struct Minimum {
-                    static let Text:       CGFloat = 50.0
-                    static let Attachment: CGFloat = 50.0
+                    static let Text:       CGFloat = 80.0
+                    static let Attachment: CGFloat = 80.0
                 }
                 struct Maximum {
                     static let Text:        CGFloat = 300.0
@@ -76,6 +76,8 @@ class CellSizeCalculator: NSObject {
     }
     
     var cache : NSCache<NSString, AnyObject>
+    private static let EXTRA_HEIGHT_RTL = 20
+    internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL - 7)
     
     static let sharedCalculator = CellSizeCalculator()
     
@@ -176,7 +178,11 @@ class CellSizeCalculator: NSObject {
                 let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
                 finalSize.height += ConstantSizes.Text.Height
                 finalSize.height += stringRect.height
-                finalSize.width = stringRect.width
+                if stringRect.width < ConstantSizes.Bubble.Width.Minimum.Text {
+                    finalSize.width = ConstantSizes.Bubble.Width.Minimum.Text
+                } else {
+                    finalSize.width = stringRect.width
+                }
             }
         }
         
@@ -193,16 +199,25 @@ class CellSizeCalculator: NSObject {
     }
     
     class func bodyRect(text: NSString, isEdited: Bool) -> CGSize {
+        
         var textWithTime = text as String
-        if isEdited {
-            textWithTime = textWithTime.appending("xxxxxxxxxxxxxxxxxxx") // e.g. 12:00 edited
+        if textWithTime.isRTL() {
+            textWithTime = textWithTime.appending("xxx")
         } else {
-            textWithTime = textWithTime.appending("xxxxxxxxxx") // e.g. 12:00
+            if isEdited {
+                textWithTime = textWithTime.appending("xxxxxxxxxxxxxxxxxxx") // e.g. 12:00 edited
+            } else {
+                textWithTime = textWithTime.appending("xxxxxxxxxx") // e.g. 12:00
+            }
         }
         
-        let stringRect = textWithTime.boundingRect(
+        var stringRect = textWithTime.boundingRect(
             with: CGSize(width: ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: getStringStyle(), context: nil)
+        
+        if textWithTime.isRTL() {
+            stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL)
+        }
         
         return stringRect.size
     }
