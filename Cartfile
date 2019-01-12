@@ -22,3 +22,6 @@ github "RooyeKhat-Media/ALCameraViewController" "3.0.3"
 github "RooyeKhat-Media/Starscream" "3.0.4-a"
 github "RooyeKhat-Media/DBAttachmentPickerController"  "1.1.4-a"
 github "KianIranian-STDG/IGProtoBuffLibrary" "Proto96"
+
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json"

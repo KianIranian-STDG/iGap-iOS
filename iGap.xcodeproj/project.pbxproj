@@ -204,9 +204,6 @@
 		FA6A22761F41D0210063DF07 /* iGap-Fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA6A22751F41CB0B0063DF07 /* iGap-Fontico.ttf */; };
 		FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */; };
 		FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B602D201E0483008460CF /* CellSizeCalculator.swift */; };
-		FA73837320D7BA4B0094312D /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA73836B20D798230094312D /* FirebaseCore.framework */; };
-		FA73837520D7BA4B0094312D /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA73836C20D798230094312D /* FirebaseMessaging.framework */; };
-		FA73837620D7BA730094312D /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA73836D20D798230094312D /* FirebaseInstanceID.framework */; };
 		FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */; };
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
 		FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA786D59206A746700608A2D /* CreateRoom.storyboard */; };
@@ -285,6 +282,10 @@
 		FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA9DFBD1F4B23380076A22F /* IGTwoStepVerification.swift */; };
 		FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAC57D21DE2CE9F00A28058 /* IGDownloadManager.swift */; };
 		FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAACE76C20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift */; };
+		FAAD3C2221EA220C00B1420A /* FirebaseMessaging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C1F21EA220C00B1420A /* FirebaseMessaging.framework */; };
+		FAAD3C2321EA220C00B1420A /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2021EA220C00B1420A /* FirebaseCore.framework */; };
+		FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */; };
+		FAAD3C2621EA22FD00B1420A /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */; };
 		FAAEAC5520E0EAEF00A1EAE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAAEAC5720E0EAEF00A1EAE5 /* Localizable.strings */; };
 		FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */; };
 		FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFD433208375AA003470B3 /* IGGeoRequest.swift */; };
@@ -614,9 +615,6 @@
 		FA6A22751F41CB0B0063DF07 /* iGap-Fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iGap-Fontico.ttf"; sourceTree = "<group>"; };
 		FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestQrCode.swift; sourceTree = "<group>"; };
 		FA6B602D201E0483008460CF /* CellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSizeCalculator.swift; sourceTree = "<group>"; };
-		FA73836B20D798230094312D /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
-		FA73836C20D798230094312D /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseMessaging.framework; sourceTree = "<group>"; };
-		FA73836D20D798230094312D /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
 		FA752C321E1EC571008694C6 /* iGap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iGap.entitlements; path = ../iGap.entitlements; sourceTree = "<group>"; };
 		FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistredUserInfoTableViewController.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
@@ -696,6 +694,10 @@
 		FAA9DFBD1F4B23380076A22F /* IGTwoStepVerification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTwoStepVerification.swift; sourceTree = "<group>"; };
 		FAAC57D21DE2CE9F00A28058 /* IGDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDownloadManager.swift; sourceTree = "<group>"; };
 		FAACE76C20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceBillingInquiry.swift; sourceTree = "<group>"; };
+		FAAD3C1F21EA220C00B1420A /* FirebaseMessaging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseMessaging.framework; path = Carthage/Build/iOS/FirebaseMessaging.framework; sourceTree = "<group>"; };
+		FAAD3C2021EA220C00B1420A /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Build/iOS/FirebaseCore.framework; sourceTree = "<group>"; };
+		FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Build/iOS/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Carthage/Build/iOS/GoogleUtilities.framework; sourceTree = "<group>"; };
 		FAAEAC5120E0EA1D00A1EAE5 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FAAEAC5220E0EA1D00A1EAE5 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/Main.strings"; sourceTree = "<group>"; };
 		FAAEAC5620E0EAEF00A1EAE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -812,14 +814,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAAD3C2621EA22FD00B1420A /* GoogleUtilities.framework in Frameworks */,
+				FAAD3C2221EA220C00B1420A /* FirebaseMessaging.framework in Frameworks */,
+				FAAD3C2321EA220C00B1420A /* FirebaseCore.framework in Frameworks */,
+				FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */,
 				FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */,
 				FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */,
 				FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */,
 				FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */,
 				FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */,
-				FA73837620D7BA730094312D /* FirebaseInstanceID.framework in Frameworks */,
-				FA73837320D7BA4B0094312D /* FirebaseCore.framework in Frameworks */,
-				FA73837520D7BA4B0094312D /* FirebaseMessaging.framework in Frameworks */,
 				FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */,
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
 				FAC0F08420F0AF4900182758 /* PecPayment.framework in Frameworks */,
@@ -1677,13 +1680,14 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */,
+				FAAD3C2021EA220C00B1420A /* FirebaseCore.framework */,
+				FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */,
+				FAAD3C1F21EA220C00B1420A /* FirebaseMessaging.framework */,
 				FAB798AD21A5681C0019FC92 /* Hero.framework */,
 				FABE83AA20FDB43E00D94F01 /* Digger.framework */,
 				FAC0F08320F0AF4900182758 /* PecPayment.framework */,
 				FA39EAA220D7BF7A001CFF77 /* Protobuf.framework */,
-				FA73836B20D798230094312D /* FirebaseCore.framework */,
-				FA73836D20D798230094312D /* FirebaseInstanceID.framework */,
-				FA73836C20D798230094312D /* FirebaseMessaging.framework */,
 				FA865C7120789C2600B9D585 /* MapKit.framework */,
 				FA98F839204D41AA0070424E /* Cosmos.framework */,
 				FA9402AB2042D49C00D1A35C /* WebRTC.framework */,
