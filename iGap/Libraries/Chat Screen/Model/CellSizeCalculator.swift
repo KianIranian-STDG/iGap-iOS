@@ -88,6 +88,10 @@ class CellSizeCalculator: NSObject {
     }
     
     class func messageBodyTextViewFont() -> UIFont {
+        return UIFont.igFont(ofSize: 14.3)
+    }
+    
+    private static func computeSizeFont() -> UIFont {
         return UIFont.igFont(ofSize: 15.0)
     }
     
@@ -195,7 +199,7 @@ class CellSizeCalculator: NSObject {
     class func getStringStyle() -> [String: Any]{
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
-        return [NSFontAttributeName: messageBodyTextViewFont(), NSParagraphStyleAttributeName: paragraph]
+        return [NSFontAttributeName: computeSizeFont(), NSParagraphStyleAttributeName: paragraph]
     }
     
     class func bodyRect(text: NSString, isEdited: Bool) -> CGSize {
