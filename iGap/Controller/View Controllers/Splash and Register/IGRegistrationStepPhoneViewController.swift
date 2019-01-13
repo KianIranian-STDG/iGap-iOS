@@ -288,7 +288,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
     
     func showTermsWebLink() {
-        self.navigationController?.pushViewController(SwiftWebVC(urlString: "https://www.igap.net/privacy.html"), animated: true)
+        IGHelperOpenLink.openLink(urlString: "https://www.igap.net/privacy.html", navigationController: self.navigationController!)
     }
     
     func getUserCurrentLocation() {

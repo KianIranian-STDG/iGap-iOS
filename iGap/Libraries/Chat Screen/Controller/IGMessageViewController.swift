@@ -3303,12 +3303,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             urlString = "http://" + urlString
         }
         
-        self.navigationController?.pushViewController(SwiftWebVC(urlString: urlString), animated: true)
-        /*
-        if let urlToOpen = URL(string: urlString) {
-            UIApplication.shared.openURL(urlToOpen)
-        }
-        */
+        IGHelperOpenLink.openLink(urlString: urlString, navigationController: self.navigationController!)
     }
     func didTapOnRoomLink(link: String) {
         let strings = link.split(separator: "/")

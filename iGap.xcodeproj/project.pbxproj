@@ -359,6 +359,7 @@
 		FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063721EB3A0C00F03FFC /* ja.lproj */; };
 		FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063821EB3A0C00F03FFC /* zh-Hans.lproj */; };
 		FAE6064421EB3A0C00F03FFC /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063921EB3A0C00F03FFC /* da.lproj */; };
+		FAE6064621EB4B7200F03FFC /* IGHelperOpenLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6064521EB4B7200F03FFC /* IGHelperOpenLink.swift */; };
 		FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6BAB1207B537B00E54ECE /* MKHipsterTileOverlay.swift */; };
 		FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA75D81DDAFFA200C387F1 /* IGRoomMessageLocation.swift */; };
 		FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA75DA1DDB012800C387F1 /* IGRoomMessageLog.swift */; };
@@ -794,6 +795,7 @@
 		FAE6063721EB3A0C00F03FFC /* ja.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ja.lproj; sourceTree = "<group>"; };
 		FAE6063821EB3A0C00F03FFC /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hans.lproj"; sourceTree = "<group>"; };
 		FAE6063921EB3A0C00F03FFC /* da.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = da.lproj; sourceTree = "<group>"; };
+		FAE6064521EB4B7200F03FFC /* IGHelperOpenLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperOpenLink.swift; sourceTree = "<group>"; };
 		FAE6BAB1207B537B00E54ECE /* MKHipsterTileOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKHipsterTileOverlay.swift; sourceTree = "<group>"; };
 		FAEA75D81DDAFFA200C387F1 /* IGRoomMessageLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRoomMessageLocation.swift; sourceTree = "<group>"; };
 		FAEA75DA1DDB012800C387F1 /* IGRoomMessageLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRoomMessageLog.swift; sourceTree = "<group>"; };
@@ -1192,6 +1194,7 @@
 				FA86D44721A95CB0007B80D7 /* IGHelperView.swift */,
 				FA86D44921A96955007B80D7 /* IGHelperPopular.swift */,
 				FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */,
+				FAE6064521EB4B7200F03FFC /* IGHelperOpenLink.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2164,6 +2167,7 @@
 				931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */,
 				FA0953831E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroup.swift in Sources */,
 				FAA9DFB41F4B1C200076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController.swift in Sources */,
+				FAE6064621EB4B7200F03FFC /* IGHelperOpenLink.swift in Sources */,
 				93193F2C1E5812420039AC0C /* IGGroupEditDescriptionTableViewController.swift in Sources */,
 				FA09535D1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewController.swift in Sources */,
 				FAC7555021D0CF7E001AB608 /* IGCallEventListener.swift in Sources */,
