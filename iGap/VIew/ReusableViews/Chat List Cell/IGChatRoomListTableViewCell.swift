@@ -91,8 +91,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     func getUserAvatarAgain(_ aNotification: Notification) {
         if let userId = aNotification.userInfo?["user"] as? Int64{
-            let predicate = NSPredicate(format: "id = %lld", userId )
             /*
+            let predicate = NSPredicate(format: "id = %lld", userId )
             if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
                 setUserStatus(userInDb)
             }

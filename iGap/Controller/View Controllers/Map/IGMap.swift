@@ -49,7 +49,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     var westLimitation: Double!
     var eastLimitation: Double!
     
-    let MIN_ZOOM_LEVEL = 12.5
+    let MIN_ZOOM_LEVEL = 14.5
     let MAX_ZOOM_LEVEL = 18.5
     let MAX_COMMENT_LENGTH = 200
     let DISTANCE_METERS = 5000
