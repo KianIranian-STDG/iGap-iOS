@@ -36,6 +36,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
     static var needGetInfo: Bool = true
+    let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     
     @IBOutlet weak var searchBar: UISearchBar!
     private let disposeBag = DisposeBag()
@@ -295,11 +296,19 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         
         if AppDelegate.isDeprecatedClient {
             let alert = UIAlertController(title: "Alert", message: "Version is deprecated please update to use", preferredStyle: .alert)
+            let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
+                UIApplication.shared.openURL(self.iGapStoreLink!)
+            })
+            alert.addAction(update)
             self.present(alert, animated: true, completion: nil)
         } else if AppDelegate.isUpdateAvailable {
             let alert = UIAlertController(title: "Update", message: "New version is available", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okAction)
+            let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
+                UIApplication.shared.openURL(self.iGapStoreLink!)
+            })
+            let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
+            alert.addAction(update)
+            alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
     }

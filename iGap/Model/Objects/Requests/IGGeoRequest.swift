@@ -23,9 +23,7 @@ class IGGeoGetRegisterStatus : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response reponseProtoMessage:IGPGeoGetRegisterStatusResponse) {
-            reponseProtoMessage.igpEnable
-        }
+        class func interpret(response reponseProtoMessage:IGPGeoGetRegisterStatusResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -48,9 +46,7 @@ class IGGeoRegister : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response reponseProtoMessage:IGPGeoRegisterResponse) {
-            reponseProtoMessage.igpEnable
-        }
+        class func interpret(response reponseProtoMessage:IGPGeoRegisterResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -105,9 +101,7 @@ class IGGeoGetComment : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response reponseProtoMessage:IGPGeoGetCommentResponse) {
-            reponseProtoMessage.igpComment
-        }
+        class func interpret(response reponseProtoMessage:IGPGeoGetCommentResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -131,9 +125,7 @@ class IGGeoUpdateComment : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response reponseProtoMessage:IGPGeoUpdateCommentResponse) {
-            reponseProtoMessage.igpComment
-        }
+        class func interpret(response reponseProtoMessage:IGPGeoUpdateCommentResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -167,7 +159,7 @@ class IGGeoGetNearbyDistance : IGRequest {
             for nearbyDistance in reponseProtoMessage.igpResult {
                 
                 let predicate = NSPredicate(format: "id = %lld", nearbyDistance.igpUserID)
-                if let _ = try! realm.objects(IGRegisteredUser.self).filter(predicate).first {
+                if let _ = realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     IGFactory.shared.setMapNearbyUsersDistance(nearbyDistance: nearbyDistance)
                     
                     if nearbyDistance.igpHasComment {
@@ -224,9 +216,6 @@ class IGGeoGetNearbyDistance : IGRequest {
                     if let comment = protoResponse as? IGPGeoGetCommentResponse {
                         IGFactory.shared.updateNearbyDistanceComment(userId: Int64(requestWrapper.identity)!, comment: comment.igpComment)
                         userNoInfoDictionary.removeValue(forKey: Int64(requestWrapper.identity)!)
-                        //if let requestComment = requestWrapper.message as? IGPGeoGetComment {
-                        //    IGFactory.shared.updateNearbyDistanceComment(userId: requestComment.igpUserID, comment: comment.igpComment)
-                        //}
                     }
                 }
             }).error({ (errorCode, waitTime) in }).send()
@@ -245,14 +234,7 @@ class IGGeoGetCoordinateDistance : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response reponseProtoMessage:IGPGeoGetNearbyCoordinateResponse) {
-            for result in reponseProtoMessage.igpResult {
-                result.igpUserID
-                result.igpHasComment
-                result.igpLat
-                result.igpLon
-            }
-        }
+        class func interpret(response reponseProtoMessage:IGPGeoGetNearbyCoordinateResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -273,12 +255,7 @@ class IGGeoGetConfiguration : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response reponseProtoMessage:IGPGeoGetConfigurationResponse) {
-            for result in reponseProtoMessage.igpTileServer {
-                result.igpBaseURL
-            }
-            reponseProtoMessage.igpCacheID
-        }
+        class func interpret(response reponseProtoMessage:IGPGeoGetConfigurationResponse) {}
         
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
