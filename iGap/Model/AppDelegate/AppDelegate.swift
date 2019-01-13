@@ -171,6 +171,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     
     func logoutAndShowRegisterViewController(mainRoot: Bool = false) {
+        UIApplication.shared.unregisterForRemoteNotifications()
+        
         if mainRoot {
             self.window?.rootViewController = UIStoryboard(name: "Main", bundle:nil).instantiateInitialViewController()
         }
