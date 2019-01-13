@@ -100,7 +100,7 @@ class IGMapNearbyDistanceTableViewController: UITableViewController, UIGestureRe
     func manageOpenChat(userId: Int64){
         let realm = try! Realm()
         let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", userId)
-        if let roomInfo = try! realm.objects(IGRoom.self).filter(predicate).first {
+        if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
             openChat(roomInfo: roomInfo)
         } else {
             IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in

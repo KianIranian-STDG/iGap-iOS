@@ -49,7 +49,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     var westLimitation: Double!
     var eastLimitation: Double!
     
-    let MIN_ZOOM_LEVEL = 15.5
+    let MIN_ZOOM_LEVEL = 12.5
     let MAX_ZOOM_LEVEL = 18.5
     let MAX_COMMENT_LENGTH = 200
     let DISTANCE_METERS = 5000
@@ -259,7 +259,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     func addMarker(userId: Int64, lat: Double, lon: Double){
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
-        if let userInfo = try! realm.objects(IGRegisteredUser.self).filter(predicate).first {
+        if let userInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first {
             let annotation = MKPointAnnotation()
             let userLocation = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             annotation.coordinate = userLocation
@@ -386,7 +386,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         let currentTime = getCurrentMillis()
         
         if let updateTime = latestUpdatePosition {
-            if (currentTime - updateTime) < UPDATE_POSITION_DELAY {
+            let difference = currentTime - updateTime
+            if (difference) < UPDATE_POSITION_DELAY {
                 return
             }
         }
@@ -423,7 +424,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
                         for result in coordinateDistanceResponse.igpResult {
                             
                             let predicate = NSPredicate(format: "id = %lld", result.igpUserID)
-                            if let _ = try! realm.objects(IGRegisteredUser.self).filter(predicate).first {
+                            if let _ = realm.objects(IGRegisteredUser.self).filter(predicate).first {
                                 
                                 if result.igpHasComment {
                                     
@@ -542,7 +543,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         let userId = userIdDictionary[sender.tag]
         let realm = try! Realm()
         let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", userId!)
-        if let roomInfo = try! realm.objects(IGRoom.self).filter(predicate).first {
+        if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
             room = roomInfo
             openChat()
         } else {
@@ -589,7 +590,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     }
     
     func degreesToRadians(degrees: CGFloat) -> CGFloat {
-        return degrees * CGFloat(M_PI) / 180
+        return degrees * CGFloat(Double.pi) / 180
     }
     
     /*********************************************************/
@@ -615,7 +616,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         if !string.isEmpty {
             commentText = "\(commentText!)\(string)"
         } else {
-            commentText = String(commentText!.prefix(commentText!.characters.count - 1))
+            commentText = String(commentText!.prefix(commentText!.count - 1))
         }
         
         
@@ -634,7 +635,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         }
         
         if let text = edtComment.text {
-            let newLength = text.characters.count + string.characters.count - range.length
+            let newLength = text.count + string.count - range.length
             if (newLength > MAX_COMMENT_LENGTH) {
                 edtComment.text = latestComment
                 commentMaxAlert()
@@ -663,7 +664,7 @@ extension IGMap: MKMapViewDelegate {
             let realm = try! Realm()
             let userIdDic = "\(userIdDictionary[annotation.hash]!)"
             let predicate = NSPredicate(format: "id = %lld", Int64(userIdDic)!)
-            var user = realm.objects(IGRegisteredUser.self).filter(predicate).first
+            let user = realm.objects(IGRegisteredUser.self).filter(predicate).first
             
             //********** annotation view **********//
             let reuseId = "pin"
@@ -800,7 +801,7 @@ extension IGMap: MKMapViewDelegate {
         } else if angleCamera > 90 {
             angleCamera = fabs(angleCamera - 180)
         }
-        let angleRad = M_PI * angleCamera / 180
+        let angleRad = Double.pi * angleCamera / 180
         let width = Double(mapView.frame.size.width)
         let height = Double(mapView.frame.size.height)
         let heightOffset : Double = 20

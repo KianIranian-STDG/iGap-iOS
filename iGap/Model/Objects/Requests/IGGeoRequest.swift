@@ -183,7 +183,7 @@ class IGGeoGetNearbyDistance : IGRequest {
             }
         }
         
-       class func getUserInfo(userId: Int64){
+        class func getUserInfo(userId: Int64){
             IGUserInfoRequest.Generator.generate(userID: userId).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
@@ -191,15 +191,16 @@ class IGGeoGetNearbyDistance : IGRequest {
                         let igpUser = userInfoResponse.igpUser
                         IGFactory.shared.saveRegistredUsers([igpUser])
                         
-                        let nearbyDistance = userNoInfoDictionary[igpUser.igpID]!
-                        
-                        // after get userInfo now add nearbyDistance to realm for update in tableView
-                        IGFactory.shared.setMapNearbyUsersDistance(nearbyDistance: nearbyDistance)
-                        
-                        if nearbyDistance.igpHasComment {
-                            getUserComment(userId: igpUser.igpID)
-                        } else {
-                            userNoInfoDictionary.removeValue(forKey: igpUser.igpID)
+                        if let nearbyDistance = userNoInfoDictionary[igpUser.igpID] {
+                            
+                            // after get userInfo now add nearbyDistance to realm for update in tableView
+                            IGFactory.shared.setMapNearbyUsersDistance(nearbyDistance: nearbyDistance)
+                            
+                            if nearbyDistance.igpHasComment {
+                                getUserComment(userId: igpUser.igpID)
+                            } else {
+                                userNoInfoDictionary.removeValue(forKey: igpUser.igpID)
+                            }
                         }
                         
                         break
@@ -215,7 +216,9 @@ class IGGeoGetNearbyDistance : IGRequest {
                 DispatchQueue.main.async {
                     if let comment = protoResponse as? IGPGeoGetCommentResponse {
                         IGFactory.shared.updateNearbyDistanceComment(userId: Int64(requestWrapper.identity)!, comment: comment.igpComment)
-                        userNoInfoDictionary.removeValue(forKey: Int64(requestWrapper.identity)!)
+                        if userNoInfoDictionary[Int64(requestWrapper.identity)!] != nil {
+                            userNoInfoDictionary.removeValue(forKey: Int64(requestWrapper.identity)!)
+                        }
                     }
                 }
             }).error({ (errorCode, waitTime) in }).send()
