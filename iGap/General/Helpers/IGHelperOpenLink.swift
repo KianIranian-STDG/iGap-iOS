@@ -14,12 +14,17 @@ class IGHelperOpenLink {
     static let ignoreLinks = ["facebook.com","twitter.com","instagram.com","pinterest.com","tumblr.com","telegram.org","flickr.com","500px.com","behance.net","t.me"]
     
     static func openLink(urlString: String, navigationController: UINavigationController){
-        for ignoreLink in ignoreLinks {
-            if urlString.contains(ignoreLink) {
-                UIApplication.shared.openURL(URL(string: urlString)!)
-                return
+        
+        if !IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
+            UIApplication.shared.openURL(URL(string: urlString)!)
+        } else {
+            for ignoreLink in ignoreLinks {
+                if urlString.contains(ignoreLink) {
+                    UIApplication.shared.openURL(URL(string: urlString)!)
+                    return
+                }
             }
+            navigationController.pushViewController(SwiftWebVC(urlString: urlString), animated: true)
         }
-        navigationController.pushViewController(SwiftWebVC(urlString: urlString), animated: true)
     }
 }

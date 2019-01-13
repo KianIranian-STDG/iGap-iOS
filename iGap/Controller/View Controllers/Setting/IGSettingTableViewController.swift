@@ -25,7 +25,8 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var versionCell: UITableViewCell!
     @IBOutlet weak var versionLabel: UILabel!
-
+    @IBOutlet weak var switchInAppBrowser: UISwitch!
+    
     var imagePicker = UIImagePickerController()
     let locationManager = CLLocationManager()
     let borderName = CALayer()
@@ -39,6 +40,10 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         
     
     let disposeBag = DisposeBag()
+    
+    @IBAction func switchInAppBrowser(_ sender: UISwitch) {
+        IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: sender.isOn)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +89,11 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             self.versionLabel.text = "iGap iOS Client V \(version)"
         }
         
+        if IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
+            switchInAppBrowser.isOn = true
+        } else {
+            switchInAppBrowser.isOn = false
+        }
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -313,9 +323,9 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         switch section {
         case 0:
             if IGAppManager.sharedManager.mplActive() {
-                return 8
+                return 9
             }
-            return 7
+            return 8
         case 1:
             return 1
         case 2:
@@ -357,14 +367,24 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             } else if rowIndex == 4 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
-            } else if rowIndex == 5 {
+            } else if rowIndex == 5 { // in app browser
+                
+                if switchInAppBrowser.isOn {
+                    switchInAppBrowser.setOn(false, animated: true)
+                    IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: false)
+                } else {
+                    switchInAppBrowser.setOn(true, animated: true)
+                    IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: true)
+                }
+                
+            } else if rowIndex == 6 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToPrivacyAndPolicySettingsPage", sender: self)
-            } else if rowIndex == 6 {
+            } else if rowIndex == 7 {
                 shareContent = "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net"
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 present(activityViewController, animated: true, completion: nil)
-            } else if rowIndex == 7 {
+            } else if rowIndex == 8 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToAboutSettingPage", sender: self)
             }

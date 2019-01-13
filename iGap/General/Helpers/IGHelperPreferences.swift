@@ -12,6 +12,10 @@ import UIKit
 
 class IGHelperPreferences {
 
+    //setting preferences
+    public static let keyInAppBrowser = "IN_APP_BROWSER"
+    
+    
     internal static func readBoolean(key: String) -> Bool {
         let preferences = UserDefaults.standard
         let currentLevelKey = key
