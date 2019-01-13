@@ -342,6 +342,23 @@
 		FADE97B31DF2DBF100FF714A /* IGMusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE97B21DF2DBF100FF714A /* IGMusicPlayer.swift */; };
 		FAE11243204E96FA009F402B /* IGCallsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE11242204E96FA009F402B /* IGCallsTableViewController.swift */; };
 		FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAE1698E20E746DC008FE881 /* GoogleService-Info.plist */; };
+		FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062121EB39DB00F03FFC /* SwiftWebVC.swift */; };
+		FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062221EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift */; };
+		FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062321EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift */; };
+		FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062421EB39DB00F03FFC /* SwiftModalWebVC.swift */; };
+		FAE6062A21EB39DB00F03FFC /* SwiftWebVCActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6062521EB39DB00F03FFC /* SwiftWebVCActivity.swift */; };
+		FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE6062C21EB39FA00F03FFC /* Media.xcassets */; };
+		FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6062F21EB3A0B00F03FFC /* vi.lproj */; };
+		FAE6063B21EB3A0C00F03FFC /* pt.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063021EB3A0B00F03FFC /* pt.lproj */; };
+		FAE6063C21EB3A0C00F03FFC /* de.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063121EB3A0B00F03FFC /* de.lproj */; };
+		FAE6063D21EB3A0C00F03FFC /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063221EB3A0B00F03FFC /* en.lproj */; };
+		FAE6063E21EB3A0C00F03FFC /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063321EB3A0B00F03FFC /* zh-Hant.lproj */; };
+		FAE6063F21EB3A0C00F03FFC /* es.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063421EB3A0C00F03FFC /* es.lproj */; };
+		FAE6064021EB3A0C00F03FFC /* es-ES.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063521EB3A0C00F03FFC /* es-ES.lproj */; };
+		FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063621EB3A0C00F03FFC /* fr.lproj */; };
+		FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063721EB3A0C00F03FFC /* ja.lproj */; };
+		FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063821EB3A0C00F03FFC /* zh-Hans.lproj */; };
+		FAE6064421EB3A0C00F03FFC /* da.lproj in Resources */ = {isa = PBXBuildFile; fileRef = FAE6063921EB3A0C00F03FFC /* da.lproj */; };
 		FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE6BAB1207B537B00E54ECE /* MKHipsterTileOverlay.swift */; };
 		FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA75D81DDAFFA200C387F1 /* IGRoomMessageLocation.swift */; };
 		FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA75DA1DDB012800C387F1 /* IGRoomMessageLog.swift */; };
@@ -760,6 +777,23 @@
 		FAE11244204E9813009F402B /* IGCallListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallListTableViewCell.swift; sourceTree = "<group>"; };
 		FAE11246204E982D009F402B /* IGCallListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGCallListTableViewCell.xib; sourceTree = "<group>"; };
 		FAE1698E20E746DC008FE881 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FAE6062121EB39DB00F03FFC /* SwiftWebVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVC.swift; sourceTree = "<group>"; };
+		FAE6062221EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVCActivityChrome.swift; sourceTree = "<group>"; };
+		FAE6062321EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVCActivitySafari.swift; sourceTree = "<group>"; };
+		FAE6062421EB39DB00F03FFC /* SwiftModalWebVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftModalWebVC.swift; sourceTree = "<group>"; };
+		FAE6062521EB39DB00F03FFC /* SwiftWebVCActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftWebVCActivity.swift; sourceTree = "<group>"; };
+		FAE6062C21EB39FA00F03FFC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		FAE6062F21EB3A0B00F03FFC /* vi.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = vi.lproj; sourceTree = "<group>"; };
+		FAE6063021EB3A0B00F03FFC /* pt.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pt.lproj; sourceTree = "<group>"; };
+		FAE6063121EB3A0B00F03FFC /* de.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = de.lproj; sourceTree = "<group>"; };
+		FAE6063221EB3A0B00F03FFC /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = en.lproj; sourceTree = "<group>"; };
+		FAE6063321EB3A0B00F03FFC /* zh-Hant.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hant.lproj"; sourceTree = "<group>"; };
+		FAE6063421EB3A0C00F03FFC /* es.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = es.lproj; sourceTree = "<group>"; };
+		FAE6063521EB3A0C00F03FFC /* es-ES.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "es-ES.lproj"; sourceTree = "<group>"; };
+		FAE6063621EB3A0C00F03FFC /* fr.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fr.lproj; sourceTree = "<group>"; };
+		FAE6063721EB3A0C00F03FFC /* ja.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ja.lproj; sourceTree = "<group>"; };
+		FAE6063821EB3A0C00F03FFC /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hans.lproj"; sourceTree = "<group>"; };
+		FAE6063921EB3A0C00F03FFC /* da.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = da.lproj; sourceTree = "<group>"; };
 		FAE6BAB1207B537B00E54ECE /* MKHipsterTileOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKHipsterTileOverlay.swift; sourceTree = "<group>"; };
 		FAEA75D81DDAFFA200C387F1 /* IGRoomMessageLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRoomMessageLocation.swift; sourceTree = "<group>"; };
 		FAEA75DA1DDB012800C387F1 /* IGRoomMessageLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRoomMessageLog.swift; sourceTree = "<group>"; };
@@ -1499,6 +1533,7 @@
 		FAD5807E1DDC402600A242DE /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FAE6062021EB39CE00F03FFC /* Browser */,
 				FA9F734F2127E4C0004418E5 /* Contact Picker */,
 				FA930D961E5B178F00069EE1 /* ThirdParty Libraries */,
 				FA4BD8A01DF2A52300CCB239 /* Music Player */,
@@ -1581,6 +1616,46 @@
 				FAD959041F48AD8600FBD306 /* MTBBarcodeScanner.m */,
 			);
 			path = MTBBarcodeScanner;
+			sourceTree = "<group>";
+		};
+		FAE6062021EB39CE00F03FFC /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				FAE6062B21EB39F200F03FFC /* Resources */,
+				FAE6062E21EB3A0200F03FFC /* Strings */,
+				FAE6062421EB39DB00F03FFC /* SwiftModalWebVC.swift */,
+				FAE6062121EB39DB00F03FFC /* SwiftWebVC.swift */,
+				FAE6062521EB39DB00F03FFC /* SwiftWebVCActivity.swift */,
+				FAE6062221EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift */,
+				FAE6062321EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		FAE6062B21EB39F200F03FFC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FAE6062C21EB39FA00F03FFC /* Media.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FAE6062E21EB3A0200F03FFC /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				FAE6063921EB3A0C00F03FFC /* da.lproj */,
+				FAE6063121EB3A0B00F03FFC /* de.lproj */,
+				FAE6063221EB3A0B00F03FFC /* en.lproj */,
+				FAE6063521EB3A0C00F03FFC /* es-ES.lproj */,
+				FAE6063421EB3A0C00F03FFC /* es.lproj */,
+				FAE6063621EB3A0C00F03FFC /* fr.lproj */,
+				FAE6063721EB3A0C00F03FFC /* ja.lproj */,
+				FAE6063021EB3A0B00F03FFC /* pt.lproj */,
+				FAE6062F21EB3A0B00F03FFC /* vi.lproj */,
+				FAE6063821EB3A0C00F03FFC /* zh-Hans.lproj */,
+				FAE6063321EB3A0B00F03FFC /* zh-Hant.lproj */,
+			);
+			path = Strings;
 			sourceTree = "<group>";
 		};
 		FAF795E11DAA330C0030509B = {
@@ -1841,6 +1916,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
 				FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
@@ -1853,20 +1929,27 @@
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
 				FA6A22761F41D0210063DF07 /* iGap-Fontico.ttf in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
+				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
+				FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
+				FAE6063F21EB3A0C00F03FFC /* es.lproj in Resources */,
 				FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */,
 				FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */,
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
 				FA417E51212179C900B5FBCD /* LocationCell.xib in Resources */,
+				FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */,
+				FAE6063D21EB3A0C00F03FFC /* en.lproj in Resources */,
 				FA927E0A20286FE800DF7145 /* ContactCell.xib in Resources */,
 				FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */,
 				FA33063B1F445AE80096031A /* IRANSans_Bold.ttf in Resources */,
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
+				FAE6063E21EB3A0C00F03FFC /* zh-Hant.lproj in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
+				FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
@@ -1880,7 +1963,11 @@
 				FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */,
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
 				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
+				FAE6063C21EB3A0C00F03FFC /* de.lproj in Resources */,
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
+				FAE6064021EB3A0C00F03FFC /* es-ES.lproj in Resources */,
+				FAE6063B21EB3A0C00F03FFC /* pt.lproj in Resources */,
+				FAE6064421EB3A0C00F03FFC /* da.lproj in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2016,6 +2103,7 @@
 				FA09536A1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewCell.swift in Sources */,
 				93193F341E5813620039AC0C /* IGGroupMemberListInvitedLinkTableViewCell.swift in Sources */,
 				FA86D44821A95CB0007B80D7 /* IGHelperView.swift in Sources */,
+				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */,
@@ -2028,6 +2116,7 @@
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGNewGroupBottomViewCollectionCell.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
+				FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */,
 				FA96EF4E1DEB0431009BE640 /* IGMessageSender.swift in Sources */,
 				FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */,
 				FA09538A1E1B97E20043ED3F /* IGCreateNewGroupTableViewController.swift in Sources */,
@@ -2053,6 +2142,7 @@
 				FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */,
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGChooseContactToAddNewGroupTableViewCell.swift in Sources */,
+				FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
@@ -2060,6 +2150,7 @@
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
+				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,
 				93AA67C01E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift in Sources */,
 				FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */,
 				FA63BAA71DD70E1A000B60AD /* IGRequestUser.swift in Sources */,
@@ -2116,6 +2207,7 @@
 				FA09536C1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell.swift in Sources */,
 				FA0953641E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewController.swift in Sources */,
 				FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */,
+				FAE6062A21EB39DB00F03FFC /* SwiftWebVCActivity.swift in Sources */,
 				FA63BAA31DD70D94000B60AD /* IGRequestSystem.swift in Sources */,
 				FA42EEF81E5C205D00CF8A32 /* IGImageView.swift in Sources */,
 				93AA67D01E4F40C80053380C /* IGChannelInfoAdminsTableViewCell.swift in Sources */,

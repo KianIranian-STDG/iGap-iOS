@@ -192,10 +192,10 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
         if !(urlString.contains("https://")) && !(urlString.contains("http://")) {
             urlString = "http://" + urlString
         }
-        if let urlToOpen = URL(string: urlString) {
+        self.navigationController?.pushViewController(SwiftWebVC(urlString: urlString), animated: true)
+        /*if let urlToOpen = URL(string: urlString) {
             UIApplication.shared.openURL(urlToOpen)
-        }
-        //TODO: handle "igap.net/join"
+        }*/
     }
     func didTapOnRoomLink(link: String) {
         let token = link.chopPrefix(22)

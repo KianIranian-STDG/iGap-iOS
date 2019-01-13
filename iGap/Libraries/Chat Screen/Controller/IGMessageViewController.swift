@@ -3302,10 +3302,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if !(urlStringLower.contains("https://")) && !(urlStringLower.contains("http://")) {
             urlString = "http://" + urlString
         }
+        
+        self.navigationController?.pushViewController(SwiftWebVC(urlString: urlString), animated: true)
+        /*
         if let urlToOpen = URL(string: urlString) {
             UIApplication.shared.openURL(urlToOpen)
         }
-        //TODO: handle "igap.net/join"
+        */
     }
     func didTapOnRoomLink(link: String) {
         let strings = link.split(separator: "/")
