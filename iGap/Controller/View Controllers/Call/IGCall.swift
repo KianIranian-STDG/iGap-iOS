@@ -65,7 +65,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     private static var allowEndCallKit = true
     internal static var callTypeStatic: IGPSignalingOffer.IGPType = .voiceCalling
     internal static var callUUID = UUID()
-    internal static var callStateStatic: String!
+    internal static var staticConnectionState: RTCClientConnectionState?
     internal static var sendLeaveRequest = true
     internal static var callPageIsEnable = false // this varibale will be used for detect that call page is enable or no. connection state of call isn't important now!
     internal static var staticReturnToCall: ReturnToCallObserver!
@@ -495,7 +495,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     func onStateChange(state: RTCClientConnectionState) {
-        
+        IGCall.staticConnectionState = state
         DispatchQueue.main.async {
             switch state {
                 
@@ -506,6 +506,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             case .Connected:
                 self.addRemoteVideoTrack()
                 
+                IGCallEventListener.playHoldSound = false
                 self.txtCallTime.isHidden = false
                 self.txtCallState.text = "Connected"
                 
@@ -663,6 +664,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         RTCClient.getInstance(justReturn: true)?.disconnect()
         IGCall.callPageIsEnable = false
+        IGCallEventListener.playHoldSound = false
         callIsConnected = false
         
         if let timer = callTimer {

@@ -241,7 +241,6 @@ public class RTCClient: NSObject {
         }
         self.state = .connecting
         
-        IGCall.callStateStatic = "Connecting..."
         self.localStream(onPrepareLocalStream: { (localStream) -> Void in
             peerConnection.add(localStream)
             if let localAudioTrack = localStream.audioTracks.first {

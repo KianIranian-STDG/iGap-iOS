@@ -76,6 +76,8 @@ class CallManager: NSObject, CXProviderDelegate {
     }
     
     func holdCall(hold : Bool) {
+        IGCallEventListener.playHoldSound = false
+        
         if let unwrappedCurrentCall = currentCall {
             let holdCallAction = CXSetHeldCallAction.init(call: unwrappedCurrentCall, onHold: hold)
             let transaction = CXTransaction.init()
