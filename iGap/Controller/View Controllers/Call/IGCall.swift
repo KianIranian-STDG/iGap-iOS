@@ -37,7 +37,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var holdView: UIView!
     @IBOutlet weak var txtHold: UILabel!
     
-    let SWITCH_CAMERA_DELAY : Int64 = 2000
+    let SWITCH_CAMERA_DELAY : Int64 = 1000
     let mainWidth = UIScreen.main.bounds.width
     let mainHeight = UIScreen.main.bounds.height
     
@@ -414,7 +414,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func changeBottomViewsVisibility(){
-        if !callIsConnected {return}
+        if !callIsConnected || callType == .voiceCalling {return}
         
         bottomViewsIsHidden = !bottomViewsIsHidden
         
@@ -760,9 +760,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     
                     if image != nil {
                         self.imgAvatar.image = image
+                        /*
                         if callType == .voiceCalling {
                             self.viewTransparent.isHidden = false
                         }
+                        */
                     } else {
                         throw NSError(domain: "asa", code: 1234, userInfo: nil)
                     }
@@ -773,9 +775,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                         let path = originalFile.path()
                         if let data = try? Data(contentsOf: path!) {
                             if let image = UIImage(data: data) {
+                                /*
                                 if self.callType == .voiceCalling {
                                     self.viewTransparent.isHidden = false
                                 }
+                                */
                                 self.imgAvatar.image = image
                             }
                         }
