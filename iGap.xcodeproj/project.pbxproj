@@ -215,6 +215,12 @@
 		FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA82043A2025C99300A795D5 /* ImageCell.xib */; };
 		FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */; };
 		FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA84D49E21C918C9009597B7 /* webServiceKey.txt */; };
+		FA8548A221EC92CF00435F70 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */; };
+		FA8548A321EC92CF00435F70 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A121EC92CF00435F70 /* Firebase.framework */; };
+		FA8548A821EC92F900435F70 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */; };
+		FA8548A921EC92F900435F70 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A521EC92F800435F70 /* GoogleAppMeasurement.framework */; };
+		FA8548AA21EC92F900435F70 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A621EC92F900435F70 /* nanopb.framework */; };
+		FA8548AB21EC92F900435F70 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A721EC92F900435F70 /* FirebaseCoreDiagnostics.framework */; };
 		FA8560AA1FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8560A91FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift */; };
 		FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA865C7120789C2600B9D585 /* MapKit.framework */; };
 		FA865C752078A32000B9D585 /* IGMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA865C742078A32000B9D585 /* IGMap.swift */; };
@@ -644,6 +650,12 @@
 		FA82043A2025C99300A795D5 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountReasonViewController.swift; sourceTree = "<group>"; };
 		FA84D49E21C918C9009597B7 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
+		FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
+		FA8548A121EC92CF00435F70 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
+		FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Build/iOS/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		FA8548A521EC92F800435F70 /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAppMeasurement.framework; path = Carthage/Build/iOS/GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		FA8548A621EC92F900435F70 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = nanopb.framework; path = Carthage/Build/iOS/nanopb.framework; sourceTree = "<group>"; };
+		FA8548A721EC92F900435F70 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Carthage/Build/iOS/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
 		FA8560A91FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift; sourceTree = "<group>"; };
 		FA865C7120789C2600B9D585 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FA865C742078A32000B9D585 /* IGMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMap.swift; sourceTree = "<group>"; };
@@ -850,6 +862,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA8548A821EC92F900435F70 /* FirebaseAnalytics.framework in Frameworks */,
+				FA8548A921EC92F900435F70 /* GoogleAppMeasurement.framework in Frameworks */,
+				FA8548AA21EC92F900435F70 /* nanopb.framework in Frameworks */,
+				FA8548AB21EC92F900435F70 /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				FA8548A221EC92CF00435F70 /* FIRAnalyticsConnector.framework in Frameworks */,
+				FA8548A321EC92CF00435F70 /* Firebase.framework in Frameworks */,
 				FAAD3C2621EA22FD00B1420A /* GoogleUtilities.framework in Frameworks */,
 				FAAD3C2221EA220C00B1420A /* FirebaseMessaging.framework in Frameworks */,
 				FAAD3C2321EA220C00B1420A /* FirebaseCore.framework in Frameworks */,
@@ -1758,6 +1776,12 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */,
+				FA8548A721EC92F900435F70 /* FirebaseCoreDiagnostics.framework */,
+				FA8548A521EC92F800435F70 /* GoogleAppMeasurement.framework */,
+				FA8548A621EC92F900435F70 /* nanopb.framework */,
+				FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */,
+				FA8548A121EC92CF00435F70 /* Firebase.framework */,
 				FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */,
 				FAAD3C2021EA220C00B1420A /* FirebaseCore.framework */,
 				FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */,
