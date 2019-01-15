@@ -21,18 +21,9 @@ class IGHelperBot {
     let MAX_KEYBOARD_HEIGHT:CGFloat = 200
     let MIN_LAYOUT_WIDTH :CGFloat = 50
     
-    var botArray : [[String:String]] = [[:]]
-    var botDic1 : [String:String] = ["One":"1"]
-    var botDic2 : [String:String] = ["Two1":"2", "Two2":"2"]
-    var botDic3 : [String:String] = ["three1":"3", "three2":"3", "three3":"3"]
-    
-    func makeBotView() -> UIView {
-        botArray = []
-        botArray.append(botDic1)
-        botArray.append(botDic3)
-        botArray.append(botDic2)
+    func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]]) -> UIView {
         
-        let rowCount = CGFloat(botArray.count)
+        let rowCount = CGFloat(additionalArrayMain.count)
         let rowWidth = SCREAN_WIDTH - (OUT_LAYOUT_SPACE * 2)
         let rowHeight = (rowCount * (ROW_HEIGHT + OUT_LAYOUT_SPACE)) + OUT_LAYOUT_SPACE
         var keyboardHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
@@ -61,15 +52,15 @@ class IGHelperBot {
             make.width.equalTo(rowWidth)
         }
         
-        for row in botArray {
+        for row in additionalArrayMain {
             let stackView = UIStackView()
             stackView.axis = .horizontal
             stackView.distribution = .fillEqually
             stackView.spacing = 10
             stackView.translatesAutoresizingMaskIntoConstraints = false
             
-            for (key, _) in row {
-                stackView.addArrangedSubview(makeBotButton(parentView: stackView, text: key))
+            for additionalButton in row {
+                stackView.addArrangedSubview(makeBotButton(parentView: stackView, additionalButton: additionalButton))
             }
             mainStackView.addArrangedSubview(stackView)
         }
@@ -77,7 +68,7 @@ class IGHelperBot {
         return parent
     }
     
-    private func makeBotButton(parentView: UIView, text: String, hasImage: Bool = false) -> UIView {
+    private func makeBotButton(parentView: UIView, additionalButton: IGStructAdditionalButton) -> UIView {
         let view = UIView()
         let img = UIImageView()
         let btn = UIButton()
@@ -87,7 +78,7 @@ class IGHelperBot {
         
         let internalViewSize = ROW_HEIGHT - (IN_LAYOUT_SPACE * 2)
         
-        if hasImage {
+        if additionalButton.imageUrl != nil {
             img.image = UIImage(named: "IG_Map")
             view.addSubview(img)
             
@@ -100,7 +91,7 @@ class IGHelperBot {
         }
         
         btn.snp.makeConstraints { (make) in
-            if hasImage {
+            if additionalButton.imageUrl != nil {
                 make.leading.equalTo(img.snp.trailing).offset(IN_LAYOUT_SPACE)
             } else {
                 make.leading.equalTo(view.snp.leading).offset(IN_LAYOUT_SPACE)
@@ -111,7 +102,7 @@ class IGHelperBot {
         }
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
-        btn.setTitle(text, for: UIControlState.normal)
+        btn.setTitle(additionalButton.lable, for: UIControlState.normal)
         btn.removeUnderline()
         
         view.backgroundColor = UIColor.organizationalColor()

@@ -8,9 +8,6 @@
  * All rights reserved.
  */
 
-
-import UIKit
-
 struct IGApiStruct {
     
     var favoriteValue : String!

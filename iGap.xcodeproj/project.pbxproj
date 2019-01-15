@@ -343,6 +343,9 @@
 		FAD7452021B945C100801D2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD7450221B941A000801D2E /* Assets.xcassets */; };
 		FAD7452121B945C100801D2E /* GetURL.js in Resources */ = {isa = PBXBuildFile; fileRef = FAD7450421B941A000801D2E /* GetURL.js */; };
 		FAD7452321B9462700801D2E /* IGShareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD7451621B9447B00801D2E /* IGShareInfo.swift */; };
+		FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8A02A21EE0860006996E1 /* IGHelperJson.swift */; };
+		FAD8A02E21EE095A006996E1 /* IGStructAdditionalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */; };
+		FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD8A02F21EE0E1C006996E1 /* SwiftyJSON.framework */; };
 		FAD94C701E0136D0006D8D91 /* IGMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD94C6F1E0136D0006D8D91 /* IGMedia.swift */; };
 		FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD959041F48AD8600FBD306 /* MTBBarcodeScanner.m */; };
 		FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD959061F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift */; };
@@ -783,6 +786,9 @@
 		FAD7450C21B941A000801D2E /* ShareConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareConfig.swift; sourceTree = "<group>"; };
 		FAD7451521B942B300801D2E /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		FAD7451621B9447B00801D2E /* IGShareInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGShareInfo.swift; sourceTree = "<group>"; };
+		FAD8A02A21EE0860006996E1 /* IGHelperJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperJson.swift; sourceTree = "<group>"; };
+		FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructAdditionalButton.swift; sourceTree = "<group>"; };
+		FAD8A02F21EE0E1C006996E1 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		FAD94C6F1E0136D0006D8D91 /* IGMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMedia.swift; sourceTree = "<group>"; };
 		FAD959031F48AD8600FBD306 /* MTBBarcodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTBBarcodeScanner.h; sourceTree = "<group>"; };
 		FAD959041F48AD8600FBD306 /* MTBBarcodeScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTBBarcodeScanner.m; sourceTree = "<group>"; };
@@ -864,6 +870,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */,
 				FA8548A821EC92F900435F70 /* FirebaseAnalytics.framework in Frameworks */,
 				FA8548A921EC92F900435F70 /* GoogleAppMeasurement.framework in Frameworks */,
 				FA8548AA21EC92F900435F70 /* nanopb.framework in Frameworks */,
@@ -1136,6 +1143,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4CFD0521A046BA005FCBF2 /* Helpers */,
+				FAD8A02C21EE08D4006996E1 /* Structs */,
 				FA41C6EF1DC9DFD600598383 /* IGGlobal.swift */,
 				FAC34DB31E1A3F7E00BB9823 /* IGRealm.swift */,
 				FAA932F41DF45748002CC631 /* IGEnums.swift */,
@@ -1216,6 +1224,7 @@
 				FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */,
 				FAE6064521EB4B7200F03FFC /* IGHelperOpenLink.swift */,
 				FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */,
+				FAD8A02A21EE0860006996E1 /* IGHelperJson.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1390,7 +1399,6 @@
 			isa = PBXGroup;
 			children = (
 				FA8FCBAE219C02E40028457F /* IGApi.swift */,
-				FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */,
 				FA8FCBB4219C26C40028457F /* IGApiProtocol.swift */,
 			);
 			path = Api;
@@ -1633,6 +1641,15 @@
 			path = Share;
 			sourceTree = "<group>";
 		};
+		FAD8A02C21EE08D4006996E1 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */,
+				FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
 		FAD959021F48AD8600FBD306 /* MTBBarcodeScanner */ = {
 			isa = PBXGroup;
 			children = (
@@ -1779,6 +1796,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAD8A02F21EE0E1C006996E1 /* SwiftyJSON.framework */,
 				FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */,
 				FA8548A721EC92F900435F70 /* FirebaseCoreDiagnostics.framework */,
 				FA8548A521EC92F800435F70 /* GoogleAppMeasurement.framework */,
@@ -2065,6 +2083,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Cosmos.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Digger.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -2230,6 +2249,7 @@
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
+				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,
 				FA50A8CE1DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift in Sources */,
 				937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */,
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
@@ -2372,6 +2392,7 @@
 				FA8F224E1DD89AC5005A90D1 /* IGRoomMessage.swift in Sources */,
 				FA0953871E1B97E20043ED3F /* IGCreateNewChannelTableViewController.swift in Sources */,
 				FAD530631E0BD80800FE6C54 /* IGNavigationController.swift in Sources */,
+				FAD8A02E21EE095A006996E1 /* IGStructAdditionalButton.swift in Sources */,
 				FA865C752078A32000B9D585 /* IGMap.swift in Sources */,
 				FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */,
 				FA358D201E0A6F6A001D0935 /* IGGroupsTableViewController.swift in Sources */,
