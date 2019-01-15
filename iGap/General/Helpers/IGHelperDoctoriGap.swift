@@ -19,33 +19,30 @@ class IGHelperDoctoriGap {
     
     /* check that is need create doctor iGap room or no. if is needed then create room and set pin true */
     internal static func doctoriGapCreator(){
-        
         if !isExistDoctoriGap() {
-            if !IGHelperPreferences.readBoolean(key: doctoriGapRoom) {
-                IGChatGetRoomRequest.Generator.generate(peerId: Int64(DOCTOR_IGAP_ID)).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
-                            let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                            let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
-                            pinRoom(room: room)
-                            let message = IGRoomMessage(body: "/start")
-                            message.type = .text
-                            message.roomId = roomId
-                            let detachedMessage = message.detach()
-                            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                            IGMessageSender.defaultSender.send(message: message, to: room)
-                        }
+            IGChatGetRoomRequest.Generator.generate(peerId: Int64(DOCTOR_IGAP_ID)).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
+                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
+                        pinRoom(room: room)
+                        let message = IGRoomMessage(body: "/start")
+                        message.type = .text
+                        message.roomId = roomId
+                        let detachedMessage = message.detach()
+                        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                        IGMessageSender.defaultSender.send(message: message, to: room)
                     }
-                    
-                }).error({ (errorCode, waitTime) in
-                    switch errorCode {
-                    case .timeout:
-                        IGHelperDoctoriGap.doctoriGapCreator()
-                    default:
-                        break
-                    }
-                }).send()
-            }
+                }
+                
+            }).error({ (errorCode, waitTime) in
+                switch errorCode {
+                case .timeout:
+                    IGHelperDoctoriGap.doctoriGapCreator()
+                default:
+                    break
+                }
+            }).send()
         }
     }
     

@@ -22,7 +22,7 @@ class IGHelperPreferences {
         if preferences.object(forKey: currentLevelKey) != nil {
             return preferences.bool(forKey: currentLevelKey)
         }
-        return false
+        return true
     }
 
     internal static func writeBoolean(key: String, state: Bool){
