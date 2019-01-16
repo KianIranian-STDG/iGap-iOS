@@ -14,12 +14,10 @@ import SwiftyJSON
 
 class IGHelperJson {
 
-    internal static func parseAdditionalButton() -> [[IGStructAdditionalButton]]? {
-        
-        let jsonString = "[[{\"actionType\" : 3,\"lable\":\"کانال آی گپ\",\"imageUrl\":\"https://lh3.googleusercontent.com/crtxcLqrnVf47QG6LBjQbn5ZeXJBBGO4xCmAZC-e8afPMe0oV1sJktNALFP2mTM83Q\\u003ds360-rw\",\"value\":\"@official\",\"width\":100,\"height\":100}],[{\"actionType\":2,\"lable\":\"دستور بات\",\"imageUrl\":\"\",\"value\":\"/start\",\"width\":0,\"height\":0},{\"actionType\":2,\"lable\":\"دستور بات\",\"imageUrl\":\"\",\"value\":\"/start\",\"width\":0,\"height\":0},{\"actionType\":3,\"lable\":\"کانال آی گپ\",\"imageUrl\":\"https://lh3.googleusercontent.com/crtxcLqrnVf47QG6LBjQbn5ZeXJBBGO4xCmAZC-e8afPMe0oV1sJktNALFP2mTM83Q\\u003ds360-rw\",\"value\":\"@official\",\"width\":100,\"height\":100}],[{\"actionType\":2,\"lable\":\"دستور بات\",\"imageUrl\":\"\",\"value\":\"/start\",\"width\":0,\"height\":0},{\"actionType\":3,\"lable\":\"کانال آی گپ\",\"imageUrl\":\"https://lh3.googleusercontent.com/crtxcLqrnVf47QG6LBjQbn5ZeXJBBGO4xCmAZC-e8afPMe0oV1sJktNALFP2mTM83Q\\u003ds360-rw\",\"value\":\"@official\",\"width\":100,\"height\":100}]]"
+    internal static func parseAdditionalButton(data: String) -> [[IGStructAdditionalButton]]? {
         
         do {
-            if let dataFromString = jsonString.data(using: .utf8, allowLossyConversion: false) {
+            if let dataFromString = data.data(using: .utf8, allowLossyConversion: false) {
                 let jsonArrayMain = try JSON(data: dataFromString)
                 
                 var arrayMain = [[IGStructAdditionalButton]]()

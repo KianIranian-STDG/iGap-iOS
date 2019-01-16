@@ -311,11 +311,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.manageKeyboard()
                     self.makeKeyboardButton()
-                    
-                    if self.botCommandsDictionary.count == 0 { // if not exist any command in latest message show default icon for change keyboard action button
-                        self.btnChangeKeyboard.setTitle(self.KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
-                        self.addStartButton(force: true)
-                    }
                 }
             }
         }
@@ -417,6 +412,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: IGHelperJson.parseAdditionalButton()!)
+//            self.inputTextView.reloadInputViews()
+//            if !self.inputTextView.becomeFirstResponder() {
+//                self.inputTextView.becomeFirstResponder()
+//            }
+//            IGHelperJson.parseAdditionalButton()
+//        }
     }
     
     @objc func tapOnMainView(sender : UITapGestureRecognizer) {
@@ -647,137 +651,27 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 if latestMessage != nil && latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
                     
-                    if latestMessage!.message != nil && !(latestMessage!.message?.isEmpty)! && (latestMessage!.message?.contains("/"))! {
-                        self.botCommandsDictionary = [:]
-                        self.botCommandsArray = []
-                        for lineMessage in (latestMessage!.message?.lines)! {
-                            
-                            let finalMessage = lineMessage.split(separator: "-")
-                            if finalMessage.count == 2 && finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines).starts(with: "/") {
-                                self.botCommandsArray.append(finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines))
-                                self.botCommandsDictionary[finalMessage[1].description.trimmingCharacters(in: .whitespacesAndNewlines)] = finalMessage[0].description.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if let data = latestMessage?.additional?.data {
+                        if let additionalData = IGHelperJson.parseAdditionalButton(data: data), !isCustomKeyboard {
+                            isCustomKeyboard = true
+                            btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
+                            self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData)
+                            self.inputTextView.reloadInputViews()
+                            if !self.inputTextView.becomeFirstResponder() {
+                                self.inputTextView.becomeFirstResponder()
                             }
+                        } else {
+                            isCustomKeyboard = false
+                            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+                            inputTextView.inputView = nil
+                            inputTextView.reloadInputViews()
                         }
-                        
-                        addStartButton()
-                        self.makeKeyboard(botCommands: self.botCommandsDictionary)
-                    } else {
-                        addStartButton()
-                        self.makeKeyboard()
                     }
                 }
             }
         }
     }
 
-    private func makeKeyboard(botCommands: [String:String]? = nil) {
-        
-        makeKeyboardButton()
-        
-        if botCommands == nil || botCommands?.count == 0 {
-            isCustomKeyboard = false
-            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
-            inputTextView.inputView = nil
-            inputTextView.reloadInputViews()
-            return
-        }
-        isCustomKeyboard = true
-        btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
-        
-        var rowIndex = 1
-        var commandIndex = 1
-        let commandsCount : Int! = botCommands?.count
-        let rowsCount = commandsCount / 2 + commandsCount % 2
-        let childHeight = (rowsCount * BUTTON_HEIGHT) + (rowsCount * BUTTON_SPACE) + BUTTON_SPACE
-        var keyboardHeight = 200
-        var commandState: CommandState = CommandState.Odd
-        
-        if childHeight < keyboardHeight {
-            keyboardHeight = childHeight
-        }
-        
-        if commandsCount % 2 == 0 {
-            commandState = CommandState.Even
-        }
-        
-        
-        let parent = UIScrollView()
-        parent.backgroundColor = UIColor.white
-        parent.frame = CGRect(x: 0, y: 0, width: Int(screenWidth), height: keyboardHeight)
-        
-        let child = UIView()
-        parent.addSubview(child)
-        
-        child.snp.makeConstraints { (make) in
-            make.top.equalTo(parent.snp.top)
-            make.left.equalTo(parent.snp.left)
-            make.right.equalTo(parent.snp.right)
-            make.bottom.equalTo(parent.snp.bottom)
-            make.height.equalTo(childHeight)
-        }
-        
-        for cmd in botCommandsArray {
-            var buttonState = ButtonState.First
-            if commandIndex % 2 == 0 {
-                buttonState = ButtonState.Second
-            }
-            
-            var showSingle = false
-            
-            if rowsCount == rowIndex && commandState == CommandState.Odd {
-                showSingle = true
-            }
-            
-            makeBotButton(parentView: parent, row: rowIndex, buttonState: buttonState, text: cmd, showSingle: showSingle)
-            
-            if commandIndex % 2 == 0 {
-                rowIndex += 1
-            }
-            
-            commandIndex += 1
-        }
-        
-        inputTextView.inputView = parent
-        inputTextView.reloadInputViews()
-        if !inputTextView.becomeFirstResponder() {
-            inputTextView.becomeFirstResponder()
-        }
-    }
-    
-    private func makeBotButton(parentView: UIView, row: Int, buttonState: ButtonState, text: String, showSingle: Bool = false){
-        let topOffset = (row - 1) * BUTTON_HEIGHT + (row - 1) * BUTTON_SPACE + BUTTON_SPACE
-        var rowSpace : CGFloat = 5.0
-        if buttonState == ButtonState.Second && !showSingle {
-            rowSpace = ((screenWidth/2 - 7.5) + (BUTTON_ROW_SPACE * 2))
-        }
-            
-        let btn = UIButton()
-        btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
-        btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
-        btn.setTitle(text, for: UIControlState.normal)
-        btn.removeUnderline()
-        parentView.addSubview(btn)
-        
-        btn.backgroundColor = UIColor.organizationalColor()
-        btn.layer.masksToBounds = false
-        btn.layer.cornerRadius = 5.0
-        btn.layer.shadowOffset = CGSize(width: 1, height: 3)
-        btn.layer.shadowRadius = 3.0
-        btn.layer.shadowOpacity = 0.5
-        
-        btn.snp.makeConstraints { (make) in
-            make.left.equalTo(parentView.snp.left).offset(rowSpace)
-            make.top.equalTo(parentView.snp.top).offset(topOffset)
-            if showSingle {
-                make.width.equalTo((screenWidth) - (BUTTON_ROW_SPACE * 2))
-                make.right.equalTo(parentView.snp.right).offset(rowSpace)
-            } else {
-                make.width.equalTo((screenWidth/2) - 7.5)
-            }
-            make.height.equalTo(BUTTON_HEIGHT)
-        }
-    }
-    
     func onBotButtonClick(sender: UIButton!) {
         let text : String! = sender.titleLabel?.text!
         let botCommand = botCommandsDictionary[text]
@@ -786,13 +680,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func onKeyboardChangeClick(){
-        if isCustomKeyboard {
-            isCustomKeyboard = false
-            makeKeyboard()
-        } else {
-            isCustomKeyboard = true
-            makeKeyboard(botCommands: botCommandsDictionary)
-        }
+        manageKeyboard()
     }
     
     /* add return to main menu button for bot custom keyboard when latest message isn't "/start" */

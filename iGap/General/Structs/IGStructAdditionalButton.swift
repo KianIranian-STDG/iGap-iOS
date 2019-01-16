@@ -21,7 +21,7 @@ class IGStructAdditionalButton {
     
     init(json: JSON) {
         self.actionType = json["actionType"].intValue
-        self.label = json["lable"].stringValue
+        self.label = json["label"].stringValue
         self.imageUrl = json["imageUrl"].url
         self.value = json["value"].stringValue
         self.width = json["width"].intValue

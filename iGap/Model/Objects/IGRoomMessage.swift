@@ -25,6 +25,7 @@ class IGRoomMessage: Object {
     @objc dynamic var log:                IGRoomMessageLog?
     @objc dynamic var contact:            IGRoomMessageContact?
     @objc dynamic var location:           IGRoomMessageLocation?
+    @objc dynamic var additional:         IGRealmAdditional?
     @objc dynamic var id:                 Int64                           = -1
     @objc dynamic var roomId:             Int64                           = -1
     @objc dynamic var primaryKeyId:       String?
@@ -212,6 +213,8 @@ class IGRoomMessage: Object {
         }
         
         self.randomId = igpMessage.igpRandomID
+        
+        self.additional = IGRealmAdditional(message: igpMessage)
     }
     
     //used when sending a message
