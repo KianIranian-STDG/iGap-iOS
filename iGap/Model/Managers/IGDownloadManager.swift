@@ -277,6 +277,26 @@ class IGDownloadManager {
         }
     }
     
+    public func downloadImage(url: URL, completion: @escaping ((_ data :Data) -> Void)) {
+        DiggerCache.cleanDownloadFiles()
+        
+        Digger.download(url).completion { (result) in
+            switch result {
+            case .success(let url):
+                do {
+                    completion(try Data(contentsOf: url))
+                } catch let error {
+                    print("error downloadImage : \(error)")
+                }
+                break
+                
+            case .failure(let error):
+                print("error downloadImage : \(error)")
+                break
+            }
+        }
+    }
+    
     private func downloadProto(task downloadTask:IGDownloadTask, offset: Int64 = 0) {
         
         downloadTask.state = .downloading

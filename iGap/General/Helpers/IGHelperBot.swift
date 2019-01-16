@@ -14,12 +14,14 @@ class IGHelperBot {
     
     static let shared = IGHelperBot()
     
+    var data: Data?
+    
     let SCREAN_WIDTH = UIScreen.main.bounds.width
     let OUT_LAYOUT_SPACE: CGFloat = 10
     let IN_LAYOUT_SPACE: CGFloat = 5
     let ROW_HEIGHT: CGFloat = 40
-    let MAX_KEYBOARD_HEIGHT:CGFloat = 200
-    let MIN_LAYOUT_WIDTH :CGFloat = 50
+    let MAX_KEYBOARD_HEIGHT: CGFloat = 200
+    let MIN_LAYOUT_WIDTH: CGFloat = 50
     
     func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]]) -> UIView {
         
@@ -79,7 +81,7 @@ class IGHelperBot {
         let internalViewSize = ROW_HEIGHT - (IN_LAYOUT_SPACE * 2)
         
         if additionalButton.imageUrl != nil {
-            img.image = UIImage(named: "IG_Map")
+            img.setImage(url: additionalButton.imageUrl!)
             view.addSubview(img)
             
             img.snp.makeConstraints { (make) in
@@ -102,7 +104,7 @@ class IGHelperBot {
         }
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
-        btn.setTitle(additionalButton.lable, for: UIControlState.normal)
+        btn.setTitle(additionalButton.label, for: UIControlState.normal)
         btn.removeUnderline()
         
         view.backgroundColor = UIColor.organizationalColor()
