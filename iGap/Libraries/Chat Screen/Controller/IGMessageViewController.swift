@@ -215,7 +215,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         IGApi.apiBotProtocol = self
         IGMessageViewController.additionalObserver = self
-        IGMessageViewController.messageViewControllerObserver = self
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
@@ -909,6 +908,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        IGMessageViewController.messageViewControllerObserver = self
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
         IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
         let navigationItem = self.navigationItem as! IGNavigationItem

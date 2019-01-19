@@ -81,7 +81,7 @@ class IGHelperChatOpener {
     /**
      * resolve username info and open chat or profile with received data
      **/
-    internal static func checkUsernameAndOpenRoom(viewController: UIViewController, username: String){
+    internal static func checkUsernameAndOpenRoom(viewController: UIViewController, username: String, joinToRoom: Bool = false){
         IGGlobal.prgShow(viewController.view)
         IGClientResolveUsernameRequest.Generator.generate(username: username).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -94,7 +94,16 @@ class IGHelperChatOpener {
                     if clientResponse.clientResolveUsernametype == .user {
                         usernameType = .user
                     }
-                    IGHelperChatOpener.manageOpenChatOrProfile(viewController: viewController, usernameType: usernameType, user: clientResponse.user, room: clientResponse.room)
+                    if joinToRoom {
+                        IGHelperJoin.getInstance(viewController: viewController).joinByUsername(username: username, roomId: (clientResponse.room?.id)!, completion: {
+                            let predicate = NSPredicate(format: "id = %lld", (clientResponse.room?.id)!)
+                            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                                IGHelperChatOpener.manageOpenChatOrProfile(viewController: viewController, usernameType: usernameType, user: nil, room: room)
+                            }
+                        })
+                    } else {
+                        IGHelperChatOpener.manageOpenChatOrProfile(viewController: viewController, usernameType: usernameType, user: clientResponse.user, room: clientResponse.room)
+                    }
                 }
             }
         }).error ({ (errorCode, waitTime) in

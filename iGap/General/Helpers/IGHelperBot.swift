@@ -166,6 +166,9 @@ class IGHelperBot {
             break
             
         case ButtonActionType.USERNAME_LINK.rawValue :
+            if let observer = IGMessageViewController.messageViewControllerObserver {
+                IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: observer.onMessageViewControllerDetection(), username: structAdditional.value, joinToRoom: false)
+            }
             break
             
         case ButtonActionType.WEB_LINK.rawValue :

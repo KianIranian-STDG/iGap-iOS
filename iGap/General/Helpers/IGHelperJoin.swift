@@ -124,4 +124,50 @@ class IGHelperJoin {
             self.viewController.present(alert, animated: true, completion: nil)
         }
     }
+    
+    
+    public func joinByUsername(username: String, roomId: Int64, completion: (() -> Void)? = nil){
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", roomId)
+        if let room = realm.objects(IGRoom.self).filter(predicate).first, room.isParticipant {
+            if completion != nil {
+                completion!()
+            }
+            return
+        }
+        
+        IGGlobal.prgShow(viewController.view)
+        IGClientJoinByUsernameRequest.Generator.generate(userName: username).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                IGGlobal.prgHide()
+                switch protoResponse {
+                case let clientJoinbyUsernameResponse as IGPClientJoinByUsernameResponse:
+                    IGClientJoinByUsernameRequest.Handler.interpret(response: clientJoinbyUsernameResponse, roomId: roomId)
+                    if completion != nil {
+                        completion!()
+                    }
+                default:
+                    break
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                IGGlobal.prgHide()
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.viewController.present(alert, animated: true, completion: nil)
+                case .clinetJoinByUsernameForbidden:
+                    let alert = UIAlertController(title: "Error", message: "You don't have permission to join this room", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.viewController.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
 }

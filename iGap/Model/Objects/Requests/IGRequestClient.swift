@@ -237,8 +237,12 @@ class IGClientJoinByInviteLinkRequest: IGRequest {
 class IGClientJoinByUsernameRequest: IGRequest {
     class Generator: IGRequest.Generator {
         class func generate(userName: String, identity: String = "") -> IGRequestWrapper {
+            var finalUsername = userName
+            if userName.starts(with: "@") {
+                finalUsername = String(userName.dropFirst())
+            }
             var clientJoinByUsernameRequestMessage = IGPClientJoinByUsername()
-            clientJoinByUsernameRequestMessage.igpUsername = userName
+            clientJoinByUsernameRequestMessage.igpUsername = finalUsername
             return IGRequestWrapper(message: clientJoinByUsernameRequestMessage, actionID: 609, identity: identity)
         }
     }
