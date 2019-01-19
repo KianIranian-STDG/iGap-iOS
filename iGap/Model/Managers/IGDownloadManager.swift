@@ -278,13 +278,17 @@ class IGDownloadManager {
     }
     
     public func downloadImage(url: URL, completion: @escaping ((_ data :Data) -> Void)) {
-        DiggerCache.cleanDownloadFiles()
         
         Digger.download(url).completion { (result) in
             switch result {
             case .success(let url):
                 do {
-                    completion(try Data(contentsOf: url))
+                    let fileManager = FileManager.default
+                    let content = try Data(contentsOf: url)
+                    if let path = IGGlobal.makePath(filename: url.lastPathComponent) {
+                        fileManager.createFile(atPath: path.path, contents: content, attributes: nil)
+                    }
+                    completion(content)
                 } catch let error {
                     print("error downloadImage : \(error)")
                 }

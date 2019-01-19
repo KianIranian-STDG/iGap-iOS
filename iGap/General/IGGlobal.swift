@@ -48,6 +48,14 @@ class IGGlobal {
     
     /**********************************************/
     /******************** File ********************/
+    
+    internal static func makePath(filename: String?) -> URL? {
+        if filename != nil {
+            let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            return NSURL(fileURLWithPath: documents).appendingPathComponent(filename!)
+        }
+        return nil
+    }
 
     /*
      * check file exist in path or no. also if 'fileSize' is set to the input of the method,
@@ -673,7 +681,13 @@ extension UIImageView {
     }
     
     func setImage(url: URL) {
-        imagesMap[url.absoluteString] = self
+        
+        if let filepath = IGGlobal.makePath(filename: url.lastPathComponent), IGGlobal.isFileExist(path: filepath) {
+            self.image = UIImage(contentsOfFile: filepath.path)
+            return
+        }
+        
+        imagesMap[(url.absoluteString)] = self
         IGDownloadManager.sharedManager.downloadImage(url: url, completion: { (data) -> Void in
             DispatchQueue.main.async {
                 if let imageMain = imagesMap[url.absoluteString] {
