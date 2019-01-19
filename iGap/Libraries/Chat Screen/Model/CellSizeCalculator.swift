@@ -10,7 +10,7 @@
 
 import UIKit
 
-typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: CGFloat)
+typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: CGFloat, additionalHeight: CGFloat)
 
 class CellSizeCalculator: NSObject {
     
@@ -105,6 +105,7 @@ class CellSizeCalculator: NSObject {
 
         var finalSize = CGSize.zero
         var messageAttachmentHeight: CGFloat = 0.0
+        var additionalHeight: CGFloat = 0.0
         
         var finalMessage = message
         if let forward = message.forwardedFrom {
@@ -190,7 +191,12 @@ class CellSizeCalculator: NSObject {
             }
         }
         
-        let result = (finalSize, messageAttachmentHeight)
+        if let additionalData = finalMessage.additional?.data {
+            additionalHeight = IGHelperBot.shared.computeHeight(rowCount: CGFloat(IGHelperJson.getAdditionalButtonRowCount(data: additionalData)))
+            additionalHeight += IGHelperBot.shared.OUT_LAYOUT_SPACE + IGHelperBot.shared.OUT_LAYOUT_SPACE
+        }
+        
+        let result = (finalSize, messageAttachmentHeight, additionalHeight)
         cache.setObject(result as AnyObject, forKey: cacheKey)
         return result
     }

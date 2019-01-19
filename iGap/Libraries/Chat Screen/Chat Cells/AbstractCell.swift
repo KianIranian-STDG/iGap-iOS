@@ -23,6 +23,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var replyLineViewAbs: UIView!
     var viewInfoVideoAbs: UIView!
     var viewSenderNameAbs: UIView!
+    var additionalViewAbs: UIView!
     
     var txtSenderNameAbs: UILabel!
     var txtEditedAbs: UILabel!
@@ -39,6 +40,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     var txtMessageHeightConstraintAbs: NSLayoutConstraint!
     var mainBubbleViewWidthAbs: NSLayoutConstraint!
+    var mainBubbleViewHeightAbs: NSLayoutConstraint!
     var mediaHeightConstraintAbs: NSLayoutConstraint!
     
     var avatarViewAbs: IGAvatarView!
@@ -89,6 +91,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         manageLink()
         manageGustureRecognizers()
         manageAttachment()
+        manageAdditional()
     }
     /*
      ******************************************************************
@@ -381,6 +384,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         /************ Bubble Size ************/
         mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width //mainBubbleViewWidthAbs.priority = 1000
+        mainBubbleViewHeightAbs.constant = messageSizes.bubbleSize.height - 18
         
         /********* Bubble Direction *********/
         mainBubbleViewAbs.snp.makeConstraints { (make) in
@@ -718,6 +722,22 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
     }
 
+    /*
+     ******************************************************************
+     ************************ Manage Additional ***********************
+     ******************************************************************
+     */
+    
+    private func manageAdditional(){
+        if let additionalData = finalRoomMessage.additional?.data, let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
+            
+            let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
+            makeAdditionalView(additionalView: additionalView)
+            
+        } else {
+            removeAdditionalView()
+        }
+    }
     
     /*
      ************************************************************************************************************************************
@@ -1083,6 +1103,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
     }
     
+    
+    
+    
     private func makeVideoInfo(){
         
         if viewInfoVideoAbs == nil {
@@ -1168,6 +1191,32 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if imgVideoPlayAbs != nil {
             imgVideoPlayAbs.removeFromSuperview()
             imgVideoPlayAbs = nil
+        }
+    }
+    
+    
+    
+    private func makeAdditionalView(additionalView: UIView){
+        removeAdditionalView()
+        
+        if additionalViewAbs == nil {
+            additionalViewAbs = additionalView
+            additionalViewAbs.layer.cornerRadius = 10.0
+            self.contentView.addSubview(additionalViewAbs)
+        }
+        
+        additionalViewAbs?.snp.makeConstraints { (make) in
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
+            make.top.equalTo(mainBubbleViewAbs.snp.bottom).offset(5)
+            make.height.equalTo(additionalView.frame.size.height)
+        }
+    }
+    
+    private func removeAdditionalView(){
+        if additionalViewAbs != nil {
+            additionalViewAbs.removeFromSuperview()
+            additionalViewAbs = nil
         }
     }
 }

@@ -655,7 +655,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         if let additionalData = IGHelperJson.parseAdditionalButton(data: data), !isCustomKeyboard {
                             isCustomKeyboard = true
                             btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
-                            self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData)
+                            self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData, isKeyboard: true)
                             self.inputTextView.reloadInputViews()
                             if !self.inputTextView.becomeFirstResponder() {
                                 self.inputTextView.becomeFirstResponder()
@@ -2563,9 +2563,10 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let message = messages![indexPath.section]
-        let frame = self.collectionView.layout.sizeCell(for: message).bubbleSize
+        let size = self.collectionView.layout.sizeCell(for: message)
+        let frame = size.bubbleSize
         
-        return CGSize(width: self.collectionView.frame.width, height: frame.height+5)
+        return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

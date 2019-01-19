@@ -224,6 +224,10 @@ extension UIColor {
         return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:1.0)
     }
     
+    class func customKeyboardButton() -> UIColor { // iGap Color
+        return UIColor(red:125/255.0, green:125/255.0, blue:125/255.0, alpha:0.3)
+    }
+    
     //MARK: General Colors
     class func doctorBotPinColor() -> UIColor { // iGap Color
         return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:0.2)

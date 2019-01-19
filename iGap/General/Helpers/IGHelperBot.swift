@@ -23,18 +23,32 @@ class IGHelperBot {
     let MAX_KEYBOARD_HEIGHT: CGFloat = 200
     let MIN_LAYOUT_WIDTH: CGFloat = 50
     
-    func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]]) -> UIView {
+    private func computeWidth() -> CGFloat {
+        return SCREAN_WIDTH - (OUT_LAYOUT_SPACE * 2)
+    }
+    
+    public func computeHeight(rowCount: CGFloat) -> CGFloat {
+        return (rowCount * (ROW_HEIGHT + OUT_LAYOUT_SPACE)) + OUT_LAYOUT_SPACE
+    }
+    
+    func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> UIView {
         
         let rowCount = CGFloat(additionalArrayMain.count)
-        let rowWidth = SCREAN_WIDTH - (OUT_LAYOUT_SPACE * 2)
-        let rowHeight = (rowCount * (ROW_HEIGHT + OUT_LAYOUT_SPACE)) + OUT_LAYOUT_SPACE
+        let rowWidth = computeWidth()
+        let rowHeight = computeHeight(rowCount: rowCount)
         var keyboardHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
         if keyboardHeight > MAX_KEYBOARD_HEIGHT {
             keyboardHeight = MAX_KEYBOARD_HEIGHT
         }
         
-        let parent = UIScrollView()
-        parent.backgroundColor = UIColor.white
+        var parent: UIView!
+        if isKeyboard {
+            parent = UIScrollView()
+            parent.backgroundColor = UIColor.white
+        } else {
+            parent = UIView()
+            parent.backgroundColor = UIColor.clear
+        }
         parent.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(keyboardHeight))
         
         let mainStackView = UIStackView()
@@ -72,7 +86,7 @@ class IGHelperBot {
     
     private func makeBotButton(parentView: UIView, additionalButton: IGStructAdditionalButton) -> UIView {
         let view = UIView()
-        let img = UIImageView()
+        var img : UIImageView!
         let btn = UIButton()
         
         btn.titleLabel?.textAlignment = NSTextAlignment.center
@@ -81,6 +95,7 @@ class IGHelperBot {
         let internalViewSize = ROW_HEIGHT - (IN_LAYOUT_SPACE * 2)
         
         if additionalButton.imageUrl != nil {
+            img = UIImageView()
             img.setImage(url: additionalButton.imageUrl!)
             view.addSubview(img)
             
@@ -107,12 +122,9 @@ class IGHelperBot {
         btn.setTitle(additionalButton.label, for: UIControlState.normal)
         btn.removeUnderline()
         
-        view.backgroundColor = UIColor.organizationalColor()
+        view.backgroundColor = UIColor.customKeyboardButton()
         view.layer.masksToBounds = false
         view.layer.cornerRadius = 5.0
-        view.layer.shadowOffset = CGSize(width: 1, height: 3)
-        view.layer.shadowRadius = 3.0
-        view.layer.shadowOpacity = 0.5
 
         parentView.addSubview(view)
         

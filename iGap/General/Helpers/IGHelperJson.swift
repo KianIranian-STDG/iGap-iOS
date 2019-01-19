@@ -37,4 +37,16 @@ class IGHelperJson {
         
         return nil
     }
+    
+    internal static func getAdditionalButtonRowCount(data: String) -> Int {
+        do {
+            if let dataFromString = data.data(using: .utf8, allowLossyConversion: false) {
+                let jsonArrayMain = try JSON(data: dataFromString)
+                return jsonArrayMain.count
+            }
+        } catch let error {
+            print(error)
+        }
+        return 0
+    }
 }
