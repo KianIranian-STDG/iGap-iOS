@@ -129,6 +129,11 @@ class IGChatSendMessageRequest : IGRequest {
                 sendMessageRequestMessage.igpLocation.igpLon = location.longitude
             }
             
+            if let additional = message.additional {
+                sendMessageRequestMessage.igpAdditionalType = additional.dataType
+                sendMessageRequestMessage.igpAdditionalData = additional.data!
+            }
+            
             return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 201)
         }
     }

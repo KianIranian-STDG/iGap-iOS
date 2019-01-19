@@ -684,8 +684,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
 
     /* overrided method */
-    func onAdditionalClick(structAdditional: IGStructAdditionalButton) {
-        
+    func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
+        let message = IGRoomMessage(body: structAdditional.label)
+        message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
+        let detachedMessage = message.detach()
+        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+        IGMessageSender.defaultSender.send(message: message, to: room!)
     }
     
     func onKeyboardChangeClick(){

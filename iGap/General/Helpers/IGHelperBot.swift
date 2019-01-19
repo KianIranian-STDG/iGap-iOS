@@ -143,7 +143,6 @@ class IGHelperBot {
     @objc private func onBotButtonClick(sender: UIButton){
         if let structAdditional = buttonActionDic[sender] {
             manageAdditionalActions(structAdditional: structAdditional)
-            //IGMessageViewController.additionalObserver.onAdditionalClick(sender: sender, structAdditional: structAdditional)
         }
     }
     
@@ -158,12 +157,12 @@ class IGHelperBot {
             
         case ButtonActionType.JOIN_LINK.rawValue :
             if let observer = IGMessageViewController.messageViewControllerObserver {
-                let link = "iGap.net/join/9Rln1EHKDkePWLJ80v8ySgiIJ"
-                IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: link)
+                IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: structAdditional.value)
             }
             break
             
         case ButtonActionType.BOT_ACTION.rawValue :
+            IGMessageViewController.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
             break
             
         case ButtonActionType.USERNAME_LINK.rawValue :

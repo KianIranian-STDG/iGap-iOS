@@ -23,4 +23,11 @@ class IGRealmAdditional: Object {
         self.dataType = message.igpAdditionalType
         self.data = message.igpAdditionalData
     }
+    
+    convenience init(additionalData: String, additionalType: Int32) {
+        self.init()
+        
+        self.dataType = additionalType
+        self.data = additionalData
+    }
 }

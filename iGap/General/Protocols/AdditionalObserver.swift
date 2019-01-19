@@ -12,6 +12,6 @@
 import IGProtoBuff
 
 protocol AdditionalObserver {
-    func onAdditionalClick(structAdditional :IGStructAdditionalButton)
+    func onAdditionalSendMessage(structAdditional :IGStructAdditionalButton)
 }
 

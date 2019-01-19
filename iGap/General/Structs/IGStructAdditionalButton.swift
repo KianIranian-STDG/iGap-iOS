@@ -12,12 +12,14 @@ import SwiftyJSON
 
 class IGStructAdditionalButton {
 
+    var json : String!
     var actionType : Int!
     var label : String!
     var imageUrl : URL!
     var value : String!
     
     init(json: JSON) {
+        self.json = json.description
         self.actionType = json["actionType"].intValue
         self.label = json["label"].stringValue
         self.imageUrl = json["imageUrl"].url
