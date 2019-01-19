@@ -27,6 +27,7 @@ class CellSizeCalculator: NSObject {
             struct Width {
                 struct Minimum {
                     static let Text:       CGFloat = 80.0
+                    static let Additional: CGFloat = 200.0
                     static let Attachment: CGFloat = 80.0
                 }
                 struct Maximum {
@@ -115,6 +116,8 @@ class CellSizeCalculator: NSObject {
             finalSize.height += 54
         }
         
+        let additionalData = getAdditional(roomMessage: finalMessage)
+        
         let text = finalMessage.message as NSString?
         
         if finalMessage.attachment != nil {
@@ -183,16 +186,21 @@ class CellSizeCalculator: NSObject {
                 let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
                 finalSize.height += ConstantSizes.Text.Height
                 finalSize.height += stringRect.height
-                if stringRect.width < ConstantSizes.Bubble.Width.Minimum.Text {
-                    finalSize.width = ConstantSizes.Bubble.Width.Minimum.Text
+                
+                var minimumSize = ConstantSizes.Bubble.Width.Minimum.Text
+                if additionalData != nil {
+                    minimumSize = ConstantSizes.Bubble.Width.Minimum.Additional
+                }
+                if stringRect.width < minimumSize {
+                    finalSize.width = minimumSize
                 } else {
                     finalSize.width = stringRect.width
                 }
             }
         }
         
-        if let additionalData = finalMessage.additional?.data {
-            additionalHeight = IGHelperBot.shared.computeHeight(rowCount: CGFloat(IGHelperJson.getAdditionalButtonRowCount(data: additionalData)))
+        if additionalData != nil {
+            additionalHeight = IGHelperBot.shared.computeHeight(rowCount: CGFloat(IGHelperJson.getAdditionalButtonRowCount(data: additionalData!)))
             additionalHeight += IGHelperBot.shared.OUT_LAYOUT_SPACE + IGHelperBot.shared.OUT_LAYOUT_SPACE
         }
         
@@ -201,6 +209,12 @@ class CellSizeCalculator: NSObject {
         return result
     }
     
+    func getAdditional(roomMessage: IGRoomMessage) -> String? {
+        if let additionalData = roomMessage.additional?.data {
+            return additionalData
+        }
+        return nil
+    }
     
     class func getStringStyle() -> [String: Any]{
         let paragraph = NSMutableParagraphStyle()
