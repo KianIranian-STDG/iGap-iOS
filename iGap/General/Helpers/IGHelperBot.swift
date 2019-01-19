@@ -172,6 +172,9 @@ class IGHelperBot {
             break
             
         case ButtonActionType.WEB_LINK.rawValue :
+            if let observer = IGMessageViewController.messageViewControllerObserver {
+                IGHelperOpenLink.openLink(urlString: structAdditional.value, navigationController: observer.onNavigationControllerDetection(), forceOpenInApp: true)
+            }
             break
             
         case ButtonActionType.WEBVIEW_LINK.rawValue :

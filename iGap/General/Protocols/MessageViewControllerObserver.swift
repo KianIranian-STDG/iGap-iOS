@@ -12,5 +12,6 @@
 /* return IGMessageViewController */
 protocol MessageViewControllerObserver {
     func onMessageViewControllerDetection() -> UIViewController
+    func onNavigationControllerDetection() -> UINavigationController
 }
 

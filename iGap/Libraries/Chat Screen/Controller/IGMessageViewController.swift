@@ -209,6 +209,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return self
     }
     
+    func onNavigationControllerDetection() -> UINavigationController {
+        return self.navigationController!
+    }
+    
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
