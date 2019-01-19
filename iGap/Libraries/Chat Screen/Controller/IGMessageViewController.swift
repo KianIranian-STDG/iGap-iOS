@@ -51,7 +51,7 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver {
 
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
@@ -201,12 +201,21 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var receivedLocation : CLLocation!
 
     fileprivate var typingStatusExpiryTimer = Timer() //use this to send cancel for typing status
+    internal static var additionalObserver: AdditionalObserver!
+    internal static var messageViewControllerObserver: MessageViewControllerObserver!
+    
+    
+    func onMessageViewControllerDetection() -> UIViewController {
+        return self
+    }
     
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
         
         IGApi.apiBotProtocol = self
+        IGMessageViewController.additionalObserver = self
+        IGMessageViewController.messageViewControllerObserver = self
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
@@ -652,7 +661,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 if latestMessage != nil && latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
                     
                     if let data = latestMessage?.additional?.data {
-                        if let additionalData = IGHelperJson.parseAdditionalButton(data: data), !isCustomKeyboard {
+                        if let additionalData = IGHelperJson.parseAdditionalButton(data: data),
+                            latestMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue , !isCustomKeyboard {
+                            
                             isCustomKeyboard = true
                             btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
                             self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData, isKeyboard: true)
@@ -672,11 +683,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
 
-    func onBotButtonClick(sender: UIButton!) {
-        let text : String! = sender.titleLabel?.text!
-        let botCommand = botCommandsDictionary[text]
-        inputTextView.text = botCommand
-        self.didTapOnSendButton(self.inputBarSendButton)
+    /* overrided method */
+    func onAdditionalClick(structAdditional: IGStructAdditionalButton) {
+        
     }
     
     func onKeyboardChangeClick(){

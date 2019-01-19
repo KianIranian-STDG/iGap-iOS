@@ -729,7 +729,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
      */
     
     private func manageAdditional(){
-        if let additionalData = finalRoomMessage.additional?.data, let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
+        
+        if let additionalData = finalRoomMessage.additional?.data,
+            finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
             
             let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
             makeAdditionalView(additionalView: additionalView)

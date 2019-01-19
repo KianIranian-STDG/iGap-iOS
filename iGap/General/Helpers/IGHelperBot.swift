@@ -15,6 +15,7 @@ class IGHelperBot {
     static let shared = IGHelperBot()
     
     var data: Data?
+    var buttonActionDic: [UIButton : IGStructAdditionalButton] = [:]
     
     let SCREAN_WIDTH = UIScreen.main.bounds.width
     let OUT_LAYOUT_SPACE: CGFloat = 10
@@ -31,25 +32,28 @@ class IGHelperBot {
         return (rowCount * (ROW_HEIGHT + OUT_LAYOUT_SPACE)) + OUT_LAYOUT_SPACE
     }
     
+    /**************************************************/
+    /**************** View Maker Start ****************/
+    
     func makeBotView(additionalArrayMain: [[IGStructAdditionalButton]], isKeyboard: Bool = false) -> UIView {
         
         let rowCount = CGFloat(additionalArrayMain.count)
         let rowWidth = computeWidth()
         let rowHeight = computeHeight(rowCount: rowCount)
-        var keyboardHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
-        if keyboardHeight > MAX_KEYBOARD_HEIGHT {
-            keyboardHeight = MAX_KEYBOARD_HEIGHT
-        }
+        var customViewHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
         
         var parent: UIView!
         if isKeyboard {
+            if customViewHeight > MAX_KEYBOARD_HEIGHT {
+                customViewHeight = MAX_KEYBOARD_HEIGHT
+            }
             parent = UIScrollView()
             parent.backgroundColor = UIColor.white
         } else {
             parent = UIView()
             parent.backgroundColor = UIColor.clear
         }
-        parent.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(keyboardHeight))
+        parent.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(customViewHeight))
         
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
@@ -76,7 +80,7 @@ class IGHelperBot {
             stackView.translatesAutoresizingMaskIntoConstraints = false
             
             for additionalButton in row {
-                stackView.addArrangedSubview(makeBotButton(parentView: stackView, additionalButton: additionalButton))
+                stackView.addArrangedSubview(makeBotButton(parentView: stackView, additionalButton: additionalButton, isKeyboard: isKeyboard))
             }
             mainStackView.addArrangedSubview(stackView)
         }
@@ -84,11 +88,14 @@ class IGHelperBot {
         return parent
     }
     
-    private func makeBotButton(parentView: UIView, additionalButton: IGStructAdditionalButton) -> UIView {
+    private func makeBotButton(parentView: UIView, additionalButton: IGStructAdditionalButton, isKeyboard: Bool) -> UIView {
         let view = UIView()
         var img : UIImageView!
         let btn = UIButton()
         
+        buttonActionDic[btn] = additionalButton
+        
+        btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
         btn.titleLabel?.textAlignment = NSTextAlignment.center
         view.addSubview(btn)
         
@@ -122,12 +129,72 @@ class IGHelperBot {
         btn.setTitle(additionalButton.label, for: UIControlState.normal)
         btn.removeUnderline()
         
-        view.backgroundColor = UIColor.customKeyboardButton()
+        if isKeyboard {
+            view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.8)
+        } else {
+            view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.3)
+        }
         view.layer.masksToBounds = false
         view.layer.cornerRadius = 5.0
 
-        parentView.addSubview(view)
-        
         return view
+    }
+    
+    @objc private func onBotButtonClick(sender: UIButton){
+        if let structAdditional = buttonActionDic[sender] {
+            manageAdditionalActions(structAdditional: structAdditional)
+            //IGMessageViewController.additionalObserver.onAdditionalClick(sender: sender, structAdditional: structAdditional)
+        }
+    }
+    
+    /***************** View Maker End *****************/
+    /**************************************************/
+    
+    private func manageAdditionalActions(structAdditional: IGStructAdditionalButton){
+        switch structAdditional.actionType {
+            
+        case ButtonActionType.NONE.rawValue :
+            break
+            
+        case ButtonActionType.JOIN_LINK.rawValue :
+            if let observer = IGMessageViewController.messageViewControllerObserver {
+                let link = "iGap.net/join/9Rln1EHKDkePWLJ80v8ySgiIJ"
+                IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: link)
+            }
+            break
+            
+        case ButtonActionType.BOT_ACTION.rawValue :
+            break
+            
+        case ButtonActionType.USERNAME_LINK.rawValue :
+            break
+            
+        case ButtonActionType.WEB_LINK.rawValue :
+            break
+            
+        case ButtonActionType.WEBVIEW_LINK.rawValue :
+            break
+            
+        case ButtonActionType.STREAM_PLAY.rawValue :
+            break
+            
+        case ButtonActionType.PAY_BY_WALLET.rawValue :
+            break
+            
+        case ButtonActionType.PAY_DIRECT.rawValue :
+            break
+            
+        case ButtonActionType.REQUEST_PHONE.rawValue :
+            break
+            
+        case ButtonActionType.REQUEST_LOCATION.rawValue :
+            break
+            
+        case ButtonActionType.SHOWA_ALERT.rawValue :
+            break
+            
+        default:
+            break
+        }
     }
 }

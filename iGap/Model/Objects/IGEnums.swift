@@ -355,3 +355,31 @@ enum ButtonState {
     case First
     case Second
 }
+
+enum AdditionalType: Int32 {
+    case NONE = 0
+    case UNDER_KEYBOARD_BUTTON = 1
+    case UNDER_MESSAGE_BUTTON = 2
+    case BUTTON_CLICK_ACTION = 3
+    case STICKER = 4
+    case GIF = 5
+    case STREAM_TYPE = 6
+    case KEYBOARD_TYPE = 7
+    case FORM_BUILDER = 8
+    case WEBVIEW_SHOW = 9
+}
+
+enum ButtonActionType: Int {
+    case NONE = 0
+    case JOIN_LINK = 1
+    case BOT_ACTION = 2
+    case USERNAME_LINK = 3
+    case WEB_LINK = 4
+    case WEBVIEW_LINK = 5
+    case STREAM_PLAY = 6
+    case PAY_BY_WALLET = 7
+    case PAY_DIRECT = 8
+    case REQUEST_PHONE = 9
+    case REQUEST_LOCATION = 10
+    case SHOWA_ALERT = 11
+}
