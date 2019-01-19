@@ -15,6 +15,7 @@ class LocationCell: AbstractCell {
     
     @IBOutlet var mainBubbleView: UIView!
     @IBOutlet var mainBubbleViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var mainBubbleViewHeight: NSLayoutConstraint!
     
     class func sizeForLocation() -> CGSize {
         return CGSize(width: 230, height: 130)
@@ -45,6 +46,7 @@ class LocationCell: AbstractCell {
         /********** view **********/
         mainBubbleViewAbs = mainBubbleView
         mainBubbleViewWidthAbs = mainBubbleViewWidth
+        mainBubbleViewHeightAbs = mainBubbleViewHeight
     }
     
     private func setLocationImage(path: String? = nil){

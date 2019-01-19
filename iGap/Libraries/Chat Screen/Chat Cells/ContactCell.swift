@@ -15,6 +15,7 @@ class ContactCell: AbstractCell {
     
     @IBOutlet var mainBubbleView: UIView!
     @IBOutlet weak var mainBubbleViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var mainBubbleViewHeight: NSLayoutConstraint!
     
     var contactTop: Constraint!
     
@@ -50,6 +51,7 @@ class ContactCell: AbstractCell {
         /********** view **********/
         mainBubbleViewAbs = mainBubbleView
         mainBubbleViewWidthAbs = mainBubbleViewWidth
+        mainBubbleViewHeightAbs = mainBubbleViewHeight
     }
     
     private func hasEmail() -> Bool{

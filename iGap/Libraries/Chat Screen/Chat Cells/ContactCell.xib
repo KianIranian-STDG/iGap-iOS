@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,17 +23,18 @@
                         <color key="backgroundColor" red="0.19215686269999999" green="0.46313517595714293" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="400" id="nxC-9R-LHJ"/>
+                            <constraint firstAttribute="height" constant="306" id="rfg-S3-LNa"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="yaV-fL-gff" secondAttribute="bottom" constant="8" id="bo5-Ii-bR0"/>
                 <constraint firstItem="yaV-fL-gff" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="rMs-4o-hGa"/>
             </constraints>
             <size key="customSize" width="494" height="324"/>
             <connections>
                 <outlet property="mainBubbleView" destination="yaV-fL-gff" id="nr2-pu-zXu"/>
+                <outlet property="mainBubbleViewHeight" destination="rfg-S3-LNa" id="nqh-2t-l9W"/>
                 <outlet property="mainBubbleViewWidth" destination="nxC-9R-LHJ" id="vNT-eG-OhG"/>
             </connections>
             <point key="canvasLocation" x="-108" y="922"/>

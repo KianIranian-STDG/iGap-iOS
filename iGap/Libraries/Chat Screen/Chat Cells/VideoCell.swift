@@ -18,6 +18,7 @@ class VideoCell: AbstractCell {
     
     @IBOutlet weak var txtMessageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainBubbleViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var mainBubbleViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var txtMessage: ActiveLabel!
     
@@ -42,6 +43,7 @@ class VideoCell: AbstractCell {
         /********** view **********/
         mainBubbleViewAbs = mainBubbleView
         mainBubbleViewWidthAbs = mainBubbleViewWidth
+        mainBubbleViewHeightAbs = mainBubbleViewHeight
         messageViewAbs = messageView
         
         /********** lable **********/
