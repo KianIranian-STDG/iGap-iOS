@@ -21,7 +21,7 @@ class IGHelperBot {
     let OUT_LAYOUT_SPACE: CGFloat = 10
     let IN_LAYOUT_SPACE: CGFloat = 5
     let ROW_HEIGHT: CGFloat = 40
-    let MAX_KEYBOARD_HEIGHT: CGFloat = 200
+    let MAX_KEYBOARD_HEIGHT: CGFloat = 220
     let MIN_LAYOUT_WIDTH: CGFloat = 50
     
     private func computeWidth() -> CGFloat {

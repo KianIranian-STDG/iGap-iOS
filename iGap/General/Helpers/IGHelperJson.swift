@@ -14,10 +14,12 @@ import SwiftyJSON
 
 class IGHelperJson {
 
-    internal static func parseAdditionalButton(data: String) -> [[IGStructAdditionalButton]]? {
+    internal static func parseAdditionalButton(data: String?) -> [[IGStructAdditionalButton]]? {
+        
+        if data == nil {return nil}
         
         do {
-            if let dataFromString = data.data(using: .utf8, allowLossyConversion: false) {
+            if let dataFromString = data!.data(using: .utf8, allowLossyConversion: false) {
                 let jsonArrayMain = try JSON(data: dataFromString)
                 
                 var arrayMain = [[IGStructAdditionalButton]]()

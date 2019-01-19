@@ -93,7 +93,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerView: UIView!
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
-    let btnChangeKeyboard = UIButton()
+    var btnChangeKeyboard : UIButton!
     private let disposeBag = DisposeBag()
     var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
     var allowForGetHistory: Bool = true
@@ -322,7 +322,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.manageKeyboard()
-                    self.makeKeyboardButton()
                 }
             }
         }
@@ -618,15 +617,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return false
     }
     
-    /*func isDoctoriGap() -> Bool {
-        return room?.chatRoom?.peer?.username.lowercased() == "drigap"
-    }*/
-    
     private func makeKeyboardButton(){
-        if isKeyboardButtonCreated {
+        
+        if btnChangeKeyboard != nil {
             return
         }
-        isKeyboardButtonCreated = true
+        
+        btnChangeKeyboard = UIButton()
+        btnChangeKeyboard.isHidden = false
         btnChangeKeyboard.addTarget(self, action: #selector(onKeyboardChangeClick), for: .touchUpInside)
         btnChangeKeyboard.titleLabel?.font = UIFont.iGapFontico(ofSize: 18.0)
         btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
@@ -648,6 +646,21 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    private func removeKeyboardButton(){
+        
+        if btnChangeKeyboard == nil {
+            return
+        }
+        
+        btnChangeKeyboard.removeFromSuperview()
+        btnChangeKeyboard.isHidden = true
+        btnChangeKeyboard = nil
+        inputTextView.snp.makeConstraints { (make) in
+            make.right.equalTo(inputBarRightiew.snp.left)
+            make.left.equalTo(inputBarLeftView.snp.right)
+        }
+    }
+    
     private func manageKeyboard(){
         if !isBotRoom() {return}
         
@@ -661,29 +674,42 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
                 let latestMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).last
                 
-                if latestMessage != nil && latestMessage!.authorUser?.id != IGAppManager.sharedManager.userID() {
-                    
-                    if let data = latestMessage?.additional?.data {
-                        if let additionalData = IGHelperJson.parseAdditionalButton(data: data),
-                            latestMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue , !isCustomKeyboard {
-                            
-                            isCustomKeyboard = true
-                            btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
-                            self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData, isKeyboard: true)
-                            self.inputTextView.reloadInputViews()
-                            if !self.inputTextView.becomeFirstResponder() {
-                                self.inputTextView.becomeFirstResponder()
-                            }
-                        } else {
-                            isCustomKeyboard = false
-                            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
-                            inputTextView.inputView = nil
-                            inputTextView.reloadInputViews()
-                        }
+                let additionalData = getAdditional(roomMessage: latestMessage)
+                
+                if additionalData != nil && !isCustomKeyboard {
+                    self.makeKeyboardButton()
+                    isCustomKeyboard = true
+                    btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
+                    self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
+                    self.inputTextView.reloadInputViews()
+                    if !self.inputTextView.becomeFirstResponder() {
+                        self.inputTextView.becomeFirstResponder()
+                    }
+                } else {
+                    if additionalData == nil {
+                        self.removeKeyboardButton()
+                    }
+                    isCustomKeyboard = false
+                    if btnChangeKeyboard != nil {
+                        btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+                    }
+                    if inputTextView != nil {
+                        inputTextView.inputView = nil
+                        inputTextView.reloadInputViews()
                     }
                 }
             }
         }
+    }
+    
+    private func getAdditional(roomMessage: IGRoomMessage?) -> [[IGStructAdditionalButton]]? {
+        if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
+            let data = roomMessage?.additional?.data,
+            //roomMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue,
+            let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
+            return additionalData
+        }
+        return nil
     }
 
     /* overrided method */
@@ -697,19 +723,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     func onKeyboardChangeClick(){
         manageKeyboard()
-    }
-    
-    /* add return to main menu button for bot custom keyboard when latest message isn't "/start" */
-    private func addStartButton(force: Bool = false){
-        if force {
-            self.botCommandsArray.append("بازگشت به منو اصلی")
-            self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
-        } else if let message = myLastMessage()?.message {
-            if !message.lowercased().contains("/start") && !message.lowercased().contains("/back") {
-                self.botCommandsArray.append("بازگشت به منو اصلی")
-                self.botCommandsDictionary["بازگشت به منو اصلی"] = returnText
-            }
-        }
     }
     
     private func myLastMessage() -> IGRoomMessage? {
