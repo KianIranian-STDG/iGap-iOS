@@ -1639,11 +1639,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jRj-hY-oEr"/>
-<<<<<<< HEAD
         <segue reference="I27-tX-EAz"/>
-=======
-        <segue reference="4Pl-n5-pIH"/>
->>>>>>> e995a32... complet web view
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -189,6 +189,7 @@ class IGHelperBot {
             break
             
         case ButtonActionType.WEBVIEW_LINK.rawValue :
+            IGMessageViewController.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
             break
             
         case ButtonActionType.STREAM_PLAY.rawValue :

@@ -97,6 +97,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var webView: UIWebView!
 
     var btnChangeKeyboard : UIButton!
+    var doctorBotScrollView : UIScrollView!
     private let disposeBag = DisposeBag()
     var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
     var allowForGetHistory: Bool = true
@@ -466,18 +467,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     private func doctorBotView(results: [IGApiStruct]){
         
-        let parent = UIScrollView()
+        doctorBotScrollView = UIScrollView()
         let child = UIView()
         
-        parent.showsHorizontalScrollIndicator = false
-        parent.backgroundColor = UIColor.clear
-        parent.frame = CGRect(x: 0, y: 0, width: Int(screenWidth), height: DOCTOR_BOT_HEIGHT)
-        parent.layer.cornerRadius = 8
+        doctorBotScrollView.showsHorizontalScrollIndicator = false
+        doctorBotScrollView.backgroundColor = UIColor.clear
+        doctorBotScrollView.frame = CGRect(x: 0, y: 0, width: Int(screenWidth), height: DOCTOR_BOT_HEIGHT)
+        doctorBotScrollView.layer.cornerRadius = 8
         
-        self.view.addSubview(parent)
-        parent.addSubview(child)
+        self.view.addSubview(doctorBotScrollView)
+        doctorBotScrollView.addSubview(child)
         
-        parent.snp.makeConstraints { (make) in
+        doctorBotScrollView.snp.makeConstraints { (make) in
             make.left.equalTo(self.view.snp.left).offset(7)
             make.right.equalTo(self.view.snp.right).offset(-7)
             if (room?.isReadOnly)! {
@@ -491,14 +492,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         leftSpace = DOCTOR_BUTTON_SPACE
         
         for result in results {
-            makeDoctorBotButtonView(parent: parent, result: result)
+            makeDoctorBotButtonView(parent: doctorBotScrollView, result: result)
         }
         
         child.snp.makeConstraints { (make) in
-            make.top.equalTo(parent.snp.top)
-            make.left.equalTo(parent.snp.left)
-            make.right.equalTo(parent.snp.right)
-            make.bottom.equalTo(parent.snp.bottom)
+            make.top.equalTo(doctorBotScrollView.snp.top)
+            make.left.equalTo(doctorBotScrollView.snp.left)
+            make.right.equalTo(doctorBotScrollView.snp.right)
+            make.bottom.equalTo(doctorBotScrollView.snp.bottom)
             make.width.equalTo(leftSpace)
         }
     }
@@ -728,6 +729,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
         IGMessageSender.defaultSender.send(message: message, to: room!)
+    }
+    
+    func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
+       openWebView(url: structAdditional.value)
     }
     
     func onKeyboardChangeClick(){
@@ -1684,15 +1689,23 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     private func openWebView(url:String)  {
         
+        if doctorBotScrollView != nil {
+            doctorBotScrollView.isHidden = true
+        }
+        if btnChangeKeyboard != nil {
+            btnChangeKeyboard.isHidden = true
+        }
         collectionView.isHidden = true
         chatBackground.isHidden = true
-        self.navigationItem.hidesBackButton = true
         self.inputBarContainerView.isHidden = true
         self.webView.isHidden = false
-        let newBackButton = UIBarButtonItem(image: UIImage(named: "IG_Nav_Bar_BackButton"), style: UIBarButtonItemStyle.bordered, target: self, action: #selector(back(sender:)))
-        self.navigationItem.leftBarButtonItem = newBackButton;
-//                self.navigationItem.backBarButtonItem = UIBarButtonItem(image: image, style: UIBarButtonItemStyle.Plain, target: self, action:  "onBackButton_Clicked:")
-
+        self.view.endEditing(true)
+        
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.backViewContainer?.addAction {
+            self.back()
+        }
+        
         let url = URL(string: url)
         if let unwrappedURL = url {
             
@@ -1703,36 +1716,41 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let task = session.dataTask(with: request) { (data, response, error) in
                 
                 if error == nil {
-                    
-                    self.webView.loadRequest(request)
-                    
+                    DispatchQueue.main.async {
+                        self.webView.loadRequest(request)
+                    }
                 } else {
-                    print("ERROR: \(error)")
+                    print("ERROR: \(String(describing: error))")
                 }
             }
             task.resume()
         }
-      
     }
     
     func closeWebView()  {
         collectionView.isHidden = false
         chatBackground.isHidden = false
         self.inputBarContainerView.isHidden = false
-        self.navigationItem.hidesBackButton = false
-        self.navigationItem.leftBarButtonItem = nil
-        self.navigationItem.hidesBackButton = false
         self.webView.stopLoading()
         self.webView.isHidden = true
+        
+        if doctorBotScrollView != nil {
+            doctorBotScrollView.isHidden = false
+        }
+        if btnChangeKeyboard != nil {
+            btnChangeKeyboard.isHidden = false
+        }
     }
     
-    func back(sender: UIBarButtonItem) { // this back  when work that webview is working
-        if(webView.canGoBack) {
+    func back() { // this back  when work that webview is working
+        if webView.isHidden {
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.backViewContainer?.isUserInteractionEnabled = false
+            _ = self.navigationController?.popViewController(animated: true)
+        } else if(webView.canGoBack) {
             webView.goBack()
         } else {
-            
             closeWebView()
-//            self.navigationController!.popViewController(animated:true)
         }
     }
     
