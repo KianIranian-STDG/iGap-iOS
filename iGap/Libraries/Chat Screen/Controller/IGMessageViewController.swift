@@ -227,6 +227,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         progressbar.hidesWhenStopped = true
         self.webView.delegate = self
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+
+        
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
                                          btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
@@ -439,6 +443,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 //            }
 //            IGHelperJson.parseAdditionalButton()
 //        }
+    }
+    
+    @objc func keyboardWillAppear() {
+        //Do something here
+    }
+    
+    @objc func keyboardWillDisappear() {
+        if isBotRoom() {
+            self.collectionView.reloadData()
+        }
     }
     
     @objc func tapOnMainView(sender : UITapGestureRecognizer) {
@@ -683,20 +697,20 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 let additionalData = getAdditional(roomMessage: latestMessage)
                 
-                if additionalData != nil && !isCustomKeyboard {
-                    
-                    if firstEnter {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            self.collectionView.reloadData()
-                        }
+                
+                if !self.inputTextView.isFirstResponder {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.collectionView.reloadData()
                     }
-                    
+                }
+                
+                if additionalData != nil && !isCustomKeyboard {
                     self.makeKeyboardButton()
                     isCustomKeyboard = true
                     btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
                     self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
                     self.inputTextView.reloadInputViews()
-                    if !self.inputTextView.becomeFirstResponder() {
+                    if !self.inputTextView.isFirstResponder {
                         self.inputTextView.becomeFirstResponder()
                     }
                 } else {
@@ -711,7 +725,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         inputTextView.inputView = nil
                         inputTextView.reloadInputViews()
                         if !firstEnter {
-                            if !self.inputTextView.becomeFirstResponder() {
+                            if !self.inputTextView.isFirstResponder {
                                 self.inputTextView.becomeFirstResponder()
                             }
                         }
@@ -987,6 +1001,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 IGFactory.shared.updateRoomParticipant(roomId: room.id, isParticipant: false)
             }
         }
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     deinit {
