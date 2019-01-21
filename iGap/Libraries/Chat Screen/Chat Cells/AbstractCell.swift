@@ -730,15 +730,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageAdditional(){
         
-        if let additionalData = finalRoomMessage.additional?.data,
+        if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
+            makeAdditionalView(additionalView: additionalView, removeView: false)
+            
+        } else if let additionalData = finalRoomMessage.additional?.data,
             finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
-            
             let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
-            makeAdditionalView(additionalView: additionalView)
+            IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
+            self.makeAdditionalView(additionalView: additionalView)
             
         } else {
-            removeAdditionalView()
+            //removeAdditionalView()
         }
     }
     
@@ -1199,20 +1202,20 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     
     
-    private func makeAdditionalView(additionalView: UIView){
+    private func makeAdditionalView(additionalView: UIView, removeView: Bool = true){
         removeAdditionalView()
         
-        if additionalViewAbs == nil {
-            additionalViewAbs = additionalView
-            additionalViewAbs.layer.cornerRadius = 10.0
-            self.contentView.addSubview(additionalViewAbs)
-        }
-        
-        additionalViewAbs?.snp.makeConstraints { (make) in
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
-            make.top.equalTo(mainBubbleViewAbs.snp.bottom).offset(5)
-            make.height.equalTo(additionalView.frame.size.height)
+        if self.additionalViewAbs == nil {
+            self.additionalViewAbs = additionalView
+            self.additionalViewAbs.layer.cornerRadius = 10.0
+            self.contentView.addSubview(self.additionalViewAbs)
+            
+            self.additionalViewAbs?.snp.makeConstraints { (make) in
+                make.leading.equalTo(self.mainBubbleViewAbs.snp.leading)
+                make.trailing.equalTo(self.mainBubbleViewAbs.snp.trailing)
+                make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(5)
+                make.height.equalTo(additionalView.frame.size.height)
+            }
         }
     }
     

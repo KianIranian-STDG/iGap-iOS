@@ -15,13 +15,14 @@ class IGHelperBot {
     static let shared = IGHelperBot()
     
     var data: Data?
+    static var createdViewDic: [Int64 : UIView] = [:]
     var buttonActionDic: [UIButton : IGStructAdditionalButton] = [:]
     
     let SCREAN_WIDTH = UIScreen.main.bounds.width
     let OUT_LAYOUT_SPACE: CGFloat = 10
     let IN_LAYOUT_SPACE: CGFloat = 5
     let ROW_HEIGHT: CGFloat = 40
-    let MAX_KEYBOARD_HEIGHT: CGFloat = 220
+    let MAX_KEYBOARD_HEIGHT: CGFloat = 216
     let MIN_LAYOUT_WIDTH: CGFloat = 50
     
     private func computeWidth() -> CGFloat {
@@ -53,6 +54,7 @@ class IGHelperBot {
             parent = UIView()
             parent.backgroundColor = UIColor.clear
         }
+        parent.alpha = 0.0
         parent.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(customViewHeight))
         
         let mainStackView = UIStackView()
@@ -71,18 +73,27 @@ class IGHelperBot {
             make.height.equalTo(rowHeight)
             make.width.equalTo(rowWidth)
         }
-        
-        for row in additionalArrayMain {
-            let stackView = UIStackView()
-            stackView.axis = .horizontal
-            stackView.distribution = .fillEqually
-            stackView.spacing = 10
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            
-            for additionalButton in row {
-                stackView.addArrangedSubview(makeBotButton(parentView: stackView, additionalButton: additionalButton, isKeyboard: isKeyboard))
+
+        for (index, row) in additionalArrayMain.enumerated() {
+            var delay = (Double(index) * 0.1)
+            if isKeyboard {
+                delay = 0
             }
-            mainStackView.addArrangedSubview(stackView)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay){
+                let stackView = UIStackView()
+                stackView.axis = .horizontal
+                stackView.distribution = .fillEqually
+                stackView.spacing = 10
+                stackView.translatesAutoresizingMaskIntoConstraints = false
+                
+                for additionalButton in row {
+                    stackView.addArrangedSubview(self.makeBotButton(parentView: stackView, additionalButton: additionalButton, isKeyboard: isKeyboard))
+                }
+                mainStackView.addArrangedSubview(stackView)
+                if (index == additionalArrayMain.endIndex - 1){
+                    parent.fadeIn(0.2)
+                }
+            }
         }
         
         return parent

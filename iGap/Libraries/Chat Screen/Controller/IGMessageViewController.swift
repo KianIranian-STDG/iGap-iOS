@@ -161,7 +161,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let locationManager = CLLocationManager()
     
     let MAX_TEXT_LENGHT = 4096
-    let MAX_TEXT_ATTACHMENT_LENGHT = 200
+    let MAX_TEXT_ATTACHMENT_LENGHT = 1024
     
     var botCommandsDictionary : [String:String] = [:]
     var botCommandsArray : [String] = []
@@ -696,6 +696,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     if inputTextView != nil {
                         inputTextView.inputView = nil
                         inputTextView.reloadInputViews()
+                        if !self.inputTextView.becomeFirstResponder() {
+                            self.inputTextView.becomeFirstResponder()
+                        }
                     }
                 }
             }
