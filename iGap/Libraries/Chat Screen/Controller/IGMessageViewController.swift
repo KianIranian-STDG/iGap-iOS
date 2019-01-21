@@ -738,7 +738,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func getAdditional(roomMessage: IGRoomMessage?) -> [[IGStructAdditionalButton]]? {
         if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
             let data = roomMessage?.additional?.data,
-            //roomMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue,
+            roomMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue,
             let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
             return additionalData
         }
