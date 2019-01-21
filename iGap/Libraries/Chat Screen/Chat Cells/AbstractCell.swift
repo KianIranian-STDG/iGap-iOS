@@ -478,10 +478,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             tapAndHold.minimumPressDuration = 0.2
             mainBubbleViewAbs.addGestureRecognizer(tapAndHold)
             
+            /*
             if self.attachment != nil {
                 let tapOnCell = UITapGestureRecognizer(target: self, action: #selector(didTapAttachmentOnCell(_:)))
                 mainBubbleViewAbs.addGestureRecognizer(tapOnCell)
             }
+            */
             
             mainBubbleViewAbs.isUserInteractionEnabled = true
         }
