@@ -328,7 +328,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 joinButton.layer.shadowOpacity = 0.15
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self.manageKeyboard()
+                    self.manageKeyboard(firstEnter: true)
                 }
             }
         }
@@ -668,7 +668,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    private func manageKeyboard(){
+    private func manageKeyboard(firstEnter: Bool = false){
         if !isBotRoom() {return}
         
         if !self.joinButton.isHidden {
@@ -684,6 +684,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 let additionalData = getAdditional(roomMessage: latestMessage)
                 
                 if additionalData != nil && !isCustomKeyboard {
+                    
+                    if firstEnter {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                    
                     self.makeKeyboardButton()
                     isCustomKeyboard = true
                     btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
@@ -703,8 +710,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     if inputTextView != nil {
                         inputTextView.inputView = nil
                         inputTextView.reloadInputViews()
-                        if !self.inputTextView.becomeFirstResponder() {
-                            self.inputTextView.becomeFirstResponder()
+                        if !firstEnter {
+                            if !self.inputTextView.becomeFirstResponder() {
+                                self.inputTextView.becomeFirstResponder()
+                            }
                         }
                     }
                 }
