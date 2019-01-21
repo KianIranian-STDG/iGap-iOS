@@ -225,7 +225,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         super.viewDidLoad()
         
         IGApi.apiBotProtocol = self
-        IGMessageViewController.additionalObserver = self
         
         progressbar.hidesWhenStopped = true
         self.webView.delegate = self
@@ -983,6 +982,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         IGMessageViewController.messageViewControllerObserver = self
+        IGMessageViewController.additionalObserver = self
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
         IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
         let navigationItem = self.navigationItem as! IGNavigationItem
