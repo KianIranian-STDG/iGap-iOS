@@ -742,7 +742,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
             let data = roomMessage?.additional?.data,
             roomMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue,
-            let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
+            let additionalData = IGHelperJson.parseAdditionalButton(data: data, room: room!) {
             return additionalData
         }
         return nil
@@ -754,7 +754,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        IGMessageSender.defaultSender.send(message: message, to: room!)
+        IGMessageSender.defaultSender.send(message: message, to: structAdditional.room!)
     }
     
     func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {

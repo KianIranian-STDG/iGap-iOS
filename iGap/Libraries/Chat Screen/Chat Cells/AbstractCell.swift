@@ -734,13 +734,17 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         if realmRoomMessage.forwardedFrom != nil {return}
         
+        // TODO - saeed - fetch room info just once
+        let predicate = NSPredicate(format: "id = %lld" , realmRoomMessage.roomId)
+        let roomInfo = try! Realm().objects(IGRoom.self).filter(predicate).first
+        
         if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
             DispatchQueue.main.async {
                 self.makeAdditionalView(additionalView: additionalView, removeView: false)
             }
         } else if let additionalData = finalRoomMessage.additional?.data,
             finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
-            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData, room: roomInfo!) {
             let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
             IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
             self.makeAdditionalView(additionalView: additionalView)
