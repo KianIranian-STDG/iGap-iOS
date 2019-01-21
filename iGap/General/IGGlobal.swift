@@ -229,7 +229,7 @@ extension UIColor {
     
     //MARK: General Colors
     class func organizationalColor() -> UIColor { // iGap Color
-        return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:1.0)
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
     }
     
     class func customKeyboardButton() -> UIColor {

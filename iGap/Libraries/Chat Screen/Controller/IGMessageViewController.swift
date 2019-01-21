@@ -51,7 +51,7 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate {
 
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
@@ -93,6 +93,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerView: UIView!
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
+    @IBOutlet weak var progressbar: UIActivityIndicatorView!
+    @IBOutlet weak var webView: UIWebView!
+
     var btnChangeKeyboard : UIButton!
     private let disposeBag = DisposeBag()
     var latestTypeTime : Int64 = IGGlobal.getCurrentMillis()
@@ -219,6 +222,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         IGApi.apiBotProtocol = self
         IGMessageViewController.additionalObserver = self
+        
+        progressbar.hidesWhenStopped = true
+        self.webView.delegate = self
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
                                          inputBarSendButton, btnCancelReplyOrForward,
@@ -1675,6 +1681,79 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
         self.didSelectAttachment(attachment)
     }
+    
+    private func openWebView(url:String)  {
+        
+        collectionView.isHidden = true
+        chatBackground.isHidden = true
+        self.navigationItem.hidesBackButton = true
+        self.inputBarContainerView.isHidden = true
+        self.webView.isHidden = false
+        let newBackButton = UIBarButtonItem(image: UIImage(named: "IG_Nav_Bar_BackButton"), style: UIBarButtonItemStyle.bordered, target: self, action: #selector(back(sender:)))
+        self.navigationItem.leftBarButtonItem = newBackButton;
+//                self.navigationItem.backBarButtonItem = UIBarButtonItem(image: image, style: UIBarButtonItemStyle.Plain, target: self, action:  "onBackButton_Clicked:")
+
+        let url = URL(string: url)
+        if let unwrappedURL = url {
+            
+            let request = URLRequest(url: unwrappedURL)
+            let session = URLSession.shared
+            
+            
+            let task = session.dataTask(with: request) { (data, response, error) in
+                
+                if error == nil {
+                    
+                    self.webView.loadRequest(request)
+                    
+                } else {
+                    print("ERROR: \(error)")
+                }
+            }
+            task.resume()
+        }
+      
+    }
+    
+    func closeWebView()  {
+        collectionView.isHidden = false
+        chatBackground.isHidden = false
+        self.inputBarContainerView.isHidden = false
+        self.navigationItem.hidesBackButton = false
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.hidesBackButton = false
+        self.webView.stopLoading()
+        self.webView.isHidden = true
+    }
+    
+    func back(sender: UIBarButtonItem) { // this back  when work that webview is working
+        if(webView.canGoBack) {
+            webView.goBack()
+        } else {
+            
+            closeWebView()
+//            self.navigationController!.popViewController(animated:true)
+        }
+    }
+    
+    
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        progressbar.stopAnimating()
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        progressbar.stopAnimating()
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        progressbar.startAnimating()
+        return true
+    }
+    
     
     func manageImage(imageInfo: [String : Any]){
         let imageUrl = imageInfo["UIImagePickerControllerImageURL"] as? URL
