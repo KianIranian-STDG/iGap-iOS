@@ -148,6 +148,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var logMessageCellIdentifer = IGMessageLogCollectionViewCell.cellReuseIdentifier()
     var room : IGRoom?
+    var privateRoom : IGRoom?
     var openChatFromLink: Bool = false // set true this param when user not joined to this room
     var customizeBackItem: Bool = false
     //let currentLoggedInUserID = IGAppManager.sharedManager.userID()
@@ -204,6 +205,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var isSendLocation : Bool!
     var receivedLocation : CLLocation!
 
+    var latestKeyboardAdditionalView: UIView!
+    
     fileprivate var typingStatusExpiryTimer = Timer() //use this to send cancel for typing status
     internal static var additionalObserver: AdditionalObserver!
     internal static var messageViewControllerObserver: MessageViewControllerObserver!
@@ -697,18 +700,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 let additionalData = getAdditional(roomMessage: latestMessage)
                 
-                
                 if !self.inputTextView.isFirstResponder {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         self.collectionView.reloadData()
                     }
                 }
                 
-                if additionalData != nil && !isCustomKeyboard {
+                if additionalData != nil {
                     self.makeKeyboardButton()
                     isCustomKeyboard = true
                     btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
-                    self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
+                    latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
+                    self.inputTextView.inputView = latestKeyboardAdditionalView
                     self.inputTextView.reloadInputViews()
                     if !self.inputTextView.isFirstResponder {
                         self.inputTextView.becomeFirstResponder()
@@ -759,7 +762,24 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func onKeyboardChangeClick(){
-        manageKeyboard()
+        guard let additionalView = latestKeyboardAdditionalView else {
+            return
+        }
+        
+        if !isCustomKeyboard {
+            isCustomKeyboard = true
+            btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
+            self.inputTextView.inputView = additionalView
+        } else {
+            isCustomKeyboard = false
+            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+            inputTextView.inputView = nil
+        }
+        
+        self.inputTextView.reloadInputViews()
+        if !self.inputTextView.isFirstResponder {
+            self.inputTextView.becomeFirstResponder()
+        }
     }
     
     private func myLastMessage() -> IGRoomMessage? {
