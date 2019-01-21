@@ -730,9 +730,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageAdditional(){
         
+        if realmRoomMessage.forwardedFrom != nil {return}
+        
         if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
-            makeAdditionalView(additionalView: additionalView, removeView: false)
-            
+            DispatchQueue.main.async {
+                self.makeAdditionalView(additionalView: additionalView, removeView: false)
+            }
         } else if let additionalData = finalRoomMessage.additional?.data,
             finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
@@ -741,7 +744,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             self.makeAdditionalView(additionalView: additionalView)
             
         } else {
-            //removeAdditionalView()
+            removeAdditionalView()
         }
     }
     
@@ -1206,7 +1209,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         removeAdditionalView()
         
         if self.additionalViewAbs == nil {
-            self.additionalViewAbs = additionalView
+            self.additionalViewAbs = UIView()
+            self.additionalViewAbs.addSubview(additionalView)
             self.additionalViewAbs.layer.cornerRadius = 10.0
             self.contentView.addSubview(self.additionalViewAbs)
             
@@ -1215,6 +1219,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 make.trailing.equalTo(self.mainBubbleViewAbs.snp.trailing)
                 make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(5)
                 make.height.equalTo(additionalView.frame.size.height)
+            }
+            
+            additionalView.snp.makeConstraints { (make) in
+                make.leading.equalTo(self.additionalViewAbs.snp.leading)
+                make.trailing.equalTo(self.additionalViewAbs.snp.trailing)
+                make.top.equalTo(self.additionalViewAbs.snp.top)
+                make.bottom.equalTo(additionalViewAbs.snp.bottom)
             }
         }
     }

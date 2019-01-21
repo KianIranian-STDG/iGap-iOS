@@ -199,7 +199,7 @@ class CellSizeCalculator: NSObject {
             }
         }
         
-        if additionalData != nil {
+        if message.forwardedFrom == nil && additionalData != nil {
             additionalHeight = IGHelperBot.shared.computeHeight(rowCount: CGFloat(IGHelperJson.getAdditionalButtonRowCount(data: additionalData!)))
             additionalHeight += (IGHelperBot.shared.OUT_LAYOUT_SPACE * 2)
         }
