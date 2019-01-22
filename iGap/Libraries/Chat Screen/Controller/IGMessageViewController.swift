@@ -1740,6 +1740,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if btnChangeKeyboard != nil {
             btnChangeKeyboard.isHidden = true
         }
+        
+        scrollToBottomContainerView.isHidden = true
         collectionView.isHidden = true
         chatBackground.isHidden = true
         self.inputBarContainerView.isHidden = true
