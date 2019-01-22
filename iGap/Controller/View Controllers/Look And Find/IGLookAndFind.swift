@@ -205,6 +205,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {}
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        IGRecentsTableViewController.needGetInfo = false
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
         self.searchBar.hero.id = "searchBar"
