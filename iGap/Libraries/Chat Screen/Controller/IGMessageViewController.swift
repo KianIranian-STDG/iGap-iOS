@@ -473,9 +473,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.collectionViewTopInsetOffset = CGFloat(self.DOCTOR_BOT_HEIGHT)
             }
             
+            self.setCollectionViewInset()
+            
             self.apiStructArray = results
             self.doctorBotView(results: results)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
                 self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: true)
             }
         }
@@ -536,6 +538,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         var mainViewWith : CGFloat = 0
         
         let mainView = UIView()
+        mainView.alpha = 0.0
         parent.addSubview(mainView)
         
         let btn = UIButton()
@@ -601,6 +604,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         
+        mainView.fadeIn(0.3)
         
         leftSpace += DOCTOR_BUTTON_SPACE + mainViewWith
     }
