@@ -201,9 +201,10 @@ enum IGError: String {
     case userTwoStepVerificationSetPasswordSecondRecoveryQuestionIsInvalid = "195.7"
     case userTwoStepVerificationSetPasswordAnswerOfTheSecondRecoveryQuestionIsInvalid = "195.8"
     case userTwoStepVerificationSetPasswordHintIsNotValid = "195.9"
-    
     case userTwoStepVerificationSetPasswordMaxTryLock = "197"
-
+    
+    case chatSendMessageLimitReached = "234"
+    
     case userProfileSetBioBadPayload = "10161"
     
     case canNotAddThisUserAsAdminToGroup        = "323.3"
@@ -259,11 +260,21 @@ class IGErrorRequest : IGRequest {
                 }
                 break
                 
+            case .chatSendMessageLimitReached:
+                showAlert(title: "Restriction in Chatting", message: "Please wait for the process to finish (You are not allowed to send messages to more than 10 Unknown Users regularly at the same time; after getting to number 10, you get stopped until the end of countdown timer)", preferredStyle: .alert)
+                break
+                
             default:
                 break
             }
             
             return (errorCodeEnum, waitTime)
+        }
+        
+        private class func showAlert(title: String? = nil, message: String? = nil, preferredStyle: UIAlertControllerStyle = IGGlobal.detectAlertStyle()){
+            let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
         }
     }
 }
