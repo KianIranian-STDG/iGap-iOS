@@ -15,9 +15,11 @@ class IGHelperBot {
     static let shared = IGHelperBot()
     
     let SCREAN_WIDTH = UIScreen.main.bounds.width
-    let SPACE: CGFloat = 10
+    let OUT_LAYOUT_SPACE: CGFloat = 10
+    let IN_LAYOUT_SPACE: CGFloat = 5
     let ROW_HEIGHT: CGFloat = 40
     let MAX_KEYBOARD_HEIGHT:CGFloat = 200
+    let MIN_LAYOUT_WIDTH :CGFloat = 50
     
     var botArray : [[String:String]] = [[:]]
     var botDic1 : [String:String] = ["One":"1"]
@@ -31,9 +33,9 @@ class IGHelperBot {
         botArray.append(botDic2)
         
         let rowCount = CGFloat(botArray.count)
-        let rowWidth = SCREAN_WIDTH - (SPACE * 2)
-        let rowHeight = (rowCount * (ROW_HEIGHT + SPACE)) + SPACE
-        var keyboardHeight = rowHeight + (SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
+        let rowWidth = SCREAN_WIDTH - (OUT_LAYOUT_SPACE * 2)
+        let rowHeight = (rowCount * (ROW_HEIGHT + OUT_LAYOUT_SPACE)) + OUT_LAYOUT_SPACE
+        var keyboardHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
         if keyboardHeight > MAX_KEYBOARD_HEIGHT {
             keyboardHeight = MAX_KEYBOARD_HEIGHT
         }
@@ -51,10 +53,10 @@ class IGHelperBot {
         parent.addSubview(mainStackView)
         
         mainStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(parent.snp.top).offset(SPACE)
-            make.left.equalTo(parent.snp.left).offset(SPACE)
-            make.right.equalTo(parent.snp.right).offset(-SPACE)
-            make.bottom.equalTo(parent.snp.bottom).offset(-SPACE)
+            make.top.equalTo(parent.snp.top).offset(OUT_LAYOUT_SPACE)
+            make.left.equalTo(parent.snp.left).offset(OUT_LAYOUT_SPACE)
+            make.right.equalTo(parent.snp.right).offset(-OUT_LAYOUT_SPACE)
+            make.bottom.equalTo(parent.snp.bottom).offset(-OUT_LAYOUT_SPACE)
             make.height.equalTo(rowHeight)
             make.width.equalTo(rowWidth)
         }
@@ -75,20 +77,52 @@ class IGHelperBot {
         return parent
     }
     
-    private func makeBotButton(parentView: UIView, text: String) -> UIButton {
+    private func makeBotButton(parentView: UIView, text: String, hasImage: Bool = false) -> UIView {
+        let view = UIView()
+        let img = UIImageView()
         let btn = UIButton()
+        
+        btn.titleLabel?.textAlignment = NSTextAlignment.center
+        view.addSubview(btn)
+        
+        let internalViewSize = ROW_HEIGHT - (IN_LAYOUT_SPACE * 2)
+        
+        if hasImage {
+            img.image = UIImage(named: "IG_Map")
+            view.addSubview(img)
+            
+            img.snp.makeConstraints { (make) in
+                make.leading.equalTo(view.snp.leading).offset(IN_LAYOUT_SPACE)
+                make.centerY.equalTo(view.snp.centerY)
+                make.height.equalTo(internalViewSize)
+                make.width.equalTo(internalViewSize)
+            }
+        }
+        
+        btn.snp.makeConstraints { (make) in
+            if hasImage {
+                make.leading.equalTo(img.snp.trailing).offset(IN_LAYOUT_SPACE)
+            } else {
+                make.leading.equalTo(view.snp.leading).offset(IN_LAYOUT_SPACE)
+            }
+            make.trailing.equalTo(view.snp.trailing).offset(-IN_LAYOUT_SPACE)
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(internalViewSize)
+        }
+        
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
         btn.setTitle(text, for: UIControlState.normal)
         btn.removeUnderline()
-        parentView.addSubview(btn)
         
-        btn.backgroundColor = UIColor.organizationalColor()
-        btn.layer.masksToBounds = false
-        btn.layer.cornerRadius = 5.0
-        btn.layer.shadowOffset = CGSize(width: 1, height: 3)
-        btn.layer.shadowRadius = 3.0
-        btn.layer.shadowOpacity = 0.5
+        view.backgroundColor = UIColor.organizationalColor()
+        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 5.0
+        view.layer.shadowOffset = CGSize(width: 1, height: 3)
+        view.layer.shadowRadius = 3.0
+        view.layer.shadowOpacity = 0.5
+
+        parentView.addSubview(view)
         
-        return btn
+        return view
     }
 }
