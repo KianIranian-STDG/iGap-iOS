@@ -458,7 +458,6 @@ class IGFactory: NSObject {
                         }
                     }
                 }
-                print(#function + "Begin writing messages in db")
                 IGDatabaseManager.shared.realm.beginWrite()
                 for (index, igpMessage) in igpMessages.enumerated() {
                     let message = IGRoomMessage(igpMessage: igpMessage, roomId: roomId)
@@ -486,7 +485,6 @@ class IGFactory: NSObject {
                     IGDatabaseManager.shared.realm.add(message, update: true)
                 }
                 try! IGDatabaseManager.shared.realm.commitWrite()
-                print(#function + "commited writing messages in db")
                 
                 //check if should update last messages and unread count
                 var shouldUpdateLastMessage = false
@@ -551,7 +549,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> saving a created messages")
                 try! IGDatabaseManager.shared.realm.write {
                     IGDatabaseManager.shared.realm.add(message, update: true)
                 }
@@ -572,7 +569,6 @@ class IGFactory: NSObject {
 
     func updateRoomLastMessageIfPossible(roomID: Int64) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            print("    ======> updating room last message and unread count")
             let predicate = NSPredicate(format: "id = %lld", roomID)
             if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                 var shouldIncreamentUnreadCount = true
@@ -691,8 +687,7 @@ class IGFactory: NSObject {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     if messageInDb.status != .delivered {
-                        print("    ======> updating a sent messages status")
-                        try! IGDatabaseManager.shared.realm.write {                            
+                        try! IGDatabaseManager.shared.realm.write {
                             switch status {
                             case .sending:
                                 messageInDb.status = .sending
@@ -710,8 +705,6 @@ class IGFactory: NSObject {
                             messageInDb.statusVersion = statusVersion
                         }
                     }
-                } else {
-                    print("    ======> updating a sent messages status is not necessary (aleady delivered) ")
                 }
                 IGFactory.shared.performInFactoryQueue {
                     task.success!()
@@ -731,7 +724,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> updating an edited message")
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -836,22 +828,19 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> updating clear message History")
-                let predicate = NSPredicate(format: "roomId = %lld", roomID)
-                let messages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate)
                 
-                let roomPredicate = NSPredicate(format: "id = %lld", roomID)
-                if  let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(roomPredicate).first {
-                    //TODO: This is not efficient (try to commit write after changing data)
-                    IGDatabaseManager.shared.realm.beginWrite()
-                    for message in messages {
-                        if message.id <= clearID && !(message.status == .sending || message.status == .failed) {
-                            message.isDeleted = true
+                try! IGDatabaseManager.shared.realm.write {
+                    let roomPredicate = NSPredicate(format: "id = %lld", roomID)
+                    if  let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(roomPredicate).first {
+                        if clearID == 0 || room.lastMessage == nil || (room.lastMessage?.id)! <= clearID {
+                            room.clearId = clearID
+                            room.lastMessage = nil
                         }
+                        
+                        //delete all messageId that is lower than clearId
+                        let messagePredicate = NSPredicate(format: "roomId = %lld AND id <= %lld", roomID, clearID)
+                        IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate))
                     }
-                    room.clearId = clearID
-                    room.lastMessage = nil
-                    try! IGDatabaseManager.shared.realm.commitWrite()
                     
                     IGFactory.shared.performInFactoryQueue {
                         task.success!()
@@ -873,7 +862,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> updating clear Room ")
                 let predicate = NSPredicate(format: "id = %lld",roomID)
                 if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -920,7 +908,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> setting message is last message in room")
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", messageId, roomId)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -950,8 +937,6 @@ class IGFactory: NSObject {
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 
-                print("    ======> set user status for id: \(userId)")
-                //            let realm = try! Realm()
                 let predicate = NSPredicate(format: "id = %lld", userId)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1217,7 +1202,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("  ======> kick member with userId =>\(memberId) in channelRoom by roomId \(roomId)")
                 let predicate = NSPredicate(format: "userID = %lld AND roomID = %lld", memberId, roomId)
                 if let memberInDb = try! Realm().objects(IGChannelMember.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1352,7 +1336,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("====> demoate member with userID \(memberId) in room \(roomId)")
                 let predicate = NSPredicate(format: "userID = %lld AND roomID = %lld", memberId, roomId)
                 if let memberInDb = try! Realm().objects(IGGroupMember.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1580,7 +1563,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> update user nickname for id: \(userId)")
                 let predicate = NSPredicate(format: "id = %lld", userId)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1605,7 +1587,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> update user email for id: \(userId)")
                 let predicate = NSPredicate(format: "id = %lld", userId)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1632,7 +1613,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> update username for id: \(userID)")
                 let predicate = NSPredicate(format: "id = %lld", userID)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1659,7 +1639,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> set SelfRemove for id: \(userId)")
                 let predicate = NSPredicate(format: "id = %lld", userId)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -1685,7 +1664,6 @@ class IGFactory: NSObject {
     func updateProfileGender(_ userId: Int64 , igpGender: IGPGender) {
         let task = IGFactoryTask()
         task.task = {
-            print("    ======> set UserGender for id: \(userId)")
             IGFactoryTask(dependencyUserTask: userId, cacheID: nil).success({
                 IGDatabaseManager.shared.perfrmOnDatabaseThread {
                     var gender: IGGender
@@ -1724,7 +1702,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> update avatar for id: \(userId)")
                 let avatar = IGAvatar(igpAvatar: igpAvatar)
                 let predicate = NSPredicate(format: "id = %lld", userId)
                 if let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(predicate).first {
@@ -2369,7 +2346,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> change type room to pribate for room id: \(roomID)")
                 let predicate = NSPredicate(format: "id = %lld", roomID)
                 if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -2394,7 +2370,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> edit room for room id: \(roomID)")
                 let predicate = NSPredicate(format: "id = %lld", roomID)
                 if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -2419,7 +2394,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> room type changed for room id: \(roomId)")
                 let roomPredicate = NSPredicate(format: "id = %lld", roomId)
                 
                 let publicExtraPredicate = NSPredicate(format: "id = %lld", roomId)
@@ -2456,7 +2430,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> room type changed for room id: \(roomID)")
                 let roomPredicate = NSPredicate(format: "id = %lld", roomID)
                 let publicExtraPredicate = NSPredicate(format: "id = %lld", roomID)
                 
@@ -2492,7 +2465,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======>  signatureStatus changed for room id: \(roomId)")
                 let roomPredicate = NSPredicate(format: "id = %lld", roomId)
                 if let roomInDb = try! Realm().objects(IGRoom.self).filter(roomPredicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -2518,7 +2490,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======>  invitedLink changed for room id: \(roomId)")
                 let roomPredicate = NSPredicate(format: "id = %lld", roomId)
                 if let roomInDb = try! Realm().objects(IGRoom.self).filter(roomPredicate).first {
                     try! IGDatabaseManager.shared.realm.write {
@@ -2689,7 +2660,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print("    ======> update avatar for room Id: \(roomId)")
                 let avatar = IGAvatar(igpAvatar: igpAvatar)
                 let predicate = NSPredicate(format: "id = %lld", roomId)
                 if let roomInDb = try! Realm().objects(IGGroupRoom.self).filter(predicate).first {
@@ -2741,8 +2711,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print(#function)
-                print("    ======> save or update file in db:")
                 let newFile = IGFile(igpFile: igpFile, type: file.type)
                 newFile.type = file.type
                 newFile.primaryKeyId = file.primaryKeyId
@@ -2768,7 +2736,6 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                print(#function)
                 let predicate = NSPredicate(format: "cacheID = %@", file.cacheID!)
                 if let fileInDb = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
                     try! IGDatabaseManager.shared.realm.write {

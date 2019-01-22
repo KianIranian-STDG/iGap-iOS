@@ -49,7 +49,6 @@ class IGGroupsTableViewController: UITableViewController {
                 self.tableView.reloadData()
                 break
             case .update(_, let deletions, let insertions, let modifications):
-                print("updating groups VC")
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)

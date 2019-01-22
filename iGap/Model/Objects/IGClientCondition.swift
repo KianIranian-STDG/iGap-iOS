@@ -16,11 +16,18 @@ class IGClientCondition {
     
     class IGCCRoom {
         struct IGOfflineEdited {
-            var id: Int64 = -1
-            var message: String = ""
+            var messageId: Int64 = -1
+            var message: String?
         }
         struct IGOfflineDeleted {
-            var id: Int64 = -1
+            var offlineDelete: Int64 = -1
+            var both: Bool = false
+        }
+        struct IGOfflineSeen {
+            var offlineSeen: Int64 = -1
+        }
+        struct IGOfflineListen {
+            var offlineListen: Int64 = -1
         }
         enum OfflineMute {
             case unchanged
@@ -32,9 +39,10 @@ class IGClientCondition {
         var messageVersion: Int64 = 0 //The biggest message version available in the room
         var statusVersion: Int64 = 0  //The biggest message status available in the room
         var deleteVersion: Int64 = 0  //The biggest delete version available in the room
-        var offlineEdited = [IGOfflineEdited]()
-        var offlineDeleted = [IGOfflineDeleted]()
-        var offlineSeen: Int64 = 0
+        var offlineEdited = [IGOfflineEdited]() // TODO - not managed yet
+        var offlineDeleted = [IGOfflineDeleted]() // TODO - not managed yet
+        var offlineSeen = [IGOfflineSeen]() // TODO - not managed yet
+        var offlineListen = [IGOfflineListen]() // TODO - not managed yet
         var clearId: Int64 = 0
         var cacheStartId: Int64 = 0
         var cacheEndId: Int64 = 0
@@ -49,31 +57,31 @@ class IGClientCondition {
         let rooms = realm.objects(IGRoom.self).filter("isParticipant = 1")
         
         for room in rooms {
-            // Set messages notification block
+            
             let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", room.id)
             let messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(byKeyPath: "creationTime")
-            let ccRoom = IGCCRoom()
-            ccRoom.id = room.id
+            
+            let clientConditionRequest = IGCCRoom()
+            
+            clientConditionRequest.id = room.id
             if let maxMessageVersion: Int64 = messages.max(ofProperty: "messageVersion") {
-                ccRoom.messageVersion = max(0,maxMessageVersion)
+                clientConditionRequest.messageVersion = max(0,maxMessageVersion)
             }
             if let maxStatusVersion: Int64 = messages.max(ofProperty: "statusVersion") {
-                ccRoom.statusVersion = max(0,maxStatusVersion)
+                clientConditionRequest.statusVersion = max(0,maxStatusVersion)
             }
             if let maxDeleteVersion: Int64 = messages.max(ofProperty: "deleteVersion") {
-                ccRoom.deleteVersion = max(0,maxDeleteVersion)
+                clientConditionRequest.deleteVersion = max(0,maxDeleteVersion)
             }
-            
             if let firstMessage = messages.first {
-                ccRoom.cacheStartId = max(0,firstMessage.id)
+                clientConditionRequest.cacheStartId = max(0,firstMessage.id)
             }
             if let lastMessage = messages.last {
-                ccRoom.cacheEndId = max(0,lastMessage.id)
+                clientConditionRequest.cacheEndId = max(0,lastMessage.id)
             }
+            clientConditionRequest.clearId = room.clearId
             
-            ccRoom.clearId = room.clearId
-            
-            self.rooms.append(ccRoom)
+            self.rooms.append(clientConditionRequest)
         }
     }
 }
