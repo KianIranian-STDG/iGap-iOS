@@ -210,6 +210,7 @@
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
 		FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA786D59206A746700608A2D /* CreateRoom.storyboard */; };
 		FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */; };
+		FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */; };
 		FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */; };
 		FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */; };
 		FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA80F59F204ABC5900F0EE74 /* tone.mp3 */; };
@@ -653,6 +654,7 @@
 		FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistredUserInfoTableViewController.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
 		FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegisteredUser.swift; sourceTree = "<group>"; };
+		FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmClientCondition.swift; sourceTree = "<group>"; };
 		FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMapNearbyDistanceTableViewController.swift; sourceTree = "<group>"; };
 		FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmiGapMap.swift; sourceTree = "<group>"; };
 		FA80F59F204ABC5900F0EE74 /* tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tone.mp3; sourceTree = "<group>"; };
@@ -1390,6 +1392,7 @@
 				FA96A8142053EBD1004369C7 /* IGRealmClientSearchUsername.swift */,
 				FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */,
 				FAD7451621B9447B00801D2E /* IGShareInfo.swift */,
+				FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -2214,6 +2217,7 @@
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
+				FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */,
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
 				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,
 				93AA67C01E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift in Sources */,

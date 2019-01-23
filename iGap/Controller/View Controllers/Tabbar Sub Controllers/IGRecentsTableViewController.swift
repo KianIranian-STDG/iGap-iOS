@@ -359,15 +359,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         }
     }
     
-    private func sendClientCondition(clientCondition: IGClientCondition) {
-        IGClientConditionRequest.Generator.generate(clientCondition: clientCondition).success ({ (responseProto) in }).error ({ (errorCode, waitTime) in }).send()
+    private func sendClientCondition(clientConditionRooms: [IGPClientCondition.IGPRoom]) {
+        IGClientConditionRequest.Generator.generate(clientConditionRooms: clientConditionRooms).success ({ (responseProto) in }).error ({ (errorCode, waitTime) in }).send()
     }
     
     @objc private func fetchRoomList(offset: Int32 = 0 , limit: Int32 = Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)) {
         
-        var clientCondition: IGClientCondition?
+        var clientConditionRooms: [IGPClientCondition.IGPRoom]?
         if offset == 0 { // is first page
-            clientCondition = IGClientCondition()
+            clientConditionRooms = IGClientCondition.computeClientCondition()
         }
         
         isLoadingMoreRooms = true
@@ -387,7 +387,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                         if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
                             IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
                             self.fetchPromotedRooms()
-                            self.sendClientCondition(clientCondition: clientCondition!)
+                            self.sendClientCondition(clientConditionRooms: clientConditionRooms!)
                         }
                         
                         self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)

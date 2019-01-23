@@ -2430,6 +2430,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     
     fileprivate func deleteMessage(_ message: IGRoomMessage, both: Bool = false) {
+        
+        if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+            let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         switch room!.type {
         case .chat:
             IGChatDeleteMessageRequest.Generator.generate(message: message, room: self.room!, both: both).success { (responseProto) in

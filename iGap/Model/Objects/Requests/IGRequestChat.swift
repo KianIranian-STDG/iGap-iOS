@@ -176,12 +176,14 @@ class IGChatUpdateStatusRequest : IGRequest {
             default:
                 break
             }
+            IGFactory.shared.addOfflineSeen(roomId: roomID, messageId: messageID, status: updateMessageStatusMessage.igpStatus)
             return IGRequestWrapper(message: updateMessageStatusMessage, actionID: 202)
         }
     }
     
     class Handler : IGRequest.Handler{
         class func interpret(response:IGPChatUpdateStatusResponse) {
+            IGFactory.shared.removeOfflineSeen(roomId: response.igpRoomID, messageId: response.igpMessageID, status: response.igpStatus)
             IGFactory.shared.updateMessageStatus(response.igpMessageID, roomID: response.igpRoomID, status: response.igpStatus, statusVersion: response.igpStatusVersion, updaterAuthorHash: response.igpUpdaterAuthorHash, response: response.igpResponse)
         }
         

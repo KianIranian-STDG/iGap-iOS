@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         let config = Realm.Configuration (
             fileURL: fileURL,
-            schemaVersion: 23,//HINT: change schemaVersion in 'ShareConfig'
+            schemaVersion: 24,//HINT: change schemaVersion in 'ShareConfig'
             
             /**
              * Set the block which will be called automatically when opening a Realm with a schema version lower than the one set above

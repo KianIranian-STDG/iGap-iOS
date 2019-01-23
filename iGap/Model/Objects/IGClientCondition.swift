@@ -23,9 +23,6 @@ class IGClientCondition {
             var offlineDelete: Int64 = -1
             var both: Bool = false
         }
-        struct IGOfflineSeen {
-            var offlineSeen: Int64 = -1
-        }
         struct IGOfflineListen {
             var offlineListen: Int64 = -1
         }
@@ -41,7 +38,7 @@ class IGClientCondition {
         var deleteVersion: Int64 = 0  //The biggest delete version available in the room
         var offlineEdited = [IGOfflineEdited]() // TODO - not managed yet
         var offlineDeleted = [IGOfflineDeleted]() // TODO - not managed yet
-        var offlineSeen = [IGOfflineSeen]() // TODO - not managed yet
+        var offlineSeen = [Int64]() // TODO - not managed yet
         var offlineListen = [IGOfflineListen]() // TODO - not managed yet
         var clearId: Int64 = 0
         var cacheStartId: Int64 = 0
@@ -49,39 +46,44 @@ class IGClientCondition {
         var offlineMute: OfflineMute = .unchanged
     }
     
-    var rooms = [IGCCRoom]()
     
-    
-    init() {
+    internal static func computeClientCondition() -> [IGPClientCondition.IGPRoom] {
+        var clientConditionRooms = [IGPClientCondition.IGPRoom]()
         let realm = try! Realm()
         let rooms = realm.objects(IGRoom.self).filter("isParticipant = 1")
         
         for room in rooms {
-            
+            let predicateCondition = NSPredicate(format: "roomId = %lld", room.id)
             let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", room.id)
             let messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(byKeyPath: "creationTime")
             
-            let clientConditionRequest = IGCCRoom()
+            var clientConditionRequest = IGPClientCondition.IGPRoom()
             
-            clientConditionRequest.id = room.id
+            clientConditionRequest.igpRoomID = room.id
             if let maxMessageVersion: Int64 = messages.max(ofProperty: "messageVersion") {
-                clientConditionRequest.messageVersion = max(0,maxMessageVersion)
+                clientConditionRequest.igpMessageVersion = max(0,maxMessageVersion)
             }
             if let maxStatusVersion: Int64 = messages.max(ofProperty: "statusVersion") {
-                clientConditionRequest.statusVersion = max(0,maxStatusVersion)
+                clientConditionRequest.igpStatusVersion = max(0,maxStatusVersion)
             }
             if let maxDeleteVersion: Int64 = messages.max(ofProperty: "deleteVersion") {
-                clientConditionRequest.deleteVersion = max(0,maxDeleteVersion)
+                clientConditionRequest.igpDeleteVersion = max(0,maxDeleteVersion)
             }
             if let firstMessage = messages.first {
-                clientConditionRequest.cacheStartId = max(0,firstMessage.id)
+                clientConditionRequest.igpCacheStartID = max(0,firstMessage.id)
             }
             if let lastMessage = messages.last {
-                clientConditionRequest.cacheEndId = max(0,lastMessage.id)
+                clientConditionRequest.igpCacheEndID = max(0,lastMessage.id)
             }
-            clientConditionRequest.clearId = room.clearId
+            clientConditionRequest.igpClearID = room.clearId
             
-            self.rooms.append(clientConditionRequest)
+            for offlineSeen in try! Realm().objects(IGRealmOfflineSeen.self).filter(predicateCondition) {
+                clientConditionRequest.igpOfflineSeen.append(offlineSeen.messageId)
+            }
+            
+            clientConditionRooms.append(clientConditionRequest)
         }
+        
+        return clientConditionRooms
     }
 }

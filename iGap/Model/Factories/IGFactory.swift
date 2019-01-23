@@ -2949,5 +2949,50 @@ class IGFactory: NSObject {
             }.addToQueue()
         self.performNextFactoryTaskIfPossible()
     }
+    
+    func addOfflineSeen(roomId: Int64, messageId: Int64, status: IGPRoomMessageStatus) {
+        if status != .seen {return}
+        
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.add(IGRealmOfflineSeen(roomId: roomId, messageId: messageId))
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
 
+    func removeOfflineSeen(roomId: Int64, messageId: Int64, status: IGPRoomMessageStatus) {
+        if status != .seen {return}
+        
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    if let offlineSeen = IGDatabaseManager.shared.realm.objects(IGRealmOfflineSeen.self).filter("roomId = %lld", roomId).first {
+                        IGDatabaseManager.shared.realm.delete(offlineSeen)
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success {
+            self.removeTaskFromQueueAndPerformNext(task)
+            }.error {
+                self.removeTaskFromQueueAndPerformNext(task)
+            }.addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
 }

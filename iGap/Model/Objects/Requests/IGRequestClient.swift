@@ -14,25 +14,9 @@ import SwiftProtobuf
 
 class IGClientConditionRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(clientCondition:IGClientCondition) -> IGRequestWrapper {
+        class func generate(clientConditionRooms: [IGPClientCondition.IGPRoom]) -> IGRequestWrapper {
             var clientConditionRequestMessage = IGPClientCondition()
-            var rooms = Array<IGPClientCondition.IGPRoom>()
-            for ccRoom in clientCondition.rooms {
-                var room = IGPClientCondition.IGPRoom()
-                room.igpRoomID = ccRoom.id
-                room.igpClearID = ccRoom.clearId
-                room.igpCacheEndID = ccRoom.cacheEndId
-                room.igpCacheStartID = ccRoom.cacheStartId
-                room.igpDeleteVersion = ccRoom.deleteVersion
-                room.igpStatusVersion = ccRoom.statusVersion
-                room.igpMessageVersion = ccRoom.messageVersion
-                //room.igpOfflineMute(<#T##value: IGPClientCondition.IGPRoom.IGPOfflineMute##IGPClientCondition.IGPRoom.IGPOfflineMute#>)
-                //room.igpOfflineSeen(<#T##value: Array<Int64>##Array<Int64>#>)
-                //room.igpOfflineEdited(<#T##value: Array<IGPClientCondition.IGPRoom.IGPOfflineEdited>##Array<IGPClientCondition.IGPRoom.IGPOfflineEdited>#>)
-                //room.igpOfflineDeleted(<#T##value: Array<Int64>##Array<Int64>#>)
-                rooms.append(room)
-            }
-            clientConditionRequestMessage.igpRooms = rooms
+            clientConditionRequestMessage.igpRooms = clientConditionRooms
             return IGRequestWrapper(message: clientConditionRequestMessage, actionID: 600)
         }
     }
