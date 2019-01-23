@@ -14,7 +14,7 @@ import SwiftyJSON
 
 class IGHelperJson {
 
-    internal static func parseAdditionalButton(data: String?, room: IGRoom) -> [[IGStructAdditionalButton]]? {
+    internal static func parseAdditionalButton(data: String?) -> [[IGStructAdditionalButton]]? {
         
         if data == nil {return nil}
         
@@ -27,7 +27,6 @@ class IGHelperJson {
                     var subArray:[IGStructAdditionalButton] = []
                     for (_, subJson):(String, JSON) in jsonArray {
                         let structAdt = IGStructAdditionalButton(json: subJson)
-                        structAdt.room = room
                         subArray.append(structAdt)
                     }
                     arrayMain.append(subArray)

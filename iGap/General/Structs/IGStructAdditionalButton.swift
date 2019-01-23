@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class IGStructAdditionalButton {
 
-    var room : IGRoom!
     var json : String!
     var actionType : Int!
     var label : String!

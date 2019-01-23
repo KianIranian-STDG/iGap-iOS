@@ -729,15 +729,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     if btnChangeKeyboard != nil {
                         btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
                     }
-                    if inputTextView != nil {
-                        inputTextView.inputView = nil
-                        inputTextView.reloadInputViews()
-                        if !firstEnter {
-                            if !self.inputTextView.isFirstResponder {
-                                self.inputTextView.becomeFirstResponder()
-                            }
-                        }
-                    }
+                    inputTextView.inputView = nil
+                    inputTextView.reloadInputViews()
                 }
             }
         }
@@ -747,7 +740,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
             let data = roomMessage?.additional?.data,
             roomMessage?.additional?.dataType == AdditionalType.UNDER_KEYBOARD_BUTTON.rawValue,
-            let additionalData = IGHelperJson.parseAdditionalButton(data: data, room: room!) {
+            let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
             return additionalData
         }
         return nil
@@ -759,7 +752,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        IGMessageSender.defaultSender.send(message: message, to: structAdditional.room!)
+        IGMessageSender.defaultSender.send(message: message, to: room!)
     }
     
     func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
