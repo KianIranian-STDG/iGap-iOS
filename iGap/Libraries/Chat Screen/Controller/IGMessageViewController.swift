@@ -473,11 +473,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.collectionViewTopInsetOffset = CGFloat(self.DOCTOR_BOT_HEIGHT)
             }
             
-            self.setCollectionViewInset()
-            
             self.apiStructArray = results
-            self.doctorBotView(results: results)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                self.doctorBotView(results: results)
+            }
+            
+            self.setCollectionViewInset(withDuration: 0.9)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                 self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: true)
             }
         }
@@ -604,7 +606,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         
-        mainView.fadeIn(0.3)
+        mainView.fadeIn(1)
         
         leftSpace += DOCTOR_BUTTON_SPACE + mainViewWith
     }
@@ -1245,9 +1247,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
         
-    func setCollectionViewInset() {
+    func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
         let value = inputBarHeightContainerConstraint.constant + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: withDuration, animations: {
             self.collectionView.contentInset = UIEdgeInsetsMake(value, 0, 20, 0)
         }, completion: { (completed) in
             
