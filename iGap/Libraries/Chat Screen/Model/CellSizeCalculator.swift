@@ -243,6 +243,9 @@ class CellSizeCalculator: NSObject {
             stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL)
         }
         
+        // increase width size for avoid from break line at make view due to leading & trailing params
+        stringRect.size.width = stringRect.size.width + 6
+        
         return stringRect.size
     }
     
