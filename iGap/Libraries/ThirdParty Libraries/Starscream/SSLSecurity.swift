@@ -19,7 +19,8 @@
 //  limitations under the License.
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////
-
+#if os(Linux)
+#else
 import Foundation
 import Security
 
@@ -32,23 +33,23 @@ open class SSLCert {
     var key: SecKey?
     
     /**
-    Designated init for certificates
-    
-    - parameter data: is the binary data of the certificate
-    
-    - returns: a representation security object to be used with
-    */
+     Designated init for certificates
+     
+     - parameter data: is the binary data of the certificate
+     
+     - returns: a representation security object to be used with
+     */
     public init(data: Data) {
         self.certData = data
     }
     
     /**
-    Designated init for public keys
-    
-    - parameter key: is the public key to be used
-    
-    - returns: a representation security object to be used with
-    */
+     Designated init for public keys
+     
+     - parameter key: is the public key to be used
+     
+     - returns: a representation security object to be used with
+     */
     public init(key: SecKey) {
         self.key = key
     }
@@ -56,6 +57,7 @@ open class SSLCert {
 
 open class SSLSecurity : SSLTrustValidator {
     public var validatedDN = true //should the domain name be validated?
+    public var validateEntireChain = true //should the entire cert chain be validated
     
     var isReady = false //is the key processing done?
     var certificates: [Data]? //the certificates
@@ -63,12 +65,12 @@ open class SSLSecurity : SSLTrustValidator {
     var usePublicKeys = false //use public keys or certificate validation?
     
     /**
-    Use certs from main app bundle
-    
-    - parameter usePublicKeys: is to specific if the publicKeys or certificates should be used for SSL pinning validation
-    
-    - returns: a representation security object to be used with
-    */
+     Use certs from main app bundle
+     
+     - parameter usePublicKeys: is to specific if the publicKeys or certificates should be used for SSL pinning validation
+     
+     - returns: a representation security object to be used with
+     */
     public convenience init(usePublicKeys: Bool = false) {
         let paths = Bundle.main.paths(forResourcesOfType: "cer", inDirectory: ".")
         
@@ -84,13 +86,13 @@ open class SSLSecurity : SSLTrustValidator {
     }
     
     /**
-    Designated init
-    
-    - parameter certs: is the certificates or public keys to use
-    - parameter usePublicKeys: is to specific if the publicKeys or certificates should be used for SSL pinning validation
-    
-    - returns: a representation security object to be used with
-    */
+     Designated init
+     
+     - parameter certs: is the certificates or public keys to use
+     - parameter usePublicKeys: is to specific if the publicKeys or certificates should be used for SSL pinning validation
+     
+     - returns: a representation security object to be used with
+     */
     public init(certs: [SSLCert], usePublicKeys: Bool) {
         self.usePublicKeys = usePublicKeys
         
@@ -124,14 +126,14 @@ open class SSLSecurity : SSLTrustValidator {
     }
     
     /**
-    Valid the trust and domain name.
-    
-    - parameter trust: is the serverTrust to validate
-    - parameter domain: is the CN domain to validate
-    
-    - returns: if the key was successfully validated
-    */
-    public func isValid(_ trust: SecTrust, domain: String?) -> Bool {
+     Valid the trust and domain name.
+     
+     - parameter trust: is the serverTrust to validate
+     - parameter domain: is the CN domain to validate
+     
+     - returns: if the key was successfully validated
+     */
+    open func isValid(_ trust: SecTrust, domain: String?) -> Bool {
         
         var tries = 0
         while !self.isReady {
@@ -169,6 +171,9 @@ open class SSLSecurity : SSLTrustValidator {
             var result: SecTrustResultType = .unspecified
             SecTrustEvaluate(trust,&result)
             if result == .unspecified || result == .proceed {
+                if !validateEntireChain {
+                    return true
+                }
                 var trustedCount = 0
                 for serverCert in serverCerts {
                     for cert in certs {
@@ -187,26 +192,26 @@ open class SSLSecurity : SSLTrustValidator {
     }
     
     /**
-    Get the public key from a certificate data
-    
-    - parameter data: is the certificate to pull the public key from
-    
-    - returns: a public key
-    */
-    func extractPublicKey(_ data: Data) -> SecKey? {
+     Get the public key from a certificate data
+     
+     - parameter data: is the certificate to pull the public key from
+     
+     - returns: a public key
+     */
+    public func extractPublicKey(_ data: Data) -> SecKey? {
         guard let cert = SecCertificateCreateWithData(nil, data as CFData) else { return nil }
         
         return extractPublicKey(cert, policy: SecPolicyCreateBasicX509())
     }
     
     /**
-    Get the public key from a certificate
-    
-    - parameter data: is the certificate to pull the public key from
-    
-    - returns: a public key
-    */
-    func extractPublicKey(_ cert: SecCertificate, policy: SecPolicy) -> SecKey? {
+     Get the public key from a certificate
+     
+     - parameter data: is the certificate to pull the public key from
+     
+     - returns: a public key
+     */
+    public func extractPublicKey(_ cert: SecCertificate, policy: SecPolicy) -> SecKey? {
         var possibleTrust: SecTrust?
         SecTrustCreateWithCertificates(cert, policy, &possibleTrust)
         
@@ -217,13 +222,13 @@ open class SSLSecurity : SSLTrustValidator {
     }
     
     /**
-    Get the certificate chain for the trust
-    
-    - parameter trust: is the trust to lookup the certificate chain for
-    
-    - returns: the certificate chain for the trust
-    */
-    func certificateChain(_ trust: SecTrust) -> [Data] {
+     Get the certificate chain for the trust
+     
+     - parameter trust: is the trust to lookup the certificate chain for
+     
+     - returns: the certificate chain for the trust
+     */
+    public func certificateChain(_ trust: SecTrust) -> [Data] {
         let certificates = (0..<SecTrustGetCertificateCount(trust)).reduce([Data]()) { (certificates: [Data], index: Int) -> [Data] in
             var certificates = certificates
             let cert = SecTrustGetCertificateAtIndex(trust, index)
@@ -235,13 +240,13 @@ open class SSLSecurity : SSLTrustValidator {
     }
     
     /**
-    Get the public key chain for the trust
-    
-    - parameter trust: is the trust to lookup the certificate chain and extract the public keys
-    
-    - returns: the public keys from the certifcate chain for the trust
-    */
-    func publicKeyChain(_ trust: SecTrust) -> [SecKey] {
+     Get the public key chain for the trust
+     
+     - parameter trust: is the trust to lookup the certificate chain and extract the public keys
+     
+     - returns: the public keys from the certifcate chain for the trust
+     */
+    public func publicKeyChain(_ trust: SecTrust) -> [SecKey] {
         let policy = SecPolicyCreateBasicX509()
         let keys = (0..<SecTrustGetCertificateCount(trust)).reduce([SecKey]()) { (keys: [SecKey], index: Int) -> [SecKey] in
             var keys = keys
@@ -258,3 +263,4 @@ open class SSLSecurity : SSLTrustValidator {
     
     
 }
+#endif

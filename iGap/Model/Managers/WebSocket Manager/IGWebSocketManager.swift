@@ -68,7 +68,7 @@ class IGWebSocketManager: NSObject {
     
     public func setConnectionSecure() {
         isConnectionSecured = true
-        socket.shouldMask = false
+        WebSocket.shouldMask = false
         IGAppManager.sharedManager.setNetworkConnectionStatus(.connected)
     }
 
@@ -162,14 +162,14 @@ class IGWebSocketManager: NSObject {
 
 //MARK: - WebSocketDelegate
 extension IGWebSocketManager: WebSocketDelegate {
-    func websocketDidConnect(socket: WebSocket) {
+    func websocketDidConnect(socket: WebSocketClient) {
         isConnectionSecured = false
-        socket.shouldMask = true
+        WebSocket.shouldMask = true
         print("Websocket Connected")
         resetConnectionProblemDetectorTimer()
     }
     
-    func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         isConnectionSecured = false
         removeConnectionProblemDetectorTimer()
         let deadlineTime = DispatchTime.now() + .seconds(3)
@@ -179,18 +179,18 @@ extension IGWebSocketManager: WebSocketDelegate {
         IGAppManager.sharedManager.resetApp()
     }
     
-    func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         resetConnectionProblemDetectorTimer()
     }
     
-    func websocketDidReceiveData(socket: WebSocket, data: Data) {
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         resetConnectionProblemDetectorTimer()
         inerpretAndTakeAction(receivedData: data)
     }
 }
 
 extension IGWebSocketManager : WebSocketPongDelegate{
-    func websocketDidReceivePong(socket: WebSocket, data: Data?) {
+    func websocketDidReceivePong(socket: WebSocketClient, data: Data?) {
         resetConnectionProblemDetectorTimer()
     }
 }

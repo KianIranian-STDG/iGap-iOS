@@ -217,6 +217,8 @@
 		FA8204382025C97300A795D5 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8204362025C97300A795D5 /* ImageCell.swift */; };
 		FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA82043A2025C99300A795D5 /* ImageCell.xib */; };
 		FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */; };
+		FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */; };
+		FA844D8821F88FCF000E6750 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844D8621F88FCF000E6750 /* Compression.swift */; };
 		FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA84D49E21C918C9009597B7 /* webServiceKey.txt */; };
 		FA8548A221EC92CF00435F70 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */; };
 		FA8548A321EC92CF00435F70 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A121EC92CF00435F70 /* Firebase.framework */; };
@@ -661,6 +663,8 @@
 		FA8204362025C97300A795D5 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		FA82043A2025C99300A795D5 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountReasonViewController.swift; sourceTree = "<group>"; };
+		FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
+		FA844D8621F88FCF000E6750 /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
 		FA84D49E21C918C9009597B7 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
 		FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
 		FA8548A121EC92CF00435F70 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
@@ -1444,6 +1448,8 @@
 		FA930D971E5B178F00069EE1 /* Starscream */ = {
 			isa = PBXGroup;
 			children = (
+				FA844D8621F88FCF000E6750 /* Compression.swift */,
+				FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */,
 				FA930D981E5B178F00069EE1 /* SSLSecurity.swift */,
 				FA930D991E5B178F00069EE1 /* WebSocket.swift */,
 			);
@@ -2187,6 +2193,7 @@
 				FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */,
 				FA09538A1E1B97E20043ED3F /* IGCreateNewGroupTableViewController.swift in Sources */,
 				FA63BAA01DD70D60000B60AD /* IGRequestWrapper.swift in Sources */,
+				FA844D8821F88FCF000E6750 /* Compression.swift in Sources */,
 				FA42EF111E5C224F00CF8A32 /* ImageSourceHelpers.swift in Sources */,
 				FAA9DFBA1F4B1CC90076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewController.swift in Sources */,
 				FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */,
@@ -2242,6 +2249,7 @@
 				FA50FE4A21EF40120043239D /* IGRealmAdditional.swift in Sources */,
 				FA42EF0C1E5C224F00CF8A32 /* GIFImageView.swift in Sources */,
 				931DC8C71E38822D008F04A9 /* IGMessageAttachmentCurrentLocationViewController.swift in Sources */,
+				FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */,
 				FA358D221E0A6F76001D0935 /* IGChannelsTableViewController.swift in Sources */,
 				FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */,
 				FA0953571E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift in Sources */,
