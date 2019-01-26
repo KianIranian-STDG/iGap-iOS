@@ -259,8 +259,6 @@ class IGChannelsTableViewController: UITableViewController {
                         self.deleteChannel(room: room)
                     }
                     break
-                default:
-                    break
                 }
             })
             
@@ -746,7 +744,7 @@ extension IGChannelsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let deleteChannel as IGPChannelDeleteResponse:
-                    IGChannelDeleteRequest.Handler.interpret(response: deleteChannel)
+                    let _ = IGChannelDeleteRequest.Handler.interpret(response: deleteChannel)
                 default:
                     break
                 }
@@ -803,6 +801,7 @@ extension IGChannelsTableViewController {
 
 extension IGChannelsTableViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGLookAndFind.enableForward = false
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true

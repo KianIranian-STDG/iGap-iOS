@@ -19,6 +19,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    static var enableForward = false //open forward page or main tab due to the this value
     var findResult: [IGLookAndFindStruct] = []
     var searching = false // use this param for avoid from duplicate search
     var latestSearchText = ""
@@ -104,7 +105,11 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.findResult = []
             let realm = try! Realm()
             
-            if isUsername {
+            if IGLookAndFind.enableForward {
+                self.fillUser(realm: realm, searchText: searchText)
+                self.fillRoom(realm: realm, searchText: searchText, searchTitle: true, isForwardEnable: true, roomType: .channel)
+                self.fillRoom(realm: realm, searchText: searchText, searchTitle: true, isForwardEnable: true, roomType: .group)
+            } else if isUsername {
                 self.fillBot(realm: realm, searchText: searchText)
                 self.fillUser(realm: realm, searchText: searchText)
                 self.fillRoom(realm: realm, searchText: searchText, roomType: .channel)
@@ -124,18 +129,22 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    private func fillRoom(realm: Realm, searchText: String, searchTitle: Bool = false, roomType: IGSearchType) {
+    private func fillRoom(realm: Realm, searchText: String, searchTitle: Bool = false, isForwardEnable: Bool = false, roomType: IGSearchType) {
         let sortProperties = [SortDescriptor(keyPath: "isParticipant", ascending: false)]
         var predicate : NSPredicate!
         if roomType == .channel {
-            predicate = NSPredicate(format: "(channelRoom.publicExtra.username CONTAINS[c] %@)", searchText, searchText)
-            if searchTitle {
-                predicate = NSPredicate(format: "(channelRoom.publicExtra.username CONTAINS[c] %@) OR ((title CONTAINS[c] %@) AND typeRaw = %d)", searchText, searchText, searchText, IGRoom.IGType.channel.rawValue)
+            predicate = NSPredicate(format: "(channelRoom.publicExtra.username CONTAINS[c] %@)", searchText)
+            if isForwardEnable {
+                predicate = NSPredicate(format: "((channelRoom.publicExtra.username CONTAINS[c] %@) OR (title CONTAINS[c] %@)) AND typeRaw = %d AND isParticipant == true AND isReadOnly == false", searchText, searchText, IGRoom.IGType.channel.rawValue)
+            } else if searchTitle {
+                predicate = NSPredicate(format: "(channelRoom.publicExtra.username CONTAINS[c] %@) OR ((title CONTAINS[c] %@) AND typeRaw = %d)", searchText, searchText, IGRoom.IGType.channel.rawValue)
             }
         } else { // group
-            predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@)", searchText, searchText)
-            if searchTitle {
-                predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@) OR ((title CONTAINS[c] %@) AND typeRaw = %d)", searchText, searchText, searchText, IGRoom.IGType.group.rawValue)
+            predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@)", searchText)
+            if isForwardEnable {
+                predicate = NSPredicate(format: "((groupRoom.publicExtra.username CONTAINS[c] %@) OR (title CONTAINS[c] %@)) AND typeRaw = %d AND isParticipant == true AND isReadOnly == false", searchText, searchText, IGRoom.IGType.group.rawValue)
+            } else if searchTitle {
+                predicate = NSPredicate(format: "(groupRoom.publicExtra.username CONTAINS[c] %@) OR ((title CONTAINS[c] %@) AND typeRaw = %d)", searchText, searchText, IGRoom.IGType.group.rawValue)
             }
         }
         let rooms = realm.objects(IGRoom.self).filter(predicate).sorted(by: sortProperties)
@@ -206,10 +215,17 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         IGRecentsTableViewController.needGetInfo = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
-        self.searchBar.hero.id = "searchBar"
-        self.hero.replaceViewController(with: mainView)
+        if IGLookAndFind.enableForward {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForwardPage")
+            self.searchBar.hero.id = "searchBar"
+            self.hero.replaceViewController(with: mainView)
+        } else {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
+            self.searchBar.hero.id = "searchBar"
+            self.hero.replaceViewController(with: mainView)
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -276,7 +292,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
         }
         
-        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, openChatFromLink: true)
+        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, isForwardEnable: IGLookAndFind.enableForward)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

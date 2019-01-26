@@ -2498,9 +2498,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showForwardMessageTable" {
-            let navigationController = segue.destination as! IGNavigationController
-            let destinationTv = navigationController.topViewController as! IGForwardMessageTableViewController
-            destinationTv.delegate = self
+            IGForwardMessageTableViewController.forwardMessageDelegate = self
         } else if segue.identifier == "showReportPage" {
             let destinationTv = segue.destination as! IGReport
             destinationTv.room = self.room

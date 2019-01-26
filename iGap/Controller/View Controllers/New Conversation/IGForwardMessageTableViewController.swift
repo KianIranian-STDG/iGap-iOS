@@ -23,6 +23,7 @@ protocol IGForwardMessageDelegate {
 class IGForwardMessageTableViewController: UITableViewController {
 
     @IBOutlet weak var forwardSegment: UISegmentedControl!
+    @IBOutlet weak var searchBar: UISearchBar!
     class User:NSObject {
         let registredUser: IGRegisteredUser
         let name:String!
@@ -39,7 +40,7 @@ class IGForwardMessageTableViewController: UITableViewController {
         }
     }
     
-    var delegate: IGForwardMessageDelegate?
+    static var forwardMessageDelegate: IGForwardMessageDelegate?
     //Contact
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1" )
     var contactSections : [Section]?
@@ -80,6 +81,7 @@ class IGForwardMessageTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         let sortProperties = [SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         self.rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1 AND isReadOnly = false").sorted(by: sortProperties)
         self.tableView.tableFooterView = UIView()
@@ -96,19 +98,7 @@ class IGForwardMessageTableViewController: UITableViewController {
         self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        IGHelperView.makeSearchView(searchBar: searchBar)
     }
     
     //MARK: - IBActions
@@ -162,7 +152,7 @@ class IGForwardMessageTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.tableView.tag == 0 {
             self.dismiss(animated: true, completion: {
-                self.delegate?.didSelectRoomToForwardMessage(room: self.rooms![indexPath.row])
+                IGForwardMessageTableViewController.forwardMessageDelegate?.didSelectRoomToForwardMessage(room: self.rooms![indexPath.row])
             })
         } else if self.tableView.tag == 1 {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -241,9 +231,20 @@ class IGForwardMessageTableViewController: UITableViewController {
         }
         return 44.0
     }
-    
+}
 
-    
 
+extension IGForwardMessageTableViewController: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGLookAndFind.enableForward = true
+        IGGlobal.heroTabIndex = -1
+        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+        lookAndFind.hero.isEnabled = true
+        self.searchBar.hero.id = "searchBar"
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.hero.replaceViewController(with: lookAndFind)
+        return true
+    }
 }
 

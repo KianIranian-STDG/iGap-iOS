@@ -1389,6 +1389,7 @@ extension IGRecentsTableViewController {
 
 extension IGRecentsTableViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGLookAndFind.enableForward = false
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
