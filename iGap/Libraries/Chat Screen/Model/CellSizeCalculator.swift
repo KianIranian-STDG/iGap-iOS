@@ -111,9 +111,9 @@ class CellSizeCalculator: NSObject {
         var finalMessage = message
         if let forward = message.forwardedFrom {
             finalMessage = forward
-            finalSize.height += 30
+            finalSize.height += 34
         } else if message.repliedTo != nil {
-            finalSize.height += 54
+            finalSize.height += 58
         }
         
         let additionalData = getAdditional(roomMessage: finalMessage)

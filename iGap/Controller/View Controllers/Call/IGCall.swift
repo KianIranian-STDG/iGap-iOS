@@ -516,6 +516,24 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 }
                 
                 do {
+                    if self.callType == .videoCalling {
+                        if #available(iOS 10.0, *) {
+                            do {
+                                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                            } catch {
+                                print("error AVAudioSessionModeVideoChat")
+                            }
+                        }
+                    } else {
+                        if #available(iOS 10.0, *) {
+                            do {
+                                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                            } catch {
+                                print("error AVAudioSessionModeVideoChat")
+                            }
+                        }
+                    }
+                    
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .allowBluetooth)
                     try AVAudioSession.sharedInstance().setActive(true)
                     
