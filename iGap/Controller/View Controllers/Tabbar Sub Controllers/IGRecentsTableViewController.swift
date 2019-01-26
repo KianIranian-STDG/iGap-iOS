@@ -22,9 +22,10 @@ import Contacts
 import AddressBook
 import Hero
 
-class IGRecentsTableViewController: UITableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate {
+class IGRecentsTableViewController: UITableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
     static var messageReceiveDelegat: MessageReceiveObserver!
+    static var forwardStartObserver: ForwardStartObserver!
     static var visibleChat: [Int64 : Bool] = [:]
     var selectedRoomForSegue : IGRoom?
     var cellIdentifer = IGChatRoomListTableViewCell.cellReuseIdentifier()
@@ -196,6 +197,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
         
@@ -802,12 +804,16 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                         self.hud.hide(animated: true)
                     }
                 }).send()
-                
-                
             }
-        } else {
-            print("rommID not int64")
         }
+    }
+    
+    func openForwardPage() {
+        self.performSegue(withIdentifier: "showForwardMessageTable", sender: self)
+    }
+    
+    func onForwardStart(user: IGRegisteredUser?, room: IGRoom?, type: IGPClientSearchUsernameResponse.IGPResult.IGPType) {
+        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: type, user: user, room: room, isForwardEnable: true)
     }
 }
 

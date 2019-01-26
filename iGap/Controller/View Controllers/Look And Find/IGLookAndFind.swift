@@ -292,7 +292,18 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
         }
         
-        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, isForwardEnable: IGLookAndFind.enableForward)
+        if IGLookAndFind.enableForward {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                IGRecentsTableViewController.forwardStartObserver.onForwardStart(user: searchResult.user, room: room, type: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!)
+            }
+            
+            dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
+            
+        } else {
+            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, isForwardEnable: IGLookAndFind.enableForward)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -3087,7 +3087,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         })
         let forward = UIAlertAction(title: "Forward", style: .default, handler: { (action) in
             IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
-            self.performSegue(withIdentifier: "showForwardMessageTable", sender: self)
+            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
+            self.navigationController?.popViewController(animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                IGRecentsTableViewController.forwardStartObserver.openForwardPage()
+            }
         })
         let edit = UIAlertAction(title: "Edit", style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {

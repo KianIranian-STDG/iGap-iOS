@@ -206,6 +206,7 @@
 		FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */; };
 		FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B602D201E0483008460CF /* CellSizeCalculator.swift */; };
 		FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */; };
+		FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */; };
 		FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */; };
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
 		FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA786D59206A746700608A2D /* CreateRoom.storyboard */; };
@@ -653,6 +654,7 @@
 		FA6B602D201E0483008460CF /* CellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSizeCalculator.swift; sourceTree = "<group>"; };
 		FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBot.swift; sourceTree = "<group>"; };
 		FA752C321E1EC571008694C6 /* iGap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iGap.entitlements; path = ../iGap.entitlements; sourceTree = "<group>"; };
+		FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardStartObserver.swift; sourceTree = "<group>"; };
 		FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistredUserInfoTableViewController.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
 		FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegisteredUser.swift; sourceTree = "<group>"; };
@@ -1428,6 +1430,7 @@
 				FA90B72920B53EBC00043C89 /* MessageReceiveObserver.swift */,
 				FAEC476321F31B1B006C07A4 /* AdditionalObserver.swift */,
 				FAEC476921F3360A006C07A4 /* MessageViewControllerObserver.swift */,
+				FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2184,6 +2187,7 @@
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
+				FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGNewGroupBottomViewCollectionCell.swift in Sources */,

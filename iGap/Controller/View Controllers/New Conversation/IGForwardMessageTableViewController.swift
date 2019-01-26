@@ -88,7 +88,9 @@ class IGForwardMessageTableViewController: UITableViewController {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "Cancel", title: nil)
         navigationItem.rightViewContainer?.addAction {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+            })
         }
 
         
@@ -150,51 +152,23 @@ class IGForwardMessageTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var user: IGRegisteredUser?
+        var room: IGRoom?
+        var type: IGPClientSearchUsernameResponse.IGPResult.IGPType!
         if self.tableView.tag == 0 {
-            self.dismiss(animated: true, completion: {
-                IGForwardMessageTableViewController.forwardMessageDelegate?.didSelectRoomToForwardMessage(room: self.rooms![indexPath.row])
-            })
-        } else if self.tableView.tag == 1 {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            let user = self.contactsSections[indexPath.section ].users[indexPath.row]
-            if user.registredUser.isBlocked == false {
-                IGChatGetRoomRequest.Generator.generate(peerId: user.registredUser.id).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        self.dismiss(animated: true, completion: {
-                            //segue to created chat
-                            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                            object: nil,
-                                                            userInfo: ["room": roomId])
-                        })
-                        break
-                    default:
-                        break
-                        }
-                    }
-                    
-                }).error({ (errorCode, waitTime) in
-                    switch errorCode {
-                    case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.hud.hide(animated: true)
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                    default:
-                        break
-                        
-                    }
-                    
-                }).send()
-            }
+            type = IGPClientSearchUsernameResponse.IGPResult.IGPType.room
+            room = self.rooms![indexPath.row]
+        } else {
+            type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user
+            user = self.contactsSections[indexPath.section].users[indexPath.row].registredUser
         }
+
+        dismiss(animated: true, completion: {
+            DispatchQueue.main.async {
+                IGRecentsTableViewController.forwardStartObserver.onForwardStart(user: user, room: room, type: type)
+            }
+        })
     }
     
     override func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int) -> String {
