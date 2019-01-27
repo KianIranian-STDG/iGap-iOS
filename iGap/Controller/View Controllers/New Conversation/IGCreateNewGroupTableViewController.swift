@@ -38,7 +38,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
         groupAvatarImage.isUserInteractionEnabled = true
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "Next", title: "New Group")
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.rightViewContainer?.addAction {
@@ -228,7 +228,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
                                                 DispatchQueue.main.async {
                                                     switch protoResponse {
                                                     case let groupAddMemberResponse as IGPGroupAddMemberResponse :
-                                                        IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
+                                                        let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
                                                     default:
                                                         break
                                                     }
@@ -320,7 +320,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
                                 DispatchQueue.main.async {
                                     switch protoResponse {
                                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
-                                        IGChatConvertToGroupRequest.Handler.interpret(response: chatConvertToGroupResponse)
+                                        let _ = IGChatConvertToGroupRequest.Handler.interpret(response: chatConvertToGroupResponse)
                                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                                         if self.navigationController is IGNavigationController {
                                             self.navigationController?.popToRootViewController(animated: true)

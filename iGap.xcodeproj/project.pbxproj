@@ -81,7 +81,6 @@
 		FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953241E1B97700043ED3F /* IGSettingChatTableViewController.swift */; };
 		FA0953571E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953251E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift */; };
 		FA0953581E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953261E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift */; };
-		FA0953591E1B97700043ED3F /* IGSettingChatWallpaperSolidColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953271E1B97700043ED3F /* IGSettingChatWallpaperSolidColorViewController.swift */; };
 		FA09535A1E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953281E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift */; };
 		FA09535B1E1B97700043ED3F /* IGSettingChatWhenDownloadDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953291E1B97700043ED3F /* IGSettingChatWhenDownloadDataTableViewController.swift */; };
 		FA09535C1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09532A1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewCell.swift */; };
@@ -523,7 +522,6 @@
 		FA0953241E1B97700043ED3F /* IGSettingChatTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatTableViewController.swift; sourceTree = "<group>"; };
 		FA0953251E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatWallpaperLibraryCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA0953261E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatWallpaperLibraryCollectionViewController.swift; sourceTree = "<group>"; };
-		FA0953271E1B97700043ED3F /* IGSettingChatWallpaperSolidColorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatWallpaperSolidColorViewController.swift; sourceTree = "<group>"; };
 		FA0953281E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatWallpaperTableViewController.swift; sourceTree = "<group>"; };
 		FA0953291E1B97700043ED3F /* IGSettingChatWhenDownloadDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChatWhenDownloadDataTableViewController.swift; sourceTree = "<group>"; };
 		FA09532A1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingChooseContactToAddToBlockListTableViewCell.swift; sourceTree = "<group>"; };
@@ -1035,7 +1033,6 @@
 				FA0953241E1B97700043ED3F /* IGSettingChatTableViewController.swift */,
 				FA0953251E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift */,
 				FA0953261E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift */,
-				FA0953271E1B97700043ED3F /* IGSettingChatWallpaperSolidColorViewController.swift */,
 				FA0953281E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift */,
 				FA0953291E1B97700043ED3F /* IGSettingChatWhenDownloadDataTableViewController.swift */,
 				FA09532A1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewCell.swift */,
@@ -2207,7 +2204,6 @@
 				FAD94C701E0136D0006D8D91 /* IGMedia.swift in Sources */,
 				FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */,
 				FA11E2881DE8A86C00A2F87C /* IGCacheManager.swift in Sources */,
-				FA0953591E1B97700043ED3F /* IGSettingChatWallpaperSolidColorViewController.swift in Sources */,
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
 				FA8F22521DD89C6B005A90D1 /* IGChatRoom.swift in Sources */,
 				FA09535E1E1B97700043ED3F /* IGSettingContactBlockListTableViewController.swift in Sources */,

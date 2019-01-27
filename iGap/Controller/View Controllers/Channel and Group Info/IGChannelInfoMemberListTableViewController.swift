@@ -219,7 +219,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let channelKickAdminResponse as IGPChannelKickAdminResponse:
-                                IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
+                                let _ = IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
                                 self.tableView.reloadData()
                                 self.hud.hide(animated: true)
                             default:
@@ -296,7 +296,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let kickMemberResponse as IGPChannelKickMemberResponse:
-                                IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
+                                let _ = IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
                                 self.hud.hide(animated: true)
                             default:
                                 break

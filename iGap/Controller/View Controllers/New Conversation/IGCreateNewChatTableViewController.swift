@@ -90,7 +90,7 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
             return user
         }
         var sections = [Section]()
-        for i in 0..<self.collation.sectionIndexTitles.count{
+        for _ in 0..<self.collation.sectionIndexTitles.count{
             sections.append(Section())
         }
         for user in users {
@@ -150,10 +150,6 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
         DispatchQueue.main.async {
             (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.id, isIncommmingCall: false)
         }
-    }
-    
-    func predicateForContacts(matchingName name: String) -> NSPredicate{
-        return predicateForContacts(matchingName: self.resultSearchController.searchBar.text!)
     }
     
     func updateSearchResults(for searchController: UISearchController) {

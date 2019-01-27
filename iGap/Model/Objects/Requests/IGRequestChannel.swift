@@ -79,7 +79,7 @@ class IGChannelAddMemberRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelAddmemberResponse as IGPChannelAddMemberResponse:
-                self.interpret(response: channelAddmemberResponse)
+                let _ = self.interpret(response: channelAddmemberResponse)
             default:
                 break
             }
@@ -106,7 +106,7 @@ class IGChannelAddAdminRequest : IGRequest {
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let channelAddAdminResponse = responseProtoMessage as? IGPChannelAddAdminResponse {
-                interpret(response: channelAddAdminResponse, memberRole: .admin)
+                let _ = interpret(response: channelAddAdminResponse, memberRole: .admin)
             }
         }
     }
@@ -132,7 +132,7 @@ class IGChannelAddModeratorRequest : IGRequest {
         }
         override class func handlePush(responseProtoMessage: Message) {
             if let channelAddModeratorResponse = responseProtoMessage as? IGPChannelAddModeratorResponse {
-                interpret(response: channelAddModeratorResponse, memberRole: .moderator)
+                let _ = interpret(response: channelAddModeratorResponse, memberRole: .moderator)
             }
         }
     }
@@ -157,7 +157,7 @@ class IGChannelDeleteRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelDeleteResponse as IGPChannelDeleteResponse:
-                self.interpret(response: channelDeleteResponse)
+                let _ = self.interpret(response: channelDeleteResponse)
             default:
                 break
             }
@@ -189,7 +189,7 @@ class IGChannelEditRequest : IGRequest {
          override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelEditResponse as IGPChannelEditResponse:
-                self.interpret(response: channelEditResponse)
+                let _ = self.interpret(response: channelEditResponse)
             default:
                 break
             }
@@ -217,7 +217,7 @@ class IGChannelKickAdminRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelKickAdminResoponse as IGPChannelKickAdminResponse:
-                self.interpret(response: channelKickAdminResoponse)
+                let _ = self.interpret(response: channelKickAdminResoponse)
             default:
                 break
             }
@@ -245,7 +245,7 @@ class IGChannelKickMemberRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelKickMemberResoponse as IGPChannelKickMemberResponse:
-                self.interpret(response: channelKickMemberResoponse)
+                let _ = self.interpret(response: channelKickMemberResoponse)
             default:
                 break
             }
@@ -412,11 +412,8 @@ class IGChannelAvatarDeleteRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler {
-        class func interpret(response: IGPChannelAvatarDeleteResponse) {
-            let roomId = response.igpRoomID
-            let avatarId = response.igpID
-            //TODO: take action in IGFactory
-        }
+        class func interpret(response: IGPChannelAvatarDeleteResponse) {}
+        
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let response as IGPChannelAvatarDeleteResponse:
@@ -509,8 +506,6 @@ class IGChannelGetMemberListRequest: IGRequest {
                  channelGetMemberRequestMessage.igpFilterRole = .member
             case .moderator:
                  channelGetMemberRequestMessage.igpFilterRole = .moderator
-            default:
-                break
             }
             var  pagination = IGPPagination()
             pagination.igpLimit = limit
@@ -599,7 +594,7 @@ class IGChannelRemoveUsernameRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelRemoveUserName as IGPChannelRemoveUsernameResponse:
-                self.interpret(response: channelRemoveUserName)
+                let _ = self.interpret(response: channelRemoveUserName)
             default:
                 break
             }
@@ -627,7 +622,7 @@ class IGChannelRevokeLinkRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelRevokeLink as IGPChannelRevokeLinkResponse:
-                self.interpret(response: channelRevokeLink)
+                let _ = self.interpret(response: channelRevokeLink)
             default:
                 break
             }
@@ -654,7 +649,7 @@ class IGChannelUpdateSignatureRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let channelUpdateSignature as IGPChannelUpdateSignatureResponse:
-                self.interpret(response: channelUpdateSignature)
+                let _ = self.interpret(response: channelUpdateSignature)
             default:
                 break
             }
@@ -676,12 +671,8 @@ class IGChannelGetMessagesStatsRequest: IGRequest {
         }
     }
     class Handler: IGRequest.Handler {
-        class func interpret(response: IGPChannelGetMessagesStatsResponse) {
-            let stats = response.igpStats
-            //TODO: perform actions
-        }
-        override class func handlePush(responseProtoMessage: Message) {
-        }
+        class func interpret(response: IGPChannelGetMessagesStatsResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
     }
 }
 

@@ -122,11 +122,12 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
                 case let UserAvatarGetListoResponse as IGPUserAvatarGetListResponse:
                     let responseAvatars =   IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
                     self.avatars = responseAvatars
+                    /*
                     for avatar in self.avatars {
                         let avatarView = IGImageView()
-                       // avatarView.setImage(avatar: avatar)
+                        avatarView.setImage(avatar: avatar)
                     }
-
+                    */
                     
                 default:
                     break
@@ -168,7 +169,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             }
         avatarPhotos = photos
         let currentPhoto = photos[0]
-        let deleteViewFrame = CGRect(x:320, y:595, width: 25 , height:25)
+//        let deleteViewFrame = CGRect(x:320, y:595, width: 25 , height:25)
         let trashImageView = UIImageView()
         trashImageView.image = UIImage(named: "IG_Trash_avatar")
         trashImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
@@ -261,10 +262,11 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
 
 
     func setThumbnailForAttachments() {
+        /*
         if let attachment = self.userAvatar?.file {
-          //  self.currentPhoto.isHidden = false
-            
+            self.currentPhoto.isHidden = false
         }
+        */
     }
 
     

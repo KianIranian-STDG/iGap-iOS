@@ -691,6 +691,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     func updateAttachmentDownloadUploadIndicatorView() {
+        if finalRoomMessage.isDeleted || finalRoomMessage.isInvalidated {
+            return
+        }
         
         if let attachment = self.attachment {
             let fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)

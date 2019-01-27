@@ -41,7 +41,7 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
                 case .initial:
                     self.collectionView?.reloadData()
                     break
-                case .update(_, let _, let _, let _):
+                case .update(_, _, _, _):
                     // Query messages have changed, so apply them to the TableView
                     self.collectionView?.reloadData()
                     break
@@ -55,7 +55,7 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
         
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: navigationTitle )
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
@@ -101,31 +101,26 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SharedMediaImageAndVideoCell", for: indexPath) as! IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell
-        // Configure the cell
-        if sharedMedia[indexPath.row].type == .image || sharedMedia[indexPath.row].type == .imageAndText {
-            if let sharedImage: IGRoomMessage = sharedMedia[indexPath.row] {
-                if let sharedAttachment = sharedImage.attachment {
-                    if sharedAttachment.type == .image {
-                        cell.sharedMediaImageView.setThumbnail(for: sharedAttachment)
-                        cell.videoSizeLabel.isHidden = true
-                        sharedMediaFilter = .image
-                        //cell.attachment = sharedAttachment
-                        cell.setMediaIndicator(message: sharedImage)
-                    }
+        
+        let roomMessage = sharedMedia[indexPath.row]
+        
+        if roomMessage.type == .image || roomMessage.type == .imageAndText {
+            if let sharedAttachment = roomMessage.attachment {
+                if sharedAttachment.type == .image {
+                    cell.sharedMediaImageView.setThumbnail(for: sharedAttachment)
+                    cell.videoSizeLabel.isHidden = true
+                    sharedMediaFilter = .image
+                    cell.setMediaIndicator(message: roomMessage)
                 }
             }
-        }
-        
-        if sharedMedia[indexPath.row].type == .video || sharedMedia[indexPath.row].type == .videoAndText {
-            if let sharedImage: IGRoomMessage = sharedMedia[indexPath.row] {
-                if let sharedAttachment = sharedImage.attachment {
-                    if sharedAttachment.type == .video {
-                        cell.sharedMediaImageView.setThumbnail(for: sharedAttachment)
-                        cell.videoSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sharedAttachment.size)
-                        cell.videoSizeLabel.isHidden = false
-                        sharedMediaFilter = .video
-                        cell.setMediaIndicator(message: sharedImage)
-                    }
+        } else if roomMessage.type == .video || roomMessage.type == .videoAndText {
+            if let sharedAttachment = roomMessage.attachment {
+                if sharedAttachment.type == .video {
+                    cell.sharedMediaImageView.setThumbnail(for: sharedAttachment)
+                    cell.videoSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sharedAttachment.size)
+                    cell.videoSizeLabel.isHidden = false
+                    sharedMediaFilter = .video
+                    cell.setMediaIndicator(message: roomMessage)
                 }
             }
         }
@@ -142,7 +137,7 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
             
             let currentPhoto = photos[indexPath.row]
             let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: cell)
-            galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
+            galleryPreview.referenceViewForPhotoWhenDismissingHandler = { photo in
                 if let index = photos.index(where: {$0 === photo}) {
                     let indexPath = IndexPath(row: index, section: 0)
                     if let cell = collectionView.cellForItem(at: indexPath) {
@@ -185,11 +180,9 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMedia.append(msg)
-                            }
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMedia.append(msg)
                         }
                         self.isFetchingFiles = false
                     default:

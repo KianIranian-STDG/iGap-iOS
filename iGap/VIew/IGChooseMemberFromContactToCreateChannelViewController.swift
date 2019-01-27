@@ -68,7 +68,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
         }
         
         var sections = [Section]()
-        for i in 0..<self.collation.sectionIndexTitles.count {
+        for _ in 0..<self.collation.sectionIndexTitles.count {
             sections.append(Section())
         }
         
@@ -98,7 +98,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
         self.contactViewBottomConstraizt.constant = -self.contactViewHeightConstraint.constant
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         if mode == "Admin" {
@@ -163,7 +163,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let channelAddMemberResponse as IGPChannelAddMemberResponse:
-                        IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
+                        let _ = IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
                         self.navigationController?.popViewController(animated: true)
                     default:
                         break
@@ -185,7 +185,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let channelAddMemberResponse as IGPChannelAddMemberResponse :
-                            IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
+                            let _ = IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
                             self.openChannel()
                         default:
                             break
@@ -222,7 +222,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                         switch protoResponse {
                         case let channelAddAdminResponse as IGPChannelAddAdminResponse :
                             self.manageClosePage()
-                            IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
+                            let _ = IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
                             self.hud.hide(animated: true)
                         default:
                             break
@@ -272,7 +272,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                         switch protoResponse {
                         case let channelAddModeratorResponse as IGPChannelAddModeratorResponse:
                             self.manageClosePage()
-                            IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
+                            let _ = IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
                             self.hud.hide(animated: true)
                         default:
                             break

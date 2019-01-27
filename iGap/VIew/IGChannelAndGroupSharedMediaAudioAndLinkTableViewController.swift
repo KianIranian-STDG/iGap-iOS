@@ -141,11 +141,9 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMedia.append(msg)
-                            }
+                        for message in response.messages {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMedia.append(msg)
                         }
                         self.isFetchingFiles = false
                         self.tableView?.reloadData()

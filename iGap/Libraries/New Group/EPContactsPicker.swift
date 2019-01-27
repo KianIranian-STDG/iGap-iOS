@@ -192,8 +192,9 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                         contactsArray.append(contact)
                         var key: String = "#"
                         //If ordering has to be happening via family name change it here.
-                        if let firstLetter : String! = contact.givenName[0..<1] , (firstLetter?.containsAlphabets())! {
-                            key = (firstLetter?.uppercased())!
+                        let firstLetter : String = contact.givenName[0..<1]
+                        if (firstLetter.containsAlphabets()) {
+                            key = (firstLetter.uppercased())
                         }
                         var contacts = [CNContact]()
                         
@@ -345,7 +346,7 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
         if let searchText = resultSearchController.searchBar.text , searchController.isActive {
             
             let predicate: NSPredicate
-            if searchText.characters.count > 0 {
+            if searchText.count > 0 {
                 predicate = CNContact.predicateForContacts(matchingName: searchText)
             } else {
                 predicate = CNContact.predicateForContactsInContainer(withIdentifier: contactsStore!.defaultContainerIdentifier())

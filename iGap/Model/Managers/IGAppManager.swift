@@ -171,7 +171,7 @@ class IGAppManager: NSObject {
     
     public func getSignalingConfiguration(force:Bool = false){
         let realm = try! Realm()
-        let signalingConfig = try! realm.objects(IGSignaling.self).first
+        let signalingConfig = realm.objects(IGSignaling.self).first
         if signalingConfig == nil || force {
             IGSignalingGetConfigurationRequest.Generator.generate().success({ (protoResponse) in
                 DispatchQueue.main.async {

@@ -724,7 +724,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let groupRevokeLinkRequest as IGPGroupRevokeLinkResponse:
-                    IGGroupRevokLinkRequest.Handler.interpret(response: groupRevokeLinkRequest)
+                    let _ = IGGroupRevokLinkRequest.Handler.interpret(response: groupRevokeLinkRequest)
                 default:
                     break
                 }

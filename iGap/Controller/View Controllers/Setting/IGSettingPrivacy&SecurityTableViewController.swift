@@ -227,7 +227,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
-                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .voiceCalling)
+                    let _ = IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .voiceCalling)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                         self.setCallPrivacy(needUpdate: true)
                     }
@@ -251,7 +251,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
-                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .avatar)
+                    let _ = IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .avatar)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                         self.setAvatarPrivacy(needUpdate: true)
                     }
@@ -275,7 +275,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
-                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .userStatus)
+                    let _ = IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .userStatus)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                         self.setStatusPrivacy(needUpdate: true)
                     }
@@ -299,7 +299,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
-                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .channelInvite)
+                    let _ = IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse, privacyType: .channelInvite)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                         self.setChannelInvitePrivacy(needUpdate: true)
                     }
@@ -323,7 +323,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacyGetRuleResponse as IGPUserPrivacyGetRuleResponse:
-                    IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .groupInvite)
+                    let _ = IGUserPrivacyGetRuleRequest.Handler.interpret(response: userPrivacyGetRuleResponse , privacyType: .groupInvite)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
                         self.setGroupInvitePrivacy(needUpdate: true)
                     }

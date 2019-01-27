@@ -40,7 +40,7 @@ class IGGroupInfoEditTypeTableViewController: UITableViewController , UITextFiel
         publicIndexPath = IndexPath(row: 0, section: 0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Type")
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.rightViewContainer?.addAction {
@@ -180,7 +180,7 @@ class IGGroupInfoEditTypeTableViewController: UITableViewController , UITextFiel
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let groupRemoveUsernameResponse as IGPGroupRemoveUsernameResponse:
-                        IGGroupRemoveUsernameRequest.Handler.interpret(response: groupRemoveUsernameResponse)
+                        let _ = IGGroupRemoveUsernameRequest.Handler.interpret(response: groupRemoveUsernameResponse)
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }
@@ -241,7 +241,7 @@ class IGGroupInfoEditTypeTableViewController: UITableViewController , UITextFiel
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let groupUpdateUserName as IGPGroupUpdateUsernameResponse :
-                        IGGroupUpdateUsernameRequest.Handler.interpret(response: groupUpdateUserName)
+                        let _ = IGGroupUpdateUsernameRequest.Handler.interpret(response: groupUpdateUserName)
                         
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)

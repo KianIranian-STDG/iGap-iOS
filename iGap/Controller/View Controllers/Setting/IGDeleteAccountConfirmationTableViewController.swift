@@ -37,7 +37,7 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "Next", title: "Delete Account")
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
 
@@ -147,7 +147,7 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getDeleteTokenProtoResponse as IGPUserGetDeleteTokenResponse:
-                IGUserGetDeleteTokenRequest.Handler.interpret(response: getDeleteTokenProtoResponse)
+                let _ = IGUserGetDeleteTokenRequest.Handler.interpret(response: getDeleteTokenProtoResponse)
                 self.hud.hide(animated: true)
                 default:
                     break

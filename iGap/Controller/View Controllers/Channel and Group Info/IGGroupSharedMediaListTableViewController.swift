@@ -121,12 +121,12 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientCountRoomHistory as IGPClientCountRoomHistoryResponse:
                         let response = IGClientCountRoomHistoryRequest.Handler.interpret(response: clientCountRoomHistory)
-                        let media = response.media
+                        _ = response.media
                         let audio = response.audio
                         let video = response.video
                         let url = response.url
                         let file = response.file
-                        let gif  = response.gif
+                        _  = response.gif
                         let image = response.image
                         let voice = response.voice
                         self.sizeOfSharedVideos.text = "\(video)"
@@ -168,11 +168,9 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMediaImageFile.append(msg)
-                            }
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaImageFile.append(msg)
                         }
                         break
                     default:
@@ -209,11 +207,9 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMediaAudioFile.append(msg)
-                            }
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaAudioFile.append(msg)
                         }
                         
                     default:
@@ -250,11 +246,9 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMediaVideoFile.append(msg)
-                            }
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaVideoFile.append(msg)
                         }
                     default:
                         break
@@ -291,11 +285,9 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMediaFile.append(msg)
-                            }
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaFile.append(msg)
                         }
                     default:
                         break
@@ -330,11 +322,9 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
-                                let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
-                                self.sharedMediaVoiceFile.append(msg)
-                            }
+                        for message in response.messages.reversed() {
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
+                            self.sharedMediaVoiceFile.append(msg)
                         }
                     default:
                         break
@@ -369,11 +359,9 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                     switch protoResponse {
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
-                        if let messagesResponse: [IGPRoomMessage] = response.messages {
-                            for message in messagesResponse.reversed() {
+                        for message in response.messages.reversed() {
                                 let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                                 self.sharedMediaLinkFile.append(msg)
-                            }
                         }
                     default:
                         break

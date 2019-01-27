@@ -30,7 +30,7 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
             groupDescriptionTextView.text = groupRoom.groupRoom?.roomDescription
         }
         
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         groupDescriptionTextView.delegate = self

@@ -66,7 +66,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
         }
         
         var sections = [Section]()
-        for i in 0..<self.collation.sectionIndexTitles.count {
+        for _ in 0..<self.collation.sectionIndexTitles.count {
             sections.append(Section())
         }
         
@@ -104,7 +104,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         if mode == "Admin" {
@@ -179,7 +179,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let groupAddMemberResponse as IGPGroupAddMemberResponse:
-                        IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
+                        let _ = IGGroupAddMemberRequest.Handler.interpret(response: groupAddMemberResponse)
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }

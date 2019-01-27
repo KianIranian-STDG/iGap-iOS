@@ -300,11 +300,11 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     
     @IBAction func btnBuy(_ sender: UIButton) {
         
-        guard let phoneNumber: String! = edtPhoneNubmer.text else {
+        guard let phoneNumber: String = edtPhoneNubmer.text else {
             return
         }
         
-        if (phoneNumber!.characters.count) < 11 || !phoneNumber!.isNumber ||  (operatorDictionary[(phoneNumber!.substring(offset: 4))] == nil) {
+        if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
             showErrorAlertView(title: "Error", message: "phone number is wrong!")
             return
         }
@@ -315,7 +315,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
         }
         
         IGGlobal.prgShow(self.view)
-        IGMplGetTopupToken.Generator.generate(number: Int64(phoneNumber!)!, amount: chargeAmount, type: operatorChargeType).success({ (protoResponse) in
+        IGMplGetTopupToken.Generator.generate(number: Int64(phoneNumber)!, amount: chargeAmount, type: operatorChargeType).success({ (protoResponse) in
             IGGlobal.prgHide()
             if let getTokenResponse = protoResponse as? IGPMplGetTopupTokenResponse {
                 if getTokenResponse.igpStatus == 0 { //success
@@ -376,7 +376,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if let text = edtPhoneNubmer.text {
-            let newLength = text.characters.count + string.characters.count - range.length
+            let newLength = text.count + string.count - range.length
             if (newLength == PHONE_LENGTH) {
                 operatorTypeBackup = operatorDictionary[text.substring(offset: 4)]
                 if !operatorTransport {

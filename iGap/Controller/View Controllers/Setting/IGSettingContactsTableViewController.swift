@@ -168,7 +168,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             return user
         }
         var sections = [Section]()
-        for i in 0..<self.collation.sectionIndexTitles.count{
+        for _ in 0..<self.collation.sectionIndexTitles.count{
             sections.append(Section())
         }
         for user in users {
@@ -421,10 +421,6 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                 }).send()
             }
         }
-    }
-    
-    func predicateForContacts(matchingName name: String) -> NSPredicate{
-        return predicateForContacts(matchingName: self.resultSearchController.searchBar.text!)
     }
 }
 

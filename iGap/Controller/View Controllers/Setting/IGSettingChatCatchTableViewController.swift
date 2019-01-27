@@ -103,7 +103,7 @@ class IGSettingChatCatchTableViewController: UITableViewController {
         return headerText
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let keepMediaVC = segue.destination as? IGSettingHaveCheckmarkOntheLeftTableViewController {
+        if segue.destination is IGSettingHaveCheckmarkOntheLeftTableViewController {
             //keepMediaVC.items = ["1 week","1 months","1 year","Forever"]
         }
         if let cachedDataItemsVC = segue.destination as? IGSettingChatClearChacheTableViewController {

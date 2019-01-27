@@ -112,13 +112,9 @@ class IGGroupInfoAdminListTableViewController: UITableViewController , UIGesture
         
         let btnKick = MGSwipeButton(title: kickText, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if self.mode == "Admin" {
-                if let adminUserId: Int64 = self.members[indexPath.row].userID {
-                    self.kickAdmin(adminUserID: adminUserId)
-                }
+                self.kickAdmin(adminUserID: self.members[indexPath.row].userID)
             } else if self.mode == "Moderator" {
-                if let moderatorUserId: Int64 = self.members[indexPath.row].userID {
-                    self.kickModerator(moderatorUserId: moderatorUserId)
-                }
+                self.kickModerator(moderatorUserId: self.members[indexPath.row].userID)
             }
             return true
         })

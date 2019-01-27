@@ -122,9 +122,6 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
         payId = billInfo[13..<30]
         let companyType : String = billInfo[11..<12]
         let price : String = billInfo[13..<21]
-        print("ZZZ || billInfo: \(billInfo)")
-        print("ZZZ || billId: \(billId)")
-        print("ZZZ || payId: \(payId)")
         if setText {
             edtBillingID.text = billId
             edtPaymentCode.text = payId
@@ -189,7 +186,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
     
     @IBAction func edtBillingID(_ sender: UITextField) {
         if let billId = edtBillingID.text , let payId = edtPaymentCode.text {
-            if billId.characters.count > 3 && payId.characters.count > 3 {
+            if billId.count > 3 && payId.count > 3 {
                 self.billId = billId
                 self.payId = payId
                 fetchBillInfo(billInfo: "\(billId)\(payId)" , setText: false)
@@ -199,7 +196,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
     
     @IBAction func edtPaymentCode(_ sender: UITextField) {
         if let billId = edtBillingID.text, let payId = edtPaymentCode.text {
-            if billId.characters.count > 3 && payId.characters.count > 3 {
+            if billId.count > 3 && payId.count > 3 {
                 self.billId = billId
                 self.payId = payId
                 fetchBillInfo(billInfo: "\(billId)\(payId)", setText: false)

@@ -86,7 +86,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             
         }, onDisposed: {
             
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapOnBackground))

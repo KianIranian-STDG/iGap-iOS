@@ -75,7 +75,6 @@ class IGForwardMessageAudioAndVoiceAttachmentView: UIView {
     }
     
     func setMediaPlayerCell(_ attachment: IGFile) {
-        print(attachment.fileNameOnDisk)
         self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
         playingSlider.value = 0.0
         mediaRemainingTimeLabel.text = "\(playingSlider.value)"

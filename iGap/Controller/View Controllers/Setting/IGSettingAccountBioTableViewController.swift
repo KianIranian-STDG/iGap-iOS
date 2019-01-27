@@ -62,7 +62,7 @@ class IGSettingAccountBioTableViewController: UITableViewController , UIGestureR
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     if let text = bioTextField.text {
-            let newLength = text.characters.count + string.characters.count - range.length
+            let newLength = text.count + string.count - range.length
             if (newLength > MAX_LENGTH) {
                 canDoAction = false
                 txtBioHint.text = "Bio cannot be more than \(MAX_LENGTH) characters!"

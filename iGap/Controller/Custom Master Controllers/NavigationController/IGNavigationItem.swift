@@ -195,7 +195,6 @@ class IGNavigationItem: UINavigationItem {
             return
         }
         
-        let height = self.navigationController?.navigationBar.frame.height
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 40))
         label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightBold)

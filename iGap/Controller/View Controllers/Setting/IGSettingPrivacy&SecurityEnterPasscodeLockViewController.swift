@@ -204,13 +204,13 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        guard var text = hiddenTextField.text else { return true }
+        guard let text = hiddenTextField.text else { return true }
         var newLength : Int = 0
         
         if numberOfAnimatePassCodeView == 0 && isfirstTimeToEnterPassCode == true {
-            newLength = text.characters.count + string.characters.count - range.length
+            newLength = text.count + string.count - range.length
         }else {
-            newLength = text.characters.count - range.length
+            newLength = text.count - range.length
         }
         if(newLength <= 4) {
             if newLength == 0 {
@@ -276,8 +276,8 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                 }
                 
                 if isTurnOnPassCode == true && numberOfAnimatePassCodeView == 1 && hiddenTextField.text != ""{
-                    var reTypePassCodeText = hiddenTextField.text! + string
-                    let compareReTypePassCodeText = String(reTypePassCodeText.characters.dropFirst())
+                    let reTypePassCodeText = hiddenTextField.text! + string
+                    let compareReTypePassCodeText = String(reTypePassCodeText.dropFirst())
                     print(compareReTypePassCodeText)
                     if compareReTypePassCodeText == newPassCodeText {
                         self.performSegue(withIdentifier: "BackToPasscodeTable", sender: self)
@@ -294,7 +294,7 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                         comparePassCodeText = hiddenTextField.text! + string
                     } else {
                         let compareText = hiddenTextField.text! + string
-                        comparePassCodeText = String(compareText.characters.dropFirst())
+                        comparePassCodeText = String(compareText.dropFirst())
                     }
                     if comparePassCodeText != lockPassCode {
                         passCodeViewWithTitle.passwordisIncorrect()
@@ -322,7 +322,7 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                 if isChangePasswordMode == true && numberOfAnimatePassCodeView == 1 && hiddenTextField.text != "" {
                     var comparePassCodeText : String = ""
                     let compareText = hiddenTextField.text! + string
-                    comparePassCodeText = String(compareText.characters.dropFirst())
+                    comparePassCodeText = String(compareText.dropFirst())
                     newPassCodeText = comparePassCodeText
                     let slideInFromLeftTransition = CATransition()
                     slideInFromLeftTransition.type = kCATransitionPush
@@ -344,7 +344,7 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                 if isTimeToReEnterNewPassCode == true && hiddenTextField.text != "" {
                     var comparePassCodeText : String = ""
                     let compareText = hiddenTextField.text! + string
-                    comparePassCodeText = String(compareText.characters.dropFirst())
+                    comparePassCodeText = String(compareText.dropFirst())
                     if comparePassCodeText == newPassCodeText {
                         let alert = UIAlertController(title: "Success", message: "Your passcode changed successfuly", preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "OK", style:.default , handler: {

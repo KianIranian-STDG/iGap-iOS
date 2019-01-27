@@ -24,7 +24,7 @@ public class Animator {
   private weak var delegate: GIFAnimatable!
     
   /// completionHandler
-  private var completionHandlerPrivate : ((Void) -> Void)?
+    private var completionHandlerPrivate : (() -> Void)?
 
   /// Responsible for starting and stopping the animation.
   private lazy var displayLink: CADisplayLink = { [unowned self] in
@@ -74,7 +74,7 @@ public class Animator {
   /// - parameter contentMode: The view content mode to use for the individual frames.
   /// - parameter loopCount: Desired number of loops, <= 0 for infinite loop.
   /// - parameter completionHandler: Completion callback function
-  func prepareForAnimation(withGIFNamed imageName: String, size: CGSize, contentMode: UIViewContentMode, loopCount: Int = 0, completionHandler: ((Void) -> Void)? = .none) {
+    func prepareForAnimation(withGIFNamed imageName: String, size: CGSize, contentMode: UIViewContentMode, loopCount: Int = 0, completionHandler: (() -> Void)? = .none) {
     guard let extensionRemoved = imageName.components(separatedBy: ".")[safe: 0],
       let imagePath = Bundle.main.url(forResource: extensionRemoved, withExtension: "gif"),
       let data = try? Data(contentsOf: imagePath) else { return }
@@ -93,7 +93,7 @@ public class Animator {
   /// - parameter contentMode: The view content mode to use for the individual frames.
   /// - parameter loopCount: Desired number of loops, <= 0 for infinite loop.
   /// - parameter completionHandler: Completion callback function
-  func prepareForAnimation(withGIFData imageData: Data, size: CGSize, contentMode: UIViewContentMode, loopCount: Int = 0, completionHandler: ((Void) -> Void)? = .none) {
+    func prepareForAnimation(withGIFData imageData: Data, size: CGSize, contentMode: UIViewContentMode, loopCount: Int = 0, completionHandler: (() -> Void)? = .none) {
     frameStore = FrameStore(data: imageData, size: size, contentMode: contentMode, framePreloadCount: frameBufferCount, loopCount: loopCount)
     frameStore?.shouldResizeFrames = shouldResizeFrames
     frameStore?.prepareFrames()

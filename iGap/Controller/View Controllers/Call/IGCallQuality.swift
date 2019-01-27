@@ -102,7 +102,7 @@ class IGCallQuality: UIViewController, UITextFieldDelegate {
         
         IGSignalingRateRequest.Generator.generate(id:rateId, rate:Int32(ratingView.rating), reason:reason).success({ (protoResponse) in
             DispatchQueue.main.async {
-                if let rateReponse = protoResponse as? IGPSignalingRateResponse { //IGSignalingRateRequest.Handler.interpret(response: rateReponse)
+                if protoResponse is IGPSignalingRateResponse {
                     let alert = UIAlertController(title: "Success", message: "Your comment has been successfully submitted", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                         self.dismiss(animated: true, completion: nil)

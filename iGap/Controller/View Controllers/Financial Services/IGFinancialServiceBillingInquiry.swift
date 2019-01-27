@@ -260,17 +260,17 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
         
         if IGFinancialServiceBillingInquiry.isMobile {
             
-            guard let phoneNumber: String! = edtPhoneNumber.text else {
+            guard let phoneNumber: String = edtPhoneNumber.text else {
                 return
             }
             
-            if (phoneNumber!.characters.count != 11 || !phoneNumber!.isNumber) {
+            if (phoneNumber.count != 11 || !phoneNumber.isNumber) {
                 showErrorAlertView(title: "Error", message: "phone number is wrong!")
                 return
             }
             
             IGGlobal.prgShow(self.view)
-            IGBillInquiryMci.Generator.generate(mobileNumber: Int64(phoneNumber!)!).success({ (protoResponse) in
+            IGBillInquiryMci.Generator.generate(mobileNumber: Int64(phoneNumber)!).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let billInquiryMciResponse = protoResponse as? IGPBillInquiryMciResponse {
                     self.manageInquiryMci(lastTerm: billInquiryMciResponse.igpLastTerm, midTerm: billInquiryMciResponse.igpMidTerm)
@@ -292,27 +292,27 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }).send()
         } else {
             
-            guard let phoneNumber: String! = edtPhoneNumber.text else {
+            guard let phoneNumber: String = edtPhoneNumber.text else {
                 return
             }
             
-            if (phoneNumber!.characters.count < 5 || !phoneNumber!.isNumber) {
+            if (phoneNumber.count < 5 || !phoneNumber.isNumber) {
                 showErrorAlertView(title: "Error", message: "phone number is wrong!")
                 return
             }
             
             
-            guard let provisionCode: String! = edtProvisionCode.text else {
+            guard let provisionCode: String = edtProvisionCode.text else {
                 return
             }
             
-            if (provisionCode!.characters.count < 1 || !provisionCode!.isNumber) {
+            if (provisionCode.count < 1 || !provisionCode.isNumber) {
                 showErrorAlertView(title: "Error", message: "phone number is wrong!")
                 return
             }
             
             IGGlobal.prgShow(self.view)
-            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode!)!, telephoneNumber: Int64(phoneNumber!)!).success({ (protoResponse) in
+            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode)!, telephoneNumber: Int64(phoneNumber)!).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let billInquiryMciResponse = protoResponse as? IGPBillInquiryTelecomResponse {
                     self.manageInquiryTelecom(lastTerm: billInquiryMciResponse.igpLastTerm, midTerm: billInquiryMciResponse.igpMidTerm)

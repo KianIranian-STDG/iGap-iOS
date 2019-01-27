@@ -832,7 +832,7 @@ class IGUserContactsBlockRequest : IGRequest {
         override class func handlePush(responseProtoMessage:Message) {
             switch responseProtoMessage {
             case let userContactBlockedProtoResponse as IGPUserContactsBlockResponse:
-                self.interpret(response: userContactBlockedProtoResponse)
+                let _ = self.interpret(response: userContactBlockedProtoResponse)
             default:
                 break
             }
@@ -858,7 +858,7 @@ class IGUserContactsUnBlockRequest : IGRequest {
         override class func handlePush(responseProtoMessage:Message) {
             switch responseProtoMessage {
             case let userContactBlockedProtoResponse as IGPUserContactsUnblockResponse:
-                self.interpret(response: userContactBlockedProtoResponse)
+                let _ = self.interpret(response: userContactBlockedProtoResponse)
             default:
                 break
             }
@@ -1013,7 +1013,7 @@ class IGUserTwoStepVerificationChangeRecoveryEmailRequest : IGRequest {
 class IGUserTwoStepVerificationRequestRecoveryTokenRequest : IGRequest {
     class Generator: IGRequest.Generator {
         class func generate() -> IGRequestWrapper {
-            var requestRecoveryTokenRequestMessage = IGPUserTwoStepVerificationRequestRecoveryToken()
+            let requestRecoveryTokenRequestMessage = IGPUserTwoStepVerificationRequestRecoveryToken()
             return IGRequestWrapper(message: requestRecoveryTokenRequestMessage, actionID: 138)
         }
         

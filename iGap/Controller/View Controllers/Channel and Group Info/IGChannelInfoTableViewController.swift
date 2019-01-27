@@ -793,7 +793,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let channelUpdateSignatureResponse as IGPChannelUpdateSignatureResponse:
-                        IGChannelUpdateSignatureRequest.Handler.interpret(response: channelUpdateSignatureResponse)
+                        let _ = IGChannelUpdateSignatureRequest.Handler.interpret(response: channelUpdateSignatureResponse)
                     default:
                         break
                     }
@@ -889,7 +889,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let channelDeleteResponse as IGPChannelDeleteResponse:
-                        IGChannelDeleteRequest.Handler.interpret(response: channelDeleteResponse)
+                        let _ = IGChannelDeleteRequest.Handler.interpret(response: channelDeleteResponse)
                         if self.navigationController is IGNavigationController {
                         _ = self.navigationController?.popToRootViewController(animated: true)
                     }

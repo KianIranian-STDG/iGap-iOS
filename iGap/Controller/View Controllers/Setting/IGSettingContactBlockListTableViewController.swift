@@ -182,7 +182,7 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
-                    IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
+                    let _ = IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
                     self.hud.hide(animated: true)
                 default:
                     break

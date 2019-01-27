@@ -57,7 +57,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
     private func setNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "Next", title: "New Channel")
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.hidesBackButton = true

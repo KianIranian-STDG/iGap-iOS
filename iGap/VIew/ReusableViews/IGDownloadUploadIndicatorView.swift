@@ -273,8 +273,8 @@ class IGDownloadUploadIndicatorView: UIView {
             let pathWidth = downlaodUploadProgressPathWidth //: CGFloat = 5.0
             let circlePath = UIBezierPath(arcCenter: CGPoint(x: downloadViewWidth / 2.0, y: downloadViewWidth / 2.0),
                                           radius: (downloadViewWidth - pathWidth) / 2.0,
-                                          startAngle: CGFloat(-(M_PI / 2.0)),
-                                          endAngle: CGFloat(M_PI * 1.5),
+                                          startAngle: CGFloat(-(Double.pi / 2.0)),
+                                          endAngle: CGFloat(Double.pi * 1.5),
                                           clockwise: true)
             
             // Setup the CAShapeLayer with the path, colors, and line width

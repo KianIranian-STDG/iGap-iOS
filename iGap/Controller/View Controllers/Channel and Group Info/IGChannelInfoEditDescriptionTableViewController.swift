@@ -25,7 +25,7 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
         super.viewDidLoad()
         channelDescriptionTextView.text = room?.channelRoom?.roomDescription
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.navigationController =  self.navigationController as! IGNavigationController
+        navigationItem.navigationController =  self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         channelDescriptionTextView.delegate = self

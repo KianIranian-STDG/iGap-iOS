@@ -54,7 +54,7 @@ class IGSecurityManager: NSObject {
             
             while(0<encSymmetricKeyData.count){
                 let chunk = encSymmetricKeyData.subdata(in: 0..<secondaryChunkSize)
-                let clear = try ClearMessage(data: chunk)
+                let clear = ClearMessage(data: chunk)
                 let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
                 encryptedSymmetricKeyData.append(contentsOf: encrypted.data)
                 encSymmetricKeyData = encSymmetricKeyData.subdata(in: secondaryChunkSize..<encSymmetricKeyData.count)
@@ -127,7 +127,7 @@ class IGSecurityManager: NSObject {
     
     private func encrypt(rawData :Data) throws -> Data {
         let publicKey = try PublicKey(pemEncoded: self.publicKey)
-        let clear = try ClearMessage(data: rawData)
+        let clear = ClearMessage(data: rawData)
         let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
         return encrypted.data
     }

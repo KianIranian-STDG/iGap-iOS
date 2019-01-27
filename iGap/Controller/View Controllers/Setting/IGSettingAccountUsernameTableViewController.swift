@@ -186,8 +186,8 @@ extension IGSettingAccountUsernameTableViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         statusActivityIndicatorView.isHidden = true
         statusActivityIndicatorView.stopAnimating()
-        guard var text = usernameTextField.text else { return true }
-        let newLength = text.characters.count + string.characters.count - range.length
+        guard let text = usernameTextField.text else { return true }
+        let newLength = text.count + string.count - range.length
         
         if newLength > maxLength {
             statusLabel.text = "Username cannot be more than \(maxLength) characters!"

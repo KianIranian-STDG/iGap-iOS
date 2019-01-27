@@ -53,8 +53,7 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getDeleteTokenProtoResponse as IGPUserGetDeleteTokenResponse:
-                    IGUserGetDeleteTokenRequest.Handler.interpret(response: getDeleteTokenProtoResponse)
-                    getDeleteTokenProtoResponse.igpTokenRegex
+                    let _ = IGUserGetDeleteTokenRequest.Handler.interpret(response: getDeleteTokenProtoResponse)
                     self.hud.hide(animated: true)
                     self.performSegue(withIdentifier: "GoToConfirmDeletePage", sender: self)
                 default:

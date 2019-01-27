@@ -25,7 +25,7 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.navigationController =  self.navigationController as! IGNavigationController
+        navigationItem.navigationController =  self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         

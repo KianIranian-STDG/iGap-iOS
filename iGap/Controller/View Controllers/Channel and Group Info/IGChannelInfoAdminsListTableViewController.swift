@@ -105,13 +105,9 @@ class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGest
         
         let btnKick = MGSwipeButton(title: kickText, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if self.mode == "Admin" {
-                if let adminUserId: Int64 = self.members[indexPath.row].userID {
-                    self.kickAdmin(adminUserID: adminUserId)
-                }
+                self.kickAdmin(adminUserID: self.members[indexPath.row].userID)
             } else if self.mode == "Moderator" {
-                if let moderatorUserId: Int64 = self.members[indexPath.row].userID {
-                    self.kickModerator(moderatorUserId: moderatorUserId)
-                }
+                self.kickModerator(moderatorUserId: self.members[indexPath.row].userID)
             }
             return true
         })
@@ -164,7 +160,7 @@ class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGest
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let channelKickAdminResponse as IGPChannelKickAdminResponse:
-                                IGChannelKickAdminRequest.Handler.interpret(response : channelKickAdminResponse)
+                                let _ = IGChannelKickAdminRequest.Handler.interpret(response : channelKickAdminResponse)
                                 self.tableView.reloadData()
                                 self.hud.hide(animated: true)
                             default:

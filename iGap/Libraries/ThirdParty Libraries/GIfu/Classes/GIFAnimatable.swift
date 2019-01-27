@@ -71,7 +71,7 @@ extension GIFAnimatable {
   ///
   /// - parameter imageName: The file name of the GIF in the main bundle.
   /// - parameter loopCount: Desired number of loops, <= 0 for infinite loop.
-  public func prepareForAnimation(withGIFNamed imageName: String, loopCount: Int = 0, completionHandler: ((Void) -> Void)? = .none) {
+    public func prepareForAnimation(withGIFNamed imageName: String, loopCount: Int = 0, completionHandler: (() -> Void)? = .none) {
     animator?.prepareForAnimation(withGIFNamed: imageName, size: frame.size, contentMode: contentMode, loopCount: loopCount, completionHandler: completionHandler)
   }
 
@@ -79,7 +79,7 @@ extension GIFAnimatable {
   ///
   /// - parameter imageData: GIF image data.
   /// - parameter loopCount: Desired number of loops, <= 0 for infinite loop.
-  public func prepareForAnimation(withGIFData imageData: Data, loopCount: Int = 0, completionHandler: ((Void) -> Void)? = .none) {
+  public func prepareForAnimation(withGIFData imageData: Data, loopCount: Int = 0, completionHandler: (() -> Void)? = .none) {
     if var imageContainer = self as? ImageContainer {
       imageContainer.image = UIImage(data: imageData)
     }

@@ -113,7 +113,7 @@ class IGChooseMemberFromContactsToCreateGroup: UITableViewController , UISearchR
             return user
         }
         var sections = [Section]()
-        for i in 0..<self.collation.sectionIndexTitles.count{
+        for _ in 0..<self.collation.sectionIndexTitles.count{
             sections.append(Section())
         }
         for user in users {
@@ -217,48 +217,40 @@ class IGChooseMemberFromContactsToCreateGroup: UITableViewController , UISearchR
         return self.collation.section(forSectionIndexTitle: index)
     }
     
+    /*
     func predicateForContacts(matchingName name: String) -> NSPredicate{
-        
         return predicateForContacts(matchingName: self.resultSearchController.searchBar.text!)
     }
+    */
     
     func updateSearchResults(for searchController: UISearchController) {
+        /*
         filteredTableData.removeAll(keepingCapacity: false)
         let predicate = CNContact.predicateForContacts(matchingName: searchController.searchBar.text!)
         let keyToFetch = [CNContactFamilyNameKey,CNContactGivenNameKey]
         
         do {
-            
             let resualtContacts =  try self.contactStore.unifiedContacts(matching: predicate, keysToFetch: keyToFetch as [CNKeyDescriptor])
-            
             filteredTableData = resualtContacts
-            
         } catch {
             print("Handle error")
         }
-        
         self.tableView.reloadData()
-        
-        
+        */
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
             if tableView.isEditing == true{
-//                collectionView = UICollectionView(frame: <#T##CGRect#>, collectionViewLayout: <#T##UICollectionViewLayout#>)
                 tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
-                
-                
-                
             }
-            
         }
     }
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
             if tableView.isEditing == true{
                 tableView.reloadData()
-      }
+            }
+        }
     }
-  }
 }

@@ -150,9 +150,7 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = self.sections[indexPath.section].users[indexPath.row]
-        if let blockedUserId : Int64 = user.registredUser.id {
-            blockContact(userID: blockedUserId)
-        }
+        blockContact(userID: user.registredUser.id)
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
@@ -166,7 +164,7 @@ class IGSettingChooseContactToAddToBlockListTableViewController: UITableViewCont
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let blockedProtoResponse as IGPUserContactsBlockResponse:
-                    IGUserContactsBlockRequest.Handler.interpret(response: blockedProtoResponse)
+                    let _ = IGUserContactsBlockRequest.Handler.interpret(response: blockedProtoResponse)
                     self.hud.hide(animated: true)
                 default:
                     break

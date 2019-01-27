@@ -35,7 +35,7 @@ class IGGroupCreateRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let groupCreateResponse as IGPGroupCreateResponse:
-                self.interpret(response: groupCreateResponse)
+                let _ = self.interpret(response: groupCreateResponse)
             default:
                 break
             }
@@ -84,7 +84,7 @@ class IGGroupAddMemberRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let groupAddmemberResponse as IGPGroupAddMemberResponse:
-                self.interpret(response: groupAddmemberResponse)
+                let _ = self.interpret(response: groupAddmemberResponse)
             default:
                 break
             }
@@ -201,7 +201,7 @@ class IGGroupEditRequest : IGRequest {
         override class func handlePush (responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let response as IGPGroupEditResponse:
-                self.interpret(response: response)
+                let _ = self.interpret(response: response)
                 break
             default:
                 break
@@ -474,11 +474,8 @@ class IGGroupAvatarDeleteRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response: IGPGroupAvatarDeleteResponse) {
-            let roomId = response.igpRoomID
-            let avatarId = response.igpID
-            //TODO: take action in IGFactory
-        }
+        class func interpret(response: IGPGroupAvatarDeleteResponse) {}
+        
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let response as IGPGroupAvatarDeleteResponse:
@@ -711,7 +708,7 @@ class IGGroupUpdateUsernameRequest : IGRequest {
         override class func handlePush(responseProtoMessage : Message) {
             switch responseProtoMessage {
             case let response as IGPGroupUpdateUsernameResponse:
-                self.interpret(response: response)
+                let _ = self.interpret(response: response)
             default:
                 break
             }
@@ -740,7 +737,7 @@ class IGGroupRemoveUsernameRequest: IGRequest {
         override class func handlePush(responseProtoMessage : Message) {
             switch responseProtoMessage {
             case let response as IGPGroupRemoveUsernameResponse:
-                self.interpret(response: response)
+                let _ = self.interpret(response: response)
             default:
                 break
             }
@@ -770,7 +767,7 @@ class IGGroupRevokLinkRequest: IGRequest {
         override class func handlePush(responseProtoMessage : Message) {
             switch responseProtoMessage {
             case let response as IGPGroupRevokeLinkResponse:
-                self.interpret(response: response)
+                let _ = self.interpret(response: response)
             default:
                 break
             }
