@@ -111,9 +111,9 @@ class CellSizeCalculator: NSObject {
         var finalMessage = message
         if let forward = message.forwardedFrom {
             finalMessage = forward
-            finalSize.height += 34
+            finalSize.height += 30
         } else if message.repliedTo != nil {
-            finalSize.height += 58
+            finalSize.height += 54
         }
         
         let additionalData = getAdditional(roomMessage: finalMessage)
@@ -245,6 +245,7 @@ class CellSizeCalculator: NSObject {
         
         // increase width size for avoid from break line at make view due to leading & trailing params
         stringRect.size.width = stringRect.size.width + 6
+        stringRect.size.height = stringRect.size.height + 6
         
         return stringRect.size
     }

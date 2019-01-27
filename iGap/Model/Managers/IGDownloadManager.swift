@@ -175,7 +175,7 @@ class IGDownloadManager {
                         downloadCDN(task: firstTaskInQueue)
                     }
                 } else {
-                    downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.path(fileType: firstTaskInQueue.file.type)))
+                    downloadProto(task: firstTaskInQueue, offset: IGGlobal.getFileSize(path: firstTaskInQueue.file.path()))
                 }
                 
             } else if firstTaskInQueue.state == .finished {
@@ -242,10 +242,10 @@ class IGDownloadManager {
                     do {
                         let fileManager = FileManager.default
                         let content = try Data(contentsOf: url)
-                        fileManager.createFile(atPath: (downloadTask.file.path(fileType: downloadTask.file.type)?.path)!, contents: content, attributes: nil)
+                        fileManager.createFile(atPath: (downloadTask.file.path()?.path)!, contents: content, attributes: nil)
                         
                         IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
-                        IGFactory.shared.addNameOnDiskToFile(downloadTask.file, name: (downloadTask.file.path(fileType: downloadTask.file.type)?.lastPathComponent)!)
+                        IGFactory.shared.addNameOnDiskToFile(downloadTask.file, name: (downloadTask.file.path()?.lastPathComponent)!)
                         
                         if let task = self.dictionaryDownloadTaskMain[downloadTask.file.token!] {
                             self.dictionaryDownloadTaskMain.removeValue(forKey: task.file.token!)
@@ -329,7 +329,7 @@ class IGDownloadManager {
                 } else { // finished download
                     
                     IGAttachmentManager.sharedManager.setProgress(1.0, for: downloadTask.file)
-                    if let fileNameOnDisk = downloadTask.file.path(fileType: downloadTask.file.type)?.lastPathComponent {
+                    if let fileNameOnDisk = downloadTask.file.path()?.lastPathComponent {
                         
                         IGAttachmentManager.sharedManager.setStatus(.ready, for: downloadTask.file)
                         IGFactory.shared.addNameOnDiskToFile(downloadTask.file, name: fileNameOnDisk)

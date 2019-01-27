@@ -2088,9 +2088,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 cancelRecording()
             }
             
-            print("point: \(difX)")
-            print("constant: \(inputBarRecordViewLeftConstraint.constant)")
-            
         case .ended:
             finishRecording()
         case .failed:
