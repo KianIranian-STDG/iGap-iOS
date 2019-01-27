@@ -139,6 +139,7 @@ class IGRegisteredUser: Object {
         
         self.isVerified = igpUser.igpVerified
         self.isBot = igpUser.igpBot
+        self.isInContacts = IGRegisteredUser.fetchContactState(userId: igpUser.igpID)
     }
     
     //detach from current realm
@@ -158,6 +159,13 @@ class IGRegisteredUser: Object {
             }
         }
         return nil
+    }
+    
+    internal static func fetchContactState(userId: Int64) -> Bool {
+        if let user = try! Realm().objects(IGRegisteredUser.self).filter(NSPredicate(format: "id = %lld", userId)).first {
+            return user.isInContacts
+        }
+        return false
     }
 }
 
