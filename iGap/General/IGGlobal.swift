@@ -251,6 +251,10 @@ extension UIColor {
         return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
     }
     
+    class func iGapLink() -> UIColor {
+        return UIColor(red:123/255.0, green:165/255.0, blue:52/255.0, alpha:1.0)
+    }
+    
     //MARK: MGSwipeTableCell
     class func swipeDarkBlue() -> UIColor {
         return UIColor(red:26/255.0, green:67.0/255.0, blue:90.0/255.0, alpha:1.0)

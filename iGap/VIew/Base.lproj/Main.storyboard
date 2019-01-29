@@ -55,7 +55,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="9ES-5L-MFG" firstAttribute="leading" secondItem="qjF-99-u5b" secondAttribute="leading" constant="8" id="1CT-GY-yis"/>
                                     <constraint firstItem="z4Q-eZ-Ji4" firstAttribute="centerX" secondItem="qjF-99-u5b" secondAttribute="centerX" id="BPg-X9-MwS"/>
@@ -88,7 +88,7 @@
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9Zi-OB-nXt">
                                 <rect key="frame" x="112.5" y="84" width="150" height="28"/>
-                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="Iqr-8q-T6O"/>
                                     <constraint firstAttribute="width" constant="150" id="Ph4-ik-Vwm"/>
@@ -660,7 +660,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Em7-Bg-41q" secondAttribute="trailing" id="5qI-KO-1Fr"/>
                                     <constraint firstAttribute="height" constant="40" id="BP4-2f-ZFi"/>
@@ -697,7 +697,7 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                         <state key="normal" title="X">
-                                                            <color key="titleColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="didTapOnDeleteSelectedAttachment:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Rsv-uw-Agl"/>
@@ -706,7 +706,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fh1-j5-GnE" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                         <rect key="frame" x="50" y="4" width="182" height="28"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="989 Mb" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajG-7M-bRf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -715,7 +715,7 @@
                                                             <constraint firstAttribute="width" constant="65" id="BoD-OZ-duq"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -740,7 +740,7 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UQ-2I-aHX">
                                                         <rect key="frame" x="16" y="5" width="3" height="26"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="3" id="Zft-CS-cDY"/>
                                                         </constraints>
@@ -751,7 +751,7 @@
                                                             <constraint firstAttribute="height" constant="11" id="gaf-Ji-Jag"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                                        <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUv-eg-9V4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -770,7 +770,7 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                         <state key="normal" title="X">
-                                                            <color key="titleColor" red="0.0" green="0.73763555288314819" blue="0.79368454217910767" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="didTapOnCancelReplyOrForwardButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Y29-5U-wko"/>
@@ -875,7 +875,7 @@
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdp-hz-zaS">
                                                         <rect key="frame" x="247" y="0.0" width="38" height="38"/>
-                                                        <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="38" id="HwE-6T-Lc5"/>
                                                             <constraint firstAttribute="height" constant="38" id="sdj-UM-uJj"/>
@@ -948,7 +948,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODy-Ce-ZEZ">
                                         <rect key="frame" x="8" y="5" width="3" height="40"/>
-                                        <color key="backgroundColor" red="0.0" green="0.73763555290000005" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="3" id="xTP-85-MD9"/>
                                         </constraints>
@@ -972,7 +972,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                         <state key="normal" title="X">
-                                            <color key="titleColor" red="0.0" green="0.73763555290000005" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="didTapOnPinClose:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="bOr-CK-rTb"/>
@@ -1507,7 +1507,7 @@
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7Tw-wt-vgJ">
                                 <rect key="frame" x="112.5" y="130" width="150" height="28"/>
-                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="WAY-po-dwQ"/>
                                     <constraint firstAttribute="width" constant="150" id="mde-SV-hm0"/>
@@ -1646,6 +1646,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="k9M-cr-cw2"/>
         <segue reference="R4P-x7-LEg"/>
-        <segue reference="QJB-pO-R8A"/>
+        <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -59,8 +59,8 @@ class IGSplashScreenViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(animateCityImage), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
         let gradient: CAGradientLayer = CAGradientLayer()
-        let gradientStartColor = UIColor(hexString: "bae6ff")
-        let gradientCebterColor = UIColor(hexString: "e4f5ff")
+        let gradientStartColor = UIColor.iGapMainColor()
+        let gradientCebterColor = UIColor.iGapMainColor().withAlphaComponent(0.9)
         let gradientEndColor = UIColor.white
         gradient.colors = [gradientStartColor.cgColor, gradientCebterColor.cgColor, gradientEndColor.cgColor]
         gradient.locations = [0.0 , 0.25, 0.5]
@@ -120,17 +120,12 @@ class IGSplashScreenViewController: UIViewController {
                 make.centerX.equalToSuperview()
             })
             
-            
             if i != 0 {
                 imageView.alpha = 0.0
                 titleLabel.alpha = 0.0
                 desciptionLabel.alpha = 0.0
             }
         }
-        
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

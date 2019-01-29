@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -131,7 +129,7 @@
                                     <constraint firstAttribute="width" constant="147" id="f2I-aZ-x1x"/>
                                 </constraints>
                                 <state key="normal" title="Login Using QR Code">
-                                    <color key="titleColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="didTapOnLoginUsingQRCode:" destination="BpM-Wx-W2n" eventType="touchUpInside" id="Xj3-hL-4qO"/>
@@ -236,7 +234,7 @@ Please wait 0:59</string>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hKq-B9-rPc">
                                 <rect key="frame" x="45" y="185" width="285" height="1"/>
-                                <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hTr-57-H6p"/>
                                 </constraints>
@@ -337,7 +335,7 @@ Please wait 0:59</string>
                                 </textField>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rNb-tr-Wau">
                                     <rect key="frame" x="45" y="270" width="285" height="1"/>
-                                    <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="axE-CS-YRl"/>
                                     </constraints>
@@ -397,7 +395,7 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0n-20-T1z">
-                                <rect key="frame" x="67" y="213.5" width="240" height="240"/>
+                                <rect key="frame" x="67.5" y="213.5" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="8f0-7X-uec"/>
                                     <constraint firstAttribute="height" constant="240" id="mob-lL-y1G"/>
@@ -456,7 +454,7 @@ Please wait 0:59</string>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dX9-p5-jnL">
                                 <rect key="frame" x="45" y="218" width="285" height="1"/>
-                                <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="CAG-CO-Gar"/>
                                 </constraints>
@@ -525,7 +523,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dbb-pu-BgD">
-                                                    <rect key="frame" x="331" y="11" width="21" height="21"/>
+                                                    <rect key="frame" x="331" y="11.5" width="21" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="f5q-s8-7Tu"/>
                                                     </constraints>
@@ -624,7 +622,7 @@ Please wait 0:59</string>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oep-am-p1h">
                                                 <rect key="frame" x="305" y="30" width="78" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="NOG-nH-sr8"/>
                                                     <constraint firstAttribute="width" constant="78" id="dM1-gI-Ebi"/>
@@ -653,18 +651,18 @@ Please wait 0:59</string>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Splash_Tree" translatesAutoresizingMaskIntoConstraints="NO" id="4Zj-FT-V8X">
-                                                <rect key="frame" x="0.0" y="134" width="375" height="133"/>
+                                                <rect key="frame" x="0.0" y="133.5" width="375" height="133.5"/>
                                             </imageView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="6" translatesAutoresizingMaskIntoConstraints="NO" id="FCo-4f-iMy">
-                                                <rect key="frame" x="107" y="115" width="160" height="37"/>
+                                                <rect key="frame" x="107.5" y="115" width="160" height="37"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="160" id="yne-yE-qJE"/>
                                                 </constraints>
-                                                <color key="pageIndicatorTintColor" red="0.0" green="0.69019607839999997" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="pageIndicatorTintColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="currentPageIndicatorTintColor" red="0.01510271377" green="0.015546085859999999" blue="0.0129594888" alpha="1" colorSpace="calibratedRGB"/>
                                             </pageControl>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7A-Y5-bfR">
-                                                <rect key="frame" x="107" y="76.5" width="160" height="30"/>
+                                                <rect key="frame" x="107.5" y="76.5" width="160" height="30"/>
                                                 <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="160" id="4EZ-Ld-tNC"/>
@@ -750,6 +748,6 @@ Please wait 0:59</string>
         <image name="IG_Splash_Tree" width="932" height="255"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="12D-0T-HWW"/>
+        <segue reference="qQl-V3-xga"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zUu-ma-Fzj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zUu-ma-Fzj">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -2673,7 +2673,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZoO-de-Ih1">
                                 <rect key="frame" x="0.0" y="686" width="207" height="50"/>
-                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="h1F-HO-GWf"/>
                                     <constraint firstAttribute="width" constant="207" id="j6G-qr-O6t"/>
@@ -2688,7 +2688,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkt-B8-rfI">
                                 <rect key="frame" x="207" y="686" width="207" height="50"/>
-                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="207" id="8Jm-pC-0Lc"/>
                                     <constraint firstAttribute="height" constant="50" id="Eh1-PI-Qgh"/>
@@ -4151,7 +4151,7 @@ Please wait 0:59</string>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2X-ES-mU3">
                                 <rect key="frame" x="36" y="340" width="342" height="40"/>
-                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="i1s-db-XR3"/>
                                 </constraints>
@@ -4273,7 +4273,7 @@ Please wait 0:59</string>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fA-m6-IZ5">
                                 <rect key="frame" x="36" y="354" width="342" height="40"/>
-                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jFO-2O-RmU"/>
                                 </constraints>
@@ -4375,7 +4375,7 @@ Please wait 0:59</string>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbJ-6b-c2i">
                                                 <rect key="frame" x="16" y="68" width="382" height="40"/>
-                                                <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="6eb-0c-viL"/>
                                                 </constraints>
@@ -4504,7 +4504,7 @@ Please wait 0:59</string>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1N-6e-h8o">
                                                         <rect key="frame" x="8" y="224" width="366" height="40"/>
-                                                        <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="xSu-1f-BZd"/>
                                                         </constraints>
@@ -4719,7 +4719,7 @@ Please wait 0:59</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn Passcode On" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o22-Lz-zll" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="27" y="13" width="140" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.353303462266922" green="0.81958913803100586" blue="0.82830828428268433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -4740,7 +4740,7 @@ Please wait 0:59</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gh-rV-dzD" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="27" y="13" width="138" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.35330346229999998" green="0.81958913799999999" blue="0.82830828430000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -6192,7 +6192,7 @@ kay*****@gm**.com</string>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terminate this session" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uh-AE-MP9" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="29" y="14" width="171" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -6425,7 +6425,7 @@ Afg
         <segue reference="DaW-k4-iW0"/>
         <segue reference="Oa0-mY-XGu"/>
         <segue reference="Qum-5d-uYe"/>
-        <segue reference="v0b-nh-nsK"/>
+        <segue reference="Xzv-Yc-EAf"/>
         <segue reference="vpP-Vs-3F7"/>
         <segue reference="drr-8R-XU7"/>
         <segue reference="FWu-Ni-6zD"/>

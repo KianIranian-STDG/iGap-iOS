@@ -436,11 +436,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         txtMessage?.font = CellSizeCalculator.messageBodyTextViewFont()
         
         txtMessage?.customize {(lable) in
-            lable.hashtagColor = UIColor.organizationalColor()
-            lable.mentionColor = UIColor.organizationalColor()
-            lable.URLColor = UIColor.organizationalColor()
-            lable.botColor = UIColor.organizationalColor()
-            lable.EmailColor = UIColor.organizationalColor()
+            lable.hashtagColor = UIColor.iGapLink()
+            lable.mentionColor = UIColor.iGapLink()
+            lable.URLColor = UIColor.iGapLink()
+            lable.botColor = UIColor.iGapLink()
+            lable.EmailColor = UIColor.iGapLink()
             
             lable.handleURLTap { url in
                 self.delegate?.didTapOnURl(url: url)
