@@ -48,6 +48,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var imgMediaAbs: IGImageView!
     var indicatorViewAbs: IGDownloadUploadIndicatorView!
 
+    var room: IGRoom!
     var realmRoomMessage: IGRoomMessage!
     var finalRoomMessage: IGRoomMessage!
     var messageSizes: MessageCalculatedSize!
@@ -73,7 +74,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         self.backgroundColor = UIColor.clear
     }
     
-    override func setMessage(_ message: IGRoomMessage, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+    override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+        self.room = room
         self.realmRoomMessage = message
         self.isIncommingMessage = isIncommingMessage
         self.shouldShowAvatar = shouldShowAvatar
@@ -347,7 +349,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
 
             if isPreviousMessageFromSameSender {
                 removeSenderName()
-            } else {
+            } else if self.room.type != .chat {
                 makeSenderName()
 
                 if let sender = realmRoomMessage.authorUser {
