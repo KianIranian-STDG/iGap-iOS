@@ -762,7 +762,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         if viewSenderNameAbs == nil {
             viewSenderNameAbs = UIView()
-            viewSenderNameAbs.backgroundColor = UIColor.white
+            viewSenderNameAbs.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
             viewSenderNameAbs.layer.cornerRadius = 3.5
             if #available(iOS 11.0, *) {
                 viewSenderNameAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
@@ -772,7 +772,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         if txtSenderNameAbs == nil {
             txtSenderNameAbs = UILabel()
-            txtSenderNameAbs.textColor = UIColor.senderNameColorDark() 
+            txtSenderNameAbs.textColor = UIColor.messageText()
             txtSenderNameAbs.font = UIFont.igFont(ofSize: 8.0)
             self.contentView.addSubview(txtSenderNameAbs)
         }
