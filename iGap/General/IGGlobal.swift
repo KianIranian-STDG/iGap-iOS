@@ -211,6 +211,10 @@ extension UIColor {
     }
     
     //iGap Theme
+    class func iGapMainColor() -> UIColor {
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+    }
+    
     class func iGapBars() -> UIColor { // navigation bar color
         return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
     }
@@ -224,7 +228,7 @@ extension UIColor {
     }
     
     class func dialogueBoxIncomming() -> UIColor {
-        return UIColor(red: 229/255.0, green: 225/255.0, blue: 220/255.0, alpha: 0.8)
+        return UIColor(red: 229/255.0, green: 225/255.0, blue: 220/255.0, alpha: 0.7)
     }
     
     class func messageText() -> UIColor {
@@ -266,7 +270,9 @@ extension UIColor {
     
     //MARK: General Colors
     class func organizationalColor() -> UIColor { // iGap Color
-        return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:1.0)
+        return iGapMainColor()
+        // iGap Old Color
+        //return UIColor(red:0/255.0, green:176.0/255.0, blue:191.0/255.0, alpha:1.0)
     }
     
     class func customKeyboardButton() -> UIColor {
@@ -349,17 +355,17 @@ extension UIColor {
     //MARK: MessageCVCell Forward
     class func chatForwardedFromViewBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxIncomming().withAlphaComponent(1.0)
         } else {
-            return UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxOutgoing().withAlphaComponent(0.7)
         }
     }
     
     class func chatForwardedFromUsernameLabelColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.organizationalColor()
+            return UIColor.dialogueBoxInfo()
         } else {
-            return UIColor(red: 54.0/255.0, green: 54.0/255.0, blue: 54.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxInfo()
         }
     }
     
@@ -391,33 +397,33 @@ extension UIColor {
     //MARK: MessageCVCell Reply
     class func chatReplyToBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxIncomming().withAlphaComponent(1.0)
         } else {
-            return UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxOutgoing().withAlphaComponent(0.7)
         }
     }
     
     class func chatReplyToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.organizationalColor()
+            return UIColor.dialogueBoxInfo()
         } else {
-            return UIColor(red: 42.0/255.0, green: 42.0/255.0, blue: 42.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxInfo()
         }
     }
     
     class func chatReplyToUsernameLabelTextColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.organizationalColor()
+            return UIColor.dialogueBoxInfo()
         } else {
-            return UIColor(red: 42.0/255.0, green: 42.0/255.0, blue: 42.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxInfo()
         }
     }
     
     class func chatReplyToMessageBodyLabelTextColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor(red: 54.0/255.0, green: 54.0/255.0, blue: 54.0/255.0, alpha: 1.0)
+            return UIColor.dialogueBoxInfo()
         } else {
-            return UIColor.white
+            return UIColor.dialogueBoxInfo()
         }
     }
 }
