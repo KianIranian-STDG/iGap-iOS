@@ -24,7 +24,7 @@ class IGTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.barTintColor = UIColor.organizationalColor()
+        self.tabBar.barTintColor = UIColor.iGapBars()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,16 +42,22 @@ class IGTabBarController: UITabBarController {
     
     func selectedItemTitleMustbeBold(){
         for item in tabBar.items!{
+            if #available(iOS 10.0, *) {
+                item.badgeColor = UIColor.unreadLable()
+            }
             if tabBar.selectedItem == item {
                 setCurrentTab(tag: (tabBar.selectedItem?.tag)!)
-                let selectedTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFontWeightBold)
-                let selectedTitleColor = UIColor.white
+                let selectedTitleFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightBold)
+                let selectedTitleColor = UIColor.black
                 item.setTitleTextAttributes([NSFontAttributeName: selectedTitleFont, NSForegroundColorAttributeName: selectedTitleColor], for: UIControlState.normal)
             } else {
                 let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFontWeightRegular)
                 let normalTitleColor = UIColor(red: 176.0/255.0, green: 224.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-                item.setTitleTextAttributes([NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor], for: UIControlState.normal)
+                item.setTitleTextAttributes([NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor, NSBackgroundColorAttributeName: UIColor.black], for: UIControlState.normal)
             }
+        }
+        if #available(iOS 10.0, *) {
+            self.tabBar.unselectedItemTintColor = UIColor.white
         }
     }
     

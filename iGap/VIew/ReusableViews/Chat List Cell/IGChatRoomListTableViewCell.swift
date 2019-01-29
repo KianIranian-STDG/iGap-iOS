@@ -134,7 +134,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     func initialConfiguration() {
         self.selectionStyle = .none
-        lastMessageStatusContainerView.backgroundColor = UIColor.red
+        lastMessageStatusContainerView.backgroundColor = UIColor.black
         nameLabel.text = ""
         lastMessageLabel.text = ""
         timeLabel.text = ""
@@ -186,12 +186,12 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             imgMute.image = UIImage(named: "IG_Chat_List_Mute")
             imgMute.isHidden = false
         } else {
-            lastMessageStatusContainerView.backgroundColor = UIColor.red
+            lastMessageStatusContainerView.backgroundColor = UIColor.unreadLable()
             imgMute.isHidden = true
         }
         
         if room.pinId > 0 {
-            contentView.backgroundColor = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+            contentView.backgroundColor = UIColor.pinnedChats()
         } else {
             contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }

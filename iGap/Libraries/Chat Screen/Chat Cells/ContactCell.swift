@@ -66,14 +66,14 @@ class ContactCell: AbstractCell {
             if hasEmail() {
                 addEmailView()
                 emailImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Email_Incomming")
-                emailsLabel?.textColor = UIColor(red: 106.0/255.0, green: 106.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+                emailsLabel?.textColor = UIColor.dialogueBoxInfo()
             } else {
                 removeEmailView()
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Incomming")
             phoneImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Phone_Incomming")
-            nameLabel?.textColor = UIColor(red: 85.0/255.0, green: 85.0/255.0, blue: 85.0/255.0, alpha: 1.0)
-            phonesLabel?.textColor = UIColor(red: 106.0/255.0, green: 106.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+            nameLabel?.textColor = UIColor.dialogueBoxInfo()
+            phonesLabel?.textColor = UIColor.dialogueBoxInfo()
         } else {
             if hasEmail() {
                 addEmailView()
@@ -84,8 +84,8 @@ class ContactCell: AbstractCell {
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
             phoneImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Phone_Outgoing")
-            nameLabel?.textColor = UIColor(red: 85.0/255.0, green: 85.0/255.0, blue: 85.0/255.0, alpha: 1.0)
-            phonesLabel?.textColor = UIColor(red: 106.0/255.0, green: 106.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+            nameLabel?.textColor = UIColor.dialogueBoxInfo()
+            phonesLabel?.textColor = UIColor.dialogueBoxInfo()
         }
         
         let firstName = contact.firstName == nil ? "" : contact.firstName! + " "

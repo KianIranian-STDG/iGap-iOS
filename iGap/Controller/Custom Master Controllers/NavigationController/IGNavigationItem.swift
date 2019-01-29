@@ -77,7 +77,7 @@ class IGNavigationItem: UINavigationItem {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightSemibold)
         label.textAlignment = .center
-        label.textColor = UIColor.white
+        label.textColor = UIColor.iGapBarsInfo()
         label.text = "Return To Call"
         self.titleView?.addSubview(label)
         
@@ -113,7 +113,7 @@ class IGNavigationItem: UINavigationItem {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightSemibold)
         label.textAlignment = .center
-        label.textColor = UIColor.white
+        label.textColor = UIColor.iGapBarsInfo()
         label.text = text
         self.titleView?.addSubview(label)
         label.snp.makeConstraints { (make) in
@@ -185,7 +185,6 @@ class IGNavigationItem: UINavigationItem {
         let composeButtonFrame = CGRect(x: 15, y: 2.5, width: 35, height: 35)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
         composeButtonImageView.image = UIImage(named:"IG_Tabbar_Call_On")
-        composeButtonImageView.tintColor = UIColor.organizationalColor()
         callViewContainer!.addSubview(composeButtonImageView)
     }
     
@@ -200,7 +199,7 @@ class IGNavigationItem: UINavigationItem {
         label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightBold)
         label.textAlignment = .center
         label.text = title
-        label.textColor = UIColor.white
+        label.textColor = UIColor.iGapBarsInfo()
         
         titleView.addSubview(label)
         self.titleView = titleView
@@ -225,7 +224,7 @@ class IGNavigationItem: UINavigationItem {
         }
         label.textAlignment = .right
         label.text = title
-        label.textColor = UIColor.white
+        label.textColor = UIColor.iGapBarsInfo()
         rightViewContainer!.addSubview(label)
     }
     
@@ -239,7 +238,7 @@ class IGNavigationItem: UINavigationItem {
         let labelFrame = CGRect(x: 0, y: 4.5, width: 100, height:31)
         let label = UILabel(frame: labelFrame)
         label.text = title
-        label.textColor = UIColor.white
+        label.textColor = UIColor.iGapBarsInfo()
         leftViewContainer!.addSubview(label)
     }
     
@@ -259,7 +258,6 @@ class IGNavigationItem: UINavigationItem {
         let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
         let settingButtonImageView = UIImageView(frame: settingViewFrame)
         settingButtonImageView.image = UIImage(named:"IG_Nav_Bar_Menu")
-        settingButtonImageView.tintColor = UIColor.organizationalColor()
         leftViewContainer!.addSubview(settingButtonImageView)
     }
     
@@ -267,7 +265,6 @@ class IGNavigationItem: UINavigationItem {
         let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
         composeButtonImageView.image = UIImage(named:"IG_Nav_Bar_Plus")
-        composeButtonImageView.tintColor = UIColor.organizationalColor()
         rightViewContainer!.addSubview(composeButtonImageView)
     }
     
@@ -313,7 +310,7 @@ class IGNavigationItem: UINavigationItem {
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
             let lableView = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 23))
             lableView.text = title
-            lableView.textColor = UIColor.white
+            lableView.textColor = UIColor.iGapBarsInfo()
             lableView.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightBold)
             
             titleView.addSubview(lableView)
@@ -426,7 +423,7 @@ class IGNavigationItem: UINavigationItem {
         
         if userId != 0 && userId != IGAppManager.sharedManager.userID() && !room.isReadOnly && !(room.chatRoom?.peer?.isBot)! { // check isReadOnly for iGapMessanger
             let callViewLabel = UILabel()
-            callViewLabel.textColor = UIColor.white
+            callViewLabel.textColor = UIColor.iGapBarsInfo()
             callViewLabel.textAlignment = .center
             callViewLabel.font = UIFont.iGapFontico(ofSize: 18.0)
             callViewLabel.text = ""
@@ -445,7 +442,7 @@ class IGNavigationItem: UINavigationItem {
         
         self.centerViewMainLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 18))
         self.centerViewMainLabel!.text = room.title
-        self.centerViewMainLabel!.textColor = UIColor.white
+        self.centerViewMainLabel!.textColor = UIColor.iGapBarsInfo()
         self.centerViewMainLabel!.textAlignment = .center
         self.centerViewMainLabel!.font = UIFont.igFont(ofSize: 16.0, weight: .bold)//boldSystemFont(ofSize: 16)
         self.centerViewContainer!.addSubview(self.centerViewMainLabel!)
@@ -456,7 +453,7 @@ class IGNavigationItem: UINavigationItem {
         }
         
         self.centerViewSubLabel = UILabel()//frame: CGRect(x: 0, y: 20, width: 200, height: 16))
-        self.centerViewSubLabel!.textColor = UIColor.white
+        self.centerViewSubLabel!.textColor = UIColor.iGapBarsInfo()
         self.centerViewSubLabel!.textAlignment = .left
         self.centerViewSubLabel!.font = UIFont.igFont(ofSize: 12.0, weight: .regular)//boldSystemFont(ofSize: 12)
         self.centerViewContainer!.addSubview(self.centerViewSubLabel!)
@@ -476,7 +473,7 @@ class IGNavigationItem: UINavigationItem {
             imgMute.image = UIImage(named:"IG_Chat_List_Mute")
             
             imgMute.image = imgMute.image!.withRenderingMode(.alwaysTemplate)
-            imgMute.tintColor = UIColor.white
+            imgMute.tintColor = UIColor.iGapBarsInfo()
             
             self.centerViewContainer!.addSubview(imgMute)
             imgMute.snp.makeConstraints { (make) in

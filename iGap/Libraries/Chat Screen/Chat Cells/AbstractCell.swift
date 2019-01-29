@@ -129,7 +129,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             messageViewAbs?.isHidden = false
             txtMessageAbs?.isHidden = false
             messageViewAbs?.backgroundColor = UIColor.clear
-            txtMessageAbs?.textColor = UIColor.chatBubbleTextColor(isIncommingMessage: isIncommingMessage)
+            txtMessageAbs?.textColor = UIColor.messageText()
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.text = finalRoomMessage.message
             txtMessageAbs.attributedText = NSAttributedString(string: finalRoomMessage.message!, attributes: CellSizeCalculator.getStringStyle())
@@ -344,7 +344,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageReceivedOrIncommingMessage(){
         if isIncommingMessage {
-            mainBubbleViewAbs?.layer.borderWidth = 0.5
 
             if isPreviousMessageFromSameSender {
                 removeSenderName()
@@ -366,7 +365,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             
         } else {
             
-            mainBubbleViewAbs?.layer.borderWidth = 0.5
             removeAvatar()
             removeSenderName()
             manageTime(statusExist: true)
@@ -379,7 +377,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18
         mainBubbleViewAbs.layer.masksToBounds = true
-        mainBubbleViewAbs.layer.borderColor = UIColor.chatBubbleBorderColor().cgColor
         mainBubbleViewAbs.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
         
         /************ Bubble Size ************/

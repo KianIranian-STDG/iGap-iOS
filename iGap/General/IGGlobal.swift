@@ -210,6 +210,43 @@ extension UIColor {
         )
     }
     
+    //iGap Theme
+    class func iGapBars() -> UIColor { // navigation bar color
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+    }
+    
+    class func iGapBarsInfo() -> UIColor { // text & icons color on navigation bar
+        return UIColor(red:255.0/255.0, green:255.0/255.0, blue:255.0/255.0, alpha:1.0)
+    }
+    
+    class func dialogueBoxOutgoing() -> UIColor {
+        return UIColor(red: 157/255.0, green: 199/255.0, blue: 86/255.0, alpha: 0.5)
+    }
+    
+    class func dialogueBoxIncomming() -> UIColor {
+        return UIColor(red: 229/255.0, green: 225/255.0, blue: 220/255.0, alpha: 0.8)
+    }
+    
+    class func messageText() -> UIColor {
+        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 1.0)
+    }
+    
+    class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
+        return UIColor.messageText()
+    }
+    
+    class func pinnedChats() -> UIColor {
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.2)
+    }
+    
+    class func chatListMessageType() -> UIColor {
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+    }
+    
+    class func unreadLable() -> UIColor {
+        return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
+    }
+    
     //MARK: MGSwipeTableCell
     class func swipeDarkBlue() -> UIColor {
         return UIColor(red:26/255.0, green:67.0/255.0, blue:90.0/255.0, alpha:1.0)
@@ -280,15 +317,6 @@ extension UIColor {
         
     }
     
-    //MARK: MessageCVCell Bubble
-    class func outgoingChatBuubleBackgroundColor() -> UIColor {
-        return UIColor(red: 182.0/255.0, green: 228.0/255.0, blue: 228.0/255.0, alpha: 1.0)
-    }
-
-    class func incommingChatBuubleBackgroundColor() -> UIColor {
-        return UIColor.white
-    }
-    
     class func senderNameColor() -> UIColor {
         return UIColor(red: 0.0/255.0, green: 188.0/255.0, blue: 202.0/255.0, alpha: 1.0)
     }
@@ -299,9 +327,9 @@ extension UIColor {
     
     class func chatBubbleBackground(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.incommingChatBuubleBackgroundColor()
+            return UIColor.dialogueBoxIncomming()
         } else {
-            return UIColor.outgoingChatBuubleBackgroundColor()
+            return UIColor.dialogueBoxOutgoing()
         }
     }
     

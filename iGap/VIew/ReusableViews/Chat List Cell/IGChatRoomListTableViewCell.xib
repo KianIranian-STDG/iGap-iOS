@@ -24,7 +24,7 @@
                             <constraint firstAttribute="height" constant="15" id="ChZ-Vc-9MD"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="0.67843137254901964" green="0.80392156862745101" blue="0.43137254901960786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5O-4W-jNd">
@@ -133,6 +133,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="IG_Verify" width="40" height="40"/>
+        <image name="IG_Verify" width="20" height="20"/>
     </resources>
 </document>
