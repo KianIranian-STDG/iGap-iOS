@@ -34,6 +34,7 @@ class IGDownloadUploadIndicatorView: UIView {
     public var backgroundView: UIView?
     private var containerView: UIView?
     private var downloadButton: UIButton?
+    private var downloadUploadButtonBackgroundView: UIView?
     private var sizeLabel: UILabel?
     private var downloadUploadView: UIView?
     private var downloadUploadPercentageLabel: UILabel?
@@ -77,11 +78,13 @@ class IGDownloadUploadIndicatorView: UIView {
     
     func prepareForReuse() {
         self.downloadButton?.removeFromSuperview()
+        self.downloadUploadButtonBackgroundView?.removeFromSuperview()
         self.sizeLabel?.removeFromSuperview()
         self.downloadUploadView?.removeFromSuperview()
         self.downloadUploadPercentageLabel?.removeFromSuperview()
         
         self.downloadButton = nil
+        self.downloadUploadButtonBackgroundView = nil
         self.sizeLabel = nil
         self.downloadUploadView = nil
         self.downloadUploadPercentageLabel = nil
@@ -99,11 +102,11 @@ class IGDownloadUploadIndicatorView: UIView {
             indicatorImage = "IG_Message_Cell_Attachment_Upload"
         }
         
-        backgroundView?.alpha = 0.5
+        //backgroundView?.alpha = 0.5
         sizeLabel?.alpha = 1.0
-        downlaodUploadProgressPathWidth = 3.0
+        downlaodUploadProgressPathWidth = 5.0
         downloadUploadPercentageLabel?.textColor = UIColor.white
-        downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 5.0, weight: 2)
+        downloadUploadPercentageLabel?.font = UIFont.iGapFontico(ofSize: 20)
         
         self.addDownloadButtonIfNeeded() //In case of reuse
         self.downloadButton?.setImage(UIImage(named:indicatorImage), for: .normal)
@@ -118,16 +121,18 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadUploadView?.removeFromSuperview()
             self.downloadUploadView = nil
             self.isHidden = false
-            self.indicatorText = "Processing"
+            //self.indicatorText = "Processing"
             break
         case .downloading:
             self.downloadUploadView?.isHidden = false
             self.downloadButton?.removeFromSuperview()
+            self.downloadUploadButtonBackgroundView?.removeFromSuperview()
             self.sizeLabel?.removeFromSuperview()
             self.downloadButton = nil
+            self.downloadUploadButtonBackgroundView = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.indicatorText = "Downloading"
+            self.indicatorText = ""
             break
         case .processingAfterDownload:
             break
@@ -138,7 +143,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadUploadView?.removeFromSuperview()
             self.downloadUploadView = nil
             self.isHidden = false
-            self.indicatorText = "Download Paused"
+            //self.indicatorText = "Download Paused"
             break
         case .downloadFailed:
             break
@@ -146,21 +151,25 @@ class IGDownloadUploadIndicatorView: UIView {
         case .processingForUpload:
             self.downloadUploadView?.isHidden = false
             self.downloadButton?.removeFromSuperview()
+            self.downloadUploadButtonBackgroundView?.removeFromSuperview()
             self.sizeLabel?.removeFromSuperview()
             self.downloadButton = nil
+            self.downloadUploadButtonBackgroundView = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.indicatorText = "Processing"
+            //self.indicatorText = "Processing"
             setPercentage(0.0)
             break
         case .uploading:
             self.downloadUploadView?.isHidden = false
             self.downloadButton?.removeFromSuperview()
+            self.downloadUploadButtonBackgroundView?.removeFromSuperview()
             self.sizeLabel?.removeFromSuperview()
             self.downloadButton = nil
+            self.downloadUploadButtonBackgroundView = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.indicatorText = "Uploading"
+            self.indicatorText = ""
             break
         case .waitingForServerProcess:
             break
@@ -175,9 +184,11 @@ class IGDownloadUploadIndicatorView: UIView {
             self.indicatorText = ""
             self.downloadUploadView?.removeFromSuperview()
             self.downloadButton?.removeFromSuperview()
+            self.downloadUploadButtonBackgroundView?.removeFromSuperview()
             self.sizeLabel?.removeFromSuperview()
             self.downloadUploadView = nil
             self.downloadButton = nil
+            self.downloadUploadButtonBackgroundView = nil
             self.sizeLabel = nil
             self.downloadUploadView = nil
             self.isHidden = true
@@ -206,7 +217,7 @@ class IGDownloadUploadIndicatorView: UIView {
         let nextValue = percent
         
         
-        downloadUploadPercentageLabel?.text = "\(self.indicatorText)\n\(String(format: "%.2f", percent*100))%"
+        downloadUploadPercentageLabel?.text = "\(self.indicatorText)"//\n\(String(format: "%.2f", percent*100))%
         
         animation.toValue = nextValue
         
@@ -227,6 +238,33 @@ class IGDownloadUploadIndicatorView: UIView {
     //MARK: Private Methods
     private func addDownloadButtonIfNeeded() {
         if self.downloadButton == nil {
+            
+            let downloadViewWidth: CGFloat = 66 //min(frame.width * 0.8, 66)
+            downloadUploadButtonBackgroundView = UIView()
+            self.addSubview(downloadUploadButtonBackgroundView!)
+            downloadUploadButtonBackgroundView?.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(self.snp.centerX).offset(-4.0)
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.height.equalTo(60)
+                make.width.equalTo(60)
+            })
+            
+            let pathWidth = downlaodUploadProgressPathWidth
+            let circlePathShadow = UIBezierPath(arcCenter: CGPoint(x: downloadViewWidth / 2.0, y: downloadViewWidth / 2.0),
+                                                radius: ((downloadViewWidth - pathWidth) / 2.0) + 5,
+                                                startAngle: CGFloat(-(Double.pi / 2.0)),
+                                                endAngle: CGFloat(Double.pi * 1.5),
+                                                clockwise: true)
+            
+            // Setup the CAShapeLayer with the path, colors, and line width
+            let shadowLayer = CAShapeLayer()
+            shadowLayer.path = circlePathShadow.cgPath
+            shadowLayer.fillColor = UIColor.black.withAlphaComponent(0.5).cgColor
+            shadowLayer.strokeEnd = 1.0
+            
+            // Add the circleLayer to the view's layer's sublayers
+            downloadUploadButtonBackgroundView!.layer.addSublayer(shadowLayer)
+            
             self.downloadButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
             self.downloadButton?.setImage(UIImage(named:indicatorImage), for: .normal)
             self.downloadButton?.addTarget(self, action: #selector(didTapOnView), for: .touchUpInside)
@@ -234,8 +272,6 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadButton?.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.snp.centerX)
                 make.centerY.equalTo(self.snp.centerY).offset(-2.5)
-                make.height.equalTo(self.snp.height).multipliedBy(0.6).priority(999)
-                make.width.equalTo(self.snp.height).multipliedBy(0.6).priority(999)
                 make.height.lessThanOrEqualTo(50)
                 make.width.lessThanOrEqualTo(50)
             })
@@ -253,7 +289,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.sizeLabel?.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.snp.centerX)
                 make.width.equalTo(self.snp.width)
-                make.top.equalTo((self.downloadButton?.snp.bottom)!).offset(-7.5)
+                make.top.equalTo((self.downloadButton?.snp.bottom)!).offset(-2.5)
                 make.height.equalTo(10)
             })
         }
@@ -277,13 +313,18 @@ class IGDownloadUploadIndicatorView: UIView {
                                           endAngle: CGFloat(Double.pi * 1.5),
                                           clockwise: true)
             
+            let circlePathShadow = UIBezierPath(arcCenter: CGPoint(x: downloadViewWidth / 2.0, y: downloadViewWidth / 2.0),
+                                          radius: ((downloadViewWidth - pathWidth) / 2.0) + 5,
+                                          startAngle: CGFloat(-(Double.pi / 2.0)),
+                                          endAngle: CGFloat(Double.pi * 1.5),
+                                          clockwise: true)
+            
             // Setup the CAShapeLayer with the path, colors, and line width
             let shadowLayer = CAShapeLayer()
-            shadowLayer.path = circlePath.cgPath
-            shadowLayer.fillColor = UIColor.clear.cgColor
-            shadowLayer.strokeColor = UIColor.black.withAlphaComponent(0.2).cgColor
-            shadowLayer.lineWidth = pathWidth + 1.0
+            shadowLayer.path = circlePathShadow.cgPath
+            shadowLayer.fillColor = UIColor.black.withAlphaComponent(0.5).cgColor
             shadowLayer.strokeEnd = 1.0
+            
             // Add the circleLayer to the view's layer's sublayers
             downloadUploadView!.layer.addSublayer(shadowLayer)
             
@@ -294,14 +335,18 @@ class IGDownloadUploadIndicatorView: UIView {
             circleLayer.strokeColor = UIColor.black.cgColor
             circleLayer.lineWidth = pathWidth
             circleLayer.strokeEnd = 1.0
+            circleLayer.isHidden = true
             // Add the circleLayer to the view's layer's sublayers
             downloadUploadView!.layer.addSublayer(circleLayer)
             
             // Setup the CAShapeLayer with the path, colors, and line width
             downloadUploadProgressLayer = CAShapeLayer()
+            downloadUploadProgressLayer.lineCap = "round"
+            
             downloadUploadProgressLayer.path = circlePath.cgPath
+            downloadUploadProgressLayer.cornerRadius = 5
             downloadUploadProgressLayer.fillColor = UIColor.clear.cgColor
-            downloadUploadProgressLayer.strokeColor = UIColor.organizationalColor().cgColor
+            downloadUploadProgressLayer.strokeColor = UIColor.dialogueBoxIncomming().cgColor
             downloadUploadProgressLayer.lineWidth = pathWidth
             // Don't draw the circle initially
             downloadUploadProgressLayer.strokeEnd = 0.0
@@ -310,7 +355,7 @@ class IGDownloadUploadIndicatorView: UIView {
             downloadUploadView!.layer.addSublayer(downloadUploadProgressLayer)
             
             downloadUploadPercentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            downloadUploadPercentageLabel?.font = UIFont.systemFont(ofSize: 4.0, weight: 2)
+            downloadUploadPercentageLabel?.font = UIFont.iGapFontico(ofSize: 20)
             downloadUploadPercentageLabel?.numberOfLines = 0
             downloadUploadPercentageLabel?.textAlignment = .center
             

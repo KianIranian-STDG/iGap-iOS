@@ -690,7 +690,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     func updateAttachmentDownloadUploadIndicatorView() {
-        if finalRoomMessage.isDeleted || finalRoomMessage.isInvalidated {
+        if finalRoomMessage.isInvalidated || (self.attachment?.isInvalidated)! {
             return
         }
         
