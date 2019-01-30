@@ -635,7 +635,7 @@ Please wait 0:59</string>
                                                 </connections>
                                             </button>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Wsy-X8-RrH">
-                                                <rect key="frame" x="157.5" y="592" width="60" height="20"/>
+                                                <rect key="frame" x="157.5" y="567" width="60" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="dTe-ia-3fH"/>
                                                     <constraint firstAttribute="width" constant="60" id="uUU-2Q-i3c"/>
@@ -644,7 +644,7 @@ Please wait 0:59</string>
                                                 <color key="currentPageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </pageControl>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7A-Y5-bfR">
-                                                <rect key="frame" x="107.5" y="617" width="160" height="30"/>
+                                                <rect key="frame" x="107.5" y="597" width="160" height="30"/>
                                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="WaK-g6-e87"/>
@@ -661,9 +661,9 @@ Please wait 0:59</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="D7A-Y5-bfR" secondAttribute="bottom" constant="20" id="6Hy-ub-nCZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="D7A-Y5-bfR" secondAttribute="bottom" constant="40" id="6Hy-ub-nCZ"/>
                                             <constraint firstItem="Wsy-X8-RrH" firstAttribute="centerX" secondItem="D7A-Y5-bfR" secondAttribute="centerX" id="LBp-Kk-siB"/>
-                                            <constraint firstItem="D7A-Y5-bfR" firstAttribute="top" secondItem="Wsy-X8-RrH" secondAttribute="bottom" constant="5" id="Uwd-Fq-nBV"/>
+                                            <constraint firstItem="D7A-Y5-bfR" firstAttribute="top" secondItem="Wsy-X8-RrH" secondAttribute="bottom" constant="10" id="Uwd-Fq-nBV"/>
                                             <constraint firstItem="D7A-Y5-bfR" firstAttribute="centerX" secondItem="338-9b-7Bt" secondAttribute="centerX" id="Zfu-KJ-0LE"/>
                                         </constraints>
                                     </view>
@@ -681,10 +681,10 @@ Please wait 0:59</string>
                                 <color key="backgroundColor" red="0.95686274509803915" green="0.94117647058823528" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Start_App_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="QTt-bz-NiR" customClass="GIFImageView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="87.5" y="175.5" width="200" height="336"/>
+                                <rect key="frame" x="137.5" y="259.5" width="100" height="168"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="336" id="DhU-yI-wDT"/>
-                                    <constraint firstAttribute="width" constant="200" id="oAC-gp-GZi"/>
+                                    <constraint firstAttribute="height" constant="168" id="DhU-yI-wDT"/>
+                                    <constraint firstAttribute="width" constant="100" id="oAC-gp-GZi"/>
                                 </constraints>
                             </imageView>
                         </subviews>

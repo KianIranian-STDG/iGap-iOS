@@ -58,10 +58,10 @@ class IGSplashScreenViewController: UIViewController {
             imageView.tag = i
             self.topView.addSubview(imageView)
             imageView.snp.makeConstraints({ (make) in
-                make.width.equalTo(300)
-                make.height.equalTo(300)
+                make.width.equalTo(170)
+                make.height.equalTo(170)
                 make.centerX.equalToSuperview()
-                make.top.equalToSuperview().offset(40.0)
+                make.top.equalToSuperview().offset(60.0)
             })
             
             let desciptionLabel = UILabel(frame: CGRect.zero)
@@ -86,8 +86,8 @@ class IGSplashScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.gifImageView.fadeOut(1.0)
-            self.splashView.fadeOut(1.0)
+            self.gifImageView.fadeOut(0.5)
+            self.splashView.fadeOut(0.5)
         }
     }
     
