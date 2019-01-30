@@ -14,15 +14,12 @@ import SnapKit
 
 class IGSplashScreenViewController: UIViewController {
     
-    
-    @IBOutlet weak var backgroundLayer: UIView!
     @IBOutlet weak var gifImageView: GIFImageView!
     @IBOutlet weak var pageControll: UIPageControl!
-    
+    @IBOutlet weak var splashView: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
-    
     
     var numberOfPages: Int = 3
     var pageIndex: Int = 0
@@ -88,33 +85,10 @@ class IGSplashScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        gifImageView.prepareForAnimation(withGIFNamed: "Splash", loopCount: 1) { (Void) in
-            DispatchQueue.main.async( execute: {
-                UIView.animate(withDuration: 0.4, animations: {
-//                    let frame = self.gifImageView.frame
-//                    self.gifImageView.frame = CGRect(x: frame.origin.x + frame.size.width/10.0,
-//                                                     y: frame.origin.y + frame.size.height/10.0,
-//                                                     width: frame.size.width - frame.size.width/5.0,
-//                                                     height: frame.size.height - frame.size.height/5.0)
-                    
-                }, completion: { (Bool) in
-                    UIView.animate(withDuration: 0.2, animations: {
-                        let frame = self.gifImageView.frame
-                        self.gifImageView.frame = CGRect(x: frame.origin.x - frame.size.width/2.0,
-                                                         y: frame.origin.y - frame.size.height/2.0,
-                                                         width: frame.size.width * 2.0,
-                                                         height: frame.size.height * 2.0)
-                        self.gifImageView.alpha = 0.0
-                        self.backgroundLayer.alpha = 0.0
-                    }, completion: { (Bool) in
-                        //
-                    })
-                })
-                
-            })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.gifImageView.fadeOut(1.0)
+            self.splashView.fadeOut(1.0)
         }
-        gifImageView.startAnimatingGIF()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -130,32 +104,6 @@ class IGSplashScreenViewController: UIViewController {
         self.performSegue(withIdentifier: "showPhoneNumber", sender: self)
     }    
     
-//    @objc private func animateCityImage() {
-//        self.animateCityImageView.subviews.forEach({ $0.removeFromSuperview() })
-//        let backgroundImage = UIImage(named:"IG_Splash_City")!
-//        // UIImageView 1
-//        let firstAnimationImageView = UIImageView(image: backgroundImage)
-//        firstAnimationImageView.frame = CGRect(x: 0.0,
-//                                               y: 0.0,
-//                                               width: backgroundImage.size.width,
-//                                               height: self.animateCityImageView.frame.size.height)
-//        firstAnimationImageView.contentMode = .scaleAspectFit
-//        self.animateCityImageView.addSubview(firstAnimationImageView)
-//        // UIImageView 2
-//        let secondAnimationImageView = UIImageView(image: backgroundImage)
-//        secondAnimationImageView.frame = CGRect(x: firstAnimationImageView.frame.size.width,
-//                                                y: 0.0,
-//                                                width: backgroundImage.size.width,
-//                                                height: self.animateCityImageView.frame.height)
-//        self.animateCityImageView.addSubview(secondAnimationImageView)
-//        // Animate background
-//        UIView.animate(withDuration: 40.0, delay: 0.0, options: [.repeat,.curveLinear]  , animations: {
-//            firstAnimationImageView.frame = firstAnimationImageView.frame.offsetBy(dx: -1 * firstAnimationImageView.frame.size.width, dy: 0.0)
-//            secondAnimationImageView.frame = secondAnimationImageView.frame.offsetBy(dx: -1 * secondAnimationImageView.frame.size.width, dy: 0.0)
-//        }, completion: nil)
-//    }
-    
-    
     func addSwipegestureRecognizer() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
@@ -164,8 +112,6 @@ class IGSplashScreenViewController: UIViewController {
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         self.view.addGestureRecognizer(swipeLeft)
-        
-        
     }
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
@@ -196,15 +142,6 @@ class IGSplashScreenViewController: UIViewController {
                     view.alpha = 0.0
                 }
             }
-            /*
-            if self.pageIndex == self.numberOfPages - 1 {
-                self.startButton.alpha = 1.0
-            } else {
-                self.startButton.alpha = 0.0
-            }
-            */
-        }) { (completed) in
-            
-        }
+        }) { (completed) in }
     }
 }
