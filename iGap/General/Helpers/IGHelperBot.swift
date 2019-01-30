@@ -66,10 +66,17 @@ class IGHelperBot {
         parent.addSubview(mainStackView)
         
         mainStackView.snp.makeConstraints { (make) in
-            make.top.equalTo(parent.snp.top).offset(OUT_LAYOUT_SPACE)
-            make.left.equalTo(parent.snp.left).offset(OUT_LAYOUT_SPACE)
-            make.right.equalTo(parent.snp.right).offset(-OUT_LAYOUT_SPACE)
-            make.bottom.equalTo(parent.snp.bottom).offset(-OUT_LAYOUT_SPACE)
+            if isKeyboard {
+                make.top.equalTo(parent.snp.top).offset(OUT_LAYOUT_SPACE)
+                make.left.equalTo(parent.snp.left).offset(OUT_LAYOUT_SPACE)
+                make.right.equalTo(parent.snp.right).offset(-OUT_LAYOUT_SPACE)
+                make.bottom.equalTo(parent.snp.bottom).offset(-OUT_LAYOUT_SPACE)
+            } else {
+                make.top.equalTo(parent.snp.top)
+                make.left.equalTo(parent.snp.left)
+                make.right.equalTo(parent.snp.right)
+                make.bottom.equalTo(parent.snp.bottom)
+            }
             make.height.equalTo(rowHeight)
             make.width.equalTo(rowWidth)
         }
@@ -146,7 +153,7 @@ class IGHelperBot {
             view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.3)
         }
         view.layer.masksToBounds = false
-        view.layer.cornerRadius = 5.0
+        view.layer.cornerRadius = 18.0
 
         return view
     }
