@@ -21,9 +21,11 @@ class IGHelperBot {
     let SCREAN_WIDTH = UIScreen.main.bounds.width
     let OUT_LAYOUT_SPACE: CGFloat = 10
     let IN_LAYOUT_SPACE: CGFloat = 5
-    let ROW_HEIGHT: CGFloat = 40
+    let ROW_HEIGHT: CGFloat = 35
+    let IMAGE_SIZE: CGFloat = 30
     let MAX_KEYBOARD_HEIGHT: CGFloat = 216
     let MIN_LAYOUT_WIDTH: CGFloat = 50
+    let STACK_VIEW_SPACE: CGFloat = 5
     
     private func computeWidth() -> CGFloat {
         return SCREAN_WIDTH - (OUT_LAYOUT_SPACE * 2)
@@ -41,7 +43,10 @@ class IGHelperBot {
         let rowCount = CGFloat(additionalArrayMain.count)
         let rowWidth = computeWidth()
         let rowHeight = computeHeight(rowCount: rowCount)
-        var customViewHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
+        var customViewHeight = rowHeight
+        if rowCount > 1 {
+           customViewHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
+        }
         
         var parent: UIView!
         if isKeyboard {
@@ -60,7 +65,7 @@ class IGHelperBot {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
         mainStackView.distribution = .fillEqually
-        mainStackView.spacing = 10
+        mainStackView.spacing = STACK_VIEW_SPACE
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         
         parent.addSubview(mainStackView)
@@ -90,7 +95,7 @@ class IGHelperBot {
                 let stackView = UIStackView()
                 stackView.axis = .horizontal
                 stackView.distribution = .fillEqually
-                stackView.spacing = 10
+                stackView.spacing = self.STACK_VIEW_SPACE
                 stackView.translatesAutoresizingMaskIntoConstraints = false
                 
                 for additionalButton in row {
@@ -117,7 +122,6 @@ class IGHelperBot {
         btn.titleLabel?.textAlignment = NSTextAlignment.center
         view.addSubview(btn)
         
-        let internalViewSize = ROW_HEIGHT - (IN_LAYOUT_SPACE * 2)
         
         if additionalButton.imageUrl != nil {
             img = UIImageView()
@@ -127,8 +131,8 @@ class IGHelperBot {
             img.snp.makeConstraints { (make) in
                 make.leading.equalTo(view.snp.leading).offset(IN_LAYOUT_SPACE)
                 make.centerY.equalTo(view.snp.centerY)
-                make.height.equalTo(internalViewSize)
-                make.width.equalTo(internalViewSize)
+                make.height.equalTo(IMAGE_SIZE)
+                make.width.equalTo(IMAGE_SIZE)
             }
         }
         
@@ -140,7 +144,7 @@ class IGHelperBot {
             }
             make.trailing.equalTo(view.snp.trailing).offset(-IN_LAYOUT_SPACE)
             make.centerY.equalTo(view.snp.centerY)
-            make.height.equalTo(internalViewSize)
+            make.height.equalTo(IMAGE_SIZE)
         }
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
