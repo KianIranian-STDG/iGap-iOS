@@ -224,15 +224,55 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return UIColor(red: 157/255.0, green: 199/255.0, blue: 86/255.0, alpha: 0.5)
+        return UIColor(red: 209/255.0, green: 221/255.0, blue: 138/255.0, alpha: 0.9)
     }
     
     class func dialogueBoxIncomming() -> UIColor {
-        return UIColor(red: 229/255.0, green: 225/255.0, blue: 220/255.0, alpha: 0.7)
+        return UIColor(red: 229/255.0, green: 225/255.0, blue: 220/255.0, alpha: 0.9)
+    }
+    
+    class func forwardBoxIncomming() -> UIColor {
+        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+    }
+    
+    class func forwardBoxOutgoign() -> UIColor {
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+    }
+    
+    class func forwardBoxTitleIncomming() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    
+    class func forwardBoxTitleOutgoign() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    
+    class func replyBoxIncomming() -> UIColor {
+        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+    }
+    
+    class func replyBoxOutgoing() -> UIColor {
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+    }
+    
+    class func replyBoxTitleIncomming() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    
+    class func replyBoxTitleOutgoign() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    
+    class func replyBoxMessageIncomming() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    }
+    
+    class func replyBoxMessageOutgoign() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
     }
     
     class func messageText() -> UIColor {
-        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 1.0)
+        return UIColor(red: 44/255.0, green: 54/255.0, blue: 63/255.0, alpha: 1.0)
     }
     
     class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
@@ -359,17 +399,17 @@ extension UIColor {
     //MARK: MessageCVCell Forward
     class func chatForwardedFromViewBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxIncomming().withAlphaComponent(1.0)
+            return UIColor.forwardBoxIncomming()
         } else {
-            return UIColor.dialogueBoxOutgoing().withAlphaComponent(0.7)
+            return UIColor.forwardBoxOutgoign()
         }
     }
     
     class func chatForwardedFromUsernameLabelColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.forwardBoxTitleIncomming()
         } else {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.forwardBoxTitleOutgoign()
         }
     }
     
@@ -401,33 +441,33 @@ extension UIColor {
     //MARK: MessageCVCell Reply
     class func chatReplyToBackgroundColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxIncomming().withAlphaComponent(1.0)
+            return UIColor.replyBoxIncomming()
         } else {
-            return UIColor.dialogueBoxOutgoing().withAlphaComponent(0.7)
+            return UIColor.replyBoxOutgoing()
         }
     }
     
     class func chatReplyToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.replyBoxTitleIncomming()
         } else {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.replyBoxTitleOutgoign()
         }
     }
     
     class func chatReplyToUsernameLabelTextColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.replyBoxTitleIncomming()
         } else {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.replyBoxTitleOutgoign()
         }
     }
     
     class func chatReplyToMessageBodyLabelTextColor(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.replyBoxMessageIncomming()
         } else {
-            return UIColor.dialogueBoxInfo()
+            return UIColor.replyBoxMessageOutgoign()
         }
     }
 }
