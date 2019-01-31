@@ -297,19 +297,19 @@ extension UIColor {
     
     //MARK: MGSwipeTableCell
     class func swipeDarkBlue() -> UIColor {
-        return UIColor(red:26/255.0, green:67.0/255.0, blue:90.0/255.0, alpha:1.0)
+        return UIColor(red:42/255.0, green:61/255.0, blue:61/255.0, alpha:1.0)
     }
     
     class func swipeBlueGray() -> UIColor {
-        return UIColor(red:50/255.0, green:100.0/255.0, blue:122.0/255.0, alpha:1.0)
+        return UIColor(red:93/255.0, green:111/255.0, blue:111/255.0, alpha:1.0)
     }
     
     class func swipeGray() -> UIColor {
-        return UIColor(red:90/255.0, green:90.0/255.0, blue:90.0/255.0, alpha:1.0)
+        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 1.0)
     }
     
     class func swipeRed() -> UIColor {
-        return UIColor(red:174/255.0, green:3.0/255.0, blue:14.0/255.0, alpha:1.0)
+        return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
     }
     
     //MARK: General Colors
