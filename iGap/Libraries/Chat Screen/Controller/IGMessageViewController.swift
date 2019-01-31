@@ -2746,7 +2746,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         let size = self.collectionView.layout.sizeCell(for: message)
         let frame = size.bubbleSize
         
-        return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight)
+        return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight + 2)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

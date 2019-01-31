@@ -734,7 +734,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageAdditional(){
         
-        if realmRoomMessage.forwardedFrom != nil {return}
+        if realmRoomMessage.forwardedFrom != nil {
+            removeAdditionalView()
+            return
+        }
         
         if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
             DispatchQueue.main.async {
@@ -742,7 +745,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             }
         } else if let additionalData = finalRoomMessage.additional?.data,
             finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
-            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData) {
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData),
+            isIncommingMessage {
             let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
             IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
             self.makeAdditionalView(additionalView: additionalView)
