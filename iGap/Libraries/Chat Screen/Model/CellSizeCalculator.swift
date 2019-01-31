@@ -200,8 +200,11 @@ class CellSizeCalculator: NSObject {
         }
         
         if message.forwardedFrom == nil && additionalData != nil {
-            additionalHeight = IGHelperBot.shared.computeHeight(rowCount: CGFloat(IGHelperJson.getAdditionalButtonRowCount(data: additionalData!)))
-            additionalHeight += (IGHelperBot.shared.OUT_LAYOUT_SPACE * 2)
+            let rowCount = IGHelperJson.getAdditionalButtonRowCount(data: additionalData!)
+            additionalHeight = IGHelperBot.shared.computeHeight(rowCount: CGFloat(rowCount))
+            if rowCount > 1 {
+                additionalHeight += (IGHelperBot.shared.OUT_LAYOUT_SPACE * 2)
+            }
         }
         
         let result = (finalSize, messageAttachmentHeight, additionalHeight)
