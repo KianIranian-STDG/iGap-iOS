@@ -1611,11 +1611,52 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    @available(iOS 10.0, *)
+    private func present() {
+        let viewController:UIViewController
+        viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
+        
+        for child in childViewControllers {
+            child.willMove(toParentViewController: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParentViewController()
+        }
+        addChildViewController(viewController)
+        
+        viewController.view.frame = view.bounds
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        //self.inputTextView.inputView!.addSubview(viewController.view)
+        self.inputTextView.inputView = viewController.view
+        self.inputTextView.reloadInputViews()
+        self.inputTextView.becomeFirstResponder()
+        
+        /*
+        viewController.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        viewController.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        viewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        viewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        */
+        
+        viewController.view.snp.makeConstraints { (make) in
+            make.left.equalTo((self.inputTextView.inputView?.snp.left)!)
+            make.right.equalTo((self.inputTextView.inputView?.snp.right)!)
+            make.bottom.equalTo((self.inputTextView.inputView?.snp.bottom)!)
+            make.top.equalTo((self.inputTextView.inputView?.snp.top)!)
+        }
+        
+        viewController.didMove(toParentViewController: self)
+    }
+    
     /************************************************************************/
     /*********************** Attachment Manager Start ***********************/
     /************************************************************************/
     @IBAction func didTapOnAddAttachmentButton(_ sender: UIButton) {
-        self.inputTextView.resignFirstResponder()
+        
+        if #available(iOS 10.0, *) {
+            present()
+        }
+        return
+        //self.inputTextView.resignFirstResponder()
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let camera = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
