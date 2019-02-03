@@ -13,30 +13,51 @@ import UIKit
 private let reuseIdentifier = "StickerCell"
 
 @available(iOS 10.0, *)
-class IGStickerViewController: UICollectionViewController {
-
-    let numberOfItemsPerRow = 3.0 as CGFloat
+class IGStickerViewController: UICollectionViewController, StickerToolbarObserver {
+    
+    let numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
     let interRowSpacing = 1.0 as CGFloat
     let sectionTitleKey = "SectionTitle"
     let sectionItemsKey = "Items"
     var data = [Dictionary<String,AnyObject>]()
+    
+    static var stickerToolbarObserver: StickerToolbarObserver!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        IGStickerViewController.stickerToolbarObserver = self
+        
         self.collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
         if let path = Bundle.main.path(forResource: "FoodDrawerData", ofType: ".plist") {
             let dict = NSDictionary(contentsOfFile: path) as! Dictionary<String,AnyObject>
-            print("DDD || dic: \(dict)")
             let allSections = dict["Sections"] as? [[String:AnyObject]]
             for index in allSections! {
                 self.data.append((index))
             }
-            
-//            if let selectedSections = UserDefaults.standard.array(forKey: "selectedSections") as? [Int] {
-//                for index in selectedSections {
-//                    self.data.append((allSections![index]))
-//                }
-//            }
+        }
+    }
+    
+    /************* Observer *************/
+    func onToolbarClick(index: Int) {
+        goToPosition(position: index)
+        highlightSelected(index: index)
+    }
+    
+    private func goToPosition(position: Int){
+        if let attributes = self.collectionView!.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: position)) {
+            self.collectionView!.setContentOffset(CGPoint(x: 0, y: attributes.frame.origin.y - self.collectionView!.contentInset.top), animated: true)
+        }
+    }
+    
+    private func highlightSelected(index: Int){
+        for btn in IGStickerToolbar.buttonArray {
+            if btn.tag == index {
+                btn.backgroundColor = UIColor.iGapMainColor()
+            } else {
+                btn.backgroundColor = UIColor.clear
+            }
         }
     }
     
@@ -60,9 +81,11 @@ class IGStickerViewController: UICollectionViewController {
         guard let stickerItem = cell as? IGStickerCell else {
             return
         }
-        let sectionItems = self.data[indexPath.section][sectionItemsKey] as? [String]
-        let imageName = sectionItems![indexPath.row]
-        stickerItem.configure(usingImageName: imageName)
+        DispatchQueue.main.async {
+            let sectionItems = self.data[indexPath.section][self.sectionItemsKey] as? [String]
+            let imageName = sectionItems![indexPath.row]
+            stickerItem.configure(usingImageName: imageName)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -1625,17 +1625,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         viewController.view.frame = view.bounds
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        //self.inputTextView.inputView!.addSubview(viewController.view)
         self.inputTextView.inputView = viewController.view
+        
+        let viewCustom = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        viewCustom.backgroundColor = UIColor.dialogueBoxOutgoing()
+        
+        let stickerToolbar = IGStickerToolbar()
+        let scrollView = stickerToolbar.toolbarMaker()//view
+        self.inputTextView.inputAccessoryView = scrollView
+        
         self.inputTextView.reloadInputViews()
         self.inputTextView.becomeFirstResponder()
-        
-        /*
-        viewController.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        viewController.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        viewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        viewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        */
         
         viewController.view.snp.makeConstraints { (make) in
             make.left.equalTo((self.inputTextView.inputView?.snp.left)!)
@@ -1645,6 +1645,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         viewController.didMove(toParentViewController: self)
+    }
+    
+    @objc func tapOnStickerToolbar(sender: UIButton) {
+        if #available(iOS 10.0, *) {
+            if let observer = IGStickerViewController.stickerToolbarObserver {
+                observer.onToolbarClick(index: sender.tag)
+            }
+        }
     }
     
     /************************************************************************/

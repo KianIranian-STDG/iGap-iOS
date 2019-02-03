@@ -248,6 +248,7 @@
 		FA7DE26E2205ACAB008C8ECA /* cake6.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7DE24A2205ACAA008C8ECA /* cake6.png */; };
 		FA7DE26F2205ACAB008C8ECA /* cake3.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7DE24B2205ACAB008C8ECA /* cake3.png */; };
 		FA7DE2712205B294008C8ECA /* FoodDrawerData.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA7DE2702205B294008C8ECA /* FoodDrawerData.plist */; };
+		FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */; };
 		FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */; };
 		FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */; };
 		FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA80F59F204ABC5900F0EE74 /* tone.mp3 */; };
@@ -300,6 +301,7 @@
 		FA93EE2C2029DB1300DD1521 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93EE2B2029DB1300DD1521 /* AudioCell.swift */; };
 		FA93EE2E2029DBE300DD1521 /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA93EE2D2029DBC300DD1521 /* AudioCell.xib */; };
 		FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9402AB2042D49C00D1A35C /* WebRTC.framework */; };
+		FA9688F62206DD5D00B1C1EB /* StickerToolbarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9688F52206DD5D00B1C1EB /* StickerToolbarObserver.swift */; };
 		FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8142053EBD1004369C7 /* IGRealmClientSearchUsername.swift */; };
 		FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8172053FC3D004369C7 /* IGLookAndFindCell.swift */; };
 		FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8192053FC4F004369C7 /* IGLookAndFind.swift */; };
@@ -735,6 +737,7 @@
 		FA7DE24A2205ACAA008C8ECA /* cake6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cake6.png; sourceTree = "<group>"; };
 		FA7DE24B2205ACAB008C8ECA /* cake3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cake3.png; sourceTree = "<group>"; };
 		FA7DE2702205B294008C8ECA /* FoodDrawerData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FoodDrawerData.plist; sourceTree = "<group>"; };
+		FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerToolbar.swift; sourceTree = "<group>"; };
 		FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMapNearbyDistanceTableViewController.swift; sourceTree = "<group>"; };
 		FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmiGapMap.swift; sourceTree = "<group>"; };
 		FA80F59F204ABC5900F0EE74 /* tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tone.mp3; sourceTree = "<group>"; };
@@ -787,6 +790,7 @@
 		FA93EE2B2029DB1300DD1521 /* AudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
 		FA93EE2D2029DBC300DD1521 /* AudioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
 		FA9402AB2042D49C00D1A35C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Carthage/Build/iOS/WebRTC.framework; sourceTree = "<group>"; };
+		FA9688F52206DD5D00B1C1EB /* StickerToolbarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerToolbarObserver.swift; sourceTree = "<group>"; };
 		FA96A8142053EBD1004369C7 /* IGRealmClientSearchUsername.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmClientSearchUsername.swift; sourceTree = "<group>"; };
 		FA96A8172053FC3D004369C7 /* IGLookAndFindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLookAndFindCell.swift; sourceTree = "<group>"; };
 		FA96A8192053FC4F004369C7 /* IGLookAndFind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLookAndFind.swift; sourceTree = "<group>"; };
@@ -1512,6 +1516,7 @@
 				FAEC476321F31B1B006C07A4 /* AdditionalObserver.swift */,
 				FAEC476921F3360A006C07A4 /* MessageViewControllerObserver.swift */,
 				FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */,
+				FA9688F52206DD5D00B1C1EB /* StickerToolbarObserver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1808,6 +1813,7 @@
 				FAE07F0122059CA400BE3593 /* IGStickerCell.swift */,
 				FAE07F032205A8B000BE3593 /* IGStickerSectionHeader.swift */,
 				FA7DE2702205B294008C8ECA /* FoodDrawerData.plist */,
+				FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */,
 			);
 			path = Sticker;
 			sourceTree = "<group>";
@@ -2354,6 +2360,7 @@
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
+				FA9688F62206DD5D00B1C1EB /* StickerToolbarObserver.swift in Sources */,
 				FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
@@ -2519,6 +2526,7 @@
 				FA0953631E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewCell.swift in Sources */,
 				FA42EF151E5C593500CF8A32 /* TTTAttributedLabel.m in Sources */,
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,
+				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,
 				FAD2B5821DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift in Sources */,
 				93AA67C21E4F37D10053380C /* IGChannelInfoMemberListTableViewController.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
