@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        
 //        _ = try! Realm()
         
+        // Share
+        /*
         let fileURL = FileManager.default
             .containerURL(forSecurityApplicationGroupIdentifier: "group.im.iGap")!
             .appendingPathComponent("default.realm")
@@ -52,9 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
         }
+        */
         
         let config = Realm.Configuration (
-            fileURL: fileURL,
+            // Share
+            // fileURL: fileURL,
             schemaVersion: 24,//HINT: change schemaVersion in 'ShareConfig'
             
             /**
