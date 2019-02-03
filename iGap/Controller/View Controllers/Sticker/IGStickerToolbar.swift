@@ -17,10 +17,11 @@ class IGStickerToolbar: UIGestureRecognizer {
     let sectionItemsKey = "Items"
     var data = [Dictionary<String,AnyObject>]()
     static var buttonArray: [UIButton] = []
-    var leftSpace = 0
-    let TOOLBAR_HEIGHT = 45
-    let BUTTON_SPACE = 10
-    let BUTTON_SIZE = 30
+    var leftSpace: Double = 0
+    let TOOLBAR_HEIGHT: Double = 45
+    let ICON_SPACE: Double = 10
+    let ICON_SIZE: Double = 30
+    let ICON_BACKGROUDN_SIZE: Double = 38
     
     public func toolbarMaker() -> UIView{
         if let path = Bundle.main.path(forResource: "FoodDrawerData", ofType: ".plist") {
@@ -42,10 +43,10 @@ class IGStickerToolbar: UIGestureRecognizer {
         
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = UIColor.stickerToolbar()
-        scrollView.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: TOOLBAR_HEIGHT)
+        scrollView.frame = CGRect(x: 0, y: 0, width: Int(UIScreen.main.bounds.width), height: Int(TOOLBAR_HEIGHT))
         
         scrollView.addSubview(child)
-        leftSpace = BUTTON_SPACE
+        leftSpace = ICON_SPACE
         
         for (index, result) in self.data.enumerated() {
             let sectionItems = result[sectionItemsKey] as? [String]
@@ -81,19 +82,20 @@ class IGStickerToolbar: UIGestureRecognizer {
         parent.addSubview(btn)
         parent.addSubview(imageView)
         
+        
         btn.snp.makeConstraints { (make) in
-            make.left.equalTo(parent.snp.left).offset(leftSpace)
+            make.left.equalTo(parent.snp.left).offset(leftSpace - ((ICON_BACKGROUDN_SIZE-ICON_SIZE)/2))
             make.centerY.equalTo(parent.snp.centerY)
-            make.width.equalTo(BUTTON_SIZE+5)
-            make.height.equalTo(BUTTON_SIZE+5)
+            make.width.equalTo(ICON_BACKGROUDN_SIZE)
+            make.height.equalTo(ICON_BACKGROUDN_SIZE)
         }
         imageView.snp.makeConstraints { (make) in
             make.left.equalTo(parent.snp.left).offset(leftSpace)
             make.centerY.equalTo(parent.snp.centerY)
-            make.width.equalTo(BUTTON_SIZE)
-            make.height.equalTo(BUTTON_SIZE)
+            make.width.equalTo(ICON_SIZE)
+            make.height.equalTo(ICON_SIZE)
         }
         
-        leftSpace += BUTTON_SPACE + BUTTON_SIZE
+        leftSpace += ICON_SPACE + ICON_SIZE
     }
 }

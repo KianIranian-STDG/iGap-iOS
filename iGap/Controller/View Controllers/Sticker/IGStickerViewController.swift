@@ -21,6 +21,7 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
     let sectionTitleKey = "SectionTitle"
     let sectionItemsKey = "Items"
     var data = [Dictionary<String,AnyObject>]()
+    var selectedIndexManually: Int = -1
     
     static var stickerToolbarObserver: StickerToolbarObserver!
     
@@ -41,6 +42,7 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
     
     /************* Observer *************/
     func onToolbarClick(index: Int) {
+        selectedIndexManually = index
         goToPosition(position: index)
         highlightSelected(index: index)
     }
@@ -54,7 +56,7 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
     private func highlightSelected(index: Int){
         for btn in IGStickerToolbar.buttonArray {
             if btn.tag == index {
-                btn.backgroundColor = UIColor.iGapMainColor()
+                btn.backgroundColor = UIColor.stickerToolbarSelected()
             } else {
                 btn.backgroundColor = UIColor.clear
             }
@@ -71,8 +73,7 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        return cell
+        return collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     }
     
     // MARK: UICollectionViewDelegate
@@ -82,6 +83,13 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
             return
         }
         DispatchQueue.main.async {
+            if self.selectedIndexManually == -1 { // if user selected an item manually don't do current action
+                self.highlightSelected(index: indexPath.section)
+            } else if self.selectedIndexManually == indexPath.section {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.selectedIndexManually = -1
+                }
+            }
             let sectionItems = self.data[indexPath.section][self.sectionItemsKey] as? [String]
             let imageName = sectionItems![indexPath.row]
             stickerItem.configure(usingImageName: imageName)

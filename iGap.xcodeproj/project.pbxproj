@@ -1809,11 +1809,11 @@
 				FA7DE2492205ACA9008C8ECA /* toffee3.png */,
 				FA7DE2482205ACA8008C8ECA /* toffee4.png */,
 				FA7DE2352205AC9C008C8ECA /* toffee5.png */,
-				FAE07EFD220599F500BE3593 /* IGStickerViewController.swift */,
-				FAE07F0122059CA400BE3593 /* IGStickerCell.swift */,
-				FAE07F032205A8B000BE3593 /* IGStickerSectionHeader.swift */,
 				FA7DE2702205B294008C8ECA /* FoodDrawerData.plist */,
+				FAE07EFD220599F500BE3593 /* IGStickerViewController.swift */,
 				FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */,
+				FAE07F032205A8B000BE3593 /* IGStickerSectionHeader.swift */,
+				FAE07F0122059CA400BE3593 /* IGStickerCell.swift */,
 			);
 			path = Sticker;
 			sourceTree = "<group>";

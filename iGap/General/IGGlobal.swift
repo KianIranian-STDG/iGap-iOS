@@ -299,6 +299,10 @@ extension UIColor {
         return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     }
     
+    class func stickerToolbarSelected() -> UIColor {
+        return UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1.0)
+    }
+    
     //MARK: MGSwipeTableCell
     class func swipeDarkBlue() -> UIColor {
         return UIColor(red:42/255.0, green:61/255.0, blue:61/255.0, alpha:1.0)
