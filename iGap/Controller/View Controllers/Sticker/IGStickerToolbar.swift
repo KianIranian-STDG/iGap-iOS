@@ -22,6 +22,8 @@ class IGStickerToolbar: UIGestureRecognizer {
     let ICON_SPACE: Double = 10
     let ICON_SIZE: Double = 30
     let ICON_BACKGROUDN_SIZE: Double = 38
+    let STICKER_ADD = 1000000
+    let STICKER_SETTING = 2000000
     
     public func toolbarMaker() -> UIView{
         if let path = Bundle.main.path(forResource: "FoodDrawerData", ofType: ".plist") {
@@ -53,6 +55,8 @@ class IGStickerToolbar: UIGestureRecognizer {
             let imageName = sectionItems![0]
             makeDoctorBotButtonView(parent: scrollView, imageName: imageName, index: index)
         }
+        makeDoctorBotButtonView(parent: scrollView, imageName: "", index: STICKER_ADD, isIcon: true)
+        makeDoctorBotButtonView(parent: scrollView, imageName: "", index: STICKER_SETTING, isIcon: true)
         
         child.snp.makeConstraints { (make) in
             make.top.equalTo(scrollView.snp.top)
@@ -65,7 +69,7 @@ class IGStickerToolbar: UIGestureRecognizer {
         return scrollView
     }
     
-    private func makeDoctorBotButtonView(parent: UIScrollView, imageName: String, index: Int){
+    private func makeDoctorBotButtonView(parent: UIScrollView, imageName: String, index: Int, isIcon: Bool = false){
 
         let image = UIImage(named: imageName)
         
@@ -78,10 +82,8 @@ class IGStickerToolbar: UIGestureRecognizer {
         btn.addTarget(self, action: #selector(IGMessageViewController.tapOnStickerToolbar), for: .touchUpInside)
         btn.backgroundColor = UIColor.clear
         btn.layer.cornerRadius = 5
-
-        parent.addSubview(btn)
-        parent.addSubview(imageView)
         
+        parent.addSubview(btn)
         
         btn.snp.makeConstraints { (make) in
             make.left.equalTo(parent.snp.left).offset(leftSpace - ((ICON_BACKGROUDN_SIZE-ICON_SIZE)/2))
@@ -89,11 +91,20 @@ class IGStickerToolbar: UIGestureRecognizer {
             make.width.equalTo(ICON_BACKGROUDN_SIZE)
             make.height.equalTo(ICON_BACKGROUDN_SIZE)
         }
-        imageView.snp.makeConstraints { (make) in
-            make.left.equalTo(parent.snp.left).offset(leftSpace)
-            make.centerY.equalTo(parent.snp.centerY)
-            make.width.equalTo(ICON_SIZE)
-            make.height.equalTo(ICON_SIZE)
+        
+        if !isIcon {
+            parent.addSubview(imageView)
+            imageView.snp.makeConstraints { (make) in
+                make.left.equalTo(parent.snp.left).offset(leftSpace)
+                make.centerY.equalTo(parent.snp.centerY)
+                make.width.equalTo(ICON_SIZE)
+                make.height.equalTo(ICON_SIZE)
+            }
+        } else {
+            btn.setTitle(imageName, for: UIControlState.normal)
+            btn.titleLabel?.font = UIFont.iGapFontico(ofSize: 20)
+            btn.setTitleColor(UIColor.messageText(), for: .normal)
+            btn.removeUnderline()
         }
         
         leftSpace += ICON_SPACE + ICON_SIZE

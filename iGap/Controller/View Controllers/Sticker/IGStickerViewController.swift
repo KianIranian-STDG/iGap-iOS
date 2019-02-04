@@ -83,7 +83,10 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
             return
         }
         DispatchQueue.main.async {
-            if self.selectedIndexManually == -1 { // if user selected an item manually don't do current action
+            if self.selectedIndexManually == -1 ||
+                self.selectedIndexManually == IGStickerToolbar.shared.STICKER_SETTING ||
+                self.selectedIndexManually == IGStickerToolbar.shared.STICKER_ADD { // if user selected an item manually don't do current action
+                
                 self.highlightSelected(index: indexPath.section)
             } else if self.selectedIndexManually == indexPath.section {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

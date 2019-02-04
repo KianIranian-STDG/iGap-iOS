@@ -302,6 +302,7 @@
 		FA93EE2E2029DBE300DD1521 /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA93EE2D2029DBC300DD1521 /* AudioCell.xib */; };
 		FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9402AB2042D49C00D1A35C /* WebRTC.framework */; };
 		FA9688F62206DD5D00B1C1EB /* StickerToolbarObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9688F52206DD5D00B1C1EB /* StickerToolbarObserver.swift */; };
+		FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9688F72207209C00B1C1EB /* BLTNBoard.framework */; };
 		FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8142053EBD1004369C7 /* IGRealmClientSearchUsername.swift */; };
 		FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8172053FC3D004369C7 /* IGLookAndFindCell.swift */; };
 		FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8192053FC4F004369C7 /* IGLookAndFind.swift */; };
@@ -791,6 +792,7 @@
 		FA93EE2D2029DBC300DD1521 /* AudioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
 		FA9402AB2042D49C00D1A35C /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Carthage/Build/iOS/WebRTC.framework; sourceTree = "<group>"; };
 		FA9688F52206DD5D00B1C1EB /* StickerToolbarObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerToolbarObserver.swift; sourceTree = "<group>"; };
+		FA9688F72207209C00B1C1EB /* BLTNBoard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BLTNBoard.framework; path = Carthage/Build/iOS/BLTNBoard.framework; sourceTree = "<group>"; };
 		FA96A8142053EBD1004369C7 /* IGRealmClientSearchUsername.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmClientSearchUsername.swift; sourceTree = "<group>"; };
 		FA96A8172053FC3D004369C7 /* IGLookAndFindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLookAndFindCell.swift; sourceTree = "<group>"; };
 		FA96A8192053FC4F004369C7 /* IGLookAndFind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLookAndFind.swift; sourceTree = "<group>"; };
@@ -970,6 +972,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */,
 				FAE07F0022059C6D00BE3593 /* Messages.framework in Frameworks */,
 				FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */,
 				FA8548A821EC92F900435F70 /* FirebaseAnalytics.framework in Frameworks */,
@@ -1954,6 +1957,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA9688F72207209C00B1C1EB /* BLTNBoard.framework */,
 				FAE07EFF22059C6D00BE3593 /* Messages.framework */,
 				FAD8A02F21EE0E1C006996E1 /* SwiftyJSON.framework */,
 				FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */,
@@ -2280,6 +2284,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Digger.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BLTNBoard.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
