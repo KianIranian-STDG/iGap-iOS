@@ -95,7 +95,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var progressbar: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var btnSticker: UIButton!
+    @IBOutlet weak var txtSticker: UILabel!
     
     var btnChangeKeyboard : UIButton!
     var doctorBotScrollView : UIScrollView!
@@ -426,6 +426,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         notification(register: true)
         //sendMessageState(enable: false)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnStickerButton))
+        txtSticker.addGestureRecognizer(tap)
+        txtSticker.isUserInteractionEnabled = true
+        
         let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
         tapAndHoldOnRecord.minimumPressDuration = 0.5
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
@@ -489,6 +493,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func keyboardWillDisappear() {
+        stickerViewState(enable: false, justDisableSticker: true)
         if isBotRoom() {
             self.collectionView.reloadData()
         }
@@ -1162,8 +1167,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             })
             
             
-            UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-                self.btnSticker.isHidden = true
+            UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+                self.txtSticker.isHidden = true
             }, completion: nil)
 
         } else {
@@ -1176,8 +1181,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.inputBarRecordButton.isHidden = false
                 }, completion: nil)
                 
-                UIView.transition(with: self.btnSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    self.btnSticker.isHidden = false
+                UIView.transition(with: self.txtSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                    self.txtSticker.isHidden = false
                 }, completion: nil)
                 
             })
@@ -1185,37 +1190,53 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     /* if sticker view is enable show keyboard button otherwise show sticker button */
-    private func stickerViewState(enable: Bool) {
+    private func stickerViewState(enable: Bool, justDisableSticker: Bool = false) {
        
-        UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
-            self.btnSticker.isHidden = true
+        isStickerKeyboard = enable
+        
+        if justDisableSticker {
+            self.txtSticker.text = ""
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+                self.inputTextView.inputAccessoryView = nil
+                self.inputTextView.inputView = nil
+                self.inputTextView.reloadInputViews()
+            }
+            return
+        }
+        
+        UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+            self.txtSticker.isHidden = true
             
             if self.isStickerKeyboard {
-                self.btnSticker.setTitle("", for: UIControlState.normal)
+                self.txtSticker.text = ""
                 if #available(iOS 10.0, *) {
                     DispatchQueue.main.async {
                         self.openStickerView()
                     }
                 }
             } else {
-                self.btnSticker.setTitle("", for: UIControlState.normal)
+                self.txtSticker.text = ""
                 if self.inputTextView.inputAccessoryView != nil {
                     UIView.transition(with: self.inputTextView.inputAccessoryView!, duration: 0.5, options: .transitionFlipFromBottom, animations: {
                         self.inputTextView.inputAccessoryView!.isHidden = true
                         self.inputTextView.inputAccessoryView = nil
                     }, completion: nil)
                 }
-                self.inputTextView.inputView = nil
-                self.inputTextView.reloadInputViews()
-                if !self.inputTextView.isFirstResponder {
-                    self.inputTextView.becomeFirstResponder()
+                if justDisableSticker {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+                        self.inputTextView.inputView = nil
+                        self.inputTextView.reloadInputViews()
+                    }
+                } else {
+                    self.inputTextView.inputView = nil
+                    self.inputTextView.reloadInputViews()
                 }
             }
             
         }, completion: { (completed) in
             
-            UIView.transition(with: self.btnSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                self.btnSticker.isHidden = false
+            UIView.transition(with: self.txtSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                self.txtSticker.isHidden = false
             }, completion: nil)
         })
     }
@@ -1571,6 +1592,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return false
     }
     
+    func didTapOnStickerButton() {
+        if isStickerKeyboard {
+            isStickerKeyboard = false
+        } else {
+            isStickerKeyboard = true
+        }
+        
+        stickerViewState(enable: isStickerKeyboard)
+    }
     
     @IBAction func didTapOnPinClose(_ sender: UIButton) {
         if groupPinGranted() {
@@ -1586,16 +1616,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if let pinMessage = room?.pinMessage {
             goToPosition(cellMessage: pinMessage)
         }
-    }
-    
-    @IBAction func didTapOnStickerButton(_ sender: UIButton) {
-        if isStickerKeyboard {
-            isStickerKeyboard = false
-        } else {
-            isStickerKeyboard = true
-        }
-        
-        stickerViewState(enable: isStickerKeyboard)
     }
     
     //MARK: IBActions

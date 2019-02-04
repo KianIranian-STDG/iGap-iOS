@@ -937,20 +937,16 @@
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpR-kJ-kg6">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-Dt-CKY">
                                                 <rect key="frame" x="280" y="93.5" width="25" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="25" id="Hg8-pL-i7G"/>
-                                                    <constraint firstAttribute="width" constant="25" id="Rdm-qu-otF"/>
+                                                    <constraint firstAttribute="width" constant="25" id="4tD-M0-oUJ"/>
+                                                    <constraint firstAttribute="height" constant="25" id="eFZ-Ix-aLS"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
-                                                <state key="normal" title="">
-                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="didTapOnStickerButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="4Sp-oY-TNp"/>
-                                                </connections>
-                                            </button>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xP-Py-NoP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="80" width="49" height="38"/>
                                                 <constraints>
@@ -1006,18 +1002,18 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="oQj-74-6dV" secondAttribute="trailing" id="0Sm-RY-Laq"/>
                                             <constraint firstItem="agE-XC-sCP" firstAttribute="leading" secondItem="hI3-wW-ErK" secondAttribute="trailing" constant="9" id="BVd-Xa-BgU"/>
-                                            <constraint firstItem="84p-pD-00v" firstAttribute="leading" secondItem="VpR-kJ-kg6" secondAttribute="trailing" constant="16" id="GFv-NL-Nhj"/>
                                             <constraint firstAttribute="bottom" secondItem="hI3-wW-ErK" secondAttribute="bottom" id="Kht-rv-Q9n"/>
                                             <constraint firstItem="84p-pD-00v" firstAttribute="leading" secondItem="agE-XC-sCP" secondAttribute="trailing" constant="9" id="NSg-fg-wYL"/>
                                             <constraint firstItem="0xP-Py-NoP" firstAttribute="top" secondItem="oQj-74-6dV" secondAttribute="top" id="Och-q7-vFY"/>
                                             <constraint firstAttribute="bottom" secondItem="84p-pD-00v" secondAttribute="bottom" id="RvQ-uT-ud7"/>
                                             <constraint firstAttribute="bottom" secondItem="oQj-74-6dV" secondAttribute="bottom" id="UkV-6d-MhO"/>
                                             <constraint firstItem="oQj-74-6dV" firstAttribute="leading" secondItem="f1F-hm-WrH" secondAttribute="leading" constant="74" id="Ym6-fk-ya6"/>
-                                            <constraint firstItem="VpR-kJ-kg6" firstAttribute="centerY" secondItem="agE-XC-sCP" secondAttribute="centerY" id="ZB8-xS-8Sr"/>
                                             <constraint firstItem="0xP-Py-NoP" firstAttribute="leading" secondItem="f1F-hm-WrH" secondAttribute="leading" constant="16" id="bBW-C2-6rm"/>
                                             <constraint firstAttribute="trailing" secondItem="E41-Xs-Ose" secondAttribute="trailing" id="eI1-mA-azG"/>
                                             <constraint firstAttribute="bottom" secondItem="agE-XC-sCP" secondAttribute="bottom" constant="2" id="eQJ-nR-RKf"/>
+                                            <constraint firstItem="5nb-Dt-CKY" firstAttribute="centerY" secondItem="agE-XC-sCP" secondAttribute="centerY" id="fdu-rT-93O"/>
                                             <constraint firstAttribute="bottom" secondItem="0xP-Py-NoP" secondAttribute="bottom" id="gFR-nu-kmD"/>
+                                            <constraint firstItem="84p-pD-00v" firstAttribute="leading" secondItem="5nb-Dt-CKY" secondAttribute="trailing" constant="16" id="gJ5-28-83y"/>
                                             <constraint firstItem="E41-Xs-Ose" firstAttribute="leading" secondItem="f1F-hm-WrH" secondAttribute="leading" id="h8f-zh-57Y"/>
                                             <constraint firstAttribute="trailing" secondItem="84p-pD-00v" secondAttribute="trailing" id="jmh-0g-Esc"/>
                                             <constraint firstAttribute="trailing" secondItem="GKD-aB-Nez" secondAttribute="trailing" id="mQH-pa-B2F"/>
@@ -1143,7 +1139,6 @@
                         <outlet property="btnClosePin" destination="grH-pt-p4x" id="q2A-FT-LNb"/>
                         <outlet property="btnDeleteSelectedAttachment" destination="IvY-L2-6Iw" id="fy8-mA-1E9"/>
                         <outlet property="btnScrollToBottom" destination="Em7-Bg-41q" id="nBH-S4-gyk"/>
-                        <outlet property="btnSticker" destination="VpR-kJ-kg6" id="bLA-Ji-ZTd"/>
                         <outlet property="chatBackground" destination="PLh-MM-IK9" id="kmi-ka-fIy"/>
                         <outlet property="collectionView" destination="9G6-WI-YVj" id="W5s-J5-lty"/>
                         <outlet property="inputBarAttachmentView" destination="GKD-aB-Nez" id="LxL-aF-CLm"/>
@@ -1179,6 +1174,7 @@
                         <outlet property="scrollToBottomContainerView" destination="5mR-SM-BTR" id="Xvj-fw-UgO"/>
                         <outlet property="scrollToBottomContainerViewConstraint" destination="Obr-Bc-Azv" id="WAk-s1-O8N"/>
                         <outlet property="txtPinnedMessage" destination="OfO-SB-YDv" id="Yhx-Wj-P13"/>
+                        <outlet property="txtSticker" destination="5nb-Dt-CKY" id="EXb-kI-qUU"/>
                         <outlet property="webView" destination="flL-yG-krx" id="0PG-Ac-Xy7"/>
                         <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="jRj-hY-oEr"/>
                         <segue destination="QWV-7y-MRV" kind="presentation" identifier="showRoomList" id="CDS-7g-pRV"/>
