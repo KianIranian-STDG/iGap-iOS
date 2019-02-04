@@ -135,7 +135,7 @@
             </objects>
             <point key="canvasLocation" x="5232.8000000000002" y="-862.21889055472275"/>
         </scene>
-        <!--Sticker View Controller-->
+        <!--Title-->
         <scene sceneID="P3w-EW-KPb">
             <objects>
                 <collectionViewController storyboardIdentifier="IGStickerViewController" id="Wmx-fA-ZCJ" customClass="IGStickerViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -182,19 +182,23 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-Oi-YWz">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Section" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zl4-R6-phC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hc-Pg-fJc">
+                                            <rect key="frame" x="325" y="10" width="40" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="Lvz-kt-fck"/>
+                                                <constraint firstAttribute="height" constant="30" id="fbA-rX-Mg0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="ADD"/>
+                                            <connections>
+                                                <action selector="btnAddOrRemove:" destination="XLU-0X-GL7" eventType="touchUpInside" id="B4b-Xm-DNK"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="zl4-R6-phC" secondAttribute="bottom" id="3Jh-f0-rbj"/>
-                                        <constraint firstAttribute="trailing" secondItem="zl4-R6-phC" secondAttribute="trailing" id="dAj-kU-FB0"/>
-                                        <constraint firstItem="zl4-R6-phC" firstAttribute="top" secondItem="RZU-Oi-YWz" secondAttribute="top" id="pYY-hW-1jT"/>
-                                        <constraint firstItem="zl4-R6-phC" firstAttribute="leading" secondItem="RZU-Oi-YWz" secondAttribute="leading" id="qRn-PA-UW4"/>
+                                        <constraint firstItem="7hc-Pg-fJc" firstAttribute="centerY" secondItem="RZU-Oi-YWz" secondAttribute="centerY" id="0vi-yn-04y"/>
+                                        <constraint firstAttribute="trailing" secondItem="7hc-Pg-fJc" secondAttribute="trailing" constant="10" id="UU7-Tw-LOG"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -205,7 +209,8 @@
                                 <constraint firstItem="RZU-Oi-YWz" firstAttribute="top" secondItem="XLU-0X-GL7" secondAttribute="top" id="oxE-8K-51O"/>
                             </constraints>
                             <connections>
-                                <outlet property="sectionTitle" destination="zl4-R6-phC" id="nix-pv-vvK"/>
+                                <outlet property="btnSticker" destination="7hc-Pg-fJc" id="OcT-HF-iMP"/>
+                                <outlet property="mainView" destination="RZU-Oi-YWz" id="j4M-mw-nb2"/>
                             </connections>
                         </collectionReusableView>
                         <connections>
@@ -213,6 +218,7 @@
                             <outlet property="delegate" destination="Wmx-fA-ZCJ" id="Ssh-wm-SQc"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Title" id="6gF-Wg-Os3" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nmj-UQ-Voe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1179,6 +1185,7 @@
                         <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="jRj-hY-oEr"/>
                         <segue destination="QWV-7y-MRV" kind="presentation" identifier="showRoomList" id="CDS-7g-pRV"/>
                         <segue destination="S3I-yk-3Ak" kind="show" identifier="showLocationViewController" id="rg6-Tr-vEo"/>
+                        <segue destination="Wmx-fA-ZCJ" kind="show" identifier="showSticker" id="r1k-fE-0FE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="43J-bV-cLm" userLabel="First Responder" sceneMemberID="firstResponder"/>

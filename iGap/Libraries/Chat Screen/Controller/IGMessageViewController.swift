@@ -430,6 +430,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         txtSticker.addGestureRecognizer(tap)
         txtSticker.isUserInteractionEnabled = true
         
+        let tapInputTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
+        inputTextView.addGestureRecognizer(tapInputTextView)
+        inputTextView.isUserInteractionEnabled = true
+        
         let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
         tapAndHoldOnRecord.minimumPressDuration = 0.5
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
@@ -483,7 +487,20 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @objc func tapOnStickerToolbar(sender: UIButton) {
         if #available(iOS 10.0, *) {
             if let observer = IGStickerViewController.stickerToolbarObserver {
-                observer.onToolbarClick(index: sender.tag)
+                
+                switch sender.tag {
+                case IGStickerToolbar.shared.STICKER_ADD:
+                    self.view.endEditing(true)
+                    performSegue(withIdentifier: "showSticker", sender: self)
+                    break
+                    
+                case IGStickerToolbar.shared.STICKER_SETTING:
+                    break
+                    
+                default:
+                    observer.onToolbarClick(index: sender.tag)
+                    break
+                }
             }
         }
     }
@@ -493,7 +510,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func keyboardWillDisappear() {
-        stickerViewState(enable: false, justDisableSticker: true)
+        disableStickerView(delay: 0.4)
         if isBotRoom() {
             self.collectionView.reloadData()
         }
@@ -1194,16 +1211,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
        
         isStickerKeyboard = enable
         
-        if justDisableSticker {
-            self.txtSticker.text = ""
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-                self.inputTextView.inputAccessoryView = nil
-                self.inputTextView.inputView = nil
-                self.inputTextView.reloadInputViews()
-            }
-            return
-        }
-        
         UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
             self.txtSticker.isHidden = true
             
@@ -1239,6 +1246,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.txtSticker.isHidden = false
             }, completion: nil)
         })
+    }
+    
+    private func disableStickerView(delay: Double){
+        isStickerKeyboard = false
+        self.txtSticker.text = ""
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay){
+            self.inputTextView.inputAccessoryView = nil
+            self.inputTextView.inputView = nil
+            self.inputTextView.reloadInputViews()
+        }
     }
     
     /***** user send location callback *****/
@@ -1590,6 +1607,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             return true
         }
         return false
+    }
+    
+    func didTapOnInputTextView() {
+        disableStickerView(delay: 0.0)
     }
     
     func didTapOnStickerButton() {
@@ -2628,7 +2649,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK: Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showForwardMessageTable" {
+        
+        if segue.identifier == "showSticker" {
+            if #available(iOS 10.0, *) {
+                let stickerViewController = segue.destination as! IGStickerViewController
+                stickerViewController.isAddStickerPage = true
+            }
+        } else if segue.identifier == "showForwardMessageTable" {
             IGForwardMessageTableViewController.forwardMessageDelegate = self
         } else if segue.identifier == "showReportPage" {
             let destinationTv = segue.destination as! IGReport

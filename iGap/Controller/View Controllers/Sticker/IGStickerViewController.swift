@@ -13,7 +13,7 @@ import UIKit
 private let reuseIdentifier = "StickerCell"
 
 @available(iOS 10.0, *)
-class IGStickerViewController: UICollectionViewController, StickerToolbarObserver {
+class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver {
     
     let numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
@@ -22,12 +22,14 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
     let sectionItemsKey = "Items"
     var data = [Dictionary<String,AnyObject>]()
     var selectedIndexManually: Int = -1
+    var isAddStickerPage = false
     
     static var stickerToolbarObserver: StickerToolbarObserver!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initNavigationBar()
         IGStickerViewController.stickerToolbarObserver = self
         
         self.collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
@@ -38,6 +40,14 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
                 self.data.append((index))
             }
         }
+    }
+    
+    func initNavigationBar(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Add Sticker")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
     /************* Observer *************/
@@ -69,6 +79,9 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if isAddStickerPage {
+            return 5
+        }
         return (data[section][sectionItemsKey] as! NSArray).count
     }
     
@@ -105,10 +118,22 @@ class IGStickerViewController: UICollectionViewController, StickerToolbarObserve
         if let foodHeader = headerView as? IGStickerSectionHeader {
             let section = self.data[indexPath.section]
             let sectionTitle = section[sectionTitleKey] as! String
-            foodHeader.configure(usingTitle: sectionTitle)
+            if isAddStickerPage {
+                foodHeader.configureAddSticker(usingTitle: sectionTitle, stickerCount: 60)
+            } else {
+                foodHeader.configure(usingTitle: sectionTitle)
+            }
         }
         return headerView
-        
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if isAddStickerPage {
+            return CGSize(width: UIScreen.main.bounds.width, height: 60)
+        }
+        return CGSize(width: UIScreen.main.bounds.width, height: 40)
     }
 }
 

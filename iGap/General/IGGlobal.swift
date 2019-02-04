@@ -295,8 +295,12 @@ extension UIColor {
         return UIColor(red:123/255.0, green:165/255.0, blue:52/255.0, alpha:1.0)
     }
     
-    class func stickerToolbar() -> UIColor {
+    class func sticker() -> UIColor {
         return UIColor(red: 242/255.0, green: 242/255.0, blue: 255/255.0, alpha: 1.0)
+    }
+    
+    class func stickerToolbar() -> UIColor {
+        return UIColor(red: 249/255.0, green: 249/255.0, blue: 255/255.0, alpha: 1.0)
     }
     
     class func stickerToolbarSelected() -> UIColor {
