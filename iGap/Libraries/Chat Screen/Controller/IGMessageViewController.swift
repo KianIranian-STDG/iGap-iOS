@@ -1207,7 +1207,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     /* if sticker view is enable show keyboard button otherwise show sticker button */
-    private func stickerViewState(enable: Bool, justDisableSticker: Bool = false) {
+    private func stickerViewState(enable: Bool) {
        
         isStickerKeyboard = enable
         
@@ -1229,15 +1229,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         self.inputTextView.inputAccessoryView = nil
                     }, completion: nil)
                 }
-                if justDisableSticker {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-                        self.inputTextView.inputView = nil
-                        self.inputTextView.reloadInputViews()
-                    }
-                } else {
-                    self.inputTextView.inputView = nil
-                    self.inputTextView.reloadInputViews()
-                }
+                self.inputTextView.inputView = nil
+                self.inputTextView.reloadInputViews()
             }
             
         }, completion: { (completed) in
@@ -1250,8 +1243,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     private func disableStickerView(delay: Double){
         isStickerKeyboard = false
-        self.txtSticker.text = ""
         DispatchQueue.main.asyncAfter(deadline: .now() + delay){
+            self.txtSticker.text = ""
             self.inputTextView.inputAccessoryView = nil
             self.inputTextView.inputView = nil
             self.inputTextView.reloadInputViews()
