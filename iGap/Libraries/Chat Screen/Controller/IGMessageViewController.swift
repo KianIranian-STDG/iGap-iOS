@@ -95,7 +95,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var progressbar: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
-
+    @IBOutlet weak var btnSticker: UIButton!
+    
     var btnChangeKeyboard : UIButton!
     var doctorBotScrollView : UIScrollView!
     private let disposeBag = DisposeBag()
@@ -180,6 +181,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let KEYBOARD_MAIN_ICON = ""
     let returnText = "/back"
     
+    let ANIMATE_TIME = 0.2
+    
     let DOCTOR_BOT_HEIGHT = 50 // height size for main doctor bot view (Hint: size of custom button is lower than this size -> (DOCTOR_BOT_HEIGHT - (2 * DOCTOR_BUTTON_VERTICAL_SPACE)) )
     let DOCTOR_BUTTON_VERTICAL_SPACE = 6 // space between top & bottom of a custom button with doctor bot parent view
     let DOCTOR_BUTTON_SPACE : CGFloat = 10 // space between each button
@@ -202,6 +205,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var allowForGetHistoryLocal = true
     var isFirstHistory = true
     var hasLocal = true
+    var isStickerKeyboard = false
     var isSendLocation : Bool!
     var receivedLocation : CLLocation!
 
@@ -232,10 +236,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
-        
-        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom,
-                                         inputBarSendButton, btnCancelReplyOrForward,
-                                         btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
+        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
@@ -367,7 +368,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.managePinnedMessage()
         
         inputTextView.delegate = self
-        inputTextView.placeholder = "Write here ..."
+        inputTextView.placeholder = "Message"
         inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
         inputTextView.maxHeight = 166.0 // almost 8 lines
         inputTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -423,8 +424,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         //Keyboard Notification
         
         notification(register: true)
-        inputBarSendButton.isHidden = true
-        
+        //sendMessageState(enable: false)
         
         let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
         tapAndHoldOnRecord.minimumPressDuration = 0.5
@@ -436,15 +436,52 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            self.inputTextView.inputView = IGHelperBot.shared.makeBotView(additionalArrayMain: IGHelperJson.parseAdditionalButton()!)
-//            self.inputTextView.reloadInputViews()
-//            if !self.inputTextView.becomeFirstResponder() {
-//                self.inputTextView.becomeFirstResponder()
-//            }
-//            IGHelperJson.parseAdditionalButton()
-//        }
+    }
+    
+    @objc @available(iOS 10.0, *)
+    private func openStickerView(){
+        let viewController:UIViewController
+        viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
+        
+        for child in childViewControllers {
+            child.willMove(toParentViewController: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParentViewController()
+        }
+        addChildViewController(viewController)
+        
+        viewController.view.frame = view.bounds
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        self.inputTextView.inputView = viewController.view
+        
+        let viewCustom = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
+        viewCustom.backgroundColor = UIColor.dialogueBoxOutgoing()
+        
+        let stickerToolbar = IGStickerToolbar()
+        let scrollView = stickerToolbar.toolbarMaker()//view
+        self.inputTextView.inputAccessoryView = scrollView
+        
+        self.inputTextView.reloadInputViews()
+        if !self.inputTextView.isFirstResponder {
+            self.inputTextView.becomeFirstResponder()
+        }
+        
+        viewController.view.snp.makeConstraints { (make) in
+            make.left.equalTo((self.inputTextView.inputView?.snp.left)!)
+            make.right.equalTo((self.inputTextView.inputView?.snp.right)!)
+            make.bottom.equalTo((self.inputTextView.inputView?.snp.bottom)!)
+            make.top.equalTo((self.inputTextView.inputView?.snp.top)!)
+        }
+        
+        viewController.didMove(toParentViewController: self)
+    }
+    
+    @objc func tapOnStickerToolbar(sender: UIButton) {
+        if #available(iOS 10.0, *) {
+            if let observer = IGStickerViewController.stickerToolbarObserver {
+                observer.onToolbarClick(index: sender.tag)
+            }
+        }
     }
     
     @objc func keyboardWillAppear() {
@@ -965,7 +1002,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if let draft = self.room!.draft {
             if draft.message != "" || draft.replyTo != -1 {
                 inputTextView.text = draft.message
-                inputTextView.placeholder = "Write here ..."
+                inputTextView.placeholder = "Message"
                 if draft.replyTo != -1 {
                     let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
                     if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
@@ -1106,6 +1143,83 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    /* if send message state is enable show send button and hide sticker & record button */
+    private func sendMessageState(enable: Bool){
+        
+        if enable {
+            
+            if inputBarRecordButton.isHidden {
+                return
+            }
+            
+            UIView.transition(with: self.inputBarRecordButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+                self.inputBarRecordButton.isHidden = true
+            }, completion: { (completed) in
+                
+                UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                    self.inputBarSendButton.isHidden = false
+                }, completion: nil)
+            })
+            
+            
+            UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+                self.btnSticker.isHidden = true
+            }, completion: nil)
+
+        } else {
+            
+            UIView.transition(with: self.inputBarSendButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+                self.inputBarSendButton.isHidden = true
+            }, completion: { (completed) in
+                
+                UIView.transition(with: self.inputBarRecordButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                    self.inputBarRecordButton.isHidden = false
+                }, completion: nil)
+                
+                UIView.transition(with: self.btnSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                    self.btnSticker.isHidden = false
+                }, completion: nil)
+                
+            })
+        }
+    }
+    
+    /* if sticker view is enable show keyboard button otherwise show sticker button */
+    private func stickerViewState(enable: Bool) {
+       
+        UIView.transition(with: self.btnSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+            self.btnSticker.isHidden = true
+            
+            if self.isStickerKeyboard {
+                self.btnSticker.setTitle("", for: UIControlState.normal)
+                if #available(iOS 10.0, *) {
+                    DispatchQueue.main.async {
+                        self.openStickerView()
+                    }
+                }
+            } else {
+                self.btnSticker.setTitle("", for: UIControlState.normal)
+                if self.inputTextView.inputAccessoryView != nil {
+                    UIView.transition(with: self.inputTextView.inputAccessoryView!, duration: 0.5, options: .transitionFlipFromBottom, animations: {
+                        self.inputTextView.inputAccessoryView!.isHidden = true
+                        self.inputTextView.inputAccessoryView = nil
+                    }, completion: nil)
+                }
+                self.inputTextView.inputView = nil
+                self.inputTextView.reloadInputViews()
+                if !self.inputTextView.isFirstResponder {
+                    self.inputTextView.becomeFirstResponder()
+                }
+            }
+            
+        }, completion: { (completed) in
+            
+            UIView.transition(with: self.btnSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                self.btnSticker.isHidden = false
+            }, completion: nil)
+        })
+    }
+    
     /***** user send location callback *****/
     func userWasSelectedLocation(location: CLLocation) {
         
@@ -1123,8 +1237,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         IGMessageSender.defaultSender.send(message: message, to: room!)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.inputBarSendButton.isHidden = true
-            self.inputBarRecordButton.isHidden = false
+            self.sendMessageState(enable: false)
             self.inputTextView.text = ""
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
@@ -1475,6 +1588,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    @IBAction func didTapOnStickerButton(_ sender: UIButton) {
+        if isStickerKeyboard {
+            isStickerKeyboard = false
+        } else {
+            isStickerKeyboard = true
+        }
+        
+        stickerViewState(enable: isStickerKeyboard)
+    }
+    
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
         if currentAttachment == nil && inputTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil {
@@ -1570,8 +1693,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
             IGMessageSender.defaultSender.send(message: message, to: room!)
             
-            self.inputBarSendButton.isHidden = true
-            self.inputBarRecordButton.isHidden = false
+            self.sendMessageState(enable: false)
             self.inputTextView.text = ""
             self.currentAttachment = nil
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
@@ -1599,8 +1721,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                     IGMessageSender.defaultSender.send(message: message, to: self.room!)
                     
-                    self.inputBarSendButton.isHidden = true
-                    self.inputBarRecordButton.isHidden = false
+                    self.sendMessageState(enable: false)
                     self.inputTextView.text = ""
                     self.currentAttachment = nil
                     IGMessageViewController.selectedMessageToForwardToThisRoom = nil
@@ -1611,60 +1732,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    @available(iOS 10.0, *)
-    private func present() {
-        let viewController:UIViewController
-        viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
-        
-        for child in childViewControllers {
-            child.willMove(toParentViewController: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParentViewController()
-        }
-        addChildViewController(viewController)
-        
-        viewController.view.frame = view.bounds
-        viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        self.inputTextView.inputView = viewController.view
-        
-        let viewCustom = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 40))
-        viewCustom.backgroundColor = UIColor.dialogueBoxOutgoing()
-        
-        let stickerToolbar = IGStickerToolbar()
-        let scrollView = stickerToolbar.toolbarMaker()//view
-        self.inputTextView.inputAccessoryView = scrollView
-        
-        self.inputTextView.reloadInputViews()
-        self.inputTextView.becomeFirstResponder()
-        
-        viewController.view.snp.makeConstraints { (make) in
-            make.left.equalTo((self.inputTextView.inputView?.snp.left)!)
-            make.right.equalTo((self.inputTextView.inputView?.snp.right)!)
-            make.bottom.equalTo((self.inputTextView.inputView?.snp.bottom)!)
-            make.top.equalTo((self.inputTextView.inputView?.snp.top)!)
-        }
-        
-        viewController.didMove(toParentViewController: self)
-    }
-    
-    @objc func tapOnStickerToolbar(sender: UIButton) {
-        if #available(iOS 10.0, *) {
-            if let observer = IGStickerViewController.stickerToolbarObserver {
-                observer.onToolbarClick(index: sender.tag)
-            }
-        }
-    }
-    
     /************************************************************************/
     /*********************** Attachment Manager Start ***********************/
     /************************************************************************/
     @IBAction func didTapOnAddAttachmentButton(_ sender: UIButton) {
-        
-        if #available(iOS 10.0, *) {
-            present()
-        }
-        return
-        //self.inputTextView.resignFirstResponder()
+        self.inputTextView.resignFirstResponder()
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let camera = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
@@ -1995,8 +2067,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         IGMessageSender.defaultSender.send(message: message, to: self.room!)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.inputBarSendButton.isHidden = true
-            self.inputBarRecordButton.isHidden = false
+            self.sendMessageState(enable: false)
             self.inputTextView.text = ""
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
@@ -2014,11 +2085,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.setInputBarHeight()
         let text = inputTextView.text as NSString
         if text.length > 0 {
-            self.inputBarSendButton.isHidden = false
-            self.inputBarRecordButton.isHidden = true
+            self.sendMessageState(enable: true)
         } else {
-            self.inputBarSendButton.isHidden = true
-            self.inputBarRecordButton.isHidden = false
+            self.sendMessageState(enable: false)
         }
     }
     
@@ -2306,8 +2375,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func didSelectAttachment(_ attachment: IGFile) {
         self.currentAttachment = attachment
         self.setInputBarHeight()
-        self.inputBarSendButton.isHidden = false
-        self.inputBarRecordButton.isHidden = true
+        self.sendMessageState(enable: true)
         self.inputBarAttachmentViewFileNameLabel.text  = currentAttachment?.name
         self.inputBarAttachmentViewFileNameLabel.lineBreakMode = .byTruncatingMiddle
         self.inputBarAttachmentViewFileSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: currentAttachment!.size)
@@ -2331,7 +2399,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         
         self.inputTextView.text = message.message
-        inputTextView.placeholder = "Write here ..."
+        inputTextView.placeholder = "Message"
         self.inputTextView.becomeFirstResponder()
         self.inputBarOriginalMessageViewSenderNameLabel.text = "Edit Message"
         self.inputBarOriginalMessageViewBodyTextLabel.text = message.message
@@ -2525,18 +2593,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: UI states
     func setSendAndRecordButtonStates() {
         if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
-            inputBarSendButton.isHidden = false
-            inputBarRecordButton.isHidden = true
+            self.sendMessageState(enable: true)
         } else {
             let text = self.inputTextView.text as NSString
             if text.length == 0 && currentAttachment == nil {
                 //empty -> show recored
-                inputBarSendButton.isHidden = true
-                inputBarRecordButton.isHidden = false
+                self.sendMessageState(enable: false)
             } else {
                 //show send
-                inputBarSendButton.isHidden = false
-                inputBarRecordButton.isHidden = true
+                self.sendMessageState(enable: true)
             }
         }
     }
