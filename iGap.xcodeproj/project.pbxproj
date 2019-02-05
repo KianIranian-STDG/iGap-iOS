@@ -343,6 +343,10 @@
 		FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */; };
 		FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = FAB0F9451FE956D1008F23EB /* Splash.gif */; };
 		FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */; };
+		FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */; };
+		FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB436702209751A0073EEE1 /* Alamofire.framework */; };
+		FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367222097B850073EEE1 /* IGStructSticker.swift */; };
+		FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */; };
 		FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB798AD21A5681C0019FC92 /* Hero.framework */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */; };
@@ -838,6 +842,10 @@
 		FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGRequestManager.swift; path = "Request Manager/IGRequestManager.swift"; sourceTree = "<group>"; };
 		FAB0F9451FE956D1008F23EB /* Splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Splash.gif; sourceTree = "<group>"; };
 		FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSessionInfo.swift; sourceTree = "<group>"; };
+		FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiSticker.swift; sourceTree = "<group>"; };
+		FAB436702209751A0073EEE1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		FAB4367222097B850073EEE1 /* IGStructSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructSticker.swift; sourceTree = "<group>"; };
+		FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmSticker.swift; sourceTree = "<group>"; };
 		FAB798AD21A5681C0019FC92 /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallObserver.swift; sourceTree = "<group>"; };
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
@@ -972,6 +980,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */,
 				FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */,
 				FAE07F0022059C6D00BE3593 /* Messages.framework in Frameworks */,
 				FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */,
@@ -1487,6 +1496,7 @@
 				FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */,
 				FAD7451621B9447B00801D2E /* IGShareInfo.swift */,
 				FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */,
+				FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1508,6 +1518,7 @@
 			children = (
 				FA8FCBAE219C02E40028457F /* IGApi.swift */,
 				FA8FCBB4219C26C40028457F /* IGApiProtocol.swift */,
+				FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -1649,6 +1660,50 @@
 			path = "TwoStep Verification";
 			sourceTree = "<group>";
 		};
+		FAB4366B22096D130073EEE1 /* SampleFile */ = {
+			isa = PBXGroup;
+			children = (
+				FA7DE23C2205ACA0008C8ECA /* cake1.png */,
+				FA7DE22E2205AC97008C8ECA /* cake2.png */,
+				FA7DE24B2205ACAB008C8ECA /* cake3.png */,
+				FA7DE2332205AC9A008C8ECA /* cake4.png */,
+				FA7DE23E2205ACA1008C8ECA /* cake5.png */,
+				FA7DE24A2205ACAA008C8ECA /* cake6.png */,
+				FA7DE2422205ACA4008C8ECA /* candy1.png */,
+				FA7DE22D2205AC97008C8ECA /* candy2.png */,
+				FA7DE2302205AC99008C8ECA /* candy3.png */,
+				FA7DE2312205AC99008C8ECA /* candy4.png */,
+				FA7DE2462205ACA7008C8ECA /* candy5.png */,
+				FA7DE2322205AC9A008C8ECA /* candy6.png */,
+				FA7DE23F2205ACA2008C8ECA /* candy7.png */,
+				FA7DE2402205ACA3008C8ECA /* cookie1.png */,
+				FA7DE2342205AC9B008C8ECA /* cookie2.png */,
+				FA7DE23A2205AC9F008C8ECA /* cookie3.png */,
+				FA7DE2412205ACA3008C8ECA /* cookie4.png */,
+				FA7DE2372205AC9D008C8ECA /* cookie5.png */,
+				FA7DE23D2205ACA1008C8ECA /* drink1.png */,
+				FA7DE2282205AC94008C8ECA /* drink2.png */,
+				FA7DE22B2205AC96008C8ECA /* drink3.png */,
+				FA7DE2292205AC95008C8ECA /* drink4.png */,
+				FA7DE22C2205AC96008C8ECA /* drink5.png */,
+				FA7DE2362205AC9C008C8ECA /* pizza1.png */,
+				FA7DE22F2205AC98008C8ECA /* pizza2.png */,
+				FA7DE2382205AC9D008C8ECA /* pizza3.png */,
+				FA7DE2392205AC9E008C8ECA /* pizza4.png */,
+				FA7DE2432205ACA5008C8ECA /* pizza5.png */,
+				FA7DE2442205ACA6008C8ECA /* pizza6.png */,
+				FA7DE23B2205AC9F008C8ECA /* pizza7.png */,
+				FA7DE2452205ACA6008C8ECA /* pizza8.png */,
+				FA7DE2472205ACA8008C8ECA /* toffee1.png */,
+				FA7DE22A2205AC95008C8ECA /* toffee2.png */,
+				FA7DE2492205ACA9008C8ECA /* toffee3.png */,
+				FA7DE2482205ACA8008C8ECA /* toffee4.png */,
+				FA7DE2352205AC9C008C8ECA /* toffee5.png */,
+				FA7DE2702205B294008C8ECA /* FoodDrawerData.plist */,
+			);
+			path = SampleFile;
+			sourceTree = "<group>";
+		};
 		FAD530561E0BD6C300FE6C54 /* Custom Master Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1760,6 +1815,7 @@
 			children = (
 				FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */,
 				FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */,
+				FAB4367222097B850073EEE1 /* IGStructSticker.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -1776,43 +1832,7 @@
 		FAE07EFA2205999E00BE3593 /* Sticker */ = {
 			isa = PBXGroup;
 			children = (
-				FA7DE23C2205ACA0008C8ECA /* cake1.png */,
-				FA7DE22E2205AC97008C8ECA /* cake2.png */,
-				FA7DE24B2205ACAB008C8ECA /* cake3.png */,
-				FA7DE2332205AC9A008C8ECA /* cake4.png */,
-				FA7DE23E2205ACA1008C8ECA /* cake5.png */,
-				FA7DE24A2205ACAA008C8ECA /* cake6.png */,
-				FA7DE2422205ACA4008C8ECA /* candy1.png */,
-				FA7DE22D2205AC97008C8ECA /* candy2.png */,
-				FA7DE2302205AC99008C8ECA /* candy3.png */,
-				FA7DE2312205AC99008C8ECA /* candy4.png */,
-				FA7DE2462205ACA7008C8ECA /* candy5.png */,
-				FA7DE2322205AC9A008C8ECA /* candy6.png */,
-				FA7DE23F2205ACA2008C8ECA /* candy7.png */,
-				FA7DE2402205ACA3008C8ECA /* cookie1.png */,
-				FA7DE2342205AC9B008C8ECA /* cookie2.png */,
-				FA7DE23A2205AC9F008C8ECA /* cookie3.png */,
-				FA7DE2412205ACA3008C8ECA /* cookie4.png */,
-				FA7DE2372205AC9D008C8ECA /* cookie5.png */,
-				FA7DE23D2205ACA1008C8ECA /* drink1.png */,
-				FA7DE2282205AC94008C8ECA /* drink2.png */,
-				FA7DE22B2205AC96008C8ECA /* drink3.png */,
-				FA7DE2292205AC95008C8ECA /* drink4.png */,
-				FA7DE22C2205AC96008C8ECA /* drink5.png */,
-				FA7DE2362205AC9C008C8ECA /* pizza1.png */,
-				FA7DE22F2205AC98008C8ECA /* pizza2.png */,
-				FA7DE2382205AC9D008C8ECA /* pizza3.png */,
-				FA7DE2392205AC9E008C8ECA /* pizza4.png */,
-				FA7DE2432205ACA5008C8ECA /* pizza5.png */,
-				FA7DE2442205ACA6008C8ECA /* pizza6.png */,
-				FA7DE23B2205AC9F008C8ECA /* pizza7.png */,
-				FA7DE2452205ACA6008C8ECA /* pizza8.png */,
-				FA7DE2472205ACA8008C8ECA /* toffee1.png */,
-				FA7DE22A2205AC95008C8ECA /* toffee2.png */,
-				FA7DE2492205ACA9008C8ECA /* toffee3.png */,
-				FA7DE2482205ACA8008C8ECA /* toffee4.png */,
-				FA7DE2352205AC9C008C8ECA /* toffee5.png */,
-				FA7DE2702205B294008C8ECA /* FoodDrawerData.plist */,
+				FAB4366B22096D130073EEE1 /* SampleFile */,
 				FAE07EFD220599F500BE3593 /* IGStickerViewController.swift */,
 				FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */,
 				FAE07F032205A8B000BE3593 /* IGStickerSectionHeader.swift */,
@@ -1957,6 +1977,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAB436702209751A0073EEE1 /* Alamofire.framework */,
 				FA9688F72207209C00B1C1EB /* BLTNBoard.framework */,
 				FAE07EFF22059C6D00BE3593 /* Messages.framework */,
 				FAD8A02F21EE0E1C006996E1 /* SwiftyJSON.framework */,
@@ -2285,6 +2306,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BLTNBoard.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -2453,6 +2475,7 @@
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FAEE8D8F1E30ABA100599600 /* IGClientCondition.swift in Sources */,
+				FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */,
 				932D1AB31E740046000F0D97 /* IGGroupInfoShareMediaLinkTableViewCell.swift in Sources */,
 				FA8560AA1FFBA6FC00A25DC3 /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail.swift in Sources */,
 				FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */,
@@ -2513,6 +2536,7 @@
 				FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */,
 				FA8204382025C97300A795D5 /* ImageCell.swift in Sources */,
 				FA27F74020BD77ED00EC6A97 /* api.key in Sources */,
+				FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
@@ -2520,6 +2544,7 @@
 				FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */,
 				FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */,
 				FA0953701E1B97700043ED3F /* IGSettingsChatStickersModalView.swift in Sources */,
+				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
 				FA63BAA91DD70E77000B60AD /* IGRequestInfo.swift in Sources */,
 				FA09534E1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift in Sources */,

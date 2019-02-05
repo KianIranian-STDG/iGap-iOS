@@ -2995,4 +2995,34 @@ class IGFactory: NSObject {
             }.addToQueue()
         self.performNextFactoryTaskIfPossible()
     }
+    
+    
+    func setSticker(stickers: [StickerTab]) {
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    
+                    for sticker in stickers {
+                        let stickerItems: List<IGRealmStickerItem> = List<IGRealmStickerItem>()
+                        for stickerItem in sticker.stickers {
+                            stickerItems.append(IGRealmStickerItem(sticker: stickerItem))
+                        }
+                        
+                        IGDatabaseManager.shared.realm.add(IGRealmSticker(sticker: sticker, stickerItems: stickerItems), update: true)
+                    }
+                    
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
 }
