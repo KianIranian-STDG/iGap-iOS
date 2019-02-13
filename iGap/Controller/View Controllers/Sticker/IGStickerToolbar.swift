@@ -96,7 +96,7 @@ class IGStickerToolbar: UIGestureRecognizer {
                 let cacheId = file.cacheID
                 DispatchQueue.main.async {
                     if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                        imageView.setThumbnail(for: fileInfo)
+                        imageView.setSticker(for: fileInfo)
                     }
                 }
             })

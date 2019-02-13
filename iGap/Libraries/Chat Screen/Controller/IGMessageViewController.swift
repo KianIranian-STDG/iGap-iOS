@@ -506,15 +506,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func onStickerTap(stickerItem: IGRealmStickerItem) {
+        let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!)
         let message = IGRoomMessage(body: stickerItem.name!)
         message.type = .sticker
         message.roomId = self.room!.id
+        message.attachment = attachment
         message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
-        print("MMM || message 1 : \(message)")
+        IGAttachmentManager.sharedManager.add(attachment: attachment!)
+        
         let detachedMessage = message.detach()
-        print("MMM || message 2 : \(detachedMessage)")
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        IGMessageSender.defaultSender.send(message: message, to: self.room!)
+        IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
     }
     
     @objc func keyboardWillAppear() {

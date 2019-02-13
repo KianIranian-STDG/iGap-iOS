@@ -103,6 +103,10 @@ class IGAttachmentManager: NSObject {
         }
     }
     
+    func getFileInfo(token: String, PreviewType: Int = IGFile.PreviewType.originalFile.rawValue) -> IGFile? {
+        return try! Realm().objects(IGFile.self).filter(NSPredicate(format: "token = %@", token)).first
+    }
+    
     func saveDataToDisk(attachment: IGFile) -> String? {
         if let writePath = attachment.path() {
             do {

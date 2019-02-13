@@ -33,10 +33,11 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         
         initNavigationBar()
         fetchStickerInfo()
-        
+        print("FFF || stickerTabs: \(stickerTabs)")
         IGStickerViewController.stickerToolbarObserver = self
         
         self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+        self.view.backgroundColor = UIColor.sticker()
     }
     
     private func initNavigationBar(){

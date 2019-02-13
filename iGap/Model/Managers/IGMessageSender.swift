@@ -34,6 +34,11 @@ class IGMessageSender {
         }
     }
     
+    func sendSticker(message: IGRoomMessage, to room: IGRoom) {
+        let task = IGMessageSenderTask(message: message, room: room)
+        addTaskToPlainMessagesQueue(task)
+    }
+    
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
         let message = makeCopyOfMessage(message: message)

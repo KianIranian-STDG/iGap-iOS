@@ -651,13 +651,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageAttachment(file: IGFile? = nil){
         
-        if finalRoomMessage.type == .sticker {
+        if finalRoomMessage.type == .sticker || finalRoomMessage.additional?.dataType == AdditionalType.STICKER.rawValue {
             if let stickerStruct = IGHelperJson.parseStickerMessage(data: (finalRoomMessage.additional?.data)!) {
                 IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
                 DispatchQueue.main.async {
                     IGAttachmentManager.sharedManager.getFileInfo(token: stickerStruct.token) { (file) in
                         if let imageView = IGGlobal.imgDic[stickerStruct.token!] {
-                            imageView.setOriginalImage(file: file)
+                            imageView.setSticker(for: file)
                         }
                     }
                 }

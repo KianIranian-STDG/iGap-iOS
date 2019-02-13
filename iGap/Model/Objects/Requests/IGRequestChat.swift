@@ -56,6 +56,8 @@ class IGChatSendMessageRequest : IGRequest {
             sendMessageRequestMessage.igpMessageType = message.type.toIGP()
             if let attachmentToken = attachmentToken {
                 sendMessageRequestMessage.igpAttachment = attachmentToken
+            } else if let attachmentToken = message.attachment?.token {
+                sendMessageRequestMessage.igpAttachment = attachmentToken
             }
             
             if let repliedTo = message.repliedTo {

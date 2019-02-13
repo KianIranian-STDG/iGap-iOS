@@ -142,7 +142,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="4tV-l8-eh0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ycf-ve-rVC">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
@@ -157,29 +157,22 @@
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hfA-Wr-Skj" customClass="MSStickerView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsh-2v-iZN">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y52-ve-m6U">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                        </imageView>
                                     </subviews>
                                 </view>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Y52-ve-m6U" firstAttribute="leading" secondItem="8A6-Af-Eyw" secondAttribute="leading" id="GXh-kF-As0"/>
-                                    <constraint firstAttribute="bottom" secondItem="Y52-ve-m6U" secondAttribute="bottom" id="Oxi-Ya-xsh"/>
-                                    <constraint firstItem="hfA-Wr-Skj" firstAttribute="leading" secondItem="8A6-Af-Eyw" secondAttribute="leading" id="Sh9-WU-Agn"/>
-                                    <constraint firstAttribute="trailing" secondItem="hfA-Wr-Skj" secondAttribute="trailing" id="W9A-so-lGB"/>
-                                    <constraint firstAttribute="bottom" secondItem="hfA-Wr-Skj" secondAttribute="bottom" id="hbQ-jO-iHz"/>
-                                    <constraint firstItem="hfA-Wr-Skj" firstAttribute="top" secondItem="8A6-Af-Eyw" secondAttribute="top" id="o09-nG-CAg"/>
-                                    <constraint firstItem="Y52-ve-m6U" firstAttribute="top" secondItem="8A6-Af-Eyw" secondAttribute="top" id="p8f-8d-f0i"/>
-                                    <constraint firstAttribute="trailing" secondItem="Y52-ve-m6U" secondAttribute="trailing" id="tpS-mZ-Wkz"/>
+                                    <constraint firstAttribute="trailing" secondItem="gsh-2v-iZN" secondAttribute="trailing" id="50R-qR-FXp"/>
+                                    <constraint firstItem="gsh-2v-iZN" firstAttribute="leading" secondItem="8A6-Af-Eyw" secondAttribute="leading" id="Bpt-E1-Eni"/>
+                                    <constraint firstAttribute="bottom" secondItem="gsh-2v-iZN" secondAttribute="bottom" id="FaL-Qs-hhb"/>
+                                    <constraint firstItem="gsh-2v-iZN" firstAttribute="top" secondItem="8A6-Af-Eyw" secondAttribute="top" id="hBc-0D-xpg"/>
                                 </constraints>
                                 <size key="customSize" width="100" height="100"/>
                                 <connections>
-                                    <outlet property="imgSticker" destination="Y52-ve-m6U" id="Fjj-Ie-Kq3"/>
-                                    <outlet property="stickerView" destination="hfA-Wr-Skj" id="vob-VM-0n2"/>
+                                    <outlet property="mainView" destination="gsh-2v-iZN" id="gyV-p7-atd"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -203,13 +196,14 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="7hc-Pg-fJc" firstAttribute="centerY" secondItem="RZU-Oi-YWz" secondAttribute="centerY" id="0vi-yn-04y"/>
                                         <constraint firstAttribute="trailing" secondItem="7hc-Pg-fJc" secondAttribute="trailing" constant="10" id="UU7-Tw-LOG"/>
                                     </constraints>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="RZU-Oi-YWz" secondAttribute="trailing" id="VWE-7F-2wA"/>
                                 <constraint firstAttribute="bottom" secondItem="RZU-Oi-YWz" secondAttribute="bottom" id="hqk-Nn-Ife"/>

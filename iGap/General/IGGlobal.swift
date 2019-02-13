@@ -606,16 +606,7 @@ var imagesMap = [String : UIImageView]()
 
 //MARK: -
 extension UIImageView {
-    func setThumbnail(for attachment:IGFile, previewType: IGFile.PreviewType = .smallThumbnail) {
-        //NOTE: temporary commented due to performance problems
-//        if let path = attachment.path() {
-//            if IGGlobal.isFileExist(path: path) {
-//                if let image = UIImage(contentsOfFile: path.path) {
-//                    self.image = image
-//                    return
-//                }
-//            }
-//        }
+    func setThumbnail(for attachment:IGFile) {
         if attachment.type == .voice {
               self.image = UIImage(named:"IG_Message_Cell_Voice")
         } else if attachment.type == .file {
@@ -662,20 +653,13 @@ extension UIImageView {
                         
                         if image != nil {
                             self.image = image
-                            if previewType == .originalFile {
-                                throw NSError(domain: "asa", code: 1234, userInfo: nil)
-                            }
                         } else {
                             throw NSError(domain: "asa", code: 1234, userInfo: nil)
                         }
                     }
                 } catch {
                     imagesMap[attachment.token!] = self
-                    var downloadFile = thumbnail
-                    if previewType == .originalFile {
-                        downloadFile = attachment
-                    }
-                    IGDownloadManager.sharedManager.download(file: downloadFile, previewType: previewType, completion: { (attachment) -> Void in
+                    IGDownloadManager.sharedManager.download(file: thumbnail, previewType: .smallThumbnail, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
                             if let image = imagesMap[attachment.token!] {
                                 image.setThumbnail(for: attachment)
@@ -704,8 +688,32 @@ extension UIImageView {
         }
     }
     
-    func setOriginalImage(file: IGFile){
-        setThumbnail(for: file, previewType: .originalFile)
+    func setSticker(for attachment:IGFile) {
+        do {
+            var image: UIImage?
+            let path = attachment.path()
+            if IGGlobal.isFileExist(path: path) {
+                image = UIImage(contentsOfFile: path!.path)
+            }
+            if image != nil {
+                DispatchQueue.main.async {
+                    self.image = image
+                }
+            } else {
+                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+            }
+        } catch {
+            imagesMap[attachment.token!] = self
+            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
+                DispatchQueue.main.async {
+                    if let image = imagesMap[attachment.token!] {
+                        image.setSticker(for: attachment)
+                    }
+                }
+            }, failure: {
+                
+            })
+        }
     }
     
     func setImage(for attachment:IGFile) {

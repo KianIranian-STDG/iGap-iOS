@@ -16,29 +16,51 @@ import RealmSwift
 @available(iOS 10.0, *)
 class IGStickerCell: UICollectionViewCell {
     
-    @IBOutlet weak var stickerView: MSStickerView!
-    @IBOutlet weak var imgSticker: UIImageView!
+    @IBOutlet weak var mainView: UIView!
+    
+    var imgSticker: UIImageView!
     
     var stickerItem: IGRealmStickerItem!
     
     func configure(stickerItem: IGRealmStickerItem) {
-        self.stickerItem = stickerItem
-        
-        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnSticker(_:)))
-        stickerView.addGestureRecognizer(onStickerClick)
-        stickerView.isUserInteractionEnabled = true
-        
-        IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
-            let cacheId = file.cacheID
-            DispatchQueue.main.async {
-                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    self.imgSticker.setThumbnail(for: fileInfo)
+        DispatchQueue.main.async {
+            self.makeImage()
+            self.mainView.backgroundColor = UIColor.clear
+            self.imgSticker.backgroundColor = UIColor.clear
+            
+            self.stickerItem = stickerItem
+            
+            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
+            self.imgSticker.addGestureRecognizer(onStickerClick)
+            self.imgSticker.isUserInteractionEnabled = true
+            
+            IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                        self.imgSticker.setSticker(for: fileInfo)
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     
     func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
         IGStickerViewController.stickerTapListener.onStickerTap(stickerItem: self.stickerItem)
+    }
+    
+    private func makeImage(){
+        if imgSticker != nil {
+            imgSticker.removeFromSuperview()
+            imgSticker = nil
+        }
+        imgSticker = UIImageView()
+        mainView.addSubview(imgSticker)
+        imgSticker.snp.makeConstraints { (make) in
+            make.top.equalTo(mainView.snp.top)
+            make.left.equalTo(mainView.snp.left)
+            make.right.equalTo(mainView.snp.right)
+            make.bottom.equalTo(mainView.snp.bottom)
+        }
     }
 }
