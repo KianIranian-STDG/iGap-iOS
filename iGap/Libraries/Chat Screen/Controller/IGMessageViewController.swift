@@ -51,7 +51,8 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener {
+    
 
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
@@ -502,6 +503,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 }
             }
         }
+    }
+    
+    func onStickerTap(stickerItem: IGRealmStickerItem) {
+        let message = IGRoomMessage(body: stickerItem.name!)
+        message.type = .sticker
+        message.roomId = self.room!.id
+        message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
+        print("MMM || message 1 : \(message)")
+        let detachedMessage = message.detach()
+        print("MMM || message 2 : \(detachedMessage)")
+        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+        IGMessageSender.defaultSender.send(message: message, to: self.room!)
     }
     
     @objc func keyboardWillAppear() {
@@ -1044,6 +1057,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         super.viewDidAppear(animated)
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
+        if #available(iOS 10.0, *) {
+            IGStickerViewController.stickerTapListener = self
+        }
         IGRecentsTableViewController.visibleChat[(room?.id)!] = true
         IGAppManager.sharedManager.currentMessagesNotificationToekn = self.notificationToken
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -2689,6 +2705,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
 //MARK: - IGMessageCollectionViewDataSource
 extension IGMessageViewController: IGMessageCollectionViewDataSource {
+    
+    private func getMessageType(message: IGRoomMessage) -> IGRoomMessageType {
+        var finalMessage = message
+        if let forward = message.forwardedFrom {
+            finalMessage = forward
+        }
+        return finalMessage.type
+    }
+    
     func collectionView(_ collectionView: IGMessageCollectionView, messageAt indexpath: IndexPath) -> IGRoomMessage {
         return messages![indexpath.section]
     }
@@ -2711,6 +2736,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         var shouldShowAvatar = false
         var isPreviousMessageFromSameSender = false
         var isNextMessageFromSameSender = false
+        
+        let messageType = getMessageType(message: message)
         
         if message.type != .log {
             if messages!.indices.contains(indexPath.section + 1){
@@ -2742,10 +2769,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             shouldShowAvatar = false
         }
         
+        if messageType == .sticker {
         
-        if message.type == .log {
+            let cell: StickerCell = collectionView.dequeueReusableCell(withReuseIdentifier: StickerCell.cellReuseIdentifier(), for: indexPath) as! StickerCell
+            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
+            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+            cell.delegate = self
+            return cell
+            
+        } else if message.type == .log {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
-            //let bubbleSize = IGMessageCollectionViewCellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
             cell.setMessage(message, room: self.room!,
                             isIncommingMessage: true,
@@ -3378,6 +3411,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
+        
+        if cellMessage.type == .sticker {
+            return
+        }
         
         var finalMessage = cellMessage
         var roomMessageLists = self.messagesWithMedia

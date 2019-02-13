@@ -13,7 +13,24 @@ import SwiftyRSA
 import SwiftyJSON
 
 class IGHelperJson {
+    
+    /*************************************************************************/
+    /**************************** Popular Method *****************************/
+    
+    private static func getJson(data: String) -> JSON? {
+        do {
+            if let dataFromString = data.data(using: .utf8, allowLossyConversion: false) {
+                return try JSON(data: dataFromString)
+            }
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
 
+    /*************************************************************************/
+    /*************************** Additional Button ***************************/
+    
     internal static func parseAdditionalButton(data: String?) -> [[IGStructAdditionalButton]]? {
         
         if data == nil {return nil}
@@ -52,4 +69,36 @@ class IGHelperJson {
         }
         return 0
     }
+    
+    
+    /*************************************************************************/
+    /******************************** Sticker ********************************/
+    
+    /* convert message additional data to sticker struct */
+    internal static func parseStickerMessage(data: String) -> IGStructStickerMessage? {
+        if let json = getJson(data: data) {
+            return IGStructStickerMessage(json)
+        }
+        return nil
+    }
+    
+    /* convert message additional data to sticker struct */
+    internal static func convertRealmToJson(stickerItem: IGRealmStickerItem) -> String? {
+      
+        let dict = ["id" : stickerItem.id,
+                    "refID" : stickerItem.refID,
+                    "name" : stickerItem.name,
+                    "token" : stickerItem.token,
+                    "fileName" : stickerItem.fileName,
+                    "fileSize" : stickerItem.fileSize,
+                    "sort" : stickerItem.sort,
+                    "groupID": stickerItem.groupID] as [String: Any?]
+        
+        let json = JSON(dict).rawString()
+        
+        print("JJJ || json: \(json)")
+        
+        return json
+    }
+    
 }

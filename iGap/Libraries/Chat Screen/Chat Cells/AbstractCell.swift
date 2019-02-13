@@ -126,6 +126,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageTextMessage(){
         
+        if finalRoomMessage.type == .sticker {
+            return
+        }
+        
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs.font = CellSizeCalculator.messageBodyTextViewFont()
             messageViewAbs?.isHidden = false
@@ -157,11 +161,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageViewPosition(){
         
-        if txtMessageAbs == nil {
+        if txtMessageAbs == nil && finalRoomMessage.type != .sticker {
             return
         }
         
-        if finalRoomMessage.attachment == nil {
+        if finalRoomMessage.attachment == nil && finalRoomMessage.type != .sticker {
             if isForward {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
                     if (finalRoomMessage.message?.isRTL())! {
@@ -192,6 +196,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             
         } else {
             switch (finalRoomMessage.type) {
+            case .sticker:
+                makeImage(.sticker)
+                break
+                
             case .image, .video, .gif:
 
                 makeImage(finalRoomMessage.type)
@@ -379,7 +387,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18
         mainBubbleViewAbs.layer.masksToBounds = true
-        mainBubbleViewAbs.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
+        if finalRoomMessage.type == .sticker {
+            mainBubbleViewAbs.backgroundColor = UIColor.clear
+        } else {
+            mainBubbleViewAbs.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
+        }
         
         /************ Bubble Size ************/
         mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width //mainBubbleViewWidthAbs.priority = 1000
@@ -637,7 +649,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
      ******************************************************************
      */
     
-    private func manageAttachment(){
+    private func manageAttachment(file: IGFile? = nil){
+        
+        if finalRoomMessage.type == .sticker {
+            if let stickerStruct = IGHelperJson.parseStickerMessage(data: (finalRoomMessage.additional?.data)!) {
+                IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
+                DispatchQueue.main.async {
+                    IGAttachmentManager.sharedManager.getFileInfo(token: stickerStruct.token) { (file) in
+                        if let imageView = IGGlobal.imgDic[stickerStruct.token!] {
+                            imageView.setOriginalImage(file: file)
+                        }
+                    }
+                }
+            }
+            return
+        }
         
         if var attachment = finalRoomMessage.attachment {
             
@@ -1070,7 +1096,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             mainBubbleViewAbs.addSubview(imgMediaAbs)
         }
         
-        if indicatorViewAbs == nil {
+        if indicatorViewAbs == nil && messageType != .sticker {
             indicatorViewAbs = IGDownloadUploadIndicatorView()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
         }
@@ -1094,17 +1120,23 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             } else {
                 imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).constraint
             }
-            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
+            if messageType == .sticker {
+                imgMediaHeightAbs = make.height.equalTo(messageSizes.bubbleSize.height).constraint
+            } else {
+                imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
+            }
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }
         }
         
-        indicatorViewAbs.snp.makeConstraints { (make) in
-            make.top.equalTo(imgMediaAbs.snp.top)
-            make.bottom.equalTo(imgMediaAbs.snp.bottom)
-            make.trailing.equalTo(imgMediaAbs.snp.trailing)
-            make.leading.equalTo(imgMediaAbs.snp.leading)
+        if messageType != .sticker {
+            indicatorViewAbs.snp.makeConstraints { (make) in
+                make.top.equalTo(imgMediaAbs.snp.top)
+                make.bottom.equalTo(imgMediaAbs.snp.bottom)
+                make.trailing.equalTo(imgMediaAbs.snp.trailing)
+                make.leading.equalTo(imgMediaAbs.snp.leading)
+            }
         }
     }
     

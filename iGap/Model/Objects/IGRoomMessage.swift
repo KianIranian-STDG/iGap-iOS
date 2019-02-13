@@ -114,7 +114,7 @@ class IGRoomMessage: Object {
         if igpMessage.igpStatusVersion != 0 {
             self.statusVersion = igpMessage.igpStatusVersion
         }
-        self.type = IGRoomMessageType.unknown.fromIGP(igpMessage.igpMessageType)
+        self.type = IGRoomMessageType.unknown.fromIGP(igpMessage.igpMessageType, igpRoomMessage: igpMessage)
         self.message = igpMessage.igpMessage
         
         if igpMessage.hasIgpAttachment {
@@ -355,6 +355,10 @@ class IGRoomMessage: Object {
         if let location = self.location {
             let detachedLocation = location.detach()
             detachedMessage.location = detachedLocation
+        }
+        if let additional = self.additional {
+            let detachedAdditional = additional.detach()
+            detachedMessage.additional = detachedAdditional
         }
         
         return detachedMessage

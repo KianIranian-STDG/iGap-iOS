@@ -15,10 +15,19 @@ import RealmSwift
 
 @available(iOS 10.0, *)
 class IGStickerCell: UICollectionViewCell {
+    
     @IBOutlet weak var stickerView: MSStickerView!
     @IBOutlet weak var imgSticker: UIImageView!
     
+    var stickerItem: IGRealmStickerItem!
+    
     func configure(stickerItem: IGRealmStickerItem) {
+        self.stickerItem = stickerItem
+        
+        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnSticker(_:)))
+        stickerView.addGestureRecognizer(onStickerClick)
+        stickerView.isUserInteractionEnabled = true
+        
         IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
@@ -27,5 +36,9 @@ class IGStickerCell: UICollectionViewCell {
                 }
             }
         })
+    }
+    
+    func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGStickerViewController.stickerTapListener.onStickerTap(stickerItem: self.stickerItem)
     }
 }

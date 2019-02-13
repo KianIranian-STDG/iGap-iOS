@@ -30,4 +30,9 @@ class IGRealmAdditional: Object {
         self.dataType = additionalType
         self.data = additionalData
     }
+    
+    func detach() -> IGRealmAdditional {
+        let detachedAdditional = IGRealmAdditional(value: self)
+        return detachedAdditional
+    }
 }

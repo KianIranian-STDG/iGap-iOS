@@ -53,40 +53,7 @@ class IGChatSendMessageRequest : IGRequest {
                 sendMessageRequestMessage.igpMessage = text
             }
             sendMessageRequestMessage.igpRoomID = room.id
-            switch message.type {
-            case .text:
-                sendMessageRequestMessage.igpMessageType = .text
-            case .image:
-                sendMessageRequestMessage.igpMessageType = .image
-            case .imageAndText:
-                sendMessageRequestMessage.igpMessageType = .imageText
-            case .video:
-                sendMessageRequestMessage.igpMessageType = .video
-            case .videoAndText:
-                sendMessageRequestMessage.igpMessageType = .videoText
-            case .audio:
-                sendMessageRequestMessage.igpMessageType = .audio
-            case .audioAndText:
-                sendMessageRequestMessage.igpMessageType = .audioText
-            case .voice:
-                sendMessageRequestMessage.igpMessageType = .voice
-            case .gif:
-                sendMessageRequestMessage.igpMessageType = .gif
-            case .file:
-                sendMessageRequestMessage.igpMessageType = .file
-            case .fileAndText:
-                sendMessageRequestMessage.igpMessageType = .fileText
-            case .location:
-                sendMessageRequestMessage.igpMessageType = .location
-            case .log:
-                sendMessageRequestMessage.igpMessageType = .log
-            case .contact:
-                sendMessageRequestMessage.igpMessageType = .contact
-            case .gifAndText:
-                sendMessageRequestMessage.igpMessageType = .gifText
-            default:
-                break
-            }
+            sendMessageRequestMessage.igpMessageType = message.type.toIGP()
             if let attachmentToken = attachmentToken {
                 sendMessageRequestMessage.igpAttachment = attachmentToken
             }

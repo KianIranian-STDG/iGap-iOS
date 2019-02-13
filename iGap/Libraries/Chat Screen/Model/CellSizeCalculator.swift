@@ -120,7 +120,10 @@ class CellSizeCalculator: NSObject {
         
         let text = finalMessage.message as NSString?
         
-        if finalMessage.attachment != nil {
+        if finalMessage.type == .sticker {
+            finalSize.height = 200
+            finalSize.width = 200
+        } else if finalMessage.attachment != nil {
             let attachmentFrame = mediaFrame(media: finalMessage.attachment!,
                                              maxWidth:  ConstantSizes.Bubble.Width.Maximum.Attachment,
                                              maxHeight: ConstantSizes.Bubble.Height.Maximum.Attachment,
@@ -128,6 +131,18 @@ class CellSizeCalculator: NSObject {
                                              minHeight: ConstantSizes.Bubble.Height.Minimum.Attachment)
             
             switch finalMessage.type {
+            case .sticker:
+                messageAttachmentHeight = attachmentFrame.height
+                if text != nil && text != "" {
+                    finalSize.height += ConstantSizes.Media.ExtraHeightWithText
+                } else {
+                    finalSize.height += ConstantSizes.Media.ExtraHeight
+                }
+                
+                finalSize.height += attachmentFrame.height
+                finalSize.width = attachmentFrame.width
+                break
+                
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
                 messageAttachmentHeight = attachmentFrame.height
                 if text != nil && text != "" {

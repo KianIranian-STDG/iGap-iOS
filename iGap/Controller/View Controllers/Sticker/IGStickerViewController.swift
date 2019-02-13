@@ -25,6 +25,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     var isAddStickerPage = false
     var stickerTabs: Results<IGRealmSticker>!
     
+    static var stickerTapListener: StickerTapListener!
     static var stickerToolbarObserver: StickerToolbarObserver!
     
     override func viewDidLoad() {
@@ -35,7 +36,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         
         IGStickerViewController.stickerToolbarObserver = self
         
-        self.collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+        self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
     }
     
     private func initNavigationBar(){

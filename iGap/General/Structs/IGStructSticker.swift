@@ -8,43 +8,67 @@
  * All rights reserved.
  */
 
+import SwiftyJSON
+
 struct StickerApi: Codable {
     let ok: Bool
     let data: [StickerTab]
 }
 
 struct StickerTab: Codable {
-    let createdAt: Int
+    let createdAt, updatedAt: Int64
     let id: String
-    let refID: Int
+    let refID: Int64
     let name, avatarToken: String
     let avatarSize: Int
     let avatarName: String
     let price: Int
     let isVip: Bool
     let sort: Int
-    let approved: Bool
-    let createdBy: Int
+    let status: String
+    let createdBy: Int64
     let stickers: [Sticker]
     
     enum CodingKeys: String, CodingKey {
-        case createdAt, id
+        case createdAt, updatedAt, id
         case refID = "refId"
-        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, approved, createdBy, stickers
+        case name, avatarToken, avatarSize, avatarName, price, isVip, sort, status, createdBy, stickers
     }
 }
 
 struct Sticker: Codable {
+    let createdAt, updatedAt: Int
     let id: String
     let refID: Int
     let name, token, fileName: String
     let fileSize, sort: Int
-    let groupID: String
+    let groupID, status: String
     
     enum CodingKeys: String, CodingKey {
-        case id
+        case createdAt, updatedAt, id
         case refID = "refId"
         case name, token, fileName, fileSize, sort
         case groupID = "groupId"
+        case status
     }
 }
+
+class IGStructStickerMessage {
+    
+    var id : Int64!
+    var name : String!
+    var groupId : String!
+    var token : String!
+    var filename : String!
+    var filesize : Int!
+    
+    init(_ json: JSON) {
+        self.id = json["id"].int64Value
+        self.name = json["name"].stringValue
+        self.groupId = json["groupId"].stringValue
+        self.token = json["token"].stringValue
+        self.filename = json["filename"].stringValue
+        self.filesize = json["filesize"].intValue
+    }
+}
+

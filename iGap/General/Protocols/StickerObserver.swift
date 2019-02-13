@@ -11,3 +11,7 @@
 protocol StickerToolbarObserver {
     func onToolbarClick(index: Int)
 }
+
+protocol StickerTapListener {
+    func onStickerTap(stickerItem: IGRealmStickerItem)
+}

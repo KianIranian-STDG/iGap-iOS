@@ -24,6 +24,8 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 class IGGlobal {
     
+    static var imgDic : [String: IGImageView] = [:]
+    
     static var heroTabIndex : Int = -1
     
     /**********************************************/
@@ -604,7 +606,7 @@ var imagesMap = [String : UIImageView]()
 
 //MARK: -
 extension UIImageView {
-    func setThumbnail(for attachment:IGFile) {
+    func setThumbnail(for attachment:IGFile, previewType: IGFile.PreviewType = .smallThumbnail) {
         //NOTE: temporary commented due to performance problems
 //        if let path = attachment.path() {
 //            if IGGlobal.isFileExist(path: path) {
@@ -660,13 +662,20 @@ extension UIImageView {
                         
                         if image != nil {
                             self.image = image
+                            if previewType == .originalFile {
+                                throw NSError(domain: "asa", code: 1234, userInfo: nil)
+                            }
                         } else {
                             throw NSError(domain: "asa", code: 1234, userInfo: nil)
                         }
                     }
                 } catch {
                     imagesMap[attachment.token!] = self
-                    IGDownloadManager.sharedManager.download(file: thumbnail, previewType:.smallThumbnail, completion: { (attachment) -> Void in
+                    var downloadFile = thumbnail
+                    if previewType == .originalFile {
+                        downloadFile = attachment
+                    }
+                    IGDownloadManager.sharedManager.download(file: downloadFile, previewType: previewType, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
                             if let image = imagesMap[attachment.token!] {
                                 image.setThumbnail(for: attachment)
@@ -693,7 +702,10 @@ extension UIImageView {
                 }
             }
         }
-        
+    }
+    
+    func setOriginalImage(file: IGFile){
+        setThumbnail(for: file, previewType: .originalFile)
     }
     
     func setImage(for attachment:IGFile) {

@@ -50,6 +50,7 @@ class IGMessageCollectionView: UICollectionView {
         self.register(VoiceCell.nib(), forCellWithReuseIdentifier: VoiceCell.cellReuseIdentifier())
         self.register(AudioCell.nib(), forCellWithReuseIdentifier: AudioCell.cellReuseIdentifier())
         self.register(LocationCell.nib(), forCellWithReuseIdentifier: LocationCell.cellReuseIdentifier())
+        self.register(StickerCell.nib(), forCellWithReuseIdentifier: StickerCell.cellReuseIdentifier())
         self.register(IGMessageLogCollectionViewCell.nib(), forCellWithReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier())
         self.register(IGMessageLogCollectionViewCell.nib(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier())
     }
