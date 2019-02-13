@@ -23,32 +23,49 @@ class IGStickerCell: UICollectionViewCell {
     var stickerItem: IGRealmStickerItem!
     
     func configure(stickerItem: IGRealmStickerItem) {
-        DispatchQueue.main.async {
-            self.makeImage()
-            self.mainView.backgroundColor = UIColor.clear
-            self.imgSticker.backgroundColor = UIColor.clear
-            
-            self.stickerItem = stickerItem
-            
-            let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
-            self.imgSticker.addGestureRecognizer(onStickerClick)
-            self.imgSticker.isUserInteractionEnabled = true
-            
-            IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
-                let cacheId = file.cacheID
-                DispatchQueue.main.async {
-                    if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                        self.imgSticker.setSticker(for: fileInfo)
-                    }
+        self.makeImage()
+        self.mainView.backgroundColor = UIColor.clear
+        self.imgSticker.backgroundColor = UIColor.clear
+        
+        self.stickerItem = stickerItem
+        
+        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnSticker(_:)))
+        self.imgSticker.addGestureRecognizer(onStickerClick)
+        self.imgSticker.isUserInteractionEnabled = true
+        
+        IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
+            let cacheId = file.cacheID
+            DispatchQueue.main.async {
+                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                    self.imgSticker.setSticker(for: fileInfo)
                 }
-            })
-        }
+            }
+        })
     }
     
+    func configureListPage(stickerItem: Sticker) {
+        self.makeImage()
+        self.mainView.backgroundColor = UIColor.clear
+        self.imgSticker.backgroundColor = UIColor.clear
+        
+        IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token, completion: { (file) -> Void in
+            let cacheId = file.cacheID
+            DispatchQueue.main.async {
+                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                    self.imgSticker.setSticker(for: fileInfo)
+                }
+            }
+        })
+    }
+    
+    /********************************/
+    /*********** Callback ***********/
     func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
         IGStickerViewController.stickerTapListener.onStickerTap(stickerItem: self.stickerItem)
     }
     
+    /********************************/
+    /********** View Maker **********/
     private func makeImage(){
         if imgSticker != nil {
             imgSticker.removeFromSuperview()

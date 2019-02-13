@@ -3025,7 +3025,7 @@ class IGFactory: NSObject {
     }
     
     
-    func setSticker(stickers: [StickerTab]) {
+    func addSticker(stickers: [StickerTab]) {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -3040,6 +3040,49 @@ class IGFactory: NSObject {
                         IGDatabaseManager.shared.realm.add(IGRealmSticker(sticker: sticker, stickerItems: stickerItems), update: true)
                     }
                     
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    func removeSticker(groupId: String) {
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "id = %@", groupId)
+                    if let stickerItem = IGDatabaseManager.shared.realm.objects(IGRealmSticker.self).filter(predicate).first {
+                        IGDatabaseManager.shared.realm.delete(stickerItem)
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
+    func removeAllSticker() {
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRealmSticker.self))
                 }
                 IGFactory.shared.performInFactoryQueue {
                     task.success!()

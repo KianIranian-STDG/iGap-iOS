@@ -95,9 +95,6 @@ class IGHelperJson {
                     "groupID": stickerItem.groupID] as [String: Any?]
         
         let json = JSON(dict).rawString()
-        
-        print("JJJ || json: \(json)")
-        
         return json
     }
     

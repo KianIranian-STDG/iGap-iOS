@@ -48,6 +48,13 @@ class IGRealmSticker: Object {
         self.createdBy = sticker.createdBy
         self.stickerItems = stickerItems
     }
+    
+    internal static func isMySticker(id: String) -> Bool {
+        if let _ = try! Realm().objects(IGRealmSticker.self).filter("id = %@", id).first {
+            return true
+        }
+        return false
+    }
 }
 
 

@@ -14,7 +14,7 @@ import RealmSwift
 private let reuseIdentifier = "StickerCell"
 
 @available(iOS 10.0, *)
-class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver {
+class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener {
     
     let numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
@@ -24,20 +24,34 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     var selectedIndexManually: Int = -1
     var isAddStickerPage = false
     var stickerTabs: Results<IGRealmSticker>!
+    var stickerList: [StickerTab] = []// use this variable at sticker list page
+    var offset: Int = 0
+    let FETCH_LIMIT = 10
+    
+    static var addStickerIndex: Int = -1
     
     static var stickerTapListener: StickerTapListener!
     static var stickerToolbarObserver: StickerToolbarObserver!
+    static var stickerAddListener: StickerAddListener!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        IGStickerViewController.stickerToolbarObserver = self
+        IGStickerViewController.stickerAddListener = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initNavigationBar()
-        fetchStickerInfo()
-        print("FFF || stickerTabs: \(stickerTabs)")
-        IGStickerViewController.stickerToolbarObserver = self
         
-        self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+        self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         self.view.backgroundColor = UIColor.sticker()
+        
+        if isAddStickerPage {
+            fetchStickerList()
+        } else {
+            fetchMySticker()
+        }
     }
     
     private func initNavigationBar(){
@@ -48,8 +62,28 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
-    private func fetchStickerInfo(){
+    private func fetchMySticker(){
         stickerTabs = try! Realm().objects(IGRealmSticker.self)
+    }
+    
+    private func fetchStickerList(){
+        IGApiSticker.shared.stickerList(offset: offset, limit: FETCH_LIMIT) { (stickers) in
+            
+            if stickers.count == 0 { return }
+            
+            for sticker in stickers {
+                self.stickerList.append(sticker)
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.offset += self.FETCH_LIMIT
+                self.fetchStickerList()
+            }
+        }
     }
     
     /************* Observer *************/
@@ -57,6 +91,10 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         selectedIndexManually = index
         goToPosition(position: index)
         highlightSelected(index: index)
+    }
+    
+    func onStickerAdd(index: Int) {
+        self.collectionView?.reloadSections(IndexSet([index]))
     }
     
     private func goToPosition(position: Int){
@@ -77,12 +115,15 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if isAddStickerPage {
+            return stickerList.count
+        }
         return stickerTabs.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let stickerCount = stickerTabs[section].stickerItems.count
         if isAddStickerPage {
+            let stickerCount = stickerList[section].stickers.count
             if stickerCount < 5 {
                 return stickerCount
             }
@@ -112,8 +153,11 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
                     self.selectedIndexManually = -1
                 }
             }
-            
-            stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
+            if self.isAddStickerPage {
+                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
+            } else {
+                stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
+            }
         }
     }
     
@@ -121,11 +165,10 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:String(describing: IGStickerSectionHeader.self), for: indexPath)
         
         if let foodHeader = headerView as? IGStickerSectionHeader {
-            let sticker = self.stickerTabs[indexPath.section]
             if isAddStickerPage {
-                foodHeader.configureAddSticker(sticker: sticker)
+                foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
             } else {
-                foodHeader.configure(sticker: sticker)
+                foodHeader.configure(sticker: self.stickerTabs[indexPath.section])
             }
         }
         return headerView
