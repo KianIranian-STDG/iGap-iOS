@@ -137,14 +137,14 @@ class IGStickerSectionHeader: UICollectionReusableView {
                 self.btnSticker.layer.borderColor = UIColor.swipeRed().cgColor
                 self.btnSticker.titleLabel?.textColor = UIColor.swipeRed()
                 self.btnSticker.setTitle("REMOVE", for: UIControlState.normal)
-                self.btnSticker.removeUnderline()
+                //self.btnSticker.removeUnderline()
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.btnSticker.layer.borderColor = UIColor.blue.cgColor
                 self.btnSticker.titleLabel?.textColor = UIColor.blue
                 self.btnSticker.setTitle("ADD", for: UIControlState.normal)
-                self.btnSticker.removeUnderline()
+                //self.btnSticker.removeUnderline()
             }
         }
     }

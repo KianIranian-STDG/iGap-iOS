@@ -72,6 +72,7 @@ class IGStickerCell: UICollectionViewCell {
             imgSticker = nil
         }
         imgSticker = UIImageView()
+        imgSticker.contentMode = .scaleAspectFit
         mainView.addSubview(imgSticker)
         imgSticker.snp.makeConstraints { (make) in
             make.top.equalTo(mainView.snp.top)

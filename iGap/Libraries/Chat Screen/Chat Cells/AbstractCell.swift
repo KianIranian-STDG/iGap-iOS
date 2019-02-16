@@ -1120,11 +1120,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             } else {
                 imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).constraint
             }
-            if messageType == .sticker {
-                imgMediaHeightAbs = make.height.equalTo(messageSizes.bubbleSize.height).constraint
-            } else {
-                imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
-            }
+            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }

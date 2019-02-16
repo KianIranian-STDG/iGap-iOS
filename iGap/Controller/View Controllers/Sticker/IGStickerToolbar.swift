@@ -68,6 +68,7 @@ class IGStickerToolbar: UIGestureRecognizer {
     private func makeTabIcon(parent: UIScrollView, index: Int, realmSticker: IGRealmSticker? = nil, imageName: String? = nil){
 
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         
         let btn = UIButton()
         IGStickerToolbar.buttonArray.append(btn)
