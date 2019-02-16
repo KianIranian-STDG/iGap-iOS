@@ -15,22 +15,27 @@ import SnapKit
 class IGStickerSectionHeader: UICollectionReusableView {
     
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var btnSticker: UIButton!
+    @IBOutlet weak var stickerAddRemove: UILabel!
     
     var txtStickerTitle: UILabel!
     var txtStickerCount: UILabel!
     var sectionIndex: Int!
     var stickerTab: StickerTab!
+    let ANIMATE_TIME = 0.2
     
     func configure(sticker: IGRealmSticker) {
         makeStickerTitle(isAddStickerPage: false)
-        btnSticker.isHidden = true
+        stickerAddRemove.isHidden = true
         txtStickerTitle.text = sticker.name
     }
     
     func configureListPage(sticker: StickerTab, sectionIndex: Int) {
         self.stickerTab = sticker
         self.sectionIndex = sectionIndex
+    
+        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnAddOrRemove(_:)))
+        self.stickerAddRemove.addGestureRecognizer(onStickerClick)
+        self.stickerAddRemove.isUserInteractionEnabled = true
         
         makeStickerTitle(isAddStickerPage: true)
         makeStickerCount()
@@ -40,8 +45,22 @@ class IGStickerSectionHeader: UICollectionReusableView {
         txtStickerCount.text = String(describing: sticker.stickers.count) + " Stickers"
     }
     
-    @IBAction func btnAddOrRemove(_ sender: UIButton) {
-        
+    func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {
+        UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
+            self.stickerAddRemove.isHidden = true
+            
+            self.changeRemoveAdd()
+            
+        }, completion: { (completed) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                    self.stickerAddRemove.isHidden = false
+                }, completion: nil)
+            }
+        })
+    }
+    
+    private func changeRemoveAdd(){
         if IGRealmSticker.isMySticker(id: self.stickerTab.id) {
             
             IGGlobal.prgShow(self)
@@ -50,7 +69,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
                     IGFactory.shared.removeSticker(groupId: self.stickerTab.id)
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     if success {
                         IGStickerViewController.stickerAddListener.onStickerAdd(index: self.sectionIndex)
                     }
@@ -66,7 +85,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
                     IGFactory.shared.addSticker(stickers: [self.stickerTab])
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     if success {
                         IGStickerViewController.stickerAddListener.onStickerAdd(index: self.sectionIndex)
                     }
@@ -128,23 +147,21 @@ class IGStickerSectionHeader: UICollectionReusableView {
     
     private func makeStickerAddButton(){
         
-        btnSticker.layer.borderWidth = 1
-        btnSticker.layer.cornerRadius = 8
-        btnSticker.layer.masksToBounds = true
+        stickerAddRemove.layer.borderWidth = 1
+        stickerAddRemove.layer.cornerRadius = 8
+        stickerAddRemove.layer.masksToBounds = true
         
         if IGRealmSticker.isMySticker(id: self.stickerTab.id) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.btnSticker.layer.borderColor = UIColor.swipeRed().cgColor
-                self.btnSticker.titleLabel?.textColor = UIColor.swipeRed()
-                self.btnSticker.setTitle("REMOVE", for: UIControlState.normal)
-                //self.btnSticker.removeUnderline()
+                self.stickerAddRemove.layer.borderColor = UIColor.swipeRed().cgColor
+                self.stickerAddRemove.textColor = UIColor.swipeRed()
+                self.stickerAddRemove.text = "REMOVE"
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.btnSticker.layer.borderColor = UIColor.blue.cgColor
-                self.btnSticker.titleLabel?.textColor = UIColor.blue
-                self.btnSticker.setTitle("ADD", for: UIControlState.normal)
-                //self.btnSticker.removeUnderline()
+                self.stickerAddRemove.layer.borderColor = UIColor.blue.cgColor
+                self.stickerAddRemove.textColor = UIColor.blue
+                self.stickerAddRemove.text = "ADD"
             }
         }
     }

@@ -183,25 +183,21 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-Oi-YWz">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hc-Pg-fJc">
-                                            <rect key="frame" x="300" y="10" width="65" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REMOVE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efT-CA-J3p">
+                                            <rect key="frame" x="300" y="7.5" width="65" height="35"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="65" id="Lvz-kt-fck"/>
-                                                <constraint firstAttribute="height" constant="30" id="fbA-rX-Mg0"/>
+                                                <constraint firstAttribute="width" constant="65" id="BoI-2g-kyU"/>
+                                                <constraint firstAttribute="height" constant="35" id="scS-wq-Mph"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="ADD">
-                                                <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="btnAddOrRemove:" destination="XLU-0X-GL7" eventType="touchUpInside" id="B4b-Xm-DNK"/>
-                                            </connections>
-                                        </button>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="7hc-Pg-fJc" firstAttribute="centerY" secondItem="RZU-Oi-YWz" secondAttribute="centerY" id="0vi-yn-04y"/>
-                                        <constraint firstAttribute="trailing" secondItem="7hc-Pg-fJc" secondAttribute="trailing" constant="10" id="UU7-Tw-LOG"/>
+                                        <constraint firstAttribute="trailing" secondItem="efT-CA-J3p" secondAttribute="trailing" constant="10" id="4m0-qT-uwP"/>
+                                        <constraint firstItem="efT-CA-J3p" firstAttribute="centerY" secondItem="RZU-Oi-YWz" secondAttribute="centerY" id="KOo-Iy-Vuf"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -213,8 +209,8 @@
                                 <constraint firstItem="RZU-Oi-YWz" firstAttribute="top" secondItem="XLU-0X-GL7" secondAttribute="top" id="oxE-8K-51O"/>
                             </constraints>
                             <connections>
-                                <outlet property="btnSticker" destination="7hc-Pg-fJc" id="OcT-HF-iMP"/>
                                 <outlet property="mainView" destination="RZU-Oi-YWz" id="j4M-mw-nb2"/>
+                                <outlet property="stickerAddRemove" destination="efT-CA-J3p" id="71E-9S-qzm"/>
                             </connections>
                         </collectionReusableView>
                         <connections>
