@@ -16,20 +16,21 @@ private let reuseIdentifier = "StickerCell"
 @available(iOS 10.0, *)
 class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener {
     
-    let numberOfItemsPerRow = 5.0 as CGFloat
+    var numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
     let interRowSpacing = 1.0 as CGFloat
     let sectionTitleKey = "SectionTitle"
     let sectionItemsKey = "Items"
     var selectedIndexManually: Int = -1
-    var isAddStickerPage = false
+    var stickerPageType = StickerPageType.MAIN
     var stickerTabs: Results<IGRealmSticker>!
     var stickerList: [StickerTab] = []// use this variable at sticker list page
     var offset: Int = 0
     let FETCH_LIMIT = 10
-    
+    var stickerGroupId: String?
+
+    static var previewSectionIndex: Int = -1
     static var addStickerIndex: Int = -1
-    
     static var stickerTapListener: StickerTapListener!
     static var stickerToolbarObserver: StickerToolbarObserver!
     static var stickerAddListener: StickerAddListener!
@@ -37,6 +38,10 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     override func viewDidAppear(_ animated: Bool) {
         IGStickerViewController.stickerToolbarObserver = self
         IGStickerViewController.stickerAddListener = self
+        if IGStickerViewController.previewSectionIndex != -1 && stickerPageType == StickerPageType.ADD_REMOVE {
+            self.collectionView?.reloadSections(IndexSet([IGStickerViewController.previewSectionIndex]))
+            IGStickerViewController.previewSectionIndex = -1
+        }
     }
     
     override func viewDidLoad() {
@@ -47,10 +52,14 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         self.view.backgroundColor = UIColor.sticker()
         
-        if isAddStickerPage {
-            fetchStickerList()
-        } else {
+        if stickerPageType == StickerPageType.MAIN {
             fetchMySticker()
+        } else if stickerPageType == StickerPageType.ADD_REMOVE {
+            fetchStickerList()
+        } else if stickerPageType == StickerPageType.PREVIEW {
+            self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+            numberOfItemsPerRow = 3.0 as CGFloat
+            fetchStickerPreview(groupId: "5c629d99b99fac19db1e2f12")
         }
     }
     
@@ -86,6 +95,22 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         }
     }
     
+    private func fetchStickerPreview(groupId: String){
+        IGApiSticker.shared.stickerGroup(groupId: groupId) { (stickers) in
+            
+            if stickers.count == 0 { return }
+            
+            for sticker in stickers {
+                self.stickerList.append(sticker)
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
+        }
+    }
+    
+    
     /************* Observer *************/
     func onToolbarClick(index: Int) {
         selectedIndexManually = index
@@ -115,21 +140,23 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if isAddStickerPage {
-            return stickerList.count
+        if stickerPageType == StickerPageType.MAIN {
+            return stickerTabs.count
         }
-        return stickerTabs.count
+        return stickerList.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isAddStickerPage {
-            let stickerCount = stickerList[section].stickers.count
-            if stickerCount < 5 {
-                return stickerCount
-            }
-            return 5
+        if stickerPageType == StickerPageType.MAIN {
+            return stickerTabs[section].stickerItems.count
+        } else if stickerPageType == StickerPageType.PREVIEW {
+            return stickerList[section].stickers.count
         }
-        return stickerTabs[section].stickerItems.count
+        let stickerCount = stickerList[section].stickers.count
+        if stickerCount < 5 {
+            return stickerCount
+        }
+        return 5
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -153,10 +180,12 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
                     self.selectedIndexManually = -1
                 }
             }
-            if self.isAddStickerPage {
-                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
-            } else {
+            if self.stickerPageType == StickerPageType.MAIN {
                 stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
+            } else if self.stickerPageType == StickerPageType.ADD_REMOVE {
+                stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section)
+            } else if self.stickerPageType == StickerPageType.PREVIEW {
+                stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
             }
         }
     }
@@ -165,9 +194,11 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:String(describing: IGStickerSectionHeader.self), for: indexPath)
         
         if let foodHeader = headerView as? IGStickerSectionHeader {
-            if isAddStickerPage {
+            if self.stickerPageType == StickerPageType.ADD_REMOVE {
                 foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
-            } else {
+            } else if self.stickerPageType == StickerPageType.PREVIEW {
+                foodHeader.configurePreview(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
+            } else { //StickerPageType.MAIN
                 foodHeader.configure(sticker: self.stickerTabs[indexPath.section])
             }
         }
@@ -176,7 +207,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if isAddStickerPage {
+        if self.stickerPageType == StickerPageType.ADD_REMOVE {
             return CGSize(width: UIScreen.main.bounds.width, height: 60)
         }
         return CGSize(width: UIScreen.main.bounds.width, height: 40)

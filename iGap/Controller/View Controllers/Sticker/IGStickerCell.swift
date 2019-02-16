@@ -19,8 +19,8 @@ class IGStickerCell: UICollectionViewCell {
     @IBOutlet weak var mainView: UIView!
     
     var imgSticker: UIImageView!
-    
     var stickerItem: IGRealmStickerItem!
+    var sectionIndex: Int!
     
     func configure(stickerItem: IGRealmStickerItem) {
         self.makeImage()
@@ -43,7 +43,27 @@ class IGStickerCell: UICollectionViewCell {
         })
     }
     
-    func configureListPage(stickerItem: Sticker) {
+    func configureListPage(stickerItem: Sticker, sectionIndex: Int) {
+        self.makeImage()
+        self.sectionIndex = sectionIndex
+        self.mainView.backgroundColor = UIColor.clear
+        self.imgSticker.backgroundColor = UIColor.clear
+        
+        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.openStickerPreview(_:)))
+        self.imgSticker.addGestureRecognizer(onStickerClick)
+        self.imgSticker.isUserInteractionEnabled = true
+        
+        IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token, completion: { (file) -> Void in
+            let cacheId = file.cacheID
+            DispatchQueue.main.async {
+                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                    self.imgSticker.setSticker(for: fileInfo)
+                }
+            }
+        })
+    }
+    
+    func configurePreview(stickerItem: Sticker) {
         self.makeImage()
         self.mainView.backgroundColor = UIColor.clear
         self.imgSticker.backgroundColor = UIColor.clear
@@ -62,6 +82,15 @@ class IGStickerCell: UICollectionViewCell {
     /*********** Callback ***********/
     func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
         IGStickerViewController.stickerTapListener.onStickerTap(stickerItem: self.stickerItem)
+    }
+    
+    func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGStickerViewController.previewSectionIndex = self.sectionIndex
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGStickerViewController") as! IGStickerViewController
+        messagesVc.stickerGroupId = ""
+        messagesVc.stickerPageType = StickerPageType.PREVIEW
+        UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
     }
     
     /********************************/

@@ -209,6 +209,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var isStickerKeyboard = false
     var isSendLocation : Bool!
     var receivedLocation : CLLocation!
+    var stickerPageType = StickerPageType.MAIN
+    var stickerGroupId: String!
 
     var latestKeyboardAdditionalView: UIView!
     
@@ -489,6 +491,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 switch sender.tag {
                 case IGStickerToolbar.shared.STICKER_ADD:
                     self.view.endEditing(true)
+                    stickerPageType = StickerPageType.ADD_REMOVE
                     performSegue(withIdentifier: "showSticker", sender: self)
                     break
                     
@@ -2680,7 +2683,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if segue.identifier == "showSticker" {
             if #available(iOS 10.0, *) {
                 let stickerViewController = segue.destination as! IGStickerViewController
-                stickerViewController.isAddStickerPage = true
+                stickerViewController.stickerPageType = self.stickerPageType
+                stickerViewController.stickerGroupId = self.stickerGroupId
             }
         } else if segue.identifier == "showForwardMessageTable" {
             IGForwardMessageTableViewController.forwardMessageDelegate = self
@@ -3428,6 +3432,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
         
         if cellMessage.type == .sticker {
+            if let sticker = IGHelperJson.parseStickerMessage(data: (cellMessage.additional?.data)!) {
+                stickerPageType = StickerPageType.PREVIEW
+                stickerGroupId = sticker.groupId
+                performSegue(withIdentifier: "showSticker", sender: self)
+            }
             return
         }
         

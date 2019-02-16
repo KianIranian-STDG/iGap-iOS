@@ -21,15 +21,36 @@ class IGStickerSectionHeader: UICollectionReusableView {
     var txtStickerCount: UILabel!
     var sectionIndex: Int!
     var stickerTab: StickerTab!
+    var realmSticker: IGRealmSticker!
     let ANIMATE_TIME = 0.2
+    var stickerPageType: StickerPageType!
     
     func configure(sticker: IGRealmSticker) {
+        stickerPageType = StickerPageType.MAIN
         makeStickerTitle(isAddStickerPage: false)
         stickerAddRemove.isHidden = true
         txtStickerTitle.text = sticker.name
     }
     
+    func configurePreview(sticker: StickerTab, sectionIndex: Int) {
+        stickerPageType = StickerPageType.PREVIEW
+        self.stickerTab = sticker
+        self.sectionIndex = sectionIndex
+        
+        let onStickerClick = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnAddOrRemove(_:)))
+        self.stickerAddRemove.addGestureRecognizer(onStickerClick)
+        self.stickerAddRemove.isUserInteractionEnabled = true
+        
+        makeStickerTitle(isAddStickerPage: true)
+        makeStickerCount()
+        makeStickerAddButton()
+        
+        txtStickerTitle.text = sticker.name
+        txtStickerCount.text = String(describing: sticker.stickers.count) + " Stickers"
+    }
+    
     func configureListPage(sticker: StickerTab, sectionIndex: Int) {
+        stickerPageType = StickerPageType.ADD_REMOVE
         self.stickerTab = sticker
         self.sectionIndex = sectionIndex
     

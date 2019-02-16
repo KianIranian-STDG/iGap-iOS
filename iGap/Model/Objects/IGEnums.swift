@@ -394,3 +394,9 @@ enum ButtonActionType: Int {
     case REQUEST_LOCATION = 10
     case SHOWA_ALERT = 11
 }
+
+enum StickerPageType: Int {
+    case MAIN = 0 // for send sticker state
+    case ADD_REMOVE = 1 // add or remove state
+    case PREVIEW = 2 // preview sticker
+}
