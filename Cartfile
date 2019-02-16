@@ -18,6 +18,7 @@ github "inspace-io/INSPhotoGallery" "1.2.6"
 github "HeroTransitions/Hero"
 github "SwiftyJSON/SwiftyJSON" ~> 4.0
 github "Alamofire/Alamofire"
+github "SDWebImage/SDWebImage"
 
 github "RooyeKhat-Media/Gifu" "v3.0.0-a"
 github "RooyeKhat-Media/ALCameraViewController" "3.0.3"

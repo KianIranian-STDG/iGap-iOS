@@ -13,6 +13,7 @@ import SwiftProtobuf
 import MBProgressHUD
 import Foundation
 import SwiftyRSA
+import SDWebImage
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
@@ -691,11 +692,15 @@ extension UIImageView {
     
     func setSticker(for attachment:IGFile) {
         do {
-            var image: UIImage?
+            //var image: UIImage?
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
-                image = UIImage(contentsOfFile: path!.path)
+                //image = UIImage(contentsOfFile: path!.path)
+                self.sd_setImage(with: path, completed: nil)
+            } else {
+                throw NSError(domain: "asa", code: 1234, userInfo: nil)
             }
+            /*
             if image != nil {
                 DispatchQueue.main.async {
                     self.image = image
@@ -703,6 +708,7 @@ extension UIImageView {
             } else {
                 throw NSError(domain: "asa", code: 1234, userInfo: nil)
             }
+            */
         } catch {
             imagesMap[attachment.token!] = self
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in

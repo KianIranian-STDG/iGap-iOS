@@ -352,6 +352,7 @@
 		FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB798AD21A5681C0019FC92 /* Hero.framework */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */; };
+		FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABA60F122180D6B00FFBB5A /* SDWebImage.framework */; };
 		FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */; };
 		FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */; };
 		FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABE83AA20FDB43E00D94F01 /* Digger.framework */; };
@@ -856,6 +857,7 @@
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		FAB8210E20D7D589003938BB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stickerPublicKey.txt; sourceTree = "<group>"; };
+		FABA60F122180D6B00FFBB5A /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 		FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGSecurityManager.swift; path = "Security Manager/IGSecurityManager.swift"; sourceTree = "<group>"; };
 		FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallAudioManager.swift; sourceTree = "<group>"; };
 		FABE83AA20FDB43E00D94F01 /* Digger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Digger.framework; path = Carthage/Build/iOS/Digger.framework; sourceTree = "<group>"; };
@@ -986,6 +988,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */,
 				FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */,
 				FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */,
 				FAE07F0022059C6D00BE3593 /* Messages.framework in Frameworks */,
@@ -1986,6 +1989,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FABA60F122180D6B00FFBB5A /* SDWebImage.framework */,
 				FAB436702209751A0073EEE1 /* Alamofire.framework */,
 				FA9688F72207209C00B1C1EB /* BLTNBoard.framework */,
 				FAE07EFF22059C6D00BE3593 /* Messages.framework */,
@@ -2318,6 +2322,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/BLTNBoard.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
