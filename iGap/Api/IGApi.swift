@@ -15,33 +15,13 @@ public class IGApi {
     
     static var apiBotProtocol: IGApiProtocol?
     
-    public static func encryption(text : String) -> String {
-        
-        var encryptedMsg : String = ""
-        let dataKey = Data(text.utf8)
-        // ---------------------------------- Encryption Method --------------------------------------//
-        let myPem = "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCipYWzizhe+3fBBhPl/gzgmgSC\nNcAuMeMASomBRgWQXvU0jQMplIAXxmnxh3PQcWxCqqcJ/noYv2cB9m4PEX3EOy14\nfEaaQMsxufKaEmZcFJzQGVGBsu1ZxftzkCWvIrfm2PW6t4CKxtFgJzvtsGwOgZNb\ny9JD6KXURAy1QHGsUwIDAQAB\n-----END PUBLIC KEY-----"
-        do {
-            let publicKey = try PublicKey(pemEncoded: myPem)
-            let clear = ClearMessage(data: dataKey)
-            let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
-            encryptedMsg = encrypted.base64String
-        } catch  {
-            print(error)
-        }
-        
-        // -------------------------------- End Encryption Method ------------------------------------//
-        
-        return encryptedMsg
-    }
-    
     // Call WebService
     public static func callWebService() {
        
         let path = Bundle.main.path(forResource: "webServiceKey", ofType: "txt")
         let signkey : String = try! NSString(contentsOfFile: path!, encoding: String.Encoding.utf8.rawValue) as String
         
-        let encMsg = encryption(text: signkey)
+        let encMsg = signkey.aesEncrypt(publicKey: "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCipYWzizhe+3fBBhPl/gzgmgSC\nNcAuMeMASomBRgWQXvU0jQMplIAXxmnxh3PQcWxCqqcJ/noYv2cB9m4PEX3EOy14\nfEaaQMsxufKaEmZcFJzQGVGBsu1ZxftzkCWvIrfm2PW6t4CKxtFgJzvtsGwOgZNb\ny9JD6KXURAy1QHGsUwIDAQAB\n-----END PUBLIC KEY-----")
         
         var request = URLRequest(url: URL(string: "http://botapi.igap.net:8080/rest/igap/getData")!)
         

@@ -12,6 +12,7 @@ import UIKit
 import SwiftProtobuf
 import MBProgressHUD
 import Foundation
+import SwiftyRSA
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
@@ -1046,6 +1047,21 @@ extension UIFont {
 }
 
 extension String {
+    
+    func aesEncrypt(publicKey: String) -> String {
+        var encryptedMsg : String = ""
+        let dataKey = Data(self.utf8)
+        do {
+            let publicKey = try PublicKey(pemEncoded: publicKey)
+            let clear = ClearMessage(data: dataKey)
+            let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
+            encryptedMsg = encrypted.base64String
+        } catch  {
+            print(error)
+        }
+        return encryptedMsg
+    }
+    
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
