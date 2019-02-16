@@ -640,7 +640,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             }
 
             let text = originalMessage.message
-            if text != nil && text != "" {
+            if text != nil && text != "" && originalMessage.type != .sticker {
                 txtMessageAbs.text = text
             }
 
