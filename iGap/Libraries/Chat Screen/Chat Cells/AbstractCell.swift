@@ -601,7 +601,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             } else if repliedMessage.type == .location {
                 txtReplyMessageAbs.text = "location message"
             } else if body != nil && !(body?.isEmpty)! {
-                txtReplyMessageAbs.text = body
+                
+                if repliedMessage.type == .sticker {
+                    txtReplyMessageAbs.text = body! + " Sticker"
+                } else {
+                    txtReplyMessageAbs.text = body
+                }
+                
             } else if let media = repliedMessage.attachment {
                 txtReplyMessageAbs.text = "\(IGFile.convertFileTypeToString(fileType: media.type)) message"
             } else {

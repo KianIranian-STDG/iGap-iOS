@@ -80,6 +80,8 @@ class IGImageView: GIFImageView {
                 break
             case .file:
                 break
+            case .sticker:
+                break
             }
         }
     }

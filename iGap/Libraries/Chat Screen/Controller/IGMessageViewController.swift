@@ -516,7 +516,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+        message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
+        
+        self.sendMessageState(enable: false)
+        self.inputTextView.text = ""
+        self.currentAttachment = nil
+        IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+        self.selectedMessageToReply = nil
+        self.setInputBarHeight()
     }
     
     @objc func keyboardWillAppear() {
@@ -2490,7 +2498,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         let textMessage = finalMessage.message
         if textMessage != nil && !(textMessage?.isEmpty)! {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
+            
+            if message.type == .sticker {
+                self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage! + " Sticker"
+            } else {
+                self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
+            }
+            
         } else if finalMessage.contact != nil {
             self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) contact message"
         } else if finalMessage.location != nil {

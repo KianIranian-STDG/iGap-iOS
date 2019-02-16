@@ -57,6 +57,7 @@ class IGFile: Object {
         case audio
         case voice
         case file
+        case sticker
     }
     
     enum FileTypeBasedOnNameExtension {
@@ -292,6 +293,8 @@ class IGFile: Object {
             return "file"
         } else if fileType == .voice {
             return "voice"
+        } else if fileType == .sticker {
+            return "sticker"
         }
         return ""
     }
