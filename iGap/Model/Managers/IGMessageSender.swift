@@ -42,7 +42,11 @@ class IGMessageSender {
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
         let message = makeCopyOfMessage(message: message)
-        send(message: message, to: room)
+        if message.type == .sticker {
+            sendSticker(message: message, to: room)
+        } else {
+            send(message: message, to: room)
+        }
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){
@@ -310,6 +314,7 @@ class IGMessageSender {
         finalMessage.authorUser = message.authorUser
         finalMessage.authorHash = message.authorHash
         finalMessage.attachment = message.attachment
+        finalMessage.additional = message.additional
         return finalMessage
     }
 }
