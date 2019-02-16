@@ -149,7 +149,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
                 
                 self.highlightSelected(index: indexPath.section)
             } else if self.selectedIndexManually == indexPath.section {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.selectedIndexManually = -1
                 }
             }

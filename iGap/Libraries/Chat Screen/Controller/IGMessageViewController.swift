@@ -494,7 +494,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     
                 case IGStickerToolbar.shared.STICKER_SETTING:
                     disableStickerView(delay: 0.0)
-                    IGApiSticker.shared.mySticker()
                     break
                     
                 default:
