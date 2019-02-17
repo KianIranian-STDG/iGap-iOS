@@ -72,7 +72,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     private func fetchMySticker(){
-        stickerTabs = try! Realm().objects(IGRealmSticker.self)
+        stickerTabs = try! Realm().objects(IGRealmSticker.self).sorted(by: [SortDescriptor(keyPath: "sort", ascending: false)])
     }
     
     private func fetchStickerList(){

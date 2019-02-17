@@ -659,12 +659,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         if finalRoomMessage.type == .sticker || finalRoomMessage.additional?.dataType == AdditionalType.STICKER.rawValue {
             if let stickerStruct = IGHelperJson.parseStickerMessage(data: (finalRoomMessage.additional?.data)!) {
-                IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
+                //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
                 DispatchQueue.main.async {
                     IGAttachmentManager.sharedManager.getFileInfo(token: stickerStruct.token) { (file) in
+                        self.imgMediaAbs.setSticker(for: file)
+                        /*
                         if let imageView = IGGlobal.imgDic[stickerStruct.token!] {
                             imageView.setSticker(for: file)
                         }
+                        */
                     }
                 }
             }
