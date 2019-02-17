@@ -316,6 +316,8 @@ class IGChannelSendMessageRequest: IGRequest {
             
             if let attachmentToken = attachmentToken {
                 channelSendMessageRequestMessage.igpAttachment = attachmentToken
+            } else if let attachmentToken = message.attachment?.token {
+                channelSendMessageRequestMessage.igpAttachment = attachmentToken
             }
             
             if let repliedTo = message.repliedTo {
@@ -354,6 +356,11 @@ class IGChannelSendMessageRequest: IGRequest {
             if let location = message.location {
                 channelSendMessageRequestMessage.igpLocation.igpLat = location.latitude
                 channelSendMessageRequestMessage.igpLocation.igpLon = location.longitude
+            }
+            
+            if let additional = message.additional {
+                channelSendMessageRequestMessage.igpAdditionalType = additional.dataType
+                channelSendMessageRequestMessage.igpAdditionalData = additional.data!
             }
             
             return IGRequestWrapper(message: channelSendMessageRequestMessage, actionID: 410)

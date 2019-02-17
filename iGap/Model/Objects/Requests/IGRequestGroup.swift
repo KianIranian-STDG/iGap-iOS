@@ -337,6 +337,8 @@ class IGGroupSendMessageRequest : IGRequest {
     
             if let attachmentToken = attachmentToken {
                 sendMessageRequestMessage.igpAttachment = attachmentToken
+            } else if let attachmentToken = message.attachment?.token {
+                sendMessageRequestMessage.igpAttachment = attachmentToken
             }
             
             if message.repliedTo != nil {
@@ -375,6 +377,11 @@ class IGGroupSendMessageRequest : IGRequest {
             if let location = message.location {
                 sendMessageRequestMessage.igpLocation.igpLat = location.latitude
                 sendMessageRequestMessage.igpLocation.igpLon = location.longitude
+            }
+            
+            if let additional = message.additional {
+                sendMessageRequestMessage.igpAdditionalType = additional.dataType
+                sendMessageRequestMessage.igpAdditionalData = additional.data!
             }
             
             return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 310)
