@@ -86,13 +86,13 @@ class IGHelperJson {
     internal static func convertRealmToJson(stickerItem: IGRealmStickerItem) -> String? {
       
         let dict = ["id" : stickerItem.id,
-                    "refID" : stickerItem.refID,
+                    "refId" : stickerItem.refID,
                     "name" : stickerItem.name,
                     "token" : stickerItem.token,
                     "fileName" : stickerItem.fileName,
                     "fileSize" : stickerItem.fileSize,
                     "sort" : stickerItem.sort,
-                    "groupID": stickerItem.groupID] as [String: Any?]
+                    "groupId": stickerItem.groupID] as [String: Any?]
         
         let json = JSON(dict).rawString()
         return json

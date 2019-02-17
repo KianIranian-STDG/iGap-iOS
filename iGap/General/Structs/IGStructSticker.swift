@@ -70,7 +70,7 @@ class IGStructStickerMessage {
     init(_ json: JSON) {
         self.id = json["id"].int64Value
         self.name = json["name"].stringValue
-        self.groupId = json["groupID"].stringValue
+        self.groupId = json["groupId"].stringValue
         self.token = json["token"].stringValue
         self.filename = json["filename"].stringValue
         self.filesize = json["filesize"].intValue

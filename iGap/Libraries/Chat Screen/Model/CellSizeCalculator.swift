@@ -131,8 +131,8 @@ class CellSizeCalculator: NSObject {
             case .sticker:
                 
                 let attachmentFrame = mediaFrame(media: finalMessage.attachment!,
-                                                 maxWidth:  ConstantSizes.Bubble.Width.Maximum.Attachment - 100,
-                                                 maxHeight: ConstantSizes.Bubble.Height.Maximum.Attachment - 100,
+                                                 maxWidth:  ConstantSizes.Bubble.Width.Maximum.Attachment - 150,
+                                                 maxHeight: ConstantSizes.Bubble.Height.Maximum.Attachment - 150,
                                                  minWidth:  ConstantSizes.Bubble.Width.Minimum.Attachment,
                                                  minHeight: ConstantSizes.Bubble.Height.Minimum.Attachment)
                 
