@@ -69,16 +69,8 @@ class IGStickerSectionHeader: UICollectionReusableView {
     func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {
         UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
             self.stickerAddRemove.isHidden = true
-            
             self.changeRemoveAdd()
-            
-        }, completion: { (completed) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    self.stickerAddRemove.isHidden = false
-                }, completion: nil)
-            }
-        })
+        }, completion: nil)
     }
     
     private func changeRemoveAdd(){
@@ -94,6 +86,11 @@ class IGStickerSectionHeader: UICollectionReusableView {
                     if success {
                         IGStickerViewController.stickerAddListener.onStickerAdd(index: self.sectionIndex)
                     }
+                    
+                    UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                        self.stickerAddRemove.isHidden = false
+                    }, completion: nil)
+                    
                     IGGlobal.prgHide()
                 }
             }
@@ -110,6 +107,11 @@ class IGStickerSectionHeader: UICollectionReusableView {
                     if success {
                         IGStickerViewController.stickerAddListener.onStickerAdd(index: self.sectionIndex)
                     }
+                    
+                    UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                        self.stickerAddRemove.isHidden = false
+                    }, completion: nil)
+                    
                     IGGlobal.prgHide()
                 }
             }

@@ -59,7 +59,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         } else if stickerPageType == StickerPageType.PREVIEW {
             self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
             numberOfItemsPerRow = 3.0 as CGFloat
-            fetchStickerPreview(groupId: "5c629d99b99fac19db1e2f12")
+            fetchStickerPreview(groupId: stickerGroupId!)
         }
     }
     
@@ -76,8 +76,9 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     private func fetchStickerList(){
+        IGGlobal.prgShow(self.view)
         IGApiSticker.shared.stickerList(offset: offset, limit: FETCH_LIMIT) { (stickers) in
-            
+            IGGlobal.prgHide()
             if stickers.count == 0 { return }
             
             for sticker in stickers {
@@ -96,8 +97,9 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     private func fetchStickerPreview(groupId: String){
+        IGGlobal.prgShow(self.view)
         IGApiSticker.shared.stickerGroup(groupId: groupId) { (stickers) in
-            
+            IGGlobal.prgHide()
             if stickers.count == 0 { return }
             
             for sticker in stickers {

@@ -15,6 +15,11 @@ struct StickerApi: Codable {
     let data: [StickerTab]
 }
 
+struct StickerGroup: Codable {
+    let ok: Bool
+    let data: StickerTab
+}
+
 struct StickerTab: Codable {
     let createdAt, updatedAt: Int64
     let id: String
@@ -65,7 +70,7 @@ class IGStructStickerMessage {
     init(_ json: JSON) {
         self.id = json["id"].int64Value
         self.name = json["name"].stringValue
-        self.groupId = json["groupId"].stringValue
+        self.groupId = json["groupID"].stringValue
         self.token = json["token"].stringValue
         self.filename = json["filename"].stringValue
         self.filesize = json["filesize"].intValue
