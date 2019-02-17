@@ -316,7 +316,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         if isBotRoom() {
-            
+            txtSticker.isHidden = true
             if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
                 IGApi.callWebService()
             }
@@ -1230,7 +1230,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 }, completion: nil)
                 
                 UIView.transition(with: self.txtSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
-                    self.txtSticker.isHidden = false
+                    if self.isBotRoom() {
+                        self.txtSticker.isHidden = true
+                    } else {
+                        self.txtSticker.isHidden = false
+                    }
                 }, completion: nil)
                 
             })
@@ -3257,6 +3261,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if cellMessage.status == IGRoomMessageStatus.sending {
             return
         }
+        
+        self.view.endEditing(true)
         
         if cellMessage.status == IGRoomMessageStatus.failed {
             manageFailedMessage(cellMessage: cellMessage, cell: cell)
