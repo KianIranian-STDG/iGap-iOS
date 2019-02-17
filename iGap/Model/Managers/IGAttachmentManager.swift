@@ -11,6 +11,7 @@
 import UIKit
 import RxSwift
 import RealmSwift
+import IGProtoBuff
 
 class IGAttachmentManager: NSObject {
     static let sharedManager = IGAttachmentManager()
@@ -83,6 +84,22 @@ class IGAttachmentManager: NSObject {
             let attachment = variableInCache.value
             attachment.status = status
             variableInCache.value = attachment
+        }
+    }
+    
+    func getFileInfo(token: String, completion: @escaping ((_ file :IGFile) -> Void)){
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "token = %@", token)
+        if let fileInfo = realm.objects(IGFile.self).filter(predicate).first {
+            completion(fileInfo)
+        } else {
+            IGFileInfoRequest.Generator.generate(token: token).success ({ (protoMessage) in
+                if let fileInfoReponse = protoMessage as? IGPFileInfoResponse {
+                    IGFactory.shared.addFileToDatabse(igpFile: fileInfoReponse.igpFile, completion: { (file) -> Void in
+                        completion(file)
+                    })
+                }
+            }).error({ (errorCode, waitTime) in }).send()
         }
     }
     

@@ -1088,7 +1088,7 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
-        if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(self.first!)) {
+        if let first = self.first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
             return true
         }
         return false

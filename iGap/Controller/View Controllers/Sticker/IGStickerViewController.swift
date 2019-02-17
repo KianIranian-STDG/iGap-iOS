@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "StickerCell"
 
@@ -20,9 +21,9 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     let interRowSpacing = 1.0 as CGFloat
     let sectionTitleKey = "SectionTitle"
     let sectionItemsKey = "Items"
-    var data = [Dictionary<String,AnyObject>]()
     var selectedIndexManually: Int = -1
     var isAddStickerPage = false
+    var stickerTabs: Results<IGRealmSticker>!
     
     static var stickerToolbarObserver: StickerToolbarObserver!
     
@@ -30,24 +31,23 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         super.viewDidLoad()
         
         initNavigationBar()
+        fetchStickerInfo()
+        
         IGStickerViewController.stickerToolbarObserver = self
         
         self.collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
-        if let path = Bundle.main.path(forResource: "FoodDrawerData", ofType: ".plist") {
-            let dict = NSDictionary(contentsOfFile: path) as! Dictionary<String,AnyObject>
-            let allSections = dict["Sections"] as? [[String:AnyObject]]
-            for index in allSections! {
-                self.data.append((index))
-            }
-        }
     }
     
-    func initNavigationBar(){
+    private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "Add Sticker")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    private func fetchStickerInfo(){
+        stickerTabs = try! Realm().objects(IGRealmSticker.self)
     }
     
     /************* Observer *************/
@@ -75,14 +75,18 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return data.count
+        return stickerTabs.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let stickerCount = stickerTabs[section].stickerItems.count
         if isAddStickerPage {
+            if stickerCount < 5 {
+                return stickerCount
+            }
             return 5
         }
-        return (data[section][sectionItemsKey] as! NSArray).count
+        return stickerTabs[section].stickerItems.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,9 +110,8 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
                     self.selectedIndexManually = -1
                 }
             }
-            let sectionItems = self.data[indexPath.section][self.sectionItemsKey] as? [String]
-            let imageName = sectionItems![indexPath.row]
-            stickerItem.configure(usingImageName: imageName)
+            
+            stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
         }
     }
     
@@ -116,17 +119,15 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:String(describing: IGStickerSectionHeader.self), for: indexPath)
         
         if let foodHeader = headerView as? IGStickerSectionHeader {
-            let section = self.data[indexPath.section]
-            let sectionTitle = section[sectionTitleKey] as! String
+            let sticker = self.stickerTabs[indexPath.section]
             if isAddStickerPage {
-                foodHeader.configureAddSticker(usingTitle: sectionTitle, stickerCount: 60)
+                foodHeader.configureAddSticker(sticker: sticker)
             } else {
-                foodHeader.configure(usingTitle: sectionTitle)
+                foodHeader.configure(sticker: sticker)
             }
         }
         return headerView
     }
-    
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

@@ -19,19 +19,19 @@ class IGStickerSectionHeader: UICollectionReusableView {
     var txtStickerTitle: UILabel!
     var txtStickerCount: UILabel!
     
-    func configure(usingTitle title:String) {
+    func configure(sticker: IGRealmSticker) {
         btnSticker.isHidden = true
         makeStickerTitle(isAddStickerPage: false)
-        txtStickerTitle.text = "GREAT MINDS"
+        txtStickerTitle.text = sticker.name
     }
     
-    func configureAddSticker(usingTitle title:String, stickerCount: Int) {
+    func configureAddSticker(sticker: IGRealmSticker) {
         makeStickerTitle(isAddStickerPage: true)
         makeStickerCount()
         makeStickerAddButton()
         
-        txtStickerTitle.text = "GREAT MINDS"
-        txtStickerCount.text = "60 Sticker"
+        txtStickerTitle.text = sticker.name
+        txtStickerCount.text = String(describing: sticker.stickerItems.count) + " Stickers"
     }
     
     @IBAction func btnAddOrRemove(_ sender: UIButton) {

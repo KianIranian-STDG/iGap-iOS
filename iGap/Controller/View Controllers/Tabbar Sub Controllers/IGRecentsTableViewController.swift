@@ -227,8 +227,8 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         self.addRoomChangeNotificationBlock()
         
         if IGAppManager.sharedManager.isUserLoggiedIn() {
-            self.checkAppVersion()
             if IGRecentsTableViewController.needGetInfo {
+                self.checkAppVersion()
                 self.fetchRoomList()
                 self.saveAndSendContacts()
             }
@@ -295,23 +295,24 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     /* check app need update or is deprecated now and don't allow */
     private func checkAppVersion() {
-        
-        if AppDelegate.isDeprecatedClient {
-            let alert = UIAlertController(title: "Alert", message: "Version is deprecated please update to use", preferredStyle: .alert)
-            let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
-                UIApplication.shared.openURL(self.iGapStoreLink!)
-            })
-            alert.addAction(update)
-            self.present(alert, animated: true, completion: nil)
-        } else if AppDelegate.isUpdateAvailable {
-            let alert = UIAlertController(title: "Update", message: "New version is available", preferredStyle: .alert)
-            let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
-                UIApplication.shared.openURL(self.iGapStoreLink!)
-            })
-            let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
-            alert.addAction(update)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            if AppDelegate.isDeprecatedClient {
+                let alert = UIAlertController(title: "Alert", message: "Version is deprecated please update to use", preferredStyle: .alert)
+                let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
+                    UIApplication.shared.openURL(self.iGapStoreLink!)
+                })
+                alert.addAction(update)
+                self.present(alert, animated: true, completion: nil)
+            } else if AppDelegate.isUpdateAvailable {
+                let alert = UIAlertController(title: "Update", message: "New version is available", preferredStyle: .alert)
+                let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
+                    UIApplication.shared.openURL(self.iGapStoreLink!)
+                })
+                let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
+                alert.addAction(update)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     

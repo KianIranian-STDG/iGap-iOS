@@ -9,14 +9,16 @@
  */
 
 import UIKit
+import RealmSwift
+import IGProtoBuff
 
 class IGStickerToolbar: UIGestureRecognizer {
     
     static let shared = IGStickerToolbar()
     
     let sectionItemsKey = "Items"
-    var data = [Dictionary<String,AnyObject>]()
     static var buttonArray: [UIButton] = []
+    var stickerTabs: Results<IGRealmSticker>!
     var leftSpace: Double = 0
     let TOOLBAR_HEIGHT: Double = 45
     let ICON_SPACE: Double = 10
@@ -26,16 +28,12 @@ class IGStickerToolbar: UIGestureRecognizer {
     let STICKER_SETTING = 2000000
     
     public func toolbarMaker() -> UIView{
-        if let path = Bundle.main.path(forResource: "FoodDrawerData", ofType: ".plist") {
-            let dict = NSDictionary(contentsOfFile: path) as! Dictionary<String,AnyObject>
-            let allSections = dict["Sections"] as? [[String:AnyObject]]
-            for index in allSections! {
-                self.data.append((index))
-            }
-            
-           return doctorBotView()
-        }
-        return UIView()
+        fetchStickerInfo()
+        return doctorBotView()
+    }
+    
+    private func fetchStickerInfo(){
+        stickerTabs = try! Realm().objects(IGRealmSticker.self)
     }
     
     private func doctorBotView() -> UIView{
@@ -50,13 +48,11 @@ class IGStickerToolbar: UIGestureRecognizer {
         scrollView.addSubview(child)
         leftSpace = ICON_SPACE
         
-        for (index, result) in self.data.enumerated() {
-            let sectionItems = result[sectionItemsKey] as? [String]
-            let imageName = sectionItems![0]
-            makeDoctorBotButtonView(parent: scrollView, imageName: imageName, index: index)
+        for (index, realmSticker) in self.stickerTabs.enumerated() {
+            makeTabIcon(parent: scrollView, index: index, realmSticker: realmSticker)
         }
-        makeDoctorBotButtonView(parent: scrollView, imageName: "", index: STICKER_ADD, isIcon: true)
-        makeDoctorBotButtonView(parent: scrollView, imageName: "", index: STICKER_SETTING, isIcon: true)
+        makeTabIcon(parent: scrollView, index: STICKER_ADD, imageName: "")
+        makeTabIcon(parent: scrollView, index: STICKER_SETTING, imageName: "")
         
         child.snp.makeConstraints { (make) in
             make.top.equalTo(scrollView.snp.top)
@@ -69,12 +65,9 @@ class IGStickerToolbar: UIGestureRecognizer {
         return scrollView
     }
     
-    private func makeDoctorBotButtonView(parent: UIScrollView, imageName: String, index: Int, isIcon: Bool = false){
+    private func makeTabIcon(parent: UIScrollView, index: Int, realmSticker: IGRealmSticker? = nil, imageName: String? = nil){
 
-        let image = UIImage(named: imageName)
-        
         let imageView = UIImageView()
-        imageView.image = image
         
         let btn = UIButton()
         IGStickerToolbar.buttonArray.append(btn)
@@ -92,7 +85,22 @@ class IGStickerToolbar: UIGestureRecognizer {
             make.height.equalTo(ICON_BACKGROUDN_SIZE)
         }
         
-        if !isIcon {
+        if imageName != nil {
+            btn.setTitle(imageName, for: UIControlState.normal)
+            btn.titleLabel?.font = UIFont.iGapFontico(ofSize: 20)
+            btn.setTitleColor(UIColor.messageText(), for: .normal)
+            btn.removeUnderline()
+        } else {
+            
+            IGAttachmentManager.sharedManager.getFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
+                let cacheId = file.cacheID
+                DispatchQueue.main.async {
+                    if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                        imageView.setThumbnail(for: fileInfo)
+                    }
+                }
+            })
+            
             parent.addSubview(imageView)
             imageView.snp.makeConstraints { (make) in
                 make.left.equalTo(parent.snp.left).offset(leftSpace)
@@ -100,11 +108,6 @@ class IGStickerToolbar: UIGestureRecognizer {
                 make.width.equalTo(ICON_SIZE)
                 make.height.equalTo(ICON_SIZE)
             }
-        } else {
-            btn.setTitle(imageName, for: UIControlState.normal)
-            btn.titleLabel?.font = UIFont.iGapFontico(ofSize: 20)
-            btn.setTitleColor(UIColor.messageText(), for: .normal)
-            btn.removeUnderline()
         }
         
         leftSpace += ICON_SPACE + ICON_SIZE

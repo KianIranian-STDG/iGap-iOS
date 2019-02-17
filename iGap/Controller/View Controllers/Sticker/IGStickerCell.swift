@@ -10,22 +10,22 @@
 
 import UIKit
 import Messages
+import IGProtoBuff
+import RealmSwift
 
 @available(iOS 10.0, *)
 class IGStickerCell: UICollectionViewCell {
     @IBOutlet weak var stickerView: MSStickerView!
-    func configure(usingImageName imageName:String) {
-        guard let imagePath = Bundle.main.path(forResource: imageName, ofType: ".png") else {
-            return
-        }
-        let path =  URL(fileURLWithPath: imagePath)
-        do {
-            //let description = NSLocalizedString("Food Sticker", comment: "")
-            let sticker = try MSSticker(contentsOfFileURL: path , localizedDescription: description)
-            stickerView.sticker = sticker
-        }
-        catch {
-            fatalError("Failed to create sticker: \(error)")
-        }
+    @IBOutlet weak var imgSticker: UIImageView!
+    
+    func configure(stickerItem: IGRealmStickerItem) {
+        IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
+            let cacheId = file.cacheID
+            DispatchQueue.main.async {
+                if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
+                    self.imgSticker.setThumbnail(for: fileInfo)
+                }
+            }
+        })
     }
 }

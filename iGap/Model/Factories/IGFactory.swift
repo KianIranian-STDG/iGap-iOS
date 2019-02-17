@@ -2707,6 +2707,31 @@ class IGFactory: NSObject {
     
     //MARK: --------------------------------------------------------
     //MARK: ▶︎▶︎ File
+    func addFileToDatabse(igpFile: IGPFile, completion: @escaping ((_ token :IGFile) -> Void)) {
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                let newFile = IGFile(igpFile: igpFile, type: IGFile.FileType.image)
+                
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.add(newFile, update: true)
+                }
+                
+                completion(newFile)
+                
+                IGFactory.shared.performInFactoryQueue {
+                    task.success!()
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        self.performNextFactoryTaskIfPossible()
+    }
+    
     func updateFileInDatabe(_ file: IGFile, with igpFile: IGPFile) {
         let task = IGFactoryTask()
         task.task = {

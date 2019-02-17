@@ -233,9 +233,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         progressbar.hidesWhenStopped = true
         self.webView.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
@@ -495,6 +492,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     break
                     
                 case IGStickerToolbar.shared.STICKER_SETTING:
+                    disableStickerView(delay: 0.0)
+                    IGApiSticker.shared.callStickerApi()
                     break
                     
                 default:
@@ -1014,6 +1013,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
         getUserInfo()
         setBackground()
         
