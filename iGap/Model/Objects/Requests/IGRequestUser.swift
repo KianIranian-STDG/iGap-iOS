@@ -150,6 +150,7 @@ class IGUserLoginRequest : IGRequest {
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
+            IGApiSticker.shared.fetchMySticker()
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive)
             IGUploadManager.sharedManager.pauseAllUploads()

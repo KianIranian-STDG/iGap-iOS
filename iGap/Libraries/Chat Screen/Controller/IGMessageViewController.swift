@@ -425,14 +425,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         notification(register: true)
         //sendMessageState(enable: false)
+
+        let tapInputTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
+        inputTextView.addGestureRecognizer(tapInputTextView)
+        inputTextView.isUserInteractionEnabled = true
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnStickerButton))
         txtSticker.addGestureRecognizer(tap)
         txtSticker.isUserInteractionEnabled = true
-        
-        let tapInputTextView = UITapGestureRecognizer(target: self, action: #selector(didTapOnInputTextView))
-        inputTextView.addGestureRecognizer(tapInputTextView)
-        inputTextView.isUserInteractionEnabled = true
         
         let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
         tapAndHoldOnRecord.minimumPressDuration = 0.5
@@ -1272,13 +1272,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         })
     }
     
-    private func disableStickerView(delay: Double){
+    private func disableStickerView(delay: Double, openKeyboard: Bool = false){
         isStickerKeyboard = false
         DispatchQueue.main.asyncAfter(deadline: .now() + delay){
             self.txtSticker.text = ""
             self.inputTextView.inputAccessoryView = nil
             self.inputTextView.inputView = nil
             self.inputTextView.reloadInputViews()
+            if openKeyboard && !self.inputTextView.isFirstResponder {
+                self.inputTextView.becomeFirstResponder()
+            }
         }
     }
     
@@ -1634,7 +1637,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func didTapOnInputTextView() {
-        disableStickerView(delay: 0.0)
+        disableStickerView(delay: 0.0, openKeyboard: true)
     }
     
     func didTapOnStickerButton() {
