@@ -36,8 +36,10 @@ class IGGlobal {
     
     internal static func prgShow(_ view: UIView){
         DispatchQueue.main.async {
-            IGGlobal.progressHUD = MBProgressHUD.showAdded(to: view.superview!, animated: true)
-            IGGlobal.progressHUD.mode = .indeterminate
+            if let superView = view.superview {
+                IGGlobal.progressHUD = MBProgressHUD.showAdded(to: superView, animated: true)
+                IGGlobal.progressHUD.mode = .indeterminate
+            }
         }
     }
     

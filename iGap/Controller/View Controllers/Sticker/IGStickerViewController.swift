@@ -76,38 +76,42 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     private func fetchStickerList(){
-        IGGlobal.prgShow(self.view)
-        IGApiSticker.shared.stickerList(offset: offset, limit: FETCH_LIMIT) { (stickers) in
-            IGGlobal.prgHide()
-            if stickers.count == 0 { return }
-            
-            for sticker in stickers {
-                self.stickerList.append(sticker)
-            }
-            
-            DispatchQueue.main.async {
-                self.collectionView?.reloadData()
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.offset += self.FETCH_LIMIT
-                self.fetchStickerList()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            IGGlobal.prgShow(self.view)
+            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
+                IGGlobal.prgHide()
+                if stickers.count == 0 { return }
+                
+                for sticker in stickers {
+                    self.stickerList.append(sticker)
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.offset += self.FETCH_LIMIT
+                    self.fetchStickerList()
+                }
             }
         }
     }
     
     private func fetchStickerPreview(groupId: String){
-        IGGlobal.prgShow(self.view)
-        IGApiSticker.shared.stickerGroup(groupId: groupId) { (stickers) in
-            IGGlobal.prgHide()
-            if stickers.count == 0 { return }
-            
-            for sticker in stickers {
-                self.stickerList.append(sticker)
-            }
-            
-            DispatchQueue.main.async {
-                self.collectionView?.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            IGGlobal.prgShow(self.view)
+            IGApiSticker.shared.stickerGroup(groupId: groupId) { (stickers) in
+                IGGlobal.prgHide()
+                if stickers.count == 0 { return }
+                
+                for sticker in stickers {
+                    self.stickerList.append(sticker)
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
             }
         }
     }
