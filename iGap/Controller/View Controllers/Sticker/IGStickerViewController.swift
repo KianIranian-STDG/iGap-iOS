@@ -80,7 +80,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
             IGGlobal.prgShow(self.view)
             IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
                 IGGlobal.prgHide()
-                if stickers.count == 0 { return }
+                if stickers.count < self.FETCH_LIMIT { return }
                 
                 for sticker in stickers {
                     self.stickerList.append(sticker)

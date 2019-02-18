@@ -3442,21 +3442,21 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
         
-        if cellMessage.type == .sticker {
-            if let sticker = IGHelperJson.parseStickerMessage(data: (cellMessage.additional?.data)!) {
-                stickerPageType = StickerPageType.PREVIEW
-                stickerGroupId = sticker.groupId
-                performSegue(withIdentifier: "showSticker", sender: self)
-            }
-            return
-        }
-        
         var finalMessage = cellMessage
         var roomMessageLists = self.messagesWithMedia
         if cellMessage.forwardedFrom != nil {
             //roomMessageLists = self.messagesWithForwardedMedia
             roomMessageLists = self.messagesWithMedia
             finalMessage = cellMessage.forwardedFrom!
+        }
+        
+        if finalMessage.type == .sticker {
+            if let sticker = IGHelperJson.parseStickerMessage(data: (finalMessage.additional?.data)!) {
+                stickerPageType = StickerPageType.PREVIEW
+                stickerGroupId = sticker.groupId
+                performSegue(withIdentifier: "showSticker", sender: self)
+            }
+            return
         }
         
         if finalMessage.type == .location {
