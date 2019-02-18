@@ -46,10 +46,12 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         case .connecting:
             navigationItem.setNavigationItemForConnecting()
             connectionStatus = .connecting
+            /*
             if selectedCountry == nil {
-            selectedCountry = IGCountryInfo.defaultCountry()
+                selectedCountry = IGCountryInfo.defaultCountry()
             }
             self.setSelectedCountry(selectedCountry!)
+            */
             break
         case .connected:
             self.setDefaultNavigationItem()
