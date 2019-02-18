@@ -339,6 +339,7 @@
 		FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */; };
 		FAAD3C2621EA22FD00B1420A /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */; };
 		FAAEAC5520E0EAEF00A1EAE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAAEAC5720E0EAEF00A1EAE5 /* Localizable.strings */; };
+		FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAF82D5221A85200022D84C /* IGHelperFinancial.swift */; };
 		FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */; };
 		FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFD433208375AA003470B3 /* IGGeoRequest.swift */; };
 		FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */; };
@@ -842,6 +843,7 @@
 		FAAEAC5620E0EAEF00A1EAE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAAEAC5820E0EAF100A1EAE5 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FAAEAC5A20E0EEFB00A1EAE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		FAAF82D5221A85200022D84C /* IGHelperFinancial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperFinancial.swift; sourceTree = "<group>"; };
 		FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMplRequest.swift; sourceTree = "<group>"; };
 		FAAFD433208375AA003470B3 /* IGGeoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGeoRequest.swift; sourceTree = "<group>"; };
 		FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGRequestManager.swift; path = "Request Manager/IGRequestManager.swift"; sourceTree = "<group>"; };
@@ -1349,6 +1351,7 @@
 				FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */,
 				FAD8A02A21EE0860006996E1 /* IGHelperJson.swift */,
 				FAEC476521F33149006C07A4 /* IGHelperJoin.swift */,
+				FAAF82D5221A85200022D84C /* IGHelperFinancial.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2502,6 +2505,7 @@
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,
 				FA50A8CE1DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift in Sources */,
 				937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */,
+				FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */,
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,

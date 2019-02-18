@@ -365,7 +365,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             } else if rowIndex == 2 {
                 manageOpenMap()
             } else if rowIndex == 3 {
-                manageFinancialServiceChoose()
+                IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()
             } else if rowIndex == 4 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
@@ -421,47 +421,6 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         } else if status == .authorizedWhenInUse || status == .authorizedAlways {
             openMap()
         }
-    }
-    
-    func manageFinancialServiceChoose(){
-        let option = UIAlertController(title: "Financial Services", message: "Responsible for all financial services Parsian e-commerce company (top). \n Customer Support Center: 021-2318", preferredStyle: IGGlobal.detectAlertStyle())
-        
-        let mobileCharge = UIAlertAction(title: "Top Up SIM Card", style: .default, handler: { (action) in
-            self.performSegue(withIdentifier: "showFinancialServiceCharge", sender: self)
-        })
-        
-        let payBills = UIAlertAction(title: "Pay Bills", style: .default, handler: { (action) in
-            IGFinancialServiceBill.BillInfo = nil
-            IGFinancialServiceBill.isTrafficOffenses = false
-            self.performSegue(withIdentifier: "showFinancialServiceBill", sender: self)
-        })
-        
-        let trafficOffenses = UIAlertAction(title: "Pay Traffic Tickets", style: .default, handler: { (action) in
-            IGFinancialServiceBill.BillInfo = nil
-            IGFinancialServiceBill.isTrafficOffenses = true
-            self.performSegue(withIdentifier: "showFinancialServiceBill", sender: self)
-        })
-        
-        let mobileBillingInquiry = UIAlertAction(title: "Mobile Bills Inquiry", style: .default, handler: { (action) in
-            IGFinancialServiceBillingInquiry.isMobile = true
-            self.performSegue(withIdentifier: "showFinancialServiceBillingInquiry", sender: self)
-        })
-        
-        let phoneBillingInquiry = UIAlertAction(title: "Phone Bills Inquiry", style: .default, handler: { (action) in
-            IGFinancialServiceBillingInquiry.isMobile = false
-            self.performSegue(withIdentifier: "showFinancialServiceBillingInquiry", sender: self)
-        })
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        option.addAction(mobileCharge)
-        option.addAction(payBills)
-        option.addAction(trafficOffenses)
-        option.addAction(mobileBillingInquiry)
-        option.addAction(phoneBillingInquiry)
-        option.addAction(cancel)
-        
-        self.present(option, animated: true, completion: {})
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
