@@ -104,7 +104,7 @@ class IGAttachmentManager: NSObject {
     }
     
     func getFileInfo(token: String, PreviewType: Int = IGFile.PreviewType.originalFile.rawValue) -> IGFile? {
-        return try! Realm().objects(IGFile.self).filter(NSPredicate(format: "token = %@", token)).first
+        return try! Realm().objects(IGFile.self).filter(NSPredicate(format: "token = %@ AND previewTypeRaw = %d", token, IGFile.PreviewType.originalFile.rawValue)).first
     }
     
     func saveDataToDisk(attachment: IGFile) -> String? {
