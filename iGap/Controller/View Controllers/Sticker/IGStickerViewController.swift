@@ -31,6 +31,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
 
     static var previewSectionIndex: Int = -1
     static var addStickerIndex: Int = -1
+    static var stickerImageDic: [String:UIImageView] = [:]
     static var stickerTapListener: StickerTapListener!
     static var stickerToolbarObserver: StickerToolbarObserver!
     static var stickerAddListener: StickerAddListener!

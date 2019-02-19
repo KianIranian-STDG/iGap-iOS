@@ -16,6 +16,7 @@ import IGProtoBuff
 class IGAttachmentManager: NSObject {
     static let sharedManager = IGAttachmentManager()
     private var variablesCache: NSCache<NSString, Variable<IGFile>>
+    var completionFileDic : [String : (IGFile)->() ] = [:]
     
     private override init() {
         variablesCache = NSCache()
@@ -93,10 +94,17 @@ class IGAttachmentManager: NSObject {
         if let fileInfo = realm.objects(IGFile.self).filter(predicate).first {
             completion(fileInfo)
         } else {
+            completionFileDic[token] = completion
             IGFileInfoRequest.Generator.generate(token: token).success ({ (protoMessage) in
                 if let fileInfoReponse = protoMessage as? IGPFileInfoResponse {
                     IGFactory.shared.addFileToDatabse(igpFile: fileInfoReponse.igpFile, completion: { (file) -> Void in
-                        completion(file)
+                        let newFile = IGFile(igpFile: fileInfoReponse.igpFile, type: IGFile.FileType.image)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if let completion = self.completionFileDic[newFile.token!] {
+                                self.completionFileDic.removeValue(forKey: newFile.token!)
+                                completion(newFile)
+                            }
+                        }
                     })
                 }
             }).error({ (errorCode, waitTime) in }).send()

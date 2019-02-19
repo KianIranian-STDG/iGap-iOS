@@ -34,11 +34,14 @@ class IGStickerCell: UICollectionViewCell {
         self.imgSticker.addGestureRecognizer(onStickerClick)
         self.imgSticker.isUserInteractionEnabled = true
         
+        IGStickerViewController.stickerImageDic[stickerItem.token!] = self.imgSticker
         IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
                 if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    self.imgSticker.setSticker(for: fileInfo)
+                    if let image = IGStickerViewController.stickerImageDic[fileInfo.token!] {
+                        image.setSticker(for: fileInfo)
+                    }
                 }
             }
         })
@@ -55,11 +58,14 @@ class IGStickerCell: UICollectionViewCell {
         self.imgSticker.addGestureRecognizer(onStickerClick)
         self.imgSticker.isUserInteractionEnabled = true
         
+        IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
         IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
                 if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    self.imgSticker.setSticker(for: fileInfo)
+                    if let image = IGStickerViewController.stickerImageDic[fileInfo.token!] {
+                        image.setSticker(for: fileInfo)
+                    }
                 }
             }
         })
@@ -71,11 +77,14 @@ class IGStickerCell: UICollectionViewCell {
         self.mainView.backgroundColor = UIColor.clear
         self.imgSticker.backgroundColor = UIColor.clear
         
+        IGStickerViewController.stickerImageDic[stickerItem.token] = self.imgSticker
         IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token, completion: { (file) -> Void in
             let cacheId = file.cacheID
             DispatchQueue.main.async {
                 if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {
-                    self.imgSticker.setSticker(for: fileInfo)
+                    if let image = IGStickerViewController.stickerImageDic[fileInfo.token!] {
+                        image.setSticker(for: fileInfo)
+                    }
                 }
             }
         })
