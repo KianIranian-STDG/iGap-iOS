@@ -80,15 +80,16 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
             IGGlobal.prgShow(self.view)
             IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
                 IGGlobal.prgHide()
-                if stickers.count < self.FETCH_LIMIT { return }
                 
                 for sticker in stickers {
                     self.stickerList.append(sticker)
                 }
                 
                 DispatchQueue.main.async {
-                    self.collectionView?.reloadData()
+                    self.collectionView?.reloadData() // TODO - insert item instead of reloadData
                 }
+                
+                if stickers.count < self.FETCH_LIMIT { return }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.offset += self.FETCH_LIMIT

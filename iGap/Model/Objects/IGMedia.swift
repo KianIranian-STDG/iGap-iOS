@@ -64,7 +64,24 @@ class IGMedia: INSPhotoViewable, Equatable {
             completion(thumbnailImage, nil)
             return
         }
-        IGDownloadManager.sharedManager.download(file: (file?.smallThumbnail!)!, previewType:.smallThumbnail, completion: { (attachment) -> Void in
+        
+        var finalFile: IGFile!
+        var previewType: IGFile.PreviewType!
+
+        if let file = file?.smallThumbnail {
+            finalFile = file
+            previewType = IGFile.PreviewType.smallThumbnail
+        } else if let file = file?.largeThumbnail {
+            finalFile = file
+            previewType = IGFile.PreviewType.largeThumbnail
+        } else if file != nil {
+            finalFile = file
+            previewType = IGFile.PreviewType.originalFile
+        }
+        
+        if finalFile == nil { return }
+        
+        IGDownloadManager.sharedManager.download(file: finalFile!, previewType: previewType, completion: { (attachment) -> Void in
             self.thumbnailImage = UIImage.thumbnail(for: attachment)
             completion(self.thumbnailImage, nil)
         }, failure: {})

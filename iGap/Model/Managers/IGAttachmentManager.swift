@@ -89,7 +89,7 @@ class IGAttachmentManager: NSObject {
     
     func getFileInfo(token: String, completion: @escaping ((_ file :IGFile) -> Void)){
         let realm = try! Realm()
-        let predicate = NSPredicate(format: "token = %@", token)
+        let predicate = NSPredicate(format: "token = %@ AND previewTypeRaw = %d", token, IGFile.PreviewType.originalFile.rawValue)
         if let fileInfo = realm.objects(IGFile.self).filter(predicate).first {
             completion(fileInfo)
         } else {

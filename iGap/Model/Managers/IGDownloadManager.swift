@@ -100,6 +100,24 @@ class IGDownloadManager {
         }
     }
     
+    func downloadSticker(file: IGFile, previewType: IGFile.PreviewType, completion:DownloadCompleteHandler, failure:DownloadFailedHander) {
+        
+        guard let token = file.token else {
+            return
+        }
+        
+        if IGDownloadManager.sharedManager.isDownloading(token: token) {
+            IGDownloadManager.sharedManager.pauseDownload(attachment: file)
+            return
+        }
+        
+        if !IGAppManager.sharedManager.isUserLoggiedIn() { // if isn't login don't start download
+            return
+        }
+        
+        downloadProto(task: IGDownloadTask(file: file, previewType:previewType, completion:completion, failure:failure))
+    }
+    
     //MARK: Private methods
     private func manageDownloadQueue(_ task: IGDownloadTask) {
         IGAttachmentManager.sharedManager.setProgress(0.0, for: task.file)
