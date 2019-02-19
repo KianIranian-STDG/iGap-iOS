@@ -161,6 +161,13 @@ class IGRegisteredUser: Object {
         return nil
     }
     
+    internal static func getUserInfo(id: Int64) -> IGRegisteredUser? {
+        if let user = try! Realm().objects(IGRegisteredUser.self).filter(NSPredicate(format: "id = %lld", id)).first {
+            return user
+        }
+        return nil
+    }
+    
     internal static func fetchContactState(userId: Int64) -> Bool {
         if let user = try! Realm().objects(IGRegisteredUser.self).filter(NSPredicate(format: "id = %lld", userId)).first {
             return user.isInContacts

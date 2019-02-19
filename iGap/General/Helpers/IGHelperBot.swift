@@ -213,9 +213,11 @@ class IGHelperBot {
             break
             
         case ButtonActionType.REQUEST_PHONE.rawValue :
+            IGMessageViewController.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
             break
             
         case ButtonActionType.REQUEST_LOCATION.rawValue :
+            IGMessageViewController.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
             break
             
         case ButtonActionType.SHOWA_ALERT.rawValue :

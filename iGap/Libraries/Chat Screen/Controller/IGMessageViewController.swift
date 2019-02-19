@@ -844,6 +844,34 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
        openWebView(url: structAdditional.value)
     }
     
+    func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton){
+        manageRequestPhone()
+    }
+    
+    func onAdditionalRequestLocation(structAdditional :IGStructAdditionalButton){
+        openLocation()
+    }
+    
+    private func manageRequestPhone(){
+        
+        if let roomTitle = self.room?.title {
+            let alert = UIAlertController(title: nil, message: "there is a request to access your phone number from \(roomTitle) . do you allow?", preferredStyle: IGGlobal.detectAlertStyle())
+            
+            let sendPhone = UIAlertAction(title: "Send Phone", style: .default, handler: { (action) in
+                if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
+                    self.inputTextView.text = String(describing: userInfo.phone)
+                    self.didTapOnSendButton(self.inputBarSendButton)
+                }
+            })
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alert.addAction(sendPhone)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func onKeyboardChangeClick(){
         guard let additionalView = latestKeyboardAdditionalView else {
             return

@@ -14,5 +14,7 @@ import IGProtoBuff
 protocol AdditionalObserver {
     func onAdditionalSendMessage(structAdditional :IGStructAdditionalButton)
     func onAdditionalLinkClick(structAdditional :IGStructAdditionalButton)
+    func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton)
+    func onAdditionalRequestLocation(structAdditional :IGStructAdditionalButton)
 }
 
