@@ -129,7 +129,7 @@ enum IGRoomMessageType: Int {
         case .gifAndText:
             return .gifText
         case .sticker:
-            return .fileText
+            return .sticker
         }
     }
     

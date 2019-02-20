@@ -532,9 +532,11 @@ class IGFactory: NSObject {
                 try! IGDatabaseManager.shared.realm.write {
                     let message = IGRoomMessage(igpMessage: igpMessage, roomId: roomId)
                     message.primaryKeyId = primaryKeyId
+                    /*
                     if igpMessage.igpAdditionalType == AdditionalType.STICKER.rawValue {
                         message.type = .sticker
                     }
+                    */
                     IGDatabaseManager.shared.realm.add(message, update: true)
                 }
                 IGFactory.shared.performInFactoryQueue {
