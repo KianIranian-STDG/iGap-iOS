@@ -23,7 +23,7 @@ class IGContactManager: NSObject {
     private var results: [CNContact] = []
     private var resultsChunk = [[CNContact]]()
     private var contactIndex = 0
-    private var CONTACT_IMPORT_LIMIT = 50
+    private var CONTACT_IMPORT_LIMIT = 25
     
     private override init() {
         super.init()
