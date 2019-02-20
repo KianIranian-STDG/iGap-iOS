@@ -29,6 +29,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     let FETCH_LIMIT = 10
     var stickerGroupId: String?
     var currentIndexPath: IndexPath!
+    var isWaitingForRequest = false
 
     static var previewSectionIndex: Int = -1
     static var addStickerIndex: Int = -1
@@ -104,24 +105,37 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     private func fetchStickerList(){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            IGGlobal.prgShow(self.view)
-            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
+        isWaitingForRequest = true
+        IGGlobal.prgShow(self.view)
+        IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 IGGlobal.prgHide()
-                
-                for sticker in stickers {
-                    self.stickerList.append(sticker)
-                }
-                
-                DispatchQueue.main.async {
-                    self.collectionView?.reloadData() // TODO - insert item instead of reloadData
-                }
-                
-                if stickers.count < self.FETCH_LIMIT { return }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.offset += self.FETCH_LIMIT
-                    self.fetchStickerList()
+            }
+            
+            var indexSet : [Int] = []
+            
+            var extraIndex = 0
+            if self.offset > 0 {
+                extraIndex = self.offset
+            }
+            
+            for (index,sticker) in stickers.enumerated() {
+                indexSet.append(index + extraIndex)
+                self.stickerList.append(sticker)
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.collectionView?.performBatchUpdates({
+                    self.collectionView?.insertSections(IndexSet(indexSet))
+                })
+            }
+            
+            self.offset += self.FETCH_LIMIT
+            
+            /* mabye exist value so set 'isWaitingForRequest' false to allow user get other of items from server */
+            if stickers.count == self.FETCH_LIMIT {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                    self.isWaitingForRequest = false
                 }
             }
         }
@@ -191,6 +205,20 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
             return stickerTabs.count
         }
         return stickerList.count
+    }
+    
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if stickerPageType == StickerPageType.ADD_REMOVE {
+            if !isWaitingForRequest {
+                let height = scrollView.frame.size.height
+                let contentYoffset = scrollView.contentOffset.y
+                let distanceFromBottom = scrollView.contentSize.height - (contentYoffset + 100)
+                if distanceFromBottom < height {
+                    fetchStickerList()
+                }
+            }
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
