@@ -183,7 +183,7 @@ fileprivate class IGFactoryTask: NSObject {
                                     let igpRoom = response.igpRoom
                                     let room = IGRoom(igpRoom: igpRoom)
                                     room.isParticipant = isParticipane
-                                    room.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                                    //room.sortimgTimestamp = Date().timeIntervalSinceReferenceDate // don't need update to current time. don't do this for avoid from send room to top of room list
                                     try! IGDatabaseManager.shared.realm.write {
                                         IGDatabaseManager.shared.realm.add(room, update: true)
                                     }
@@ -2137,15 +2137,6 @@ class IGFactory: NSObject {
     
     func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool) {
         //Step 1: save last message to db
-        for igpRoom in rooms {
-            let task = IGFactoryTask(roomTask: igpRoom)
-            task.success ({
-                self.removeTaskFromQueueAndPerformNext(task)
-            }).error ({
-                self.removeTaskFromQueueAndPerformNext(task)
-            }).addToQueue()
-        }
-        
         if !ignoreLastMessage {
             for igpRoom in rooms {
                 if igpRoom.hasIgpLastMessage {
@@ -2158,6 +2149,15 @@ class IGFactory: NSObject {
                     }).addToQueue()
                 }
             }
+        }
+        
+        for igpRoom in rooms {
+            let task = IGFactoryTask(roomTask: igpRoom)
+            task.success ({
+                self.removeTaskFromQueueAndPerformNext(task)
+            }).error ({
+                self.removeTaskFromQueueAndPerformNext(task)
+            }).addToQueue()
         }
         
         self.performNextFactoryTaskIfPossible()
