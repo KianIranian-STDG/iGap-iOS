@@ -86,9 +86,11 @@ fileprivate class IGFactoryTask: NSObject {
                     room.isParticipant = true
                     try! IGDatabaseManager.shared.realm.write {
                         IGDatabaseManager.shared.realm.add(room, update: true)
+                        /*
                         if let roomInfo = IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room) {
                             IGDatabaseManager.shared.realm.add(roomInfo, update: true)
                         }
+                        */
                     }
                     IGFactory.shared.performInFactoryQueue {
                         self.success!()
@@ -2133,27 +2135,27 @@ class IGFactory: NSObject {
     
     func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool) {
         //Step 1: save last message to db
+        for igpRoom in rooms {
+            let task = IGFactoryTask(roomTask: igpRoom)
+            task.success ({
+                self.removeTaskFromQueueAndPerformNext(task)
+            }).error ({
+                self.removeTaskFromQueueAndPerformNext(task)
+            }).addToQueue()
+        }
+        
         if !ignoreLastMessage {
             for igpRoom in rooms {
                 if igpRoom.hasIgpLastMessage {
                     let lastIGPMessage = igpRoom.igpLastMessage
                     let task = IGFactoryTask(messageTask: lastIGPMessage, for: igpRoom.igpID, shouldFetchBefore: true)
-                    task.success {
+                    task.success ({
                         self.removeTaskFromQueueAndPerformNext(task)
-                    }.error {
+                    }).error ({
                         self.removeTaskFromQueueAndPerformNext(task)
-                    }.addToQueue()
+                    }).addToQueue()
                 }
             }
-        }
-        
-        for igpRoom in rooms {
-            let task = IGFactoryTask(roomTask: igpRoom)
-            task.success {
-                self.removeTaskFromQueueAndPerformNext(task)
-            }.error {
-                self.removeTaskFromQueueAndPerformNext(task)
-            }.addToQueue()
         }
         
         self.performNextFactoryTaskIfPossible()
