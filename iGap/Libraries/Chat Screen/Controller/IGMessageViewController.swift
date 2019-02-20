@@ -855,7 +855,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func manageRequestPhone(){
-        
+        self.view.endEditing(true)
         if let roomTitle = self.room?.title {
             let alert = UIAlertController(title: nil, message: "there is a request to access your phone number from \(roomTitle) . do you allow?", preferredStyle: IGGlobal.detectAlertStyle())
             

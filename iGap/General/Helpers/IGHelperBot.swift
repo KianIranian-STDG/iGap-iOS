@@ -44,7 +44,7 @@ class IGHelperBot {
         let rowWidth = computeWidth()
         let rowHeight = computeHeight(rowCount: rowCount)
         var customViewHeight = rowHeight
-        if rowCount > 1 {
+        if rowCount > 1 || isKeyboard {
            customViewHeight = rowHeight + (OUT_LAYOUT_SPACE * 2) // do -> (SPACE * 2) because of -> offset(SPACE) for top & bottom , at mainStackView makeConstraints
         }
         
