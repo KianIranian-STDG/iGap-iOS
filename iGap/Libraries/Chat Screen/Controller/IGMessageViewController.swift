@@ -490,8 +490,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 switch sender.tag {
                 case IGStickerToolbar.shared.STICKER_ADD:
-                    self.view.endEditing(true)
                     stickerPageType = StickerPageType.ADD_REMOVE
+                    if let observer = IGStickerViewController.stickerCurrentGroupIdObserver {
+                        IGStickerViewController.currentStickerGroupId = observer.fetchCurrentStickerGroupId()
+                    }
                     performSegue(withIdentifier: "showSticker", sender: self)
                     break
                     
@@ -1118,7 +1120,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         AVAudioSession.sharedInstance().requestRecordPermission { (granted) in }
         
-        self.setMessagesRead()
+        setMessagesRead()
+        manageStickerPosition()
     }
     
 
@@ -1304,6 +1307,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.txtSticker.isHidden = false
             }, completion: nil)
         })
+    }
+    
+    /* open sticker view in chat and go to saved position */
+    private func manageStickerPosition() {
+        if #available(iOS 10.0, *) {
+            if IGStickerViewController.currentStickerGroupId != nil {
+                self.stickerViewState(enable: true)
+            }
+        }
     }
     
     private func disableStickerView(delay: Double, openKeyboard: Bool = false){

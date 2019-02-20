@@ -19,3 +19,7 @@ protocol StickerTapListener {
 protocol StickerAddListener {
     func onStickerAdd(index: Int)
 }
+
+protocol StickerCurrentGroupIdObserver {
+    func fetchCurrentStickerGroupId() -> String
+}

@@ -14,7 +14,7 @@ import RealmSwift
 private let reuseIdentifier = "StickerCell"
 
 @available(iOS 10.0, *)
-class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener {
+class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener, StickerCurrentGroupIdObserver {
     
     var numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
@@ -28,17 +28,21 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     var offset: Int = 0
     let FETCH_LIMIT = 10
     var stickerGroupId: String?
+    var currentIndexPath: IndexPath!
 
     static var previewSectionIndex: Int = -1
     static var addStickerIndex: Int = -1
+    static var currentStickerGroupId: String? = nil // when current sticker page type is 'StickerPageType.MAIN' set this value for keep index and show current state of sticker tab after close add sticker list page
     static var stickerImageDic: [String:UIImageView] = [:]
     static var stickerTapListener: StickerTapListener!
     static var stickerToolbarObserver: StickerToolbarObserver!
     static var stickerAddListener: StickerAddListener!
+    static var stickerCurrentGroupIdObserver: StickerCurrentGroupIdObserver!
     
     override func viewDidAppear(_ animated: Bool) {
         IGStickerViewController.stickerToolbarObserver = self
         IGStickerViewController.stickerAddListener = self
+        IGStickerViewController.stickerCurrentGroupIdObserver = self
         if IGStickerViewController.previewSectionIndex != -1 && stickerPageType == StickerPageType.ADD_REMOVE {
             self.collectionView?.reloadSections(IndexSet([IGStickerViewController.previewSectionIndex]))
             IGStickerViewController.previewSectionIndex = -1
@@ -55,6 +59,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         
         if stickerPageType == StickerPageType.MAIN {
             fetchMySticker()
+            manageStickerPostion()
         } else if stickerPageType == StickerPageType.ADD_REMOVE {
             fetchStickerList()
         } else if stickerPageType == StickerPageType.PREVIEW {
@@ -74,6 +79,28 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     private func fetchMySticker(){
         stickerTabs = try! Realm().objects(IGRealmSticker.self).sorted(by: [SortDescriptor(keyPath: "sort", ascending: false)])
+    }
+    
+    /* go to default position if 'currentStickerGroupId' has value */
+    private func manageStickerPostion(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            var position = -1
+            if IGStickerViewController.currentStickerGroupId != nil {
+                for (index, stickerTab) in self.stickerTabs.enumerated() {
+                    if stickerTab.id == IGStickerViewController.currentStickerGroupId {
+                        position = index
+                        break
+                    }
+                }
+            }
+            
+            if position != -1 {
+                self.selectedIndexManually = position
+                self.goToPosition(position: position)
+                self.highlightSelected(index: position)
+            }
+            IGStickerViewController.currentStickerGroupId = nil
+        }
     }
     
     private func fetchStickerList(){
@@ -128,6 +155,13 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     func onStickerAdd(index: Int) {
         self.collectionView?.reloadSections(IndexSet([index]))
+    }
+    
+    func fetchCurrentStickerGroupId() -> String {
+        if let cell = self.collectionView!.cellForItem(at: currentIndexPath) as? IGStickerCell {
+            return cell.stickerItemRealm.groupID!
+        }
+        return ""
     }
     
     private func goToPosition(position: Int){
@@ -189,11 +223,12 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
                 
                 self.highlightSelected(index: indexPath.section)
             } else if self.selectedIndexManually == indexPath.section {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.selectedIndexManually = -1
                 }
             }
             if self.stickerPageType == StickerPageType.MAIN {
+                self.currentIndexPath = indexPath
                 stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
             } else if self.stickerPageType == StickerPageType.ADD_REMOVE {
                 stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section)
