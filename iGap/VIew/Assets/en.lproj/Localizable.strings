@@ -28,6 +28,7 @@
 "GROUP_MESSAGE_FILE" = "%1$@ sent a file to the group %2$@";
 "GROUP_MESSAGE_LOCATION" = "%1$@ sent a location to the group %2$@";
 "GROUP_MESSAGE_CONTACT" = "%1$@ shared a contact with you in the group %2$@";
+"GROUP_MESSAGE_STICKER" = "%1$@ sent a sticker to the group %2$@";
 
 "CHANNEL_MESSAGE_TEXT" = "%1$@: %2$@";
 "CHANNEL_MESSAGE_IMAGE" = "%1$@ posted a photo";
@@ -38,6 +39,7 @@
 "CHANNEL_MESSAGE_FILE" = "%1$@ posted a file";
 "CHANNEL_MESSAGE_LOCATION" = "%1$@ posted a location";
 "CHANNEL_MESSAGE_CONTACT" = "%1$@ posted a contact";
+"CHANNEL_MESSAGE_STICKER" = "%1$@ posted a sticker";
 
 "SIGNALING_OFFER_VOICE_CALLING" = "Incoming voice call from %1$@";
 "SIGNALING_OFFER_VIDEO_CALLINGSIGNALING_OFFER_VIDEO_CALLING" = "Incoming video call from %1$@";
