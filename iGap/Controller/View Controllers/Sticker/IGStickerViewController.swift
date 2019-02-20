@@ -149,6 +149,11 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if stickerPageType == StickerPageType.MAIN {
+            if stickerTabs.count == 0 {
+                self.collectionView!.setEmptyMessage("Please Add Sticker!")
+            } else {
+                self.collectionView!.restore()
+            }
             return stickerTabs.count
         }
         return stickerList.count
