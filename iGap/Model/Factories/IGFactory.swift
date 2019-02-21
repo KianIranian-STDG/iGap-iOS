@@ -969,10 +969,7 @@ class IGFactory: NSObject {
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    for contact in try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1") {
-                        contact.isInContacts = false
-                        IGDatabaseManager.shared.realm.add(contact, update: true)
-                    }
+                    try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1").setValue(false, forKey: "isInContacts")
                 }
                 
                 IGFactory.shared.performInFactoryQueue {
