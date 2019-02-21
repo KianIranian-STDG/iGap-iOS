@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     var isNeedToSetNickname : Bool = true
-    internal static let showPrint = false
     internal static var userIdRegister: Int64?
     internal static var usernameRegister: String?
     internal static var authorHashRegister: String?

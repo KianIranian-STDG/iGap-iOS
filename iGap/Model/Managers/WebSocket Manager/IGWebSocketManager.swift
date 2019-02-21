@@ -139,9 +139,6 @@ class IGWebSocketManager: NSObject {
     //Network connection problem detection
     //add this after connection stablishment
     fileprivate func resetConnectionProblemDetectorTimer() {
-        if AppDelegate.showPrint {
-            print(#function)
-        }
         removeConnectionProblemDetectorTimer()
         connectionProblemTimer = Timer.scheduledTimer(timeInterval: connectionProblemTimerDelay,
                                                       target:   self,
