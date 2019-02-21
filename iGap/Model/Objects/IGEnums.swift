@@ -95,6 +95,7 @@ enum IGRoomMessageType: Int {
     case contact
     case gifAndText
     case sticker
+    case wallet
     
     func toIGP() -> IGPRoomMessageType {
         switch self {
@@ -130,17 +131,21 @@ enum IGRoomMessageType: Int {
             return .gifText
         case .sticker:
             return .sticker
+        case .wallet:
+            return .wallet
         }
     }
     
     func fromIGP(_ igpType:IGPRoomMessageType, igpRoomMessage:IGPRoomMessage? = nil) -> IGRoomMessageType{
         
         /* check additional type */
+        /*
         if let additionalType = igpRoomMessage?.igpAdditionalType {
             if additionalType == AdditionalType.STICKER.rawValue {
                 return .sticker
             }
         }
+        */
         
         switch igpType {
         case .text:
@@ -173,6 +178,10 @@ enum IGRoomMessageType: Int {
             return .contact
         case .gifText:
             return .gifAndText
+        case .sticker:
+            return .sticker
+        case .wallet:
+            return .wallet
         default:
             return .text
         }

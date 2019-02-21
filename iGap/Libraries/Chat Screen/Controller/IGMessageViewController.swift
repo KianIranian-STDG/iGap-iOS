@@ -2845,6 +2845,14 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.delegate = self
             return cell
             
+        } else if messageType == .wallet {
+            
+            let cell: WalletCell = collectionView.dequeueReusableCell(withReuseIdentifier: WalletCell.cellReuseIdentifier(), for: indexPath) as! WalletCell
+            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)
+            cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+            cell.delegate = self
+            return cell
+            
         } else if message.type == .log {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(for: message)

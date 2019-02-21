@@ -103,17 +103,18 @@ class CellSizeCalculator: NSObject {
                 finalSize.height += CellSizeLimit.ConstantSizes.File.Height
                 break
                 
-            case .location: break
-            case .log: break
-            case .contact: break
-            case .text: break
-            case .unknown: break
+            default:
+                break
             }
             
             if text != nil && text != "" {
                 let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
                 finalSize.height += stringRect.height
             }
+        
+        } else if finalMessage.type == .wallet {
+            finalSize.height = CellSizeLimit.ConstantSizes.Wallet.Height
+            finalSize.width = CellSizeLimit.ConstantSizes.Wallet.Width
             
         } else if finalMessage.type == .log {
             finalSize.height = CellSizeLimit.ConstantSizes.Log.Height

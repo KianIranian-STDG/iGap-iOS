@@ -277,6 +277,9 @@
 		FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA98F839204D41AA0070424E /* Cosmos.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */; };
 		FA9EE5B7221EB01100BA7735 /* ConstantSizeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */; };
+		FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */; };
+		FA9EE5BC221ECD2300BA7735 /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */; };
+		FA9EE5BD221ECD7100BA7735 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */; };
 		FA9F73562127E589004418E5 /* EPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F73502127E589004418E5 /* EPConstants.swift */; };
 		FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F73512127E589004418E5 /* EPContactCell.swift */; };
 		FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9F73522127E589004418E5 /* EPContactCell.xib */; };
@@ -740,6 +743,9 @@
 		FA98F839204D41AA0070424E /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
 		FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSelectCountryCell.swift; sourceTree = "<group>"; };
 		FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSizeLimit.swift; sourceTree = "<group>"; };
+		FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomMessageWallet.swift; sourceTree = "<group>"; };
+		FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
+		FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
 		FA9F73502127E589004418E5 /* EPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPConstants.swift; sourceTree = "<group>"; };
 		FA9F73512127E589004418E5 /* EPContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPContactCell.swift; sourceTree = "<group>"; };
 		FA9F73522127E589004418E5 /* EPContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPContactCell.xib; sourceTree = "<group>"; };
@@ -1344,6 +1350,7 @@
 				FAEA75D81DDAFFA200C387F1 /* IGRoomMessageLocation.swift */,
 				FAEA75DA1DDB012800C387F1 /* IGRoomMessageLog.swift */,
 				FAEA75DC1DDB035400C387F1 /* IGRoomMessageContact.swift */,
+				FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */,
 				FA50FE4921EF40120043239D /* IGRealmAdditional.swift */,
 			);
 			name = Message;
@@ -1583,6 +1590,8 @@
 				FA417E4F212179C900B5FBCD /* LocationCell.xib */,
 				FAA65CFA220AC0270006994A /* StickerCell.swift */,
 				FAB1BF73220C341300BA980B /* StickerCell.xib */,
+				FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */,
+				FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */,
 			);
 			path = "Chat Cells";
 			sourceTree = "<group>";
@@ -2056,6 +2065,7 @@
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,
 				FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */,
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
+				FA9EE5BD221ECD7100BA7735 /* WalletCell.xib in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				FAAEAC5520E0EAEF00A1EAE5 /* Localizable.strings in Resources */,
@@ -2373,6 +2383,7 @@
 				FA0953621E1B97700043ED3F /* IGSettingContactTableViewCell.swift in Sources */,
 				FA50A8C41DD35E8500C6D2EA /* IGAppManager.swift in Sources */,
 				FA8F22501DD89C31005A90D1 /* IGRoomDraft.swift in Sources */,
+				FA9EE5BC221ECD2300BA7735 /* WalletCell.swift in Sources */,
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
@@ -2410,6 +2421,7 @@
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,
+				FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */,
 				FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */,
 				FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */,
 				FA0953701E1B97700043ED3F /* IGSettingsChatStickersModalView.swift in Sources */,

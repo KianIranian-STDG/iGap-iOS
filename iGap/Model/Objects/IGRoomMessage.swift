@@ -25,6 +25,7 @@ class IGRoomMessage: Object {
     @objc dynamic var log:                IGRoomMessageLog?
     @objc dynamic var contact:            IGRoomMessageContact?
     @objc dynamic var location:           IGRoomMessageLocation?
+    @objc dynamic var wallet:             IGRoomMessageWallet?
     @objc dynamic var additional:         IGRealmAdditional?
     @objc dynamic var id:                 Int64                           = -1
     @objc dynamic var roomId:             Int64                           = -1
@@ -174,6 +175,15 @@ class IGRoomMessage: Object {
                 self.location = locaitonInDb
             } else {
                 self.location = IGRoomMessageLocation(igpRoomMessageLocation: igpMessage.igpLocation, for: self)
+            }
+        }
+        if igpMessage.hasIgpWallet {
+            let predicate = NSPredicate(format: "id = %@", self.primaryKeyId!)
+            let realm = try! Realm()
+            if let wallet = realm.objects(IGRoomMessageWallet.self).filter(predicate).first {
+                self.wallet = wallet
+            } else {
+                self.wallet = IGRoomMessageWallet(igpRoomMessageWallet: igpMessage.igpWallet, for: self)
             }
         }
         if igpMessage.hasIgpLog {
