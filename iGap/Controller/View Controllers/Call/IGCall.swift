@@ -276,6 +276,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         localCameraView.layer.borderWidth = 0.3
         localCameraView.layer.borderColor = UIColor.white.cgColor
         localCameraView.layer.masksToBounds = true
+        localCameraView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
     }
     
     private func buttonViewCustomize(button: UIButton, color: UIColor, imgName: String = ""){

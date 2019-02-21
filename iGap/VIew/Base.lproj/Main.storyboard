@@ -323,10 +323,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Splash_Cute_5" translatesAutoresizingMaskIntoConstraints="NO" id="bYM-59-EEU">
-                                <rect key="frame" x="106.5" y="40" width="162" height="125"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Splash_Cute_2" translatesAutoresizingMaskIntoConstraints="NO" id="bYM-59-EEU">
+                                <rect key="frame" x="125" y="40" width="125" height="125"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="162" id="TFc-ga-VE9"/>
+                                    <constraint firstAttribute="width" constant="125" id="TFc-ga-VE9"/>
                                     <constraint firstAttribute="height" constant="125" id="b0b-uV-Ldx"/>
                                 </constraints>
                             </imageView>
@@ -1733,7 +1733,7 @@
         <image name="IG_Chat_Screen_Record" width="38" height="38"/>
         <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
         <image name="IG_Chat_Screen_Send" width="38" height="38"/>
-        <image name="IG_Splash_Cute_5" width="162" height="125"/>
+        <image name="IG_Splash_Cute_2" width="300" height="300"/>
         <image name="IG_Tabbar_Call_Off" width="37" height="37"/>
         <image name="IG_Tabbar_Call_On" width="37" height="37"/>
         <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
