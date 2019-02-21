@@ -1979,6 +1979,12 @@ class IGFactory: NSObject {
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.objects(IGRoom.self).setValue(true, forKey: "isDeleted")
+                }
+                
+                // Hint : don't need fetch difference list and set all isDeleted params. now we just set all data just with one query
+                /*
                 var array1: Array<Int64> = Array()
                 var array2: Array<Int64> = Array()
                 
@@ -2009,6 +2015,7 @@ class IGFactory: NSObject {
                         */
                     }
                 }
+                */
                 
                 IGFactory.shared.performInFactoryQueue {
                     task.success!()
@@ -2024,13 +2031,11 @@ class IGFactory: NSObject {
     }
     
     func removeDeletedRooms(){
-        /*
         let task = IGFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    let rooms = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1"))
-                    IGDatabaseManager.shared.realm.delete(rooms)
+                    IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
                 }
                 
                 IGFactory.shared.performInFactoryQueue {
@@ -2044,7 +2049,6 @@ class IGFactory: NSObject {
             self.removeTaskFromQueueAndPerformNext(task)
         }).addToQueue()
         self.performNextFactoryTaskIfPossible()
-        */
     }
     
     /* clear share info if "isParticipant == false" */

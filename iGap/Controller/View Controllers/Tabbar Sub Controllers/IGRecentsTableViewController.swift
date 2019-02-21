@@ -398,8 +398,10 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                         if getRoomListResponse.igpRooms.count != 0 {
                             self.fetchRoomList(offset: newOffset, limit: newLimit)
                         } else {
-                            IGFactory.shared.removeDeletedRooms()
-                            IGFactory.shared.deleteShareInfo()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                IGFactory.shared.removeDeletedRooms()
+                                IGFactory.shared.deleteShareInfo()
+                            }
                         }
                     }
                 }
