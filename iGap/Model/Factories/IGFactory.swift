@@ -1901,7 +1901,7 @@ class IGFactory: NSObject {
          */
     }
     
-    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool) {
+    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, removeDeleted: Bool = false) {
         //Step 1: save last message to db
         if !ignoreLastMessage {
             for igpRoom in rooms {
@@ -1926,7 +1926,23 @@ class IGFactory: NSObject {
             }).addToQueue()
         }
         
-        self.performNextFactoryTaskIfPossible()
+        if removeDeleted {
+            let task = IGFactoryTask()
+            task.task = {
+                IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                    try! IGDatabaseManager.shared.realm.write {
+                        IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
+                    }
+                    
+                    IGFactory.shared.performInFactoryQueue {
+                        self.setFactoryTaskSuccess(task: task)
+                    }
+                }
+            }
+            self.doFactoryTask(task: task)
+        } else {
+            self.performNextFactoryTaskIfPossible()
+        }
     }
     
     func saveRoomToDatabase(_ igpRoom: IGPRoom, isParticipant: Bool?) {

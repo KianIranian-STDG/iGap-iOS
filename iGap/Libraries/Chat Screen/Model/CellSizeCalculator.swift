@@ -14,68 +14,6 @@ typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: 
 
 class CellSizeCalculator: NSObject {
     
-    struct ConstantSizes {
-        struct Bubble {
-            struct Height {
-                struct Minimum {
-                    static let Attachment: CGFloat = 50.0
-                }
-                struct Maximum {
-                    static let Attachment: CGFloat = 400.0
-                }
-            }
-            struct Width {
-                struct Minimum {
-                    static let Text:       CGFloat = 80.0
-                    static let Additional: CGFloat = 200.0
-                    static let Attachment: CGFloat = 80.0
-                }
-                struct Maximum {
-                    static let Text:        CGFloat = 300.0
-                    static let Attachment:  CGFloat = 300.0
-                }
-            }
-        }
-        
-        struct Text {
-            static let Height: CGFloat = 30.0
-        }
-        
-        struct Media { // pictural file --> image, video, gif
-            static let ExtraHeight: CGFloat = 50.0
-            static let ExtraHeightWithText: CGFloat = 25.0
-        }
-        
-        struct Audio {
-            static let Width: CGFloat = 250.0
-            static let Height: CGFloat = 95.0
-        }
-        
-        struct Voice {
-            static let Width: CGFloat = 230.0
-            static let Height: CGFloat = 80.0
-        }
-        
-        struct File {
-            static let Width: CGFloat = 250.0
-            static let Height: CGFloat = 70.0
-        }
-        
-        struct Location {
-            static let Width: CGFloat = 230.0
-            static let Height: CGFloat = 130.0
-        }
-        
-        struct Contact {
-            static let Width: CGFloat = 230.0
-            static let Height: CGFloat = 70.0
-        }
-        
-        struct Log {
-            static let Height: CGFloat = 30.0
-        }
-    }
-    
     var cache : NSCache<NSString, AnyObject>
     private static let EXTRA_HEIGHT_RTL = 20
     internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL - 7)
@@ -121,26 +59,15 @@ class CellSizeCalculator: NSObject {
         let text = finalMessage.message as NSString?
         
         if finalMessage.attachment != nil {
-            let attachmentFrame = mediaFrame(media: finalMessage.attachment!,
-                                             maxWidth:  ConstantSizes.Bubble.Width.Maximum.Attachment,
-                                             maxHeight: ConstantSizes.Bubble.Height.Maximum.Attachment,
-                                             minWidth:  ConstantSizes.Bubble.Width.Minimum.Attachment,
-                                             minHeight: ConstantSizes.Bubble.Height.Minimum.Attachment)
-            
             switch finalMessage.type {
             case .sticker:
-                
-                let attachmentFrame = mediaFrame(media: finalMessage.attachment!,
-                                                 maxWidth:  ConstantSizes.Bubble.Width.Maximum.Attachment - 150,
-                                                 maxHeight: ConstantSizes.Bubble.Height.Maximum.Attachment - 150,
-                                                 minWidth:  ConstantSizes.Bubble.Width.Minimum.Attachment,
-                                                 minHeight: ConstantSizes.Bubble.Height.Minimum.Attachment)
+                let attachmentFrame = fetchStickerFrame(media: finalMessage.attachment!)
                 
                 messageAttachmentHeight = attachmentFrame.height
                 if text != nil && text != "" {
-                    finalSize.height += ConstantSizes.Media.ExtraHeightWithText
+                    finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeightWithText
                 } else {
-                    finalSize.height += ConstantSizes.Media.ExtraHeight
+                    finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeight
                 }
                 
                 finalSize.height += attachmentFrame.height
@@ -148,11 +75,13 @@ class CellSizeCalculator: NSObject {
                 break
                 
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
+                let attachmentFrame = fetchMediaFrame(media: finalMessage.attachment!)
+                
                 messageAttachmentHeight = attachmentFrame.height
                 if text != nil && text != "" {
-                    finalSize.height += ConstantSizes.Media.ExtraHeightWithText
+                    finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeightWithText
                 } else {
-                    finalSize.height += ConstantSizes.Media.ExtraHeight
+                    finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeight
                 }
                 
                 finalSize.height += attachmentFrame.height
@@ -160,18 +89,18 @@ class CellSizeCalculator: NSObject {
                 break
                 
             case .audio, .audioAndText:
-                finalSize.width = ConstantSizes.Audio.Width
-                finalSize.height += ConstantSizes.Audio.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Audio.Width
+                finalSize.height += CellSizeLimit.ConstantSizes.Audio.Height
                 break
                 
             case .voice:
-                finalSize.width = ConstantSizes.Voice.Width
-                finalSize.height += ConstantSizes.Voice.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Voice.Width
+                finalSize.height += CellSizeLimit.ConstantSizes.Voice.Height
                 break
                 
             case .file, .fileAndText:
-                finalSize.width = ConstantSizes.Voice.Width
-                finalSize.height += ConstantSizes.File.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Voice.Width
+                finalSize.height += CellSizeLimit.ConstantSizes.File.Height
                 break
                 
             case .location: break
@@ -187,28 +116,28 @@ class CellSizeCalculator: NSObject {
             }
             
         } else if finalMessage.type == .log {
-            finalSize.height = ConstantSizes.Log.Height
+            finalSize.height = CellSizeLimit.ConstantSizes.Log.Height
             
         } else if finalMessage.type == .contact {
             let contactHeight = ContactCell.getContactHeight(finalMessage.contact!)
-            finalSize.width = ConstantSizes.Contact.Width
-            finalSize.height += ConstantSizes.Contact.Height
+            finalSize.width = CellSizeLimit.ConstantSizes.Contact.Width
+            finalSize.height += CellSizeLimit.ConstantSizes.Contact.Height
             finalSize.height += contactHeight
             
         } else if finalMessage.type == .location {
-            finalSize.width = ConstantSizes.Location.Width
-            finalSize.height += ConstantSizes.Location.Height
+            finalSize.width = CellSizeLimit.ConstantSizes.Location.Width
+            finalSize.height += CellSizeLimit.ConstantSizes.Location.Height
             messageAttachmentHeight = finalSize.height
             
         } else { // Text Message
             if text != nil && text != "" {
                 let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
-                finalSize.height += ConstantSizes.Text.Height
+                finalSize.height += CellSizeLimit.ConstantSizes.Text.Height
                 finalSize.height += stringRect.height
                 
-                var minimumSize = ConstantSizes.Bubble.Width.Minimum.Text
+                var minimumSize = CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.Text
                 if additionalData != nil {
-                    minimumSize = ConstantSizes.Bubble.Width.Minimum.Additional
+                    minimumSize = CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.Additional
                 }
                 if stringRect.width < minimumSize {
                     finalSize.width = minimumSize
@@ -258,7 +187,7 @@ class CellSizeCalculator: NSObject {
         }
         
         var stringRect = textWithTime.boundingRect(
-            with: CGSize(width: ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
+            with: CGSize(width: CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: getStringStyle(), context: nil)
         
         if textWithTime.isRTL() {
@@ -270,6 +199,24 @@ class CellSizeCalculator: NSObject {
         stringRect.size.height = stringRect.size.height + 6
         
         return stringRect.size
+    }
+    
+    func fetchMediaFrame(media: IGFile) -> CGSize {
+        return mediaFrame(media: media,
+                          maxWidth:  CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Attachment,
+                          maxHeight: CellSizeLimit.ConstantSizes.Bubble.Height.Maximum.Attachment,
+                          minWidth:  CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.Attachment,
+                          minHeight: CellSizeLimit.ConstantSizes.Bubble.Height.Minimum.Attachment)
+        
+    }
+    
+    func fetchStickerFrame(media: IGFile) -> CGSize {
+        return mediaFrame(media: media,
+                          maxWidth:  CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Sticker,
+                          maxHeight: CellSizeLimit.ConstantSizes.Bubble.Height.Maximum.Attachment,
+                          minWidth:  CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.Sticker,
+                          minHeight: CellSizeLimit.ConstantSizes.Bubble.Height.Minimum.Attachment)
+        
     }
     
     func mediaFrame(media: IGFile, maxWidth: CGFloat, maxHeight: CGFloat, minWidth: CGFloat, minHeight: CGFloat) -> CGSize {

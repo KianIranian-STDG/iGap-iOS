@@ -43,9 +43,9 @@ class IGClientGetRoomListRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPClientGetRoomListResponse) -> Int {
+        class func interpret(response responseProtoMessage:IGPClientGetRoomListResponse, removeDeleted: Bool = false) -> Int {
             let igpRooms: Array<IGPRoom> = responseProtoMessage.igpRooms
-            IGFactory.shared.saveRoomsToDatabase(igpRooms, ignoreLastMessage: false)
+            IGFactory.shared.saveRoomsToDatabase(igpRooms, ignoreLastMessage: false, removeDeleted: removeDeleted)
             return igpRooms.count
         }
         override class func handlePush(responseProtoMessage: Message) {}

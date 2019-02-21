@@ -197,6 +197,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let _ = CellSizeLimit.shared
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
@@ -393,15 +394,19 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                             self.sendClientCondition(clientConditionRooms: clientConditionRooms!)
                         }
                         
-                        self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
-                        
                         if getRoomListResponse.igpRooms.count != 0 {
-                            self.fetchRoomList(offset: newOffset, limit: newLimit)
+                            self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                self.fetchRoomList(offset: newOffset, limit: newLimit)
+                            }
                         } else {
+                            self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
+                            /*
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 IGFactory.shared.removeDeletedRooms()
                                 IGFactory.shared.deleteShareInfo()
                             }
+                            */
                         }
                     }
                 }

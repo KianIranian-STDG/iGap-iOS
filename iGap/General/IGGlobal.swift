@@ -159,6 +159,10 @@ class IGGlobal {
         return true
     }
     
+    public class func fetchUIScreen() -> CGRect {
+        return UIScreen.main.bounds
+    }
+    
     public class func getCurrentMillis()->Int64{
         return  Int64(NSDate().timeIntervalSince1970 * 1000)
     }
