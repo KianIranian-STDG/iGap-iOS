@@ -2000,7 +2000,7 @@ class IGFactory: NSObject {
                     for roomId in differenceRoomId {
                         let predicate = NSPredicate(format: "id = %lld", roomId)
                         if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                            roomInDb.isDeleted = true
+                            roomInDb.isParticipant = false //roomInDb.isDeleted = true
                         }
 
                         /*
@@ -2027,6 +2027,7 @@ class IGFactory: NSObject {
     }
     
     func removeDeletedRooms(){
+        /*
         let task = IGFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
@@ -2046,6 +2047,7 @@ class IGFactory: NSObject {
             self.removeTaskFromQueueAndPerformNext(task)
         }).addToQueue()
         self.performNextFactoryTaskIfPossible()
+        */
     }
     
     /* clear share info if "isParticipant == false" */
