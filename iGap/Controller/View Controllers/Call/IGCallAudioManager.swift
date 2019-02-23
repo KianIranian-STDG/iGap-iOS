@@ -52,6 +52,26 @@ class IGCallAudioManager {
         }
     }
     
+    private func setAudioCategory(){
+        if #available(iOS 10.0, *) {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+            } catch {
+                print("error AVAudioSessionModeVideoChat")
+            }
+        }
+    }
+    
+    private func setVideoCategory(){
+        if #available(iOS 10.0, *) {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+            } catch {
+                print("error AVAudioSessionModeVideoChat")
+            }
+        }
+    }
+    
     public func manageAudioState(viewController: UIViewController, btnAudioState: UIButton){
         self.btnAudioState = btnAudioState
         var deviceAction = UIAlertAction()
@@ -65,6 +85,7 @@ class IGCallAudioManager {
                 let localAction = UIAlertAction(title: input.portName, style: .default, handler: {
                     (alert: UIAlertAction!) -> Void in
                     do {
+                        self.setAudioCategory()
                         try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
                         btnAudioState.setTitle("", for: UIControlState.normal)
                     } catch let error as NSError {
@@ -102,6 +123,7 @@ class IGCallAudioManager {
                     (alert: UIAlertAction!) -> Void in
                     
                     do {
+                        self.setAudioCategory()
                         try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
                         btnAudioState.setTitle("", for: UIControlState.normal)
                     } catch let error as NSError {
@@ -127,6 +149,7 @@ class IGCallAudioManager {
                 headphonesExist = true
                 let localAction = UIAlertAction(title: "Headphones", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     do {
+                        self.setAudioCategory()
                         try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
                         btnAudioState.setTitle("", for: UIControlState.normal)
                     } catch let error as NSError {
@@ -161,6 +184,7 @@ class IGCallAudioManager {
         
         let speakerOutput = UIAlertAction(title: "Speaker", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             do {
+                self.setVideoCategory()
                 try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
                 btnAudioState.setTitle("", for: UIControlState.normal)
             } catch let error as NSError {
