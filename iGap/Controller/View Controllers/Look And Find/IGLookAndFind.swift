@@ -49,6 +49,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.view.endEditing(true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
