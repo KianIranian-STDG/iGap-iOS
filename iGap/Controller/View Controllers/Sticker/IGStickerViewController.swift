@@ -172,7 +172,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     func fetchCurrentStickerGroupId() -> String {
-        if let cell = self.collectionView!.cellForItem(at: currentIndexPath) as? IGStickerCell {
+        if self.collectionView!.numberOfSections > 0, let cell = self.collectionView!.cellForItem(at: currentIndexPath) as? IGStickerCell {
             return cell.stickerItemRealm.groupID!
         }
         return ""
