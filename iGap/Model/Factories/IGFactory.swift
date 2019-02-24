@@ -1930,8 +1930,10 @@ class IGFactory: NSObject {
             let task = IGFactoryTask()
             task.task = {
                 IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                    try! IGDatabaseManager.shared.realm.write {
-                        IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5){
+                        try! IGDatabaseManager.shared.realm.write {
+                            IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
+                        }
                     }
                     
                     IGFactory.shared.performInFactoryQueue {
