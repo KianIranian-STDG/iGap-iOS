@@ -290,6 +290,8 @@
 		FAA30F671DAA6F790061B8C9 /* IGWebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA30F661DAA6F790061B8C9 /* IGWebSocketManager.swift */; };
 		FAA3604D201614B600736F95 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA3604B201614B600736F95 /* TextCell.swift */; };
 		FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA65CFA220AC0270006994A /* StickerCell.swift */; };
+		FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA6C5DA2222BA800035D777 /* PecPayment.framework */; };
 		FAA932F51DF45748002CC631 /* IGEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA932F41DF45748002CC631 /* IGEnums.swift */; };
 		FAA9DFB01F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA9DFAF1F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift */; };
 		FAA9DFB21F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA9DFB11F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift */; };
@@ -324,8 +326,6 @@
 		FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */; };
 		FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */; };
 		FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABE83AA20FDB43E00D94F01 /* Digger.framework */; };
-		FAC0F08420F0AF4900182758 /* PecPayment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC0F08320F0AF4900182758 /* PecPayment.framework */; };
-		FAC0F08520F0AF4900182758 /* PecPayment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAC0F08320F0AF4900182758 /* PecPayment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC0F08820F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift */; };
 		FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC34DB31E1A3F7E00BB9823 /* IGRealm.swift */; };
 		FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC34DB51E1A651200BB9823 /* IGContactInMessageCellView.swift */; };
@@ -449,7 +449,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FAC0F08520F0AF4900182758 /* PecPayment.framework in Embed Frameworks */,
+				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,6 +757,7 @@
 		FAA3604B201614B600736F95 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		FAA51753206A254200471EA0 /* profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = profile.storyboard; sourceTree = "<group>"; };
 		FAA65CFA220AC0270006994A /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
+		FAA6C5DA2222BA800035D777 /* PecPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PecPayment.framework; sourceTree = "<group>"; };
 		FAA932F41DF45748002CC631 /* IGEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGEnums.swift; path = ../Model/Objects/IGEnums.swift; sourceTree = "<group>"; };
 		FAA9DFAF1F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift; sourceTree = "<group>"; };
 		FAA9DFB11F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift; sourceTree = "<group>"; };
@@ -797,7 +798,6 @@
 		FABB9B051DB25E5E00D794A4 /* IGSecurityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGSecurityManager.swift; path = "Security Manager/IGSecurityManager.swift"; sourceTree = "<group>"; };
 		FABE0A6F21D3BDBE009C46D7 /* IGCallAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallAudioManager.swift; sourceTree = "<group>"; };
 		FABE83AA20FDB43E00D94F01 /* Digger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Digger.framework; path = Carthage/Build/iOS/Digger.framework; sourceTree = "<group>"; };
-		FAC0F08320F0AF4900182758 /* PecPayment.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PecPayment.framework; sourceTree = "<group>"; };
 		FAC0F08820F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceBillQrScanner.swift; sourceTree = "<group>"; };
 		FAC34DB31E1A3F7E00BB9823 /* IGRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRealm.swift; sourceTree = "<group>"; };
 		FAC34DB51E1A651200BB9823 /* IGContactInMessageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGContactInMessageCellView.swift; path = iGap/VIew/ReusableViews/IGContactInMessageCellView.swift; sourceTree = SOURCE_ROOT; };
@@ -924,6 +924,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */,
 				FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */,
 				FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */,
 				FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */,
@@ -946,7 +947,6 @@
 				FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */,
 				FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */,
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
-				FAC0F08420F0AF4900182758 /* PecPayment.framework in Frameworks */,
 				931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */,
 				FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */,
 				FAF78EAD1E2EA77700C6F523 /* DBAttachmentPickerControllerLibrary.framework in Frameworks */,
@@ -1885,6 +1885,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAA6C5DA2222BA800035D777 /* PecPayment.framework */,
 				FABA60F122180D6B00FFBB5A /* SDWebImage.framework */,
 				FAB436702209751A0073EEE1 /* Alamofire.framework */,
 				FA9688F72207209C00B1C1EB /* BLTNBoard.framework */,
@@ -1902,7 +1903,6 @@
 				FAAD3C1F21EA220C00B1420A /* FirebaseMessaging.framework */,
 				FAB798AD21A5681C0019FC92 /* Hero.framework */,
 				FABE83AA20FDB43E00D94F01 /* Digger.framework */,
-				FAC0F08320F0AF4900182758 /* PecPayment.framework */,
 				FA39EAA220D7BF7A001CFF77 /* Protobuf.framework */,
 				FA865C7120789C2600B9D585 /* MapKit.framework */,
 				FA98F839204D41AA0070424E /* Cosmos.framework */,
