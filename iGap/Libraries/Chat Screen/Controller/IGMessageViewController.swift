@@ -2049,7 +2049,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        progressbar.startAnimating()
+        if request.url?.description == "igap://close" {
+            closeWebView()
+        } else {
+            progressbar.startAnimating()
+        }
         return true
     }
     
