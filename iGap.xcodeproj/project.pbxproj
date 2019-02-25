@@ -1645,7 +1645,6 @@
 				FA9F734F2127E4C0004418E5 /* Contact Picker */,
 				FA930D961E5B178F00069EE1 /* ThirdParty Libraries */,
 				FA4BD8A01DF2A52300CCB239 /* Music Player */,
-				FAD5807F1DDC403200A242DE /* Chat Screen */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -1857,6 +1856,7 @@
 		FAF7960B1DAA39660030509B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FAD5807F1DDC403200A242DE /* Chat Screen */,
 				FAD530561E0BD6C300FE6C54 /* Custom Master Controllers */,
 				FA087B2C1DC4A27200E139FA /* View Controllers */,
 			);

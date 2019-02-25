@@ -47,7 +47,7 @@ class IGRealmClientSearchUsername: Object {
         if let room = realm.objects(IGRoom.self).filter(predicate).first {
             return room
         } else {
-            return IGRoom(igpRoom: room)
+            return IGRoom.putOrUpdate(realm: realm, room)
         }
     }
     
@@ -57,7 +57,7 @@ class IGRealmClientSearchUsername: Object {
         if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
             return userInDb
         } else {
-            return IGRegisteredUser(igpUser: user)
+            return IGRegisteredUser.putOrUpdate(realm: realm, igpUser: user)
         }
     }
 }
