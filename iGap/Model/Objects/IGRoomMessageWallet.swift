@@ -41,6 +41,29 @@ class IGRoomMessageWallet: Object {
         self.walletDescription = igpRoomMessageWallet.igpMoneyTransfer.igpDescription
     }
     
+    static func putOrUpdate(realm: Realm, igpRoomMessageWallet: IGPRoomMessageWallet, for message: IGRoomMessage) -> IGRoomMessageWallet {
+        
+        let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
+        var wallet: IGRoomMessageWallet! = realm.objects(IGRoomMessageWallet.self).filter(predicate).first
+
+        if wallet == nil {
+            wallet = IGRoomMessageWallet()
+            wallet.id = message.primaryKeyId
+        }
+        
+        wallet.type = igpRoomMessageWallet.igpType.rawValue
+        wallet.fromUserId = igpRoomMessageWallet.igpMoneyTransfer.igpFromUserID
+        wallet.toUserId = igpRoomMessageWallet.igpMoneyTransfer.igpToUserID
+        wallet.amount = igpRoomMessageWallet.igpMoneyTransfer.igpAmount
+        wallet.traceNumber = igpRoomMessageWallet.igpMoneyTransfer.igpTraceNumber
+        wallet.invoiceNumber = igpRoomMessageWallet.igpMoneyTransfer.igpInvoiceNumber
+        wallet.payTime = igpRoomMessageWallet.igpMoneyTransfer.igpPayTime
+        wallet.walletDescription = igpRoomMessageWallet.igpMoneyTransfer.igpDescription
+        
+        return wallet
+    }
+    
+    
     //detach from current realm
     func detach() -> IGRoomMessageWallet {
         let detachedRoomMessageLocation = IGRoomMessageWallet(value: self)

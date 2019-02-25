@@ -43,7 +43,7 @@ class IGAppManager: NSObject {
     private var _mapEnable: Bool = false
     private var _mplActive: Bool = false
     
-    public let LOAD_ROOM_LIMIT = 30
+    public let LOAD_ROOM_LIMIT = 15
     
     private override init() {
         connectionStatus = Variable(.waitingForNetwork)

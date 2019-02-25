@@ -132,21 +132,15 @@ fileprivate class IGFactoryTask: NSObject {
                                 self.success!()
                             }
                         }
-                        
-                        DispatchQueue.main.async {
-                            
-                        }
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             self.error!()
                         }
-                        
                     }).send()
                 }
             } else {
                 self.success!()
             }
-            
         }
         self.task = task
     }
@@ -1764,11 +1758,12 @@ class IGFactory: NSObject {
     /* change isDeleted value to "true" for rooms that not exist in server response */
     func markRoomsAsDeleted(igpRooms : [IGPRoom]){
         //let task = getFactoryTask()
-        factoryQueue.async {
+        let task = IGFactoryTask()
+        task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 
                 try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.objects(IGRoom.self).setValue(true, forKey: "isDeleted")
+                    IGDatabaseManager.shared.realm.objects(IGRoom.self).filter("isDeleted == 0").setValue(true, forKey: "isDeleted")
                 }
                 
                 // Hint : don't need fetch difference list and set all isDeleted params. now we just set all data just with one query
@@ -1806,11 +1801,11 @@ class IGFactory: NSObject {
                  */
                 
                 IGFactory.shared.performInFactoryQueue {
-                    //self.setFactoryTaskSuccess(task: task)
+                    self.setFactoryTaskSuccess(task: task)
                 }
             }
         }
-        //self.doFactoryTask(task: task)
+        self.doFactoryTask(task: task)
     }
     
     func removeDeletedRooms(){
@@ -1901,6 +1896,7 @@ class IGFactory: NSObject {
          */
     }
     
+    /*
     func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, removeDeleted: Bool = false) {
         //Step 1: save last message to db
         if !ignoreLastMessage {
@@ -1934,6 +1930,48 @@ class IGFactory: NSObject {
                         try! IGDatabaseManager.shared.realm.write {
                             IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
                         }
+                    }
+                    
+                    IGFactory.shared.performInFactoryQueue {
+                        self.setFactoryTaskSuccess(task: task)
+                    }
+                }
+            }
+            self.doFactoryTask(task: task)
+        } else {
+            self.performNextFactoryTaskIfPossible()
+        }
+    }
+    */
+    
+    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, removeDeleted: Bool = false) {
+        
+        let task = IGFactoryTask()
+        task.task = {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    for igpRoom in rooms {
+                        IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
+                    }
+                    
+                    IGFactory.shared.performInFactoryQueue {
+                        self.setFactoryTaskSuccess(task: task)
+                    }
+                }
+            }
+        }
+        task.success ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).error ({
+            self.removeTaskFromQueueAndPerformNext(task)
+        }).addToQueue()
+        
+        if removeDeleted {
+            let task = IGFactoryTask()
+            task.task = {
+                IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                    try! IGDatabaseManager.shared.realm.write {
+                        IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(NSPredicate(format: "isDeleted == 1")))
                     }
                     
                     IGFactory.shared.performInFactoryQueue {

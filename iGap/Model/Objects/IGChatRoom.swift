@@ -34,6 +34,19 @@ class IGChatRoom: Object {
         }
     }
     
+    static func putOrUpdate(realm: Realm, igpChatRoom: IGPChatRoom, id: Int64) -> IGChatRoom {
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var chatRoom: IGChatRoom! = try! Realm().objects(IGChatRoom.self).filter(predicate).first
+        
+        if chatRoom == nil {
+            chatRoom = IGChatRoom()
+            chatRoom.id = id
+        }
+        chatRoom.peer = IGRegisteredUser.putOrUpdate(realm: realm, igpUser: igpChatRoom.igpPeer)
+        
+        return chatRoom
+    }
+    
     //detach from current realm
     func detach() -> IGChatRoom {
         let detachedChatRoom = IGChatRoom(value: self)

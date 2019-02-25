@@ -58,6 +58,31 @@ class IGFile: Object {
         case voice
         case file
         case sticker
+        
+        static func convertToFileType(messageType: IGRoomMessageType) -> IGFile.FileType {
+            switch messageType {
+            case .audio, .audioAndText:
+                return .audio
+                
+            case .image, .imageAndText:
+                return .image
+                
+            case .video, .videoAndText:
+                return .video
+                
+            case .voice:
+                return .voice
+                
+            case .gif, .gifAndText:
+                return .gif
+                
+            case .file, .fileAndText:
+                return .file
+                
+            default:
+                return .image
+            }
+        }
     }
     
     enum FileTypeBasedOnNameExtension {
@@ -258,6 +283,68 @@ class IGFile: Object {
         self.cacheID = igpThumbnail.igpCacheID
         self.primaryKeyId = igpThumbnail.igpCacheID
         self.name = cacheID
+    }
+    
+    static func putOrUpdate(realm: Realm, igpFile : IGPFile, messageType: IGRoomMessageType) -> IGFile {
+        
+        let predicate = NSPredicate(format: "primaryKeyId = %@", igpFile.igpCacheID)
+        var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
+        
+        if file == nil {
+            file = IGFile()
+            file.primaryKeyId = igpFile.igpCacheID
+            if file.fileNameOnDisk == nil {
+                file.downloadUploadPercent = 0.0
+                file.status = .readyToDownload
+            } else if !(file.isInUploadLevels()){
+                file.downloadUploadPercent = 1.0
+                file.status = .ready
+            }
+        }
+        
+        file.type = IGFile.FileType.convertToFileType(messageType: messageType)
+        file.token = igpFile.igpToken
+        file.publicUrl = igpFile.igpPublicURL
+        file.name = igpFile.igpName
+        file.size = Int(igpFile.igpSize)
+        file.cacheID = igpFile.igpCacheID
+        file.previewType = .originalFile
+        file.width = Double(igpFile.igpWidth)
+        file.height = Double(igpFile.igpHeight)
+        file.duration = igpFile.igpDuration
+        
+        if igpFile.hasIgpSmallThumbnail {
+            file.smallThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpSmallThumbnail, previewType: .largeThumbnail, token:file.token)
+        }
+        if igpFile.hasIgpLargeThumbnail {
+            file.largeThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpLargeThumbnail, previewType: .largeThumbnail, token:file.token)
+        }
+        if igpFile.hasIgpWaveformThumbnail {
+            file.waveformThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpWaveformThumbnail, previewType: .largeThumbnail, token:file.token)
+        }
+        
+        return file
+    }
+    
+    static func putOrUpdateThumbnail(realm: Realm, igpThumbnail: IGPThumbnail, previewType: IGFile.PreviewType, token: String?) -> IGFile {
+        
+        let predicate = NSPredicate(format: "cacheID = %@", igpThumbnail.igpCacheID)
+        var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
+        if file == nil {
+            file = IGFile()
+            file.primaryKeyId = igpThumbnail.igpCacheID
+        }
+        
+        file.token = token
+        file.size = Int(igpThumbnail.igpSize)
+        file.width = Double(igpThumbnail.igpWidth)
+        file.height = Double(igpThumbnail.igpHeight)
+        file.previewType = previewType
+        file.type = .image
+        file.cacheID = igpThumbnail.igpCacheID
+        file.name = igpThumbnail.igpCacheID
+        
+        return file
     }
     
     //detach from current realm

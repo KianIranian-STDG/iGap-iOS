@@ -19,6 +19,21 @@ class IGChannelMember: Object {
         case moderator
         case admin
         case owner
+        
+        static func fromIGP(role: IGPChannelRoom.IGPRole) -> IGChannelMember.IGRole {
+            switch role {
+            case .member:
+                return .member
+            case .moderator:
+                return .moderator
+            case .admin:
+                return .admin
+            case .owner:
+                return .owner
+            default:
+                return .member
+            }
+        }
     }
 
     @objc dynamic  var primaryKeyId: String         = ""    // user_id + _ + room_id
@@ -87,6 +102,17 @@ class IGChannelRoom: Object {
     enum IGType: Int {
         case privateRoom = 0
         case publicRoom
+        
+        static func fromIGP(type: IGPChannelRoom.IGPType) -> IGChannelRoom.IGType {
+            switch type {
+            case .privateRoom:
+                return .privateRoom
+            case .publicRoom:
+                return .publicRoom
+            default:
+                return .privateRoom
+            }
+        }
     }
     
     //MARK: properties
@@ -179,6 +205,37 @@ class IGChannelRoom: Object {
         self.isVerified = igpChannelRoom.igpVerified
     }
     
+    static func putOrUpdate(realm: Realm, igpChannelRoom: IGPChannelRoom, id: Int64) -> IGChannelRoom {
+        
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var channelRoom: IGChannelRoom! = realm.objects(IGChannelRoom.self).filter(predicate).first
+        
+        if channelRoom == nil {
+            channelRoom = IGChannelRoom()
+            channelRoom.id = id
+        }
+        channelRoom.type = IGChannelRoom.IGType.fromIGP(type: igpChannelRoom.igpType)
+        channelRoom.role = IGChannelMember.IGRole.fromIGP(role: igpChannelRoom.igpRole)
+        
+        channelRoom.participantCount = igpChannelRoom.igpParticipantsCount
+        channelRoom.participantCountText = igpChannelRoom.igpParticipantsCountLabel
+        channelRoom.roomDescription = igpChannelRoom.igpDescription
+        channelRoom.avatarCount = igpChannelRoom.igpAvatarCount
+        channelRoom.isSignature = igpChannelRoom.igpSignature
+        channelRoom.isVerified = igpChannelRoom.igpVerified
+        
+        if igpChannelRoom.hasIgpAvatar{
+            channelRoom.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpChannelRoom.igpAvatar)
+        }
+        if igpChannelRoom.hasIgpPrivateExtra {
+            channelRoom.privateExtra = IGChannelPrivateExtra.putOrUpdate(realm: realm, igpPrivateExtra: igpChannelRoom.igpPrivateExtra, id: id)
+        }
+        if igpChannelRoom.hasIgpPublicExtra{
+            channelRoom.publicExtra = IGChannelPublicExtra.putOrUpdate(realm: realm, igpPublicExtra: igpChannelRoom.igpPublicExtra, id: id)
+        }
+        
+        return channelRoom
+    }
     
     //detach from current realm
     func detach() -> IGChannelRoom {
@@ -219,6 +276,18 @@ class IGChannelPrivateExtra: Object {
         self.inviteToken = igpPrivateExtra.igpInviteToken
     }
     
+    static func putOrUpdate(realm: Realm, igpPrivateExtra: IGPChannelRoom.IGPPrivateExtra, id: Int64) -> IGChannelPrivateExtra {
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var channelPrivateExtra: IGChannelPrivateExtra! = realm.objects(IGChannelPrivateExtra.self).filter(predicate).first
+        if channelPrivateExtra == nil {
+            channelPrivateExtra = IGChannelPrivateExtra()
+            channelPrivateExtra.id = id
+        }
+        channelPrivateExtra.inviteLink = igpPrivateExtra.igpInviteLink
+        channelPrivateExtra.inviteToken = igpPrivateExtra.igpInviteToken
+        return channelPrivateExtra
+    }
+    
     //detach from current realm
     func detach() -> IGChannelPrivateExtra {
         return IGChannelPrivateExtra(value: self)
@@ -243,6 +312,17 @@ class IGChannelPublicExtra: Object {
         self.init()
         self.id = id
         self.username = username
+    }
+    
+    static func putOrUpdate(realm: Realm, igpPublicExtra: IGPChannelRoom.IGPPublicExtra, id: Int64) -> IGChannelPublicExtra {
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var channelPublicExtra: IGChannelPublicExtra! = realm.objects(IGChannelPublicExtra.self).filter(predicate).first
+        if channelPublicExtra == nil {
+            channelPublicExtra = IGChannelPublicExtra()
+            channelPublicExtra.id = id
+        }
+        channelPublicExtra.username = igpPublicExtra.igpUsername
+        return channelPublicExtra
     }
     
     //detach from current realm

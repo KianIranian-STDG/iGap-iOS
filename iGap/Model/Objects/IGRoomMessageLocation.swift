@@ -36,6 +36,21 @@ class IGRoomMessageLocation: Object {
         self.longitude = location.coordinate.longitude
     }
     
+    static func putOrUpdate(realm: Realm, igpRoomMessageLocation: IGPRoomMessageLocation, for message: IGRoomMessage) -> IGRoomMessageLocation {
+        
+        let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
+        if let locaitonInDb = realm.objects(IGRoomMessageLocation.self).filter(predicate).first {
+            return locaitonInDb
+        }
+
+        let locaitonInDb = IGRoomMessageLocation()
+        locaitonInDb.id = message.primaryKeyId
+        locaitonInDb.latitude = igpRoomMessageLocation.igpLat
+        locaitonInDb.longitude = igpRoomMessageLocation.igpLon
+        
+        return locaitonInDb
+    }
+    
     //detach from current realm
     func detach() -> IGRoomMessageLocation {
         let detachedRoomMessageLocation = IGRoomMessageLocation(value: self)

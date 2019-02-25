@@ -75,6 +75,25 @@ enum IGRoomMessageStatus: Int {
     case delivered
     case seen
     case listened
+    
+    static func fromIGP(status: IGPRoomMessageStatus) -> IGRoomMessageStatus {
+        switch status {
+        case .failed:
+            return .failed
+        case .sending:
+            return .sending
+        case .sent:
+            return .sent
+        case .delivered:
+            return .delivered
+        case .seen:
+            return .seen
+        case .listened:
+            return .listened
+        default:
+            return .unknown
+        }
+    }
 }
 
 enum IGRoomMessageType: Int {

@@ -39,6 +39,23 @@ class IGRoomDraft: Object {
         self.replyTo = replyTo != nil ? replyTo! : -1
         self.roomId = roomId
     }
+    
+    static func putOrUpdate(realm: Realm, igpDraft: IGPRoomDraft, roomId: Int64) -> IGRoomDraft {
+        let predicate = NSPredicate(format: "roomId = %lld", roomId)
+        var draft: IGRoomDraft! = realm.objects(IGRoomDraft.self).filter(predicate).first
+        
+        if draft == nil {
+            draft = IGRoomDraft()
+            draft.roomId = roomId
+        }
+        
+        draft.message = igpDraft.igpMessage
+        if igpDraft.igpReplyTo != 0 {
+            draft.replyTo = igpDraft.igpReplyTo
+        }
+        
+        return draft
+    }
         
     func toIGP() -> IGPRoomDraft {
         var roomDraftMessage = IGPRoomDraft()

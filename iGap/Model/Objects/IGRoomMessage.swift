@@ -260,6 +260,91 @@ class IGRoomMessage: Object {
         return "\(prefix)\(messageID)_\(roomID)" + IGGlobal.randomString(length: 3)
     }
     
+    static func putOrUpdate(realm: Realm, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) -> IGRoomMessage {
+        
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
+        var message: IGRoomMessage! = realm.objects(IGRoomMessage.self).filter(predicate).first
+        
+        if message == nil {
+            message = IGRoomMessage()
+            message.primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
+        }
+        
+        if !isForward && !isReply {
+            message.roomId = roomId
+        }
+        
+        message.id = igpMessage.igpMessageID
+        message.message = igpMessage.igpMessage
+        message.messageVersion = igpMessage.igpMessageVersion
+        message.isDeleted = igpMessage.igpDeleted
+        message.isEdited = igpMessage.igpEdited
+        message.creationTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpCreateTime))
+        message.updateTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpUpdateTime))
+        message.randomId = igpMessage.igpRandomID
+        
+        message.status = IGRoomMessageStatus.fromIGP(status: igpMessage.igpStatus)
+        message.type = IGRoomMessageType.unknown.fromIGP(igpMessage.igpMessageType, igpRoomMessage: igpMessage)
+        
+        if igpMessage.igpStatusVersion != 0 {
+            message.statusVersion = igpMessage.igpStatusVersion
+        }
+        if igpMessage.igpPreviousMessageID != 0 {
+            message.previuosMessageUID = igpMessage.igpPreviousMessageID
+        }
+        if igpMessage.hasIgpAuthor {
+            let author = igpMessage.igpAuthor
+            if author.igpHash != "" {
+                message.authorHash = author.igpHash
+            }
+
+            if author.hasIgpUser {
+                let authorUser = author.igpUser
+                let predicate = NSPredicate(format: "id = %lld", authorUser.igpUserID)
+                let realm = try! Realm()
+                if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
+                    message.authorUser = userInDb
+                    message.authorRoom = nil
+                }
+            } else if author.hasIgpRoom {
+                let authorRoom = author.igpRoom
+                let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
+                let realm = try! Realm()
+                if let roomInDb = realm.objects(IGRoom.self).filter(predicate).first {
+                    message.authorRoom = roomInDb
+                    message.authorUser = nil
+                }
+            }
+        }
+        
+        if igpMessage.hasIgpAttachment {
+            message.attachment = IGFile.putOrUpdate(realm: realm, igpFile: igpMessage.igpAttachment, messageType: message!.type)
+        }
+        if igpMessage.hasIgpLocation {
+            message.location = IGRoomMessageLocation.putOrUpdate(realm: realm, igpRoomMessageLocation: igpMessage.igpLocation, for: message)
+        }
+        if igpMessage.hasIgpWallet {
+            message.wallet = IGRoomMessageWallet.putOrUpdate(realm: realm, igpRoomMessageWallet: igpMessage.igpWallet, for: message)
+        }
+        if igpMessage.hasIgpLog {
+            message.log = IGRoomMessageLog.putOrUpdate(realm: realm, igpRoomMessageLog: igpMessage.igpLog, for: message)
+        }
+        if igpMessage.hasIgpContact {
+            message.contact = IGRoomMessageContact.putOrUpdate(realm: realm, igpRoomMessageContact: igpMessage.igpContact, for: message)
+        }
+        if igpMessage.hasIgpForwardFrom {
+            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpMessage.igpForwardFrom, roomId: roomId, isForward: true)
+        }
+        if igpMessage.hasIgpReplyTo {
+            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpMessage.igpReplyTo, roomId: roomId, isReply: true)
+        }
+        
+        message.additional = IGRealmAdditional.put(realm: realm, message: igpMessage)
+        
+        return message
+    }
+    
     internal static func detectPinMessage(message: IGRoomMessage) -> String{
         
         var messageType = message.type

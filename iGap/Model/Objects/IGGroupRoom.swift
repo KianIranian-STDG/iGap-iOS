@@ -19,6 +19,21 @@ class IGGroupMember: Object {
         case moderator
         case admin
         case owner
+        
+        static func fromIGP(type: IGPGroupRoom.IGPRole) -> IGGroupMember.IGRole {
+            switch type {
+            case .member:
+                return .member
+            case .moderator:
+                return .moderator
+            case .admin:
+                return .admin
+            case .owner:
+                return .owner
+            default:
+                return .member
+            }
+        }
     }
     
     @objc dynamic var primaryKeyId: String         = ""    // user_id + _ + room_id
@@ -83,6 +98,17 @@ class IGGroupRoom: Object {
     enum IGType: Int {
         case privateRoom = 0
         case publicRoom
+        
+        static func fromIGP(type: IGPGroupRoom.IGPType) -> IGGroupRoom.IGType {
+            switch type {
+            case .privateRoom:
+                return .privateRoom
+            case .publicRoom:
+                return .publicRoom
+            default:
+                return .privateRoom
+            }
+        }
     }
     enum IGRole: Int {
         case member = 0
@@ -180,6 +206,39 @@ class IGGroupRoom: Object {
         }
     }
     
+    static func putOrUpdate(realm: Realm, igpGroupRoom: IGPGroupRoom, id: Int64) -> IGGroupRoom {
+        
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var groupRoom: IGGroupRoom! = realm.objects(IGGroupRoom.self).filter(predicate).first
+        
+        if groupRoom == nil {
+            groupRoom = IGGroupRoom()
+            groupRoom.id = id
+        }
+        
+        groupRoom.type = IGGroupRoom.IGType.fromIGP(type: igpGroupRoom.igpType)
+        groupRoom.role = IGGroupMember.IGRole.fromIGP(type: igpGroupRoom.igpRole)
+        
+        groupRoom.participantCount = igpGroupRoom.igpParticipantsCount
+        groupRoom.participantCountText = igpGroupRoom.igpParticipantsCountLabel
+        groupRoom.participantCountLimit = igpGroupRoom.igpParticipantsCountLimit
+        groupRoom.participantCountLimitText = igpGroupRoom.igpParticipantsCountLimitLabel
+        groupRoom.roomDescription = igpGroupRoom.igpDescription
+        groupRoom.avatarCount = igpGroupRoom.igpAvatarCount
+        
+        if igpGroupRoom.hasIgpAvatar {
+            groupRoom.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpGroupRoom.igpAvatar)
+        }
+        if igpGroupRoom.hasIgpPrivateExtra {
+            groupRoom.privateExtra = IGGroupPrivateExtra.putOrUpdate(realm: realm, igpPrivateExtra: igpGroupRoom.igpPrivateExtra, id: id)
+        }
+        if igpGroupRoom.hasIgpPublicExtra {
+            groupRoom.publicExtra = IGGroupPublicExtra.put(realm: realm, igpPublicExtra: igpGroupRoom.igpPublicExtra, id: id)
+        }
+        
+        return groupRoom
+    }
+    
     //detach from current realm
     func detach() -> IGGroupRoom {
         let detachedGroupRoom = IGGroupRoom(value: self)
@@ -202,8 +261,6 @@ class IGGroupRoom: Object {
         
         return detachedGroupRoom
     }
-    
-    
 }
 
 
@@ -221,6 +278,18 @@ class IGGroupPrivateExtra: Object {
         self.id = id
         self.inviteLink = igpPrivateExtra.igpInviteLink
         self.inviteToken = igpPrivateExtra.igpInviteToken
+    }
+    
+    static func putOrUpdate(realm: Realm, igpPrivateExtra: IGPGroupRoom.IGPPrivateExtra, id: Int64) -> IGGroupPrivateExtra {
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var privateExtra: IGGroupPrivateExtra! = realm.objects(IGGroupPrivateExtra.self).filter(predicate).first
+        if privateExtra == nil {
+            privateExtra = IGGroupPrivateExtra()
+            privateExtra.id = id
+        }
+        privateExtra.inviteLink = igpPrivateExtra.igpInviteLink
+        privateExtra.inviteToken = igpPrivateExtra.igpInviteToken
+        return privateExtra
     }
     
     //detach from current realm
@@ -247,6 +316,17 @@ class IGGroupPublicExtra: Object {
         self.init()
         self.id = id
         self.username = username
+    }
+    
+    static func put(realm: Realm, igpPublicExtra: IGPGroupRoom.IGPPublicExtra, id: Int64) -> IGGroupPublicExtra {
+        let predicate = NSPredicate(format: "id = %lld", id)
+        var publicExtra: IGGroupPublicExtra! = realm.objects(IGGroupPublicExtra.self).filter(predicate).first
+        if publicExtra == nil {
+            publicExtra = IGGroupPublicExtra()
+            publicExtra.id = id
+        }
+        publicExtra.username = igpPublicExtra.igpUsername
+        return publicExtra
     }
     
     //detach from current realm

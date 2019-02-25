@@ -17,11 +17,35 @@ class IGRoom: Object {
         case chat     = 0
         case group
         case channel
+        
+        static func convert(igpType: IGPRoom.IGPType) -> IGType {
+            switch igpType {
+            case IGPRoom.IGPType.chat:
+                return .chat
+            case IGPRoom.IGPType.group:
+                return .group
+            case IGPRoom.IGPType.channel:
+                return .channel
+            default:
+                return .chat
+            }
+        }
     }
     
     enum IGRoomMute: Int {
         case unmute = 100
         case mute = 101
+        
+        static func convert(igpType: IGPRoomMute) -> IGRoomMute {
+            switch igpType {
+            case IGPRoomMute.mute:
+                return .mute
+            case IGPRoomMute.unmute:
+                return .unmute
+            default:
+                return .unmute
+            }
+        }
     }
     
     //properties
@@ -169,6 +193,62 @@ class IGRoom: Object {
         } else {
             self.isPromote = false
         }
+    }
+    
+    class func putOrUpdate(realm: Realm, _ igpRoom: IGPRoom) -> IGRoom {
+        
+        let predicate = NSPredicate(format: "id = %lld", igpRoom.igpID)
+        var room: IGRoom! = realm.objects(IGRoom.self).filter(predicate).first
+        
+        if room == nil {
+            room = IGRoom()
+            room.id = igpRoom.igpID
+        }
+        
+        room.type = IGRoom.IGType.convert(igpType: igpRoom.igpType)
+        room.mute = IGRoom.IGRoomMute.convert(igpType: igpRoom.igpRoomMute)
+        
+        room.title = igpRoom.igpTitle
+        room.initilas = igpRoom.igpInitials
+        room.colorString = igpRoom.igpColor
+        room.unreadCount = igpRoom.igpUnreadCount
+        room.badgeUnreadCount = igpRoom.igpUnreadCount
+        room.priority = igpRoom.igpPriority
+        room.isDeleted = false
+        
+        if igpRoom.hasIgpLastMessage {
+            let message =  IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID)
+            room.lastMessage = message
+            room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)!
+        }
+        
+        room.pinId = igpRoom.igpPinID
+        room.isReadOnly = igpRoom.igpReadOnly
+        room.isParticipant = igpRoom.igpIsParticipant
+        if igpRoom.hasIgpDraft{
+            room.draft = IGRoomDraft.putOrUpdate(realm: realm, igpDraft: igpRoom.igpDraft, roomId: room.id)
+        }
+        if igpRoom.hasIgpChatRoomExtra {
+            room.chatRoom = IGChatRoom.putOrUpdate(realm: realm, igpChatRoom: igpRoom.igpChatRoomExtra, id: room.id)
+        }
+        if igpRoom.hasIgpGroupRoomExtra {
+            room.groupRoom = IGGroupRoom.putOrUpdate(realm: realm, igpGroupRoom: igpRoom.igpGroupRoomExtra, id: room.id)
+        }
+        if igpRoom.hasIgpChannelRoomExtra {
+            room.channelRoom = IGChannelRoom.putOrUpdate(realm: realm, igpChannelRoom: igpRoom.igpChannelRoomExtra, id: room.id)
+        }
+        
+        room.pinMessage = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID)
+        
+        /*
+        if IGHelperPromote.isPromotedRoom(roomId: igpRoom.igpID) {
+            room.isPromote = true
+        } else {
+            room.isPromote = false
+        }
+        */
+        
+        return room
     }
     
     

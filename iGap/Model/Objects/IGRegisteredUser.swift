@@ -23,6 +23,29 @@ class IGRegisteredUser: Object {
         case recently
         case support
         case serviceNotification
+        
+        static func fromIGP(status: IGPRegisteredUser.IGPStatus) -> IGLastSeenStatus {
+            switch status {
+            case .longTimeAgo:
+                return .longTimeAgo
+            case .lastMonth:
+                return .lastMonth
+            case .lastWeek:
+                return .lastWeek
+            case .online:
+                return .online
+            case .exactly:
+                return .exactly
+            case .recently:
+                return .recently
+            case .support:
+                return .support
+            case .serviceNotifications:
+                return .serviceNotification
+            case .UNRECOGNIZED(_):
+                return .longTimeAgo
+            }
+        }
     }
     
     //properties
@@ -140,6 +163,41 @@ class IGRegisteredUser: Object {
         self.isVerified = igpUser.igpVerified
         self.isBot = igpUser.igpBot
         self.isInContacts = IGRegisteredUser.fetchContactState(userId: igpUser.igpID)
+    }
+    
+    static func putOrUpdate(realm: Realm, igpUser: IGPRegisteredUser) -> IGRegisteredUser {
+        
+        let predicate = NSPredicate(format: "id = %lld", igpUser.igpID)
+        var user: IGRegisteredUser! = realm.objects(IGRegisteredUser.self).filter(predicate).first
+        
+        if user == nil {
+            user = IGRegisteredUser()
+            user.id = igpUser.igpID
+        }
+        
+        user.phone = igpUser.igpPhone
+        user.avatarCount = igpUser.igpAvatarCount
+        user.cacheID = igpUser.igpCacheID
+        user.username = igpUser.igpUsername
+        user.firstName = igpUser.igpFirstName
+        user.lastName = igpUser.igpLastName
+        user.displayName = igpUser.igpDisplayName
+        user.initials = igpUser.igpInitials
+        user.color = igpUser.igpColor
+        user.lastSeenStatus = IGRegisteredUser.IGLastSeenStatus.fromIGP(status: igpUser.igpStatus)
+        
+        user.lastSeen = Date(timeIntervalSince1970: TimeInterval(igpUser.igpLastSeen))
+        user.isDeleted = igpUser.igpDeleted
+        user.isMutual = igpUser.igpMutual
+        if igpUser.hasIgpAvatar{
+            user.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpUser.igpAvatar)
+        }
+        
+        user.isVerified = igpUser.igpVerified
+        user.isBot = igpUser.igpBot
+        user.isInContacts = IGRegisteredUser.fetchContactState(userId: igpUser.igpID)
+        
+        return user
     }
     
     //detach from current realm

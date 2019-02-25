@@ -29,11 +29,59 @@ class IGRoomMessageLog: Object {
         case missedScreenShare
         case missedSecretChat
         case pinnedMessage
+        
+        static func fromIGP(type: IGPRoomMessageLog.IGPType) -> IGRoomMessageLog.LogType {
+            switch type {
+            case .userJoined:
+                return .userJoined
+            case .userDeleted:
+                return .userDeleted
+            case .roomCreated:
+                return .roomCreated
+            case .memberAdded:
+                return .memberAdded
+            case .memberKicked:
+                return .memberKicked
+            case .memberLeft:
+                return .memberLeft
+            case .roomConvertedToPublic:
+                return .roomConvertedToPublic
+            case .roomConvertedToPrivate:
+                return .roomConvertedToPrivate
+            case .memberJoinedByInviteLink:
+                return .memberJoinedByInviteLink
+            case .roomDeleted:
+                return .roomDeleted
+            case .missedVoiceCall:
+                return .missedVoiceCall
+            case .missedVideoCall:
+                return .missedVideoCall
+            case .missedSecretChat:
+                return .missedSecretChat
+            case .missedScreenShare:
+                return .missedScreenShare
+            case .pinnedMessage:
+                return .pinnedMessage
+            default:
+                return .userJoined
+            }
+        }
     }
     
     enum ExtraType: Int {
         case noExtra
         case targetUser
+        
+        static func fromIGP(type: IGPRoomMessageLog.IGPExtraType) -> IGRoomMessageLog.ExtraType {
+            switch type {
+            case .noExtra:
+                return .noExtra
+            case .targetUser:
+                return .targetUser
+            default:
+                return .noExtra
+            }
+        }
     }
     
     
@@ -214,6 +262,29 @@ class IGRoomMessageLog: Object {
                 self.targetUser = userInDb
             }
         }
+    }
+    
+    static func putOrUpdate(realm: Realm, igpRoomMessageLog: IGPRoomMessageLog, for message: IGRoomMessage) -> IGRoomMessageLog {
+        
+        let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
+        var logInDb: IGRoomMessageLog! = realm.objects(IGRoomMessageLog.self).filter(predicate).first
+
+        if logInDb == nil {
+            logInDb = IGRoomMessageLog()
+            logInDb.id = message.primaryKeyId
+        }
+        
+        logInDb.type = IGRoomMessageLog.LogType.fromIGP(type: igpRoomMessageLog.igpType)
+        logInDb.extraType = IGRoomMessageLog.ExtraType.fromIGP(type: igpRoomMessageLog.igpExtraType)
+        
+        if igpRoomMessageLog.hasIgpTargetUser {
+            let predicate = NSPredicate(format: "id = %lld", igpRoomMessageLog.igpTargetUser.igpID)
+            if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
+                logInDb.targetUser = userInDb
+            }
+        }
+        
+        return logInDb
     }
     
     //detach from current realm

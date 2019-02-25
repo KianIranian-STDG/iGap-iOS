@@ -31,6 +31,13 @@ class IGRealmAdditional: Object {
         self.data = additionalData
     }
     
+    static func put(realm: Realm, message: IGPRoomMessage) -> IGRealmAdditional {
+        let additional = IGRealmAdditional()
+        additional.dataType = message.igpAdditionalType
+        additional.data = message.igpAdditionalData
+        return additional
+    }
+    
     func detach() -> IGRealmAdditional {
         let detachedAdditional = IGRealmAdditional(value: self)
         return detachedAdditional

@@ -43,6 +43,17 @@ class IGAvatar: Object{
         self.file = file
     }
     
+    static func putOrUpdate(realm: Realm, igpAvatar: IGPAvatar) -> IGAvatar {
+        let predicate = NSPredicate(format: "id = %lld", igpAvatar.igpID)
+        var avatar: IGAvatar! = realm.objects(IGAvatar.self).filter(predicate).first
+        if avatar == nil {
+            avatar = IGAvatar()
+            avatar.id = igpAvatar.igpID
+        }
+        avatar.file = IGFile.putOrUpdate(realm: realm, igpFile: igpAvatar.igpFile, messageType: .image)
+        return avatar
+    }
+    
     //detach from current realm
     func detach() -> IGAvatar {
         let detahcedAvatar = IGAvatar(value: self)

@@ -86,11 +86,13 @@ class IGHelperPromote {
             IGChatGetRoomRequest.Generator.generate(peerId: userId).success ({ (responseProto) in
                 if let chatGetRoomResponse = responseProto as? IGPChatGetRoomResponse {
                     let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                    if let room = IGRoom.getRoomInfo(roomId: roomId) {
-                        pinRoom(roomId: roomId)
-                        IGFactory.shared.promoteRoom(roomId: roomId)
-                        sendMessage(room: room)
-                        compeletion()
+                    DispatchQueue.main.async {
+                        if let room = IGRoom.getRoomInfo(roomId: roomId) {
+                            self.pinRoom(roomId: roomId)
+                            IGFactory.shared.promoteRoom(roomId: roomId)
+                            self.sendMessage(room: room)
+                            compeletion()
+                        }
                     }
                 }
             }).error({ (errorCode, waitTime) in

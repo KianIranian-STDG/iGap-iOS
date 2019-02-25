@@ -90,6 +90,49 @@ class IGRoomMessageContact: Object {
         //}
     }
     
+    static func putOrUpdate(realm: Realm, igpRoomMessageContact: IGPRoomMessageContact, for message: IGRoomMessage) -> IGRoomMessageContact {
+        
+        let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
+        var contactInDb: IGRoomMessageContact! = realm.objects(IGRoomMessageContact.self).filter(predicate).first
+
+        if contactInDb == nil {
+            contactInDb = IGRoomMessageContact()
+            contactInDb.id = message.primaryKeyId
+        }
+        
+        if igpRoomMessageContact.igpFirstName != "" {
+            contactInDb.firstName = igpRoomMessageContact.igpFirstName
+        }
+        if igpRoomMessageContact.igpLastName != "" {
+            contactInDb.lastName = igpRoomMessageContact.igpLastName
+        }
+        if igpRoomMessageContact.igpNickname != "" {
+            contactInDb.nickname = igpRoomMessageContact.igpNickname
+        }
+        for phone in igpRoomMessageContact.igpPhone {
+            let predicate = NSPredicate(format: "innerString = %@", phone)
+            let realm = try! Realm()
+            if let phoneInDb = realm.objects(IGRealmString.self).filter(predicate).first {
+                contactInDb.phones.append(phoneInDb)
+            } else {
+                let phoneString = IGRealmString(string: phone)
+                contactInDb.phones.append(phoneString)
+            }
+        }
+        for email in igpRoomMessageContact.igpEmail {
+            let predicate = NSPredicate(format: "innerString = %@", email)
+            let realm = try! Realm()
+            if let emailInDb = realm.objects(IGRealmString.self).filter(predicate).first {
+                contactInDb.emails.append(emailInDb)
+            } else {
+                let emailString = IGRealmString(string: email)
+                contactInDb.emails.append(emailString)
+            }
+        }
+        
+        return contactInDb
+    }
+    
     func detach() -> IGRoomMessageContact {
         let detachedRoomMessageContact = IGRoomMessageContact(value: self)
         return detachedRoomMessageContact
