@@ -208,6 +208,17 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         fillMessage(realm: realm, searchText: searchText, checkHashtag: true)
     }
     
+    //****************** scroll listener ******************
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let height = scrollView.frame.size.height
+        let contentYoffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+        if distanceFromBottom < height {
+            self.view.endEditing(true)
+        }
+    }
+    
     //****************** SearchBar ******************
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {}
