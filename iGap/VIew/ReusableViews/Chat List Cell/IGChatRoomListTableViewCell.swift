@@ -369,6 +369,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                     self.lastMessageLabel.text = "File message"
                 case .sticker:
                     self.lastMessageLabel.text = "Sticker message"
+                case .wallet:
+                    self.lastMessageLabel.text = "Wallet message"
                 default:
                     self.lastMessageLabel.text = "Some other type of message"
                     break
