@@ -682,7 +682,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 self.attachment = attachment.detach()
                 let attachmentRef = ThreadSafeReference(to: attachment)
                 IGAttachmentManager.sharedManager.add(attachmentRef: attachmentRef)
-                self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!)!.value
+                if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+                    self.attachment = variable.value
+                }
             }
             
             /* Rx Start */
@@ -750,13 +752,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             }
             
             if self.isIncommingMessage || !fileExist {
-                indicatorViewAbs.setFileType(.downloadFile)
+                indicatorViewAbs?.setFileType(.downloadFile)
             } else {
-                indicatorViewAbs.setFileType(.uploadFile)
+                indicatorViewAbs?.setFileType(.uploadFile)
             }
-            indicatorViewAbs.setState(attachment.status)
+            indicatorViewAbs?.setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
-                indicatorViewAbs.setPercentage(attachment.downloadUploadPercent)
+                indicatorViewAbs?.setPercentage(attachment.downloadUploadPercent)
             }
         }
     }

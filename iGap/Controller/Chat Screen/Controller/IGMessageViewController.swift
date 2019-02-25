@@ -1051,7 +1051,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func getUserInfo(){
-        guard let userId = self.room?.chatRoom?.peer?.id else {
+        guard !(room?.isInvalidated)!, let userId = self.room?.chatRoom?.peer?.id else {
             return
         }
         

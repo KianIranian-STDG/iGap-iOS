@@ -33,7 +33,7 @@ public class IGApi {
         
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            if response != nil {
+            if response != nil, data != nil {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data!, options: []) as! Dictionary<String, AnyObject>
                     if let jsonData = json["favorite"] {

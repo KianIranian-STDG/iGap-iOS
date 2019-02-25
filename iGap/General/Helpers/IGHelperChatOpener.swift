@@ -131,6 +131,7 @@ class IGHelperChatOpener {
     internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?, isForwardEnable: Bool = false){
         switch usernameType {
         case .user:
+            if user == nil {return}
             if (user!.isBot || isForwardEnable) {
                 IGHelperChatOpener.createChat(viewController: viewController, userId: (user?.id)!)
             } else {
@@ -138,6 +139,7 @@ class IGHelperChatOpener {
             }
             break
         case .room:
+            if room == nil {return}
             IGHelperChatOpener.openRoom(room: room!, viewController: viewController)
             break
         default:
