@@ -59,6 +59,12 @@ class CellSizeCalculator: NSObject {
         let text = finalMessage.message as NSString?
         
         if finalMessage.attachment != nil {
+            
+            if text != nil && text != "" {
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
+                finalSize.height += stringRect.height
+            }
+            
             switch finalMessage.type {
             case .sticker:
                 let attachmentFrame = fetchStickerFrame(media: finalMessage.attachment!)
@@ -104,12 +110,9 @@ class CellSizeCalculator: NSObject {
                 break
                 
             default:
+                finalSize.width = 200
+                finalSize.height = 50
                 break
-            }
-            
-            if text != nil && text != "" {
-                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
-                finalSize.height += stringRect.height
             }
         
         } else if finalMessage.type == .wallet {
@@ -130,7 +133,7 @@ class CellSizeCalculator: NSObject {
             finalSize.height += CellSizeLimit.ConstantSizes.Location.Height
             messageAttachmentHeight = finalSize.height
             
-        } else { // Text Message
+        } else if finalMessage.type == .text { // Text Message
             if text != nil && text != "" {
                 let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
                 finalSize.height += CellSizeLimit.ConstantSizes.Text.Height
@@ -146,6 +149,9 @@ class CellSizeCalculator: NSObject {
                     finalSize.width = stringRect.width
                 }
             }
+        } else {
+            finalSize.width = 200
+            finalSize.height = 50
         }
         
         if message.forwardedFrom == nil && additionalData != nil {

@@ -56,6 +56,12 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.labelBackgrondView.layer.cornerRadius = 12.0
     }
     
+    func setUnknownMessage(){
+        self.logLabel.textColor = UIColor.white
+        self.logLabel.text = "unknown message"
+        self.labelBackgrondView.layer.cornerRadius = 12.0
+    }
+    
     
     func setText(_ text: String) {
         self.logLabel.textColor = UIColor.white

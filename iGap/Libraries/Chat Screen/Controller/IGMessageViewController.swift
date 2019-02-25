@@ -2944,10 +2944,11 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             cell.delegate = self
             return cell
-            
+        } else {
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            cell.setUnknownMessage()
+            return cell
         }
-        
-        return UICollectionViewCell()  // TODO - saeed - make a default item for show unknown cell
     }
     
     
