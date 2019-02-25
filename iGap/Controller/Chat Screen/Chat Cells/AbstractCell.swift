@@ -703,8 +703,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 
                 imgMediaAbs.setThumbnail(for: attachment)
                 if attachment.status != .ready {
-                    indicatorViewAbs.size = attachment.sizeToString()
-                    indicatorViewAbs.delegate = self
+                    indicatorViewAbs?.size = attachment.sizeToString()
+                    indicatorViewAbs?.delegate = self
                 }
                 
                 /**** seems to not need ****
@@ -718,7 +718,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                     }
                 }
                 */
-                indicatorViewAbs.shouldShowSize = true
+                indicatorViewAbs?.shouldShowSize = true
                 break
             default:
                 break
@@ -738,7 +738,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                     makeVideoPlayView()
                 }
                 
-                indicatorViewAbs.setState(.ready)
+                indicatorViewAbs?.setState(.ready)
                 if attachment.type == .gif {
                     attachment.loadData()
                     if let data = attachment.data {
@@ -1112,6 +1112,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
         }
 
+        if IGGlobal.isFileExist(path: self.finalRoomMessage.attachment!.path(), fileSize: self.finalRoomMessage.attachment!.size) {
+            indicatorViewAbs?.isHidden = true
+        } else {
+            indicatorViewAbs?.isHidden = false
+        }
+        
         if messageType == .video || messageType == .videoAndText {
             makeVideoInfo()
         }
@@ -1138,7 +1144,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         if messageType != .sticker {
-            indicatorViewAbs.snp.makeConstraints { (make) in
+            indicatorViewAbs?.snp.makeConstraints { (make) in
                 make.top.equalTo(imgMediaAbs.snp.top)
                 make.bottom.equalTo(imgMediaAbs.snp.bottom)
                 make.trailing.equalTo(imgMediaAbs.snp.trailing)

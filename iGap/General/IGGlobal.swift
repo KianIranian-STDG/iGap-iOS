@@ -663,8 +663,9 @@ extension UIImageView {
         } else if attachment.type == .audio {
             self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
         } else {
-            if let image = UIImage.originalImage(for: attachment) {
-                self.image = image
+            if let _ = UIImage.originalImage(for: attachment) {
+                //self.image = image
+                self.sd_setImage(with: attachment.path(), completed: nil)
             } else if let thumbnail = attachment.smallThumbnail {
                 do {
                     var path = URL(string: "")
@@ -678,7 +679,8 @@ extension UIImageView {
                         }
                         
                         if image != nil {
-                            self.image = image
+                            //self.image = image
+                            self.sd_setImage(with: path, completed: nil)
                         } else {
                             throw NSError(domain: "asa", code: 1234, userInfo: nil)
                         }
@@ -688,7 +690,7 @@ extension UIImageView {
                     IGDownloadManager.sharedManager.download(file: thumbnail, previewType: .smallThumbnail, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
                             if let image = imagesMap[attachment.token!] {
-                                image.setThumbnail(for: attachment)
+                                image.sd_setImage(with: attachment.path(), completed: nil)
                             }
                         }
                     }, failure: {
