@@ -17,6 +17,7 @@ class IGHelperBot {
     var data: Data?
     static var createdViewDic: [Int64 : UIView] = [:]
     var buttonActionDic: [UIButton : IGStructAdditionalButton] = [:]
+    var buttonViewDic: [UIButton : UIView] = [:]
     
     let SCREAN_WIDTH = UIScreen.main.bounds.width
     let OUT_LAYOUT_SPACE: CGFloat = 10
@@ -117,6 +118,7 @@ class IGHelperBot {
         let btn = UIButton()
         
         buttonActionDic[btn] = additionalButton
+        buttonViewDic[btn] = view
         
         btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
         btn.titleLabel?.textAlignment = NSTextAlignment.center
@@ -165,6 +167,15 @@ class IGHelperBot {
     @objc private func onBotButtonClick(sender: UIButton){
         if let structAdditional = buttonActionDic[sender] {
             manageAdditionalActions(structAdditional: structAdditional)
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.buttonViewDic[sender]!.fadeIn(0.0, 1.0)
+                self.buttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton()
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                self.buttonViewDic[sender]!.fadeOut(0.2, 0.3)
+            }
         }
     }
     
