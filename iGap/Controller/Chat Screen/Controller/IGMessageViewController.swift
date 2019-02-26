@@ -699,7 +699,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func onDoctorBotClick(sender: UIButton!) {
         let value : String! = detectBotValue(name: sender.titleLabel?.text!)
         
-        if value.starts(with: "$finanacial") {
+        if value.starts(with: "$financial") {
             IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()
         } else if value.starts(with: "@") {
             if let username = IGRoom.fetchUsername(room: room!) { // if username is for current room don't open this room again
