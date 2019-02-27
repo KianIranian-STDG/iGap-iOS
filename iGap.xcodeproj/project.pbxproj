@@ -683,7 +683,6 @@
 		FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMapNearbyDistanceTableViewController.swift; sourceTree = "<group>"; };
 		FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmiGapMap.swift; sourceTree = "<group>"; };
 		FA80F59F204ABC5900F0EE74 /* tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tone.mp3; sourceTree = "<group>"; };
-		FA8136672225798D003F29EB /* MarkdownView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarkdownView.framework; path = Carthage/Build/iOS/MarkdownView.framework; sourceTree = "<group>"; };
 		FA81366922257BF2003F29EB /* MarkdownKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarkdownKit.framework; path = Carthage/Build/iOS/MarkdownKit.framework; sourceTree = "<group>"; };
 		FA8204362025C97300A795D5 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		FA82043A2025C99300A795D5 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
@@ -1890,7 +1889,6 @@
 			isa = PBXGroup;
 			children = (
 				FA81366922257BF2003F29EB /* MarkdownKit.framework */,
-				FA8136672225798D003F29EB /* MarkdownView.framework */,
 				FAA6C5DA2222BA800035D777 /* PecPayment.framework */,
 				FABA60F122180D6B00FFBB5A /* SDWebImage.framework */,
 				FAB436702209751A0073EEE1 /* Alamofire.framework */,

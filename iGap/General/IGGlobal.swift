@@ -1143,6 +1143,11 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
+        if let first = self.first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
+            return true
+        }
+        return false
+        /*
         let blackListChars =  "^(?=.*[a-zA-Z\\u0621-\\u064A])(?=.*[0-9\\u0660-\\u0669])[a-zA-Za-z\\u0621-\\u064A0-9\\u0660-\\u0669]{8,}"
         let tagScheme = [NSLinguisticTagSchemeLanguage]
         let tagger = NSLinguisticTagger(tagSchemes: tagScheme, options: 0)
@@ -1156,6 +1161,7 @@ extension String {
         } else {
             return false
         }
+        */
     }
 
     subscript(_ range: CountableRange<Int>) -> String {
