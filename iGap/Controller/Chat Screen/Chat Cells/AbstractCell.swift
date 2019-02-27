@@ -12,6 +12,7 @@ import UIKit
 import SnapKit
 import RealmSwift
 import RxSwift
+import MarkdownKit
 
 class AbstractCell: IGMessageGeneralCollectionViewCell {
     
@@ -131,21 +132,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
-            txtMessageAbs.font = CellSizeCalculator.messageBodyTextViewFont()
             messageViewAbs?.isHidden = false
             txtMessageAbs?.isHidden = false
             messageViewAbs?.backgroundColor = UIColor.clear
-            txtMessageAbs?.textColor = UIColor.messageText()
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.text = finalRoomMessage.message
-            txtMessageAbs.attributedText = NSAttributedString(string: finalRoomMessage.message!, attributes: CellSizeCalculator.getStringStyle())
-            
+            txtMessageAbs.attributedText = MarkdownParser(font: CellSizeCalculator.messageBodyTextViewFont()).parse(finalRoomMessage.message!)
             if finalRoomMessage.message!.isRTL() {
                 txtMessageAbs.textAlignment = NSTextAlignment.right
             } else {
                 txtMessageAbs.textAlignment = NSTextAlignment.left
             }
-            
+            txtMessageAbs?.textColor = UIColor.messageText()
         } else {
             txtMessageHeightConstraintAbs?.constant = 0
             messageViewAbs?.isHidden = true
@@ -444,8 +442,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if txtMessage == nil {
             return
         }
-        
-        txtMessage?.font = CellSizeCalculator.messageBodyTextViewFont()
         
         txtMessage?.customize {(lable) in
             lable.hashtagColor = UIColor.iGapLink()

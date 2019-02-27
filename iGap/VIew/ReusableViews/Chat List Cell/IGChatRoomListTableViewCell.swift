@@ -26,6 +26,7 @@ import RxSwift
 import RxCocoa
 import MBProgressHUD
 import SnapKit
+import MarkdownKit
 
 class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
@@ -217,7 +218,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             timeLabel.textColor = UIColor(red: 132.0/255.0, green: 132.0/255.0, blue: 132.0/255.0, alpha: 1.0)
         }
         if room.draft != nil && (room.draft?.message != "" || room.draft?.replyTo != -1) {
-            lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)//.italic()
+            lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)
         }
         
         
@@ -355,6 +356,9 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 switch lastMessage.type {
                 case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
                     self.lastMessageLabel.text = lastMessage.message
+                    self.lastMessageLabel.attributedText = MarkdownParser().parse(lastMessage.message!)
+                    self.lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)
+                    self.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
                 case .image:
                     self.lastMessageLabel.text = "Image message"
                 case .video:
