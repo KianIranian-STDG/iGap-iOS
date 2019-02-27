@@ -137,7 +137,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             messageViewAbs?.backgroundColor = UIColor.clear
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.text = finalRoomMessage.message
-            txtMessageAbs.attributedText = MarkdownParser(font: CellSizeCalculator.messageBodyTextViewFont()).parse(finalRoomMessage.message!)
+            let markdown = MarkdownParser(font: CellSizeCalculator.messageBodyTextViewFont())
+            markdown.enabledElements = MarkdownParser.EnabledElements.bold
+            txtMessageAbs.attributedText = markdown.parse(finalRoomMessage.message!)
             if finalRoomMessage.message!.isRTL() {
                 txtMessageAbs.textAlignment = NSTextAlignment.left
             } else {

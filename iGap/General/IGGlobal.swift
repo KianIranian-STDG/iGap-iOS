@@ -1144,28 +1144,19 @@ extension String {
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
         let blackListChars =  "^(?=.*[a-zA-Z\\u0621-\\u064A])(?=.*[0-9\\u0660-\\u0669])[a-zA-Za-z\\u0621-\\u064A0-9\\u0660-\\u0669]{8,}"
-
-            let tagScheme = [NSLinguisticTagSchemeLanguage]
-            let tagger    = NSLinguisticTagger(tagSchemes: tagScheme, options: 0)
-            var tmpTXT: String?
-            tmpTXT = self
-                tmpTXT = tmpTXT?.replacingOccurrences(of: blackListChars, with: "", options: [.regularExpression])
-        
+        let tagScheme = [NSLinguisticTagSchemeLanguage]
+        let tagger = NSLinguisticTagger(tagSchemes: tagScheme, options: 0)
+        var tmpTXT: String?
+        tmpTXT = self
+        tmpTXT = tmpTXT?.replacingOccurrences(of: blackListChars, with: "", options: [.regularExpression])
         tagger.string = tmpTXT?.components(separatedBy: CharacterSet.symbols).joined()
-
-            
-            let lang      = tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage,
-                                       tokenRange: nil, sentenceRange: nil)
-            
-            if lang?.range(of:"ar") != nil   {
-                
-                return false
-                
-            } else {
-                return true
-                
-            }
+        let lang = tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage, tokenRange: nil, sentenceRange: nil)
+        if lang?.range(of:"ar") != nil || lang?.range(of:"fa") != nil {
+            return true
+        } else {
+            return false
         }
+    }
 
     subscript(_ range: CountableRange<Int>) -> String {
         let idx1 = index(startIndex, offsetBy: max(0, range.lowerBound))
