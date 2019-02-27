@@ -139,9 +139,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtMessageAbs?.text = finalRoomMessage.message
             txtMessageAbs.attributedText = MarkdownParser(font: CellSizeCalculator.messageBodyTextViewFont()).parse(finalRoomMessage.message!)
             if finalRoomMessage.message!.isRTL() {
-                txtMessageAbs.textAlignment = NSTextAlignment.right
-            } else {
                 txtMessageAbs.textAlignment = NSTextAlignment.left
+            } else {
+                txtMessageAbs.textAlignment = NSTextAlignment.right
             }
             txtMessageAbs?.textColor = UIColor.messageText()
         } else {

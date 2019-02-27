@@ -476,7 +476,7 @@ extension UIColor {
             return UIColor(red: 42.0/255.0, green: 42.0/255.0, blue: 42.0/255.0, alpha: 1.0)
         }
     }
-
+    
     
     //MARK: MessageCVCell Reply
     class func chatReplyToBackgroundColor(isIncommingMessage: Bool) -> UIColor {
@@ -556,10 +556,6 @@ extension Date {
         let dateString = dateFormatter.string(from: self)
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//            self.humanReadableForLastSeen()
-//        }
-
         return dateString + " at " + timeString
         
     }
@@ -634,7 +630,7 @@ var imagesMap = [String : UIImageView]()
 extension UIImageView {
     func setThumbnail(for attachment:IGFile) {
         if attachment.type == .voice {
-              self.image = UIImage(named:"IG_Message_Cell_Voice")
+            self.image = UIImage(named:"IG_Message_Cell_Voice")
         } else if attachment.type == .file {
             let filename: NSString = attachment.name! as NSString
             let fileExtension = filename.pathExtension
@@ -726,15 +722,6 @@ extension UIImageView {
             } else {
                 throw NSError(domain: "asa", code: 1234, userInfo: nil)
             }
-            /*
-            if image != nil {
-                DispatchQueue.main.async {
-                    self.image = image
-                }
-            } else {
-                throw NSError(domain: "asa", code: 1234, userInfo: nil)
-            }
-            */
         } catch {
             imagesMap[attachment.token!] = self
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
@@ -1059,23 +1046,23 @@ extension UIFont {
         return UIFont(name: "iGap-Fontico", size: fontSize)!
     }
     
-//    func bold() -> UIFont {
-//        return withTraits(traits: .traitBold)
-//    }
+    //    func bold() -> UIFont {
+    //        return withTraits(traits: .traitBold)
+    //    }
     
-//    func italic() -> UIFont {
-//        return withTraits(traits: .traitItalic)
-//    }
+    //    func italic() -> UIFont {
+    //        return withTraits(traits: .traitItalic)
+    //    }
     
-//    func withTraits(traits:UIFontDescriptorSymbolicTraits...) -> UIFont {
-//        
-//        if let result = CTFontCreateCopyWithSymbolicTraits(self as CTFont, 0, nil, .traitItalic, .traitItalic) {
-//            return result as UIFont
-//        }
-//        
-//        let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits(traits))!
-//        return UIFont(descriptor: descriptor, size: 0)
-//    }
+    //    func withTraits(traits:UIFontDescriptorSymbolicTraits...) -> UIFont {
+    //
+    //        if let result = CTFontCreateCopyWithSymbolicTraits(self as CTFont, 0, nil, .traitItalic, .traitItalic) {
+    //            return result as UIFont
+    //        }
+    //
+    //        let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits(traits))!
+    //        return UIFont(descriptor: descriptor, size: 0)
+    //    }
 }
 
 extension String {
@@ -1156,12 +1143,30 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
-        if let first = self.first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
-            return true
+        let blackListChars =  "^(?=.*[a-zA-Z\\u0621-\\u064A])(?=.*[0-9\\u0660-\\u0669])[a-zA-Za-z\\u0621-\\u064A0-9\\u0660-\\u0669]{8,}"
+
+            let tagScheme = [NSLinguisticTagSchemeLanguage]
+            let tagger    = NSLinguisticTagger(tagSchemes: tagScheme, options: 0)
+            var tmpTXT: String?
+            tmpTXT = self
+                tmpTXT = tmpTXT?.replacingOccurrences(of: blackListChars, with: "", options: [.regularExpression])
+        
+        tagger.string = tmpTXT?.components(separatedBy: CharacterSet.symbols).joined()
+
+            
+            let lang      = tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage,
+                                       tokenRange: nil, sentenceRange: nil)
+            
+            if lang?.range(of:"ar") != nil   {
+                
+                return false
+                
+            } else {
+                return true
+                
+            }
         }
-        return false
-    }
-    
+
     subscript(_ range: CountableRange<Int>) -> String {
         let idx1 = index(startIndex, offsetBy: max(0, range.lowerBound))
         let idx2 = index(startIndex, offsetBy: min(self.count, range.upperBound))
