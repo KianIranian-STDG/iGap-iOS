@@ -689,13 +689,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flL-yG-krx">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="KJT-Hl-jm5" id="wyD-Ka-1QF"/>
-                                </connections>
-                            </webView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-MM-IK9">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1110,7 +1103,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="43i-SN-Oct"/>
-                            <constraint firstItem="flL-yG-krx" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leadingMargin" constant="-16" id="5gu-rc-aVd"/>
                             <constraint firstItem="uLc-FX-WjP" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" constant="5" id="62H-fk-IXR"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="trailing" secondItem="9G6-WI-YVj" secondAttribute="trailing" id="74i-Qd-PtK"/>
                             <constraint firstAttribute="trailing" secondItem="gI9-RR-rF9" secondAttribute="trailing" id="7eF-CC-LdC"/>
@@ -1121,10 +1113,8 @@
                             <constraint firstItem="7LG-Y0-Ncx" firstAttribute="top" secondItem="uLc-FX-WjP" secondAttribute="bottom" constant="5" id="OnJ-wA-E9b"/>
                             <constraint firstAttribute="trailing" secondItem="uLc-FX-WjP" secondAttribute="trailing" constant="5" id="PwG-7u-wmd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5mR-SM-BTR" secondAttribute="trailing" constant="-8" id="RBW-9Z-t7u"/>
-                            <constraint firstItem="flL-yG-krx" firstAttribute="trailing" secondItem="ziz-lj-PYe" secondAttribute="trailingMargin" constant="16" id="RwM-Bs-fup"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="Ry3-td-qgA"/>
                             <constraint firstAttribute="trailing" secondItem="4eQ-gi-PNj" secondAttribute="trailing" id="STr-jl-Csu"/>
-                            <constraint firstItem="4eQ-gi-PNj" firstAttribute="top" secondItem="flL-yG-krx" secondAttribute="bottom" constant="-138" id="YQ9-fW-WSg"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="bottom" secondItem="4eQ-gi-PNj" secondAttribute="bottom" id="bg0-rO-guD"/>
                             <constraint firstAttribute="bottomMargin" secondItem="PLh-MM-IK9" secondAttribute="bottom" id="h0k-48-e8Z"/>
                             <constraint firstItem="4sD-jl-4yw" firstAttribute="centerX" secondItem="ziz-lj-PYe" secondAttribute="centerX" id="iap-mC-ii9"/>
@@ -1133,7 +1123,6 @@
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="leading" secondItem="9G6-WI-YVj" secondAttribute="leading" id="n0a-xe-TX1"/>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="oKk-WT-ejk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PLh-MM-IK9" secondAttribute="trailing" constant="-16" id="pSL-X5-paD"/>
-                            <constraint firstItem="flL-yG-krx" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="bottom" constant="-50" id="sup-AK-uLe"/>
                             <constraint firstItem="PLh-MM-IK9" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leadingMargin" constant="-16" id="yGl-yK-T7P"/>
                         </constraints>
                     </view>
@@ -1181,7 +1170,6 @@
                         <outlet property="scrollToBottomContainerViewConstraint" destination="Obr-Bc-Azv" id="WAk-s1-O8N"/>
                         <outlet property="txtPinnedMessage" destination="OfO-SB-YDv" id="Yhx-Wj-P13"/>
                         <outlet property="txtSticker" destination="5nb-Dt-CKY" id="EXb-kI-qUU"/>
-                        <outlet property="webView" destination="flL-yG-krx" id="0PG-Ac-Xy7"/>
                         <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="jRj-hY-oEr"/>
                         <segue destination="QWV-7y-MRV" kind="presentation" identifier="showRoomList" id="CDS-7g-pRV"/>
                         <segue destination="S3I-yk-3Ak" kind="show" identifier="showLocationViewController" id="rg6-Tr-vEo"/>
@@ -1729,22 +1717,22 @@
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Chat_Screen_Attachment" width="38" height="38"/>
-        <image name="IG_Chat_Screen_Record" width="38" height="38"/>
-        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
-        <image name="IG_Chat_Screen_Send" width="38" height="38"/>
-        <image name="IG_Splash_Cute_2" width="300" height="300"/>
-        <image name="IG_Tabbar_Call_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Call_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Recent_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Recent_On" width="37" height="37"/>
-        <image name="Location_Marker" width="40" height="40"/>
+        <image name="IG_Chat_Screen_Attachment" width="76" height="76"/>
+        <image name="IG_Chat_Screen_Record" width="76" height="76"/>
+        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="411.42855834960938" height="411.42855834960938"/>
+        <image name="IG_Chat_Screen_Send" width="76" height="76"/>
+        <image name="IG_Splash_Cute_2" width="600" height="600"/>
+        <image name="IG_Tabbar_Call_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Call_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Channel_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Channel_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Group_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Group_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Recent_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Recent_On" width="74" height="74"/>
+        <image name="Location_Marker" width="19.200000762939453" height="19.200000762939453"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>

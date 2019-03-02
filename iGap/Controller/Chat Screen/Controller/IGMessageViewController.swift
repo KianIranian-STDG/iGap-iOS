@@ -95,9 +95,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var progressbar: UIActivityIndicatorView!
-    @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var txtSticker: UILabel!
     
+    var webView: UIWebView!
     var btnChangeKeyboard : UIButton!
     var doctorBotScrollView : UIScrollView!
     private let disposeBag = DisposeBag()
@@ -234,7 +234,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         IGApi.apiBotProtocol = self
         
         progressbar.hidesWhenStopped = true
-        self.webView.delegate = self
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
@@ -1968,6 +1967,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     private func openWebView(url:String)  {
         
+        makeWebView()
+        
         if doctorBotScrollView != nil {
             doctorBotScrollView.isHidden = true
         }
@@ -2020,6 +2021,28 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         if btnChangeKeyboard != nil {
             btnChangeKeyboard.isHidden = false
+        }
+        removeWebView()
+    }
+    
+    private func makeWebView(){
+        if self.webView == nil {
+            self.webView = UIWebView()
+        }
+        mainView.addSubview(self.webView)
+        self.webView.snp.makeConstraints { (make) in
+            make.top.equalTo(mainView.snp.top)
+            make.bottom.equalTo(mainView.snp.bottom)
+            make.right.equalTo(mainView.snp.right)
+            make.left.equalTo(mainView.snp.left)
+        }
+        self.webView.delegate = self
+    }
+    
+    private func removeWebView(){
+        if self.webView != nil {
+            self.webView.removeFromSuperview()
+            self.webView = nil
         }
     }
     
