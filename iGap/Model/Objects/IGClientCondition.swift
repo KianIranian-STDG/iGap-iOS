@@ -54,7 +54,7 @@ class IGClientCondition {
         
         for room in rooms {
             let predicateCondition = NSPredicate(format: "roomId = %lld", room.id)
-            let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", room.id)
+            let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND statusRaw != %d AND statusRaw != %d", room.id, IGRoomMessageStatus.failed.rawValue, IGRoomMessageStatus.sending.rawValue)
             let messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(byKeyPath: "creationTime")
             
             var clientConditionRequest = IGPClientCondition.IGPRoom()
