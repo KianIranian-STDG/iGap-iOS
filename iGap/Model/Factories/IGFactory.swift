@@ -703,24 +703,24 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
-                    if messageInDb.status != .delivered {
-                        try! IGDatabaseManager.shared.realm.write {
-                            switch status {
-                            case .sending:
-                                messageInDb.status = .sending
-                            case .sent:
-                                messageInDb.status = .sent                            
-                            case .seen:
-                                messageInDb.status = .seen
-                            case .failed:
-                                messageInDb.status = .failed
-                            case .listened:
-                                messageInDb.status = .listened
-                            default:
-                                break
-                            }
-                            messageInDb.statusVersion = statusVersion
+                    try! IGDatabaseManager.shared.realm.write {
+                        switch status {
+                        case .delivered:
+                            messageInDb.status = .delivered
+                        case .sending:
+                            messageInDb.status = .sending
+                        case .sent:
+                            messageInDb.status = .sent
+                        case .seen:
+                            messageInDb.status = .seen
+                        case .failed:
+                            messageInDb.status = .failed
+                        case .listened:
+                            messageInDb.status = .listened
+                        default:
+                            break
                         }
+                        messageInDb.statusVersion = statusVersion
                     }
                 }
                 IGFactory.shared.performInFactoryQueue {
