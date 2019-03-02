@@ -1143,25 +1143,10 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
-        if let first = self.first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
+        if let first = self.removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
             return true
         }
         return false
-        /*
-        let blackListChars =  "^(?=.*[a-zA-Z\\u0621-\\u064A])(?=.*[0-9\\u0660-\\u0669])[a-zA-Za-z\\u0621-\\u064A0-9\\u0660-\\u0669]{8,}"
-        let tagScheme = [NSLinguisticTagSchemeLanguage]
-        let tagger = NSLinguisticTagger(tagSchemes: tagScheme, options: 0)
-        var tmpTXT: String?
-        tmpTXT = self
-        tmpTXT = tmpTXT?.replacingOccurrences(of: blackListChars, with: "", options: [.regularExpression])
-        tagger.string = tmpTXT?.components(separatedBy: CharacterSet.symbols).joined()
-        let lang = tagger.tag(at: 0, scheme: NSLinguisticTagSchemeLanguage, tokenRange: nil, sentenceRange: nil)
-        if lang?.range(of:"ar") != nil || lang?.range(of:"fa") != nil {
-            return true
-        } else {
-            return false
-        }
-        */
     }
 
     subscript(_ range: CountableRange<Int>) -> String {
@@ -1170,6 +1155,9 @@ extension String {
         return String(self[idx1..<idx2])
     }
     
+    func removeEmoji() -> String {
+        return String(self.filter { !$0.isEmoji() })
+    }
     
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
@@ -1182,6 +1170,13 @@ extension String {
     }
 }
 
+extension Character {
+    fileprivate func isEmoji() -> Bool {
+        return Character(UnicodeScalar(UInt32(0x1d000))!) <= self && self <= Character(UnicodeScalar(UInt32(0x1f77f))!)
+            || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
+    }
+}
+        
 extension Float {
     var cleanDecimal: String {
         return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
