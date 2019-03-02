@@ -356,11 +356,13 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 switch lastMessage.type {
                 case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
                     self.lastMessageLabel.text = lastMessage.message
-                    let markdown = MarkdownParser()
-                    markdown.enabledElements = MarkdownParser.EnabledElements.bold
-                    self.lastMessageLabel.attributedText = markdown.parse(lastMessage.message!)
-                    self.lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)
-                    self.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+                    if let message = lastMessage.message {
+                        let markdown = MarkdownParser()
+                        markdown.enabledElements = MarkdownParser.EnabledElements.bold
+                        self.lastMessageLabel.attributedText = markdown.parse(message)
+                        self.lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)
+                        self.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+                    }
                 case .image:
                     self.lastMessageLabel.text = "Image message"
                 case .video:
