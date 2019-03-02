@@ -2047,11 +2047,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func back() { // this back  when work that webview is working
-        if webView.isHidden {
+        if webView == nil || webView.isHidden {
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.backViewContainer?.isUserInteractionEnabled = false
             _ = self.navigationController?.popViewController(animated: true)
-        } else if(webView.canGoBack) {
+        } else if webView.canGoBack {
             webView.goBack()
         } else {
             closeWebView()
