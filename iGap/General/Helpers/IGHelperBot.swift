@@ -153,11 +153,15 @@ class IGHelperBot {
         btn.setTitle(additionalButton.label, for: UIControlState.normal)
         btn.removeUnderline()
         
+        /*
         if isKeyboard {
             view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.8)
         } else {
             view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.3)
         }
+        */
+        view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
+        
         view.layer.masksToBounds = false
         view.layer.cornerRadius = 18.0
 
@@ -169,12 +173,13 @@ class IGHelperBot {
             manageAdditionalActions(structAdditional: structAdditional)
             
             UIView.animate(withDuration: 0.2, animations: {
-                self.buttonViewDic[sender]!.fadeIn(0.0, 1.0)
                 self.buttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton()
             })
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                self.buttonViewDic[sender]!.fadeOut(0.2, 0.3)
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.buttonViewDic[sender]!.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
+                })
             }
         }
     }
