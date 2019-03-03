@@ -16,7 +16,7 @@ class IGRoomDraft: Object {
     @objc dynamic  var message: String = ""
     @objc dynamic  var replyTo: Int64  = -1
     @objc dynamic  var roomId:  Int64  = -1
-    
+    @objc dynamic  var time:    Int64  = -1
     
     override static func primaryKey() -> String {
         return "roomId"
@@ -38,6 +38,11 @@ class IGRoomDraft: Object {
         self.message = message != nil ? message! : ""
         self.replyTo = replyTo != nil ? replyTo! : -1
         self.roomId = roomId
+        if message != nil && !(message?.isEmpty)! {
+            self.time = IGGlobal.getCurrentMillis()
+        } else {
+            self.time = 0
+        }
     }
     
     static func putOrUpdate(realm: Realm, igpDraft: IGPRoomDraft, roomId: Int64) -> IGRoomDraft {
@@ -53,7 +58,30 @@ class IGRoomDraft: Object {
         if igpDraft.igpReplyTo != 0 {
             draft.replyTo = igpDraft.igpReplyTo
         }
-        
+        if !igpDraft.igpMessage.isEmpty {
+            draft.time = Int64(Date(timeIntervalSince1970: TimeInterval(igpDraft.igpDraftTime)).timeIntervalSinceReferenceDate) //Int64(igpDraft.igpDraftTime) //Date(timeIntervalSince1970: TimeInterval(igpDraft.igpDraftTime))
+        } else {
+            draft.time = 0
+        }
+        return draft
+    }
+    
+    static func putOrUpdate(message: String?, replyTo: Int64?, roomId: Int64) -> IGRoomDraft {
+        let predicate = NSPredicate(format: "roomId = %lld", roomId)
+        var draft: IGRoomDraft! = try! Realm().objects(IGRoomDraft.self).filter(predicate).first
+        if draft == nil {
+            draft = IGRoomDraft()
+            draft.roomId = roomId
+        }
+        draft.message = message!
+        if replyTo != 0 {
+            draft.replyTo = replyTo!
+        }
+        if message != nil && !(message?.isEmpty)! {
+            draft.time = IGGlobal.getCurrentMillis() //Date(timeIntervalSince1970: TimeInterval(IGGlobal.getCurrentMillis()))
+        } else {
+            draft.time = 0
+        }
         return draft
     }
         

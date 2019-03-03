@@ -531,8 +531,7 @@ class IGGroupUpdateDraftRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPGroupUpdateDraftResponse) {
-            let draft = IGRoomDraft(igpDraft: response.igpDraft, roomId: response.igpRoomID)
-            IGFactory.shared.save(draft: draft)
+            IGFactory.shared.saveDraft(roomId: response.igpRoomID, igpDraft: response.igpDraft)
         }
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -557,8 +556,7 @@ class IGGroupGetDraftRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPGroupGetDraftResponse, roomId: Int64) {
-            let draft = IGRoomDraft(igpDraft: response.igpDraft, roomId: roomId)
-            IGFactory.shared.save(draft: draft)
+            IGFactory.shared.saveDraft(roomId: roomId, igpDraft: response.igpDraft)
         }
     }
 }

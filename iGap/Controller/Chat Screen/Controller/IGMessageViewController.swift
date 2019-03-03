@@ -1999,7 +1999,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 if error == nil {
                     DispatchQueue.main.async {
-                        self.webView.loadRequest(request)
+                        self.webView?.loadRequest(request)
                     }
                 } else {
                     print("ERROR: \(String(describing: error))")

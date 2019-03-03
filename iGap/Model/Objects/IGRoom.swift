@@ -597,25 +597,31 @@ extension IGRoom {
             return
         }
         
-        
         let draft = IGRoomDraft(message: finalBody, replyTo: replyToMessage?.id, roomId: self.id)
-        IGFactory.shared.save(draft: draft)
+        IGFactory.shared.saveDraft(draft: draft)
+        
         switch self.type {
         case .chat:
             IGChatUpdateDraftRequest.Generator.generate(draft: draft).success({ (responseProto) in
-                
+                if let updateDraftResponse = responseProto as? IGPChatUpdateDraftResponse {
+                    IGChatUpdateDraftRequest.Handler.interpret(response: updateDraftResponse)
+                }
             }).error({ (errorCode, waitTime) in
                 
             }).send()
         case .group:
             IGGroupUpdateDraftRequest.Generator.generate(draft: draft).success({ (responseProto) in
-                
+                if let updateDraftResponse = responseProto as? IGPGroupUpdateDraftResponse {
+                    IGGroupUpdateDraftRequest.Handler.interpret(response: updateDraftResponse)
+                }
             }).error({ (errorCode, waitTime) in
                 
             }).send()
         case .channel:
             IGChannelUpdateDraftRequest.Generator.generate(draft: draft).success({ (responseProto) in
-                
+                if let updateDraftResponse = responseProto as? IGPChannelUpdateDraftResponse {
+                    IGChannelUpdateDraftRequest.Handler.interpret(response: updateDraftResponse)
+                }
             }).error({ (errorCode, waitTime) in
                 
             }).send()

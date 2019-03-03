@@ -2497,42 +2497,56 @@ class IGFactory: NSObject {
         //self.doFactoryTask(task: task)
     }
     
-    //TODO: move this to propper location
-    //TODO: also IGRoomDraft has roomId so the second element is redundant
-    func save(draft: IGRoomDraft) {
+    func saveDraft(draft: IGRoomDraft) {
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 let roomPredicate = NSPredicate(format: "id = %lld", draft.roomId)
                 if let roomInDb = try! Realm().objects(IGRoom.self).filter(roomPredicate).first {
-                    let draftPredicate = NSPredicate(format: "roomId = %lld", draft.roomId)
-                    if let draftInDb = IGDatabaseManager.shared.realm.objects(IGRoomDraft.self).filter(draftPredicate).first {
-                        try! IGDatabaseManager.shared.realm.write {
-                            draftInDb.message = draft.message
-                            draftInDb.replyTo = draft.replyTo
-                            roomInDb.draft = draftInDb
-                            
+                    try! IGDatabaseManager.shared.realm.write {
+                        let draftInDb = IGRoomDraft.putOrUpdate(message: draft.message, replyTo: draft.replyTo, roomId: draft.roomId)
+                        roomInDb.draft = draftInDb
+                        if draftInDb.time != 0 { // if has draft time, update value to sortimgTimestamp fot sort in room list
+                            roomInDb.sortimgTimestamp = Double(draftInDb.time)
+                        } else {
                             if let lastMessage = roomInDb.lastMessage {
-                                if draft.message.isEmpty {
-                                    let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (lastMessage.id), roomInDb.id)
-                                    if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
-                                        roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
-                                    }
-                                } else {
-                                    roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
-                                }
-                            }
-                        }
-                    } else {
-                        try! IGDatabaseManager.shared.realm.write {
-                            roomInDb.draft = draft
-                            if draft.message.isEmpty {
-                                let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (roomInDb.lastMessage?.id)!, roomInDb.id)
+                                let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (lastMessage.id), roomInDb.id)
                                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
                                     roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
                                 }
                             } else {
-                                roomInDb.sortimgTimestamp = Date().timeIntervalSinceReferenceDate
+                                roomInDb.sortimgTimestamp = 0
+                            }
+                        }
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
+    
+    func saveDraft(roomId: Int64, igpDraft: IGPRoomDraft) {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                let roomPredicate = NSPredicate(format: "id = %lld", roomId)
+                if let roomInDb = try! Realm().objects(IGRoom.self).filter(roomPredicate).first {
+                    try! IGDatabaseManager.shared.realm.write {
+                        let draftInDb = IGRoomDraft.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpDraft: igpDraft, roomId: roomId)
+                        roomInDb.draft = draftInDb
+                        if draftInDb.time != 0 { // if has draft time, update value to sortimgTimestamp fot sort in room list
+                            roomInDb.sortimgTimestamp = Double(draftInDb.time)
+                        } else {
+                            if let lastMessage = roomInDb.lastMessage {
+                                let predicateMessage = NSPredicate(format: "id = %lld AND roomId = %lld", (lastMessage.id), roomInDb.id)
+                                if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicateMessage).first {
+                                    roomInDb.sortimgTimestamp = (messageInDb.creationTime?.timeIntervalSinceReferenceDate)!
+                                }
+                            } else {
+                                roomInDb.sortimgTimestamp = 0
                             }
                         }
                     }

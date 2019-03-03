@@ -467,8 +467,7 @@ class IGChannelUpdateDraftRequest: IGRequest {
     }
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPChannelUpdateDraftResponse) {
-            let draft = IGRoomDraft(igpDraft: responseProtoMessage.igpDraft, roomId: responseProtoMessage.igpRoomID)
-            IGFactory.shared.save(draft: draft)
+            IGFactory.shared.saveDraft(roomId: responseProtoMessage.igpRoomID, igpDraft: responseProtoMessage.igpDraft)
         }
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
@@ -493,8 +492,7 @@ class IGChannelGetDraftRequest: IGRequest {
     }
     class Handler : IGRequest.Handler{
         class func interpret(response responseProtoMessage:IGPChannelGetDraftResponse, roomId: Int64) {
-            let draft = IGRoomDraft(igpDraft: responseProtoMessage.igpDraft, roomId: roomId)
-            IGFactory.shared.save(draft: draft)
+            IGFactory.shared.saveDraft(roomId: roomId, igpDraft: responseProtoMessage.igpDraft)
         }
     }
 }
