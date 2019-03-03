@@ -434,3 +434,15 @@ class IGClientGetPromoteRequest: IGRequest {
     }
 }
 
+class IGClientGetFavoriteMenuRequest: IGRequest {
+    class Generator: IGRequest.Generator {
+        class func generate() -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPClientGetFavoriteMenu(), actionID: 619)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientGetFavoriteMenuResponse) {}
+        
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}

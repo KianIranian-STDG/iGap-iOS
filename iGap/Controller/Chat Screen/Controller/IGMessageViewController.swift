@@ -51,7 +51,7 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, IGApiProtocol, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener {
     
 
     @IBOutlet weak var pinnedMessageView: UIView!
@@ -190,7 +190,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let DOCOTR_IN_BUTTON_SPACE : CGFloat = 10 // space between button and image and mainView in a custom button
     let DOCTOR_IMAGE_SIZE : CGFloat = 25 // width and height size for image
     var leftSpace : CGFloat = 0 // space each button from start of scroll view (Hint: this value will be changed programatically)
-    var apiStructArray : [IGApiStruct] = []
+    var apiStructArray : [IGPFavorite] = []
     
     /* variables for fetch message */
     var allMessages:Results<IGRoomMessage>!
@@ -230,8 +230,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        IGApi.apiBotProtocol = self
         
         progressbar.hidesWhenStopped = true
         
@@ -317,7 +315,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if isBotRoom() {
             txtSticker.isHidden = true
             if IGHelperDoctoriGap.isDoctoriGapRoom(room: room!) {
-                IGApi.callWebService()
+                self.getFavoriteMenu()
             }
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
@@ -545,31 +543,43 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.view.endEditing(true)
     }
     
-    func onBotDataRecieve(results: [IGApiStruct]) {
-        DispatchQueue.main.async {
-            if results.count == 0 {
-                return
+    private func getFavoriteMenu(){
+        IGClientGetFavoriteMenuRequest.Generator.generate().success ({ (responseProtoMessage) in
+            if let favoriteResponse = responseProtoMessage as? IGPClientGetFavoriteMenuResponse {
+                DispatchQueue.main.async {
+                    let results = favoriteResponse.igpFavorites
+                    if results.count == 0 {
+                        return
+                    }
+                    
+                    if self.room!.isReadOnly {
+                        self.collectionViewTopInsetOffset = 0
+                    } else {
+                        self.collectionViewTopInsetOffset = CGFloat(self.DOCTOR_BOT_HEIGHT)
+                    }
+                    
+                    self.apiStructArray = results
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                        self.doctorBotView(results: results)
+                    }
+                    
+                    self.setCollectionViewInset(withDuration: 0.9)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                        self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: true)
+                    }
+                }
             }
-            
-            if self.room!.isReadOnly {
-                self.collectionViewTopInsetOffset = 0
-            } else {
-                self.collectionViewTopInsetOffset = CGFloat(self.DOCTOR_BOT_HEIGHT)
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.getFavoriteMenu()
+            default:
+                break
             }
-            
-            self.apiStructArray = results
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
-                self.doctorBotView(results: results)
-            }
-            
-            self.setCollectionViewInset(withDuration: 0.9)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: true)
-            }
-        }
+        }).send()
     }
     
-    private func doctorBotView(results: [IGApiStruct]){
+    private func doctorBotView(results: [IGPFavorite]){
         
         doctorBotScrollView = UIScrollView()
         let child = UIView()
@@ -608,14 +618,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    private func makeDoctorBotButtonView(parent: UIView, result: IGApiStruct){
-        let text : String = result.favoriteName
-        let textColor : UIColor = UIColor(hexString: "#\(result.favoriteColor ?? "#222222")")
-        let backgroundColor : UIColor = UIColor(hexString: "#\(result.favoriteBgColor ?? "#ffffff")")
-        let imageData = Data(base64Encoded: result.favoriteImage)!
+    private func makeDoctorBotButtonView(parent: UIView, result: IGPFavorite){
+        let text : String = result.igpName
+        let textColor : UIColor = UIColor(hexString: "#\(result.igpTextcolor)")
+        let backgroundColor : UIColor = UIColor(hexString: "#\(result.igpBgcolor)")
+        let imageData = Data(base64Encoded: result.igpImage)
         var hasImage = true
         
-        if result.favoriteImage.isEmpty {
+        if result.igpImage.isEmpty {
             hasImage = false
         }
         
@@ -677,8 +687,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         
         /***** Image View *****/
-        if hasImage {
-            if let image = UIImage(data: imageData) {
+        if hasImage && imageData != nil {
+            if let image = UIImage(data: imageData!) {
                 img.image = image
             }
             
@@ -716,8 +726,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func detectBotValue(name: String?) -> String? {
         if name != nil {
             for apiStruct in apiStructArray {
-                if apiStruct.favoriteName == name {
-                    return apiStruct.favoriteValue
+                if apiStruct.igpName == name {
+                    return apiStruct.igpValue
                 }
             }
         }
