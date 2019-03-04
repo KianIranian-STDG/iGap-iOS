@@ -79,6 +79,9 @@ class IGFile: Object {
             case .file, .fileAndText:
                 return .file
                 
+            case .sticker:
+                return .sticker
+                
             default:
                 return .image
             }
@@ -263,6 +266,10 @@ class IGFile: Object {
             
         case .file, .fileAndText:
             fileType = .file
+            break
+            
+        case .sticker:
+            fileType = .sticker
             break
             
         default:
@@ -468,6 +475,10 @@ class IGFile: Object {
             
         case .file, .fileAndText:
             fileType = .file
+            break
+            
+        case .sticker:
+            fileType = .sticker
             break
             
         default:

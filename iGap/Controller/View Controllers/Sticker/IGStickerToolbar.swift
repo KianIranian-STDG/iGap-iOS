@@ -93,7 +93,7 @@ class IGStickerToolbar: UIGestureRecognizer {
             btn.removeUnderline()
         } else {
             
-            IGAttachmentManager.sharedManager.getFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: (realmSticker?.avatarToken)!, completion: { (file) -> Void in
                 let cacheId = file.cacheID
                 DispatchQueue.main.async {
                     if let fileInfo = try! Realm().objects(IGFile.self).filter(NSPredicate(format: "cacheID = %@", cacheId!)).first {

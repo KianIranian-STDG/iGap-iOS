@@ -2439,17 +2439,41 @@ class IGFactory: NSObject {
     
     //MARK: --------------------------------------------------------
     //MARK: ▶︎▶︎ File
-    func addFileToDatabse(igpFile: IGPFile, completion: @escaping ((_ token :IGFile) -> Void)) {
+    /* just use this method for sticker. because we need insert info
+     * with file type, and file type detection is impossible.
+     * for example detect current file info is for image or sticker ?!
+     */
+    func addStickerFileToDatabse(igpFile: IGPFile, completion: @escaping ((_ token :IGFile) -> Void)) {
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let newFile = IGFile(igpFile: igpFile, type: IGFile.FileType.image)
+                let newFile = IGFile(igpFile: igpFile, type: IGFile.FileType.sticker)
                 
                 try! IGDatabaseManager.shared.realm.write {
                     IGDatabaseManager.shared.realm.add(newFile, update: true)
                 }
                 
                 completion(newFile)
+                
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
+    
+    func removeFileNameOnDisk(primaryKeyId: String, status: IGFile.Status) {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId)
+                    if let file = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
+                        file.fileNameOnDisk = nil
+                    }
+                }
                 
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)

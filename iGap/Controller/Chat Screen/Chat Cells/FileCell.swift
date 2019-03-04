@@ -38,7 +38,7 @@ class FileCell: AbstractCell {
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
-        makeFileView()
+        makeFileView(message)
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageFileViewPosition()
         setFile()
@@ -66,7 +66,7 @@ class FileCell: AbstractCell {
      * position of views after setMessage we call manageFileViewPosition because first we need evaluate
      * forwardViewAbs/replyViewAbs in AbstractCell
      */
-    private func makeFileView(){
+    private func makeFileView(_ message: IGRoomMessage){
         if imgFileAbs == nil {
             imgFileAbs = UIImageView()
             mainBubbleViewAbs.addSubview(imgFileAbs)
@@ -75,6 +75,17 @@ class FileCell: AbstractCell {
         if indicatorViewAbs == nil {
             indicatorViewAbs = IGDownloadUploadIndicatorView()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
+        }
+        
+        var finalMessage = message
+        if let forward = message.forwardedFrom {
+            finalMessage = forward
+        }
+        /* TODO - saeed : this method is exist in abstract message, don't call following method twice */
+        if IGGlobal.isFileExist(path: finalMessage.attachment!.path(), fileSize: finalMessage.attachment!.size) {
+            indicatorViewAbs?.isHidden = true
+        } else {
+            indicatorViewAbs?.isHidden = false
         }
         
         if txtFileName == nil {

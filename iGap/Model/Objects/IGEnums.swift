@@ -428,3 +428,13 @@ enum StickerPageType: Int {
     case ADD_REMOVE = 1 // add or remove state
     case PREVIEW = 2 // preview sticker
 }
+
+enum ClearCache: Int {
+    case IMAGES = 0
+    case GIFS = 1
+    case VIDEOS = 2
+    case AUDIOS = 3
+    case VOICES = 4
+    case DOCUMENTS = 5
+    case STICKERS = 6
+}

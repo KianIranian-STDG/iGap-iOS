@@ -34,7 +34,7 @@ class VoiceCell: AbstractCell {
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
-        makeVoiceView()
+        makeVoiceView(message)
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageVoiceViewPosition()
         setVoice()
@@ -47,7 +47,7 @@ class VoiceCell: AbstractCell {
         mainBubbleViewHeightAbs = mainBubbleViewHeight
     }
     
-    private func makeVoiceView(){
+    private func makeVoiceView(_ message: IGRoomMessage){
         if imgFileAbs == nil {
             imgFileAbs = UIImageView()
             mainBubbleViewAbs.addSubview(imgFileAbs)
@@ -56,6 +56,17 @@ class VoiceCell: AbstractCell {
         if indicatorViewAbs == nil {
             indicatorViewAbs = IGDownloadUploadIndicatorView()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
+        }
+        
+        var finalMessage = message
+        if let forward = message.forwardedFrom {
+            finalMessage = forward
+        }
+        /* TODO - saeed : this method is exist in abstract message, don't call following method twice */
+        if IGGlobal.isFileExist(path: finalMessage.attachment!.path(), fileSize: finalMessage.attachment!.size) {
+            indicatorViewAbs?.isHidden = true
+        } else {
+            indicatorViewAbs?.isHidden = false
         }
         
         if txtVoiceRecorderName == nil {

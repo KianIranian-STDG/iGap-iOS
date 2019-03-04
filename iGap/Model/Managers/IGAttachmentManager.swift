@@ -15,7 +15,7 @@ import IGProtoBuff
 
 class IGAttachmentManager: NSObject {
     static let sharedManager = IGAttachmentManager()
-    private var variablesCache: NSCache<NSString, Variable<IGFile>>
+    public var variablesCache: NSCache<NSString, Variable<IGFile>>
     var completionFileDic : [String : (IGFile)->() ] = [:]
     
     private override init() {
@@ -88,7 +88,11 @@ class IGAttachmentManager: NSObject {
         }
     }
     
-    func getFileInfo(token: String, completion: @escaping ((_ file :IGFile) -> Void)){
+    /* just use this method for sticker. because we need after get info
+     * from server set file type, and file type detection is impossible.
+     * for example detect current file info is for image or sticker ?!
+     */
+    func getStickerFileInfo(token: String, completion: @escaping ((_ file :IGFile) -> Void)){
         let realm = try! Realm()
         let predicate = NSPredicate(format: "token = %@ AND previewTypeRaw = %d", token, IGFile.PreviewType.originalFile.rawValue)
         if let fileInfo = realm.objects(IGFile.self).filter(predicate).first {
@@ -97,8 +101,8 @@ class IGAttachmentManager: NSObject {
             completionFileDic[token] = completion
             IGFileInfoRequest.Generator.generate(token: token).success ({ (protoMessage) in
                 if let fileInfoReponse = protoMessage as? IGPFileInfoResponse {
-                    IGFactory.shared.addFileToDatabse(igpFile: fileInfoReponse.igpFile, completion: { (file) -> Void in
-                        let newFile = IGFile(igpFile: fileInfoReponse.igpFile, type: IGFile.FileType.image)
+                    IGFactory.shared.addStickerFileToDatabse(igpFile: fileInfoReponse.igpFile, completion: { (file) -> Void in
+                        let newFile = IGFile(igpFile: fileInfoReponse.igpFile, type: IGFile.FileType.sticker)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             if let completion = self.completionFileDic[newFile.token!] {
                                 self.completionFileDic.removeValue(forKey: newFile.token!)
