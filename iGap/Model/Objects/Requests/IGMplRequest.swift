@@ -48,6 +48,22 @@ class IGMplGetTopupToken : IGRequest {
     }
 }
 
+class IGMplGetSalesToken : IGRequest {
+    class Generator : IGRequest.Generator{
+        class func generate(botId: Int64, amount: Int64) -> IGRequestWrapper {
+            var mplGetSales = IGPMplGetSalesToken()
+            mplGetSales.igpBotID = botId
+            mplGetSales.igpAmount = amount
+            return IGRequestWrapper(message: mplGetSales, actionID: 9102)
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response reponseProtoMessage:IGPMplGetTopupTokenResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
 class IGBillInquiryMci : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(mobileNumber: Int64) -> IGRequestWrapper {
