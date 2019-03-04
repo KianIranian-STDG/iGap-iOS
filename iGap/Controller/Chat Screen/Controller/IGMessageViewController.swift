@@ -115,6 +115,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var collectionViewTopInsetOffset: CGFloat = 0.0
     var connectionStatus : IGAppManager.ConnectionStatus?
     var reportMessageId: Int64?
+    var sendAsFile: Bool = false
     
     let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
         String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
@@ -1870,8 +1871,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.attachmentPicker()
         })
         
-        let document = UIAlertAction(title: "Document", style: .default, handler: { (action) in
-            self.documentPicker()
+        let document = UIAlertAction(title: "File", style: .default, handler: { (action) in
+            self.sendAsFileAlert()
         })
         
         let contact = UIAlertAction(title: "Contact", style: .default, handler: { (action) in
@@ -1895,10 +1896,34 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.present(alertC, animated: true, completion: nil)
     }
     
+    private func sendAsFileAlert(){
+        let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let photoOrVideo = UIAlertAction(title: "Photo or Video", style: .default, handler: { (action) in
+            self.sendAsFile = true
+            self.attachmentPicker()
+        })
+        let document = UIAlertAction(title: "Document", style: .default, handler: { (action) in
+            self.sendAsFile = true
+            self.documentPicker()
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertC.addAction(photoOrVideo)
+        alertC.addAction(document)
+        alertC.addAction(cancel)
+        
+        self.present(alertC, animated: true, completion: nil)
+    }
+    
     func attachmentPicker(sourceType: UIImagePickerControllerSourceType = .photoLibrary){
         let mediaPicker = UIImagePickerController()
         mediaPicker.delegate = self
         mediaPicker.sourceType = sourceType
+        if self.sendAsFile {
+            if #available(iOS 11.0, *) {
+                mediaPicker.videoExportPreset = AVAssetExportPresetPassthrough
+            }
+        }
         mediaPicker.mediaTypes = ["public.image", "public.movie"]
         self.present(mediaPicker, animated: true, completion: nil)
     }
@@ -1945,6 +1970,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             return
         }
         
+        if self.sendAsFile {
+            self.sendAsFile = false
+            let myURL = mediaUrl as URL
+            if let data = try? Data(contentsOf: myURL) {
+                let filename = myURL.lastPathComponent
+                manageFile(fileData: data, filename: filename)
+            }
+            return
+        }
+        
         let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filename = mediaUrl.lastPathComponent
         let fileSize = Int(IGGlobal.getFileSize(path: mediaUrl))
@@ -1975,6 +2010,114 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.didSelectAttachment(attachment)
     }
     
+    func manageImage(imageInfo: [String : Any]){
+        let imageUrl = imageInfo["UIImagePickerControllerImageURL"] as? URL
+        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+        
+        var filename : String!
+        var fileSize : Int!
+        
+        if imageUrl != nil {
+            filename = imageUrl?.lastPathComponent
+            fileSize = Int(IGGlobal.getFileSize(path: imageUrl))
+            
+            if self.sendAsFile {
+                self.sendAsFile = false
+                if let data = try? Data(contentsOf: imageUrl!) {
+                    let filename = imageUrl!.lastPathComponent
+                    manageFile(fileData: data, filename: filename)
+                }
+                return
+            }
+            
+        } else {
+            filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+            let imageData = UIImageJPEGRepresentation((originalImage), 1)!
+            fileSize = NSData(data: imageData).length
+            
+            if self.sendAsFile {
+                self.sendAsFile = false
+                let filename = imageUrl!.lastPathComponent
+                manageFile(fileData: imageData, filename: filename)
+                return
+            }
+        }
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+   
+        var scaledImage = originalImage
+        let imgData = UIImageJPEGRepresentation(scaledImage, 0.7)
+        if imgData != nil {
+            fileSize = NSData(data: imgData!).length
+        }
+        let fileNameOnDisk = randomString + filename
+        
+        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: originalImage)
+        }
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.attachedImage = scaledImage
+        attachment.fileNameOnDisk = fileNameOnDisk
+        attachment.height = Double((scaledImage.size.height))
+        attachment.width = Double((scaledImage.size.width))
+        attachment.size = (imgData?.count)!
+        attachment.data = imgData
+        attachment.type = .image
+        
+        DispatchQueue.main.async {
+            self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
+        }
+        
+        self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
+        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+        
+        self.didSelectAttachment(attachment)
+    }
+    
+    func manageFile(fileData: Data, filename: String) {
+        
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDisk = documents + "/" + randomString + filename
+        
+        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
+        let fileSize = Int(fileData.count)
+        
+        // write data to my fileUrl
+        try! fileData.write(to: fileUrl)
+        
+        let attachment = IGFile(name: filename)
+        attachment.size = fileSize
+        attachment.fileNameOnDisk = randomString + filename
+        attachment.name = filename
+        attachment.type = .file
+        
+        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
+        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
+        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
+
+        self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
+        self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
+        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
+        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
+        
+        self.didSelectAttachment(attachment)
+    }
+    
+    private func openLocation(){
+        let status = CLLocationManager.authorizationStatus()
+        if status == .notDetermined {
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+        } else if status == .authorizedWhenInUse || status == .authorizedAlways {
+            isSendLocation = true
+            self.performSegue(withIdentifier: "showLocationViewController", sender: self)
+        }
+    }
+    
+    /*************** web view manager ***************/
     private func openWebView(url:String)  {
         
         makeWebView()
@@ -2088,93 +2231,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             progressbar.startAnimating()
         }
         return true
-    }
-    
-    
-    func manageImage(imageInfo: [String : Any]){
-        let imageUrl = imageInfo["UIImagePickerControllerImageURL"] as? URL
-        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
-        
-        var filename : String!
-        var fileSize : Int!
-        
-        if imageUrl != nil {
-            filename = imageUrl?.lastPathComponent
-            fileSize = Int(IGGlobal.getFileSize(path: imageUrl))
-        } else {
-            filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-            fileSize = NSData(data: UIImageJPEGRepresentation((originalImage), 1)!).length
-        }
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-   
-        var scaledImage = originalImage
-        let imgData = UIImageJPEGRepresentation(scaledImage, 0.7)
-        let fileNameOnDisk = randomString + filename
-        
-        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
-            scaledImage = IGUploadManager.compress(image: originalImage)
-        }
-        
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.attachedImage = scaledImage
-        attachment.fileNameOnDisk = fileNameOnDisk
-        attachment.height = Double((scaledImage.size.height))
-        attachment.width = Double((scaledImage.size.width))
-        attachment.size = (imgData?.count)!
-        attachment.data = imgData
-        attachment.type = .image
-        
-        DispatchQueue.main.async {
-            self.saveAttachmentToLocalStorage(data: imgData!, fileNameOnDisk: fileNameOnDisk)
-        }
-        
-        self.inputBarAttachmentViewThumnailImageView.image = attachment.attachedImage
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-        
-        self.didSelectAttachment(attachment)
-    }
-    
-    func manageFile(fileData: Data, filename: String) {
-        
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let randomString = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDisk = documents + "/" + randomString + filename
-        
-        let fileUrl : URL = NSURL(fileURLWithPath: pathOnDisk) as URL
-        let fileSize = Int(fileData.count)
-        
-        // write data to my fileUrl
-        try! fileData.write(to: fileUrl)
-        
-        let attachment = IGFile(name: filename)
-        attachment.size = fileSize
-        attachment.fileNameOnDisk = randomString + filename
-        attachment.name = filename
-        attachment.type = .file
-        
-        let randomStringFinal = IGGlobal.randomString(length: 16) + "_"
-        let pathOnDiskFinal = documents + "/" + randomStringFinal + filename
-        try! FileManager.default.copyItem(atPath: fileUrl.path, toPath: pathOnDiskFinal)
-
-        self.inputBarAttachmentViewThumnailImageView.image = UIImage(named: "IG_Message_Cell_File_Generic")
-        self.inputBarAttachmentViewThumnailImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 34)
-        self.inputBarAttachmentViewThumnailImageView.layer.cornerRadius = 6.0
-        self.inputBarAttachmentViewThumnailImageView.layer.masksToBounds = true
-        
-        self.didSelectAttachment(attachment)
-    }
-    
-    private func openLocation(){
-        let status = CLLocationManager.authorizationStatus()
-        if status == .notDetermined {
-            locationManager.delegate = self
-            locationManager.requestWhenInUseAuthorization()
-        } else if status == .authorizedWhenInUse || status == .authorizedAlways {
-            isSendLocation = true
-            self.performSegue(withIdentifier: "showLocationViewController", sender: self)
-        }
     }
     
     /***** overrided method for location manager *****/
