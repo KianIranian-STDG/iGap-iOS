@@ -106,11 +106,19 @@ class IGGlobal {
     }
     
     internal static func getFileSize(path: URL?) -> Int64{
-        if path == nil || path?.path == nil || !isFileExist(path: path) {
+        if path == nil {
             return 0
         }
         
-        return Int64(FileManager.default.contents(atPath: (path?.path)!)!.count)
+        return getFileSize(path: path?.path)
+    }
+    
+    internal static func getFileSize(path: String?) -> Int64{
+        if path == nil || !isFileExist(path: path) {
+            return 0
+        }
+        
+        return Int64(FileManager.default.contents(atPath: (path)!)!.count)
     }
     /******************** File ********************/
     /**********************************************/

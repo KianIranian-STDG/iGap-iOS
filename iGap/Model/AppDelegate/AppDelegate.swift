@@ -86,10 +86,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         pushNotification(application)
         detectBackground()
+        compactRealm()
         
         return true
     }
     
+    func compactRealm() {
+        let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
+        let defaultParentURL = defaultURL.deletingLastPathComponent()
+        let compactedURL = defaultParentURL.appendingPathComponent("default-compact.realm")
+        autoreleasepool {
+            let realm = try! Realm()
+            try! realm.writeCopy(toFile: compactedURL)
+        }
+        try! FileManager.default.removeItem(at: defaultURL)
+        try! FileManager.default.moveItem(at: compactedURL, to: defaultURL)
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         
