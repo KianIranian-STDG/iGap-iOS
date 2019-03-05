@@ -25,6 +25,7 @@ import RxCocoa
 import MBProgressHUD
 import ContactsUI
 import MobileCoreServices
+import MarkdownKit
 
 class IGHeader: UICollectionReusableView {
     
@@ -94,10 +95,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerView: UIView!
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
-    @IBOutlet weak var progressbar: UIActivityIndicatorView!
     @IBOutlet weak var txtSticker: UILabel!
     
     var webView: UIWebView!
+    var webViewProgressbar: UIActivityIndicatorView!
     var btnChangeKeyboard : UIButton!
     var doctorBotScrollView : UIScrollView!
     private let disposeBag = DisposeBag()
@@ -231,8 +232,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        progressbar.hidesWhenStopped = true
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
@@ -2199,6 +2198,30 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    private func makeWebViewProgress(){
+        if webViewProgressbar == nil {
+           webViewProgressbar = UIActivityIndicatorView()
+           webViewProgressbar.hidesWhenStopped = true
+           webViewProgressbar.color = UIColor.darkGray
+        }
+        webView.addSubview(webViewProgressbar)
+        
+        webViewProgressbar.snp.makeConstraints { (make) in
+            make.height.equalTo(40)
+            make.width.equalTo(40)
+            make.centerX.equalTo(webView.snp.centerX)
+            make.centerY.equalTo(webView.snp.centerY)
+        }
+    }
+    
+    private func removeWebViewProgress(){
+        if self.webViewProgressbar != nil {
+            self.webViewProgressbar.removeFromSuperview()
+            self.webViewProgressbar = nil
+        }
+    }
+    
+    
     func back() { // this back  when work that webview is working
         if webView == nil || webView.isHidden {
             let navigationItem = self.navigationItem as! IGNavigationItem
@@ -2213,7 +2236,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        progressbar.stopAnimating()
+        removeWebViewProgress()
     }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
@@ -2221,14 +2244,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        progressbar.stopAnimating()
+        removeWebViewProgress()
     }
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if request.url?.description == "igap://close" {
             closeWebView()
         } else {
-            progressbar.startAnimating()
+            makeWebViewProgress()
+            webViewProgressbar.startAnimating()
         }
         return true
     }
@@ -2647,6 +2671,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage! + " Sticker"
             } else {
                 self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
+                
+                let markdown = MarkdownParser()
+                markdown.enabledElements = MarkdownParser.EnabledElements.bold
+                self.inputBarOriginalMessageViewBodyTextLabel.attributedText = markdown.parse(textMessage!)
+                self.inputBarOriginalMessageViewBodyTextLabel.textColor = UIColor.darkGray
+                self.inputBarOriginalMessageViewBodyTextLabel.font = UIFont.igFont(ofSize: 11.0)
             }
             
         } else if finalMessage.contact != nil {

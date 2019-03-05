@@ -693,14 +693,6 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4sD-jl-4yw">
-                                <rect key="frame" x="167.5" y="313.5" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="65p-wq-dCO"/>
-                                    <constraint firstAttribute="height" constant="40" id="eGh-3W-Wtd"/>
-                                </constraints>
-                                <color key="color" red="0.92794257609999997" green="0.47292944269999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9G6-WI-YVj" customClass="IGMessageCollectionView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TTu-g1-jEU">
@@ -1108,7 +1100,6 @@
                             <constraint firstAttribute="trailing" secondItem="gI9-RR-rF9" secondAttribute="trailing" id="7eF-CC-LdC"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="9rZ-uo-M4r"/>
                             <constraint firstItem="PLh-MM-IK9" firstAttribute="top" secondItem="ziz-lj-PYe" secondAttribute="topMargin" id="ESh-6c-y7D"/>
-                            <constraint firstItem="4sD-jl-4yw" firstAttribute="centerY" secondItem="ziz-lj-PYe" secondAttribute="centerY" id="MjC-11-mn6"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="top" secondItem="5mR-SM-BTR" secondAttribute="bottom" id="Obr-Bc-Azv"/>
                             <constraint firstItem="7LG-Y0-Ncx" firstAttribute="top" secondItem="uLc-FX-WjP" secondAttribute="bottom" constant="5" id="OnJ-wA-E9b"/>
                             <constraint firstAttribute="trailing" secondItem="uLc-FX-WjP" secondAttribute="trailing" constant="5" id="PwG-7u-wmd"/>
@@ -1117,7 +1108,6 @@
                             <constraint firstAttribute="trailing" secondItem="4eQ-gi-PNj" secondAttribute="trailing" id="STr-jl-Csu"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="bottom" secondItem="4eQ-gi-PNj" secondAttribute="bottom" id="bg0-rO-guD"/>
                             <constraint firstAttribute="bottomMargin" secondItem="PLh-MM-IK9" secondAttribute="bottom" id="h0k-48-e8Z"/>
-                            <constraint firstItem="4sD-jl-4yw" firstAttribute="centerX" secondItem="ziz-lj-PYe" secondAttribute="centerX" id="iap-mC-ii9"/>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="top" secondItem="9G6-WI-YVj" secondAttribute="top" id="isL-XI-z64"/>
                             <constraint firstItem="7LG-Y0-Ncx" firstAttribute="top" secondItem="4eQ-gi-PNj" secondAttribute="bottom" id="l9j-I8-pUw"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="leading" secondItem="9G6-WI-YVj" secondAttribute="leading" id="n0a-xe-TX1"/>
@@ -1165,7 +1155,6 @@
                         <outlet property="joinButton" destination="uLc-FX-WjP" id="gTz-2h-Ury"/>
                         <outlet property="mainView" destination="ziz-lj-PYe" id="dTw-Uu-Ri1"/>
                         <outlet property="pinnedMessageView" destination="gI9-RR-rF9" id="bFj-zu-R1g"/>
-                        <outlet property="progressbar" destination="4sD-jl-4yw" id="tcG-ao-cX4"/>
                         <outlet property="scrollToBottomContainerView" destination="5mR-SM-BTR" id="Xvj-fw-UgO"/>
                         <outlet property="scrollToBottomContainerViewConstraint" destination="Obr-Bc-Azv" id="WAk-s1-O8N"/>
                         <outlet property="txtPinnedMessage" destination="OfO-SB-YDv" id="Yhx-Wj-P13"/>

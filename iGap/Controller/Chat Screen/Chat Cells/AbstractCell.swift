@@ -603,7 +603,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 if repliedMessage.type == .sticker {
                     txtReplyMessageAbs.text = body! + " Sticker"
                 } else {
-                    txtReplyMessageAbs.text = body
+                    let markdown = MarkdownParser()
+                    markdown.enabledElements = MarkdownParser.EnabledElements.bold
+                    txtReplyMessageAbs.attributedText = markdown.parse(body!)
+                    txtReplyMessageAbs.textColor = UIColor.chatReplyToMessageBodyLabelTextColor(isIncommingMessage: isIncommingMessage)
+                    txtReplyMessageAbs.font = UIFont.igFont(ofSize: 13.0)
                 }
                 
             } else if let media = repliedMessage.attachment {
