@@ -294,7 +294,7 @@ class IGFile: Object {
     
     static func putOrUpdate(realm: Realm, igpFile : IGPFile, messageType: IGRoomMessageType) -> IGFile {
         
-        let predicate = NSPredicate(format: "primaryKeyId = %@", igpFile.igpCacheID)
+        let predicate = NSPredicate(format: "cacheID = %@", igpFile.igpCacheID)
         var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
         
         if file == nil {
