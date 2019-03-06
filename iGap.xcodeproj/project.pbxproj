@@ -200,6 +200,8 @@
 		FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63BAAC1DD70F09000B60AD /* IGRequestGroup.swift */; };
 		FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63BAAE1DD70F21000B60AD /* IGRequestChannel.swift */; };
 		FA63BAB11DD70F36000B60AD /* IGRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63BAB01DD70F36000B60AD /* IGRequestClient.swift */; };
+		FA63D1E2222FE56E0082320A /* IGSticky.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63D1E0222FE56E0082320A /* IGSticky.swift */; };
+		FA63D1E3222FE56E0082320A /* IGSticky.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA63D1E1222FE56E0082320A /* IGSticky.xib */; };
 		FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6791DB1DE41239003CFA4F /* IGErrorRequest.swift */; };
 		FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA68A2101DD9B0E9003A6651 /* IGRecentsTableViewController.swift */; };
 		FA6A22761F41D0210063DF07 /* iGap-Fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA6A22751F41CB0B0063DF07 /* iGap-Fontico.ttf */; };
@@ -665,6 +667,8 @@
 		FA63BAAC1DD70F09000B60AD /* IGRequestGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestGroup.swift; sourceTree = "<group>"; };
 		FA63BAAE1DD70F21000B60AD /* IGRequestChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestChannel.swift; sourceTree = "<group>"; };
 		FA63BAB01DD70F36000B60AD /* IGRequestClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestClient.swift; sourceTree = "<group>"; };
+		FA63D1E0222FE56E0082320A /* IGSticky.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSticky.swift; sourceTree = "<group>"; };
+		FA63D1E1222FE56E0082320A /* IGSticky.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGSticky.xib; sourceTree = "<group>"; };
 		FA6791DB1DE41239003CFA4F /* IGErrorRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGErrorRequest.swift; sourceTree = "<group>"; };
 		FA68A2101DD9B0E9003A6651 /* IGRecentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRecentsTableViewController.swift; sourceTree = "<group>"; };
 		FA6A22751F41CB0B0063DF07 /* iGap-Fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iGap-Fontico.ttf"; sourceTree = "<group>"; };
@@ -1693,6 +1697,8 @@
 				FAD57EE01E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib */,
 				937455F81E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib */,
 				937455FA1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift */,
+				FA63D1E0222FE56E0082320A /* IGSticky.swift */,
+				FA63D1E1222FE56E0082320A /* IGSticky.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2073,6 +2079,7 @@
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
 				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
+				FA63D1E3222FE56E0082320A /* IGSticky.xib in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
 				FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */,
@@ -2256,6 +2263,7 @@
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
+				FA63D1E2222FE56E0082320A /* IGSticky.swift in Sources */,
 				FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */,
 				FAEC476621F33149006C07A4 /* IGHelperJoin.swift in Sources */,
 				FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */,

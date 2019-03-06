@@ -822,7 +822,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         txtSenderNameAbs.snp.makeConstraints { (make) in
             make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
-            make.width.greaterThanOrEqualTo(30)
+            make.width.greaterThanOrEqualTo(5)
             make.centerY.equalTo(viewSenderNameAbs.snp.centerY)
             make.height.equalTo(9)
         }

@@ -96,6 +96,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var scrollToBottomContainerViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatBackground: UIImageView!
     @IBOutlet weak var txtSticker: UILabel!
+    @IBOutlet weak var floatingDateView: UIView!
+    @IBOutlet weak var txtFloatingDate: UILabel!
     
     var webView: UIWebView!
     var webViewProgressbar: UIActivityIndicatorView!
@@ -213,7 +215,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var receivedLocation : CLLocation!
     var stickerPageType = StickerPageType.MAIN
     var stickerGroupId: String!
-
+    var latestIndexPath: IndexPath!
+    
     var latestKeyboardAdditionalView: UIView!
     
     fileprivate var typingStatusExpiryTimer = Timer() //use this to send cancel for typing status
@@ -416,6 +419,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         scrollToBottomContainerView.layer.shadowOpacity = 0.15
         scrollToBottomContainerView.backgroundColor = UIColor.white
         scrollToBottomContainerView.isHidden = true
+        
+        floatingDateView.layer.cornerRadius = 12.0
+        floatingDateView.isHidden = true
+        txtFloatingDate.isHidden = true
         
         self.setCollectionViewInset()
         //Keyboard Notification
@@ -3075,7 +3082,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         }
         
         if shouldShowFooter {
-            return CGSize(width: 35, height: 30.0)
+            return CGSize(width: 35, height: 50.0)
         } else {
             return CGSize(width: 0.001, height: 0.001)//CGSize.zero
         }
@@ -3163,6 +3170,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             return
         }
         
+        setFloatingDate()
+        
         let spaceToTop = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height
         if spaceToTop < self.scrollToTopLimit {
             
@@ -3210,6 +3219,29 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             isEndOfScroll = true
         } else {
             isEndOfScroll = false
+        }
+    }
+    
+    private func setFloatingDate(){
+        let arrayOfVisibleItems = collectionView.indexPathsForVisibleItems.sorted()
+        if let lastIndexPath = arrayOfVisibleItems.last {
+            if latestIndexPath != lastIndexPath {
+                latestIndexPath = lastIndexPath
+            } else {
+                return
+            }
+            
+            if latestIndexPath.section < messages.count {
+                if let message = messages?[latestIndexPath.section] {
+                    let dayTimePeriodFormatter = DateFormatter()
+                    dayTimePeriodFormatter.dateFormat = "MMMM dd"
+                    dayTimePeriodFormatter.calendar = Calendar.current
+                    let dateString = dayTimePeriodFormatter.string(from: message.creationTime!)
+                    txtFloatingDate.text = dateString
+                    txtFloatingDate.isHidden = false
+                    floatingDateView.isHidden = false
+                }
+            }
         }
     }
     

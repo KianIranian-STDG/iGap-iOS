@@ -1091,9 +1091,26 @@
                                     <constraint firstItem="ODy-Ce-ZEZ" firstAttribute="leading" secondItem="gI9-RR-rF9" secondAttribute="leading" constant="8" id="ns3-rT-r14"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-H7-OPt">
+                                <rect key="frame" x="140" y="74" width="95.5" height="24"/>
+                                <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="bhY-h4-UcM"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="floating date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfs-sg-eWx">
+                                <rect key="frame" x="147" y="77.5" width="81.5" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="tfU-iL-Llh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lfs-sg-eWx" firstAttribute="width" secondItem="dyh-H7-OPt" secondAttribute="width" constant="-14" id="1Dg-2x-ein"/>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="43i-SN-Oct"/>
                             <constraint firstItem="uLc-FX-WjP" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" constant="5" id="62H-fk-IXR"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="trailing" secondItem="9G6-WI-YVj" secondAttribute="trailing" id="74i-Qd-PtK"/>
@@ -1106,13 +1123,17 @@
                             <constraint firstAttribute="trailingMargin" secondItem="5mR-SM-BTR" secondAttribute="trailing" constant="-8" id="RBW-9Z-t7u"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" id="Ry3-td-qgA"/>
                             <constraint firstAttribute="trailing" secondItem="4eQ-gi-PNj" secondAttribute="trailing" id="STr-jl-Csu"/>
+                            <constraint firstItem="dyh-H7-OPt" firstAttribute="top" secondItem="v1Y-Qo-n3M" secondAttribute="bottom" constant="10" id="WTm-s5-eRf"/>
+                            <constraint firstItem="lfs-sg-eWx" firstAttribute="centerY" secondItem="dyh-H7-OPt" secondAttribute="centerY" id="Z2e-DA-J0s"/>
                             <constraint firstItem="9G6-WI-YVj" firstAttribute="bottom" secondItem="4eQ-gi-PNj" secondAttribute="bottom" id="bg0-rO-guD"/>
                             <constraint firstAttribute="bottomMargin" secondItem="PLh-MM-IK9" secondAttribute="bottom" id="h0k-48-e8Z"/>
+                            <constraint firstItem="dyh-H7-OPt" firstAttribute="centerX" secondItem="ziz-lj-PYe" secondAttribute="centerX" id="hQG-ND-Uui"/>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="top" secondItem="9G6-WI-YVj" secondAttribute="top" id="isL-XI-z64"/>
                             <constraint firstItem="7LG-Y0-Ncx" firstAttribute="top" secondItem="4eQ-gi-PNj" secondAttribute="bottom" id="l9j-I8-pUw"/>
                             <constraint firstItem="4eQ-gi-PNj" firstAttribute="leading" secondItem="9G6-WI-YVj" secondAttribute="leading" id="n0a-xe-TX1"/>
                             <constraint firstItem="gI9-RR-rF9" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leading" id="oKk-WT-ejk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PLh-MM-IK9" secondAttribute="trailing" constant="-16" id="pSL-X5-paD"/>
+                            <constraint firstItem="lfs-sg-eWx" firstAttribute="centerX" secondItem="dyh-H7-OPt" secondAttribute="centerX" id="qlc-gw-i9Y"/>
                             <constraint firstItem="PLh-MM-IK9" firstAttribute="leading" secondItem="ziz-lj-PYe" secondAttribute="leadingMargin" constant="-16" id="yGl-yK-T7P"/>
                         </constraints>
                     </view>
@@ -1126,6 +1147,7 @@
                         <outlet property="btnScrollToBottom" destination="Em7-Bg-41q" id="nBH-S4-gyk"/>
                         <outlet property="chatBackground" destination="PLh-MM-IK9" id="kmi-ka-fIy"/>
                         <outlet property="collectionView" destination="9G6-WI-YVj" id="W5s-J5-lty"/>
+                        <outlet property="floatingDateView" destination="dyh-H7-OPt" id="Pat-k4-gtU"/>
                         <outlet property="inputBarAttachmentView" destination="GKD-aB-Nez" id="LxL-aF-CLm"/>
                         <outlet property="inputBarAttachmentViewBottomConstraint" destination="xTp-jF-6fO" id="CZc-Vr-QBz"/>
                         <outlet property="inputBarAttachmentViewFileNameLabel" destination="fh1-j5-GnE" id="dBl-mz-1tw"/>
@@ -1157,6 +1179,7 @@
                         <outlet property="pinnedMessageView" destination="gI9-RR-rF9" id="bFj-zu-R1g"/>
                         <outlet property="scrollToBottomContainerView" destination="5mR-SM-BTR" id="Xvj-fw-UgO"/>
                         <outlet property="scrollToBottomContainerViewConstraint" destination="Obr-Bc-Azv" id="WAk-s1-O8N"/>
+                        <outlet property="txtFloatingDate" destination="lfs-sg-eWx" id="R9Y-Bt-5D8"/>
                         <outlet property="txtPinnedMessage" destination="OfO-SB-YDv" id="Yhx-Wj-P13"/>
                         <outlet property="txtSticker" destination="5nb-Dt-CKY" id="EXb-kI-qUU"/>
                         <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="jRj-hY-oEr"/>
@@ -1726,7 +1749,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jRj-hY-oEr"/>
-        <segue reference="R4P-x7-LEg"/>
+        <segue reference="I27-tX-EAz"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

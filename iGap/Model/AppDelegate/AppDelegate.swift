@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         pushNotification(application)
         detectBackground()
-        compactRealm()
+        //compactRealm()
         
         return true
     }
