@@ -421,8 +421,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         scrollToBottomContainerView.isHidden = true
         
         floatingDateView.layer.cornerRadius = 12.0
-        floatingDateView.isHidden = true
-        txtFloatingDate.isHidden = true
+        floatingDateView.alpha = 0.0
+        txtFloatingDate.alpha = 0.0
         
         self.setCollectionViewInset()
         //Keyboard Notification
@@ -3222,6 +3222,15 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.floatingDateView.alpha = 0.0
+        })
+        UIView.animate(withDuration: 0.5, animations: {
+            self.txtFloatingDate.alpha = 0.0
+        })
+    }
+    
     private func setFloatingDate(){
         let arrayOfVisibleItems = collectionView.indexPathsForVisibleItems.sorted()
         if let lastIndexPath = arrayOfVisibleItems.last {
@@ -3238,8 +3247,12 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                     dayTimePeriodFormatter.calendar = Calendar.current
                     let dateString = dayTimePeriodFormatter.string(from: message.creationTime!)
                     txtFloatingDate.text = dateString
-                    txtFloatingDate.isHidden = false
-                    floatingDateView.isHidden = false
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.floatingDateView.alpha = 1.0
+                    })
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.txtFloatingDate.alpha = 1.0
+                    })
                 }
             }
         }
