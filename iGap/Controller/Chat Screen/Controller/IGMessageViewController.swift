@@ -1663,11 +1663,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func allowDelete(_ message: IGRoomMessage) -> (singleDelete: Bool, bothDelete: Bool){
         var singleDelete = false
         var bothDelete = false
-        if (message.authorHash == currentLoggedInUserAuthorHash) ||
+        if (message.authorHash == currentLoggedInUserAuthorHash) || (self.room!.type == .chat) ||
             (self.room!.type == .channel && self.room!.channelRoom!.role == .owner) ||
-            (self.room!.type == .group   && self.room!.groupRoom!.role   == .owner) {
-            //If user can delete message for all participants
-            if (self.room!.type == .chat) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
+            (self.room!.type == .group && self.room!.groupRoom!.role == .owner) {
+            if (self.room!.type == .chat) && (message.authorHash == currentLoggedInUserAuthorHash) && (message.creationTime != nil) && (Date().timeIntervalSince1970 - message.creationTime!.timeIntervalSince1970 < 2 * 3600) {
                 bothDelete = true
             }
             singleDelete = true
