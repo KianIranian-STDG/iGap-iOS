@@ -263,12 +263,13 @@ class IGRoomMessage: Object {
     static func putOrUpdate(realm: Realm, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) -> IGRoomMessage {
         
         let realm = try! Realm()
-        let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
+        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
+        let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
         var message: IGRoomMessage! = realm.objects(IGRoomMessage.self).filter(predicate).first
         
         if message == nil {
             message = IGRoomMessage()
-            message.primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
+            message.primaryKeyId = primaryKeyId
         }
         
         if !isForward && !isReply {

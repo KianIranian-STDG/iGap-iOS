@@ -21,7 +21,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     // MARK: - public properties
     open weak var delegate: ActiveLabelDelegate?
 
-    open var enabledTypes: [ActiveType] = [.mention, .hashtag, .url , .bot , .email, .custom(pattern: "")]
+    open var enabledTypes: [ActiveType] = [.mention, .hashtag, .url , .bot , .email, .bold, .custom(pattern: "")]
 
     open var urlMaximumLength: Int?
     
@@ -43,6 +43,12 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         didSet { updateTextStorage(parseText: false) }
     }
     @IBInspectable open var botSelectedColor: UIColor? {
+        didSet { updateTextStorage(parseText: false) }
+    }
+    @IBInspectable open var boldColor: UIColor = UIColor.messageText() {
+        didSet { updateTextStorage(parseText: false) }
+    }
+    @IBInspectable open var boldSelectedColor: UIColor? {
         didSet { updateTextStorage(parseText: false) }
     }
     @IBInspectable open var URLColor: UIColor = .blue {
@@ -121,6 +127,8 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             customTapHandlers[type] = nil
         case .bot:
             botTapHandler = nil
+        default:
+            return
         }
     }
 
@@ -239,7 +247,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .email(let originalEmail, _): didTapStringEmail(originalEmail)
             case .custom(let element): didTap(element, for: selectedElement.type)
             case .bot(let botCommand): didTapBot(botCommand)
-                
+            default: break
             }
             
             let when = DispatchTime.now() + Double(Int64(0.25 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -344,12 +352,36 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         for (type, elements) in activeElements {
 
             switch type {
-            case .mention: attributes[NSForegroundColorAttributeName] = mentionColor
-            case .hashtag: attributes[NSForegroundColorAttributeName] = hashtagColor
-            case .url: attributes[NSForegroundColorAttributeName] = URLColor
-            case .email: attributes[NSForegroundColorAttributeName] = EmailColor
-            case .custom: attributes[NSForegroundColorAttributeName] = customColor[type] ?? defaultCustomColor
-            case .bot: attributes[NSForegroundColorAttributeName] = botColor
+            case .mention:
+                attributes[NSForegroundColorAttributeName] = mentionColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                break
+                
+            case .hashtag:
+                attributes[NSForegroundColorAttributeName] = hashtagColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                break
+                
+            case .url:
+                attributes[NSForegroundColorAttributeName] = URLColor
+                break
+                
+            case .email:
+                attributes[NSForegroundColorAttributeName] = EmailColor
+                break
+                
+            case .custom:
+                attributes[NSForegroundColorAttributeName] = customColor[type] ?? defaultCustomColor
+                break
+                
+            case .bot:
+                attributes[NSForegroundColorAttributeName] = botColor
+                break
+                
+            case .bold:
+                attributes[NSForegroundColorAttributeName] = boldColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3, weight: .bold)
+                break
             }
             
             if let highlightFont = hightlightFont {
@@ -434,7 +466,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
                 let possibleSelectedColor = customSelectedColor[selectedElement.type] ?? customColor[selectedElement.type]
                 selectedColor = possibleSelectedColor ?? defaultCustomColor
             case .bot: selectedColor = botSelectedColor ?? botColor
-                
+            case .bold: selectedColor = boldColor
             }
             attributes[NSForegroundColorAttributeName] = selectedColor
         } else {
@@ -446,6 +478,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .email: unselectedColor = EmailColor
             case .custom: unselectedColor = customColor[selectedElement.type] ?? defaultCustomColor
             case .bot: unselectedColor = botColor
+            case .bold: unselectedColor = boldColor
             }
             attributes[NSForegroundColorAttributeName] = unselectedColor
         }

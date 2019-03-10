@@ -136,10 +136,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtMessageAbs?.isHidden = false
             messageViewAbs?.backgroundColor = UIColor.clear
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
-            txtMessageAbs?.text = finalRoomMessage.message
-            let markdown = MarkdownParser(font: CellSizeCalculator.messageBodyTextViewFont())
-            markdown.enabledElements = MarkdownParser.EnabledElements.bold
-            txtMessageAbs.attributedText = markdown.parse(finalRoomMessage.message!)
+            txtMessageAbs?.font = CellSizeCalculator.messageBodyTextViewFont()
+            txtMessageAbs?.text = finalRoomMessage.message?.replacingOccurrences(of: "**", with: "⁣") // replace with invisible character
+            
             if finalRoomMessage.message!.isRTL() {
                 txtMessageAbs.textAlignment = NSTextAlignment.right
             } else {

@@ -14,6 +14,7 @@ enum ActiveElement {
     case url(original: String, trimmed: String)
     case bot(String)
     case email(original: String, trimmed: String)
+    case bold(String)
     case custom(String)
 
     static func create(with activeType: ActiveType, text: String) -> ActiveElement {
@@ -23,6 +24,7 @@ enum ActiveElement {
         case .url: return url(original: text, trimmed: text)
         case .bot: return bot(text)
         case .email: return email(original: text, trimmed: text)
+        case .bold: return bold(text)
         case .custom: return custom(text)
         }
     }
@@ -34,6 +36,7 @@ public enum ActiveType {
     case url
     case bot
     case email
+    case bold
     case custom(pattern: String)
 
     var pattern: String {
@@ -43,6 +46,7 @@ public enum ActiveType {
         case .url: return RegexParser.urlPattern
         case .bot: return RegexParser.botPattern
         case .email: return RegexParser.emailPattern
+        case .bold: return RegexParser.boldPattern
         case .custom(let regex): return regex
         }
     }
@@ -56,6 +60,7 @@ extension ActiveType: Hashable, Equatable {
         case .url: return -3
         case .bot: return -4
         case .email: return -5
+        case .bold: return -6
         case .custom(let regex): return regex.hashValue
         }
     }
@@ -68,6 +73,7 @@ public func ==(lhs: ActiveType, rhs: ActiveType) -> Bool {
     case (.url, .url): return true
     case (.bot, .bot): return true
     case (.email, .email): return true
+    case (.bold, .bold): return true
     case (.custom(let pattern1), .custom(let pattern2)): return pattern1 == pattern2
     default: return false
     }
