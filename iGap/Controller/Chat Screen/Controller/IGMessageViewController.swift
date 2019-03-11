@@ -1138,6 +1138,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         setMessagesRead()
         manageStickerPosition()
+        IGHelperGetMessageState.shared.clearMessageViews()
     }
     
 
@@ -1233,6 +1234,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
             break
         case .channel:
+            /*
             if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
                 if let message = self.messages?.last {
                     IGChannelGetMessagesStatsRequest.Generator.generate(messages: [message], room: self.room!).success({ (responseProto) in
@@ -1242,6 +1244,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     }).send()
                 }
             }
+            */
+            break
         }
     }
     

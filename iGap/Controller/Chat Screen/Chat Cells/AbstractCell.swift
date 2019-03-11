@@ -95,6 +95,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         manageGustureRecognizers()
         manageAttachment()
         manageAdditional()
+        manageUpdateMessageState()
     }
     /*
      ******************************************************************
@@ -792,6 +793,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         } else {
             removeAdditionalView()
         }
+    }
+    
+    /*
+     ******************************************************************
+     *********************** Update Message State *********************
+     ******************************************************************
+     */
+    
+    /* this method update message just for channel */
+    private func manageUpdateMessageState(){
+        if self.room.type != .channel && self.room.isParticipant {
+            return
+        }
+        
+        IGHelperGetMessageState.shared.getMessageState(roomId: self.room.id, messageId: self.finalRoomMessage.id)
     }
     
     /*

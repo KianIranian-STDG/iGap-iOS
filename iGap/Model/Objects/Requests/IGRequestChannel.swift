@@ -663,20 +663,25 @@ class IGChannelUpdateSignatureRequest : IGRequest {
 }
 
 class IGChannelGetMessagesStatsRequest: IGRequest {
+    
+    class func sendRequest(roomId: Int64 , messageIdList: [Int64]){
+        IGChannelGetMessagesStatsRequest.Generator.generate(roomId: roomId, messageIdList: messageIdList).success({ (protoResponse) in
+            
+        }).error ({ (errorCode, waitTime) in }).send()
+    }
+    
     class Generator: IGRequest.Generator {
-        class func generate(messages:Array<IGRoomMessage>, room: IGRoom) -> IGRequestWrapper {
-            var channelGetMessagesStatsRequestMessage = IGPChannelGetMessagesStats()
-            channelGetMessagesStatsRequestMessage.igpRoomID = room.id
-            var messagesIds = [Int64]()
-            for message in messages {
-                messagesIds.append(message.id)
-            }
-            channelGetMessagesStatsRequestMessage.igpMessageID = messagesIds
-            return IGRequestWrapper(message: channelGetMessagesStatsRequestMessage, actionID: 423)
+        class func generate (roomId: Int64 , messageIdList: [Int64]) -> IGRequestWrapper {
+            var request = IGPChannelGetMessagesStats()
+            request.igpRoomID = roomId
+            request.igpMessageID = messageIdList
+            return IGRequestWrapper(message: request, actionID: 423)
         }
     }
     class Handler: IGRequest.Handler {
-        class func interpret(response: IGPChannelGetMessagesStatsResponse) {}
+        class func interpret(response: IGPChannelGetMessagesStatsResponse) {
+            
+        }
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
