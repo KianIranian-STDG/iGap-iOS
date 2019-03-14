@@ -2959,11 +2959,10 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             }
         }
         
-
-        if let senderHash = message.authorHash {
-            if senderHash == IGAppManager.sharedManager.authorHash() {
-                isIncommingMessage = false
-            }
+        if self.room?.type == .channel { // isIncommingMessage means that show message left side
+            isIncommingMessage = true
+        } else if let senderHash = message.authorHash, senderHash == IGAppManager.sharedManager.authorHash() {
+            isIncommingMessage = false
         }
         
         if room?.groupRoom != nil {

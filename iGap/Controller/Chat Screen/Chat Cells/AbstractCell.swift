@@ -188,7 +188,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 }
             } else {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! || self.room.type == .channel {
+                    if let rtl = finalRoomMessage.message?.isRTL(), rtl || self.room.type == .channel {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
@@ -388,10 +388,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageCellBubble(){
         
-        if self.room.type == .channel {
-            isIncommingMessage = true
-        }
-        
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18
         mainBubbleViewAbs.layer.masksToBounds = true
@@ -584,11 +580,19 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGChannelAddMessageReactionRequest.sendRequest(roomId: self.room.id, messageId: self.finalRoomMessage.id, reaction: IGPRoomMessageReaction.thumbsUp)
+        var messageVote: IGRoomMessage! = self.realmRoomMessage
+        if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+            messageVote = forward
+        }
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
     }
     
     func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
-        IGChannelAddMessageReactionRequest.sendRequest(roomId: self.room.id, messageId: self.finalRoomMessage.id, reaction: IGPRoomMessageReaction.thumbsDown)
+        var messageVote: IGRoomMessage! = self.realmRoomMessage
+        if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+            messageVote = forward
+        }
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsDown)
     }
     
     /*
@@ -814,19 +818,24 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     /*
      ******************************************************************
-     *********************** Update Message State *********************
+     ****************** Update Channel Message State ******************
      ******************************************************************
      */
     
     /* this method update message just for channel */
     private func manageUpdateMessageState(){
-        if self.room.type == .channel || self.finalRoomMessage.channelExtra != nil {
+        
+        if self.finalRoomMessage.channelExtra != nil {
+            var messageVote: IGRoomMessage! = self.realmRoomMessage
+            if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
+               messageVote = forward
+            }
             makeVoteAction()
-            txtSeenCountAbs.text = " \(self.finalRoomMessage.channelExtra?.viewsLabel ?? "0")"
-            txtVoteUpAbs.text = " \(self.finalRoomMessage.channelExtra?.thumbsUpLabel ?? "0")"
-            txtVoteDownAbs.text = " \(self.finalRoomMessage.channelExtra?.thumbsDownLabel ?? "0")"
+            txtSeenCountAbs.text = " \(messageVote.channelExtra?.viewsLabel ?? "1")"
+            txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
+            txtVoteDownAbs.text = " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")"
             
-            IGHelperGetMessageState.shared.getMessageState(roomId: self.room.id, messageId: self.finalRoomMessage.id)
+            IGHelperGetMessageState.shared.getMessageState(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id)
         }
     }
     
@@ -1147,7 +1156,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         txtSeenCountAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(5)
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(10)
             make.centerY.equalTo(txtTimeAbs.snp.centerY)
             make.height.equalTo(35)
             make.width.greaterThanOrEqualTo(40)
