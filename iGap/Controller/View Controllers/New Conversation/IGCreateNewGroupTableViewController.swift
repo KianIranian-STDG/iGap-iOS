@@ -202,7 +202,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
     }
     
     func requestToCreateGroup() {
-        
+        self.view.endEditing(true)
         if let roomName = self.groupNameTextField.text {
             if roomName != "" {
                 
@@ -308,6 +308,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
     }
     
     func requestToConvertChatToGroup() {
+        self.view.endEditing(true)
         if let roomName = self.groupNameTextField.text {
             if roomName != "" {
                 let roomDescription = self.descriptionTextField.text

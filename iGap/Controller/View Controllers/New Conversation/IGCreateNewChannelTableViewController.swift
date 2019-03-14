@@ -61,6 +61,7 @@ class IGCreateNewChannelTableViewController: UITableViewController {
     }
     
     func createChannel(){
+        self.view.endEditing(true)
         if let roomName = self.channelnameTextField.text {
             if roomName != "" {
                 
