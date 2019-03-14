@@ -142,7 +142,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             messageViewAbs?.backgroundColor = UIColor.clear
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
             txtMessageAbs?.font = CellSizeCalculator.messageBodyTextViewFont()
-            txtMessageAbs?.text = finalRoomMessage.message?.replacingOccurrences(of: "**", with: "⁣") // replace with invisible character
+            let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+            txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
             
             if finalRoomMessage.message!.isRTL() {
                 txtMessageAbs.textAlignment = NSTextAlignment.right
