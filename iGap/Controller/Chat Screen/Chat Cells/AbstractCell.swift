@@ -13,6 +13,7 @@ import SnapKit
 import RealmSwift
 import RxSwift
 import MarkdownKit
+import IGProtoBuff
 
 class AbstractCell: IGMessageGeneralCollectionViewCell {
     
@@ -34,6 +35,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var txtForwardAbs: UILabel!
     var txtTimeVideoAbs: UILabel!
     var txtSizeVideoAbs: UILabel!
+    var txtSeenCountAbs: UILabel!
+    var txtVoteUpAbs: UILabel!
+    var txtVoteDownAbs: UILabel!
     
     var imgStatusAbs: UIImageView!
     var imgFileAbs: UIImageView!
@@ -92,10 +96,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         manageTextMessage()
         manageViewPosition()
         manageLink()
+        manageUpdateMessageState()
         manageGustureRecognizers()
         manageAttachment()
         manageAdditional()
-        manageUpdateMessageState()
     }
     /*
      ******************************************************************
@@ -168,7 +172,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if finalRoomMessage.attachment == nil && finalRoomMessage.type != .sticker {
             if isForward {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! {
+                    if (finalRoomMessage.message?.isRTL())! || self.room.type == .channel {
                         make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(10)
@@ -176,7 +180,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 }
             } else if isReply {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! {
+                    if (finalRoomMessage.message?.isRTL())! || self.room.type == .channel {
                         make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(10)
@@ -184,7 +188,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 }
             } else {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if let rtl = finalRoomMessage.message?.isRTL(), rtl{
+                    if (finalRoomMessage.message?.isRTL())! || self.room.type == .channel {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
@@ -384,6 +388,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageCellBubble(){
         
+        if self.room.type == .channel {
+            isIncommingMessage = true
+        }
+        
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18
         mainBubbleViewAbs.layer.masksToBounds = true
@@ -527,16 +535,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             imgMediaAbs?.isUserInteractionEnabled = true
         }
         
-        // don't used yet
-        //let tap3 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
-        //self.attachmentContainreView.addGestureRecognizer(tap3)
-        //self.attachmentContainreView.isUserInteractionEnabled = true
-        //let tap4 = UITapGestureRecognizer(target: self, action:  #selector(didTapOnForwardedAttachment(_:)))
-        //self.forwardedMessageAudioAndVoiceView.addGestureRecognizer(tap4)
-        //self.forwardedMessageAudioAndVoiceView.isUserInteractionEnabled = true
-        
         let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
         avatarViewAbs?.addGestureRecognizer(tap5)
+        
+        let tapVoteUp = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteUp(_:)))
+        txtVoteUpAbs?.addGestureRecognizer(tapVoteUp)
+        txtVoteUpAbs?.isUserInteractionEnabled = true
+        
+        let tapVoteDown = UITapGestureRecognizer(target: self, action: #selector(didTapOnVoteDown(_:)))
+        txtVoteDownAbs?.addGestureRecognizer(tapVoteDown)
+        txtVoteDownAbs?.isUserInteractionEnabled = true
     }
     
     func didTapAndHoldOnCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -573,6 +581,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!, cell: self)
+    }
+    
+    func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: self.room.id, messageId: self.finalRoomMessage.id, reaction: IGPRoomMessageReaction.thumbsUp)
+    }
+    
+    func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGChannelAddMessageReactionRequest.sendRequest(roomId: self.room.id, messageId: self.finalRoomMessage.id, reaction: IGPRoomMessageReaction.thumbsDown)
     }
     
     /*
@@ -660,6 +676,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     private func manageAttachment(file: IGFile? = nil){
         
         if finalRoomMessage.type == .sticker || finalRoomMessage.additional?.dataType == AdditionalType.STICKER.rawValue {
+            removeVoteAction()
             if let stickerStruct = IGHelperJson.parseStickerMessage(data: (finalRoomMessage.additional?.data)!) {
                 //IGGlobal.imgDic[stickerStruct.token!] = self.imgMediaAbs
                 DispatchQueue.main.async {
@@ -803,11 +820,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     /* this method update message just for channel */
     private func manageUpdateMessageState(){
-        if self.room.type != .channel && self.room.isParticipant {
-            return
+        if self.room.type == .channel || self.finalRoomMessage.channelExtra != nil {
+            makeVoteAction()
+            txtSeenCountAbs.text = " \(self.finalRoomMessage.channelExtra?.viewsLabel ?? "0")"
+            txtVoteUpAbs.text = " \(self.finalRoomMessage.channelExtra?.thumbsUpLabel ?? "0")"
+            txtVoteDownAbs.text = " \(self.finalRoomMessage.channelExtra?.thumbsDownLabel ?? "0")"
+            
+            IGHelperGetMessageState.shared.getMessageState(roomId: self.room.id, messageId: self.finalRoomMessage.id)
         }
-        
-        IGHelperGetMessageState.shared.getMessageState(roomId: self.room.id, messageId: self.finalRoomMessage.id)
     }
     
     /*
@@ -1098,6 +1118,73 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if txtEditedAbs != nil {
             txtEditedAbs.removeFromSuperview()
             txtEditedAbs = nil
+        }
+    }
+    
+    
+    
+    
+    private func makeVoteAction(){
+        if txtSeenCountAbs == nil {
+            txtSeenCountAbs = UILabel()
+            txtSeenCountAbs.font = UIFont.iGapFontico(ofSize:11.0)
+            txtSeenCountAbs.textColor = UIColor.messageText()
+            mainBubbleViewAbs.addSubview(txtSeenCountAbs)
+        }
+        
+        if txtVoteUpAbs == nil {
+            txtVoteUpAbs = UILabel()
+            txtVoteUpAbs.font = UIFont.iGapFontico(ofSize: 11.0)
+            txtVoteUpAbs.textColor = UIColor.messageText()
+            mainBubbleViewAbs.addSubview(txtVoteUpAbs)
+        }
+        
+        if txtVoteDownAbs == nil {
+            txtVoteDownAbs = UILabel()
+            txtVoteDownAbs.font = UIFont.iGapFontico(ofSize: 11.0)
+            txtVoteDownAbs.textColor = UIColor.messageText()
+            mainBubbleViewAbs.addSubview(txtVoteDownAbs)
+        }
+        
+        txtSeenCountAbs.snp.makeConstraints { (make) in
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(5)
+            make.centerY.equalTo(txtTimeAbs.snp.centerY)
+            make.height.equalTo(35)
+            make.width.greaterThanOrEqualTo(40)
+        }
+        
+        txtVoteUpAbs.snp.makeConstraints { (make) in
+            make.leading.equalTo(txtSeenCountAbs.snp.trailing).offset(5)
+            make.centerY.equalTo(txtTimeAbs.snp.centerY)
+            make.height.equalTo(35)
+            make.width.greaterThanOrEqualTo(40)
+        }
+        
+        txtVoteDownAbs.snp.makeConstraints { (make) in
+            make.leading.equalTo(txtVoteUpAbs.snp.trailing).offset(5)
+            make.centerY.equalTo(txtTimeAbs.snp.centerY)
+            make.height.equalTo(35)
+            make.width.greaterThanOrEqualTo(40)
+        }
+    }
+    
+    private func removeSeenCount(){
+        if txtSeenCountAbs != nil {
+            txtSeenCountAbs.removeFromSuperview()
+            txtSeenCountAbs = nil
+        }
+    }
+    
+    private func removeVoteAction(){
+        
+        if txtVoteUpAbs != nil {
+            txtVoteUpAbs.removeFromSuperview()
+            txtVoteUpAbs = nil
+        }
+        
+        if txtVoteDownAbs != nil {
+            txtVoteDownAbs.removeFromSuperview()
+            txtVoteDownAbs = nil
         }
     }
     

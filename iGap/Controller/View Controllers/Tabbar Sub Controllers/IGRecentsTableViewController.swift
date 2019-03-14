@@ -130,35 +130,48 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             
             let alertController = UIAlertController(title: "New Message", message: "Which type of conversation would you like to initiate?", preferredStyle: IGGlobal.detectAlertStyle())
             let myCloud = UIAlertAction(title: "My Cloud", style: .default, handler: { (action) in
-                if let userId = IGAppManager.sharedManager.userID() {
-                    let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    hud.mode = .indeterminate
-                    IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                //segue to created chat
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                                object: nil,
-                                                                userInfo: ["room": roomId])
-                                hud.hide(animated: true)
-                                break
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (errorCode, waitTime) in
-                        DispatchQueue.main.async {
-                            hud.hide(animated: true)
-                            let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
-                            
-                            let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
-                        }
-                    }).send()
-                }
+                
+//                IGMplGetSalesToken.Generator.generate(botId: 176703332555667094, amount: 1000).success({ (protoResponse) in
+//                    
+//                    if let response = protoResponse as? IGPMplGetSalesTokenResponse {
+//                        let initpayment = InitPayment()
+//                        initpayment.registerPay(merchant: self)
+//                        initpayment.initPay(Token: response.igpToken, MerchantVCArg: self, TSPEnabled: 0)
+//                    }
+//                    
+//                }).error ({ (errorCode, waitTime) in
+//                }).send()
+                
+                
+//                if let userId = IGAppManager.sharedManager.userID() {
+//                    let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+//                    hud.mode = .indeterminate
+//                    IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
+//                        DispatchQueue.main.async {
+//                            switch protoResponse {
+//                            case let chatGetRoomResponse as IGPChatGetRoomResponse:
+//                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+//                                //segue to created chat
+//                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
+//                                                                object: nil,
+//                                                                userInfo: ["room": roomId])
+//                                hud.hide(animated: true)
+//                                break
+//                            default:
+//                                break
+//                            }
+//                        }
+//                    }).error({ (errorCode, waitTime) in
+//                        DispatchQueue.main.async {
+//                            hud.hide(animated: true)
+//                            let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
+//
+//                            let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                            alertC.addAction(cancel)
+//                            self.present(alertC, animated: true, completion: nil)
+//                        }
+//                    }).send()
+//                }
             })
             let newChat = UIAlertAction(title: "New (Conversation OR Call)", style: .default, handler: { (action) in
                 let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
@@ -197,7 +210,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let _ = CellSizeLimit.shared
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
@@ -230,6 +242,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             if IGRecentsTableViewController.needGetInfo {
                 self.checkAppVersion()
+                self.deleteChannelMessages()
                 self.fetchRoomList()
                 self.saveAndSendContacts()
             }
@@ -290,6 +303,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         self.checkAppVersion()
         self.checkPermission()
         self.addRoomChangeNotificationBlock()
+        self.deleteChannelMessages()
         self.fetchRoomList()
         self.saveAndSendContacts()
     }
@@ -360,6 +374,17 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 fatalError("\(err)")
                 break
             }
+        }
+    }
+
+    /**
+     * use this method for delete channel messages for get messages
+     * from server again and update vote actions data
+     **/
+    private func deleteChannelMessages() {
+        if IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyChannelDeleteMessage) {
+            IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyChannelDeleteMessage, state: false)
+            IGRoomMessage.deleteAllChannelMessages()
         }
     }
     

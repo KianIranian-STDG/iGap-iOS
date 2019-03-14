@@ -41,13 +41,8 @@ class IGMessageCollectionViewFlowLayout: UICollectionViewFlowLayout {
         
     }
     
-    
-    func size(for message:IGRoomMessage) -> MessageCalculatedSize {
-        return messageContainerSizeCalculator.mainBubbleCountainerSize(for: message)
-    }
-    
-    func sizeCell(for message:IGRoomMessage) -> MessageCalculatedSize {
-        return messageCellSize.mainBubbleCountainerSize(for: message)
+    func sizeCell(room: IGRoom, for message:IGRoomMessage) -> MessageCalculatedSize {
+        return messageCellSize.mainBubbleCountainerSize(room: room, for: message)
     }
     
 //    override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {

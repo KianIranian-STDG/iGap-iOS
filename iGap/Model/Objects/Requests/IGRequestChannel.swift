@@ -666,8 +666,17 @@ class IGChannelGetMessagesStatsRequest: IGRequest {
     
     class func sendRequest(roomId: Int64 , messageIdList: [Int64]){
         IGChannelGetMessagesStatsRequest.Generator.generate(roomId: roomId, messageIdList: messageIdList).success({ (protoResponse) in
-            
-        }).error ({ (errorCode, waitTime) in }).send()
+            if let response = protoResponse as? IGPChannelGetMessagesStatsResponse {
+                IGRealmChannelExtra.updateStatus(igpChannelMessageStats: response.igpStats)
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                sendRequest(roomId: roomId, messageIdList: messageIdList)
+            default:
+                break
+            }
+        }).send()
     }
     
     class Generator: IGRequest.Generator {
@@ -686,7 +695,30 @@ class IGChannelGetMessagesStatsRequest: IGRequest {
     }
 }
 
-
+class IGChannelAddMessageReactionRequest: IGRequest {
+    
+    class func sendRequest(roomId: Int64 , messageId: Int64, reaction: IGPRoomMessageReaction){
+        IGChannelAddMessageReactionRequest.Generator.generate(roomId: roomId, messageId: messageId, reaction: reaction, identity: "identity").successPowerful ({ (protoResponse, requestWrapper) in
+            if let response = protoResponse as? IGPChannelAddMessageReactionResponse, let request = requestWrapper.message as? IGPChannelAddMessageReaction {
+                IGRealmChannelExtra.addReaction(messageId: messageId, igpChannelAddMessageReactionResponse: response, reaction: request.igpReaction)
+            }
+        }).error ({ (errorCode, waitTime) in }).send()
+    }
+    
+    class Generator: IGRequest.Generator {
+        class func generate (roomId: Int64 , messageId: Int64, reaction: IGPRoomMessageReaction, identity: String) -> IGRequestWrapper {
+            var request = IGPChannelAddMessageReaction()
+            request.igpRoomID = roomId
+            request.igpMessageID = messageId
+            request.igpReaction = reaction
+            return IGRequestWrapper(message: request, actionID: 424, identity: identity)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response: IGPChannelGetMessagesStatsResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
 
 class IGChannelEditMessageRequest: IGRequest {
     class Generator: IGRequest.Generator {

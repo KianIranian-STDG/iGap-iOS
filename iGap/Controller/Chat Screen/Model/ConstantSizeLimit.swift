@@ -11,24 +11,35 @@
 
 class CellSizeLimit: NSObject {
     
-    static let shared = CellSizeLimit()
+    /* update box values size in chat */
+    static func updateValues(roomId: Int64 = -1) {
+        let _ = CellSizeLimit(roomId: roomId)
+    }
     
-    private override init() {
+    private init(roomId: Int64 = -1) {
         
         let width = IGGlobal.fetchUIScreen().width
         
-        let maximumTextWidth = ConstantSizes.Bubble.Width.Maximum.Text + 100
-        let maximumAttachmentWidth = ConstantSizes.Bubble.Width.Maximum.Attachment + 100
-        let maximumStickerWidth = ConstantSizes.Bubble.Width.Maximum.Sticker + 100
+        let maximumTextWidth = ConstantSizes.Bubble.Width.Maximum.Text + 50
+        let maximumAttachmentWidth = ConstantSizes.Bubble.Width.Maximum.Attachment + 50
+        let maximumStickerWidth = ConstantSizes.Bubble.Width.Maximum.Sticker + 50
         
         if maximumTextWidth >= width {
-            ConstantSizes.Bubble.Width.Maximum.Text = width - 100
+            ConstantSizes.Bubble.Width.Maximum.Text = width - 50
         }
         if maximumAttachmentWidth >= width {
-            ConstantSizes.Bubble.Width.Maximum.Attachment = width - 100
+            ConstantSizes.Bubble.Width.Maximum.Attachment = width - 50
         }
         if maximumStickerWidth >= width {
-            ConstantSizes.Bubble.Width.Maximum.Sticker = width - 100
+            ConstantSizes.Bubble.Width.Maximum.Sticker = width - 50
+        }
+        
+        if let room = IGRoom.getRoomInfo(roomId: roomId), room.type == .channel {
+            ConstantSizes.Bubble.Width.Minimum.Text = ChannelConstantSizes.Width.Minimum.Text
+            ConstantSizes.Bubble.Width.Minimum.Attachment = ChannelConstantSizes.Width.Minimum.Attachment
+        } else {
+            ConstantSizes.Bubble.Width.Minimum.Text = 80
+            ConstantSizes.Bubble.Width.Minimum.Attachment = 80
         }
     }
     
@@ -44,10 +55,10 @@ class CellSizeLimit: NSObject {
             }
             struct Width {
                 struct Minimum {
-                    static let Text:       CGFloat = 80.0
+                    static var Text:       CGFloat = 80.0
                     static let Additional: CGFloat = 200.0
-                    static let Attachment: CGFloat = 80.0
-                    static let Sticker:    CGFloat = 80.0
+                    static var Attachment: CGFloat = 80.0
+                    static var Sticker:    CGFloat = 80.0
                 }
                 struct Maximum {
                     static var Text:        CGFloat = 300.0
@@ -101,4 +112,13 @@ class CellSizeLimit: NSObject {
         }
     }
     
+    private struct ChannelConstantSizes {
+        struct Width {
+            struct Minimum {
+                static let Text:       CGFloat = 250.0
+                static let Attachment: CGFloat = 250.0
+                static let Sticker:    CGFloat = 250.0
+            }
+        }
+    }
 }

@@ -27,6 +27,7 @@ class IGRoomMessage: Object {
     @objc dynamic var location:           IGRoomMessageLocation?
     @objc dynamic var wallet:             IGRoomMessageWallet?
     @objc dynamic var additional:         IGRealmAdditional?
+    @objc dynamic var channelExtra:       IGRealmChannelExtra?
     @objc dynamic var id:                 Int64                           = -1
     @objc dynamic var roomId:             Int64                           = -1
     @objc dynamic var primaryKeyId:       String?
@@ -88,6 +89,7 @@ class IGRoomMessage: Object {
     
     convenience init(igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) {
         self.init()
+        let realm = try! Realm()
         self.id = igpMessage.igpMessageID
         if !isForward && !isReply {
             self.roomId = roomId
@@ -120,7 +122,6 @@ class IGRoomMessage: Object {
         
         if igpMessage.hasIgpAttachment {
             let predicate = NSPredicate(format: "cacheID = %@", igpMessage.igpAttachment.igpCacheID)
-            let realm = try! Realm()
             if let fileInDb = realm.objects(IGFile.self).filter(predicate).first {
                 self.attachment = fileInDb
             } else {
@@ -144,7 +145,6 @@ class IGRoomMessage: Object {
                 let authorUser = author.igpUser
                 //read realm for existing user
                 let predicate = NSPredicate(format: "id = %lld", authorUser.igpUserID)
-                let realm = try! Realm()
                 if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
                     self.authorUser = userInDb
                     self.authorRoom = nil
@@ -157,7 +157,6 @@ class IGRoomMessage: Object {
                 let authorRoom = author.igpRoom
                 //read realm for existing room
                 let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
-                let realm = try! Realm()
                 if let roomInDb = realm.objects(IGRoom.self).filter(predicate).first {
                     self.authorRoom = roomInDb
                     self.authorUser = nil
@@ -170,7 +169,6 @@ class IGRoomMessage: Object {
         }
         if igpMessage.hasIgpLocation {
             let predicate = NSPredicate(format: "id = %@", self.primaryKeyId!)
-            let realm = try! Realm()
             if let locaitonInDb = realm.objects(IGRoomMessageLocation.self).filter(predicate).first {
                 self.location = locaitonInDb
             } else {
@@ -179,7 +177,6 @@ class IGRoomMessage: Object {
         }
         if igpMessage.hasIgpWallet {
             let predicate = NSPredicate(format: "id = %@", self.primaryKeyId!)
-            let realm = try! Realm()
             if let wallet = realm.objects(IGRoomMessageWallet.self).filter(predicate).first {
                 self.wallet = wallet
             } else {
@@ -190,7 +187,6 @@ class IGRoomMessage: Object {
             //TODO: check if using self.primaryKeyId is good
             //otherwise use a combinatoin of id and room
             let predicate = NSPredicate(format: "id = %@", self.primaryKeyId!)
-            let realm = try! Realm()
             if let logInDb = realm.objects(IGRoomMessageLog.self).filter(predicate).first {
                 self.log = logInDb
             } else {
@@ -199,13 +195,16 @@ class IGRoomMessage: Object {
         }
         if igpMessage.hasIgpContact {
             let predicate = NSPredicate(format: "id = %@", self.primaryKeyId!)
-            let realm = try! Realm()
             if let contactInDb = realm.objects(IGRoomMessageContact.self).filter(predicate).first {
                 self.contact = contactInDb
             } else {
                 self.contact = IGRoomMessageContact(igpRoomMessageContact: igpMessage.igpContact, for: self)
             }
         }
+        if igpMessage.hasIgpChannelExtra {
+            self.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realm, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
+        }
+        
         self.isEdited = igpMessage.igpEdited
         self.creationTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpCreateTime))
         self.updateTime = Date(timeIntervalSince1970: TimeInterval(igpMessage.igpUpdateTime))
@@ -340,6 +339,9 @@ class IGRoomMessage: Object {
         if igpMessage.hasIgpReplyTo {
             message.repliedTo = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpMessage.igpReplyTo, roomId: roomId, isReply: true)
         }
+        if igpMessage.hasIgpChannelExtra {
+            message.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realm, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
+        }
         
         message.additional = IGRealmAdditional.put(realm: realm, message: igpMessage)
         
@@ -465,5 +467,19 @@ class IGRoomMessage: Object {
             return forward
         }
         return self
+    }
+    
+    /* use this method for delete channel messages for get messages from server again and update vote actions data */
+    internal static func deleteAllChannelMessages(){
+        DispatchQueue.main.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "typeRaw == %d", IGRoom.IGType.channel.rawValue)
+                    for room in IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate) {
+                        IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld", room.id))) // delete all room messages
+                    }
+                }
+            }
+        }
     }
 }

@@ -15,8 +15,8 @@ typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: 
 class CellSizeCalculator: NSObject {
     
     var cache : NSCache<NSString, AnyObject>
-    private static let EXTRA_HEIGHT_RTL = 20
-    internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL - 7)
+    private static let EXTRA_HEIGHT_RTL_OR_VOTE = 20
+    internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL_OR_VOTE - 7)
     
     static let sharedCalculator = CellSizeCalculator()
     
@@ -34,7 +34,7 @@ class CellSizeCalculator: NSObject {
         return UIFont.igFont(ofSize: 15.0)
     }
     
-    func mainBubbleCountainerSize(for message:IGRoomMessage) -> MessageCalculatedSize {
+    func mainBubbleCountainerSize(room: IGRoom, for message:IGRoomMessage) -> MessageCalculatedSize {
         
         let cacheKey = "\(String(describing: message.primaryKeyId))_\(message.messageVersion)" as NSString
         let cachedSize = cache.object(forKey: cacheKey)
@@ -61,7 +61,7 @@ class CellSizeCalculator: NSObject {
         if finalMessage.attachment != nil {
             
             if text != nil && text != "" {
-                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited, room: room)
                 finalSize.height += stringRect.height
             }
             
@@ -135,7 +135,7 @@ class CellSizeCalculator: NSObject {
             
         } else if finalMessage.type == .text { // Text Message
             if text != nil && text != "" {
-                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited)
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited, room: room)
                 finalSize.height += CellSizeLimit.ConstantSizes.Text.Height
                 finalSize.height += stringRect.height
                 
@@ -180,7 +180,7 @@ class CellSizeCalculator: NSObject {
         return [NSFontAttributeName: computeSizeFont(), NSParagraphStyleAttributeName: paragraph]
     }
     
-    class func bodyRect(text: NSString, isEdited: Bool) -> CGSize {
+    class func bodyRect(text: NSString, isEdited: Bool, room: IGRoom) -> CGSize {
         
         var textWithTime = text as String
         if textWithTime.isRTL() {
@@ -197,8 +197,8 @@ class CellSizeCalculator: NSObject {
             with: CGSize(width: CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: getStringStyle(), context: nil)
         
-        if textWithTime.isRTL() {
-            stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL)
+        if textWithTime.isRTL() || room.type == .channel {
+            stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL_OR_VOTE)
         }
         
         // increase width size for avoid from break line at make view due to leading & trailing params
