@@ -128,6 +128,7 @@ class IGChannelRoom: Object {
     @objc dynamic  var privateExtra:               IGChannelPrivateExtra?
     @objc dynamic  var publicExtra:                IGChannelPublicExtra?
     @objc dynamic  var isSignature:                Bool                            = false
+    @objc dynamic  var hasReaction:                Bool                            = false
     @objc dynamic  var isVerified:                 Bool                            = false
     //MARK: ignored properties
     var type: IGType {
@@ -202,6 +203,7 @@ class IGChannelRoom: Object {
         }
         
         self.isSignature = igpChannelRoom.igpSignature
+        self.hasReaction = igpChannelRoom.igpReactionStatus
         self.isVerified = igpChannelRoom.igpVerified
     }
     
@@ -222,6 +224,7 @@ class IGChannelRoom: Object {
         channelRoom.roomDescription = igpChannelRoom.igpDescription
         channelRoom.avatarCount = igpChannelRoom.igpAvatarCount
         channelRoom.isSignature = igpChannelRoom.igpSignature
+        channelRoom.hasReaction = igpChannelRoom.igpReactionStatus
         channelRoom.isVerified = igpChannelRoom.igpVerified
         
         if igpChannelRoom.hasIgpAvatar{
@@ -235,6 +238,27 @@ class IGChannelRoom: Object {
         }
         
         return channelRoom
+    }
+    
+    internal static func updateReactionStatus(roomId: Int64, reactionStatus: Bool){
+        DispatchQueue.main.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "id == %lld", roomId)
+                    if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first, let channel = room.channelRoom {
+                        channel.hasReaction = reactionStatus
+                    }
+                }
+            }
+        }
+    }
+    
+    internal static func hasReaction(roomId: Int64) -> Bool {
+        let predicate = NSPredicate(format: "id = %lld" ,roomId)
+        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first, let channel = room.channelRoom{
+            return channel.hasReaction
+        }
+        return false
     }
     
     //detach from current realm

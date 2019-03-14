@@ -771,6 +771,18 @@ class IGChannelDeleteMessageRequest: IGRequest {
 }
 
 class IGChannelUpdateReactionStatusRequest : IGRequest {
+    
+    class func sendRequest(roomId: Int64, reactionStatus: Bool){
+        IGChannelUpdateReactionStatusRequest.Generator.generate(roomId: roomId, reactionStatus: reactionStatus).success ({ (protoResponse) in
+            IGGlobal.prgHide()
+            if let response = protoResponse as? IGPChannelUpdateReactionStatusResponse {
+                IGChannelUpdateReactionStatusRequest.Handler.interpret(response: response)
+            }
+        }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
     class Generator : IGRequest.Generator{
         class func generate(roomId: Int64, reactionStatus: Bool) -> IGRequestWrapper {
             var channelUpdateReactionStatus = IGPChannelUpdateReactionStatus()
@@ -782,9 +794,7 @@ class IGChannelUpdateReactionStatusRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPChannelUpdateReactionStatusResponse) {
-            //response.igpRoomID
-            //response.igpReactionStatus
-            //IGFactory.shared.editMessage(response.igpMessageID, roomID: response.igpRoomID, message: response.igpMessage, messageType: IGRoomMessageType.unknown.fromIGP(response.igpMessageType), messageVersion: response.igpMessageVersion)
+           IGChannelRoom.updateReactionStatus(roomId: response.igpRoomID, reactionStatus: response.igpReactionStatus)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

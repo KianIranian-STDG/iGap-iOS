@@ -96,7 +96,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         manageTextMessage()
         manageViewPosition()
         manageLink()
-        manageUpdateMessageState()
+        manageVoteActions()
         manageGustureRecognizers()
         manageAttachment()
         manageAdditional()
@@ -358,6 +358,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
      */
     
     private func manageReceivedOrIncommingMessage(){
+        if self.room.type == .channel {
+            removeStatus()
+            manageTime(statusExist: false)
+            if let signature = self.finalRoomMessage.channelExtra?.signature, !signature.isEmpty {
+                makeSenderName()
+                txtSenderNameAbs.text = signature
+            } else {
+                removeSenderName()
+            }
+            return
+        }
+        
         if isIncommingMessage {
 
             if isPreviousMessageFromSameSender {
@@ -824,19 +836,30 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
      */
     
     /* this method update message just for channel */
-    private func manageUpdateMessageState(){
+    private func manageVoteActions(){
         
         if self.finalRoomMessage.channelExtra != nil {
             var messageVote: IGRoomMessage! = self.realmRoomMessage
             if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
                messageVote = forward
             }
-            makeVoteAction()
-            txtSeenCountAbs.text = " \(messageVote.channelExtra?.viewsLabel ?? "1")"
-            txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
-            txtVoteDownAbs.text = " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")"
             
-            IGHelperGetMessageState.shared.getMessageState(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id)
+            makeViewCount()
+            txtSeenCountAbs.text = " \(messageVote.channelExtra?.viewsLabel ?? "1")"
+            
+            if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
+                makeVoteAction()
+                txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
+                txtVoteDownAbs.text = " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")"
+            } else {
+                removeVoteAction()
+            }
+            
+            var roomId = messageVote.authorRoom?.id
+            if roomId == nil {
+                roomId = messageVote.roomId
+            }
+            IGHelperGetMessageState.shared.getMessageState(roomId: roomId!, messageId: messageVote.id)
         }
     }
     
@@ -1133,14 +1156,24 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     
     
-    
-    private func makeVoteAction(){
+    private func makeViewCount(){
         if txtSeenCountAbs == nil {
             txtSeenCountAbs = UILabel()
             txtSeenCountAbs.font = UIFont.iGapFontico(ofSize:11.0)
             txtSeenCountAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtSeenCountAbs)
         }
+        
+        txtSeenCountAbs.snp.makeConstraints { (make) in
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(10)
+            make.centerY.equalTo(txtTimeAbs.snp.centerY)
+            make.height.equalTo(35)
+            make.width.greaterThanOrEqualTo(40)
+        }
+    }
+    
+    //Hint: before call following method, alaways first call 'makeViewCount' method
+    private func makeVoteAction(){
         
         if txtVoteUpAbs == nil {
             txtVoteUpAbs = UILabel()
@@ -1154,13 +1187,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtVoteDownAbs.font = UIFont.iGapFontico(ofSize: 11.0)
             txtVoteDownAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteDownAbs)
-        }
-        
-        txtSeenCountAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(10)
-            make.centerY.equalTo(txtTimeAbs.snp.centerY)
-            make.height.equalTo(35)
-            make.width.greaterThanOrEqualTo(40)
         }
         
         txtVoteUpAbs.snp.makeConstraints { (make) in

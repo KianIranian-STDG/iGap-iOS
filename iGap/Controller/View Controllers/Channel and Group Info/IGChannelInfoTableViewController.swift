@@ -35,6 +35,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
     @IBOutlet weak var deleteChannelLabel: UILabel!
     @IBOutlet weak var channelLinkLabel: UILabel!
     @IBOutlet weak var signMessageSwtich: UISwitch!
+    @IBOutlet weak var channelReactionSwitch: UISwitch!
     @IBOutlet weak var channelNameLabelTitle: UILabel!
     @IBOutlet weak var channelImage: IGAvatarView!
     @IBOutlet weak var ChannelDescriptionLabel: UILabel!
@@ -189,6 +190,13 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         
     }
     
+    @IBAction func switchChannelReaction(_ sender: UISwitch) {
+        var reactionSwitchStatus = false
+        if channelReactionSwitch.isOn {
+            reactionSwitchStatus = true
+        }
+        requestToUpdateChannelReaction(reactionSwitchStatus)
+    }
     func updateConnectionStatus(_ status: IGAppManager.ConnectionStatus) {
         
         switch status {
@@ -524,7 +532,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             if (myRole == .member || myRole == .moderator) {
                 return 0
             }
-            return 3
+            return 4
         case 2 :
             return 1
         case 3 :
@@ -748,8 +756,14 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         
         if room?.channelRoom?.isSignature == true {
             signMessageSwtich.isOn = true
-        } else { //if room?.channelRoom?.isSignature == false {
+        } else {
             signMessageSwtich.isOn = false
+        }
+        
+        if room?.channelRoom?.hasReaction == true {
+            channelReactionSwitch.isOn = true
+        } else {
+            channelReactionSwitch.isOn = false
         }
     }
     
@@ -814,6 +828,13 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 }
                 
             }).send()
+        }
+    }
+    
+    func requestToUpdateChannelReaction(_ reactionSwitchStatus: Bool) {
+        if let channelRoom = room {
+            IGGlobal.prgShow(self.view)
+            IGChannelUpdateReactionStatusRequest.sendRequest(roomId: channelRoom.id, reactionStatus: reactionSwitchStatus)
         }
     }
     

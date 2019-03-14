@@ -364,18 +364,22 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
                 
             case .url:
                 attributes[NSForegroundColorAttributeName] = URLColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .email:
                 attributes[NSForegroundColorAttributeName] = EmailColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .custom:
                 attributes[NSForegroundColorAttributeName] = customColor[type] ?? defaultCustomColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .bot:
                 attributes[NSForegroundColorAttributeName] = botColor
+                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .bold:

@@ -2939,7 +2939,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         var isIncommingMessage = true
         var shouldShowAvatar = false
         var isPreviousMessageFromSameSender = false
-        var isNextMessageFromSameSender = false
+        let isNextMessageFromSameSender = false
         
         let messageType = getMessageType(message: message)
         
@@ -2951,12 +2951,15 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
             
+            //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
+            /*
             if messages!.indices.contains(indexPath.section - 1){
                 let nextMessage = messages![(indexPath.section - 1)]
                 if message.authorHash == nextMessage.authorHash {
                     isNextMessageFromSameSender = true
                 }
             }
+            */
         }
         
         if self.room?.type == .channel { // isIncommingMessage means that show message left side
