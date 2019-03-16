@@ -845,12 +845,19 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             }
             
             makeViewCount()
-            txtSeenCountAbs.text = " \(messageVote.channelExtra?.viewsLabel ?? "1")"
+            let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
+            let icon = (attributedString.string as NSString).range(of: "")
+            attributedString.setAttributes([NSBaselineOffsetAttributeName: -2], range: icon)
+            txtSeenCountAbs.attributedText = attributedString
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 makeVoteAction()
                 txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
-                txtVoteDownAbs.text = " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")"
+                
+                let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "1")", attributes: nil)
+                let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "1")")
+                attributedVoteDown.addAttributes([NSBaselineOffsetAttributeName: 3], range: textVoteDown)
+                txtVoteDownAbs.attributedText = attributedVoteDown
             } else {
                 removeVoteAction()
             }
