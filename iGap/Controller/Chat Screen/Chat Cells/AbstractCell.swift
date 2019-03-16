@@ -727,8 +727,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
                 attachment = variableInCache.value
                 
-                if let disposable = IGGlobal.dispoasDic[self.finalRoomMessage.id] {
-                    IGGlobal.dispoasDic.removeValue(forKey: self.finalRoomMessage.id)
+                if let disposable = IGGlobal.dispoasDic[self.realmRoomMessage.id] {
+                    IGGlobal.dispoasDic.removeValue(forKey: self.realmRoomMessage.id)
                     disposable.dispose()
                 }
                 
@@ -737,7 +737,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                         self.updateAttachmentDownloadUploadIndicatorView()
                     }
                 })
-                IGGlobal.dispoasDic[self.finalRoomMessage.id] = subscriber
+                IGGlobal.dispoasDic[self.realmRoomMessage.id] = subscriber
             }
             /* Rx End */
             
