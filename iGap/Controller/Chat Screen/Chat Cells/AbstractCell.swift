@@ -726,11 +726,18 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             /* Rx Start */
             if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
                 attachment = variableInCache.value
-                variableInCache.asObservable().subscribe({ (event) in
+                
+                if let disposable = IGGlobal.dispoasDic[self.finalRoomMessage.id] {
+                    IGGlobal.dispoasDic.removeValue(forKey: self.finalRoomMessage.id)
+                    disposable.dispose()
+                }
+                
+                let subscriber = variableInCache.asObservable().subscribe({ (event) in
                     DispatchQueue.main.async {
                         self.updateAttachmentDownloadUploadIndicatorView()
                     }
-                }).disposed(by: disposeBag)
+                })
+                IGGlobal.dispoasDic[self.finalRoomMessage.id] = subscriber
             }
             /* Rx End */
             

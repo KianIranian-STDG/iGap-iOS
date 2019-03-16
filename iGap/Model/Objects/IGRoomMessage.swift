@@ -351,7 +351,7 @@ class IGRoomMessage: Object {
     internal static func detectPinMessage(message: IGRoomMessage?) -> String {
         
         if message == nil {
-            return "'unknown' pinned message"
+            return "unpinned message"
         }
         
         var finalMessage = message

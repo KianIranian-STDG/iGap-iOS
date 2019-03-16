@@ -14,6 +14,7 @@ import MBProgressHUD
 import Foundation
 import SwiftyRSA
 import SDWebImage
+import RxSwift
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
@@ -27,8 +28,8 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 class IGGlobal {
     
     static var imgDic : [String: IGImageView] = [:]
-    
     static var heroTabIndex : Int = -1
+    static var dispoasDic: [Int64:Disposable] = [:]
     
     /**********************************************/
     /****************** Progress ******************/
