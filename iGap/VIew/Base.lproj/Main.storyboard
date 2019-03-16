@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
         <array key="iGap-Fontico.ttf">
             <string>iGap-Fontico</string>
         </array>
@@ -1046,9 +1049,9 @@
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
-                                        <rect key="frame" x="19" y="27.5" width="187.5" height="19.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
+                                        <rect key="frame" x="19" y="28" width="296" height="22"/>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1075,7 +1078,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="grH-pt-p4x" secondAttribute="bottom" id="2Up-fY-Lv4"/>
-                                    <constraint firstAttribute="bottom" secondItem="OfO-SB-YDv" secondAttribute="bottom" constant="3" id="6j9-JX-jqd"/>
+                                    <constraint firstAttribute="bottom" secondItem="OfO-SB-YDv" secondAttribute="bottom" id="6j9-JX-jqd"/>
                                     <constraint firstAttribute="bottom" secondItem="lhL-qv-mDu" secondAttribute="bottom" id="EQ4-tX-zTU"/>
                                     <constraint firstItem="grH-pt-p4x" firstAttribute="leading" secondItem="lhL-qv-mDu" secondAttribute="trailing" constant="10" id="GE9-pr-MfC"/>
                                     <constraint firstItem="grH-pt-p4x" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" id="I3V-Xb-GhH"/>
@@ -1083,6 +1086,7 @@
                                     <constraint firstItem="OfO-SB-YDv" firstAttribute="leading" secondItem="ODy-Ce-ZEZ" secondAttribute="trailing" constant="8" id="NKt-AG-7HC"/>
                                     <constraint firstItem="fMi-wX-rBo" firstAttribute="leading" secondItem="ODy-Ce-ZEZ" secondAttribute="trailing" constant="8" id="NfN-8l-bbw"/>
                                     <constraint firstItem="ODy-Ce-ZEZ" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" constant="5" id="Z2S-v0-nhY"/>
+                                    <constraint firstItem="OfO-SB-YDv" firstAttribute="trailing" secondItem="grH-pt-p4x" secondAttribute="trailing" constant="-60" id="bfD-hh-122"/>
                                     <constraint firstAttribute="bottom" secondItem="ODy-Ce-ZEZ" secondAttribute="bottom" constant="5" id="cYo-rB-zNK"/>
                                     <constraint firstAttribute="trailing" secondItem="grH-pt-p4x" secondAttribute="trailing" id="ciJ-iT-wMI"/>
                                     <constraint firstItem="fMi-wX-rBo" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" constant="3" id="dSm-q8-yt7"/>

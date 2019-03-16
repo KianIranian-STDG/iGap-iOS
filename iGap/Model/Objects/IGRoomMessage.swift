@@ -348,28 +348,37 @@ class IGRoomMessage: Object {
         return message
     }
     
-    internal static func detectPinMessage(message: IGRoomMessage) -> String{
+    internal static func detectPinMessage(message: IGRoomMessage?) -> String {
         
-        var messageType = message.type
-        if let reply = message.repliedTo {
-            messageType = reply.type
+        if message == nil {
+            return "'unknown' pinned message"
         }
+        
+        var finalMessage = message
+        if let forward = message!.forwardedFrom {
+            finalMessage = forward
+        }
+        
+        let messageType = finalMessage!.type
         let pinText = "is pinned"
         
-        if messageType == .text {
-            if let reply = message.repliedTo {
-                return "'\(reply.message!)' \(pinText)"
-            }
-            return "'\(message.message!)' \(pinText)"
-        } else if messageType == .image || messageType == .imageAndText {
+        if messageType == .text ||
+            messageType == .imageAndText ||
+            messageType == .videoAndText ||
+            messageType == .gifAndText ||
+            messageType == .audioAndText ||
+            messageType == .fileAndText {
+            
+            return "'\(finalMessage!.message!)' \(pinText)"
+        } else if messageType == .image  {
             return "'image' \(pinText)"
-        } else if messageType == .video || messageType == .videoAndText {
+        } else if messageType == .video {
             return "'video' \(pinText)"
-        } else if messageType == .gif || messageType == .gifAndText {
+        } else if messageType == .gif {
             return "'gif' \(pinText)"
-        } else if messageType == .audio || messageType == .audioAndText {
+        } else if messageType == .audio {
             return "'audio' \(pinText)"
-        } else if messageType == .file || messageType == .fileAndText {
+        } else if messageType == .file {
             return "'file' \(pinText)"
         } else if messageType == .contact {
             return "'contact' \(pinText)"
@@ -384,28 +393,32 @@ class IGRoomMessage: Object {
     
     internal static func detectPinMessageProto(message: IGPRoomMessage) -> String{
         
-        var messageType = message.igpMessageType
-        let pinText = "is pinned"
-        
-        if message.hasIgpReplyTo {
-           messageType = message.igpReplyTo.igpMessageType
+        var finalMessage = message
+        if message.hasIgpForwardFrom {
+            finalMessage = message.igpForwardFrom
         }
         
-        if messageType == .text {
-            if message.hasIgpReplyTo {
-                return "'\(message.igpReplyTo.igpMessage)' \(pinText)"
-            }
-            return "'\(message.igpMessage)' \(pinText)"
+        let messageType = finalMessage.igpMessageType
+        let pinText = "is pinned"
+        
+        
+        if messageType == .text ||
+            messageType == .imageText ||
+            messageType == .videoText ||
+            messageType == .gifText ||
+            messageType == .audioText ||
+            messageType == .fileText {
             
-        } else if messageType == .image || messageType == .imageText {
+            return "'\(finalMessage.igpMessage)' \(pinText)"
+        } else if messageType == .image {
             return "'image' \(pinText)"
-        } else if messageType == .video || messageType == .videoText {
+        } else if messageType == .video {
             return "'video' \(pinText)"
-        } else if messageType == .gif || messageType == .gifText {
+        } else if messageType == .gif {
             return "'gif' \(pinText)"
-        } else if messageType == .audio || messageType == .audioText {
+        } else if messageType == .audio {
             return "'audio' \(pinText)"
-        } else if messageType == .file || messageType == .fileText {
+        } else if messageType == .file {
             return "'file' \(pinText)"
         } else if messageType == .contact {
             return "'contact' \(pinText)"

@@ -186,7 +186,7 @@ class IGRoomMessageLog: Object {
                 bodyString = "Missed secret chat"
             }
         case .pinnedMessage:
-            bodyString = IGRoomMessage.detectPinMessage(message: message)
+            bodyString = IGRoomMessage.detectPinMessage(message: IGRoom.getPinnedMessage(roomId: message.roomId))
         }
         
         if let target = message.log?.targetUser {

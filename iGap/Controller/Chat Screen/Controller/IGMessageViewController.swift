@@ -426,6 +426,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         floatingDateView.alpha = 0.0
         txtFloatingDate.alpha = 0.0
         
+        txtPinnedMessage.lineBreakMode = .byTruncatingTail
+        txtPinnedMessage.numberOfLines = 1
+        
         self.setCollectionViewInset()
         //Keyboard Notification
         

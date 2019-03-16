@@ -643,4 +643,12 @@ extension IGRoom {
         }
         return nil
     }
+    
+    static func getPinnedMessage(roomId: Int64) -> IGRoomMessage? {
+        let predicate = NSPredicate(format: "id == %lld", roomId)
+        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first, let pinnedMessage = room.pinMessage{
+            return pinnedMessage
+        }
+        return nil
+    }
 }
