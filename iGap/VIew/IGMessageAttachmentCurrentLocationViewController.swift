@@ -109,6 +109,7 @@ class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGes
     private func initLocation() {
        
         mapView.delegate = self
+        mapView.isZoomEnabled = true
         currentLocationNameLabel.text = "Locating..."
         
         if isSendLocation { // for send location
@@ -127,7 +128,6 @@ class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGes
         } else { // for received location
             txtSendLocationIcon.isHidden = true
             pinImageView.isHidden = true
-            mapView.isZoomEnabled = true
             txtSendLocation.text = "Received this Location"
             currentLocationShowView = currentLocation
             
