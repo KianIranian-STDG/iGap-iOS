@@ -357,12 +357,15 @@ class IGRoomMessage: Object {
         var finalMessage = message
         if let forward = message!.forwardedFrom {
             finalMessage = forward
+        } else if let reply = message!.repliedTo {
+            finalMessage = reply
         }
         
         let messageType = finalMessage!.type
         let pinText = "is pinned"
         
         if messageType == .text ||
+            messageType == .log ||
             messageType == .imageAndText ||
             messageType == .videoAndText ||
             messageType == .gifAndText ||
