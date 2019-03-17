@@ -389,6 +389,8 @@ class IGRoomMessage: Object {
             return "'voice' \(pinText)"
         } else if messageType == .location {
             return "'location' \(pinText)"
+        } else if messageType == .sticker {
+            return "'sticker' \(pinText)"
         }
         
         return "'unknown' pinned message"
