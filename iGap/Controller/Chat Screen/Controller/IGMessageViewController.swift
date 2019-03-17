@@ -748,7 +748,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func isBotRoom() -> Bool{
-        if let chatRoom = room?.chatRoom {
+        if !(room?.isInvalidated)!, let chatRoom = room?.chatRoom {
             return (chatRoom.peer?.isBot)!
         }
         return false
@@ -2941,6 +2941,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        /* if room was deleted close chat room */
+        if (self.room?.isInvalidated)! {
+            self.navigationController?.popViewController(animated: true)
+            
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            cell.setUnknownMessage()
+            return cell
+        }
+        
         self.collectionView = collectionView as? IGMessageCollectionView
         let message = messages![indexPath.section]
         var isIncommingMessage = true

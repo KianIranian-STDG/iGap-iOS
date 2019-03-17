@@ -95,7 +95,9 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
         }
         
         let btnUnblock = MGSwipeButton(title: "Unblock", backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-            self.unblockedUser(blockedUserId: self.blockedUsers[indexPath.row].id)
+            if !self.blockedUsers[indexPath.row].isInvalidated {
+                self.unblockedUser(blockedUserId: self.blockedUsers[indexPath.row].id)
+            }
             return true
         })
         

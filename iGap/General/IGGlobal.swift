@@ -1152,7 +1152,7 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
-        if let first = self.removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
+        if self.count > 0, let first = self.removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(first)) {
             return true
         }
         return false
