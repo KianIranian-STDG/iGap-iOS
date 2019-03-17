@@ -875,6 +875,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         openLocation()
     }
     
+    func onBotClick(){
+        self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
+    }
+    
     private func manageRequestPhone(){
         self.view.endEditing(true)
         if let roomTitle = self.room?.title {

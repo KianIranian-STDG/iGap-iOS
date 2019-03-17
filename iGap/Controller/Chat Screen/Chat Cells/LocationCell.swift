@@ -40,6 +40,7 @@ class LocationCell: AbstractCell {
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageLocationViewPosition(messageSizes: messageSizes)
         setLocationImage()
+        super.removeVoteAction()
     }
     
     private func initializeView(){

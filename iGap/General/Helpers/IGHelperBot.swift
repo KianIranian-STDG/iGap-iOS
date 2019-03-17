@@ -169,6 +169,7 @@ class IGHelperBot {
     }
     
     @objc private func onBotButtonClick(sender: UIButton){
+        IGMessageViewController.additionalObserver.onBotClick()
         if let structAdditional = buttonActionDic[sender] {
             manageAdditionalActions(structAdditional: structAdditional)
             

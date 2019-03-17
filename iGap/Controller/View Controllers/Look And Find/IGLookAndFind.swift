@@ -216,6 +216,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         let distanceFromBottom = scrollView.contentSize.height - contentYoffset
         if distanceFromBottom < height {
             self.view.endEditing(true)
+            (searchBar.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
         }
     }
     

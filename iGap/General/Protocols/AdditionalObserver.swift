@@ -16,5 +16,6 @@ protocol AdditionalObserver {
     func onAdditionalLinkClick(structAdditional :IGStructAdditionalButton)
     func onAdditionalRequestPhone(structAdditional :IGStructAdditionalButton)
     func onAdditionalRequestLocation(structAdditional :IGStructAdditionalButton)
+    func onBotClick()
 }
 

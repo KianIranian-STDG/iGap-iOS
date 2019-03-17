@@ -1225,7 +1225,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
     }
     
-    private func removeVoteAction(){
+    public func removeVoteAction(){
         
         if txtVoteUpAbs != nil {
             txtVoteUpAbs.removeFromSuperview()
