@@ -720,6 +720,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 IGAttachmentManager.sharedManager.add(attachmentRef: attachmentRef)
                 if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
                     self.attachment = variable.value
+                } else {
+                    self.attachment = attachment
                 }
             }
             

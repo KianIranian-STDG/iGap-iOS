@@ -588,7 +588,7 @@ class IGNavigationItem: UINavigationItem {
     
     
     private func isCloud(room: IGRoom) -> Bool {
-        if room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
+        if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
             self.centerViewSubLabel!.text = "My Cloud"
             return true
         }
