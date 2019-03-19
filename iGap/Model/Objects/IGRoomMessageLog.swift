@@ -87,6 +87,7 @@ class IGRoomMessageLog: Object {
     
     //properties
     @objc dynamic var id:             String?
+    @objc dynamic var targetUserId:   Int64 = -1
     @objc dynamic var typeRaw:        LogType.RawValue    = LogType.userJoined.rawValue
     @objc dynamic var extraTypeRaw:   ExtraType.RawValue  = ExtraType.noExtra.rawValue
     @objc dynamic var targetUser:     IGRegisteredUser?
@@ -190,7 +191,17 @@ class IGRoomMessageLog: Object {
         }
         
         if let target = message.log?.targetUser {
-            bodyString =  bodyString + " " + target.displayName
+            if !target.displayName.isEmpty {
+                bodyString =  bodyString + " " + target.displayName
+            } else if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                bodyString =  bodyString + " " + user.displayName
+            }
+        } else {
+            if let user = IGRegisteredUser.getUserInfo(id: message.log!.targetUserId) {
+                bodyString =  bodyString + " " + user.displayName
+            } else {
+                IGUserInfoRequest.sendRequest(userId: message.log!.targetUserId)
+            }
         }
         
         return bodyString
@@ -246,6 +257,7 @@ class IGRoomMessageLog: Object {
             break
         }
         
+        self.targetUserId = igpRoomMessageLog.igpTargetUser.igpID
         switch igpRoomMessageLog.igpExtraType {
         case .noExtra:
             self.extraType = .noExtra
@@ -274,6 +286,7 @@ class IGRoomMessageLog: Object {
             logInDb.id = message.primaryKeyId
         }
         
+        logInDb.targetUserId = igpRoomMessageLog.igpTargetUser.igpID
         logInDb.type = IGRoomMessageLog.LogType.fromIGP(type: igpRoomMessageLog.igpType)
         logInDb.extraType = IGRoomMessageLog.ExtraType.fromIGP(type: igpRoomMessageLog.igpExtraType)
         
@@ -282,6 +295,8 @@ class IGRoomMessageLog: Object {
             if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
                 logInDb.targetUser = userInDb
             }
+        } else {
+            IGUserInfoRequest.sendRequest(userId: igpRoomMessageLog.igpTargetUser.igpID)
         }
         
         return logInDb

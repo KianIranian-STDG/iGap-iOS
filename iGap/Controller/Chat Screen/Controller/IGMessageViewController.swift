@@ -519,25 +519,26 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func onStickerTap(stickerItem: IGRealmStickerItem) {
-        let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!)
-        let message = IGRoomMessage(body: stickerItem.name!)
-        message.type = .sticker
-        message.roomId = self.room!.id
-        message.attachment = attachment
-        message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
-        IGAttachmentManager.sharedManager.add(attachment: attachment!)
-        
-        let detachedMessage = message.detach()
-        IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-        message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-        IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
-        
-        self.sendMessageState(enable: false)
-        self.inputTextView.text = ""
-        self.currentAttachment = nil
-        IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-        self.selectedMessageToReply = nil
-        self.setInputBarHeight()
+        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in
+            let message = IGRoomMessage(body: stickerItem.name!)
+            message.type = .sticker
+            message.roomId = self.room!.id
+            message.attachment = attachment
+            message.additional = IGRealmAdditional(additionalData: IGHelperJson.convertRealmToJson(stickerItem: stickerItem)!, additionalType: AdditionalType.STICKER.rawValue)
+            IGAttachmentManager.sharedManager.add(attachment: attachment)
+            
+            let detachedMessage = message.detach()
+            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+            message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+            IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
+            
+            self.sendMessageState(enable: false)
+            self.inputTextView.text = ""
+            self.currentAttachment = nil
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+            self.selectedMessageToReply = nil
+            self.setInputBarHeight()
+        })
     }
     
     @objc func keyboardWillAppear() {

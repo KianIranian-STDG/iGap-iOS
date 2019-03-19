@@ -536,6 +536,15 @@ class IGUserAvatarGetListRequest : IGRequest {
 
 //MARK: -
 class IGUserInfoRequest : IGRequest {
+    
+    class func sendRequest(userId: Int64){
+        IGUserInfoRequest.Generator.generate(userID: userId).success({ (protoResponse) in
+            if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
+                IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
+            }
+        }).error({ (errorCode, waitTime) in }).send()
+    }
+    
     class Generator : IGRequest.Generator{
         class func generate(userID: Int64) -> IGRequestWrapper {
             var userInfoRequestMessage = IGPUserInfo()
