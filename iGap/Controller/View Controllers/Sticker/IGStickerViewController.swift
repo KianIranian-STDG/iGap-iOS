@@ -79,7 +79,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     }
     
     private func fetchMySticker(){
-        stickerTabs = try! Realm().objects(IGRealmSticker.self).sorted(by: [SortDescriptor(keyPath: "sort", ascending: false)])
+        stickerTabs = try! Realm().objects(IGRealmSticker.self)
     }
     
     /* go to default position if 'currentStickerGroupId' has value */
@@ -251,7 +251,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
                 
                 self.highlightSelected(index: indexPath.section)
             } else if self.selectedIndexManually == indexPath.section {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.selectedIndexManually = -1
                 }
             }
