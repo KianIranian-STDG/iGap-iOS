@@ -183,6 +183,7 @@ class CellSizeCalculator: NSObject {
     class func bodyRect(text: NSString, isEdited: Bool, room: IGRoom) -> CGSize {
         
         var textWithTime = text as String
+        textWithTime = textWithTime.replacingOccurrences(of: "**", with: "")
         if textWithTime.isRTL() {
             textWithTime = textWithTime.appending("xxx")
         } else {

@@ -863,8 +863,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 makeVoteAction()
                 txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
                 
-                let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "1")", attributes: nil)
-                let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "1")")
+                let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")", attributes: nil)
+                let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")")
                 attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: 3], range: textVoteDown)
                 txtVoteDownAbs.attributedText = attributedVoteDown
             } else {
@@ -876,6 +876,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 roomId = messageVote.roomId
             }
             IGHelperGetMessageState.shared.getMessageState(roomId: roomId!, messageId: messageVote.id)
+        } else {
+            removeVoteAction()
+            removeSeenCount()
         }
     }
     
