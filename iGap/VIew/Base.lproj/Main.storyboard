@@ -17,10 +17,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Message Attachment Current Location View Controller-->
+        <!--Message Attachment Location-->
         <scene sceneID="7xR-b8-gp0">
             <objects>
-                <viewController storyboardIdentifier="showLocationViewController" id="S3I-yk-3Ak" customClass="IGMessageAttachmentCurrentLocationViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="showLocationViewController" id="S3I-yk-3Ak" customClass="IGMessageAttachmentLocation" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HId-RA-OqG"/>
                         <viewControllerLayoutGuide type="bottom" id="AbL-Ho-MDk"/>

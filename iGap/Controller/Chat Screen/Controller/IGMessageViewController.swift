@@ -328,7 +328,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             if messagesCount == 0 {
                 inputBarContainerView.isHidden = true
                 joinButton.isHidden = false
-                joinButton.setTitle("Start", for: UIControlState.normal)
+                joinButton.setTitle("Start", for: UIControl.State.normal)
                 joinButton.layer.cornerRadius = 5
                 joinButton.layer.masksToBounds = false
                 joinButton.layer.shadowColor = UIColor.black.cgColor
@@ -460,12 +460,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let viewController:UIViewController
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
         
-        for child in childViewControllers {
-            child.willMove(toParentViewController: nil)
+        for child in children {
+            child.willMove(toParent: nil)
             child.view.removeFromSuperview()
-            child.removeFromParentViewController()
+            child.removeFromParent()
         }
-        addChildViewController(viewController)
+        addChild(viewController)
         
         viewController.view.frame = view.bounds
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -490,7 +490,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             make.top.equalTo((self.inputTextView.inputView?.snp.top)!)
         }
         
-        viewController.didMove(toParentViewController: self)
+        viewController.didMove(toParent: self)
     }
     
     @objc func tapOnStickerToolbar(sender: UIButton) {
@@ -682,8 +682,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         /***** Button View *****/
         btn.addTarget(self, action: #selector(onDoctorBotClick), for: .touchUpInside)
         btn.titleLabel?.font = font
-        btn.setTitle(text, for: UIControlState.normal)
-        btn.setTitleColor(textColor, for: UIControlState.normal)
+        btn.setTitle(text, for: UIControl.State.normal)
+        btn.setTitleColor(textColor, for: UIControl.State.normal)
         btn.removeUnderline()
         
         btn.snp.makeConstraints { (make) in
@@ -718,7 +718,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         leftSpace += DOCTOR_BUTTON_SPACE + mainViewWith
     }
     
-    func onDoctorBotClick(sender: UIButton!) {
+    @objc func onDoctorBotClick(sender: UIButton!) {
         let value : String! = detectBotValue(name: sender.titleLabel?.text!)
         
         if value.starts(with: "$financial") {
@@ -765,7 +765,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         btnChangeKeyboard.isHidden = false
         btnChangeKeyboard.addTarget(self, action: #selector(onKeyboardChangeClick), for: .touchUpInside)
         btnChangeKeyboard.titleLabel?.font = UIFont.iGapFontico(ofSize: 18.0)
-        btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
+        btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControl.State.normal)
         btnChangeKeyboard.backgroundColor = inputBarLeftView.backgroundColor
         btnChangeKeyboard.layer.masksToBounds = false
         btnChangeKeyboard.layer.cornerRadius = 5.0
@@ -823,7 +823,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 if additionalData != nil {
                     self.makeKeyboardButton()
                     isCustomKeyboard = true
-                    btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
+                    btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
                     latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
                     self.inputTextView.inputView = latestKeyboardAdditionalView
                     self.inputTextView.reloadInputViews()
@@ -836,7 +836,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     }
                     isCustomKeyboard = false
                     if btnChangeKeyboard != nil {
-                        btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+                        btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControl.State.normal)
                     }
                     inputTextView.inputView = nil
                     inputTextView.reloadInputViews()
@@ -900,18 +900,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    func onKeyboardChangeClick(){
+    @objc func onKeyboardChangeClick(){
         guard let additionalView = latestKeyboardAdditionalView else {
             return
         }
         
         if !isCustomKeyboard {
             isCustomKeyboard = true
-            btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControlState.normal)
+            btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
             self.inputTextView.inputView = additionalView
         } else {
             isCustomKeyboard = false
-            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControlState.normal)
+            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControl.State.normal)
             inputTextView.inputView = nil
         }
         
@@ -1098,8 +1098,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewWillAppear(_ animated: Bool) {
         
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         getUserInfo()
         setBackground()
@@ -1433,52 +1433,52 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if register {
             center.addObserver(self,
                                selector: #selector(didReceiveKeyboardWillChangeFrameNotification(_:)),
-                               name: NSNotification.Name.UIKeyboardWillHide,
+                               name: UIResponder.keyboardWillHideNotification,
                                object: nil)
             center.addObserver(self,
                                selector: #selector(didReceiveKeyboardWillChangeFrameNotification(_:)),
-                               name: NSNotification.Name.UIKeyboardWillChangeFrame,
+                               name: UIResponder.keyboardWillChangeFrameNotification,
                                object: nil)
             
             center.addObserver(self,
                                selector: #selector(dodd),
-                               name: NSNotification.Name.UIMenuControllerWillShowMenu,
+                               name: UIMenuController.willShowMenuNotification,
                                object: nil)
             center.addObserver(self,
                                selector: #selector(dodd),
-                               name: NSNotification.Name.UIMenuControllerWillHideMenu,
+                               name: UIMenuController.willHideMenuNotification,
                                object: nil)
             center.addObserver(self,
                                selector: #selector(dodd),
-                               name: NSNotification.Name.UIContentSizeCategoryDidChange,
+                               name: UIContentSizeCategory.didChangeNotification,
                                object: nil)
         } else {
-            center.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-            center.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-            center.removeObserver(self, name: NSNotification.Name.UIMenuControllerWillShowMenu, object: nil)
-            center.removeObserver(self, name: NSNotification.Name.UIMenuControllerWillHideMenu, object: nil)
-            center.removeObserver(self, name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+            center.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+            center.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+            center.removeObserver(self, name: UIMenuController.willShowMenuNotification, object: nil)
+            center.removeObserver(self, name: UIMenuController.willHideMenuNotification, object: nil)
+            center.removeObserver(self, name: UIContentSizeCategory.didChangeNotification, object: nil)
         }
     }
     
-    func dodd() {
+    @objc func dodd() {
     
     }
     
-    func didReceiveKeyboardWillChangeFrameNotification(_ notification:Notification) {
+    @objc func didReceiveKeyboardWillChangeFrameNotification(_ notification:Notification) {
         
         let userInfo = (notification.userInfo)!
-        if let keyboardEndFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+        if let keyboardEndFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             
-            let animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! Int
+            let animationCurve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! Int
             let animationCurveOption = (animationCurve << 16)
-            let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! Double
-            let keyboardBeginFrame = userInfo[UIKeyboardFrameBeginUserInfoKey] as! CGRect
+            let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
+            let keyboardBeginFrame = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! CGRect
             
             var bottomConstraint: CGFloat
             if keyboardEndFrame.origin.y == keyboardBeginFrame.origin.y {
                 return
-            } else if notification.name == Notification.Name.UIKeyboardWillHide  {
+            } else if notification.name == UIResponder.keyboardWillHideNotification  {
                 //hidding keyboard
                 bottomConstraint = 0.0
             } else {
@@ -1486,7 +1486,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 bottomConstraint = keyboardEndFrame.size.height
             }
             
-            UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIViewAnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
+            UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
                 self.inputBarViewBottomConstraint.constant = bottomConstraint
                 self.view.layoutIfNeeded()
             }, completion: { (completed) in
@@ -1498,7 +1498,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func setCollectionViewInset(withDuration: TimeInterval = 0.2) {
         let value = inputBarHeightContainerConstraint.constant + collectionViewTopInsetOffset// + inputBarViewBottomConstraint.constant
         UIView.animate(withDuration: withDuration, animations: {
-            self.collectionView.contentInset = UIEdgeInsetsMake(value, 0, 20, 0)
+            self.collectionView.contentInset = UIEdgeInsets.init(top: value, left: 0, bottom: 20, right: 0)
         }, completion: { (completed) in
             
         })
@@ -1712,11 +1712,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return false
     }
     
-    func didTapOnInputTextView() {
+    @objc func didTapOnInputTextView() {
         disableStickerView(delay: 0.0, openKeyboard: true)
     }
     
-    func didTapOnStickerButton() {
+    @objc func didTapOnStickerButton() {
         if isStickerKeyboard {
             isStickerKeyboard = false
         } else {
@@ -1935,7 +1935,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func attachmentPicker(sourceType: UIImagePickerControllerSourceType = .photoLibrary){
+    func attachmentPicker(sourceType: UIImagePickerController.SourceType = .photoLibrary){
         let mediaPicker = UIImagePickerController()
         mediaPicker.delegate = self
         mediaPicker.sourceType = sourceType
@@ -1956,7 +1956,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     /***** overrided method for pick media *****/
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         self.dismiss(animated: true, completion: nil);
 
         var mediaType : String! = ""
@@ -2008,7 +2011,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         /*** get thumbnail from video ***/
         let asset = AVURLAsset(url: mediaUrl)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
-        let cgImage = try!imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
+        let cgImage = try!imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
         let uiImage = UIImage(cgImage: cgImage)
         
         let attachment = IGFile(name: filename)
@@ -2052,7 +2055,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         } else {
             filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-            let imageData = UIImageJPEGRepresentation((originalImage), 1)!
+            let imageData = (originalImage).jpegData(compressionQuality: 1)!
             fileSize = NSData(data: imageData).length
             
             if self.sendAsFile {
@@ -2065,7 +2068,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let randomString = IGGlobal.randomString(length: 16) + "_"
    
         var scaledImage = originalImage
-        let imgData = UIImageJPEGRepresentation(scaledImage, 0.7)
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
         if imgData != nil {
             fileSize = NSData(data: imgData!).length
         }
@@ -2268,7 +2271,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         removeWebViewProgress()
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         if request.url?.description == "igap://close" {
             closeWebView()
         } else {
@@ -2431,7 +2434,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
 
     //MARK: AudioRecorder
-    func didTapAndHoldOnRecord(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func didTapAndHoldOnRecord(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
             startRecording()
@@ -2583,7 +2586,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
     }
     
-    func updateTimerLabel() {
+    @objc func updateTimerLabel() {
         recordedTime += 1
         let minute = String(format: "%02d", Int(recordedTime/60))
         let seconds = String(format: "%02d", Int(recordedTime%60))
@@ -2603,7 +2606,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             audioRecorderSetting[AVNumberOfChannelsKey] = NSNumber(value: 2)
             
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            if #available(iOS 10.0, *) {
+                try session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode: AVAudioSession.Mode.default)
+            } else {
+                // Fallback on earlier versions
+            }
             
             recorder = try AVAudioRecorder(url: writePath!, settings: audioRecorderSetting)
             if recorder == nil {
@@ -2886,7 +2893,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             destinationTv.room = self.room
             destinationTv.messageId = self.reportMessageId!
         } else if segue.identifier == "showLocationViewController" {
-            let destinationTv = segue.destination as! IGMessageAttachmentCurrentLocationViewController
+            let destinationTv = segue.destination as! IGMessageAttachmentLocation
             let modalStyle: UIModalTransitionStyle = UIModalTransitionStyle.coverVertical
             destinationTv.modalTransitionStyle = modalStyle
             destinationTv.isSendLocation = isSendLocation
@@ -3117,9 +3124,9 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var reusableview = UICollectionReusableView()
-        if kind == UICollectionElementKindSectionFooter {
+        if kind == UICollectionView.elementKindSectionFooter {
             
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             
             if indexPath.section < messages.count {
                 if let message = messages?[indexPath.section] {
@@ -3153,7 +3160,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 0, 0, 0)
+        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
     }
 
     
@@ -3649,7 +3656,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         for message in self.messages {
             if cellMessage.id == message.id {
                 let indexPath = IndexPath(row: 0, section: count)
-                self.collectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
                 break
             }
             count+=1
@@ -4085,4 +4092,14 @@ extension String {
     func chopSuffix(_ count: Int = 1) -> String {
         return substring(to: index(endIndex, offsetBy: -count))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

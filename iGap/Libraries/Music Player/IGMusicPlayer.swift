@@ -52,7 +52,11 @@ class IGMusicPlayer {
     }
     
     func play(index: Int, from list: Array<IGFile>) {
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: [])
+        if #available(iOS 10.0, *) {
+            try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: .default,options: [])
+        } else {
+            // Fallback on earlier versions
+        }
         let path = list.first?.path()
         let asset = AVURLAsset(url: path!)
         let playerItem = AVPlayerItem(asset: asset)
@@ -109,4 +113,9 @@ class IGMusicPlayer {
         player.removeAllItems()
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

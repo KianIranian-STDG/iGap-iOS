@@ -21,7 +21,7 @@ class IGSettingChatFontSizeTableViewController: UITableViewController {
         setBarbuttonItem()
         setDefualtFontSize()
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
-        deviceSettingSwitcher.addTarget(self, action: #selector(IGSettingChatFontSizeTableViewController.stateChanged), for: UIControlEvents.valueChanged)
+        deviceSettingSwitcher.addTarget(self, action: #selector(IGSettingChatFontSizeTableViewController.stateChanged), for: UIControl.Event.valueChanged)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,10 +53,10 @@ class IGSettingChatFontSizeTableViewController: UITableViewController {
                 if currentCell != mediumFontSizeCell {
                     mediumFontSizeCell.accessoryType = .none
                 }
-                if (currentCell.accessoryType == UITableViewCellAccessoryType.none) {
-                    currentCell.accessoryType = UITableViewCellAccessoryType.checkmark
+                if (currentCell.accessoryType == UITableViewCell.AccessoryType.none) {
+                    currentCell.accessoryType = UITableViewCell.AccessoryType.checkmark
                 }else{
-                    (currentCell.accessoryType = UITableViewCellAccessoryType.none)
+                    (currentCell.accessoryType = UITableViewCell.AccessoryType.none)
                 }
             }
         }
@@ -65,12 +65,12 @@ class IGSettingChatFontSizeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let currentCell = tableView.cellForRow(at: indexPath)
         if let selectedCell = currentCell {
-            if selectedCell.accessoryType == UITableViewCellAccessoryType.checkmark {
-                selectedCell.accessoryType = UITableViewCellAccessoryType.none
+            if selectedCell.accessoryType == UITableViewCell.AccessoryType.checkmark {
+                selectedCell.accessoryType = UITableViewCell.AccessoryType.none
             }
         }
     }
-    func stateChanged(){
+    @objc func stateChanged(){
         if deviceSettingSwitcher.isOn {
             if let lastSelectedIndexPath = currentSelectedCellIndexPath {
                 tableView.deselectRow(at: lastSelectedIndexPath, animated: true)
@@ -90,16 +90,27 @@ class IGSettingChatFontSizeTableViewController: UITableViewController {
         //nextButton
         let doneBtn = UIButton()
         doneBtn.frame = CGRect(x: 8, y: 300, width: 60, height: 0)
-        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize, weight: UIFontWeightSemibold)
+        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize, weight: UIFont.Weight.semibold)
         let normalTitleColor = greenColor
-        let attrs = [NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor]
-        let doneTitle = NSAttributedString(string: "Done", attributes: attrs)
+        let attrs = [convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): normalTitleColor]
+        let doneTitle = NSAttributedString(string: "Done", attributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         doneBtn.setAttributedTitle(doneTitle, for: .normal)
-        doneBtn.addTarget(self, action: #selector(IGSettingChatFontSizeTableViewController.doneButtonClicked), for: UIControlEvents.touchUpInside)
+        doneBtn.addTarget(self, action: #selector(IGSettingChatFontSizeTableViewController.doneButtonClicked), for: UIControl.Event.touchUpInside)
         let topRightBarbuttonItem = UIBarButtonItem(customView: doneBtn)
         self.navigationItem.rightBarButtonItem = topRightBarbuttonItem
     }
-    func doneButtonClicked(){
+    @objc func doneButtonClicked(){
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

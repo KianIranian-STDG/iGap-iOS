@@ -108,7 +108,7 @@ class IGForwardMessageAudioAndVoiceAttachmentView: UIView {
             let playerItem = AVPlayerItem(asset: asset)
             let metaList = playerItem.asset.commonMetadata
             for item in metaList {
-                guard let key = item.commonKey, let value = item.value else{
+                guard let key = convertFromOptionalAVMetadataKey(item.commonKey), let value = item.value else{
                     continue
                 }
                 switch key {
@@ -138,3 +138,9 @@ extension IGForwardMessageAudioAndVoiceAttachmentView: IGMusicPlayerDelegate {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromOptionalAVMetadataKey(_ input: AVMetadataKey?) -> String? {
+	guard let input = input else { return nil }
+	return input.rawValue
+}

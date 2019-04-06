@@ -556,7 +556,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         txtVoteDownAbs?.isUserInteractionEnabled = true
     }
     
-    func didTapAndHoldOnCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func didTapAndHoldOnCell(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
             self.delegate?.didTapAndHoldOnMessage(cellMessage: realmRoomMessage!, cell: self)
@@ -571,15 +571,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
     }
     
-    func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self, imageView: imgMediaAbs)
     }
     
-    func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnReply(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnReply(cellMessage: realmRoomMessage!, cell: self)
     }
     
-    func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnForward(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnForward(cellMessage: realmRoomMessage!, cell: self)
     }
     
@@ -588,7 +588,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
     }
     
-    func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnSenderAvatar(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!, cell: self)
     }
     
@@ -856,7 +856,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             makeViewCount()
             let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
             let icon = (attributedString.string as NSString).range(of: "")
-            attributedString.setAttributes([NSBaselineOffsetAttributeName: -2], range: icon)
+            attributedString.setAttributes([NSAttributedString.Key.baselineOffset: -2], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
@@ -865,7 +865,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 
                 let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "1")", attributes: nil)
                 let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "1")")
-                attributedVoteDown.addAttributes([NSBaselineOffsetAttributeName: 3], range: textVoteDown)
+                attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: 3], range: textVoteDown)
                 txtVoteDownAbs.attributedText = attributedVoteDown
             } else {
                 removeVoteAction()
@@ -1338,14 +1338,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if txtTimeVideoAbs == nil {
             txtTimeVideoAbs = UILabel()
             txtTimeVideoAbs?.textColor = UIColor.white
-            txtTimeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFontWeightSemibold)
+            txtTimeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.semibold)
             viewInfoVideoAbs.addSubview(txtTimeVideoAbs)
         }
         
         if txtSizeVideoAbs == nil {
             txtSizeVideoAbs = UILabel()
             txtSizeVideoAbs?.textColor = UIColor.white
-            txtSizeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFontWeightSemibold)
+            txtSizeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.semibold)
             viewInfoVideoAbs.addSubview(txtSizeVideoAbs)
         }
         

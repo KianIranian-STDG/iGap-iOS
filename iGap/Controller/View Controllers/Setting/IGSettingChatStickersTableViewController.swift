@@ -51,13 +51,13 @@ class IGSettingChatStickersTableViewController: UITableViewController {
     func setupEditBarButton(){
         let editButton = UIButton()
         editButton.frame = CGRect(x: 8, y: 0, width: 60, height: 60)
-        editButton.setTitle("Cancel", for: UIControlState.normal)
+        editButton.setTitle("Cancel", for: UIControl.State.normal)
         editButton.setTitleColor(greenColor, for: .normal)
-        editButton.addTarget(self, action: #selector(IGSettingChatStickersTableViewController.editButtonClicked), for: UIControlEvents.touchUpInside)
+        editButton.addTarget(self, action: #selector(IGSettingChatStickersTableViewController.editButtonClicked), for: UIControl.Event.touchUpInside)
         let topLeftbarButtonItem = UIBarButtonItem(customView: editButton)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = topLeftbarButtonItem
     }
-    func editButtonClicked(){ }
+    @objc func editButtonClicked(){ }
     
     func showStcikers(indexpath : IndexPath) {
         let stickersView: UIView = UIView(frame: CGRect(x:2, y:20, width:self.view.frame.size.width - 10,height: 352))
@@ -68,10 +68,10 @@ class IGSettingChatStickersTableViewController: UITableViewController {
         collectionView = UICollectionView(frame: stickersView.frame, collectionViewLayout: layout)
         collectionView?.backgroundColor = UIColor.clear
         stickersView.addSubview(collectionView!)
-        let alertController = UIAlertController(title: "", message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = UIAlertController(title: "", message: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", preferredStyle: UIAlertController.Style.actionSheet)
         alertController.view.addSubview(stickersView)
-        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: UIFontWeightSemibold)
-        let attrs = NSAttributedString(string: stickerText[indexpath.row], attributes: [NSFontAttributeName : normalTitleFont])
+        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: UIFont.Weight.semibold)
+        let attrs = NSAttributedString(string: stickerText[indexpath.row], attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font) : normalTitleFont]))
         alertController.setValue(attrs, forKey: "attributedTitle")
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -124,4 +124,15 @@ class IGSettingChatStickersTableViewController: UITableViewController {
             print("Select")
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

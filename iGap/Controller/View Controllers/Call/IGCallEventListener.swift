@@ -51,7 +51,11 @@ class IGCallEventListener {
         guard let url = Bundle.main.url(forResource: sound, withExtension: "mp3") else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode: AVAudioSession.Mode.default)
+            } else {
+                // Fallback on earlier versions
+            }
             try AVAudioSession.sharedInstance().setActive(true)
             
             IGCallEventListener.player = try AVAudioPlayer(contentsOf: url)
@@ -71,4 +75,9 @@ class IGCallEventListener {
     private func sendSessionHold(isOnHold: Bool){
         IGSignalingSessionHoldRequest.Generator.generate(isOnHold: isOnHold).success ({ (responseProtoMessage) in }).error({ (errorCode, waitTime) in }).send()
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

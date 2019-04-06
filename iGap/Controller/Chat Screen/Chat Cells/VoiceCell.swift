@@ -72,7 +72,7 @@ class VoiceCell: AbstractCell {
         if txtVoiceRecorderName == nil {
             txtVoiceRecorderName = UILabel()
             txtVoiceRecorderName.textColor = UIColor.dialogueBoxInfo()
-            txtVoiceRecorderName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            txtVoiceRecorderName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
             txtVoiceRecorderName.lineBreakMode = .byTruncatingMiddle
             txtVoiceRecorderName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtVoiceRecorderName)
@@ -81,7 +81,7 @@ class VoiceCell: AbstractCell {
         if txtVoiceTime == nil {
             txtVoiceTime = UILabel()
             txtVoiceTime.textColor = UIColor.dialogueBoxInfo()
-            txtVoiceTime.font = UIFont.systemFont(ofSize: 10.0, weight: UIFontWeightRegular)
+            txtVoiceTime.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.regular)
             txtVoiceTime.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtVoiceTime)
         }

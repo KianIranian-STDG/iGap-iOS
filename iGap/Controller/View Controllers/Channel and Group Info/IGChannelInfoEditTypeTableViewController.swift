@@ -71,7 +71,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
             channelDefualtName.font = UIFont.systemFont(ofSize: 14)
             channelDefualtName.text = "iGap.net/"
             channelLinkTextField.leftView = channelDefualtName
-            channelLinkTextField.leftViewMode = UITextFieldViewMode.always
+            channelLinkTextField.leftViewMode = UITextField.ViewMode.always
             channelLinkTextField.placeholder = "yourlink"
             channelLinkTextField.delegate = self
             
@@ -149,7 +149,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                 channelDefualtName.font = UIFont.systemFont(ofSize: 14)
                 channelDefualtName.text = "iGap.net/"
                 channelLinkTextField.leftView = channelDefualtName
-                channelLinkTextField.leftViewMode = UITextFieldViewMode.always
+                channelLinkTextField.leftViewMode = UITextField.ViewMode.always
                 channelLinkTextField.placeholder = "yourlink"
                 channelLinkTextField.delegate = self
                 
@@ -346,7 +346,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                 channelDefualtName.font = UIFont.systemFont(ofSize: 14)
                 channelDefualtName.text = "iGap.net/"
                 channelLinkTextField.leftView = channelDefualtName
-                channelLinkTextField.leftViewMode = UITextFieldViewMode.always
+                channelLinkTextField.leftViewMode = UITextField.ViewMode.always
                 channelLinkTextField.placeholder = "yourlink"
                 channelLinkTextField.delegate = self
             }

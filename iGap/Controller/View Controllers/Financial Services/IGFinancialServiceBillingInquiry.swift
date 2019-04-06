@@ -188,11 +188,11 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("Pay", for: UIControlState.normal)
+                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("Pay", for: UIControlState.normal)
+                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
@@ -204,11 +204,11 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("Pay", for: UIControlState.normal)
+                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("Pay", for: UIControlState.normal)
+                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
             }
         }
     }
@@ -224,11 +224,11 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("Pay", for: UIControlState.normal)
+                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("Pay", for: UIControlState.normal)
+                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
@@ -240,11 +240,11 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("Pay", for: UIControlState.normal)
+                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("Pay", for: UIControlState.normal)
+                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
             }
         }
     }

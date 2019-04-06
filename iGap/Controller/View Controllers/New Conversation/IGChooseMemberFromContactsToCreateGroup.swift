@@ -14,7 +14,7 @@ import Contacts
 class IGChooseMemberFromContactsToCreateGroup: UITableViewController , UISearchResultsUpdating //, UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout  {
 {
     class User:NSObject {
-        let name:String!
+        @objc let name:String!
         var section :Int?
         init(name:String){
             self.name = name
@@ -68,9 +68,9 @@ class IGChooseMemberFromContactsToCreateGroup: UITableViewController , UISearchR
         let cancelBtn = UIButton()
         cancelBtn.frame = CGRect(x: 8, y: 300, width: 60, height: 0)
         
-        cancelBtn.setTitle("Next", for: UIControlState.normal)
+        cancelBtn.setTitle("Next", for: UIControl.State.normal)
         cancelBtn.setTitleColor(greenColor, for: .normal)
-        cancelBtn.addTarget(self, action: #selector(IGChooseMemberFromContactsToCreateGroup.nextButtonClicked), for: UIControlEvents.touchUpInside)
+        cancelBtn.addTarget(self, action: #selector(IGChooseMemberFromContactsToCreateGroup.nextButtonClicked), for: UIControl.Event.touchUpInside)
         let topRightbarButtonItem = UIBarButtonItem(customView: cancelBtn)
         self.navigationItem.rightBarButtonItem = topRightbarButtonItem
         
@@ -79,7 +79,7 @@ class IGChooseMemberFromContactsToCreateGroup: UITableViewController , UISearchR
     }
     
     
-    func nextButtonClicked(){
+    @objc func nextButtonClicked(){
         
         
         
@@ -242,7 +242,7 @@ class IGChooseMemberFromContactsToCreateGroup: UITableViewController , UISearchR
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
             if tableView.isEditing == true{
-                tableView.contentInset = UIEdgeInsetsMake(-20, 0, 0, 0)
+                tableView.contentInset = UIEdgeInsets.init(top: -20, left: 0, bottom: 0, right: 0)
             }
         }
     }

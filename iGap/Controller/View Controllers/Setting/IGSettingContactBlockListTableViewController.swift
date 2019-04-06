@@ -89,7 +89,7 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
         if indexPath.row == lastRowIndex {
             cell.blockedContactName.text = "Block Contact..."
             cell.blockedContactName.textColor = UIColor.organizationalColor()
-            cell.accessoryType = UITableViewCellAccessoryType.none
+            cell.accessoryType = UITableViewCell.AccessoryType.none
         } else {
             cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         }

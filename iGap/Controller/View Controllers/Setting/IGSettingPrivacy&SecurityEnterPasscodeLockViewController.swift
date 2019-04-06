@@ -260,11 +260,11 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                 if isTurnOnPassCode == true && numberOfAnimatePassCodeView == 0 {
                     newPassCodeText = hiddenTextField.text! + string
                     let slideInFromLeftTransition = CATransition()
-                    slideInFromLeftTransition.type = kCATransitionPush
-                    slideInFromLeftTransition.subtype = kCATransitionFromRight
+                    slideInFromLeftTransition.type = CATransitionType.push
+                    slideInFromLeftTransition.subtype = CATransitionSubtype.fromRight
                     slideInFromLeftTransition.duration = 0.5
-                    slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    slideInFromLeftTransition.fillMode = kCAFillModeRemoved
+                    slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                    slideInFromLeftTransition.fillMode = CAMediaTimingFillMode.removed
                     self.mainViewPassCode.layer.add(slideInFromLeftTransition, forKey: "slideInFromLeftTransition")
                     mainViewPassCodeLeadingConstraint.constant = -400
                     title = "Please Re-enter Your New PassCode"
@@ -303,11 +303,11 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                         isfirstTimeToEnterPassCode = false
                     } else {
                         let slideInFromLeftTransition = CATransition()
-                        slideInFromLeftTransition.type = kCATransitionPush
-                        slideInFromLeftTransition.subtype = kCATransitionFromRight
+                        slideInFromLeftTransition.type = CATransitionType.push
+                        slideInFromLeftTransition.subtype = CATransitionSubtype.fromRight
                         slideInFromLeftTransition.duration = 0.5
-                        slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                        slideInFromLeftTransition.fillMode = kCAFillModeRemoved
+                        slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                        slideInFromLeftTransition.fillMode = CAMediaTimingFillMode.removed
                         self.mainViewPassCode.layer.add(slideInFromLeftTransition, forKey: "slideInFromLeftTransition")
                         mainViewPassCodeLeadingConstraint.constant = -400
                         title = "Please Enter Your New PassCode"
@@ -325,11 +325,11 @@ extension IGSettingPrivacy_SecurityEnterPasscodeLockViewController : UITextField
                     comparePassCodeText = String(compareText.dropFirst())
                     newPassCodeText = comparePassCodeText
                     let slideInFromLeftTransition = CATransition()
-                    slideInFromLeftTransition.type = kCATransitionPush
-                    slideInFromLeftTransition.subtype = kCATransitionFromRight
+                    slideInFromLeftTransition.type = CATransitionType.push
+                    slideInFromLeftTransition.subtype = CATransitionSubtype.fromRight
                     slideInFromLeftTransition.duration = 0.5
-                    slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    slideInFromLeftTransition.fillMode = kCAFillModeRemoved
+                    slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                    slideInFromLeftTransition.fillMode = CAMediaTimingFillMode.removed
                     self.mainViewPassCode.layer.add(slideInFromLeftTransition, forKey: "slideInFromLeftTransition")
                     mainViewPassCodeLeadingConstraint.constant = -400
                     title = "Please Re-Enter Your  New PassCode"

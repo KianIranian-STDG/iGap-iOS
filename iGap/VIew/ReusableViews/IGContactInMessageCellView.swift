@@ -51,7 +51,7 @@ class IGContactInMessageCellView: UIView {
         }
         
         nameLabel = UILabel()
-        nameLabel!.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
+        nameLabel!.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
         self.addSubview(nameLabel!)
         nameLabel!.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView!.snp.right).offset(10)
@@ -59,7 +59,7 @@ class IGContactInMessageCellView: UIView {
         }
 
         phonesLabel = UILabel()
-        phonesLabel!.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+        phonesLabel!.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
         phonesLabel!.numberOfLines = 0
         self.addSubview(phonesLabel!)
         phonesLabel!.snp.makeConstraints { (make) in

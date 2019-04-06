@@ -47,13 +47,13 @@ class IGTabBarController: UITabBarController {
             }
             if tabBar.selectedItem == item {
                 setCurrentTab(tag: (tabBar.selectedItem?.tag)!)
-                let selectedTitleFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightBold)
+                let selectedTitleFont = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.bold)
                 let selectedTitleColor = UIColor.black
-                item.setTitleTextAttributes([NSFontAttributeName: selectedTitleFont, NSForegroundColorAttributeName: selectedTitleColor], for: UIControlState.normal)
+                item.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): selectedTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): selectedTitleColor]), for: UIControl.State.normal)
             } else {
-                let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFontWeightRegular)
+                let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.regular)
                 let normalTitleColor = UIColor(red: 176.0/255.0, green: 224.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-                item.setTitleTextAttributes([NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor, NSBackgroundColorAttributeName: UIColor.black], for: UIControlState.normal)
+                item.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): normalTitleColor, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.black]), for: UIControl.State.normal)
             }
         }
         if #available(iOS 10.0, *) {
@@ -89,4 +89,15 @@ class IGTabBarController: UITabBarController {
             return
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

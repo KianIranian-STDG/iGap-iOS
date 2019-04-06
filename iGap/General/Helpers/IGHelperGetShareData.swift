@@ -249,12 +249,12 @@ class IGHelperGetShareData {
             fileSize = Int(IGGlobal.getFileSize(path: imageUrl))
         } else {
             filename = "IMAGE_" + IGGlobal.randomString(length: 16)
-            fileSize = NSData(data: UIImageJPEGRepresentation((originalImage), 1)!).length
+            fileSize = NSData(data: (originalImage).jpegData(compressionQuality: 1)!).length
         }
         let randomString = IGGlobal.randomString(length: 16) + "_"
         
         var scaledImage = originalImage
-        let imgData = UIImageJPEGRepresentation(scaledImage, 0.7)
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
         let fileNameOnDisk = randomString + filename
         
         if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
@@ -311,7 +311,7 @@ class IGHelperGetShareData {
         /*** get thumbnail from video ***/
         let asset = AVURLAsset(url: videoUrl)
         let imgGenerator = AVAssetImageGenerator(asset: asset)
-        let cgImage = try! imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
+        let cgImage = try! imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
         let uiImage = UIImage(cgImage: cgImage)
         
         let attachment = IGFile(name: filename)

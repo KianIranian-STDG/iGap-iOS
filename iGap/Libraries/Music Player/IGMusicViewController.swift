@@ -109,7 +109,7 @@ class IGMusicViewController: UIViewController {
         let timeScale = playerItem.asset.duration.timescale
         let value = mediaCurrentTimeSlider.value
         let valueInt = Int64(value)
-        player.seekToTime(value:  CMTimeMakeWithSeconds(Float64(valueInt), timeScale))
+        player.seekToTime(value:  CMTimeMakeWithSeconds(Float64(valueInt), preferredTimescale: timeScale))
         flag = false
         updateSliderValue()
     }
@@ -123,7 +123,7 @@ class IGMusicViewController: UIViewController {
             let playerItem = AVPlayerItem(asset: asset)
             let metaList = playerItem.asset.commonMetadata
             for item in metaList {
-                guard let key = item.commonKey, let value = item.value else{
+                guard let key = convertFromOptionalAVMetadataKey(item.commonKey), let value = item.value else{
                     continue
                 }
                 switch key {
@@ -187,7 +187,7 @@ class IGMusicViewController: UIViewController {
             let asset = AVURLAsset(url: path!)
             let playerItem = AVPlayerItem(asset: asset)
             let timeScale = playerItem.asset.duration.timescale
-            self.player.seekToTime(value:  CMTimeMakeWithSeconds(Float64(0), timeScale))
+            self.player.seekToTime(value:  CMTimeMakeWithSeconds(Float64(0), preferredTimescale: timeScale))
             self.player.removeItemsFromList()
         })
     }
@@ -206,4 +206,10 @@ extension IGMusicViewController:IGMusicPlayerDelegate {
     func player(_ player:IGMusicPlayer, didStopPlaying item:AVPlayerItem) {
         
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromOptionalAVMetadataKey(_ input: AVMetadataKey?) -> String? {
+	guard let input = input else { return nil }
+	return input.rawValue
 }

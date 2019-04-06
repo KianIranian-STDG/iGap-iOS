@@ -29,7 +29,7 @@ class IGSettingNotificationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
-        doNotDistrubSwitch.addTarget(self, action: #selector(IGSettingNotificationTableViewController.stateChanged), for: UIControlEvents.valueChanged)
+        doNotDistrubSwitch.addTarget(self, action: #selector(IGSettingNotificationTableViewController.stateChanged), for: UIControl.Event.valueChanged)
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,7 +73,7 @@ class IGSettingNotificationTableViewController: UITableViewController {
             showConfirmDeleteAlertView()
         }
     }
-    func stateChanged(){
+    @objc func stateChanged(){
         if doNotDistrubSwitch.isOn {
             self.tableView.reloadData()
             } else {

@@ -23,13 +23,13 @@ class iGPhoneNumberPageViewController: UIViewController {
         //cancelButton
         let cancelBtn = UIButton()
         cancelBtn.frame = CGRect(x: 8, y: 300, width: 60, height: 0)
-        cancelBtn.setTitle("Cancel", for: UIControlState.normal)
+        cancelBtn.setTitle("Cancel", for: UIControl.State.normal)
         cancelBtn.setTitleColor(greenColor, for: .normal)
-        cancelBtn.addTarget(self, action: #selector(iGPhoneNumberPageViewController.cancelButtonClicked), for: UIControlEvents.touchUpInside)
+        cancelBtn.addTarget(self, action: #selector(iGPhoneNumberPageViewController.cancelButtonClicked), for: UIControl.Event.touchUpInside)
         let topLeftbarButtonItem = UIBarButtonItem(customView: cancelBtn)
         self.navigationItem.leftBarButtonItem = topLeftbarButtonItem
     }
-    func cancelButtonClicked(){
+    @objc func cancelButtonClicked(){
         self.dismiss(animated: true, completion: nil)
     }
 }

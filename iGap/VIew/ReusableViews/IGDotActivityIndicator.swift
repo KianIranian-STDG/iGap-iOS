@@ -109,14 +109,14 @@ class IGDotActivityIndicator : UIView {
         scaleUp.fromValue = 1
         scaleUp.toValue = dotsScale
         scaleUp.duration = 0.3
-        scaleUp.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        scaleUp.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         
         let scaleDown = CABasicAnimation(keyPath: "transform.scale")
         scaleDown.beginTime = after+scaleUp.duration
         scaleDown.fromValue = dotsScale
         scaleDown.toValue = 1.0
         scaleDown.duration = 0.2
-        scaleDown.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        scaleDown.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         
         let group = CAAnimationGroup()
         group.animations = [scaleUp, scaleDown]

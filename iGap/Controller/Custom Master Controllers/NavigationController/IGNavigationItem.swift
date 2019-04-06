@@ -75,7 +75,7 @@ class IGNavigationItem: UINavigationItem {
         self.returnToCall?.backgroundColor = UIColor.returnToCall()
         self.returnToCall?.layer.cornerRadius = 15
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightSemibold)
+        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
         label.text = "Return To Call"
@@ -111,7 +111,7 @@ class IGNavigationItem: UINavigationItem {
         self.titleView = centerViewContainer
         
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightSemibold)
+        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
         label.text = text
@@ -121,7 +121,7 @@ class IGNavigationItem: UINavigationItem {
             make.centerY.equalTo(self.centerViewContainer!.snp.centerY)
         }
         
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        let activityIndicatorView = UIActivityIndicatorView(style: .white)
         self.titleView?.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
         activityIndicatorView.snp.makeConstraints { (make) in
@@ -196,7 +196,7 @@ class IGNavigationItem: UINavigationItem {
         
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 40))
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightBold)
+        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.bold)
         label.textAlignment = .center
         label.text = title
         label.textColor = UIColor.iGapBarsInfo()
@@ -311,7 +311,7 @@ class IGNavigationItem: UINavigationItem {
             let lableView = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 23))
             lableView.text = title
             lableView.textColor = UIColor.iGapBarsInfo()
-            lableView.font = UIFont.systemFont(ofSize: 17.0, weight: UIFontWeightBold)
+            lableView.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.bold)
             
             titleView.addSubview(lableView)
             self.titleView = titleView

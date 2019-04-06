@@ -66,7 +66,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         txtStickerCount.text = String(describing: sticker.stickers.count) + " Stickers"
     }
     
-    func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {
         UIView.transition(with: self.stickerAddRemove, duration: self.ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
             self.stickerAddRemove.isHidden = true
             self.changeRemoveAdd()

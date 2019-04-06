@@ -90,7 +90,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         self.initialConfiguration()
     }
     
-    func getUserAvatarAgain(_ aNotification: Notification) {
+    @objc func getUserAvatarAgain(_ aNotification: Notification) {
         if let userId = aNotification.userInfo?["user"] as? Int64{
             /*
             let predicate = NSPredicate(format: "id = %lld", userId )

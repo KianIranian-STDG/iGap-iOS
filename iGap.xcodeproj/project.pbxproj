@@ -10,6 +10,36 @@
 		4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9386F71EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift */; };
 		4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9F3E691EBA0D91008E05C1 /* IGPushResponse.swift */; };
 		4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */; };
+		8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ECC1827222F991F006E43E8 /* wallet.storyboard */; };
+		8ECC182A222FB862006E43E8 /* viewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1829222FB862006E43E8 /* viewX.swift */; };
+		8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC182B222FB875006E43E8 /* buttonX.swift */; };
+		8ECC182E222FBE59006E43E8 /* mainWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC182D222FBE59006E43E8 /* mainWalletViewController.swift */; };
+		8ECC1831222FDBD2006E43E8 /* imagViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1830222FDBD2006E43E8 /* imagViewX.swift */; };
+		8ECC1833222FE1CB006E43E8 /* packetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1832222FE1CB006E43E8 /* packetTableViewController.swift */; };
+		8ECC1835222FE3A2006E43E8 /* addNewCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1834222FE3A2006E43E8 /* addNewCardTableViewController.swift */; };
+		8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1836222FEAEA006E43E8 /* extitionGeneral.swift */; };
+		8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1838222FEB59006E43E8 /* CardUtils.swift */; };
+		8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */; };
+		8ECC183F222FFAE6006E43E8 /* chargeWalletTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC183E222FFAE6006E43E8 /* chargeWalletTableViewController.swift */; };
+		8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */; };
+		8ECC184322300B8D006E43E8 /* chashoutCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC184222300B8D006E43E8 /* chashoutCardTableViewController.swift */; };
+		8ECC18452230E808006E43E8 /* barcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC18442230E808006E43E8 /* barcodeScannerViewController.swift */; };
+		8ECC190A22311281006E43E8 /* SMMyBarCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC190922311280006E43E8 /* SMMyBarCodeViewController.swift */; };
+		8ECC190C22311563006E43E8 /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECC190B22311563006E43E8 /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8ECC190E223115D8006E43E8 /* AMPopTip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECC190D223115D8006E43E8 /* AMPopTip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */; };
+		8EE4BF2722377D64001C4B51 /* QRCodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF2622377D64001C4B51 /* QRCodeReader.framework */; };
+		8EE4BF5122378865001C4B51 /* BetterSegmentedControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF5022378865001C4B51 /* BetterSegmentedControl.framework */; };
+		8EE4BF6E22379019001C4B51 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF6D22379019001C4B51 /* KeychainSwift.framework */; };
+		8EE4BF7E223796EB001C4B51 /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF7D223796EA001C4B51 /* Presentr.framework */; };
+		8EE4BF9B22379DF3001C4B51 /* models.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9322379DF1001C4B51 /* models.framework */; };
+		8EE4BF9C22379DF3001C4B51 /* webservice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9422379DF2001C4B51 /* webservice.framework */; };
+		8EE4BF9D22379DF3001C4B51 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9522379DF2001C4B51 /* FMDB.framework */; };
+		8EE4BF9E22379DF3001C4B51 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9622379DF2001C4B51 /* TTTAttributedLabel.framework */; };
+		8EE4BF9F22379DF3001C4B51 /* OLCOrm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9722379DF2001C4B51 /* OLCOrm.framework */; };
+		8EE4BFA022379DF3001C4B51 /* Motis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9822379DF2001C4B51 /* Motis.framework */; };
+		8EE4BFA122379DF3001C4B51 /* maincore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9922379DF2001C4B51 /* maincore.framework */; };
+		8EE4BFA222379DF3001C4B51 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE4BF9A22379DF3001C4B51 /* UICKeyChainStore.framework */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
 		93193F281E5811BA0039AC0C /* IGGroupInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F271E5811BA0039AC0C /* IGGroupInfoTableViewController.swift */; };
 		93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F291E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift */; };
@@ -22,7 +52,6 @@
 		93193F381E5814980039AC0C /* IGGroupInfoAdminListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F371E5814980039AC0C /* IGGroupInfoAdminListTableViewController.swift */; };
 		93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F391E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift */; };
 		93193F3C1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F3B1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift */; };
-		931DC8C71E38822D008F04A9 /* IGMessageAttachmentCurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931DC8C61E38822D008F04A9 /* IGMessageAttachmentCurrentLocationViewController.swift */; };
 		931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 931DC8C81E388418008F04A9 /* CoreLocation.framework */; };
 		932D1AB31E740046000F0D97 /* IGGroupInfoShareMediaLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932D1AB11E740046000F0D97 /* IGGroupInfoShareMediaLinkTableViewCell.swift */; };
 		932D1AB71E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932D1AB51E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift */; };
@@ -450,6 +479,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8ECC190E223115D8006E43E8 /* AMPopTip.framework in Embed Frameworks */,
+				8ECC190C22311563006E43E8 /* AFNetworking.framework in Embed Frameworks */,
 				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -472,6 +503,36 @@
 		4F9386F71EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift; sourceTree = "<group>"; };
 		4F9F3E691EBA0D91008E05C1 /* IGPushResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGPushResponse.swift; sourceTree = "<group>"; };
 		4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPasswordViewController.swift; sourceTree = "<group>"; };
+		8ECC1827222F991F006E43E8 /* wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = wallet.storyboard; sourceTree = "<group>"; };
+		8ECC1829222FB862006E43E8 /* viewX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewX.swift; sourceTree = "<group>"; };
+		8ECC182B222FB875006E43E8 /* buttonX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonX.swift; sourceTree = "<group>"; };
+		8ECC182D222FBE59006E43E8 /* mainWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainWalletViewController.swift; sourceTree = "<group>"; };
+		8ECC1830222FDBD2006E43E8 /* imagViewX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagViewX.swift; sourceTree = "<group>"; };
+		8ECC1832222FE1CB006E43E8 /* packetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = packetTableViewController.swift; sourceTree = "<group>"; };
+		8ECC1834222FE3A2006E43E8 /* addNewCardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewCardTableViewController.swift; sourceTree = "<group>"; };
+		8ECC1836222FEAEA006E43E8 /* extitionGeneral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extitionGeneral.swift; sourceTree = "<group>"; };
+		8ECC1838222FEB59006E43E8 /* CardUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUtils.swift; sourceTree = "<group>"; };
+		8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBankModel.swift; sourceTree = "<group>"; };
+		8ECC183E222FFAE6006E43E8 /* chargeWalletTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chargeWalletTableViewController.swift; sourceTree = "<group>"; };
+		8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRootTableViewController.swift; sourceTree = "<group>"; };
+		8ECC184222300B8D006E43E8 /* chashoutCardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chashoutCardTableViewController.swift; sourceTree = "<group>"; };
+		8ECC18442230E808006E43E8 /* barcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = barcodeScannerViewController.swift; sourceTree = "<group>"; };
+		8ECC190922311280006E43E8 /* SMMyBarCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMyBarCodeViewController.swift; sourceTree = "<group>"; };
+		8ECC190B22311563006E43E8 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AFNetworking.framework; sourceTree = "<group>"; };
+		8ECC190D223115D8006E43E8 /* AMPopTip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMPopTip.framework; sourceTree = "<group>"; };
+		8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMessageAttachmentLocation.swift; sourceTree = "<group>"; };
+		8EE4BF2622377D64001C4B51 /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
+		8EE4BF5022378865001C4B51 /* BetterSegmentedControl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BetterSegmentedControl.framework; path = Carthage/Build/iOS/BetterSegmentedControl.framework; sourceTree = "<group>"; };
+		8EE4BF6D22379019001C4B51 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
+		8EE4BF7D223796EA001C4B51 /* Presentr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Presentr.framework; path = Carthage/Build/iOS/Presentr.framework; sourceTree = "<group>"; };
+		8EE4BF9322379DF1001C4B51 /* models.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = models.framework; path = Carthage/Build/iOS/models.framework; sourceTree = "<group>"; };
+		8EE4BF9422379DF2001C4B51 /* webservice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webservice.framework; path = Carthage/Build/iOS/webservice.framework; sourceTree = "<group>"; };
+		8EE4BF9522379DF2001C4B51 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		8EE4BF9622379DF2001C4B51 /* TTTAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTTAttributedLabel.framework; path = Carthage/Build/iOS/TTTAttributedLabel.framework; sourceTree = "<group>"; };
+		8EE4BF9722379DF2001C4B51 /* OLCOrm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OLCOrm.framework; path = Carthage/Build/iOS/OLCOrm.framework; sourceTree = "<group>"; };
+		8EE4BF9822379DF2001C4B51 /* Motis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Motis.framework; path = Carthage/Build/iOS/Motis.framework; sourceTree = "<group>"; };
+		8EE4BF9922379DF2001C4B51 /* maincore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = maincore.framework; path = Carthage/Build/iOS/maincore.framework; sourceTree = "<group>"; };
+		8EE4BF9A22379DF3001C4B51 /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = Carthage/Build/iOS/UICKeyChainStore.framework; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
 		93193F271E5811BA0039AC0C /* IGGroupInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupInfoTableViewController.swift; sourceTree = "<group>"; };
 		93193F291E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupInfoEditNameTableViewController.swift; sourceTree = "<group>"; };
@@ -484,7 +545,6 @@
 		93193F371E5814980039AC0C /* IGGroupInfoAdminListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupInfoAdminListTableViewController.swift; sourceTree = "<group>"; };
 		93193F391E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupAdminListTableViewCell.swift; sourceTree = "<group>"; };
 		93193F3B1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupSharedMediaListTableViewController.swift; sourceTree = "<group>"; };
-		931DC8C61E38822D008F04A9 /* IGMessageAttachmentCurrentLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGMessageAttachmentCurrentLocationViewController.swift; path = ../../../VIew/IGMessageAttachmentCurrentLocationViewController.swift; sourceTree = "<group>"; };
 		931DC8C81E388418008F04A9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		932D1AB11E740046000F0D97 /* IGGroupInfoShareMediaLinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupInfoShareMediaLinkTableViewCell.swift; sourceTree = "<group>"; };
 		932D1AB51E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift; sourceTree = "<group>"; };
@@ -926,6 +986,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE4BF9B22379DF3001C4B51 /* models.framework in Frameworks */,
+				8EE4BF9C22379DF3001C4B51 /* webservice.framework in Frameworks */,
+				8EE4BF9D22379DF3001C4B51 /* FMDB.framework in Frameworks */,
+				8EE4BF9E22379DF3001C4B51 /* TTTAttributedLabel.framework in Frameworks */,
+				8EE4BF9F22379DF3001C4B51 /* OLCOrm.framework in Frameworks */,
+				8EE4BFA022379DF3001C4B51 /* Motis.framework in Frameworks */,
+				8EE4BFA122379DF3001C4B51 /* maincore.framework in Frameworks */,
+				8EE4BFA222379DF3001C4B51 /* UICKeyChainStore.framework in Frameworks */,
+				8EE4BF7E223796EB001C4B51 /* Presentr.framework in Frameworks */,
+				8EE4BF6E22379019001C4B51 /* KeychainSwift.framework in Frameworks */,
+				8EE4BF5122378865001C4B51 /* BetterSegmentedControl.framework in Frameworks */,
+				8EE4BF2722377D64001C4B51 /* QRCodeReader.framework in Frameworks */,
 				FA81366A22257BF2003F29EB /* MarkdownKit.framework in Frameworks */,
 				FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */,
 				FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */,
@@ -979,6 +1051,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8ECC182F222FBE5E006E43E8 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				8ECC182D222FBE59006E43E8 /* mainWalletViewController.swift */,
+				8ECC1832222FE1CB006E43E8 /* packetTableViewController.swift */,
+				8ECC183E222FFAE6006E43E8 /* chargeWalletTableViewController.swift */,
+				8ECC184222300B8D006E43E8 /* chashoutCardTableViewController.swift */,
+				8ECC1834222FE3A2006E43E8 /* addNewCardTableViewController.swift */,
+				8ECC18442230E808006E43E8 /* barcodeScannerViewController.swift */,
+				8ECC190922311280006E43E8 /* SMMyBarCodeViewController.swift */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		8ECC183A222FEB5F006E43E8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8ECC1838222FEB59006E43E8 /* CardUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		8ECC183B222FEB6B006E43E8 /* Extitions */ = {
+			isa = PBXGroup;
+			children = (
+				8ECC1829222FB862006E43E8 /* viewX.swift */,
+				8ECC182B222FB875006E43E8 /* buttonX.swift */,
+				8ECC1830222FDBD2006E43E8 /* imagViewX.swift */,
+				8ECC1836222FEAEA006E43E8 /* extitionGeneral.swift */,
+			);
+			path = Extitions;
+			sourceTree = "<group>";
+		};
 		93AA67B81E4F03290053380C /* Channel and Group Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1048,6 +1153,7 @@
 				FA0953081E1B88660043ED3F /* Setting */,
 				FA50A8C61DD35EFD00C6D2EA /* Splash and Register */,
 				FA68A20F1DD9B0CD003A6651 /* Tabbar Sub Controllers */,
+				8ECC182F222FBE5E006E43E8 /* Wallet */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1118,7 +1224,6 @@
 			children = (
 				93A3D3C91E407E5200D2686F /* IGChooseMemberFromContactToCreateChannelViewController.swift */,
 				93A3D3CB1E40831E00D2686F /* IGChooseMemberToCreateChannelTableViewCell.swift */,
-				931DC8C61E38822D008F04A9 /* IGMessageAttachmentCurrentLocationViewController.swift */,
 				FA0953791E1B97E20043ED3F /* IGCreateNewChatTableViewController.swift */,
 				FA0953771E1B97E20043ED3F /* IGContactTableViewCell.swift */,
 				FA0953751E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift */,
@@ -1136,6 +1241,7 @@
 				93321E791E5C127E004D4454 /* IGForwardMessageTableViewController.swift */,
 				93321E7B1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift */,
 				93321E7D1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift */,
+				8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */,
 			);
 			path = "New Conversation";
 			sourceTree = "<group>";
@@ -1209,6 +1315,8 @@
 				FA41C6EF1DC9DFD600598383 /* IGGlobal.swift */,
 				FAC34DB31E1A3F7E00BB9823 /* IGRealm.swift */,
 				FAA932F41DF45748002CC631 /* IGEnums.swift */,
+				8ECC183B222FEB6B006E43E8 /* Extitions */,
+				8ECC183A222FEB5F006E43E8 /* Utils */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1290,6 +1398,7 @@
 				FAEC476521F33149006C07A4 /* IGHelperJoin.swift */,
 				FAAF82D5221A85200022D84C /* IGHelperFinancial.swift */,
 				FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */,
+				8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1461,6 +1570,7 @@
 				FA8F8A672086027100AF03CB /* IGMapNearbyDistanceCell.swift */,
 				FA8F8A66208600AB00AF03CB /* IGMapNearbyDistanceCell.xib */,
 				FAE6BAB1207B537B00E54ECE /* MKHipsterTileOverlay.swift */,
+				8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1833,6 +1943,7 @@
 				FAF796031DAA392F0030509B /* Main.storyboard */,
 				FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */,
 				FAA51753206A254200471EA0 /* profile.storyboard */,
+				8ECC1827222F991F006E43E8 /* wallet.storyboard */,
 				FA786D59206A746700608A2D /* CreateRoom.storyboard */,
 				FA936905207364E100A0D86A /* Register.storyboard */,
 			);
@@ -1888,6 +1999,20 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8EE4BF9522379DF2001C4B51 /* FMDB.framework */,
+				8EE4BF9922379DF2001C4B51 /* maincore.framework */,
+				8EE4BF9322379DF1001C4B51 /* models.framework */,
+				8EE4BF9822379DF2001C4B51 /* Motis.framework */,
+				8EE4BF9722379DF2001C4B51 /* OLCOrm.framework */,
+				8EE4BF9622379DF2001C4B51 /* TTTAttributedLabel.framework */,
+				8EE4BF9A22379DF3001C4B51 /* UICKeyChainStore.framework */,
+				8EE4BF9422379DF2001C4B51 /* webservice.framework */,
+				8EE4BF7D223796EA001C4B51 /* Presentr.framework */,
+				8EE4BF6D22379019001C4B51 /* KeychainSwift.framework */,
+				8EE4BF5022378865001C4B51 /* BetterSegmentedControl.framework */,
+				8EE4BF2622377D64001C4B51 /* QRCodeReader.framework */,
+				8ECC190D223115D8006E43E8 /* AMPopTip.framework */,
+				8ECC190B22311563006E43E8 /* AFNetworking.framework */,
 				FA81366922257BF2003F29EB /* MarkdownKit.framework */,
 				FAA6C5DA2222BA800035D777 /* PecPayment.framework */,
 				FABA60F122180D6B00FFBB5A /* SDWebImage.framework */,
@@ -2008,6 +2133,7 @@
 					FAF795E91DAA330C0030509B = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = MBL7BDXS99;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -2079,6 +2205,7 @@
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
 				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
+				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
 				FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */,
@@ -2188,6 +2315,19 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MarkdownKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Presentr.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/KeychainSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/BetterSegmentedControl.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/QRCodeReader.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Wallet.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/models.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Motis.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/webservice.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FMDB.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TTTAttributedLabel.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OLCOrm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/maincore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/UICKeyChainStore.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -2217,6 +2357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0953881E1B97E20043ED3F /* IGCreateNewChatTableViewController.swift in Sources */,
+				8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */,
 				FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */,
 				93193F2E1E5812830039AC0C /* IGGroupInfoEditTypeTableViewController.swift in Sources */,
 				FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */,
@@ -2234,14 +2375,17 @@
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
+				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
 				FA42EF0A1E5C224F00CF8A32 /* FrameStore.swift in Sources */,
 				FAF45932205021AF005E0539 /* IGCallFromContactListObserver.swift in Sources */,
 				FAD7450021B940F800801D2E /* IGHelperGetShareData.swift in Sources */,
 				FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */,
 				FA9F735A2127E589004418E5 /* EPContactsPicker.swift in Sources */,
+				8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */,
 				FAD530621E0BD80800FE6C54 /* IGNavigationBar.swift in Sources */,
 				FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */,
+				8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */,
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
 				FAEC02D71F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift in Sources */,
 				FAEEB0C31E1BC11600B6775F /* IGContact.swift in Sources */,
@@ -2262,6 +2406,7 @@
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
+				8ECC184322300B8D006E43E8 /* chashoutCardTableViewController.swift in Sources */,
 				FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
 				FAEC476621F33149006C07A4 /* IGHelperJoin.swift in Sources */,
@@ -2269,6 +2414,7 @@
 				93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */,
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
+				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
 				FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
@@ -2336,7 +2482,6 @@
 				FA09538D1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift in Sources */,
 				FA50FE4A21EF40120043239D /* IGRealmAdditional.swift in Sources */,
 				FA42EF0C1E5C224F00CF8A32 /* GIFImageView.swift in Sources */,
-				931DC8C71E38822D008F04A9 /* IGMessageAttachmentCurrentLocationViewController.swift in Sources */,
 				FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */,
 				FA358D221E0A6F76001D0935 /* IGChannelsTableViewController.swift in Sources */,
 				FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */,
@@ -2354,11 +2499,13 @@
 				FAEA75DD1DDB035400C387F1 /* IGRoomMessageContact.swift in Sources */,
 				FA50A8D11DD35EFD00C6D2EA /* IGRegistrationStepVerificationCodeViewController.swift in Sources */,
 				FA09535B1E1B97700043ED3F /* IGSettingChatWhenDownloadDataTableViewController.swift in Sources */,
+				8ECC1835222FE3A2006E43E8 /* addNewCardTableViewController.swift in Sources */,
 				FA09535C1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewCell.swift in Sources */,
 				FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */,
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
+				8ECC182A222FB862006E43E8 /* viewX.swift in Sources */,
 				FAEE8D8F1E30ABA100599600 /* IGClientCondition.swift in Sources */,
 				FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */,
 				932D1AB31E740046000F0D97 /* IGGroupInfoShareMediaLinkTableViewCell.swift in Sources */,
@@ -2434,6 +2581,7 @@
 				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
 				FA63BAA91DD70E77000B60AD /* IGRequestInfo.swift in Sources */,
+				8ECC182E222FBE59006E43E8 /* mainWalletViewController.swift in Sources */,
 				FA09534E1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift in Sources */,
 				93A3D3CC1E40831E00D2686F /* IGChooseMemberToCreateChannelTableViewCell.swift in Sources */,
 				FA927E0820286FAD00DF7145 /* ContactCell.swift in Sources */,
@@ -2465,6 +2613,7 @@
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,
 				FA42EF0B1E5C224F00CF8A32 /* GIFAnimatable.swift in Sources */,
 				FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */,
+				8ECC183F222FFAE6006E43E8 /* chargeWalletTableViewController.swift in Sources */,
 				93AA67CC1E4F40260053380C /* IGChannelInfoMemberListInviteLinkTableViewCell.swift in Sources */,
 				FAC7555621D12D6D001AB608 /* CallManager.swift in Sources */,
 				FAC7554C21D0B589001AB608 /* CallHoldObserver.swift in Sources */,
@@ -2476,12 +2625,14 @@
 				FA358D1E1E0A6F49001D0935 /* IGChatsTableViewController.swift in Sources */,
 				FAC5B690204C08580018E017 /* ReturnToCallObserver.swift in Sources */,
 				FA927E0420284D7800DF7145 /* GifCell.swift in Sources */,
+				8ECC1831222FDBD2006E43E8 /* imagViewX.swift in Sources */,
 				FA0CC8081E5D7D4400556283 /* ActiveLabel.swift in Sources */,
 				FA930D9B1E5B178F00069EE1 /* WebSocket.swift in Sources */,
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
 				FA930D9A1E5B178F00069EE1 /* SSLSecurity.swift in Sources */,
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,
+				8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */,
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
@@ -2493,9 +2644,11 @@
 				93193F381E5814980039AC0C /* IGGroupInfoAdminListTableViewController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
+				8ECC1833222FE1CB006E43E8 /* packetTableViewController.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
 				FAD580861DDC49A200A242DE /* IGMessageViewController.swift in Sources */,
+				8ECC18452230E808006E43E8 /* barcodeScannerViewController.swift in Sources */,
 				93AA67CE1E4F407E0053380C /* IGChannelInfoMemberListTableViewCell.swift in Sources */,
 				FA50A8D21DD35EFD00C6D2EA /* IGSplashScreenViewController.swift in Sources */,
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
@@ -2523,6 +2676,7 @@
 				DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */,
 				FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */,
 				FAA9DFB21F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift in Sources */,
+				8ECC190A22311281006E43E8 /* SMMyBarCodeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2778,6 +2932,27 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Frameworks/webservice",
+					"$(PROJECT_DIR)/Frameworks/UICKeyChainStore",
+					"$(PROJECT_DIR)/Frameworks/models",
+					"$(PROJECT_DIR)/Frameworks/Motis",
+					"$(PROJECT_DIR)/Frameworks/maincore",
+					"$(PROJECT_DIR)/Frameworks/OLCOrm",
+					"$(PROJECT_DIR)/Frameworks/FMDB",
 				);
 				INFOPLIST_FILE = iGap/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2794,7 +2969,8 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iGap/SupportingFiles/iGap-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = ./iGap/SupportingFiles/;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -2815,6 +2991,27 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Hard\\ Import\\ Frameworks",
+					"$(PROJECT_DIR)/Frameworks/webservice",
+					"$(PROJECT_DIR)/Frameworks/UICKeyChainStore",
+					"$(PROJECT_DIR)/Frameworks/models",
+					"$(PROJECT_DIR)/Frameworks/Motis",
+					"$(PROJECT_DIR)/Frameworks/maincore",
+					"$(PROJECT_DIR)/Frameworks/OLCOrm",
+					"$(PROJECT_DIR)/Frameworks/FMDB",
 				);
 				INFOPLIST_FILE = iGap/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -2831,7 +3028,8 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iGap/SupportingFiles/iGap-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = ./iGap/SupportingFiles/;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

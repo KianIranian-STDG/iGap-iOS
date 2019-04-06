@@ -15,7 +15,7 @@ protocol DidSelectLocationDelegate{
     func userWasSelectedLocation(location: CLLocation)
 }
 
-class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGestureRecognizerDelegate {
+class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegate {
     
     @IBOutlet weak var bottomView: IGTappableView!
     @IBOutlet weak var mapView: MKMapView!
@@ -107,7 +107,7 @@ class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGes
     }
     
     private func initLocation() {
-       
+        
         mapView.delegate = self
         mapView.isZoomEnabled = true
         currentLocationNameLabel.text = "Locating..."
@@ -119,7 +119,7 @@ class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGes
             self.locationManager.requestWhenInUseAuthorization()
             self.locationManager.startUpdatingLocation()
             currentLocation = locationManager.location
-
+            
             if currentLocation != nil {
                 currentLocationShowView = currentLocation
                 showCurrentLocation()
@@ -152,8 +152,8 @@ class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGes
             return
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let span = MKCoordinateSpanMake(0, 360 / pow(2, Double(16)) * Double(self.mapView.frame.size.width) / 256)
-            let region = MKCoordinateRegionMake((self.currentLocationShowView?.coordinate)!, span)
+            let span = MKCoordinateSpan.init(latitudeDelta: 0, longitudeDelta: 360 / pow(2, Double(16)) * Double(self.mapView.frame.size.width) / 256)
+            let region = MKCoordinateRegion.init(center: (self.currentLocationShowView?.coordinate)!, span: span)
             self.mapView.setRegion(region, animated: true)
         }
     }
@@ -198,7 +198,7 @@ class IGMessageAttachmentCurrentLocationViewController: UIViewController , UIGes
     }
 }
 
-extension IGMessageAttachmentCurrentLocationViewController : MKMapViewDelegate {
+extension IGMessageAttachmentLocation : MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if !isSendLocation { return }
@@ -228,7 +228,7 @@ extension IGMessageAttachmentCurrentLocationViewController : MKMapViewDelegate {
             av.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             annotationView = av
         }
-
+        
         // Configure your annotation view here
         if let annotationView = annotationView {
             annotationView.canShowCallout = true
@@ -238,7 +238,7 @@ extension IGMessageAttachmentCurrentLocationViewController : MKMapViewDelegate {
         return annotationView
     }
 }
-extension IGMessageAttachmentCurrentLocationViewController : CLLocationManagerDelegate {
+extension IGMessageAttachmentLocation : CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // we don't need following condition because when isSendLocation is false location manage callbacks are disable

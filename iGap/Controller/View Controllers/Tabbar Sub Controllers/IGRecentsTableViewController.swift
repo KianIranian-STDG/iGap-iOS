@@ -254,7 +254,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         IGHelperView.makeSearchView(searchBar: searchBar)
     }
     
-    func addressBookDidChange(_ notification: UITapGestureRecognizer) {
+    @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
             IGContactManager.syncedPhoneBookContact = true
             IGContactManager.sharedManager.manageContact()
@@ -790,7 +790,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     }
     
     
-    func segueToChatNotificationReceived(_ aNotification: Notification) {
+    @objc func segueToChatNotificationReceived(_ aNotification: Notification) {
         if let roomId = aNotification.userInfo?["room"] as? Int64 {
             let predicate = NSPredicate(format: "id = %lld", roomId)
             if let room = rooms!.filter(predicate).first {

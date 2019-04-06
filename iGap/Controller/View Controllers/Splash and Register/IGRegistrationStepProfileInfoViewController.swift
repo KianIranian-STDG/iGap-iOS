@@ -28,7 +28,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
         profileImageView.addGestureRecognizer(tap)
         profileImageView.isUserInteractionEnabled = true
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         let navItem = self.navigationItem as! IGNavigationItem
         navItem.addModalViewItems(leftItemText: nil, rightItemText: "Done", title: "Your Profile")
         navItem.rightViewContainer?.addAction {
@@ -45,12 +45,12 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         
     }
-    func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         let info = notification.userInfo!
-        let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardFrame.size.height + 10, 0)
+            self.tableView.contentInset = UIEdgeInsets.init(top: 0, left: 0, bottom: keyboardFrame.size.height + 10, right: 0)
         })
     }
 
@@ -110,7 +110,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         }
     }
     
-    func didTapOnChangeImage() {
+    @objc func didTapOnChangeImage() {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -153,7 +153,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         })
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) == true {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
             print ("I don't have a camera.")
         }
@@ -166,8 +166,11 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
     }
 
 extension IGRegistrationStepProfileInfoViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
             self.profileImageView.image = pickedImage
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2.0
             self.profileImageView.layer.masksToBounds = true
@@ -221,3 +224,13 @@ extension IGRegistrationStepProfileInfoViewController: UITextFieldDelegate {
 
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

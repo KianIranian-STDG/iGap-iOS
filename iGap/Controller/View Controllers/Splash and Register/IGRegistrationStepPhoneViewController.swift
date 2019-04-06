@@ -96,7 +96,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
 
     
-    func didTapOnBackground() {
+    @objc func didTapOnBackground() {
         self.phoneNumberField.resignFirstResponder()
     }
     
@@ -122,16 +122,16 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         
         
         let terms1 = NSMutableAttributedString(string: "By signing up you agree to our ",
-                                               attributes: [NSForegroundColorAttributeName: UIColor(red: 114/255.0, green: 114/255.0, blue: 114/255.0, alpha: 1.0)])
+                                               attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(red: 114/255.0, green: 114/255.0, blue: 114/255.0, alpha: 1.0)]))
         let terms2 = NSAttributedString(string: "Terms of Service",
-                                        attributes: [NSForegroundColorAttributeName: UIColor.organizationalColor()])
+                                        attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
         terms1.append(terms2)
         termLabel.attributedText = terms1
         let tapOnTerms = UITapGestureRecognizer(target: self, action: #selector(showTerms))
         termLabel.addGestureRecognizer(tapOnTerms)
         termLabel.isUserInteractionEnabled = true
         
-        let termsWebLink = NSAttributedString(string: "Privacy & Policy", attributes: [NSForegroundColorAttributeName: UIColor.organizationalColor()])
+        let termsWebLink = NSAttributedString(string: "Privacy & Policy", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
         termWebLink.attributedText = termsWebLink
         let tapOnTermsWebLink = UITapGestureRecognizer(target: self, action: #selector(showTermsWebLink))
         termWebLink.addGestureRecognizer(tapOnTermsWebLink)
@@ -281,15 +281,15 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             }.send()
     }
 
-    func showCountriesList() {
+    @objc func showCountriesList() {
         performSegue(withIdentifier: "showCountryCell", sender: self) //presentConutries
     }
     
-    func showTerms() {
+    @objc func showTerms() {
         performSegue(withIdentifier: "presentTerms", sender: self)
     }
     
-    func showTermsWebLink() {
+    @objc func showTermsWebLink() {
         IGHelperOpenLink.openLink(urlString: "https://www.igap.net/privacy.html", navigationController: self.navigationController!)
     }
     
@@ -371,3 +371,14 @@ extension IGRegistrationStepPhoneViewController : IGRegistrationStepSelectCountr
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}

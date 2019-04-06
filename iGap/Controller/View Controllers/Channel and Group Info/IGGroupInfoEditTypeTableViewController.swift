@@ -67,7 +67,7 @@ class IGGroupInfoEditTypeTableViewController: UITableViewController , UITextFiel
             groupDefualtName.font = UIFont.systemFont(ofSize: 14)
             groupDefualtName.text = "iGap.net/"
             groupLinkTextField.leftView = groupDefualtName
-            groupLinkTextField.leftViewMode = UITextFieldViewMode.always
+            groupLinkTextField.leftViewMode = UITextField.ViewMode.always
             groupLinkTextField.placeholder = "yourlink"
             groupLinkTextField.delegate = self
             
@@ -144,7 +144,7 @@ class IGGroupInfoEditTypeTableViewController: UITableViewController , UITextFiel
                 groupDefualtName.font = UIFont.systemFont(ofSize: 14)
                 groupDefualtName.text = "iGap.net/"
                 groupLinkTextField.leftView = groupDefualtName
-                groupLinkTextField.leftViewMode = UITextFieldViewMode.always
+                groupLinkTextField.leftViewMode = UITextField.ViewMode.always
                 groupLinkTextField.placeholder = "yourlink"
                 groupLinkTextField.delegate = self
                 

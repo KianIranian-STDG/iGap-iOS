@@ -188,7 +188,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         let template = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
         let overlay = MKHipsterTileOverlay(urlTemplate: template)
         overlay.canReplaceMapContent = true
-        mapView.add(overlay, level: .aboveLabels)
+        mapView.addOverlay(overlay, level: .aboveLabels)
         tileRenderer = MKTileOverlayRenderer(tileOverlay: overlay)
     }
     
@@ -231,14 +231,14 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         latestCommentState = commentState
         
         if commentState == .UPDATE {
-            btnComment.setTitle("", for: UIControlState.normal)
-            btnComment.setTitleColor(UIColor.iGapColor(), for: UIControlState.normal)
+            btnComment.setTitle("", for: UIControl.State.normal)
+            btnComment.setTitleColor(UIColor.iGapColor(), for: UIControl.State.normal)
         } else if commentState == .CLEAR {
-            btnComment.setTitle("", for: UIControlState.normal)
-            btnComment.setTitleColor(UIColor.red, for: UIControlState.normal)
+            btnComment.setTitle("", for: UIControl.State.normal)
+            btnComment.setTitleColor(UIColor.red, for: UIControl.State.normal)
         } else if commentState == .NONE {
-            btnComment.setTitle(" ", for: UIControlState.normal)
-            btnComment.setTitleColor(UIColor.clear, for: UIControlState.normal)
+            btnComment.setTitle(" ", for: UIControl.State.normal)
+            btnComment.setTitleColor(UIColor.clear, for: UIControl.State.normal)
         }
     }
     
@@ -276,8 +276,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
             return
         }
         
-        span = MKCoordinateSpanMake(0, 360 / pow(2, Double(16)) * Double(mapView.frame.size.width) / 256)
-        let region = MKCoordinateRegionMake(currentLocation.coordinate, span)
+        span = MKCoordinateSpan.init(latitudeDelta: 0, longitudeDelta: 360 / pow(2, Double(16)) * Double(mapView.frame.size.width) / 256)
+        let region = MKCoordinateRegion.init(center: currentLocation.coordinate, span: span)
         
         if isFirstSetRegion {
             detectUsersCoordinate(delay: 2)
@@ -291,7 +291,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         updatePosition(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude)
     }
 
-    func callToUser(sender: UIButton){
+    @objc func callToUser(sender: UIButton){
         if IGCall.callPageIsEnable {
             return
         }
@@ -539,7 +539,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
         }).send()
     }
     
-    func manageOpenChat(sender: UIButton){
+    @objc func manageOpenChat(sender: UIButton){
         let userId = userIdDictionary[sender.tag]
         let realm = try! Realm()
         let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", userId!)
@@ -730,8 +730,8 @@ extension IGMap: MKMapViewDelegate {
             let widthSize = CGFloat(200)
             let heightSize = comment?.height(withConstrainedWidth: widthSize, font: font) // compute height according to width and font size
 
-            let width = NSLayoutConstraint(item: label1, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: widthSize)
-            let height = NSLayoutConstraint(item: label1, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: heightSize!)
+            let width = NSLayoutConstraint(item: label1, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: widthSize)
+            let height = NSLayoutConstraint(item: label1, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: heightSize!)
             
             label1.addConstraint(width)
             label1.addConstraint(height)
@@ -769,14 +769,14 @@ extension IGMap: MKMapViewDelegate {
         let zoomLevel = getZoomLevel()
         
         if (self.latestSpan != nil) && (MIN_ZOOM_LEVEL > zoomLevel || MAX_ZOOM_LEVEL < zoomLevel) {
-            let region = MKCoordinateRegionMake(coordinate, self.latestSpan)
+            let region = MKCoordinateRegion.init(center: coordinate, span: self.latestSpan)
             mapView.setRegion(region, animated:true)
         } else {
             if northLimitation == nil {
                 return
             }
             
-            self.latestSpan = MKCoordinateSpanMake(0, 360 / pow(2, Double(zoomLevel-1)) * Double(mapView.frame.size.width) / 256)
+            self.latestSpan = MKCoordinateSpan.init(latitudeDelta: 0, longitudeDelta: 360 / pow(2, Double(zoomLevel-1)) * Double(mapView.frame.size.width) / 256)
             
             let latitude = mapView.region.center.latitude
             let longitude = mapView.region.center.longitude
@@ -787,8 +787,8 @@ extension IGMap: MKMapViewDelegate {
                 if lastCenterCoordinate == nil {
                     return
                 }
-                span = MKCoordinateSpanMake(0, 360 / pow(2, Double(16)) * Double(mapView.frame.size.width) / 256)
-                let region = MKCoordinateRegionMake(lastCenterCoordinate, span)
+                span = MKCoordinateSpan.init(latitudeDelta: 0, longitudeDelta: 360 / pow(2, Double(16)) * Double(mapView.frame.size.width) / 256)
+                let region = MKCoordinateRegion.init(center: lastCenterCoordinate, span: span)
                 mapView.setRegion(region, animated: true)
             }
         }

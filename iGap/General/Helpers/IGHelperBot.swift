@@ -150,7 +150,7 @@ class IGHelperBot {
         }
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
-        btn.setTitle(additionalButton.label, for: UIControlState.normal)
+        btn.setTitle(additionalButton.label, for: UIControl.State.normal)
         btn.removeUnderline()
         
         /*

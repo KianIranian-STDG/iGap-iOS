@@ -23,7 +23,7 @@ class IGSettingAddContactTableViewController: UITableViewController {
         setupDoneBarButton()
         tableView.backgroundColor = tableviewBackgroundColor
     }
-       func doneButtonClicked(){
+       @objc func doneButtonClicked(){
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -68,14 +68,25 @@ class IGSettingAddContactTableViewController: UITableViewController {
     func setupDoneBarButton(){
         let doneBtn = UIButton()
         doneBtn.frame = CGRect(x: 8, y: 300, width: 60, height: 0)
-        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize, weight: UIFontWeightSemibold)
+        let normalTitleFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize, weight: UIFont.Weight.semibold)
         let normalTitleColor = greenColor
-        let attrs = [NSFontAttributeName: normalTitleFont, NSForegroundColorAttributeName: normalTitleColor]
-        let doneTitle = NSAttributedString(string: "Done", attributes: attrs)
+        let attrs = [convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): normalTitleColor]
+        let doneTitle = NSAttributedString(string: "Done", attributes: convertToOptionalNSAttributedStringKeyDictionary(attrs))
         doneBtn.setAttributedTitle(doneTitle, for: .normal)
-        doneBtn.addTarget(self, action: #selector(IGSettingAddContactTableViewController.doneButtonClicked), for: UIControlEvents.touchUpInside)
+        doneBtn.addTarget(self, action: #selector(IGSettingAddContactTableViewController.doneButtonClicked), for: UIControl.Event.touchUpInside)
         let topRightBarbuttonItem = UIBarButtonItem(customView: doneBtn)
         self.navigationItem.rightBarButtonItem = topRightBarbuttonItem
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

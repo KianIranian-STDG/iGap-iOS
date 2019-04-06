@@ -111,7 +111,7 @@ class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDe
     
     fileprivate func setSelectedCountry(_ country:IGCountryInfo) {
         txtCountryCode.text = "+" + String(Int((country.countryCode)))
-        btnChooseCountry.setTitle(country.countryName , for: UIControlState.normal)
+        btnChooseCountry.setTitle(country.countryName , for: UIControl.State.normal)
         
         if country.codePattern != nil && country.codePattern != "" {
             edtPhoneNumber.setMask((country.codePatternMask), withMaskTemplate: country.codePatternTemplate)

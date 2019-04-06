@@ -82,7 +82,7 @@ class AudioCell: AbstractCell {
         if txtAudioName == nil {
             txtAudioName = UILabel()
             txtAudioName.textColor = UIColor.dialogueBoxInfo()
-            txtAudioName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            txtAudioName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
             txtAudioName.lineBreakMode = .byTruncatingMiddle
             txtAudioName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtAudioName)
@@ -91,7 +91,7 @@ class AudioCell: AbstractCell {
         if txtAudioArtist == nil {
             txtAudioArtist = UILabel()
             txtAudioArtist.textColor = UIColor.dialogueBoxInfo()
-            txtAudioArtist.font = UIFont.systemFont(ofSize: 11.0, weight: UIFontWeightMedium)
+            txtAudioArtist.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.medium)
             txtAudioArtist.numberOfLines = 0
             mainBubbleViewAbs.addSubview(txtAudioArtist)
         }
@@ -103,7 +103,7 @@ class AudioCell: AbstractCell {
         
         if txtAudioTime == nil {
             txtAudioTime = UILabel()
-            txtAudioTime.font = UIFont.systemFont(ofSize: 10.0, weight: UIFontWeightRegular)
+            txtAudioTime.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.regular)
             txtAudioTime.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtAudioTime)
         }

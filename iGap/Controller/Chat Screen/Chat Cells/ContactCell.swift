@@ -113,13 +113,13 @@ class ContactCell: AbstractCell {
         
         if nameLabel == nil {
             nameLabel = UILabel()
-            nameLabel!.font = UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightSemibold)
+            nameLabel!.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
             mainBubbleViewAbs.addSubview(nameLabel!)
         }
         
         if phonesLabel == nil {
             phonesLabel = UILabel()
-            phonesLabel!.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            phonesLabel!.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
             phonesLabel!.numberOfLines = 0
             mainBubbleViewAbs.addSubview(phonesLabel!)
         }
@@ -177,7 +177,7 @@ class ContactCell: AbstractCell {
         
         if emailsLabel == nil {
             emailsLabel = UILabel()
-            emailsLabel!.font = UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
+            emailsLabel!.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
             emailsLabel!.numberOfLines = 0
             mainBubbleViewAbs.addSubview(emailsLabel!)
         }

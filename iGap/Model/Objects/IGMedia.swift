@@ -32,7 +32,7 @@ class IGMedia: INSPhotoViewable, Equatable {
             image = UIImage.originalImage(for: attachment)
             thumbnailImage = UIImage.thumbnail(for: attachment)
             if let text = roomMessage?.message {
-                attributedTitle = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.black.withAlphaComponent(0.5)])
+                attributedTitle = NSAttributedString(string: text, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.black.withAlphaComponent(0.5)]))
             }
         }
     }
@@ -90,4 +90,15 @@ class IGMedia: INSPhotoViewable, Equatable {
 
 func ==<T: IGMedia>(lhs: T, rhs: T) -> Bool {
     return lhs === rhs
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }

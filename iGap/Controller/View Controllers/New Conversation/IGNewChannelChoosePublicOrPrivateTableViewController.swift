@@ -45,12 +45,12 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
         channelLinkTextField.text = invitedLink
         channelLinkTextField.isUserInteractionEnabled = false
         
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.sectionIndexBackgroundColor = UIColor.white
-        tableView.contentInset = UIEdgeInsetsMake(-1.0, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsets.init(top: -1.0, left: 0, bottom: 0, right: 0)
         
-        privateChannelCell.selectionStyle = UITableViewCellSelectionStyle.none
-        publicChannelCell.selectionStyle = UITableViewCellSelectionStyle.none
+        privateChannelCell.selectionStyle = UITableViewCell.SelectionStyle.none
+        publicChannelCell.selectionStyle = UITableViewCell.SelectionStyle.none
         setNavigation()
     }
     
@@ -207,7 +207,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
             channelDefualtName.font = UIFont.systemFont(ofSize: 14)
             channelDefualtName.text = "iGap.net/"
             channelLinkTextField.leftView = channelDefualtName
-            channelLinkTextField.leftViewMode = UITextFieldViewMode.always
+            channelLinkTextField.leftViewMode = UITextField.ViewMode.always
             channelLinkTextField.placeholder = "yourlink"
             channelLinkTextField.delegate = self
         }

@@ -90,7 +90,7 @@ class IGDownloadUploadIndicatorView: UIView {
         self.downloadUploadPercentageLabel = nil
     }
     
-    func didTapOnView() {
+    @objc func didTapOnView() {
         self.delegate?.downloadUploadIndicatorDidTap(self)
     }
     
@@ -222,7 +222,7 @@ class IGDownloadUploadIndicatorView: UIView {
         animation.toValue = nextValue
         
         // Do a linear animation (i.e. the speed of the animation stays the same)
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         
         // Set the circleLayer's strokeEnd property to the download percent so that it's the
         // right value when the animation ends.
@@ -282,7 +282,7 @@ class IGDownloadUploadIndicatorView: UIView {
         if self.sizeLabel == nil  && shouldShowSize {
             self.sizeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
             self.sizeLabel?.text = size
-            self.sizeLabel?.font = UIFont.systemFont(ofSize: 9.0, weight: 2)
+            self.sizeLabel?.font = UIFont.systemFont(ofSize: 9.0, weight: UIFont.Weight(rawValue: 2))
             self.sizeLabel?.textColor = UIColor.white
             self.sizeLabel?.textAlignment = .center
             self.addSubview(self.sizeLabel!)
@@ -341,7 +341,7 @@ class IGDownloadUploadIndicatorView: UIView {
             
             // Setup the CAShapeLayer with the path, colors, and line width
             downloadUploadProgressLayer = CAShapeLayer()
-            downloadUploadProgressLayer.lineCap = "round"
+            downloadUploadProgressLayer.lineCap = convertToCAShapeLayerLineCap("round")
             
             downloadUploadProgressLayer.path = circlePath.cgPath
             downloadUploadProgressLayer.cornerRadius = 5
@@ -382,4 +382,9 @@ extension IGDownloadUploadIndicatorView: CAAnimationDelegate {
             }
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAShapeLayerLineCap(_ input: String) -> CAShapeLayerLineCap {
+	return CAShapeLayerLineCap(rawValue: input)
 }

@@ -177,7 +177,7 @@ class CellSizeCalculator: NSObject {
     class func getStringStyle() -> [String: Any]{
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
-        return [NSFontAttributeName: computeSizeFont(), NSParagraphStyleAttributeName: paragraph]
+        return [convertFromNSAttributedStringKey(NSAttributedString.Key.font): computeSizeFont(), convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): paragraph]
     }
     
     class func bodyRect(text: NSString, isEdited: Bool, room: IGRoom) -> CGSize {
@@ -195,7 +195,7 @@ class CellSizeCalculator: NSObject {
         
         var stringRect = textWithTime.boundingRect(
             with: CGSize(width: CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
-            options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: getStringStyle(), context: nil)
+            options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: convertToOptionalNSAttributedStringKeyDictionary(getStringStyle()), context: nil)
         
         if textWithTime.isRTL() || room.type == .channel {
             stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL_OR_VOTE)
@@ -253,4 +253,15 @@ class CellSizeCalculator: NSObject {
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

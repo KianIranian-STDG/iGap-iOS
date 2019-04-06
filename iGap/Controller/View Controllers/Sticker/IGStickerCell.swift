@@ -92,11 +92,11 @@ class IGStickerCell: UICollectionViewCell {
     
     /********************************/
     /*********** Callback ***********/
-    func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnSticker(_ gestureRecognizer: UITapGestureRecognizer) {
         IGStickerViewController.stickerTapListener.onStickerTap(stickerItem: self.stickerItemRealm)
     }
     
-    func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {
         IGStickerViewController.previewSectionIndex = self.sectionIndex
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGStickerViewController") as! IGStickerViewController

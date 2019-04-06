@@ -121,21 +121,21 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     private func setOperator(){
         
         if operatorType == nil {
-            btnOperator.setTitle(operatorNotDetect, for: UIControlState.normal)
+            btnOperator.setTitle(operatorNotDetect, for: UIControl.State.normal)
             return
         }
         
         switch operatorType {
         case .irancell?:
-            btnOperator.setTitle(operatorIrancell, for: UIControlState.normal)
+            btnOperator.setTitle(operatorIrancell, for: UIControl.State.normal)
             break
             
         case .mci?:
-            btnOperator.setTitle(operatorMCI, for: UIControlState.normal)
+            btnOperator.setTitle(operatorMCI, for: UIControl.State.normal)
             break
             
         case .rightel?:
-            btnOperator.setTitle(operatorRightel, for: UIControlState.normal)
+            btnOperator.setTitle(operatorRightel, for: UIControl.State.normal)
             break
             
         default:
@@ -143,7 +143,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
         }
         
         operatorChargeType = nil
-        self.btnChargeType.setTitle("Choose Charge Type", for: UIControlState.normal)
+        self.btnChargeType.setTitle("Choose Charge Type", for: UIControl.State.normal)
     }
     
     private func showAlertView(title: String, message: String?, subtitles: [String], alertClouser: @escaping ((_ title :String) -> Void), hasCancel: Bool = true){
@@ -244,22 +244,22 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
                 } else if self.operatorType == IGOperator.rightel {
                     self.operatorChargeType = IGPMplGetTopupToken.IGPType.rightel
                 }
-                self.btnChargeType.setTitle(self.normalCharge, for: UIControlState.normal)
+                self.btnChargeType.setTitle(self.normalCharge, for: UIControl.State.normal)
                 break
                 
             case self.amazingCharge:
                 self.operatorChargeType = IGPMplGetTopupToken.IGPType.irancellWow
-                self.btnChargeType.setTitle(self.amazingCharge, for: UIControlState.normal)
+                self.btnChargeType.setTitle(self.amazingCharge, for: UIControl.State.normal)
                 break
                 
             case self.wimaxCharge:
                 self.operatorChargeType = IGPMplGetTopupToken.IGPType.irancellWimax
-                self.btnChargeType.setTitle(self.wimaxCharge, for: UIControlState.normal)
+                self.btnChargeType.setTitle(self.wimaxCharge, for: UIControl.State.normal)
                 break
                 
             case self.permanently:
                 self.operatorChargeType = IGPMplGetTopupToken.IGPType.irancellPostpaid
-                self.btnChargeType.setTitle(self.permanently, for: UIControlState.normal)
+                self.btnChargeType.setTitle(self.permanently, for: UIControl.State.normal)
                 break
                 
             default:
@@ -293,7 +293,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
             default:
                 break
             }
-            self.btnPrice.setTitle(title, for: UIControlState.normal)
+            self.btnPrice.setTitle(title, for: UIControl.State.normal)
             self.view.endEditing(true)
         })
     }

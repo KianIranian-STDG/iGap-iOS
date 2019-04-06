@@ -15,7 +15,7 @@ class IGTappableView: UIView {
     private var tap: (()->())?
     
     override var intrinsicContentSize: CGSize {
-        return UILayoutFittingExpandedSize
+        return UIView.layoutFittingExpandedSize
     }
     
     override init(frame: CGRect) {
@@ -35,7 +35,7 @@ class IGTappableView: UIView {
         self.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func didGotTap() {
+    @objc func didGotTap() {
         if let action = self.tap {
             action()
         }

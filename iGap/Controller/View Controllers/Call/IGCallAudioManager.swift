@@ -26,13 +26,13 @@ class IGCallAudioManager {
     }
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRouteChange(_:)), name: NSNotification.Name.AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRouteChange(_:)), name: AVAudioSession.routeChangeNotification, object: nil)
     }
     
     @objc func handleRouteChange(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
             let reasonRaw = userInfo[AVAudioSessionRouteChangeReasonKey] as? NSNumber,
-            let reason = AVAudioSessionRouteChangeReason(rawValue: reasonRaw.uintValue)
+            let reason = AVAudioSession.RouteChangeReason(rawValue: reasonRaw.uintValue)
             else { fatalError("Strange... could not get routeChange")
         }
         
@@ -46,7 +46,7 @@ class IGCallAudioManager {
     public func setSpeaker(button: UIButton) {
         do {
             try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-            button.setTitle("", for: UIControlState.normal)
+            button.setTitle("", for: UIControl.State.normal)
         } catch let error {
             print("error: \(error)")
         }
@@ -55,7 +55,7 @@ class IGCallAudioManager {
     private func setAudioCategory(){
         if #available(iOS 10.0, *) {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.voiceChat)))
             } catch {
                 print("error AVAudioSessionModeVideoChat")
             }
@@ -65,7 +65,7 @@ class IGCallAudioManager {
     private func setVideoCategory(){
         if #available(iOS 10.0, *) {
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.videoChat)))
             } catch {
                 print("error AVAudioSessionModeVideoChat")
             }
@@ -81,13 +81,13 @@ class IGCallAudioManager {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let currentRoute = audioSession.currentRoute
         for input in audioSession.availableInputs!{
-            if input.portType == AVAudioSessionPortBluetoothA2DP || input.portType == AVAudioSessionPortBluetoothHFP || input.portType == AVAudioSessionPortBluetoothLE{
+            if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE){
                 let localAction = UIAlertAction(title: input.portName, style: .default, handler: {
                     (alert: UIAlertAction!) -> Void in
                     do {
                         self.setAudioCategory()
-                        try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                     } catch let error as NSError {
                         print("audioSession error turning off speaker: \(error.localizedDescription)")
                     }
@@ -100,32 +100,32 @@ class IGCallAudioManager {
                 })
                 
                 for description in currentRoute.outputs {
-                    if description.portType == AVAudioSessionPortBluetoothA2DP {
+                    if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP) {
                         localAction.setValue(true, forKey: "checked")
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                         break
-                    }else if description.portType == AVAudioSessionPortBluetoothHFP {
+                    }else if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP) {
                         localAction.setValue(true, forKey: "checked")
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                         break
-                    }else if description.portType == AVAudioSessionPortBluetoothLE{
+                    }else if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE){
                         localAction.setValue(true, forKey: "checked")
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                         break
                     }
                 }
                 localAction.setValue(UIImage(named:"bluetooth.png"), forKey: "image")
                 optionMenu.addAction(localAction)
                 
-            } else if input.portType == AVAudioSessionPortBuiltInMic || input.portType == AVAudioSessionPortBuiltInReceiver  {
+            } else if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInMic) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInReceiver)  {
                 
                 deviceAction = UIAlertAction(title: "iPhone", style: .default, handler: {
                     (alert: UIAlertAction!) -> Void in
                     
                     do {
                         self.setAudioCategory()
-                        try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                     } catch let error as NSError {
                         print("audioSession error turning off speaker: \(error.localizedDescription)")
                     }
@@ -138,20 +138,20 @@ class IGCallAudioManager {
                 })
                 
                 for description in currentRoute.outputs {
-                    if description.portType == AVAudioSessionPortBuiltInMic || description.portType  == AVAudioSessionPortBuiltInReceiver {
+                    if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInMic) || convertFromAVAudioSessionPort(description.portType)  == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInReceiver) {
                         deviceAction.setValue(true, forKey: "checked")
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                         break
                     }
                 }
                 
-            } else if input.portType == AVAudioSessionPortHeadphones || input.portType == AVAudioSessionPortHeadsetMic {
+            } else if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headsetMic) {
                 headphonesExist = true
                 let localAction = UIAlertAction(title: "Headphones", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     do {
                         self.setAudioCategory()
-                        try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.none)
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                     } catch let error as NSError {
                         print("audioSession error turning off speaker: \(error.localizedDescription)")
                     }
@@ -163,13 +163,13 @@ class IGCallAudioManager {
                     }
                 })
                 for description in currentRoute.outputs {
-                    if description.portType == AVAudioSessionPortHeadphones {
+                    if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
                         localAction.setValue(true, forKey: "checked")
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                         break
-                    } else if description.portType == AVAudioSessionPortHeadsetMic {
+                    } else if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headsetMic) {
                         localAction.setValue(true, forKey: "checked")
-                        btnAudioState.setTitle("", for: UIControlState.normal)
+                        btnAudioState.setTitle("", for: UIControl.State.normal)
                         break
                     }
                 }
@@ -185,16 +185,16 @@ class IGCallAudioManager {
         let speakerOutput = UIAlertAction(title: "Speaker", style: .default, handler: { (alert: UIAlertAction!) -> Void in
             do {
                 self.setVideoCategory()
-                try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-                btnAudioState.setTitle("", for: UIControlState.normal)
+                try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+                btnAudioState.setTitle("", for: UIControl.State.normal)
             } catch let error as NSError {
                 print("audioSession error turning on speaker: \(error.localizedDescription)")
             }
         })
         for description in currentRoute.outputs {
-            if description.portType == AVAudioSessionPortBuiltInSpeaker{
+            if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInSpeaker){
                 speakerOutput.setValue(true, forKey: "checked")
-                btnAudioState.setTitle("", for: UIControlState.normal)
+                btnAudioState.setTitle("", for: UIControl.State.normal)
                 break
             }
         }
@@ -215,37 +215,37 @@ class IGCallAudioManager {
             let audioSession = AVAudioSession.sharedInstance()
             let currentRoute = audioSession.currentRoute
             for input in audioSession.availableInputs!{
-                if input.portType == AVAudioSessionPortBluetoothA2DP || input.portType == AVAudioSessionPortBluetoothHFP || input.portType == AVAudioSessionPortBluetoothLE{
+                if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE){
                     
                     for description in currentRoute.outputs {
-                        if description.portType == AVAudioSessionPortBluetoothA2DP {
-                            btnAudioState.setTitle("", for: UIControlState.normal)
+                        if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP) {
+                            btnAudioState.setTitle("", for: UIControl.State.normal)
                             break
-                        }else if description.portType == AVAudioSessionPortBluetoothHFP {
-                            btnAudioState.setTitle("", for: UIControlState.normal)
+                        }else if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP) {
+                            btnAudioState.setTitle("", for: UIControl.State.normal)
                             break
-                        }else if description.portType == AVAudioSessionPortBluetoothLE{
-                            btnAudioState.setTitle("", for: UIControlState.normal)
+                        }else if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE){
+                            btnAudioState.setTitle("", for: UIControl.State.normal)
                             break
                         }
                     }
                     
-                } else if input.portType == AVAudioSessionPortBuiltInMic || input.portType == AVAudioSessionPortBuiltInReceiver  {
+                } else if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInMic) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInReceiver)  {
                     
                     for description in currentRoute.outputs {
-                        if description.portType == AVAudioSessionPortBuiltInMic || description.portType  == AVAudioSessionPortBuiltInReceiver {
-                            btnAudioState.setTitle("", for: UIControlState.normal)
+                        if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInMic) || convertFromAVAudioSessionPort(description.portType)  == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInReceiver) {
+                            btnAudioState.setTitle("", for: UIControl.State.normal)
                             break
                         }
                     }
                     
-                } else if input.portType == AVAudioSessionPortHeadphones || input.portType == AVAudioSessionPortHeadsetMic {
+                } else if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headsetMic) {
                     for description in currentRoute.outputs {
-                        if description.portType == AVAudioSessionPortHeadphones {
-                            btnAudioState.setTitle("", for: UIControlState.normal)
+                        if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
+                            btnAudioState.setTitle("", for: UIControl.State.normal)
                             break
-                        } else if description.portType == AVAudioSessionPortHeadsetMic {
-                            btnAudioState.setTitle("", for: UIControlState.normal)
+                        } else if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headsetMic) {
+                            btnAudioState.setTitle("", for: UIControl.State.normal)
                             break
                         }
                     }
@@ -253,8 +253,8 @@ class IGCallAudioManager {
             }
             
             for description in currentRoute.outputs {
-                if description.portType == AVAudioSessionPortBuiltInSpeaker{
-                    btnAudioState.setTitle("", for: UIControlState.normal)
+                if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.builtInSpeaker){
+                    btnAudioState.setTitle("", for: UIControl.State.normal)
                     break
                 }
             }
@@ -265,9 +265,9 @@ class IGCallAudioManager {
         let audioSession = AVAudioSession.sharedInstance()
         let currentRoute = audioSession.currentRoute
         for input in audioSession.availableInputs!{
-            if input.portType == AVAudioSessionPortBluetoothA2DP || input.portType == AVAudioSessionPortBluetoothHFP || input.portType == AVAudioSessionPortBluetoothLE{
+            if convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP) || convertFromAVAudioSessionPort(input.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE){
                 for description in currentRoute.outputs {
-                    if description.portType == AVAudioSessionPortBluetoothA2DP || description.portType == AVAudioSessionPortBluetoothHFP || description.portType == AVAudioSessionPortBluetoothLE{
+                    if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothA2DP) || convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothHFP) || convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.bluetoothLE){
                         return true
                     }
                 }
@@ -275,4 +275,19 @@ class IGCallAudioManager {
         }
         return false
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
+	return input.rawValue
 }

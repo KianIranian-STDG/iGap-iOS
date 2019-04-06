@@ -341,55 +341,55 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     /// add link attribute
     fileprivate func addLinkAttribute(_ mutAttrString: NSMutableAttributedString) {
         var range = NSRange(location: 0, length: 0)
-        var attributes = mutAttrString.attributes(at: 0, effectiveRange: &range)
+        var attributes = convertFromNSAttributedStringKeyDictionary(mutAttrString.attributes(at: 0, effectiveRange: &range))
         
-        attributes[NSFontAttributeName] = font!
-        attributes[NSForegroundColorAttributeName] = textColor
-        mutAttrString.addAttributes(attributes, range: range)
+        attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = font!
+        attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = textColor
+        mutAttrString.addAttributes(convertToNSAttributedStringKeyDictionary(attributes), range: range)
 
-        attributes[NSForegroundColorAttributeName] = mentionColor
+        attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = mentionColor
 
         for (type, elements) in activeElements {
 
             switch type {
             case .mention:
-                attributes[NSForegroundColorAttributeName] = mentionColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = mentionColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .hashtag:
-                attributes[NSForegroundColorAttributeName] = hashtagColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = hashtagColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .url:
-                attributes[NSForegroundColorAttributeName] = URLColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = URLColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .email:
-                attributes[NSForegroundColorAttributeName] = EmailColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = EmailColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .custom:
-                attributes[NSForegroundColorAttributeName] = customColor[type] ?? defaultCustomColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = customColor[type] ?? defaultCustomColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .bot:
-                attributes[NSForegroundColorAttributeName] = botColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = botColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
                 break
                 
             case .bold:
-                attributes[NSForegroundColorAttributeName] = boldColor
-                attributes[NSFontAttributeName] = UIFont.igFont(ofSize: 14.3, weight: .bold)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = boldColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3, weight: .bold)
                 break
             }
             
             if let highlightFont = hightlightFont {
-                attributes[NSFontAttributeName] = highlightFont
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = highlightFont
             }
 			
             if let configureLinkAttribute = configureLinkAttribute {
@@ -397,7 +397,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             }
 
             for element in elements {
-                mutAttrString.setAttributes(attributes, range: element.range)
+                mutAttrString.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(attributes), range: element.range)
             }
         }
     }
@@ -438,15 +438,15 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         let mutAttrString = NSMutableAttributedString(attributedString: attrString)
 
         var range = NSRange(location: 0, length: 0)
-        var attributes = mutAttrString.attributes(at: 0, effectiveRange: &range)
+        var attributes = convertFromNSAttributedStringKeyDictionary(mutAttrString.attributes(at: 0, effectiveRange: &range))
         
-        let paragraphStyle = attributes[NSParagraphStyleAttributeName] as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
+        let paragraphStyle = attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle)] as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         paragraphStyle.alignment = textAlignment
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.minimumLineHeight = minimumLineHeight > 0 ? minimumLineHeight: self.font.pointSize * 1.14
-        attributes[NSParagraphStyleAttributeName] = paragraphStyle
-        mutAttrString.setAttributes(attributes, range: range)
+        attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle)] = paragraphStyle
+        mutAttrString.setAttributes(convertToOptionalNSAttributedStringKeyDictionary(attributes), range: range)
 
         return mutAttrString
     }
@@ -456,7 +456,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             return
         }
         
-        var attributes = textStorage.attributes(at: 0, effectiveRange: nil)
+        var attributes = convertFromNSAttributedStringKeyDictionary(textStorage.attributes(at: 0, effectiveRange: nil))
         let type = selectedElement.type
 
         if isSelected {
@@ -472,7 +472,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .bot: selectedColor = botSelectedColor ?? botColor
             case .bold: selectedColor = boldColor
             }
-            attributes[NSForegroundColorAttributeName] = selectedColor
+            attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = selectedColor
         } else {
             let unselectedColor: UIColor
             switch type {
@@ -484,18 +484,18 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .bot: unselectedColor = botColor
             case .bold: unselectedColor = boldColor
             }
-            attributes[NSForegroundColorAttributeName] = unselectedColor
+            attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = unselectedColor
         }
         
         if let highlightFont = hightlightFont {
-            attributes[NSFontAttributeName] = highlightFont
+            attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = highlightFont
         }
         
         if let configureLinkAttribute = configureLinkAttribute {
             attributes = configureLinkAttribute(type, attributes, isSelected)
         }
 
-        textStorage.addAttributes(attributes, range: selectedElement.range)
+        textStorage.addAttributes(convertToNSAttributedStringKeyDictionary(attributes), range: selectedElement.range)
 
         setNeedsDisplay()
     }
@@ -615,4 +615,25 @@ extension ActiveLabel: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKeyDictionary(_ input: [NSAttributedString.Key: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKeyDictionary(_ input: [String: Any]) -> [NSAttributedString.Key: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

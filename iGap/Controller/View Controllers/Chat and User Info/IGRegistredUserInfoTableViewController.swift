@@ -279,7 +279,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
     }
 
     
-    func handleTap(recognizer:UITapGestureRecognizer) {
+    @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
             if let userAvatar = user?.avatar {
                 showAvatar(avatar: userAvatar)
@@ -372,7 +372,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
     }
     
-    func updateCounting(){
+    @objc func updateCounting(){
         //timer.invalidate()
 //        let nextPhoto = galleryPhotos?.accessCurrentPhotoDetail()
 //        if let index =  self.avatarPhotos?.index(where: {$0 === nextPhoto}) {

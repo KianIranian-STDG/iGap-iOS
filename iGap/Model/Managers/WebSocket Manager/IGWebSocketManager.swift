@@ -151,7 +151,7 @@ class IGWebSocketManager: NSObject {
         connectionProblemTimer.invalidate()
     }
     
-    func thereSeemsToBeAProblemWithWebSocket() {
+    @objc func thereSeemsToBeAProblemWithWebSocket() {
         self.socket.disconnect(forceTimeout:1)
     }
     

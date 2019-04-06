@@ -401,7 +401,7 @@ class IGFile: Object {
         } else if let filePath = self.path() {
             try? self.data = Data(contentsOf: filePath)
         } else if self.attachedImage != nil {
-            self.data = UIImageJPEGRepresentation(self.attachedImage!, 0.7)
+            self.data = self.attachedImage!.jpegData(compressionQuality: 0.7)
         } else {
             //assert(self.data == nil, "file data did not load")
         }

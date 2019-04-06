@@ -338,7 +338,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             
             if #available(iOS 10.0, *) {
                 do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.videoChat)))
                 } catch {
                     print("error AVAudioSessionModeVideoChat")
                 }
@@ -355,7 +355,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             
             if #available(iOS 10.0, *) {
                 do {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.voiceChat)))
                 } catch {
                     print("error AVAudioSessionModeVoiceChat")
                 }
@@ -366,7 +366,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             imgAvatar.isHidden = false
             btnSwitchCamera.isEnabled = false
             txtiGap.text = "iGap Voice Call"
-            btnSwitchCamera.setTitle("", for: UIControlState.normal)
+            btnSwitchCamera.setTitle("", for: UIControl.State.normal)
         }
         
         if let avatar = userInfo.avatar {
@@ -465,9 +465,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     private func muteManager(){
         if isMuteEnable {
-            btnMute.setTitle("", for: UIControlState.normal)
+            btnMute.setTitle("", for: UIControl.State.normal)
         } else {
-            btnMute.setTitle("", for: UIControlState.normal)
+            btnMute.setTitle("", for: UIControl.State.normal)
         }
         
         for audioTrack in RTCClient.mediaStream.audioTracks {
@@ -520,7 +520,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     if self.callType == .videoCalling {
                         if #available(iOS 10.0, *) {
                             do {
-                                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVideoChat)
+                                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.videoChat)))
                             } catch {
                                 print("error AVAudioSessionModeVideoChat")
                             }
@@ -528,14 +528,18 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     } else {
                         if #available(iOS 10.0, *) {
                             do {
-                                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, mode :AVAudioSessionModeVoiceChat)
+                                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.voiceChat)))
                             } catch {
                                 print("error AVAudioSessionModeVideoChat")
                             }
                         }
                     }
                     
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .allowBluetooth)
+                    if #available(iOS 10.0, *) {
+                        try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)),mode: AVAudioSession.Mode.default , options: .allowBluetooth)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     try AVAudioSession.sharedInstance().setActive(true)
                     
                     // if is videoCalling && current btn title state is speaker enable && not paired bluetooth device THEN set current audio state to speaker
@@ -669,7 +673,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
     }
     
-    func updateTimerLabel() {
+    @objc func updateTimerLabel() {
         recordedTime += 1
         let minute = String(format: "%02d", Int(recordedTime/60))
         let seconds = String(format: "%02d", Int(recordedTime%60))
@@ -742,7 +746,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         guard let url = Bundle.main.url(forResource: sound, withExtension: "mp3") else { return }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: AVAudioSession.Mode.default )
+            } else {
+                // Fallback on earlier versions
+            }
             try AVAudioSession.sharedInstance().setActive(true)
         
             stopSound()
@@ -929,4 +937,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     func callDidMute(isMuted: Bool) {
         muteManager()
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
+	return input.rawValue
 }

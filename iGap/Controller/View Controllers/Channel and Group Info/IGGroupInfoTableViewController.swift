@@ -208,7 +208,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
         }
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) == true {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
             print ("I don't have a camera.")
         }
@@ -376,7 +376,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
         }
     }
     
-    func handleTap(recognizer:UITapGestureRecognizer) {
+    @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
             if let userAvatar = room?.groupRoom?.avatar {
                 showAvatar( avatar: userAvatar)
@@ -879,9 +879,12 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
 
 }
 extension IGGroupInfoTableViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
-        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
             self.groupAvatarView.setImage(pickedImage)
             
             let avatar = IGFile()
@@ -925,3 +928,13 @@ extension IGGroupInfoTableViewController: UINavigationControllerDelegate {
     
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

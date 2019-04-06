@@ -150,7 +150,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         }
     }
     
-    func handleTap(recognizer:UITapGestureRecognizer) {
+    @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
             if let userAvatar = user?.avatar {
             showAvatar( avatar: userAvatar)
@@ -231,7 +231,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
     }
     
-    func updateCounting(){
+    @objc func updateCounting(){
 //        let nextPhoto = galleryPhotos?.accessCurrentPhotoDetail()
 //        if let index =  self.avatarPhotos?.index(where: {$0 === nextPhoto}) {
 //            let currentAvatarFile = self.avatars[index].file
@@ -357,8 +357,13 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             }
             
             if rowIndex == 0 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "GoToAccountSettingPage", sender: self)
+//                self.tableView.isUserInteractionEnabled = false
+//                performSegue(withIdentifier: "GoToAccountSettingPage", sender: self)
+                
+                let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
+                self.navigationController?.pushViewController(vc!, animated: true)
+
+                
             } else if rowIndex == 1 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToContactListPage", sender: self)
@@ -535,7 +540,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         }
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) == true {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
             print ("I don't have a camera.")
         }
@@ -547,9 +552,12 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
 }
 
 extension IGSettingTableViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
         
-        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
             self.userAvatarView.setImage(pickedImage)
             
             let avatar = IGFile()
@@ -639,3 +647,13 @@ extension IGSettingTableViewController: IGDownloadUploadIndicatorViewDelegate {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

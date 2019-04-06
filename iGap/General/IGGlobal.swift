@@ -153,7 +153,7 @@ class IGGlobal {
     }
     
     /* if device is iPad return "alert" style otherwise will be returned "actionSheet" style */
-    public class func detectAlertStyle() -> UIAlertControllerStyle{
+    public class func detectAlertStyle() -> UIAlertController.Style{
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .actionSheet
         }
@@ -1092,14 +1092,14 @@ extension String {
     
     func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]), context: nil)
         
         return ceil(boundingBox.height)
     }
     
     func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
-        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): font]), context: nil)
         
         return ceil(boundingBox.width)
     }
@@ -1212,11 +1212,11 @@ extension UIButton {
     
     func removeUnderline(){
         if let text = self.titleLabel?.text {
-            let attrs = [ NSFontAttributeName : self.titleLabel?.font as Any,
-                          NSForegroundColorAttributeName : self.titleLabel?.textColor as Any,
-                          NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue ] as [String : Any]
+            let attrs = [ convertFromNSAttributedStringKey(NSAttributedString.Key.font) : self.titleLabel?.font as Any,
+                          convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : self.titleLabel?.textColor as Any,
+                          convertFromNSAttributedStringKey(NSAttributedString.Key.underlineStyle) : 0 ] as [String : Any]
             
-            self.setAttributedTitle(NSMutableAttributedString(string: text, attributes: attrs), for: self.state)
+            self.setAttributedTitle(NSMutableAttributedString(string: text, attributes: convertToOptionalNSAttributedStringKeyDictionary(attrs)), for: self.state)
         }
     }
 }
@@ -1280,4 +1280,15 @@ extension UIApplication {
         
         return base
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
 }
