@@ -217,7 +217,14 @@ class IGRoom: Object {
         room.isDeleted = false
         
         if igpRoom.hasIgpLastMessage {
-            let message =  IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID)
+            var shouldFetchBefore = false
+            if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpMessageID) {
+                shouldFetchBefore = true
+            }
+            let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID)
+            if shouldFetchBefore {
+                message.shouldFetchBefore = shouldFetchBefore
+            }
             room.lastMessage = message
             room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)!
         }

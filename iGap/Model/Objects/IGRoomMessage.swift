@@ -500,4 +500,12 @@ class IGRoomMessage: Object {
             }
         }
     }
+    
+    internal static func existMessage(messageId: Int64) -> Bool {
+        let predicate = NSPredicate(format: "id == %lld", messageId)
+        if messageId == 0 || IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first == nil {
+            return false
+        }
+        return true
+    }
 }
