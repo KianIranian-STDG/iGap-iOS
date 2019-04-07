@@ -186,7 +186,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if finalRoomMessage.attachment == nil && finalRoomMessage.type != .sticker {
             if isForward {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! || self.room.type == .channel {
+                    if hasBottomOffset {
                         make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(10)
@@ -194,7 +194,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 }
             } else if isReply {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! || self.room.type == .channel {
+                    if hasBottomOffset {
                         make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(10)
@@ -202,7 +202,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 }
             } else {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if let rtl = finalRoomMessage.message?.isRTL(), rtl || self.room.type == .channel {
+                    if hasBottomOffset {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
@@ -252,7 +252,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 break
             case .audioAndText:
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! {
+                    if hasBottomOffset {
                         make.top.equalTo(imgFileAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.top.equalTo(imgFileAbs.snp.bottom)
@@ -268,7 +268,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 break
             case .fileAndText:
                 txtMessageAbs.snp.remakeConstraints{ (make) in
-                    if (finalRoomMessage.message?.isRTL())! {
+                    if hasBottomOffset {
                         make.top.equalTo(imgFileAbs.snp.bottom).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.top.equalTo(imgFileAbs.snp.bottom)
@@ -293,7 +293,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if let time = realmRoomMessage.creationTime {
             makeTime(statusExist: statusExist)
             txtTimeAbs?.text = time.convertToHumanReadable()
-            txtTimeAbs?.textColor = UIColor.chatTimeTextColor(isIncommingMessage: isIncommingMessage)
         }
     }
     
@@ -416,7 +415,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18
-        mainBubbleViewAbs.layer.masksToBounds = true
         if finalRoomMessage.type == .sticker {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
@@ -424,7 +422,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         /************ Bubble Size ************/
-        mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width //mainBubbleViewWidthAbs.priority = 1000
+        mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width
         mainBubbleViewHeightAbs.constant = messageSizes.bubbleSize.height - 18
         
         /********* Bubble Direction *********/
@@ -605,7 +603,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         self.delegate?.didTapOnSenderAvatar(cellMessage: realmRoomMessage!, cell: self)
     }
     
-    func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnVoteUp(_ gestureRecognizer: UITapGestureRecognizer) {
         var messageVote: IGRoomMessage! = self.realmRoomMessage
         if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
             messageVote = forward
@@ -613,7 +611,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         IGChannelAddMessageReactionRequest.sendRequest(roomId: (messageVote.authorRoom?.id)!, messageId: messageVote.id, reaction: IGPRoomMessageReaction.thumbsUp)
     }
     
-    func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func didTapOnVoteDown(_ gestureRecognizer: UITapGestureRecognizer) {
         var messageVote: IGRoomMessage! = self.realmRoomMessage
         if let forward = self.realmRoomMessage.forwardedFrom, forward.authorRoom != nil { // just channel has authorRoom, so don't need check room type
             messageVote = forward
