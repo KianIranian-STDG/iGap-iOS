@@ -957,7 +957,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtForwardAbs = UILabel()
             forwardViewAbs?.addSubview(txtForwardAbs)
             
-            /* set color always for avoid from reuse item color. for example: show incomming forward color for received forward color */
             forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
             txtForwardAbs.textColor = UIColor.chatForwardedFromUsernameLabelColor(isIncommingMessage: isIncommingMessage)
             txtForwardAbs.font = UIFont.igFont(ofSize: 9.0)
@@ -975,6 +974,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 make.trailing.equalTo(forwardViewAbs.snp.trailing).offset(-8)
                 make.centerY.equalTo(forwardViewAbs.snp.centerY).priority(.required)
             }
+        } else {
+            /* set color always for avoid from reuse item color. for example: show incomming forward color for received forward color */
+            forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
         }
     }
     
@@ -1032,13 +1034,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 make.height.equalTo(17)
             }
             
-            replyViewAbs?.backgroundColor         = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
-            replyLineViewAbs.backgroundColor      = UIColor.chatReplyToIndicatorViewColor(isIncommingMessage: isIncommingMessage)
-            txtReplyDisplayNameAbs.textColor      = UIColor.chatReplyToUsernameLabelTextColor(isIncommingMessage: isIncommingMessage)
-            txtReplyMessageAbs.textColor          = UIColor.chatReplyToMessageBodyLabelTextColor(isIncommingMessage: isIncommingMessage)
+            replyViewAbs?.backgroundColor = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
+            replyLineViewAbs.backgroundColor = UIColor.chatReplyToIndicatorViewColor(isIncommingMessage: isIncommingMessage)
+            txtReplyDisplayNameAbs.textColor = UIColor.chatReplyToUsernameLabelTextColor(isIncommingMessage: isIncommingMessage)
+            txtReplyMessageAbs.textColor = UIColor.chatReplyToMessageBodyLabelTextColor(isIncommingMessage: isIncommingMessage)
             
             txtReplyDisplayNameAbs.font = UIFont.igFont(ofSize: 10.0)
             txtReplyMessageAbs.font = UIFont.igFont(ofSize: 13.0)
+        } else {
+            /* set color always for avoid from reuse item color. for example: show incomming reply color for received reply color */
+            replyViewAbs?.backgroundColor = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
         }
     }
     
