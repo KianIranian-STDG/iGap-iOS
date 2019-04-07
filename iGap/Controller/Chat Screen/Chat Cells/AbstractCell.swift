@@ -378,7 +378,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     private func manageReceivedOrIncommingMessage(){
         if self.room.type == .channel {
-            removeStatus()
+            
             manageTime(statusExist: false)
             if let signature = self.finalRoomMessage.channelExtra?.signature, !signature.isEmpty {
                 makeSenderName()
@@ -916,40 +916,34 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
                 viewSenderNameAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
             }
             self.contentView.addSubview(viewSenderNameAbs)
-        }
-        
-        if txtSenderNameAbs == nil {
+
             txtSenderNameAbs = UILabel()
             txtSenderNameAbs.textColor = UIColor.messageText()
             txtSenderNameAbs.font = UIFont.igFont(ofSize: 8.0)
             self.contentView.addSubview(txtSenderNameAbs)
-        }
-        
-        txtSenderNameAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
-            make.width.greaterThanOrEqualTo(5)
-            make.centerY.equalTo(viewSenderNameAbs.snp.centerY)
-            make.height.equalTo(9)
-        }
-        
-        viewSenderNameAbs.snp.makeConstraints{ (make) in
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-            make.trailing.equalTo(txtSenderNameAbs.snp.trailing).offset(8)
-            make.bottom.equalTo(mainBubbleViewAbs.snp.top).offset(-0.5)
-            make.height.equalTo(9.5)
+            
+            txtSenderNameAbs.snp.makeConstraints { (make) in
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
+                make.width.greaterThanOrEqualTo(5)
+                make.centerY.equalTo(viewSenderNameAbs.snp.centerY)
+                make.height.equalTo(9)
+            }
+            
+            viewSenderNameAbs.snp.makeConstraints{ (make) in
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading)
+                make.trailing.equalTo(txtSenderNameAbs.snp.trailing).offset(8)
+                make.bottom.equalTo(mainBubbleViewAbs.snp.top).offset(-0.5)
+                make.height.equalTo(9.5)
+            }
         }
     }
     
     private func removeSenderName(){
-        if txtSenderNameAbs != nil {
-            txtSenderNameAbs.removeFromSuperview()
-            txtSenderNameAbs = nil
-        }
+        txtSenderNameAbs?.removeFromSuperview()
+        txtSenderNameAbs = nil
         
-        if viewSenderNameAbs != nil {
-            viewSenderNameAbs.removeFromSuperview()
-            viewSenderNameAbs = nil
-        }
+        viewSenderNameAbs?.removeFromSuperview()
+        viewSenderNameAbs = nil
     }
     
     
@@ -959,43 +953,37 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if forwardViewAbs == nil {
             forwardViewAbs = UIView()
             mainBubbleViewAbs.addSubview(forwardViewAbs!)
-        }
-        
-        if txtForwardAbs == nil {
+            
             txtForwardAbs = UILabel()
             forwardViewAbs?.addSubview(txtForwardAbs)
-        }
-        
-        /* set color always for avoid from reuse item color. for example: show incomming forward color for received forward color */
-        forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
-        txtForwardAbs.textColor = UIColor.chatForwardedFromUsernameLabelColor(isIncommingMessage: isIncommingMessage)
-        txtForwardAbs.font = UIFont.igFont(ofSize: 9.0)
-        
-        forwardViewAbs?.snp.makeConstraints { (make) in
-            make.top.equalTo(mainBubbleViewAbs.snp.top).priority(.required)
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
-            make.height.equalTo(30)
-        }
-        
-        txtForwardAbs.snp.makeConstraints { (make) in
-            make.top.equalTo(forwardViewAbs.snp.top)
-            make.leading.equalTo(forwardViewAbs.snp.leading).offset(8)
-            make.trailing.equalTo(forwardViewAbs.snp.trailing).offset(-8)
-            make.centerY.equalTo(forwardViewAbs.snp.centerY).priority(.required)
+            
+            /* set color always for avoid from reuse item color. for example: show incomming forward color for received forward color */
+            forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
+            txtForwardAbs.textColor = UIColor.chatForwardedFromUsernameLabelColor(isIncommingMessage: isIncommingMessage)
+            txtForwardAbs.font = UIFont.igFont(ofSize: 9.0)
+            
+            forwardViewAbs?.snp.makeConstraints { (make) in
+                make.top.equalTo(mainBubbleViewAbs.snp.top).priority(.required)
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
+                make.height.equalTo(30)
+            }
+            
+            txtForwardAbs.snp.makeConstraints { (make) in
+                make.top.equalTo(forwardViewAbs.snp.top)
+                make.leading.equalTo(forwardViewAbs.snp.leading).offset(8)
+                make.trailing.equalTo(forwardViewAbs.snp.trailing).offset(-8)
+                make.centerY.equalTo(forwardViewAbs.snp.centerY).priority(.required)
+            }
         }
     }
     
     private func removeForward(){
-        if forwardViewAbs != nil {
-            forwardViewAbs?.removeFromSuperview()
-            forwardViewAbs = nil
-        }
+        forwardViewAbs?.removeFromSuperview()
+        forwardViewAbs = nil
         
-        if txtForwardAbs != nil {
-            txtForwardAbs?.removeFromSuperview()
-            txtForwardAbs = nil
-        }
+        txtForwardAbs?.removeFromSuperview()
+        txtForwardAbs = nil
     }
     
     
@@ -1006,80 +994,66 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         if replyViewAbs == nil {
             replyViewAbs = UIView()
             mainBubbleViewAbs.addSubview(replyViewAbs)
-        }
-        
-        if replyLineViewAbs == nil {
+            
             replyLineViewAbs = UIView()
             replyViewAbs.addSubview(replyLineViewAbs)
-        }
-        
-        if txtReplyDisplayNameAbs == nil {
+            
             txtReplyDisplayNameAbs = UILabel()
             replyViewAbs.addSubview(txtReplyDisplayNameAbs)
-        }
-        
-        if txtReplyMessageAbs == nil {
+            
             txtReplyMessageAbs = UILabel()
             replyViewAbs.addSubview(txtReplyMessageAbs)
+            
+            replyViewAbs.snp.makeConstraints { (make) in
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading)
+                make.top.equalTo(mainBubbleViewAbs.snp.top)
+                make.height.equalTo(54)
+            }
+            
+            replyLineViewAbs.snp.makeConstraints { (make) in
+                make.leading.equalTo(replyViewAbs.snp.leading).offset(16)
+                make.top.equalTo(replyViewAbs.snp.top).offset(10)
+                make.bottom.equalTo(replyViewAbs.snp.bottom).offset(-10)
+                make.width.equalTo(3)
+            }
+            
+            txtReplyDisplayNameAbs.snp.makeConstraints { (make) in
+                make.trailing.equalTo(replyViewAbs.snp.trailing)
+                make.leading.equalTo(replyLineViewAbs.snp.trailing).offset(8)
+                make.top.equalTo(replyLineViewAbs.snp.top)
+                make.height.equalTo(14)
+            }
+            
+            txtReplyMessageAbs.snp.makeConstraints { (make) in
+                make.trailing.equalTo(replyViewAbs.snp.trailing)
+                make.leading.equalTo(replyLineViewAbs.snp.trailing).offset(8)
+                make.bottom.equalTo(replyLineViewAbs.snp.bottom)
+                make.height.equalTo(17)
+            }
+            
+            replyViewAbs?.backgroundColor         = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
+            replyLineViewAbs.backgroundColor      = UIColor.chatReplyToIndicatorViewColor(isIncommingMessage: isIncommingMessage)
+            txtReplyDisplayNameAbs.textColor      = UIColor.chatReplyToUsernameLabelTextColor(isIncommingMessage: isIncommingMessage)
+            txtReplyMessageAbs.textColor          = UIColor.chatReplyToMessageBodyLabelTextColor(isIncommingMessage: isIncommingMessage)
+            
+            txtReplyDisplayNameAbs.font = UIFont.igFont(ofSize: 10.0)
+            txtReplyMessageAbs.font = UIFont.igFont(ofSize: 13.0)
         }
-        
-        replyViewAbs.snp.makeConstraints { (make) in
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-            make.top.equalTo(mainBubbleViewAbs.snp.top)
-            make.height.equalTo(54)
-        }
-        
-        replyLineViewAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(replyViewAbs.snp.leading).offset(16)
-            make.top.equalTo(replyViewAbs.snp.top).offset(10)
-            make.bottom.equalTo(replyViewAbs.snp.bottom).offset(-10)
-            make.width.equalTo(3)
-        }
-        
-        txtReplyDisplayNameAbs.snp.makeConstraints { (make) in
-            make.trailing.equalTo(replyViewAbs.snp.trailing)
-            make.leading.equalTo(replyLineViewAbs.snp.trailing).offset(8)
-            make.top.equalTo(replyLineViewAbs.snp.top)
-            make.height.equalTo(14)
-        }
-        
-        txtReplyMessageAbs.snp.makeConstraints { (make) in
-            make.trailing.equalTo(replyViewAbs.snp.trailing)
-            make.leading.equalTo(replyLineViewAbs.snp.trailing).offset(8)
-            make.bottom.equalTo(replyLineViewAbs.snp.bottom)
-            make.height.equalTo(17)
-        }
-        
-        replyViewAbs?.backgroundColor         = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
-        replyLineViewAbs.backgroundColor      = UIColor.chatReplyToIndicatorViewColor(isIncommingMessage: isIncommingMessage)
-        txtReplyDisplayNameAbs.textColor      = UIColor.chatReplyToUsernameLabelTextColor(isIncommingMessage: isIncommingMessage)
-        txtReplyMessageAbs.textColor          = UIColor.chatReplyToMessageBodyLabelTextColor(isIncommingMessage: isIncommingMessage)
-        
-        txtReplyDisplayNameAbs.font = UIFont.igFont(ofSize: 10.0)
-        txtReplyMessageAbs.font = UIFont.igFont(ofSize: 13.0)
     }
     
     private func removeReply(){
-        if replyViewAbs != nil {
-            replyViewAbs?.removeFromSuperview()
-            replyViewAbs = nil
-        }
+        replyViewAbs?.removeFromSuperview()
+        replyViewAbs = nil
         
-        if replyLineViewAbs != nil {
-            replyLineViewAbs?.removeFromSuperview()
-            replyLineViewAbs = nil
-        }
+        replyLineViewAbs?.removeFromSuperview()
+        replyLineViewAbs = nil
         
-        if txtReplyDisplayNameAbs != nil {
-            txtReplyDisplayNameAbs?.removeFromSuperview()
-            txtReplyDisplayNameAbs = nil
-        }
+        txtReplyDisplayNameAbs?.removeFromSuperview()
+        txtReplyDisplayNameAbs = nil
         
-        if txtReplyMessageAbs != nil {
-            txtReplyMessageAbs?.removeFromSuperview()
-            txtReplyMessageAbs = nil
-        }
+        txtReplyMessageAbs?.removeFromSuperview()
+        txtReplyMessageAbs = nil
     }
     
     
@@ -1090,21 +1064,19 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             let frame = CGRect(x:0 ,y:0 ,width:30 ,height:30)
             avatarViewAbs = IGAvatarView(frame: frame)
             self.contentView.addSubview(avatarViewAbs)
-        }
-
-        avatarViewAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(8)
-            make.top.equalTo(mainBubbleViewAbs.snp.top)
-            make.width.equalTo(30)
-            make.height.equalTo(30)
+            
+            avatarViewAbs.snp.makeConstraints { (make) in
+                make.leading.equalTo(self.contentView.snp.leading).offset(8)
+                make.top.equalTo(mainBubbleViewAbs.snp.top)
+                make.width.equalTo(30)
+                make.height.equalTo(30)
+            }
         }
     }
     
     private func removeAvatar(){
-        if avatarViewAbs != nil {
-            avatarViewAbs.removeFromSuperview()
-            avatarViewAbs = nil
-        }
+        avatarViewAbs?.removeFromSuperview()
+        avatarViewAbs = nil
     }
     
     
@@ -1180,10 +1152,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     private func removeEdit(){
-        if txtEditedAbs != nil {
-            txtEditedAbs.removeFromSuperview()
-            txtEditedAbs = nil
-        }
+        txtEditedAbs?.removeFromSuperview()
+        txtEditedAbs = nil
     }
     
     
@@ -1194,13 +1164,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtSeenCountAbs.font = UIFont.iGapFontico(ofSize:11.0)
             txtSeenCountAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtSeenCountAbs)
-        }
-        
-        txtSeenCountAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(10)
-            make.centerY.equalTo(txtTimeAbs.snp.centerY)
-            make.height.equalTo(35)
-            make.width.greaterThanOrEqualTo(40)
+            
+            txtSeenCountAbs.snp.makeConstraints { (make) in
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(10)
+                make.centerY.equalTo(txtTimeAbs.snp.centerY)
+                make.height.equalTo(35)
+                make.width.greaterThanOrEqualTo(40)
+            }
         }
     }
     
@@ -1212,9 +1182,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtVoteUpAbs.font = UIFont.iGapFontico(ofSize: 11.0)
             txtVoteUpAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteUpAbs)
-        }
-        
-        if txtVoteDownAbs == nil {
+            
             txtVoteDownAbs = UILabel()
             txtVoteDownAbs.font = UIFont.iGapFontico(ofSize: 11.0)
             txtVoteDownAbs.textColor = UIColor.messageText()
@@ -1237,23 +1205,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     private func removeSeenCount(){
-        if txtSeenCountAbs != nil {
-            txtSeenCountAbs.removeFromSuperview()
-            txtSeenCountAbs = nil
-        }
+        txtSeenCountAbs?.removeFromSuperview()
+        txtSeenCountAbs = nil
     }
     
     public func removeVoteAction(){
+        txtVoteUpAbs?.removeFromSuperview()
+        txtVoteUpAbs = nil
         
-        if txtVoteUpAbs != nil {
-            txtVoteUpAbs.removeFromSuperview()
-            txtVoteUpAbs = nil
-        }
-        
-        if txtVoteDownAbs != nil {
-            txtVoteDownAbs.removeFromSuperview()
-            txtVoteDownAbs = nil
-        }
+        txtVoteDownAbs?.removeFromSuperview()
+        txtVoteDownAbs = nil
     }
     
     
@@ -1264,30 +1225,31 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         removeVideoInfo()
         removeVideoPlayView()
         
-        if imgMediaAbs != nil {
-            imgMediaAbs.removeFromSuperview()
-            imgMediaAbs = nil
-        }
+        imgMediaAbs?.removeFromSuperview()
+        imgMediaAbs = nil
         
-        if indicatorViewAbs != nil {
-            indicatorViewAbs.removeFromSuperview()
-            indicatorViewAbs = nil
-        }
+        indicatorViewAbs?.removeFromSuperview()
+        indicatorViewAbs = nil
         
-        if imgMediaAbs == nil {
-            imgMediaAbs = IGImageView()
-            mainBubbleViewAbs.addSubview(imgMediaAbs)
-        }
+        imgMediaAbs = IGImageView()
+        mainBubbleViewAbs.addSubview(imgMediaAbs)
         
-        if indicatorViewAbs == nil && messageType != .sticker {
+        if messageType != .sticker {
             indicatorViewAbs = IGDownloadUploadIndicatorView()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
-        }
-
-        if IGGlobal.isFileExist(path: self.finalRoomMessage.attachment!.path(), fileSize: self.finalRoomMessage.attachment!.size) {
-            indicatorViewAbs?.isHidden = true
-        } else {
-            indicatorViewAbs?.isHidden = false
+            
+            indicatorViewAbs?.snp.makeConstraints { (make) in
+                make.top.equalTo(imgMediaAbs.snp.top)
+                make.bottom.equalTo(imgMediaAbs.snp.bottom)
+                make.trailing.equalTo(imgMediaAbs.snp.trailing)
+                make.leading.equalTo(imgMediaAbs.snp.leading)
+            }
+            
+            if IGGlobal.isFileExist(path: self.finalRoomMessage.attachment!.path(), fileSize: self.finalRoomMessage.attachment!.size) {
+                indicatorViewAbs?.isHidden = true
+            } else {
+                indicatorViewAbs?.isHidden = false
+            }
         }
         
         if messageType == .video || messageType == .videoAndText {
@@ -1314,27 +1276,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }
         }
-        
-        if messageType != .sticker {
-            indicatorViewAbs?.snp.makeConstraints { (make) in
-                make.top.equalTo(imgMediaAbs.snp.top)
-                make.bottom.equalTo(imgMediaAbs.snp.bottom)
-                make.trailing.equalTo(imgMediaAbs.snp.trailing)
-                make.leading.equalTo(imgMediaAbs.snp.leading)
-            }
-        }
     }
     
     private func removeImage(){
-        if imgMediaAbs != nil {
-            imgMediaAbs.removeFromSuperview()
-            imgMediaAbs = nil
-        }
+        imgMediaAbs?.removeFromSuperview()
+        imgMediaAbs = nil
         
-        if indicatorViewAbs != nil {
-            indicatorViewAbs.removeFromSuperview()
-            indicatorViewAbs = nil
-        }
+        indicatorViewAbs?.removeFromSuperview()
+        indicatorViewAbs = nil
     }
     
     
@@ -1349,16 +1298,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             viewInfoVideoAbs.layer.borderWidth = 1
             viewInfoVideoAbs.layer.borderColor = UIColor.chatBubbleBorderColor().cgColor
             mainBubbleViewAbs.addSubview(viewInfoVideoAbs)
-        }
-        
-        if txtTimeVideoAbs == nil {
+            
             txtTimeVideoAbs = UILabel()
             txtTimeVideoAbs?.textColor = UIColor.white
             txtTimeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.semibold)
             viewInfoVideoAbs.addSubview(txtTimeVideoAbs)
-        }
-        
-        if txtSizeVideoAbs == nil {
+            
             txtSizeVideoAbs = UILabel()
             txtSizeVideoAbs?.textColor = UIColor.white
             txtSizeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.semibold)
@@ -1385,20 +1330,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     private func removeVideoInfo(){
-        if viewInfoVideoAbs != nil {
-            viewInfoVideoAbs.removeFromSuperview()
-            viewInfoVideoAbs = nil
-        }
+        viewInfoVideoAbs?.removeFromSuperview()
+        viewInfoVideoAbs = nil
         
-        if txtTimeVideoAbs != nil {
-            txtTimeVideoAbs.removeFromSuperview()
-            txtTimeVideoAbs = nil
-        }
+        txtTimeVideoAbs?.removeFromSuperview()
+        txtTimeVideoAbs = nil
         
-        if txtSizeVideoAbs != nil {
-            txtSizeVideoAbs.removeFromSuperview()
-            txtSizeVideoAbs = nil
-        }
+        txtSizeVideoAbs?.removeFromSuperview()
+        txtSizeVideoAbs = nil
     }
     
     private func makeVideoPlayView(){
@@ -1422,10 +1361,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     private func removeVideoPlayView(){
-        if imgVideoPlayAbs != nil {
-            imgVideoPlayAbs.removeFromSuperview()
-            imgVideoPlayAbs = nil
-        }
+        imgVideoPlayAbs?.removeFromSuperview()
+        imgVideoPlayAbs = nil
     }
     
     
@@ -1456,10 +1393,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     private func removeAdditionalView(){
-        if additionalViewAbs != nil {
-            additionalViewAbs.removeFromSuperview()
-            additionalViewAbs = nil
-        }
+        additionalViewAbs?.removeFromSuperview()
+        additionalViewAbs = nil
     }
 }
 
