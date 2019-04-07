@@ -60,9 +60,14 @@ class IGClientCondition {
             var clientConditionRequest = IGPClientCondition.IGPRoom()
             
             clientConditionRequest.igpRoomID = room.id
-            if let maxMessageVersion: Int64 = messages.max(ofProperty: "messageVersion") {
-                clientConditionRequest.igpMessageVersion = max(0,maxMessageVersion)
-            }
+            //Hint: currently we don't set igpMessageVersion because we don't want get unread message after each login without open chat room
+            /*
+             if let maxMessageVersion: Int64 = messages.max(ofProperty: "messageVersion") {
+             clientConditionRequest.igpMessageVersion = max(0,maxMessageVersion)
+             }
+             */
+            clientConditionRequest.igpMessageVersion = 0
+            
             if let maxStatusVersion: Int64 = messages.max(ofProperty: "statusVersion") {
                 clientConditionRequest.igpStatusVersion = max(0,maxStatusVersion)
             }
