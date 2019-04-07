@@ -60,6 +60,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var isIncommingMessage: Bool!
     var shouldShowAvatar: Bool!
     var isPreviousMessageFromSameSender: Bool!
+    var isRtl: Bool!
+    var hasBottomOffset: Bool!
     
     var leadingAbs: Constraint?
     var trailingAbs: Constraint?
@@ -88,6 +90,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         self.isPreviousMessageFromSameSender = isPreviousMessageFromSameSender
         
         detectFinalMessage()
+        detectRtlAndBottomOffset()
         manageCellBubble()
         manageReceivedOrIncommingMessage()
         manageReply()
@@ -124,6 +127,22 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
     }
     
+    /* check message that should be rtl OR has bottom offset */
+    private func detectRtlAndBottomOffset(){
+        
+        if let message = finalRoomMessage.message, message.isRTL() {
+            isRtl = true
+            hasBottomOffset = true
+        } else {
+            isRtl = false
+            if room.type == .channel {
+                hasBottomOffset = true
+            } else {
+                hasBottomOffset = false
+            }
+        }
+    }
+    
     /*
      ******************************************************************
      ************************** Message Text **************************
@@ -137,23 +156,17 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         }
         
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
-            messageViewAbs?.isHidden = false
             txtMessageAbs?.isHidden = false
-            messageViewAbs?.backgroundColor = UIColor.clear
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
-            txtMessageAbs?.font = CellSizeCalculator.messageBodyTextViewFont()
             let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
             txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
             
-            if finalRoomMessage.message!.isRTL() {
+            if isRtl {
                 txtMessageAbs.textAlignment = NSTextAlignment.right
             } else {
                 txtMessageAbs.textAlignment = NSTextAlignment.left
             }
-            txtMessageAbs?.textColor = UIColor.messageText()
         } else {
-            txtMessageHeightConstraintAbs?.constant = 0
-            messageViewAbs?.isHidden = true
             txtMessageAbs?.isHidden = true
         }
     }
