@@ -28,6 +28,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var additionalViewAbs: UIView!
     
     var txtSenderNameAbs: UILabel!
+    var txtStatusAbs: UILabel!
     var txtEditedAbs: UILabel!
     var txtTimeAbs: UILabel!
     var txtReplyDisplayNameAbs: UILabel!
@@ -39,7 +40,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var txtVoteUpAbs: UILabel!
     var txtVoteDownAbs: UILabel!
     
-    var imgStatusAbs: UIImageView!
     var imgFileAbs: UIImageView!
     var imgVideoPlayAbs: UIImageView!
     
@@ -321,24 +321,31 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         
         switch realmRoomMessage.status {
         case .sending:
-            imgStatusAbs.image = UIImage(named: "IG_Message_Cell_State_Sending")
-            imgStatusAbs.backgroundColor = UIColor.clear
+            txtStatusAbs.text = ""
+            txtStatusAbs.textColor = UIColor.messageText()
+            txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .sent:
-            imgStatusAbs.image = UIImage(named: "IG_Message_Cell_State_Sent")
-            imgStatusAbs.backgroundColor = UIColor.clear
+            txtStatusAbs.text = ""
+            txtStatusAbs.textColor = UIColor.messageText()
+            txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .delivered:
-            imgStatusAbs.image = UIImage(named: "IG_Message_Cell_State_Delivered")
-            imgStatusAbs.backgroundColor = UIColor.clear
+            txtStatusAbs.text = ""
+            txtStatusAbs.textColor = UIColor.messageText()
+            txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .seen,.listened:
-            imgStatusAbs.image = UIImage(named: "IG_Message_Cell_State_Seen")
-            imgStatusAbs.backgroundColor = UIColor.clear
+            txtStatusAbs.text = ""
+            txtStatusAbs.textColor = UIColor.seenColor()
+            txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .failed, .unknown:
-            imgStatusAbs.image = UIImage(named: "IG_Chat_List_Delivery_State_Failed")
-            imgStatusAbs.backgroundColor = UIColor.red
+            txtStatusAbs.text = ""
+            txtStatusAbs.textColor = UIColor.white
+            txtStatusAbs.layer.masksToBounds = true
+            txtStatusAbs.layer.cornerRadius = 7.5
+            txtStatusAbs.backgroundColor = UIColor.failedColor()
             break
         }
     }
@@ -1104,40 +1111,37 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     
     
     private func makeStatus(){
-        let size:CGFloat = 15
-        if imgStatusAbs == nil {
-            imgStatusAbs = UIImageView()
-            imgStatusAbs.layer.cornerRadius = size/2
-            mainBubbleViewAbs.addSubview(imgStatusAbs)
-        }
-        
-        imgStatusAbs.snp.makeConstraints { (make) in
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10)
-            make.centerY.equalTo(txtTimeAbs.snp.centerY).offset(-1)
-            make.height.equalTo(size)
-            make.width.equalTo(size)
+        if txtStatusAbs == nil {
+            txtStatusAbs = UILabel()
+            txtStatusAbs.font = UIFont.iGapFontico(ofSize: 11)
+            mainBubbleViewAbs.addSubview(txtStatusAbs)
+            
+            txtStatusAbs.snp.makeConstraints { (make) in
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10)
+                make.centerY.equalTo(txtTimeAbs.snp.centerY).offset(-1)
+                make.height.equalTo(15)
+                make.width.equalTo(15)
+            }
         }
     }
     
     private func removeStatus(){
-        if imgStatusAbs != nil {
-            imgStatusAbs.removeFromSuperview()
-            imgStatusAbs = nil
-        }
+        txtStatusAbs?.removeFromSuperview()
+        txtStatusAbs = nil
     }
     
     
     
     
     private func makeTime(statusExist: Bool){
-        removeTime()
-        
         if txtTimeAbs == nil {
             txtTimeAbs = UILabel()
             txtTimeAbs.font = UIFont.igFont(ofSize: 11.0)
+            txtTimeAbs.textColor = UIColor.chatTimeTextColor()
             mainBubbleViewAbs.addSubview(txtTimeAbs)
         }
         
+        txtTimeAbs.snp.removeConstraints()
         txtTimeAbs.snp.makeConstraints{ (make) in
             if statusExist {
                 make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-20)
@@ -1151,10 +1155,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     }
     
     private func removeTime(){
-        if txtTimeAbs != nil {
-            txtTimeAbs.removeFromSuperview()
-            txtTimeAbs = nil
-        }
+        txtTimeAbs?.removeFromSuperview()
+        txtTimeAbs = nil
     }
     
     
@@ -1165,7 +1167,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             txtEditedAbs = UILabel()
             txtEditedAbs.text = "edited"
             txtEditedAbs.font = UIFont.igFont(ofSize: 9.0)
-            txtEditedAbs.textColor = UIColor.chatTimeTextColor(isIncommingMessage: isIncommingMessage)
+            txtEditedAbs.textColor = UIColor.chatTimeTextColor()
             mainBubbleViewAbs.addSubview(txtEditedAbs)
         }
         

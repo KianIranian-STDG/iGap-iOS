@@ -344,6 +344,14 @@ extension UIColor {
         return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     }
     
+    class func failedColor() -> UIColor {
+        return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
+    }
+    
+    class func seenColor() -> UIColor {
+        return UIColor(red:137/255.0, green:199/255.0, blue:66/255.0, alpha:1.0)
+    }
+    
     //MARK: MGSwipeTableCell
     class func swipeDarkBlue() -> UIColor {
         return UIColor(red:42/255.0, green:61/255.0, blue:61/255.0, alpha:1.0)
@@ -441,7 +449,7 @@ extension UIColor {
     }
     
     //MARK: MessageCVCell Time
-    class func chatTimeTextColor(isIncommingMessage: Bool) -> UIColor {
+    class func chatTimeTextColor() -> UIColor {
         return UIColor(red: 105.0/255.0, green: 123.0/255.0, blue: 135.0/255.0, alpha: 1.0)
     }
     
