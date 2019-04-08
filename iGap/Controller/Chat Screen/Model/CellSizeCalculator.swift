@@ -60,11 +60,6 @@ class CellSizeCalculator: NSObject {
         
         if finalMessage.attachment != nil {
             
-            if text != nil && text != "" {
-                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited, room: room)
-                finalSize.height += stringRect.height
-            }
-            
             switch finalMessage.type {
             case .sticker:
                 let attachmentFrame = fetchStickerFrame(media: finalMessage.attachment!)
@@ -115,6 +110,11 @@ class CellSizeCalculator: NSObject {
                 break
             }
         
+            if text != nil && text != "" {
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, width: finalSize.width, isEdited: finalMessage.isEdited, room: room)
+                finalSize.height += stringRect.height
+            }
+            
         } else if finalMessage.type == .wallet {
             finalSize.height = CellSizeLimit.ConstantSizes.Wallet.Height
             finalSize.width = CellSizeLimit.ConstantSizes.Wallet.Width
@@ -180,7 +180,12 @@ class CellSizeCalculator: NSObject {
         return [convertFromNSAttributedStringKey(NSAttributedString.Key.font): computeSizeFont(), convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): paragraph]
     }
     
-    class func bodyRect(text: NSString, isEdited: Bool, room: IGRoom) -> CGSize {
+    class func bodyRect(text: NSString, width:CGFloat=CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, isEdited: Bool, room: IGRoom) -> CGSize {
+        
+        var maxWidth = width
+        if maxWidth > CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
+            maxWidth = CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text
+        }
         
         var textWithTime = text as String
         textWithTime = textWithTime.replacingOccurrences(of: "**", with: "")
@@ -195,7 +200,7 @@ class CellSizeCalculator: NSObject {
         }
         
         var stringRect = textWithTime.boundingRect(
-            with: CGSize(width: CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, height: CGFloat.greatestFiniteMagnitude),
+            with: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: convertToOptionalNSAttributedStringKeyDictionary(getStringStyle()), context: nil)
         
         if textWithTime.isRTL() || room.type == .channel {
