@@ -67,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             migrationBlock: { migration, oldSchemaVersion in }
         )
         Realm.Configuration.defaultConfiguration = config
+        compactRealm()
         _ = try! Realm()
         
         
@@ -87,7 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         pushNotification(application)
         detectBackground()
-        //compactRealm()
         
         return true
     }
