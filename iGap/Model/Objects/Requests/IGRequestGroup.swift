@@ -563,9 +563,9 @@ class IGGroupGetDraftRequest : IGRequest {
 
 class IGGroupGetMemberListRequest : IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate (room: IGRoom, offset: Int32, limit: Int32, filterRole: IGRoomFilterRole) -> IGRequestWrapper {
+        class func generate (roomId: Int64, offset: Int32, limit: Int32, filterRole: IGRoomFilterRole) -> IGRequestWrapper {
             var groupGetMemberListRequestMessage = IGPGroupGetMemberList()
-            groupGetMemberListRequestMessage.igpRoomID = room.id
+            groupGetMemberListRequestMessage.igpRoomID = roomId
             switch filterRole {
             case .all :
                 groupGetMemberListRequestMessage.igpFilterRole = .all

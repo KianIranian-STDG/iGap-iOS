@@ -24,11 +24,13 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     var members : Results<IGGroupMember>!
     var notificationToken: NotificationToken?
     var myRole : IGGroupMember.IGRole?
+    var roomId: Int64!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         myRole = room?.groupRoom?.role
+        roomId = room?.id
         let predicate = NSPredicate(format: "roomID = %lld", (room?.id)!)
          members =  try! Realm().objects(IGGroupMember.self).filter(predicate)
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
@@ -237,26 +239,25 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
         if let groupRoom = room {
             kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
+                    IGGlobal.prgShow(self.view)
                     IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let groupKickAdminResponse as IGPGroupKickAdminResponse:
                                 IGGroupKickAdminRequest.Handler.interpret( response : groupKickAdminResponse)
-                                self.hud.hide(animated: true)
                             default:
                                 break
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -272,26 +273,25 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
         if let groupRoom = room {
             kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
+                    IGGlobal.prgShow(self.view)
                     IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let groupKickModeratorResponse as IGPGroupKickModeratorResponse:
                                 IGGroupKickModeratorRequest.Handler.interpret( response : groupKickModeratorResponse)
-                                self.hud.hide(animated: true)
                             default:
                                 break
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -307,20 +307,22 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
         if room != nil {
             kickAlert(title: "Kick Member", message: "Are you sure you want to kick this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
+                    IGGlobal.prgShow(self.view)
                     IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             if let kickMemberResponse = protoResponse as? IGPGroupKickMemberResponse {
                                 IGGroupKickMemberRequest.Handler.interpret(response: kickMemberResponse)
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -333,16 +335,15 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     }
     
     func fetchGroupMemberFromServer() {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
-        IGGroupGetMemberListRequest.Generator.generate(room: room!, offset: Int32(self.allMember.count), limit: 40, filterRole: filterRole).success({ (protoResponse) in
+        IGGlobal.prgShow(self.view)
+        IGGroupGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(self.allMember.count), limit: 40, filterRole: filterRole).success({ (protoResponse) in
+            IGGlobal.prgHide()
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getGroupMemberList as IGPGroupGetMemberListResponse:
                     let igpMembers =  IGGroupGetMemberListRequest.Handler.interpret(response: getGroupMemberList, roomId: (self.room?.id)!)
-                        self.hud.hide(animated: true)
                     for member in igpMembers {
-                        let igmember = IGGroupMember(igpMember: member, roomId: (self.room?.id)!)
+                        let igmember = IGGroupMember(igpMember: member, roomId: self.roomId)
                         self.allMember.append(igmember)
                     }
                     self.hud.hide(animated: true)
@@ -351,13 +352,13 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
                 }
             }
         }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
                 }
             default:

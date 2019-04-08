@@ -215,28 +215,27 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
         
         for member in selectedUsers {
             if let channelRoom = room {
-                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                self.hud.mode = .indeterminate
+                IGGlobal.prgShow(self.view)
                 IGChannelAddAdminRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let channelAddAdminResponse as IGPChannelAddAdminResponse :
                             self.manageClosePage()
                             let _ = IGChannelAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
-                            self.hud.hide(animated: true)
                         default:
                             break
                         }
                     }
                 }).error ({ (errorCode, waitTime) in
                     self.manageClosePage()
+                    IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsAdminToChannel:
@@ -244,7 +243,6 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                             let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in channel", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
 
@@ -265,15 +263,14 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
         
         for member in selectedUsers {
             if let channelRoom = room {
-                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                self.hud.mode = .indeterminate
+                IGGlobal.prgShow(self.view)
                 IGChannelAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
                     DispatchQueue.main.async {
                         switch protoResponse {
                         case let channelAddModeratorResponse as IGPChannelAddModeratorResponse:
                             self.manageClosePage()
                             let _ = IGChannelAddModeratorRequest.Handler.interpret(response: channelAddModeratorResponse, memberRole: .moderator)
-                            self.hud.hide(animated: true)
                         default:
                             break
                         }
@@ -281,13 +278,13 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
 
                 }).error ({ (errorCode, waitTime) in
                     self.manageClosePage()
+                    IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsModeratorToChannel:
@@ -295,7 +292,6 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                             let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
 

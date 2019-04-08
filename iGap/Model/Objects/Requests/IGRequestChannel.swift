@@ -499,9 +499,9 @@ class IGChannelGetDraftRequest: IGRequest {
 
 class IGChannelGetMemberListRequest: IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate(room: IGRoom, offset: Int32, limit: Int32, filterRole: IGRoomFilterRole) -> IGRequestWrapper {
+        class func generate(roomId: Int64, offset: Int32, limit: Int32, filterRole: IGRoomFilterRole) -> IGRequestWrapper {
             var channelGetMemberRequestMessage = IGPChannelGetMemberList()
-            channelGetMemberRequestMessage.igpRoomID = room.id
+            channelGetMemberRequestMessage.igpRoomID = roomId
             switch filterRole {
             case .all :
                 channelGetMemberRequestMessage.igpFilterRole = .all

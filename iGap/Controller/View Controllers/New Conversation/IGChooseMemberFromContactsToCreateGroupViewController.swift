@@ -201,18 +201,17 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
         
         for member in selectedUsers {
             if let groupRoom = room {
-                print(groupRoom.id)
-                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                self.hud.mode = .indeterminate
+                IGGlobal.prgShow(self.view)
                 IGGroupAddAdminRequest.Generator.generate(roomID: groupRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
                     DispatchQueue.main.async {
                         self.manageClosePage()
                         if let channelAddAdminResponse = protoResponse as? IGPGroupAddAdminResponse {
                             IGGroupAddAdminRequest.Handler.interpret(response: channelAddAdminResponse, memberRole: .admin)
-                            self.hud.hide(animated: true)
                         }
                     }
                 }).error ({ (errorCode, waitTime) in
+                    IGGlobal.prgHide()
                     self.manageClosePage()
                     switch errorCode {
                     case .timeout:
@@ -220,7 +219,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
                             let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsAdminToGroup:
@@ -228,7 +226,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
                             let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                             
                         }
@@ -249,26 +246,25 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
         
         for member in selectedUsers {
             if let channelRoom = room {
-                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                self.hud.mode = .indeterminate
+                IGGlobal.prgShow(self.view)
                 IGGroupAddModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: member.registredUser.id).success({ (protoResponse) in
+                    IGGlobal.prgHide()
                     DispatchQueue.main.async {
                         self.manageClosePage()
                         if let groupAddModeratorResponse = protoResponse as? IGPGroupAddModeratorResponse {
                             IGGroupAddModeratorRequest.Handler.interpret(response: groupAddModeratorResponse, memberRole: .moderator)
-                            self.hud.hide(animated: true)
                         }
                     }
                     
                 }).error ({ (errorCode, waitTime) in
                     self.manageClosePage()
+                    IGGlobal.prgHide()
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsModeratorToGroup:
@@ -276,7 +272,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
                             let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
                             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                             alert.addAction(okAction)
-                            self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
                         }
                         
@@ -342,14 +337,12 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
                 })
                 
             }
-            if self.mode == "CreateGroup" {
-                collectionView.performBatchUpdates({
-                    let a = IndexPath(row: self.selectedUsers.count - 1, section: 0)
-                    self.collectionView.insertItems(at: [a])
-                }, completion: { (completed) in
-                    //do nothing
-                })
-            }
+            collectionView.performBatchUpdates({
+                let a = IndexPath(row: self.selectedUsers.count - 1, section: 0)
+                self.collectionView.insertItems(at: [a])
+            }, completion: { (completed) in
+                //do nothing
+            })
         }
     }
     

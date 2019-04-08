@@ -154,27 +154,26 @@ class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGest
         if let channelRoom = room {
             kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
+                    IGGlobal.prgShow(self.view)
                     IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: adminUserID ).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let channelKickAdminResponse as IGPChannelKickAdminResponse:
                                 let _ = IGChannelKickAdminRequest.Handler.interpret(response : channelKickAdminResponse)
                                 self.tableView.reloadData()
-                                self.hud.hide(animated: true)
                             default:
                                 break
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -191,14 +190,13 @@ class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGest
         if let channelRoom = room {
             kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
+                    IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: moderatorUserId).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let channelKickModeratorResponse as IGPChannelKickModeratorResponse:
                                 IGChannelKickModeratorRequest.Handler.interpret( response : channelKickModeratorResponse)
-                                self.hud.hide(animated: true)
                                 self.tableView.reloadData()
                                 
                             default:
@@ -206,13 +204,13 @@ class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGest
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:

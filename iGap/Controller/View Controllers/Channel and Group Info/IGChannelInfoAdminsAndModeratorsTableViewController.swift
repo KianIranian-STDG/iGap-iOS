@@ -30,9 +30,12 @@ class IGChannelInfoAdminsAndModeratorsTableViewController: UITableViewController
     var moderatorMember = [IGChannelMember]()
     var index : Int!
     var myRole : IGChannelMember.IGRole!
+    var roomId: Int64!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myRole = room?.channelRoom?.role
+        roomId = room?.id
         if myRole == .admin {
             adminsCell.isHidden = true
         }
@@ -91,13 +94,13 @@ class IGChannelInfoAdminsAndModeratorsTableViewController: UITableViewController
     func fetchAdminChannelMemberFromServer() {
         channelModeratorIndicator.startAnimating()
         channelAdminIndicator.startAnimating()
-        IGChannelGetMemberListRequest.Generator.generate(room: room!, offset: Int32(self.adminMember.count + self.moderatorMember.count), limit: 40, filterRole: .all).success({ (protoResponse) in
+        IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(self.adminMember.count + self.moderatorMember.count), limit: 40, filterRole: .all).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getChannelMemberList as IGPChannelGetMemberListResponse:
                     let igpMembers = IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: (self.room?.id)!)
                     for member in igpMembers {
-                        let igmember = IGChannelMember(igpMember: member, roomId: (self.room?.id)!)
+                        let igmember = IGChannelMember(igpMember: member, roomId: self.roomId)
                         if member.igpRole == .admin {
                             self.adminMember.append(igmember)
                         }
@@ -105,7 +108,6 @@ class IGChannelInfoAdminsAndModeratorsTableViewController: UITableViewController
                            self.moderatorMember.append(igmember)
                         }
                     }
-                    print(self.adminMember.count)
                     self.countOfAdmins.text = "\(self.adminMember.count)"
                     self.countOfModeratorLabel.text = "\(self.moderatorMember.count)"
                     self.channelModeratorIndicator.stopAnimating()

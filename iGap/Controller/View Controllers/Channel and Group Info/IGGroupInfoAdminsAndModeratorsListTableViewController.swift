@@ -30,9 +30,12 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewControll
     var moderatorMember = [IGGroupMember]()
     var index : Int!
     var myRole : IGGroupMember.IGRole?
+    var roomId: Int64!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myRole = room?.groupRoom?.role
+        roomId = room?.id
         if myRole == .admin {
             adminsCell.isHidden = true
         }
@@ -92,13 +95,13 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewControll
     func fetchAdminChannelMemberFromServer() {
         moderatorIndicator.startAnimating()
         adminsIndicator.startAnimating()
-        IGGroupGetMemberListRequest.Generator.generate(room: room!, offset: Int32(self.adminMember.count + self.moderatorMember.count), limit: 40, filterRole: .all).success({ (protoResponse) in
+        IGGroupGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(self.adminMember.count + self.moderatorMember.count), limit: 40, filterRole: .all).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getChannelMemberList as IGPGroupGetMemberListResponse:
                     let igpMembers = IGGroupGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: (self.room?.id)!)
                     for member in igpMembers {
-                        let igmember = IGGroupMember(igpMember: member, roomId: (self.room?.id)!)
+                        let igmember = IGGroupMember(igpMember: member, roomId: self.roomId)
                         if member.igpRole == .admin {
                             self.adminMember.append(igmember)
                         }

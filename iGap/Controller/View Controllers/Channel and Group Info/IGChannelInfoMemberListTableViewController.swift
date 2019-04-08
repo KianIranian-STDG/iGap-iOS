@@ -25,12 +25,13 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     var mode : String? = "Members"
     var notificationToken: NotificationToken?
     var myRole : IGChannelMember.IGRole?
+    var roomId: Int64!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         myRole = room?.channelRoom?.role
-        
+        roomId = room?.id
         setNavigationItem()
         fetchChannelMemberFromServer()
         
@@ -213,27 +214,26 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         if let channelRoom = room {
             kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
+                    IGGlobal.prgShow(self.view)
                     IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let channelKickAdminResponse as IGPChannelKickAdminResponse:
                                 let _ = IGChannelKickAdminRequest.Handler.interpret( response : channelKickAdminResponse)
                                 self.tableView.reloadData()
-                                self.hud.hide(animated: true)
                             default:
                                 break
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -250,14 +250,13 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         if let channelRoom = room {
             kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
+                    IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let channelKickModeratorResponse as IGPChannelKickModeratorResponse:
                                 IGChannelKickModeratorRequest.Handler.interpret( response : channelKickModeratorResponse)
-                                self.hud.hide(animated: true)
                                 self.tableView.reloadData()
                                 
                             default:
@@ -265,13 +264,13 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -289,27 +288,25 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         if let _ = room {
             kickAlert(title: "Kick Member", message: "Are you sure you want to kick this member?", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
-                    self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    self.hud.mode = .indeterminate
-                    IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({
-                        (protoResponse) in
+                    IGGlobal.prgShow(self.view)
+                    IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
+                        IGGlobal.prgHide()
                         DispatchQueue.main.async {
                             switch protoResponse {
                             case let kickMemberResponse as IGPChannelKickMemberResponse:
                                 let _ = IGChannelKickMemberRequest.Handler.interpret(response: kickMemberResponse)
-                                self.hud.hide(animated: true)
                             default:
                                 break
                             }
                         }
                     }).error ({ (errorCode, waitTime) in
+                        IGGlobal.prgHide()
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                                 alert.addAction(okAction)
-                                self.hud.hide(animated: true)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         default:
@@ -341,18 +338,17 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     
     
     func fetchChannelMemberFromServer() {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
-        IGChannelGetMemberListRequest.Generator.generate(room: room!, offset: Int32(self.allMember.count), limit: 40, filterRole: filterRole).success({ (protoResponse) in
+        IGGlobal.prgShow(self.view)
+        IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(self.allMember.count), limit: 40, filterRole: filterRole).success({ (protoResponse) in
+            IGGlobal.prgHide()
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let getChannelMemberList as IGPChannelGetMemberListResponse:
                     let igpMembers =  IGChannelGetMemberListRequest.Handler.interpret(response: getChannelMemberList, roomId: (self.room?.id)!)
                     for member in igpMembers {
-                        let igmember = IGChannelMember(igpMember: member, roomId: (self.room?.id)!)
+                        let igmember = IGChannelMember(igpMember: member, roomId: self.roomId)
                         self.allMember.append(igmember)
                     }
-                    self.hud.hide(animated: true)
                     //self.tableView.reloadData()
                     
                 default:
@@ -360,13 +356,13 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                 }
             }
         }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
                 }
             default:
