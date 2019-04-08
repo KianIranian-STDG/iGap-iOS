@@ -63,8 +63,9 @@ class IGMessageSender {
             }
             count = count + 1
             DispatchQueue.main.asyncAfter(deadline: .now() + count){
-                if let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first, !room.isInvalidated {
-                    IGMessageSender.defaultSender.resend(message: message, to: room)
+                let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
+                if room != nil && !room!.isInvalidated {
+                    IGMessageSender.defaultSender.resend(message: message, to: room!)
                 }
             }
         }

@@ -530,7 +530,7 @@ class IGNavigationItem: UINavigationItem {
     }
     
     private func isBot(room: IGRoom) -> Bool {
-        if room.type == .chat {
+        if !room.isInvalidated && room.type == .chat {
             if let user = room.chatRoom?.peer {
                 if user.isBot {
                     return true

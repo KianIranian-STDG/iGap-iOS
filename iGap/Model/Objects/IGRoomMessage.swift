@@ -202,7 +202,7 @@ class IGRoomMessage: Object {
             }
         }
         if igpMessage.hasIgpChannelExtra {
-            self.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realm, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
+            self.channelExtra = IGRealmChannelExtra(messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
         }
         
         self.isEdited = igpMessage.igpEdited

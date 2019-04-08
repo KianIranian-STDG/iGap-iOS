@@ -519,7 +519,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func onStickerTap(stickerItem: IGRealmStickerItem) {
-        IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in
+        
+        if let attachment = IGAttachmentManager.sharedManager.getFileInfo(token: stickerItem.token!) {
             let message = IGRoomMessage(body: stickerItem.name!)
             message.type = .sticker
             message.roomId = self.room!.id
@@ -538,7 +539,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = nil
             self.setInputBarHeight()
-        })
+        } else {
+            IGAttachmentManager.sharedManager.getStickerFileInfo(token: stickerItem.token!, completion: { (attachment) -> Void in })
+        }
     }
     
     @objc func keyboardWillAppear() {

@@ -357,13 +357,8 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             }
             
             if rowIndex == 0 {
-//                self.tableView.isUserInteractionEnabled = false
-//                performSegue(withIdentifier: "GoToAccountSettingPage", sender: self)
-                
-                let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
-                self.navigationController?.pushViewController(vc!, animated: true)
-
-                
+                self.tableView.isUserInteractionEnabled = false
+                performSegue(withIdentifier: "GoToAccountSettingPage", sender: self)
             } else if rowIndex == 1 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToContactListPage", sender: self)
