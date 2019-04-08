@@ -27,16 +27,16 @@ class IGSessionInfo: Object {
 
 class IGSession: Object {
     
-    var sessionId:          Int64                 = -1
-    var appID:              Int32                 = -1
-    var appBuildVersion:    Int32                 = -1
-    var createTime:         Int32                 = -1
-    var activeTime:         Int32                 = -1
-    var appName:            String                = ""
-    var country:            String                = ""
-    var appVersion:         String                = ""
-    var ip:                 String                = ""
-    var isCurrent:          Bool                  = false
+    @objc dynamic var sessionId:          Int64                 = -1
+    @objc dynamic var appID:              Int32                 = -1
+    @objc dynamic var appBuildVersion:    Int32                 = -1
+    @objc dynamic var createTime:         Int32                 = -1
+    @objc dynamic var activeTime:         Int32                 = -1
+    @objc dynamic var appName:            String                = ""
+    @objc dynamic var country:            String                = ""
+    @objc dynamic var appVersion:         String                = ""
+    @objc dynamic var ip:                 String                = ""
+    @objc dynamic var isCurrent:          Bool                  = false
     var platform:           IGPlatform?
     var device:             IGDevice?
     var language:           IGLanguage?

@@ -1164,10 +1164,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         super.viewWillDisappear(animated)
         IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
-        self.room!.saveDraft(inputTextView.text, replyToMessage: selectedMessageToReply)
         self.sendCancelTyping()
         self.sendCancelRecoringVoice()
-        if let room = self.room {
+        if let room = self.room, !room.isInvalidated {
+            room.saveDraft(inputTextView.text, replyToMessage: selectedMessageToReply)
             IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
             if openChatFromLink { // TODO - also check if user before joined to this room don't send this request
                 sendUnsubscribForRoom(roomId: room.id)

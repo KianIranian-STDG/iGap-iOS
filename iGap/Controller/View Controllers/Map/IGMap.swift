@@ -502,9 +502,10 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
                     let userId = Int64(requestWrapper.identity)!
                     self.usersCommentDictionary[userId] = comment.igpComment
                     
-                    let nearbyCoordinate = self.userNoInfoDictionary[userId]!
-                    self.addMarker(userId: userId, lat: nearbyCoordinate.igpLat, lon: nearbyCoordinate.igpLon)
-                    self.userNoInfoDictionary.removeValue(forKey: userId)
+                    if let nearbyCoordinate = self.userNoInfoDictionary[userId] {
+                        self.addMarker(userId: userId, lat: nearbyCoordinate.igpLat, lon: nearbyCoordinate.igpLon)
+                        self.userNoInfoDictionary.removeValue(forKey: userId)
+                    }
                 }
             }
         }).error({ (errorCode, waitTime) in }).send()
