@@ -28,6 +28,10 @@ class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
         // Configure the view for the selected state
     }
     func setUser(_ member: IGGroupMember) {
+        if member.isInvalidated {
+            return
+        }
+        
         if let memberUserDetail = member.user {
             groupMemberNameLabel.text = memberUserDetail.displayName
             groupMemberAvatarView.setUser(memberUserDetail)

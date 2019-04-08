@@ -31,6 +31,10 @@ class IGChannelInfoMemberListTableViewCell: MGSwipeTableCell {
     }
     
     func setUser(_ member: IGChannelMember) {
+        if member.isInvalidated {
+            return
+        }
+        
         if let memberUserDetail = member.user {
             memberUserNameLabel.text = memberUserDetail.displayName
             memberAvatarView.setUser(memberUserDetail)
