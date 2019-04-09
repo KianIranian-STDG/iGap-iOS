@@ -17,7 +17,61 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Message Attachment Location-->
+        <!--Dashboard-->
+        <scene sceneID="fe4-zV-nJ3">
+            <objects>
+                <viewController storyboardIdentifier="IGDashboardViewController" id="m4t-Cf-aRg" customClass="IGDashboardViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="klE-Lx-V5m"/>
+                        <viewControllerLayoutGuide type="bottom" id="YXy-vM-dcs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XQx-sQ-Oa1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-GU-ejX">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jVs-8m-lwG">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="YTd-Os-yfn">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="m4t-Cf-aRg" id="l7Z-zX-PVT"/>
+                                    <outlet property="delegate" destination="m4t-Cf-aRg" id="IR9-gl-HOz"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Wfm-GU-ejX" firstAttribute="top" secondItem="klE-Lx-V5m" secondAttribute="bottom" id="EpG-uW-QNb"/>
+                            <constraint firstItem="Wfm-GU-ejX" firstAttribute="leading" secondItem="XQx-sQ-Oa1" secondAttribute="leadingMargin" constant="-16" id="EzS-D9-cMZ"/>
+                            <constraint firstItem="YXy-vM-dcs" firstAttribute="top" secondItem="Wfm-GU-ejX" secondAttribute="bottom" id="GTI-Yx-dde"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wfm-GU-ejX" secondAttribute="trailing" constant="-16" id="T8m-qT-jbC"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" tag="1" title="Dashboard" image="IG_Tabbar_Recent_On" selectedImage="IG_Tabbar_Recent_On" id="4kk-i4-sZg"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Wfm-GU-ejX" id="QwU-vu-hH9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="21o-NC-Yxl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-687" y="-862"/>
+        </scene>
+        <!--Message Attachment Current Location View Controller-->
         <scene sceneID="7xR-b8-gp0">
             <objects>
                 <viewController storyboardIdentifier="showLocationViewController" id="S3I-yk-3Ak" customClass="IGMessageAttachmentLocation" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -270,9 +324,8 @@
                             <outlet property="delegate" destination="o0F-fe-2yc" id="2yW-Zi-QR1"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="" image="IG_Tabbar_Recent_Off" selectedImage="IG_Tabbar_Recent_On" id="vth-sK-lcp">
-                        <inset key="imageInsets" minX="0.0" minY="60" maxX="0.0" maxY="45"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
+                    <tabBarItem key="tabBarItem" title="Chats" image="IG_Tabbar_Chat_On" selectedImage="IG_Tabbar_Chat_On" id="vth-sK-lcp">
+                        <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Recents" id="uni-kb-OpQ" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
@@ -1208,11 +1261,9 @@
                         <color key="barTintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ZlR-QV-eEC" kind="relationship" relationship="viewControllers" id="XTH-Hc-wGO"/>
-                        <segue destination="XTU-9B-zWi" kind="relationship" relationship="viewControllers" id="Dxv-eH-nJp"/>
                         <segue destination="o0F-fe-2yc" kind="relationship" relationship="viewControllers" id="Tgr-QN-Ayr"/>
-                        <segue destination="lnn-LO-l7t" kind="relationship" relationship="viewControllers" id="kaU-E8-kZj"/>
-                        <segue destination="A1t-3N-bJQ" kind="relationship" relationship="viewControllers" id="DM2-A2-xep"/>
+                        <segue destination="m4t-Cf-aRg" kind="relationship" relationship="viewControllers" id="2KX-QL-N73"/>
+                        <segue destination="A1t-3N-bJQ" kind="relationship" relationship="viewControllers" id="GjL-zO-P4o"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lET-3R-lG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1224,10 +1275,10 @@
             <objects>
                 <tableViewController id="lnn-LO-l7t" customClass="IGChatsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xLh-Dr-EGL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -1261,7 +1312,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NcG-vN-1HE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1271" y="-1952"/>
+            <point key="canvasLocation" x="1266" y="-1952"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DIf-Cp-KnE">
@@ -1287,10 +1338,10 @@
             <objects>
                 <tableViewController id="XTU-9B-zWi" customClass="IGGroupsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xhu-2h-WvY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -1324,18 +1375,18 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j5m-zA-McG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2138" y="-1952"/>
+            <point key="canvasLocation" x="2153" y="-1952"/>
         </scene>
         <!--Channel-->
         <scene sceneID="EZH-Wm-Jj6">
             <objects>
                 <tableViewController id="ZlR-QV-eEC" customClass="IGChannelsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ml8-EY-otb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -1369,7 +1420,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gzb-g4-KQB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2978" y="-1952"/>
+            <point key="canvasLocation" x="2988" y="-1952"/>
         </scene>
         <!--Call-->
         <scene sceneID="koA-SO-dk7">
@@ -1397,15 +1448,12 @@
                             <outlet property="delegate" destination="A1t-3N-bJQ" id="aVG-Q6-WUL"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="4" title="" image="IG_Tabbar_Call_Off" selectedImage="IG_Tabbar_Call_On" id="oqI-zk-FQV">
-                        <inset key="imageInsets" minX="0.0" minY="60" maxX="0.0" maxY="45"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" tag="2" title="Calls" image="IG_Tabbar_Call_On" selectedImage="IG_Tabbar_Call_On" id="oqI-zk-FQV"/>
                     <navigationItem key="navigationItem" title="Call" id="ata-Zx-iH3"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hN-bq-gbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3895" y="-1952"/>
+            <point key="canvasLocation" x="3894" y="-1952"/>
         </scene>
         <!--Forward Message Table View Controller-->
         <scene sceneID="oQf-k8-o4J">
@@ -1738,7 +1786,6 @@
         <image name="IG_Chat_Screen_Scroll_To_Bottom" width="411.42855834960938" height="411.42855834960938"/>
         <image name="IG_Chat_Screen_Send" width="76" height="76"/>
         <image name="IG_Splash_Cute_2" width="600" height="600"/>
-        <image name="IG_Tabbar_Call_Off" width="74" height="74"/>
         <image name="IG_Tabbar_Call_On" width="74" height="74"/>
         <image name="IG_Tabbar_Channel_Off" width="74" height="74"/>
         <image name="IG_Tabbar_Channel_On" width="74" height="74"/>
@@ -1746,13 +1793,12 @@
         <image name="IG_Tabbar_Chat_On" width="74" height="74"/>
         <image name="IG_Tabbar_Group_Off" width="74" height="74"/>
         <image name="IG_Tabbar_Group_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Recent_Off" width="74" height="74"/>
         <image name="IG_Tabbar_Recent_On" width="74" height="74"/>
         <image name="Location_Marker" width="19.200000762939453" height="19.200000762939453"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jRj-hY-oEr"/>
+        <segue reference="l1W-zY-RFK"/>
         <segue reference="I27-tX-EAz"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>

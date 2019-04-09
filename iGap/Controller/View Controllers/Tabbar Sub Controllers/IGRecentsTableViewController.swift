@@ -743,6 +743,12 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         unreadCount = rooms.sum(ofProperty: "unreadCount")
         if unreadCount == 0 {
             self.tabBarController?.tabBar.items?[0].badgeValue = nil
+        } else {
+            self.tabBarController?.tabBar.items?[0].badgeValue = "\(unreadCount)"
+        }
+        /*
+        if unreadCount == 0 {
+            self.tabBarController?.tabBar.items?[0].badgeValue = nil
             self.tabBarController?.tabBar.items?[1].badgeValue = nil
             self.tabBarController?.tabBar.items?[2].badgeValue = nil
             self.tabBarController?.tabBar.items?[3].badgeValue = nil
@@ -787,6 +793,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             
             self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
         }
+        */
         
         if !AppDelegate.appIsInBackground {
             UIApplication.shared.applicationIconBadgeNumber = unreadCount

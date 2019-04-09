@@ -293,6 +293,15 @@ class IGNavigationItem: UINavigationItem {
             var title = ""
             var width: Double!
             
+            if IGTabBarController.currentTabStatic == .Dashboard {
+                title = "Dashboard"
+                width = 100
+            } else if IGTabBarController.currentTabStatic == .Call {
+                title = "Calls History"
+                width = 110
+            }
+            
+            /*
             if IGTabBarController.currentTabStatic == .Chat {
                 title = "Chats"
                 width = 60
@@ -306,6 +315,7 @@ class IGNavigationItem: UINavigationItem {
                 title = "Calls History"
                 width = 110
             }
+            */
             
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
             let lableView = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 23))

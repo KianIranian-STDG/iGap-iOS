@@ -233,7 +233,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
             chargeType = [normalCharge,amazingCharge,wimaxCharge,permanently]
         }
         
-        showAlertView(title: "Charge Type", message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
+        showAlertView(title: "Topup Type", message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
             
             switch title {
             case self.normalCharge:

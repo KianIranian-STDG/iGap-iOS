@@ -14,9 +14,7 @@ class IGTabBarController: UITabBarController {
     
     enum CurrentTab {
         case Recent
-        case Chat
-        case Group
-        case Channel
+        case Dashboard
         case Call
     }
     
@@ -47,13 +45,11 @@ class IGTabBarController: UITabBarController {
             }
             if tabBar.selectedItem == item {
                 setCurrentTab(tag: (tabBar.selectedItem?.tag)!)
-                let selectedTitleFont = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.bold)
-                let selectedTitleColor = UIColor.black
-                item.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): selectedTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): selectedTitleColor]), for: UIControl.State.normal)
+                let selectedTitleFont = UIFont.systemFont(ofSize: 10, weight: UIFont.Weight.bold)
+                item.setTitleTextAttributes([NSAttributedString.Key.font: selectedTitleFont], for: UIControl.State.normal)//NSForegroundColorAttributeName: selectedTitleColor], for: UIControlState.normal
             } else {
                 let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.regular)
-                let normalTitleColor = UIColor(red: 176.0/255.0, green: 224.0/255.0, blue: 230.0/255.0, alpha: 1.0)
-                item.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): normalTitleColor, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.black]), for: UIControl.State.normal)
+                item.setTitleTextAttributes([NSAttributedString.Key.font: normalTitleFont], for: UIControl.State.normal)//NSForegroundColorAttributeName: normalTitleColor, NSBackgroundColorAttributeName: UIColor.black], for: UIControlState.normal
             }
         }
         if #available(iOS 10.0, *) {
@@ -69,18 +65,10 @@ class IGTabBarController: UITabBarController {
             return
             
         case 1:
-            IGTabBarController.currentTabStatic = .Chat
+            IGTabBarController.currentTabStatic = .Dashboard
             return
             
         case 2:
-            IGTabBarController.currentTabStatic = .Group
-            return
-            
-        case 3:
-            IGTabBarController.currentTabStatic = .Channel
-            return
-        
-        case 4:
             IGTabBarController.currentTabStatic = .Call
             return
             

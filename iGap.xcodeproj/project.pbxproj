@@ -220,6 +220,7 @@
 		FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */; };
 		FA786D58206A575300608A2D /* profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA51753206A254200471EA0 /* profile.storyboard */; };
 		FA786D5A206A746700608A2D /* CreateRoom.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA786D59206A746700608A2D /* CreateRoom.storyboard */; };
+		FA7886C6223639E30006336F /* AbstractDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7886C5223639E30006336F /* AbstractDashboardCell.swift */; };
 		FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */; };
 		FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */; };
 		FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */; };
@@ -284,6 +285,19 @@
 		FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA97D44720174C2C0087BBD0 /* AbstractCell.swift */; };
 		FA98F838204D37670070424E /* IGCallQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA98F837204D37670070424E /* IGCallQuality.swift */; };
 		FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA98F839204D41AA0070424E /* Cosmos.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */; };
+		FA99FF6022352109009035DF /* DashboardCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF5E22352109009035DF /* DashboardCell1.swift */; };
+		FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF5F22352109009035DF /* DashboardCell1.xib */; };
+		FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF6222353401009035DF /* DashboardCell2.swift */; };
+		FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF6322353401009035DF /* DashboardCell2.xib */; };
+		FA99FF6822354031009035DF /* DashboardCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF6622354031009035DF /* DashboardCell3.swift */; };
+		FA99FF6922354031009035DF /* DashboardCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF6722354031009035DF /* DashboardCell3.xib */; };
+		FA99FF6C2235413B009035DF /* DashboardCell4.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF6A2235413B009035DF /* DashboardCell4.swift */; };
+		FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF6B2235413B009035DF /* DashboardCell4.xib */; };
+		FA99FF702235428A009035DF /* DashboardCell5.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF6E2235428A009035DF /* DashboardCell5.swift */; };
+		FA99FF712235428A009035DF /* DashboardCell5.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF6F2235428A009035DF /* DashboardCell5.xib */; };
+		FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF72223544B2009035DF /* DashboardCell6.swift */; };
+		FA99FF75223544B2009035DF /* DashboardCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF73223544B2009035DF /* DashboardCell6.xib */; };
 		FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */; };
 		FA9EE5B7221EB01100BA7735 /* ConstantSizeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */; };
 		FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */; };
@@ -697,6 +711,7 @@
 		FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardStartObserver.swift; sourceTree = "<group>"; };
 		FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistredUserInfoTableViewController.swift; sourceTree = "<group>"; };
 		FA786D59206A746700608A2D /* CreateRoom.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateRoom.storyboard; sourceTree = "<group>"; };
+		FA7886C5223639E30006336F /* AbstractDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractDashboardCell.swift; sourceTree = "<group>"; };
 		FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegisteredUser.swift; sourceTree = "<group>"; };
 		FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmClientCondition.swift; sourceTree = "<group>"; };
 		FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerToolbar.swift; sourceTree = "<group>"; };
@@ -761,6 +776,19 @@
 		FA97D44720174C2C0087BBD0 /* AbstractCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractCell.swift; sourceTree = "<group>"; };
 		FA98F837204D37670070424E /* IGCallQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallQuality.swift; sourceTree = "<group>"; };
 		FA98F839204D41AA0070424E /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
+		FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDashboardViewController.swift; sourceTree = "<group>"; };
+		FA99FF5E22352109009035DF /* DashboardCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell1.swift; sourceTree = "<group>"; };
+		FA99FF5F22352109009035DF /* DashboardCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell1.xib; sourceTree = "<group>"; };
+		FA99FF6222353401009035DF /* DashboardCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell2.swift; sourceTree = "<group>"; };
+		FA99FF6322353401009035DF /* DashboardCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell2.xib; sourceTree = "<group>"; };
+		FA99FF6622354031009035DF /* DashboardCell3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell3.swift; sourceTree = "<group>"; };
+		FA99FF6722354031009035DF /* DashboardCell3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell3.xib; sourceTree = "<group>"; };
+		FA99FF6A2235413B009035DF /* DashboardCell4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell4.swift; sourceTree = "<group>"; };
+		FA99FF6B2235413B009035DF /* DashboardCell4.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell4.xib; sourceTree = "<group>"; };
+		FA99FF6E2235428A009035DF /* DashboardCell5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell5.swift; sourceTree = "<group>"; };
+		FA99FF6F2235428A009035DF /* DashboardCell5.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell5.xib; sourceTree = "<group>"; };
+		FA99FF72223544B2009035DF /* DashboardCell6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell6.swift; sourceTree = "<group>"; };
+		FA99FF73223544B2009035DF /* DashboardCell6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell6.xib; sourceTree = "<group>"; };
 		FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSelectCountryCell.swift; sourceTree = "<group>"; };
 		FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSizeLimit.swift; sourceTree = "<group>"; };
 		FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomMessageWallet.swift; sourceTree = "<group>"; };
@@ -1075,6 +1103,7 @@
 		FA087B2C1DC4A27200E139FA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA99FF5B22351C63009035DF /* Dashboard */,
 				FAE07EFA2205999E00BE3593 /* Sticker */,
 				FA03C19A20429437008812E3 /* Call */,
 				93AA67B81E4F03290053380C /* Channel and Group Info */,
@@ -1575,6 +1604,35 @@
 				FA42EEF71E5C205D00CF8A32 /* IGImageView.swift */,
 			);
 			path = ReusableViews;
+			sourceTree = "<group>";
+		};
+		FA99FF5A22351A50009035DF /* Dashboard Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA7886C5223639E30006336F /* AbstractDashboardCell.swift */,
+				FA99FF5E22352109009035DF /* DashboardCell1.swift */,
+				FA99FF5F22352109009035DF /* DashboardCell1.xib */,
+				FA99FF6222353401009035DF /* DashboardCell2.swift */,
+				FA99FF6322353401009035DF /* DashboardCell2.xib */,
+				FA99FF6622354031009035DF /* DashboardCell3.swift */,
+				FA99FF6722354031009035DF /* DashboardCell3.xib */,
+				FA99FF6A2235413B009035DF /* DashboardCell4.swift */,
+				FA99FF6B2235413B009035DF /* DashboardCell4.xib */,
+				FA99FF6E2235428A009035DF /* DashboardCell5.swift */,
+				FA99FF6F2235428A009035DF /* DashboardCell5.xib */,
+				FA99FF72223544B2009035DF /* DashboardCell6.swift */,
+				FA99FF73223544B2009035DF /* DashboardCell6.xib */,
+			);
+			path = "Dashboard Cells";
+			sourceTree = "<group>";
+		};
+		FA99FF5B22351C63009035DF /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				FA99FF5A22351A50009035DF /* Dashboard Cells */,
+				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		FA9F734F2127E4C0004418E5 /* Contact Picker */ = {
@@ -2109,6 +2167,7 @@
 				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */,
+				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,
@@ -2128,8 +2187,10 @@
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
 				FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */,
+				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				FAE6063F21EB3A0C00F03FFC /* es.lproj in Resources */,
+				FA99FF6922354031009035DF /* DashboardCell3.xib in Resources */,
 				FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */,
 				FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */,
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
@@ -2137,12 +2198,14 @@
 				FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */,
 				FAE6063D21EB3A0C00F03FFC /* en.lproj in Resources */,
 				FA927E0A20286FE800DF7145 /* ContactCell.xib in Resources */,
+				FA99FF712235428A009035DF /* DashboardCell5.xib in Resources */,
 				FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */,
 				FA33063B1F445AE80096031A /* IRANSans_Bold.ttf in Resources */,
 				FA5656BD204AB18F00DB46F0 /* igap_connect.mp3 in Resources */,
 				FA3306361F445A570096031A /* IRANSans.ttf in Resources */,
 				FAE6063E21EB3A0C00F03FFC /* zh-Hant.lproj in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
+				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
 				FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
@@ -2163,6 +2226,7 @@
 				FAE6063B21EB3A0C00F03FFC /* pt.lproj in Resources */,
 				FAE6064421EB3A0C00F03FFC /* da.lproj in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
+				FA99FF75223544B2009035DF /* DashboardCell6.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2280,6 +2344,7 @@
 				FA50A8CF1DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
+				FA99FF6022352109009035DF /* DashboardCell1.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
@@ -2347,13 +2412,17 @@
 				FA8F22521DD89C6B005A90D1 /* IGChatRoom.swift in Sources */,
 				FA09535E1E1B97700043ED3F /* IGSettingContactBlockListTableViewController.swift in Sources */,
 				FA5CFC4E21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift in Sources */,
+				FA99FF6C2235413B009035DF /* DashboardCell4.swift in Sources */,
 				FA96EF541DEB09A6009BE640 /* IGRequestChat.swift in Sources */,
+				FA7886C6223639E30006336F /* AbstractDashboardCell.swift in Sources */,
 				FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */,
 				93193F301E5812CA0039AC0C /* IGGroupInfoMemberListTableViewController.swift in Sources */,
 				FA0953681E1B97700043ED3F /* IGSettingPrivacy&SecurityTableViewController.swift in Sources */,
 				FA8F22561DD89C88005A90D1 /* IGChannelRoom.swift in Sources */,
 				FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */,
+				FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */,
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,
+				FA99FF702235428A009035DF /* DashboardCell5.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGChooseContactToAddNewGroupTableViewCell.swift in Sources */,
 				FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
@@ -2454,6 +2523,7 @@
 				FA09536B1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController.swift in Sources */,
 				93193F281E5811BA0039AC0C /* IGGroupInfoTableViewController.swift in Sources */,
 				FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */,
+				FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */,
 				FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */,
 				FAD530651E0BDE2A00FE6C54 /* IGNavigationItem.swift in Sources */,
 				FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */,
@@ -2482,6 +2552,7 @@
 				FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */,
 				FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */,
 				FA0953701E1B97700043ED3F /* IGSettingsChatStickersModalView.swift in Sources */,
+				FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */,
 				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
 				FA63BAA91DD70E77000B60AD /* IGRequestInfo.swift in Sources */,
@@ -2560,6 +2631,7 @@
 				FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */,
 				FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */,
 				FA09536D1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsTableViewController.swift in Sources */,
+				FA99FF6822354031009035DF /* DashboardCell3.swift in Sources */,
 				FA927E0C20288A7E00DF7145 /* FileCell.swift in Sources */,
 				93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */,
 				FA0CC8121E5DD99400556283 /* Thread.swift in Sources */,
