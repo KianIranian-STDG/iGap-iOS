@@ -101,10 +101,60 @@ class AbstractDashboardCell: UICollectionViewCell {
             IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: discoveryInfo.igpValue, joinToRoom: false)
             return
             
+        case .webLink:
+            IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!)
+            return
+            
         case .page:
             let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             dashboard.pageId = Int32(discoveryInfo.igpValue)!
             UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+            return
+            
+        case .financialMenu:
+            IGHelperFinancial.getInstance(viewController: UIApplication.topViewController()!).manageFinancialServiceChoose()
+            return
+            
+        case .topupMenu:
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            return
+            
+        case .billMenu:
+            IGFinancialServiceBill.BillInfo = nil
+            IGFinancialServiceBill.isTrafficOffenses = false
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            return
+            
+        case .trafficBillMenu:
+            IGFinancialServiceBill.BillInfo = nil
+            IGFinancialServiceBill.isTrafficOffenses = true
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            return
+            
+        case .mobileBillMenu:
+            IGFinancialServiceBillingInquiry.isMobile = true
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            return
+            
+        case .phoneBillMenu:
+            IGFinancialServiceBillingInquiry.isMobile = false
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            return
+            
+        case .nearbyMenu:
+            return
+            
+        case .call:
             return
             
         default:
