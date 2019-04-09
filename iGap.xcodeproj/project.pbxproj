@@ -231,6 +231,8 @@
 		FA8204382025C97300A795D5 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8204362025C97300A795D5 /* ImageCell.swift */; };
 		FA82043B2025D90800A795D5 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA82043A2025C99300A795D5 /* ImageCell.xib */; };
 		FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */; };
+		FA842A3A225CA96A00E500A4 /* DashboardCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA842A39225CA96A00E500A4 /* DashboardCell1.swift */; };
+		FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */; };
 		FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */; };
 		FA844D8821F88FCF000E6750 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844D8621F88FCF000E6750 /* Compression.swift */; };
 		FA84D49F21C918C9009597B7 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA84D49E21C918C9009597B7 /* webServiceKey.txt */; };
@@ -286,7 +288,7 @@
 		FA98F838204D37670070424E /* IGCallQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA98F837204D37670070424E /* IGCallQuality.swift */; };
 		FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA98F839204D41AA0070424E /* Cosmos.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */; };
-		FA99FF6022352109009035DF /* DashboardCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF5E22352109009035DF /* DashboardCell1.swift */; };
+		FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF5E22352109009035DF /* DashboardCellUnknown.swift */; };
 		FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF5F22352109009035DF /* DashboardCell1.xib */; };
 		FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF6222353401009035DF /* DashboardCell2.swift */; };
 		FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF6322353401009035DF /* DashboardCell2.xib */; };
@@ -722,6 +724,8 @@
 		FA8204362025C97300A795D5 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		FA82043A2025C99300A795D5 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountReasonViewController.swift; sourceTree = "<group>"; };
+		FA842A39225CA96A00E500A4 /* DashboardCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell1.swift; sourceTree = "<group>"; };
+		FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCellUnknown.xib; sourceTree = "<group>"; };
 		FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
 		FA844D8621F88FCF000E6750 /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
 		FA84D49E21C918C9009597B7 /* webServiceKey.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = webServiceKey.txt; sourceTree = "<group>"; };
@@ -777,7 +781,7 @@
 		FA98F837204D37670070424E /* IGCallQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallQuality.swift; sourceTree = "<group>"; };
 		FA98F839204D41AA0070424E /* Cosmos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cosmos.framework; path = Carthage/Build/iOS/Cosmos.framework; sourceTree = "<group>"; };
 		FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDashboardViewController.swift; sourceTree = "<group>"; };
-		FA99FF5E22352109009035DF /* DashboardCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell1.swift; sourceTree = "<group>"; };
+		FA99FF5E22352109009035DF /* DashboardCellUnknown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCellUnknown.swift; sourceTree = "<group>"; };
 		FA99FF5F22352109009035DF /* DashboardCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell1.xib; sourceTree = "<group>"; };
 		FA99FF6222353401009035DF /* DashboardCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell2.swift; sourceTree = "<group>"; };
 		FA99FF6322353401009035DF /* DashboardCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell2.xib; sourceTree = "<group>"; };
@@ -1610,7 +1614,9 @@
 			isa = PBXGroup;
 			children = (
 				FA7886C5223639E30006336F /* AbstractDashboardCell.swift */,
-				FA99FF5E22352109009035DF /* DashboardCell1.swift */,
+				FA99FF5E22352109009035DF /* DashboardCellUnknown.swift */,
+				FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */,
+				FA842A39225CA96A00E500A4 /* DashboardCell1.swift */,
 				FA99FF5F22352109009035DF /* DashboardCell1.xib */,
 				FA99FF6222353401009035DF /* DashboardCell2.swift */,
 				FA99FF6322353401009035DF /* DashboardCell2.xib */,
@@ -2170,6 +2176,7 @@
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
+				FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */,
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,
 				FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */,
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
@@ -2245,7 +2252,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "apiKey=$(sed -n '1p' < ./iGap/SupportingFiles/api.key)\nsecretKey=$(sed -n '2p' < ./iGap/SupportingFiles/secret.key)\n\n/usr/libexec/PlistBuddy -c \"Set :Fabric:APIKey $apiKey\" ./iGap/SupportingFiles/Info.plist\n\n\"./Fabric.framework/run\" $apiKey $secretKey";
+			shellScript = "apiKey=$(sed -n '1p' < ./iGap/SupportingFiles/api.key)\nsecretKey=$(sed -n '2p' < ./iGap/SupportingFiles/secret.key)\n\n/usr/libexec/PlistBuddy -c \"Set :Fabric:APIKey $apiKey\" ./iGap/SupportingFiles/Info.plist\n\n\"./Fabric.framework/run\" $apiKey $secretKey\n";
 		};
 		FADF684C1DB2607B00DC5038 /* [RS] Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2259,7 +2266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 		FAF985B71E2E110900B26940 /* [RS] Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2344,7 +2351,7 @@
 				FA50A8CF1DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
-				FA99FF6022352109009035DF /* DashboardCell1.swift in Sources */,
+				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
@@ -2432,6 +2439,7 @@
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
+				FA842A3A225CA96A00E500A4 /* DashboardCell1.swift in Sources */,
 				FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */,
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
 				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,

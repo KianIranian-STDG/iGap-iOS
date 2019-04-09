@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import IGProtoBuff
 
 class DashboardCell2: AbstractDashboardCell {
 
@@ -28,7 +29,7 @@ class DashboardCell2: AbstractDashboardCell {
         return NSStringFromClass(self)
     }
     
-    override public func initView(dashboard: Dashboard){
+    override public func initView(dashboard: [IGPDiscoveryField]){
         mainViewAbs = mainView
         img1Abs = img1
         img2Abs = img2

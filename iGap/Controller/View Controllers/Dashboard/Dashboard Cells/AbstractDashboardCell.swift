@@ -9,9 +9,11 @@
  */
 
 import UIKit
+import IGProtoBuff
 
 class AbstractDashboardCell: UICollectionViewCell {
-    
+
+    var dashboardAbs: [IGPDiscoveryField]!
     var mainViewAbs:  UIView?
     var img1Abs: UIImageView?
     var img2Abs: UIImageView?
@@ -21,25 +23,37 @@ class AbstractDashboardCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    public func initView(dashboard: Dashboard){
-        
+    public func initView(dashboard: [IGPDiscoveryField]){
+        self.dashboardAbs = dashboard
         if img1Abs != nil {
             img1Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
             img1Abs?.layer.masksToBounds = true
+            if let url = URL(string: dashboard[0].igpImageurl) {
+                img1Abs?.setImage(url: url)
+            }
         }
         
         if img2Abs != nil {
             img2Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
             img2Abs?.layer.masksToBounds = true
+            if let url = URL(string: dashboard[1].igpImageurl) {
+                img2Abs?.setImage(url: url)
+            }
         }
         
         if img3Abs != nil {
             img3Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
             img3Abs?.layer.masksToBounds = true
+            if let url = URL(string: dashboard[2].igpImageurl) {
+                img3Abs?.setImage(url: url)
+            }
         }
         
         manageGesture()
     }
+    
+    /**********************************************************************/
+    /************************* Gesture Recognizer *************************/
     
     private func manageGesture(){
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapImage1(_:)))

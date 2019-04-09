@@ -9,25 +9,15 @@
  */
 
 import UIKit
-
-struct Dashboard {
-    var type: Int!
-    var height: CGFloat!
-}
+import IGProtoBuff
 
 class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate {
-    
+
     static let itemCorner: CGFloat = 10
-    
-    var dashboardList: [Dashboard] = [
-        Dashboard(type: 1, height: 150),
-        Dashboard(type: 2, height: 150),
-        Dashboard(type: 3, height: 200),
-        Dashboard(type: 4, height: 150),
-        Dashboard(type: 5, height: 190),
-        Dashboard(type: 6, height: 170)]
-    
     let screenWidth = UIScreen.main.bounds.width
+    public var pageId: Int32 = 0
+    private var discovery: [IGPDiscovery] = []
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -36,16 +26,18 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         registerCellsNib()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        self.collectionView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0)
+        self.collectionView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        getDiscoveryList()
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()
         }
     }
     
     private func registerCellsNib(){
+        self.collectionView!.register(DashboardCellUnknown.nib(), forCellWithReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell1.nib(), forCellWithReuseIdentifier: DashboardCell1.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell2.nib(), forCellWithReuseIdentifier: DashboardCell2.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell3.nib(), forCellWithReuseIdentifier: DashboardCell3.cellReuseIdentifier())
@@ -54,8 +46,29 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         self.collectionView!.register(DashboardCell6.nib(), forCellWithReuseIdentifier: DashboardCell6.cellReuseIdentifier())
     }
     
+    private func getDiscoveryList(){
+        IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).success({ (protoResponse) in
+            if let response = protoResponse as? IGPClientGetDiscoveryResponse {
+                self.discovery = response.igpDiscoveries
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.getDiscoveryList()
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    /**************************************************************/
+    /*********************** collectionView ***********************/
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dashboardList.count
+        return discovery.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -64,42 +77,49 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let item = dashboardList[indexPath.section]
-        
-        if item.type == 1 {
+        let item = discovery[indexPath.section]
+
+        if item.igpModel == .model1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
-            cell.initView(dashboard: dashboardList[indexPath.section])
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
             return cell
-        } else if item.type == 2 {
+        } else if item.igpModel == .model2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
-            cell.initView(dashboard: dashboardList[indexPath.section])
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
             return cell
-        } else if item.type == 3 {
+        } else if item.igpModel == .model3 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
-            cell.initView(dashboard: dashboardList[indexPath.section])
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
             return cell
-        } else if item.type == 4 {
+        } else if item.igpModel == .model4 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
-            cell.initView(dashboard: dashboardList[indexPath.section])
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
             return cell
-        } else if item.type == 5 {
+        } else if item.igpModel == .model5 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
-            cell.initView(dashboard: dashboardList[indexPath.section])
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+            return cell
+        } else if item.igpModel == .model6 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
-            cell.initView(dashboard: dashboardList[indexPath.section])
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier(), for: indexPath) as! DashboardCellUnknown
+            cell.initView()
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = dashboardList[indexPath.section]
-        return CGSize(width: screenWidth, height: item.height)
+        let item = discovery[indexPath.section]
+        if item.igpModel.rawValue > 5 {
+            return CGSize(width: screenWidth, height: 60)
+        }
+        return CGSize(width: screenWidth, height: CGFloat(item.igpHeight))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(-1, 0, -1, 0)
+        return UIEdgeInsets(top: -1, left: 0, bottom: -1, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

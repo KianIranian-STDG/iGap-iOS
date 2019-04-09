@@ -11,26 +11,25 @@
 import UIKit
 import IGProtoBuff
 
-class DashboardCell1: AbstractDashboardCell {
+class DashboardCellUnknown: UICollectionViewCell {
 
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var img: UIImageView!
+    @IBOutlet weak var txtUnknown: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
     class func nib() -> UINib {
-        return UINib(nibName: "DashboardCell1", bundle: Bundle(for: self))
+        return UINib(nibName: "DashboardCellUnknown", bundle: Bundle(for: self))
     }
     
     class func cellReuseIdentifier() -> String {
         return NSStringFromClass(self)
     }
     
-    public override func initView(dashboard: [IGPDiscoveryField]){
-        mainViewAbs = mainView
-        img1Abs = img
-        super.initView(dashboard: dashboard)
+    public func initView(){
+        txtUnknown.layer.masksToBounds = true
+        txtUnknown.layer.cornerRadius = IGDashboardViewController.itemCorner
     }
 }

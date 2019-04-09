@@ -850,7 +850,6 @@ extension UIImageView {
         IGDownloadManager.sharedManager.downloadImage(url: url, completion: { (data) -> Void in
             DispatchQueue.main.async {
                 if let imageMain = imagesMap[url.absoluteString] {
-                    IGHelperBot.shared.data = data
                     imageMain.image = UIImage(data: data)
                 }
             }

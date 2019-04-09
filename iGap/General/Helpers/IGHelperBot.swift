@@ -14,7 +14,6 @@ class IGHelperBot {
     
     static let shared = IGHelperBot()
     
-    var data: Data?
     static var createdViewDic: [Int64 : UIView] = [:]
     var buttonActionDic: [UIButton : IGStructAdditionalButton] = [:]
     var buttonViewDic: [UIButton : UIView] = [:]

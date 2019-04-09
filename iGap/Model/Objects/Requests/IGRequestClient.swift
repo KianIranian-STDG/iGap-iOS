@@ -446,3 +446,18 @@ class IGClientGetFavoriteMenuRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
+
+class IGClientGetDiscoveryRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
+        class func generate(pageId: Int32 = 0) -> IGRequestWrapper {
+            var request = IGPClientGetDiscovery()
+            request.igpPageID = pageId
+            return IGRequestWrapper(message: request, actionID: 620)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientGetDiscoveryResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
