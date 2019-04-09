@@ -69,15 +69,46 @@ class AbstractDashboardCell: UICollectionViewCell {
         img3Abs?.isUserInteractionEnabled = true
     }
     
-    func didTapImage1(_ gestureRecognizer: UITapGestureRecognizer){
-        
+    @objc func didTapImage1(_ gestureRecognizer: UITapGestureRecognizer){
+        actionManager(discoveryInfo: self.dashboardAbs[0])
     }
     
-    func didTapImage2(_ gestureRecognizer: UITapGestureRecognizer){
-        
+    @objc func didTapImage2(_ gestureRecognizer: UITapGestureRecognizer){
+        actionManager(discoveryInfo: self.dashboardAbs[1])
     }
     
-    func didTapImage3(_ gestureRecognizer: UITapGestureRecognizer){
-
+    @objc func didTapImage3(_ gestureRecognizer: UITapGestureRecognizer){
+        actionManager(discoveryInfo: self.dashboardAbs[2])
+    }
+    
+    
+    /**********************************************************************/
+    /*************************** Action Manager ***************************/
+    
+    private func actionManager(discoveryInfo: IGPDiscoveryField){
+        
+        let actionType = discoveryInfo.igpActiontype
+        
+        switch actionType {
+        case .none:
+            return
+            
+        case .joinLink:
+            IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: discoveryInfo.igpValue)
+            return
+            
+        case .usernameLink:
+            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: discoveryInfo.igpValue, joinToRoom: false)
+            return
+            
+        case .page:
+            let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            dashboard.pageId = Int32(discoveryInfo.igpValue)!
+            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+            return
+            
+        default:
+            return
+        }
     }
 }

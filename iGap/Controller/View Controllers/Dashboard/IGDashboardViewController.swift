@@ -22,7 +22,8 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        initNavigationBar()
         registerCellsNib()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -34,6 +35,14 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()
         }
+    }
+    
+    private func initNavigationBar(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Discovery")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
     private func registerCellsNib(){
