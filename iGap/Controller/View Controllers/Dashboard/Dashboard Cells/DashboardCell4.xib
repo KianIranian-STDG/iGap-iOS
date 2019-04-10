@@ -22,10 +22,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBx-9U-9ic">
                         <rect key="frame" x="0.0" y="0.0" width="377" height="70"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="2CR-iM-uBP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2CR-iM-uBP">
                                 <rect key="frame" x="4" y="4" width="182.5" height="62"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-H" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-he-wcA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-he-wcA">
                                 <rect key="frame" x="190.5" y="4" width="182.5" height="62"/>
                             </imageView>
                         </subviews>
@@ -59,8 +59,4 @@
             <point key="canvasLocation" x="-39.200000000000003" y="57.571214392803604"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="iGap-Chat-BG-H" width="1920" height="1080"/>
-        <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
-    </resources>
 </document>

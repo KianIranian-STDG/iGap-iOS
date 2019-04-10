@@ -22,22 +22,22 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6S-dB-LYE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="81"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="ekQ-8i-sOs">
-                                <rect key="frame" x="4" y="4" width="390" height="73"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ekQ-8i-sOs">
+                                <rect key="frame" x="4" y="4" width="354" height="73"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Map" translatesAutoresizingMaskIntoConstraints="NO" id="qAw-42-Ll4">
-                                <rect key="frame" x="398" y="4" width="198" height="73"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qAw-42-Ll4">
+                                <rect key="frame" x="362" y="4" width="234" height="73"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ekQ-8i-sOs" secondAttribute="bottom" constant="4" id="827-ct-92b"/>
-                            <constraint firstItem="qAw-42-Ll4" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.34" constant="-6" id="Cjj-bM-Qgw"/>
+                            <constraint firstItem="qAw-42-Ll4" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.4" constant="-6" id="Cjj-bM-Qgw"/>
                             <constraint firstAttribute="trailing" secondItem="qAw-42-Ll4" secondAttribute="trailing" constant="4" id="Gnb-Ub-6PT"/>
                             <constraint firstItem="ekQ-8i-sOs" firstAttribute="top" secondItem="N6S-dB-LYE" secondAttribute="top" constant="4" id="hLU-JB-xUp"/>
                             <constraint firstItem="qAw-42-Ll4" firstAttribute="top" secondItem="N6S-dB-LYE" secondAttribute="top" constant="4" id="kNZ-r7-Ta8"/>
                             <constraint firstItem="ekQ-8i-sOs" firstAttribute="leading" secondItem="N6S-dB-LYE" secondAttribute="leading" constant="4" id="miX-HF-3tA"/>
-                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.66" constant="-6" id="wtF-mk-EMc"/>
+                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.6" constant="-6" id="wtF-mk-EMc"/>
                             <constraint firstAttribute="bottom" secondItem="qAw-42-Ll4" secondAttribute="bottom" constant="4" id="zs1-zP-0A3"/>
                         </constraints>
                     </view>
@@ -59,8 +59,4 @@
             <point key="canvasLocation" x="-38.399999999999999" y="157.87106446776613"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Map" width="60" height="60"/>
-    </resources>
 </document>

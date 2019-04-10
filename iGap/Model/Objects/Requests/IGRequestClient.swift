@@ -453,11 +453,31 @@ class IGClientGetDiscoveryRequest: IGRequest {
         class func generate(pageId: Int32 = 0) -> IGRequestWrapper {
             var request = IGPClientGetDiscovery()
             request.igpPageID = pageId
-            return IGRequestWrapper(message: request, actionID: 620)
+            return IGRequestWrapper(message: request, actionID: 620, identity: String(describing: pageId))
         }
     }
     class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage : IGPClientGetDiscoveryResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+class IGClientSetDiscoveryItemClickRequest: IGRequest {
+    
+    class func sendRequest(itemId: Int32){
+        IGClientSetDiscoveryItemClickRequest.Generator.generate(itemId: itemId).success({ (protoResponse) in
+        }).error ({ (errorCode, waitTime) in }).send()
+    }
+    
+    class Generator: IGRequest.Generator {
+        class func generate(itemId: Int32) -> IGRequestWrapper {
+            var request = IGPClientSetDiscoveryItemClick()
+            request.igpItemID = itemId
+            return IGRequestWrapper(message: request, actionID: 621)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientSetDiscoveryItemClickResponse) {}
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }

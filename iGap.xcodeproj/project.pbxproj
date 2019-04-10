@@ -215,6 +215,9 @@
 		FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */; };
 		FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B602D201E0483008460CF /* CellSizeCalculator.swift */; };
 		FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */; };
+		FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */; };
+		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
+		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
 		FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */; };
 		FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */; };
 		FA77C2A71E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */; };
@@ -708,6 +711,9 @@
 		FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestQrCode.swift; sourceTree = "<group>"; };
 		FA6B602D201E0483008460CF /* CellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSizeCalculator.swift; sourceTree = "<group>"; };
 		FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperGetMessageState.swift; sourceTree = "<group>"; };
+		FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell7.swift; sourceTree = "<group>"; };
+		FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell7.xib; sourceTree = "<group>"; };
+		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
 		FA73EC9421ECDDA50059EE8A /* IGHelperBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBot.swift; sourceTree = "<group>"; };
 		FA752C321E1EC571008694C6 /* iGap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iGap.entitlements; path = ../iGap.entitlements; sourceTree = "<group>"; };
 		FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForwardStartObserver.swift; sourceTree = "<group>"; };
@@ -1523,6 +1529,7 @@
 				FAD7451621B9447B00801D2E /* IGShareInfo.swift */,
 				FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */,
 				FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */,
+				FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1628,6 +1635,8 @@
 				FA99FF6F2235428A009035DF /* DashboardCell5.xib */,
 				FA99FF72223544B2009035DF /* DashboardCell6.swift */,
 				FA99FF73223544B2009035DF /* DashboardCell6.xib */,
+				FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */,
+				FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */,
 			);
 			path = "Dashboard Cells";
 			sourceTree = "<group>";
@@ -2177,6 +2186,7 @@
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
 				FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */,
+				FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */,
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,
 				FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */,
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
@@ -2333,6 +2343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */,
 				FA0953881E1B97E20043ED3F /* IGCreateNewChatTableViewController.swift in Sources */,
 				8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */,
 				FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */,
@@ -2502,6 +2513,7 @@
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,
+				FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */,
 				FA0953581E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift in Sources */,
 				FA09536C1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell.swift in Sources */,
 				FA0953641E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewController.swift in Sources */,

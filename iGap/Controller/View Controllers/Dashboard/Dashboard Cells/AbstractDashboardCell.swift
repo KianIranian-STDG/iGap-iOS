@@ -26,30 +26,35 @@ class AbstractDashboardCell: UICollectionViewCell {
     public func initView(dashboard: [IGPDiscoveryField]){
         self.dashboardAbs = dashboard
         if img1Abs != nil {
-            img1Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
-            img1Abs?.layer.masksToBounds = true
+            customizeImage(img: img1Abs!)
             if let url = URL(string: dashboard[0].igpImageurl) {
                 img1Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         if img2Abs != nil {
-            img2Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
-            img2Abs?.layer.masksToBounds = true
+            customizeImage(img: img2Abs!)
             if let url = URL(string: dashboard[1].igpImageurl) {
                 img2Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         if img3Abs != nil {
-            img3Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
-            img3Abs?.layer.masksToBounds = true
+            customizeImage(img: img3Abs!)
             if let url = URL(string: dashboard[2].igpImageurl) {
                 img3Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         manageGesture()
+    }
+    
+    private func customizeImage(img: UIImageView){
+        img.layer.cornerRadius = IGDashboardViewController.itemCorner
+        img.layer.masksToBounds = true
+        img.layer.shadowColor = UIColor.gray.cgColor
+        img.layer.shadowOffset = CGSize(width: 0, height: 0)
+        img.layer.shadowOpacity = 0.3
     }
     
     /**********************************************************************/
@@ -86,6 +91,8 @@ class AbstractDashboardCell: UICollectionViewCell {
     /*************************** Action Manager ***************************/
     
     private func actionManager(discoveryInfo: IGPDiscoveryField){
+        
+        IGClientSetDiscoveryItemClickRequest.sendRequest(itemId: discoveryInfo.igpID)
         
         let actionType = discoveryInfo.igpActiontype
         

@@ -315,6 +315,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGClientGetFavoriteMenuRequest.Handler.self     as IGRequest.Handler.Type),
     30620: (IGPClientGetDiscoveryResponse.self              as ResponseMessage.Type,
             IGClientGetDiscoveryRequest.Handler.self        as IGRequest.Handler.Type),
+    30621: (IGPClientSetDiscoveryItemClickResponse.self     as ResponseMessage.Type,
+            IGClientSetDiscoveryItemClickRequest.Handler.self as IGRequest.Handler.Type),
 
     //File: 307xx
     30700: (IGPFileUploadOptionResponse.self                as ResponseMessage.Type,

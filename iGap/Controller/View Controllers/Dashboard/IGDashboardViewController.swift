@@ -17,6 +17,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
     private var discovery: [IGPDiscovery] = []
+    private var refresher: UIRefreshControl!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -28,10 +29,17 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        
+        self.refresher = UIRefreshControl()
+        self.collectionView!.alwaysBounceVertical = true
+        self.refresher.tintColor = UIColor.gray
+        self.refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        self.collectionView!.addSubview(refresher)
+        
+        getDiscoveryList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        getDiscoveryList()
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()
         }
@@ -39,7 +47,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Discovery")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -53,15 +61,39 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         self.collectionView!.register(DashboardCell4.nib(), forCellWithReuseIdentifier: DashboardCell4.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell5.nib(), forCellWithReuseIdentifier: DashboardCell5.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell6.nib(), forCellWithReuseIdentifier: DashboardCell6.cellReuseIdentifier())
+        self.collectionView!.register(DashboardCell7.nib(), forCellWithReuseIdentifier: DashboardCell7.cellReuseIdentifier())
+    }
+    
+    @objc private func loadData(){
+        getDiscoveryList()
+        stopRefresher()
+    }
+    
+    func stopRefresher() {
+        self.refresher.endRefreshing()
     }
     
     private func getDiscoveryList(){
-        IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).success({ (protoResponse) in
+
+        if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
+            self.discovery = discovery.igpDiscoveries
+            self.collectionView.reloadData()
+        }
+        
+        IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPClientGetDiscoveryResponse {
                 self.discovery = response.igpDiscoveries
-            }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                
+                /* just save first page info */
+                if let request = requestWrapper.message as? IGPClientGetDiscovery, request.igpPageID == 0 {
+                    IGFactory.shared.addDiscoveryPageInfo(discoveryList: self.discovery)
+                }
+                
+                DispatchQueue.main.async {
+                    let navigationItem = self.navigationItem as! IGNavigationItem
+                    navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    self.collectionView.reloadData()
+                }
             }
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
@@ -119,6 +151,10 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
             return cell
         } else if item.igpModel == .model6 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
+            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+            return cell
+        } else if item.igpModel == .model7 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
             cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
             return cell
         } else {

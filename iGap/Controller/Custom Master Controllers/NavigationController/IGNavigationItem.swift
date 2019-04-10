@@ -196,7 +196,7 @@ class IGNavigationItem: UINavigationItem {
         
         let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 40))
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.bold)
+        label.font = UIFont.igFont(ofSize: 17.0, weight: .bold)
         label.textAlignment = .center
         label.text = title
         label.textColor = UIColor.iGapBarsInfo()

@@ -2789,4 +2789,39 @@ class IGFactory: NSObject {
         }
         //self.doFactoryTask(task: task)
     }
+    
+    
+    func addDiscoveryPageInfo(discoveryList: [IGPDiscovery]) {
+        removeDiscoveryPageInfo()
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    for discovery in discoveryList {
+                        IGDatabaseManager.shared.realm.add(IGRealmDiscovery(discovery: discovery))
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
+    
+    func removeDiscoveryPageInfo() {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRealmDiscovery.self))
+                    IGDatabaseManager.shared.realm.delete(IGDatabaseManager.shared.realm.objects(IGRealmDiscoveryField.self))
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
 }

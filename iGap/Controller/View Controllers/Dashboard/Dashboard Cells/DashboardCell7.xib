@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DashboardCell7" customModule="iGap">
+            <rect key="frame" x="0.0" y="0.0" width="443" height="168"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="443" height="168"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okD-nE-8e7">
+                        <rect key="frame" x="0.0" y="0.0" width="443" height="168"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU">
+                                <rect key="frame" x="4" y="4" width="142" height="160"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-H" translatesAutoresizingMaskIntoConstraints="NO" id="APH-Xy-29G">
+                                <rect key="frame" x="150" y="4" width="142.5" height="160"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="sez-wx-cdm">
+                                <rect key="frame" x="296.5" y="4" width="142" height="160"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Jhr-Ow-tfU" secondAttribute="bottom" constant="4" id="G3B-Wc-wKc"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-4" id="IRO-3H-fNG"/>
+                            <constraint firstItem="APH-Xy-29G" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-4" id="KKo-1K-siW"/>
+                            <constraint firstItem="sez-wx-cdm" firstAttribute="leading" secondItem="APH-Xy-29G" secondAttribute="trailing" constant="4" id="Tti-I7-DLC"/>
+                            <constraint firstAttribute="bottom" secondItem="APH-Xy-29G" secondAttribute="bottom" constant="4" id="aSD-UE-gL3"/>
+                            <constraint firstItem="APH-Xy-29G" firstAttribute="leading" secondItem="Jhr-Ow-tfU" secondAttribute="trailing" constant="4" id="ce1-mw-DRW"/>
+                            <constraint firstItem="sez-wx-cdm" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-4" id="d7U-Fj-ar7"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="leading" secondItem="okD-nE-8e7" secondAttribute="leading" constant="4" id="ioM-yE-GsX"/>
+                            <constraint firstItem="APH-Xy-29G" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="myj-M2-Ycy"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="tX0-nw-7Dv"/>
+                            <constraint firstAttribute="bottom" secondItem="sez-wx-cdm" secondAttribute="bottom" constant="4" id="vfH-ne-Pml"/>
+                            <constraint firstItem="sez-wx-cdm" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="zSc-EU-muR"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="okD-nE-8e7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Jo9-7C-nGx"/>
+                <constraint firstAttribute="trailing" secondItem="okD-nE-8e7" secondAttribute="trailing" id="na1-ej-b06"/>
+                <constraint firstAttribute="bottom" secondItem="okD-nE-8e7" secondAttribute="bottom" id="qFP-rS-sb2"/>
+                <constraint firstItem="okD-nE-8e7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="uGW-sE-3GO"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="443" height="168"/>
+            <connections>
+                <outlet property="img1" destination="Jhr-Ow-tfU" id="Thl-Pf-2hO"/>
+                <outlet property="img2" destination="APH-Xy-29G" id="0kC-2G-jPq"/>
+                <outlet property="img3" destination="sez-wx-cdm" id="b1C-rB-r9k"/>
+                <outlet property="mainView" destination="okD-nE-8e7" id="Lcf-2C-RhW"/>
+            </connections>
+            <point key="canvasLocation" x="-36" y="206.89655172413794"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="IG_Blur_Call" width="640" height="1136"/>
+        <image name="iGap-Chat-BG-H" width="1920" height="1080"/>
+        <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
+    </resources>
+</document>

@@ -22,24 +22,24 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okD-nE-8e7">
                         <rect key="frame" x="0.0" y="0.0" width="443" height="168"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU">
-                                <rect key="frame" x="4" y="4" width="287.5" height="160"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU">
+                                <rect key="frame" x="4" y="4" width="261" height="160"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-H" translatesAutoresizingMaskIntoConstraints="NO" id="AJq-pP-4lL">
-                                <rect key="frame" x="298" y="4" width="141" height="78"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AJq-pP-4lL">
+                                <rect key="frame" x="269" y="4" width="170" height="78"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="XXy-as-ZsB">
-                                <rect key="frame" x="298" y="86" width="141" height="78"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XXy-as-ZsB">
+                                <rect key="frame" x="269" y="86" width="170" height="78"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="AJq-pP-4lL" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-5" id="CWG-Jc-9T8"/>
+                            <constraint firstItem="AJq-pP-4lL" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.395" constant="-5" id="CWG-Jc-9T8"/>
                             <constraint firstAttribute="bottom" secondItem="Jhr-Ow-tfU" secondAttribute="bottom" constant="4" id="Gml-XY-5wY"/>
-                            <constraint firstItem="XXy-as-ZsB" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-5" id="Jae-Jk-kgC"/>
+                            <constraint firstItem="XXy-as-ZsB" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.395" constant="-5" id="Jae-Jk-kgC"/>
                             <constraint firstAttribute="trailing" secondItem="XXy-as-ZsB" secondAttribute="trailing" constant="4" id="OfU-Qp-Cgi"/>
                             <constraint firstItem="XXy-as-ZsB" firstAttribute="height" secondItem="okD-nE-8e7" secondAttribute="height" multiplier="0.495" constant="-5" id="SJl-Gx-fH8"/>
-                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.66" constant="-5" id="Ttt-NC-UZV"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.6" constant="-5" id="Ttt-NC-UZV"/>
                             <constraint firstItem="Jhr-Ow-tfU" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="VSx-4z-0eC"/>
                             <constraint firstItem="AJq-pP-4lL" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="Vsd-hm-0Eg"/>
                             <constraint firstItem="Jhr-Ow-tfU" firstAttribute="leading" secondItem="okD-nE-8e7" secondAttribute="leading" constant="4" id="Zxt-il-Kmm"/>
@@ -67,9 +67,4 @@
             <point key="canvasLocation" x="-36" y="206.89655172413794"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="iGap-Chat-BG-H" width="1920" height="1080"/>
-        <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
-    </resources>
 </document>
