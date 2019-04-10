@@ -29,7 +29,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             img1Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
             img1Abs?.layer.masksToBounds = true
             if let url = URL(string: dashboard[0].igpImageurl) {
-                img1Abs?.setImage(url: url)
+                img1Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
@@ -37,7 +37,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             img2Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
             img2Abs?.layer.masksToBounds = true
             if let url = URL(string: dashboard[1].igpImageurl) {
-                img2Abs?.setImage(url: url)
+                img2Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
@@ -45,7 +45,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             img3Abs?.layer.cornerRadius = IGDashboardViewController.itemCorner
             img3Abs?.layer.masksToBounds = true
             if let url = URL(string: dashboard[2].igpImageurl) {
-                img3Abs?.setImage(url: url)
+                img3Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         

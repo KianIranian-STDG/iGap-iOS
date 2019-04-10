@@ -25,7 +25,7 @@ github "RooyeKhat-Media/Gifu" "v3.0.0-a"
 github "RooyeKhat-Media/ALCameraViewController" "3.0.3"
 github "RooyeKhat-Media/Starscream" "3.0.4-a"
 github "RooyeKhat-Media/DBAttachmentPickerController"  "1.1.4-a"
-github "KianIranian-STDG/IGProtoBuffLibrary" "Proto105"
+github "KianIranian-STDG/IGProtoBuffLibrary" "Proto106"
 
 github "TakeScoop/SwiftyRSA"
 github "andreamazz/AMPopTip" >= 3.0.0

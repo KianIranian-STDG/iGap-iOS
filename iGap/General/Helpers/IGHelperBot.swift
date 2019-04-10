@@ -126,7 +126,7 @@ class IGHelperBot {
         
         if additionalButton.imageUrl != nil {
             img = UIImageView()
-            img.setImage(url: additionalButton.imageUrl!)
+            img.sd_setImage(with: additionalButton.imageUrl!, completed: nil)
             view.addSubview(img)
             
             img.snp.makeConstraints { (make) in

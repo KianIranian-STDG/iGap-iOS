@@ -73,6 +73,15 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         }).send()
     }
     
+    private func computeHeight(scale: String) -> CGFloat{
+        let split = scale.split(separator: ":")
+        let heightScale = NumberFormatter().number(from: split[1].description)
+        let widthScale = NumberFormatter().number(from: split[0].description)
+        let scale = CGFloat(truncating: heightScale!) / CGFloat(truncating: widthScale!)
+        let height: CGFloat = IGGlobal.fetchUIScreen().width * scale
+        return height
+    }
+    
     /**************************************************************/
     /*********************** collectionView ***********************/
     
@@ -120,11 +129,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let item = discovery[indexPath.section]
-        if item.igpModel.rawValue > 5 {
-            return CGSize(width: screenWidth, height: 60)
-        }
-        return CGSize(width: screenWidth, height: CGFloat(item.igpHeight))
+        return CGSize(width: screenWidth, height: computeHeight(scale: discovery[indexPath.section].igpScale))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
