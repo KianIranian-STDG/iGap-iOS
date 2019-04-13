@@ -30,21 +30,21 @@ class AbstractDashboardCell: UICollectionViewCell {
         self.dashboardAbs = dashboard
         if img1Abs != nil {
             customizeImage(img: img1Abs!, view: view1Abs)
-            if let url = URL(string: dashboard[0].igpImageurl) {
+            if dashboard.count > 0, let url = URL(string: dashboard[0].igpImageurl) {
                 img1Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         if img2Abs != nil {
             customizeImage(img: img2Abs!, view: view2Abs)
-            if let url = URL(string: dashboard[1].igpImageurl) {
+            if dashboard.count > 1, let url = URL(string: dashboard[1].igpImageurl) {
                 img2Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         if img3Abs != nil {
             customizeImage(img: img3Abs!, view: view3Abs)
-            if let url = URL(string: dashboard[2].igpImageurl) {
+            if dashboard.count > 2, let url = URL(string: dashboard[2].igpImageurl) {
                 img3Abs?.sd_setImage(with: url, completed: nil)
             }
         }
@@ -82,15 +82,21 @@ class AbstractDashboardCell: UICollectionViewCell {
     }
     
     @objc func didTapImage1(_ gestureRecognizer: UITapGestureRecognizer){
-        actionManager(discoveryInfo: self.dashboardAbs[0])
+        if self.dashboardAbs.count > 0 {
+            actionManager(discoveryInfo: self.dashboardAbs[0])
+        }
     }
     
     @objc func didTapImage2(_ gestureRecognizer: UITapGestureRecognizer){
-        actionManager(discoveryInfo: self.dashboardAbs[1])
+        if self.dashboardAbs.count > 1 {
+            actionManager(discoveryInfo: self.dashboardAbs[1])
+        }
     }
     
     @objc func didTapImage3(_ gestureRecognizer: UITapGestureRecognizer){
-        actionManager(discoveryInfo: self.dashboardAbs[2])
+        if self.dashboardAbs.count > 2 {
+            actionManager(discoveryInfo: self.dashboardAbs[2])
+        }
     }
     
     
@@ -117,6 +123,10 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .webLink:
             IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!)
+            return
+            
+        case .webViewLink:
+            
             return
             
         case .page:

@@ -15,6 +15,7 @@ class DashboardCellUnknown: UICollectionViewCell {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var txtUnknown: UILabel!
+    @IBOutlet weak var view: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,5 +32,13 @@ class DashboardCellUnknown: UICollectionViewCell {
     public func initView(){
         txtUnknown.layer.masksToBounds = true
         txtUnknown.layer.cornerRadius = IGDashboardViewController.itemCorner
+        
+        view?.layer.masksToBounds = false
+        view?.layer.cornerRadius = IGDashboardViewController.itemCorner
+        view?.layer.shadowOffset = CGSize(width: 2, height: 2)
+        view?.layer.shadowRadius = 3
+        view?.layer.shadowColor = UIColor.gray.cgColor
+        view?.layer.shadowOpacity = 1
+        
     }
 }

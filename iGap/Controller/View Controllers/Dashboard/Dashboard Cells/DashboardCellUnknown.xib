@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,8 +22,12 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6a-hW-Mlj">
                         <rect key="frame" x="0.0" y="0.0" width="550" height="114"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4r-fS-umV">
+                                <rect key="frame" x="8" y="8" width="534" height="98"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please update to the latest version for see this item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6i-IR-Hfa">
-                                <rect key="frame" x="4" y="4" width="542" height="106"/>
+                                <rect key="frame" x="8" y="8" width="534" height="98"/>
                                 <color key="backgroundColor" red="0.6588235294" green="0.6588235294" blue="0.6588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -31,10 +36,14 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="c6i-IR-Hfa" firstAttribute="top" secondItem="d6a-hW-Mlj" secondAttribute="top" constant="4" id="C6C-u9-56A"/>
-                            <constraint firstItem="c6i-IR-Hfa" firstAttribute="leading" secondItem="d6a-hW-Mlj" secondAttribute="leading" constant="4" id="FUk-bd-60t"/>
-                            <constraint firstAttribute="bottom" secondItem="c6i-IR-Hfa" secondAttribute="bottom" constant="4" id="FfC-Gf-7vK"/>
-                            <constraint firstAttribute="trailing" secondItem="c6i-IR-Hfa" secondAttribute="trailing" constant="4" id="lCJ-ys-FRy"/>
+                            <constraint firstItem="R4r-fS-umV" firstAttribute="top" secondItem="c6i-IR-Hfa" secondAttribute="top" id="6ew-iy-glr"/>
+                            <constraint firstItem="c6i-IR-Hfa" firstAttribute="top" secondItem="d6a-hW-Mlj" secondAttribute="top" constant="8" id="C6C-u9-56A"/>
+                            <constraint firstItem="c6i-IR-Hfa" firstAttribute="leading" secondItem="d6a-hW-Mlj" secondAttribute="leading" constant="8" id="FUk-bd-60t"/>
+                            <constraint firstAttribute="bottom" secondItem="c6i-IR-Hfa" secondAttribute="bottom" constant="8" id="FfC-Gf-7vK"/>
+                            <constraint firstItem="R4r-fS-umV" firstAttribute="bottom" secondItem="c6i-IR-Hfa" secondAttribute="bottom" id="KA0-7y-Wal"/>
+                            <constraint firstItem="R4r-fS-umV" firstAttribute="leading" secondItem="c6i-IR-Hfa" secondAttribute="leading" id="RaF-Vq-3lV"/>
+                            <constraint firstItem="R4r-fS-umV" firstAttribute="trailing" secondItem="c6i-IR-Hfa" secondAttribute="trailing" id="TIQ-0e-Qd1"/>
+                            <constraint firstAttribute="trailing" secondItem="c6i-IR-Hfa" secondAttribute="trailing" constant="8" id="lCJ-ys-FRy"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -50,6 +59,7 @@
             <connections>
                 <outlet property="mainView" destination="d6a-hW-Mlj" id="gyi-YJ-qm2"/>
                 <outlet property="txtUnknown" destination="c6i-IR-Hfa" id="pQ7-x3-VI6"/>
+                <outlet property="view" destination="R4r-fS-umV" id="CTy-AK-z7h"/>
             </connections>
             <point key="canvasLocation" x="14.4" y="125.03748125937032"/>
         </collectionViewCell>
