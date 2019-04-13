@@ -289,7 +289,16 @@ class IGNavigationItem: UINavigationItem {
             
             self.titleView = titleView
         } else {
+            //Hint: call top code block again, because we want show iGap logo for all tabs
+            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
+            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 8, width: 67, height: 23))
+            logoImageView.image = UIImage(named: "IG_Nav_Bar_Logo")
+            logoImageView.contentMode = .scaleAspectFit
+            titleView.addSubview(logoImageView)
             
+            self.titleView = titleView
+            
+            /*
             var title = ""
             var width: Double!
             
@@ -325,6 +334,7 @@ class IGNavigationItem: UINavigationItem {
             
             titleView.addSubview(lableView)
             self.titleView = titleView
+            */
         }
     }
     
