@@ -51,9 +51,11 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewWillAppear(_ animated: Bool) {
         IGDashboardViewController.discoveryObserver = self
+        /*
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()
         }
+        */
     }
     
     private func initNavigationBar(){

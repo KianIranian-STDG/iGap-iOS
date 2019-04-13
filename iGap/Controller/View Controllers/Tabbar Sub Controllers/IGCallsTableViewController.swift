@@ -67,9 +67,11 @@ class IGCallsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        /*
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()
         }
+        */
         self.tableView.isUserInteractionEnabled = true
     }
     
@@ -95,6 +97,11 @@ class IGCallsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if callLogList!.count == 0 {
+            self.tableView!.setEmptyMessage("not exist call history!")
+        } else {
+            self.tableView!.restore()
+        }
         return callLogList!.count
     }
     
