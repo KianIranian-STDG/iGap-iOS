@@ -963,6 +963,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func updateObserver(){
+        self.notificationToken?.invalidate()
         self.notificationToken = messages?.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
@@ -1160,6 +1161,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if !inputBarOriginalMessageView.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
+        notificationToken?.invalidate()
         self.view.endEditing(true)
         super.viewWillDisappear(animated)
         IGRecentsTableViewController.visibleChat[(room?.id)!] = false
