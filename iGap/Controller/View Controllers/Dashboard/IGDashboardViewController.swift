@@ -20,6 +20,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     private var refresher: UIRefreshControl!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var btnRefresh: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,12 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         self.refresher.tintColor = UIColor.gray
         self.refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
         self.collectionView!.addSubview(refresher)
+        
+        btnRefresh.layer.cornerRadius = 25
+        btnRefresh.layer.masksToBounds = false
+        btnRefresh.layer.shadowColor = UIColor.gray.cgColor
+        btnRefresh.layer.shadowOffset = CGSize(width: 0, height: 0)
+        btnRefresh.layer.shadowOpacity = 0.3
         
         getDiscoveryList()
     }
@@ -69,6 +76,10 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         stopRefresher()
     }
     
+    @IBAction func btnRefresh(_ sender: UIButton) {
+        getDiscoveryList()
+    }
+    
     func stopRefresher() {
         self.refresher.endRefreshing()
     }
@@ -78,6 +89,10 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
             self.discovery = discovery.igpDiscoveries
             self.collectionView.reloadData()
+        }
+        
+        if !IGAppManager.sharedManager.isUserLoggiedIn() {
+            return
         }
         
         IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
@@ -99,6 +114,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
             switch errorCode {
             case .timeout:
                 self.getDiscoveryList()
+                self.manageShowDiscovery()
             default:
                 break
             }
@@ -114,10 +130,27 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         return height
     }
     
+    /* if user is login show collectionView, otherwise show btnRefresh */
+    private func manageShowDiscovery(){
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
+            self.collectionView!.isHidden = false
+            self.btnRefresh!.isHidden = true
+            if discovery.count == 0 {
+                self.collectionView!.setEmptyMessage("Please wait for get info!")
+            } else {
+                self.collectionView!.restore()
+            }
+        } else {
+            self.collectionView!.isHidden = true
+            self.btnRefresh!.isHidden = false
+        }
+    }
+    
     /**************************************************************/
     /*********************** collectionView ***********************/
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        manageShowDiscovery()
         return discovery.count
     }
     

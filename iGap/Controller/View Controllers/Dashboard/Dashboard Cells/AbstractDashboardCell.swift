@@ -51,7 +51,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     
     private func customizeImage(img: UIImageView){
         img.layer.cornerRadius = IGDashboardViewController.itemCorner
-        img.layer.masksToBounds = true
+        img.layer.masksToBounds = false
         img.layer.shadowColor = UIColor.gray.cgColor
         img.layer.shadowOffset = CGSize(width: 0, height: 0)
         img.layer.shadowOpacity = 0.3

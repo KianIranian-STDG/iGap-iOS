@@ -53,6 +53,21 @@
                                     <outlet property="delegate" destination="m4t-Cf-aRg" id="IR9-gl-HOz"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdk-oB-E9O">
+                                <rect key="frame" x="162.5" y="284" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.65820388379999994" green="0.65820388379999994" blue="0.65820388379999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="9n6-pg-Vme"/>
+                                    <constraint firstAttribute="height" constant="50" id="lAa-fE-8gH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="25"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnRefresh:" destination="m4t-Cf-aRg" eventType="touchUpInside" id="MsX-0n-jlt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -60,11 +75,14 @@
                             <constraint firstItem="Wfm-GU-ejX" firstAttribute="leading" secondItem="XQx-sQ-Oa1" secondAttribute="leadingMargin" constant="-16" id="EzS-D9-cMZ"/>
                             <constraint firstItem="YXy-vM-dcs" firstAttribute="top" secondItem="Wfm-GU-ejX" secondAttribute="bottom" id="GTI-Yx-dde"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Wfm-GU-ejX" secondAttribute="trailing" constant="-16" id="T8m-qT-jbC"/>
+                            <constraint firstItem="Vdk-oB-E9O" firstAttribute="centerY" secondItem="XQx-sQ-Oa1" secondAttribute="centerY" id="aNZ-JT-h8G"/>
+                            <constraint firstItem="Vdk-oB-E9O" firstAttribute="centerX" secondItem="XQx-sQ-Oa1" secondAttribute="centerX" id="kFb-0j-oHz"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" tag="1" title="Dashboard" image="IG_Tabbar_Recent_On" selectedImage="IG_Tabbar_Recent_On" id="4kk-i4-sZg"/>
                     <navigationItem key="navigationItem" title="Title" id="AW9-xw-fuX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="btnRefresh" destination="Vdk-oB-E9O" id="0cr-OH-cOG"/>
                         <outlet property="collectionView" destination="Wfm-GU-ejX" id="QwU-vu-hH9"/>
                     </connections>
                 </viewController>
