@@ -425,66 +425,14 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
         } else if status == .authorizedWhenInUse || status == .authorizedAlways {
-            openMap()
+            IGHelperNearby.shared.openMap()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if (status == CLAuthorizationStatus.authorizedWhenInUse) {
-            openMap()
+            IGHelperNearby.shared.openMap()
         }
-    }
-    
-    func openMap(){
-        if IGAppManager.sharedManager.mapEnable() {
-            let createGroup = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
-            self.navigationController!.pushViewController(createGroup, animated: true)
-        } else {
-            
-            let option = UIAlertController(title: "Notice! Activating Map Status", message: "Will result in making your location visible to others. Please be sure about it before turning on.", preferredStyle: IGGlobal.detectAlertStyle())
-            
-            let enable = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                IGGeoRegister.Generator.generate(enable: true).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                        if let registerResponse = protoResponse as? IGPGeoRegisterResponse {
-                            IGGeoRegister.Handler.interpret(response: registerResponse)
-                            IGAppManager.sharedManager.setMapEnable(enable: registerResponse.igpEnable)
-                            self.openMapAlert()
-                        }
-                    }
-                }).error ({ (errorCode, waitTime) in
-                    switch errorCode {
-                    case .timeout:
-                        DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                        }
-                    default:
-                        break
-                    }
-                    
-                }).send()
-            })
-            
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            option.addAction(enable)
-            option.addAction(cancel)
-            
-            self.present(option, animated: true, completion: {})
-        }
-    }
-    
-    func openMapAlert(){
-        let option = UIAlertController(title: "Attention", message: "Note: People on the map will be displayed with a 500-meter error. So no worries!", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            let createGroup = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
-            self.navigationController!.pushViewController(createGroup, animated: true)
-        })
-        option.addAction(ok)
-        self.present(option, animated: true, completion: {})
     }
 
 

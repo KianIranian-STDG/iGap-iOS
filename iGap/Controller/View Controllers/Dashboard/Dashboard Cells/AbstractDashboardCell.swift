@@ -18,6 +18,9 @@ class AbstractDashboardCell: UICollectionViewCell {
     var img1Abs: UIImageView?
     var img2Abs: UIImageView?
     var img3Abs: UIImageView?
+    var view1Abs: UIView?
+    var view2Abs: UIView?
+    var view3Abs: UIView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,21 +29,21 @@ class AbstractDashboardCell: UICollectionViewCell {
     public func initView(dashboard: [IGPDiscoveryField]){
         self.dashboardAbs = dashboard
         if img1Abs != nil {
-            customizeImage(img: img1Abs!)
+            customizeImage(img: img1Abs!, view: view1Abs)
             if let url = URL(string: dashboard[0].igpImageurl) {
                 img1Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         if img2Abs != nil {
-            customizeImage(img: img2Abs!)
+            customizeImage(img: img2Abs!, view: view2Abs)
             if let url = URL(string: dashboard[1].igpImageurl) {
                 img2Abs?.sd_setImage(with: url, completed: nil)
             }
         }
         
         if img3Abs != nil {
-            customizeImage(img: img3Abs!)
+            customizeImage(img: img3Abs!, view: view3Abs)
             if let url = URL(string: dashboard[2].igpImageurl) {
                 img3Abs?.sd_setImage(with: url, completed: nil)
             }
@@ -49,12 +52,16 @@ class AbstractDashboardCell: UICollectionViewCell {
         manageGesture()
     }
     
-    private func customizeImage(img: UIImageView){
+    private func customizeImage(img: UIImageView, view: UIView?){
+        view?.layer.masksToBounds = false
+        view?.layer.cornerRadius = IGDashboardViewController.itemCorner
+        view?.layer.shadowOffset = CGSize(width: 2, height: 2)
+        view?.layer.shadowRadius = 3
+        view?.layer.shadowColor = UIColor.gray.cgColor
+        view?.layer.shadowOpacity = 1
+        
         img.layer.cornerRadius = IGDashboardViewController.itemCorner
-        img.layer.masksToBounds = false
-        img.layer.shadowColor = UIColor.gray.cgColor
-        img.layer.shadowOffset = CGSize(width: 0, height: 0)
-        img.layer.shadowOpacity = 0.3
+        img.layer.masksToBounds = true
     }
     
     /**********************************************************************/
@@ -159,9 +166,13 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .nearbyMenu:
+            IGDashboardViewController.discoveryObserver?.onNearbyClick()
             return
             
         case .call:
+            if let url = NSURL(string: "tel://\(discoveryInfo.igpValue)"), UIApplication.shared.canOpenURL(url as URL) {
+                UIApplication.shared.openURL(url as URL)
+            }
             return
             
         default:

@@ -15,6 +15,7 @@ class DashboardCell1: AbstractDashboardCell {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var img: UIImageView!
+    @IBOutlet weak var view: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +32,7 @@ class DashboardCell1: AbstractDashboardCell {
     public override func initView(dashboard: [IGPDiscoveryField]){
         mainViewAbs = mainView
         img1Abs = img
+        view1Abs = view
         super.initView(dashboard: dashboard)
     }
 }

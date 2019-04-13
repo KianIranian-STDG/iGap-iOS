@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,30 +22,54 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okD-nE-8e7">
                         <rect key="frame" x="0.0" y="0.0" width="443" height="168"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Blur_Call" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU">
-                                <rect key="frame" x="4" y="4" width="142" height="160"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ovf-iE-pnu">
+                                <rect key="frame" x="8" y="8" width="131" height="152"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mei-VB-Hx0">
+                                <rect key="frame" x="155" y="8" width="131" height="152"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loP-Vh-jFs">
+                                <rect key="frame" x="302" y="8" width="131" height="152"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU">
+                                <rect key="frame" x="8" y="8" width="131" height="152"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-H" translatesAutoresizingMaskIntoConstraints="NO" id="APH-Xy-29G">
-                                <rect key="frame" x="150" y="4" width="142.5" height="160"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="APH-Xy-29G">
+                                <rect key="frame" x="155" y="8" width="131" height="152"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="sez-wx-cdm">
-                                <rect key="frame" x="296.5" y="4" width="142" height="160"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sez-wx-cdm">
+                                <rect key="frame" x="302" y="8" width="131" height="152"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Jhr-Ow-tfU" secondAttribute="bottom" constant="4" id="G3B-Wc-wKc"/>
-                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-4" id="IRO-3H-fNG"/>
-                            <constraint firstItem="APH-Xy-29G" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-4" id="KKo-1K-siW"/>
-                            <constraint firstItem="sez-wx-cdm" firstAttribute="leading" secondItem="APH-Xy-29G" secondAttribute="trailing" constant="4" id="Tti-I7-DLC"/>
-                            <constraint firstAttribute="bottom" secondItem="APH-Xy-29G" secondAttribute="bottom" constant="4" id="aSD-UE-gL3"/>
-                            <constraint firstItem="APH-Xy-29G" firstAttribute="leading" secondItem="Jhr-Ow-tfU" secondAttribute="trailing" constant="4" id="ce1-mw-DRW"/>
-                            <constraint firstItem="sez-wx-cdm" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.33" constant="-4" id="d7U-Fj-ar7"/>
-                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="leading" secondItem="okD-nE-8e7" secondAttribute="leading" constant="4" id="ioM-yE-GsX"/>
-                            <constraint firstItem="APH-Xy-29G" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="myj-M2-Ycy"/>
-                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="tX0-nw-7Dv"/>
-                            <constraint firstAttribute="bottom" secondItem="sez-wx-cdm" secondAttribute="bottom" constant="4" id="vfH-ne-Pml"/>
-                            <constraint firstItem="sez-wx-cdm" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="4" id="zSc-EU-muR"/>
+                            <constraint firstItem="loP-Vh-jFs" firstAttribute="bottom" secondItem="sez-wx-cdm" secondAttribute="bottom" id="6QL-fn-eOS"/>
+                            <constraint firstItem="Ovf-iE-pnu" firstAttribute="trailing" secondItem="Jhr-Ow-tfU" secondAttribute="trailing" id="9bp-JT-OHR"/>
+                            <constraint firstAttribute="bottom" secondItem="Jhr-Ow-tfU" secondAttribute="bottom" constant="8" id="G3B-Wc-wKc"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.325" constant="-13" id="IRO-3H-fNG"/>
+                            <constraint firstItem="APH-Xy-29G" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.325" constant="-13" id="KKo-1K-siW"/>
+                            <constraint firstItem="loP-Vh-jFs" firstAttribute="top" secondItem="sez-wx-cdm" secondAttribute="top" id="SF1-Bb-brK"/>
+                            <constraint firstItem="sez-wx-cdm" firstAttribute="leading" secondItem="APH-Xy-29G" secondAttribute="trailing" constant="16" id="Tti-I7-DLC"/>
+                            <constraint firstItem="mei-VB-Hx0" firstAttribute="bottom" secondItem="APH-Xy-29G" secondAttribute="bottom" id="ZVz-RR-aR7"/>
+                            <constraint firstAttribute="bottom" secondItem="APH-Xy-29G" secondAttribute="bottom" constant="8" id="aSD-UE-gL3"/>
+                            <constraint firstItem="APH-Xy-29G" firstAttribute="leading" secondItem="Jhr-Ow-tfU" secondAttribute="trailing" constant="16" id="ce1-mw-DRW"/>
+                            <constraint firstItem="loP-Vh-jFs" firstAttribute="leading" secondItem="sez-wx-cdm" secondAttribute="leading" id="cmD-2j-qdH"/>
+                            <constraint firstItem="sez-wx-cdm" firstAttribute="width" secondItem="okD-nE-8e7" secondAttribute="width" multiplier="0.325" constant="-13" id="d7U-Fj-ar7"/>
+                            <constraint firstItem="Ovf-iE-pnu" firstAttribute="bottom" secondItem="Jhr-Ow-tfU" secondAttribute="bottom" id="enN-eh-jcE"/>
+                            <constraint firstItem="Ovf-iE-pnu" firstAttribute="top" secondItem="Jhr-Ow-tfU" secondAttribute="top" id="hxH-Uk-MS9"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="leading" secondItem="okD-nE-8e7" secondAttribute="leading" constant="8" id="ioM-yE-GsX"/>
+                            <constraint firstItem="APH-Xy-29G" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="8" id="myj-M2-Ycy"/>
+                            <constraint firstItem="Ovf-iE-pnu" firstAttribute="leading" secondItem="Jhr-Ow-tfU" secondAttribute="leading" id="pZi-4E-kbE"/>
+                            <constraint firstItem="mei-VB-Hx0" firstAttribute="leading" secondItem="APH-Xy-29G" secondAttribute="leading" id="qjl-bP-dsc"/>
+                            <constraint firstItem="mei-VB-Hx0" firstAttribute="top" secondItem="APH-Xy-29G" secondAttribute="top" id="t1H-3c-k3B"/>
+                            <constraint firstItem="Jhr-Ow-tfU" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="8" id="tX0-nw-7Dv"/>
+                            <constraint firstItem="loP-Vh-jFs" firstAttribute="trailing" secondItem="sez-wx-cdm" secondAttribute="trailing" id="uJk-ma-NGn"/>
+                            <constraint firstAttribute="bottom" secondItem="sez-wx-cdm" secondAttribute="bottom" constant="8" id="vfH-ne-Pml"/>
+                            <constraint firstItem="mei-VB-Hx0" firstAttribute="trailing" secondItem="APH-Xy-29G" secondAttribute="trailing" id="zCf-nq-krD"/>
+                            <constraint firstItem="sez-wx-cdm" firstAttribute="top" secondItem="okD-nE-8e7" secondAttribute="top" constant="8" id="zSc-EU-muR"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -62,13 +87,11 @@
                 <outlet property="img2" destination="APH-Xy-29G" id="0kC-2G-jPq"/>
                 <outlet property="img3" destination="sez-wx-cdm" id="b1C-rB-r9k"/>
                 <outlet property="mainView" destination="okD-nE-8e7" id="Lcf-2C-RhW"/>
+                <outlet property="view1" destination="Ovf-iE-pnu" id="Qlb-iY-caz"/>
+                <outlet property="view2" destination="mei-VB-Hx0" id="KVz-lJ-eqd"/>
+                <outlet property="view3" destination="loP-Vh-jFs" id="e7E-AC-ERA"/>
             </connections>
             <point key="canvasLocation" x="-36" y="206.89655172413794"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="iGap-Chat-BG-H" width="1920" height="1080"/>
-        <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
-    </resources>
 </document>

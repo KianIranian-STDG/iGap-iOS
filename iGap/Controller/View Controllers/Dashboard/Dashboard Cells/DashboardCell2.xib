@@ -22,23 +22,39 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6S-dB-LYE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="81"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAz-YS-reV">
+                                <rect key="frame" x="8" y="8" width="344" height="65"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WbQ-ZI-7R5">
+                                <rect key="frame" x="368" y="8" width="224" height="65"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ekQ-8i-sOs">
-                                <rect key="frame" x="4" y="4" width="354" height="73"/>
+                                <rect key="frame" x="8" y="8" width="344" height="65"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qAw-42-Ll4">
-                                <rect key="frame" x="362" y="4" width="234" height="73"/>
+                                <rect key="frame" x="368" y="8" width="224" height="65"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="ekQ-8i-sOs" secondAttribute="bottom" constant="4" id="827-ct-92b"/>
-                            <constraint firstItem="qAw-42-Ll4" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.4" constant="-6" id="Cjj-bM-Qgw"/>
-                            <constraint firstAttribute="trailing" secondItem="qAw-42-Ll4" secondAttribute="trailing" constant="4" id="Gnb-Ub-6PT"/>
-                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="top" secondItem="N6S-dB-LYE" secondAttribute="top" constant="4" id="hLU-JB-xUp"/>
-                            <constraint firstItem="qAw-42-Ll4" firstAttribute="top" secondItem="N6S-dB-LYE" secondAttribute="top" constant="4" id="kNZ-r7-Ta8"/>
-                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="leading" secondItem="N6S-dB-LYE" secondAttribute="leading" constant="4" id="miX-HF-3tA"/>
-                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.6" constant="-6" id="wtF-mk-EMc"/>
-                            <constraint firstAttribute="bottom" secondItem="qAw-42-Ll4" secondAttribute="bottom" constant="4" id="zs1-zP-0A3"/>
+                            <constraint firstItem="BAz-YS-reV" firstAttribute="top" secondItem="ekQ-8i-sOs" secondAttribute="top" id="7Wb-4V-7AG"/>
+                            <constraint firstAttribute="bottom" secondItem="ekQ-8i-sOs" secondAttribute="bottom" constant="8" id="827-ct-92b"/>
+                            <constraint firstItem="qAw-42-Ll4" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.4" constant="-16" id="Cjj-bM-Qgw"/>
+                            <constraint firstAttribute="trailing" secondItem="qAw-42-Ll4" secondAttribute="trailing" constant="8" id="Gnb-Ub-6PT"/>
+                            <constraint firstItem="BAz-YS-reV" firstAttribute="bottom" secondItem="ekQ-8i-sOs" secondAttribute="bottom" id="Sdo-Ad-04E"/>
+                            <constraint firstItem="BAz-YS-reV" firstAttribute="leading" secondItem="ekQ-8i-sOs" secondAttribute="leading" id="fa7-XR-M5Z"/>
+                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="top" secondItem="N6S-dB-LYE" secondAttribute="top" constant="8" id="hLU-JB-xUp"/>
+                            <constraint firstItem="qAw-42-Ll4" firstAttribute="top" secondItem="N6S-dB-LYE" secondAttribute="top" constant="8" id="kNZ-r7-Ta8"/>
+                            <constraint firstItem="WbQ-ZI-7R5" firstAttribute="top" secondItem="qAw-42-Ll4" secondAttribute="top" id="l8x-Nd-t2u"/>
+                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="leading" secondItem="N6S-dB-LYE" secondAttribute="leading" constant="8" id="miX-HF-3tA"/>
+                            <constraint firstItem="BAz-YS-reV" firstAttribute="trailing" secondItem="ekQ-8i-sOs" secondAttribute="trailing" id="n9k-Di-OIG"/>
+                            <constraint firstItem="WbQ-ZI-7R5" firstAttribute="trailing" secondItem="qAw-42-Ll4" secondAttribute="trailing" id="p3d-P7-uZu"/>
+                            <constraint firstItem="WbQ-ZI-7R5" firstAttribute="leading" secondItem="qAw-42-Ll4" secondAttribute="leading" id="sON-Oy-bc4"/>
+                            <constraint firstItem="WbQ-ZI-7R5" firstAttribute="bottom" secondItem="qAw-42-Ll4" secondAttribute="bottom" id="sju-9X-zVm"/>
+                            <constraint firstItem="ekQ-8i-sOs" firstAttribute="width" secondItem="N6S-dB-LYE" secondAttribute="width" multiplier="0.6" constant="-16" id="wtF-mk-EMc"/>
+                            <constraint firstAttribute="bottom" secondItem="qAw-42-Ll4" secondAttribute="bottom" constant="8" id="zs1-zP-0A3"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -55,6 +71,8 @@
                 <outlet property="img1" destination="ekQ-8i-sOs" id="i4Q-JI-I4D"/>
                 <outlet property="img2" destination="qAw-42-Ll4" id="Eur-RE-Drj"/>
                 <outlet property="mainView" destination="N6S-dB-LYE" id="wxh-OF-UB3"/>
+                <outlet property="view1" destination="BAz-YS-reV" id="leh-Wf-ybN"/>
+                <outlet property="view2" destination="WbQ-ZI-7R5" id="fE1-C5-x7P"/>
             </connections>
             <point key="canvasLocation" x="-38.399999999999999" y="157.87106446776613"/>
         </collectionViewCell>

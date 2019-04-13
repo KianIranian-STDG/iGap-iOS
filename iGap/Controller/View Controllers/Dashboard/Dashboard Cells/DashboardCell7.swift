@@ -17,6 +17,9 @@ class DashboardCell7: AbstractDashboardCell {
     @IBOutlet weak var img1: UIImageView!
     @IBOutlet weak var img2: UIImageView!
     @IBOutlet weak var img3: UIImageView!
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
+    @IBOutlet weak var view3: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,6 +38,9 @@ class DashboardCell7: AbstractDashboardCell {
         img1Abs = img1
         img2Abs = img2
         img3Abs = img3
+        view1Abs = view1
+        view2Abs = view2
+        view3Abs = view3
         super.initView(dashboard: dashboard)
     }
 }

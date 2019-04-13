@@ -10,14 +10,17 @@
 
 import UIKit
 import IGProtoBuff
+import MapKit
 
-class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate, CLLocationManagerDelegate, DiscoveryObserver {
 
     static let itemCorner: CGFloat = 10
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
     private var discovery: [IGPDiscovery] = []
     private var refresher: UIRefreshControl!
+    private let locationManager = CLLocationManager()
+    static var discoveryObserver: DiscoveryObserver!
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
@@ -47,6 +50,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        IGDashboardViewController.discoveryObserver = self
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()
         }
@@ -143,6 +147,29 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         } else {
             self.collectionView!.isHidden = true
             self.btnRefresh!.isHidden = false
+        }
+    }
+    
+    /*************************************************************/
+    /************************* callbacks *************************/
+    
+    func onNearbyClick() {
+        manageOpenMap()
+    }
+    
+    func manageOpenMap(){
+        let status = CLLocationManager.authorizationStatus()
+        if status == .notDetermined {
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+        } else if status == .authorizedWhenInUse || status == .authorizedAlways {
+            IGHelperNearby.shared.openMap()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if (status == CLAuthorizationStatus.authorizedWhenInUse) {
+            IGHelperNearby.shared.openMap()
         }
     }
     
