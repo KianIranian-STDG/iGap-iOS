@@ -676,10 +676,23 @@ extension UIImageView {
         } else if attachment.type == .audio {
             self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
         } else {
-            if let _ = UIImage.originalImage(for: attachment) {
-                //self.image = image
+            
+            /* for big images show largeThumbnail if exist, even main file was downloaded before.
+             * currently check size for 1024 KB(1MB)
+             */
+            let fileSizeKB = attachment.size/1024
+            
+            if fileSizeKB < 1024 && IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
                 self.sd_setImage(with: attachment.path(), completed: nil)
-            } else if let thumbnail = attachment.smallThumbnail {
+            } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
+                
+                var previewType: IGFile.PreviewType = .smallThumbnail
+                var thumbnail: IGFile = attachment.smallThumbnail!
+                if fileSizeKB > 1024 {
+                    previewType = .largeThumbnail
+                    thumbnail = attachment.largeThumbnail!
+                }
+                
                 do {
                     var path = URL(string: "")
                     if attachment.attachedImage != nil {
@@ -692,7 +705,6 @@ extension UIImageView {
                         }
                         
                         if image != nil {
-                            //self.image = image
                             self.sd_setImage(with: path, completed: nil)
                         } else {
                             throw NSError(domain: "asa", code: 1234, userInfo: nil)
@@ -700,9 +712,10 @@ extension UIImageView {
                     }
                 } catch {
                     imagesMap[attachment.token!] = self
-                    IGDownloadManager.sharedManager.download(file: thumbnail, previewType: .smallThumbnail, completion: { (attachment) -> Void in
+                    IGDownloadManager.sharedManager.download(file: thumbnail, previewType: previewType, completion: { (attachment) -> Void in
                         DispatchQueue.main.async {
                             if let image = imagesMap[attachment.token!] {
+                                imagesMap.removeValue(forKey: attachment.token!)
                                 image.sd_setImage(with: attachment.path(), completed: nil)
                             }
                         }
@@ -731,10 +744,8 @@ extension UIImageView {
     
     func setSticker(for attachment:IGFile) {
         do {
-            //var image: UIImage?
             let path = attachment.path()
             if IGGlobal.isFileExist(path: path) {
-                //image = UIImage(contentsOfFile: path!.path)
                 self.sd_setImage(with: path, completed: nil)
             } else {
                 throw NSError(domain: "asa", code: 1234, userInfo: nil)
@@ -744,6 +755,7 @@ extension UIImageView {
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
                 DispatchQueue.main.async {
                     if let image = imagesMap[attachment.token!] {
+                        imagesMap.removeValue(forKey: attachment.token!)
                         image.setSticker(for: attachment)
                     }
                 }

@@ -168,6 +168,9 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
                 return IGMedia(avatar: avatar)
             }
         avatarPhotos = photos
+        if photos.count == 0 {
+            return
+        }
         let currentPhoto = photos[0]
 //        let deleteViewFrame = CGRect(x:320, y:595, width: 25 , height:25)
         let trashImageView = UIImageView()
