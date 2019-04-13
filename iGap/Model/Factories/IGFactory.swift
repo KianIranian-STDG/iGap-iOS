@@ -1289,10 +1289,10 @@ class IGFactory: NSObject {
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 var delay = 0.0
-                let registredUsersArray = igpRegistredUsers.chunks(25)
+                let registredUsersArray = igpRegistredUsers.chunks(15)
                 for registredUsers in registredUsersArray {
                     for userInfo in registredUsers {
-                        delay += 0.5
+                        delay += 1
                         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                             let user = IGRegisteredUser(igpUser: userInfo)
                             user.isInContacts = true

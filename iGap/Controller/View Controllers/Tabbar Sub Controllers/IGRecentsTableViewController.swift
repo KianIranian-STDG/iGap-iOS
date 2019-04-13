@@ -36,6 +36,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     static var connectionStatusStatic: IGAppManager.ConnectionStatus?
     var isLoadingMoreRooms: Bool = false
     var numberOfRoomFetchedInLastRequest: Int = -1
+    var allRoomsFetched = false // use this param for send contact after load all rooms
     static var needGetInfo: Bool = true
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     
@@ -231,7 +232,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                 self.checkAppVersion()
                 self.deleteChannelMessages()
                 self.fetchRoomList()
-                self.saveAndSendContacts()
             }
         } else {
             NotificationCenter.default.addObserver(self,
@@ -292,7 +292,6 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         self.addRoomChangeNotificationBlock()
         self.deleteChannelMessages()
         self.fetchRoomList()
-        self.saveAndSendContacts()
     }
     
     /* check app need update or is deprecated now and don't allow */
@@ -322,7 +321,9 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
         
         /********** Contact Permission **********/
         CNContactStore().requestAccess(for: CNEntityType.contacts, completionHandler: { (granted, error) -> Void in
-            IGContactManager.sharedManager.manageContact()
+            if self.allRoomsFetched {
+                IGContactManager.sharedManager.manageContact()
+            }
             
             /********** Microphon Permission **********/
             AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
@@ -407,12 +408,15 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                         }
                         
                         if getRoomListResponse.igpRooms.count != 0 {
+                            self.allRoomsFetched = false
                             self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                 self.fetchRoomList(offset: newOffset, limit: newLimit)
                             }
                         } else {
+                            self.allRoomsFetched = true
                             self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
+                            self.saveAndSendContacts()
                             /*
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 IGFactory.shared.removeDeletedRooms()
