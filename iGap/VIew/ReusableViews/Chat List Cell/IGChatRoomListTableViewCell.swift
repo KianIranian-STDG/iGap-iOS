@@ -150,6 +150,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     //MARK: Configure
     func setRoom(room: IGRoom) {
+        if room.isInvalidated {return}
         self.room = room
         makeAvatarImage().setRoom(room)
         

@@ -126,7 +126,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .webViewLink:
-            
+            IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
             return
             
         case .page:

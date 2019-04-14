@@ -1126,6 +1126,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         notification(register: true)
+        updateObserver()
     }
     
     override func viewDidAppear(_ animated: Bool) {
