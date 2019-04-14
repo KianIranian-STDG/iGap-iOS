@@ -229,6 +229,8 @@
 		FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */; };
 		FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */; };
 		FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */; };
+		FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */; };
+		FA7E9BD422631D7900FB861D /* SelectCountryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */; };
 		FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */; };
 		FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */; };
 		FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA80F59F204ABC5900F0EE74 /* tone.mp3 */; };
@@ -727,6 +729,8 @@
 		FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegisteredUser.swift; sourceTree = "<group>"; };
 		FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmClientCondition.swift; sourceTree = "<group>"; };
 		FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerToolbar.swift; sourceTree = "<group>"; };
+		FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRepresentativeViewController.swift; sourceTree = "<group>"; };
+		FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryObserver.swift; sourceTree = "<group>"; };
 		FA7F3735208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMapNearbyDistanceTableViewController.swift; sourceTree = "<group>"; };
 		FA7F373720860B160024F8BF /* IGRealmiGapMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmiGapMap.swift; sourceTree = "<group>"; };
 		FA80F59F204ABC5900F0EE74 /* tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tone.mp3; sourceTree = "<group>"; };
@@ -1391,6 +1395,7 @@
 				FA50A8CA1DD35EFD00C6D2EA /* IGRegistrationStepTermsViewController.swift */,
 				4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */,
 				FAEC02D61F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift */,
+				FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */,
 			);
 			path = "Splash and Register";
 			sourceTree = "<group>";
@@ -1569,6 +1574,7 @@
 				FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */,
 				FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */,
 				FA77E0FE2261EBCB008D6D25 /* DiscoveryObserver.swift */,
+				FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2519,6 +2525,7 @@
 				937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */,
 				FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */,
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
+				FA7E9BD422631D7900FB861D /* SelectCountryObserver.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,
 				FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */,
@@ -2636,6 +2643,7 @@
 				8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */,
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
+				FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */,
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,
 				FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */,

@@ -359,8 +359,19 @@ class IGCountryInfo {
         defaultCountry.codePatternMask = "{ddd} {ddd} {dddd}"
         defaultCountry.codePatternTemplate = "___ ___ ____"
         defaultCountry.codeRegex = "^\\d{10}$"
-        
         return defaultCountry
+    }
+    
+    class func iranCountry() -> IGCountryInfo {
+        let iranCountry = IGCountryInfo()
+        iranCountry.countryISO = "IR"
+        iranCountry.countryCode = 98
+        iranCountry.countryName = "Iran"
+        iranCountry.codePattern = "XXX XXX XXXX"
+        iranCountry.codePatternMask = "{ddd} {ddd} {dddd}"
+        iranCountry.codePatternTemplate = "___ ___ ____"
+        iranCountry.codeRegex = "^\\d{10}$"
+        return iranCountry
     }
     
 }

@@ -124,6 +124,10 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGUserProfileGetBioRequest.Handler.self                                 as IGRequest.Handler.Type),
     30149: (IGPUserReportResponse.self                                              as ResponseMessage.Type,
             IGUserReportRequest.Handler.self                                        as IGRequest.Handler.Type),
+    30151: (IGPUserProfileGetRepresentativeResponse.self                            as ResponseMessage.Type,
+            IGUserProfileGetRepresentativeRequest.Handler.self                      as IGRequest.Handler.Type),
+    30152: (IGPUserProfileSetRepresentativeResponse.self                            as ResponseMessage.Type,
+            IGUserProfileSetRepresentativeRequest.Handler.self                      as IGRequest.Handler.Type),
     
 
     //Chat: 302xx

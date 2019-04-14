@@ -1342,3 +1342,62 @@ class IGUserReportRequest: IGRequest {
         }
     }
 }
+
+
+class IGUserProfileSetRepresentativeRequest: IGRequest {
+    
+    class func sendRequest(phone: String) {
+        IGUserProfileSetRepresentativeRequest.Generator.generate(phone: phone).success({ (protoResponse) in
+            
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.sendRequest(phone: phone)
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    class Generator: IGRequest.Generator {
+        class func generate(phone: String) -> IGRequestWrapper {
+            var request = IGPUserProfileSetRepresentative()
+            request.igpPhoneNumber = phone
+            return IGRequestWrapper(message: request, actionID: 152)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserProfileSetRepresentativeResponse) {
+            IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keySetRepresentative, state: false)
+        }
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+class IGUserProfileGetRepresentativeRequest: IGRequest {
+    
+    class func sendRequest() {
+        IGUserProfileGetRepresentativeRequest.Generator.generate().success({ (protoResponse) in
+            
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.sendRequest()
+            default:
+                break
+            }
+        }).send()
+    }
+    
+    class Generator: IGRequest.Generator {
+        class func generate() -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPUserProfileGetRepresentative(), actionID: 151)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserProfileGetRepresentativeResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}

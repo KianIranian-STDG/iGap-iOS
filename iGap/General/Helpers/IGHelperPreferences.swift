@@ -15,6 +15,7 @@ class IGHelperPreferences {
     //setting preferences
     public static let keyInAppBrowser = "IN_APP_BROWSER"
     public static let keyChannelDeleteMessage = "CHANNEL_DELETE_MESSAGES"
+    public static let keySetRepresentative = "SET_REPRESENTATIVE"
     
     
     internal static func readBoolean(key: String) -> Bool {

@@ -30,7 +30,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         profileImageView.isUserInteractionEnabled = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "Done", title: "Your Profile")
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "Next", title: "Your Profile")
         navItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
@@ -79,9 +79,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
                                     break
                                 }
                                 IGGlobal.prgHide()
-                                self.dismiss(animated: true, completion: {
-                                    IGAppManager.sharedManager.setUserLoginSuccessful()
-                                })
+                                self.performSegue(withIdentifier:"showRepresentative", sender: nil);
                             }
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
@@ -114,7 +112,6 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Take a Photo")
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
                 self.imagePicker.allowsEditing = true
@@ -133,7 +130,6 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         })
         let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Choose Photo")
             self.imagePicker.delegate = self
             self.imagePicker.allowsEditing = true
             self.imagePicker.sourceType = .photoLibrary
@@ -149,13 +145,11 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
         })
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
-            print ("I don't have a camera.")
         }
         if let popoverController = optionMenu.popoverPresentationController {
             popoverController.sourceView = self.profileImageView
