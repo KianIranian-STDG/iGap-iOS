@@ -22,7 +22,10 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
     @IBOutlet weak var selfDestructionLabel: UILabel!
     @IBOutlet weak var bioEntryLabel: IGLabel!
     @IBOutlet weak var bioIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var representerIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var representerLabel: IGLabel!
     
+    var allowSetRepresentative = false
     var currentUser: IGRegisteredUser!
     var notificationToken: NotificationToken?
     
@@ -54,6 +57,14 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
         } else {
             self.bioIndicator.stopAnimating()
             self.bioIndicator.hidesWhenStopped = true
+        }
+        
+        if let representer = IGSessionInfo.getRepresenter(), !representer.isEmpty {
+            self.representerLabel.text = representer
+            self.representerIndicator.stopAnimating()
+            self.representerIndicator.hidesWhenStopped = true
+        } else {
+            getRepresenter()
         }
         
         if currentUser.selfRemove == -1 {
@@ -110,7 +121,7 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
         case 0:
             return 1
         case 1:
-            return 4
+            return 5
         case 2 :
             return 2
         case 3 :
@@ -125,11 +136,7 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
             self.tableView.isUserInteractionEnabled = false
             performSegue(withIdentifier: "GoToNicknamePage", sender: self)
         }
-//        if indexPath.section == 1 && indexPath.row == 0 {
-   //     self.tableView.isUserInteractionEnabled = false
-
-//            performSegue(withIdentifier: "GoToPhoneNumberPage", sender: self)
-//        }
+        
         if indexPath.section == 1 && indexPath.row == 1 {
             self.tableView.isUserInteractionEnabled = false
             performSegue(withIdentifier: "GoToUsernamePage", sender: self)
@@ -142,6 +149,13 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
         if indexPath.section == 1 && indexPath.row == 3 {
             self.tableView.isUserInteractionEnabled = false
             performSegue(withIdentifier: "GoToBioPage", sender: self)
+        }
+        
+        if indexPath.section == 1 && indexPath.row == 4 && allowSetRepresentative {
+            self.tableView.isUserInteractionEnabled = false
+            let representative = IGRepresentativeViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
+            representative.popView = true
+            self.navigationController!.pushViewController(representative, animated: true)
         }
         
         if indexPath.section == 2 && indexPath.row == 0 {
@@ -299,6 +313,35 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
                 break
             }
             
+        }).send()
+    }
+    
+    func getRepresenter(){
+        IGUserProfileGetRepresentativeRequest.Generator.generate().success({ (protoResponse) in
+            if let response = protoResponse as? IGPUserProfileGetRepresentativeResponse {
+                
+                if response.igpPhoneNumber.isEmpty {
+                    self.allowSetRepresentative = true
+                }
+                IGUserProfileGetRepresentativeRequest.Handler.interpret(response: response)
+                
+                DispatchQueue.main.async {
+                    self.representerLabel.text = response.igpPhoneNumber
+                    self.representerIndicator.stopAnimating()
+                    self.representerIndicator.hidesWhenStopped = true
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.getRepresenter()
+            default:
+                DispatchQueue.main.async {
+                    self.representerIndicator.stopAnimating()
+                    self.representerIndicator.hidesWhenStopped = true
+                }
+                break
+            }
         }).send()
     }
     

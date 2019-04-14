@@ -1346,19 +1346,6 @@ class IGUserReportRequest: IGRequest {
 
 class IGUserProfileSetRepresentativeRequest: IGRequest {
     
-    class func sendRequest(phone: String) {
-        IGUserProfileSetRepresentativeRequest.Generator.generate(phone: phone).success({ (protoResponse) in
-            
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                self.sendRequest(phone: phone)
-            default:
-                break
-            }
-        }).send()
-    }
-    
     class Generator: IGRequest.Generator {
         class func generate(phone: String) -> IGRequestWrapper {
             var request = IGPUserProfileSetRepresentative()
@@ -1369,26 +1356,13 @@ class IGUserProfileSetRepresentativeRequest: IGRequest {
     
     class Handler: IGRequest.Handler {
         class func interpret(response responseProtoMessage: IGPUserProfileSetRepresentativeResponse) {
-            IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keySetRepresentative, state: false)
+            IGFactory.shared.setRepresenter(phoneNumber: responseProtoMessage.igpPhoneNumber)
         }
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
 
 class IGUserProfileGetRepresentativeRequest: IGRequest {
-    
-    class func sendRequest() {
-        IGUserProfileGetRepresentativeRequest.Generator.generate().success({ (protoResponse) in
-            
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                self.sendRequest()
-            default:
-                break
-            }
-        }).send()
-    }
     
     class Generator: IGRequest.Generator {
         class func generate() -> IGRequestWrapper {
@@ -1397,7 +1371,9 @@ class IGUserProfileGetRepresentativeRequest: IGRequest {
     }
     
     class Handler: IGRequest.Handler {
-        class func interpret(response responseProtoMessage: IGPUserProfileGetRepresentativeResponse) {}
+        class func interpret(response responseProtoMessage: IGPUserProfileGetRepresentativeResponse) {
+            IGFactory.shared.setRepresenter(phoneNumber: responseProtoMessage.igpPhoneNumber)
+        }
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }

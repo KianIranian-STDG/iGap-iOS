@@ -21,6 +21,7 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
     @IBOutlet weak var txtNumber: AKMaskField!
     @IBOutlet weak var txtCode: IGLabel!
     
+    var popView = false
     var selectedCountry: IGCountryInfo!
     static var selectCountryObserver: SelectCountryObserver!
     
@@ -135,10 +136,14 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
     }
     
     private func finish(){
-        self.dismiss(animated: true, completion: {
-            self.view.endEditing(true)
-            IGAppManager.sharedManager.setUserLoginSuccessful()
-        })
+        if popView {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: {
+                self.view.endEditing(true)
+                IGAppManager.sharedManager.setUserLoginSuccessful()
+            })
+        }
     }
     
     /************************ Callback ************************/

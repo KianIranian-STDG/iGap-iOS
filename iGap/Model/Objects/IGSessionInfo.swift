@@ -19,9 +19,18 @@ class IGSessionInfo: Object {
     @objc dynamic  var userID:     Int64   = -1
     @objc dynamic  var nickname:   String?
     @objc dynamic  var authorHash: String?
+    @objc dynamic  var representer: String?
     
     override static func primaryKey() -> String {
         return "id"
+    }
+    
+    static func getRepresenter() -> String? {
+        let realm = try! Realm()
+        if let sessionInfo = realm.objects(IGSessionInfo.self).first {
+            return sessionInfo.representer
+        }
+        return nil
     }
 }
 

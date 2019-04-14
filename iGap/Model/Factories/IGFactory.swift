@@ -2824,4 +2824,21 @@ class IGFactory: NSObject {
         }
         //self.doFactoryTask(task: task)
     }
+    
+    func setRepresenter(phoneNumber: String) {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+                        session.representer = phoneNumber
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
 }
