@@ -155,6 +155,7 @@ class IGUserLoginRequest : IGRequest {
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive)
             IGUploadManager.sharedManager.pauseAllUploads()
             IGMessageSender.defaultSender.resendAllSendingMessage()
+            IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
             getToken()
             
             if #available(iOS 10.0, *) {

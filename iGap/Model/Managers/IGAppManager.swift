@@ -162,6 +162,7 @@ class IGAppManager: NSObject {
         IGUploadManager.sharedManager.pauseAllUploads()
         IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
         IGRecentsTableViewController.needGetInfo = true
+        IGDashboardViewController.needGetFirstPage = true
     }
     
     public func setUserLoginSuccessful() {

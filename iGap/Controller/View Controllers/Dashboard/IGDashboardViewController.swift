@@ -21,6 +21,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     private var refresher: UIRefreshControl!
     private let locationManager = CLLocationManager()
     static var discoveryObserver: DiscoveryObserver!
+    static var needGetFirstPage = true
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
@@ -107,6 +108,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 
                 /* just save first page info */
                 if let request = requestWrapper.message as? IGPClientGetDiscovery, request.igpPageID == 0 {
+                    IGDashboardViewController.needGetFirstPage = false
                     IGFactory.shared.addDiscoveryPageInfo(discoveryList: self.discovery)
                 }
                 
@@ -138,7 +140,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     /* if user is login show collectionView, otherwise show btnRefresh */
     private func manageShowDiscovery(){
-        if IGAppManager.sharedManager.isUserLoggiedIn() {
+        if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
             self.collectionView!.isHidden = false
             self.btnRefresh!.isHidden = true
             if discovery.count == 0 {
@@ -154,6 +156,12 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     /*************************************************************/
     /************************* callbacks *************************/
+    
+    func onFetchFirstPage() {
+        if IGDashboardViewController.needGetFirstPage && pageId == 0 {
+            getDiscoveryList()
+        }
+    }
     
     func onNearbyClick() {
         manageOpenMap()

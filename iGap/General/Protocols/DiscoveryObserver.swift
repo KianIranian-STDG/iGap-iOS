@@ -10,5 +10,6 @@
 import UIKit
 
 protocol DiscoveryObserver {
+    func onFetchFirstPage()
     func onNearbyClick()
 }
