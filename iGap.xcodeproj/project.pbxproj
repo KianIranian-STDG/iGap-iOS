@@ -66,7 +66,7 @@
 		FA03C1A220429DB5008812E3 /* AVCaptureState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C1A120429DB5008812E3 /* AVCaptureState.swift */; };
 		FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C1A42042AD44008812E3 /* IGSignaling.swift */; };
 		FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */; };
-		FA0953401E1B97700043ED3F /* IGAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09530E1E1B97700043ED3F /* IGAccountTableViewController.swift */; };
+		FA0953401E1B97700043ED3F /* IGAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09530E1E1B97700043ED3F /* IGAccountViewController.swift */; };
 		FA0953411E1B97700043ED3F /* IGActiveSessionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */; };
 		FA0953421E1B97700043ED3F /* IGActiveSessionsParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */; };
 		FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */; };
@@ -561,7 +561,7 @@
 		FA03C1A120429DB5008812E3 /* AVCaptureState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCaptureState.swift; sourceTree = "<group>"; };
 		FA03C1A42042AD44008812E3 /* IGSignaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSignaling.swift; sourceTree = "<group>"; };
 		FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IGSettingStoryboard.storyboard; sourceTree = "<group>"; };
-		FA09530E1E1B97700043ED3F /* IGAccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGAccountTableViewController.swift; sourceTree = "<group>"; };
+		FA09530E1E1B97700043ED3F /* IGAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGAccountViewController.swift; sourceTree = "<group>"; };
 		FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGActiveSessionObject.swift; sourceTree = "<group>"; };
 		FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGActiveSessionsParentCell.swift; sourceTree = "<group>"; };
 		FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDeleteAccountConfirmationTableViewController.swift; sourceTree = "<group>"; };
@@ -1141,7 +1141,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA9DFAE1F4B1B330076A22F /* TwoStep Verification */,
-				FA09530E1E1B97700043ED3F /* IGAccountTableViewController.swift */,
+				FA09530E1E1B97700043ED3F /* IGAccountViewController.swift */,
 				FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */,
 				FA0953101E1B97700043ED3F /* IGActiveSessionsParentCell.swift */,
 				FA0953111E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift */,
@@ -2399,7 +2399,7 @@
 				FA8F22581DD89F7C005A90D1 /* IGAvatar.swift in Sources */,
 				FAE07F0222059CA400BE3593 /* IGStickerCell.swift in Sources */,
 				93193F321E5813030039AC0C /* IGGroupInfoMemberListTableViewCell.swift in Sources */,
-				FA0953401E1B97700043ED3F /* IGAccountTableViewController.swift in Sources */,
+				FA0953401E1B97700043ED3F /* IGAccountViewController.swift in Sources */,
 				FAE11243204E96FA009F402B /* IGCallsTableViewController.swift in Sources */,
 				FA09536A1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewCell.swift in Sources */,
 				93193F341E5813620039AC0C /* IGGroupMemberListInvitedLinkTableViewCell.swift in Sources */,

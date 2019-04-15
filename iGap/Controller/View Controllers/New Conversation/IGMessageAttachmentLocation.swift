@@ -83,6 +83,19 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        if !isSendLocation {
+            navigationItem.addModalViewRightItem(title: "", iGapFont: true)
+            navigationItem.rightViewContainer?.addAction {
+                self.shareLocation()
+            }
+        }
+    }
+    
+    private func shareLocation(){
+        if (UIApplication.shared.canOpenURL(NSURL(string:"http://maps.apple.com/maps")! as URL)) {
+            let url = "http://maps.apple.com/maps?q=iGap+Marker&ll=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&z=14"
+            UIApplication.shared.openURL(URL(string:url)!)
+        }
     }
     
     func buttonViewCustomize(){

@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 import IGProtoBuff
 
-class IGAccountTableViewController: UITableViewController , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
+class IGAccountViewController: UITableViewController , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
     
     @IBOutlet weak var emailIndicator: UIActivityIndicatorView!
     @IBOutlet weak var phoneNumberEntryLabel: UILabel!
@@ -60,6 +60,7 @@ class IGAccountTableViewController: UITableViewController , UINavigationControll
         }
         
         if let representer = IGSessionInfo.getRepresenter(), !representer.isEmpty {
+            self.allowSetRepresentative = false
             self.representerLabel.text = representer
             self.representerIndicator.stopAnimating()
             self.representerIndicator.hidesWhenStopped = true
