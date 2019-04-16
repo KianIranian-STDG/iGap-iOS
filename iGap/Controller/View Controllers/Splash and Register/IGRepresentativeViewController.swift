@@ -125,7 +125,7 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Hint", message: "Unfortunatly occurred an error please set representative later!", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Hint", message: "Unfortunatly an error occurred \n please set representative later!", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     self.finish()
                 })

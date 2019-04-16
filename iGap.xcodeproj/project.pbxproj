@@ -346,6 +346,7 @@
 		FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */; };
 		FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = FAB0F9451FE956D1008F23EB /* Splash.gif */; };
 		FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB1BF73220C341300BA980B /* StickerCell.xib */; };
+		FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */; };
 		FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */; };
 		FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */; };
 		FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB436702209751A0073EEE1 /* Alamofire.framework */; };
@@ -850,6 +851,7 @@
 		FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGRequestManager.swift; path = "Request Manager/IGRequestManager.swift"; sourceTree = "<group>"; };
 		FAB0F9451FE956D1008F23EB /* Splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Splash.gif; sourceTree = "<group>"; };
 		FAB1BF73220C341300BA980B /* StickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickerCell.xib; sourceTree = "<group>"; };
+		FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGiGapBrowser.swift; sourceTree = "<group>"; };
 		FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSessionInfo.swift; sourceTree = "<group>"; };
 		FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiSticker.swift; sourceTree = "<group>"; };
 		FAB436702209751A0073EEE1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -1887,6 +1889,7 @@
 				FAE6062521EB39DB00F03FFC /* SwiftWebVCActivity.swift */,
 				FAE6062221EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift */,
 				FAE6062321EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift */,
+				FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */,
 			);
 			path = Browser;
 			sourceTree = "<group>";
@@ -2598,6 +2601,7 @@
 				FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */,
 				FA0953651E1B97700043ED3F /* IGSettingNotificationTableViewController.swift in Sources */,
 				FA0953631E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewCell.swift in Sources */,
+				FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */,
 				FA42EF151E5C593500CF8A32 /* TTTAttributedLabel.m in Sources */,
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,
 				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,

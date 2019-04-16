@@ -122,11 +122,20 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .webLink:
-            IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!)
+            IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
             return
             
         case .webViewLink:
-            IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
+            let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+            iGapBrowser.url = discoveryInfo.igpValue
+            UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
+            return
+            
+        case .showAlert:
+            let alert = UIAlertController(title: nil, message: discoveryInfo.igpValue, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in })
+            alert.addAction(okAction)
+            UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
             return
             
         case .page:
@@ -182,6 +191,14 @@ class AbstractDashboardCell: UICollectionViewCell {
         case .call:
             if let url = NSURL(string: "tel://\(discoveryInfo.igpValue)"), UIApplication.shared.canOpenURL(url as URL) {
                 UIApplication.shared.openURL(url as URL)
+            }
+            return
+            
+        case .stickerShop:
+            if #available(iOS 10.0, *) {
+                let stickerShop = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                stickerShop.stickerPageType = StickerPageType.ADD_REMOVE
+                UIApplication.topViewController()?.navigationController!.pushViewController(stickerShop, animated: true)
             }
             return
             

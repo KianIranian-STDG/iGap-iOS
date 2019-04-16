@@ -1349,7 +1349,7 @@ class IGUserProfileSetRepresentativeRequest: IGRequest {
     class Generator: IGRequest.Generator {
         class func generate(phone: String) -> IGRequestWrapper {
             var request = IGPUserProfileSetRepresentative()
-            request.igpPhoneNumber = phone
+            request.igpPhoneNumber = phone.replace(" ", withString: "")
             return IGRequestWrapper(message: request, actionID: 152)
         }
     }

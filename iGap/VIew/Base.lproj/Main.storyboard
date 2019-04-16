@@ -300,6 +300,28 @@
             </objects>
             <point key="canvasLocation" x="6582" y="-862"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="ZzW-v0-TKu">
+            <objects>
+                <viewController storyboardIdentifier="IGiGapBrowser" id="A8J-B4-TsL" customClass="IGiGapBrowser" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EAj-Uv-wyO"/>
+                        <viewControllerLayoutGuide type="bottom" id="EX8-Qo-rSW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L0R-Gf-CIC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="qoc-q4-PhW" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <connections>
+                        <outlet property="mainView" destination="L0R-Gf-CIC" id="XxU-sy-D59"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="szf-zM-FQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7902" y="-862"/>
+        </scene>
         <!--Recents-->
         <scene sceneID="eKG-cM-Pvc">
             <objects>
