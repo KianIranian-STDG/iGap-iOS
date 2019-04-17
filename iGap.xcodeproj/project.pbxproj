@@ -294,6 +294,7 @@
 		FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B602D201E0483008460CF /* CellSizeCalculator.swift */; };
 		FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */; };
 		FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6C2DE422670C76005654AC /* AFNetworking.framework */; };
+		FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C2DE622673B21005654AC /* IGHelperAlert.swift */; };
 		FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */; };
 		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
@@ -883,6 +884,7 @@
 		FA6B602D201E0483008460CF /* CellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSizeCalculator.swift; sourceTree = "<group>"; };
 		FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperGetMessageState.swift; sourceTree = "<group>"; };
 		FA6C2DE422670C76005654AC /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
+		FA6C2DE622673B21005654AC /* IGHelperAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAlert.swift; sourceTree = "<group>"; };
 		FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell7.swift; sourceTree = "<group>"; };
 		FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell7.xib; sourceTree = "<group>"; };
 		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
@@ -1693,6 +1695,7 @@
 				FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */,
 				8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */,
 				FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */,
+				FA6C2DE622673B21005654AC /* IGHelperAlert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2932,6 +2935,7 @@
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
+				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
 				8ECC182A222FB862006E43E8 /* viewX.swift in Sources */,
 				FAEE8D8F1E30ABA100599600 /* IGClientCondition.swift in Sources */,

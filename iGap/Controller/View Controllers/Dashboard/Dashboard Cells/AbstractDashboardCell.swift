@@ -132,10 +132,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .showAlert:
-            let alert = UIAlertController(title: nil, message: discoveryInfo.igpValue, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in })
-            alert.addAction(okAction)
-            UIApplication.topViewController()!.present(alert, animated: true, completion: nil)
+            IGHelperAlert.shared.showAlert(message: discoveryInfo.igpValue)
             return
             
         case .page:
@@ -190,7 +187,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .call:
             if let url = NSURL(string: "tel://\(discoveryInfo.igpValue)"), UIApplication.shared.canOpenURL(url as URL) {
-                UIApplication.shared.openURL(url as URL)
+                UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
             }
             return
             
