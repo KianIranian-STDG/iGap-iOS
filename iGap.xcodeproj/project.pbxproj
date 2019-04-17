@@ -19,10 +19,6 @@
 		8E8D8E19225CE39B00039191 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E18225CE39A00039191 /* strings.json */; };
 		8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E2C225DB6A500039191 /* Fast.xib */; };
 		8E8D8E46225DBB9000039191 /* SMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E45225DBB9000039191 /* SMNavigationController.swift */; };
-		8E8D8E50225DCBFA00039191 /* MCLocalizationDummyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E47225DCBF800039191 /* MCLocalizationDummyDataSource.m */; };
-		8E8D8E51225DCBFA00039191 /* MCLocalizationSingleJSONFileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E48225DCBF800039191 /* MCLocalizationSingleJSONFileDataSource.m */; };
-		8E8D8E52225DCBFA00039191 /* MCLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E4A225DCBF800039191 /* MCLocalization.m */; };
-		8E8D8E53225DCBFA00039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E4F225DCBFA00039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.m */; };
 		8E94B7382237E4A1005F6868 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */; };
 		8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */; };
 		8E94B73A2237E4A1005F6868 /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72C2237E4A0005F6868 /* Presentr.framework */; };
@@ -598,15 +594,6 @@
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
 		8E8D8E2C225DB6A500039191 /* Fast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Fast.xib; sourceTree = "<group>"; };
 		8E8D8E45225DBB9000039191 /* SMNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNavigationController.swift; sourceTree = "<group>"; };
-		8E8D8E47225DCBF800039191 /* MCLocalizationDummyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationDummyDataSource.m; sourceTree = "<group>"; };
-		8E8D8E48225DCBF800039191 /* MCLocalizationSingleJSONFileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationSingleJSONFileDataSource.m; sourceTree = "<group>"; };
-		8E8D8E49225DCBF800039191 /* MCLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalization.h; sourceTree = "<group>"; };
-		8E8D8E4A225DCBF800039191 /* MCLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalization.m; sourceTree = "<group>"; };
-		8E8D8E4B225DCBF900039191 /* MCLocalizationSingleJSONFileDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationSingleJSONFileDataSource.h; sourceTree = "<group>"; };
-		8E8D8E4C225DCBF900039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationOneJSONFilePerLanguageDataSource.h; sourceTree = "<group>"; };
-		8E8D8E4D225DCBF900039191 /* MCLocalizationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationDataSource.h; sourceTree = "<group>"; };
-		8E8D8E4E225DCBFA00039191 /* MCLocalizationDummyDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalizationDummyDataSource.h; sourceTree = "<group>"; };
-		8E8D8E4F225DCBFA00039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationOneJSONFilePerLanguageDataSource.m; sourceTree = "<group>"; };
 		8E94B7282237E49F005F6868 /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
 		8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
 		8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = Carthage/Build/iOS/UICKeyChainStore.framework; sourceTree = "<group>"; };
@@ -1263,22 +1250,6 @@
 				8E8D8E2C225DB6A500039191 /* Fast.xib */,
 			);
 			path = xib;
-			sourceTree = "<group>";
-		};
-		8E8D8E54225DCBFF00039191 /* MCLocalization */ = {
-			isa = PBXGroup;
-			children = (
-				8E8D8E49225DCBF800039191 /* MCLocalization.h */,
-				8E8D8E4A225DCBF800039191 /* MCLocalization.m */,
-				8E8D8E4D225DCBF900039191 /* MCLocalizationDataSource.h */,
-				8E8D8E4E225DCBFA00039191 /* MCLocalizationDummyDataSource.h */,
-				8E8D8E47225DCBF800039191 /* MCLocalizationDummyDataSource.m */,
-				8E8D8E4C225DCBF900039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.h */,
-				8E8D8E4F225DCBFA00039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.m */,
-				8E8D8E4B225DCBF900039191 /* MCLocalizationSingleJSONFileDataSource.h */,
-				8E8D8E48225DCBF800039191 /* MCLocalizationSingleJSONFileDataSource.m */,
-			);
-			path = MCLocalization;
 			sourceTree = "<group>";
 		};
 		8E96A314225B6DD3007D8A77 /* History */ = {
@@ -1973,7 +1944,6 @@
 		FA930D961E5B178F00069EE1 /* ThirdParty Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				8E8D8E54225DCBFF00039191 /* MCLocalization */,
 				8E1F413622391A7400910E30 /* Vendor */,
 				FAD959021F48AD8600FBD306 /* MTBBarcodeScanner */,
 				FA0CC8101E5DD99400556283 /* Thread */,
@@ -2832,7 +2802,6 @@
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
 				FAEC02D71F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift in Sources */,
 				FAEEB0C31E1BC11600B6775F /* IGContact.swift in Sources */,
-				8E8D8E53225DCBFA00039191 /* MCLocalizationOneJSONFilePerLanguageDataSource.m in Sources */,
 				FA0953491E1B97700043ED3F /* IGSetNickNameTableViewController.swift in Sources */,
 				FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */,
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
@@ -2956,7 +2925,6 @@
 				FA358D221E0A6F76001D0935 /* IGChannelsTableViewController.swift in Sources */,
 				FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */,
 				FA0953571E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift in Sources */,
-				8E8D8E50225DCBFA00039191 /* MCLocalizationDummyDataSource.m in Sources */,
 				8EE7FC97225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift in Sources */,
 				FA09534A1E1B97700043ED3F /* IGSettingAboutTableViewController.swift in Sources */,
 				FAD580881DDC4C6900A242DE /* IGMessageCollectionViewFlowLayout.swift in Sources */,
@@ -2978,7 +2946,6 @@
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
-				8E8D8E51225DCBFA00039191 /* MCLocalizationSingleJSONFileDataSource.m in Sources */,
 				8ECC182A222FB862006E43E8 /* viewX.swift in Sources */,
 				FAEE8D8F1E30ABA100599600 /* IGClientCondition.swift in Sources */,
 				FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */,
@@ -3089,7 +3056,6 @@
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
-				8E8D8E52225DCBFA00039191 /* MCLocalization.m in Sources */,
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
