@@ -292,12 +292,11 @@ class SMBarcodeMainViewController: UIViewController {
         request.addFailedHandler { (response: Any) in
             
             SMLoading.hideLoadingPage()
-            try! self.scanner?.startScanning()
             if SMValidation.showConnectionErrorToast(response) {
                 SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
             }
             SMMessage.showWithMessage(SMCard.testConvert(response))
-
+            self.navigationController?.popToRootViewController(animated: true)
             
             
         }

@@ -327,10 +327,17 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            if IGAppManager.sharedManager.mplActive() {
-                return 10
+            if IGAppManager.sharedManager.mplActive() && IGAppManager.sharedManager.walletActive() {
+                return 11
             }
-            return 9
+            else if IGAppManager.sharedManager.mplActive() && !(IGAppManager.sharedManager.walletActive()) {
+                return 10
+
+            }
+            else {
+                return 9
+
+            }
         case 1:
             return 1
         case 2:
@@ -355,7 +362,10 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         if indexPath.section == 0 {
             
             var rowIndex = indexPath.row
-            if !IGAppManager.sharedManager.mplActive() && indexPath.row >= 3 {
+            if !IGAppManager.sharedManager.mplActive() && !(IGAppManager.sharedManager.walletActive()) && indexPath.row >= 3 {
+                rowIndex = rowIndex + 2
+            }
+            else if IGAppManager.sharedManager.mplActive() && !(IGAppManager.sharedManager.walletActive()) && indexPath.row >= 3 {
                 rowIndex = rowIndex + 1
             }
             
@@ -367,12 +377,18 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
                 performSegue(withIdentifier: "GoToContactListPage", sender: self)
             } else if rowIndex == 2 {
                 manageOpenMap()
-            } else if rowIndex == 3 {
+            }
+            
+            else if rowIndex == 3 {
+                //let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
+                //self.navigationController?.pushViewController(vc!, animated: true)
+            }
+            else if rowIndex == 4 {
                 IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()
-            } else if rowIndex == 4 {
+            } else if rowIndex == 5 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
-            } else if rowIndex == 5 { // in app browser
+            } else if rowIndex == 6 { // in app browser
                 
                 if switchInAppBrowser.isOn {
                     switchInAppBrowser.setOn(false, animated: true)
@@ -382,17 +398,17 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
                     IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: true)
                 }
                 
-            } else if rowIndex == 6 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "GoToPrivacyAndPolicySettingsPage", sender: self)
             } else if rowIndex == 7 {
                 self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "showCacheSetting", sender: self)
+                performSegue(withIdentifier: "GoToPrivacyAndPolicySettingsPage", sender: self)
             } else if rowIndex == 8 {
+                self.tableView.isUserInteractionEnabled = false
+                performSegue(withIdentifier: "showCacheSetting", sender: self)
+            } else if rowIndex == 9 {
                 shareContent = "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net"
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 present(activityViewController, animated: true, completion: nil)
-            } else if rowIndex == 9 {
+            } else if rowIndex == 10 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToAboutSettingPage", sender: self)
             }

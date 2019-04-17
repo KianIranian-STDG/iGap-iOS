@@ -42,7 +42,8 @@ class IGAppManager: NSObject {
     private var _nickname: String?
     private var _mapEnable: Bool = false
     private var _mplActive: Bool = false
-    
+    private var _walletActive: Bool = false
+
     public let LOAD_ROOM_LIMIT = 15
     
     private override init() {
@@ -325,6 +326,13 @@ class IGAppManager: NSObject {
     
     public func setMplActive(enable: Bool) {
         _mplActive = enable
+    }
+    public func walletActive() -> Bool {
+        return _walletActive
+    }
+    
+    public func setWalletActive(enable: Bool) {
+        _walletActive = enable
     }
     
     public func login() {

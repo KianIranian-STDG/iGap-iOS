@@ -65,7 +65,7 @@ class SMMyBarCodeViewController: UIViewController {
            
             if let tmp : String = ("\((info?.userID)!)") {
                 print(tmp)
-                accountId = tmp ?? ""
+                accountId = SMUserManager.accountId
                 print(accountId)
             }
             
@@ -93,7 +93,7 @@ class SMMyBarCodeViewController: UIViewController {
         
         var string: String = SMQRCode.URL
         string.append("{\"T\":")
-//        string.append("\"")
+        string.append("\"")
         string.append(accountType!)
         string.append("\"")
         string.append(",")

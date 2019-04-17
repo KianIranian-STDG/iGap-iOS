@@ -152,7 +152,8 @@ class IGUserLoginRequest : IGRequest {
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
             IGApiSticker.shared.fetchMySticker()
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
-            IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive)
+            IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive) // show/Hide financial and wallet
+            IGAppManager.sharedManager.setWalletActive(enable: responseProtoMessage.igpWalletActive) //:show/Hide Only Wallet
             IGUploadManager.sharedManager.pauseAllUploads()
             IGMessageSender.defaultSender.resendAllSendingMessage()
             IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
