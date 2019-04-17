@@ -18,9 +18,12 @@ import UserNotifications
 import IGProtoBuff
 import Intents
 import CoreData
+import messages
+import maincore
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
     var isNeedToSetNickname : Bool = true
@@ -32,7 +35,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     internal static var isDeprecatedClient : Bool = false
     internal static var appIsInBackground : Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        MCLocalization.load(from: core_utils.getResourcesBundle().url(forResource: "strings.json", withExtension: nil), defaultLanguage: "en")
+
+        let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
         
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: "en")
+        MCLocalization.sharedInstance().language = "en"
+
+        SMUserManager.clearKeychainOnFirstRun()
+        SMUserManager.loadFromKeychain()
 //        let config = Realm.Configuration(schemaVersion: try! schemaVersionAtURL(Realm.Configuration.defaultConfiguration.fileURL!) + 1)
 //        Realm.Configuration.defaultConfiguration = config
 //        
@@ -88,7 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         pushNotification(application)
         detectBackground()
-        
         return true
     }
     
@@ -123,6 +133,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             IGHelperGetShareData.manageShareDate()
             IGAppManager.sharedManager.setUserUpdateStatus(status: .online)
         }
+//        self.callRefreshToken()
+    }
+    func callRefreshToken() {
+        SMUserManager.refreshToken(delegate: self, onSuccess: { (response) in
+            
+        }, onFail: { (response) in
+            NSLog("%@", "FailedHandler")
+        })
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -132,7 +150,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-    
+        if #available(iOS 10.0, *) {
+            self.saveContext()
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     /******************* Notificaton Start *******************/
@@ -311,6 +333,86 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     
+    // MARK: - Core Data stack
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application.
+        let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
+    }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let applicationDocumentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first!
+        let url = applicationDocumentsDirectory.appendingPathComponent("CoreData.sqlite")
+        
+        do {
+            let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption:true]
+            
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
+        } catch {
+            SMLog.SMPrint("Unresolved error \(error)")
+            abort()
+        }
+        
+        return coordinator
+    }()
+    
+    
+    
+    @available(iOS 10.0, *)
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        let container = NSPersistentContainer(name: "iGap")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    // MARK: - Core Data Saving support
+    @available(iOS 10.0, *)
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+
 }
 
 

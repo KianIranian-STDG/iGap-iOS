@@ -2,8 +2,8 @@
 /* Class = "UILabel"; text = "00:00"; ObjectID = "0xP-Py-NoP"; */
 "0xP-Py-NoP.text" = "00:00";
 
-/* Class = "UILabel"; text = "..."; ObjectID = "1s0-8u-bJd"; */
-"1s0-8u-bJd.text" = "...";
+/* Class = "UILabel"; text = "Communicating..."; ObjectID = "1s0-8u-bJd"; */
+"1s0-8u-bJd.text" = "Communicating...";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "2ka-Ow-SOq"; */
 "2ka-Ow-SOq.text" = "Label";
@@ -11,20 +11,53 @@
 /* Class = "UILabel"; text = "iGap Call Quality"; ObjectID = "3Ts-7H-7ep"; */
 "3Ts-7H-7ep.text" = "iGap Call Quality";
 
+/* Class = "UISearchBar"; placeholder = "start your search with tap on view"; ObjectID = "4Aj-t8-X1G"; */
+"4Aj-t8-X1G.placeholder" = "start your search with tap on view";
+
+/* Class = "UILabel"; text = ""; ObjectID = "5nb-Dt-CKY"; */
+"5nb-Dt-CKY.text" = "";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "6gF-Wg-Os3"; */
+"6gF-Wg-Os3.title" = "Title";
+
+/* Class = "UISegmentedControl"; 7Tw-wt-vgJ.segmentTitles[0] = "Standard"; ObjectID = "7Tw-wt-vgJ"; */
+"7Tw-wt-vgJ.segmentTitles[0]" = "Standard";
+
+/* Class = "UISegmentedControl"; 7Tw-wt-vgJ.segmentTitles[1] = "Satellite"; ObjectID = "7Tw-wt-vgJ"; */
+"7Tw-wt-vgJ.segmentTitles[1]" = "Satellite";
+
+/* Class = "UILabel"; text = ""; ObjectID = "9ES-5L-MFG"; */
+"9ES-5L-MFG.text" = "";
+
 /* Class = "UILabel"; text = "00:00"; ObjectID = "9Qi-La-Dbk"; */
 "9Qi-La-Dbk.text" = "00:00";
+
+/* Class = "UILabel"; text = "Powered By iGap"; ObjectID = "9Z1-yk-cb3"; */
+"9Z1-yk-cb3.text" = "Powered By iGap";
+
+/* Class = "UISegmentedControl"; 9Zi-OB-nXt.segmentTitles[0] = "Standard"; ObjectID = "9Zi-OB-nXt"; */
+"9Zi-OB-nXt.segmentTitles[0]" = "Standard";
+
+/* Class = "UISegmentedControl"; 9Zi-OB-nXt.segmentTitles[1] = "Satellite"; ObjectID = "9Zi-OB-nXt"; */
+"9Zi-OB-nXt.segmentTitles[1]" = "Satellite";
 
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "B2M-WZ-eh7"; */
 "B2M-WZ-eh7.normalTitle" = "";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "GOW-He-PNQ"; */
-"GOW-He-PNQ.text" = "Label";
+/* Class = "UIButton"; normalTitle = ""; ObjectID = "E0t-it-I0J"; */
+"E0t-it-I0J.normalTitle" = "";
+
+/* Class = "UILabel"; text = "Locating..."; ObjectID = "GOW-He-PNQ"; */
+"GOW-He-PNQ.text" = "Locating...";
 
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "HVS-4z-ILw"; */
 "HVS-4z-ILw.normalTitle" = "";
 
 /* Class = "UIButton"; normalTitle = "Submit"; ObjectID = "IKl-b8-enQ"; */
 "IKl-b8-enQ.normalTitle" = "Submit";
+
+/* Class = "UISearchBar"; placeholder = "start your search with tap on view"; ObjectID = "Ire-BN-XDZ"; */
+"Ire-BN-XDZ.placeholder" = "start your search with tap on view";
 
 /* Class = "UIButton"; normalTitle = "X"; ObjectID = "IvY-L2-6Iw"; */
 "IvY-L2-6Iw.normalTitle" = "X";
@@ -44,29 +77,29 @@
 /* Class = "UINavigationItem"; title = "Channel"; ObjectID = "PXt-DS-2oY"; */
 "PXt-DS-2oY.title" = "Channel";
 
-/* Class = "UITabBarItem"; title = "Group Chat"; ObjectID = "Q4u-T1-NQz"; */
-"Q4u-T1-NQz.title" = "Group Chat";
-
 /* Class = "UILabel"; text = "Last seen recently"; ObjectID = "QQW-dI-uLJ"; */
 "QQW-dI-uLJ.text" = "Last seen recently";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Rbu-e1-khD"; */
 "Rbu-e1-khD.text" = "Label";
 
+/* Class = "UISearchBar"; placeholder = "start your search with tap on view"; ObjectID = "Sbv-We-mpa"; */
+"Sbv-We-mpa.placeholder" = "start your search with tap on view";
+
 /* Class = "UIButton"; normalTitle = "ok"; ObjectID = "TNo-OT-S8V"; */
 "TNo-OT-S8V.normalTitle" = "ok";
 
-/* Class = "UITabBarItem"; title = "Chat"; ObjectID = "XT3-ee-7Kk"; */
-"XT3-ee-7Kk.title" = "Chat";
+/* Class = "UISearchBar"; placeholder = "start your search with tap on view"; ObjectID = "VL4-ST-kOS"; */
+"VL4-ST-kOS.placeholder" = "start your search with tap on view";
+
+/* Class = "UIButton"; normalTitle = ""; ObjectID = "WV3-zu-yPC"; */
+"WV3-zu-yPC.normalTitle" = "";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Xsv-Pt-35f"; */
 "Xsv-Pt-35f.text" = "Label";
 
 /* Class = "UITableViewSection"; headerTitle = "Report Description"; ObjectID = "ZFU-FT-tMn"; */
 "ZFU-FT-tMn.headerTitle" = "Report Description";
-
-/* Class = "UITabBarItem"; title = "Channel"; ObjectID = "ZvZ-OM-omQ"; */
-"ZvZ-OM-omQ.title" = "Channel";
 
 /* Class = "UILabel"; text = "989 Mb"; ObjectID = "ajG-7M-bRf"; */
 "ajG-7M-bRf.text" = "989 Mb";
@@ -85,6 +118,9 @@
 
 /* Class = "UITextField"; placeholder = "Your Status"; ObjectID = "e0D-HW-VKn"; */
 "e0D-HW-VKn.placeholder" = "Your Status";
+
+/* Class = "UILabel"; text = "REMOVE"; ObjectID = "efT-CA-J3p"; */
+"efT-CA-J3p.text" = "REMOVE";
 
 /* Class = "UILabel"; text = "iGap Voice Call"; ObjectID = "fFu-Of-z9o"; */
 "fFu-Of-z9o.text" = "iGap Voice Call";
@@ -110,8 +146,8 @@
 /* Class = "UINavigationItem"; title = "Groups"; ObjectID = "lxH-uI-Dp1"; */
 "lxH-uI-Dp1.title" = "Groups";
 
-/* Class = "UITabBarItem"; title = "Call"; ObjectID = "oqI-zk-FQV"; */
-"oqI-zk-FQV.title" = "Call";
+/* Class = "UISearchBar"; placeholder = "start your search with tap on view"; ObjectID = "nj0-pT-pth"; */
+"nj0-pT-pth.placeholder" = "start your search with tap on view";
 
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "p1s-Tl-xih"; */
 "p1s-Tl-xih.normalTitle" = "";
@@ -137,8 +173,8 @@
 /* Class = "UINavigationItem"; title = "Recents"; ObjectID = "uni-kb-OpQ"; */
 "uni-kb-OpQ.title" = "Recents";
 
-/* Class = "UITabBarItem"; title = "Recents"; ObjectID = "vth-sK-lcp"; */
-"vth-sK-lcp.title" = "Recents";
+/* Class = "UILabel"; text = "Call On Hold"; ObjectID = "vYi-p7-mDU"; */
+"vYi-p7-mDU.text" = "Call On Hold";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "yRi-nN-wYI"; */
 "yRi-nN-wYI.title" = "Title";

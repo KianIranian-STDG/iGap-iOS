@@ -156,6 +156,7 @@ class IGUserLoginRequest : IGRequest {
             IGUploadManager.sharedManager.pauseAllUploads()
             IGMessageSender.defaultSender.resendAllSendingMessage()
             IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
+            IGRequestWalletGetAccessToken.sendRequest()
             getToken()
             
             if #available(iOS 10.0, *) {

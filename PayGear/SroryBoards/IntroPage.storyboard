@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Intro View Controller-->
+        <scene sceneID="5p0-MJ-JWh">
+            <objects>
+                <pageViewController storyboardIdentifier="intro" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="mid" doubleSided="YES" id="pSy-Tb-50k" customClass="SMIntroViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JFJ-p6-htA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="945" y="313"/>
+        </scene>
+        <!--Intro Content View Controller-->
+        <scene sceneID="7vr-Gx-GSo">
+            <objects>
+                <viewController storyboardIdentifier="introContentPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lhs-4q-BfL" customClass="SMIntroContentViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fcH-vW-Tqy"/>
+                        <viewControllerLayoutGuide type="bottom" id="rhB-qJ-qpp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DOx-Mp-FlA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibH-aW-eiU" customClass="UIImageView">
+                                <rect key="frame" x="108" y="105" width="159" height="182"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ibH-aW-eiU" secondAttribute="height" multiplier="110:126" id="Loj-KN-hie"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcn-hP-F77">
+                                <rect key="frame" x="0.0" y="391" width="375" height="206"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="کیف پول موبایلی" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLi-t0-Lgg">
+                                        <rect key="frame" x="102" y="-24" width="170" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="D4A-FA-TFl"/>
+                                            <constraint firstAttribute="width" constant="170" id="h76-I3-ZND"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="24"/>
+                                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xj6-DR-4BE">
+                                        <rect key="frame" x="18.5" y="42" width="339.5" height="84"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="84" id="L6I-8s-FYX"/>
+                                        </constraints>
+                                        <string key="text">پیگیر یه حساب مجازی براتون می‌سازه که به شماره موبایل وصل می‌شه و دیگه لازم نیست کیف پول یا پول نقد یا کارت‌بانکی با خودتون ببرید.</string>
+                                        <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="14"/>
+                                        <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dcn-hP-F77" secondAttribute="height" multiplier="375:206" id="Q5s-rG-EPO"/>
+                                    <constraint firstItem="BLi-t0-Lgg" firstAttribute="centerX" secondItem="dcn-hP-F77" secondAttribute="centerX" id="oSJ-nk-4iw"/>
+                                    <constraint firstItem="Xj6-DR-4BE" firstAttribute="top" secondItem="BLi-t0-Lgg" secondAttribute="bottom" constant="16" id="sOa-nE-eVU"/>
+                                    <constraint firstItem="Xj6-DR-4BE" firstAttribute="centerX" secondItem="dcn-hP-F77" secondAttribute="centerX" id="uxY-Mr-lKs"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xj6-DR-4BE" secondAttribute="trailing" constant="17" id="y7f-sh-lsx"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="shadow" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ibH-aW-eiU" secondAttribute="trailing" constant="108" id="9Dj-dV-Wia"/>
+                            <constraint firstItem="rhB-qJ-qpp" firstAttribute="top" secondItem="dcn-hP-F77" secondAttribute="bottom" constant="70" id="Mg9-Xr-3zl"/>
+                            <constraint firstItem="ibH-aW-eiU" firstAttribute="top" secondItem="fcH-vW-Tqy" secondAttribute="bottom" constant="85" id="XOq-YS-dmq"/>
+                            <constraint firstItem="BLi-t0-Lgg" firstAttribute="top" secondItem="ibH-aW-eiU" secondAttribute="bottom" constant="80" id="YV0-6B-age"/>
+                            <constraint firstItem="ibH-aW-eiU" firstAttribute="centerX" secondItem="DOx-Mp-FlA" secondAttribute="centerX" id="txB-A0-6H7"/>
+                            <constraint firstAttribute="trailing" secondItem="dcn-hP-F77" secondAttribute="trailing" id="xOH-WV-tRn"/>
+                            <constraint firstItem="dcn-hP-F77" firstAttribute="leading" secondItem="DOx-Mp-FlA" secondAttribute="leading" id="xrH-GF-9kM"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="fay-w8-Yic"/>
+                    <connections>
+                        <outlet property="imageView" destination="ibH-aW-eiU" id="tBm-LG-LkN"/>
+                        <outlet property="mainTitle" destination="BLi-t0-Lgg" id="s7V-Sd-53Z"/>
+                        <outlet property="subTitle" destination="Xj6-DR-4BE" id="yM2-Oo-ej9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pl8-lV-r77" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1712.8" y="313.49325337331339"/>
+        </scene>
+    </scenes>
+</document>

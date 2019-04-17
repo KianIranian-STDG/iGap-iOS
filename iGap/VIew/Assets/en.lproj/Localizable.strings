@@ -45,3 +45,8 @@
 "SIGNALING_OFFER_VIDEO_CALLINGSIGNALING_OFFER_VIDEO_CALLING" = "Incoming video call from %1$@";
 "SIGNALING_OFFER_SCREEN_SHARING" = "Screen sharing request from %1$@";
 "SIGNALING_OFFER_SECRET_CHAT" = "Secret chat request from %1$@";
+
+///////////WALLET
+
+
+"Currency" = "Rial";

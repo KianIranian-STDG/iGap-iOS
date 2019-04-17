@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Add Card View Controller-->
+        <scene sceneID="aGv-gc-Wm0">
+            <objects>
+                <viewController storyboardIdentifier="addcard" id="mtr-Wa-ZpM" customClass="SMAddCardViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TST-ST-P2f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jMz-jY-bfG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qoh-TD-Vnc">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bank" translatesAutoresizingMaskIntoConstraints="NO" id="gZf-8Q-00G">
+                                                <rect key="frame" x="139" y="16" width="41" height="41"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="gZf-8Q-00G" secondAttribute="height" multiplier="1:1" id="dzH-mf-gKR"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شماره کارت " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12f-Su-aJ6">
+                                                <rect key="frame" x="16" y="79" width="288" height="15"/>
+                                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xkN-zI-jC5">
+                                                <rect key="frame" x="16" y="163" width="288" height="101"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="U5a-p2-LGK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="44.5"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VBv-9G-TsT">
+                                                                <rect key="frame" x="0.0" y="0.0" width="144" height="44.5"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="سال" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbm-OI-dhm">
+                                                                        <rect key="frame" x="0.0" y="15.5" width="139" height="15"/>
+                                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="pbm-OI-dhm" secondAttribute="trailing" constant="5" id="6g4-b8-Y1Z"/>
+                                                                    <constraint firstItem="pbm-OI-dhm" firstAttribute="centerY" secondItem="VBv-9G-TsT" secondAttribute="centerY" id="iTP-QB-3QG"/>
+                                                                    <constraint firstItem="pbm-OI-dhm" firstAttribute="leading" secondItem="VBv-9G-TsT" secondAttribute="leading" id="yak-hq-rFv"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnJ-bO-jtM">
+                                                                <rect key="frame" x="144" y="0.0" width="144" height="44.5"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ماه" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYM-Y8-gqc">
+                                                                        <rect key="frame" x="0.0" y="15.5" width="139" height="15"/>
+                                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="RYM-Y8-gqc" firstAttribute="centerY" secondItem="lnJ-bO-jtM" secondAttribute="centerY" id="VSH-Yl-xYf"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="RYM-Y8-gqc" secondAttribute="trailing" constant="5" id="wuh-Bv-xI7"/>
+                                                                    <constraint firstItem="RYM-Y8-gqc" firstAttribute="leading" secondItem="lnJ-bO-jtM" secondAttribute="leading" id="z57-8d-lwG"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ryJ-BO-dDF">
+                                                        <rect key="frame" x="0.0" y="56.5" width="288" height="44.5"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uFA-tu-VRe">
+                                                                <rect key="frame" x="0.0" y="0.0" width="140" height="44.5"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="سال" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0cW-zN-GmU">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="44.5"/>
+                                                                        <nil key="textColor"/>
+                                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="0cW-zN-GmU" secondAttribute="bottom" id="Xfz-EP-WoS"/>
+                                                                    <constraint firstItem="0cW-zN-GmU" firstAttribute="leading" secondItem="uFA-tu-VRe" secondAttribute="leading" id="aQb-5B-9QT"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="0cW-zN-GmU" secondAttribute="trailing" id="c4r-Av-wox"/>
+                                                                    <constraint firstItem="0cW-zN-GmU" firstAttribute="top" secondItem="uFA-tu-VRe" secondAttribute="top" id="uGk-A0-qFa"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BFT-u7-cxm">
+                                                                <rect key="frame" x="148" y="0.0" width="140" height="44.5"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ماه" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AKC-w4-sY4">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="44.5"/>
+                                                                        <nil key="textColor"/>
+                                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                    </textField>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="AKC-w4-sY4" firstAttribute="leading" secondItem="BFT-u7-cxm" secondAttribute="leading" id="CGB-M1-X95"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="AKC-w4-sY4" secondAttribute="bottom" id="XQE-cO-bPP"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="AKC-w4-sY4" secondAttribute="trailing" id="lf7-JX-zmJ"/>
+                                                                    <constraint firstItem="AKC-w4-sY4" firstAttribute="top" secondItem="BFT-u7-cxm" secondAttribute="top" id="sTU-eU-MM6"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="xkN-zI-jC5" secondAttribute="height" multiplier="343:120" id="d8e-X4-3s5"/>
+                                                </constraints>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yO-6f-kou">
+                                                <rect key="frame" x="16" y="105" width="288" height="42"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="شماره کارت خود را وارد نمایید" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gpe-ey-FN0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="42"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="gpe-ey-FN0" secondAttribute="trailing" id="2O1-hX-xfi"/>
+                                                    <constraint firstItem="gpe-ey-FN0" firstAttribute="leading" secondItem="5yO-6f-kou" secondAttribute="leading" id="4HS-em-zbY"/>
+                                                    <constraint firstAttribute="width" secondItem="5yO-6f-kou" secondAttribute="height" multiplier="328:48" id="FXG-jj-Gbo"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gpe-ey-FN0" secondAttribute="bottom" id="HSM-p4-chw"/>
+                                                    <constraint firstItem="gpe-ey-FN0" firstAttribute="top" secondItem="5yO-6f-kou" secondAttribute="top" id="sHO-KD-Mk6"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jB-X1-39w">
+                                                <rect key="frame" x="0.0" y="280" width="320" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="کارت پیش فرض" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAQ-6l-YdC">
+                                                        <rect key="frame" x="216.5" y="18" width="87.5" height="15"/>
+                                                        <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ai3-Gq-nGS">
+                                                        <rect key="frame" x="32" y="10" width="51" height="31"/>
+                                                        <color key="onTintColor" red="0.1647058824" green="0.56862745100000001" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <action selector="switchChanged:" destination="mtr-Wa-ZpM" eventType="valueChanged" id="Fpp-Ge-qc1"/>
+                                                        </connections>
+                                                    </switch>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="ai3-Gq-nGS" firstAttribute="centerY" secondItem="9jB-X1-39w" secondAttribute="centerY" id="IsY-ar-SGf"/>
+                                                    <constraint firstAttribute="width" secondItem="9jB-X1-39w" secondAttribute="height" multiplier="360:56" id="OLF-ym-lii"/>
+                                                    <constraint firstItem="ai3-Gq-nGS" firstAttribute="leading" secondItem="9jB-X1-39w" secondAttribute="leading" constant="32" id="tcV-4h-7Ic"/>
+                                                    <constraint firstAttribute="trailing" secondItem="NAQ-6l-YdC" secondAttribute="trailing" constant="16" id="tjf-iu-g3D"/>
+                                                    <constraint firstItem="NAQ-6l-YdC" firstAttribute="centerY" secondItem="9jB-X1-39w" secondAttribute="centerY" id="vTX-Uq-ANM"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgW-7B-Byh" customClass="SMBottomButton" customModule="PayGear" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="346" width="272" height="42"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="VgW-7B-Byh" secondAttribute="height" multiplier="312:48" id="4iF-fu-NNn"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                                <state key="normal" title="ذخیره"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="fromColor">
+                                                        <color key="value" red="0.0" green="0.90196078430000004" blue="0.46274509800000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="toColor">
+                                                        <color key="value" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="addCardPress:" destination="mtr-Wa-ZpM" eventType="touchUpInside" id="2ky-Gw-Sh1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="xkN-zI-jC5" secondAttribute="trailing" constant="16" id="2gP-ty-WKc"/>
+                                            <constraint firstItem="VgW-7B-Byh" firstAttribute="top" secondItem="9jB-X1-39w" secondAttribute="bottom" constant="16" id="41M-aR-DNH"/>
+                                            <constraint firstItem="9jB-X1-39w" firstAttribute="top" secondItem="xkN-zI-jC5" secondAttribute="bottom" constant="16" id="7Hj-BV-Z8R"/>
+                                            <constraint firstAttribute="trailing" secondItem="VgW-7B-Byh" secondAttribute="trailing" constant="24" id="EKT-gC-hbf"/>
+                                            <constraint firstItem="xkN-zI-jC5" firstAttribute="leading" secondItem="Qoh-TD-Vnc" secondAttribute="leading" constant="16" id="Eex-1g-Cs8"/>
+                                            <constraint firstAttribute="trailing" secondItem="12f-Su-aJ6" secondAttribute="trailing" constant="16" id="JXI-ly-zQR"/>
+                                            <constraint firstAttribute="trailing" secondItem="5yO-6f-kou" secondAttribute="trailing" constant="16" id="OXs-Jv-y4a"/>
+                                            <constraint firstAttribute="trailing" secondItem="9jB-X1-39w" secondAttribute="trailing" id="PYJ-zK-LFf"/>
+                                            <constraint firstItem="gZf-8Q-00G" firstAttribute="centerX" secondItem="Qoh-TD-Vnc" secondAttribute="centerX" id="Q1p-gu-zhI"/>
+                                            <constraint firstItem="9jB-X1-39w" firstAttribute="leading" secondItem="Qoh-TD-Vnc" secondAttribute="leading" id="VNO-gk-O4S"/>
+                                            <constraint firstItem="12f-Su-aJ6" firstAttribute="top" secondItem="gZf-8Q-00G" secondAttribute="bottom" constant="22" id="VhT-im-o3c"/>
+                                            <constraint firstItem="12f-Su-aJ6" firstAttribute="leading" secondItem="Qoh-TD-Vnc" secondAttribute="leading" constant="16" id="VnL-fF-4VW"/>
+                                            <constraint firstItem="xkN-zI-jC5" firstAttribute="top" secondItem="5yO-6f-kou" secondAttribute="bottom" constant="16" id="XP0-Uj-GZb"/>
+                                            <constraint firstItem="5yO-6f-kou" firstAttribute="top" secondItem="12f-Su-aJ6" secondAttribute="bottom" constant="11" id="bTK-9f-Lw4"/>
+                                            <constraint firstItem="VgW-7B-Byh" firstAttribute="leading" secondItem="Qoh-TD-Vnc" secondAttribute="leading" constant="24" id="hni-Aw-F1v"/>
+                                            <constraint firstItem="5yO-6f-kou" firstAttribute="leading" secondItem="Qoh-TD-Vnc" secondAttribute="leading" constant="16" id="igw-5c-Gcv"/>
+                                            <constraint firstItem="gZf-8Q-00G" firstAttribute="top" secondItem="Qoh-TD-Vnc" secondAttribute="top" constant="16" id="sis-Tk-eUY"/>
+                                            <constraint firstAttribute="trailing" secondItem="gZf-8Q-00G" secondAttribute="trailing" constant="140" id="y21-el-aOK"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="">
+                                                <integer key="value" value="24"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Qoh-TD-Vnc" secondAttribute="trailing" id="2el-iw-bZj"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qoh-TD-Vnc" secondAttribute="bottom" id="5p1-y5-SMM"/>
+                                    <constraint firstItem="Qoh-TD-Vnc" firstAttribute="leading" secondItem="jMz-jY-bfG" secondAttribute="leading" id="UVZ-bD-Dlb"/>
+                                    <constraint firstItem="Qoh-TD-Vnc" firstAttribute="top" secondItem="jMz-jY-bfG" secondAttribute="top" id="rL6-Pn-kVd"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.89019607840000003" green="0.94901960780000005" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jMz-jY-bfG" firstAttribute="top" secondItem="TST-ST-P2f" secondAttribute="top" id="AoU-sa-fdB"/>
+                            <constraint firstItem="Qoh-TD-Vnc" firstAttribute="height" secondItem="TST-ST-P2f" secondAttribute="height" priority="250" id="E7H-4J-C0e"/>
+                            <constraint firstAttribute="bottom" secondItem="jMz-jY-bfG" secondAttribute="bottom" id="KuT-m3-bTq"/>
+                            <constraint firstAttribute="trailing" secondItem="jMz-jY-bfG" secondAttribute="trailing" id="PBD-jG-DdZ"/>
+                            <constraint firstItem="jMz-jY-bfG" firstAttribute="leading" secondItem="TST-ST-P2f" secondAttribute="leading" id="dfN-aU-iGN"/>
+                            <constraint firstItem="Qoh-TD-Vnc" firstAttribute="width" secondItem="TST-ST-P2f" secondAttribute="width" id="vQ8-bb-93d"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AqI-kg-pKl"/>
+                    </view>
+                    <connections>
+                        <outlet property="cardImage" destination="gZf-8Q-00G" id="o80-Ox-6qT"/>
+                        <outlet property="cardLabel" destination="12f-Su-aJ6" id="B7F-1x-Pnx"/>
+                        <outlet property="cardTextField" destination="gpe-ey-FN0" id="oUs-FM-Vxx"/>
+                        <outlet property="defaultLabel" destination="NAQ-6l-YdC" id="F9w-v8-x6q"/>
+                        <outlet property="defaultView" destination="9jB-X1-39w" id="3Eg-j1-r3i"/>
+                        <outlet property="heightConstraint" destination="E7H-4J-C0e" id="s6W-k9-Ch5"/>
+                        <outlet property="isDefaultSwitch" destination="ai3-Gq-nGS" id="TBj-Lx-xvv"/>
+                        <outlet property="monthLabel" destination="RYM-Y8-gqc" id="QDp-Sc-kWT"/>
+                        <outlet property="mounthTextField" destination="AKC-w4-sY4" id="eFR-aB-raT"/>
+                        <outlet property="saveButton" destination="VgW-7B-Byh" id="yXd-CP-zvz"/>
+                        <outlet property="yearLabel" destination="pbm-OI-dhm" id="xLI-d7-s3i"/>
+                        <outlet property="yearTextField" destination="0cW-zN-GmU" id="QSP-O2-1jM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RyV-Cf-t85" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-43.125" y="170.07042253521126"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bank" width="200" height="200"/>
+    </resources>
+</document>

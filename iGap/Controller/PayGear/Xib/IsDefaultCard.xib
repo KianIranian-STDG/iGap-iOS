@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="defaultcard" id="hwv-It-sET" customClass="SMIsDefaultCard" customModule="PayGear">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xby-Gk-Ply">
+                    <rect key="frame" x="0.0" y="0.0" width="380" height="59"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="کارت پیش فرض" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-2N-os9">
+                            <rect key="frame" x="174" y="19" width="174" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="174" id="IdB-5I-QQO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dqz-kH-dZn">
+                            <rect key="frame" x="32" y="14" width="51" height="31"/>
+                            <color key="onTintColor" red="0.1647058824" green="0.56862745100000001" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="isDefaultSwitch:" destination="hwv-It-sET" eventType="valueChanged" id="FZG-4v-sQW"/>
+                            </connections>
+                        </switch>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eTo-v6-Myy">
+                            <rect key="frame" x="180" y="19.5" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="WdS-yo-Lo6"/>
+                                <constraint firstAttribute="height" constant="20" id="kIp-4h-4zI"/>
+                            </constraints>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="dqz-kH-dZn" firstAttribute="top" secondItem="xby-Gk-Ply" secondAttribute="top" constant="14" id="4uw-6f-sVl"/>
+                        <constraint firstItem="eTo-v6-Myy" firstAttribute="centerX" secondItem="xby-Gk-Ply" secondAttribute="centerX" id="TJg-aS-Gv5"/>
+                        <constraint firstItem="PmG-2N-os9" firstAttribute="top" secondItem="xby-Gk-Ply" secondAttribute="top" constant="19" id="Zm3-F9-eUU"/>
+                        <constraint firstItem="dqz-kH-dZn" firstAttribute="centerY" secondItem="eTo-v6-Myy" secondAttribute="centerY" id="ccz-vm-Ym8"/>
+                        <constraint firstItem="dqz-kH-dZn" firstAttribute="leading" secondItem="xby-Gk-Ply" secondAttribute="leading" constant="32" id="mL8-aD-Pl8"/>
+                        <constraint firstAttribute="trailing" secondItem="PmG-2N-os9" secondAttribute="trailing" constant="32" id="tKr-Cd-EDY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="xby-Gk-Ply" firstAttribute="top" secondItem="9Lu-oH-HA3" secondAttribute="top" id="02e-Hh-YMP"/>
+                <constraint firstAttribute="trailing" secondItem="xby-Gk-Ply" secondAttribute="trailing" constant="-5" id="fik-Bm-Yis"/>
+                <constraint firstItem="xby-Gk-Ply" firstAttribute="leading" secondItem="hwv-It-sET" secondAttribute="leading" id="gmd-3e-ndj"/>
+                <constraint firstItem="xby-Gk-Ply" firstAttribute="bottom" secondItem="9Lu-oH-HA3" secondAttribute="bottom" id="nDw-Wu-6xf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="9Lu-oH-HA3"/>
+            <connections>
+                <outlet property="isDefault" destination="dqz-kH-dZn" id="okF-c5-epy"/>
+                <outlet property="loading" destination="eTo-v6-Myy" id="cMG-cr-eTB"/>
+                <outlet property="titleLabel" destination="PmG-2N-os9" id="GZC-QV-uWx"/>
+                <outlet property="wholeView" destination="xby-Gk-Ply" id="2LW-7T-KRu"/>
+            </connections>
+            <point key="canvasLocation" x="13.5" y="195.5"/>
+        </view>
+    </objects>
+</document>

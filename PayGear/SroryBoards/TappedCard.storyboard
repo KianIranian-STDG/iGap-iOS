@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobileFaNum-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="FkS-yN-NVr">
+            <objects>
+                <viewController storyboardIdentifier="tappedcard" id="zf8-It-WtJ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5qh-Z6-8QM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jf1-zH-9A1">
+                                <rect key="frame" x="16" y="36" width="343" height="201"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Jf1-zH-9A1" secondAttribute="height" multiplier="328:192" id="gpr-bI-OyV"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hox-MT-4bS">
+                                <rect key="frame" x="0.0" y="253" width="375" height="414"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jk7-4k-Y22">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="کارت پیش فرض" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7i-Xy-MTY">
+                                                <rect key="frame" x="185" y="19" width="174" height="21"/>
+                                                <fontDescription key="fontDescription" name="IRANYekanMobileFaNum-Bold" family="IRANYekanMobile(FaNum)" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vgJ-GJ-agu">
+                                                <rect key="frame" x="32" y="14" width="51" height="31"/>
+                                                <color key="onTintColor" red="0.1647058824" green="0.56862745100000001" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            </switch>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="vgJ-GJ-agu" firstAttribute="centerY" secondItem="Jk7-4k-Y22" secondAttribute="centerY" id="0c4-IS-8tb"/>
+                                            <constraint firstItem="vgJ-GJ-agu" firstAttribute="leading" secondItem="Jk7-4k-Y22" secondAttribute="leading" constant="32" id="19y-oT-q0T"/>
+                                            <constraint firstItem="f7i-Xy-MTY" firstAttribute="centerY" secondItem="Jk7-4k-Y22" secondAttribute="centerY" id="7gZ-Am-KA3"/>
+                                            <constraint firstAttribute="trailing" secondItem="f7i-Xy-MTY" secondAttribute="trailing" constant="16" id="9o7-se-mNW"/>
+                                            <constraint firstAttribute="width" secondItem="Jk7-4k-Y22" secondAttribute="height" multiplier="360:56" id="LZb-Ki-wcc"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Lh-h4-Z2x">
+                                        <rect key="frame" x="24" y="74.5" width="327" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.21176470588235294" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="5Lh-h4-Z2x" secondAttribute="height" multiplier="312:48" id="OTS-DZ-AqB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IRANYekanMobileFaNum-Bold" family="IRANYekanMobile(FaNum)" pointSize="14"/>
+                                        <state key="normal" title="حذف کارت">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="24"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5Lh-h4-Z2x" secondAttribute="trailing" constant="24" id="Bqt-E5-LqR"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jk7-4k-Y22" secondAttribute="trailing" id="Him-Wl-g8Q"/>
+                                    <constraint firstItem="Jk7-4k-Y22" firstAttribute="leading" secondItem="hox-MT-4bS" secondAttribute="leading" id="OLv-Oa-6uR"/>
+                                    <constraint firstItem="5Lh-h4-Z2x" firstAttribute="centerX" secondItem="hox-MT-4bS" secondAttribute="centerX" id="WQS-XL-nGo"/>
+                                    <constraint firstItem="5Lh-h4-Z2x" firstAttribute="top" secondItem="Jk7-4k-Y22" secondAttribute="bottom" constant="16" id="ik6-E3-Eop"/>
+                                    <constraint firstItem="Jk7-4k-Y22" firstAttribute="top" secondItem="hox-MT-4bS" secondAttribute="top" id="pth-MA-Mqn"/>
+                                    <constraint firstItem="5Lh-h4-Z2x" firstAttribute="leading" secondItem="hox-MT-4bS" secondAttribute="leading" constant="24" id="qa2-x8-ylR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.89019607840000003" green="0.94901960780000005" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="uEh-ce-mdY" firstAttribute="trailing" secondItem="Jf1-zH-9A1" secondAttribute="trailing" constant="16" id="1pr-nD-3e3"/>
+                            <constraint firstItem="uEh-ce-mdY" firstAttribute="bottom" secondItem="hox-MT-4bS" secondAttribute="bottom" id="794-pR-GMh"/>
+                            <constraint firstItem="Jf1-zH-9A1" firstAttribute="top" secondItem="uEh-ce-mdY" secondAttribute="top" constant="16" id="aK3-0Y-235"/>
+                            <constraint firstItem="uEh-ce-mdY" firstAttribute="trailing" secondItem="hox-MT-4bS" secondAttribute="trailing" id="dBY-w1-bVW"/>
+                            <constraint firstItem="hox-MT-4bS" firstAttribute="top" secondItem="Jf1-zH-9A1" secondAttribute="bottom" constant="16" id="qZp-uE-h02"/>
+                            <constraint firstItem="Jf1-zH-9A1" firstAttribute="leading" secondItem="uEh-ce-mdY" secondAttribute="leading" constant="16" id="taU-Qa-fqa"/>
+                            <constraint firstItem="hox-MT-4bS" firstAttribute="leading" secondItem="uEh-ce-mdY" secondAttribute="leading" id="xra-Wr-kID"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="uEh-ce-mdY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dlB-Mk-Fse" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-116" y="121.88905547226388"/>
+        </scene>
+    </scenes>
+</document>

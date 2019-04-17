@@ -1,0 +1,12 @@
+//
+//  maincore-prefix.pch
+//  maincore
+//
+//  Created by Amir Soleimani on 8/30/17.
+//  Copyright © 2017 amir soleimani. All rights reserved.
+//
+
+#ifdef __OBJC__
+    #import "MCLocalization.h"
+#endif
+

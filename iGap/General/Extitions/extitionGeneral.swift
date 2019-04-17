@@ -16,6 +16,83 @@ typealias MoreActionCallBack = (Any?, Bool? ) -> ()
 
 
 
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:UInt) {
+        let red = (netHex >> 16) & 0xff
+        let green = (netHex >> 8) & 0xff
+        let blue = netHex & 0xff
+        
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHexWithAlpha netHex:Int) {
+        let alpha = (netHex >> 24) & 0xff
+        let red = (netHex >> 16) & 0xff
+        let green = (netHex >> 8) & 0xff
+        let blue = netHex & 0xff
+        
+        assert(alpha >= 0 && alpha <= 255, "Invalid alpha component")
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: CGFloat(alpha) / 255.0)
+    }
+    
+    convenience init(netHexString:String) {
+        
+        var hex = netHexString.replace("#", withString: "")
+        
+        if hex.length == 6 {
+            self.init(netHex: UInt(hex, radix: 16)!)
+        } else if hex.length == 3{
+            let a = String(hex[0])
+            let b = String(hex[1])
+            let c = String(hex[2])
+            
+            hex = a + a + b + b + c + c
+            self.init(netHex: UInt(hex, radix: 16)!)
+        } else {
+            self.init(netHex: UInt("F7B731", radix: 16)!)
+        }
+    }
+}
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+extension UITableViewController {
+    func hideKeyboardWhenTappedAroundTableVIew() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UITableViewController.dismissKeyboardTableVIew))
+        tap.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tap)
+
+        
+    }
+    
+    @objc func dismissKeyboardTableVIew() {
+        tableView.endEditing(true)
+    }
+}
 extension String {
     
     
@@ -128,22 +205,7 @@ extension String {
     }
     
     
-    func inRialFormat()->String{
-        
-        let nf = NumberFormatter()
-        
-        nf.locale = Locale(identifier: "fa")
-        nf.numberStyle = .decimal
-        nf.allowsFloats = false
-        nf.maximumFractionDigits = 0
-        nf.groupingSeparator = ","
-        
-        
-        let str = nf.string(from: NSNumber(value: Double(self) ?? 0)) ?? "0"
-        
-        return "\(str)"
-    }
-    
+
     
     func onlyDigitChars() -> String{
         
@@ -240,4 +302,111 @@ extension String {
         
     }
     
+    func currencyFormat() -> String {
+        
+        var number: NSNumber!
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = ""
+        formatter.maximumFractionDigits = 0
+        formatter.minimumFractionDigits = 0
+        
+        var amountWithPrefix = self
+        
+        // remove from String: "$", ".", ","
+        let regex = try! NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive)
+        amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count), withTemplate: "")
+        
+        let double = (amountWithPrefix as NSString).doubleValue
+        number = NSNumber(value:double)
+        
+        // if first number is 0 or all numbers were deleted
+        guard number != 0 as NSNumber else {
+            return ""
+        }
+        
+        return formatter.string(from: number)!
+    }
+    // formatting text for currency textField
+    func RemoveCurrencyFormat() -> String {
+        var string:String!
+        var newString:String!
+        if string != "" {
+            if string.count > 3 {
+                if (string?.contains("."))! {
+                    newString = (string.components(separatedBy: [".", " "]).joined().replacingOccurrences(of: " ", with: ""))
+                    
+                }
+                else if (string?.contains(","))! {
+                    newString = (string.components(separatedBy: [",", " "]).joined().replacingOccurrences(of: " ", with: ""))
+                    
+                }
+                else {
+                    newString = string
+                    
+                }
+            }
+        }
+        else {
+            
+        }
+        return newString
+        
+    }
+    
+    func RemoveingCurrencyFormat() -> String {
+        var result: String = ""
+        
+        if (self.contains(".")) {
+            result = (self.components(separatedBy: [".", " "]).joined().replacingOccurrences(of: " ", with: "")).trimmingCharacters(in: .whitespaces)
+            
+        }
+        else if (self.contains(",")) {
+            result = (self.components(separatedBy: [",", " "]).joined().replacingOccurrences(of: " ", with: "")).trimmingCharacters(in: .whitespaces)
+            
+        }
+        else {
+            result = self
+            
+        }
+        return result
+    }
+    func inserting(separator: String, every n: Int) -> String {
+        var result: String = ""
+        let characters = Array(self.characters)
+        stride(from: 0, to: characters.count, by: n).forEach {
+            result += String(characters[$0..<min($0+n, characters.count)])
+            if $0+n < characters.count {
+                result += separator
+            }
+        }
+        return result
+    }
+
+    func addSepratorCardNum() -> String {
+        var string:String!
+        var newString:String!
+        
+        newString = self.inserting(separator: "-", every: 4)
+        return newString
+        
+    }
+    func addSepratorforCardNum() -> String {
+        var string:String!
+        var newString:String!
+        
+        newString = self.inserting(separator: "  ", every: 4)
+        return newString
+        
+    }
+    func removeSepratorCardNum() -> String {
+        var string:String!
+        var newString:String!
+        
+        newString = self.replacingOccurrences(of: "-", with: "").trimmingCharacters(in: .whitespaces)
+        debugPrint("newString")
+        debugPrint(newString)
+        return newString
+        
+    }
 }

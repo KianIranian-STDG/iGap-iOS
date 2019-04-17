@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APIKey</key>
+	<string>5aa7e856ae7fbc00016ac5a09e32de29e4f94897b31d23fe3ab4ec31</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.deeplinkTut.Deeplink</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>paygear</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>62</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>ed7d44a6a2e43cfec206afe9c9ad1a39294d5894</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>The camera is needed to scan qr code </string>
+	<key>NSContactsUsageDescription</key>
+	<string>Send Message about transactions.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>photo library privacy needs to save in your cameraroll</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Take or Upload photo to profile image</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>IRANYekanMobileLight.ttf</string>
+		<string>IRANYekanMobileBold.ttf</string>
+		<string>IRANYekanMobileRegular.ttf</string>
+	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutItemIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>شارژ پیگیر</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.paygear.wallet.pay</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutItemIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>برداشت</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.paygear.wallet.withdraw</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutItemIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>اسکن</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.paygear.qr.scan</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutItemIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>کیوآر من</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.paygear.qr.myQr</string>
+		</dict>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>

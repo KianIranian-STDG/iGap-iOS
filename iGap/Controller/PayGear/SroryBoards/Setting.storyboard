@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Setting Table View Controller-->
+        <scene sceneID="6OI-Iz-ggD">
+            <objects>
+                <tableViewController id="yWZ-08-fhh" customClass="SMSettingTableViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="A6q-aq-5TG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExitItem" id="JeN-ax-USq">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JeN-ax-USq" id="Q4I-Xe-MD8">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="خروج از حساب کاربری" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZZ-f0-P0w">
+                                            <rect key="frame" x="16" y="11" width="343" height="22"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="15"/>
+                                            <color key="textColor" red="0.95686274509803915" green="0.2627450980392157" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="AZZ-f0-P0w" secondAttribute="bottom" id="JIT-AD-hD1"/>
+                                        <constraint firstItem="AZZ-f0-P0w" firstAttribute="leading" secondItem="Q4I-Xe-MD8" secondAttribute="leadingMargin" id="LED-Qz-Gw7"/>
+                                        <constraint firstItem="AZZ-f0-P0w" firstAttribute="top" secondItem="Q4I-Xe-MD8" secondAttribute="topMargin" id="Vst-ID-aY5"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="AZZ-f0-P0w" secondAttribute="trailing" id="e75-od-FaN"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yWZ-08-fhh" id="piD-eA-na8"/>
+                            <outlet property="delegate" destination="yWZ-08-fhh" id="o4e-0L-wNi"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y6k-3s-aLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1105" y="-64"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="cU7-oi-lA7">
+            <objects>
+                <viewController storyboardIdentifier="setting" id="Abi-pj-SAy" customClass="SMSettingViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bua-mI-i9T"/>
+                        <viewControllerLayoutGuide type="bottom" id="MNl-3w-3Bl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8rt-Dq-otl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FOo-MV-EsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-404" y="-64.31784107946028"/>
+        </scene>
+        <!--Privacy View Controller-->
+        <scene sceneID="UKh-Cu-aIZ">
+            <objects>
+                <viewController storyboardIdentifier="privacy" id="mHJ-xt-XBg" customClass="SMPrivacyViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a2z-GQ-Oyh"/>
+                        <viewControllerLayoutGuide type="bottom" id="YJZ-BI-r4O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L84-Fc-6au">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t6u-ok-0Sb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="255" y="-64"/>
+        </scene>
+        <!--Language View Controller-->
+        <scene sceneID="AXc-KX-jsv">
+            <objects>
+                <viewController storyboardIdentifier="language" id="irW-ig-cma" customClass="SMLanguageViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cB9-Qq-i2l"/>
+                        <viewControllerLayoutGuide type="bottom" id="bW0-kK-5od"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nDX-4S-PPB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pgw" translatesAutoresizingMaskIntoConstraints="NO" id="EuD-mg-v3c">
+                                <rect key="frame" x="155" y="316" width="65" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="6PY-vA-iOZ"/>
+                                    <constraint firstAttribute="width" constant="65" id="wlA-65-hoN"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIf-mk-W6L">
+                                <rect key="frame" x="15" y="366" width="345" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="uud-FD-yR3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="16"/>
+                                <color key="textColor" red="0.81176470588235294" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tp4-lP-fkl">
+                                <rect key="frame" x="193" y="456" width="150" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Avz-li-cR7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="21"/>
+                                <state key="normal" title="فارسی">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="persianLanguageDidSelect:" destination="irW-ig-cma" eventType="touchUpInside" id="aOw-2R-mAL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-PV-lMH">
+                                <rect key="frame" x="32.5" y="456" width="150.5" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="w22-H2-yep"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="21"/>
+                                <state key="normal" title="English">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="englishLanguageDidSelect:" destination="irW-ig-cma" eventType="touchUpInside" id="fl7-Au-QS2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.01176470588" green="0.51461451759999999" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="bIf-mk-W6L" firstAttribute="leading" secondItem="nDX-4S-PPB" secondAttribute="leading" constant="15" id="7XY-cf-ezI"/>
+                            <constraint firstItem="bIf-mk-W6L" firstAttribute="top" secondItem="EuD-mg-v3c" secondAttribute="bottom" constant="15" id="Eec-Wp-Qde"/>
+                            <constraint firstItem="EuD-mg-v3c" firstAttribute="centerY" secondItem="nDX-4S-PPB" secondAttribute="centerY" id="KKS-XP-Iq6"/>
+                            <constraint firstItem="Tp4-lP-fkl" firstAttribute="leading" secondItem="AlZ-PV-lMH" secondAttribute="trailing" constant="10" id="NcT-HD-fyL"/>
+                            <constraint firstItem="Tp4-lP-fkl" firstAttribute="top" secondItem="bIf-mk-W6L" secondAttribute="bottom" constant="10" id="PMc-GH-hHP"/>
+                            <constraint firstItem="AlZ-PV-lMH" firstAttribute="top" secondItem="bIf-mk-W6L" secondAttribute="bottom" constant="10" id="X4E-Ya-pqQ"/>
+                            <constraint firstAttribute="trailing" secondItem="bIf-mk-W6L" secondAttribute="trailing" constant="15" id="bVQ-bv-FhK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Tp4-lP-fkl" secondAttribute="trailing" constant="16" id="hjg-Mf-Pzm"/>
+                            <constraint firstItem="AlZ-PV-lMH" firstAttribute="leading" secondItem="nDX-4S-PPB" secondAttribute="leadingMargin" constant="16" id="niv-sy-rpn"/>
+                            <constraint firstItem="EuD-mg-v3c" firstAttribute="centerX" secondItem="nDX-4S-PPB" secondAttribute="centerX" id="p8L-Cm-caN"/>
+                            <constraint firstItem="AlZ-PV-lMH" firstAttribute="width" secondItem="Tp4-lP-fkl" secondAttribute="width" id="tYp-F4-tVq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="infoLbl" destination="bIf-mk-W6L" id="8xD-It-a1C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TjQ-fb-Vqw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="925.60000000000002" y="-64.31784107946028"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pgw" width="64" height="32"/>
+    </resources>
+</document>

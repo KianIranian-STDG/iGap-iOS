@@ -235,6 +235,7 @@ class IGRegistrationStepVerificationCodeViewController: UIViewController, UIGest
                         IGAppManager.sharedManager.save(token: interpretedResponse.token)
                         self.isUserNew = interpretedResponse.newuser
                         self.loginUser(token: interpretedResponse.token)
+                        
                     default:
                         break
                     }    

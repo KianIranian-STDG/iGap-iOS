@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SMRecieptRowView" customModule="PayGear" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkX-LQ-r8d">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="41.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="مبلغ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxv-7H-SwL">
+                            <rect key="frame" x="331" y="10.5" width="28" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="tTO-5i-Eey"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcr-30-l6P">
+                            <rect key="frame" x="16" y="10.5" width="0.0" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="53x-Ek-H3Y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="748" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeY-G8-t9m">
+                            <rect key="frame" x="26" y="10.5" width="305" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="iDh-Ym-eKG"/>
+                            </constraints>
+                            <string key="text">--------------------------------------------------------------------------------------------------------------------------------------</string>
+                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                            <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="pcr-30-l6P" firstAttribute="leading" secondItem="fkX-LQ-r8d" secondAttribute="leading" constant="16" id="BZ1-H1-D4M"/>
+                        <constraint firstItem="aeY-G8-t9m" firstAttribute="leading" secondItem="pcr-30-l6P" secondAttribute="trailing" constant="10" id="E25-Ey-ISl"/>
+                        <constraint firstItem="lxv-7H-SwL" firstAttribute="centerY" secondItem="fkX-LQ-r8d" secondAttribute="centerY" id="OaY-xH-iUl"/>
+                        <constraint firstItem="pcr-30-l6P" firstAttribute="centerY" secondItem="fkX-LQ-r8d" secondAttribute="centerY" id="Twr-5i-zbB"/>
+                        <constraint firstItem="aeY-G8-t9m" firstAttribute="centerY" secondItem="fkX-LQ-r8d" secondAttribute="centerY" id="nyT-i7-D1n"/>
+                        <constraint firstItem="lxv-7H-SwL" firstAttribute="leading" secondItem="aeY-G8-t9m" secondAttribute="trailing" id="teF-LZ-dmy"/>
+                        <constraint firstAttribute="trailing" secondItem="lxv-7H-SwL" secondAttribute="trailing" constant="16" id="wA5-Ng-ebY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fkX-LQ-r8d" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="C6R-6a-B76"/>
+                <constraint firstAttribute="bottom" secondItem="fkX-LQ-r8d" secondAttribute="bottom" id="RFv-eK-hiN"/>
+                <constraint firstItem="fkX-LQ-r8d" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="VUs-pV-jm1"/>
+                <constraint firstItem="fkX-LQ-r8d" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ejQ-HB-7AI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="recieptTitleLabel" destination="lxv-7H-SwL" id="BEZ-Yb-N2I"/>
+                <outlet property="spaceLabel" destination="aeY-G8-t9m" id="kaG-tb-Q3f"/>
+                <outlet property="valueLabel" destination="pcr-30-l6P" id="wCX-Sp-tCK"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="-260"/>
+        </view>
+    </objects>
+</document>

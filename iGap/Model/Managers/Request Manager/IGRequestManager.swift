@@ -380,6 +380,12 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
     31007: (IGPGeoGetConfigurationResponse.self            as ResponseMessage.Type,
             IGGeoGetConfiguration.Handler.self             as IGRequest.Handler.Type),
 
+    //Wallet 90xx
+    39000: (IGPWalletGetAccessTokenResponse.self           as ResponseMessage.Type,
+            IGRequestWalletGetAccessToken.Handler.self     as IGRequest.Handler.Type),
+    39001: (IGPWalletPaymentInitResponse.self              as ResponseMessage.Type,
+            IGRequestWalletPaymentInit.Handler.self        as IGRequest.Handler.Type),
+
     //Mpl 91xx
     39100: (IGPMplGetBillTokenResponse.self                as ResponseMessage.Type,
             IGMplGetBillToken.Handler.self                 as IGRequest.Handler.Type),

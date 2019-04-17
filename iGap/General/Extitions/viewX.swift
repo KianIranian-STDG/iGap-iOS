@@ -40,7 +40,6 @@ class UIViewX: UIView {
     func updateView() {
         let layer = self.layer as! CAGradientLayer
         layer.colors = [ firstColor.cgColor, secondColor.cgColor ]
-        
         if (horizontalGradient) {
             layer.startPoint = CGPoint(x: 0.0, y: 0.5)
             layer.endPoint = CGPoint(x: 1.0, y: 0.5)
@@ -69,6 +68,19 @@ class UIViewX: UIView {
             layer.cornerRadius = cornerRadius
         }
     }
+    @IBInspectable public var TOPcornerRadius: CGFloat = 0 {
+        
+        didSet {
+            layer.cornerRadius = cornerRadius
+            if #available(iOS 11.0, *) {
+                layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            } else {
+                // Fallback on earlier versions
+            }
+            
+        }
+    }
+    
     
     // MARK: - Shadow
     
@@ -93,6 +105,17 @@ class UIViewX: UIView {
     @IBInspectable public var shadowOffsetY: CGFloat = 0 {
         didSet {
             layer.shadowOffset.height = shadowOffsetY
+        }
+    }
+}
+extension UIView {
+    
+    func roundCorners(corners:CACornerMask, radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        if #available(iOS 11.0, *) {
+            self.layer.maskedCorners = corners
+        } else {
+            // Fallback on earlier versions
         }
     }
 }

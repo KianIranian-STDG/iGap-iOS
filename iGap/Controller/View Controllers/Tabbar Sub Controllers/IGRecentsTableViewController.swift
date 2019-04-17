@@ -21,6 +21,9 @@ import UserNotifications
 import Contacts
 import AddressBook
 import Hero
+import messages
+import webservice
+import KeychainSwift
 
 class IGRecentsTableViewController: UITableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
@@ -250,10 +253,67 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                                                selector: #selector(addressBookDidChange(_:)),
                                                name: NSNotification.Name.CNContactStoreDidChange,
                                                object: nil)
-        
-        IGHelperView.makeSearchView(searchBar: searchBar)
+//        callAuthService()
+//        IGHelperView.makeSearchView(searchBar: searchBar)
+//        let test = (UIApplication.shared.delegate as! App_SocketService)
+//        test.ss_StartSocket()
+//        sendRequest()
+
+//
     }
     
+    func sendRequest(){
+        IGRequestWalletGetAccessToken.Generator.generate().success({ (protoResponse) in
+            
+            if let response = protoResponse as? IGPWalletGetAccessTokenResponse {
+                
+                print(response.igpAccessToken)
+                
+                let keychain = KeychainSwift()
+                
+                keychain.set(response.igpAccessToken ?? "", forKey: "accesstoken")
+                (UIApplication.shared.delegate as! App_SocketService).ss_StartSocket()
+
+                SMUserManager.saveDataToKeyChain()
+            }
+            
+            
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+
+                break
+            default:
+                break
+            }
+        }).send()
+    }
+    func callAuthService() {
+        
+        let request = WS_methods(delegate: self, failedDialog: false)
+        request.addSuccessHandler { (response : Any) in
+            self.saveContentOfAuth()
+            
+        }
+        
+        request.addFailedHandler { (response : Any) in
+            //            self.tokenErrorHandler(response as? [AnyHashable : Any])
+            self.saveContentOfAuth()
+            //            SMLog.SMPrint("failiure in refresh token")
+        }
+        
+        request.addCancelHandler {
+            
+        }
+        
+        request.refresh_token()
+        //        let x = WS_SecurityManager.init()
+        //        print(x.getRefreshToken())
+    }
+    func saveContentOfAuth() {
+        SMUserManager.saveDataToKeyChain()
+
+    }
     @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
             IGContactManager.syncedPhoneBookContact = true

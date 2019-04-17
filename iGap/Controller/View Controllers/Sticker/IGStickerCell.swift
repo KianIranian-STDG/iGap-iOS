@@ -9,7 +9,7 @@
  */
 
 import UIKit
-import Messages
+import messages
 import IGProtoBuff
 import RealmSwift
 

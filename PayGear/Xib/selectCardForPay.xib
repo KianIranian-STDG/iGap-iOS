@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="selectcard" id="hwv-It-sET" customClass="SMSelectCardForPay" customModule="PayGear">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xby-Gk-Ply">
+                    <rect key="frame" x="0.0" y="0.0" width="380" height="97"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="o2F-fS-6bW">
+                            <rect key="frame" x="16" y="0.0" width="348" height="38.5"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mat-7X-lFc">
+                                    <rect key="frame" x="0.0" y="0.0" width="166.5" height="38.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CVV2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-2N-os9">
+                                            <rect key="frame" x="16" y="12.5" width="139.5" height="15"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="PmG-2N-os9" firstAttribute="leading" secondItem="Mat-7X-lFc" secondAttribute="leading" constant="16" id="eed-Rj-uIV"/>
+                                        <constraint firstAttribute="trailing" secondItem="PmG-2N-os9" secondAttribute="trailing" constant="11" id="fWg-bo-day"/>
+                                        <constraint firstItem="PmG-2N-os9" firstAttribute="centerY" secondItem="Mat-7X-lFc" secondAttribute="centerY" id="nen-X7-maR"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXS-LE-kBk">
+                                    <rect key="frame" x="181.5" y="0.0" width="166.5" height="38.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="رمز دوم اینترنتی" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8f3-GE-GaK">
+                                            <rect key="frame" x="16" y="12" width="139.5" height="15"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="8f3-GE-GaK" secondAttribute="trailing" constant="11" id="8X1-yS-i4Z"/>
+                                        <constraint firstItem="8f3-GE-GaK" firstAttribute="leading" secondItem="yXS-LE-kBk" secondAttribute="leading" constant="16" id="ee9-u1-aCJ"/>
+                                        <constraint firstItem="8f3-GE-GaK" firstAttribute="centerY" secondItem="yXS-LE-kBk" secondAttribute="centerY" id="t1R-wM-lR3"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="o2F-fS-6bW" secondAttribute="height" multiplier="360:40" id="V4h-ik-ogG"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pJP-h5-pTn">
+                            <rect key="frame" x="16" y="38.5" width="348" height="46.5"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2j-Wg-cdK">
+                                    <rect key="frame" x="0.0" y="0.0" width="170" height="46.5"/>
+                                    <subviews>
+                                        <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV2" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kMI-Ag-Xym">
+                                            <rect key="frame" x="0.0" y="0.0" width="170" height="46.5"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="kMI-Ag-Xym" secondAttribute="bottom" id="FKb-dr-I69"/>
+                                        <constraint firstItem="kMI-Ag-Xym" firstAttribute="top" secondItem="K2j-Wg-cdK" secondAttribute="top" id="ZUw-VT-hsN"/>
+                                        <constraint firstItem="kMI-Ag-Xym" firstAttribute="leading" secondItem="K2j-Wg-cdK" secondAttribute="leading" id="sHC-8n-sQ8"/>
+                                        <constraint firstAttribute="trailing" secondItem="kMI-Ag-Xym" secondAttribute="trailing" id="w2R-pu-Cms"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GcQ-lq-ZIn">
+                                    <rect key="frame" x="178" y="0.0" width="170" height="46.5"/>
+                                    <subviews>
+                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="رمز دوم اینترنتی" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4uN-ds-Z3l">
+                                            <rect key="frame" x="0.0" y="0.0" width="170" height="46.5"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
+                                        </textField>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="4uN-ds-Z3l" firstAttribute="leading" secondItem="GcQ-lq-ZIn" secondAttribute="leading" id="IkC-1D-hzx"/>
+                                        <constraint firstItem="4uN-ds-Z3l" firstAttribute="top" secondItem="GcQ-lq-ZIn" secondAttribute="top" id="Lih-cg-uRt"/>
+                                        <constraint firstAttribute="bottom" secondItem="4uN-ds-Z3l" secondAttribute="bottom" id="Q4f-xA-SaP"/>
+                                        <constraint firstAttribute="trailing" secondItem="4uN-ds-Z3l" secondAttribute="trailing" id="p8z-PX-cdA"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="pJP-h5-pTn" secondAttribute="height" multiplier="360:48" id="YnC-b6-e8A"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="o2F-fS-6bW" firstAttribute="top" secondItem="xby-Gk-Ply" secondAttribute="top" id="1KF-03-ItQ"/>
+                        <constraint firstAttribute="trailing" secondItem="o2F-fS-6bW" secondAttribute="trailing" constant="16" id="5Bl-Hd-zDi"/>
+                        <constraint firstItem="pJP-h5-pTn" firstAttribute="leading" secondItem="xby-Gk-Ply" secondAttribute="leading" constant="16" id="Luj-9m-YhZ"/>
+                        <constraint firstItem="pJP-h5-pTn" firstAttribute="top" secondItem="o2F-fS-6bW" secondAttribute="bottom" id="PqE-HI-95m"/>
+                        <constraint firstAttribute="trailing" secondItem="pJP-h5-pTn" secondAttribute="trailing" constant="16" id="Y6v-Sr-Le3"/>
+                        <constraint firstItem="o2F-fS-6bW" firstAttribute="leading" secondItem="xby-Gk-Ply" secondAttribute="leading" constant="16" id="m07-6f-IQ7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="xby-Gk-Ply" firstAttribute="top" secondItem="9Lu-oH-HA3" secondAttribute="top" id="02e-Hh-YMP"/>
+                <constraint firstAttribute="trailing" secondItem="xby-Gk-Ply" secondAttribute="trailing" constant="-5" id="fik-Bm-Yis"/>
+                <constraint firstItem="xby-Gk-Ply" firstAttribute="leading" secondItem="hwv-It-sET" secondAttribute="leading" id="gmd-3e-ndj"/>
+                <constraint firstItem="xby-Gk-Ply" firstAttribute="bottom" secondItem="9Lu-oH-HA3" secondAttribute="bottom" id="nDw-Wu-6xf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="9Lu-oH-HA3"/>
+            <connections>
+                <outlet property="cvv2Label" destination="PmG-2N-os9" id="g0H-Y6-Wyy"/>
+                <outlet property="cvv2TextField" destination="kMI-Ag-Xym" id="aRL-ZH-WfQ"/>
+                <outlet property="cvv2TextView" destination="K2j-Wg-cdK" id="pbd-no-ksk"/>
+                <outlet property="cvv2TitleView" destination="Mat-7X-lFc" id="P0L-xe-FEF"/>
+                <outlet property="pinLabel" destination="8f3-GE-GaK" id="5fW-Gv-tBE"/>
+                <outlet property="secondPassTextField" destination="4uN-ds-Z3l" id="nUo-Of-RdW"/>
+            </connections>
+            <point key="canvasLocation" x="0.5" y="25.5"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Numberpad"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="center" id="2" customClass="LNNumberpad">
+            <rect key="frame" x="0.0" y="0.0" width="582" height="260"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="100">
+                    <rect key="frame" x="0.0" y="0.0" width="582" height="260"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="z4j-uj-R2e">
+                            <rect key="frame" x="0.0" y="0.0" width="582" height="260"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bWn-D3-HO2">
+                                    <rect key="frame" x="0.0" y="0.0" width="582" height="52"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="28" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۱">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="104"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="194" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۲">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="105"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="29" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="388" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۳">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="106"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PyT-r9-ush">
+                                    <rect key="frame" x="0.0" y="52" width="582" height="52"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۴">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="107"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="194" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۵">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="108"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="32" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="388" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۶">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="109"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="W8l-AZ-8eg">
+                                    <rect key="frame" x="0.0" y="104" width="582" height="52"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۷">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="110"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="36" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="194" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۸">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="111"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="388" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۹">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="112"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="A8i-fu-w9B">
+                                    <rect key="frame" x="0.0" y="156" width="582" height="52"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WuB-PG-USS" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                            <state key="normal" image="keyboard_hide">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadDonePressed:" destination="2" eventType="touchUpInside" id="ta1-uV-SHk"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="194" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="26"/>
+                                            <state key="normal" title="۰">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadNumberPressed:" destination="2" eventType="touchUpInside" id="114"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37" customClass="NumberpadButton" customModule="PayGear" customModuleProvider="target">
+                                            <rect key="frame" x="388" y="0.0" width="194" height="52"/>
+                                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <state key="normal" image="keyboard_backspace">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="highlightBackgroundColor">
+                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="defaultBackgroundColor">
+                                                    <color key="value" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberpadDeletePressed:" destination="2" eventType="touchDown" id="v9M-ve-8sn"/>
+                                                <action selector="numberpadDeleteRepeat:" destination="2" eventType="touchUpInside" id="Et9-Y8-mqg"/>
+                                                <action selector="numberpadDeleteRepeat:" destination="2" eventType="touchUpOutside" id="giw-hZ-Fzr"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Lc8-Lm-RZc">
+                                    <rect key="frame" x="0.0" y="208" width="582" height="52"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1dv-B6-cCs">
+                                            <rect key="frame" x="0.0" y="0.0" width="582" height="52"/>
+                                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="A8i-fu-w9B" firstAttribute="leading" secondItem="z4j-uj-R2e" secondAttribute="leading" id="7SD-Cn-0gJ"/>
+                                <constraint firstAttribute="trailing" secondItem="A8i-fu-w9B" secondAttribute="trailing" id="Gv9-2n-RuI"/>
+                                <constraint firstAttribute="trailing" secondItem="W8l-AZ-8eg" secondAttribute="trailing" id="JYu-2D-5lk"/>
+                                <constraint firstAttribute="trailing" secondItem="bWn-D3-HO2" secondAttribute="trailing" id="Lv5-Au-qAK"/>
+                                <constraint firstAttribute="trailing" secondItem="Lc8-Lm-RZc" secondAttribute="trailing" id="Vs7-zR-9ab"/>
+                                <constraint firstItem="PyT-r9-ush" firstAttribute="leading" secondItem="z4j-uj-R2e" secondAttribute="leading" id="bUx-k5-LeX"/>
+                                <constraint firstItem="bWn-D3-HO2" firstAttribute="leading" secondItem="z4j-uj-R2e" secondAttribute="leading" id="nTE-6A-J0U"/>
+                                <constraint firstItem="Lc8-Lm-RZc" firstAttribute="leading" secondItem="z4j-uj-R2e" secondAttribute="leading" id="uKe-EI-aEK"/>
+                                <constraint firstAttribute="trailing" secondItem="PyT-r9-ush" secondAttribute="trailing" id="ykV-4a-IXe"/>
+                                <constraint firstItem="W8l-AZ-8eg" firstAttribute="leading" secondItem="z4j-uj-R2e" secondAttribute="leading" id="zTD-6L-Bfa"/>
+                            </constraints>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPs-P0-Ygs">
+                            <rect key="frame" x="194" y="0.0" width="1" height="260"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="vKk-Ut-h31"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MhQ-pg-0JM">
+                            <rect key="frame" x="388" y="0.0" width="1" height="260"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="ACQ-Bx-HRc"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wjM-1K-iTW">
+                            <rect key="frame" x="0.0" y="52" width="582" height="1"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="0wm-bZ-CRo"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3PO-EB-TZX">
+                            <rect key="frame" x="0.0" y="104" width="582" height="1"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="SgI-Vs-w3T"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Usq-Qa-k8G">
+                            <rect key="frame" x="0.0" y="156" width="582" height="1"/>
+                            <color key="backgroundColor" red="0.80000000000000004" green="0.81568627450980391" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="tAx-dD-87v"/>
+                                <constraint firstAttribute="height" constant="1" id="u2e-3y-P28"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="z4j-uj-R2e" secondAttribute="bottom" id="0kW-fO-Cwt"/>
+                        <constraint firstItem="wjM-1K-iTW" firstAttribute="top" secondItem="bWn-D3-HO2" secondAttribute="bottom" id="6kM-OE-3AT"/>
+                        <constraint firstItem="WPs-P0-Ygs" firstAttribute="top" secondItem="100" secondAttribute="top" id="9uP-bW-ciB"/>
+                        <constraint firstAttribute="bottom" secondItem="WPs-P0-Ygs" secondAttribute="bottom" id="BMq-cD-sH5"/>
+                        <constraint firstAttribute="trailing" secondItem="wjM-1K-iTW" secondAttribute="trailing" id="FeK-SK-eDw"/>
+                        <constraint firstItem="Usq-Qa-k8G" firstAttribute="leading" secondItem="100" secondAttribute="leading" id="K1B-bt-pD3"/>
+                        <constraint firstItem="wjM-1K-iTW" firstAttribute="leading" secondItem="100" secondAttribute="leading" id="KAD-PI-Fo6"/>
+                        <constraint firstItem="WPs-P0-Ygs" firstAttribute="leading" secondItem="28" secondAttribute="trailing" id="LAG-kc-y7f"/>
+                        <constraint firstAttribute="trailing" secondItem="Usq-Qa-k8G" secondAttribute="trailing" id="MKv-9n-hGB"/>
+                        <constraint firstItem="z4j-uj-R2e" firstAttribute="leading" secondItem="100" secondAttribute="leading" id="OaS-fO-rfG"/>
+                        <constraint firstItem="MhQ-pg-0JM" firstAttribute="leading" secondItem="30" secondAttribute="trailing" id="VRG-j7-l7I"/>
+                        <constraint firstAttribute="trailing" secondItem="z4j-uj-R2e" secondAttribute="trailing" id="Vmz-zu-Fc9"/>
+                        <constraint firstItem="3PO-EB-TZX" firstAttribute="leading" secondItem="100" secondAttribute="leading" id="Yzy-np-l5h"/>
+                        <constraint firstItem="z4j-uj-R2e" firstAttribute="top" secondItem="100" secondAttribute="top" id="b1V-xP-oU1"/>
+                        <constraint firstItem="MhQ-pg-0JM" firstAttribute="top" secondItem="100" secondAttribute="top" id="gK4-IB-dxN"/>
+                        <constraint firstAttribute="bottom" secondItem="MhQ-pg-0JM" secondAttribute="bottom" id="gOu-y4-Xjn"/>
+                        <constraint firstItem="Usq-Qa-k8G" firstAttribute="top" secondItem="W8l-AZ-8eg" secondAttribute="bottom" id="k9o-NH-mLQ"/>
+                        <constraint firstItem="3PO-EB-TZX" firstAttribute="top" secondItem="PyT-r9-ush" secondAttribute="bottom" id="kbA-De-yl5"/>
+                        <constraint firstAttribute="trailing" secondItem="3PO-EB-TZX" secondAttribute="trailing" id="uwO-VO-Bj0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="100" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="5tm-cr-ibG"/>
+                <constraint firstItem="100" firstAttribute="width" secondItem="2" secondAttribute="width" id="6LQ-Ra-3ee"/>
+                <constraint firstItem="100" firstAttribute="height" secondItem="2" secondAttribute="height" id="bt1-3f-b19"/>
+                <constraint firstItem="100" firstAttribute="top" secondItem="2" secondAttribute="top" id="nh1-FF-Tgz"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="eight" destination="36" id="8rD-uh-0wP"/>
+                <outlet property="five" destination="33" id="sqa-R8-dgx"/>
+                <outlet property="four" destination="31" id="ej8-1r-zM0"/>
+                <outlet property="nine" destination="35" id="f2i-wb-fZU"/>
+                <outlet property="one" destination="28" id="igt-5d-avC"/>
+                <outlet property="safeArea" destination="Lc8-Lm-RZc" id="o4u-hy-LkU"/>
+                <outlet property="seven" destination="34" id="ppf-xs-qUH"/>
+                <outlet property="six" destination="32" id="TeO-ly-uLC"/>
+                <outlet property="three" destination="29" id="CBJ-2j-UMT"/>
+                <outlet property="two" destination="30" id="K5J-VV-juy"/>
+                <outlet property="zero" destination="39" id="wlT-hS-GEq"/>
+            </connections>
+            <point key="canvasLocation" x="-26" y="66"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="keyboard_backspace" width="21" height="21"/>
+        <image name="keyboard_hide" width="21" height="21"/>
+    </resources>
+</document>

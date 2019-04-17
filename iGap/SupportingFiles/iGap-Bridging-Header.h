@@ -14,6 +14,9 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "TTTAttributedLabel.h"
 #import "MTBBarcodeScanner.h"
-
+#import "NSBundle+Language.h"
+#import "LNNumberpad.h"
+#import "FRHyperLabel.h"
+#import "KPDropMenu.h"
 
 #endif /* iGap_Bridging_Header_h */

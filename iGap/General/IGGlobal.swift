@@ -15,6 +15,7 @@ import Foundation
 import SwiftyRSA
 import SDWebImage
 import RxSwift
+import maincore
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
@@ -225,23 +226,7 @@ extension UITableView {
 
 //MARK: -
 extension UIColor {
-    convenience init(hexString: String) {
-        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int = UInt32()
-        Scanner(string: hex).scanHexInt32(&int)
-        let a, r, g, b: UInt32
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-    }
+    
     
     public class func hexStringToUIColor(hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
@@ -1072,6 +1057,17 @@ extension UIFont {
         case medium
         case bold
     }
+    @objcMembers
+    class SMQRCode:NSObject{
+        
+        static let URL                 = "https://paygear.ir/dl?jj="
+        
+        public enum SMAccountType:String {
+            case User                = "8"
+            case Merchant            = "9"
+        }
+        
+    }
     
     class func igFont(ofSize fontSize: CGFloat, weight: FontWeight = .regular) -> UIFont {
         switch weight {
@@ -1112,7 +1108,16 @@ extension UIFont {
 }
 
 extension String {
-    
+    func convertToDictionary() -> [String: Any]? {
+        if let data = self.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
     func aesEncrypt(publicKey: String) -> String {
         var encryptedMsg : String = ""
         let dataKey = Data(self.utf8)
@@ -1152,7 +1157,9 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
-    
+    var localizedNew: String {
+        return MCLocalization.string(forKey: self)
+    }
     func substring(offset: Int) -> String{
         if self.count < offset {
             return self
@@ -1185,6 +1192,22 @@ extension String {
             }
         }
         return stringArray
+    }
+    
+    func inRialFormat()->String{
+        
+        let nf = NumberFormatter()
+        
+        nf.locale = Locale(identifier: "fa")
+        nf.numberStyle = .decimal
+        nf.allowsFloats = false
+        nf.maximumFractionDigits = 0
+        nf.groupingSeparator = ","
+        
+        
+        let str = nf.string(from: NSNumber(value: Double(self) ?? 0)) ?? "0"
+        
+        return "\(str)"
     }
     
     /* detect first character should be write RTL or LTR */

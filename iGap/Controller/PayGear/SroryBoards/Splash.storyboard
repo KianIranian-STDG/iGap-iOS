@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oZW-Lf-FZZ">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="ZIN-PQ-aK8">
+            <objects>
+                <viewController storyboardIdentifier="splash" id="oZW-Lf-FZZ" customClass="SMSplashViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yml-Oy-cq2" customClass="SMGradientView" customModule="PayGear" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pgw" translatesAutoresizingMaskIntoConstraints="NO" id="6m9-Xg-lSM">
+                                <rect key="frame" x="156" y="317.5" width="63" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="63" id="FPo-Z7-wR3"/>
+                                    <constraint firstAttribute="height" constant="32" id="Ifh-en-ulU"/>
+                                </constraints>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="5v4-Ti-6iP">
+                                <rect key="frame" x="177.5" y="365.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.050980392159999999" green="0.2784313725" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="6m9-Xg-lSM" firstAttribute="centerY" secondItem="Yml-Oy-cq2" secondAttribute="centerY" id="ORv-dg-zdT"/>
+                            <constraint firstItem="6m9-Xg-lSM" firstAttribute="centerX" secondItem="Yml-Oy-cq2" secondAttribute="centerX" id="WDz-zf-0Yi"/>
+                            <constraint firstItem="5v4-Ti-6iP" firstAttribute="top" secondItem="6m9-Xg-lSM" secondAttribute="bottom" constant="16" id="exX-3u-oJR"/>
+                            <constraint firstItem="5v4-Ti-6iP" firstAttribute="centerX" secondItem="Yml-Oy-cq2" secondAttribute="centerX" id="sDt-dt-Uve"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pVM-jK-YbW"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="fromColor">
+                                <color key="value" red="0.12941176470588234" green="0.58823529411764708" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="toColor">
+                                <color key="value" red="0.050980392156862744" green="0.27843137254901962" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pGo-XI-uHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-116" y="181"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pgw" width="64" height="32"/>
+    </resources>
+</document>

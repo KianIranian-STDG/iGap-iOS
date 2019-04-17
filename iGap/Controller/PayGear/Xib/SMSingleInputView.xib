@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SMSingleInputView" customModule="PayGear" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="کد پذیرنده را وارد نمایید" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEu-1y-B1m">
+                    <rect key="frame" x="15" y="30" width="345" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Baa-dP-fG3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqy-6L-jId">
+                    <rect key="frame" x="15" y="62" width="345" height="48"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6m-Xa-Whf">
+                            <rect key="frame" x="9" y="9" width="46" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="46" id="ZWZ-ZS-MDS"/>
+                                <constraint firstAttribute="height" constant="30" id="gB6-gE-1gJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="15"/>
+                            <state key="normal" title="تایید"/>
+                        </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="کد پذیرنده" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fpZ-hS-6Qz">
+                            <rect key="frame" x="55" y="9" width="281" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="UYq-We-9ob"/>
+                            </constraints>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="i39-1I-iet"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="fpZ-hS-6Qz" firstAttribute="leading" secondItem="M6m-Xa-Whf" secondAttribute="trailing" id="3kX-eg-9IS"/>
+                        <constraint firstItem="M6m-Xa-Whf" firstAttribute="leading" secondItem="Aqy-6L-jId" secondAttribute="leading" constant="9" id="OmA-iK-Avp"/>
+                        <constraint firstItem="fpZ-hS-6Qz" firstAttribute="top" secondItem="Aqy-6L-jId" secondAttribute="top" constant="9" id="a7h-wm-Y4W"/>
+                        <constraint firstAttribute="bottom" secondItem="fpZ-hS-6Qz" secondAttribute="bottom" constant="9" id="g2i-e1-lHN"/>
+                        <constraint firstAttribute="height" constant="48" id="i5h-Ra-EnD"/>
+                        <constraint firstItem="M6m-Xa-Whf" firstAttribute="top" secondItem="Aqy-6L-jId" secondAttribute="top" constant="9" id="jdh-q5-y5I"/>
+                        <constraint firstAttribute="trailing" secondItem="fpZ-hS-6Qz" secondAttribute="trailing" constant="9" id="qSC-ch-3wG"/>
+                        <constraint firstAttribute="bottom" secondItem="M6m-Xa-Whf" secondAttribute="bottom" constant="9" id="x6P-S1-R7O"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Au5-mG-51J">
+                    <rect key="frame" x="67" y="5" width="241" height="3"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="3" id="6nR-3T-eZD"/>
+                        <constraint firstAttribute="width" constant="241" id="kHk-I2-hR0"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Au5-mG-51J" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="4ea-Gx-OOL"/>
+                <constraint firstItem="fEu-1y-B1m" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="6un-ZY-lZ3"/>
+                <constraint firstItem="Aqy-6L-jId" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="EKN-40-40b"/>
+                <constraint firstItem="Aqy-6L-jId" firstAttribute="top" secondItem="fEu-1y-B1m" secondAttribute="bottom" constant="11" id="SCs-qA-l6h"/>
+                <constraint firstAttribute="trailing" secondItem="Aqy-6L-jId" secondAttribute="trailing" constant="15" id="XBz-Uf-KeR"/>
+                <constraint firstAttribute="trailing" secondItem="fEu-1y-B1m" secondAttribute="trailing" constant="15" id="YpB-Mt-a9c"/>
+                <constraint firstItem="Au5-mG-51J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="dEk-vS-ces"/>
+                <constraint firstAttribute="bottom" secondItem="Aqy-6L-jId" secondAttribute="bottom" constant="10" id="mMg-Se-TqO"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="confirmBtn" destination="M6m-Xa-Whf" id="UNQ-0o-Csv"/>
+                <outlet property="containerView" destination="Aqy-6L-jId" id="Pr3-mH-3oX"/>
+                <outlet property="infoLbl" destination="fEu-1y-B1m" id="Sao-e0-fWZ"/>
+                <outlet property="inputTF" destination="fpZ-hS-6Qz" id="u00-df-Ecb"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="52"/>
+        </view>
+    </objects>
+</document>

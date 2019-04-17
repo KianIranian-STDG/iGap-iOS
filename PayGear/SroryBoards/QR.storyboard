@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANYekanMobileBold.ttf">
+            <string>IRANYekanMobile-Bold</string>
+        </array>
+        <array key="IRANYekanMobileRegular.ttf">
+            <string>IRANYekanMobile</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Bar Code Scanner View Controller-->
+        <scene sceneID="koJ-V8-O88">
+            <objects>
+                <viewController storyboardIdentifier="qr" id="1qm-fk-If4" customClass="SMBarCodeScannerViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="12X-JB-en9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="موجودی پیگیرکارت" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsm-yH-5lq">
+                                <rect key="frame" x="0.0" y="20" width="375" height="70"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.58823529411764708" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="JIo-9B-Uia"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANYekanMobile" family="IRANYekanMobile" pointSize="14"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifq-rV-QFM" customClass="SMQRView" customModule="PayGear" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="90" width="375" height="577"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q0r-qV-PDJ">
+                                <rect key="frame" x="299" y="607" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="43D-Al-2q2"/>
+                                    <constraint firstAttribute="width" constant="60" id="bQ1-cW-YeU"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="manualInput" destination="1qm-fk-If4" eventType="touchUpInside" id="an8-Q6-oZW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="lsm-yH-5lq" firstAttribute="top" secondItem="Ong-IE-bIp" secondAttribute="top" id="78Z-M6-EgP"/>
+                            <constraint firstItem="Ong-IE-bIp" firstAttribute="bottom" secondItem="ifq-rV-QFM" secondAttribute="bottom" id="DdN-yx-LAk"/>
+                            <constraint firstItem="ifq-rV-QFM" firstAttribute="leading" secondItem="Ong-IE-bIp" secondAttribute="leading" id="FDv-1B-34B"/>
+                            <constraint firstItem="ifq-rV-QFM" firstAttribute="top" secondItem="lsm-yH-5lq" secondAttribute="bottom" id="Gyp-9L-WCb"/>
+                            <constraint firstItem="Ong-IE-bIp" firstAttribute="bottom" secondItem="Q0r-qV-PDJ" secondAttribute="bottom" id="Pbm-gr-o4G"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Q0r-qV-PDJ" secondAttribute="trailing" id="iqf-IU-PfV"/>
+                            <constraint firstItem="Ong-IE-bIp" firstAttribute="trailing" secondItem="lsm-yH-5lq" secondAttribute="trailing" id="pzj-ho-wyM"/>
+                            <constraint firstItem="lsm-yH-5lq" firstAttribute="leading" secondItem="Ong-IE-bIp" secondAttribute="leading" id="rUG-0n-9bK"/>
+                            <constraint firstItem="Ong-IE-bIp" firstAttribute="trailing" secondItem="ifq-rV-QFM" secondAttribute="trailing" id="sod-dS-oP0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ong-IE-bIp"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountInfoLabel" destination="lsm-yH-5lq" id="Ccw-jf-TBH"/>
+                        <outlet property="previewView" destination="ifq-rV-QFM" id="Ix7-TV-oNI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OzA-Az-5Ks" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-66.400000000000006" y="-170.46476761619192"/>
+        </scene>
+        <!--My Bar Code View Controller-->
+        <scene sceneID="3by-Ea-0yQ">
+            <objects>
+                <viewController storyboardIdentifier="myqr" id="2hU-LZ-SLw" customClass="SMMyBarCodeViewController" customModule="PayGear" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xDD-tg-oWp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGw-1j-NM8">
+                                <rect key="frame" x="87" y="70" width="200" height="200"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hfn-5a-287">
+                                        <rect key="frame" x="10" y="10" width="180" height="180"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="180" id="B8x-t4-is0"/>
+                                            <constraint firstAttribute="width" constant="180" id="PUh-4k-bzt"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="80F-CR-1CL"/>
+                                    <constraint firstAttribute="height" constant="200" id="V02-Ut-hch"/>
+                                    <constraint firstItem="Hfn-5a-287" firstAttribute="centerX" secondItem="DGw-1j-NM8" secondAttribute="centerX" id="jqd-jF-zX2"/>
+                                    <constraint firstItem="Hfn-5a-287" firstAttribute="centerY" secondItem="DGw-1j-NM8" secondAttribute="centerY" id="rFb-4w-7s8"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPD-zC-lDy">
+                                <rect key="frame" x="20" y="290" width="335" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="IW0-Bl-7yP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANYekanMobile-Bold" family="IRANYekanMobile" pointSize="16"/>
+                                <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8901960784313725" green="0.94901960784313721" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="DGw-1j-NM8" firstAttribute="top" secondItem="NK4-nj-ZjJ" secondAttribute="top" constant="50" id="2o5-rK-Xhr"/>
+                            <constraint firstItem="HPD-zC-lDy" firstAttribute="top" secondItem="DGw-1j-NM8" secondAttribute="bottom" constant="20" id="Huj-Ud-i5M"/>
+                            <constraint firstItem="HPD-zC-lDy" firstAttribute="leading" secondItem="NK4-nj-ZjJ" secondAttribute="leading" constant="20" id="Jef-zM-phl"/>
+                            <constraint firstItem="DGw-1j-NM8" firstAttribute="centerX" secondItem="NK4-nj-ZjJ" secondAttribute="centerX" id="pec-1K-M3F"/>
+                            <constraint firstItem="NK4-nj-ZjJ" firstAttribute="trailing" secondItem="HPD-zC-lDy" secondAttribute="trailing" constant="20" id="tZg-8I-iGm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NK4-nj-ZjJ"/>
+                    </view>
+                    <connections>
+                        <outlet property="barcodeImageView" destination="Hfn-5a-287" id="q2J-fl-gmh"/>
+                        <outlet property="infoLbl" destination="HPD-zC-lDy" id="ioW-5m-W0c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EfR-zL-2DA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="688.79999999999995" y="-170.46476761619192"/>
+        </scene>
+    </scenes>
+</document>
