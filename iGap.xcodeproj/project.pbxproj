@@ -298,6 +298,7 @@
 		FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */; };
 		FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B602D201E0483008460CF /* CellSizeCalculator.swift */; };
 		FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */; };
+		FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6C2DE422670C76005654AC /* AFNetworking.framework */; };
 		FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */; };
 		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
@@ -596,7 +597,7 @@
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
 		8E8D8E2C225DB6A500039191 /* Fast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Fast.xib; sourceTree = "<group>"; };
-		8E8D8E45225DBB9000039191 /* SMNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SMNavigationController.swift; path = Base/SMNavigationController.swift; sourceTree = "<group>"; };
+		8E8D8E45225DBB9000039191 /* SMNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNavigationController.swift; sourceTree = "<group>"; };
 		8E8D8E47225DCBF800039191 /* MCLocalizationDummyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationDummyDataSource.m; sourceTree = "<group>"; };
 		8E8D8E48225DCBF800039191 /* MCLocalizationSingleJSONFileDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalizationSingleJSONFileDataSource.m; sourceTree = "<group>"; };
 		8E8D8E49225DCBF800039191 /* MCLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalization.h; sourceTree = "<group>"; };
@@ -897,6 +898,7 @@
 		FA6A22771F41D73E0063DF07 /* IGRequestQrCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestQrCode.swift; sourceTree = "<group>"; };
 		FA6B602D201E0483008460CF /* CellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSizeCalculator.swift; sourceTree = "<group>"; };
 		FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperGetMessageState.swift; sourceTree = "<group>"; };
+		FA6C2DE422670C76005654AC /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell7.swift; sourceTree = "<group>"; };
 		FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell7.xib; sourceTree = "<group>"; };
 		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
@@ -1169,6 +1171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */,
 				8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */,
 				8EACC7B022621A1F00F32DC3 /* maincore.framework in Frameworks */,
 				8E96A309225B450E007D8A77 /* Gloss.framework in Frameworks */,
@@ -1289,26 +1292,10 @@
 			path = History;
 			sourceTree = "<group>";
 		};
-		8E96A31F225C902F007D8A77 /* wallet */ = {
-			isa = PBXGroup;
-			children = (
-				8E96A330225C96E0007D8A77 /* xib */,
-				8E96A32A225C920A007D8A77 /* SMReciept.swift */,
-				8E76D3BA2261FFA400830F65 /* SMLoading.swift */,
-				8E96A324225C9182007D8A77 /* SMCardGradient.swift */,
-				8E96A322225C9182007D8A77 /* SMGradientView.swift */,
-				8E96A320225C9073007D8A77 /* SMBottomButton.swift */,
-				8E96A31B225C902B007D8A77 /* SMRecieptRowView.swift */,
-				8E96A31C225C902B007D8A77 /* SMRecieptView.swift */,
-				8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */,
-				8E96A323225C9182007D8A77 /* SMGradientButton.swift */,
-			);
-			path = wallet;
-			sourceTree = "<group>";
-		};
 		8E96A330225C96E0007D8A77 /* xib */ = {
 			isa = PBXGroup;
 			children = (
+				8EC217962258BD9E00105B5A /* SMSingleInputView.xib */,
 				8E96A32C225C96C3007D8A77 /* RecieptRow.xib */,
 				8E96A32D225C96C3007D8A77 /* RecieptView.xib */,
 			);
@@ -1337,7 +1324,12 @@
 		8EC2179A2258BE0600105B5A /* wallet */ = {
 			isa = PBXGroup;
 			children = (
+				FA6C2DE322670B32005654AC /* View */,
 				FA85066D22670717002EEBF7 /* CashOUT */,
+				8E9F076722659DE100E4CD17 /* Alert */,
+				8E8D8E22225DB4B000039191 /* WithDraw */,
+				8E96A314225B6DD3007D8A77 /* History */,
+				8EE7FCAB22619B6300B6C2C3 /* Setting */,
 				FA85065922670702002EEBF7 /* addNewCardTableViewController.swift */,
 				FA85065822670702002EEBF7 /* CardsCollectionViewCell.swift */,
 				FA85065B22670702002EEBF7 /* chargeWalletTableViewController.swift */,
@@ -1348,16 +1340,12 @@
 				FA85065E22670703002EEBF7 /* SMBarcodeMainViewController.swift */,
 				FA85065D22670703002EEBF7 /* SMBarCodeScannerViewController.swift */,
 				FA85065722670702002EEBF7 /* SMMyBarCodeViewController.swift */,
-				8E9F076722659DE100E4CD17 /* Alert */,
 				8E8D8E45225DBB9000039191 /* SMNavigationController.swift */,
-				8E8D8E22225DB4B000039191 /* WithDraw */,
-				8E96A314225B6DD3007D8A77 /* History */,
-				8EC217962258BD9E00105B5A /* SMSingleInputView.xib */,
 				8EC217982258BDF400105B5A /* SMSingleInputView.swift */,
 				8EC217A82259B90F00105B5A /* walletModalViewController.swift */,
-				8EE7FCAB22619B6300B6C2C3 /* Setting */,
 			);
-			path = wallet;
+			name = wallet;
+			path = ../wallet;
 			sourceTree = "<group>";
 		};
 		8EC217B82259DCFA00105B5A /* Entity */ = {
@@ -1484,6 +1472,7 @@
 		FA087B2C1DC4A27200E139FA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EC2179A2258BE0600105B5A /* wallet */,
 				FA99FF5B22351C63009035DF /* Dashboard */,
 				FAE07EFA2205999E00BE3593 /* Sticker */,
 				FA03C19A20429437008812E3 /* Call */,
@@ -1650,21 +1639,18 @@
 		FA41C6EE1DC9DFBD00598383 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				8E8D8E54225DCBFF00039191 /* MCLocalization */,
-				8E8D8E18225CE39A00039191 /* strings.json */,
-				8EC217BB2259E1A100105B5A /* SMConstants.swift */,
-				8E1F413822391CEE00910E30 /* CheckInternet.swift */,
-				8E1F413622391A7400910E30 /* Vendor */,
 				FA4CFD0521A046BA005FCBF2 /* Helpers */,
 				FAD8A02C21EE08D4006996E1 /* Structs */,
 				FA90B72820B53E5F00043C89 /* Protocols */,
+				8ECC183B222FEB6B006E43E8 /* Extitions */,
+				8ECC183A222FEB5F006E43E8 /* Utils */,
+				FA6C2DE222670AFE005654AC /* Language */,
 				FA41C6EF1DC9DFD600598383 /* IGGlobal.swift */,
 				8EBF95DF2258811500A1F7E4 /* IGConstants.swift */,
 				FAC34DB31E1A3F7E00BB9823 /* IGRealm.swift */,
 				FAA932F41DF45748002CC631 /* IGEnums.swift */,
-				8ECC183B222FEB6B006E43E8 /* Extitions */,
-				8ECC183A222FEB5F006E43E8 /* Utils */,
-				8E96A33F225CAA2C007D8A77 /* Localization.strings */,
+				8EC217BB2259E1A100105B5A /* SMConstants.swift */,
+				8E1F413822391CEE00910E30 /* CheckInternet.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1881,6 +1867,33 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		FA6C2DE222670AFE005654AC /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				8E8D8E18225CE39A00039191 /* strings.json */,
+				8EACC7B322621ACA00F32DC3 /* localizations.json */,
+				8E96A33F225CAA2C007D8A77 /* Localization.strings */,
+			);
+			path = Language;
+			sourceTree = "<group>";
+		};
+		FA6C2DE322670B32005654AC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E96A330225C96E0007D8A77 /* xib */,
+				8E96A32A225C920A007D8A77 /* SMReciept.swift */,
+				8E76D3BA2261FFA400830F65 /* SMLoading.swift */,
+				8E96A324225C9182007D8A77 /* SMCardGradient.swift */,
+				8E96A322225C9182007D8A77 /* SMGradientView.swift */,
+				8E96A320225C9073007D8A77 /* SMBottomButton.swift */,
+				8E96A31B225C902B007D8A77 /* SMRecieptRowView.swift */,
+				8E96A31C225C902B007D8A77 /* SMRecieptView.swift */,
+				8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */,
+				8E96A323225C9182007D8A77 /* SMGradientButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		FA77C2A51E2B85D2001B2152 /* Chat and User Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1960,6 +1973,8 @@
 		FA930D961E5B178F00069EE1 /* ThirdParty Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8E8D8E54225DCBFF00039191 /* MCLocalization */,
+				8E1F413622391A7400910E30 /* Vendor */,
 				FAD959021F48AD8600FBD306 /* MTBBarcodeScanner */,
 				FA0CC8101E5DD99400556283 /* Thread */,
 				FA0CC7FF1E5D7D4400556283 /* ActiveLabel */,
@@ -2327,7 +2342,6 @@
 				FAF795FF1DAA392F0030509B /* VIew */,
 				FAF7960B1DAA39660030509B /* Controller */,
 				FAF796081DAA39460030509B /* SupportingFiles */,
-				8EACC7B322621ACA00F32DC3 /* localizations.json */,
 			);
 			path = iGap;
 			sourceTree = "<group>";
@@ -2335,7 +2349,6 @@
 		FAF795FF1DAA392F0030509B /* VIew */ = {
 			isa = PBXGroup;
 			children = (
-				8E96A31F225C902F007D8A77 /* wallet */,
 				FA2EBB911E2F44BD00BD8E9F /* Assets */,
 				FA96AF141DDB1E72005AC571 /* ReusableViews */,
 				FAF796001DAA392F0030509B /* Assets.xcassets */,
@@ -2371,7 +2384,6 @@
 		FAF7960B1DAA39660030509B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8EC2179A2258BE0600105B5A /* wallet */,
 				FAD5807F1DDC403200A242DE /* Chat Screen */,
 				FAD530561E0BD6C300FE6C54 /* Custom Master Controllers */,
 				FA087B2C1DC4A27200E139FA /* View Controllers */,
@@ -2401,6 +2413,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA6C2DE422670C76005654AC /* AFNetworking.framework */,
 				8EACC7B122621A3100F32DC3 /* webservice.framework */,
 				8EACC7AF22621A1F00F32DC3 /* maincore.framework */,
 				8E96A308225B450E007D8A77 /* Gloss.framework */,
@@ -2749,6 +2762,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Gloss.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/webservice.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/maincore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
