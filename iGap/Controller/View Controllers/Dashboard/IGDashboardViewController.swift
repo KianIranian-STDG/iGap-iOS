@@ -14,7 +14,7 @@ import MapKit
 
 class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate, CLLocationManagerDelegate, DiscoveryObserver {
 
-    static let itemCorner: CGFloat = 10
+    static let itemCorner: CGFloat = 5
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
     private var discovery: [IGPDiscovery] = []
@@ -235,7 +235,8 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth, height: computeHeight(scale: discovery[indexPath.section].igpScale))
+        // Hint: plus height with 16 ,because in storyboard we used 4 space from top and 4 space from bottom
+        return CGSize(width: screenWidth, height: computeHeight(scale: discovery[indexPath.section].igpScale) + 8)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

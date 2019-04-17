@@ -23,11 +23,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="550" height="114"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWM-pC-tf8">
-                                <rect key="frame" x="8" y="8" width="534" height="98"/>
+                                <rect key="frame" x="8" y="4" width="534" height="106"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6fD-lT-4n3">
-                                <rect key="frame" x="8" y="8" width="534" height="98"/>
+                                <rect key="frame" x="8" y="4" width="534" height="106"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,8 +37,8 @@
                             <constraint firstItem="6fD-lT-4n3" firstAttribute="trailing" secondItem="UWM-pC-tf8" secondAttribute="trailing" id="7ld-QI-Vsf"/>
                             <constraint firstAttribute="trailing" secondItem="6fD-lT-4n3" secondAttribute="trailing" constant="8" id="Ceq-NX-six"/>
                             <constraint firstItem="6fD-lT-4n3" firstAttribute="leading" secondItem="UWM-pC-tf8" secondAttribute="leading" id="bG3-8F-y3q"/>
-                            <constraint firstItem="6fD-lT-4n3" firstAttribute="top" secondItem="d6a-hW-Mlj" secondAttribute="top" constant="8" id="bup-QF-Usu"/>
-                            <constraint firstAttribute="bottom" secondItem="6fD-lT-4n3" secondAttribute="bottom" constant="8" id="vh7-nM-tmw"/>
+                            <constraint firstItem="6fD-lT-4n3" firstAttribute="top" secondItem="d6a-hW-Mlj" secondAttribute="top" constant="4" id="bup-QF-Usu"/>
+                            <constraint firstAttribute="bottom" secondItem="6fD-lT-4n3" secondAttribute="bottom" constant="4" id="vh7-nM-tmw"/>
                             <constraint firstItem="6fD-lT-4n3" firstAttribute="leading" secondItem="d6a-hW-Mlj" secondAttribute="leading" constant="8" id="zsx-D7-5n7"/>
                         </constraints>
                     </view>

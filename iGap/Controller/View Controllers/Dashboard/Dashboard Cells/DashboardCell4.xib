@@ -23,38 +23,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="377" height="70"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vlk-Ny-f48">
-                                <rect key="frame" x="8" y="8" width="172.5" height="54"/>
+                                <rect key="frame" x="8" y="4" width="176.5" height="62"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsC-Ah-Qbc">
-                                <rect key="frame" x="196.5" y="8" width="172.5" height="54"/>
+                                <rect key="frame" x="192.5" y="4" width="176.5" height="62"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2CR-iM-uBP">
-                                <rect key="frame" x="8" y="8" width="172.5" height="54"/>
+                                <rect key="frame" x="8" y="4" width="176.5" height="62"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-he-wcA">
-                                <rect key="frame" x="196.5" y="8" width="172.5" height="54"/>
+                                <rect key="frame" x="192.5" y="4" width="176.5" height="62"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="2CR-iM-uBP" firstAttribute="top" secondItem="mBx-9U-9ic" secondAttribute="top" constant="8" id="3uF-OM-UH1"/>
+                            <constraint firstItem="2CR-iM-uBP" firstAttribute="top" secondItem="mBx-9U-9ic" secondAttribute="top" constant="4" id="3uF-OM-UH1"/>
                             <constraint firstItem="nsC-Ah-Qbc" firstAttribute="leading" secondItem="1M1-he-wcA" secondAttribute="leading" id="4hZ-qK-BeI"/>
                             <constraint firstItem="nsC-Ah-Qbc" firstAttribute="top" secondItem="1M1-he-wcA" secondAttribute="top" id="5Jg-PK-H2x"/>
                             <constraint firstItem="nsC-Ah-Qbc" firstAttribute="trailing" secondItem="1M1-he-wcA" secondAttribute="trailing" id="70P-xA-s02"/>
                             <constraint firstItem="vlk-Ny-f48" firstAttribute="trailing" secondItem="2CR-iM-uBP" secondAttribute="trailing" id="CP2-Xq-ZGl"/>
                             <constraint firstItem="2CR-iM-uBP" firstAttribute="leading" secondItem="mBx-9U-9ic" secondAttribute="leading" constant="8" id="Cbu-Xc-LHb"/>
-                            <constraint firstItem="1M1-he-wcA" firstAttribute="width" secondItem="mBx-9U-9ic" secondAttribute="width" multiplier="0.5" constant="-16" id="Ngx-Tz-9CV"/>
-                            <constraint firstItem="1M1-he-wcA" firstAttribute="top" secondItem="mBx-9U-9ic" secondAttribute="top" constant="8" id="OPc-eG-e2u"/>
+                            <constraint firstItem="1M1-he-wcA" firstAttribute="width" secondItem="mBx-9U-9ic" secondAttribute="width" multiplier="0.5" constant="-12" id="Ngx-Tz-9CV"/>
+                            <constraint firstItem="1M1-he-wcA" firstAttribute="top" secondItem="mBx-9U-9ic" secondAttribute="top" constant="4" id="OPc-eG-e2u"/>
                             <constraint firstItem="vlk-Ny-f48" firstAttribute="leading" secondItem="2CR-iM-uBP" secondAttribute="leading" id="SFt-VF-Gqb"/>
-                            <constraint firstItem="2CR-iM-uBP" firstAttribute="width" secondItem="mBx-9U-9ic" secondAttribute="width" multiplier="0.5" constant="-16" id="SJ5-ao-k4V"/>
+                            <constraint firstItem="2CR-iM-uBP" firstAttribute="width" secondItem="mBx-9U-9ic" secondAttribute="width" multiplier="0.5" constant="-12" id="SJ5-ao-k4V"/>
                             <constraint firstItem="vlk-Ny-f48" firstAttribute="bottom" secondItem="2CR-iM-uBP" secondAttribute="bottom" id="cwu-zx-9sv"/>
-                            <constraint firstAttribute="bottom" secondItem="1M1-he-wcA" secondAttribute="bottom" constant="8" id="dfo-fs-7Zv"/>
+                            <constraint firstAttribute="bottom" secondItem="1M1-he-wcA" secondAttribute="bottom" constant="4" id="dfo-fs-7Zv"/>
                             <constraint firstAttribute="trailing" secondItem="1M1-he-wcA" secondAttribute="trailing" constant="8" id="efT-KV-sTg"/>
                             <constraint firstItem="vlk-Ny-f48" firstAttribute="top" secondItem="2CR-iM-uBP" secondAttribute="top" id="fbs-vW-pRA"/>
                             <constraint firstItem="nsC-Ah-Qbc" firstAttribute="bottom" secondItem="1M1-he-wcA" secondAttribute="bottom" id="qdP-LC-V7b"/>
-                            <constraint firstAttribute="bottom" secondItem="2CR-iM-uBP" secondAttribute="bottom" constant="8" id="qlU-5g-zKn"/>
+                            <constraint firstAttribute="bottom" secondItem="2CR-iM-uBP" secondAttribute="bottom" constant="4" id="qlU-5g-zKn"/>
                         </constraints>
                     </view>
                 </subviews>
