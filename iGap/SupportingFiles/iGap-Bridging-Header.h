@@ -12,7 +12,6 @@
 #define iGap_Bridging_Header_h
 
 #import <CommonCrypto/CommonCrypto.h>
-#import "TTTAttributedLabel.h"
 #import "MTBBarcodeScanner.h"
 #import "NSBundle+Language.h"
 #import "LNNumberpad.h"

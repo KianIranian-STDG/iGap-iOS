@@ -239,7 +239,6 @@
 		FA42EF0F1E5C224F00CF8A32 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF031E5C224F00CF8A32 /* UIImage.swift */; };
 		FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF041E5C224F00CF8A32 /* UIImageView.swift */; };
 		FA42EF111E5C224F00CF8A32 /* ImageSourceHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF071E5C224F00CF8A32 /* ImageSourceHelpers.swift */; };
-		FA42EF151E5C593500CF8A32 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FA42EF141E5C593500CF8A32 /* TTTAttributedLabel.m */; };
 		FA451F3E22662DAD005F4853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3422662DAD005F4853 /* Assets.xcassets */; };
 		FA451F3F22662DAD005F4853 /* GetURL.js in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3522662DAD005F4853 /* GetURL.js */; };
 		FA451F4022662DAD005F4853 /* ShareAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3622662DAD005F4853 /* ShareAvatar.swift */; };
@@ -827,8 +826,6 @@
 		FA42EF041E5C224F00CF8A32 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		FA42EF051E5C224F00CF8A32 /* Gifu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gifu.h; sourceTree = "<group>"; };
 		FA42EF071E5C224F00CF8A32 /* ImageSourceHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSourceHelpers.swift; sourceTree = "<group>"; };
-		FA42EF131E5C593500CF8A32 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
-		FA42EF141E5C593500CF8A32 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		FA451F3422662DAD005F4853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA451F3522662DAD005F4853 /* GetURL.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = GetURL.js; sourceTree = "<group>"; };
 		FA451F3622662DAD005F4853 /* ShareAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareAvatar.swift; sourceTree = "<group>"; };
@@ -1668,15 +1665,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		FA42EF121E5C593500CF8A32 /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				FA42EF131E5C593500CF8A32 /* TTTAttributedLabel.h */,
-				FA42EF141E5C593500CF8A32 /* TTTAttributedLabel.m */,
-			);
-			path = TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
 		FA4BD8A01DF2A52300CCB239 /* Music Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -1948,7 +1936,6 @@
 				FAD959021F48AD8600FBD306 /* MTBBarcodeScanner */,
 				FA0CC8101E5DD99400556283 /* Thread */,
 				FA0CC7FF1E5D7D4400556283 /* ActiveLabel */,
-				FA42EF121E5C593500CF8A32 /* TTTAttributedLabel */,
 				FA42EEF91E5C224F00CF8A32 /* GIfu */,
 				FA930D971E5B178F00069EE1 /* Starscream */,
 			);
@@ -3044,7 +3031,6 @@
 				FA0953651E1B97700043ED3F /* IGSettingNotificationTableViewController.swift in Sources */,
 				FA0953631E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewCell.swift in Sources */,
 				FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */,
-				FA42EF151E5C593500CF8A32 /* TTTAttributedLabel.m in Sources */,
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,
 				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
