@@ -295,6 +295,7 @@
 		FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */; };
 		FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6C2DE422670C76005654AC /* AFNetworking.framework */; };
 		FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C2DE622673B21005654AC /* IGHelperAlert.swift */; };
+		FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C2DE82267413A005654AC /* IGScoreViewController.swift */; };
 		FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */; };
 		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
@@ -885,6 +886,7 @@
 		FA6B72A122369C4A005AC3D1 /* IGHelperGetMessageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperGetMessageState.swift; sourceTree = "<group>"; };
 		FA6C2DE422670C76005654AC /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		FA6C2DE622673B21005654AC /* IGHelperAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAlert.swift; sourceTree = "<group>"; };
+		FA6C2DE82267413A005654AC /* IGScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScoreViewController.swift; sourceTree = "<group>"; };
 		FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell7.swift; sourceTree = "<group>"; };
 		FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell7.xib; sourceTree = "<group>"; };
 		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
@@ -2011,6 +2013,7 @@
 			children = (
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
+				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -2946,6 +2949,7 @@
 				FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */,
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
+				FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,
 				FA85066222670703002EEBF7 /* SMMyBarCodeViewController.swift in Sources */,
