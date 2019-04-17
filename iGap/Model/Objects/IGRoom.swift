@@ -102,7 +102,7 @@ class IGRoom: Object {
     
     var color: UIColor {
         get {
-            return UIColor(hexString: colorString)
+            return  UIColor.hexStringToUIColor(hex: colorString)
         }
     }
     var clearId: Int64 {

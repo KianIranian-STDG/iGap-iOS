@@ -636,8 +636,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     private func makeDoctorBotButtonView(parent: UIView, result: IGPFavorite){
         let text : String = result.igpName
-        let textColor : UIColor = UIColor(hexString: "#\(result.igpTextcolor)")
-        let backgroundColor : UIColor = UIColor(hexString: "#\(result.igpBgcolor)")
+        
+        
+        let textColor : UIColor = UIColor.hexStringToUIColor(hex: "#\(result.igpTextcolor)")
+        let backgroundColor : UIColor = UIColor.hexStringToUIColor(hex: "#\(result.igpBgcolor)")
         let imageData = Data(base64Encoded: result.igpImage)
         var hasImage = true
         

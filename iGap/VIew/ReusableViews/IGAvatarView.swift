@@ -75,7 +75,7 @@ class IGAvatarView: UIView {
         self.avatarImageView!.image = nil
         self.initialLettersLabel!.text = user.initials
         
-        let color = UIColor(hexString: user.color)
+        let color = UIColor.hexStringToUIColor(hex: user.color)
         self.initialLettersView!.backgroundColor = color
         
         if let avatar = user.avatar {
@@ -101,7 +101,7 @@ class IGAvatarView: UIView {
         self.avatarImageView!.image = nil
         self.initialLettersLabel!.text = room.initilas
 
-        let color = UIColor(hexString: room.colorString)
+        let color = UIColor.hexStringToUIColor(hex: room.colorString)
         self.initialLettersView!.backgroundColor = color
         
         switch room.type {
