@@ -380,8 +380,8 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             }
             
             else if rowIndex == 3 {
-                //let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
-                //self.navigationController?.pushViewController(vc!, animated: true)
+                let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
+                self.navigationController?.pushViewController(vc!, animated: true)
             }
             else if rowIndex == 4 {
                 IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()

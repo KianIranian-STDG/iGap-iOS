@@ -324,6 +324,17 @@
 		FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */; };
 		FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */; };
 		FA844D8821F88FCF000E6750 /* Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA844D8621F88FCF000E6750 /* Compression.swift */; };
+		FA85066222670703002EEBF7 /* SMMyBarCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065722670702002EEBF7 /* SMMyBarCodeViewController.swift */; };
+		FA85066322670703002EEBF7 /* CardsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065822670702002EEBF7 /* CardsCollectionViewCell.swift */; };
+		FA85066422670703002EEBF7 /* addNewCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065922670702002EEBF7 /* addNewCardTableViewController.swift */; };
+		FA85066522670703002EEBF7 /* IGWalletCardDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065A22670702002EEBF7 /* IGWalletCardDetailTableViewController.swift */; };
+		FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065B22670702002EEBF7 /* chargeWalletTableViewController.swift */; };
+		FA85066722670703002EEBF7 /* packetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065C22670702002EEBF7 /* packetTableViewController.swift */; };
+		FA85066822670703002EEBF7 /* SMBarCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065D22670703002EEBF7 /* SMBarCodeScannerViewController.swift */; };
+		FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85065E22670703002EEBF7 /* SMBarcodeMainViewController.swift */; };
+		FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85066022670703002EEBF7 /* mainWalletViewController.swift */; };
+		FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85066122670703002EEBF7 /* QRMainTabbarController.swift */; };
+		FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85066E22670738002EEBF7 /* chashoutCardTableViewController.swift */; };
 		FA8548A221EC92CF00435F70 /* FIRAnalyticsConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */; };
 		FA8548A321EC92CF00435F70 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A121EC92CF00435F70 /* Firebase.framework */; };
 		FA8548A821EC92F900435F70 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */; };
@@ -913,6 +924,17 @@
 		FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCellUnknown.xib; sourceTree = "<group>"; };
 		FA844D8521F88FCF000E6750 /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
 		FA844D8621F88FCF000E6750 /* Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compression.swift; sourceTree = "<group>"; };
+		FA85065722670702002EEBF7 /* SMMyBarCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMyBarCodeViewController.swift; sourceTree = "<group>"; };
+		FA85065822670702002EEBF7 /* CardsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA85065922670702002EEBF7 /* addNewCardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addNewCardTableViewController.swift; sourceTree = "<group>"; };
+		FA85065A22670702002EEBF7 /* IGWalletCardDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGWalletCardDetailTableViewController.swift; sourceTree = "<group>"; };
+		FA85065B22670702002EEBF7 /* chargeWalletTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chargeWalletTableViewController.swift; sourceTree = "<group>"; };
+		FA85065C22670702002EEBF7 /* packetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = packetTableViewController.swift; sourceTree = "<group>"; };
+		FA85065D22670703002EEBF7 /* SMBarCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBarCodeScannerViewController.swift; sourceTree = "<group>"; };
+		FA85065E22670703002EEBF7 /* SMBarcodeMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBarcodeMainViewController.swift; sourceTree = "<group>"; };
+		FA85066022670703002EEBF7 /* mainWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mainWalletViewController.swift; sourceTree = "<group>"; };
+		FA85066122670703002EEBF7 /* QRMainTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRMainTabbarController.swift; sourceTree = "<group>"; };
+		FA85066E22670738002EEBF7 /* chashoutCardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chashoutCardTableViewController.swift; sourceTree = "<group>"; };
 		FA8548A021EC92CF00435F70 /* FIRAnalyticsConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FIRAnalyticsConnector.framework; path = Carthage/Build/iOS/FIRAnalyticsConnector.framework; sourceTree = "<group>"; };
 		FA8548A121EC92CF00435F70 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
 		FA8548A421EC92F800435F70 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Carthage/Build/iOS/FirebaseAnalytics.framework; sourceTree = "<group>"; };
@@ -1315,6 +1337,17 @@
 		8EC2179A2258BE0600105B5A /* wallet */ = {
 			isa = PBXGroup;
 			children = (
+				FA85066D22670717002EEBF7 /* CashOUT */,
+				FA85065922670702002EEBF7 /* addNewCardTableViewController.swift */,
+				FA85065822670702002EEBF7 /* CardsCollectionViewCell.swift */,
+				FA85065B22670702002EEBF7 /* chargeWalletTableViewController.swift */,
+				FA85065A22670702002EEBF7 /* IGWalletCardDetailTableViewController.swift */,
+				FA85066022670703002EEBF7 /* mainWalletViewController.swift */,
+				FA85065C22670702002EEBF7 /* packetTableViewController.swift */,
+				FA85066122670703002EEBF7 /* QRMainTabbarController.swift */,
+				FA85065E22670703002EEBF7 /* SMBarcodeMainViewController.swift */,
+				FA85065D22670703002EEBF7 /* SMBarCodeScannerViewController.swift */,
+				FA85065722670702002EEBF7 /* SMMyBarCodeViewController.swift */,
 				8E9F076722659DE100E4CD17 /* Alert */,
 				8E8D8E45225DBB9000039191 /* SMNavigationController.swift */,
 				8E8D8E22225DB4B000039191 /* WithDraw */,
@@ -1879,6 +1912,14 @@
 				FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		FA85066D22670717002EEBF7 /* CashOUT */ = {
+			isa = PBXGroup;
+			children = (
+				FA85066E22670738002EEBF7 /* chashoutCardTableViewController.swift */,
+			);
+			path = CashOUT;
 			sourceTree = "<group>";
 		};
 		FA865C732078A2D700B9D585 /* Map */ = {
@@ -2737,6 +2778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */,
+				FA85066522670703002EEBF7 /* IGWalletCardDetailTableViewController.swift in Sources */,
 				FA0953881E1B97E20043ED3F /* IGCreateNewChatTableViewController.swift in Sources */,
 				8ECC1839222FEB59006E43E8 /* CardUtils.swift in Sources */,
 				FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */,
@@ -2770,6 +2812,7 @@
 				8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */,
 				FAD530621E0BD80800FE6C54 /* IGNavigationBar.swift in Sources */,
 				FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */,
+				FA85066422670703002EEBF7 /* addNewCardTableViewController.swift in Sources */,
 				8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */,
 				8EC217C52259F59900105B5A /* SMBank.swift in Sources */,
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
@@ -2807,11 +2850,13 @@
 				FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */,
 				93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */,
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
+				FA85066822670703002EEBF7 /* SMBarCodeScannerViewController.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
 				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
 				FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */,
 				FA42EF0D1E5C224F00CF8A32 /* Array.swift in Sources */,
+				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGNewGroupBottomViewCollectionCell.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
@@ -2876,6 +2921,7 @@
 				FA42EF091E5C224F00CF8A32 /* Animator.swift in Sources */,
 				FAD580971DDC61DD00A242DE /* IGMessageCollectionView.swift in Sources */,
 				8EC217B62259DCF400105B5A /* SMEntity.swift in Sources */,
+				FA85066322670703002EEBF7 /* CardsCollectionViewCell.swift in Sources */,
 				8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */,
 				FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */,
 				FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */,
@@ -2930,6 +2976,7 @@
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,
+				FA85066222670703002EEBF7 /* SMMyBarCodeViewController.swift in Sources */,
 				FA50A8CE1DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift in Sources */,
 				937455FB1E63F77F007694CE /* IGForwardMessageAudioAndVoiceAttachmentView.swift in Sources */,
 				FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */,
@@ -3034,6 +3081,7 @@
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
 				FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */,
 				FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */,
+				FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */,
 				8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */,
 				FA60ADD4200BA39B004EE151 /* IGReport.swift in Sources */,
 				FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */,
@@ -3066,6 +3114,7 @@
 				FA0CC8081E5D7D4400556283 /* ActiveLabel.swift in Sources */,
 				FA930D9B1E5B178F00069EE1 /* WebSocket.swift in Sources */,
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
+				FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */,
 				FA930D9A1E5B178F00069EE1 /* SSLSecurity.swift in Sources */,
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,
@@ -3080,8 +3129,10 @@
 				FA0953671E1B97700043ED3F /* IGSettingPrivacy&SecurityPasscodeLockTableViewController.swift in Sources */,
 				FAA2A85A200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift in Sources */,
 				93AA67BE1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift in Sources */,
+				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				93193F381E5814980039AC0C /* IGGroupInfoAdminListTableViewController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
+				FA85066922670703002EEBF7 /* SMBarcodeMainViewController.swift in Sources */,
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
@@ -3116,6 +3167,7 @@
 				FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */,
 				FA358D201E0A6F6A001D0935 /* IGGroupsTableViewController.swift in Sources */,
 				DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */,
+				FA85066722670703002EEBF7 /* packetTableViewController.swift in Sources */,
 				FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */,
 				FAA9DFB21F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift in Sources */,
 			);
