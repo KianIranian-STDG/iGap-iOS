@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Comment-multiple-outline-37x37.png",
+      "filename" : "Comment-37x37.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Comment-multiple-outline-74x74.png",
+      "filename" : "Comment-74x74.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Comment-multiple-outline-111x111.png",
+      "filename" : "Comment-111x111.png",
       "scale" : "3x"
     }
   ],
