@@ -502,7 +502,7 @@
         <!--QR Reader-->
         <scene sceneID="jBd-LC-TWQ">
             <objects>
-                <viewController id="quj-VS-Vtn" customClass="IGSettingQrScannerViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGSettingQrScannerViewController" id="quj-VS-Vtn" customClass="IGSettingQrScannerViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vcq-9p-0V5"/>
                         <viewControllerLayoutGuide type="bottom" id="kAC-3L-bV0"/>
@@ -513,6 +513,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="QR Reader" id="Hbn-5m-aTq" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <connections>
+                        <outlet property="mainView" destination="4oB-sN-1qY" id="tYp-pf-RW3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQE-Yg-YoT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4797,7 +4800,7 @@ Please wait 0:59</string>
         <!--Title-->
         <scene sceneID="hD6-6v-Xms">
             <objects>
-                <viewController id="o6C-Kw-gwv" customClass="IGFinancialServiceBillQrScanner" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGFinancialServiceBillQrScanner" id="o6C-Kw-gwv" customClass="IGFinancialServiceBillQrScanner" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ebY-zp-QoR"/>
                         <viewControllerLayoutGuide type="bottom" id="AfH-l7-oEG"/>

@@ -15,33 +15,49 @@ import SwiftProtobuf
 import IGProtoBuff
 
 class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDelegate{
-    
+
+    @IBOutlet var mainView: UIView!
     var previewView: UIView!
     var scanner: MTBBarcodeScanner?
+    var scannerPageType: BarcodeScanner = .Verify
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        previewView = UIView(frame: CGRect.zero)
-        self.view.addSubview(previewView)
-        previewView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.height.equalTo(previewView.snp.width)
-            make.left.equalTo(self.view.snp.left).offset(16)
-            make.right.equalTo(self.view.snp.right).offset(-16)
-        }
-        scanner = MTBBarcodeScanner(previewView: previewView)
-        
+        initNavigationBar()
+        makeView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadScanner()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.scanner?.stopScanning()
+        super.viewDidDisappear(animated)
+    }
+    
+    private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "QR Scanner")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    
+    private func makeView(){
+        previewView = UIView(frame: CGRect.zero)
+        mainView.addSubview(previewView)
+        previewView.snp.makeConstraints { (make) in
+            make.top.equalTo(mainView.snp.top)
+            make.bottom.equalTo(mainView.snp.bottom)
+            make.left.equalTo(mainView.snp.left)
+            make.right.equalTo(mainView.snp.right)
+        }
+        scanner = MTBBarcodeScanner(previewView: previewView)
+    }
+    
+    private func loadScanner(){
         MTBBarcodeScanner.requestCameraPermission(success: { success in
             if success {
                 do {
@@ -49,7 +65,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                         if let codes = codes {
                             for code in codes {
                                 if let stringValue = code.stringValue {
-                                    self.resolveScannedQrCode(stringValue)
+                                    self.manageResponse(stringValue)
                                     self.scanner?.stopScanning()
                                     return
                                 }
@@ -63,20 +79,18 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                 // no access to camera
             }
         })
-        
+    }
+
+    private func manageResponse(_ code: String){
+        if scannerPageType == .Verify {
+            resolveScannedQrCode(code)
+        } else if scannerPageType == .IVandScore {
+            
+        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.scanner?.stopScanning()
-        
-        super.viewWillDisappear(animated)
-    }
     
-    
-    
-    func resolveScannedQrCode(_ code: String) {
-        print("Found code: \(code)")
-        
+    private func resolveScannedQrCode(_ code: String) {
         if code.contains("igap://") {
             
         } else {
@@ -102,6 +116,4 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
             }).send()
         }
     }
-    
-    
 }

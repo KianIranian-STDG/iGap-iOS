@@ -18,6 +18,7 @@ enum AppStoryboard : String {
     case Profile = "profile"
     case CreateRoom = "CreateRoom"
     case Register = "Register"
+    case Setting = "IGSettingStoryboard"
     
     var instance : UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
@@ -393,6 +394,11 @@ enum CommandState {
 enum ButtonState {
     case First
     case Second
+}
+
+enum BarcodeScanner {
+    case Verify
+    case IVandScore
 }
 
 enum AdditionalType: Int32 {
