@@ -1345,6 +1345,21 @@ class IGUserReportRequest: IGRequest {
     }
 }
 
+class IGUserProfileGetRepresentativeRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
+        class func generate() -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPUserProfileGetRepresentative(), actionID: 151)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserProfileGetRepresentativeResponse) {
+            IGFactory.shared.setRepresenter(phoneNumber: responseProtoMessage.igpPhoneNumber)
+        }
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
 
 class IGUserProfileSetRepresentativeRequest: IGRequest {
     
@@ -1364,18 +1379,51 @@ class IGUserProfileSetRepresentativeRequest: IGRequest {
     }
 }
 
-class IGUserProfileGetRepresentativeRequest: IGRequest {
+class IGUserIVandGetActivitiesRequest: IGRequest {
     
     class Generator: IGRequest.Generator {
-        class func generate() -> IGRequestWrapper {
-            return IGRequestWrapper(message: IGPUserProfileGetRepresentative(), actionID: 151)
+        class func generate(offset: Int32, limit: Int32) -> IGRequestWrapper {
+            var request = IGPUserIVandGetActivities()
+            var pagination = IGPPagination()
+            pagination.igpOffset = offset
+            pagination.igpLimit = limit
+            request.igpPagination = pagination
+            return IGRequestWrapper(message: request, actionID: 153)
         }
     }
     
     class Handler: IGRequest.Handler {
-        class func interpret(response responseProtoMessage: IGPUserProfileGetRepresentativeResponse) {
-            IGFactory.shared.setRepresenter(phoneNumber: responseProtoMessage.igpPhoneNumber)
+        class func interpret(response responseProtoMessage: IGPUserIVandGetActivitiesResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+class IGUserIVandGetScoreRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
+        class func generate(offset: Int32, limit: Int32) -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPUserIVandGetScore(), actionID: 154)
         }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserIVandGetScoreResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+class IGUserIVandSetActivityRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
+        class func generate(plancode: String) -> IGRequestWrapper {
+            var request = IGPUserIVandSetActivity()
+            request.igpPlancode = plancode
+            return IGRequestWrapper(message: IGPUserIVandGetScore(), actionID: 155)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage: IGPUserIVandSetActivityResponse) {}
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
