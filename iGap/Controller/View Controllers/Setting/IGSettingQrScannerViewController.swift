@@ -85,7 +85,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
         if scannerPageType == .Verify {
             resolveScannedQrCode(code)
         } else if scannerPageType == .IVandScore {
-            
+            setActivity(plancode: code)
         }
     }
     
@@ -115,5 +115,27 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                 
             }).send()
         }
+    }
+    
+    private func setActivity(plancode: String){
+        IGUserIVandSetActivityRequest.Generator.generate(plancode: plancode).success({ (protoResponse) in
+            
+            if let response = protoResponse as? IGPUserIVandSetActivityResponse {
+                
+                let alert = UIAlertController(title: nil, message: response.igpMessage, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+                let messageAttrString = NSMutableAttributedString(string: response.igpMessage, attributes: messageFont)
+                alert.setValue(messageAttrString, forKey: "attributedMessage")
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }).error({ (errorCode, waitTime) in
+            IGHelperAlert.shared.showErrorAlert(done: { () -> Void in
+                self.navigationController!.popViewController(animated: true)
+            })
+        }).send()
     }
 }

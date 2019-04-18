@@ -1401,7 +1401,7 @@ class IGUserIVandGetActivitiesRequest: IGRequest {
 class IGUserIVandGetScoreRequest: IGRequest {
     
     class Generator: IGRequest.Generator {
-        class func generate(offset: Int32, limit: Int32) -> IGRequestWrapper {
+        class func generate() -> IGRequestWrapper {
             return IGRequestWrapper(message: IGPUserIVandGetScore(), actionID: 154)
         }
     }
@@ -1415,10 +1415,10 @@ class IGUserIVandGetScoreRequest: IGRequest {
 class IGUserIVandSetActivityRequest: IGRequest {
     
     class Generator: IGRequest.Generator {
-        class func generate(plancode: String) -> IGRequestWrapper {
+        class func generate(plancode: String = "iGap") -> IGRequestWrapper {
             var request = IGPUserIVandSetActivity()
             request.igpPlancode = plancode
-            return IGRequestWrapper(message: IGPUserIVandGetScore(), actionID: 155)
+            return IGRequestWrapper(message: request, actionID: 155)
         }
     }
     

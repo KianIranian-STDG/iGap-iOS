@@ -15,7 +15,7 @@ class IGHelperAlert {
     
     static let shared = IGHelperAlert()
     
-    func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil){
+    func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil, done: (() -> Void)? = nil){
         
         var alertView = view
         if alertView == nil {
@@ -36,8 +36,16 @@ class IGHelperAlert {
             alert.setValue(messageAttrString, forKey: "attributedMessage")
         }
         
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in })
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            if done != nil {
+                done?()
+            }
+        })
         alert.addAction(okAction)
         alertView!.present(alert, animated: true, completion: nil)
+    }
+    
+    func showErrorAlert(done: (() -> Void)? = nil){
+        showAlert(title: "Error", message: "an error occurred!\n please try later!", done: done)
     }
 }

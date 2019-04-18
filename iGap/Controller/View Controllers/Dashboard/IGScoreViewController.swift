@@ -10,6 +10,7 @@
 
 import UIKit
 import RealmSwift
+import IGProtoBuff
 
 class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -25,13 +26,14 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         
         initNavigationBar()
         customizeView()
+        getScore()
         
         let user = IGRegisteredUser.getUserInfo(id: IGAppManager.sharedManager.userID()!)!
         imgAvatar.setUser(user)
         txtDisplayName.text = user.displayName
         
         if let session = try! Realm().objects(IGSessionInfo.self).first, let representerCode = session.representer {
-            txtReferralCode.text = "کد معرف : " + representerCode
+            txtReferralCode.text = "referral : " + representerCode
         } else {
             txtReferralCode.isHidden = true
         }
@@ -54,7 +56,15 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         btnSeeRecords.layer.shadowOpacity = 0.4
     }
     
-    
+    private func getScore(){
+        IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
+            if let response = protoResponse as? IGPUserIVandGetScoreResponse {
+                DispatchQueue.main.async {
+                    self.txtScore.text = String(describing: response.igpScore)
+                }
+            }
+        }).error({ (errorCode, waitTime) in }).send()
+    }
     /****************************** Actions ******************************/
     
     @IBAction func btnSeeRecords(_ sender: UIButton) {
