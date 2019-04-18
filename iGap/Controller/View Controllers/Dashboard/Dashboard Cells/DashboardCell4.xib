@@ -30,10 +30,10 @@
                                 <rect key="frame" x="192.5" y="4" width="176.5" height="62"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2CR-iM-uBP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2CR-iM-uBP" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="8" y="4" width="176.5" height="62"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-he-wcA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1M1-he-wcA" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="192.5" y="4" width="176.5" height="62"/>
                             </imageView>
                         </subviews>

@@ -14,7 +14,7 @@ import IGProtoBuff
 class DashboardCell1: AbstractDashboardCell {
 
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var img: UIImageView!
+    @IBOutlet weak var img: IGImageView!
     @IBOutlet weak var view: UIView!
     
     override func awakeFromNib() {

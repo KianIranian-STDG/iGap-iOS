@@ -15,9 +15,9 @@ class AbstractDashboardCell: UICollectionViewCell {
 
     var dashboardAbs: [IGPDiscoveryField]!
     var mainViewAbs:  UIView?
-    var img1Abs: UIImageView?
-    var img2Abs: UIImageView?
-    var img3Abs: UIImageView?
+    var img1Abs: IGImageView?
+    var img2Abs: IGImageView?
+    var img3Abs: IGImageView?
     var view1Abs: UIView?
     var view2Abs: UIView?
     var view3Abs: UIView?

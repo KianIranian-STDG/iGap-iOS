@@ -34,13 +34,13 @@
                                 <rect key="frame" x="298" y="4" width="137" height="160"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-Ow-tfU" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="8" y="4" width="137" height="160"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="APH-Xy-29G">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="APH-Xy-29G" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="153" y="4" width="137" height="160"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sez-wx-cdm">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sez-wx-cdm" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="298" y="4" width="137" height="160"/>
                             </imageView>
                         </subviews>

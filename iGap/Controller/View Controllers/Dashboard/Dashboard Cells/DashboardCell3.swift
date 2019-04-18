@@ -14,8 +14,8 @@ import IGProtoBuff
 class DashboardCell3: AbstractDashboardCell {
 
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var img1: UIImageView!
-    @IBOutlet weak var img2: UIImageView!
+    @IBOutlet weak var img1: IGImageView!
+    @IBOutlet weak var img2: IGImageView!
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     

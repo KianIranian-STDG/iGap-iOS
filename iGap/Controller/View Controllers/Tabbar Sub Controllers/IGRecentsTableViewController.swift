@@ -24,6 +24,7 @@ import Hero
 import messages
 import webservice
 import KeychainSwift
+import SDWebImage
 
 class IGRecentsTableViewController: UITableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
@@ -253,67 +254,11 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
                                                selector: #selector(addressBookDidChange(_:)),
                                                name: NSNotification.Name.CNContactStoreDidChange,
                                                object: nil)
-//        callAuthService()
-//        IGHelperView.makeSearchView(searchBar: searchBar)
-//        let test = (UIApplication.shared.delegate as! App_SocketService)
-//        test.ss_StartSocket()
-//        sendRequest()
-
-//
+        
+        // use current line for enable support gif in SDWebImage library
+        SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
     }
     
-    func sendRequest(){
-        IGRequestWalletGetAccessToken.Generator.generate().success({ (protoResponse) in
-            
-            if let response = protoResponse as? IGPWalletGetAccessTokenResponse {
-                
-                print(response.igpAccessToken)
-                
-                let keychain = KeychainSwift()
-                
-                keychain.set(response.igpAccessToken ?? "", forKey: "accesstoken")
-                (UIApplication.shared.delegate as! App_SocketService).ss_StartSocket()
-
-                SMUserManager.saveDataToKeyChain()
-            }
-            
-            
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-
-                break
-            default:
-                break
-            }
-        }).send()
-    }
-    func callAuthService() {
-        
-        let request = WS_methods(delegate: self, failedDialog: false)
-        request.addSuccessHandler { (response : Any) in
-            self.saveContentOfAuth()
-            
-        }
-        
-        request.addFailedHandler { (response : Any) in
-            //            self.tokenErrorHandler(response as? [AnyHashable : Any])
-            self.saveContentOfAuth()
-            //            SMLog.SMPrint("failiure in refresh token")
-        }
-        
-        request.addCancelHandler {
-            
-        }
-        
-        request.refresh_token()
-        //        let x = WS_SecurityManager.init()
-        //        print(x.getRefreshToken())
-    }
-    func saveContentOfAuth() {
-        SMUserManager.saveDataToKeyChain()
-
-    }
     @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
             IGContactManager.syncedPhoneBookContact = true
@@ -360,14 +305,14 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
             if AppDelegate.isDeprecatedClient {
                 let alert = UIAlertController(title: "Alert", message: "Version is deprecated please update to use", preferredStyle: .alert)
                 let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
-                    UIApplication.shared.openURL(self.iGapStoreLink!)
+                    UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
                 })
                 alert.addAction(update)
                 self.present(alert, animated: true, completion: nil)
             } else if AppDelegate.isUpdateAvailable {
                 let alert = UIAlertController(title: "Update", message: "New version is available", preferredStyle: .alert)
                 let update = UIAlertAction(title: "update", style: .default, handler: { (action) in
-                    UIApplication.shared.openURL(self.iGapStoreLink!)
+                    UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
                 })
                 let cancel = UIAlertAction(title: "cancel", style: .destructive, handler: nil)
                 alert.addAction(update)
