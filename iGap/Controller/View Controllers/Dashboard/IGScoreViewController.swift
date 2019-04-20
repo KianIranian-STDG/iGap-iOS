@@ -26,7 +26,6 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         
         initNavigationBar()
         customizeView()
-        getScore()
         
         let user = IGRegisteredUser.getUserInfo(id: IGAppManager.sharedManager.userID()!)!
         imgAvatar.setUser(user)
@@ -37,6 +36,11 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             txtReferralCode.isHidden = true
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        getScore()
     }
     
     func initNavigationBar(){

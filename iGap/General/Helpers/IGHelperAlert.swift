@@ -46,6 +46,9 @@ class IGHelperAlert {
     
     func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil){
         DispatchQueue.main.async {
+            
+            let iconFontSize: CGFloat = 32
+            
             var alertView = view
             if alertView == nil {
                 alertView = UIApplication.topViewController()
@@ -62,7 +65,7 @@ class IGHelperAlert {
                 attributedString = NSAttributedString(
                     string: "",
                     attributes: [
-                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.iGapGreen()
+                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapGreen()
                     ]
                 )
             } else {
@@ -70,7 +73,7 @@ class IGHelperAlert {
                 attributedString = NSAttributedString(
                     string: "",
                     attributes: [
-                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.iGapRed()
+                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapRed()
                     ]
                 )
             }
