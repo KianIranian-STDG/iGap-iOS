@@ -119,21 +119,13 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     
     private func setActivity(plancode: String){
         IGUserIVandSetActivityRequest.Generator.generate(plancode: plancode).success({ (protoResponse) in
-            
             if let response = protoResponse as? IGPUserIVandSetActivityResponse {
-                
-                let alert = UIAlertController(title: nil, message: response.igpMessage, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                    self.navigationController?.popViewController(animated: true)
+                IGHelperAlert.shared.showSuccessAlert(message: response.igpMessage, success: response.igpState, done: { () -> Void in
+                    self.navigationController!.popViewController(animated: true)
                 })
-                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
-                let messageAttrString = NSMutableAttributedString(string: response.igpMessage, attributes: messageFont)
-                alert.setValue(messageAttrString, forKey: "attributedMessage")
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
             }
         }).error({ (errorCode, waitTime) in
-            IGHelperAlert.shared.showErrorAlert(done: { () -> Void in
+            IGHelperAlert.shared.showSuccessAlert(message: "an error occurred for set new activity!\n please try again later!", success: false, done: { () -> Void in
                 self.navigationController!.popViewController(animated: true)
             })
         }).send()

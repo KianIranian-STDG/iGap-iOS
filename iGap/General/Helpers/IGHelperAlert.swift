@@ -46,6 +46,53 @@ class IGHelperAlert {
         }
     }
     
+    func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil){
+        DispatchQueue.main.async {
+            var alertView = view
+            if alertView == nil {
+                alertView = UIApplication.topViewController()
+            }
+            
+            let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+            
+            let backView = alert.view.subviews.last?.subviews.last
+            backView?.layer.cornerRadius = 12.0
+            
+            var attributedString: NSAttributedString!
+            if success {
+                backView?.backgroundColor = UIColor.iGapGreen()
+                attributedString = NSAttributedString(
+                    string: "",
+                    attributes: [
+                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.iGapGreen()
+                    ]
+                )
+            } else {
+                backView?.backgroundColor = UIColor.iGapRed()
+                attributedString = NSAttributedString(
+                    string: "",
+                    attributes: [
+                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.iGapRed()
+                    ]
+                )
+            }
+            alert.setValue(attributedString, forKey: "attributedTitle")
+            
+            if message != nil {
+                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+                let messageAttrString = NSMutableAttributedString(string: message!, attributes: messageFont)
+                alert.setValue(messageAttrString, forKey: "attributedMessage")
+            }
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                done?()
+            })
+            
+            alert.addAction(okAction)
+            alertView!.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func showErrorAlert(done: (() -> Void)? = nil){
         showAlert(title: "Error", message: "an error occurred!\n please try later!", done: done)
     }
