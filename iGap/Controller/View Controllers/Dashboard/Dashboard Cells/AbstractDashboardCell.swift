@@ -199,6 +199,22 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
             return
             
+        case .ivand:
+            let scanner = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
+            return
+            
+        case .ivandqr:
+            let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+            scanner.scannerPageType = .IVandScore
+            UIApplication.topViewController()!.navigationController!.pushViewController(scanner, animated:true)
+            return
+            
+        case .ivandlist:
+            let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
+            return
+            
         default:
             return
         }

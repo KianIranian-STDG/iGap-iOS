@@ -11,12 +11,15 @@
 import UIKit
 import IGProtoBuff
 
-class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnScan: UIButton!
     @IBOutlet weak var bottomView: UIView!
     
+    var isLoadingMore: Bool = false
+    var numberOfGetScoreFetchedInLastRequest: Int = -1
+    let GET_SCORE_CONFIG: Int32 = 10
     var iVandActivities: [IGPIVandActivity] = []
     
     override func viewDidLoad() {
@@ -74,6 +77,7 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
         IGUserIVandGetActivitiesRequest.Generator.generate(offset: 0, limit: 10).success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetActivitiesResponse {
                 self.iVandActivities = response.igpActivities
+                self.numberOfGetScoreFetchedInLastRequest = self.iVandActivities.count
                 DispatchQueue.main.async {
                     self.manageShowActivties()
                     self.collectionView.reloadData()
@@ -113,5 +117,38 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+}
+
+extension IGScoreHistoryViewController {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
+        if remaining < 150 {
+            self.loadMore()
+        }
+    }
+    
+    func loadMore() {
+        if !isLoadingMore && numberOfGetScoreFetchedInLastRequest > 0 {
+            isLoadingMore = true
+            let offset = iVandActivities.count
+            IGUserIVandGetActivitiesRequest.Generator.generate(offset: Int32(offset), limit: GET_SCORE_CONFIG).success ({ (responseProtoMessage) in
+                DispatchQueue.main.async {
+                    if let response = responseProtoMessage as? IGPUserIVandGetActivitiesResponse {
+                        self.numberOfGetScoreFetchedInLastRequest = response.igpActivities.count
+                        self.iVandActivities += response.igpActivities
+                        self.collectionView.reloadData()
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.isLoadingMore = false
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.isLoadingMore = false
+                }
+            }).send()
+        }
     }
 }
