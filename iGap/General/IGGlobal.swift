@@ -701,12 +701,14 @@ extension UIImageView {
                 self.sd_setImage(with: attachment.path(), completed: nil)
             } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                 
-                var previewType: IGFile.PreviewType = .smallThumbnail
-                var thumbnail: IGFile = attachment.smallThumbnail!
+                let previewType: IGFile.PreviewType = .smallThumbnail
+                let thumbnail: IGFile = attachment.smallThumbnail!
+                /*
                 if fileSizeKB > 1024 {
                     previewType = .largeThumbnail
                     thumbnail = attachment.largeThumbnail!
                 }
+                */
                 
                 do {
                     var path = URL(string: "")

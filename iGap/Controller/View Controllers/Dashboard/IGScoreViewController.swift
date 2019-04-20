@@ -32,7 +32,7 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         imgAvatar.setUser(user)
         txtDisplayName.text = user.displayName
         
-        if let session = try! Realm().objects(IGSessionInfo.self).first, let representerCode = session.representer {
+        if let session = try! Realm().objects(IGSessionInfo.self).first, let representerCode = session.representer, !representerCode.isEmpty {
             txtReferralCode.text = "referral : " + representerCode
         } else {
             txtReferralCode.isHidden = true
