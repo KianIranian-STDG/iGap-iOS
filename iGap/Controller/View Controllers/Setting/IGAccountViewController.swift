@@ -164,8 +164,8 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
         }
         
         if indexPath.section == 1 && indexPath.row == 5 {
-            let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            self.navigationController!.pushViewController(scoreHistory, animated: true)
+            let score = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            self.navigationController!.pushViewController(score, animated: true)
         }
         
         if indexPath.section == 2 && indexPath.row == 0 {

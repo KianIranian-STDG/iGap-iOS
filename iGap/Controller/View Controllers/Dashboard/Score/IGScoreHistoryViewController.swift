@@ -25,6 +25,10 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
         initNavigationBar()
         customizeView()
         manageShowActivties(isFirst: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         getHistory()
     }
     

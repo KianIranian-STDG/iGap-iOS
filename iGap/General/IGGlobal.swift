@@ -347,6 +347,18 @@ extension UIColor {
         return UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0)
     }
     
+    class func iGapRed() -> UIColor {
+        return failedColor()
+    }
+    
+    class func iGapGreen() -> UIColor {
+        return iGapMainColor()
+    }
+    
+    class func iGapGray() -> UIColor {
+        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+    }
+    
     class func failedColor() -> UIColor {
         return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
     }

@@ -24,7 +24,18 @@ class IGScoreHistoryCell: UICollectionViewCell {
     
     public func initView(activity: IGPIVandActivity){
         txtScoreNumber.text = String(describing: activity.igpScore)
-        txtTime.text = String(describing: activity.igpTime)
+        txtTime.text = Date(timeIntervalSince1970: TimeInterval(activity.igpTime)).completeHumanReadableTime()
         txtTitle.text = activity.igpTitle
+        
+        if activity.igpScore == 0 { // score without any action
+            txtScoreIcon.text = ""
+            txtScoreIcon.textColor = UIColor.iGapGray()
+        } else if activity.igpScore > 0 { // score up
+            txtScoreIcon.text = ""
+            txtScoreIcon.textColor = UIColor.iGapGreen()
+        } else if activity.igpScore < 0 { // score down
+            txtScoreIcon.text = ""
+            txtScoreIcon.textColor = UIColor.iGapRed()
+        }
     }
 }
