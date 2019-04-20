@@ -44,7 +44,7 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: "Skip", rightItemText: "Done", title: "Set Representer")
+        navigationItem.addModalViewItems(leftItemText: "Skip", rightItemText: "Done", title: "Set Referral")
         navigationItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
@@ -125,7 +125,7 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Hint", message: "Unfortunately an error occurred \n please set representative later!", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Hint", message: "Unfortunately an error occurred \n please set referral later!", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     self.finish()
                 })
