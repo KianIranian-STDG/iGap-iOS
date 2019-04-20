@@ -37,9 +37,7 @@ class IGHelperAlert {
             }
             
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                if done != nil {
-                    done?()
-                }
+                done?()
             })
             alert.addAction(okAction)
             alertView!.present(alert, animated: true, completion: nil)

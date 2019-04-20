@@ -19,7 +19,7 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
     
     var isLoadingMore: Bool = false
     var numberOfGetScoreFetchedInLastRequest: Int = -1
-    let GET_SCORE_CONFIG: Int32 = 10
+    let GET_SCORE_CONFIG: Int32 = 25
     var iVandActivities: [IGPIVandActivity] = []
     
     override func viewDidLoad() {
