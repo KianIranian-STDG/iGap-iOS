@@ -23,7 +23,7 @@ class IGScoreHistoryCell: UICollectionViewCell {
     }
     
     public func initView(activity: IGPIVandActivity){
-        txtScoreNumber.text = String(describing: activity.igpScore)
+        txtScoreNumber.text = String(describing: abs(activity.igpScore))
         txtTime.text = Date(timeIntervalSince1970: TimeInterval(activity.igpTime)).completeHumanReadableTime()
         txtTitle.text = activity.igpTitle
         
