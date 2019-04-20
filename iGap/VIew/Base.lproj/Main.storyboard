@@ -452,21 +452,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="un3-NB-Ty3">
-                                                    <rect key="frame" x="8" y="15" width="20" height="20"/>
+                                                    <rect key="frame" x="292" y="15" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="1T5-9N-R3A"/>
-                                                        <constraint firstAttribute="width" constant="20" id="g1C-oP-bdp"/>
+                                                        <constraint firstAttribute="height" constant="20" id="KYG-K6-4Sb"/>
+                                                        <constraint firstAttribute="width" constant="20" id="LoJ-t9-dxu"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="14"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJD-Yp-Rvb">
-                                                    <rect key="frame" x="33" y="16.5" width="109" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="YRT-lm-RCo"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -479,10 +470,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topup" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZF-TX-4RI">
-                                                    <rect key="frame" x="178.5" y="14.5" width="133.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topup" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZF-TX-4RI">
+                                                    <rect key="frame" x="8" y="14.5" width="134" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="d0K-8c-3dl"/>
+                                                        <constraint firstAttribute="height" constant="21" id="cxk-yU-fdb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -495,22 +486,31 @@
                                                         <constraint firstAttribute="height" constant="0.5" id="VZI-Dn-dKB"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJD-Yp-Rvb">
+                                                    <rect key="frame" x="178.5" y="16.5" width="108.5" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="YAm-Ti-O4M"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="leading" secondItem="ZX6-EK-xk9" secondAttribute="trailing" constant="5" id="061-jD-H8V"/>
                                             <constraint firstItem="ZX6-EK-xk9" firstAttribute="centerX" secondItem="4yj-ge-THT" secondAttribute="centerX" id="0My-oc-unt"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="un3-NB-Ty3" secondAttribute="trailing" id="3iX-HN-1Ky"/>
+                                            <constraint firstItem="un3-NB-Ty3" firstAttribute="leading" secondItem="LJD-Yp-Rvb" secondAttribute="trailing" constant="5" id="AvY-nN-h2a"/>
                                             <constraint firstAttribute="bottom" secondItem="UaO-KF-ahn" secondAttribute="bottom" id="BPn-0A-dAg"/>
+                                            <constraint firstItem="un3-NB-Ty3" firstAttribute="centerY" secondItem="4yj-ge-THT" secondAttribute="centerY" id="G6q-RW-c4M"/>
                                             <constraint firstItem="ZX6-EK-xk9" firstAttribute="centerY" secondItem="4yj-ge-THT" secondAttribute="centerY" constant="1" id="GUK-Lf-wKp"/>
-                                            <constraint firstItem="ZX6-EK-xk9" firstAttribute="leading" secondItem="LJD-Yp-Rvb" secondAttribute="trailing" constant="5" id="JtG-JI-MwC"/>
+                                            <constraint firstItem="ZX6-EK-xk9" firstAttribute="leading" secondItem="pZF-TX-4RI" secondAttribute="trailing" constant="5" id="JOn-FX-XYA"/>
                                             <constraint firstItem="UaO-KF-ahn" firstAttribute="leading" secondItem="4yj-ge-THT" secondAttribute="leading" constant="10" id="O6F-U5-PGY"/>
-                                            <constraint firstItem="un3-NB-Ty3" firstAttribute="centerY" secondItem="4yj-ge-THT" secondAttribute="centerY" id="ORi-e2-sLi"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="pZF-TX-4RI" secondAttribute="trailing" id="Q6E-fc-2Wt"/>
-                                            <constraint firstItem="un3-NB-Ty3" firstAttribute="leading" secondItem="4yj-ge-THT" secondAttribute="leadingMargin" id="TPl-Qk-xN6"/>
-                                            <constraint firstItem="pZF-TX-4RI" firstAttribute="centerY" secondItem="4yj-ge-THT" secondAttribute="centerY" id="Uar-wz-ptt"/>
-                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="leading" secondItem="un3-NB-Ty3" secondAttribute="trailing" constant="5" id="Y1W-Ix-EUB"/>
-                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="centerY" secondItem="un3-NB-Ty3" secondAttribute="centerY" constant="2" id="h0J-5d-jht"/>
+                                            <constraint firstItem="pZF-TX-4RI" firstAttribute="centerY" secondItem="4yj-ge-THT" secondAttribute="centerY" id="gw0-bt-FlA"/>
+                                            <constraint firstItem="LJD-Yp-Rvb" firstAttribute="centerY" secondItem="un3-NB-Ty3" secondAttribute="centerY" constant="2" id="jHj-fu-V7O"/>
+                                            <constraint firstItem="pZF-TX-4RI" firstAttribute="leading" secondItem="4yj-ge-THT" secondAttribute="leadingMargin" id="l5c-xC-tmK"/>
                                             <constraint firstAttribute="trailing" secondItem="UaO-KF-ahn" secondAttribute="trailing" constant="10" id="uTi-No-tf4"/>
-                                            <constraint firstItem="pZF-TX-4RI" firstAttribute="leading" secondItem="ZX6-EK-xk9" secondAttribute="trailing" constant="5" id="yO1-cW-01N"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="txtScoreIcon" destination="un3-NB-Ty3" id="TIE-lv-jgR"/>
