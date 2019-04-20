@@ -208,6 +208,8 @@
 		FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11E28C1DE99BF400A2F87C /* IGFactory.swift */; };
 		FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C449B1DC716A20016C346 /* IGCountry.swift */; };
 		FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */; };
+		FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */; };
+		FA248C9C226AEC6100A72EA7 /* IGScoreHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */; };
 		FA27F74020BD77ED00EC6A97 /* api.key in Sources */ = {isa = PBXBuildFile; fileRef = FA27F73F20BD77ED00EC6A97 /* api.key */; };
 		FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A506620ECABD9002C5322 /* IGFinancialServiceCharge.swift */; };
 		FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A506820ECAC02002C5322 /* IGFinancialServiceBill.swift */; };
@@ -795,6 +797,8 @@
 		FA11E28C1DE99BF400A2F87C /* IGFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGFactory.swift; sourceTree = "<group>"; };
 		FA1C449B1DC716A20016C346 /* IGCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGCountry.swift; sourceTree = "<group>"; };
 		FA1DE8FB220ADD8300C465E5 /* StickerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerObserver.swift; sourceTree = "<group>"; };
+		FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryViewController.swift; sourceTree = "<group>"; };
+		FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScoreHistoryCell.swift; sourceTree = "<group>"; };
 		FA27F73F20BD77ED00EC6A97 /* api.key */ = {isa = PBXFileReference; lastKnownFileType = text; path = api.key; sourceTree = "<group>"; };
 		FA27F74120BD780300EC6A97 /* secret.key */ = {isa = PBXFileReference; lastKnownFileType = text; path = secret.key; sourceTree = "<group>"; };
 		FA2A506620ECABD9002C5322 /* IGFinancialServiceCharge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialServiceCharge.swift; sourceTree = "<group>"; };
@@ -1912,6 +1916,15 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		FA8A49E1226AEB6F00544B06 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				FA248C97226AEBE800A72EA7 /* IGScoreHistoryViewController.swift */,
+				FA248C9B226AEC6100A72EA7 /* IGScoreHistoryCell.swift */,
+			);
+			path = Score;
+			sourceTree = "<group>";
+		};
 		FA8FCBAD219C02C80028457F /* Api */ = {
 			isa = PBXGroup;
 			children = (
@@ -2011,6 +2024,7 @@
 		FA99FF5B22351C63009035DF /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				FA8A49E1226AEB6F00544B06 /* Score */,
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
@@ -2907,6 +2921,7 @@
 				FAE6064621EB4B7200F03FFC /* IGHelperOpenLink.swift in Sources */,
 				93193F2C1E5812420039AC0C /* IGGroupEditDescriptionTableViewController.swift in Sources */,
 				FA09535D1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewController.swift in Sources */,
+				FA248C9C226AEC6100A72EA7 /* IGScoreHistoryCell.swift in Sources */,
 				FAC7555021D0CF7E001AB608 /* IGCallEventListener.swift in Sources */,
 				FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */,
 				FA09538D1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift in Sources */,
@@ -2936,6 +2951,7 @@
 				FA09535C1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewCell.swift in Sources */,
 				FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */,
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
+				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,

@@ -16,33 +16,34 @@ class IGHelperAlert {
     static let shared = IGHelperAlert()
     
     func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil, done: (() -> Void)? = nil){
-        
-        var alertView = view
-        if alertView == nil {
-            alertView = UIApplication.topViewController()
-        }
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        if title != nil {
-            let titleFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15, weight: .bold)]
-            let titleAttrString = NSMutableAttributedString(string: title!, attributes: titleFont)
-            alert.setValue(titleAttrString, forKey: "attributedTitle")
-        }
-        
-        if message != nil {
-            let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
-            let messageAttrString = NSMutableAttributedString(string: message!, attributes: messageFont)
-            alert.setValue(messageAttrString, forKey: "attributedMessage")
-        }
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            if done != nil {
-                done?()
+        DispatchQueue.main.async {
+            var alertView = view
+            if alertView == nil {
+                alertView = UIApplication.topViewController()
             }
-        })
-        alert.addAction(okAction)
-        alertView!.present(alert, animated: true, completion: nil)
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            if title != nil {
+                let titleFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15, weight: .bold)]
+                let titleAttrString = NSMutableAttributedString(string: title!, attributes: titleFont)
+                alert.setValue(titleAttrString, forKey: "attributedTitle")
+            }
+            
+            if message != nil {
+                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+                let messageAttrString = NSMutableAttributedString(string: message!, attributes: messageFont)
+                alert.setValue(messageAttrString, forKey: "attributedMessage")
+            }
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                if done != nil {
+                    done?()
+                }
+            })
+            alert.addAction(okAction)
+            alertView!.present(alert, animated: true, completion: nil)
+        }
     }
     
     func showErrorAlert(done: (() -> Void)? = nil){

@@ -1183,12 +1183,48 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="1e3-WX-GMc">
+                                        <rect key="frame" x="0.0" y="335" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1e3-WX-GMc" id="fxw-wJ-fY6">
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nnn-KU-aYp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="28.000000000000007" y="13" width="103.66666666666669" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdr-32-9Uv" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="70" y="13" width="297" height="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Np-2o-lcx">
+                                                    <rect key="frame" x="336" y="13" width="20" height="15"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3Np-2o-lcx" firstAttribute="top" secondItem="fxw-wJ-fY6" secondAttribute="topMargin" constant="2" id="3c8-5C-k5g"/>
+                                                <constraint firstItem="Nnn-KU-aYp" firstAttribute="leading" secondItem="fxw-wJ-fY6" secondAttribute="leadingMargin" constant="8" id="8Pb-Us-K9m"/>
+                                                <constraint firstItem="Zdr-32-9Uv" firstAttribute="top" secondItem="fxw-wJ-fY6" secondAttribute="topMargin" constant="2" id="GbG-tN-SHn"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3Np-2o-lcx" secondAttribute="trailing" constant="12" id="R4J-da-NGh"/>
+                                                <constraint firstItem="Nnn-KU-aYp" firstAttribute="top" secondItem="fxw-wJ-fY6" secondAttribute="topMargin" constant="2" id="TLq-bV-sbP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3Np-2o-lcx" secondAttribute="bottom" constant="5" id="aDW-ir-Wm7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Zdr-32-9Uv" secondAttribute="trailing" constant="1" id="kqN-DI-OG4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Zdr-32-9Uv" secondAttribute="bottom" constant="5" id="uj5-gy-0ME"/>
+                                                <constraint firstItem="Zdr-32-9Uv" firstAttribute="leading" secondItem="fxw-wJ-fY6" secondAttribute="leadingMargin" constant="50" id="us1-a3-cWc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="ogl-ap-skV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="d1e-rR-QyG">
-                                        <rect key="frame" x="0.0" y="371" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="415" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d1e-rR-QyG" id="2i7-CC-ECK">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -1208,7 +1244,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="vBl-v6-FOm">
-                                        <rect key="frame" x="0.0" y="415" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="459" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vBl-v6-FOm" id="bhq-lw-oaJ">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -1255,7 +1291,7 @@
                             <tableViewSection headerTitle="" id="fyS-Ot-UyQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="dTv-mn-P7d">
-                                        <rect key="frame" x="0.0" y="495" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="539" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dTv-mn-P7d" id="Ikd-bL-c7H">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
@@ -1297,6 +1333,8 @@
                         <outlet property="phoneNumberEntryLabel" destination="tM1-qx-YdN" id="9iD-hC-DRD"/>
                         <outlet property="representerIndicator" destination="ubj-tb-Qp7" id="ueX-Do-irD"/>
                         <outlet property="representerLabel" destination="Ojh-A9-RZJ" id="hgN-Va-YXU"/>
+                        <outlet property="scoreIndicator" destination="3Np-2o-lcx" id="XHA-OG-BeQ"/>
+                        <outlet property="scoreLabel" destination="Zdr-32-9Uv" id="kI7-I4-rle"/>
                         <outlet property="selfDestructionLabel" destination="NZ4-2I-RKn" id="eTV-dN-vVx"/>
                         <outlet property="usernameEntryLabel" destination="OG9-wj-3wE" id="Jfg-he-vhZ"/>
                         <segue destination="m4c-sZ-8p8" kind="show" identifier="GoToNicknamePage" id="R8U-l5-fke"/>

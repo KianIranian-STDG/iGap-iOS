@@ -24,6 +24,8 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
     @IBOutlet weak var bioIndicator: UIActivityIndicatorView!
     @IBOutlet weak var representerIndicator: UIActivityIndicatorView!
     @IBOutlet weak var representerLabel: IGLabel!
+    @IBOutlet weak var scoreLabel: IGLabel!
+    @IBOutlet weak var scoreIndicator: UIActivityIndicatorView!
     
     var allowSetRepresentative = false
     var currentUser: IGRegisteredUser!
@@ -67,6 +69,8 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
         } else {
             getRepresenter()
         }
+        
+        getScore()
         
         if currentUser.selfRemove == -1 {
             getSelfRemove()
@@ -122,7 +126,7 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
         case 0:
             return 1
         case 1:
-            return 5
+            return 6
         case 2 :
             return 2
         case 3 :
@@ -157,6 +161,11 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
             let representative = IGRepresentativeViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
             representative.popView = true
             self.navigationController!.pushViewController(representative, animated: true)
+        }
+        
+        if indexPath.section == 1 && indexPath.row == 5 {
+            let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            self.navigationController!.pushViewController(scoreHistory, animated: true)
         }
         
         if indexPath.section == 2 && indexPath.row == 0 {
@@ -341,6 +350,25 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
                     self.representerIndicator.stopAnimating()
                     self.representerIndicator.hidesWhenStopped = true
                 }
+                break
+            }
+        }).send()
+    }
+    
+    func getScore(){
+        IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
+            if let response = protoResponse as? IGPUserIVandGetScoreResponse {
+                DispatchQueue.main.async {
+                    self.scoreLabel.text = String(describing: response.igpScore)
+                    self.scoreIndicator.stopAnimating()
+                    self.scoreIndicator.hidesWhenStopped = true
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.getScore()
+            default:
                 break
             }
         }).send()

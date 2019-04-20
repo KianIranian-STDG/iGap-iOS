@@ -68,6 +68,7 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
     /****************************** Actions ******************************/
     
     @IBAction func btnSeeRecords(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        self.navigationController!.pushViewController(scoreHistory, animated:true)
     }
 }
