@@ -1186,7 +1186,6 @@
         <!--myQR-->
         <scene sceneID="ozg-zN-Jpx">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="twF-9T-KVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="myqr" id="G9k-TF-mLO" customClass="SMMyBarCodeViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yvu-V9-Dgz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1252,6 +1251,7 @@
                         <outlet property="infoLbl" destination="tZV-2f-g1h" id="UyQ-sv-5Ex"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="twF-9T-KVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1972" y="-766"/>
         </scene>
@@ -1533,6 +1533,7 @@
                             <outlet property="delegate" destination="m9R-bN-UIx" id="ad7-xE-krv"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="TIp-of-jte" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="indicator" destination="wxZ-7v-YaA" id="jOe-UU-0bn"/>
                         <outlet property="placeHolderLabel" destination="gzn-tl-j10" id="rwZ-6y-kPl"/>
@@ -1542,7 +1543,7 @@
             </objects>
             <point key="canvasLocation" x="419" y="-766"/>
         </scene>
-        <!--History Detail Table View Controller-->
+        <!--Title-->
         <scene sceneID="QnY-UQ-xwq">
             <objects>
                 <tableViewController storyboardIdentifier="historydetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5ud-vV-Mlx" customClass="SMHistoryDetailTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -1696,6 +1697,7 @@
                             <outlet property="delegate" destination="5ud-vV-Mlx" id="PgP-ir-UYW"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="6R1-kC-smc" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bE-s2-QN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2234,7 +2236,7 @@
             </objects>
             <point key="canvasLocation" x="3421" y="8"/>
         </scene>
-        <!--Wallet Setting Table View Controller-->
+        <!--Title-->
         <scene sceneID="Fdi-Yg-FSa">
             <objects>
                 <tableViewController storyboardIdentifier="walletSettingPage" id="cW9-kD-FYk" customClass="IGWalletSettingTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -2323,6 +2325,7 @@
                             <outlet property="delegate" destination="cW9-kD-FYk" id="nKy-2g-aY2"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="5f9-TN-aiW" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="lblChangePassCode" destination="UXu-47-qTI" id="YGE-oF-Kpc"/>
                         <outlet property="lblRessetPassCode" destination="BYF-dr-to0" id="uhi-EH-qhq"/>
@@ -2625,7 +2628,7 @@
             </objects>
             <point key="canvasLocation" x="4537.68115942029" y="-765.48913043478262"/>
         </scene>
-        <!--Wallet Setting Inner Table View Controller-->
+        <!--Title-->
         <scene sceneID="m4y-dR-pfZ">
             <objects>
                 <tableViewController storyboardIdentifier="walletSettingInnerPage" id="PdG-0x-eox" customClass="IGWalletSettingInnerTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -2769,6 +2772,7 @@
                             <outlet property="delegate" destination="PdG-0x-eox" id="6kZ-Uy-dpL"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="Jkr-KX-g8c" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="btnSubmit" destination="Bd3-54-bYo" id="qdC-rr-uPL"/>
                         <outlet property="lblFirstRow" destination="Mkg-qN-z8K" id="z1J-iq-HYu"/>

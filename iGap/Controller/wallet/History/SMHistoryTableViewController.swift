@@ -10,7 +10,7 @@ import UIKit
 import models
 import webservice
 
-class SMHistoryTableViewController: UITableViewController {
+class SMHistoryTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
     
 	@IBOutlet var indicator: UIActivityIndicatorView!
@@ -61,9 +61,11 @@ class SMHistoryTableViewController: UITableViewController {
     }
     // MARK : - init View elements
     func initNavigationBar(){
-        
-        self.navigationController!.navigationBar.topItem!.title = "History"
-        
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "History")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
 	@objc func pullToRefresh() {
 		

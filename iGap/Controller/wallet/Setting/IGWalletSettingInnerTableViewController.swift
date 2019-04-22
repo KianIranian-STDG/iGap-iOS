@@ -9,7 +9,7 @@
 import UIKit
 import webservice
 
-class IGWalletSettingInnerTableViewController: UITableViewController , UITextFieldDelegate {
+class IGWalletSettingInnerTableViewController: UITableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
 
     var isOTP = false
     var isFirstTime = false
@@ -31,14 +31,14 @@ class IGWalletSettingInnerTableViewController: UITableViewController , UITextFie
     }
     func initView() {
         if isOTP {
-            
+            initNavigationBar(title: "Reset Password")
             self.lblFirstRow.text = "OTP_CODE".localizedNew
             self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localizedNew
             self.lblSecondRow.text = "NEW_PASS".localizedNew
             self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
         }
         else {
-            
+            initNavigationBar(title: "Wallet Password")
             self.lblFirstRow.text = "CURRENT_PASS".localizedNew
             self.lblSecondRow.text = "NEW_PASS".localizedNew
             self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
@@ -51,6 +51,14 @@ class IGWalletSettingInnerTableViewController: UITableViewController , UITextFie
         if isOTP {
             callOTPAPI()
         }
+    }
+    
+    func initNavigationBar(title: String){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
     /// Call API to get OTP message

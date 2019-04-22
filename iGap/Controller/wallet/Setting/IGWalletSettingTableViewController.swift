@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGWalletSettingTableViewController: UITableViewController {
+class IGWalletSettingTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var lblChangePassCode : UILabel!
     @IBOutlet weak var lblRessetPassCode : UILabel!
     
@@ -18,9 +18,11 @@ class IGWalletSettingTableViewController: UITableViewController {
     }
     // MARK : - init View elements
     func initNavigationBar(){
-        
-        self.navigationController!.navigationBar.topItem!.title = "Wallet Settings"
-        
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Wallet Setting")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     // MARK: - Table view data source
 

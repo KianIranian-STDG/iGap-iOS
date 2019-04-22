@@ -10,7 +10,7 @@ import UIKit
 import models
 import webservice
 
-class SMHistoryDetailTableViewController: UITableViewController,HandleReciept {
+class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, UIGestureRecognizerDelegate {
 
     var rowData : PAY_obj_history?
     var detail : PAY_obj_history?
@@ -21,6 +21,8 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initNavigationBar()
 //        self.SMTitle = "transaction.info".localized
 //        SMLoading.showLoadingPage(viewcontroller: self.parent!)
         self.date = Date.init(timeIntervalSince1970: TimeInterval((self.rowData!.pay_date != 0 ? rowData!.pay_date: rowData!.created_at_timestamp)/1000)).localizedDateTime()
@@ -73,6 +75,14 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func initNavigationBar(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "History Details")
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
 
     @objc
