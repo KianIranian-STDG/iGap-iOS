@@ -46,14 +46,14 @@ class IGTabBarController: UITabBarController {
             if tabBar.selectedItem == item {
                 setCurrentTab(tag: (tabBar.selectedItem?.tag)!)
                 let selectedTitleFont = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.bold)
-                item.setTitleTextAttributes([NSAttributedString.Key.font: selectedTitleFont], for: UIControl.State.normal)//NSForegroundColorAttributeName: selectedTitleColor], for: UIControlState.normal
+                item.setTitleTextAttributes([NSAttributedString.Key.font: selectedTitleFont], for: UIControl.State.normal)
             } else {
-                let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.regular)
-                item.setTitleTextAttributes([NSAttributedString.Key.font: normalTitleFont], for: UIControl.State.normal)//NSForegroundColorAttributeName: normalTitleColor, NSBackgroundColorAttributeName: UIColor.black], for: UIControlState.normal
+                let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.medium)
+                item.setTitleTextAttributes([NSAttributedString.Key.font: normalTitleFont], for: UIControl.State.normal)
             }
-        }
-        if #available(iOS 10.0, *) {
-            self.tabBar.unselectedItemTintColor = UIColor.white
+            if #available(iOS 10.0, *) {
+                self.tabBar.unselectedItemTintColor = UIColor.dialogueBoxIncomming()
+            }
         }
     }
     
