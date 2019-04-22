@@ -74,7 +74,7 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
     }
     
     private func getHistory(){
-        IGUserIVandGetActivitiesRequest.Generator.generate(offset: 0, limit: 10).success({ (protoResponse) in
+        IGUserIVandGetActivitiesRequest.Generator.generate(offset: 0, limit: GET_SCORE_CONFIG).success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetActivitiesResponse {
                 self.iVandActivities = response.igpActivities
                 self.numberOfGetScoreFetchedInLastRequest = self.iVandActivities.count
