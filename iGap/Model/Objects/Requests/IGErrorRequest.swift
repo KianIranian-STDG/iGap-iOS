@@ -221,6 +221,7 @@ enum IGError: String {
     case clientJoinByInviteLinkForbidden = "632.100"
     case clientJoinByInviteLinkAlreadyJoined = "633.1"
     
+    case userIVandSetActivityBadPayload = "10183.2"
 }
 
 //MARK: -

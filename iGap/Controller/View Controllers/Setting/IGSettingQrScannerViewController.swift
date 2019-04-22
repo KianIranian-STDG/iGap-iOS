@@ -125,9 +125,18 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
                 })
             }
         }).error({ (errorCode, waitTime) in
-            IGHelperAlert.shared.showSuccessAlert(message: "an error occurred for set new activity!\n please try again later!", success: false, done: { () -> Void in
-                self.navigationController!.popViewController(animated: true)
-            })
+            switch errorCode {
+            case .userIVandSetActivityBadPayload:
+                IGHelperAlert.shared.showAlert(view: self, message: "The entered code is invalid!", done: { () -> Void in
+                    self.navigationController!.popViewController(animated: true)
+                })
+                break
+            default:
+                IGHelperAlert.shared.showSuccessAlert(message: "an error occurred for set new activity!\n please try again later!", success: false, done: { () -> Void in
+                    self.navigationController!.popViewController(animated: true)
+                })
+                break
+            }
         }).send()
     }
 }
