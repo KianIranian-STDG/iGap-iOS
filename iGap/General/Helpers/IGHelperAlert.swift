@@ -62,6 +62,7 @@ class IGHelperAlert {
             var attributedString: NSAttributedString!
             if success {
                 backView?.backgroundColor = UIColor.iGapGreen()
+                backView?.tintColor = UIColor.iGapGreen()
                 attributedString = NSAttributedString(
                     string: "",
                     attributes: [
@@ -70,6 +71,7 @@ class IGHelperAlert {
                 )
             } else {
                 backView?.backgroundColor = UIColor.iGapRed()
+                backView?.tintColor = UIColor.iGapRed()
                 attributedString = NSAttributedString(
                     string: "",
                     attributes: [
