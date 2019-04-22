@@ -14,9 +14,14 @@ class IGWalletSettingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        initNavigationBar()
     }
-    
+    // MARK : - init View elements
+    func initNavigationBar(){
+        
+        self.navigationController!.navigationBar.topItem!.title = "Wallet Settings"
+        
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -122,6 +122,38 @@ class IGRequestWalletPaymentInit : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
+class IGRequestWalletRegister : IGRequest {
+    
+    class func sendRequest(){
+        IGRequestWalletRegister.Generator.generate().success({ (protoResponse) in
+            
+            IGRequestWalletGetAccessToken.sendRequest()
+            
+            
+            
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                sendRequest()
+                break
+            default:
+                break
+            }
+        }).send()
+    }
+    class Generator : IGRequest.Generator{
+        class func generate() -> IGRequestWrapper {
+            var requestRegister = IGPWalletRegister()
+           
+            return IGRequestWrapper(message: requestRegister, actionID: 9002)
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response reponseProtoMessage:IGPWalletPaymentInitResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
 
 
 

@@ -35,7 +35,6 @@ class SMBarcodeMainViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
         initView()
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
@@ -156,17 +155,35 @@ class SMBarcodeMainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        print(scanner?.isScanning())
+        if (scanner?.isScanning())! {
+//            scanner?.stopScanning()
+            initView()
+        }
+        else {
+            initView()
+
+        }
         
-        initView()
+//        try! self.scanner?.startScanning()
        
         
     }
+    
+    // MARK : - init View elements
+    func initNavigationBar(){
+       
+        self.navigationController!.navigationBar.topItem!.title = "Scan QR"
+    }
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
+        print("TAB0")
+        initNavigationBar()
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        self.scanner?.stopScanning()
+        self.scanner?.stopScanning()
         
         super.viewWillDisappear(animated)
     }

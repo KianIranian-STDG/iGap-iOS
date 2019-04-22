@@ -22,6 +22,7 @@ class SMHistoryTableViewController: UITableViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+        initNavigationBar()
 //        self.SMTitle = "transaction.history".localized
 //        SMLoading.showLoadingPage(viewcontroller: self)
 		if accountId == nil {
@@ -58,7 +59,12 @@ class SMHistoryTableViewController: UITableViewController {
         
 //        self.placeHolderLabel.font = SMFonts.IranYekanRegular(17)
     }
-	
+    // MARK : - init View elements
+    func initNavigationBar(){
+        
+        self.navigationController!.navigationBar.topItem!.title = "History"
+        
+    }
 	@objc func pullToRefresh() {
 		
 		if accountId == nil {

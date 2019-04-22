@@ -42,6 +42,7 @@ class IGAppManager: NSObject {
     private var _nickname: String?
     private var _mapEnable: Bool = false
     private var _mplActive: Bool = false
+    private var _walletRegistered: Bool = false
     private var _walletActive: Bool = false
 
     public let LOAD_ROOM_LIMIT = 15
@@ -324,9 +325,17 @@ class IGAppManager: NSObject {
         return _mplActive
     }
     
+    public func setWalletRegistered(enable: Bool) {
+        _walletRegistered = enable
+    }
+    public func walletRegistered() -> Bool {
+        return _walletRegistered
+    }
+    
     public func setMplActive(enable: Bool) {
         _mplActive = enable
     }
+    
     public func walletActive() -> Bool {
         return _walletActive
     }

@@ -391,6 +391,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGRequestWalletGetAccessToken.Handler.self     as IGRequest.Handler.Type),
     39001: (IGPWalletPaymentInitResponse.self              as ResponseMessage.Type,
             IGRequestWalletPaymentInit.Handler.self        as IGRequest.Handler.Type),
+    39002: (IGPWalletRegisterResponse.self                 as ResponseMessage.Type,
+            IGRequestWalletRegister.Handler.self           as IGRequest.Handler.Type),
 
     //Mpl 91xx
     39100: (IGPMplGetBillTokenResponse.self                as ResponseMessage.Type,

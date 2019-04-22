@@ -154,10 +154,19 @@ class IGUserLoginRequest : IGRequest {
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive) // show/Hide financial and wallet
             IGAppManager.sharedManager.setWalletActive(enable: responseProtoMessage.igpWalletActive) //:show/Hide Only Wallet
+
+            IGAppManager.sharedManager.setWalletRegistered(enable: responseProtoMessage.igpWalletAgreementAccepted) //:check to call register wallet or not
             IGUploadManager.sharedManager.pauseAllUploads()
             IGMessageSender.defaultSender.resendAllSendingMessage()
             IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
-            IGRequestWalletGetAccessToken.sendRequest()
+            if IGAppManager.sharedManager.walletRegistered() {
+                IGRequestWalletGetAccessToken.sendRequest()
+                
+            }
+            else {
+                IGRequestWalletRegister.sendRequest()
+            }
+            
             getToken()
             
             if #available(iOS 10.0, *) {

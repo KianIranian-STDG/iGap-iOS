@@ -29,7 +29,7 @@ class SMMyBarCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        initNavigationBar()
         // Do any additional setup after loading the view.
         
 //        if merchant == nil {
@@ -49,6 +49,13 @@ class SMMyBarCodeViewController: UIViewController {
         
         getBarcode()
         infoLbl.text = "Show this QR to others so they scan and pay money to you."
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("TAB1")
+        initNavigationBar()
+
         
     }
     private func fillUserInfo(sessionInfo: IGSessionInfo? = nil){
@@ -71,6 +78,13 @@ class SMMyBarCodeViewController: UIViewController {
             
             
         }
+    }
+    
+    // MARK : - init View elements
+    func initNavigationBar(){
+        
+        self.navigationController!.navigationBar.topItem!.title = "My QR"
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
