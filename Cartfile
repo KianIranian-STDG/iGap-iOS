@@ -21,10 +21,6 @@ github "Alamofire/Alamofire"
 github "SDWebImage/SDWebImage"
 github "ivanbruel/MarkdownKit"
 github "hkellaway/Gloss"
-
-github "RooyeKhat-Media/Gifu" "v3.0.0-a"
-github "KianIranian-STDG/IGProtoBuffLibrary" "Proto114"
-
 github "andreamazz/AMPopTip" >= 3.0.0
 github "AFNetworking/AFNetworking" ~> 3.0
 github "yannickl/QRCodeReader.swift" "8.1.1"
@@ -33,7 +29,7 @@ github "marketplacer/keychain-swift" ~> 8.0
 github "IcaliaLabs/Presentr" "1.3.2"
 github "xmartlabs/XLPagerTabStrip" ~> 7.0
 github "yannickl/QRCodeReader.swift"
-
+github "KianIranian-STDG/IGProtoBuffLibrary" "Proto114"
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json"
