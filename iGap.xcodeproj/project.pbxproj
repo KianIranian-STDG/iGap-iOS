@@ -528,7 +528,6 @@
 		FAF796071DAA392F0030509B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796031DAA392F0030509B /* Main.storyboard */; };
 		FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF7960E1DAA39660030509B /* AppDelegate.swift */; };
 		FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985891E2E10EC00B26940 /* AKMaskField.framework */; };
-		FAF985A11E2E10EC00B26940 /* CameraViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858A1E2E10EC00B26940 /* CameraViewController.framework */; };
 		FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858B1E2E10EC00B26940 /* CryptoSwift.framework */; };
 		FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858D1E2E10EC00B26940 /* GrowingTextView.framework */; };
 		FAF985A61E2E10EC00B26940 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858F1E2E10EC00B26940 /* MBProgressHUD.framework */; };
@@ -1202,7 +1201,6 @@
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
 				931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */,
 				FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */,
-				FAF985A11E2E10EC00B26940 /* CameraViewController.framework in Frameworks */,
 				FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */,
 				FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */,
 				FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */,
@@ -2691,7 +2689,6 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/AKMaskField.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/CameraViewController.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/GrowingTextView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/INSPhotoGalleryFramework.framework",
