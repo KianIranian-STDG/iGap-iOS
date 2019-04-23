@@ -523,7 +523,6 @@
 		FAEEB0C31E1BC11600B6775F /* IGContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEEB0C21E1BC11600B6775F /* IGContact.swift */; };
 		FAF45932205021AF005E0539 /* IGCallFromContactListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF45931205021AF005E0539 /* IGCallFromContactListObserver.swift */; };
 		FAF5D2E71F8D81A900A26EE1 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF5D2E61F8D81A600A26EE1 /* SwiftProtobuf.framework */; };
-		FAF78EAD1E2EA77700C6F523 /* DBAttachmentPickerControllerLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF78EAC1E2EA77700C6F523 /* DBAttachmentPickerControllerLibrary.framework */; };
 		FAF796051DAA392F0030509B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAF796001DAA392F0030509B /* Assets.xcassets */; };
 		FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796011DAA392F0030509B /* LaunchScreen.storyboard */; };
 		FAF796071DAA392F0030509B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796031DAA392F0030509B /* Main.storyboard */; };
@@ -1203,7 +1202,6 @@
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
 				931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */,
 				FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */,
-				FAF78EAD1E2EA77700C6F523 /* DBAttachmentPickerControllerLibrary.framework in Frameworks */,
 				FAF985A11E2E10EC00B26940 /* CameraViewController.framework in Frameworks */,
 				FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */,
 				FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */,
@@ -2710,7 +2708,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxTest.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyRSA.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/DBAttachmentPickerControllerLibrary.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/IGProtoBuff.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NVActivityIndicatorView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftProtobuf.framework",
