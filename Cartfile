@@ -23,7 +23,6 @@ github "ivanbruel/MarkdownKit"
 github "hkellaway/Gloss"
 
 github "RooyeKhat-Media/Gifu" "v3.0.0-a"
-github "RooyeKhat-Media/Starscream" "3.0.4-a"
 github "KianIranian-STDG/IGProtoBuffLibrary" "Proto114"
 
 github "andreamazz/AMPopTip" >= 3.0.0
