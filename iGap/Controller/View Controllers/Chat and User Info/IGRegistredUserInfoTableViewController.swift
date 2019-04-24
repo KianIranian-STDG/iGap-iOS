@@ -16,7 +16,7 @@ import MBProgressHUD
 import NVActivityIndicatorView
 import INSPhotoGallery
 
-class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
+class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
 
     var user: IGRegisteredUser?
     var previousRoomId: Int64?
@@ -63,7 +63,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
                 print(blockedUser.displayName)
                    if blockedUser.isBlocked == true {
-                       blockContactLabel.text = "Unblock Contact"
+                       blockContactLabel.text = "UNBLOCK".localizedNew
                    }
             }
         }
@@ -72,7 +72,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
         avatarView.avatarImageView?.addGestureRecognizer(tap)
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "Contact Info")
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "CONTACT_INFO".localizedNew)
         
         if !isBotRoom() && IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
             navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
@@ -139,40 +139,40 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if (user?.isInContacts)! && indexPath.row == 0 {
-                let alert = UIAlertController(title: "Edit Contact", message: nil, preferredStyle: .alert)
+                let alert = UIAlertController(title: "BTN_EDITE_CONTACT".localizedNew, message: nil, preferredStyle: .alert)
                 
                 alert.addTextField { (textField) in
-                    textField.placeholder = "first name"
+                    textField.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
                     textField.text = String(describing: (self.user?.firstName)!)
                 }
                 
                 alert.addTextField { (textField) in
-                    textField.placeholder = "last name"
+                    textField.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
                     textField.text = String(describing: (self.user?.lastName)!)
                 }
                 
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak alert] (_) in
+                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { [weak alert] (_) in
                     let firstname = alert?.textFields![0]
                     let lastname = alert?.textFields![1]
                     
                     if firstname?.text != nil && !(firstname?.text?.isEmpty)! {
                         self.contactEdit(phone: (self.user?.phone)!, firstname: (firstname?.text)!, lastname: (lastname?.text)!)
                     } else {
-                        let alert = UIAlertController(title: "Hint", message: "please enter first name!", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "MSG_PLEASE_ENTER_F_NAME".localizedNew, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }
                 }))
                 
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .default, handler: nil))
                 
                 self.present(alert, animated: true, completion: nil)
                 
             } else if indexPath.row == 3 {
                 if let bio = user?.bio {
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Bio", message: bio, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "SETTING_PAGE_ACCOUNT_BIO".localizedNew, message: bio, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -232,8 +232,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             case .timeout:
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -265,8 +265,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -499,8 +499,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                                 DispatchQueue.main.async {
                                     switch errorCode {
                                     case .timeout:
-                                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                         alert.addAction(okAction)
                                         self.present(alert, animated: true, completion: nil)
                                     default:
@@ -520,9 +520,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                 
             }).error({ (errorCode, waitTime) in
                 hud.hide(animated: true)
-                let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
-                
-                let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alertC.addAction(cancel)
                 self.present(alertC, animated: true, completion: nil)
             }).send()
@@ -540,7 +539,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                     switch protoResponse {
                     case let blockedProtoResponse as IGPUserContactsBlockResponse:
                         let _ = IGUserContactsBlockRequest.Handler.interpret(response: blockedProtoResponse)
-                        self.blockContactLabel.text = "Unblock Contact"
+                        self.blockContactLabel.text = "UNBLOCK".localizedNew
                         self.hud.hide(animated: true)
                     default:
                         break
@@ -550,8 +549,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -574,7 +573,7 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                     switch protoResponse {
                     case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
                         _ = IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
-                        self.blockContactLabel.text = "Block Contact"
+                        self.blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
                         self.hud.hide(animated: true)
                     default:
                         break
@@ -584,8 +583,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -598,20 +597,20 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
     }
     
     func showDeleteActionSheet() {
-        let deleteChatConfirmAlertView = UIAlertController(title: "Are you sure you want to Delete this chat?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "Delete", style:.default , handler: { (alert: UIAlertAction) -> Void in
+        let deleteChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let deleteAction = UIAlertAction(title: "BTN_DELETE".localizedNew, style:.default , handler: { (alert: UIAlertAction) -> Void in
             if let chatRoom = self.room {
                 self.deleteChat(room: chatRoom)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteChatConfirmAlertView.addAction(deleteAction)
         deleteChatConfirmAlertView.addAction(cancelAction)
         let alertActions = deleteChatConfirmAlertView.actions
         for action in alertActions {
-            if action.title == "Delete"{
+            if action.title == "BTN_DELETE".localizedNew{
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -645,8 +644,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -662,21 +661,21 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
     }
     
     func showClearHistoryActionSheet() {
-        let clearChatConfirmAlertView = UIAlertController(title: "Are you sure you want to clear chat history?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "Clear", style:.default , handler: {
+        let clearChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT_HISTORY".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let deleteAction = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             if let chatRoom = self.room {
                 self.clearChatMessageHistory(room: chatRoom)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         clearChatConfirmAlertView.addAction(deleteAction)
         clearChatConfirmAlertView.addAction(cancelAction)
         let alertActions = clearChatConfirmAlertView.actions
         for action in alertActions {
-            if action.title == "Clear"{
+            if action.title == "CLEAR_HISTORY".localizedNew {
                 let logoutColor = UIColor.red
                 action.setValue(logoutColor, forKey: "titleTextColor")
             }
@@ -710,8 +709,8 @@ class IGRegistredUserInfoTableViewController: UITableViewController , UIGestureR
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

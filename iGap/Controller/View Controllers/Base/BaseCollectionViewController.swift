@@ -18,13 +18,13 @@ class BaseCollectionViewController: UICollectionViewController {
         let current : String = SMLangUtil.loadLanguage()
         switch current {
         case "fa" :
-            UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "en" :
             UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
             
-        case "ar" :
+        case "en" :
             UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+        case "ar" :
+            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
             
         default :
             break

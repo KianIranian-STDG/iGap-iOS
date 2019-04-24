@@ -890,16 +890,16 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     private func manageRequestPhone(){
         self.view.endEditing(true)
         if let roomTitle = self.room?.title {
-            let alert = UIAlertController(title: nil, message: "there is a request to access your phone number from \(roomTitle) . do you allow?", preferredStyle: IGGlobal.detectAlertStyle())
+            let alert = UIAlertController(title: nil, message: "there is a request to access your phone number from" + " \(roomTitle)" + " . do you allow?", preferredStyle: IGGlobal.detectAlertStyle())
             
-            let sendPhone = UIAlertAction(title: "Send Phone", style: .default, handler: { (action) in
+            let sendPhone = UIAlertAction(title: "SEND_PHOTO".localizedNew, style: .default, handler: { (action) in
                 if let userId = IGAppManager.sharedManager.userID(), let userInfo = IGRegisteredUser.getUserInfo(id: userId) {
                     self.inputTextView.text = String(describing: userInfo.phone)
                     self.didTapOnSendButton(self.inputBarSendButton)
                 }
             })
             
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             alert.addAction(sendPhone)
             alert.addAction(cancel)
@@ -1165,6 +1165,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
 
     override func viewWillDisappear(_ animated: Bool) {
+        currentPageName = "" 
+
         if !inputBarOriginalMessageView.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
@@ -1536,12 +1538,12 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func groupPin(messageId: Int64 = 0){
         
-        var message = "Are you sure unpin this message?"
-        var title = "Unpin For All Users"
-        let titleMe = "Unpin Just For Me"
+        var message = "UNPIN_ARE_U_SURE".localizedNew
+        var title = "UNPIN_FOR_ALL".localizedNew
+        let titleMe = "UNPIN_FOR_ME".localizedNew
         if messageId != 0 {
-            message = "Are you sure pin this message?"
-            title = "Pin"
+            message = "PIN_ARE_U_SURE".localizedNew
+            title = "PINN".localizedNew
         }
         
         let alertC = UIAlertController(title: nil, message: message, preferredStyle: IGGlobal.detectAlertStyle())
@@ -1562,8 +1564,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later for unpin message", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -1591,14 +1593,14 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     func channelPin(messageId: Int64 = 0){
         
-        var message = "Are you sure unpin this message?"
-        var title = "Unpin"
-        let titleMe = "Unpin Just For Me"
+        var message = "UNPIN_ARE_U_SURE".localizedNew
+        var title = "UNPIN_FOR_ALL".localizedNew
+        let titleMe = "UNPIN_FOR_ME".localizedNew
         if messageId != 0 {
-            message = "Are you sure pin this message?"
-            title = "Pin"
+            message = "PIN_ARE_U_SURE".localizedNew
+            title = "PINN".localizedNew
         }
-        
+
         let alertC = UIAlertController(title: nil, message: message, preferredStyle: IGGlobal.detectAlertStyle())
         let unpin = UIAlertAction(title: title, style: .default, handler: { (action) in
             IGChannelPinMessageRequest.Generator.generate(roomId: (self.room?.id)!, messageId: messageId).success({ (protoResponse) in
@@ -1617,8 +1619,8 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later for unpin message", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -1634,7 +1636,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
             IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         alertC.addAction(unpin)
         if messageId == 0 {
@@ -1931,15 +1933,15 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     
     private func sendAsFileAlert(){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let photoOrVideo = UIAlertAction(title: "Photo or Video", style: .default, handler: { (action) in
+        let photoOrVideo = UIAlertAction(title: "PHOTO_OR_VIDEO".localizedNew, style: .default, handler: { (action) in
             self.sendAsFile = true
             self.attachmentPicker()
         })
-        let document = UIAlertAction(title: "Document", style: .default, handler: { (action) in
+        let document = UIAlertAction(title: "DOCUMENT".localizedNew, style: .default, handler: { (action) in
             self.sendAsFile = true
             self.documentPicker()
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         alertC.addAction(photoOrVideo)
         alertC.addAction(document)
@@ -2263,6 +2265,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         if webView == nil || webView.isHidden {
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.backViewContainer?.isUserInteractionEnabled = false
+
             _ = self.navigationController?.popViewController(animated: true)
         } else if webView.canGoBack {
             webView.goBack()
@@ -2825,8 +2828,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     fileprivate func deleteMessage(_ message: IGRoomMessage, both: Bool = false) {
         
         if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-            let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
             return
@@ -3547,10 +3550,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 }
             }
         })
-        let reply = UIAlertAction(title: "Reply", style: .default, handler: { (action) in
+        let reply = UIAlertAction(title: "REPLY".localizedNew, style: .default, handler: { (action) in
             self.forwardOrReplyMessage(cellMessage)
         })
-        let forward = UIAlertAction(title: "Forward", style: .default, handler: { (action) in
+        let forward = UIAlertAction(title: "FORWARD".localizedNew, style: .default, handler: { (action) in
             IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
             IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
             self.navigationController?.popViewController(animated: true)
@@ -3558,10 +3561,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 IGRecentsTableViewController.forwardStartObserver.openForwardPage()
             }
         })
-        let edit = UIAlertAction(title: "Edit", style: .default, handler: { (action) in
+        let edit = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
             }else {
@@ -3569,7 +3572,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         })
         
-        let share = UIAlertAction(title: "Share", style: .default, handler: { (action) in
+        let share = UIAlertAction(title: "SHARE".localizedNew, style: .default, handler: { (action) in
             var finalMessage = cellMessage
             if let forward = cellMessage.forwardedFrom {
                 finalMessage = forward
@@ -3577,27 +3580,27 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGHelperPopular.shareAttachment(url: finalMessage.attachment?.path(), viewController: self)
         })
         
-        let report = UIAlertAction(title: "Report", style: .default, handler: { (action) in
+        let report = UIAlertAction(title: "REPORT".localizedNew, style: .default, handler: { (action) in
             self.report(room: self.room!, message: cellMessage)
         })
         
-        _ = UIAlertAction(title: "More", style: .default, handler: { (action) in
+        _ = UIAlertAction(title: "MORE".localizedNew, style: .default, handler: { (action) in
             for visibleCell in self.collectionView.visibleCells {
                 let aCell = visibleCell as! IGMessageGeneralCollectionViewCell
                 aCell.setMultipleSelectionMode(true)
             }
         })
-        _ = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+        _ = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
             self.deleteMessage(cellMessage)
         })
-        let deleteForMe = UIAlertAction(title: "Delete for me", style: .destructive, handler: { (action) in
+        let deleteForMe = UIAlertAction(title: "DELETE_FOR_ME".localizedNew, style: .destructive, handler: { (action) in
             self.deleteMessage(cellMessage)
         })
         let roomTitle = self.room?.title != nil ? self.room!.title! : ""
-        let deleteForBoth = UIAlertAction(title: "Delete for me and " + roomTitle, style: .destructive, handler: { (action) in
+        let deleteForBoth = UIAlertAction(title: "DELETE_FOR_ME_AND".localizedNew + roomTitle, style: .destructive, handler: { (action) in
             self.deleteMessage(cellMessage, both: true)
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
         })
         
         //Copy
@@ -3646,13 +3649,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let resend = UIAlertAction(title: "Send Again", style: .default, handler: { (action) in
+        let resend = UIAlertAction(title: "SEND_AGAIN".localizedNew, style: .default, handler: { (action) in
             DispatchQueue.main.async {
                 IGMessageSender.defaultSender.resend(message: cellMessage, to: self.room!)
             }
         })
         
-        let delete = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+        let delete = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
             if let attachment = cellMessage.attachment {
                 IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
             } else {
@@ -3660,7 +3663,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         alertC.addAction(resend)
         alertC.addAction(delete)
@@ -3900,8 +3903,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                         DispatchQueue.main.async {
                             switch errorCode {
                             case .timeout:
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             default:
@@ -3920,11 +3923,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
         }).error({ (errorCode, waitTime) in
             hud.hide(animated: true)
-            let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
-            
-            let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertC.addAction(cancel)
-            self.present(alertC, animated: true, completion: nil)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
         }).send()
     }
     
@@ -3946,14 +3948,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
                 case .clientJoinByInviteLinkForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Sorry,this group does not seem to exist.", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING", message: "GROUP_DOES_NOT_EXIST".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -3975,11 +3977,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
-                    let alert = UIAlertController(title: "iGap", message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".localizedNew + " \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
                     
                     alert.addAction(okAction)
                     alert.addAction(cancelAction)
@@ -3991,10 +3993,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 switch errorCode {
                 case .timeout:
                     
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
-                    
+
                     self.present(alert, animated: true, completion: nil)
                 default:
                     break
@@ -4013,9 +4015,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Success", message: "You joined \(beforeString)to \(room.title!)!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            let openNow = UIAlertAction(title: "Open Now", style: .default, handler: { (action) in
+            let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "U_JOINED".localizedNew + " \(beforeString)" + "TO".localizedNew + " \(room.title!)!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+            let openNow = UIAlertAction(title: "OPEN_NOW".localizedNew, style: .default, handler: { (action) in
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
                 chatPage.room = room

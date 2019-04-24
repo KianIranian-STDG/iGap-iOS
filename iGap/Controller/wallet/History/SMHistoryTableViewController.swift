@@ -61,7 +61,7 @@ class SMHistoryTableViewController: BaseTableViewController {
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "History")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -91,7 +91,7 @@ class SMHistoryTableViewController: BaseTableViewController {
 //        SMLoading.hideLoadingPage()
 		self.rowData = his as? [PAY_obj_history]
 		if self.rowData?.count == 0 {
-			self.placeHolderLabel.text = "          موردی یافت نشد ...".localized
+			self.placeHolderLabel.text = "PU_NODATA".localizedNew
 		}
 		else{
 			self.placeHolderLabel.frame.size = CGSize.init(width: self.placeHolderLabel.frame.width, height: 0 )

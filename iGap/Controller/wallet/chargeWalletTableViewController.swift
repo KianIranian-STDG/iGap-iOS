@@ -59,7 +59,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Charge Wallet")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_TRANSITION_CHARGE_WALLET".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }

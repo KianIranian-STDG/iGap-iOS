@@ -23,7 +23,7 @@ class IGHelperNearby {
             
             let option = UIAlertController(title: "TTL_MAP_STATUS".localizedNew, message: "SETTING_NEARBY_MAP_STATUS".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
             
-            let enable = UIAlertAction(title: "OK".localizedNew, style: .default, handler: { (action) in
+            let enable = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                 IGGeoRegister.Generator.generate(enable: true).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         if let registerResponse = protoResponse as? IGPGeoRegisterResponse {

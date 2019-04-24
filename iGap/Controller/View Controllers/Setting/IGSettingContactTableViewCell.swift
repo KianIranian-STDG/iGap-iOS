@@ -60,26 +60,29 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
             }
             break
         case .lastMonth:
-            lastSeenStatusLabel.text = "Last month"
+            lastSeenStatusLabel.text = "LAST_MONTH".localizedNew
             break
         case .lastWeek:
-            lastSeenStatusLabel.text = "Last week"
+            lastSeenStatusLabel.text = "LAST_WEAK".localizedNew
             break
         case .longTimeAgo:
-            lastSeenStatusLabel.text = "Last seen a long time ago"
+            lastSeenStatusLabel.text = "A_LONG_TIME_AGO".localizedNew
             break
         case .online:
-            lastSeenStatusLabel.text = "Online"
+            lastSeenStatusLabel.text = "ONLINE".localizedNew
             break
         case .recently:
-            lastSeenStatusLabel.text = "Last seen recently"
+            lastSeenStatusLabel.text = "LAST_SEEN_RECENTLY".localizedNew
             break
         case .support:
-            lastSeenStatusLabel.text = "iGap Support"
+            lastSeenStatusLabel.text = "IGAP_SUPPORT".localizedNew
             break
         case .serviceNotification:
-            lastSeenStatusLabel.text = "Service Notification"
+            lastSeenStatusLabel.text = "SERVICE_NOTIFI".localizedNew
+            
             break
+            
+
         }
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 //            self.setUser(user)

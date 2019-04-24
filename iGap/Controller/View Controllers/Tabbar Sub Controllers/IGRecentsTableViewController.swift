@@ -44,7 +44,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     static var needGetInfo: Bool = true
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
+        }
+    }
     private let disposeBag = DisposeBag()
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
@@ -513,11 +517,30 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                                                selector: #selector(addressBookDidChange(_:)),
                                                name: NSNotification.Name.CNContactStoreDidChange,
                                                object: nil)
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.changeDirectionOfUI),
+                                               name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName),
+                                               object: nil)
+
         // use current line for enable support gif in SDWebImage library
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
     }
-    
+    @objc private func changeDirectionOfUI() {
+        let current : String = SMLangUtil.loadLanguage()
+        switch current {
+        case "fa" :
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
+        case "en" :
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+
+        case "ar" :
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
+        default :
+            break
+        }
+    }
     @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
             IGContactManager.syncedPhoneBookContact = true
@@ -527,9 +550,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        searchBar.placeholder = "PLACE_HOLDER_SEARCH".localizedNew
 
+        
         DispatchQueue.main.async {
             if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
                 IGTabBarController.currentTabStatic = .Recent
@@ -982,6 +1005,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRoomForSegue = rooms![indexPath.row]
         self.tableView.isUserInteractionEnabled = false
+        currentPageName = "iGap.IGAccountViewController"
+
         performSegue(withIdentifier: "showRoomMessages", sender: self)
     }
     

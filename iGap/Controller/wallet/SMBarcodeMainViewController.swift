@@ -30,7 +30,7 @@ class SMBarcodeMainViewController: UIViewController {
     var hasShown = false
     private var currentAmount: String = "0" {
         didSet {
-            lblCurrency.text = "\("Wallet Card Balance" + " \n")\(currentAmount) \(" Rial")"
+            lblCurrency.text = "TTL_WALLET_BALANCE".localizedNew + "\(" \n")\(currentAmount) \(" ")" + "CURRENCY".localizedNew
         }
     }
     override func viewDidLoad() {
@@ -173,7 +173,7 @@ class SMBarcodeMainViewController: UIViewController {
     // MARK : - init View elements
     func initNavigationBar(){
        
-        self.navigationController!.navigationBar.topItem!.title = "Scan QR"
+        self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

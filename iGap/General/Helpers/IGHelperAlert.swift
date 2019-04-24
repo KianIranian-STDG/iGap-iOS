@@ -36,7 +36,7 @@ class IGHelperAlert {
                 alert.setValue(messageAttrString, forKey: "attributedMessage")
             }
             
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                 done?()
             })
             alert.addAction(okAction)
@@ -87,7 +87,7 @@ class IGHelperAlert {
                 alert.setValue(messageAttrString, forKey: "attributedMessage")
             }
             
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                 done?()
             })
             
@@ -97,6 +97,6 @@ class IGHelperAlert {
     }
     
     func showErrorAlert(done: (() -> Void)? = nil){
-        showAlert(title: "Error", message: "an error occurred!\n please try later!", done: done)
+        showAlert(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, done: done)
     }
 }

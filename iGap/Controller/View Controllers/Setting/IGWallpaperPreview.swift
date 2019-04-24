@@ -129,7 +129,7 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Wallpaper Preview", width: 250)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_CW_WALLPAPER_PREVIEW".localizedNew, width: 250)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

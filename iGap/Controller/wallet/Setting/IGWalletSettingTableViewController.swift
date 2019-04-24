@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGWalletSettingTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGWalletSettingTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var lblChangePassCode : UILabel!
     @IBOutlet weak var lblRessetPassCode : UILabel!
     
@@ -19,13 +19,17 @@ class IGWalletSettingTableViewController: UITableViewController, UIGestureRecogn
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Wallet Setting")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_SETTINGS".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     // MARK: - Table view data source
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblChangePassCode.text = "WALLET_PIN".localizedNew
+        lblRessetPassCode.text = "RESET_WALLET_PIN".localizedNew
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

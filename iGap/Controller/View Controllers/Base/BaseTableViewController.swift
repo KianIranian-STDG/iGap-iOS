@@ -19,10 +19,20 @@ class BaseTableViewController: UITableViewController {
         self.hideKeyboardWhenTappedAround()
 //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
 //        MCLocalization.sharedInstance().language = current
+        print(IGTabBarController.currentTabStatic)
         switch current {
+            
         case "fa" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+            if IGTabBarController.currentTabStatic == .Dashboard {
+                UIView.appearance().semanticContentAttribute = .forceLeftToRight
+                UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+
+            }
+            else {
+                UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
+            }
 
 
             

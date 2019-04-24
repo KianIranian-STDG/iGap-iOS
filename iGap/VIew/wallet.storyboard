@@ -1062,6 +1062,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btnGetIban" destination="lHP-a8-3LP" id="kAo-3Q-wpc"/>
+                        <outlet property="btnpay" destination="vvl-w3-NoH" id="utU-TM-voF"/>
                         <outlet property="cashoutTypeSeg" destination="hHl-9a-TaM" id="DQO-57-sJa"/>
                         <outlet property="lblCashableAmountBalance" destination="iVP-fC-Vqa" id="3cV-Rr-ymR"/>
                         <outlet property="lblCashableAmountBalanceTitle" destination="JjA-s3-WMy" id="aF5-jx-MTn"/>
@@ -2265,7 +2266,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="UXu-47-qTI">
-                                                    <rect key="frame" x="87" y="16" width="312" height="35"/>
+                                                    <rect key="frame" x="87" y="22.333333333333329" width="105.33333333333331" height="22"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2282,12 +2283,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="UXu-47-qTI" firstAttribute="leading" secondItem="d30-l5-GkN" secondAttribute="trailing" constant="5" id="OzJ-Tw-NQq"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="UXu-47-qTI" secondAttribute="bottom" constant="5" id="fiP-rP-hGs"/>
-                                                <constraint firstItem="UXu-47-qTI" firstAttribute="top" secondItem="RaG-R9-VeC" secondAttribute="topMargin" constant="5" id="gdh-df-Azz"/>
+                                                <constraint firstItem="UXu-47-qTI" firstAttribute="centerY" secondItem="RaG-R9-VeC" secondAttribute="centerY" id="5eY-HI-M1d"/>
+                                                <constraint firstItem="UXu-47-qTI" firstAttribute="leading" secondItem="d30-l5-GkN" secondAttribute="trailing" constant="5" id="ZSz-Jt-Ze7"/>
                                                 <constraint firstItem="d30-l5-GkN" firstAttribute="leading" secondItem="RaG-R9-VeC" secondAttribute="leadingMargin" constant="5" id="jL7-Kf-4Eu"/>
                                                 <constraint firstItem="d30-l5-GkN" firstAttribute="top" secondItem="RaG-R9-VeC" secondAttribute="topMargin" constant="5" id="m8h-qM-bbk"/>
-                                                <constraint firstItem="UXu-47-qTI" firstAttribute="trailing" secondItem="RaG-R9-VeC" secondAttribute="trailingMargin" constant="5" id="oDG-e1-Hqc"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="d30-l5-GkN" secondAttribute="bottom" constant="5" id="yX6-qU-zHn"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2300,7 +2299,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="BYF-dr-to0">
-                                                    <rect key="frame" x="87" y="4.9999999999999964" width="322" height="56.666666666666657"/>
+                                                    <rect key="frame" x="87" y="22.333333333333329" width="101.66666666666669" height="22"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2317,13 +2316,11 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BYF-dr-to0" firstAttribute="top" secondItem="aA4-pD-ZJu" secondAttribute="top" constant="5" id="9XY-9Z-frn"/>
-                                                <constraint firstAttribute="trailing" secondItem="BYF-dr-to0" secondAttribute="trailing" constant="5" id="Dns-6C-EzU"/>
-                                                <constraint firstItem="BYF-dr-to0" firstAttribute="leading" secondItem="oCp-hN-QI1" secondAttribute="trailing" constant="5" id="ZHG-O7-u08"/>
+                                                <constraint firstItem="BYF-dr-to0" firstAttribute="leading" secondItem="oCp-hN-QI1" secondAttribute="trailing" constant="5" id="Dmr-Mv-TUH"/>
+                                                <constraint firstItem="BYF-dr-to0" firstAttribute="centerY" secondItem="aA4-pD-ZJu" secondAttribute="centerY" id="XZ6-iT-7ye"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="oCp-hN-QI1" secondAttribute="bottom" constant="5" id="gyk-Wf-Dkw"/>
                                                 <constraint firstItem="oCp-hN-QI1" firstAttribute="top" secondItem="aA4-pD-ZJu" secondAttribute="topMargin" constant="5" id="l9E-eI-DCu"/>
                                                 <constraint firstItem="oCp-hN-QI1" firstAttribute="leading" secondItem="aA4-pD-ZJu" secondAttribute="leadingMargin" constant="5" id="rcF-MC-BUI"/>
-                                                <constraint firstAttribute="bottom" secondItem="BYF-dr-to0" secondAttribute="bottom" constant="5" id="whR-lm-Ecp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2660,7 +2657,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-qN-z8K">
-                                                    <rect key="frame" x="8" y="16" width="394" height="23.666666666666671"/>
+                                                    <rect key="frame" x="7.9999999999999929" y="16" width="120.33333333333331" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2679,7 +2676,6 @@
                                                 <constraint firstItem="Mkg-qN-z8K" firstAttribute="leading" secondItem="04h-H7-jJB" secondAttribute="leading" constant="8" id="ZnA-2d-UzY"/>
                                                 <constraint firstItem="i5q-UR-jBO" firstAttribute="top" secondItem="Mkg-qN-z8K" secondAttribute="bottom" constant="8" id="gBm-Vi-KhO"/>
                                                 <constraint firstItem="i5q-UR-jBO" firstAttribute="leading" secondItem="04h-H7-jJB" secondAttribute="leading" constant="8" id="k9g-jr-bGJ"/>
-                                                <constraint firstItem="Mkg-qN-z8K" firstAttribute="trailing" secondItem="04h-H7-jJB" secondAttribute="trailingMargin" constant="8" id="r6y-NP-TKR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2691,7 +2687,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-CD-Kqo">
-                                                    <rect key="frame" x="8" y="16" width="394" height="23.666666666666671"/>
+                                                    <rect key="frame" x="8" y="16" width="101" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2707,7 +2703,6 @@
                                                 <constraint firstItem="NZI-BR-bnU" firstAttribute="top" secondItem="RNo-CD-Kqo" secondAttribute="bottom" constant="8" id="0gE-Jr-sXo"/>
                                                 <constraint firstAttribute="bottom" secondItem="NZI-BR-bnU" secondAttribute="bottom" constant="8" id="4pS-MH-mWk"/>
                                                 <constraint firstItem="NZI-BR-bnU" firstAttribute="leading" secondItem="Tk8-JM-9hA" secondAttribute="leading" constant="8" id="57R-we-OBs"/>
-                                                <constraint firstItem="RNo-CD-Kqo" firstAttribute="trailing" secondItem="Tk8-JM-9hA" secondAttribute="trailingMargin" constant="8" id="5tS-c1-uGM"/>
                                                 <constraint firstAttribute="trailing" secondItem="NZI-BR-bnU" secondAttribute="trailing" constant="8" id="Mgn-1M-oSf"/>
                                                 <constraint firstItem="RNo-CD-Kqo" firstAttribute="leading" secondItem="Tk8-JM-9hA" secondAttribute="leading" constant="8" id="Yl7-Tg-1ki"/>
                                                 <constraint firstItem="RNo-CD-Kqo" firstAttribute="top" secondItem="Tk8-JM-9hA" secondAttribute="topMargin" constant="5" id="lRy-sl-sYb"/>
@@ -2722,7 +2717,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm New Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="1lW-vN-tWe">
-                                                    <rect key="frame" x="8" y="16" width="394" height="23.666666666666671"/>
+                                                    <rect key="frame" x="8" y="16" width="159.33333333333334" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2740,7 +2735,6 @@
                                                 <constraint firstItem="1lW-vN-tWe" firstAttribute="top" secondItem="qeR-jo-nZF" secondAttribute="topMargin" constant="5" id="HyG-A7-uLH"/>
                                                 <constraint firstItem="1lW-vN-tWe" firstAttribute="leading" secondItem="qeR-jo-nZF" secondAttribute="leading" constant="8" id="b4B-Xa-w1J"/>
                                                 <constraint firstAttribute="bottom" secondItem="eZO-2T-C02" secondAttribute="bottom" constant="8" id="fUD-Re-3Uk"/>
-                                                <constraint firstItem="1lW-vN-tWe" firstAttribute="trailing" secondItem="qeR-jo-nZF" secondAttribute="trailingMargin" constant="8" id="oed-l5-oaw"/>
                                                 <constraint firstItem="eZO-2T-C02" firstAttribute="leading" secondItem="qeR-jo-nZF" secondAttribute="leading" constant="8" id="rFv-Dz-QrD"/>
                                             </constraints>
                                         </tableViewCellContentView>

@@ -141,7 +141,7 @@ public class SwiftWebVC: UIViewController {
         navBarTitle.shadowOffset = CGSize(width: 0, height: 1);
         navBarTitle.font = UIFont.igFont(ofSize: 17.0)
         navBarTitle.textAlignment = .center
-        navBarTitle.text = "Loading..."
+        navBarTitle.text = "Loading ...".localizedNew
         navigationItem.titleView = navBarTitle;
         
         super.viewWillAppear(true)

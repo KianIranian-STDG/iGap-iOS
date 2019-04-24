@@ -13,7 +13,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
 
-class IGCallsTableViewController: UITableViewController {
+class IGCallsTableViewController: BaseTableViewController {
     
     var selectedRowUser : IGRegisteredUser?
     var cellIdentifer = IGCallListTableViewCell.cellReuseIdentifier()

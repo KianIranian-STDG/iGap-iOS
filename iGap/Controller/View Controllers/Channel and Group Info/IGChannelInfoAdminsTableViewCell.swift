@@ -34,29 +34,30 @@ class IGChannelInfoAdminsTableViewCell: MGSwipeTableCell {
             switch memberUserDetail.lastSeenStatus {
             case .exactly:
                 if let lastSeenTime = memberUserDetail.lastSeen {
-                    adminRecentlyStatusLabel.text = "\(lastSeenTime.humanReadableForLastSeen())"
+                    adminRecentlyStatusLabel.text = "\(lastSeenTime.humanReadableForLastSeen())".inLocalizedLanguage()
                 }
                 break
             case .lastMonth:
-                adminRecentlyStatusLabel.text = "Last month"
+                adminRecentlyStatusLabel.text = "LAST_MONTH".localizedNew
                 break
             case .lastWeek:
-                adminRecentlyStatusLabel.text = "Last week"
+                adminRecentlyStatusLabel.text = "LAST_WEAK".localizedNew
                 break
             case .longTimeAgo:
-                adminRecentlyStatusLabel.text = "Last seen a long time ago"
+                adminRecentlyStatusLabel.text = "A_LONG_TIME_AGO".localizedNew
                 break
             case .online:
-                adminRecentlyStatusLabel.text = "Online"
+                adminRecentlyStatusLabel.text = "ONLINE".localizedNew
                 break
             case .recently:
-                adminRecentlyStatusLabel.text = "Last seen recently"
+                adminRecentlyStatusLabel.text = "LAST_SEEN_RECENTLY".localizedNew
                 break
             case .support:
-                adminRecentlyStatusLabel.text = "iGap Support"
+                adminRecentlyStatusLabel.text = "IGAP_SUPPORT".localizedNew
                 break
             case .serviceNotification:
-                adminRecentlyStatusLabel.text = "Service Notification"
+                adminRecentlyStatusLabel.text = "SERVICE_NOTIFI".localizedNew
+
                 break
             }
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

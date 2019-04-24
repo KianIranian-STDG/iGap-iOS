@@ -51,7 +51,19 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print(UIView.appearance().semanticContentAttribute.rawValue)
+        print(UITableView.appearance().semanticContentAttribute.rawValue)
+        print(UICollectionView.appearance().semanticContentAttribute.rawValue)
         IGDashboardViewController.discoveryObserver = self
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
+                UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        print(UIView.appearance().semanticContentAttribute.rawValue)
+        print(UITableView.appearance().semanticContentAttribute.rawValue)
+        print(UICollectionView.appearance().semanticContentAttribute.rawValue)
+        collectionView.reloadData()
+
+        
         /*
         if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
             navigationItem.addiGapLogo()

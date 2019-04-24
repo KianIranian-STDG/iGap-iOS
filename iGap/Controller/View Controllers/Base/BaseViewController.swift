@@ -19,13 +19,13 @@ class BaseViewController: UIViewController {
         let current : String = SMLangUtil.loadLanguage()
         switch current {
         case "fa" :
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "en" :
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
             
-        case "ar" :
+        case "en" :
             UIView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+        case "ar" :
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
             
         default :
             break

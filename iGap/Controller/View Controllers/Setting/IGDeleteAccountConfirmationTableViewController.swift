@@ -13,7 +13,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGDeleteAccountConfirmationTableViewController: UITableViewController , UITextFieldDelegate , UIGestureRecognizerDelegate {
+class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , UITextFieldDelegate , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
@@ -62,7 +62,7 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
 
     func nextButtonClicked(){
         if CodeEntryTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: "Alert", message: "Please fill in the Delete Code field. ", preferredStyle: UIAlertController.Style.alert)
+            let alert = UIAlertController(title: "GAME_ALERT_TITLE".localizedNew, message: "MSG_FILL_DELETE_CODE".localizedNew, preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
@@ -84,27 +84,28 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async{
-                        let alert = UIAlertController(title:"Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
                     }
                 case .userDeleteTokenInvalidCode:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title:"Invalid Code", message: "The code you entered is invalid!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default , handler: nil)
+                        let alert = UIAlertController(title:"INVALID_CODE".localizedNew, message: "MSG_THE_CODE_INVALID".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default , handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
                     }
                 default:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title:"Error", message: "There was an error deleting your account. Please Try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default , handler: nil)
-                        alert.addAction(okAction)
+                        let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                        
+                        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alertC.addAction(cancel)
                         self.hud.hide(animated: true)
-                        self.present(alert, animated: true, completion: nil)
+                        self.present(alertC, animated: true, completion: nil)
                     }
                     break
                 }
@@ -123,13 +124,13 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
     @objc func updateCountDown() {
         self.delayBeforeSendingAgaing! -= 1
         if self.delayBeforeSendingAgaing!>0 {
-            let fixedText = "Didn't receive the text message?\nPlease wait"
+            let fixedText = "DIDNT_RECIEVE_CODE_WAIT".localizedNew
             let remainingSeconds = self.delayBeforeSendingAgaing!%60
             let remainingMiuntes = self.delayBeforeSendingAgaing!/60
             retrySendingCodeLabel.text = "\(fixedText) \(remainingMiuntes):\(remainingSeconds)"
             self.perform(#selector(IGDeleteAccountConfirmationTableViewController.updateCountDown), with: nil, afterDelay: 1.0)
         } else {
-            retrySendingCodeLabel.text = "Tap here to resend code"
+            retrySendingCodeLabel.text = "TAP_RESEND".localizedNew
             let tap = UITapGestureRecognizer(target: self, action: #selector(IGDeleteAccountConfirmationTableViewController.tapFunction))
             retrySendingCodeLabel.isUserInteractionEnabled = true
             retrySendingCodeLabel.addGestureRecognizer(tap)
@@ -157,8 +158,8 @@ class IGDeleteAccountConfirmationTableViewController: UITableViewController , UI
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

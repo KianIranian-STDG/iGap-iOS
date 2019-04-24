@@ -672,7 +672,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             } else if body != nil && !(body?.isEmpty)! {
                 
                 if repliedMessage.type == .sticker {
-                    txtReplyMessageAbs.text = body! + " Sticker"
+                    txtReplyMessageAbs.text = body! + "LBL_STICKER".localizedNew
                 } else {
                     let markdown = MarkdownParser()
                     markdown.enabledElements = MarkdownParser.EnabledElements.bold
@@ -705,11 +705,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
             makeForward()
             
             if let user = originalMessage.authorUser {
-                txtForwardAbs.text = "Forwarded from: \(user.displayName)"
+                txtForwardAbs.text = "FORWARDED_FROM".localizedNew + " \(user.displayName)"
             } else if let room = originalMessage.authorRoom {
-                txtForwardAbs.text = "Forwarded from: \(room.title != nil ? room.title! : "")"
+                txtForwardAbs.text = "FORWARDED_FROM".localizedNew + " \(room.title != nil ? room.title! : "")"
             } else {
-                txtForwardAbs.text = "Forwarded from: "
+                txtForwardAbs.text = "FORWARDED_FROM"
             }
 
             let text = originalMessage.message

@@ -53,30 +53,32 @@ class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
             switch memberUserDetail.lastSeenStatus {
             case .exactly:
                 if let lastSeenTime = memberUserDetail.lastSeen {
-                    groupMemberRecentlyStatus.text = "\(lastSeenTime.humanReadableForLastSeen())"
+                    groupMemberRecentlyStatus.text = "\(lastSeenTime.humanReadableForLastSeen())".inLocalizedLanguage()
                 }
                 break
             case .lastMonth:
-                groupMemberRecentlyStatus.text = "Last month"
+                groupMemberRecentlyStatus.text = "LAST_MONTH".localizedNew
                 break
             case .lastWeek:
-                groupMemberRecentlyStatus.text = "Last week"
+                groupMemberRecentlyStatus.text = "LAST_WEAK".localizedNew
                 break
             case .longTimeAgo:
-                groupMemberRecentlyStatus.text = "Last seen a long time ago"
+                groupMemberRecentlyStatus.text = "A_LONG_TIME_AGO".localizedNew
                 break
             case .online:
-                groupMemberRecentlyStatus.text = "Online"
+                groupMemberRecentlyStatus.text = "ONLINE".localizedNew
                 break
             case .recently:
-                groupMemberRecentlyStatus.text = "Last seen recently"
+                groupMemberRecentlyStatus.text = "LAST_SEEN_RECENTLY".localizedNew
                 break
             case .support:
-                groupMemberRecentlyStatus.text = "iGap Support"
+                groupMemberRecentlyStatus.text = "IGAP_SUPPORT".localizedNew
                 break
             case .serviceNotification:
-                groupMemberRecentlyStatus.text = "Service Notification"
+                groupMemberRecentlyStatus.text = "SERVICE_NOTIFI".localizedNew
+                
                 break
+                
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 60.0) {
                 self.setUser(member)

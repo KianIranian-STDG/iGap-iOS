@@ -18,6 +18,7 @@ import RxSwift
 import maincore
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
+let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
 let kIGNoticationForPushUserExpire = "im.igap.ios.user.expire"
 
@@ -1143,6 +1144,17 @@ extension UILabel {
         
     }
 }
+extension UISearchBar {
+    
+    func change(textFont : UIFont?) {
+        
+        for view : UIView in (self.subviews[0]).subviews {
+            
+            if let textField = view as? UITextField {
+                textField.font = textFont
+            }
+        }
+    } }
 extension String {
     
     var isArabic: Bool {

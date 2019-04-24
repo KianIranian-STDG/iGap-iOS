@@ -12,6 +12,7 @@ import UIKit
 import SnapKit
 import MBProgressHUD
 
+var currentPageName : String! = ""
 
 class IGNavigationItem: UINavigationItem {
     
@@ -155,9 +156,19 @@ class IGNavigationItem: UINavigationItem {
         let backBarButton = UIBarButtonItem(customView: backViewContainer!)
         self.leftBarButtonItem = backBarButton
         self.title = ""
+
         backViewContainer?.addAction {
             self.backViewContainer?.isUserInteractionEnabled = false
+            
+            if currentPageName == "iGap.IGAccountViewController" {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+                currentPageName = ""
+                _ = self.navigationController?.popViewController(animated: true)
+
+            }
+            else {
             _ = self.navigationController?.popViewController(animated: true)
+            }
         }        
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import webservice
 
-class IGWalletSettingInnerTableViewController: UITableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
+class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
 
     var isOTP = false
     var isFirstTime = false
@@ -30,15 +30,17 @@ class IGWalletSettingInnerTableViewController: UITableViewController , UITextFie
         initView()
     }
     func initView() {
+        btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
         if isOTP {
-            initNavigationBar(title: "Reset Password")
+            initNavigationBar(title: "RESET_WALLET_PIN".localizedNew)
             self.lblFirstRow.text = "OTP_CODE".localizedNew
             self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localizedNew
             self.lblSecondRow.text = "NEW_PASS".localizedNew
             self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
         }
         else {
-            initNavigationBar(title: "Wallet Password")
+            initNavigationBar(title: "WALLET_PIN".localizedNew)
             self.lblFirstRow.text = "CURRENT_PASS".localizedNew
             self.lblSecondRow.text = "NEW_PASS".localizedNew
             self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew

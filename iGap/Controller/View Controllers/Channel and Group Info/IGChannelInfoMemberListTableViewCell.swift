@@ -56,29 +56,29 @@ class IGChannelInfoMemberListTableViewCell: MGSwipeTableCell {
             switch memberUserDetail.lastSeenStatus {
                 case .exactly:
                     if let lastSeenTime = memberUserDetail.lastSeen {
-                        memberRecentlyStatusLabel.text = "\(lastSeenTime.humanReadableForLastSeen())"
+                        memberRecentlyStatusLabel.text = "\(lastSeenTime.humanReadableForLastSeen())".inLocalizedLanguage()
                     }
                     break
                 case .lastMonth:
-                memberRecentlyStatusLabel.text = "Last month"
+                memberRecentlyStatusLabel.text = "LAST_MONTH".localizedNew
                     break
                 case .lastWeek:
-                 memberRecentlyStatusLabel.text = "Last week"
+                 memberRecentlyStatusLabel.text = "LAST_WEAK".localizedNew
                     break
                 case .longTimeAgo:
-                 memberRecentlyStatusLabel.text = "Last seen a long time ago"
+                 memberRecentlyStatusLabel.text = "A_LONG_TIME_AGO".localizedNew
                     break
                 case .online:
-                 memberRecentlyStatusLabel.text = "Online"
+                 memberRecentlyStatusLabel.text = "ONLINE".localizedNew
                     break
                 case .recently:
-                 memberRecentlyStatusLabel.text = "Last seen recently"
+                 memberRecentlyStatusLabel.text = "LAST_SEEN_RECENTLY".localizedNew
                     break
                 case .support:
-                memberRecentlyStatusLabel.text = "iGap Support"
+                memberRecentlyStatusLabel.text = "IGAP_SUPPORT".localizedNew
                     break
                 case .serviceNotification:
-                memberRecentlyStatusLabel.text = "Service Notification"
+                memberRecentlyStatusLabel.text = "SERVICE_NOTIFI".localizedNew
                     break
             }
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

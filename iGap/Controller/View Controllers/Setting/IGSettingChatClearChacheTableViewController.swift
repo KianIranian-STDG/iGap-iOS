@@ -11,7 +11,15 @@
 import UIKit
 import RealmSwift
 
-class IGSettingChatClearChacheTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGSettingChatClearChacheTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+    @IBOutlet weak var lblStickers: UILabel!
+    @IBOutlet weak var lblDocuments: IGLabel!
+    @IBOutlet weak var lblVoices: IGLabel!
+    @IBOutlet weak var lblAudios: IGLabel!
+    @IBOutlet weak var lblVideos: IGLabel!
+    @IBOutlet weak var lblGifs: IGLabel!
+    @IBOutlet weak var lblImages: IGLabel!
+    @IBOutlet weak var lblClearData: IGLabel!
     
     @IBOutlet weak var filesSizeLabel: UILabel!
     @IBOutlet weak var VideosSizeLabel: UILabel!
@@ -76,10 +84,20 @@ class IGSettingChatClearChacheTableViewController: UITableViewController, UIGest
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblDocuments.text = "DOCUMENTS".localizedNew
+        lblVideos.text = "VIDEOS".localizedNew
+        lblImages.text = "IMAGES".localizedNew
+        lblVoices.text = "VOICES".localizedNew
+        lblAudios.text = "AUDIOS".localizedNew
+        lblGifs.text = "GIFS".localizedNew
+        lblClearData.text = "SETTING_CC_CLEAR_DATA".localizedNew
+    }
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Clear Cache")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CACHE_SETTINGS".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -139,14 +157,14 @@ class IGSettingChatClearChacheTableViewController: UITableViewController, UIGest
             return
         }
         
-        let alert = UIAlertController(title: "Are you sure want to clear the selected data?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: "Clear", style: .destructive , handler: { (alert: UIAlertAction) -> Void in
+        let alert = UIAlertController(title: "MSG_SURE_TO_DELETE_CACHE".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let deleteAction = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive , handler: { (alert: UIAlertAction) -> Void in
             DispatchQueue.main.async {
                 self.removeSelectedData()
                 self.navigationController?.popViewController(animated: true)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         alert.addAction(deleteAction)

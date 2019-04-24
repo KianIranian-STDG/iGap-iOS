@@ -48,7 +48,7 @@ class SMMyBarCodeViewController: UIViewController {
 //        }
         
         getBarcode()
-        infoLbl.text = "Show this QR to others so they scan and pay money to you."
+        infoLbl.text = "SHOW_THIS_QR".localizedNew
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +83,7 @@ class SMMyBarCodeViewController: UIViewController {
     // MARK : - init View elements
     func initNavigationBar(){
         
-        self.navigationController!.navigationBar.topItem!.title = "My QR"
+        self.navigationController!.navigationBar.topItem!.title = "MY_QR".localizedNew
         
     }
     override func didReceiveMemoryWarning() {

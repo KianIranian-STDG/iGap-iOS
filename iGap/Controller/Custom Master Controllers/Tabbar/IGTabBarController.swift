@@ -37,10 +37,26 @@ class IGTabBarController: UITabBarController {
     
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        print(item)
+        print(UIView.appearance().semanticContentAttribute.rawValue)
+        print(UITableView.appearance().semanticContentAttribute.rawValue)
+        print(UICollectionView.appearance().semanticContentAttribute.rawValue)
+
+        if (tabBar.selectedItem?.tag)! == 1 {
+            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+            UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+            print(UIView.appearance().semanticContentAttribute.rawValue)
+            print(UITableView.appearance().semanticContentAttribute.rawValue)
+            print(UICollectionView.appearance().semanticContentAttribute.rawValue)
+
+        }
         selectedItemTitleMustbeBold()
     }
     
     func selectedItemTitleMustbeBold(){
+        
         for item in tabBar.items!{
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()

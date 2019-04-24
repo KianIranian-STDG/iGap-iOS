@@ -34,30 +34,35 @@ class IGGroupAdminListTableViewCell: MGSwipeTableCell {
             switch memberUserDetail.lastSeenStatus {
             case .exactly:
                 if let lastSeenTime = memberUserDetail.lastSeen {
-                    groupAdminLastRecentlyLabel.text = "\(lastSeenTime.humanReadableForLastSeen())"
+                    groupAdminLastRecentlyLabel.text = "\(lastSeenTime.humanReadableForLastSeen())".inLocalizedLanguage()
                 }
+
                 break
             case .lastMonth:
-                groupAdminLastRecentlyLabel.text = "Last month"
+                groupAdminLastRecentlyLabel.text = "LAST_MONTH".localizedNew
                 break
             case .lastWeek:
-                groupAdminLastRecentlyLabel.text = "Last week"
+                groupAdminLastRecentlyLabel.text = "LAST_WEAK".localizedNew
                 break
             case .longTimeAgo:
-                groupAdminLastRecentlyLabel.text = "Last seen a long time ago"
+                groupAdminLastRecentlyLabel.text = "A_LONG_TIME_AGO".localizedNew
                 break
             case .online:
-                groupAdminLastRecentlyLabel.text = "Online"
+                groupAdminLastRecentlyLabel.text = "ONLINE".localizedNew
                 break
             case .recently:
-                groupAdminLastRecentlyLabel.text = "Last seen recently"
+                groupAdminLastRecentlyLabel.text = "LAST_SEEN_RECENTLY".localizedNew
                 break
             case .support:
-                groupAdminLastRecentlyLabel.text = "iGap Support"
+                groupAdminLastRecentlyLabel.text = "IGAP_SUPPORT".localizedNew
                 break
             case .serviceNotification:
-                groupAdminLastRecentlyLabel.text = "Service Notification"
+                groupAdminLastRecentlyLabel.text = "SERVICE_NOTIFI".localizedNew
+                
                 break
+
+                
+                
             }
 //            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 //                self.setUser(member)

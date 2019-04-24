@@ -11,6 +11,7 @@ import Presentr
 
 
 class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelegate {
+    @IBOutlet weak var btnpay: UIButtonX!
     @IBOutlet weak var cashoutTypeSeg: UISegmentedControl!
     @IBOutlet weak var widthConstrait: NSLayoutConstraint!
     
@@ -45,7 +46,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         super.viewWillAppear(animated)
         let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 17)]
         cashoutTypeSeg.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
-
+        
         initChangeLang()
         initChangeDirection()
     }
@@ -58,6 +59,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localizedNew, forSegmentAt: 1)
         cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localizedNew, forSegmentAt: 1)
         btnGetIban.setTitle("TTL_HOW_TO_GET_IBAN".localizedNew, for: .normal)
+        btnpay.setTitle("BTN_PAY_CASHOUT".localizedNew, for: .normal)
 
     }
     func initChangeDirection() {

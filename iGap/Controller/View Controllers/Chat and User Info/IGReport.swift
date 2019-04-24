@@ -31,11 +31,11 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
         
         txtReportDescription.delegate = self
         txtReportDescription.isUserInteractionEnabled = true
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Report")
+        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "REPORT".localizedNew)
         navigationItem.rightViewContainer?.addAction {
             if self.txtReportDescription.text.isEmpty {
-                let alert = UIAlertController(title: "Error", message: "Please write your report description", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "PLEASE_WRITE_UR_REPORT".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
             } else {
@@ -46,12 +46,12 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
         placeholderLabel = UILabel()
         
         if messageId != 0 {
-            placeholderLabel.text = "Enter some text to report message ..."
+            placeholderLabel.text = "MESSAGE_INPUT".localizedNew
         } else {
             if room?.type == .chat {
-                placeholderLabel.text = "Enter some text to report user ..."
+                placeholderLabel.text = "MESSAGE_INPUT".localizedNew
             } else {
-                placeholderLabel.text = "Enter some text to report room ..."
+                placeholderLabel.text = "MESSAGE_INPUT".localizedNew
             }
         }
         
@@ -79,8 +79,8 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "Success", message: "Your report has been successfully submitted", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "REPORT_SUCCESS".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }
@@ -138,8 +138,8 @@ class IGReport: UITableViewController , UIGestureRecognizerDelegate {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "Success", message: "Your report has been successfully submitted", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "REPORT_SUCCESS".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                         if self.navigationController is IGNavigationController {
                             self.navigationController?.popViewController(animated: true)
                         }

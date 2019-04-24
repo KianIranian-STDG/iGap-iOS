@@ -46,7 +46,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             if let cardNo = self.detail?.card_number , cardNo != "" { self.detailArray?.append(("TTL_CARDNUM".localizedNew , String(cardNo))) }
             if let targetNo = self.detail?.target_card_number , targetNo != "" {
 				if targetNo.length == 16 {
-                    self.detailArray?.append(("TTL_DESTI_CARD".localizedNew , String(targetNo)))
+                    self.detailArray?.append(("TTL_DESTI_CARDNUM".localizedNew , String(targetNo)))
 				}
 				else {
 					self.detailArray?.append(("TTL_DESTI_IBAN".localizedNew , String(targetNo)))
@@ -79,7 +79,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "History Details")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY_DETAILS".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
