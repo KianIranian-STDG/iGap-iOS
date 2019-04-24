@@ -13,7 +13,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
 
-class IGMapNearbyDistanceTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGMapNearbyDistanceTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
     
     var cellIdentifer = IGMapNearbyDistanceCell.cellReuseIdentifier()
     var nearbyDistanceList: Results<IGRealmMapNearbyDistance>!
@@ -26,7 +26,7 @@ class IGMapNearbyDistanceTableViewController: UITableViewController, UIGestureRe
         super.viewDidLoad()
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "Nearby Distance")
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_NEARBY".localizedNew)
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

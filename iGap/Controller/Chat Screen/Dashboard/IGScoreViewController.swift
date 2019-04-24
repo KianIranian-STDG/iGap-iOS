@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 import IGProtoBuff
 
-class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
+class IGScoreViewController: BaseViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var imgAvatar: IGAvatarView!
     @IBOutlet weak var txtDisplayName: UILabel!
@@ -32,20 +32,27 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         txtDisplayName.text = user.displayName
         
         if let session = try! Realm().objects(IGSessionInfo.self).first, let representerCode = session.representer, !representerCode.isEmpty {
-            txtReferralCode.text = "referral : " + representerCode
+            txtReferralCode.text = "REFERRAL".localizedNew + representerCode.inLocalizedLanguage()
         } else {
             txtReferralCode.isHidden = true
         }
+        btnSeeRecords.setTitle("SHOW_HISTORY".localizedNew, for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         getScore()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        txtScoreTitle.text = "YOUR_SCORE".localizedNew
+        txtScoreTitle.font = UIFont.igFont(ofSize: 30)
+        txtScore.font = UIFont.igFont(ofSize: 25)
+        btnSeeRecords.titleLabel?.font = UIFont.igFont(ofSize: 17)
+    }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Score")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -64,7 +71,7 @@ class IGScoreViewController: UIViewController, UIGestureRecognizerDelegate {
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
                 DispatchQueue.main.async {
-                    self.txtScore.text = String(describing: response.igpScore)
+                    self.txtScore.text = String(describing: response.igpScore).inLocalizedLanguage()
                 }
             }
         }).error({ (errorCode, waitTime) in }).send()

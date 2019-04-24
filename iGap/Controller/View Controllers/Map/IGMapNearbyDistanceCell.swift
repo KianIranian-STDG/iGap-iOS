@@ -33,6 +33,7 @@ class IGMapNearbyDistanceCell: UITableViewCell {
         
         contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.initialConfiguration()
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -60,6 +61,7 @@ class IGMapNearbyDistanceCell: UITableViewCell {
             make.width.equalTo(54)
             make.height.equalTo(54)
         }
+  
         
         return avatarImage
     }
@@ -77,9 +79,9 @@ class IGMapNearbyDistanceCell: UITableViewCell {
             if nearbyDistance.hasComment {
                 userComment.text = nearbyDistance.comment
             } else {
-                userComment.text = "No Status"
+                userComment.text = "NO_STATUS".localizedNew
             }
-            userDistance.text = "about \(nearbyDistance.distance) m"
+            userDistance.text = "ABOUT".localizedNew + "\(nearbyDistance.distance)".inLocalizedLanguage() + " m"
         }
     }
 }

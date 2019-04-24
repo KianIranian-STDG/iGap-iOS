@@ -7,6 +7,20 @@
         "NEW_CALL" : "تماس جدید",
         "NEW_CONVERSATION" : "گفت و گوی جدید",
         "NEXT_BTN" : "بعدی",
+        "REFERRAL" : "معرف : ",
+        "YOUR_SCORE" : "امتیاز شما",
+        "SCORE_HISTORY" : "تاریخچه امتیازات شما",
+        "YOUR_STATUS" : "وضعیت شما",
+        "NO_STATUS" : "بدون وضعیت",
+        "CLEAR_STATUS" : "پاک کردن وضعیت",
+        "LOCATION_SERVICE_DISABLE" : "سرویس موقعیت مکانی غیر فعال می باشد",
+        "LOCATION_SERVICE_ENABLE_IT" : "سرویس موقعیت مکانی غیر فعال می باشد.لطفا از قسمت تنظیمات مجددا آن را فعال نمایید",
+        "MSG_DESABLE_MAP_VISIBILITY" : "غیر فعال سازی قابلیت اطراف من باعث خواهد شد وضعیت شما و سایرین برای یکدیگر غیر قابل مشاهده شود. آیا مایل به ادامهٔ کار هستید؟",
+        "SATELITE" : "ماهواره",
+        "SATNDARD" : "عادی",
+        "ABOUT" : "حدود ",
+
+
 
         "NEW_GROUP" : "گروه جدید",
         "NEW_CHANNEL" : "چنل جدید",
@@ -19,6 +33,8 @@
         "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",
         "WHAT_DO_U_WANT" : "چه کاری میخواهید انجام دهید؟",
         "CLEAR_HISTORY" : "پاک کردن تاریخچه",
+        "SHOW_HISTORY" : "نمایش تاریخچه",
+
         "REPORT" : "گزارش تخلف",
         "LEAVE" : "خروج",
         "REPORT_SUBMITED" : "گزارش تخلف با موفقیت ارسال شد",
@@ -269,6 +285,7 @@
         "AMAZING_CHARGE" : "شارژ شگفت انگیز",
         "WIMAX_CHARGE" : "شارژ وایمکس",
         "PERMANENTLY_SIM_CART" : "سیمکارت دایمی",
+        "CHOOSE_COUNTRY" : "انتخاب کشور",
         "CHOOSE_CHARGE_TYPE" : "انتخاب نوع شارژ",
         "CHOOSE_OPERATOR" : "انتخاب اپراتور",
         "TOPUP_TYPE" : "نوع شارژ",
@@ -342,10 +359,14 @@
         "SETTING_PAGE_FOOTER_VERSION" : "آیگپ آی او اس نسخه ",
         
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "نام",
+        "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "باشگاه مشتریان",
+        "SETTING_PAGE_ACCOUNT_SCORE_PAGE" : "امتیاز",
+
         "SETTING_PAGE_ACCOUNT_PHONENUMBER" : "شماره تماس",
         "SETTING_PAGE_ACCOUNT_USERNAME" : "نام کاربری",
         "SETTING_PAGE_ACCOUNT_EMAIL" : "ایمیل",
         "SETTING_PAGE_ACCOUNT_BIO" : "بیو",
+        
         "SETTING_PAGE_ACCOUNT_REFERRAL" : "شماره تلفن معرف",
         "SETTING_PAGE_ACCOUNT_D_ACCOUNT" : "حذف حساب کاربری",
         "SETTING_PAGE_ACCOUNT_S_DESTRUCT" : "خود تخریبی حساب کاربری",
@@ -354,7 +375,7 @@
         "SETTING_CONTACTS_BLOCKLIST" : "لیست مسدود شده ها",
         "SETTING_NEARBY_MAP_STATUS" : "فعال سازی این گزینه باعث پدیدار شدن موقعیت مکانی شما بر روی نقشه برای دیگران می شود.",
         "SETTING_NEARBY_MAP_MANUALUPDATE" : "بروزرسانی دستی نقشه",
-        "SETTING_NEARBY_MAP_USERS_NEARBY_DISTANCE" : "Users Nearby Distance",
+        "SETTING_NEARBY_MAP_USERS_NEARBY_DISTANCE" : "کاربران اطراف من",
         "SETTING_NEARBY_MAP_DISABLE_NEARBY" : "غیر فعال کردن قابلیت اطراف من",
         "SETTING_FS_TOP_UP" : "شارژ سیمکارت",
         "SETTING_FS_PAY_BILLS" : "پرداخت قبوض",
@@ -584,7 +605,21 @@
         "WHICH_TYPE_OF" : "Which type of conversation would you like to initiate?",
         "MY_CLOUD" : "My Cloud",
         "NEXT_BTN" : "Next",
+        "REFERRAL" : "Referral : ",
+        "YOUR_SCORE" : "Your Score",
+        "SCORE_HISTORY" : "Score History",
+        "YOUR_STATUS" : "Your Status",
+        "NO_STATUS" : "No Status",
+        "ABOUT" : "About ",
 
+        "CLEAR_STATUS" : "Clear Status",
+        "LOCATION_SERVICE_DISABLE" : "Location Service is Disabled",
+        "LOCATION_SERVICE_ENABLE_IT" : "Location Service is Disabled Please go to Setting and enable it",
+        "MSG_DESABLE_MAP_VISIBILITY" : "Disabling Nearby will not only result in hiding your status from others, but you won't also be able to see others' status within your certain range. Are you still sure to continue?",
+        "SATELITE" : "Satelite",
+        "SATNDARD" : "Standard",
+
+        
         "NEW_C_C" : "New Conversation Or Call",
         "NEW_CALL" : "New Call",
         "NEW_CONVERSATION" : "New Conversation",
@@ -599,6 +634,7 @@
         "NO_NETWORK" : "No network Connection",
         "WHAT_DO_U_WANT" : "What do you want to do?",
         "CLEAR_HISTORY" : "Clear History",
+        "SHOW_HISTORY" : "Show History",
         "REPORT" : "Report",
         "LEAVE" : "Leave",
         "REPORT_SUBMITED" : "Report was successfully sent.",
@@ -819,6 +855,8 @@
         
         
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "Nikname",
+        "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "iGap Club",
+        "SETTING_PAGE_ACCOUNT_SCORE_PAGE" : "Score",
         "SETTING_PAGE_ACCOUNT_PHONENUMBER" : "Mobile Number",
         "SETTING_PAGE_ACCOUNT_USERNAME" : "Username",
         "SETTING_PAGE_ACCOUNT_EMAIL" : "Email",
@@ -921,6 +959,8 @@
         "AMAZING_CHARGE" : "Amazing Charge",
         "WIMAX_CHARGE" : "Wimax",
         "PERMANENTLY_SIM_CART" : "Permanently Sim Card",
+        "CHOOSE_COUNTRY" : "Choose Country",
+
         "CHOOSE_CHARGE_TYPE" : "Choose Charge Type",
         "CHOOSE_OPERATOR" : "Choose Operator",
         "TOPUP_TYPE" : "Top Up Type",
@@ -1143,7 +1183,7 @@
         "GLOBAL_OKCLOSE" : "verify and close",
         "GLOBAL_OKGO" : "verify and continue",
         "GLOBAL_YES" : "yes",
-        "GLOBAL_NO" : "no",
+        "GLOBAL_NO" : "No",
         "GLOBAL_OK" : "OK",
         "GLOBAL_TO" : "to",
         "GLOBAL_BACK" : "back",

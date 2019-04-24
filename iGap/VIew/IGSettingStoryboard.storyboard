@@ -1310,7 +1310,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdr-32-9Uv" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="70" y="13" width="297" height="15"/>
+                                                    <rect key="frame" x="367" y="13" width="0.0" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1328,7 +1328,6 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="3Np-2o-lcx" secondAttribute="bottom" constant="5" id="aDW-ir-Wm7"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Zdr-32-9Uv" secondAttribute="trailing" constant="1" id="kqN-DI-OG4"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Zdr-32-9Uv" secondAttribute="bottom" constant="5" id="uj5-gy-0ME"/>
-                                                <constraint firstItem="Zdr-32-9Uv" firstAttribute="leading" secondItem="fxw-wJ-fY6" secondAttribute="leadingMargin" constant="50" id="us1-a3-cWc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1445,6 +1444,7 @@
                         <outlet property="lblBio" destination="av4-xl-QjL" id="eps-7a-syA"/>
                         <outlet property="lblDeleteAccount" destination="CLA-q7-MXY" id="EP9-MJ-60f"/>
                         <outlet property="lblEmail" destination="aJb-AJ-Sfc" id="qSY-rd-VlI"/>
+                        <outlet property="lblIgapGlubal" destination="Nnn-KU-aYp" id="c2p-sv-5qy"/>
                         <outlet property="lblLogOut" destination="ZeK-bN-bp0" id="bcS-Dx-WIQ"/>
                         <outlet property="lblNikname" destination="CQJ-hH-sOb" id="EKB-QB-jW0"/>
                         <outlet property="lblPhoneNUmber" destination="wYW-2E-opr" id="t8o-EU-5I4"/>
@@ -2589,7 +2589,6 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
         <!--About-->
         <scene sceneID="3je-hB-D6x">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RDP-cD-EYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="AboutPage" id="0S4-TI-aY3" customClass="IGSettingAboutTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="mja-nP-SHg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2705,6 +2704,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="cI9-Ui-C7X" kind="show" identifier="GoToWebPage" id="yjv-YV-iRd"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RDP-cD-EYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2070" y="4652"/>
         </scene>
@@ -6000,7 +6000,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dcA-yG-BLS">
-                                                    <rect key="frame" x="103.00000000000001" y="7.0000000000000018" width="60.666666666666671" height="29.666666666666671"/>
+                                                    <rect key="frame" x="102.99999999999999" y="7.0000000000000018" width="59.333333333333329" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -6030,7 +6030,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Qm-4E-Jy8">
-                                                    <rect key="frame" x="93" y="7.0000000000000018" width="60.666666666666657" height="29.666666666666671"/>
+                                                    <rect key="frame" x="93" y="7.0000000000000018" width="59.333333333333343" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -6060,7 +6060,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5jL-3c-dRy">
-                                                    <rect key="frame" x="103.00000000000001" y="7.0000000000000018" width="60.666666666666671" height="29.666666666666671"/>
+                                                    <rect key="frame" x="102.99999999999999" y="7.0000000000000018" width="59.333333333333329" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -6090,7 +6090,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ytv-KK-RtF">
-                                                    <rect key="frame" x="93" y="7.0000000000000018" width="60.666666666666657" height="29.666666666666671"/>
+                                                    <rect key="frame" x="93" y="7.0000000000000018" width="59.333333333333343" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>

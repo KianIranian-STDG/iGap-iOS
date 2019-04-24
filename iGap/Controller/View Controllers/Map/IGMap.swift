@@ -20,7 +20,7 @@ enum CommentState {
     case NONE
 }
 
-class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
+class IGMap: BaseViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var btnCurrentLocation: UIButton!
@@ -28,6 +28,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     @IBOutlet weak var viewShadow: UIView!
     @IBOutlet weak var edtComment: UITextField!
     @IBOutlet weak var btnComment: UIButton!
+
+    @IBOutlet weak var segType: UISegmentedControl!
     
     var tileRenderer: MKTileOverlayRenderer!
     var currentLocation: CLLocation!
@@ -58,7 +60,15 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     var userIdDictionary:[Int:Int64] = [:]
     var usersCommentDictionary:[Int64:String] = [:]
     var userNoInfoDictionary:[Int64:IGPGeoGetNearbyCoordinateResponse.IGPResult] = [:]
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        segType.setTitle("SATELITE".localizedNew, forSegmentAt: 1)
+        segType.setTitle("SATNDARD".localizedNew, forSegmentAt: 0)
+        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14)]
+        segType.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
+        edtComment.placeholder = "YOUR_STATUS".localizedNew
+    }
     @IBAction func segmentChanger(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
         case 0:
@@ -108,7 +118,7 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Nearby")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_NEARBY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -122,19 +132,19 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     func mapOptionsAlert(){
         let option = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let updateMap = UIAlertAction(title: "Manually Update the Map", style: .default, handler: { (action) in
+        let updateMap = UIAlertAction(title: "SETTING_NEARBY_MAP_MANUALUPDATE".localizedNew, style: .default, handler: { (action) in
             self.detectUsersCoordinate()
         })
         
-        let nearbyDistance = UIAlertAction(title: "Users Nearby Distance", style: .default, handler: { (action) in
+        let nearbyDistance = UIAlertAction(title: "SETTING_NEARBY_MAP_USERS_NEARBY_DISTANCE".localizedNew, style: .default, handler: { (action) in
             self.openNearbyDistanceList()
         })
         
-        let nearbyState = UIAlertAction(title: "Disable Nearby Visibility", style: .default, handler: { (action) in
+        let nearbyState = UIAlertAction(title: "SETTING_NEARBY_MAP_DISABLE_NEARBY".localizedNew, style: .default, handler: { (action) in
             self.disableNearbyVisibilityAlert()
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         option.addAction(updateMap)
         option.addAction(nearbyDistance)
@@ -146,17 +156,17 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     
     func commentMaxAlert(){
         let option = UIAlertController(title: nil, message: "Comment cannot be more than \(MAX_COMMENT_LENGTH) characters!", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .cancel, handler: nil)
         option.addAction(cancel)
         self.present(option, animated: true, completion: {})
     }
     
     func clearCommentAlert(){
-        let option = UIAlertController(title: "Clear Status", message: "You will be visible to others with no status. Are you sure to continue ?", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+        let option = UIAlertController(title: "CLEAR_STATUS".localizedNew, message: "SETTING_NEARBY_MAP_STATUS".localizedNew, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
             self.updateComment(comment: "")
         })
-        let cancel = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: nil)
         
         option.addAction(ok)
         option.addAction(cancel)
@@ -164,11 +174,11 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
     }
     
     func disableNearbyVisibilityAlert(){
-        let option = UIAlertController(title: "Disable Nearby", message: "Disabling nearby will not only result in hiding your status from others, but you won't also be able to see others status within your certain range. Are you still sure to continue ?", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+        let option = UIAlertController(title: "SETTING_NEARBY_MAP_DISABLE_NEARBY".localizedNew, message: "MSG_DESABLE_MAP_VISIBILITY".localizedNew, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
             self.geoRegister()
         })
-        let cancel = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: nil)
         
         option.addAction(ok)
         option.addAction(cancel)
@@ -199,9 +209,9 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
             return
         }
         if status == .denied || status == .restricted {
-            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
+            let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localizedNew, message: "LOCATION_SERVICE_ENABLE_IT".localizedNew, preferredStyle: .alert)
 
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
             alert.addAction(okAction)
 
             present(alert, animated: true, completion: nil)
@@ -343,8 +353,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later for disable your map status!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -456,8 +466,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later for get other users position in map!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -528,8 +538,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later for update your comment!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -560,8 +570,8 @@ class IGMap: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDel
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later for start chat with this user!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }

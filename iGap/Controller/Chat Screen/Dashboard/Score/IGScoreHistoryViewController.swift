@@ -11,7 +11,7 @@
 import UIKit
 import IGProtoBuff
 
-class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
+class IGScoreHistoryViewController: BaseViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnScan: UIButton!
@@ -28,6 +28,7 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
         initNavigationBar()
         customizeView()
         manageShowActivties(isFirst: true)
+        btnScan.setTitle("SETTING_PAGE_QRCODE_SCANNER".localizedNew, for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,7 +44,7 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Score History")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SCORE_HISTORY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -65,9 +66,9 @@ class IGScoreHistoryViewController: UIViewController, UIGestureRecognizerDelegat
     
     private func manageShowActivties(isFirst: Bool = false){
         if isFirst {
-            self.collectionView!.setEmptyMessage("Please wait for get info!")
+            self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
         } else if iVandActivities.count == 0 {
-            self.collectionView!.setEmptyMessage("not exist history!")
+            self.collectionView!.setEmptyMessage("PU_NODATA".localizedNew)
         } else {
             self.collectionView!.restore()
         }

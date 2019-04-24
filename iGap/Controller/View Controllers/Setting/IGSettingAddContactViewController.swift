@@ -34,13 +34,37 @@ class IGSettingAddContactViewController: BaseViewController, UIGestureRecognizer
         makeView()
 
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_BTN".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "ADD_BTN".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.rightViewContainer?.addAction {
             self.addContact()
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
+        btnChooseCountry.titleLabel?.font = UIFont.igFont(ofSize: 20)
+        edtFirstName.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
+        edtLastName.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
+        let current : String = SMLangUtil.loadLanguage()
+        switch current {
+        case "fa" :
+
+            edtLastName.textAlignment = .right
+            edtFirstName.textAlignment = .right
+        case "en" :
+            edtLastName.textAlignment = .left
+            edtFirstName.textAlignment = .left
+
+        case "ar" :
+
+            break
+        default :
+            break
+        }
+        
     }
     
     private func makeView(){

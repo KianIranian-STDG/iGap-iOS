@@ -19,6 +19,7 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
     @IBOutlet weak var nicknameEntryLabel: UILabel!
     @IBOutlet weak var usernameEntryLabel: UILabel!
     @IBOutlet weak var emailEntryLabel: UILabel!
+    @IBOutlet weak var lblIgapGlubal: UILabel!
     @IBOutlet weak var selfDestructionLabel: UILabel!
     @IBOutlet weak var bioEntryLabel: IGLabel!
     @IBOutlet weak var bioIndicator: UIActivityIndicatorView!
@@ -95,7 +96,7 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
     //MARK: change Language Handler
     func initChangeLanguage() {
 //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
-
+        lblIgapGlubal.text = "SETTING_PAGE_ACCOUNT_IGAP_CLUB".localizedNew
         lblNikname.text = SMLangUtil.changeLblText(tag: lblNikname.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblPhoneNUmber.text = SMLangUtil.changeLblText(tag: lblPhoneNUmber.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblUserName.text = SMLangUtil.changeLblText(tag: lblUserName.tag, parentViewController: NSStringFromClass(self.classForCoder))
@@ -106,6 +107,7 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
         lblSelfDestruction.text = SMLangUtil.changeLblText(tag: lblSelfDestruction.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblSelfDestructionHint.text = SMLangUtil.changeLblText(tag: lblSelfDestructionHint.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblLogOut.text = SMLangUtil.changeLblText(tag: lblLogOut.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        
 
     }
 
@@ -391,7 +393,7 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
                 DispatchQueue.main.async {
-                    self.scoreLabel.text = String(describing: response.igpScore)
+                    self.scoreLabel.text = String(describing: response.igpScore).inLocalizedLanguage()
                     self.scoreIndicator.stopAnimating()
                     self.scoreIndicator.hidesWhenStopped = true
                 }

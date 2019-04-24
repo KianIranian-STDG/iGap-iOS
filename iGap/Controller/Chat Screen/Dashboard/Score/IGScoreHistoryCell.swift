@@ -23,8 +23,8 @@ class IGScoreHistoryCell: UICollectionViewCell {
     }
     
     public func initView(activity: IGPIVandActivity){
-        txtScoreNumber.text = String(describing: abs(activity.igpScore))
-        txtTime.text = Date(timeIntervalSince1970: TimeInterval(activity.igpTime)).completeHumanReadableTime()
+        txtScoreNumber.text = String(describing: abs(activity.igpScore)).inLocalizedLanguage()
+        txtTime.text = Date(timeIntervalSince1970: TimeInterval(activity.igpTime)).completeHumanReadableTime().inLocalizedLanguage()
         txtTitle.text = activity.igpTitle
         
         if activity.igpScore == 0 { // score without any action
