@@ -718,7 +718,7 @@ Please wait 0:59</string>
             </objects>
             <point key="canvasLocation" x="505" y="509"/>
         </scene>
-        <!--Splash Screen View Controller-->
+        <!-- -->
         <scene sceneID="p8T-PT-Zdn">
             <objects>
                 <viewController id="Gwk-Lv-sYf" customClass="IGSplashScreenViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -819,7 +819,7 @@ Please wait 0:59</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0lV-PO-w33"/>
                     </view>
-                    <navigationItem key="navigationItem" id="v3H-eC-pAb"/>
+                    <navigationItem key="navigationItem" title=" " id="v3H-eC-pAb"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="gifImageView" destination="QTt-bz-NiR" id="lOC-TO-ySY"/>
@@ -828,7 +828,7 @@ Please wait 0:59</string>
                         <outlet property="splashView" destination="Ytb-Tk-xdY" id="M5I-kN-8QL"/>
                         <outlet property="startButton" destination="D7A-Y5-bfR" id="ozF-vx-CMq"/>
                         <outlet property="topView" destination="338-9b-7Bt" id="YNo-cF-Gg9"/>
-                        <segue destination="QdJ-2S-JXd" kind="show" id="GY1-mX-gxg"/>
+                        <segue destination="QdJ-2S-JXd" kind="show" identifier="showPhoneNumber" id="GY1-mX-gxg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9W-Sm-uaV" sceneMemberID="firstResponder"/>
