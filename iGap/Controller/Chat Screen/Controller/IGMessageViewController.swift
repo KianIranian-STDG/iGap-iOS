@@ -16,7 +16,7 @@ import pop
 import SnapKit
 import AVFoundation
 import DBAttachmentPickerControllerLibrary
-import INSPhotoGalleryFramework
+import INSPhotoGallery
 import AVKit
 import RealmSwift
 import RxRealm

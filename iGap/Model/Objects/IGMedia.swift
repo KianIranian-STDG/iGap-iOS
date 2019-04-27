@@ -9,7 +9,7 @@
  */
 
 import UIKit
-import INSPhotoGalleryFramework
+import INSPhotoGallery
 import IGProtoBuff
 
 class IGMedia: INSPhotoViewable, Equatable {

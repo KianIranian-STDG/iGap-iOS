@@ -17,7 +17,7 @@ import RxCocoa
 import IGProtoBuff
 import MGSwipeTableCell
 import MBProgressHUD
-import INSPhotoGalleryFramework
+import INSPhotoGallery
 import NVActivityIndicatorView
 
 class IGChannelInfoTableViewController: UITableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {

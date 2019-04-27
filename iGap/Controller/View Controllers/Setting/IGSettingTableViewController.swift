@@ -11,7 +11,7 @@
 import UIKit
 import RealmSwift
 import IGProtoBuff
-import INSPhotoGalleryFramework
+import INSPhotoGallery
 import RxRealm
 import RxSwift
 import Gifu
