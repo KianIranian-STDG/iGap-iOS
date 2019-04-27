@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import CameraViewController
 import IGProtoBuff
 import SwiftProtobuf
 
