@@ -74,6 +74,22 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let current : String = SMLangUtil.loadLanguage()
+        switch current {
+        case "fa" :
+            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+        case "en" :
+            UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+        case "ar" :
+            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+        default :
+            break
+        }
+
     }
     
     /*

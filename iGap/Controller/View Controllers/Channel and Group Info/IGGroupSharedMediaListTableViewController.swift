@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var sizeOfSharedVideos: UILabel!
     @IBOutlet weak var sizeOfSharedImage: UILabel!
@@ -22,7 +22,13 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
     @IBOutlet weak var sizeOfSharedFiles: UILabel!
     @IBOutlet weak var sizeOfSharedLinksLabel: UILabel!
     @IBOutlet weak var sizeOfSharedVoice: UILabel!
-    
+    @IBOutlet weak var lblImages: UILabel!
+    @IBOutlet weak var lblAudios: UILabel!
+    @IBOutlet weak var lblVideos: UILabel!
+    @IBOutlet weak var lblFiles: UILabel!
+    @IBOutlet weak var lblVoices: UILabel!
+    @IBOutlet weak var lblLinks: UILabel!
+
     var selectedRowNum : Int!
     var room: IGRoom?
     var hud = MBProgressHUD()
@@ -47,14 +53,22 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
     
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "shared Media")
+        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SHAREDMEDIA".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
+        lblLinks.text = "LINKS".localizedNew
+        lblVideos.text = "VIDEOS".localizedNew
+        lblImages.text = "IMAGES".localizedNew
+        lblVoices.text = "VOICES".localizedNew
+        lblAudios.text = "AUDIOS".localizedNew
+        lblFiles.text = "FILES".localizedNew
+
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -145,8 +159,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         self.hud.hide(animated: true)
@@ -181,8 +195,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -220,8 +234,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -258,8 +272,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -297,8 +311,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -334,8 +348,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -371,8 +385,8 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -397,11 +411,11 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
             destination.room = room
             switch selectedRowNum {
             case 0:
-                destination.navigationTitle = "Images"
+                destination.navigationTitle = "IMAGES".localizedNew
                 destination.sharedMedia = sharedMediaImageFile
                 destination.sharedMediaFilter = .image
             case 2:
-                destination.navigationTitle = "Videos"
+                destination.navigationTitle = "VIDEOS".localizedNew
                 destination.sharedMedia = sharedMediaVideoFile
                 destination.sharedMediaFilter = .video
             default:
@@ -414,19 +428,19 @@ class IGGroupSharedMediaListTableViewController: UITableViewController , UIGestu
             destination.room = room
             switch selectedRowNum {
             case 1:
-                destination.navigationTitle = "Audio"
+                destination.navigationTitle = "AUDIOS".localizedNew
                 destination.sharedMedia = sharedMediaAudioFile
                 destination.sharedMediaFilter = .audio
             case 3:
-                destination.navigationTitle = "Files"
+                destination.navigationTitle = "FILES".localizedNew
                 destination.sharedMedia = sharedMediaFile
                 destination.sharedMediaFilter = .file
             case 4:
-                destination.navigationTitle = "Voices"
+                destination.navigationTitle = "VOICES".localizedNew
                 destination.sharedMedia = sharedMediaVoiceFile
                 destination.sharedMediaFilter = .voice
             case 5:
-                destination.navigationTitle = "Links"
+                destination.navigationTitle = "LINKS".localizedNew
                 destination.sharedMedia = sharedMediaLinkFile
                 destination.sharedMediaFilter = .url
             default:

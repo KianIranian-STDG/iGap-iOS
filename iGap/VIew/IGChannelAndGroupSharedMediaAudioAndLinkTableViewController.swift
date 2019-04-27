@@ -20,7 +20,7 @@ protocol IGUrlClickDelegate {
     func didTapOnRoomLink(link: String)
 }
 
-class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewController, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, IGUrlClickDelegate {
+class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableViewController, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, IGUrlClickDelegate {
     
     var sharedMedia = [IGRoomMessage]()
     var room: IGRoom?
@@ -155,8 +155,8 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.isFetchingFiles = false
                         self.present(alert, animated: true, completion: nil)
@@ -216,14 +216,14 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
                 case .clientJoinByInviteLinkForbidden:
-                    let alert = UIAlertController(title: "Error", message: "Sorry,this group does not seem to exist.", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "GROUP_DOES_NOT_EXIST".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -245,11 +245,11 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
             DispatchQueue.main.async {
                 self.hud.hide(animated: true)
                 if let clinetCheckInvitedlink = protoResponse as? IGPClientCheckInviteLinkResponse {
-                    let alert = UIAlertController(title: "iGap", message: "Are you sure want to join \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    let alert = UIAlertController(title: "iGap", message: "ARE_U_SURE_TO_JOIN".localizedNew + " \(clinetCheckInvitedlink.igpRoom.igpTitle)?", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                         self.joinRoombyInvitedLink(room:clinetCheckInvitedlink.igpRoom, invitedToken: invitedLink)
                     })
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
                     
                     alert.addAction(okAction)
                     alert.addAction(cancelAction)
@@ -261,8 +261,8 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
                 switch errorCode {
                 case .timeout:
                     
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     
                     self.present(alert, animated: true, completion: nil)
@@ -283,9 +283,9 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: UITableViewCo
         }
         
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Success", message: "You joined \(beforeString)to \(room.title!)!", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            let openNow = UIAlertAction(title: "Open Now", style: .default, handler: { (action) in
+            let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "U_JOINED".localizedNew + " \(beforeString)" + "TO".localizedNew + " \(room.title!)!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+            let openNow = UIAlertAction(title: "OPEN_NOW".localizedNew, style: .default, handler: { (action) in
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let chatPage = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
                 chatPage.room = room

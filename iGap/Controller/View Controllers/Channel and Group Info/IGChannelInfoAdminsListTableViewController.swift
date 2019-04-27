@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
 
     var room : IGRoom?
     var mode : String?
@@ -32,7 +32,7 @@ class IGChannelInfoAdminsListTableViewController: UITableViewController , UIGest
     override func viewDidLoad() {
         super.viewDidLoad()
         if mode == "Admin" {
-            navigationTitle = "Admins"
+            navigationTitle = "ADMIN".localizedNew
             noDataTitle = "This channel has no admin."
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.id)!)
             members =  try! Realm().objects(IGChannelMember.self).filter(predicate!)

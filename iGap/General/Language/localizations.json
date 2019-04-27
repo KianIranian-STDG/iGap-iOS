@@ -16,6 +16,11 @@
         "SETTING_CW_WALLPAPER_PREVIEW" : "نمایش تصویر پس زمینه",
         "CONTACT_INFO" : "اطلاعات کاربر",
         "MSG_SURE_TO_DELETE_CHAT" : "آیا از حذف این چت مطمین هستید؟",
+        "MSG_SURE_TO_DELETE_GROUP" : "آیا از حذف این گروه مطمین هستید؟",
+        "MSG_SURE_TO_LEAVE_GROUP" : "آیا از ترک این گروه مطمین هستید؟",
+        "MSG_SURE_TO_DELETE_CHANNEL" :  "آیا از حذف این کانال مطمین هستید؟",
+        "MSG_SURE_TO_LEAVE_CHANNEL" : "آیا از ترک این کانال مطمین هستید؟",
+
         "MSG_SURE_TO_DELETE_CHAT_HISTORY" : "آیا از حذف تاریخچه چت مطمین هستید؟",
         "INVALID_CODE" : "کد اشتباه",
         "MSG_THE_CODE_INVALID" : "کد وارد شده صحیح نمی باشد",
@@ -47,7 +52,89 @@
         "REPORT_SUCCESS" : "گزارش شما با موفقیت ثبت شد",
         "FORWARDED_FROM" : "ارسال شده از : ",
         "REOLY_TO" : "پاسخ به : ",
+        "GROUP_INFO" : "اطلاعات گروه",
+        "DELETE_GROUP" : "حذف گروه",
+        "DELETE_MAIN_AVATAR" : "حذف آواتار اصلی",
+        "PRIVATE" : "خصوصی",
+        "PUBLIC" : "عمومی",
+        "COPY" : "کپی",
+        "GROUP_LINK" : "لینک گروه",
+        "CHNAGE" : "تغییر",
+        "NOTIFICATIONS" : "نوتیفیکیشن ها",
+        "GROUPNAME" : "نام گروه",
+        "GROUPDESC" : "شرح گروه",
+        "GROUPTYPE" : "نوع گروه",
+        "CHANNELDESC" : "شرح کانال",
+        "CHANNELTYPE" : "نوع کانال",
+        "CHANNELREACTION" : "واکنش در کانال",
+        "CHANNELSIGNMESSAGES" : "امضا پیام ها",
+        "CHANNEL_INFO" : "اطلاعات کانال",
+        "CHANNEL_LINK" : "لینک کانال :",
 
+
+        "TYPE" : "نوع",
+        "ADD_ADMIN" : "افزودن مدیر",
+        "ADD_MODERATOR" : "افزودن سردبیر",
+        "ADD_MEMBER" : "افزودن عضو",
+        "ADD_MEMBER_TO" : "افزودن عضو به",
+
+        "ALLMEMBER" : "اعضا",
+        "ADMIN" : "مدیر",
+        "MODERATOR" : "سردبیر",
+        "ADMINANDMODERATOR" : "ادمین و سردبیر",
+        "SHAREDMEDIA" : "محتواهای اشتراک گذاشته شده",
+        "REMOVE_ADMIN" : "حذف ادمین",
+        "REMOVE_MODERATOR" : "حذف سردبیر",
+        "KICK_MEMBER" : "بیرون انداختن عضو",
+        
+        "ARE_U_SURE_REMOVE_ADMIN" : "آیا از ایتکه وظیفه ادمین بودت را از این کاربر می خواهید بگیرید اطمینان  دارید ؟",
+        "ARE_U_SURE_REMOVE_MODERATOR" : "آیا از ایتکه وظیفه سردبیر بودن را از این کاربر می خواهید بگیرید اطمینان  دارید ؟",
+        "ARE_U_SURE_KICK_USER" : "آیا از بیرون انداختن این کاربر اطمینان  دارید ؟",
+        "HIDDEN" : "مخفی",
+        "DELETE_CHAT" : "حذف چت",
+        "DELETE_CHANNEL" : "حذف کانال",
+        "CONVERT_CHAT_TO_GROUP" : "تبدیل چت به گروه",
+        "IN_CHAT_SEARCH" : "جست و جوی درون گغت و گو",
+        "GROUP_LINK_NOT_EMPTY" : "قسمت لینک گروه نباید خالی باشد",
+        "NAME" : "نام",
+        "MSG_GROUP_DESC" : "لطفا برای گروه خود توضیحاتی وارد نمایید ...",
+        "MSG_GROUP_CHANNEL" : "لطفا برای کانال خود توضیحاتی وارد نمایید ...",
+        "MSG_PLEASE_CHOOSE_MEMBER" : "لطفا  کاربری را برای عضویت انتخاب نمایید.",
+        "RECORDED_BY" : "ضبظ شده توسط :",
+        "RECORDED_VOICE" : "صدای ضبط شده",
+        "MSG_USER_REPORTED_BEFOR" : "این کاربر قبلا ریپورت شده است",
+        "MSG_REPORT_INVALID" : "توضیحات ریپورت مورد تایید نمی باشد",
+        "TTL_PICKNUM_WITH_COUNTRYCODE" : "لطفا به منظور شروع فرایند ثبت نام کد کشور و شماره همراه خود را وارد نمایید",
+        "LOGIN_USING_QR" : "ورود به توسط اسکن کد کیو آر",
+        "TERMS" : "شرایط",
+        "SMS" : "پیامک",
+        "VIA" : " توسط ",
+        "IGAP" : "آیگپ",
+        "SMSANDIGAP" : "پیامک و آیگپ",
+        "MSG_ENTER_VERFICATIONCODE_SENT" : "لطفا وارد نمایید کد تایید ارسال شده به ",
+        "INVALID_VERFI_CODE" : "لطفا کد صحیح وارد نمایید",
+        "RESEND_CODE_VIA" : "ارسال مجدد کد توسط :",
+        "YOUR_PROFILE" : "صفحه شما",
+        "ENTER_NAME_AND_CHOOSE_PHOTO" : "تصویر خود را انتخاب و نام خود را وارد نمایید",
+        "ENTER_REFERRAL_NUMBER" : "لطفا شماره تماس معرف خود را وارد نمایید",
+        "SKIP" : "پرش",
+        "SET_REFERRAL" : "ثبت معرف",
+        "IS_PHONE_OK" : "آیا این شماره تماس درست می باشد؟",
+        "IS_IT_CORRECT" : "آیا صحیح است؟",
+        "INVALID_PHONE" : "شماره تماس اشتباه",
+        "ENTER_VALID_P_NUMBER" : "لطفا شماره تماس صحیح وارد نمایید",
+        "SHOW_AND_LOGIN_USING_QR" :  "این کیوآر کد را توسط دستگاه دیگر خود به منظور ورود به حساب کاربری اسکن نمایید",
+        "PLEASE_ENTER_PASS" : "لطفا رمز خود را وارد نمایید",
+        "twoStepVerfi_HEADER" : "شما تایید دومرحله ای را انتخاب کرده اید.برای همین حساب کاربری شما توسط رمزی دوم ایمن شده است",
+
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -71,6 +158,8 @@
         "RESET_WALLET_PIN" : "بازنشانی رمز کیف پول",
         "SHOW_THIS_QR" : "این کیو آر را به دیگران به منظور اسکن کردن و پرداخت وجه به شما نشان دهید",
 
+        "FILES" : "فایل ها",
+        "LINKS" : "لینک ها",
         "GIFS" : "تصاویر متحرگ",
         "IMAGES" : "فایل های تصویری",
         "VIDEOS" : "ویدیو ها",
@@ -535,6 +624,8 @@
         "COMMENT_TITLE" : "دیدگاه ها",
         "SOCKET_CONNECTING" : "در حال اتصال...",
         "MESSAGE_TITLE" : "پیغام ها",
+        "HASHTAGS" : "هشتگ ها",
+
         "MESSAGE" : "پیغام",
         "EDITE_MESSAGE" : "ویرایش پیغام",
         "NO_MESSAGE" : "پیغامی برای نمایش وجود ندارد",
@@ -558,6 +649,8 @@
         "PRODUCTS_CONTINUE" : "ادامه و تکمیل خرید",
         "PRODUCTS_DISCOUNT" : "تخفیف، سود شما",
         "PRODUCTS_DETAILS" : "توضیحات",
+        "PRODUCTS_NO_DETAILS" : "فاقد توضیحات",
+
         "PRODUCTS_SELLER" : "فروشنده",
         "PRODUCTS_SELECT_CATEGORY" : "انتخاب دسته",
         "PRODUCTS" : "محصولات",
@@ -680,7 +773,12 @@
         "NO_STATUS" : "No Status",
         "ABOUT" : "About ",
         "WALLET_SETTINGS" : "Wallet Settings",
+        "MSG_SURE_TO_LEAVE_GROUP" : "Are you sure you want to Leave this group?",
+        "MSG_SURE_TO_DELETE_GROUP" : "Are you sure you want to Delete this group?",
         "MSG_SURE_TO_DELETE_CHAT" : "Are you sure you want to Delete this chat?",
+        "MSG_SURE_TO_DELETE_CHANNEL" : "Are you sure you want to Delete this chat?",
+        "MSG_SURE_TO_LEAVE_CHANNEL" : "Are you sure you want to Leave this Channel?",
+
         "MSG_SURE_TO_DELETE_CACHE" : "Are you sure you want to Clear selected Data?",
         "MSG_SURE_TO_DELETE_CHAT_HISTORY" : "Are you sure you want to Delete chat history?",
         "INVALID_CODE" : "Invalid Code",
@@ -717,9 +815,99 @@
         "REPORT_SUCCESS" : "Your report has been successfully submitted",
         "FORWARDED_FROM" : "Forwarded from : ",
         "REOLY_TO" : "Reply to : ",
+        "CHANNEL_LINK" : "Channel Link :",
 
         
         
+        
+        "GROUP_INFO" : "Group Info",
+        "DELETE_GROUP" : "Delete Group",
+        "DELETE_MAIN_AVATAR" : "Delete Main Avatar",
+        "PRIVATE" : "Private",
+        "PUBLIC" : "Public",
+        "COPY" : "Copy",
+        "GROUP_LINK" : "Group Link",
+        "CHNAGE" : "Change",
+        "NOTIFICATIONS" : "Notifications",
+        "GROUPNAME" : "GroupName",
+        "CHANNELDESC" : "Channel Description",
+        "CHANNELTYPE" : "Channel Type",
+        "CHANNELREACTION" : "Channel Reaction",
+        "CHANNELSIGNMESSAGES" : "Sign Messages",
+
+        "GROUPDESC" : "Group Desciption",
+        "GROUPTYPE" : "Group Type",
+        "ALLMEMBER" : "Members",
+        "ADMINANDMODERATOR" : "Admins and Moderators",
+        "SHAREDMEDIA" : "Shared Media",
+        "ADD_ADMIN" : "Add admin",
+        "ADD_MODERATOR" : "Add Moderator",
+        "REMOVE_ADMIN" : "Remove admin",
+        "REMOVE_MODERATOR" : "Remove Moderator",
+        "KICK_MEMBER" : "Kick Member",
+        "ADMIN" : "Admin",
+        "MODERATOR" : "Moderator",
+        "TYPE" : "Type",
+        "ADD_MEMBER" : "Add member",
+        "ADD_MEMBER_TO" : "Add member to",
+
+        "ARE_U_SURE_REMOVE_ADMIN" : "Are you sure you want to remove the admin role from this member?",
+        "ARE_U_SURE_REMOVE_MODERATOR" : "Are you sure you want to remove the Moderator role from this member?",
+        "ARE_U_SURE_KICK_USER" : "Are you sure you want to Kick this member?",
+        "HIDDEN" : "Hidden",
+        "DELETE_CHAT" : "Delete Chat",
+        "DELETE_CHANNEL" : "Delete Channel",
+        "CONVERT_CHAT_TO_GROUP" : "Convert Chat To Group",
+        "IN_CHAT_SEARCH" : "In-Chat search",
+        "GROUP_LINK_NOT_EMPTY" : "Group Link can not be empty",
+        "NAME" : "Name",
+        "CHANNEL_INFO" : "Channel Info",
+        "RECORDED_BY" : "Recorded By :",
+        "RECORDED_VOICE" : "Recorded Voice",
+        "MSG_USER_REPORTED_BEFOR" : "This User has been reported befor",
+        "MSG_REPORT_INVALID" : "The report description is invalid",
+        "TTL_PICKNUM_WITH_COUNTRYCODE" : "Pleas enter your mobile number with country code",
+        "LOGIN_USING_QR" : "Login using Qr Code",
+        "TERMS" : "Terms",
+        "SMS" : "SMS",
+        "VIA" : " Via ",
+        "IGAP" : "iGAP",
+        "SMSANDIGAP" : "SMS and iGAP",
+        "MSG_ENTER_VERFICATIONCODE_SENT" : "Please enter the verification Code sent to ",
+        "INVALID_VERFI_CODE" : "Please enter a valid Code",
+        "RESEND_CODE_VIA" : "Resend Code Via :",
+        "YOUR_PROFILE" : "Your Profile",
+        "ENTER_NAME_AND_CHOOSE_PHOTO" : "Please enter your name and choose your profile picture",
+        "ENTER_REFERRAL_NUMBER" : "Please Enter your Referral Mobile Number Here",
+        "SKIP" : "Skip",
+        "SET_REFERRAL" : "Set Referral",
+        "IS_PHONE_OK" : "Is the Mobile Number Correct : ? \n",
+        "IS_IT_CORRECT" : "Is it Correct?",
+        "INVALID_PHONE" : "Invalid Mobile Number",
+        "ENTER_VALID_P_NUMBER" : "Please Enter a valid Mobile NUmber",
+        "SHOW_AND_LOGIN_USING_QR" :  "Scan this QR Code using your other device to log in to your iGap Account",
+        "PLEASE_ENTER_PASS" : "Please Enter Your Pass",
+        "twoStepVerfi_HEADER" : "You have enabled Two-Step verification, so your account is protected with an additional password",
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        "FILES" : "Files",
+        "LINKS" : "Links",
         "GIFS" : "Gifs",
         "IMAGES" : "Images",
         "VIDEOS" : "Videos",
@@ -870,6 +1058,9 @@
         "MSG_WRITE_YOUR_CHANNEL_NAME" : "Please write your channel name",
         "PLEASE_WAIT_DATA_LOAD" : "Please wait while Data is Loading ...",
         "MSG_CHANNEL_DESC" : "You can Provide an optional description for your channel",
+        "MSG_GROUP_DESC" : "Enter some text to describe your Group ...",
+        "MSG_GROUP_CHANNEL" : "Enter some text to describe your Channel ...",
+        "MSG_PLEASE_CHOOSE_MEMBER" : "Please Choose a member",
 
 
         
@@ -1196,6 +1387,7 @@
         "COMMENT_TITLE" : "Comments",
         "SOCKET_CONNECTING" : "Connecting...",
         "MESSAGE_TITLE" : "Messages",
+        "HASHTAGS" : "Hashtags",
         "MESSAGE" : "Message",
         "EDITE_MESSAGE" : "Edite Message",
 
@@ -1219,6 +1411,7 @@
         "PRODUCTS_CONTINUE" : "Continue & Finish the purchase",
         "PRODUCTS_DISCOUNT" : "Discount, your gain is",
         "PRODUCTS_DETAILS" : "Description",
+        "PRODUCTS_NO_DETAILS" : "No Description",
         "PRODUCTS_SELLER" : "Seller",
         "PRODUCTS_SELECT_CATEGORY" : "Select Category",
         "PRODUCTS" : "Products",
@@ -1314,7 +1507,7 @@
         "GLOBAL_OK" : "OK",
         "GLOBAL_TO" : "to",
         "GLOBAL_BACK" : "back",
-        "GLOBAL_CLOSE" : "close",
+        "GLOBAL_CLOSE" : "Close",
         "GLOBAL_CREAT" : "Creat",
 
         "GLOBAL_UNLIMITED" : "unlimited",

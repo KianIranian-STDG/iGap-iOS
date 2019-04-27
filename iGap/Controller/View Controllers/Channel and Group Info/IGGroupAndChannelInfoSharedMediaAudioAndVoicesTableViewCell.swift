@@ -55,8 +55,8 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
         
         self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
         playingSlider.value = 0.0
-        durationTimeLabel.text = "\(playingSlider.value)"
-        self.mediaSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: attachment.size)
+        durationTimeLabel.text = "\(playingSlider.value)".inLocalizedLanguage()
+        self.mediaSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: attachment.size).inLocalizedLanguage()
         
         if let creationtime = message.creationTime {
             creationDateLabel.text = "\(creationtime.completeHumanReadableTime())"
@@ -76,7 +76,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
         let timeInt = Int(attachment.duration)
         let remainingSeconds = timeInt%60
         let remainingMiuntes = timeInt/60
-        durationTimeLabel.text = "\(remainingMiuntes):\(remainingSeconds)"
+        durationTimeLabel.text = "\(remainingMiuntes):\(remainingSeconds)".inLocalizedLanguage()
         playingSlider.maximumValue = Float(time)
         
         

@@ -20,7 +20,7 @@ protocol IGForwardMessageDelegate {
     func didSelectRoomToForwardMessage(room : IGRoom)
 }
 
-class IGForwardMessageTableViewController: UITableViewController {
+class IGForwardMessageTableViewController: BaseTableViewController {
 
     @IBOutlet weak var forwardSegment: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -86,7 +86,7 @@ class IGForwardMessageTableViewController: UITableViewController {
         self.rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1 AND isReadOnly = false").sorted(by: sortProperties)
         self.tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "Cancel", title: nil)
+        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "CANCEL_BTN".localizedNew, title: nil)
         navigationItem.rightViewContainer?.addAction {
             self.dismiss(animated: true, completion: {
                 IGMessageViewController.selectedMessageToForwardToThisRoom = nil

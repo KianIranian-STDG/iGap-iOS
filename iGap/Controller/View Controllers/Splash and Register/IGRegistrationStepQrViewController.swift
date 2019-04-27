@@ -13,10 +13,10 @@ import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
 
-class IGRegistrationStepQrViewController: UIViewController, UIGestureRecognizerDelegate {
+class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var lblHEader : UILabel!
     var expirayDate: Int32 = 0
     var imageData: Data = Data()
     
@@ -24,7 +24,7 @@ class IGRegistrationStepQrViewController: UIViewController, UIGestureRecognizerD
         super.viewDidLoad()
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "Login Using QR")
+        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "LOGIN_USING_QR".localizedNew)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -68,6 +68,8 @@ class IGRegistrationStepQrViewController: UIViewController, UIGestureRecognizerD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        lblHEader.text = "SHOW_AND_LOGIN_USING_QR".localizedNew
+
         getNewQrCode()
     }
     

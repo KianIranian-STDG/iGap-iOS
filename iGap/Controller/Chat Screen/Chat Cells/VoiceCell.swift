@@ -154,9 +154,9 @@ class VoiceCell: AbstractCell {
         
         let attachment: IGFile! = finalRoomMessage.attachment
         if finalRoomMessage.authorUser != nil {
-            txtVoiceRecorderName.text = "Recorded by \(finalRoomMessage.authorUser!.displayName)"
+            txtVoiceRecorderName.text = "RECORDED_BY".localizedNew + " \(finalRoomMessage.authorUser!.displayName)"
         } else if finalRoomMessage.authorRoom != nil {
-            txtVoiceRecorderName.text = "Recorded voice"
+            txtVoiceRecorderName.text = "RECORDED_VOICE".localizedNew
         }
         
         if isIncommingMessage {
@@ -188,7 +188,7 @@ class VoiceCell: AbstractCell {
         sliderVoice.setValue(0.0, animated: false)
         let timeM = Int(attachment.duration / 60)
         let timeS = Int(attachment.duration.truncatingRemainder(dividingBy: 60.0))
-        txtVoiceTime.text = "0:00 / \(timeM):\(timeS)"
+        txtVoiceTime.text = "0:00 / \(timeM):\(timeS)".inLocalizedLanguage()
     }
 }
 

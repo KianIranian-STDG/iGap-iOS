@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGGroupInfoAdminListTableViewController: UITableViewController , UIGestureRecognizerDelegate{
+class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate{
 
     var room : IGRoom?
     var mode : String?
@@ -78,6 +78,7 @@ class IGGroupInfoAdminListTableViewController: UITableViewController , UIGesture
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchGroupAdminOrModeratorFromServer()
     }
     

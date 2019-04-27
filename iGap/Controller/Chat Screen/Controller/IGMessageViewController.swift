@@ -1106,7 +1106,7 @@ class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         UIView.appearance().semanticContentAttribute = .forceLeftToRight
         UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-//        UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
+        UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)

@@ -15,12 +15,14 @@ import MBProgressHUD
 import IGProtoBuff
 
 
-class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFieldDelegate , UIGestureRecognizerDelegate {
+class IGChannelInfoEditTypeTableViewController: BaseTableViewController ,UITextFieldDelegate , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var publicChannelCell: UITableViewCell!
     @IBOutlet weak var privateChannelCell: UITableViewCell!
     @IBOutlet weak var channelLinkTextField: UITextField!
-    
+    @IBOutlet weak var lblPublic : UILabel!
+    @IBOutlet weak var lblPrivate : UILabel!
+
     var publicIndexPath : IndexPath?
     var privateIndexPath : IndexPath?
     var room: IGRoom?
@@ -42,7 +44,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
         privateIndexPath = IndexPath(row: 1, section: 0)
         publicIndexPath  = IndexPath(row: 0, section: 0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Type")
+        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "TYPE".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -72,7 +74,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
             channelDefualtName.text = "iGap.net/"
             channelLinkTextField.leftView = channelDefualtName
             channelLinkTextField.leftViewMode = UITextField.ViewMode.always
-            channelLinkTextField.placeholder = "yourlink"
+            channelLinkTextField.placeholder = ""
             channelLinkTextField.delegate = self
             
             if let username = room?.channelRoom?.publicExtra?.username {
@@ -88,7 +90,11 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
             channelLinkTextField.isUserInteractionEnabled = false
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblPublic.text = "PUBLIC".localizedNew
+        lblPrivate.text = "PRIVATE".localizedNew
+    }
     func checkUsername(username: String){
         IGChannelCheckUsernameRequest.Generator.generate(roomId:room!.id ,username: username).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -108,8 +114,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -150,7 +156,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                 channelDefualtName.text = "iGap.net/"
                 channelLinkTextField.leftView = channelDefualtName
                 channelLinkTextField.leftViewMode = UITextField.ViewMode.always
-                channelLinkTextField.placeholder = "yourlink"
+                channelLinkTextField.placeholder = ""
                 channelLinkTextField.delegate = self
                 
                 if let username = room?.channelRoom?.publicExtra?.username {
@@ -201,8 +207,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                             switch errorCode {
                             case .timeout:
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                     alert.addAction(okAction)
                                     self.hud.hide(animated: true)
                                     self.present(alert, animated: true, completion: nil)
@@ -227,8 +233,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -249,8 +255,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
         
         if let channelUserName = channelLinkTextField.text {
             if channelUserName == "" {
-                let alert = UIAlertController(title: "Error", message: "Channel link cannot be empty", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_FORM".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.hud.hide(animated: true)
                 self.present(alert, animated: true, completion: nil)
@@ -258,8 +264,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
             }
             
             if channelUserName.count < 5 {
-                let alert = UIAlertController(title: "Error", message: "Enter at least 5 letters", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_MINIMUM_LENGH".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.hud.hide(animated: true)
                 self.present(alert, animated: true, completion: nil)
@@ -283,21 +289,21 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
                     case .channelUpdateUsernameIsInvalid:
-                        let alert = UIAlertController(title: "Error", message: "Username is invalid", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_INVALID_USERNAME".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
                         
                     case .channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
-                        let alert = UIAlertController(title: "Error", message: "Username has already been taken by another user", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_TAKEN_USERNAME".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
@@ -310,8 +316,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                         break
                         
                     case .channelUpdateUsernameForbidden:
-                        let alert = UIAlertController(title: "Error", message: "Update username forbidden!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
@@ -319,8 +325,8 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                     case .channelUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let alert = UIAlertController(title: "Error", message: "You can not change your username because you've recently changed it. waiting for \(remainingMiuntes) minutes", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_CHANGE_USERNAME_AFTER".localizedNew + " \(remainingMiuntes)" + "MINUTE".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true,completion: nil)
                         break
@@ -347,7 +353,7 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
                 channelDefualtName.text = "iGap.net/"
                 channelLinkTextField.leftView = channelDefualtName
                 channelLinkTextField.leftViewMode = UITextField.ViewMode.always
-                channelLinkTextField.placeholder = "yourlink"
+                channelLinkTextField.placeholder = ""
                 channelLinkTextField.delegate = self
             }
             if tableView.indexPathForSelectedRow == publicIndexPath {
@@ -359,6 +365,28 @@ class IGChannelInfoEditTypeTableViewController: UITableViewController ,UITextFie
             }
         }
     }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let containerView = view as! UITableViewHeaderFooterView
+        
+        if section == 1 {
+            containerView.textLabel!.text = "CHANNEL_LINK".localizedNew
+            
+        }
+        else {
+            containerView.textLabel!.text = "CHANNELTYPE".localizedNew
+            
+        }
+        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        return containerView
+        
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+        
+    }
+
 
      // MARK: - Navigation
 

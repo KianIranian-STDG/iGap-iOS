@@ -16,7 +16,7 @@ protocol IGRegistrationStepSelectCountryTableViewControllerDelegate {
 }
 
 
-class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
+class IGRegistrationStepSelectCountryTableViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -33,7 +33,7 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         super.viewDidLoad()
         
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "Close", title: "Country")
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "CHOOSE_COUNTRY".localizedNew)
         navItem.rightViewContainer?.addAction {
             IGRegistrationStepPhoneViewController.allowGetCountry = false
             if self.popView {
@@ -49,7 +49,30 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         listOfCountries = IGCountry.getSortedListOfCountriesWithPhone()
         self.createDataSetForTableview(countries: listOfCountries)
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let current : String = SMLangUtil.loadLanguage()
+        print(IGTabBarController.currentTabStatic)
+        switch current {
+            
+        case "fa" :
+                UIView.appearance().semanticContentAttribute = .forceRightToLeft
+                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+        case "en" :
+            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+            
+        case "ar" :
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+            
+        default :
+            break
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

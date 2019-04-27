@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , UIGestureRecognizerDelegate {
+class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController , UIGestureRecognizerDelegate {
     
     @IBOutlet weak var selectedContactsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -101,6 +101,23 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
         
         setNavigationItem()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let current : String = SMLangUtil.loadLanguage()
+        switch current {
+        case "fa" :
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+        case "en" :
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+        case "ar" :
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+        default :
+            break
+        }
+    }
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -111,38 +128,38 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
         switch current {
         case "fa" :
             if mode == "Admin" {
-                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "Add Admin")
+                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "ADD_ADMIN".localizedNew)
             }
             if mode == "Moderator" {
-                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "Add Moderator")
+                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "ADD_MODERATOR".localizedNew)
             }
             if mode == "CreateGroup" {
                 
                 navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "NEW_GROUP".localizedNew)
             }
             if mode == "Members" {
-                navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "Add Member")
+                navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_MEMBER".localizedNew)
             }
             if mode == "Convert Chat To Group" {
-                navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "Add member to")
+                navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
             }
 
         case "en" :
             if mode == "Admin" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "Add Admin")
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
             }
             if mode == "Moderator" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "Add Moderator")
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
             }
             if mode == "CreateGroup" {
                 
-                navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "GLOBAL_CREAT".localizedNew, title: "New Group")
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew, title: "NEW_GROUP".localizedNew)
             }
             if mode == "Members" {
                 navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "Add Member")
             }
             if mode == "Convert Chat To Group" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew , title: "Add member to")
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew , title: "ADD_MEMBER_TO".localizedNew)
             }
 
         case "ar" :
@@ -297,8 +314,8 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         }
@@ -343,17 +360,18 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsModeratorToGroup:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
                         }
                         
                     default:

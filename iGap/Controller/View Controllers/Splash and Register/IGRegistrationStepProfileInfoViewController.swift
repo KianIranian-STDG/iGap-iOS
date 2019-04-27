@@ -12,7 +12,7 @@ import UIKit
 import IGProtoBuff
 import SwiftProtobuf
 
-class IGRegistrationStepProfileInfoViewController: UITableViewController {
+class IGRegistrationStepProfileInfoViewController: BaseTableViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -29,7 +29,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
         profileImageView.isUserInteractionEnabled = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "Next", title: "Your Profile")
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localizedNew, title: "YOUR_PROFILE".localizedNew)
         navItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
@@ -37,6 +37,8 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        titleLabel.text = "ENTER_NAME_AND_CHOOSE_PHOTO".localizedNew
         self.nicknameTextField.becomeFirstResponder()
     }
     
@@ -83,10 +85,10 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
                                 IGGlobal.prgHide()
-                                let alertVC = UIAlertController(title: "Error", message: "There was an error logging you in. Try again please.", preferredStyle: .alert)
-                                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                alertVC.addAction(ok)
-                                self.present(alertVC, animated: true, completion: nil)
+                                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
                             }
                         }).send()
                         
@@ -98,10 +100,10 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alertVC = UIAlertController(title: "Error", message: "There was an error setting your nickname. Try again please.", preferredStyle: .alert)
-                    let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertVC.addAction(ok)
-                    self.present(alertVC, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
                 }
             }).send()
         }
@@ -109,7 +111,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
     
     @objc func didTapOnChangeImage() {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
@@ -127,7 +129,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
                 }
             }
         })
-        let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.imagePicker.delegate = self
             self.imagePicker.allowsEditing = true
@@ -142,7 +144,7 @@ class IGRegistrationStepProfileInfoViewController: UITableViewController {
                 self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         optionMenu.addAction(ChoosePhoto)

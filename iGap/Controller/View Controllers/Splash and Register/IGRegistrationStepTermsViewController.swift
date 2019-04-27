@@ -12,7 +12,7 @@ import UIKit
 import MBProgressHUD
 import IGProtoBuff
 
-class IGRegistrationStepTermsViewController: UIViewController {
+class IGRegistrationStepTermsViewController: BaseViewController {
 
     @IBOutlet weak var webView: UIWebView!
     
@@ -21,7 +21,7 @@ class IGRegistrationStepTermsViewController: UIViewController {
         super.viewDidLoad()
         
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "Done", title: "Terms")
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "BTN_DONE".localizedNew, title: "TERMS".localizedNew)
         navItem.rightViewContainer?.addAction {
             self.dismiss(animated: true) {
                 

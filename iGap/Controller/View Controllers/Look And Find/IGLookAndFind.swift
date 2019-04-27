@@ -14,7 +14,7 @@ import SwiftProtobuf
 import RealmSwift
 import Hero
 
-class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
+class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -44,8 +44,12 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.hero.navigationAnimationType = .fade
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,7 +59,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Look And Find")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "PLACE_HOLDER_SEARCH".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -237,7 +241,10 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
             self.searchBar.hero.id = "searchBar"
-            self.hero.replaceViewController(with: mainView)
+//            self.hero.replaceViewController(with: mainView)
+            
+            let appDelegate = AppDelegate()
+            appDelegate.resetApp()
         }
     }
     

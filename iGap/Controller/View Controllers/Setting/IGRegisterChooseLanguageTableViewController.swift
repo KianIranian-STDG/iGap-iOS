@@ -1,45 +1,47 @@
 //
-//  IGSettingChnageLanguageTableViewController.swift
+//  IGRegisterChooseLanguageTableViewController.swift
 //  iGap
 //
-//  Created by BenyaminMokhtarpour on 4/17/19.
+//  Created by BenyaminMokhtarpour on 4/27/19.
 //  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
 //
 
 import UIKit
 
-class IGSettingChnageLanguageTableViewController: BaseTableViewController {
-    
-    @IBOutlet weak var lblPersianLang: UILabel!
-    @IBOutlet weak var lblEnglishLang: UILabel!
-    @IBOutlet weak var lblArabicLang: UILabel!
+class IGRegisterChooseLanguageTableViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initNavigationBar()
-        
-    }
-    func initNavigationBar(){
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHANGE_LANGUAGE".localizedNew)
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        initChangeLanguage()
-    }
-    func initChangeLanguage() {
-        //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
         
-        lblPersianLang.text = SMLangUtil.changeLblText(tag: lblPersianLang.tag, parentViewController: NSStringFromClass(self.classForCoder))
-        lblEnglishLang.text = SMLangUtil.changeLblText(tag: lblEnglishLang.tag, parentViewController: NSStringFromClass(self.classForCoder))
-        lblArabicLang.text = SMLangUtil.changeLblText(tag: lblArabicLang.tag, parentViewController: NSStringFromClass(self.classForCoder))
     }
+
     // MARK: - Table view data source
-
-
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        //        label.textColor = UIColor.red
+        label.text = "Choose Language - انتخاب زبان"
+        
+        label.font = UIFont.igFont(ofSize: 15)
+        label.textAlignment = .center
+        
+        return label
+        
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+        
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -49,48 +51,31 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 3
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.row {
-        case 0 :
-            if lastLang == "fa" {
-
-            }
-            else {
-                
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
-                let appDelegate = AppDelegate()
-                appDelegate.resetApp()
-
-            }
-        case 1:
-            if lastLang == "en" {
-                
-            }
-            else {
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English.rawValue)
-                
-                let appDelegate = AppDelegate()
-                appDelegate.resetApp()
-            }
-           
-
-        case 2:
-            if lastLang == "ar" {
-                
-            }
-            else {
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
-                let appDelegate = AppDelegate()
-                appDelegate.resetApp()
-            }
             
-
+        case 0 :
+        
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
+            
+            
+        case 1:
+           
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English.rawValue)
+            
+            
+            
+        case 2:
+            
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
+            
+            
         default :
             break
         }
     }
-    
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

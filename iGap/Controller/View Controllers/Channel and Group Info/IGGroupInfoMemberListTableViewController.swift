@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGGroupInfoMemberListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
 
     var allMember = [IGGroupMember]()
     var room : IGRoom?
@@ -57,7 +57,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Add", title: "Members")
+        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ALLMEMBER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -119,11 +119,11 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
         switch myRole! {
         case .owner:
             if memberRole == .admin {
-                kickTitle = "remove admin"
+                kickTitle = "REMOVE_ADMIN".localizedNew
             } else if memberRole == .moderator {
-                kickTitle = "remove moderator"
+                kickTitle = "REMOVE_MODERATOR".localizedNew
             } else if memberRole == .member {
-                kickTitle = "kick member"
+                kickTitle = "KICK_MEMBER".localizedNew
             } else {
                 showOption = false
             }
@@ -131,9 +131,9 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
             
         case .admin:
             if memberRole == .moderator {
-                kickTitle = "remove moderator"
+                kickTitle = "REMOVE_MODERATOR".localizedNew
             } else if memberRole == .member {
-                kickTitle = "kick member"
+                kickTitle = "KICK_MEMBER".localizedNew
             } else {
                 showOption = false
             }
@@ -141,7 +141,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
             
         case .moderator:
             if memberRole == .member {
-                kickTitle = "kick member"
+                kickTitle = "KICK_MEMBER".localizedNew
             } else {
                 showOption = false
             }
@@ -196,10 +196,10 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
             alertClouser(AlertState.Ok)
         })
-        let cancel = UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: { (action) in
             alertClouser(AlertState.No)
         })
         
@@ -237,7 +237,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
-            kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_ADMIN".localizedNew, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: userId).success({ (protoResponse) in
@@ -255,8 +255,8 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }
@@ -271,7 +271,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     
     func kickModerator(userId: Int64) {
         if let groupRoom = room {
-            kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_MODERATOR".localizedNew, message: "ARE_U_SURE_REMOVE_MODERATOR", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGGroupKickModeratorRequest.Generator.generate(memberId: userId, roomId: groupRoom.id).success({ (protoResponse) in
@@ -289,8 +289,8 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
                         switch errorCode {
                         case .timeout:
                             DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }
@@ -305,7 +305,7 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
     
     func kickMember(userId: Int64) {
         if room != nil {
-            kickAlert(title: "Kick Member", message: "Are you sure you want to kick this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "KICK_MEMBER".localizedNew, message: "ARE_U_SURE_KICK_USER".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGGroupKickMemberRequest.Generator.generate(memberId: userId, roomId: (self.room?.id)!).success({ (protoResponse) in
@@ -356,8 +356,8 @@ class IGGroupInfoMemberListTableViewController: UITableViewController , UIGestur
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }

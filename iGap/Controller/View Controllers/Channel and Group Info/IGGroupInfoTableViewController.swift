@@ -20,7 +20,7 @@ import MBProgressHUD
 import INSPhotoGallery
 import NVActivityIndicatorView
 
-class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
+class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
 
     @IBOutlet weak var groupNameLabelTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var groupDescriptionLabelTrailingConstraint: NSLayoutConstraint!
@@ -45,6 +45,18 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
     @IBOutlet weak var canAddMembersSwitch: UISwitch!
     @IBOutlet weak var leaveGroupLabel: UILabel!
     
+    
+    
+    
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblType: UILabel!
+    @IBOutlet weak var lblMember: UILabel!
+    @IBOutlet weak var lblAdmin: UILabel!
+    @IBOutlet weak var lblAllMember: UILabel!
+    @IBOutlet weak var lblSharedMedia: UILabel!
+    @IBOutlet weak var lblNotifi: UILabel!
+
     var room : IGRoom?
     private let disposeBag = DisposeBag()
     var hud = MBProgressHUD()
@@ -70,7 +82,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Group Info")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "GROUP_INFO".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -88,7 +100,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             groupTypeLabelTrailingConstraint.constant = 10
             break
         case .owner:
-            leaveGroupLabel.text = "Delete group"
+            leaveGroupLabel.text = "DELETE_GROUP".localizedNew
             cameraButton.isHidden = false
             break
         case .member:
@@ -152,12 +164,23 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
         self.tableView.isUserInteractionEnabled = true
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
+        lblName.text = "GROUPNAME".localizedNew
+        lblDesc.text = "GROUPDESC".localizedNew
+        lblType.text = "GROUPTYPE".localizedNew
+        lblMember.text = "MEMBER".localizedNew
+        lblAdmin.text = "ADMINANDMODERATOR".localizedNew
+        lblAllMember.text = "ALLMEMBER".localizedNew
+        lblSharedMedia.text = "SHAREDMEDIA".localizedNew
+        lblNotifi.text = "NOTIFICATIONS".localizedNew
+        leaveGroupLabel.text = "LEAVE".localizedNew
+
     }
     
     @IBAction func didTapOnCameraButton(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Take a Photo")
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
@@ -177,12 +200,12 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             }
         })
         
-        let deleteAction = UIAlertAction(title: "Delete Main Avatar", style: .destructive, handler: {
+        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
         
-        let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Choose Photo")
             self.imagePicker.delegate = self
@@ -198,7 +221,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                 self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
@@ -236,8 +259,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -575,8 +598,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -599,9 +622,9 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
         if let groupType = room?.groupRoom?.type {
             switch groupType {
             case .privateRoom:
-                groupTypeLabel.text = "Private"
+                groupTypeLabel.text = "PRIVATE".localizedNew
             case .publicRoom:
-                groupTypeLabel.text = "Public"
+                groupTypeLabel.text = "PUBLIC".localizedNew
                 break
             }
         }
@@ -624,19 +647,19 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
         var title : String!
         var actionTitle: String!
         if myRole == .owner {
-            title = "Are you sure you want to Delete this group?"
-            actionTitle = "Delete"
+            title = "MSG_SURE_TO_DELETE_GROUP".localizedNew
+            actionTitle = "BTN_DELETE".localizedNew
         }else{
-            title = "Are you sure you want to leave this group?"
-            actionTitle = "Leave"
+            title = "MSG_SURE_TO_LEAVE_GROUP".localizedNew
+            actionTitle = "LEAVE".localizedNew
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: {
             (alert: UIAlertAction) -> Void in
                 if self.myRole == .owner {
                     if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     } else {
@@ -645,8 +668,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                     }
                 }else{
                     if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }else {
@@ -655,7 +678,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                 }
             
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteConfirmAlertView.addAction(deleteAction)
@@ -686,17 +709,17 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                 groupLink = room?.groupRoom?.publicExtra?.username
             }
             
-            let alert = UIAlertController(title: "Group Link", message: groupLink, preferredStyle: .alert)
+            let alert = UIAlertController(title: "GROUP_LINK".localizedNew, message: groupLink, preferredStyle: .alert)
             
-            let copyAction = UIAlertAction(title: "Copy", style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let copyAction = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 UIPasteboard.general.string = groupLink
             })
             
-            let shareAction = UIAlertAction(title: "Share", style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let shareAction = UIAlertAction(title: "SHARE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
             })
             
-            let changeAction = UIAlertAction(title: "Change", style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let changeAction = UIAlertAction(title: "CHNAGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 if self.room?.groupRoom?.type == .publicRoom {
                     self.performSegue(withIdentifier: "showGroupTypeSetting", sender: self)
                 }
@@ -705,7 +728,7 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                 }
             })
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
@@ -734,8 +757,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -765,8 +788,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -799,8 +822,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -835,8 +858,8 @@ class IGGroupInfoTableViewController: UITableViewController , UIGestureRecognize
                     self.hud.hide(animated: true)
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:

@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
 
 
     @IBOutlet weak var adminsCell: UITableViewCell!
@@ -23,7 +23,9 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewControll
     @IBOutlet weak var groupModeratorsCell: UITableViewCell!
     @IBOutlet weak var groupModeratorsCountLabel: UILabel!
     @IBOutlet weak var groupAdminsCountLabel: UILabel!
-    
+    @IBOutlet weak var lblModerator: UILabel!
+    @IBOutlet weak var lblAdmin: UILabel!
+
     var room : IGRoom?
     var hud = MBProgressHUD()
     var adminMember = [IGGroupMember]()
@@ -42,7 +44,7 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewControll
         
         fetchAdminChannelMemberFromServer()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Admins and Moderators")
+        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "ADMINANDMODERATOR".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -50,7 +52,10 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewControll
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
+        lblAdmin.text = "ADMIN".localizedNew
+        lblModerator.text = "MODERATOR".localizedNew
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,8 +131,8 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: UITableViewControll
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.moderatorIndicator.stopAnimating()
                     self.adminsIndicator.stopAnimating()

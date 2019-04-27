@@ -60,6 +60,7 @@
 		8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7B122621A3100F32DC3 /* webservice.framework */; };
 		8EACC7B422621ACA00F32DC3 /* localizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EACC7B322621ACA00F32DC3 /* localizations.json */; };
 		8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */; };
+		8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */; };
 		8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95DF2258811500A1F7E4 /* IGConstants.swift */; };
 		8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */; };
 		8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC217962258BD9E00105B5A /* SMSingleInputView.xib */; };
@@ -644,6 +645,7 @@
 		8EACC7B122621A3100F32DC3 /* webservice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webservice.framework; path = Carthage/Build/iOS/webservice.framework; sourceTree = "<group>"; };
 		8EACC7B322621ACA00F32DC3 /* localizations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizations.json; sourceTree = "<group>"; };
 		8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisterChooseLanguageTableViewController.swift; sourceTree = "<group>"; };
 		8EBF95DF2258811500A1F7E4 /* IGConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGConstants.swift; sourceTree = "<group>"; };
 		8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMUserManager.swift; sourceTree = "<group>"; };
 		8EC217962258BD9E00105B5A /* SMSingleInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSingleInputView.xib; sourceTree = "<group>"; };
@@ -1532,6 +1534,7 @@
 				FA8D056C20739C96007861E7 /* IGSettingAddContactViewController.swift */,
 				FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */,
 				8E25A7C222674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift */,
+				8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2842,6 +2845,7 @@
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
 				8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */,
 				FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */,
+				8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */,
 				8E96A327225C9182007D8A77 /* SMCardGradient.swift in Sources */,
 				8E96A312225B6DCC007D8A77 /* SMHistoryDetailTableViewController.swift in Sources */,
 				8EC217992258BDF400105B5A /* SMSingleInputView.swift in Sources */,

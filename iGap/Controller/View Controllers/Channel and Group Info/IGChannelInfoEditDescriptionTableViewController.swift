@@ -32,14 +32,16 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
         myRole = room?.channelRoom?.role
         if myRole == .owner || myRole == .admin {
             channelDescriptionTextView.isUserInteractionEnabled = true
-            navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Description")
+            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "PRODUCTS_DETAILS".localizedNew)
             navigationItem.rightViewContainer?.addAction {
                 self.changeChannelDescription()
             }
             
             placeholderLabel = UILabel()
-            placeholderLabel.text = "Enter some text to describe channel..."
-            placeholderLabel.font = UIFont.italicSystemFont(ofSize: (channelDescriptionTextView.font?.pointSize)!)
+            placeholderLabel.text = "MSG_GROUP_CHANNEL".localizedNew
+            placeholderLabel.textAlignment = placeholderLabel.localizedNewDirection
+
+            placeholderLabel.font = UIFont.igFont(ofSize: (channelDescriptionTextView.font?.pointSize)!)
             placeholderLabel.sizeToFit()
             channelDescriptionTextView.addSubview(placeholderLabel)
             placeholderLabel.frame.origin = CGPoint(x: 5, y: (channelDescriptionTextView.font?.pointSize)! / 2)
@@ -47,10 +49,13 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
             placeholderLabel.isHidden = !channelDescriptionTextView.text.isEmpty
             channelDescriptionTextView.tintColor = UIColor.organizationalColor()
         } else {
-            navigationItem.addNavigationViewItems(rightItemText: nil, title: "Description")
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: "PRODUCTS_DETAILS".localizedNew)
             channelDescriptionTextView.isUserInteractionEnabled = false
             if room?.channelRoom?.roomDescription == "" {
-                channelDescriptionTextView.text = "No Description"
+                channelDescriptionTextView.text = "PRODUCTS_NO_DETAILS".localizedNew
+                channelDescriptionTextView.textAlignment = placeholderLabel.localizedNewDirection
+                
+
             }
         }
         
@@ -105,8 +110,8 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)

@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGChannelInfoEditNameTableViewController: UITableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
+class IGChannelInfoEditNameTableViewController: BaseTableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     
     @IBOutlet weak var channelNameTextField: UITextField!
@@ -27,7 +27,7 @@ class IGChannelInfoEditNameTableViewController: UITableViewController , UITextFi
         channelNameTextField.becomeFirstResponder()
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Name")
+        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "NAME".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -40,7 +40,24 @@ class IGChannelInfoEditNameTableViewController: UITableViewController , UITextFi
         }
         channelNameTextField.tintColor = UIColor.organizationalColor()
     }
-    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        //        label.textColor = UIColor.red
+        label.text = "CHANNEL_NAME".localizedNew
+        
+        label.font = UIFont.igFont(ofSize: 15)
+        label.textAlignment = (label.localizedNewDirection)
+        
+        return label
+        
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -80,8 +97,8 @@ class IGChannelInfoEditNameTableViewController: UITableViewController , UITextFi
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)

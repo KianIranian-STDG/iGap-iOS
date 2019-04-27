@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGChooseMemberFromContactToCreateChannelViewController: UIViewController , UISearchResultsUpdating , UIGestureRecognizerDelegate {
+class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController , UISearchResultsUpdating , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var selectedContactsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -101,17 +101,23 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+   
+
+        
+        
+        
         if mode == "Admin" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Add" , title: "Add Admin")
+            navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "ADD_ADMIN".localizedNew)
         }
         if mode == "Moderator" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Add" , title: "Add Moderator")
+            navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "ADD_MODERATOR".localizedNew)
         }
         if mode == "CreateChannel" {
-        navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Create", title: "New Channel")
+            navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "NEW_CHANNEL".localizedNew)
         }
         if mode == "Members" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Add" , title: "Add Member")
+            navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_MEMBER".localizedNew)
         }
         navigationItem.leftViewContainer?.addAction {
             if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
@@ -154,7 +160,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
     func requestToAddmember() {
         
         if selectedUsers.count == 0 {
-            self.showAlert(title: "Hint", message: "Please choose member")
+            self.showAlert(title: "BTN_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
             return
         }
         
@@ -209,7 +215,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
     
     func requestToAddAdminInChannel() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "Hint", message: "Please choose member")
+            self.showAlert(title: "BTN_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
             return
         }
         
@@ -233,15 +239,15 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsAdminToChannel:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in channel", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         }
@@ -257,7 +263,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
     
     func requestToAddModeratorInChannel() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "Hint", message: "Please choose member")
+            self.showAlert(title: "BTN_HINT".localizedNew, message: "MSG_PLEASE_CHOOSE_MEMBER".localizedNew)
             return
         }
         
@@ -282,15 +288,15 @@ class IGChooseMemberFromContactToCreateChannelViewController: UIViewController ,
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         }
                     case .canNotAddThisUserAsModeratorToChannel:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Error", message: "There is an error to adding this contact in group", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         }

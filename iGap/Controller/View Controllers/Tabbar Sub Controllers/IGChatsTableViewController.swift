@@ -18,7 +18,7 @@ import RxCocoa
 import MGSwipeTableCell
 import MBProgressHUD
 
-class IGChatsTableViewController: UITableViewController {
+class IGChatsTableViewController: BaseTableViewController {
     
     var selectedRoomForSegue : IGRoom?
     var cellIdentifer = IGChatRoomListTableViewCell.cellReuseIdentifier()
@@ -96,20 +96,20 @@ class IGChatsTableViewController: UITableViewController {
         
         let room = cell.room!
         
-        var muteTitle = "Mute"
+        var muteTitle = "MUTE".localizedNew
         if room.mute == IGRoom.IGRoomMute.mute {
-            muteTitle = "UnMute"
+            muteTitle = "UNMUTE".localizedNew
         }
         
-        var pinTitle = "Pin"
+        var pinTitle = "PINN".localizedNew
         if room.pinId > 0 {
-            pinTitle = "UnPin"
+            pinTitle = "UNPINN".localizedNew
         }
         
         let btnMuteSwipeCell = MGSwipeButton(title: muteTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
                 
@@ -121,8 +121,8 @@ class IGChatsTableViewController: UITableViewController {
         
         let btnPinSwipeCell = MGSwipeButton(title: pinTitle, backgroundColor: UIColor.swipeBlueGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
                 
@@ -133,15 +133,16 @@ class IGChatsTableViewController: UITableViewController {
             
         })
         
-        let btnMoreSwipeCell = MGSwipeButton(title: "More...", backgroundColor: UIColor(red: 26.0/255.0, green: 67.0/255.0, blue: 90.0/255.0, alpha: 1), callback: { (sender: MGSwipeTableCell!) -> Bool in
-            let title = room.title != nil ? room.title! : "Delete"
-            let alertC = UIAlertController(title: title, message: "What do you want to do?", preferredStyle: IGGlobal.detectAlertStyle())
-            let clear = UIAlertAction(title: "Clear History", style: .default, handler: { (action) in
+        let btnMoreSwipeCell = MGSwipeButton(title: "MORE".localizedNew, backgroundColor: UIColor.swipeDarkBlue(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            
+            let title = room.title != nil ? room.title! : "BTN_DELETE".localizedNew
+            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let clear = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
                 switch room.type{
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -150,8 +151,8 @@ class IGChatsTableViewController: UITableViewController {
                     }
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -164,14 +165,14 @@ class IGChatsTableViewController: UITableViewController {
                 
             })
             
-            var muteTitle = "Mute"
+            var muteTitle = "MUTE".localizedNew
             if room.mute == IGRoom.IGRoomMute.mute {
-                muteTitle = "UnMute"
+                muteTitle = "UNMUTE".localizedNew
             }
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
@@ -180,14 +181,14 @@ class IGChatsTableViewController: UITableViewController {
                 }
             })
             
-            var pinTitle = "Pin"
+            var pinTitle = "PINN".localizedNew
             if room.pinId > 0 {
-                pinTitle = "UnPin"
+                pinTitle = "UNPINN".localizedNew
             }
             let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
@@ -196,10 +197,10 @@ class IGChatsTableViewController: UITableViewController {
                 }
             })
             
-            let report = UIAlertAction(title: "Report", style: .default, handler: { (action) in
+            let report = UIAlertAction(title: "REPORT".localizedNew, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
@@ -208,12 +209,12 @@ class IGChatsTableViewController: UITableViewController {
                 }
             })
             
-            let remove = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+            let remove = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -222,8 +223,8 @@ class IGChatsTableViewController: UITableViewController {
                     }
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -237,14 +238,14 @@ class IGChatsTableViewController: UITableViewController {
             
             
             
-            let leave = UIAlertAction(title: "Leave", style: .destructive, handler: { (action) in
+            let leave = UIAlertAction(title: "LEAVE".localizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -254,8 +255,8 @@ class IGChatsTableViewController: UITableViewController {
                     }
                 case .channel:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -266,7 +267,7 @@ class IGChatsTableViewController: UITableViewController {
                 }
             })
             
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
                 
             })
             
@@ -379,8 +380,8 @@ extension IGChatsTableViewController {
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -412,8 +413,8 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -448,8 +449,8 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -485,8 +486,8 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -505,8 +506,8 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "Success", message: "Your report has been successfully submitted", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "REPORT_SUCCESS".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK", style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -518,15 +519,15 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "Error", message: "This User Reported Before", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_USER_REPORTED_BEFOR".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -548,25 +549,25 @@ extension IGChatsTableViewController {
     
     func report(room: IGRoom){
         
-        let alertC = UIAlertController(title: "Report User Reason", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "Abuse", style: .default, handler: { (action) in
+        let alertC = UIAlertController(title: "REPORT_REASON".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let abuse = UIAlertAction(title: "ABUSE".localizedNew, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
         })
         
-        let spam = UIAlertAction(title: "Spam", style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".localizedNew, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
         })
         
-        let fakeAccount = UIAlertAction(title: "Fake Account", style: .default, handler: { (action) in
+        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".localizedNew, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
-        let other = UIAlertAction(title: "Other ", style: .default, handler: { (action) in
+        let other = UIAlertAction(title: "OTEHR".localizedNew, style: .default, handler: { (action) in
             self.selectedRoomForSegue = room
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
             
         })
         
@@ -598,8 +599,8 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -629,8 +630,8 @@ extension IGChatsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -658,13 +659,13 @@ extension IGChatsTableViewController {
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
-                        let alert = UIAlertController(title: "Error", message: "There was an error leaving this group.", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -690,13 +691,13 @@ extension IGChatsTableViewController {
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
-                        let alert = UIAlertController(title: "Error", message: "There was an error leaving this channel.", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }

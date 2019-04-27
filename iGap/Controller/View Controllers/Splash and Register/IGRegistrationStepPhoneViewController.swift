@@ -15,7 +15,7 @@ import MBProgressHUD
 import RxSwift
 import IGProtoBuff
 
-class IGRegistrationStepPhoneViewController: UIViewController {
+class IGRegistrationStepPhoneViewController: BaseViewController {
 
     @IBOutlet weak var countryBackgroundView: UIView!
     @IBOutlet weak var phoneNumberBackgroundView: UIView!
@@ -26,6 +26,10 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var btnLoginQrCode: UIButton!
+    
+    
+    @IBOutlet weak var lblHeader: UILabel!
+
     
     internal static var allowGetCountry:Bool = true
     var phone: String?
@@ -102,6 +106,12 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
+        countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
+        btnLoginQrCode.setTitle("LOGIN_USING_QR".localizedNew, for: .normal)
+        btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 20)
+        
+        
         navigationController?.navigationItem.hidesBackButton = true
         countryBackgroundView.layer.cornerRadius = 6.0;
         countryBackgroundView.layer.masksToBounds = true

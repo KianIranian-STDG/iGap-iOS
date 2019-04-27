@@ -160,12 +160,13 @@ class IGNavigationItem: UINavigationItem {
         backViewContainer?.addAction {
             self.backViewContainer?.isUserInteractionEnabled = false
             
-            if currentPageName == "iGap.IGAccountViewController" {
+            if currentPageName == "iGap.IGAccountViewController"  {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
                 currentPageName = ""
                 _ = self.navigationController?.popViewController(animated: true)
-
+                
             }
+                
             else {
             _ = self.navigationController?.popViewController(animated: true)
             }

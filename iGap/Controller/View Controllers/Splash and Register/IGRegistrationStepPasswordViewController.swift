@@ -13,10 +13,10 @@ import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
 
-class IGRegistrationStepPasswordViewController: UIViewController, UIGestureRecognizerDelegate {
+class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var passwordTextField: UITextField!
-
+    @IBOutlet weak var lblHeader : UILabel!
     var hud = MBProgressHUD()
 
     override func viewDidLoad() {
@@ -24,7 +24,7 @@ class IGRegistrationStepPasswordViewController: UIViewController, UIGestureRecog
         self.passwordTextField.isSecureTextEntry = true
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "Next", title: "Verification Code")
+        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "AUTH_VERIFYMOBILE".localizedNew)
         navigaitonItem.rightViewContainer?.addAction {
             self.nextStep()
         }
@@ -36,6 +36,7 @@ class IGRegistrationStepPasswordViewController: UIViewController, UIGestureRecog
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        lblHeader.text = "twoStepVerfi_HEADER".localizedNew
         self.passwordTextField.becomeFirstResponder()
         
         IGUserTwoStepVerificationGetPasswordDetailRequest.Generator.generate().success({ (responseProto) in
@@ -64,8 +65,8 @@ class IGRegistrationStepPasswordViewController: UIViewController, UIGestureRecog
     func nextStep() {
         if passwordTextField.text==nil || passwordTextField.text=="" {
             DispatchQueue.main.async {
-                let alertVC = UIAlertController(title: "Error", message: "Please enter your password.", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alertVC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "PLEASE_ENTER_PASS".localizedNew, preferredStyle: .alert)
+                let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alertVC.addAction(ok)
                 self.present(alertVC, animated: true, completion: nil)
             }

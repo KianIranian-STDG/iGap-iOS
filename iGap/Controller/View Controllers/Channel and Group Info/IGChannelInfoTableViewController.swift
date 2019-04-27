@@ -20,7 +20,7 @@ import MBProgressHUD
 import INSPhotoGallery
 import NVActivityIndicatorView
 
-class IGChannelInfoTableViewController: UITableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
+class IGChannelInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
 
     
     @IBOutlet weak var channelSignMessageCell: UITableViewCell!
@@ -47,6 +47,19 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
     @IBOutlet weak var channelLinkCell: UITableViewCell!
     @IBOutlet weak var adminAndModeratorCell: UITableViewCell!
     @IBOutlet weak var imgVerified: UIImageView!
+    
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblType: UILabel!
+    @IBOutlet weak var lblSharedMedia: UILabel!
+    @IBOutlet weak var lblChannelLink: UILabel!
+    @IBOutlet weak var lblMember: UILabel!
+    @IBOutlet weak var lblAdminAndModerator: UILabel!
+    @IBOutlet weak var lblSignMessages: UILabel!
+    @IBOutlet weak var lblChannelReaction: UILabel!
+    @IBOutlet weak var lblNotification: UILabel!
+    @IBOutlet weak var lblLeave: UILabel!
+
     
     var selectedChannel : IGChannelRoom?
     private let disposeBag = DisposeBag()
@@ -105,7 +118,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             break
             
         case .owner :
-            deleteChannelLabel.text = "Delete Channel"
+            deleteChannelLabel.text = "DELETE_CHANNEL".localizedNew
             channelSignMessageCell.isHidden = false
             cameraButton.isHidden = false
             break
@@ -118,7 +131,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Channel Info")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "CHANNEL_INFO".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -168,6 +181,22 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         channelImage.avatarImageView?.addGestureRecognizer(tap)
 
 
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.isUserInteractionEnabled = true
+        lblName.text = "CHANNEL_NAME".localizedNew
+        lblDesc.text = "CHANNELDESC".localizedNew
+        lblType.text = "CHANNELTYPE".localizedNew
+        lblMember.text = "MEMBER".localizedNew
+        lblAdminAndModerator.text = "ADMINANDMODERATOR".localizedNew
+        lblSignMessages.text = "CHANNELSIGNMESSAGES".localizedNew
+        lblChannelReaction.text = "CHANNELREACTION".localizedNew
+        lblSharedMedia.text = "SHAREDMEDIA".localizedNew
+        lblNotification.text = "NOTIFICATIONS".localizedNew
+        lblLeave.text = "LEAVE".localizedNew
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -363,8 +392,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -423,7 +452,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
 
     @IBAction func didTapOnCameraBtn(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Take a Photo")
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
@@ -443,12 +472,12 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             }
         })
         
-        let deleteAction = UIAlertAction(title: "Delete Main Avatar", style: .destructive, handler: {
+        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
-        
-        let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Choose Photo")
             self.imagePicker.delegate = self
@@ -464,7 +493,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
@@ -504,8 +533,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -625,19 +654,19 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         var title : String!
         var actionTitle: String!
         if myRole == .owner {
-            title = "Are you sure you want to delete this channel?"
-            actionTitle = "Delete"
+            title = "MSG_SURE_TO_DELETE_CHANNEL".localizedNew
+            actionTitle = "BTN_DELETE".localizedNew
         } else {
-            title = "Are you sure you want to leave this channel?"
-            actionTitle = "Leave"
+            title = "MSG_SURE_TO_LEAVE_CHANNEL".localizedNew
+            actionTitle = "LEADVE".localizedNew
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             if self.myRole == .owner {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 } else {
@@ -645,8 +674,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 }
             } else {
                 if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 } else {
@@ -655,7 +684,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             }
             
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         deleteConfirmAlertView.addAction(deleteAction)
@@ -686,16 +715,16 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 channelLink = room?.channelRoom?.publicExtra?.username
             }
             
-            let alert = UIAlertController(title: "Channel Link", message: channelLink, preferredStyle: .alert)
-            let copyAction = UIAlertAction(title: "Copy", style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let alert = UIAlertController(title: "CHANNEL_LINK".localizedNew, message: channelLink, preferredStyle: .alert)
+            let copyAction = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 UIPasteboard.general.string = channelLink
             })
             
-            let shareAction = UIAlertAction(title: "Share", style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let shareAction = UIAlertAction(title: "SHARE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixChannel + "\n" + channelLink!, viewController: self)
             })
             
-            let changeAction = UIAlertAction(title: "Change", style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let changeAction = UIAlertAction(title: "CHANGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 if self.room?.channelRoom?.type == .publicRoom {
                     self.performSegue(withIdentifier: "showChannelInfoSetType", sender: self)
                 }
@@ -704,7 +733,7 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 }
             })
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             alert.view.tintColor = UIColor.organizationalColor()
             alert.addAction(copyAction)
@@ -738,12 +767,12 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
         if let channelType = room?.channelRoom?.type {
             switch channelType {
             case .privateRoom:
-                channelTypeLabel.text = "Private"
+                channelTypeLabel.text = "PRIVATE".localizedNew
                 if let link = room?.channelRoom?.privateExtra?.inviteLink {
                     channelLinkLabel.text = link
                 }
             case .publicRoom:
-                channelTypeLabel.text = "Public"
+                channelTypeLabel.text = "PUBLIC".localizedNew
                 if let username = room?.channelRoom?.publicExtra?.username {
                     channelLinkLabel.text = "iGap.net/" + username
                 }
@@ -785,8 +814,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.hud.hide(animated: true)
                         self.present(alert, animated: true, completion: nil)
@@ -817,8 +846,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
@@ -857,8 +886,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -890,8 +919,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -924,8 +953,8 @@ class IGChannelInfoTableViewController: UITableViewController , UIGestureRecogni
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:

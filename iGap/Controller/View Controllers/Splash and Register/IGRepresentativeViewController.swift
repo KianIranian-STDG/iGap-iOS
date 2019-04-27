@@ -12,7 +12,7 @@ import UIKit
 import AKMaskField
 import IGProtoBuff
 
-class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
+class IGRepresentativeViewController: BaseViewController, SelectCountryObserver {
     
     @IBOutlet weak var viewCountry: UIView!
     @IBOutlet weak var viewNumber: UIView!
@@ -20,7 +20,8 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
     @IBOutlet weak var txtCountry: IGLabel!
     @IBOutlet weak var txtNumber: AKMaskField!
     @IBOutlet weak var txtCode: IGLabel!
-    
+    @IBOutlet weak var lblHeader: IGLabel!
+
     var popView = false
     var selectedCountry: IGCountryInfo!
     static var selectCountryObserver: SelectCountryObserver!
@@ -44,7 +45,7 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: "Skip", rightItemText: "Done", title: "Set Referral")
+        navigationItem.addModalViewItems(leftItemText: "SKIP".localizedNew, rightItemText: "DONE_BTN".localizedNew, title: "SET_REFERRAL".localizedNew)
         navigationItem.rightViewContainer?.addAction {
             self.didTapOnDone()
         }
@@ -53,6 +54,10 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblHeader.text = "ENTER_REFERRAL_NUMBER".localizedNew
+    }
     private func customizeView(view: UIView){
         view.layer.cornerRadius = 6.0;
         view.layer.masksToBounds = true
@@ -66,8 +71,8 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
     
     private func didTapOnDone() {
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
-            let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
         } else {
@@ -83,12 +88,12 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = countryCode + " " + (phone?.replacingOccurrences(of: "_", with: ""))!
-                    let alertVC = UIAlertController(title: "Is this correct",message: "Is this phone correct:\n"+fullPhone,preferredStyle: .alert)
-                    let yes = UIAlertAction(title: "Yes", style: .cancel, handler: { (action) in
+                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + fullPhone,preferredStyle: .alert)
+                    let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
                         IGGlobal.prgShow(self.view)
                         self.setRepresentative(phone: fullPhone)
                     })
-                    let no = UIAlertAction(title: "Edit", style: .default, handler: nil)
+                    let no = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: nil)
                     
                     alertVC.addAction(yes)
                     alertVC.addAction(no)
@@ -96,8 +101,8 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
                     return
                 }
             }
-            let alertVC = UIAlertController(title: "Invalid Phone", message: "Please enter a valid phone number", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alertVC = UIAlertController(title: "INVALID_PHONE".localizedNew, message: "ENTER_VALID_P_NUMBER".localizedNew, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
     }
@@ -125,8 +130,8 @@ class IGRepresentativeViewController: UIViewController, SelectCountryObserver {
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Hint", message: "Unfortunately an error occurred \n please set referral later!", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
                     self.finish()
                 })
                 alert.addAction(okAction)

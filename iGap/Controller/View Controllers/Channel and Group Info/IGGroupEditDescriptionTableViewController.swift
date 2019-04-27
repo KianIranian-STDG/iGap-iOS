@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestureRecognizerDelegate  {
+class IGGroupEditDescriptionTableViewController: BaseTableViewController , UIGestureRecognizerDelegate  {
     
     @IBOutlet weak var groupDescriptionTextView: UITextView!
     
@@ -38,12 +38,14 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
         myRole = room?.groupRoom?.role
         if myRole == .owner || myRole == .admin {
             groupDescriptionTextView.isUserInteractionEnabled = true
-            navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Description")
+            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "PRODUCTS_DETAILS".localizedNew)
             navigationItem.rightViewContainer?.addAction {
                 self.changeGroupDescription()
             }
             placeholderLabel = UILabel()
-            placeholderLabel.text = "Enter some text to describe group..."
+            placeholderLabel.text = "MSG_GROUP_DESC".localizedNew
+            placeholderLabel.textAlignment = placeholderLabel.localizedNewDirection
+
             placeholderLabel.font = UIFont.italicSystemFont(ofSize: (groupDescriptionTextView.font?.pointSize)!)
             placeholderLabel.sizeToFit()
             groupDescriptionTextView.addSubview(placeholderLabel)
@@ -52,10 +54,12 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
             placeholderLabel.isHidden = !groupDescriptionTextView.text.isEmpty
             groupDescriptionTextView.tintColor = UIColor.organizationalColor()
         } else {
-            navigationItem.addNavigationViewItems(rightItemText: nil, title: "Description")
+            navigationItem.addNavigationViewItems(rightItemText: nil, title: "PRODUCTS_DETAILS".localizedNew)
             groupDescriptionTextView.isUserInteractionEnabled = false
             if room?.groupRoom?.roomDescription == "" {
-                groupDescriptionTextView.text = "No Description"
+                groupDescriptionTextView.text = "PRODUCTS_NO_DETAILS".localizedNew
+                groupDescriptionTextView.textAlignment = placeholderLabel.localizedNewDirection
+
             }
         }
         descriptionSize = groupDescriptionTextView.text.height(withConstrainedWidth: self.view.frame.width, font: groupDescriptionTextView.font!)
@@ -110,8 +114,8 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.hud.hide(animated: true)
                             self.present(alert, animated: true, completion: nil)
@@ -125,7 +129,23 @@ class IGGroupEditDescriptionTableViewController: UITableViewController , UIGestu
             }
         }
     }
-    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        //        label.textColor = UIColor.red
+        label.text = "GROUPDESC".localizedNew
+        
+        label.font = UIFont.igFont(ofSize: 15)
+        label.textAlignment = (label.localizedNewDirection)
+        
+        return label
+        
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+        
+    }
 }
 extension IGGroupEditDescriptionTableViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {

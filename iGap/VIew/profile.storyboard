@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Title-->
         <scene sceneID="I6a-fZ-o3y">
@@ -39,227 +44,264 @@
                         <sections>
                             <tableViewSection id="sMP-zE-tv5">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="4Hy-Od-iAg" detailTextLabel="EqQ-Fl-0tx" style="IBUITableViewCellStyleValue1" id="lcs-oV-p4y">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Yni-DX-q6z">
                                         <rect key="frame" x="0.0" y="164" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lcs-oV-p4y" id="5rp-S4-zHU">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yni-DX-q6z" id="FEe-PF-Tww">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hy-Od-iAg" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="12" width="45" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjA-Sn-ID0">
+                                                    <rect key="frame" x="16" y="8.5" width="45.5" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EqQ-Fl-0tx" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="866-ye-VQp">
+                                                    <rect key="frame" x="315.5" y="8.5" width="43.5" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.61953866481781006" green="0.6196478009223938" blue="0.61953175067901611" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kjA-Sn-ID0" firstAttribute="centerY" secondItem="FEe-PF-Tww" secondAttribute="centerY" id="7EK-8z-brj"/>
+                                                <constraint firstItem="866-ye-VQp" firstAttribute="centerY" secondItem="FEe-PF-Tww" secondAttribute="centerY" id="VFI-ib-4Le"/>
+                                                <constraint firstAttribute="trailing" secondItem="866-ye-VQp" secondAttribute="trailing" constant="16" id="aVE-80-Ap1"/>
+                                                <constraint firstItem="kjA-Sn-ID0" firstAttribute="leading" secondItem="FEe-PF-Tww" secondAttribute="leading" constant="16" id="auP-ZY-6Hm"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="tic-6c-gwI" detailTextLabel="RxD-PD-HX7" style="IBUITableViewCellStyleValue1" id="Zdh-JB-1OF">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="BVa-E0-4pe">
                                         <rect key="frame" x="0.0" y="208" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zdh-JB-1OF" id="QmG-D3-IGg">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BVa-E0-4pe" id="y1m-kI-GlM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tic-6c-gwI" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="12" width="115" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone NUmber" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltb-uu-htV">
+                                                    <rect key="frame" x="16" y="8.5" width="116" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RxD-PD-HX7" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="is9-d7-qRZ">
+                                                    <rect key="frame" x="315.5" y="8.5" width="43.5" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.61953866479999997" green="0.61964780090000005" blue="0.61953175069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="is9-d7-qRZ" firstAttribute="centerY" secondItem="y1m-kI-GlM" secondAttribute="centerY" id="HM8-X8-HQG"/>
+                                                <constraint firstAttribute="trailing" secondItem="is9-d7-qRZ" secondAttribute="trailing" constant="16" id="eoJ-yv-EYJ"/>
+                                                <constraint firstItem="ltb-uu-htV" firstAttribute="leading" secondItem="y1m-kI-GlM" secondAttribute="leading" constant="16" id="nIa-9p-YtD"/>
+                                                <constraint firstItem="ltb-uu-htV" firstAttribute="centerY" secondItem="y1m-kI-GlM" secondAttribute="centerY" id="nXM-oq-QzB"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="iWC-A7-uUl" detailTextLabel="ZEV-Fh-11s" style="IBUITableViewCellStyleValue1" id="1Xw-kb-JCl">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="TCD-Lx-eyq">
                                         <rect key="frame" x="0.0" y="252" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Xw-kb-JCl" id="yFX-L3-33W">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TCD-Lx-eyq" id="sdU-c2-lLw">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iWC-A7-uUl" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="12" width="78.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QA8-xM-8gS">
+                                                    <rect key="frame" x="16" y="8.5" width="78" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZEV-Fh-11s" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUZ-bS-iFX">
+                                                    <rect key="frame" x="315.5" y="8.5" width="43.5" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.61953866479999997" green="0.61964780090000005" blue="0.61953175069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QA8-xM-8gS" firstAttribute="centerY" secondItem="sdU-c2-lLw" secondAttribute="centerY" id="8fd-Fz-yrS"/>
+                                                <constraint firstItem="QA8-xM-8gS" firstAttribute="leading" secondItem="sdU-c2-lLw" secondAttribute="leading" constant="16" id="Vcz-RD-088"/>
+                                                <constraint firstAttribute="trailing" secondItem="KUZ-bS-iFX" secondAttribute="trailing" constant="16" id="VfT-ib-ogg"/>
+                                                <constraint firstItem="KUZ-bS-iFX" firstAttribute="centerY" secondItem="sdU-c2-lLw" secondAttribute="centerY" id="omm-fr-Xod"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="j3J-q3-TVi" detailTextLabel="d2q-ZU-aW2" style="IBUITableViewCellStyleValue1" id="NGw-mu-RQS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aNt-hW-kfa">
                                         <rect key="frame" x="0.0" y="296" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NGw-mu-RQS" id="KVz-da-Q6f">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aNt-hW-kfa" id="gG1-o8-XTX">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j3J-q3-TVi" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="12" width="24.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfe-Pm-eqq">
+                                                    <rect key="frame" x="16" y="8.5" width="24.5" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d2q-ZU-aW2" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="315" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.54901960780000003" green="0.54901960780000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jns-I9-Rfu">
+                                                    <rect key="frame" x="315.5" y="8.5" width="43.5" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.61953866479999997" green="0.61964780090000005" blue="0.61953175069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="jns-I9-Rfu" secondAttribute="trailing" constant="16" id="3wW-kT-0sB"/>
+                                                <constraint firstItem="dfe-Pm-eqq" firstAttribute="centerY" secondItem="gG1-o8-XTX" secondAttribute="centerY" id="IUJ-Q5-WV3"/>
+                                                <constraint firstItem="jns-I9-Rfu" firstAttribute="centerY" secondItem="gG1-o8-XTX" secondAttribute="centerY" id="rQn-cp-NZJ"/>
+                                                <constraint firstItem="dfe-Pm-eqq" firstAttribute="leading" secondItem="gG1-o8-XTX" secondAttribute="leading" constant="16" id="snP-pM-pKJ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="Xls-3N-h0Z">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="ceV-Dy-XC5" style="IBUITableViewCellStyleDefault" id="giQ-q9-Ufs">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CKi-xL-ZPB">
                                         <rect key="frame" x="0.0" y="376" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="giQ-q9-Ufs" id="uu2-7E-lpC">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CKi-xL-ZPB" id="ybf-MG-VzM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Send Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ceV-Dy-XC5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLR-gq-Fh3">
+                                                    <rect key="frame" x="16" y="8.5" width="113" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hLR-gq-Fh3" firstAttribute="centerY" secondItem="ybf-MG-VzM" secondAttribute="centerY" id="BtG-Gq-Yaa"/>
+                                                <constraint firstItem="hLR-gq-Fh3" firstAttribute="leading" secondItem="ybf-MG-VzM" secondAttribute="leading" constant="16" id="fJO-mO-M67"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="rNU-VC-dQb" style="IBUITableViewCellStyleDefault" id="Zbf-bM-7yY">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="lXr-C0-Hee">
                                         <rect key="frame" x="0.0" y="420" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zbf-bM-7yY" id="joX-9C-1Ez">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lXr-C0-Hee" id="fCK-JO-QE0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Block Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rNU-VC-dQb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.75" green="0.1318976188" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEn-ob-OdW">
+                                                    <rect key="frame" x="16" y="8.5" width="107" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rEn-ob-OdW" firstAttribute="centerY" secondItem="fCK-JO-QE0" secondAttribute="centerY" id="99D-2B-YNe"/>
+                                                <constraint firstItem="rEn-ob-OdW" firstAttribute="leading" secondItem="fCK-JO-QE0" secondAttribute="leading" constant="16" id="jaF-C2-PBV"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="fCz-Jc-xMe" style="IBUITableViewCellStyleDefault" id="Heb-cO-5hB">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="F0m-pf-hfY">
                                         <rect key="frame" x="0.0" y="464" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Heb-cO-5hB" id="9f0-HD-CYc">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F0m-pf-hfY" id="Ezo-6L-GDj">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Convert Chat To Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fCz-Jc-xMe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convert Chat To Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mA6-Dy-WlL">
+                                                    <rect key="frame" x="16" y="8.5" width="176" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mA6-Dy-WlL" firstAttribute="leading" secondItem="Ezo-6L-GDj" secondAttribute="leading" constant="16" id="c0l-CG-opb"/>
+                                                <constraint firstItem="mA6-Dy-WlL" firstAttribute="centerY" secondItem="Ezo-6L-GDj" secondAttribute="centerY" id="lIH-cg-6ii"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Uu1-q6-uwL" style="IBUITableViewCellStyleDefault" id="b0F-Ld-HmG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RvH-K8-mLE">
                                         <rect key="frame" x="0.0" y="508" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b0F-Ld-HmG" id="XV3-Nh-rah">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RvH-K8-mLE" id="KeM-zz-1Or">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="In-Chat Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uu1-q6-uwL" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In-Chat Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAV-3L-Hju">
+                                                    <rect key="frame" x="16" y="8.5" width="112" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FAV-3L-Hju" firstAttribute="centerY" secondItem="KeM-zz-1Or" secondAttribute="centerY" id="ddp-gD-Lbv"/>
+                                                <constraint firstItem="FAV-3L-Hju" firstAttribute="leading" secondItem="KeM-zz-1Or" secondAttribute="leading" constant="16" id="fjm-gh-aia"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="jWh-zt-829" style="IBUITableViewCellStyleDefault" id="pRB-yY-e3M">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RJ7-5Q-4gE">
                                         <rect key="frame" x="0.0" y="552" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pRB-yY-e3M" id="HXX-oM-a92">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RJ7-5Q-4gE" id="eHR-dF-Ssz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Shared Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jWh-zt-829" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shared Media" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0BH-3N-P9u">
+                                                    <rect key="frame" x="16" y="8.5" width="106" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0BH-3N-P9u" firstAttribute="centerY" secondItem="eHR-dF-Ssz" secondAttribute="centerY" id="3yR-1z-Rrc"/>
+                                                <constraint firstItem="0BH-3N-P9u" firstAttribute="leading" secondItem="eHR-dF-Ssz" secondAttribute="leading" constant="16" id="bJz-qo-2lG"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="jUK-PN-Oqq" style="IBUITableViewCellStyleDefault" id="oB9-W1-w6W">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="x3f-8M-MXI">
                                         <rect key="frame" x="0.0" y="596" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oB9-W1-w6W" id="WuE-u4-cjW">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x3f-8M-MXI" id="AaJ-pN-67y">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jUK-PN-Oqq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DXz-Ah-e1n">
+                                                    <rect key="frame" x="16" y="8.5" width="98" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DXz-Ah-e1n" firstAttribute="leading" secondItem="AaJ-pN-67y" secondAttribute="leading" constant="16" id="PrZ-ju-YT0"/>
+                                                <constraint firstItem="DXz-Ah-e1n" firstAttribute="centerY" secondItem="AaJ-pN-67y" secondAttribute="centerY" id="tVI-qZ-KKB"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="AXh-ra-sSu">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="2SZ-4Y-ZAJ" style="IBUITableViewCellStyleDefault" id="CaG-QC-L0e">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Wgh-fV-aOh">
                                         <rect key="frame" x="0.0" y="676" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CaG-QC-L0e" id="yED-pH-bPG">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wgh-fV-aOh" id="TfX-eb-Kf6">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Delete Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2SZ-4Y-ZAJ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.75" green="0.1318976188" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFy-rI-lhe">
+                                                    <rect key="frame" x="16" y="8.5" width="89" height="27"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gFy-rI-lhe" firstAttribute="leading" secondItem="TfX-eb-Kf6" secondAttribute="leading" constant="16" id="gO5-hw-87e"/>
+                                                <constraint firstItem="gFy-rI-lhe" firstAttribute="centerY" secondItem="TfX-eb-Kf6" secondAttribute="centerY" id="sVX-y4-WrL"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -299,11 +341,22 @@
                     <navigationItem key="navigationItem" title="Title" id="Q1T-Hv-avX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="avatarView" destination="eZg-fa-wkG" id="JNX-Be-sL3"/>
-                        <outlet property="bioLabel" destination="d2q-ZU-aW2" id="xrE-f1-yEM"/>
-                        <outlet property="blockContactLabel" destination="rNU-VC-dQb" id="xGr-cK-Gzb"/>
-                        <outlet property="displayNameLabel" destination="EqQ-Fl-0tx" id="MWF-kc-ZIa"/>
-                        <outlet property="phoneNumberLabel" destination="RxD-PD-HX7" id="xqC-9K-UhW"/>
-                        <outlet property="usernameLabel" destination="ZEV-Fh-11s" id="Atp-2F-IgX"/>
+                        <outlet property="bioLabel" destination="jns-I9-Rfu" id="PiN-QV-MSP"/>
+                        <outlet property="blockContactLabel" destination="rEn-ob-OdW" id="FBP-jC-dRt"/>
+                        <outlet property="displayNameLabel" destination="866-ye-VQp" id="JYf-mR-UG1"/>
+                        <outlet property="lblBio" destination="dfe-Pm-eqq" id="ldE-V9-pDL"/>
+                        <outlet property="lblClearCache" destination="0lz-HE-Erc" id="mEC-U1-apo"/>
+                        <outlet property="lblConvert" destination="mA6-Dy-WlL" id="Gb2-Ig-sNL"/>
+                        <outlet property="lblDelete" destination="gFy-rI-lhe" id="64k-gg-jdn"/>
+                        <outlet property="lblInchatSearch" destination="FAV-3L-Hju" id="9rT-hA-LJI"/>
+                        <outlet property="lblName" destination="kjA-Sn-ID0" id="YEs-xY-ecJ"/>
+                        <outlet property="lblNotifications" destination="DXz-Ah-e1n" id="3E1-pd-ADj"/>
+                        <outlet property="lblPhone" destination="ltb-uu-htV" id="k8g-BI-W7b"/>
+                        <outlet property="lblSend" destination="hLR-gq-Fh3" id="ufc-Hr-fgG"/>
+                        <outlet property="lblSharedMedia" destination="0BH-3N-P9u" id="8rn-ME-7TI"/>
+                        <outlet property="lblUsername" destination="QA8-xM-8gS" id="txg-Wa-hgC"/>
+                        <outlet property="phoneNumberLabel" destination="is9-d7-qRZ" id="WYb-9w-GF8"/>
+                        <outlet property="usernameLabel" destination="KUZ-bS-iFX" id="F4n-c5-bMi"/>
                         <segue destination="eZI-bz-A5f" kind="show" identifier="showCreateGroupPage" id="bmD-BY-NeI"/>
                     </connections>
                 </tableViewController>
@@ -750,6 +803,16 @@
                         <outlet property="channelTypeTrailingConstraint" destination="muX-lY-jpQ" id="Owe-MP-I1Y"/>
                         <outlet property="deleteChannelLabel" destination="LYE-tO-Gsy" id="q95-Dv-sj0"/>
                         <outlet property="imgVerified" destination="Mfl-Mw-Lf0" id="shn-Bi-xou"/>
+                        <outlet property="lblAdminAndModerator" destination="UcN-ug-SFf" id="3Ox-RG-O5F"/>
+                        <outlet property="lblChannelReaction" destination="aoi-1e-0Qy" id="MCw-WK-kGX"/>
+                        <outlet property="lblDesc" destination="96E-Fa-ZR1" id="SK8-cR-X0I"/>
+                        <outlet property="lblLeave" destination="LYE-tO-Gsy" id="BeJ-zE-vQH"/>
+                        <outlet property="lblMember" destination="0LW-Ib-Ao0" id="ozp-fm-5EE"/>
+                        <outlet property="lblName" destination="WVx-U4-LO7" id="DbH-UJ-27t"/>
+                        <outlet property="lblNotification" destination="5Mk-bM-vAY" id="uNx-7f-Kyj"/>
+                        <outlet property="lblSharedMedia" destination="Lre-he-pQj" id="UDE-o7-3rA"/>
+                        <outlet property="lblSignMessages" destination="OOv-Qb-Y4E" id="4eG-8w-CCS"/>
+                        <outlet property="lblType" destination="T28-SG-upD" id="eSi-cX-Neq"/>
                         <outlet property="notificationCell" destination="ATT-Hu-k0p" id="dwS-qt-dwy"/>
                         <outlet property="numberOfMemberJoinedThisChannelLabel" destination="De2-Gn-QXv" id="niS-IZ-9PD"/>
                         <outlet property="sharedMediaCell" destination="VdX-BV-nyx" id="OTh-Vr-R24"/>
@@ -935,7 +998,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="46.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Link:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8z-Xg-sdq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8z-Xg-sdq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="23" y="13" width="330" height="19"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1146,6 +1209,14 @@
                         <outlet property="groupTypeCell" destination="yoI-1B-C8b" id="w7Y-dg-Rf3"/>
                         <outlet property="groupTypeLabel" destination="mPI-UB-SC1" id="J6E-9z-AIm"/>
                         <outlet property="groupTypeLabelTrailingConstraint" destination="FNu-3E-gbR" id="ZW0-Fn-Ay8"/>
+                        <outlet property="lblAdmin" destination="ZRj-UC-lss" id="b2l-Dg-vVN"/>
+                        <outlet property="lblAllMember" destination="Zl9-6l-ZTS" id="6zA-BH-OIf"/>
+                        <outlet property="lblDesc" destination="xYE-wN-aDI" id="1Gf-Ei-CTj"/>
+                        <outlet property="lblMember" destination="25T-Hj-b8o" id="bJV-u4-CLC"/>
+                        <outlet property="lblName" destination="r6C-cU-gn1" id="igA-x7-1Ly"/>
+                        <outlet property="lblNotifi" destination="tKK-CV-SNC" id="dC7-l7-Y2R"/>
+                        <outlet property="lblSharedMedia" destination="ghe-Hd-i4M" id="fVr-Yf-5qY"/>
+                        <outlet property="lblType" destination="XbX-fk-wYs" id="WUF-kM-fNl"/>
                         <outlet property="leaveGroupLabel" destination="fKY-bO-KbD" id="ItC-aF-l9i"/>
                         <outlet property="memberCountLabel" destination="dTh-Cc-MPp" id="SyJ-Jw-avD"/>
                         <segue destination="ucf-sx-4wP" kind="show" identifier="showGroupMemberSetting" id="rZK-En-rZB"/>
@@ -1425,7 +1496,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection footerTitle="You can add admins and moderators to help you manage your group." id="w7V-M4-20K">
+                            <tableViewSection id="w7V-M4-20K">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="flJ-eD-YxY">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
@@ -1524,6 +1595,8 @@
                         <outlet property="groupAdminsCountLabel" destination="vp5-fD-Pp8" id="stz-zB-vJD"/>
                         <outlet property="groupModeratorsCell" destination="HV3-Mu-Qcr" id="ngk-35-6n8"/>
                         <outlet property="groupModeratorsCountLabel" destination="kIg-Hq-yvn" id="ALw-6Y-6cD"/>
+                        <outlet property="lblAdmin" destination="7bZ-CB-1EY" id="DRj-a3-wJn"/>
+                        <outlet property="lblModerator" destination="3jp-jR-DRt" id="wr2-TR-9OI"/>
                         <outlet property="moderatorIndicator" destination="T8W-Ri-qqe" id="QXw-8Q-UMX"/>
                         <segue destination="L7a-nT-GCt" kind="show" identifier="showGroupAdminsDetails" id="AcJ-1q-d7c"/>
                     </connections>
@@ -1636,9 +1709,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Private" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZ6-bl-nad" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="10" width="53" height="21"/>
+                                                    <rect key="frame" x="15" y="10" width="53" height="27"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1690,6 +1763,8 @@
                         <outlet property="groupLinkTextField" destination="J7G-cI-3zb" id="iD6-mq-n6U"/>
                         <outlet property="groupPrivateCell" destination="4bh-YC-pO5" id="dKe-cg-15d"/>
                         <outlet property="groupPublicCell" destination="cM4-h1-VxL" id="dku-QM-oYa"/>
+                        <outlet property="lblPrivate" destination="RZ6-bl-nad" id="tes-FM-0SP"/>
+                        <outlet property="lblPublic" destination="M2F-vg-1bT" id="r3R-pa-QP6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3jG-xd-DbG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1716,13 +1791,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dui-QY-U6u">
-                                                    <rect key="frame" x="17" y="8" width="342" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="Lh4-l8-vFJ"/>
-                                                        <constraint firstAttribute="width" constant="342" id="cna-vR-Oqx"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="16" y="8.5" width="49.5" height="27"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="eVh-aD-aH6" id="RIK-rg-dZn"/>
@@ -1730,8 +1801,8 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Dui-QY-U6u" firstAttribute="top" secondItem="s0Y-Qe-WBH" secondAttribute="top" constant="8" id="fOo-SI-1xL"/>
-                                                <constraint firstItem="Dui-QY-U6u" firstAttribute="leading" secondItem="s0Y-Qe-WBH" secondAttribute="leading" constant="17" id="t17-Td-x6A"/>
+                                                <constraint firstItem="Dui-QY-U6u" firstAttribute="leading" secondItem="s0Y-Qe-WBH" secondAttribute="leadingMargin" id="Amz-vs-Au7"/>
+                                                <constraint firstItem="Dui-QY-U6u" firstAttribute="centerY" secondItem="s0Y-Qe-WBH" secondAttribute="centerY" id="Y1C-SX-EuP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1750,7 +1821,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Rk-8w-zfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7004" y="-7130"/>
+            <point key="canvasLocation" x="7004" y="-7130.2848575712151"/>
         </scene>
         <!--Group Edit Description Table View Controller-->
         <scene sceneID="hDP-OF-upS">
@@ -1773,7 +1844,7 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sBm-gT-KPb">
                                                     <rect key="frame" x="16" y="11" width="343" height="66"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -2006,6 +2077,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="NNK-cI-t8W" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="lblAudios" destination="Ve2-d7-DVn" id="h05-EH-cwg"/>
+                        <outlet property="lblFiles" destination="Skn-yQ-7Ey" id="7HP-7U-pgw"/>
+                        <outlet property="lblImages" destination="fvB-59-doJ" id="Hq2-4j-gbi"/>
+                        <outlet property="lblLinks" destination="KHs-qm-08Q" id="8LO-og-DGs"/>
+                        <outlet property="lblVideos" destination="eZi-dB-u4C" id="CCW-Ac-pmY"/>
+                        <outlet property="lblVoices" destination="lYf-dM-aHH" id="v9x-hm-BFX"/>
                         <outlet property="sizeOfSharedAudiosLabel" destination="CxC-ED-Gdd" id="dgV-VR-ZHE"/>
                         <outlet property="sizeOfSharedFiles" destination="W0I-xt-2kr" id="dBM-62-rxq"/>
                         <outlet property="sizeOfSharedImage" destination="IkF-Q1-Ptm" id="WfC-kc-sYq"/>
@@ -2446,7 +2523,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Channel Type" footerTitle="Public channels can be found in search, anyone can join them but Private channels can only joined via an invite link." id="Sky-Y1-Twm">
+                            <tableViewSection headerTitle="Channel Type" id="Sky-Y1-Twm">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="61J-6F-r8T">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
@@ -2487,7 +2564,7 @@
                             <tableViewSection headerTitle="Channel link" id="mKZ-0r-oio">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="8IG-j2-UOl">
-                                        <rect key="frame" x="0.0" y="243.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="199.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="8IG-j2-UOl" id="kgk-fV-MPe">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -2525,6 +2602,8 @@
                     <navigationItem key="navigationItem" title="Title" id="RGS-jd-3lK" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="channelLinkTextField" destination="gcQ-hy-kyT" id="8lB-Bp-K2y"/>
+                        <outlet property="lblPrivate" destination="4ed-lB-AaH" id="Ipk-jD-qEj"/>
+                        <outlet property="lblPublic" destination="31z-Oc-wxy" id="K0g-Bx-IRW"/>
                         <outlet property="privateChannelCell" destination="QPd-Qc-7NC" id="xpg-wc-yJK"/>
                         <outlet property="publicChannelCell" destination="61J-6F-r8T" id="acC-LM-cHb"/>
                     </connections>
@@ -2622,7 +2701,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection footerTitle="You can add admins and moderators to help you manage your channel." id="aSr-tR-x1s">
+                            <tableViewSection id="aSr-tR-x1s">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="k1N-Xa-Fkn">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
@@ -2723,6 +2802,8 @@
                         <outlet property="channelModeratorIndicator" destination="qTF-vW-kT8" id="2pp-az-RKI"/>
                         <outlet property="countOfAdmins" destination="GYS-Vi-Nug" id="DxN-HW-f4j"/>
                         <outlet property="countOfModeratorLabel" destination="Mas-ah-LQ8" id="ina-NR-jgq"/>
+                        <outlet property="lblAdmin" destination="eKH-w5-ziI" id="jcT-Hf-NhN"/>
+                        <outlet property="lblModerator" destination="wOn-zv-4M2" id="Lqf-45-UgC"/>
                         <outlet property="moderatorsCell" destination="Xq8-VR-lbm" id="bU7-xK-rTQ"/>
                         <segue destination="5K3-IQ-hli" kind="show" identifier="showAdminsOrModeratorDetailTableview" id="LCx-pa-Wdq"/>
                     </connections>
@@ -2986,8 +3067,8 @@
         <image name="IG_Verify" width="40" height="40"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QLJ-Ec-vz5"/>
+        <segue reference="d5a-Qk-dJn"/>
         <segue reference="xkS-cS-Kl8"/>
-        <segue reference="SwS-lA-ucj"/>
+        <segue reference="biM-0R-LF9"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -38,6 +38,21 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestur
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
     
+    
+    
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblPhone: UILabel!
+    @IBOutlet weak var lblUsername: UILabel!
+    @IBOutlet weak var lblBio: UILabel!
+    @IBOutlet weak var lblSend: UILabel!
+    @IBOutlet weak var lblBlock: UILabel!
+    @IBOutlet weak var lblConvert: UILabel!
+    @IBOutlet weak var lblDelete: UILabel!
+    @IBOutlet weak var lblClearCache: UILabel!
+    @IBOutlet weak var lblInchatSearch: UILabel!
+    @IBOutlet weak var lblSharedMedia: UILabel!
+    @IBOutlet weak var lblNotifications: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
@@ -46,9 +61,9 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestur
             self.displayNameLabel.text = user!.displayName
             if let phone = user?.phone {
                 if phone == 0 {
-                    self.phoneNumberLabel.text = "Hidden"
+                    self.phoneNumberLabel.text = "HIDDEN".localizedNew
                 } else {
-                    self.phoneNumberLabel.text = "\(phone)"
+                    self.phoneNumberLabel.text = "\(phone)".inLocalizedLanguage()
                 }
             }
             self.usernameLabel.text = user!.username
@@ -89,7 +104,21 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestur
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
+        lblName.text = "PLACE_HOLDER_L_NAME".localizedNew
+        blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
+        lblPhone.text = "POD_TELPHONE".localizedNew
+        lblUsername.text = "FIELD_USERNAME".localizedNew
+        lblBio.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        lblSend.text = "PU_SENDMSG".localizedNew
+        lblConvert.text = "CONVERT_CHAT_TO_GROUP".localizedNew
+        lblDelete.text = "DELETE_CHAT".localizedNew
+        lblClearCache.text = "CLEAR_HISTORY".localizedNew
+        lblInchatSearch.text = "IN_CHAT_SEARCH".localizedNew
+        lblNotifications.text = "NOTIFICATIONS".localizedNew
+        lblSharedMedia.text = "SHAREDMEDIA".localizedNew
+
     }
 
     private func isBotRoom() -> Bool{
