@@ -15,7 +15,7 @@ import MBProgressHUD
 import RxSwift
 import IGProtoBuff
 
-class IGRegistrationStepPhoneViewController: BaseViewController {
+class IGRegistrationStepPhoneViewController: UIViewController {
 
     @IBOutlet weak var countryBackgroundView: UIView!
     @IBOutlet weak var phoneNumberBackgroundView: UIView!
@@ -78,9 +78,11 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        btnLoginQrCode.removeUnderline()
-        
+        btnLoginQrCode.setTitle("LOGIN_USING_QR".localizedNew, for: .normal)
+        btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
+
+//        btnLoginQrCode.removeUnderline()
+//
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
                 self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
@@ -108,8 +110,6 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         super.viewWillAppear(animated)
         lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
         countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
-        btnLoginQrCode.setTitle("LOGIN_USING_QR".localizedNew, for: .normal)
-        btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 20)
         
         
         navigationController?.navigationItem.hidesBackButton = true
@@ -187,7 +187,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
             if phoneSpaceLess != nil && phoneSpaceLess != "" && Int64(phoneSpaceLess!) != nil{
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
-                    let fullPhone = "+" + countryCode + " " + (phone?.replacingOccurrences(of: "_", with: ""))!
+                    let fullPhone = "+" + countryCode.inLocalizedLanguage() + " " + (phone?.replacingOccurrences(of: "_", with: ""))!.inLocalizedLanguage()
                     let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + fullPhone,preferredStyle: .alert)
                     let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
                         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)

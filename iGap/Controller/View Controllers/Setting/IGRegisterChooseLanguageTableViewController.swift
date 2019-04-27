@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGRegisterChooseLanguageTableViewController: BaseTableViewController {
+class IGRegisterChooseLanguageTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,7 @@ class IGRegisterChooseLanguageTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
         
     }
 
@@ -40,7 +41,7 @@ class IGRegisterChooseLanguageTableViewController: BaseTableViewController {
     }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHOOSE_LANGUAGE".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: " ")
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
