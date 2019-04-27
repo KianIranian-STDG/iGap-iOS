@@ -4,7 +4,7 @@ github "ReactiveX/RxSwift" ~> 4.0
 github "jdg/MBProgressHUD" ~> 1.1.0
 github "KennethTsang/GrowingTextView" ~> 0.5.5
 github "facebook/pop"
-github "SnapKit/SnapKit" ~> 4.0.0
+github "SnapKit/SnapKit" "5.0.0"
 github "RxSwiftCommunity/RxRealm"
 github "MortimerGoro/MGSwipeTableCell"
 github "ashleymills/Reachability.swift"
