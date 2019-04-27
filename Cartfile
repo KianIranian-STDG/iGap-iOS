@@ -16,7 +16,7 @@ github "evgenyneu/Cosmos" ~> 15.0
 github "cornerAnt/Digger"
 github "inspace-io/INSPhotoGallery" "1.2.8"
 github "HeroTransitions/Hero"
-github "SwiftyJSON/SwiftyJSON" ~> 4.0
+github "SwiftyJSON/SwiftyJSON" "5.0.0"
 github "Alamofire/Alamofire"
 github "SDWebImage/SDWebImage"
 github "ivanbruel/MarkdownKit"
