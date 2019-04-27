@@ -19,6 +19,9 @@ import maincore
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
+let kIGGoDissmissLangFANotificationName = "im.igap.ios.dismiss.langFA"
+let kIGGoDissmissLangENNotificationName = "im.igap.ios.dismiss.langEN"
+let kIGGoDissmissLangARNotificationName = "im.igap.ios.dismiss.langAR"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
 let kIGNoticationForPushUserExpire = "im.igap.ios.user.expire"
 

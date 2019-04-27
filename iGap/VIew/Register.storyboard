@@ -317,7 +317,7 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Sa5-St-27Y">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <rect key="frame" x="0.0" y="237" width="510" height="667"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Reg_Select_Image" translatesAutoresizingMaskIntoConstraints="NO" id="5ZM-Uo-eji">
@@ -514,7 +514,7 @@ Please wait 0:59</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan this QR Code using your other device to log in iGap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H23-aZ-bhd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="36" width="343" height="40"/>
+                                <rect key="frame" x="16" y="36" width="343" height="53.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -554,19 +554,19 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have enabled Two-Step verification, so your account is protected with an additional password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rle-jS-MxG" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="20" y="40" width="335" height="59.5"/>
+                                <rect key="frame" x="20" y="40" width="335" height="80"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mKb-Pw-L81">
-                                <rect key="frame" x="45" y="189.5" width="285" height="20"/>
+                                <rect key="frame" x="45" y="210" width="285" height="27"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dX9-p5-jnL">
-                                <rect key="frame" x="45" y="217.5" width="285" height="1"/>
+                                <rect key="frame" x="45" y="245" width="285" height="1"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="CAG-CO-Gar"/>
@@ -718,6 +718,7 @@ Please wait 0:59</string>
         <!--  -->
         <scene sceneID="p8T-PT-Zdn">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l9W-Sm-uaV" sceneMemberID="firstResponder"/>
                 <viewController id="Gwk-Lv-sYf" customClass="IGSplashScreenViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VKY-ow-Ci5"/>
@@ -800,11 +801,34 @@ Please wait 0:59</string>
                                     <constraint firstAttribute="width" constant="100" id="oAC-gp-GZi"/>
                                 </constraints>
                             </imageView>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Upo-ja-rDQ" customClass="UIViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="67.5" y="118.5" width="240" height="430"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="YFd-a8-ydh"/>
+                                    <constraint firstAttribute="height" constant="430" id="wFi-E8-5gZ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="QdJ-2S-JXd" kind="embed" id="mrf-BB-csY"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="scp-z6-HjA" secondAttribute="trailing" id="34w-Ia-GN7"/>
                             <constraint firstAttribute="bottom" secondItem="Ytb-Tk-xdY" secondAttribute="bottom" id="B6a-ae-kXy"/>
+                            <constraint firstItem="Upo-ja-rDQ" firstAttribute="centerX" secondItem="Go9-Rx-ZKe" secondAttribute="centerX" id="Cg0-Q6-HcB"/>
                             <constraint firstItem="Ytb-Tk-xdY" firstAttribute="top" secondItem="Go9-Rx-ZKe" secondAttribute="top" id="G72-jm-0zz"/>
                             <constraint firstItem="scp-z6-HjA" firstAttribute="top" secondItem="Go9-Rx-ZKe" secondAttribute="top" id="IDz-u0-ZqQ"/>
                             <constraint firstItem="Ytb-Tk-xdY" firstAttribute="leading" secondItem="Go9-Rx-ZKe" secondAttribute="leading" id="KSF-bI-aaJ"/>
@@ -813,6 +837,7 @@ Please wait 0:59</string>
                             <constraint firstItem="QTt-bz-NiR" firstAttribute="centerY" secondItem="0lV-PO-w33" secondAttribute="centerY" id="ewD-bL-h2X"/>
                             <constraint firstItem="scp-z6-HjA" firstAttribute="leading" secondItem="Go9-Rx-ZKe" secondAttribute="leading" id="ezM-Ga-6rF"/>
                             <constraint firstItem="Dvj-MV-IGz" firstAttribute="top" secondItem="scp-z6-HjA" secondAttribute="bottom" id="iKC-0G-vqR"/>
+                            <constraint firstItem="Upo-ja-rDQ" firstAttribute="centerY" secondItem="Go9-Rx-ZKe" secondAttribute="centerY" id="zpE-FE-ZC8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0lV-PO-w33"/>
                     </view>
@@ -822,15 +847,15 @@ Please wait 0:59</string>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="gifImageView" destination="QTt-bz-NiR" id="lOC-TO-ySY"/>
+                        <outlet property="languageView" destination="Upo-ja-rDQ" id="43c-fh-qUa"/>
                         <outlet property="pageControll" destination="Wsy-X8-RrH" id="jPr-cj-RIB"/>
                         <outlet property="skipButton" destination="Oep-am-p1h" id="wP7-ia-Bv5"/>
                         <outlet property="splashView" destination="Ytb-Tk-xdY" id="M5I-kN-8QL"/>
                         <outlet property="startButton" destination="D7A-Y5-bfR" id="ozF-vx-CMq"/>
                         <outlet property="topView" destination="338-9b-7Bt" id="YNo-cF-Gg9"/>
-                        <segue destination="QdJ-2S-JXd" kind="show" identifier="showPhoneNumber" id="GY1-mX-gxg"/>
+                        <segue destination="BpM-Wx-W2n" kind="show" identifier="showPhoneNumber" id="ck6-At-xjg"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l9W-Sm-uaV" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1090.4000000000001" y="2079.3103448275865"/>
         </scene>
@@ -839,17 +864,17 @@ Please wait 0:59</string>
             <objects>
                 <tableViewController storyboardIdentifier="ChnageLangSetting" id="QdJ-2S-JXd" customClass="IGRegisterChooseLanguageTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="dIZ-73-Obl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="430"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="Choose Language - انتخاب زبان" id="tmB-5A-JVB">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="HJu-hq-ref">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HJu-hq-ref" id="3Bl-7s-qwo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocx-Zc-Ewx">
@@ -872,15 +897,12 @@ Please wait 0:59</string>
                                                 <constraint firstItem="nIv-tk-qW4" firstAttribute="leading" secondItem="ocx-Zc-Ewx" secondAttribute="trailing" constant="25" id="hYd-vg-RFr"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="BpM-Wx-W2n" kind="show" id="BWU-gi-mVp"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="RYu-X9-EBm">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RYu-X9-EBm" id="WL5-LU-Sfv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="En" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ah0-i0-sNL">
@@ -903,15 +925,12 @@ Please wait 0:59</string>
                                                 <constraint firstItem="ah0-i0-sNL" firstAttribute="leading" secondItem="WL5-LU-Sfv" secondAttribute="leadingMargin" constant="14" id="ZcL-Eh-iHn"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="BpM-Wx-W2n" kind="show" id="zJU-Or-YSD"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="EYV-I2-JcP">
-                                        <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="143.5" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EYV-I2-JcP" id="zQF-Bc-KK4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7q-yH-zTE">
@@ -947,7 +966,7 @@ Please wait 0:59</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWy-hb-p47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-346" y="2080"/>
+            <point key="canvasLocation" x="-437" y="1772"/>
         </scene>
     </scenes>
     <resources>
@@ -957,6 +976,5 @@ Please wait 0:59</string>
     <inferredMetricsTieBreakers>
         <segue reference="rCf-6z-GMB"/>
         <segue reference="12D-0T-HWW"/>
-        <segue reference="BWU-gi-mVp"/>
     </inferredMetricsTieBreakers>
 </document>

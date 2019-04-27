@@ -66,18 +66,21 @@ class IGRegisterChooseLanguageTableViewController: UITableViewController {
         case 0 :
         
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
-            
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangFANotificationName), object: nil)
+
             
         case 1:
            
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English.rawValue)
-            
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangENNotificationName), object: nil)
+
             
             
         case 2:
             
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
-            
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoDissmissLangARNotificationName), object: nil)
+
             
         default :
             break

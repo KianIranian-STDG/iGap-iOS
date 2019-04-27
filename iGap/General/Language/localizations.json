@@ -128,9 +128,8 @@
         "twoStepVerfi_HEADER" : "شما تایید دومرحله ای را انتخاب کرده اید.برای همین حساب کاربری شما توسط رمزی دوم ایمن شده است",
         "BY_SIGNING_AGREEMENT" : "با ساخت حساب کاربری موافقت می کنید با  ",
         "TERMS_OF_SERVICE" : "شرایط و قوانین",
-        "TERMS_OF_SERVICE" : "شرایط و قوانین",
+        "LETS_GO" : "بزن بریم",
 
-        
         
         
         
@@ -892,6 +891,8 @@
         "SHOW_AND_LOGIN_USING_QR" :  "Scan this QR Code using your other device to log in to your iGap Account",
         "PLEASE_ENTER_PASS" : "Please Enter Your Pass",
         "twoStepVerfi_HEADER" : "You have enabled Two-Step verification, so your account is protected with an additional password",
+        "BY_SIGNING_AGREEMENT" : "By signing up an account you agree to  ",
+        "TERMS_OF_SERVICE" : "Terms of Services",
 
         
         
@@ -1152,6 +1153,7 @@
         "CHOOSE_PHOTO" : "Choose Photo",
         "MINUTE" : "Minute",
         "CHANNEL_NAME" : "Channel Name",
+        "LETS_GO" : "Let's Go",
 
         
         

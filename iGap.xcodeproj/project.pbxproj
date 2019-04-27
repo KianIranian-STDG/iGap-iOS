@@ -22,6 +22,7 @@
 		8E8D8E19225CE39B00039191 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E18225CE39A00039191 /* strings.json */; };
 		8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E2C225DB6A500039191 /* Fast.xib */; };
 		8E8D8E46225DBB9000039191 /* SMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E45225DBB9000039191 /* SMNavigationController.swift */; };
+		8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */; };
 		8E94B7382237E4A1005F6868 /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */; };
 		8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */; };
 		8E94B73A2237E4A1005F6868 /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72C2237E4A0005F6868 /* Presentr.framework */; };
@@ -600,6 +601,7 @@
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
 		8E8D8E2C225DB6A500039191 /* Fast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Fast.xib; sourceTree = "<group>"; };
 		8E8D8E45225DBB9000039191 /* SMNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNavigationController.swift; sourceTree = "<group>"; };
+		8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPageOneViewController.swift; sourceTree = "<group>"; };
 		8E94B7282237E49F005F6868 /* QRCodeReader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCodeReader.framework; path = Carthage/Build/iOS/QRCodeReader.framework; sourceTree = "<group>"; };
 		8E94B72A2237E4A0005F6868 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
 		8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = Carthage/Build/iOS/UICKeyChainStore.framework; sourceTree = "<group>"; };
@@ -1723,6 +1725,7 @@
 			isa = PBXGroup;
 			children = (
 				FA50A8CC1DD35EFD00C6D2EA /* IGSplashScreenViewController.swift */,
+				8E91C64B2274887D00C36DAB /* SplashScreenPageOneViewController.swift */,
 				FA50A8C71DD35EFD00C6D2EA /* IGRegistrationStepPhoneViewController.swift */,
 				FA50A8CB1DD35EFD00C6D2EA /* IGRegistrationStepVerificationCodeViewController.swift */,
 				FA50A8C81DD35EFD00C6D2EA /* IGRegistrationStepProfileInfoViewController.swift */,
@@ -2901,6 +2904,7 @@
 				FAA3604D201614B600736F95 /* TextCell.swift in Sources */,
 				FA99FF702235428A009035DF /* DashboardCell5.swift in Sources */,
 				8E96A325225C9182007D8A77 /* SMGradientView.swift in Sources */,
+				8E91C64C2274887D00C36DAB /* SplashScreenPageOneViewController.swift in Sources */,
 				FA0953821E1B97E20043ED3F /* IGChooseContactToAddNewGroupTableViewCell.swift in Sources */,
 				FAE6062621EB39DB00F03FFC /* SwiftWebVC.swift in Sources */,
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
