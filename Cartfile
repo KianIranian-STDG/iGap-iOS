@@ -9,7 +9,7 @@ github "RxSwiftCommunity/RxRealm"
 github "MortimerGoro/MGSwipeTableCell"
 github "ashleymills/Reachability.swift"
 github "artemkrachulov/AKMaskField"
-github "krzyzanowskim/CryptoSwift" "0.7.2"
+github "krzyzanowskim/CryptoSwift" "1.0.0"
 github "ninjaprox/NVActivityIndicatorView"
 github "Anakros/WebRTC"
 github "evgenyneu/Cosmos" ~> 15.0
