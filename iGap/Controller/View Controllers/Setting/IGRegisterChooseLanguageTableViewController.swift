@@ -12,7 +12,7 @@ class IGRegisterChooseLanguageTableViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        initNavigationBar()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -36,6 +36,12 @@ class IGRegisterChooseLanguageTableViewController: BaseTableViewController {
         
         return label
         
+        
+    }
+    func initNavigationBar(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHOOSE_LANGUAGE".localizedNew)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

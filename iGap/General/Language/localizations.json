@@ -105,7 +105,7 @@
         "MSG_USER_REPORTED_BEFOR" : "این کاربر قبلا ریپورت شده است",
         "MSG_REPORT_INVALID" : "توضیحات ریپورت مورد تایید نمی باشد",
         "TTL_PICKNUM_WITH_COUNTRYCODE" : "لطفا به منظور شروع فرایند ثبت نام کد کشور و شماره همراه خود را وارد نمایید",
-        "LOGIN_USING_QR" : "ورود به توسط اسکن کد کیو آر",
+        "LOGIN_USING_QR" : "ورودBy signing up you agree to our  توسط اسکن کد کیو آر",
         "TERMS" : "شرایط",
         "SMS" : "پیامک",
         "VIA" : " توسط ",
@@ -126,6 +126,9 @@
         "SHOW_AND_LOGIN_USING_QR" :  "این کیوآر کد را توسط دستگاه دیگر خود به منظور ورود به حساب کاربری اسکن نمایید",
         "PLEASE_ENTER_PASS" : "لطفا رمز خود را وارد نمایید",
         "twoStepVerfi_HEADER" : "شما تایید دومرحله ای را انتخاب کرده اید.برای همین حساب کاربری شما توسط رمزی دوم ایمن شده است",
+        "BY_SIGNING_AGREEMENT" : "با ساخت حساب کاربری موافقت می کنید با  ",
+        "TERMS_OF_SERVICE" : "شرایط و قوانین",
+        "TERMS_OF_SERVICE" : "شرایط و قوانین",
 
         
         
@@ -502,6 +505,7 @@
         "SETTING_PAGE_WALLET" : "کیف پول",
         "SETTING_PAGE_FINANCIAL_SERVICES" : "خدمات مالی",
         "SETTING_PAGE_CHANGE_LANGUAGE" : "تغییر زبان",
+        "SETTING_PAGE_CHOOSE_LANGUAGE" : "انتخاب زبان",
         "SETTING_PAGE_CHAT_WALLPAPER" : "پس زمینه صفحه گفت و گو",
         "SETTING_PAGE_IN_APP_BROWSER" : "مرور گر درون برنامه ای",
         "SETTING_PAGE_PRIVACY_AND_SECURITY" : "امنیت و حریم خصوصی",
@@ -1159,6 +1163,8 @@
         "SETTING_PAGE_WALLET" : "Wallet",
         "SETTING_PAGE_FINANCIAL_SERVICES" : "Financial Services",
         "SETTING_PAGE_CHANGE_LANGUAGE" : "Change Language",
+        "SETTING_PAGE_CHOOSE_LANGUAGE" : "Choose Language",
+        
         "SETTING_PAGE_CHAT_WALLPAPER" : "Chat Wallpaper",
         "SETTING_PAGE_IN_APP_BROWSER" : "In App Browser",
         "SETTING_PAGE_PRIVACY_AND_SECURITY" : "Privacy & Security",

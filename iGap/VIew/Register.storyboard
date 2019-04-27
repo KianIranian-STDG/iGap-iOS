@@ -75,10 +75,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WdU-xE-NMr">
-                                <rect key="frame" x="144" y="197" width="215" height="34"/>
+                                <rect key="frame" x="153" y="197" width="206" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yLc-zL-nHQ" customClass="AKMaskField" customModule="AKMaskField">
-                                        <rect key="frame" x="8" y="0.0" width="199" height="34"/>
+                                        <rect key="frame" x="8" y="0.0" width="190" height="34"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
@@ -133,7 +133,7 @@
                                     <constraint firstAttribute="height" constant="30" id="ARi-fG-8yH"/>
                                     <constraint firstAttribute="width" constant="147" id="f2I-aZ-x1x"/>
                                 </constraints>
-                                <state key="normal" title="Login Using QR Code">
+                                <state key="normal">
                                     <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -158,6 +158,7 @@
                             <constraint firstItem="7dr-Le-eo5" firstAttribute="leading" secondItem="xq4-ox-bic" secondAttribute="leading" constant="16" id="8KE-zo-FLX"/>
                             <constraint firstItem="ZSt-Gp-jxU" firstAttribute="top" secondItem="yK1-s7-zbS" secondAttribute="bottom" constant="8" id="CEe-hl-2Jk"/>
                             <constraint firstItem="yK1-s7-zbS" firstAttribute="leading" secondItem="HAy-W5-zyK" secondAttribute="leading" constant="16" id="Dfe-OU-Xba"/>
+                            <constraint firstItem="WdU-xE-NMr" firstAttribute="leading" secondItem="6yE-qv-Vbg" secondAttribute="trailing" constant="25" id="GID-sw-0qK"/>
                             <constraint firstItem="yK1-s7-zbS" firstAttribute="top" secondItem="7dr-Le-eo5" secondAttribute="bottom" constant="8" id="Hem-lV-X6e"/>
                             <constraint firstItem="u0k-Qe-pbJ" firstAttribute="top" secondItem="NC4-Y6-Ffn" secondAttribute="bottom" constant="8" id="Lcf-Cd-3kg"/>
                             <constraint firstItem="0Ad-Tq-4O7" firstAttribute="top" secondItem="ZSt-Gp-jxU" secondAttribute="bottom" constant="16" id="Qmg-Ez-bjK"/>
@@ -165,11 +166,11 @@
                             <constraint firstItem="6eI-Dd-wbu" firstAttribute="top" secondItem="NC4-Y6-Ffn" secondAttribute="bottom" constant="127" id="dzG-RU-JFi"/>
                             <constraint firstItem="ZSt-Gp-jxU" firstAttribute="leading" secondItem="xq4-ox-bic" secondAttribute="leading" constant="16" id="haV-8j-t9Z"/>
                             <constraint firstItem="UN7-ob-GGq" firstAttribute="top" secondItem="6eI-Dd-wbu" secondAttribute="bottom" constant="16" id="kvH-NU-bsg"/>
+                            <constraint firstItem="WdU-xE-NMr" firstAttribute="leading" secondItem="HAy-W5-zyK" secondAttribute="leading" constant="153" id="sSg-at-kck"/>
                             <constraint firstItem="WdU-xE-NMr" firstAttribute="top" secondItem="6eI-Dd-wbu" secondAttribute="bottom" constant="16" id="tSU-D3-dBl"/>
                             <constraint firstAttribute="trailing" secondItem="6eI-Dd-wbu" secondAttribute="trailing" constant="16" id="v4a-Nj-qot"/>
                             <constraint firstItem="UN7-ob-GGq" firstAttribute="leading" secondItem="xq4-ox-bic" secondAttribute="leading" constant="16" id="wIe-x6-ruQ"/>
                             <constraint firstItem="u0k-Qe-pbJ" firstAttribute="trailing" secondItem="xq4-ox-bic" secondAttribute="trailingMargin" id="wWc-qx-3oq"/>
-                            <constraint firstItem="WdU-xE-NMr" firstAttribute="leading" secondItem="UN7-ob-GGq" secondAttribute="trailing" constant="16" id="z6I-cP-7Fw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HAy-W5-zyK"/>
                     </view>
@@ -193,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wPx-vv-wff" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="385" y="2080"/>
+            <point key="canvasLocation" x="384.80000000000001" y="2079.3103448275865"/>
         </scene>
         <!--Registration-->
         <scene sceneID="WlO-2H-axe">
@@ -601,7 +602,7 @@ Please wait 0:59</string>
             </objects>
             <point key="canvasLocation" x="505" y="2872"/>
         </scene>
-        <!--Registration Step Select Country Table View Controller-->
+        <!-- -->
         <scene sceneID="6xU-mb-T9B">
             <objects>
                 <viewController storyboardIdentifier="IGRegistrationStepSelectCountryTableViewController" id="igM-D8-zPK" customClass="IGRegistrationStepSelectCountryTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -676,7 +677,7 @@ Please wait 0:59</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JaM-ev-efj"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Uur-YX-ac4" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <navigationItem key="navigationItem" title=" " id="Uur-YX-ac4" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="searchBar" destination="Glf-PB-5tT" id="6Ij-4B-wPR"/>
                         <outlet property="tableView" destination="Lb6-BA-Wji" id="vbQ-9o-eUe"/>
@@ -718,7 +719,7 @@ Please wait 0:59</string>
             </objects>
             <point key="canvasLocation" x="505" y="509"/>
         </scene>
-        <!-- -->
+        <!--  -->
         <scene sceneID="p8T-PT-Zdn">
             <objects>
                 <viewController id="Gwk-Lv-sYf" customClass="IGSplashScreenViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -819,7 +820,9 @@ Please wait 0:59</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0lV-PO-w33"/>
                     </view>
-                    <navigationItem key="navigationItem" title=" " id="v3H-eC-pAb"/>
+                    <navigationItem key="navigationItem" title="  " id="v3H-eC-pAb">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Q5l-Ez-GqR"/>
+                    </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="gifImageView" destination="QTt-bz-NiR" id="lOC-TO-ySY"/>
@@ -835,7 +838,7 @@ Please wait 0:59</string>
             </objects>
             <point key="canvasLocation" x="-1090.4000000000001" y="2079.3103448275865"/>
         </scene>
-        <!--Register Choose Language Table View Controller-->
+        <!--Title-->
         <scene sceneID="tRi-di-OLf">
             <objects>
                 <tableViewController storyboardIdentifier="ChnageLangSetting" id="QdJ-2S-JXd" customClass="IGRegisterChooseLanguageTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -944,7 +947,7 @@ Please wait 0:59</string>
                             <outlet property="delegate" destination="QdJ-2S-JXd" id="wFQ-Lk-San"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="kcG-2d-oBp" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <navigationItem key="navigationItem" title="Title" id="2VD-JE-yjV" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lWy-hb-p47" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -956,7 +959,7 @@ Please wait 0:59</string>
         <image name="IG_Start_App_Logo" width="300" height="504"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dme-SG-rFJ"/>
+        <segue reference="rCf-6z-GMB"/>
         <segue reference="12D-0T-HWW"/>
         <segue reference="BWU-gi-mVp"/>
     </inferredMetricsTieBreakers>

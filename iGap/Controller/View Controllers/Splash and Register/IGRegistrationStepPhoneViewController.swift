@@ -70,7 +70,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
 
     private func setDefaultNavigationItem() {
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "Next", title: "Your Phone")
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localizedNew, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
         navItem.rightViewContainer?.addAction {
             self.didTapOnNext()
         }
@@ -131,9 +131,9 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         countryCodeBackgroundView.layer.borderColor = UIColor.organizationalColor().cgColor
         
         
-        let terms1 = NSMutableAttributedString(string: "By signing up you agree to our ",
+        let terms1 = NSMutableAttributedString(string: "BY_SIGNING_AGREEMENT".localizedNew,
                                                attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(red: 114/255.0, green: 114/255.0, blue: 114/255.0, alpha: 1.0)]))
-        let terms2 = NSAttributedString(string: "Terms of Service",
+        let terms2 = NSAttributedString(string: "TERMS_OF_SERVICE".localizedNew,
                                         attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
         terms1.append(terms2)
         termLabel.attributedText = terms1
@@ -141,7 +141,7 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
         termLabel.addGestureRecognizer(tapOnTerms)
         termLabel.isUserInteractionEnabled = true
         
-        let termsWebLink = NSAttributedString(string: "Privacy & Policy", attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
+        let termsWebLink = NSAttributedString(string: "SETTING_PS_TTL_PRIVACY".localizedNew, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
         termWebLink.attributedText = termsWebLink
         let tapOnTermsWebLink = UITapGestureRecognizer(target: self, action: #selector(showTermsWebLink))
         termWebLink.addGestureRecognizer(tapOnTermsWebLink)
@@ -170,8 +170,8 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
     
     func didTapOnNext() {
         if connectionStatus == .waitingForNetwork || connectionStatus == .connecting {
-            let alert = UIAlertController(title: "Error", message: "No Network Connection", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
 
@@ -188,13 +188,13 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = "+" + countryCode + " " + (phone?.replacingOccurrences(of: "_", with: ""))!
-                    let alertVC = UIAlertController(title: "Is this correct",message: "Is this phone correct:\n"+fullPhone,preferredStyle: .alert)
-                    let yes = UIAlertAction(title: "Yes", style: .cancel, handler: { (action) in
+                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + fullPhone,preferredStyle: .alert)
+                    let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
                         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         self.hud.mode = .indeterminate
                         self.userRegister(phoneSpaceLess: phoneSpaceLess!)
                     })
-                    let no = UIAlertAction(title: "Edit", style: .default, handler: { (action) in
+                    let no = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in
                         
                     })
                     
@@ -208,8 +208,8 @@ class IGRegistrationStepPhoneViewController: BaseViewController {
                     return;
                 }
             }
-            let alertVC = UIAlertController(title: "Invalid Phone", message: "Please enter a valid phone number", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alertVC = UIAlertController(title: "INVALID_PHONE".localizedNew, message: "ENTER_VALID_P_NUMBER".localizedNew, preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }
     }
