@@ -267,6 +267,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+//        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
         navigationItem.rightViewContainer?.addAction {
             if self.room?.type == .chat {
                 self.selectedUserToSeeTheirInfo = (self.room?.chatRoom?.peer)!
@@ -457,7 +458,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             fetchRoomHistoryWhenDbIsClear()
         }
     }
-    
+//    func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
+//        if gesture.state == UIGestureRecognizer.State.began {
+//            print("respond to beginning of pop gesture")
+//            navigationController?.popViewController(animated: true)
+//        }
+//    }
     @objc @available(iOS 10.0, *)
     private func openStickerView(){
         let viewController:UIViewController

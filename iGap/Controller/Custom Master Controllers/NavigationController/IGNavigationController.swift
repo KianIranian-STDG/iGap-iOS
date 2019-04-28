@@ -22,7 +22,18 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         
     }
     override func popViewController(animated: Bool) -> UIViewController? {
-        return super.popViewController(animated: animated)
+        let numberOfPages = super.viewControllers.count
+        if numberOfPages == 2  {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+            return super.popViewController(animated: animated)
+
+        }
+            
+        else {
+            return super.popViewController(animated: animated)
+
+        }
+
     }
     
     override func popToRootViewController(animated: Bool) -> [UIViewController]? {
