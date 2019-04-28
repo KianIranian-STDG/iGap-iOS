@@ -1,4 +1,4 @@
-github "TakeScoop/SwiftyRSA"
+github "eminemArun/SwiftyRSA" //IMPORTANT HINT: use TakeScoop for next update
 github "realm/realm-cocoa"
 github "ReactiveX/RxSwift" ~> 4.0
 github "jdg/MBProgressHUD" ~> 1.1.0
