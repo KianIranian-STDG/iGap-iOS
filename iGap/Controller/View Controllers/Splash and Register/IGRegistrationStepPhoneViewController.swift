@@ -108,6 +108,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
         lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
         countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
         
@@ -178,7 +179,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         } else {
             
             var phoneSpaceLess: String?
-            let phone = phoneNumberField.text
+            let phone = phoneNumberField.text?.inEnglishNumbers()
             if phone != nil && phone != "" {
                 phoneSpaceLess = phone?.replacingOccurrences(of: " ", with: "")
                 phoneSpaceLess = phoneSpaceLess?.replacingOccurrences(of: "_", with: "")
@@ -188,7 +189,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
                 if IGGlobal.matches(for: (selectedCountry?.codeRegex)!, in: phoneSpaceLess!) {
                     let countryCode = String(Int((self.selectedCountry?.countryCode)!))
                     let fullPhone = "+" + countryCode.inLocalizedLanguage() + " " + (phone?.replacingOccurrences(of: "_", with: ""))!.inLocalizedLanguage()
-                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + fullPhone,preferredStyle: .alert)
+                    let alertVC = UIAlertController(title: "IS_IT_CORRECT".localizedNew,message: "IS_PHONE_OK".localizedNew + "\n" + fullPhone.inLocalizedLanguage(),preferredStyle: .alert)
                     let yes = UIAlertAction(title: "GLOBAL_YES".localizedNew, style: .cancel, handler: { (action) in
                         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         self.hud.mode = .indeterminate

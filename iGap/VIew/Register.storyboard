@@ -204,10 +204,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-nw-9G2" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="67"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-nw-9G2" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="16" y="28" width="343" height="92"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="67" id="uip-Nb-z82"/>
+                                    <constraint firstAttribute="height" constant="92" id="uip-Nb-z82"/>
                                 </constraints>
                                 <string key="text">Please enter the verification code sent to
 (930) 296-1332</string>
@@ -250,7 +250,7 @@ Please wait 0:59</string>
                             <constraint firstItem="hKq-B9-rPc" firstAttribute="top" secondItem="NrC-3a-apr" secondAttribute="bottom" id="4qT-DD-AxL"/>
                             <constraint firstItem="mQS-wo-os0" firstAttribute="top" secondItem="hKq-B9-rPc" secondAttribute="bottom" constant="36" id="603-Ui-xdV"/>
                             <constraint firstAttribute="trailing" secondItem="mQS-wo-os0" secondAttribute="trailing" constant="16" id="AUa-IK-MYI"/>
-                            <constraint firstItem="NrC-3a-apr" firstAttribute="top" secondItem="GR2-nw-9G2" secondAttribute="bottom" constant="66" id="ET9-NL-by9"/>
+                            <constraint firstItem="NrC-3a-apr" firstAttribute="top" secondItem="GR2-nw-9G2" secondAttribute="bottom" constant="41" id="ET9-NL-by9"/>
                             <constraint firstAttribute="trailing" secondItem="NrC-3a-apr" secondAttribute="trailing" constant="45" id="TFI-UV-LAk"/>
                             <constraint firstItem="GR2-nw-9G2" firstAttribute="leading" secondItem="fCb-Hj-ZG2" secondAttribute="leading" constant="16" id="UdZ-hs-BUk"/>
                             <constraint firstAttribute="trailing" secondItem="hKq-B9-rPc" secondAttribute="trailing" constant="45" id="YqA-pL-pJ6"/>
@@ -271,7 +271,7 @@ Please wait 0:59</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbd-KQ-tiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1161" y="2081"/>
+            <point key="canvasLocation" x="1160.8" y="2080.2098950524737"/>
         </scene>
         <!--Registration Step Terms View Controller-->
         <scene sceneID="nZW-zE-tTp">
@@ -317,7 +317,7 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Sa5-St-27Y">
-                            <rect key="frame" x="0.0" y="237" width="510" height="667"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Reg_Select_Image" translatesAutoresizingMaskIntoConstraints="NO" id="5ZM-Uo-eji">
@@ -718,7 +718,6 @@ Please wait 0:59</string>
         <!--  -->
         <scene sceneID="p8T-PT-Zdn">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l9W-Sm-uaV" sceneMemberID="firstResponder"/>
                 <viewController id="Gwk-Lv-sYf" customClass="IGSplashScreenViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VKY-ow-Ci5"/>
@@ -764,8 +763,8 @@ Please wait 0:59</string>
                                                     <constraint firstAttribute="height" constant="30" id="WaK-g6-e87"/>
                                                     <constraint firstAttribute="width" constant="160" id="oZE-ad-ZYW"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <state key="normal" title="Lets Go">
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                <state key="normal">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -856,6 +855,7 @@ Please wait 0:59</string>
                         <segue destination="BpM-Wx-W2n" kind="show" identifier="showPhoneNumber" id="ck6-At-xjg"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l9W-Sm-uaV" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1090.4000000000001" y="2079.3103448275865"/>
         </scene>
@@ -884,7 +884,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Persian - فارسی" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIv-tk-qW4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="75" y="12" width="114" height="20"/>
+                                                    <rect key="frame" x="75" y="8.5" width="114" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -940,7 +940,7 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arabic - عربی" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jH5-TH-nOf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="76" y="12" width="96.5" height="20"/>
+                                                    <rect key="frame" x="76" y="8.5" width="96.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -975,6 +975,6 @@ Please wait 0:59</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rCf-6z-GMB"/>
-        <segue reference="12D-0T-HWW"/>
+        <segue reference="qQl-V3-xga"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -47,7 +47,7 @@ class IGSplashScreenViewController: UIViewController {
         skipButton.layer.borderWidth = 0
         skipButton.layer.cornerRadius = 8
         skipButton.isHidden = true
-        startButton.setTitle("LETS_GO".localizedNew, for: .normal)
+//        startButton.setTitle("LETS_GO".localizedNew, for: .normal)
         startButton.titleLabel?.font = UIFont.igFont(ofSize: 15)
         descriptions = ["You can make thoroughly free and secure voice and video calls to anyone on iGap and save your money. iGap voice and video call is P2P-based with no server\'s interference in voice and video transmission.",
                             "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...",

@@ -158,9 +158,14 @@ class IGNavigationItem: UINavigationItem {
         self.title = ""
 
         backViewContainer?.addAction {
-            self.backViewContainer?.isUserInteractionEnabled = false
             
-            if currentPageName == "iGap.IGAccountViewController"  {
+            
+            print("TEST")
+            print()
+            print("TEST")
+            self.backViewContainer?.isUserInteractionEnabled = false
+            guard let numberOfPages = self.navigationController?.viewControllers.count else { return }
+            if numberOfPages == 2  {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
                 currentPageName = ""
                 _ = self.navigationController?.popViewController(animated: true)
@@ -275,6 +280,16 @@ class IGNavigationItem: UINavigationItem {
         self.leftBarButtonItem = leftBarButton
         let current : String = SMLangUtil.loadLanguage()
 
+   
+
+        let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+        let settingButtonImageView = UIImageView(frame: settingViewFrame)
+        
+        settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+        leftViewContainer!.addSubview(settingButtonImageView)
+        
+
+        /*
         switch current {
         case "fa" :
             let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
@@ -303,6 +318,7 @@ class IGNavigationItem: UINavigationItem {
         default :
             break
         }
+ */
 
     }
     
@@ -311,6 +327,10 @@ class IGNavigationItem: UINavigationItem {
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
         let current : String = SMLangUtil.loadLanguage()
         
+        
+        composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+        rightViewContainer!.addSubview(composeButtonImageView)
+       /*
         switch current {
         case "fa" :
             let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
@@ -321,11 +341,6 @@ class IGNavigationItem: UINavigationItem {
 
             
         case "en" :
-            let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
-            let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-
-            composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
-            rightViewContainer!.addSubview(composeButtonImageView)
 
             
         case "ar" :
@@ -339,6 +354,7 @@ class IGNavigationItem: UINavigationItem {
         default :
             break
         }
+ */
     }
     
     

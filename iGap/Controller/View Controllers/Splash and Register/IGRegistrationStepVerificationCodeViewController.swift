@@ -75,12 +75,13 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
             varificationMethodString += "SMSANDIGAP".localizedNew
             break
         }
-        self.titleLabel.text = "MSG_ENTER_VERFICATIONCODE_SENT".localizedNew + phoneNumber! + varificationMethodString
+        self.titleLabel.text = "MSG_ENTER_VERFICATIONCODE_SENT".localizedNew + "\n" + phoneNumber!.inLocalizedLanguage() + "\n" + varificationMethodString
     }
     
     
     func didTapOnNext() {
-        if let code = codeTextField.text {
+        
+        if let code = codeTextField.text?.inEnglishNumbers() {
             if IGGlobal.matches(for: self.codeRegex!, in: code) {
                 verifyUser()
             } else {

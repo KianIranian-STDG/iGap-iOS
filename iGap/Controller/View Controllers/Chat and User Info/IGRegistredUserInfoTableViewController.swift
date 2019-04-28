@@ -105,6 +105,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestur
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        currentPageName = "iGap.IGRegistredUserInfoTableViewController"
         self.tableView.isUserInteractionEnabled = true
         lblName.text = "PLACE_HOLDER_L_NAME".localizedNew
         blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
