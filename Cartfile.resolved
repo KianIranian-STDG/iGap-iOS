@@ -2,7 +2,7 @@ binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.j
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json" "5.15.0"
 github "Anakros/WebRTC" "63.11.20455"
 github "HeroTransitions/Hero" "1.4.0"
-github "KennethTsang/GrowingTextView" "0.5.6"
+github "KennethTsang/GrowingTextView" "0.6.1"
 github "KianIranian-STDG/IGProtoBuffLibrary" "Proto114"
 github "MortimerGoro/MGSwipeTableCell" "1.6.7"
 github "ReactiveX/RxSwift" "4.5.0"

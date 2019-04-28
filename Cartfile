@@ -2,7 +2,7 @@ github "TakeScoop/SwiftyRSA"
 github "realm/realm-cocoa"
 github "ReactiveX/RxSwift" ~> 4.0
 github "jdg/MBProgressHUD" ~> 1.1.0
-github "KennethTsang/GrowingTextView" ~> 0.5.5
+github "KennethTsang/GrowingTextView"
 github "facebook/pop"
 github "SnapKit/SnapKit" "5.0.0"
 github "RxSwiftCommunity/RxRealm"
