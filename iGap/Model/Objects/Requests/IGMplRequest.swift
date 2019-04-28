@@ -48,6 +48,7 @@ class IGMplGetTopupToken : IGRequest {
     }
 }
 
+/*
 class IGMplGetSalesToken : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(botId: Int64, amount: Int64) -> IGRequestWrapper {
@@ -63,6 +64,7 @@ class IGMplGetSalesToken : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
+*/
 
 class IGBillInquiryMci : IGRequest {
     class Generator : IGRequest.Generator{

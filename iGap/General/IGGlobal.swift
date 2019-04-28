@@ -149,8 +149,21 @@ class IGGlobal {
         return randomString
     }
     
+    public class func randomNumberArray(length : Int) -> Array<UInt8> {
+        var randomString = ""
+        for _ in 0..<length {
+            let rand = Int(arc4random_uniform(UInt32(letters.count)))
+            randomString.append(letters[rand])
+        }
+        return randomString
+    }
+    
     public class func randomId() -> Int64 {
         return Int64(arc4random()) + (Int64(arc4random()) << 32)
+    }
+    
+    public class func randomId() -> UInt8 {
+        return UInt8(arc4random()) + (UInt8(arc4random()) << 32)
     }
     
     /* if device is iPad return "alert" style otherwise will be returned "actionSheet" style */

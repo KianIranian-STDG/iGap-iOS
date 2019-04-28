@@ -189,7 +189,7 @@ class SMLoading {
         
         let customType = PresentationType.custom(width: ModalSize.custom(size: 285), height: ModalSize.custom(size: height), center: ModalCenterPosition.center)
         self.presenter = Presentr(presentationType: customType)
-        self.presenter?.dismissOnTap = false
+        self.presenter?.dismissOnSwipe = false
         viewController.customPresentViewController(self.presenter!, viewController: alertView, animated: true, completion: nil)
         
     }

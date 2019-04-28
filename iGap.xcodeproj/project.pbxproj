@@ -23,7 +23,6 @@
 		8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72B2237E4A0005F6868 /* UICKeyChainStore.framework */; };
 		8E94B73A2237E4A1005F6868 /* Presentr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72C2237E4A0005F6868 /* Presentr.framework */; };
 		8E94B73B2237E4A1005F6868 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72D2237E4A0005F6868 /* TTTAttributedLabel.framework */; };
-		8E94B73C2237E4A1005F6868 /* Wallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72E2237E4A0005F6868 /* Wallet.framework */; };
 		8E94B73D2237E4A1005F6868 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B72F2237E4A0005F6868 /* FMDB.framework */; };
 		8E94B73F2237E4A1005F6868 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7312237E4A1005F6868 /* SocketRocket.framework */; };
 		8E94B7402237E4A1005F6868 /* models.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7322237E4A1005F6868 /* models.framework */; };
@@ -376,7 +375,6 @@
 		FA93EE2C2029DB1300DD1521 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA93EE2B2029DB1300DD1521 /* AudioCell.swift */; };
 		FA93EE2E2029DBE300DD1521 /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA93EE2D2029DBC300DD1521 /* AudioCell.xib */; };
 		FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9402AB2042D49C00D1A35C /* WebRTC.framework */; };
-		FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9688F72207209C00B1C1EB /* BLTNBoard.framework */; };
 		FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8142053EBD1004369C7 /* IGRealmClientSearchUsername.swift */; };
 		FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8172053FC3D004369C7 /* IGLookAndFindCell.swift */; };
 		FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA96A8192053FC4F004369C7 /* IGLookAndFind.swift */; };
@@ -1170,7 +1168,6 @@
 				8E94B7392237E4A1005F6868 /* UICKeyChainStore.framework in Frameworks */,
 				8E94B73A2237E4A1005F6868 /* Presentr.framework in Frameworks */,
 				8E94B73B2237E4A1005F6868 /* TTTAttributedLabel.framework in Frameworks */,
-				8E94B73C2237E4A1005F6868 /* Wallet.framework in Frameworks */,
 				8E94B73D2237E4A1005F6868 /* FMDB.framework in Frameworks */,
 				8E94B73F2237E4A1005F6868 /* SocketRocket.framework in Frameworks */,
 				8E94B7402237E4A1005F6868 /* models.framework in Frameworks */,
@@ -1180,7 +1177,6 @@
 				FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */,
 				FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */,
 				FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */,
-				FA9688F82207209C00B1C1EB /* BLTNBoard.framework in Frameworks */,
 				FAD8A03021EE0E1C006996E1 /* SwiftyJSON.framework in Frameworks */,
 				FA8548A821EC92F900435F70 /* FirebaseAnalytics.framework in Frameworks */,
 				FA8548A921EC92F900435F70 /* GoogleAppMeasurement.framework in Frameworks */,
@@ -2715,14 +2711,12 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Digger.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Hero.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/BLTNBoard.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MarkdownKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Presentr.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/QRCodeReader.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Wallet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/models.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Motis.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/FMDB.framework",

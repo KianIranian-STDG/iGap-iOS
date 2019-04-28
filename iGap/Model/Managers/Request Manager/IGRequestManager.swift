@@ -399,8 +399,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGMplGetBillToken.Handler.self                 as IGRequest.Handler.Type),
     39101: (IGPMplGetTopupTokenResponse.self               as ResponseMessage.Type,
             IGMplGetTopupToken.Handler.self                as IGRequest.Handler.Type),
-    39102: (IGPMplGetSalesTokenResponse.self               as ResponseMessage.Type,
-            IGMplGetSalesToken.Handler.self                as IGRequest.Handler.Type),
+//    39102: (IGPMplGetSalesTokenResponse.self               as ResponseMessage.Type,
+//            IGMplGetSalesToken.Handler.self                as IGRequest.Handler.Type),
     
     //BillInquiry 92xx
     39200: (IGPBillInquiryMciResponse.self                 as ResponseMessage.Type,

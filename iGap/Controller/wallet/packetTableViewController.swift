@@ -8,7 +8,6 @@
 
 import UIKit
 import webservice
-import Wallet
 
 var needToUpdate = false
 class packetTableViewController: UITableViewController , HandleDefaultCard,UICollectionViewDelegate , UICollectionViewDataSource {
