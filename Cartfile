@@ -30,6 +30,7 @@ github "IcaliaLabs/Presentr" ~> 1.9
 github "xmartlabs/XLPagerTabStrip" ~> 7.0
 github "evgenyneu/keychain-swift" ~> 15.0
 github "kaishin/Gifu"
+github "KianIranian-STDG/swift-protobuf" "1.5.0_iGap_1"
 github "KianIranian-STDG/IGProtoBuffLibrary" "Proto115"
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
