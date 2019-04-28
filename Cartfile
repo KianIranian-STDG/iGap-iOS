@@ -20,7 +20,7 @@ github "SwiftyJSON/SwiftyJSON" "5.0.0"
 github "Alamofire/Alamofire"
 github "SDWebImage/SDWebImage"
 github "ivanbruel/MarkdownKit"
-github "hkellaway/Gloss"
+github "hkellaway/Gloss" "swift5"
 github "andreamazz/AMPopTip" "4.0.1"
 github "AFNetworking/AFNetworking" ~> 3.0
 github "yannickl/QRCodeReader.swift" "10.0.0"
