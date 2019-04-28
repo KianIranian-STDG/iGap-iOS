@@ -27,7 +27,6 @@
 		8E94B73F2237E4A1005F6868 /* SocketRocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7312237E4A1005F6868 /* SocketRocket.framework */; };
 		8E94B7402237E4A1005F6868 /* models.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7322237E4A1005F6868 /* models.framework */; };
 		8E94B7412237E4A1005F6868 /* OLCOrm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7332237E4A1005F6868 /* OLCOrm.framework */; };
-		8E94B7422237E4A1005F6868 /* XLPagerTabStrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7342237E4A1005F6868 /* XLPagerTabStrip.framework */; };
 		8E94B7432237E4A1005F6868 /* Motis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7352237E4A1005F6868 /* Motis.framework */; };
 		8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E94B7462237E61D005F6868 /* webServiceKey.txt */; };
 		8E94B7482237E61D005F6868 /* webServiceKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E94B7462237E61D005F6868 /* webServiceKey.txt */; };
@@ -1172,7 +1171,6 @@
 				8E94B73F2237E4A1005F6868 /* SocketRocket.framework in Frameworks */,
 				8E94B7402237E4A1005F6868 /* models.framework in Frameworks */,
 				8E94B7412237E4A1005F6868 /* OLCOrm.framework in Frameworks */,
-				8E94B7422237E4A1005F6868 /* XLPagerTabStrip.framework in Frameworks */,
 				8E94B7432237E4A1005F6868 /* Motis.framework in Frameworks */,
 				FAA6C5DC2222BAEE0035D777 /* PecPayment.framework in Frameworks */,
 				FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */,
@@ -2723,7 +2721,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/TTTAttributedLabel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OLCOrm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/UICKeyChainStore.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/XLPagerTabStrip.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SocketRocket.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/messages.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Gloss.framework",
@@ -3230,7 +3227,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -3268,7 +3265,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
