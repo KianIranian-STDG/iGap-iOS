@@ -247,7 +247,6 @@
 		FA451F4322662DAD005F4853 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3922662DAD005F4853 /* ShareViewController.swift */; };
 		FA451F4522662DAD005F4853 /* ShareConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA451F3B22662DAD005F4853 /* ShareConfig.swift */; };
 		FA451F4622662DAD005F4853 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3C22662DAD005F4853 /* MainInterface.storyboard */; };
-		FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858E1E2E10EC00B26940 /* INSPhotoGalleryFramework.framework */; };
 		FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */; };
 		FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */; };
 		FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */; };
@@ -436,6 +435,7 @@
 		FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB1BF73220C341300BA980B /* StickerCell.xib */; };
 		FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */; };
 		FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */; };
+		FAB345EA2275B061009DC025 /* INSPhotoGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB345E92275B061009DC025 /* INSPhotoGallery.framework */; };
 		FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */; };
 		FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB436702209751A0073EEE1 /* Alamofire.framework */; };
 		FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367222097B850073EEE1 /* IGStructSticker.swift */; };
@@ -533,7 +533,6 @@
 		FAF985AA1E2E10EC00B26940 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985931E2E10EC00B26940 /* Reachability.framework */; };
 		FAF985AB1E2E10EC00B26940 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985941E2E10EC00B26940 /* Realm.framework */; };
 		FAF985AC1E2E10EC00B26940 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985951E2E10EC00B26940 /* RealmSwift.framework */; };
-		FAF985AD1E2E10EC00B26940 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985961E2E10EC00B26940 /* RxBlocking.framework */; };
 		FAF985AE1E2E10EC00B26940 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985971E2E10EC00B26940 /* RxCocoa.framework */; };
 		FAF985AF1E2E10EC00B26940 /* RxRealm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985981E2E10EC00B26940 /* RxRealm.framework */; };
 		FAF985B01E2E10EC00B26940 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985991E2E10EC00B26940 /* RxSwift.framework */; };
@@ -1028,6 +1027,7 @@
 		FAB1BF73220C341300BA980B /* StickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickerCell.xib; sourceTree = "<group>"; };
 		FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGiGapBrowser.swift; sourceTree = "<group>"; };
 		FAB2C2DE1DF7F6E8001F30B5 /* IGSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSessionInfo.swift; sourceTree = "<group>"; };
+		FAB345E92275B061009DC025 /* INSPhotoGallery.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = INSPhotoGallery.framework; path = Carthage/Build/iOS/INSPhotoGallery.framework; sourceTree = "<group>"; };
 		FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiSticker.swift; sourceTree = "<group>"; };
 		FAB436702209751A0073EEE1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		FAB4367222097B850073EEE1 /* IGStructSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructSticker.swift; sourceTree = "<group>"; };
@@ -1188,7 +1188,6 @@
 				FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */,
 				FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */,
 				FA9402AC2042D49D00D1A35C /* WebRTC.framework in Frameworks */,
-				FA46B8E42189BC82008E15AB /* INSPhotoGalleryFramework.framework in Frameworks */,
 				FABE83AB20FDB43E00D94F01 /* Digger.framework in Frameworks */,
 				FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */,
 				FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */,
@@ -1205,11 +1204,11 @@
 				FAF985AA1E2E10EC00B26940 /* Reachability.framework in Frameworks */,
 				FAF985AB1E2E10EC00B26940 /* Realm.framework in Frameworks */,
 				FAF985AC1E2E10EC00B26940 /* RealmSwift.framework in Frameworks */,
-				FAF985AD1E2E10EC00B26940 /* RxBlocking.framework in Frameworks */,
 				FAF985AE1E2E10EC00B26940 /* RxCocoa.framework in Frameworks */,
 				FAF985AF1E2E10EC00B26940 /* RxRealm.framework in Frameworks */,
 				FAF985B01E2E10EC00B26940 /* RxSwift.framework in Frameworks */,
 				FAC42C861E36267400F2CB5C /* Crashlytics.framework in Frameworks */,
+				FAB345EA2275B061009DC025 /* INSPhotoGallery.framework in Frameworks */,
 				FAF985B21E2E10EC00B26940 /* SnapKit.framework in Frameworks */,
 				FAF985B51E2E10EC00B26940 /* SwiftyRSA.framework in Frameworks */,
 				93CE90811EC4B93F002BFEC1 /* NVActivityIndicatorView.framework in Frameworks */,
@@ -2380,6 +2379,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAB345E92275B061009DC025 /* INSPhotoGallery.framework */,
 				FA6C2DE422670C76005654AC /* AFNetworking.framework */,
 				8EACC7B122621A3100F32DC3 /* webservice.framework */,
 				8EACC7AF22621A1F00F32DC3 /* maincore.framework */,
@@ -2687,14 +2687,13 @@
 				"$(SRCROOT)/Carthage/Build/iOS/AKMaskField.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/GrowingTextView.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/INSPhotoGalleryFramework.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/INSPhotoGallery.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MGSwipeTableCell.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/pop.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Reachability.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxRealm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
