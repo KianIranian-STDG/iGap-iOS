@@ -1,6 +1,6 @@
 github "eminemArun/SwiftyRSA" "feature/Swift5.0" //IMPORTANT HINT: use TakeScoop for next update
 github "realm/realm-cocoa"
-github "ReactiveX/RxSwift" ~> 4.0
+github "ReactiveX/RxSwift" "master"
 github "jdg/MBProgressHUD" ~> 1.1.0
 github "KennethTsang/GrowingTextView"
 github "facebook/pop"
