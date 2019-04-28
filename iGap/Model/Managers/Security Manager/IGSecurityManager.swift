@@ -31,9 +31,9 @@ class IGSecurityManager: NSObject {
         "iJInT4E6DcmgAVYu5jFMWJDTEuurOQZ1W4nbmGyoY1bZXaFoiMPfzy72VIddkoHg\n" +
         "mwIDAQAB\n" +
     "-----END PUBLIC KEY-----"
+    private var encryptionMethod      : String    = ""
     private var symmetricIVSize       : Int       = 0
     private var encryptoinKeySize     : Int       = 128
-    private var encryptoinBlockMode   : BlockMode!
     private var encryptoinPaddingType : CryptoSwift.Padding = Padding.pkcs7
     
     private override init() {
@@ -71,25 +71,29 @@ class IGSecurityManager: NSObject {
     
     func setEncryptionMethod(_ method: String) {
         var methodSections = method.components(separatedBy: "-")
-        //AES-128-CBC
         encryptoinKeySize = Int(methodSections[1])!
-        let blockMode : String = methodSections[2]
-        switch blockMode {
+        encryptionMethod = methodSections[2]
+    }
+    
+    func setEncryptionBlockMode(iv: Array<UInt8>) -> BlockMode {
+        var encryptoinBlockMode: BlockMode!
+        switch encryptionMethod {
         case "ECB":
             encryptoinBlockMode = ECB()
         case "CBC":
-            encryptoinBlockMode = CBC(iv: generateIV().bytes)
+            encryptoinBlockMode = CBC(iv: iv)
         case "PCBC":
-            encryptoinBlockMode = PCBC(iv: generateIV().bytes)
+            encryptoinBlockMode = PCBC(iv: iv)
         case "CFB":
-            encryptoinBlockMode = CFB(iv: generateIV().bytes)
+            encryptoinBlockMode = CFB(iv: iv)
         case "OFB":
-            encryptoinBlockMode = OFB(iv: generateIV().bytes)
+            encryptoinBlockMode = OFB(iv: iv)
         case "CTR":
-            encryptoinBlockMode = CTR(iv: generateIV().bytes)
+            encryptoinBlockMode = CTR(iv: iv)
         default:
-            encryptoinBlockMode = CBC(iv: generateIV().bytes)
+            encryptoinBlockMode = CBC(iv: iv)
         }
+        return encryptoinBlockMode
     }
     
     func encryptAndAddIV(payload :Data) -> Data {
@@ -134,7 +138,7 @@ class IGSecurityManager: NSObject {
     
     private func encrypt(rawData :Data, iv: Data) throws -> Data {
         let keyData = symmetricKey.data(using: .utf8)!
-        let aes = try AES(key: [UInt8](keyData), blockMode: encryptoinBlockMode, padding: encryptoinPaddingType)
+        let aes = try AES(key: [UInt8](keyData), blockMode: setEncryptionBlockMode(iv: [UInt8](iv)), padding: encryptoinPaddingType)
         let ciphered = try aes.encrypt(Array(rawData))
         return Data(bytes: ciphered)
     }
@@ -146,10 +150,11 @@ class IGSecurityManager: NSObject {
     
     private func decryptUsingAES(encryptedData :Data) throws -> Data {
         let convertedData = NSData(data: encryptedData)
+        let iv =  convertedData.subdata(with: NSMakeRange(0, symmetricIVSize))
         let encryptedPayload = convertedData.subdata(with: NSMakeRange(symmetricIVSize, convertedData.length-symmetricIVSize))
         
         let keyData = symmetricKey.data(using: .utf8)!
-        let aes = try AES(key: [UInt8](keyData), blockMode: encryptoinBlockMode, padding: encryptoinPaddingType)
+        let aes = try AES(key: [UInt8](keyData), blockMode: setEncryptionBlockMode(iv: [UInt8](iv)), padding: encryptoinPaddingType)
         
         let deciphered = try aes.decrypt(Array(encryptedPayload))
         return Data(bytes: deciphered)
