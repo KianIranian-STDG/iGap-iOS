@@ -430,9 +430,9 @@ enum ButtonActionType: Int {
 }
 
 enum StickerPageType: Int {
-    case MAIN = 0 // for send sticker state
-    case ADD_REMOVE = 1 // add or remove state
-    case PREVIEW = 2 // preview sticker
+    case MAIN = 0 // for send sticker state in chat page
+    case CATEGORY = 1 // category state for get categories from server and show latest list of sticker packages
+    case PREVIEW = 2 // preview sticker for see all stickers for a package
 }
 
 enum ClearCache: Int {

@@ -50,7 +50,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
     }
     
     func configureListPage(sticker: StickerTab, sectionIndex: Int) {
-        stickerPageType = StickerPageType.ADD_REMOVE
+        stickerPageType = StickerPageType.CATEGORY
         self.stickerTab = sticker
         self.sectionIndex = sectionIndex
     

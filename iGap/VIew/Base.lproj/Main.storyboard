@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -423,6 +423,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z61-5C-Ooi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8867" y="-863"/>
+        </scene>
+        <!--Tab Bar Sticker Controller-->
+        <scene sceneID="86g-9X-srZ">
+            <objects>
+                <tabBarController storyboardIdentifier="IGTabBarStickerController" id="g0B-qS-peP" customClass="IGTabBarStickerController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="dxt-Ic-zLh" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zej-8Z-cAD" customClass="IG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qRp-r2-RdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-688" y="75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MjA-oA-qgy">
+            <objects>
+                <navigationController id="0dA-6f-aoV" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jq8-LT-PiL">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="g0B-qS-peP" kind="relationship" relationship="rootViewController" id="wyA-eW-oTx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Sa-C6-yfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1740" y="75"/>
         </scene>
         <!--Title-->
         <scene sceneID="sPy-Ol-ttp">
@@ -1608,6 +1639,7 @@
         <!--Navigation Controller-->
         <scene sceneID="DIf-Cp-KnE">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3OS-QX-0uN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="QWV-7y-MRV" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aB7-bo-1S4" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -1620,7 +1652,6 @@
                         <segue destination="2Jb-2h-F8Z" kind="relationship" relationship="rootViewController" id="Ttr-uP-gL9"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3OS-QX-0uN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1740" y="-1952"/>
         </scene>
@@ -2074,26 +2105,26 @@
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Chat_Screen_Attachment" width="76" height="76"/>
-        <image name="IG_Chat_Screen_Record" width="76" height="76"/>
-        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="411.42855834960938" height="411.42855834960938"/>
-        <image name="IG_Chat_Screen_Send" width="76" height="76"/>
-        <image name="IG_Splash_Cute_2" width="600" height="600"/>
-        <image name="IG_Tabbar_Call" width="74" height="74"/>
-        <image name="IG_Tabbar_Channel_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Channel_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Chat_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Chat_On" width="74" height="74"/>
-        <image name="IG_Tabbar_Chat_Room" width="74" height="74"/>
-        <image name="IG_Tabbar_Discovery" width="74" height="74"/>
-        <image name="IG_Tabbar_Group_Off" width="74" height="74"/>
-        <image name="IG_Tabbar_Group_On" width="74" height="74"/>
-        <image name="Location_Marker" width="19.200000762939453" height="19.200000762939453"/>
+        <image name="IG_Chat_Screen_Attachment" width="38" height="38"/>
+        <image name="IG_Chat_Screen_Record" width="38" height="38"/>
+        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
+        <image name="IG_Chat_Screen_Send" width="38" height="38"/>
+        <image name="IG_Splash_Cute_2" width="300" height="300"/>
+        <image name="IG_Tabbar_Call" width="37" height="37"/>
+        <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Channel_On" width="37" height="37"/>
+        <image name="IG_Tabbar_Chat_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Chat_On" width="37" height="37"/>
+        <image name="IG_Tabbar_Chat_Room" width="37" height="37"/>
+        <image name="IG_Tabbar_Discovery" width="37" height="37"/>
+        <image name="IG_Tabbar_Group_Off" width="37" height="37"/>
+        <image name="IG_Tabbar_Group_On" width="37" height="37"/>
+        <image name="Location_Marker" width="40" height="40"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k9M-cr-cw2"/>
-        <segue reference="R4P-x7-LEg"/>
+        <segue reference="l1W-zY-RFK"/>
+        <segue reference="ebc-Vg-0Gq"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

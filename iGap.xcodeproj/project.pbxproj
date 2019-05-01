@@ -396,6 +396,7 @@
 		FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99FF72223544B2009035DF /* DashboardCell6.swift */; };
 		FA99FF75223544B2009035DF /* DashboardCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99FF73223544B2009035DF /* DashboardCell6.xib */; };
 		FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */; };
+		FA9D86A022796B44002F981A /* IGTabBarStickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */; };
 		FA9EE5B7221EB01100BA7735 /* ConstantSizeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */; };
 		FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */; };
 		FA9EE5BC221ECD2300BA7735 /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */; };
@@ -988,6 +989,7 @@
 		FA99FF72223544B2009035DF /* DashboardCell6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell6.swift; sourceTree = "<group>"; };
 		FA99FF73223544B2009035DF /* DashboardCell6.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell6.xib; sourceTree = "<group>"; };
 		FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSelectCountryCell.swift; sourceTree = "<group>"; };
+		FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTabBarStickerController.swift; sourceTree = "<group>"; };
 		FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSizeLimit.swift; sourceTree = "<group>"; };
 		FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomMessageWallet.swift; sourceTree = "<group>"; };
 		FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
@@ -2113,6 +2115,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */,
+				FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -2927,6 +2930,7 @@
 				FA9EE5B7221EB01100BA7735 /* ConstantSizeLimit.swift in Sources */,
 				932D1AB71E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift in Sources */,
 				FA9F73592127E589004418E5 /* EPContact.swift in Sources */,
+				FA9D86A022796B44002F981A /* IGTabBarStickerController.swift in Sources */,
 				93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */,
 				FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */,
 				FA9F735B2127E589004418E5 /* EPExtensions.swift in Sources */,

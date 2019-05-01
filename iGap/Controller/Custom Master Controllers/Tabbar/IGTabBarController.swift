@@ -52,7 +52,7 @@ class IGTabBarController: UITabBarController {
                 item.setTitleTextAttributes([NSAttributedString.Key.font: normalTitleFont], for: UIControl.State.normal)
             }
             if #available(iOS 10.0, *) {
-                self.tabBar.unselectedItemTintColor = UIColor.dialogueBoxIncomming()
+                self.tabBar.unselectedItemTintColor = UIColor.tabbarUnselectedColor()
             }
         }
     }

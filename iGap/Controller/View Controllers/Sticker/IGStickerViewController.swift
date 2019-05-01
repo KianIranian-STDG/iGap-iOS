@@ -23,13 +23,16 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     let sectionItemsKey = "Items"
     var selectedIndexManually: Int = -1
     var stickerPageType = StickerPageType.MAIN
-    var stickerTabs: Results<IGRealmSticker>!
-    var stickerList: [StickerTab] = []// use this variable at sticker list page
     var offset: Int = 0
-    let FETCH_LIMIT = 10
-    var stickerGroupId: String?
+    let FETCH_LIMIT = 20
+    var stickerGroupId: String? // use this variable at PREVIEW page type
+    var stickerCategoryId: String? // use this variable at CATEGORY page type
     var currentIndexPath: IndexPath!
     var isWaitingForRequest = false
+    
+    // Due to the type of sticker page for collection view will be used one of the following variables
+    var stickerTabs: Results<IGRealmSticker>! // use this variable at main sticker page (MAIN)
+    var stickerList: [StickerTab] = [] // use this variable at sticker list page (PREVIEW, CATEGORY)
 
     static var previewSectionIndex: Int = -1
     static var addStickerIndex: Int = -1
@@ -44,7 +47,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         IGStickerViewController.stickerToolbarObserver = self
         IGStickerViewController.stickerAddListener = self
         IGStickerViewController.stickerCurrentGroupIdObserver = self
-        if IGStickerViewController.previewSectionIndex != -1 && stickerPageType == StickerPageType.ADD_REMOVE {
+        if IGStickerViewController.previewSectionIndex != -1 && stickerPageType == StickerPageType.CATEGORY {
             self.collectionView?.reloadSections(IndexSet([IGStickerViewController.previewSectionIndex]))
             IGStickerViewController.previewSectionIndex = -1
         }
@@ -61,7 +64,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         if stickerPageType == StickerPageType.MAIN {
             fetchMySticker()
             manageStickerPostion()
-        } else if stickerPageType == StickerPageType.ADD_REMOVE {
+        } else if self.stickerPageType == StickerPageType.CATEGORY {
             fetchStickerList()
         } else if stickerPageType == StickerPageType.PREVIEW {
             self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
@@ -76,10 +79,6 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-    }
-    
-    private func fetchMySticker(){
-        stickerTabs = try! Realm().objects(IGRealmSticker.self)
     }
     
     /* go to default position if 'currentStickerGroupId' has value */
@@ -104,41 +103,11 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         }
     }
     
-    private func fetchStickerList(){
-        isWaitingForRequest = true
-        IGGlobal.prgShow(self.view)
-        IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                IGGlobal.prgHide()
-            }
-            
-            var indexSet : [Int] = []
-            
-            var extraIndex = 0
-            if self.offset > 0 {
-                extraIndex = self.offset
-            }
-            
-            for (index,sticker) in stickers.enumerated() {
-                indexSet.append(index + extraIndex)
-                self.stickerList.append(sticker)
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.collectionView?.performBatchUpdates({
-                    self.collectionView?.insertSections(IndexSet(indexSet))
-                })
-            }
-            
-            self.offset += self.FETCH_LIMIT
-            
-            /* mabye exist value so set 'isWaitingForRequest' false to allow user get other of items from server */
-            if stickers.count == self.FETCH_LIMIT {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                    self.isWaitingForRequest = false
-                }
-            }
-        }
+    /*******************************************************************************/
+    /**************************** Fetch Sticker Methods ****************************/
+    
+    private func fetchMySticker(){
+        stickerTabs = try! Realm().objects(IGRealmSticker.self)
     }
     
     private func fetchStickerPreview(groupId: String){
@@ -159,8 +128,57 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         }
     }
     
+    private func fetchStickerList(){
+        isWaitingForRequest = true
+        IGGlobal.prgShow(self.view)
+        if stickerCategoryId == nil || stickerCategoryId!.isEmpty {
+            IGApiSticker.shared.stickerList(offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
+                self.showStickerList(stickers: stickers)
+            }
+        } else { // currently else state not call anytime! because currently 'StickerPageType.ADD_REMOVE' type removed
+            IGApiSticker.shared.stickerCategory(categoryId: stickerCategoryId!, offset: self.offset, limit: self.FETCH_LIMIT) { (stickers) in
+                self.showStickerList(stickers: stickers)
+            }
+        }
+    }
     
-    /************* Observer *************/
+    /* after get sticker list from server use following method for show stickers in view */
+    private func showStickerList(stickers: [StickerTab]){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            IGGlobal.prgHide()
+        }
+        
+        var indexSet : [Int] = []
+        
+        var extraIndex = 0
+        if self.offset > 0 {
+            extraIndex = self.offset
+        }
+        
+        for (index,sticker) in stickers.enumerated() {
+            indexSet.append(index + extraIndex)
+            self.stickerList.append(sticker)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.collectionView?.performBatchUpdates({
+                self.collectionView?.insertSections(IndexSet(indexSet))
+            })
+        }
+        
+        self.offset += self.FETCH_LIMIT
+        
+        /* mabye exist value so set 'isWaitingForRequest' false to allow user get other of items from server */
+        if stickers.count == self.FETCH_LIMIT {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                self.isWaitingForRequest = false
+            }
+        }
+    }
+    
+    /*******************************************************************************/
+    /********************************** Observer ***********************************/
+    
     func onToolbarClick(index: Int) {
         selectedIndexManually = index
         goToPosition(position: index)
@@ -194,7 +212,9 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         }
     }
     
-    // MARK: UICollectionViewDataSource
+    /*******************************************************************************/
+    /****************************** Collection View ********************************/
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if stickerPageType == StickerPageType.MAIN {
             if stickerTabs.count == 0 {
@@ -209,7 +229,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if stickerPageType == StickerPageType.ADD_REMOVE {
+        if self.stickerPageType == StickerPageType.CATEGORY {
             if !isWaitingForRequest {
                 let height = scrollView.frame.size.height
                 let contentYoffset = scrollView.contentOffset.y
@@ -258,7 +278,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
             if self.stickerPageType == StickerPageType.MAIN {
                 self.currentIndexPath = indexPath
                 stickerItem.configure(stickerItem: self.stickerTabs[indexPath.section].stickerItems[indexPath.row])
-            } else if self.stickerPageType == StickerPageType.ADD_REMOVE {
+            } else if self.stickerPageType == StickerPageType.CATEGORY {
                 stickerItem.configureListPage(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row], sectionIndex: indexPath.section)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
                 stickerItem.configurePreview(stickerItem: self.stickerList[indexPath.section].stickers[indexPath.row])
@@ -270,7 +290,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:String(describing: IGStickerSectionHeader.self), for: indexPath)
         
         if let foodHeader = headerView as? IGStickerSectionHeader {
-            if self.stickerPageType == StickerPageType.ADD_REMOVE {
+            if self.stickerPageType == StickerPageType.CATEGORY {
                 foodHeader.configureListPage(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
             } else if self.stickerPageType == StickerPageType.PREVIEW {
                 foodHeader.configurePreview(sticker: self.stickerList[indexPath.section], sectionIndex: indexPath.section)
@@ -283,7 +303,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if self.stickerPageType == StickerPageType.ADD_REMOVE {
+        if self.stickerPageType == StickerPageType.CATEGORY {
             return CGSize(width: UIScreen.main.bounds.width, height: 60)
         }
         return CGSize(width: UIScreen.main.bounds.width, height: 40)

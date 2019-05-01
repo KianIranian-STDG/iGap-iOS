@@ -499,11 +499,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 switch sender.tag {
                 case IGStickerToolbar.shared.STICKER_ADD:
-                    stickerPageType = StickerPageType.ADD_REMOVE
                     if let observer = IGStickerViewController.stickerCurrentGroupIdObserver {
                         IGStickerViewController.currentStickerGroupId = observer.fetchCurrentStickerGroupId()
                     }
-                    performSegue(withIdentifier: "showSticker", sender: self)
+                    IGTabBarStickerController.openStickerCategories()
                     break
                     
                 case IGStickerToolbar.shared.STICKER_SETTING:

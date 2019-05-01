@@ -36,9 +36,13 @@ class IGGlobal {
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
     
-    internal static func prgShow(_ view: UIView){
+    internal static func prgShow(_ view: UIView? = nil){
         DispatchQueue.main.async {
-            if let superView = view.superview {
+            var prgView = view
+            if prgView == nil {
+                prgView = UIApplication.topViewController()?.view
+            }
+            if prgView != nil, let superView = prgView?.superview {
                 IGGlobal.progressHUD = MBProgressHUD.showAdded(to: superView, animated: true)
                 IGGlobal.progressHUD.mode = .indeterminate
             }
@@ -382,6 +386,14 @@ extension UIColor {
     
     class func swipeRed() -> UIColor {
         return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
+    }
+    
+    class func tabbarUnselectedColor() -> UIColor {
+        return UIColor(red: 224/255.0, green: 220/255.0, blue: 215/255.0, alpha: 0.9)
+    }
+    
+    class func tabbarTextUnselectedColor() -> UIColor {
+        return UIColor(red: 249/255.0, green: 245/255.0, blue: 240/255.0, alpha: 0.9)
     }
     
     //MARK: General Colors

@@ -10,6 +10,11 @@
 
 import SwiftyJSON
 
+struct StickerCategories: Codable {
+    let ok: Bool
+    let data: [StickerCategory]
+}
+
 struct StickerApi: Codable {
     let ok: Bool
     let data: [StickerTab]
@@ -18,6 +23,13 @@ struct StickerApi: Codable {
 struct StickerGroup: Codable {
     let ok: Bool
     let data: StickerTab
+}
+
+struct StickerCategory: Codable {
+    let createdAt, updatedAt: Int
+    let id, name: String
+    let sort: Int
+    let status: String
 }
 
 struct StickerTab: Codable {

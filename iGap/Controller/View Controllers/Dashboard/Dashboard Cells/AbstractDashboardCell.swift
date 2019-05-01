@@ -193,9 +193,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .stickerShop:
             if #available(iOS 10.0, *) {
-                let stickerShop = IGStickerViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                stickerShop.stickerPageType = StickerPageType.ADD_REMOVE
-                UIApplication.topViewController()?.navigationController!.pushViewController(stickerShop, animated: true)
+                IGTabBarStickerController.openStickerCategories()
             }
             return
             
