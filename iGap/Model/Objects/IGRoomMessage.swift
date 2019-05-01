@@ -259,12 +259,15 @@ class IGRoomMessage: Object {
         return "\(prefix)\(messageID)_\(roomID)" + IGGlobal.randomString(length: 3)
     }
     
-    static func putOrUpdate(realm: Realm, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) -> IGRoomMessage {
+    static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) -> IGRoomMessage {
         
-        let realm = try! Realm()
+        var realmFinal: Realm! = realm
+        if realmFinal == nil {
+            realmFinal = try! Realm()
+        }
         let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
         let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
-        var message: IGRoomMessage! = realm.objects(IGRoomMessage.self).filter(predicate).first
+        var message: IGRoomMessage! = realmFinal.objects(IGRoomMessage.self).filter(predicate).first
         
         if message == nil {
             message = IGRoomMessage()
@@ -319,31 +322,31 @@ class IGRoomMessage: Object {
         }
         
         if igpMessage.hasIgpAttachment {
-            message.attachment = IGFile.putOrUpdate(realm: realm, igpFile: igpMessage.igpAttachment, messageType: message!.type)
+            message.attachment = IGFile.putOrUpdate(realm: realmFinal, igpFile: igpMessage.igpAttachment, messageType: message!.type)
         }
         if igpMessage.hasIgpLocation {
-            message.location = IGRoomMessageLocation.putOrUpdate(realm: realm, igpRoomMessageLocation: igpMessage.igpLocation, for: message)
+            message.location = IGRoomMessageLocation.putOrUpdate(realm: realmFinal, igpRoomMessageLocation: igpMessage.igpLocation, for: message)
         }
         if igpMessage.hasIgpWallet {
-            message.wallet = IGRoomMessageWallet.putOrUpdate(realm: realm, igpRoomMessageWallet: igpMessage.igpWallet, for: message)
+            message.wallet = IGRoomMessageWallet.putOrUpdate(realm: realmFinal, igpRoomMessageWallet: igpMessage.igpWallet, for: message)
         }
         if igpMessage.hasIgpLog {
-            message.log = IGRoomMessageLog.putOrUpdate(realm: realm, igpRoomMessageLog: igpMessage.igpLog, for: message)
+            message.log = IGRoomMessageLog.putOrUpdate(realm: realmFinal, igpRoomMessageLog: igpMessage.igpLog, for: message)
         }
         if igpMessage.hasIgpContact {
-            message.contact = IGRoomMessageContact.putOrUpdate(realm: realm, igpRoomMessageContact: igpMessage.igpContact, for: message)
+            message.contact = IGRoomMessageContact.putOrUpdate(realm: realmFinal, igpRoomMessageContact: igpMessage.igpContact, for: message)
         }
         if igpMessage.hasIgpForwardFrom {
-            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpMessage.igpForwardFrom, roomId: roomId, isForward: true)
+            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: roomId, isForward: true)
         }
         if igpMessage.hasIgpReplyTo {
-            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpMessage.igpReplyTo, roomId: roomId, isReply: true)
+            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: roomId, isReply: true)
         }
         if igpMessage.hasIgpChannelExtra {
-            message.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realm, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
+            message.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realmFinal, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
         }
         
-        message.additional = IGRealmAdditional.put(realm: realm, message: igpMessage)
+        message.additional = IGRealmAdditional.put(realm: realmFinal, message: igpMessage)
         
         return message
     }

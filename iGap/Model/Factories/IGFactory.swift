@@ -42,7 +42,7 @@ fileprivate class IGFactoryTask: NSObject {
             IGFactoryTask(dependencyUserTask: igpMessage.igpAuthor.igpUser.igpUserID, cacheID: igpMessage.igpAuthor.igpUser.igpCacheID).success({
                 IGFactoryTask(dependencyRoomTask: igpMessage.igpAuthor.igpRoom.igpRoomID, isParticipane: true).success({
                     IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                        let message = IGRoomMessage(igpMessage: igpMessage, roomId: roomId)
+                        let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId)
                         if shouldFetchBefore != nil {
                             message.shouldFetchBefore = shouldFetchBefore!
                         }
@@ -498,8 +498,10 @@ class IGFactory: NSObject {
                 }
                 IGDatabaseManager.shared.realm.beginWrite()
                 for (index, igpMessage) in igpMessages.enumerated() {
-                    let message = IGRoomMessage(igpMessage: igpMessage, roomId: roomId)
+                    let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId)
                     
+                    // Hint: don't need following code, because currently using from 'IGRoomMessage.putOrUpdate'
+                    /*
                     let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", message.id, roomId)
                     if let messageInDb = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
                         message.primaryKeyId = messageInDb.primaryKeyId
@@ -510,6 +512,7 @@ class IGFactory: NSObject {
                             attachment.type = IGFile.getFileType(messageType: message.type)
                         }
                     }
+                    */
                     
                     if isFromSendMessage {
                         message.shouldFetchBefore = (igpMessage.igpPreviousMessageID == 0 ? false : true );
@@ -560,7 +563,7 @@ class IGFactory: NSObject {
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    let message = IGRoomMessage(igpMessage: igpMessage, roomId: roomId)
+                    let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId)
                     message.primaryKeyId = primaryKeyId
                     /*
                      if igpMessage.igpAdditionalType == AdditionalType.STICKER.rawValue {
@@ -643,7 +646,7 @@ class IGFactory: NSObject {
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let message = IGRoomMessage(igpMessage: igpMessageFromServer, roomId: temporaryMessageInDb.roomId)
+                let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessageFromServer, roomId: temporaryMessageInDb.roomId)
                 if let tempId = temporaryMessageInDb.temporaryId {
                     let predicate = NSPredicate(format: "temporaryId = %@", tempId)
                     if let tempMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
