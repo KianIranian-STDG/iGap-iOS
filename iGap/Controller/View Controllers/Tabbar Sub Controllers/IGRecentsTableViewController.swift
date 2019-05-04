@@ -736,8 +736,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRoomForSegue = rooms![indexPath.row]
         self.tableView.isUserInteractionEnabled = false
-//        currentPageName = "iGap.IGAccountViewController"
-        IGGlobal.getTime()
 
         performSegue(withIdentifier: "showRoomMessages", sender: self)
     }
