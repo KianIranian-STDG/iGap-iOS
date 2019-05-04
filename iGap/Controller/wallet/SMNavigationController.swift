@@ -38,7 +38,6 @@ class SMNavigationController: UINavigationController, UINavigationControllerDele
     public static func buildRTLNavigation() -> SMNavigationController {
         
         let nav = SMNavigationController()
-        nav.view.semanticContentAttribute = .forceLeftToRight
         return nav
     }
     

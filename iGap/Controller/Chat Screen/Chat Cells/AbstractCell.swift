@@ -77,26 +77,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         super.awakeFromNib()
         
         self.translatesAutoresizingMaskIntoConstraints = false
-        let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            
-            self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-
-            
-        case "en" :
-            self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-
-        case "ar" :
-            break
-        default :
-            break
-        }
+        self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
 
         self.backgroundColor = UIColor.clear
     }

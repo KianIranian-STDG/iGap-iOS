@@ -18,8 +18,6 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        
     }
     override func popViewController(animated: Bool) -> UIViewController? {
         let numberOfPages = super.viewControllers.count

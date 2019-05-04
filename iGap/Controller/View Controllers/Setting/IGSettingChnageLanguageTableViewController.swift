@@ -59,6 +59,8 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
             else {
                 
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
+                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
                 let appDelegate = AppDelegate()
                 appDelegate.resetApp()
 
@@ -69,7 +71,7 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
             }
             else {
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English.rawValue)
-                
+                UITableView.appearance().semanticContentAttribute = .forceLeftToRight
                 let appDelegate = AppDelegate()
                 appDelegate.resetApp()
             }

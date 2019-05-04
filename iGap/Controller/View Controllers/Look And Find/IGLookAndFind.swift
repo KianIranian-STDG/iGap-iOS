@@ -41,10 +41,18 @@ class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDeleg
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.searchBar.becomeFirstResponder()
         }
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let attributes:[NSAttributedString.Key:Any] = [
+            NSAttributedString.Key.foregroundColor : UIColor.black,
+            NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
+        ]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+
         self.navigationController?.hero.navigationAnimationType = .fade
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         UIView.appearance().semanticContentAttribute = .forceLeftToRight

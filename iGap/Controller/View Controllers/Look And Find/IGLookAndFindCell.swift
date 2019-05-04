@@ -44,7 +44,7 @@ class IGLookAndFindCell: UITableViewCell {
         } else if type == .bot {
             txtHeader.text = "BOT".localizedNew
         } else if type == .message {
-            txtHeader.text = "MESSAGE_TITLE"
+            txtHeader.text = "MESSAGE_TITLE".localizedNew
         } else if type == .hashtag {
             txtHeader.text = "HASHTAGS".localizedNew
         }

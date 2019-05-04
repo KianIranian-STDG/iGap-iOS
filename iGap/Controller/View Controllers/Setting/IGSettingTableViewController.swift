@@ -144,21 +144,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
         //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         //        MCLocalization.sharedInstance().language = current
-        switch current {
-        case "fa" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-            
-        case "en" :
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "ar" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            //            self.loadViewIfNeeded()
-            
-        default :
-            break
-        }
 
         initChangeLanguage()
         self.tableView.isUserInteractionEnabled = true

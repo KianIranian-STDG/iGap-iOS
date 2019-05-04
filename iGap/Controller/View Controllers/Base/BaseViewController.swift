@@ -17,19 +17,6 @@ class BaseViewController: UIViewController {
         super.viewWillAppear(animated)
         self.hideKeyboardWhenTappedAround()
         let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        case "en" :
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "ar" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        default :
-            break
-        }
     }
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {

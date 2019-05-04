@@ -43,6 +43,14 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
 
+        if SMLangUtil.loadLanguage() == "fa" {
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
+        }
+        else {
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+
+        }
         SMUserManager.clearKeychainOnFirstRun()
         SMUserManager.loadFromKeychain()
 //        let config = Realm.Configuration(schemaVersion: try! schemaVersionAtURL(Realm.Configuration.defaultConfiguration.fileURL!) + 1)
@@ -209,7 +217,15 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func resetApp() {
-        UIApplication.shared.windows[0].rootViewController = UIStoryboard(
+        if SMLangUtil.loadLanguage() == "fa" {
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+        }
+        else {
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+        }
+                UIApplication.shared.windows[0].rootViewController = UIStoryboard(
             name: "Main",
             bundle: nil
             ).instantiateInitialViewController()

@@ -16,19 +16,6 @@ class BaseCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         self.hideKeyboardWhenTappedAround()
         let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        case "en" :
-            UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "ar" :
-            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        default :
-            break
-        }
     }
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {

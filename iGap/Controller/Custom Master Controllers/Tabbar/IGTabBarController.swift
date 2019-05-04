@@ -27,8 +27,6 @@ class IGTabBarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         selectedItemTitleMustbeBold()
-        UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,9 +41,6 @@ class IGTabBarController: UITabBarController {
         print(UICollectionView.appearance().semanticContentAttribute.rawValue)
 
         if (tabBar.selectedItem?.tag)! == 1 {
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-            UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
             
             print(UIView.appearance().semanticContentAttribute.rawValue)
             print(UITableView.appearance().semanticContentAttribute.rawValue)

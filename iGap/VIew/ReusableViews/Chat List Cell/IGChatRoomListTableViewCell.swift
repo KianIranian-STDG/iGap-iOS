@@ -341,26 +341,28 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     
     private func setLastMessage(for room: IGRoom) {
+        lastMessageLabel.textAlignment = lastMessageLabel.localizedNewDirection
+
         if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
             if let lastMessage = room.lastMessage {
                 self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
             } else {
                 self.timeLabel.text = ""
             }
-            self.lastMessageLabel.text = "Draft: \(draft.message)"
+            self.lastMessageLabel.text = "DRAFT".localizedNew + " \(draft.message)"
         } else if let lastMessage = room.lastMessage {
             if lastMessage.isDeleted {
-                self.lastMessageLabel.text = "Deleted Message"
+                self.lastMessageLabel.text = "DELETED_MESSAGE".localizedNew
                 return
             }
             self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
             if let forwarded = lastMessage.forwardedFrom {
                 if let user = forwarded.authorUser {
-                    self.lastMessageLabel.text = "Forwared message from \(user.displayName)"
+                    self.lastMessageLabel.text = "FORWARDED_FROM".localizedNew + " \(user.displayName)"
                 } else if let title = forwarded.authorRoom?.title {
-                    self.lastMessageLabel.text = "Forwared message from \(title)"
+                    self.lastMessageLabel.text = "FORWARDED_FROM".localizedNew + " \(title)"
                 } else {
-                    self.lastMessageLabel.text = "Forwared message"
+                    self.lastMessageLabel.text = "FORWARDED_MESSAGE".localizedNew
                 }
             } else {
                 switch lastMessage.type {
@@ -374,19 +376,19 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                         self.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
                     }
                 case .image:
-                    self.lastMessageLabel.text = "Image message"
+                    self.lastMessageLabel.text = "IMAGES_MESSAGE".localizedNew
                 case .video:
-                    self.lastMessageLabel.text = "Video message"
+                    self.lastMessageLabel.text = "VIDEOS_MESSAGE".localizedNew
                 case .gif:
-                    self.lastMessageLabel.text = "Gif message"
+                    self.lastMessageLabel.text = "GIFS_MESSAGE".localizedNew
                 case .audio:
-                    self.lastMessageLabel.text = "Audio message"
+                    self.lastMessageLabel.text = "AUDIOS_MESSAGE".localizedNew
                 case .voice:
-                    self.lastMessageLabel.text = "Voice message"
+                    self.lastMessageLabel.text = "VOICES_MESSAGE".localizedNew
                 case .file:
-                    self.lastMessageLabel.text = "File message"
+                    self.lastMessageLabel.text = "FILES_MESSAGE".localizedNew
                 case .sticker:
-                    self.lastMessageLabel.text = "Sticker message"
+                    self.lastMessageLabel.text = "STICKERS_MESSAGE".localizedNew
                 case .wallet:
                     self.lastMessageLabel.text = "Wallet message"
                 default:
@@ -397,9 +399,9 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             if lastMessage.type == .log {
                 self.lastMessageLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
             } else if lastMessage.type == .contact {
-                self.lastMessageLabel.text = "Contact Message"
+                self.lastMessageLabel.text = "CONTACT_MESSAGE".localizedNew
             } else if lastMessage.type == .location {
-                self.lastMessageLabel.text = "location Message"
+                self.lastMessageLabel.text = "LOCATION_MESSAGE".localizedNew
             }
         } else {
             self.timeLabel.text = ""

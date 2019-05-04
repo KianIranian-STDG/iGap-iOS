@@ -271,19 +271,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     @objc private func changeDirectionOfUI() {
         let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-        case "en" :
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-
-        case "ar" :
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-        default :
-            break
-        }
     }
     @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
@@ -750,6 +737,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         selectedRoomForSegue = rooms![indexPath.row]
         self.tableView.isUserInteractionEnabled = false
 //        currentPageName = "iGap.IGAccountViewController"
+        IGGlobal.getTime()
 
         performSegue(withIdentifier: "showRoomMessages", sender: self)
     }

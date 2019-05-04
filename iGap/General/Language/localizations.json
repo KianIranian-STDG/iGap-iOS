@@ -51,6 +51,7 @@
         "PLEASE_WRITE_UR_REPORT" : "لطفا توضیحات لازم برای علت گزارش خود را بنویسید",
         "REPORT_SUCCESS" : "گزارش شما با موفقیت ثبت شد",
         "FORWARDED_FROM" : "ارسال شده از : ",
+        "FORWARDED_MESSAGE" : "پیام ارسال شده",
         "REOLY_TO" : "پاسخ به : ",
         "GROUP_INFO" : "اطلاعات گروه",
         "DELETE_GROUP" : "حذف گروه",
@@ -171,6 +172,19 @@
         "DOCUMENT" : "داکیومنت",
         "STICKERS" : "استیکر ها",
         "SEND_PHOTO" : "ارسال تصویر",
+        
+        "FILES_MESSAGE" : "فایلپیام فایلی",
+        "GIFS_MESSAGE" : "پیام تصویر متحرگ",
+        "IMAGES_MESSAGE" : "پیام تصویری",
+        "VIDEOS_MESSAGE" :  "پیام ویدیویی",
+        "AUDIOS_MESSAGE" : "پیام صوتی",
+        "VOICES_MESSAGE" : "پیام ضبط شده",
+        "DOCUMENT_MESSAGE" : "پیام داکیومنت",
+        "STICKERS_MESSAGE" : "پیام استیکر",
+        "CONTACT_MESSAGE" : "پیام مخاطب",
+        "LOCATION_MESSAGE" : "پیام موقعیت مکانی",
+        "DELETED_MESSAGE" : "پیام حذف شده",
+        "DRAFT" : "پیش نویس : ",
 
 
 
@@ -817,6 +831,7 @@
         "PLEASE_WRITE_UR_REPORT" : "Please write your report description",
         "REPORT_SUCCESS" : "Your report has been successfully submitted",
         "FORWARDED_FROM" : "Forwarded from : ",
+        "FORWARDED_MESSAGE" : "Forwarded Message",
         "REOLY_TO" : "Reply to : ",
         "CHANNEL_LINK" : "Channel Link :",
 
@@ -921,6 +936,21 @@
         "DOCUMENTS" : "Documents",
         "DOCUMENT" : "Document",
         "STICKERS" : "Stickers",
+        "FILES_MESSAGE" : "File Message",
+        "GIFS_MESSAGE" : "Gif Message",
+        "IMAGES_MESSAGE" : "Image Message",
+        "VIDEOS_MESSAGE" :  "Video Message",
+        "AUDIOS_MESSAGE" : "Audio Message",
+        "VOICES_MESSAGE" : "Voice Message",
+        "DOCUMENT_MESSAGE" : "Document Message",
+        "STICKERS_MESSAGE" : "Sticker Message",
+        "CONTACT_MESSAGE" : "Contact Message",
+        "LOCATION_MESSAGE" : "Location Message",
+        "DELETED_MESSAGE" : "Deleted Message",
+        "DRAFT" : "Draft : ",
+
+        
+        
         "PLACE_HOLDER_SEARCH" : "Begin your search by tapping here",
         "SEND_PHOTO" : "Send Photo",
         "UNPIN_ARE_U_SURE" : "Are you sure unpin this message?",
