@@ -142,9 +142,9 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
             } else if self.currentUser.selfRemove == 12 {
                 self.selfDestructionLabel.text = "1 " + "YEAR".localizedNew
             } else if self.currentUser.selfRemove == 1 {
-                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + " MONTH".localizedNew
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + "MONTH".localizedNew
             } else {
-                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + " MONTHS".localizedNew
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + "MONTHS".localizedNew
             }
         }
     }
@@ -259,6 +259,7 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
         if let selfDestructionVC = segue.destination as? IGSettingHaveCheckmarkOntheLeftTableViewController {
             selfDestructionVC.items = [1, 3, 6, 12]
             selfDestructionVC.mode = "Self-Destruction"
+            selfDestructionVC.modeT = "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localizedNew
             
         }
     }

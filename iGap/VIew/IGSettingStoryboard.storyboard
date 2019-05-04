@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zUu-ma-Fzj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zUu-ma-Fzj">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -314,7 +314,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In App Browser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBe-U7-woB" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="14" width="240" height="18"/>
+                                                    <rect key="frame" x="60" y="14" width="116" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -345,7 +345,6 @@
                                                 <constraint firstItem="gU7-Cy-Vam" firstAttribute="centerY" secondItem="h4O-im-4eB" secondAttribute="centerY" id="EiP-03-MrO"/>
                                                 <constraint firstItem="WAa-eh-cKI" firstAttribute="centerY" secondItem="h4O-im-4eB" secondAttribute="centerY" id="FUh-j1-mLe"/>
                                                 <constraint firstItem="mBe-U7-woB" firstAttribute="top" secondItem="h4O-im-4eB" secondAttribute="topMargin" constant="3" id="JhB-hR-6fl"/>
-                                                <constraint firstItem="WAa-eh-cKI" firstAttribute="leading" secondItem="mBe-U7-woB" secondAttribute="trailing" constant="8" id="T4L-o1-bx7"/>
                                                 <constraint firstAttribute="trailing" secondItem="WAa-eh-cKI" secondAttribute="trailing" constant="20" id="aQT-3o-4vv"/>
                                                 <constraint firstItem="gU7-Cy-Vam" firstAttribute="leading" secondItem="h4O-im-4eB" secondAttribute="leading" constant="14" id="c2Y-Kw-ZYx"/>
                                                 <constraint firstItem="mBe-U7-woB" firstAttribute="leading" secondItem="gU7-Cy-Vam" secondAttribute="trailing" constant="14" id="r9H-YT-gpg"/>
@@ -1570,17 +1569,16 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nickname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uVw-DZ-kse">
-                                                    <rect key="frame" x="17" y="8" width="381" height="30"/>
+                                                    <rect key="frame" x="17" y="8" width="80.333333333333329" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="ke1-0Z-MtK"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="uVw-DZ-kse" secondAttribute="trailing" constant="16" id="ku1-lG-cib"/>
                                                 <constraint firstItem="uVw-DZ-kse" firstAttribute="leading" secondItem="tpz-QF-aqb" secondAttribute="leading" constant="17" id="npb-eB-vRe"/>
                                                 <constraint firstItem="uVw-DZ-kse" firstAttribute="top" secondItem="tpz-QF-aqb" secondAttribute="top" constant="8" id="seN-Rr-tva"/>
                                             </constraints>
@@ -1804,7 +1802,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MWh-RC-YfH">
-                                                    <rect key="frame" x="17" y="6" width="388" height="30"/>
+                                                    <rect key="frame" x="17" y="6" width="45" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="OFZ-hk-x8w"/>
                                                     </constraints>
@@ -1814,7 +1812,6 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="MWh-RC-YfH" secondAttribute="trailing" constant="9" id="DbU-dH-Kv5"/>
                                                 <constraint firstItem="MWh-RC-YfH" firstAttribute="leading" secondItem="kpJ-BD-y2l" secondAttribute="leading" constant="17" id="kjE-pF-j8K"/>
                                                 <constraint firstItem="MWh-RC-YfH" firstAttribute="top" secondItem="kpJ-BD-y2l" secondAttribute="top" constant="6" id="zP0-HW-fFI"/>
                                             </constraints>
@@ -1845,82 +1842,86 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="pLh-op-9JU">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="341"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Settings_Warning" translatesAutoresizingMaskIntoConstraints="NO" id="Cbb-wH-HUj">
-                                    <rect key="frame" x="179.66666666666666" y="40" width="55" height="55"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="55" id="Ot7-cY-uQl"/>
-                                        <constraint firstAttribute="height" constant="55" id="a0X-uL-97O"/>
-                                    </constraints>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to delete your iGap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMc-4K-qxe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="48" y="120" width="318" height="65"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="65" id="EJd-EN-BMQ"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deleting your account will :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ceg-aZ-Vri" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="225" width="210" height="20"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="WIP-3I-Ezc"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・Delete your account info and profile photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuP-Ho-lR4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="253" width="269" height="16"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・Delete you from all groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nri-C3-S8G" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="273" width="173" height="16"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・Delete your message history on this phone " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0v-5Q-iYU" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="28" y="293" width="276" height="16"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="B0v-5Q-iYU" firstAttribute="top" secondItem="nri-C3-S8G" secondAttribute="bottom" constant="4" id="09O-30-wlT"/>
-                                <constraint firstItem="vuP-Ho-lR4" firstAttribute="leading" secondItem="pLh-op-9JU" secondAttribute="leading" constant="28" id="6nN-ob-gZd"/>
-                                <constraint firstItem="Ceg-aZ-Vri" firstAttribute="top" secondItem="EMc-4K-qxe" secondAttribute="bottom" constant="40" id="73u-ay-njy"/>
-                                <constraint firstItem="Cbb-wH-HUj" firstAttribute="top" secondItem="pLh-op-9JU" secondAttribute="top" constant="40" id="8VM-bN-Pjw"/>
-                                <constraint firstItem="EMc-4K-qxe" firstAttribute="top" secondItem="Cbb-wH-HUj" secondAttribute="bottom" constant="25" id="NaE-Ru-GUO"/>
-                                <constraint firstAttribute="trailing" secondItem="EMc-4K-qxe" secondAttribute="trailing" constant="48" id="PRB-zf-YsL"/>
-                                <constraint firstItem="nri-C3-S8G" firstAttribute="leading" secondItem="pLh-op-9JU" secondAttribute="leading" constant="28" id="SMO-og-zkM"/>
-                                <constraint firstItem="nri-C3-S8G" firstAttribute="top" secondItem="vuP-Ho-lR4" secondAttribute="bottom" constant="4" id="XCm-vc-Wrv"/>
-                                <constraint firstItem="EMc-4K-qxe" firstAttribute="centerX" secondItem="pLh-op-9JU" secondAttribute="centerX" id="YrL-xR-RAe"/>
-                                <constraint firstItem="EMc-4K-qxe" firstAttribute="leading" secondItem="pLh-op-9JU" secondAttribute="leading" constant="48" id="fQ9-fH-Ejo"/>
-                                <constraint firstItem="Cbb-wH-HUj" firstAttribute="centerX" secondItem="pLh-op-9JU" secondAttribute="centerX" id="uCe-bx-IoK"/>
-                                <constraint firstItem="B0v-5Q-iYU" firstAttribute="leading" secondItem="pLh-op-9JU" secondAttribute="leading" constant="28" id="unE-Ow-6nl"/>
-                                <constraint firstItem="Ceg-aZ-Vri" firstAttribute="leading" secondItem="pLh-op-9JU" secondAttribute="leading" constant="28" id="vN1-OD-b7Z"/>
-                                <constraint firstItem="vuP-Ho-lR4" firstAttribute="top" secondItem="Ceg-aZ-Vri" secondAttribute="bottom" constant="8" id="wSH-Wr-Kxw"/>
-                            </constraints>
-                        </view>
                         <sections>
                             <tableViewSection id="QLo-7R-jSq">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="y8W-nz-14d">
-                                        <rect key="frame" x="0.0" y="341" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="314" id="y8W-nz-14d">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="314"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y8W-nz-14d" id="TLP-DD-oRT">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="314"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Settings_Warning" translatesAutoresizingMaskIntoConstraints="NO" id="Cbb-wH-HUj">
+                                                    <rect key="frame" x="179.66666666666666" y="39" width="55" height="55"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="55" id="Ot7-cY-uQl"/>
+                                                        <constraint firstAttribute="height" constant="55" id="a0X-uL-97O"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to delete your iGap account?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMc-4K-qxe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="48" y="102" width="318" height="65"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="65" id="EJd-EN-BMQ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deleting your account will :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ceg-aZ-Vri" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="203" width="210" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="WIP-3I-Ezc"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・Delete your account info and profile photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuP-Ho-lR4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="231" width="269" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・Delete you from all groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nri-C3-S8G" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="251" width="173" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="・Delete your message history on this phone " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0v-5Q-iYU" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="271" width="276" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ceg-aZ-Vri" firstAttribute="top" secondItem="EMc-4K-qxe" secondAttribute="bottom" constant="36" id="6mU-ol-7Pe"/>
+                                                <constraint firstItem="EMc-4K-qxe" firstAttribute="leading" secondItem="TLP-DD-oRT" secondAttribute="leading" constant="48" id="AGd-D4-GjI"/>
+                                                <constraint firstItem="Cbb-wH-HUj" firstAttribute="top" secondItem="TLP-DD-oRT" secondAttribute="top" constant="39" id="IJa-pl-JxI"/>
+                                                <constraint firstItem="vuP-Ho-lR4" firstAttribute="top" secondItem="Ceg-aZ-Vri" secondAttribute="bottom" constant="8" id="TfL-vY-muy"/>
+                                                <constraint firstItem="Cbb-wH-HUj" firstAttribute="centerX" secondItem="TLP-DD-oRT" secondAttribute="centerX" id="ZdZ-5P-8Et"/>
+                                                <constraint firstItem="Ceg-aZ-Vri" firstAttribute="leading" secondItem="TLP-DD-oRT" secondAttribute="leading" constant="24" id="cSV-41-u68"/>
+                                                <constraint firstItem="EMc-4K-qxe" firstAttribute="centerX" secondItem="TLP-DD-oRT" secondAttribute="centerX" id="daZ-db-oiE"/>
+                                                <constraint firstItem="nri-C3-S8G" firstAttribute="top" secondItem="vuP-Ho-lR4" secondAttribute="bottom" constant="4" id="eCW-tD-Dfw"/>
+                                                <constraint firstItem="B0v-5Q-iYU" firstAttribute="top" secondItem="nri-C3-S8G" secondAttribute="bottom" constant="4" id="gLJ-fh-qTJ"/>
+                                                <constraint firstItem="vuP-Ho-lR4" firstAttribute="leading" secondItem="TLP-DD-oRT" secondAttribute="leading" constant="24" id="lxJ-gd-bGl"/>
+                                                <constraint firstItem="EMc-4K-qxe" firstAttribute="top" secondItem="Cbb-wH-HUj" secondAttribute="bottom" constant="8" id="nVw-qd-n5b"/>
+                                                <constraint firstItem="B0v-5Q-iYU" firstAttribute="leading" secondItem="nri-C3-S8G" secondAttribute="leading" id="q2H-yU-mPY"/>
+                                                <constraint firstAttribute="trailing" secondItem="EMc-4K-qxe" secondAttribute="trailing" constant="48" id="viD-Mf-dvh"/>
+                                                <constraint firstItem="nri-C3-S8G" firstAttribute="leading" secondItem="vuP-Ho-lR4" secondAttribute="leading" id="zhL-kZ-6eN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gR9-Jr-lyY">
+                                        <rect key="frame" x="0.0" y="314" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gR9-Jr-lyY" id="tQO-AH-oHQ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpq-ev-vvM" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPK-Rt-bGt" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.75" green="0.1318976188" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1928,10 +1929,10 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="dpq-ev-vvM" firstAttribute="top" secondItem="TLP-DD-oRT" secondAttribute="top" id="0XS-DO-y98"/>
-                                                <constraint firstItem="dpq-ev-vvM" firstAttribute="leading" secondItem="TLP-DD-oRT" secondAttribute="leading" id="8sA-GR-MKe"/>
-                                                <constraint firstAttribute="bottom" secondItem="dpq-ev-vvM" secondAttribute="bottom" id="YrH-l2-kuh"/>
-                                                <constraint firstAttribute="trailing" secondItem="dpq-ev-vvM" secondAttribute="trailing" id="dJH-XH-q0c"/>
+                                                <constraint firstItem="xPK-Rt-bGt" firstAttribute="leading" secondItem="tQO-AH-oHQ" secondAttribute="leading" id="7vR-sn-DZl"/>
+                                                <constraint firstAttribute="bottom" secondItem="xPK-Rt-bGt" secondAttribute="bottom" id="GCJ-BA-ZCU"/>
+                                                <constraint firstAttribute="trailing" secondItem="xPK-Rt-bGt" secondAttribute="trailing" id="HvQ-Vp-pXw"/>
+                                                <constraint firstItem="xPK-Rt-bGt" firstAttribute="top" secondItem="tQO-AH-oHQ" secondAttribute="top" id="zuL-nV-P3i"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1945,12 +1946,18 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                     </tableView>
                     <navigationItem key="navigationItem" title="Delete Account" id="rl0-EQ-e7i" userLabel="Delete Account" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="lblBtn" destination="xPK-Rt-bGt" id="szG-mO-NKD"/>
+                        <outlet property="lblHeader" destination="EMc-4K-qxe" id="c9e-5V-16H"/>
+                        <outlet property="lblSub1" destination="vuP-Ho-lR4" id="VGg-6v-UXu"/>
+                        <outlet property="lblSub2" destination="nri-C3-S8G" id="mdg-Iz-pVJ"/>
+                        <outlet property="lblSub3" destination="B0v-5Q-iYU" id="LZp-Xf-UyZ"/>
+                        <outlet property="lblTitle1" destination="Ceg-aZ-Vri" id="Oh7-pv-awj"/>
                         <segue destination="yNT-cx-vol" kind="show" identifier="GoToConfirmDeletePage" id="Kxb-I1-GWz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j6i-2p-xQY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1109" y="-10410"/>
+            <point key="canvasLocation" x="-1110.144927536232" y="-10410.326086956522"/>
         </scene>
         <!--Why didi yoy delete-->
         <scene sceneID="N5P-LC-mQm">
@@ -2553,17 +2560,15 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="MBc-ts-cgP">
-                                                    <rect key="frame" x="20" y="1" width="395" height="39.666666666666664"/>
+                                                    <rect key="frame" x="20" y="11" width="114" height="22"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="MBc-ts-cgP" firstAttribute="centerX" secondItem="MlK-uN-E1t" secondAttribute="centerX" constant="10.5" id="Fdo-Eh-g5a"/>
-                                                <constraint firstItem="MBc-ts-cgP" firstAttribute="width" secondItem="MlK-uN-E1t" secondAttribute="width" constant="-19" id="aPe-Ha-YoL"/>
-                                                <constraint firstItem="MBc-ts-cgP" firstAttribute="height" secondItem="MlK-uN-E1t" secondAttribute="height" constant="-4" id="bLL-o1-4hk"/>
-                                                <constraint firstItem="MBc-ts-cgP" firstAttribute="centerY" secondItem="MlK-uN-E1t" secondAttribute="centerY" constant="-1" id="yNA-dV-ZKo"/>
+                                                <constraint firstItem="MBc-ts-cgP" firstAttribute="centerY" secondItem="MlK-uN-E1t" secondAttribute="centerY" id="XHX-EC-LOs"/>
+                                                <constraint firstItem="MBc-ts-cgP" firstAttribute="leading" secondItem="MlK-uN-E1t" secondAttribute="leading" constant="20" id="baY-Be-sqD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2584,7 +2589,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ud5-jG-wZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1112" y="-12346"/>
+            <point key="canvasLocation" x="-1113.0434782608697" y="-12346.467391304348"/>
         </scene>
         <!--About-->
         <scene sceneID="3je-hB-D6x">
@@ -6702,14 +6707,13 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bio" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="F4Y-Uf-GO9">
-                                                    <rect key="frame" x="20" y="1" width="395" height="41.666666666666664"/>
+                                                    <rect key="frame" x="19.999999999999996" y="1" width="56.666666666666657" height="41.666666666666664"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="F4Y-Uf-GO9" secondAttribute="trailing" constant="-21" id="6Sd-lk-5Bt"/>
                                                 <constraint firstItem="F4Y-Uf-GO9" firstAttribute="centerY" secondItem="7fC-NH-iGA" secondAttribute="centerY" id="KYc-1k-9Xj"/>
                                                 <constraint firstItem="F4Y-Uf-GO9" firstAttribute="leading" secondItem="7fC-NH-iGA" secondAttribute="leadingMargin" id="RAv-QQ-Txa"/>
                                                 <constraint firstItem="F4Y-Uf-GO9" firstAttribute="top" secondItem="7fC-NH-iGA" secondAttribute="topMargin" constant="-10" id="zmm-ZQ-DQ6"/>
@@ -6850,10 +6854,10 @@ kay*****@gm**.com</string>
         </scene>
     </scenes>
     <resources>
-        <image name="IG_Settings_Camera" width="75" height="75"/>
-        <image name="IG_Settings_Change_Number" width="435" height="204"/>
-        <image name="IG_Settings_Selected_Tick" width="42" height="42"/>
-        <image name="IG_Settings_Warning" width="165" height="165"/>
+        <image name="IG_Settings_Camera" width="25" height="25"/>
+        <image name="IG_Settings_Change_Number" width="145" height="68"/>
+        <image name="IG_Settings_Selected_Tick" width="14" height="14"/>
+        <image name="IG_Settings_Warning" width="55" height="55"/>
         <image name="imageView:36J-zz-61o:image" width="53" height="49">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU

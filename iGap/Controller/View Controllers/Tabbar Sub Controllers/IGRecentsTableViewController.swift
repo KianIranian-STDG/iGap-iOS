@@ -282,6 +282,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchBar.placeholder = "PLACE_HOLDER_SEARCH".localizedNew
+        if SMLangUtil.loadLanguage() == "fa" {
+            searchBar.semanticContentAttribute = .forceRightToLeft
+
+        }
+        else {
+            searchBar.semanticContentAttribute = .forceLeftToRight
+
+        }
 
         
         DispatchQueue.main.async {

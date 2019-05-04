@@ -25,7 +25,7 @@ class IGSetNickNameTableViewController: UITableViewController , UITextFieldDeleg
         nickNameTextField.delegate = self
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Nickname")
+        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PAGE_ACCOUNT_NIKNAME".localizedNew)
         navigationItem.navigationController = self.navigationController as! IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -101,8 +101,8 @@ class IGSetNickNameTableViewController: UITableViewController , UITextFieldDeleg
     
     func doneButtonClicked(){
         if nickNameTextField.text?.isEmpty == true {
-            let alert = UIAlertController(title: "Alert", message: "Please fill in the Nickname field. ", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "INPUT_VALUE_NOT_CORRECT".localizedNew, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
         } else {

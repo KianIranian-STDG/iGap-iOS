@@ -82,7 +82,8 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController , UI
         if let header = tableView.headerView(forSection: 0) {
             header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localizedNew
             header.textLabel?.font = UIFont.igFont(ofSize: 15)
-            
+            header.textLabel?.textAlignment = (header.textLabel?.localizedNewDirection)!
+
             header.sizeToFit()
         }
     }
@@ -147,7 +148,32 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController , UI
         
         return "SETTING_CONTACTS_BLOCKLIST".localizedNew
     }
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+    }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            containerView.textLabel!.text = "SETTING_CONTACTS_BLOCKLIST".localizedNew
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+    }
+    
+
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "UNBLOCK".localizedNew
     }

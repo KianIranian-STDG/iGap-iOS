@@ -16,6 +16,7 @@ import IGProtoBuff
 class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
     
     var mode = ""
+    var modeT = ""
     var destructionTime : Int32 = -1
     var items: [Int32] = []
     var navBarTitle = ""
@@ -33,7 +34,7 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
         self.navigationItem.title = navBarTitle
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: mode)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: modeT)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.doneButtonClicked()

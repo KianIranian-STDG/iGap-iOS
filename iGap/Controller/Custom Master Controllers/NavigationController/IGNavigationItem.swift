@@ -166,7 +166,7 @@ class IGNavigationItem: UINavigationItem {
             self.backViewContainer?.isUserInteractionEnabled = false
             guard let numberOfPages = self.navigationController?.viewControllers.count else { return }
             if numberOfPages == 2  {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
                 currentPageName = ""
                 _ = self.navigationController?.popViewController(animated: true)
                 

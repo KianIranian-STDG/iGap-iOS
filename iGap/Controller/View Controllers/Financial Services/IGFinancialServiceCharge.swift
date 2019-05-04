@@ -94,6 +94,9 @@ class IGFinancialServiceCharge: BaseViewController, UIGestureRecognizerDelegate,
         initCHangeLang()
     }
     func initCHangeLang() {
+        txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localizedNew
+        txtOperatorTransport.textColor = UIColor.gray
+
         edtPhoneNubmer.placeholder = "PLACE_HOLDER_MOBILE_NUM".localizedNew
         self.btnPrice.setTitle("CHARGE_PRICE".localizedNew, for: UIControl.State.normal)
         self.btnBuy.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)

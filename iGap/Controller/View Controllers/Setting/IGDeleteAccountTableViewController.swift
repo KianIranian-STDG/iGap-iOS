@@ -14,13 +14,19 @@ import IGProtoBuff
 
 class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var lblHeader: IGLabel!
+    @IBOutlet weak var lblTitle1: IGLabel!
+    @IBOutlet weak var lblSub1: IGLabel!
+    @IBOutlet weak var lblSub2: IGLabel!
+    @IBOutlet weak var lblSub3: IGLabel!
+    @IBOutlet weak var lblBtn: IGLabel!
     var hud = MBProgressHUD()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         tableView.tableFooterView = UIView()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil , title: "Delete Account")
+        navigationItem.addNavigationViewItems(rightItemText: nil , title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -31,13 +37,24 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
         self.tableView.isUserInteractionEnabled = true
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblBtn.text = "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew
+        
+        lblSub1.text = "DELETE_SUB1".localizedNew
+        lblSub2.text = "DELETE_SUB2".localizedNew
+        lblSub3.text = "DELETE_SUB3".localizedNew
+
+        lblTitle1.text = "DELETE_TITLE".localizedNew
+        lblHeader.text = "SURE_DELETE".localizedNew
+    }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.isUserInteractionEnabled = false
@@ -64,8 +81,8 @@ class IGDeleteAccountTableViewController: UITableViewController , UIGestureRecog
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

@@ -36,7 +36,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
             phoneNumberLabel.text = "\(userInDb.phone)"
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Next", title: "Delete Account")
+        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -63,7 +63,7 @@ class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , 
     func nextButtonClicked(){
         if CodeEntryTextField.text?.isEmpty == true {
             let alert = UIAlertController(title: "GAME_ALERT_TITLE".localizedNew, message: "MSG_FILL_DELETE_CODE".localizedNew, preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: UIAlertAction.Style.default, handler: nil))
             alert.view.tintColor = UIColor.organizationalColor()
             self.present(alert, animated: true, completion: nil)
         } else {

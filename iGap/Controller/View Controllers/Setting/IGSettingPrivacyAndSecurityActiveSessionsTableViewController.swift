@@ -135,8 +135,9 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let containerView = view as! UITableViewHeaderFooterView
+
         if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
             var headerText = ""
             switch section {
             case 0:
@@ -159,6 +160,11 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             containerView.textLabel!.text = headerText
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+        else {
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+
         }
     }
     

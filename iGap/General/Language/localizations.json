@@ -178,7 +178,7 @@
         "MSG_DESABLE_MAP_VISIBILITY" : "غیر فعال سازی قابلیت اطراف من باعث خواهد شد وضعیت شما و سایرین برای یکدیگر غیر قابل مشاهده شود. آیا مایل به ادامهٔ کار هستید؟",
         "SATELITE" : "ماهواره",
         "SATNDARD" : "عادی",
-        "ABOUT" : "حدود ",
+        "ABOUT" : "درباره ما",
         "WALLET_SETTINGS" : "تنظیمات کیف پول",
         "RESET_WALLET_PIN" : "بازنشانی رمز کیف پول",
         "SHOW_THIS_QR" : "این کیو آر را به دیگران به منظور اسکن کردن و پرداخت وجه به شما نشان دهید",
@@ -340,6 +340,7 @@
         "MSG_UPDATE_USERNAME_FORBIDDEN" : "عدم امکان آپدیت نام کاربری",
         "MSG_TAKEN_USERNAME" : "نام کاربری قبلا ثبت شده است",
         "MSG_INVALID_USERNAME" : "نام کاربری صحیح نمی باشد",
+        "USERNAME_VALID_CHARS" : "شما می توانید از کاراکتر های a-z,0-9 استفاده نمایید",
         "MSG_MINIMUM_LENGH" : "حداقل باید ۵ کاراکتر باشد",
         "MSG_PLEASE_TRY_AGAIN" : "لطفا مجددا امتحان نمایید.",
         "MSG_ARE_U_SURE_TO_DELETE" : "آیا از حذف این مخاطب مطمین هستید؟",
@@ -456,6 +457,13 @@
         "MOREMORE" : "سایر",
         "LOGOUT" : "خروج",
         "SURE_LOGOUT" : "آیا برای خروج از حساب کاربری خود اطمینان دارید؟",
+        "SURE_DELETE" :  "آیا از حذف حساب کاربری خود اطمینان دارید؟",
+        "DELETE_TITLE" :  "حذف حساب کاربری باعث : ",
+        
+        "DELETE_SUB1" :  "حذف اطلاعات حساب و تصویر حساب کاربری شما",
+        "DELETE_SUB2" :  "حذف شما از تمامی گروه ها",
+        "DELETE_SUB3" :  "حذف تاریخچه پیام های شما از تلفن همراه",
+
         "DELETE_POST" : "حذف پست",
         "DELETE_PHOTO" : "حذف تصویر",
         "MY_QR" : "کیو آر من",
@@ -541,7 +549,7 @@
         "SETTING_PAGE_FINANCIAL_SERVICES" : "خدمات مالی",
         "SETTING_PAGE_CHANGE_LANGUAGE" : "تغییر زبان",
         "SETTING_PAGE_CHOOSE_LANGUAGE" : "Choose Language - انتخاب زبان",
-        "SETTING_PAGE_CHAT_WALLPAPER" : "پس زمینه صفحه گفت و گو",
+        "SETTING_PAGE_CHAT_WALLPAPER" : "پس زمینه",
         "SETTING_PAGE_IN_APP_BROWSER" : "مرور گر درون برنامه ای",
         "SETTING_PAGE_PRIVACY_AND_SECURITY" : "امنیت و حریم خصوصی",
         "SETTING_PAGE_CACHE_SETTINGS" : "تنظیمات حافظه نهان",
@@ -561,7 +569,7 @@
         
         "SETTING_PAGE_ACCOUNT_REFERRAL" : "شماره تلفن معرف",
         "SETTING_PAGE_ACCOUNT_D_ACCOUNT" : "حذف حساب کاربری",
-        "SETTING_PAGE_ACCOUNT_S_DESTRUCT" : "خود تخریبی حساب کاربری",
+        "SETTING_PAGE_ACCOUNT_S_DESTRUCT" : "خود تخریبی",
         "SETTING_PAGE_ACCOUNT_LOGOUT" : "خروج از حساب کاربری",
         "SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT" : "در صورت فعال نبودن به مدت ",
         "SETTING_CONTACTS_BLOCKLIST" : "لیست مسدود شده ها",
@@ -952,7 +960,8 @@
         "DID_NOT_RESPOND_TO_VIDEO" : "Did not respond to your video call",
         "DID_NOT_RESPOND_TO_SCHAT" : "Did not respond to start a secret chat with you",
 
-        
+        "USERNAME_VALID_CHARS" : "You can use a-z,0-9 and underscores.",
+
         
         
         
@@ -1438,6 +1447,13 @@
         "MOREMORE" : "More",
         "LOGOUT" : "Logout",
         "SURE_LOGOUT" : "You are to sign out from your account, are you sure?",
+        "SURE_DELETE" : "Are you sure you want to delete your iGap Account ?",
+        "DELETE_TITLE" :  "Deleting your account will :",
+        
+        "DELETE_SUB1" :  "Delete your profile picture and account info",
+        "DELETE_SUB2" :  "Delete you from all Groups",
+        "DELETE_SUB3" :  "Delete your message history on this phone",
+
         "IP" : "IP : ",
 
         "TIMELINE_LIKES" : "Liked",
