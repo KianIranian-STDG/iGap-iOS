@@ -98,7 +98,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var txtSticker: UILabel!
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
-    
+    var previousRect = CGRect.zero
+
     var webView: UIWebView!
     var webViewProgressbar: UIActivityIndicatorView!
     var btnChangeKeyboard : UIButton!
@@ -376,11 +377,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.placeholder = "MESSAGE".localizedNew
        
         inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
+        inputTextView.minHeight = 22.0 // almost 8 lines
+
         inputTextView.maxHeight = 166.0 // almost 8 lines
-        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         inputTextView.layer.borderColor = UIColor.gray.cgColor
         inputTextView.layer.borderWidth = 0.4
-        inputTextView.layer.cornerRadius = 6.0
+        inputTextView.layer.cornerRadius = 17.0
         inputTextView.layer.masksToBounds = true
         
         inputBarLeftView.layer.cornerRadius = 6.0//19.0
@@ -398,7 +401,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputBarBackgroundView.layer.borderColor = UIColor(red: 209.0/255.0, green: 209.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
         inputBarBackgroundView.layer.borderWidth  = 1.0
         
-        inputBarView.layer.cornerRadius = 6.0//19.0
+        inputBarView.layer.cornerRadius = 0.0//19.0
         inputBarView.layer.masksToBounds = true
         inputBarView.layer.backgroundColor = inputBarLeftView.backgroundColor?.cgColor
         
@@ -1140,6 +1143,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        inputTextView.setContentOffset(.zero, animated: true)
+        inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
+
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
         if #available(iOS 10.0, *) {
@@ -3385,7 +3391,18 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
 
 //MARK: - GrowingTextViewDelegate
 extension IGMessageViewController: GrowingTextViewDelegate {
+
     func textViewDidChange(_ textView: UITextView) {
+        
+        let pos = textView.endOfDocument
+        let currentRect = inputTextView.caretRect(for: pos)
+        if(currentRect.origin.y > (previousRect.origin.y)){
+            if inputTextView.frame.height < 150.0 {
+                inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
+            }
+        }
+        previousRect = currentRect
+
         self.setSendAndRecordButtonStates()
         if allowSendTyping() {
             self.sendTyping()
@@ -3420,13 +3437,13 @@ extension IGMessageViewController: GrowingTextViewDelegate {
     }
     
     func setInputBarHeight() {
-        let height = max(self.inputTextViewHeight - 16, 20)
+        let height = max(self.inputTextViewHeight - 16, 30)
         var inputBarHeight = height + 16.0
         
-        inputTextViewHeightConstraint.constant = inputBarHeight - 5
+        inputTextViewHeightConstraint.constant = inputBarHeight - 12
         
         if currentAttachment != nil {
-            inputBarAttachmentViewBottomConstraint.constant = inputBarHeight + 8
+            inputBarAttachmentViewBottomConstraint.constant = inputBarHeight
             inputBarHeight += 36
             inputBarAttachmentView.isHidden = false
         } else {
@@ -3435,15 +3452,15 @@ extension IGMessageViewController: GrowingTextViewDelegate {
         }
         
         if selectedMessageToEdit != nil {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight + 8
+            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false
         } else if selectedMessageToReply != nil {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight + 8
+            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false
         } else if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
-            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight + 8
+            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false
         } else {
