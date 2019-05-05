@@ -258,7 +258,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             lastMessageStatusContainerView.isHidden = false
             deliveryStateImageView.isHidden = true
             unreadCountLabel.isHidden = false
-            unreadCountLabel.text = "\(room.unreadCount)"
+            unreadCountLabel.text = "\(room.unreadCount)".inLocalizedLanguage()
             let labelFrame = unreadCountLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: 18.0) , limitedToNumberOfLines: 1)
             lastMessageStatusContainerViewWidthConstraint.constant = max(lastMessageStatusContainerViewWidthConstraintDefault, labelFrame.size.width + 8)
         } else {
