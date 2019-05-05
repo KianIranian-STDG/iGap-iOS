@@ -137,20 +137,22 @@ class IGGroupInfoEditTypeTableViewController: BaseTableViewController , UITextFi
         
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let containerView = view as! UITableViewHeaderFooterView
-        
+        let label = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+
         if section == 1 {
-            containerView.textLabel!.text = "GROUP_LINK".localizedNew
-            
+            label.text = "GROUP_LINK".localizedNew
+
         }
         else {
-            containerView.textLabel!.text = "GROUPTYPE".localizedNew
-            
-        }
-        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-        return containerView
+            label.text = "GROUPTYPE".localizedNew
 
+        }
+        label.font = UIFont.igFont(ofSize: 15)
+        label.textAlignment = (label.localizedNewDirection)
+
+        
+        return label
+        
         
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

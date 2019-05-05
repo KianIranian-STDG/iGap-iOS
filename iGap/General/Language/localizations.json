@@ -156,7 +156,21 @@
         "DID_NOT_RESPOND_TO_VIDEO" : "عدم پاسخ دهی به شروع تماس تصویری با شما",
         "DID_NOT_RESPOND_TO_SCHAT" : "عدم پاسخ دهی به شروع گغت و گوی مخفی با شما",
 
-        
+        "MSG_CREATED_ROOM" : "این صفحه را ایجاد کرد ",
+        "MSG_ADDED" : " اضافه کرد",
+        "MSG_KICKED" : " بیرون انداخت",
+        "MSG_LEFT" : " ترک کرد",
+        "MSG_IS_PUBLIC" : "این کانال عمومی شد",
+        "MSG_IS_PRIVATE" : "این کانال خصوصی شد",
+        "MSG_CHANGED_TO_PUBLIC" : " به وضعبت عمومی تغییر داد",
+        "MSG_CHANGED_TO_PRIVATE" : " به وضعبت خصوصی تغییر داد",
+        "MSG_JOINED_VIA_LINK" : " توسط لینک دعوت ملحق شد",
+        "MSG_ROOM_WAS_DELETED" : "این صفحه حذف گردید",
+        "MSG_SOMEONE" : "یک شخص",
+        "MSG_JOINED_IGAP" : " به آیگپ ملحق شد",
+        "MSG_DELETED_ACCOUNT" : " حساب خود را حدف کرد",
+        "MSG_CHANNEL_WAS_CREATED" : "کانال ایجاد گردید",
+
         
         
         
@@ -195,7 +209,7 @@
         "STICKERS" : "استیکر ها",
         "SEND_PHOTO" : "ارسال تصویر",
         
-        "FILES_MESSAGE" : "فایلپیام فایلی",
+        "FILES_MESSAGE" : "پیام با محتوای فایل",
         "GIFS_MESSAGE" : "پیام تصویر متحرگ",
         "IMAGES_MESSAGE" : "پیام تصویری",
         "VIDEOS_MESSAGE" :  "پیام ویدیویی",
@@ -973,6 +987,22 @@
         "DID_NOT_RESPOND_TO_SCHAT" : "Did not respond to start a secret chat with you",
 
         "USERNAME_VALID_CHARS" : "You can use a-z,0-9 and underscores.",
+
+        
+        "MSG_CREATED_ROOM" : " Created this room",
+        "MSG_ADDED" : " Added",
+        "MSG_KICKED" : " Kicked",
+        "MSG_LEFT" : " Left",
+        "MSG_IS_PUBLIC" : "This channel is now public",
+        "MSG_IS_PRIVATE" : "اینThis Channel is now Private",
+        "MSG_CHANGED_TO_PUBLIC" : " is changed to public",
+        "MSG_CHANGED_TO_PRIVATE" : " is changed to private",
+        "MSG_JOINED_VIA_LINK" : " Joined via invitation link",
+        "MSG_ROOM_WAS_DELETED" : "this room was deleted",
+        "MSG_SOMEONE" : "Someone",
+        "MSG_JOINED_IGAP" : " Joined to iGap",
+        "MSG_DELETED_ACCOUNT" : " Deleted his account",
+        "MSG_CHANNEL_WAS_CREATED" : "Channel was created",
 
         
         

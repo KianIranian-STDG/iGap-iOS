@@ -125,43 +125,43 @@ class IGRoomMessageLog: Object {
         if let actor = message.authorUser {
             actorUsernameTitle = actor.displayName
         } else {
-            actorUsernameTitle = "Someone"
+            actorUsernameTitle = "MSG_SOMEONE".localizedNew
         }
         
         var bodyString = ""
         switch (message.log?.type)! {
         case .userJoined:
-            bodyString = actorUsernameTitle + " joined iGap"
+            bodyString = actorUsernameTitle + "MSG_JOINED_IGAP".localizedNew
         case .userDeleted:
-            bodyString = actorUsernameTitle + " deleted their account"
+            bodyString = actorUsernameTitle + "MSG_DELETED_ACCOUNT".localizedNew
         case .roomCreated:
             if message.authorRoom != nil {
-                bodyString = "Channel was created"
+                bodyString = "MSG_CHANNEL_WAS_CREATED".localizedNew
             } else {
-                bodyString = actorUsernameTitle + " created this room"
+                bodyString = actorUsernameTitle + "MSG_CREATED_ROOM".localizedNew
             }
         case .memberAdded:
-            bodyString = actorUsernameTitle + " added"
+            bodyString = actorUsernameTitle + "MSG_ADDED".localizedNew
         case .memberKicked:
-            bodyString = actorUsernameTitle + " kicked"
+            bodyString = actorUsernameTitle + "MSG_KICKED".localizedNew
         case .memberLeft:
-            bodyString = actorUsernameTitle + " left"
+            bodyString = actorUsernameTitle + "MSG_LEFT".localizedNew
         case .roomConvertedToPublic:
             if message.authorRoom != nil {
-                bodyString = "This channel is now public"
+                bodyString = "MSG_IS_PUBLIC".localizedNew
             } else {
-                bodyString = actorUsernameTitle + " changed room to public"
+                bodyString = actorUsernameTitle + "MSG_CHANGED_TO_PUBLIC".localizedNew
             }
         case .roomConvertedToPrivate:
             if message.authorRoom != nil {
-                bodyString = "This channel is now private"
+                bodyString = "MSG_IS_PRIVATE".localizedNew
             } else {
-                bodyString = actorUsernameTitle + " changed room to private"
+                bodyString = actorUsernameTitle + "MSG_CHANGED_TO_PRIVATE".localizedNew
             }
         case .memberJoinedByInviteLink:
-            bodyString = actorUsernameTitle + " joined via invite link"
+            bodyString = actorUsernameTitle + "MSG_JOINED_VIA_LINK".localizedNew
         case .roomDeleted:
-            bodyString = "This room was deleted"
+            bodyString = "MSG_ROOM_WAS_DELETED".localizedNew
         case .missedVoiceCall:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
                 bodyString = "DID_NOT_RESPOND_TO_VOICE".localizedNew
