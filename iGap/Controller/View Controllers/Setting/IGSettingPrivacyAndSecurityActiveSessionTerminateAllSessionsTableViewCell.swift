@@ -14,6 +14,8 @@ class IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell:
     @IBOutlet weak var terminateAllLable: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        terminateAllLable.text = "TERMINATE_ALL_SESSIONS".localizedNew
+        terminateAllLable.font = UIFont.igFont(ofSize: 15)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

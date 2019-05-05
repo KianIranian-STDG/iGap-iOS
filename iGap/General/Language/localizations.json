@@ -364,7 +364,7 @@
         
         "TIME_OUT" : "عدم امکان اتصال به سرور",
         "TIME_OUT_MSG_EMAIL" : "عدم امکان دریافت اطلاعات ایمیل شما از سرور.لطفا مجددا تلاش فرمایید",
-        "TIME_OUT_MSG_BIO" : "عدم امکان دریافت اطلاعات بایو شما از سرور.لطفا مجددا تلاش فرمایید",
+        "TIME_OUT_MSG_BIO" : "عدم امکان دریافت اطلاعات بیوگرافی شما از سرور.لطفا مجددا تلاش فرمایید",
         "TIME_OUT_MSG_SELFD" : "عدم امکان دریافت ساعت های تخریب خودکار از سرور.لطفا مجددا تلاش فرمایید",
 
         "PLACE_HOLDER_F_NAME" : "نام",
@@ -414,6 +414,16 @@
         "OTP_CODE" : "کد یکبارمصرف",
         "CONFIRM_NEW_PASS" : "تکرار رمز عبور",
         "CURRENT_PASS" : "رمر عبور فعلی",
+        "PASSWORD" : "رمز عبور",
+        
+        "MSG_PASSWORD_IS_NOT_SET" : "رمز عبور برای این حساب کاربری ایجاد نشده است",
+        "MSG_INVALID_PASS" : "رمز عبور اشتباه",
+        "MSG_INTERNAL_SERVER_ERROR" : "خطای داخلی سرور",
+
+        "FORGET_PASSWORD" : "فراموشی رمز عبور",
+        "MSG_FORGET_PASSWORD" : "مایل به استفاده از کدام یک از روش های زیر برای تغییر رمز عبور خود هستید؟",
+        "RECOVERY_QUESTIONS" : "سوال های امنیتی",
+
         "NEW_PASS" : "رمز عبور جدید",
         "SUCCESS_OTP" : "رمز یکبار مصرف با موفقیت برای شما ارسال شد",
         "SERVER_DOWN" : "خطای برقراری ارتباط با سرور",
@@ -558,16 +568,16 @@
         "SETTING_PAGE_QRCODE_SCANNER" : "اسکنر بارکد",
         "SETTING_PAGE_FOOTER_VERSION" : "آیگپ آی او اس نسخه ",
         
-        "SETTING_PAGE_ACCOUNT_NIKNAME" : "نام",
-        "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "باشگاه مشتریان",
+        "SETTING_PAGE_ACCOUNT_NIKNAME" : "لقب",
+        "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "باشگاه آیگپ",
         "SETTING_PAGE_ACCOUNT_SCORE_PAGE" : "امتیاز",
 
         "SETTING_PAGE_ACCOUNT_PHONENUMBER" : "شماره تماس",
         "SETTING_PAGE_ACCOUNT_USERNAME" : "نام کاربری",
         "SETTING_PAGE_ACCOUNT_EMAIL" : "ایمیل",
-        "SETTING_PAGE_ACCOUNT_BIO" : "بیو",
+        "SETTING_PAGE_ACCOUNT_BIO" : "مختصری از من",
         
-        "SETTING_PAGE_ACCOUNT_REFERRAL" : "شماره تلفن معرف",
+        "SETTING_PAGE_ACCOUNT_REFERRAL" :  "معرف",
         "SETTING_PAGE_ACCOUNT_D_ACCOUNT" : "حذف حساب کاربری",
         "SETTING_PAGE_ACCOUNT_S_DESTRUCT" : "خود تخریبی",
         "SETTING_PAGE_ACCOUNT_LOGOUT" : "خروج از حساب کاربری",
@@ -598,6 +608,8 @@
         "SETTING_PS_ACTIVE_SESSIONS" : "نشست های فعال",
         "SETTING_PS_NO_MORE_ACTIVE_SESSIONS" : "نشست فعال دیگری وجود ندارد",
         "SETTINGS_PS_TERMINATE_ALL_EXEPT" : "لغو تمامی جلسات فعال بجز نشست فعلی",
+        "TERMINATE_ALL_SESSIONS" : "لغو تمامی نشست ها",
+
         "SETTING_PS_AS_SURE_TO_TERMINATE" : "آیا از لغو همهٔ جلسات فعال اطمینان دارید؟ ",
         "SETTING_PS_AS_SURE_TO_TERMINATE_THIS" : "آیا از لغو این نشست  اطمینان دارید؟ ",
         "SETTING_PS_TV_FOOTER_HINT" : "لطفا از ورود ایمیل صحیح اطمینان حاصل کنید چرا که در صورت فراموشی رمز عبور تنها راه بازیابی می باشد",
@@ -1207,6 +1219,14 @@
         "OTP_CODE" : "OTP Code",
         "CONFIRM_NEW_PASS" : "Confirm new password",
         "CURRENT_PASS" : "Current password",
+        "PASSWORD" : "Password",
+        "MSG_PASSWORD_IS_NOT_SET" : "Password is not set for this account",
+        "MSG_INVALID_PASS" : "Invalid Password",
+        "MSG_INTERNAL_SERVER_ERROR" : "Internal server Error",
+        "FORGET_PASSWORD" : "Forget Password",
+        "MSG_FORGET_PASSWORD" : "Which option do you want to use to change your password?",
+        "RECOVERY_QUESTIONS" : "Recovery Questions",
+
         "NEW_PASS" : "New password",
         "SUCCESS_OTP" : "OTP Code has been send to you successfully",
         "SERVER_DOWN" : "Server is down, please try later",
@@ -1264,7 +1284,7 @@
         "SETTING_PAGE_ACCOUNT_USERNAME" : "Username",
         "SETTING_PAGE_ACCOUNT_EMAIL" : "Email",
         "SETTING_PAGE_ACCOUNT_BIO" : "Bio",
-        "SETTING_PAGE_ACCOUNT_REFERRAL" : "Referral Mobile Number",
+        "SETTING_PAGE_ACCOUNT_REFERRAL" : "Referral",
         "SETTING_PAGE_ACCOUNT_D_ACCOUNT" : "Delete Account",
         "SETTING_PAGE_ACCOUNT_S_DESTRUCT" : "Self Destruct",
         "SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT" : "If You are away for",
@@ -1299,6 +1319,7 @@
         "SETTING_PS_ACTIVE_SESSIONS" : "Active Sessions",
         "SETTING_PS_NO_MORE_ACTIVE_SESSIONS" : "No More Active Sessions",
         "SETTINGS_PS_TERMINATE_ALL_EXEPT" : "Terminate all other Active Sessions",
+        "TERMINATE_ALL_SESSIONS" : "Terminate all Sessions",
         "SETTING_PS_AS_CURRENT_SESSIONS" : "Current Sessions",
         "SETTING_PS_AS_SURE_TO_TERMINATE" : "Are you sure you want to terminate all active sessions?",
         "SETTING_PS_AS_SURE_TO_TERMINATE_THIS" : "Are you sure you want to terminate this Session?",

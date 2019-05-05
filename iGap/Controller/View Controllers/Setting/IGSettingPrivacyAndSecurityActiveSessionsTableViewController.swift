@@ -169,8 +169,9 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
     }
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let containerView = view as! UITableViewHeaderFooterView
+
         if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
             if section == otherSessions.count + 1 {
                 if otherSessions.count > 0 {
                     containerView.textLabel!.text = "SETTINGS_PS_TERMINATE_ALL_EXEPT".localizedNew
@@ -180,6 +181,10 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             }
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+        else {
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

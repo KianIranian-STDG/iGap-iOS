@@ -5642,14 +5642,14 @@ Please wait 0:59</string>
                             <rect key="frame" x="0.0" y="109" width="414" height="119"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have enabled Tow-Step Verification, so your account is protected with an additional password" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dij-IK-Gxm" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have enabled Tow-Step Verification, so your account is protected with an additional password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dij-IK-Gxm" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                     <rect key="frame" x="16" y="7.9999999999999982" width="382" height="31.333333333333329"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IS3-Xt-fnG">
-                                    <rect key="frame" x="16" y="47.333333333333336" width="382" height="30.000000000000007"/>
+                                    <rect key="frame" x="16" y="47.333333333333336" width="123" height="30.000000000000007"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="bvz-d7-EDx"/>
                                     </constraints>
@@ -5660,7 +5660,6 @@ Please wait 0:59</string>
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="IS3-Xt-fnG" secondAttribute="trailing" constant="16" id="8ar-MP-tDD"/>
                                 <constraint firstAttribute="trailing" secondItem="dij-IK-Gxm" secondAttribute="trailing" constant="16" id="Ael-bC-N8W"/>
                                 <constraint firstItem="IS3-Xt-fnG" firstAttribute="leading" secondItem="7kO-N1-pd9" secondAttribute="leading" constant="16" id="aI4-gz-jSG"/>
                                 <constraint firstItem="IS3-Xt-fnG" firstAttribute="top" secondItem="dij-IK-Gxm" secondAttribute="bottom" constant="8" id="lUt-0I-CAI"/>
@@ -5685,14 +5684,13 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHP-wP-wSy">
-                                                    <rect key="frame" x="111" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="111.00000000000001" y="7.0000000000000018" width="61.666666666666671" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="fHP-wP-wSy" secondAttribute="trailing" constant="16" id="5fh-aa-ed0"/>
                                                 <constraint firstItem="Dsy-gy-Vou" firstAttribute="leading" secondItem="iR7-69-uWm" secondAttribute="leading" constant="16" id="9T9-ui-h0H"/>
                                                 <constraint firstItem="fHP-wP-wSy" firstAttribute="top" secondItem="iR7-69-uWm" secondAttribute="top" constant="7" id="GDk-bd-lau"/>
                                                 <constraint firstItem="Dsy-gy-Vou" firstAttribute="top" secondItem="iR7-69-uWm" secondAttribute="top" constant="7" id="KCL-e8-kO7"/>
@@ -5713,6 +5711,8 @@ Please wait 0:59</string>
                     <navigationItem key="navigationItem" title="Title" id="Nz8-Sy-pxl" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="btnForgetPassword" destination="IS3-Xt-fnG" id="e7e-ct-mJ1"/>
+                        <outlet property="lblPass" destination="Dsy-gy-Vou" id="ihn-Yq-gDJ"/>
+                        <outlet property="lblTextHint" destination="dij-IK-Gxm" id="tiI-ae-Ayi"/>
                         <outlet property="passwordTextField" destination="fHP-wP-wSy" id="K7W-Ca-m4V"/>
                         <segue destination="8aK-dM-Tut" kind="show" identifier="showTwoStepOptions" id="1Fr-Vf-hq4"/>
                         <segue destination="rcJ-Dc-4E0" kind="show" identifier="changePasswordWithQuestions" id="v4b-3a-R6D"/>
@@ -6892,8 +6892,8 @@ Afg
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DaW-k4-iW0"/>
-        <segue reference="Oa0-mY-XGu"/>
+        <segue reference="Pqu-UA-ZWb"/>
+        <segue reference="v4b-3a-R6D"/>
         <segue reference="Qum-5d-uYe"/>
         <segue reference="Xzv-Yc-EAf"/>
         <segue reference="sIw-Hv-pyB"/>

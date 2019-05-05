@@ -128,6 +128,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         lblInviteFreind.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
         lblAbout.text = "SETTING_PAGE_ABOUT".localizedNew
         lblQRScan.text = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+        lblQRScan.font = UIFont.igFont(ofSize: 15)
+
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             self.versionLabel.text = "SETTING_PAGE_FOOTER_VERSION".localizedNew + " \(version)"
         }
@@ -493,7 +495,17 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             IGHelperNearby.shared.openMap()
         }
         else {
-            
+            locationManager.stopUpdatingLocation()
+            let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localizedNew, message: "LOCATION_SERVICE_ENABLE_IT".localizedNew, preferredStyle: UIAlertController.Style.alert)
+            self.present(alert, animated: true, completion: nil)
+            alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { action in
+                switch action.style{
+                case .default: UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+                case .cancel: print("cancel")
+                case .destructive: print("destructive")
+
+                }
+            }))
         }
     }
     

@@ -29,6 +29,7 @@ class IGScoreHistoryViewController: BaseViewController, UIGestureRecognizerDeleg
         customizeView()
         manageShowActivties(isFirst: true)
         btnScan.setTitle("SETTING_PAGE_QRCODE_SCANNER".localizedNew, for: .normal)
+        btnScan.titleLabel!.font = UIFont.igFont(ofSize: 15)
     }
     
     override func viewDidAppear(_ animated: Bool) {
