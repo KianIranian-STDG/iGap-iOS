@@ -568,19 +568,19 @@ extension Date {
         let calendar = NSCalendar.current
         if onlyTimeIfToday && !calendar.isDateInToday(self) {
             dateFormatter.dateFormat = "MMM, dd"
-            return dateFormatter.string(from: self)
+            return self.localizedDate()
         }
         dateFormatter.dateFormat = "HH:mm"
         let hour = calendar.component(Calendar.Component.hour, from: self)
         let min = calendar.component(Calendar.Component.minute, from: self)
-        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))"
+        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))".inLocalizedLanguage()
     }
     
     func completeHumanReadableTime() -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY - HH:mm"
         let dateString = dayTimePeriodFormatter.string(from: self)
-        return dateString
+        return dateString.inLocalizedLanguage()
     }
     
     func humanReadableForLastSeen() -> String {
@@ -591,12 +591,12 @@ extension Date {
             return "IN_A_MINUTE".localizedNew
         } else if differenctToNow < 3600 {
             let minutes = Int(differenctToNow / 60)
-            return "\(minutes)" + "MINUTES_AGO".localizedNew
+            return "\(minutes)".inLocalizedLanguage() + "MINUTES_AGO".localizedNew
         } else if differenctToNow < 3600 * 2 {
             return "AN_HOUR_AGO".localizedNew
         } else if differenctToNow < 3600 * 24 {
             let hours = Int(differenctToNow / 3600)
-            return "\(hours)" + "HOURS_AGO".localizedNew
+            return "\(hours)".inLocalizedLanguage() + "HOURS_AGO".localizedNew
         }
         
         let dateFormatter = DateFormatter()
@@ -604,7 +604,7 @@ extension Date {
         let dateString = dateFormatter.string(from: self)
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
-        return dateString + "AT".localizedNew + timeString
+        return dateString.inLocalizedLanguage() + "AT".localizedNew + timeString.inLocalizedLanguage()
         
     }
 }

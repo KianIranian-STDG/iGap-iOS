@@ -240,7 +240,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        txtFloatingDate.font = UIFont.igFont(ofSize: 15)
 //        inputTextView.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
@@ -3175,8 +3175,9 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                         let dayTimePeriodFormatter = DateFormatter()
                         dayTimePeriodFormatter.dateFormat = "MMMM dd"
                         dayTimePeriodFormatter.calendar = Calendar.current
-                        let dateString = dayTimePeriodFormatter.string(from: message.creationTime!)
-                        header.setText(dateString)
+                        let dateString = (message.creationTime!).localizedDate()
+
+                        header.setText(dateString.inLocalizedLanguage())
                     }
                 }
             }
@@ -3317,8 +3318,14 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
-                    let dateString = dayTimePeriodFormatter.string(from: message.creationTime!)
-                    txtFloatingDate.text = dateString
+                    let dateString = (message.creationTime!).localizedDate()
+                    
+                    txtFloatingDate.text = dateString.inLocalizedLanguage()
+                    print("|||||||DATE||||||")
+                    print(dateString)
+                    print(message.creationTime!)
+                    print(message.creationTime!.localizedDate())
+                    print("|||||||DATE-END||||||")
                     UIView.animate(withDuration: 0.5, animations: {
                         self.floatingDateView.alpha = 1.0
                     })
