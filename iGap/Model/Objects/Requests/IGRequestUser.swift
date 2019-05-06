@@ -1423,6 +1423,15 @@ class IGUserIVandGetScoreRequest: IGRequest {
 
 class IGUserIVandSetActivityRequest: IGRequest {
     
+    class func sendRequest(plancode: String){
+        IGGlobal.prgShow()
+        IGUserIVandSetActivityRequest.Generator.generate(plancode: plancode).success({ (protoResponse) in
+            IGGlobal.prgHide()
+        }).error({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
     class Generator: IGRequest.Generator {
         class func generate(plancode: String = "iGap") -> IGRequestWrapper {
             var request = IGPUserIVandSetActivity()

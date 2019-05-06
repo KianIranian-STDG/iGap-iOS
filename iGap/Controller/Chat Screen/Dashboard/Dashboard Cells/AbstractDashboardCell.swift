@@ -212,6 +212,14 @@ class AbstractDashboardCell: UICollectionViewCell {
             let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
             return
+
+        case .ivandscore:
+            IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
+            return
+            
+        case .cardToCard:
+            IGHelperFinancial.shared.sendCardToCardRequest()
+            return
             
         default:
             return

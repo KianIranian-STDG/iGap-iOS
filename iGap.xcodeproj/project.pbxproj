@@ -222,9 +222,6 @@
 		FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA3306381F445AE80096031A /* IRANSans_Light.ttf */; };
 		FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA3306391F445AE80096031A /* IRANSans_Medium.ttf */; };
 		FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA33063A1F445AE80096031A /* IRANSans_UltraLight.ttf */; };
-		FA358D1E1E0A6F49001D0935 /* IGChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA358D1D1E0A6F49001D0935 /* IGChatsTableViewController.swift */; };
-		FA358D201E0A6F6A001D0935 /* IGGroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA358D1F1E0A6F6A001D0935 /* IGGroupsTableViewController.swift */; };
-		FA358D221E0A6F76001D0935 /* IGChannelsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA358D211E0A6F76001D0935 /* IGChannelsTableViewController.swift */; };
 		FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35DA161DE0245600F171EE /* IGDatabaseManager.swift */; };
 		FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA39EAA220D7BF7A001CFF77 /* Protobuf.framework */; };
 		FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */; };
@@ -815,9 +812,6 @@
 		FA3306381F445AE80096031A /* IRANSans_Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANSans_Light.ttf; sourceTree = "<group>"; };
 		FA3306391F445AE80096031A /* IRANSans_Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANSans_Medium.ttf; sourceTree = "<group>"; };
 		FA33063A1F445AE80096031A /* IRANSans_UltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IRANSans_UltraLight.ttf; sourceTree = "<group>"; };
-		FA358D1D1E0A6F49001D0935 /* IGChatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChatsTableViewController.swift; sourceTree = "<group>"; };
-		FA358D1F1E0A6F6A001D0935 /* IGGroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupsTableViewController.swift; sourceTree = "<group>"; };
-		FA358D211E0A6F76001D0935 /* IGChannelsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelsTableViewController.swift; sourceTree = "<group>"; };
 		FA35DA161DE0245600F171EE /* IGDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDatabaseManager.swift; sourceTree = "<group>"; };
 		FA39EAA220D7BF7A001CFF77 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Protobuf.framework; sourceTree = "<group>"; };
 		FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IGProtoBuff.framework; path = Carthage/Build/iOS/IGProtoBuff.framework; sourceTree = "<group>"; };
@@ -1830,9 +1824,6 @@
 			isa = PBXGroup;
 			children = (
 				FA68A2101DD9B0E9003A6651 /* IGRecentsTableViewController.swift */,
-				FA358D1D1E0A6F49001D0935 /* IGChatsTableViewController.swift */,
-				FA358D1F1E0A6F6A001D0935 /* IGGroupsTableViewController.swift */,
-				FA358D211E0A6F76001D0935 /* IGChannelsTableViewController.swift */,
 				FAE11242204E96FA009F402B /* IGCallsTableViewController.swift */,
 			);
 			path = "Tabbar Sub Controllers";
@@ -2948,7 +2939,6 @@
 				8E96A307225B4393007D8A77 /* mainRequest.swift in Sources */,
 				FA42EF0C1E5C224F00CF8A32 /* GIFImageView.swift in Sources */,
 				FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */,
-				FA358D221E0A6F76001D0935 /* IGChannelsTableViewController.swift in Sources */,
 				FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */,
 				FA0953571E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift in Sources */,
 				8EE7FC97225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift in Sources */,
@@ -3117,7 +3107,6 @@
 				FA0953411E1B97700043ED3F /* IGActiveSessionObject.swift in Sources */,
 				FABB9B061DB25E5E00D794A4 /* IGSecurityManager.swift in Sources */,
 				FA0953551E1B97700043ED3F /* IGSettingChatStickersTableViewController.swift in Sources */,
-				FA358D1E1E0A6F49001D0935 /* IGChatsTableViewController.swift in Sources */,
 				FAC5B690204C08580018E017 /* ReturnToCallObserver.swift in Sources */,
 				FA927E0420284D7800DF7145 /* GifCell.swift in Sources */,
 				8ECC1831222FDBD2006E43E8 /* imagViewX.swift in Sources */,
@@ -3177,7 +3166,6 @@
 				8E96A313225B6DCC007D8A77 /* SMHistoryDetailTableViewCell.swift in Sources */,
 				8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */,
 				FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */,
-				FA358D201E0A6F6A001D0935 /* IGGroupsTableViewController.swift in Sources */,
 				DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */,
 				FA85066722670703002EEBF7 /* packetTableViewController.swift in Sources */,
 				FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */,

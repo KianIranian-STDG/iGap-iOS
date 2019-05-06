@@ -14,10 +14,14 @@ import PecPayment
 
 class IGHelperFinancial: NSObject, CardToCardResult {
     
-    private var viewController: UIViewController!
+    static let shared = IGHelperFinancial()
+    
+    private var uiViewController: UIViewController!
+    
+    override init() {}
     
     private init(_ viewController: UIViewController) {
-        self.viewController = viewController
+        self.uiViewController = viewController
     }
     
     static func getInstance(viewController: UIViewController) -> IGHelperFinancial {
@@ -25,13 +29,19 @@ class IGHelperFinancial: NSObject, CardToCardResult {
     }
     
     func manageFinancialServiceChoose(){
+        
+        var viewController: UIViewController! = self.uiViewController
+        if viewController == nil {
+            viewController = UIApplication.topViewController()
+        }
+        
         let option = UIAlertController(title: "SETTING_PAGE_FINANCIAL_SERVICES".localizedNew, message: "MSG_FINANCIAL_SERVICES".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
         
         let mobileCharge = UIAlertAction(title: "SETTING_FS_TOP_UP".localizedNew, style: .default, handler: { (action) in
            
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
-            self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
         let cardToCard = UIAlertAction(title: "SETTING_FS_CARD_TO_CARD_BILLS".localizedNew, style: .default, handler: { (action) in
@@ -44,7 +54,7 @@ class IGHelperFinancial: NSObject, CardToCardResult {
             
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-            self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
         let trafficOffenses = UIAlertAction(title: "SETTING_FS_PAY_TRAFFIC_TICKETS".localizedNew, style: .default, handler: { (action) in
@@ -53,7 +63,7 @@ class IGHelperFinancial: NSObject, CardToCardResult {
             
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-            self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
         let mobileBillingInquiry = UIAlertAction(title: "SETTING_FS_MBILL_INQUERY".localizedNew, style: .default, handler: { (action) in
@@ -61,7 +71,7 @@ class IGHelperFinancial: NSObject, CardToCardResult {
             
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
-            self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
         let phoneBillingInquiry = UIAlertAction(title: "SETTING_FS_PHONE_INQUERY".localizedNew, style: .default, handler: { (action) in
@@ -69,7 +79,7 @@ class IGHelperFinancial: NSObject, CardToCardResult {
             
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBillingInquiry") as! IGFinancialServiceBillingInquiry
-            self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
+            viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
         let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
@@ -82,11 +92,11 @@ class IGHelperFinancial: NSObject, CardToCardResult {
         option.addAction(phoneBillingInquiry)
         option.addAction(cancel)
         
-        self.viewController.present(option, animated: true, completion: {})
+        viewController.present(option, animated: true, completion: {})
     }
     
     
-    private func sendCardToCardRequest(){
+    public func sendCardToCardRequest(){
         IGGlobal.prgShow()
         IGMplGetCardToCardToken.Generator.generate().success({ (protoResponse) in
             IGGlobal.prgHide()

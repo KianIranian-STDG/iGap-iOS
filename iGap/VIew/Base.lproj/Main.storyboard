@@ -82,7 +82,8 @@
                             <constraint firstItem="Vdk-oB-E9O" firstAttribute="centerX" secondItem="XQx-sQ-Oa1" secondAttribute="centerX" id="kFb-0j-oHz"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="Dashboard" image="IG_Tabbar_Discovery" selectedImage="IG_Tabbar_Discovery" id="4kk-i4-sZg">
+                    <tabBarItem key="tabBarItem" tag="1" title="" image="IG_Tabbar_Discovery" selectedImage="IG_Tabbar_Discovery" id="4kk-i4-sZg">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Title" id="AW9-xw-fuX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
@@ -93,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="21o-NC-Yxl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-687" y="-862"/>
+            <point key="canvasLocation" x="2661" y="-1955"/>
         </scene>
         <!--Message Attachment Location-->
         <scene sceneID="7xR-b8-gp0">
@@ -108,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4W-xY-YF8">
-                                <rect key="frame" x="0.0" y="70" width="320" height="350"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="356"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjF-99-u5b" customClass="IGTappableView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="420" width="320" height="60"/>
@@ -148,7 +149,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location_Marker" translatesAutoresizingMaskIntoConstraints="NO" id="dzT-ao-hN1">
-                                <rect key="frame" x="135" y="195" width="50" height="50"/>
+                                <rect key="frame" x="135" y="192" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="afQ-eQ-1Eb"/>
                                     <constraint firstAttribute="height" constant="50" id="lGm-3q-Vk7"/>
@@ -168,7 +169,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9Zi-OB-nXt">
-                                <rect key="frame" x="85" y="90" width="150" height="28"/>
+                                <rect key="frame" x="85" y="84" width="150" height="28"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="Iqr-8q-T6O"/>
@@ -425,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z61-5C-Ooi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8867" y="-863"/>
+            <point key="canvasLocation" x="8946" y="-865"/>
         </scene>
         <!--Tab Bar Sticker Controller-->
         <scene sceneID="86g-9X-srZ">
@@ -440,7 +441,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qRp-r2-RdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-688" y="75"/>
+            <point key="canvasLocation" x="2661" y="75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MjA-oA-qgy">
@@ -456,7 +457,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Sa-C6-yfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1740" y="75"/>
+            <point key="canvasLocation" x="1429" y="75"/>
         </scene>
         <!--Title-->
         <scene sceneID="sPy-Ol-ttp">
@@ -604,7 +605,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ir-hd-kBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9684.375" y="-865"/>
+            <point key="canvasLocation" x="9923" y="-865"/>
         </scene>
         <!--Recents-->
         <scene sceneID="eKG-cM-Pvc">
@@ -649,7 +650,8 @@
                             <outlet property="delegate" destination="o0F-fe-2yc" id="2yW-Zi-QR1"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Chats" image="IG_Tabbar_Chat_Room" selectedImage="IG_Tabbar_Chat_Room" id="vth-sK-lcp">
+                    <tabBarItem key="tabBarItem" title="" image="IG_Tabbar_Chat_Room" selectedImage="IG_Tabbar_Chat_Room" id="vth-sK-lcp">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Recents" id="uni-kb-OpQ" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
@@ -663,7 +665,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3hZ-9r-pPP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="393" y="-1952"/>
+            <point key="canvasLocation" x="1429" y="-1953"/>
         </scene>
         <!--IGSettingStoryboard-->
         <scene sceneID="R9h-NJ-HBs">
@@ -671,7 +673,7 @@
                 <viewControllerPlaceholder storyboardName="IGSettingStoryboard" id="Uln-8l-K3Y" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnk-nR-i29" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="392" y="-1190"/>
+            <point key="canvasLocation" x="1429" y="-2670"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7e6-fX-8Mp">
@@ -1591,51 +1593,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lET-3R-lG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-686" y="-1952"/>
-        </scene>
-        <!--Chats-->
-        <scene sceneID="gO2-vq-nnY">
-            <objects>
-                <tableViewController id="lnn-LO-l7t" customClass="IGChatsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xLh-Dr-EGL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="Ire-BN-XDZ">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="VAU-qp-ejT">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VAU-qp-ejT" id="Mj4-Ex-eWS">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="lnn-LO-l7t" id="qsq-vs-vVU"/>
-                            <outlet property="delegate" destination="lnn-LO-l7t" id="FYQ-bx-fPF"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" tag="1" title="" image="IG_Tabbar_Chat_Off" selectedImage="IG_Tabbar_Chat_On" id="XT3-ee-7Kk">
-                        <inset key="imageInsets" minX="0.0" minY="60" maxX="0.0" maxY="45"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
-                    </tabBarItem>
-                    <navigationItem key="navigationItem" title="Chats" id="O9t-Iy-ktM"/>
-                    <connections>
-                        <outlet property="searchBar" destination="Ire-BN-XDZ" id="vqv-gS-e28"/>
-                        <segue destination="KJT-Hl-jm5" kind="show" identifier="showRoomMessages" id="m3u-p1-8tV"/>
-                        <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="hbz-f8-Hpu"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NcG-vN-1HE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1266" y="-1952"/>
+            <point key="canvasLocation" x="274" y="-1955"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DIf-Cp-KnE">
@@ -1654,96 +1612,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OS-QX-0uN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1740" y="-1952"/>
-        </scene>
-        <!--Groups-->
-        <scene sceneID="vDN-mf-nnb">
-            <objects>
-                <tableViewController id="XTU-9B-zWi" customClass="IGGroupsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xhu-2h-WvY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="4Aj-t8-X1G">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yFC-dk-1Je">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yFC-dk-1Je" id="AV5-JQ-v7r">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="XTU-9B-zWi" id="W3b-Kb-ufM"/>
-                            <outlet property="delegate" destination="XTU-9B-zWi" id="4bf-Rf-bJE"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" tag="2" title="" image="IG_Tabbar_Group_Off" selectedImage="IG_Tabbar_Group_On" id="Q4u-T1-NQz">
-                        <inset key="imageInsets" minX="0.0" minY="60" maxX="0.0" maxY="45"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
-                    </tabBarItem>
-                    <navigationItem key="navigationItem" title="Groups" id="lxH-uI-Dp1"/>
-                    <connections>
-                        <outlet property="searchBar" destination="4Aj-t8-X1G" id="1hq-wQ-IDC"/>
-                        <segue destination="KJT-Hl-jm5" kind="show" identifier="showRoomMessages" id="4Pl-n5-pIH"/>
-                        <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="skX-lt-yXs"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j5m-zA-McG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2153" y="-1952"/>
-        </scene>
-        <!--Channel-->
-        <scene sceneID="EZH-Wm-Jj6">
-            <objects>
-                <tableViewController id="ZlR-QV-eEC" customClass="IGChannelsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ml8-EY-otb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="start your search with tap on view" id="nj0-pT-pth">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nao-QW-Zxv">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nao-QW-Zxv" id="2K2-LP-hPP">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ZlR-QV-eEC" id="IVe-df-0Be"/>
-                            <outlet property="delegate" destination="ZlR-QV-eEC" id="KCK-y5-chT"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" tag="3" title="" image="IG_Tabbar_Channel_Off" selectedImage="IG_Tabbar_Channel_On" id="ZvZ-OM-omQ">
-                        <inset key="imageInsets" minX="0.0" minY="60" maxX="0.0" maxY="45"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
-                    </tabBarItem>
-                    <navigationItem key="navigationItem" title="Channel" id="PXt-DS-2oY"/>
-                    <connections>
-                        <outlet property="searchBar" destination="nj0-pT-pth" id="8Yc-h0-03d"/>
-                        <segue destination="KJT-Hl-jm5" kind="show" identifier="showRoomMessages" id="I27-tX-EAz"/>
-                        <segue destination="u0S-Sh-Wik" kind="show" identifier="showReportPage" id="l1W-zY-RFK"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gzb-g4-KQB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2988" y="-1952"/>
+            <point key="canvasLocation" x="-887" y="-1955"/>
         </scene>
         <!--Call-->
         <scene sceneID="koA-SO-dk7">
@@ -1771,14 +1640,15 @@
                             <outlet property="delegate" destination="A1t-3N-bJQ" id="aVG-Q6-WUL"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="2" title="Calls" image="IG_Tabbar_Call" selectedImage="IG_Tabbar_Call" id="oqI-zk-FQV">
+                    <tabBarItem key="tabBarItem" tag="2" title="" image="IG_Tabbar_Call" selectedImage="IG_Tabbar_Call" id="oqI-zk-FQV">
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Call" id="ata-Zx-iH3"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hN-bq-gbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4033" y="-2736"/>
+            <point key="canvasLocation" x="3893" y="-1953"/>
         </scene>
         <!--Forward Message Table View Controller-->
         <scene sceneID="oQf-k8-o4J">
@@ -2102,7 +1972,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6P-d8-kqG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1748" y="-862"/>
+            <point key="canvasLocation" x="2661" y="-865"/>
         </scene>
     </scenes>
     <resources>
@@ -2113,20 +1983,14 @@
         <image name="IG_Chat_Screen_Send" width="38" height="38"/>
         <image name="IG_Splash_Cute_2" width="300" height="300"/>
         <image name="IG_Tabbar_Call" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_On" width="37" height="37"/>
         <image name="IG_Tabbar_Chat_Room" width="37" height="37"/>
         <image name="IG_Tabbar_Discovery" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_On" width="37" height="37"/>
         <image name="Location_Marker" width="40" height="40"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jRj-hY-oEr"/>
-        <segue reference="ebc-Vg-0Gq"/>
+        <segue reference="k9M-cr-cw2"/>
+        <segue reference="R4P-x7-LEg"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>
