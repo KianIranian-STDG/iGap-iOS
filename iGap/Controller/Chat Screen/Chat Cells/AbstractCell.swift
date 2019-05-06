@@ -15,7 +15,7 @@ import RxSwift
 import MarkdownKit
 import IGProtoBuff
 
-class AbstractCell: IGMessageGeneralCollectionViewCell {
+class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelegate {
     
     var mainBubbleViewAbs: UIView!
     var forwardViewAbs: UIView!
@@ -67,9 +67,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
     var trailingAbs: Constraint?
     var imgMediaTopAbs: Constraint!
     var imgMediaHeightAbs: Constraint!
-    
+    var swipeGesture: UIPanGestureRecognizer!
+    var originalPoint: CGPoint!
+    var imgReply: UIImageView!
+
     let disposeBag = DisposeBag()
-    
+    var pan: UIPanGestureRecognizer!
     var isForward = false
     var isReply = false
     
@@ -80,8 +83,131 @@ class AbstractCell: IGMessageGeneralCollectionViewCell {
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
 
         self.backgroundColor = UIColor.clear
+        
+    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+
+
+    private func commonInit() {
+        self.backgroundColor = UIColor.clear
+        
+
+        imgReply = UIImageView()
+        imgReply.contentMode = .scaleAspectFit
+        imgReply.image = UIImage(named: "ig_message_reply")
+        //        deleteLabel2.text = "reply"
+        //        deleteLabel2.textColor = UIColor.black
+        imgReply.alpha = 0.5
+//        self.insertSubview(imgReply, belowSubview: self.contentView)
+        
+        pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
+        pan.delegate = self
+        self.addGestureRecognizer(pan)
+    }
+    override func prepareForReuse() {
+        self.contentView.frame = self.bounds
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if (pan.state == UIGestureRecognizer.State.changed) {
+            self.insertSubview(imgReply, belowSubview: self.contentView)
+            let p: CGPoint = pan.translation(in: self)
+            let width = self.contentView.frame.width
+            let height = self.contentView.frame.height
+            self.contentView.frame = CGRect(x: p.x,y: 0, width: width, height: height);
+            self.imgReply.frame = CGRect(x: p.x + width + imgReply.frame.size.width, y: (height/2) - (imgReply.frame.size.height) / 2 , width: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT), height: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+        }
+        else if (pan.state == UIGestureRecognizer.State.ended) || (pan.state == UIGestureRecognizer.State.cancelled) {
+            self.imgReply.removeFromSuperview()
+        }
+        
+    }
+    
+    @objc func onPan(_ pan: UIPanGestureRecognizer) {
+        if pan.state == UIGestureRecognizer.State.began {
+//            self.showReplyImage()
+            
+        } else if pan.state == UIGestureRecognizer.State.changed {
+            self.setNeedsLayout()
+        } else {
+            
+            let hasMovedToFarLeft = self.frame.maxX < UIScreen.main.bounds.width / 2
+            let shouldReply = abs(pan.velocity(in: self).x) > UIScreen.main.bounds.width / 2
+            
+            
+            let direction = pan.direction(in: superview!)
+            
+            if direction.contains(.Left) {
+//                print("||| LEFT")
+                
+                if (shouldReply) {
+                    
+                    let collectionView: UICollectionView = self.superview as! UICollectionView
+                    let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
+                    collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onPan(_:)), forItemAt: indexPath, withSender: nil)
+                    print("||||||||||||||REPLY||||||||||||||")
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.setNeedsLayout()
+                        self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!, cell: self)
+
+                        self.layoutIfNeeded()
+                    })
+                    
+                } else {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        self.setNeedsLayout()
+//                        self.hideReplyImage()
+                        self.layoutIfNeeded()
+                    })
+                    print("||||||||||||||NOTREPLY||||||||||||||")
+                    
+                }
+            } else if direction.contains(.Down) {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.setNeedsLayout()
+//                    self.hideReplyImage()
+                    self.layoutIfNeeded()
+                })
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.setNeedsLayout()
+//                    self.hideReplyImage()
+                    self.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    func hideReplyImage() {
+        self.imgReply.isHidden = true
+    }
+    func showReplyImage() {
+        self.imgReply.isHidden = false
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let direction = pan.direction(in: superview!)
+        
+        if direction.contains(.Left) {
+            return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+            
+        }
+        else {
+            return false
+        }
+    }
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         self.room = room
         self.realmRoomMessage = message

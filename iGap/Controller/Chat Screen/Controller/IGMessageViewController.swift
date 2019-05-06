@@ -120,7 +120,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var connectionStatus : IGAppManager.ConnectionStatus?
     var reportMessageId: Int64?
     var sendAsFile: Bool = false
-    
+    var swipeGesture: UIPanGestureRecognizer!
+    var originalPoint: CGPoint!
+
     let documentPickerIdentifiers = [String(kUTTypeURL), String(kUTTypeFileURL), String(kUTTypePDF), // file start
         String(kUTTypeGNUZipArchive), String(kUTTypeBzip2Archive), String(kUTTypeZipArchive),
         String(kUTTypeWebArchive), String(kUTTypeTXNTextAndMultimediaData), String(kUTTypeFlatRTFD),
@@ -2978,6 +2980,11 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         return 1
     }
     
+
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         /* if room was deleted close chat room */
@@ -2986,6 +2993,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
             cell.setUnknownMessage()
+            
             return cell
         }
         
@@ -3541,6 +3549,18 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             manageFailedMessage(cellMessage: cellMessage, cell: cell)
         } else {
             manageSendedMessage(cellMessage: cellMessage, cell: cell)
+        }
+    }
+    func swipToReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+        if cellMessage.status == IGRoomMessageStatus.sending {
+            return
+        }
+        
+        self.view.endEditing(true)
+        
+        if cellMessage.status == IGRoomMessageStatus.failed {
+        } else {
+            self.forwardOrReplyMessage(cellMessage)
         }
     }
     

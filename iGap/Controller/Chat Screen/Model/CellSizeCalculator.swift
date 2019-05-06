@@ -16,6 +16,7 @@ class CellSizeCalculator: NSObject {
     
     var cache : NSCache<NSString, AnyObject>
     private static let EXTRA_HEIGHT_RTL_OR_VOTE = 20
+    public static let IMG_REPLY_DEFAULT_HEIGHT = 30
     internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL_OR_VOTE - 7)
     
     static let sharedCalculator = CellSizeCalculator()
