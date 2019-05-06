@@ -75,7 +75,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         super.awakeFromNib()
         lastMessageStatusContainerView.layer.cornerRadius = 9.0
         lastMessageStatusContainerView.layer.masksToBounds = true
-        
+        unreadCountLabel.font = UIFont.igFont(ofSize: 12)
         contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.initialConfiguration()
         

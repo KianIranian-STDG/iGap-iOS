@@ -380,7 +380,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.placeholder = "MESSAGE".localizedNew
        
         inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-        inputTextView.minHeight = 25.0 // almost 8 lines
+//        inputTextView.minHeight = 25.0 // almost 8 lines
 
         inputTextView.maxHeight = 166.0 // almost 8 lines
         inputTextView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
@@ -463,7 +463,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
-        inputTextViewHeightConstraint.constant = 10.0
     }
 //    func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
 //        if gesture.state == UIGestureRecognizer.State.began {
@@ -1143,6 +1142,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         notification(register: true)
         updateObserver()
+        inputTextViewHeightConstraint.constant = 34.0
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
