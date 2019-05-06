@@ -142,11 +142,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let current : String = SMLangUtil.loadLanguage()
-        
-        //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        //        MCLocalization.sharedInstance().language = current
-
         initChangeLanguage()
         self.tableView.isUserInteractionEnabled = true
     }

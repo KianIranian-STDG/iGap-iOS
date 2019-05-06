@@ -10,8 +10,9 @@
 
 import IGProtoBuff
 import RealmSwift
+import PecPayment
 
-class IGHelperFinancial {
+class IGHelperFinancial: NSObject, CardToCardResult {
     
     private var viewController: UIViewController!
     
@@ -33,6 +34,9 @@ class IGHelperFinancial {
             self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
+        let cardToCard = UIAlertAction(title: "SETTING_FS_CARD_TO_CARD_BILLS".localizedNew, style: .default, handler: { (action) in
+            self.sendCardToCardRequest()
+        })
         
         let payBills = UIAlertAction(title: "SETTING_FS_PAY_BILLS".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBill.BillInfo = nil
@@ -71,6 +75,7 @@ class IGHelperFinancial {
         let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         option.addAction(mobileCharge)
+        option.addAction(cardToCard)
         option.addAction(payBills)
         option.addAction(trafficOffenses)
         option.addAction(mobileBillingInquiry)
@@ -81,4 +86,22 @@ class IGHelperFinancial {
     }
     
     
+    private func sendCardToCardRequest(){
+        IGGlobal.prgShow()
+        IGMplGetCardToCardToken.Generator.generate().success({ (protoResponse) in
+            IGGlobal.prgHide()
+            
+            if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
+                InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
+                                                MerchantVCArg: UIApplication.topViewController()!,
+                                                callback: self)
+            }
+        }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
+    
+    func ctcResult(encData: String, message: String, status: Int, resultCode: Int) {
+        
+    }
 }
