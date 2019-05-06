@@ -262,7 +262,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
         mainView.addGestureRecognizer(gesture)
         */
-        
         self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -303,6 +302,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 
             }
+            
         }
         
         if customizeBackItem {
@@ -372,6 +372,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         let inputTextViewInitialHeight:CGFloat = 22.0 //initial without reply || forward || attachment || text
         self.inputTextViewHeight = inputTextViewInitialHeight
+
         self.setInputBarHeight()
         self.managePinnedMessage()
         
@@ -379,7 +380,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.placeholder = "MESSAGE".localizedNew
        
         inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-        inputTextView.minHeight = 22.0 // almost 8 lines
+        inputTextView.minHeight = 25.0 // almost 8 lines
 
         inputTextView.maxHeight = 166.0 // almost 8 lines
         inputTextView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
@@ -462,6 +463,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
+        inputTextViewHeightConstraint.constant = 10.0
     }
 //    func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
 //        if gesture.state == UIGestureRecognizer.State.began {
@@ -3321,11 +3323,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                     let dateString = (message.creationTime!).localizedDate()
                     
                     txtFloatingDate.text = dateString.inLocalizedLanguage()
-                    print("|||||||DATE||||||")
-                    print(dateString)
-                    print(message.creationTime!)
-                    print(message.creationTime!.localizedDate())
-                    print("|||||||DATE-END||||||")
                     UIView.animate(withDuration: 0.5, animations: {
                         self.floatingDateView.alpha = 1.0
                     })
@@ -3456,7 +3453,7 @@ extension IGMessageViewController: GrowingTextViewDelegate {
         var inputBarHeight = height + 16.0
         
         inputTextViewHeightConstraint.constant = inputBarHeight - 12
-        
+
         if currentAttachment != nil {
             inputBarAttachmentViewBottomConstraint.constant = inputBarHeight
             inputBarHeight += 36
