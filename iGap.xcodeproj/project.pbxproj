@@ -14,6 +14,9 @@
 		8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413322391A6F00910E30 /* KPDropMenu.m */; };
 		8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413822391CEE00910E30 /* CheckInternet.swift */; };
 		8E1F41552239476500910E30 /* QRCodeReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E94B7282237E49F005F6868 /* QRCodeReader.framework */; };
+		8E25A7C322674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C222674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift */; };
+		8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */; };
+		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
 		8E8D8E19225CE39B00039191 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E18225CE39A00039191 /* strings.json */; };
@@ -587,6 +590,9 @@
 		8E1F413222391A6F00910E30 /* FRHyperLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRHyperLabel.m; sourceTree = "<group>"; };
 		8E1F413322391A6F00910E30 /* KPDropMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPDropMenu.m; sourceTree = "<group>"; };
 		8E1F413822391CEE00910E30 /* CheckInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInternet.swift; sourceTree = "<group>"; };
+		8E25A7C222674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSettingChnageLanguageTableViewController.swift; sourceTree = "<group>"; };
+		8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
@@ -1452,6 +1458,8 @@
 				FA0953081E1B88660043ED3F /* Setting */,
 				FA50A8C61DD35EFD00C6D2EA /* Splash and Register */,
 				FA68A20F1DD9B0CD003A6651 /* Tabbar Sub Controllers */,
+				8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */,
+				8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -1513,6 +1521,7 @@
 				FAA2A859200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift */,
 				FA8D056C20739C96007861E7 /* IGSettingAddContactViewController.swift */,
 				FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */,
+				8E25A7C222674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -3021,6 +3030,7 @@
 				FA8D056D20739C96007861E7 /* IGSettingAddContactViewController.swift in Sources */,
 				FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */,
 				FA8204382025C97300A795D5 /* ImageCell.swift in Sources */,
+				8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */,
 				FA27F74020BD77ED00EC6A97 /* api.key in Sources */,
 				FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
@@ -3109,6 +3119,7 @@
 				FA0953671E1B97700043ED3F /* IGSettingPrivacy&SecurityPasscodeLockTableViewController.swift in Sources */,
 				FAA2A85A200A31CB00CAA7C7 /* IGSettingAccountBioTableViewController.swift in Sources */,
 				93AA67BE1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift in Sources */,
+				8E25A7C322674601004A5BC0 /* IGSettingChnageLanguageTableViewController.swift in Sources */,
 				FA85066C22670703002EEBF7 /* QRMainTabbarController.swift in Sources */,
 				93193F381E5814980039AC0C /* IGGroupInfoAdminListTableViewController.swift in Sources */,
 				FA63BAAD1DD70F09000B60AD /* IGRequestGroup.swift in Sources */,
@@ -3120,6 +3131,7 @@
 				93AA67CE1E4F407E0053380C /* IGChannelInfoMemberListTableViewCell.swift in Sources */,
 				FA50A8D21DD35EFD00C6D2EA /* IGSplashScreenViewController.swift in Sources */,
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
+				8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */,
 				93193F3C1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift in Sources */,
 				FA09538B1E1B97E20043ED3F /* IGNewChannelChoosePublicOrPrivateTableViewController.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,

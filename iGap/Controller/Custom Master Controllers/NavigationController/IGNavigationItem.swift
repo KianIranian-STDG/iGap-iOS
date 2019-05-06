@@ -221,6 +221,8 @@ class IGNavigationItem: UINavigationItem {
         } else {
             labelFrame = CGRect(x: -50, y: 0, width: 100, height:40)
             label = UILabel(frame: labelFrame)
+            label.font = UIFont.igFont(ofSize: 15.0, weight: .bold)
+
         }
         label.textAlignment = .right
         label.text = title

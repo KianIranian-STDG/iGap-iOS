@@ -268,6 +268,7 @@ class IGRecentsTableViewController: UITableViewController, MessageReceiveObserve
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
         DispatchQueue.main.async {
             if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
                 IGTabBarController.currentTabStatic = .Recent

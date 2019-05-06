@@ -13,7 +13,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingHaveCheckmarkOntheLeftTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
     
     var mode = ""
     var destructionTime : Int32 = -1
@@ -39,6 +39,10 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: UITableViewController 
             self.doneButtonClicked()
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,9 +60,9 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: UITableViewController 
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeftCheckmarkCell", for: indexPath) as! IGSettingHaveCheckmarkOntheLeftTableViewCell
         if mode == "Self-Destruction" {
             if indexPath.row == 0 {
-              cell.titleLable.text = "1 month"
+              cell.titleLable.text = "1 " + "MONTH".localizedNew
             } else {
-              cell.titleLable.text = "\(items[indexPath.row])" + " months"
+              cell.titleLable.text = "\(items[indexPath.row]) " + " MONTHS".localizedNew
             }
             
             if currentUser.selfRemove == -1 && items[indexPath.row] == 12 {

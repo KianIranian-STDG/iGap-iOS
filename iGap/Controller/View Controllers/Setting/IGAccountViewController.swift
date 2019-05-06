@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 import IGProtoBuff
 
-class IGAccountViewController: UITableViewController , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
+class IGAccountViewController: BaseTableViewController , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
     
     @IBOutlet weak var emailIndicator: UIActivityIndicatorView!
     @IBOutlet weak var phoneNumberEntryLabel: UILabel!
@@ -26,6 +26,18 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
     @IBOutlet weak var representerLabel: IGLabel!
     @IBOutlet weak var scoreLabel: IGLabel!
     @IBOutlet weak var scoreIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var lblNikname: UILabel!
+    @IBOutlet weak var lblPhoneNUmber: UILabel!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblBio: UILabel!
+    @IBOutlet weak var lblRefferal: UILabel!
+    @IBOutlet weak var lblDeleteAccount: UILabel!
+    @IBOutlet weak var lblSelfDestruction: UILabel!
+    @IBOutlet weak var lblSelfDestructionHint: UILabel!
+    @IBOutlet weak var lblLogOut: UILabel!
+
     
     var allowSetRepresentative = false
     var currentUser: IGRegisteredUser!
@@ -76,7 +88,27 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
             getSelfRemove()
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initChangeLanguage()
+    }
+    //MARK: change Language Handler
+    func initChangeLanguage() {
+//        UIView.appearance().semanticContentAttribute = .forceRightToLeft
+
+        lblNikname.text = SMLangUtil.changeLblText(tag: lblNikname.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblPhoneNUmber.text = SMLangUtil.changeLblText(tag: lblPhoneNUmber.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblUserName.text = SMLangUtil.changeLblText(tag: lblUserName.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblEmail.text = SMLangUtil.changeLblText(tag: lblEmail.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblBio.text = SMLangUtil.changeLblText(tag: lblBio.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblRefferal.text = SMLangUtil.changeLblText(tag: lblRefferal.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblDeleteAccount.text = SMLangUtil.changeLblText(tag: lblDeleteAccount.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblSelfDestruction.text = SMLangUtil.changeLblText(tag: lblSelfDestruction.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblSelfDestructionHint.text = SMLangUtil.changeLblText(tag: lblSelfDestructionHint.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblLogOut.text = SMLangUtil.changeLblText(tag: lblLogOut.tag, parentViewController: NSStringFromClass(self.classForCoder))
+
+    }
+
     //MARK: Account details
     func showAccountDetail(){
         let currentUserId = IGAppManager.sharedManager.userID()
@@ -106,11 +138,11 @@ class IGAccountViewController: UITableViewController , UINavigationControllerDel
             if self.currentUser.selfRemove == -1 {
                 self.selfDestructionLabel.text = ""
             } else if self.currentUser.selfRemove == 12 {
-                self.selfDestructionLabel.text = "1 year"
+                self.selfDestructionLabel.text = "1 " + "YEAR".localizedNew
             } else if self.currentUser.selfRemove == 1 {
-                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + " month"
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + " MONTH".localizedNew
             } else {
-                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + " months"
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + " MONTHS".localizedNew
             }
         }
     }

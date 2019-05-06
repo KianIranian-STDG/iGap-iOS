@@ -27,6 +27,8 @@ class IGTabBarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         selectedItemTitleMustbeBold()
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

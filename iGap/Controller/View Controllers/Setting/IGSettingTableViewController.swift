@@ -18,7 +18,7 @@ import Gifu
 import NVActivityIndicatorView
 import MapKit
 
-class IGSettingTableViewController: UITableViewController , NVActivityIndicatorViewable, CLLocationManagerDelegate {
+class IGSettingTableViewController: BaseTableViewController, NVActivityIndicatorViewable, CLLocationManagerDelegate {
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userAvatarView: IGAvatarView!
@@ -26,6 +26,21 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
     @IBOutlet weak var versionCell: UITableViewCell!
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var switchInAppBrowser: UISwitch!
+
+    @IBOutlet weak var lblAccount: UILabel!
+    @IBOutlet weak var lblContacts: UILabel!
+    @IBOutlet weak var lblNearby: UILabel!
+    @IBOutlet weak var lblWallet: UILabel!
+    @IBOutlet weak var lblFinancialServices: UILabel!
+    @IBOutlet weak var lblChangeLang: UILabel!
+    @IBOutlet weak var lblChatWallpaper: UILabel!
+    @IBOutlet weak var lblInAppBrowser: UILabel!
+    @IBOutlet weak var lblPrivacy: UILabel!
+    @IBOutlet weak var lblCache: UILabel!
+    @IBOutlet weak var lblInviteFreind: UILabel!
+    @IBOutlet weak var lblAbout: UILabel!
+    @IBOutlet weak var lblQRScan: UILabel!
+
     
     var imagePicker = UIImagePickerController()
     let locationManager = CLLocationManager()
@@ -44,9 +59,11 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
     @IBAction func switchInAppBrowser(_ sender: UISwitch) {
         IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: sender.isOn)
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         requestToGetAvatarList()
         let currentUserId = IGAppManager.sharedManager.userID()
         
@@ -63,7 +80,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             userAvatarView.avatarImageView?.addGestureRecognizer(tap)
 
             let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "Done", title: "Settings")
+            navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "SETTING_VIEW".localizedNew)
         }
         
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -85,9 +102,7 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         imagePicker.delegate = self
         
         
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            self.versionLabel.text = "iGap iOS Client V \(version)"
-        }
+      
         
         if IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
             switchInAppBrowser.isOn = true
@@ -96,12 +111,54 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         }
         
     }
+    func initChangeLanguage() {
+
+        lblAccount.text = "SETTING_PAGE_ACCOUNT".localizedNew
+        lblContacts.text = "SETTING_PAGE_CONTACTS".localizedNew
+        lblNearby.text = "SETTING_PAGE_NEARBY".localizedNew
+        lblWallet.text = "SETTING_PAGE_WALLET".localizedNew
+        lblFinancialServices.text = "SETTING_PAGE_FINANCIAL_SERVICES".localizedNew
+        lblChangeLang.text = "SETTING_PAGE_CHANGE_LANGUAGE".localizedNew
+        lblChatWallpaper.text = "SETTING_PAGE_CHAT_WALLPAPER".localizedNew
+        lblInAppBrowser.text = "SETTING_PAGE_IN_APP_BROWSER".localizedNew
+        lblPrivacy.text = "SETTING_PAGE_PRIVACY_AND_SECURITY".localizedNew
+        lblCache.text = "SETTING_PAGE_CACHE_SETTINGS".localizedNew
+        lblInviteFreind.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
+        lblAbout.text = "SETTING_PAGE_ABOUT".localizedNew
+        lblQRScan.text = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.versionLabel.text = "SETTING_PAGE_FOOTER_VERSION".localizedNew + " \(version)"
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.isUserInteractionEnabled = true
-       // requestToGetAvatarList()
+        // requestToGetAvatarList()
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let current : String = SMLangUtil.loadLanguage()
+        
+        //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        //        MCLocalization.sharedInstance().language = current
+        switch current {
+        case "fa" :
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            
+            
+        case "en" :
+            UIView.appearance().semanticContentAttribute = .forceLeftToRight
+            
+        case "ar" :
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            //            self.loadViewIfNeeded()
+            
+        default :
+            break
+        }
+
+        initChangeLanguage()
         self.tableView.isUserInteractionEnabled = true
     }
     
@@ -328,14 +385,14 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
         switch section {
         case 0:
             if IGAppManager.sharedManager.mplActive() && IGAppManager.sharedManager.walletActive() {
-                return 11
+                return 12
             }
             else if IGAppManager.sharedManager.mplActive() && !(IGAppManager.sharedManager.walletActive()) {
-                return 10
+                return 11
 
             }
             else {
-                return 9
+                return 10
 
             }
         case 1:
@@ -385,10 +442,15 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
             }
             else if rowIndex == 4 {
                 IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()
-            } else if rowIndex == 5 {
+            }
+            else if rowIndex == 5 {
+                self.tableView.isUserInteractionEnabled = false
+                performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
+            }
+            else if rowIndex == 6 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "showWallpaperOptionPage", sender: self)
-            } else if rowIndex == 6 { // in app browser
+            } else if rowIndex == 7 { // in app browser
                 
                 if switchInAppBrowser.isOn {
                     switchInAppBrowser.setOn(false, animated: true)
@@ -398,17 +460,17 @@ class IGSettingTableViewController: UITableViewController , NVActivityIndicatorV
                     IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: true)
                 }
                 
-            } else if rowIndex == 7 {
-                self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "GoToPrivacyAndPolicySettingsPage", sender: self)
             } else if rowIndex == 8 {
                 self.tableView.isUserInteractionEnabled = false
-                performSegue(withIdentifier: "showCacheSetting", sender: self)
+                performSegue(withIdentifier: "GoToPrivacyAndPolicySettingsPage", sender: self)
             } else if rowIndex == 9 {
+                self.tableView.isUserInteractionEnabled = false
+                performSegue(withIdentifier: "showCacheSetting", sender: self)
+            } else if rowIndex == 10 {
                 shareContent = "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net"
                 let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
                 present(activityViewController, animated: true, completion: nil)
-            } else if rowIndex == 10 {
+            } else if rowIndex == 11 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToAboutSettingPage", sender: self)
             }

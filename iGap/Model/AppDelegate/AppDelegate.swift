@@ -38,9 +38,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
 //        MCLocalization.load(from: core_utils.getResourcesBundle().url(forResource: "strings.json", withExtension: nil), defaultLanguage: "en")
 
         let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
-        
-        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: "en")
-        MCLocalization.sharedInstance().language = "en"
+
+        print(SMLangUtil.loadLanguage())
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
 
         SMUserManager.clearKeychainOnFirstRun()
         SMUserManager.loadFromKeychain()
@@ -207,7 +208,12 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
     }
     
-    
+    func resetApp() {
+        UIApplication.shared.windows[0].rootViewController = UIStoryboard(
+            name: "Main",
+            bundle: nil
+            ).instantiateInitialViewController()
+    }
     func logoutAndShowRegisterViewController(mainRoot: Bool = false) {
         UIApplication.shared.unregisterForRemoteNotifications()
         

@@ -16,7 +16,11 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         super.viewDidLoad()
         self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        
+    }
     override func popViewController(animated: Bool) -> UIViewController? {
         return super.popViewController(animated: animated)
     }
