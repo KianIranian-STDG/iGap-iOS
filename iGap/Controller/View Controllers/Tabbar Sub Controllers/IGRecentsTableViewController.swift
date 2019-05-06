@@ -83,382 +83,126 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         navigationItem.setChatListsNavigationItems()
         let current : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
-        //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-        //        MCLocalization.sharedInstance().language = current
-        switch current {
-        case "fa" :
+        
+        navigationItem.rightViewContainer?.addAction {
             
-            navigationItem.rightViewContainer?.addAction {
-                self.performSegue(withIdentifier: "showSettings", sender: self)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                navigationItem.leftViewContainer?.addAction {
-                    
-                    if IGTabBarController.currentTabStatic == .Call {
-                        
-                        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-                        
-                        let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
-                            let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                            createChat.forceCall = true
-                            self.navigationController!.pushViewController(createChat, animated: true)
-                        })
-                        
-                        let clearCallLog = UIAlertAction(title: "Clear Call History", style: .default, handler: { (action) in
-                            if IGAppManager.sharedManager.userID() != nil {
-                                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                                hud.mode = .indeterminate
-                                
-                                let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
-                                guard let clearId = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
-                                    return
-                                }
-                                
-                                IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
-                                    DispatchQueue.main.async {
-                                        if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
-                                            IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
-                                            hud.hide(animated: true)
-                                        }
-                                    }
-                                }).error({ (errorCode, waitTime) in
-                                    DispatchQueue.main.async {
-                                        switch errorCode {
-                                        case .timeout:
-                                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                            alert.addAction(okAction)
-                                            self.present(alert, animated: true, completion: nil)
-                                        default:
-                                            break
-                                        }
-                                        self.hud.hide(animated: true)
-                                    }
-                                }).send()
-                            }
-                        })
-                        
-                        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                        
-                        alertController.addAction(newChat)
-                        alertController.addAction(clearCallLog)
-                        alertController.addAction(cancel)
-                        
-                        self.present(alertController, animated: true, completion: nil)
-                        return
-                    }
-                    
-                    let alertController = UIAlertController(title: "NEW_MESSAGES".localizedNew, message: "WHICH_TYPE_OF".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-                    let myCloud = UIAlertAction(title: "MY_CLOUD".localizedNew, style: .default, handler: { (action) in
-                        if let userId = IGAppManager.sharedManager.userID() {
-                            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                            hud.mode = .indeterminate
-                            IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
-                                DispatchQueue.main.async {
-                                    switch protoResponse {
-                                    case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                        //segue to created chat
-                                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                                        object: nil,
-                                                                        userInfo: ["room": roomId])
-                                        hud.hide(animated: true)
-                                        break
-                                    default:
-                                        break
-                                    }
-                                }
-                            }).error({ (errorCode, waitTime) in
-                                DispatchQueue.main.async {
-                                    hud.hide(animated: true)
-                                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                                    
-                                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                    alertC.addAction(cancel)
-                                    self.present(alertC, animated: true, completion: nil)
-                                }
-                            }).send()
-                        }
-                    })
-                    let newChat = UIAlertAction(title: "NEW_C_C".localizedNew, style: .default, handler: { (action) in
-                        let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                        self.navigationController!.pushViewController(createChat, animated: true)
-                    })
-                    let newGroup = UIAlertAction(title: "NEW_GROUP".localizedNew, style: .default, handler: { (action) in
-                        let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                        createGroup.mode = "CreateGroup"
-                        self.navigationController!.pushViewController(createGroup, animated: true)
-                    })
-                    let newChannel = UIAlertAction(title: "NEW_CHANNEL".localizedNew, style: .default, handler: { (action) in
-                        let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                        self.navigationController!.pushViewController(createChannel, animated: true)
-                    })
-                    
-                    let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
-                        
-                    })
-                    
-                    alertController.addAction(myCloud)
-                    alertController.addAction(newChat)
-                    alertController.addAction(newGroup)
-                    alertController.addAction(newChannel)
-                    alertController.addAction(cancel)
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    
-                }
-            }
-            
-            
-        case "en" :
-            
-            navigationItem.rightViewContainer?.addAction {
+            if IGTabBarController.currentTabStatic == .Call {
                 
-                if IGTabBarController.currentTabStatic == .Call {
-                    
-                    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-                    
-                    let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
-                        let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                        createChat.forceCall = true
-                        self.navigationController!.pushViewController(createChat, animated: true)
-                    })
-                    
-                    let clearCallLog = UIAlertAction(title: "Clear Call History", style: .default, handler: { (action) in
-                        if IGAppManager.sharedManager.userID() != nil {
-                            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                            hud.mode = .indeterminate
-                            
-                            let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
-                            guard let clearId = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
-                                return
-                            }
-                            
-                            IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
-                                DispatchQueue.main.async {
-                                    if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
-                                        IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
-                                        hud.hide(animated: true)
-                                    }
-                                }
-                            }).error({ (errorCode, waitTime) in
-                                DispatchQueue.main.async {
-                                    switch errorCode {
-                                    case .timeout:
-                                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                        alert.addAction(okAction)
-                                        self.present(alert, animated: true, completion: nil)
-                                    default:
-                                        break
-                                    }
-                                    self.hud.hide(animated: true)
-                                }
-                            }).send()
-                        }
-                    })
-                    
-                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    
-                    alertController.addAction(newChat)
-                    alertController.addAction(clearCallLog)
-                    alertController.addAction(cancel)
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    return
-                }
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
                 
-                let alertController = UIAlertController(title: "NEW_MESSAGES".localizedNew, message: "WHICH_TYPE_OF".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-                let myCloud = UIAlertAction(title: "MY_CLOUD".localizedNew, style: .default, handler: { (action) in
-                    if let userId = IGAppManager.sharedManager.userID() {
+                let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
+                    let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                    createChat.forceCall = true
+                    self.navigationController!.pushViewController(createChat, animated: true)
+                })
+                
+                let clearCallLog = UIAlertAction(title: "Clear Call History", style: .default, handler: { (action) in
+                    if IGAppManager.sharedManager.userID() != nil {
                         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         hud.mode = .indeterminate
-                        IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
+                        
+                        let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
+                        guard let clearId = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
+                            return
+                        }
+                        
+                        IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
                             DispatchQueue.main.async {
-                                switch protoResponse {
-                                case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                                    let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                    //segue to created chat
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                                    object: nil,
-                                                                    userInfo: ["room": roomId])
+                                if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
+                                    IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
                                     hud.hide(animated: true)
-                                    break
-                                default:
-                                    break
                                 }
                             }
                         }).error({ (errorCode, waitTime) in
                             DispatchQueue.main.async {
-                                hud.hide(animated: true)
-                                let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                                
-                                let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                alertC.addAction(cancel)
-                                self.present(alertC, animated: true, completion: nil)
+                                switch errorCode {
+                                case .timeout:
+                                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                    alert.addAction(okAction)
+                                    self.present(alert, animated: true, completion: nil)
+                                default:
+                                    break
+                                }
+                                self.hud.hide(animated: true)
                             }
                         }).send()
                     }
                 })
-                let newChat = UIAlertAction(title: "NEW_C_C".localizedNew, style: .default, handler: { (action) in
-                    let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                    self.navigationController!.pushViewController(createChat, animated: true)
-                })
-                let newGroup = UIAlertAction(title: "NEW_GROUP".localizedNew, style: .default, handler: { (action) in
-                    let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                    createGroup.mode = "CreateGroup"
-                    self.navigationController!.pushViewController(createGroup, animated: true)
-                })
-                let newChannel = UIAlertAction(title: "NEW_CHANNEL".localizedNew, style: .default, handler: { (action) in
-                    let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                    self.navigationController!.pushViewController(createChannel, animated: true)
-                })
                 
-                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
-                    
-                })
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 
-                alertController.addAction(myCloud)
                 alertController.addAction(newChat)
-                alertController.addAction(newGroup)
-                alertController.addAction(newChannel)
+                alertController.addAction(clearCallLog)
                 alertController.addAction(cancel)
                 
                 self.present(alertController, animated: true, completion: nil)
-                
+                return
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                navigationItem.leftViewContainer?.addAction {
-                    self.performSegue(withIdentifier: "showSettings", sender: self)
+            
+            let alertController = UIAlertController(title: "NEW_MESSAGES".localizedNew, message: "WHICH_TYPE_OF".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let myCloud = UIAlertAction(title: "MY_CLOUD".localizedNew, style: .default, handler: { (action) in
+                if let userId = IGAppManager.sharedManager.userID() {
+                    let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    hud.mode = .indeterminate
+                    IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                //segue to created chat
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
+                                                                object: nil,
+                                                                userInfo: ["room": roomId])
+                                hud.hide(animated: true)
+                                break
+                            default:
+                                break
+                            }
+                        }
+                    }).error({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            hud.hide(animated: true)
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                    }).send()
                 }
-            }
+            })
+            let newChat = UIAlertAction(title: "NEW_C_C".localizedNew, style: .default, handler: { (action) in
+                let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                self.navigationController!.pushViewController(createChat, animated: true)
+            })
+            let newGroup = UIAlertAction(title: "NEW_GROUP".localizedNew, style: .default, handler: { (action) in
+                let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                createGroup.mode = "CreateGroup"
+                self.navigationController!.pushViewController(createGroup, animated: true)
+            })
+            let newChannel = UIAlertAction(title: "NEW_CHANNEL".localizedNew, style: .default, handler: { (action) in
+                let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                self.navigationController!.pushViewController(createChannel, animated: true)
+            })
             
-        case "ar" :
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
+                
+            })
             
-
-            navigationItem.rightViewContainer?.addAction {
+            alertController.addAction(myCloud)
+            alertController.addAction(newChat)
+            alertController.addAction(newGroup)
+            alertController.addAction(newChannel)
+            alertController.addAction(cancel)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            navigationItem.leftViewContainer?.addAction {
                 self.performSegue(withIdentifier: "showSettings", sender: self)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                navigationItem.leftViewContainer?.addAction {
-                    
-                    if IGTabBarController.currentTabStatic == .Call {
-                        
-                        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-                        
-                        let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
-                            let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                            createChat.forceCall = true
-                            self.navigationController!.pushViewController(createChat, animated: true)
-                        })
-                        
-                        let clearCallLog = UIAlertAction(title: "Clear Call History", style: .default, handler: { (action) in
-                            if IGAppManager.sharedManager.userID() != nil {
-                                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                                hud.mode = .indeterminate
-                                
-                                let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
-                                guard let clearId = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
-                                    return
-                                }
-                                
-                                IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
-                                    DispatchQueue.main.async {
-                                        if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
-                                            IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
-                                            hud.hide(animated: true)
-                                        }
-                                    }
-                                }).error({ (errorCode, waitTime) in
-                                    DispatchQueue.main.async {
-                                        switch errorCode {
-                                        case .timeout:
-                                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                            alert.addAction(okAction)
-                                            self.present(alert, animated: true, completion: nil)
-                                        default:
-                                            break
-                                        }
-                                        self.hud.hide(animated: true)
-                                    }
-                                }).send()
-                            }
-                        })
-                        
-                        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                        
-                        alertController.addAction(newChat)
-                        alertController.addAction(clearCallLog)
-                        alertController.addAction(cancel)
-                        
-                        self.present(alertController, animated: true, completion: nil)
-                        return
-                    }
-                    
-                    let alertController = UIAlertController(title: "NEW_MESSAGES".localizedNew, message: "WHICH_TYPE_OF".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-                    let myCloud = UIAlertAction(title: "MY_CLOUD".localizedNew, style: .default, handler: { (action) in
-                        if let userId = IGAppManager.sharedManager.userID() {
-                            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                            hud.mode = .indeterminate
-                            IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
-                                DispatchQueue.main.async {
-                                    switch protoResponse {
-                                    case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                        //segue to created chat
-                                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                                        object: nil,
-                                                                        userInfo: ["room": roomId])
-                                        hud.hide(animated: true)
-                                        break
-                                    default:
-                                        break
-                                    }
-                                }
-                            }).error({ (errorCode, waitTime) in
-                                DispatchQueue.main.async {
-                                    hud.hide(animated: true)
-                                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
-                                    
-                                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                                    alertC.addAction(cancel)
-                                    self.present(alertC, animated: true, completion: nil)
-                                }
-                            }).send()
-                        }
-                    })
-                    let newChat = UIAlertAction(title: "NEW_C_C".localizedNew, style: .default, handler: { (action) in
-                        let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                        self.navigationController!.pushViewController(createChat, animated: true)
-                    })
-                    let newGroup = UIAlertAction(title: "NEW_GROUP".localizedNew, style: .default, handler: { (action) in
-                        let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                        createGroup.mode = "CreateGroup"
-                        self.navigationController!.pushViewController(createGroup, animated: true)
-                    })
-                    let newChannel = UIAlertAction(title: "NEW_CHANNEL".localizedNew, style: .default, handler: { (action) in
-                        let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                        self.navigationController!.pushViewController(createChannel, animated: true)
-                    })
-                    
-                    let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
-                        
-                    })
-                    
-                    alertController.addAction(myCloud)
-                    alertController.addAction(newChat)
-                    alertController.addAction(newGroup)
-                    alertController.addAction(newChannel)
-                    alertController.addAction(cancel)
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    
-                }
-            }
-            
-        default :
-            break
         }
     }
     
@@ -761,47 +505,47 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
         cell.setRoom(room: rooms![indexPath.row])
-        
+
         let room = cell.room!
-        
+
         var muteTitle = "MUTE".localizedNew
         if room.mute == IGRoom.IGRoomMute.mute {
             muteTitle = "UN_MUTE".localizedNew
         }
-        
+
         var pinTitle = "PINN".localizedNew
         if room.pinId > 0 {
             pinTitle = "UNPINN".localizedNew
         }
-        
+
         let btnMuteSwipeCell = MGSwipeButton(title: muteTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
-                
+
             } else {
                 self.muteRoom(room: room)
             }
             return true
         })
-        
+
         let btnPinSwipeCell = MGSwipeButton(title: pinTitle, backgroundColor: UIColor.swipeBlueGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
-                
+
             } else {
                 self.pinRoom(room: room)
             }
             return true
         })
-        
+
         let btnMoreSwipeCell = MGSwipeButton(title: "MORE".localizedNew, backgroundColor: UIColor.swipeDarkBlue(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-            
+
             let title = room.title != nil ? room.title! : "BTN_DELETE".localizedNew
             let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
             let clear = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
@@ -812,7 +556,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-                        
+
                     } else {
                         self.clearChatMessageHistory(room: room)
                     }
@@ -822,7 +566,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-                        
+
                     } else {
                         self.clearGroupMessageHistory(room: room)
                     }
@@ -830,43 +574,43 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 }
             })
-            
+
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-                    
+
                 } else {
                     self.muteRoom(room: room)
                 }
             })
-            
+
             let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-                    
+
                 } else {
                     self.pinRoom(room: room)
                 }
             })
-            
+
             let report = UIAlertAction(title: "REPORT".localizedNew, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-                    
+
                 } else {
                     self.report(room: room)
                 }
             })
-            
+
             let remove = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
@@ -875,7 +619,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-                        
+
                     } else {
                         self.deleteChat(room: room)
                     }
@@ -886,7 +630,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-                        
+
                     } else {
                         self.deleteGroup(room: room)
                     }
@@ -903,7 +647,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 }
             })
-            
+
             let leave = UIAlertAction(title: "LEAVE".localizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
@@ -914,8 +658,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-                        
-                        
+
+
                     } else {
                         self.leaveGroup(room: room)
                     }
@@ -925,26 +669,26 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-                        
-                        
+
+
                     } else {
                         self.leaveChannel(room: room)
                     }
                 }
             })
-            
+
             let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-            
+
             if room.type == .chat || room.type == .group {
                 alertC.addAction(clear)
             }
-            
+
             if !IGHelperPromote.isPromotedRoom(room: room) {
                 alertC.addAction(pin)
             }
             alertC.addAction(mute)
             alertC.addAction(report)
-            
+
             if room.chatRoom != nil {
                 if !IGHelperPromote.isPromotedRoom(room: room) {
                     alertC.addAction(remove)
@@ -966,30 +710,30 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }
                 }
             }
-            
+
             alertC.addAction(cancel)
-            
+
             self.present(alertC, animated: true, completion: nil)
-            
+
             return true
         })
-        
-        
+
+
         var buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
         if IGHelperPromote.isPromotedRoom(room: room) {
             buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
         }
         cell.rightButtons = buttons
         removeButtonsUnderline(buttons: buttons)
-        
+
         cell.rightSwipeSettings.transition = MGSwipeTransition.border
         cell.rightExpansion.buttonIndex = 0
         cell.rightExpansion.fillOnTrigger = true
         cell.rightExpansion.threshold = 1.5
-        
+
         cell.clipsToBounds = true
         cell.swipeBackgroundColor = UIColor.clear
-        
+
         cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets.zero
         
@@ -1005,7 +749,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRoomForSegue = rooms![indexPath.row]
         self.tableView.isUserInteractionEnabled = false
-        currentPageName = "iGap.IGAccountViewController"
+//        currentPageName = "iGap.IGAccountViewController"
 
         performSegue(withIdentifier: "showRoomMessages", sender: self)
     }

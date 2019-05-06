@@ -46,6 +46,9 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     @IBOutlet weak var imgMute: UIImageView!
     @IBOutlet weak var imgVerified: UIImageView!
     
+ 
+    
+    
     var avatarImage: IGAvatarView!
     let currentLoggedInUserID = IGAppManager.sharedManager.userID()
     
@@ -139,9 +142,9 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     func initialConfiguration() {
         self.selectionStyle = .none
         lastMessageStatusContainerView.backgroundColor = UIColor.black
-        nameLabel.text = ""
-        lastMessageLabel.text = ""
-        timeLabel.text = ""
+        nameLabel.text?.removeAll()
+        lastMessageLabel.text?.removeAll()
+        timeLabel.text?.removeAll()
         deliveryStateImageView.image = nil
         roomVariableFromRoomManagerCache = nil
         roomTypeIndicatorImageView.image = nil
