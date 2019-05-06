@@ -74,14 +74,11 @@ class IGAvatarView: UIView {
     func setUser(_ user: IGRegisteredUser, showMainAvatar: Bool = false) {
         self.avatarImageView!.image = nil
         self.initialLettersLabel!.text = user.initials
-        
         let color = UIColor.hexStringToUIColor(hex: user.color)
         self.initialLettersView!.backgroundColor = color
-        
         if let avatar = user.avatar {
             self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
         }
-        
         if self.frame.size.width < 40 {
             self.initialLettersLabel!.font = UIFont.igFont(ofSize: 10.0)
         } else if self.frame.size.width < 60 {
@@ -89,7 +86,6 @@ class IGAvatarView: UIView {
         } else {
             self.initialLettersLabel!.font = UIFont.igFont(ofSize: 17.0)
         }
-        
     }
     
     func setRoom(_ room: IGRoom, showMainAvatar: Bool = false) {
@@ -130,6 +126,6 @@ class IGAvatarView: UIView {
     }
     
     func setImage(_ image: UIImage) {
-        self.avatarImageView!.image = image
+        self.avatarImageView!.image = UIImage(named: "AppIcon")
     }
 }

@@ -495,7 +495,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms!.count
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
+
+        print(indexPath.row)
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
@@ -540,7 +545,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         })
 
         let btnMoreSwipeCell = MGSwipeButton(title: "MORE".localizedNew, backgroundColor: UIColor.swipeDarkBlue(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-
+            
             let title = room.title != nil ? room.title! : "BTN_DELETE".localizedNew
             let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
             let clear = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
@@ -551,7 +556,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-
+                        
                     } else {
                         self.clearChatMessageHistory(room: room)
                     }
@@ -561,7 +566,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-
+                        
                     } else {
                         self.clearGroupMessageHistory(room: room)
                     }
@@ -569,43 +574,43 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 }
             })
-
+            
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-
+                    
                 } else {
                     self.muteRoom(room: room)
                 }
             })
-
+            
             let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-
+                    
                 } else {
                     self.pinRoom(room: room)
                 }
             })
-
+            
             let report = UIAlertAction(title: "REPORT".localizedNew, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-
+                    
                 } else {
                     self.report(room: room)
                 }
             })
-
+            
             let remove = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
@@ -614,7 +619,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-
+                        
                     } else {
                         self.deleteChat(room: room)
                     }
@@ -625,7 +630,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-
+                        
                     } else {
                         self.deleteGroup(room: room)
                     }
@@ -642,7 +647,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 }
             })
-
+            
             let leave = UIAlertAction(title: "LEAVE".localizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
@@ -653,8 +658,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-
-
+                        
+                        
                     } else {
                         self.leaveGroup(room: room)
                     }
@@ -664,26 +669,26 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
-
-
+                        
+                        
                     } else {
                         self.leaveChannel(room: room)
                     }
                 }
             })
-
+            
             let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-
+            
             if room.type == .chat || room.type == .group {
                 alertC.addAction(clear)
             }
-
+            
             if !IGHelperPromote.isPromotedRoom(room: room) {
                 alertC.addAction(pin)
             }
             alertC.addAction(mute)
             alertC.addAction(report)
-
+            
             if room.chatRoom != nil {
                 if !IGHelperPromote.isPromotedRoom(room: room) {
                     alertC.addAction(remove)
@@ -705,11 +710,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }
                 }
             }
-
+            
             alertC.addAction(cancel)
-
+            
             self.present(alertC, animated: true, completion: nil)
-
+            
             return true
         })
 
@@ -718,6 +723,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if IGHelperPromote.isPromotedRoom(room: room) {
             buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
         }
+
         cell.rightButtons = buttons
         removeButtonsUnderline(buttons: buttons)
 
@@ -731,7 +737,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets.zero
-        
+        /*
+
+    */
         return cell
     }
     

@@ -579,7 +579,7 @@ extension Date {
     func completeHumanReadableTime() -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY - HH:mm"
-        let dateString = dayTimePeriodFormatter.string(from: self)
+        let dateString = self.localizedDate()
         return dateString.inLocalizedLanguage()
     }
     
@@ -601,7 +601,7 @@ extension Date {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd"
-        let dateString = dateFormatter.string(from: self)
+        let dateString = self.localizedDate()
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
         return dateString.inLocalizedLanguage() + "AT".localizedNew + timeString.inLocalizedLanguage()

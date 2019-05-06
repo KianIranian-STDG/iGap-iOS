@@ -83,9 +83,9 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
         
     }
     func initNavigationBar(){
-        var title = "SETTING_FS_MBILL_INQUERY".localizedNew
+        var title = "SETTING_FS_PHONE_INQUERY".localizedNew
         if IGFinancialServiceBillingInquiry.isMobile {
-            title = "SETTING_FS_PHONE_INQUERY".localizedNew
+            title = "SETTING_FS_MBILL_INQUERY".localizedNew
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title, width: 200)
