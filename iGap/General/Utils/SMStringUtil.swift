@@ -15,13 +15,13 @@ class SMStringUtil {
         
         switch type {
         case 0:
-            return "شارژ".localized
+            return "TTL_CHARGE".localizedNew
         case 1:
-            return "اعتباری".localized
+            return "TTL_PREPAID".localizedNew
         case 2:
-            return "نقد".localized
+            return "TTL_INCASH".localizedNew
         case 3:
-            return "پایانه فروش".localized
+            return "TTL_PAYMENT_GATEWAY".localizedNew
             
         default:
             return ""

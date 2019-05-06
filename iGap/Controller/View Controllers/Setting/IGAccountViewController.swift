@@ -45,11 +45,11 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Account"
+        self.navigationItem.title = "ACCOUNT_VIEW".localizedNew
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         showAccountDetail()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Account")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "ACCOUNT_VIEW".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -213,8 +213,8 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
         }
     }
         func showLogoutActionSheet(){
-            let logoutConfirmAlertView = UIAlertController(title: "Are you sure you want to Log out?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-            let logoutAction = UIAlertAction(title: "Log out", style:.default , handler: {
+            let logoutConfirmAlertView = UIAlertController(title: "SURE_LOGOUT".localizedNew , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew , style:.default , handler: {
                 (alert: UIAlertAction) -> Void in
                 self.dismiss(animated: true, completion: {
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -223,14 +223,14 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
                 })
 
             })
-            let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: {
                 (alert: UIAlertAction) -> Void in
             })
             logoutConfirmAlertView.addAction(logoutAction)
             logoutConfirmAlertView.addAction(cancelAction)
             let alertActions = logoutConfirmAlertView.actions
             for action in alertActions {
-                if action.title == "Log out"{
+                if action.title == "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew {
                     let logoutColor = UIColor.red
                     action.setValue(logoutColor, forKey: "titleTextColor")
                 }
@@ -248,7 +248,7 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
         let customView = UIView(frame: CGRect(x: 10, y: 0, width: 100, height: 64))
         customView.backgroundColor = UIColor.red
         let backItem = UIBarButtonItem(customView: customView)
-        backItem.title = "Back"
+        backItem.title = "GLOBAL_BACK".localizedNew
         backItem.tintColor = UIColor.organizationalColor()
         navigationItem.backBarButtonItem = backItem
     }
@@ -286,8 +286,8 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Could not fetch your email address.\nPlease try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.emailIndicator.stopAnimating()
                     self.emailIndicator.hidesWhenStopped = true
@@ -318,8 +318,8 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Could not fetch your bio address.\nPlease try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_BIO".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.bioIndicator.stopAnimating()
                     self.bioIndicator.hidesWhenStopped = true
@@ -344,8 +344,8 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Could not fetch self destruction time.\nPlease try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_SELFD".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.emailIndicator.stopAnimating()
                     self.emailIndicator.hidesWhenStopped = true

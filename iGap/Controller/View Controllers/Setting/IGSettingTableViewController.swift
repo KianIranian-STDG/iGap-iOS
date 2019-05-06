@@ -113,6 +113,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     }
     func initChangeLanguage() {
 
+        let transform = SMDirection.PageAffineTransform()
+        switchInAppBrowser.transform = transform
         lblAccount.text = "SETTING_PAGE_ACCOUNT".localizedNew
         lblContacts.text = "SETTING_PAGE_CONTACTS".localizedNew
         lblNearby.text = "SETTING_PAGE_NEARBY".localizedNew

@@ -303,7 +303,6 @@ class SMCard : SMEntity{
 
 
     static func chashout(amount : Int? ,cardNumber : String? ,cardToken : String? = "", sourceCardToken: String? ,pin : String?,isFast:Bool, accountId: String? = nil, onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
-
         let cashoutObj = PAY_obj_cashout()
         cashoutObj.amount = amount ?? 0
         if cardNumber != ""{
@@ -321,6 +320,7 @@ class SMCard : SMEntity{
         }
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
+            
             SMLoading.hideLoadingPage()
             onSuccess?(response)
 

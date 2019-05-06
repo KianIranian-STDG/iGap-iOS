@@ -10,7 +10,16 @@ import UIKit
 import webservice
 
 var needToUpdate = false
-class packetTableViewController: UITableViewController , HandleDefaultCard,UICollectionViewDelegate , UICollectionViewDataSource {
+class packetTableViewController: BaseTableViewController , HandleDefaultCard,UICollectionViewDelegate , UICollectionViewDataSource {
+    
+    @IBOutlet weak var lblWalletBalance : UILabel!
+    @IBOutlet weak var lblCurrencyFormat : UILabel!
+    @IBOutlet weak var lblMyCards: UILabel!
+    @IBOutlet weak var btnCashout: UIButtonX!
+    @IBOutlet weak var btnCharge: UIButtonX!
+    
+    
+    
     
     var cellHeight : Int = 270
     var StaticCellHeight : Int = 130
@@ -60,8 +69,22 @@ class packetTableViewController: UITableViewController , HandleDefaultCard,UICol
 
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initChangeLanguage()
+    }
     
-    
+    //MARK: change Language Handler
+    func initChangeLanguage() {
+        //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
+        lblWalletBalance.text = SMLangUtil.changeLblText(tag: lblWalletBalance.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblMyCards.text = SMLangUtil.changeLblText(tag: lblMyCards.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        lblCurrencyFormat.text = SMLangUtil.changeLblText(tag: lblCurrencyFormat.tag, parentViewController: NSStringFromClass(self.classForCoder))
+        btnCashout.setTitle(SMLangUtil.changeLblText(tag: btnCashout.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
+        btnCharge.setTitle(SMLangUtil.changeLblText(tag: btnCharge.tag, parentViewController: NSStringFromClass(self.classForCoder)), for: .normal)
+
+        
+        }
     func initView() {
         
 
@@ -84,7 +107,7 @@ class packetTableViewController: UITableViewController , HandleDefaultCard,UICol
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Wallet")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_WALLET".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
@@ -144,7 +167,7 @@ class packetTableViewController: UITableViewController , HandleDefaultCard,UICol
         if isCard! == false && isPaygear == true {
 //            paygearAmountLoading.isHidden = false
             if needToUpdate {
-                lblCurrency.text = "Updating ..."
+                lblCurrency.text = "Updating ...".localizedNew
 
             }
             else {
@@ -155,7 +178,7 @@ class packetTableViewController: UITableViewController , HandleDefaultCard,UICol
         }
         else {
             if needToUpdate {
-                lblCurrency.text = "Updating ..."
+                lblCurrency.text = "Updating ...".localizedNew
                 
             }
             else {
@@ -252,7 +275,7 @@ class packetTableViewController: UITableViewController , HandleDefaultCard,UICol
                 
                 if card.type == 1{
                     
-                    lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
+                    lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
                     SMUserManager.payGearToken = card.token
                     SMUserManager.isProtected = card.protected
                     SMUserManager.userBalance = card.balance

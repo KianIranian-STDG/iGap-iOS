@@ -10,14 +10,19 @@ import UIKit
 import Presentr
 
 
-class chashoutCardTableViewController: UITableViewController,UITextFieldDelegate {
+class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelegate {
     @IBOutlet weak var cashoutTypeSeg: UISegmentedControl!
     @IBOutlet weak var widthConstrait: NSLayoutConstraint!
     
+    @IBOutlet weak var btnGetIban: UIButtonX!
     @IBOutlet weak var tfAmount: UITextField!
     @IBOutlet weak var tfCardNumber: UITextField!
     @IBOutlet weak var lblWalletAmountBalance: UILabel!
     @IBOutlet weak var lblCashableAmountBalance: UILabel!
+    @IBOutlet weak var lblWalletAccountBalanceTitle: UILabel!
+    @IBOutlet weak var lblCashableAmountBalanceTitle: UILabel!
+    @IBOutlet weak var lblCashoutPriceHeader: UILabel!
+    @IBOutlet weak var lblEnterCardNUmberHeader: UILabel!
     var presenter: Presentr?
     var selectCard : SMCashout?
 
@@ -35,6 +40,29 @@ class chashoutCardTableViewController: UITableViewController,UITextFieldDelegate
         initNavigationBar()
         initDelegates ()
         initView()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 17)]
+        cashoutTypeSeg.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
+
+        initChangeLang()
+        initChangeDirection()
+    }
+    func initChangeLang() {
+        lblCashoutPriceHeader.text = "TTL_CHOOSE_CASHOUT_AMOUNT".localizedNew
+        lblEnterCardNUmberHeader.text = "TTL_ENTER_CARD_NUMBER".localizedNew
+        lblWalletAccountBalanceTitle.text = "TTL_WALLET_ACCOUNT_BALANCE".localizedNew
+        lblCashableAmountBalanceTitle.text = "TTL_WALLET_ACCOUNT_CASHABLE".localizedNew
+        cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_IMMIDIATE".localizedNew, forSegmentAt: 0)
+        cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localizedNew, forSegmentAt: 1)
+        cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localizedNew, forSegmentAt: 1)
+        btnGetIban.setTitle("TTL_HOW_TO_GET_IBAN".localizedNew, for: .normal)
+
+    }
+    func initChangeDirection() {
+        lblWalletAccountBalanceTitle.textAlignment = lblWalletAccountBalanceTitle.localizedNewDirection
+        lblCashableAmountBalanceTitle.textAlignment = lblWalletAccountBalanceTitle.localizedNewDirection
     }
     @IBAction func cardPickTap(_ sender: Any) {
 
@@ -54,11 +82,13 @@ class chashoutCardTableViewController: UITableViewController,UITextFieldDelegate
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Cashout")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "BTN_CASHOUT_WALLET".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
     func initView() {
+        tfCardNumber.placeholder = "PLAVE_HOLDER_16_DIGIT".localizedNew
+        self.tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localizedNew
         self.lblWalletAmountBalance.text = balance + " " + "CURRENCY".localizedNew
         self.lblCashableAmountBalance.text = balance + " " + "CURRENCY".localizedNew
     }
@@ -276,8 +306,8 @@ class chashoutCardTableViewController: UITableViewController,UITextFieldDelegate
         if sender.selectedSegmentIndex == 0 {
             widthConstrait.constant = 46
             self.loadViewIfNeeded()
+            tfCardNumber.placeholder = "PLAVE_HOLDER_16_DIGIT".localizedNew
 
-            tfCardNumber.placeholder = "16 Digit Card Number"
             isImmediate = true
             clearUI()
             self.tableView.beginUpdates()
@@ -288,7 +318,7 @@ class chashoutCardTableViewController: UITableViewController,UITextFieldDelegate
             
             widthConstrait.constant = 0
             self.loadViewIfNeeded()
-            tfCardNumber.placeholder = "24 Digit IBAN Number"
+            tfCardNumber.placeholder = "PLAVE_HOLDER_24_DIGIT".localizedNew
             isImmediate = false
             clearUI()
             self.tableView.beginUpdates()

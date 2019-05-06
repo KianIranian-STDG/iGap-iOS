@@ -24,15 +24,17 @@ class IGHelperFinancial {
     }
     
     func manageFinancialServiceChoose(){
-        let option = UIAlertController(title: "Financial Services", message: "Responsible for all financial services Parsian e-commerce company (top). \n Customer Support Center: 021-2318", preferredStyle: IGGlobal.detectAlertStyle())
+        let option = UIAlertController(title: "SETTING_PAGE_FINANCIAL_SERVICES".localizedNew, message: "MSG_FINANCIAL_SERVICES".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let mobileCharge = UIAlertAction(title: "Top Up SIM Card", style: .default, handler: { (action) in
+        let mobileCharge = UIAlertAction(title: "SETTING_FS_TOP_UP".localizedNew, style: .default, handler: { (action) in
+           
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
             self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let payBills = UIAlertAction(title: "Pay Bills", style: .default, handler: { (action) in
+        
+        let payBills = UIAlertAction(title: "SETTING_FS_PAY_BILLS".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBill.BillInfo = nil
             IGFinancialServiceBill.isTrafficOffenses = false
             
@@ -41,7 +43,7 @@ class IGHelperFinancial {
             self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let trafficOffenses = UIAlertAction(title: "Pay Traffic Tickets", style: .default, handler: { (action) in
+        let trafficOffenses = UIAlertAction(title: "SETTING_FS_PAY_TRAFFIC_TICKETS".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBill.BillInfo = nil
             IGFinancialServiceBill.isTrafficOffenses = true
             
@@ -50,7 +52,7 @@ class IGHelperFinancial {
             self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let mobileBillingInquiry = UIAlertAction(title: "Mobile Bills Inquiry", style: .default, handler: { (action) in
+        let mobileBillingInquiry = UIAlertAction(title: "SETTING_FS_MBILL_INQUERY".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBillingInquiry.isMobile = true
             
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
@@ -58,7 +60,7 @@ class IGHelperFinancial {
             self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let phoneBillingInquiry = UIAlertAction(title: "Phone Bills Inquiry", style: .default, handler: { (action) in
+        let phoneBillingInquiry = UIAlertAction(title: "SETTING_FS_PHONE_INQUERY".localizedNew, style: .default, handler: { (action) in
             IGFinancialServiceBillingInquiry.isMobile = false
             
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
@@ -66,7 +68,7 @@ class IGHelperFinancial {
             self.viewController.navigationController!.pushViewController(messagesVc, animated:true)
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         option.addAction(mobileCharge)
         option.addAction(payBills)

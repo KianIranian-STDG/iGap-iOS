@@ -37,19 +37,19 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
                     }
                 } else if SMUserManager.accountId == receiverId {
                     if let receiver_balance_atm = self.detail?.receiver.balance_atm {
-                        self.detailArray?.append(("موجودی باقیمانده".localized, String(receiver_balance_atm).inRialFormat().inLocalizedLanguage() + " " + NSLocalizedString("ریال", comment: "")))
+                        self.detailArray?.append(("TTL_REMAINING_AMOUNT".localizedNew, String(receiver_balance_atm).inRialFormat().inLocalizedLanguage() + " " + NSLocalizedString("ریال", comment: "")))
                     }
                 }
             }
-            if let invoice = self.detail?.invoice_number , invoice != 0 { self.detailArray?.append(("شماره قبض".localized ,  String(invoice)))  }
-            if let trace = self.detail?.trace_no, trace != 0 { self.detailArray?.append(("شماره پیگیری".localized,String(trace))) }
-            if let cardNo = self.detail?.card_number , cardNo != "" { self.detailArray?.append(("شماره کارت".localized , String(cardNo))) }
+            if let invoice = self.detail?.invoice_number , invoice != 0 { self.detailArray?.append(("TTL_INVOICE_NUM".localizedNew ,  String(invoice)))  }
+            if let trace = self.detail?.trace_no, trace != 0 { self.detailArray?.append(("TTL_PAY_NUMBER".localizedNew,String(trace))) }
+            if let cardNo = self.detail?.card_number , cardNo != "" { self.detailArray?.append(("TTL_CARDNUM".localizedNew , String(cardNo))) }
             if let targetNo = self.detail?.target_card_number , targetNo != "" {
 				if targetNo.length == 16 {
-                    self.detailArray?.append(("شماره کارت مقصد".localized , String(targetNo)))
+                    self.detailArray?.append(("TTL_DESTI_CARD".localizedNew , String(targetNo)))
 				}
 				else {
-					self.detailArray?.append(("شماره شبا مقصد".localized , String(targetNo)))
+					self.detailArray?.append(("TTL_DESTI_IBAN".localizedNew , String(targetNo)))
 				}
 			}
             
@@ -58,7 +58,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             let footerView = UIView(frame: CGRect.init(x: 10, y: 0, width: self.view.frame.width - 20 , height: 80 ))
             self.recieptButton?.colors = [UIColor(netHex: 0x66bdf7), UIColor(netHex: 0x2a91e9)]
             self.recieptButton?.layer.cornerRadius = 25
-            self.recieptButton?.setTitle("Show Reciept".localized, for: .normal)
+            self.recieptButton?.setTitle("BTN_SHOW_RECEPIET".localizedNew, for: .normal)
             self.recieptButton?.enable()
             self.recieptButton?.addTarget(self, action: #selector(self.recieptPressed(_:)), for: .touchUpInside)
             footerView.addSubview(self.recieptButton!)
@@ -91,13 +91,13 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
 		var status = "";
 		switch rowData?.is_paid.rawValue {
 		case 1:
-			status = "پرداخت موفق".localized
+			status = "TTL_SUCCESS_PAYMENT".localizedNew
 		case 5:
-			status = "پرداخت موفق".localized
+			status = "TTL_SUCCESS_PAYMENT".localizedNew
 		default:
-			status = "در انتظار دریافت".localized
+			status = "TTL_PAYMENT_PENDING_FRM".localizedNew
 		}
-        let dic = ["گیرنده".localized : rowData?.receiver.name ,"نوع تراکنش".localized : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), "وضعیت پرداخت".localized :  status , "مبلغ".localized : rowData?.amount  ,"شماره مرجع".localized : rowData?.invoice_number,"تاریخ".localized : date] as [String : Any]
+        let dic = ["TTL_RECIEVER".localizedNew : rowData?.receiver.name ,"TTL_TRANSACTION_TYPE".localizedNew : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), "TTL_PAY_STATUS".localizedNew :  status , "TTL_AMOUNT".localizedNew : rowData?.amount  ,"TTL_INVOICE_NUMBER".localizedNew : rowData?.invoice_number,"TTL_DATE".localizedNew : date] as [String : Any]
 //        let dic = ["status".localized :  (rowData?.is_paid)! == IS_PAID_STATUS.PAID ? "success.payment".localized : "history.paygear.receive.waiting".localized , "amount".localized : rowData?.amount,"invoice_number".localized : rowData?.invoice_number,"date".localized : date] as [String : Any]
         
         let result = ["result" : dic ,"state" : rowData?.is_paid.rawValue] as NSDictionary
@@ -151,23 +151,23 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         
         switch rowData!.order_type {
         case .CHARGE:
-            cell.titleLabel.text = "شارژ کیف پول".localized
+            cell.titleLabel.text = "TTL_TRANSITION_CHARGE_WALLET".localizedNew
             cell.titleImage.isHidden = true
-            cell.descLabel.text = "حساب پیگیر".localized
+            cell.descLabel.text = "TTL_WALLET_ACCOUNT".localizedNew
             cell.profileImage.image = UIImage.init(named: "AppIcon")
         case .CASH_OUT:
             cell.titleImage.isHidden = false
             if rowData!.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "down-arrow")
-                cell.titleLabel.text = "تسویه حساب شده".localized
+                cell.titleLabel.text = "TTL_IS_PAYED".localizedNew
 			}
 			else if (rowData?.is_paid == .REFUND) {
 				cell.titleImage.image = UIImage.init(named: "up-arrow")
-				cell.titleLabel.text = "سند اصلاح - واریز مبلغ به کیف پول".localized
+				cell.titleLabel.text = "TTL_MONEY_REFUND".localizedNew
 			}
 			else {
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "در انتظار تسویه حساب".localized
+                cell.titleLabel.text = "TTL_CASHOUT_PENDING".localizedNew
             }
             cell.profileImage.image = UIImage.init(named: "AppIcon")
         case .P2P:
@@ -207,10 +207,10 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "دریافت از".localized
+                cell.titleLabel.text = "TTL_RECIEVE_FRM".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "در انتظار دریافت".localized
+                cell.titleLabel.text = "TTL_PAYMENT_PENDING_FRM".localizedNew
             }
             
             if let pic = row.sender.profile_picture , pic != "" {
@@ -227,10 +227,10 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "down-arrow")
-                cell.titleLabel.text = "پرداخت با پیگیرکارت ".localized
+                cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO ".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
-                cell.titleLabel.text = "در انتظار پرداخت با پیگیرکارت".localized
+                cell.titleLabel.text = "TTL_PAY_WITH_WALLET_CARD_PENDING".localizedNew
             }
             
             if let pic = row.receiver.profile_picture , pic != "" {
@@ -254,7 +254,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "up-arrow")
-                cell.titleLabel.text = "خرید طرح باشگاه از".localized
+                cell.titleLabel.text = "TTL_BUY_CLUB_FROM".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
                 cell.titleLabel.text = "در انتظار خرید طرح باشگاه از".localized

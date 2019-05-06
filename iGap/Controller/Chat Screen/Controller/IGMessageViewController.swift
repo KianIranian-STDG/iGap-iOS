@@ -3138,7 +3138,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if indexPath.section < messages.count {
                 if let message = messages?[indexPath.section] {
                     if message.shouldFetchBefore {
-                        header.setText("Loading ...")
+                        header.setText("Loading ...".localizedNew)
                     } else {
                         
                         let dayTimePeriodFormatter = DateFormatter()

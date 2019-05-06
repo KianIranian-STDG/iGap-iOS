@@ -53,7 +53,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         resultSearchController.searchBar.delegate = self
         searchBar.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Add", title: "Contacts")
+        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "CONTACTS_VIEW".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -111,8 +111,8 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -190,11 +190,11 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
     }
     
     private func deleteContactAlert(phone: Int64){
-        let alert = UIAlertController(title: "Delete Contact", message: "Are you sure you want to delete this contact ?", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .destructive, handler: { action in
+        let alert = UIAlertController(title: "TTL_DELETE_CONTACT".localizedNew, message: "MSG_ARE_U_SURE_TO_DELETE".localizedNew, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { action in
             self.deleteContact(phone: phone)
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .default, handler: nil)
         
         alert.addAction(okAction)
         alert.addAction(cancelAction)
@@ -217,8 +217,8 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             case .timeout:
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -230,34 +230,34 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
     }
     
     private func contactEditAlert(phone: Int64, firstname: String, lastname: String?){
-        let alert = UIAlertController(title: "Edit Contact", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "BTN_EDITE_CONTACT".localizedNew, message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.placeholder = "first name"
+            textField.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
             textField.text = String(describing: firstname)
         }
         
         alert.addTextField { (textField) in
-            textField.placeholder = "last name"
+            textField.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
             if lastname != nil && !(lastname?.isEmpty)! {
                 textField.text = String(describing: lastname!)
             }
         }
         
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { [weak alert] (_) in
             let firstname = alert?.textFields![0]
             let lastname = alert?.textFields![1]
             
             if firstname?.text != nil && !(firstname?.text?.isEmpty)! {
                 self.contactEdit(phone: phone, firstname: (firstname?.text)!, lastname: lastname?.text)
             } else {
-                let alert = UIAlertController(title: "Hint", message: "please enter first name!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "MSG_PLEASE_ENTER_F_NAME".localizedNew, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .default, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -277,8 +277,8 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             case .timeout:
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -312,8 +312,22 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         var cell = UITableViewCell()
         if !(self.resultSearchController.isActive) && indexPath.section == 0 {
             let blockListCell  = tableView.dequeueReusableCell(withIdentifier: "BlockListCell", for: indexPath) as! IGSettingContactsBlockListTableViewCell
-            blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)"+" " + "Contacts"
-            cell = blockListCell
+            if SMLangUtil.loadLanguage() == "fa" {
+
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbers()+" " + "CONTACTS".localizedNew
+                cell = blockListCell
+            }
+            else if SMLangUtil.loadLanguage() == "en" {
+
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inEnglishNumbers()+" " + "CONTACTS".localizedNew
+                cell = blockListCell
+            }
+            else {
+
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbers()+" " + "CONTACTS".localizedNew
+                cell = blockListCell
+            }
+
         } else {
             
             let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGSettingContactTableViewCell
@@ -324,12 +338,12 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             contactsCell.setUser(user.registredUser)
             //            }
             
-            let delete = MGSwipeButton(title: "Delete", backgroundColor: UIColor.swipeRed(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            let delete = MGSwipeButton(title: "BTN_DELETE".localizedNew, backgroundColor: UIColor.swipeRed(), callback: { (sender: MGSwipeTableCell!) -> Bool in
                 self.deleteContactAlert(phone: user.registredUser.phone)
                 return true
             })
             
-            let edit = MGSwipeButton(title: "Edit", backgroundColor: UIColor.swipeBlueGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+            let edit = MGSwipeButton(title: "BTN_EDITE".localizedNew, backgroundColor: UIColor.swipeBlueGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
                 self.contactEditAlert(phone: user.registredUser.phone, firstname: user.registredUser.firstName, lastname: user.registredUser.lastName)
                 return true
             })
@@ -409,8 +423,8 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
                         self.hud.hide(animated: true)
                         switch errorCode {
                         case .timeout:
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         default:

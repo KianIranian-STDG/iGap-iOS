@@ -33,7 +33,7 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
         self.navigationItem.title = navBarTitle
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: mode)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: mode)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.doneButtonClicked()
@@ -60,9 +60,31 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeftCheckmarkCell", for: indexPath) as! IGSettingHaveCheckmarkOntheLeftTableViewCell
         if mode == "Self-Destruction" {
             if indexPath.row == 0 {
-              cell.titleLable.text = "1 " + "MONTH".localizedNew
+                if SMLangUtil.loadLanguage() == "fa" {
+                    cell.titleLable.text = "1" + "ماه"
+
+                }
+                else if SMLangUtil.loadLanguage() == "en" {
+                    cell.titleLable.text = "1" + "month"
+
+                }
+                else {
+                    cell.titleLable.text = "1" + "ماه"
+
+                }
             } else {
-              cell.titleLable.text = "\(items[indexPath.row]) " + " MONTHS".localizedNew
+                if SMLangUtil.loadLanguage() == "fa" {
+                    cell.titleLable.text = "\(items[indexPath.row])" + " ماه"
+
+                }
+                else if SMLangUtil.loadLanguage() == "en" {
+                    cell.titleLable.text = "\(items[indexPath.row])" + " months"
+
+                }
+                else {
+                    cell.titleLable.text = "\(items[indexPath.row])" + " ماه"
+
+                }
             }
             
             if currentUser.selfRemove == -1 && items[indexPath.row] == 12 {

@@ -64,7 +64,7 @@ class IGWalletSettingInnerTableViewController: UITableViewController , UITextFie
     /// Call API to get OTP message
     func callOTPAPI () {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -112,7 +112,7 @@ class IGWalletSettingInnerTableViewController: UITableViewController , UITextFie
     ///   - newPass: new passcode
     func callResetAPI (otp: String, newPass: String) {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         
@@ -200,7 +200,7 @@ class IGWalletSettingInnerTableViewController: UITableViewController , UITextFie
     ///   - newPass: the passcode to be define
     func callAPI (oldPass: String, newPass: String) {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         
         let request = WS_methods.init(delegate: self, failedDialog: false)
         

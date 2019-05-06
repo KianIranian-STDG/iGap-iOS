@@ -126,8 +126,27 @@ class SMLangUtil: NSObject {
             }
             else {
                 return "SETTING_CHL_PERSIAN".localizedNew
-
+                
             }
+        case "iGap.packetTableViewController":
+            if tag == 1 {
+                return "TTL_WALLET_BALANCE".localizedNew
+            }
+            else if tag == 2 {
+                return "CURRENCY".localizedNew
+            }
+                
+            else if tag == 3 {
+                return "BTN_CASHOUT_WALLET".localizedNew
+            }
+            else if tag == 4 {
+                return "BTN_CHARGE_WALLET".localizedNew
+            }
+            else {
+                return "TTL_MY_CARDS".localizedNew
+                
+            }
+            
             
         default:
             return "".localizedNew

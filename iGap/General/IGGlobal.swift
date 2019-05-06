@@ -1132,7 +1132,17 @@ extension UIFont {
     //        return UIFont(descriptor: descriptor, size: 0)
     //    }
 }
-
+extension UILabel {
+    var localizedNewDirection: NSTextAlignment {
+        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+            return NSTextAlignment.left
+        }
+        else{
+            return NSTextAlignment.right
+        }
+        
+    }
+}
 extension String {
     func convertToDictionary() -> [String: Any]? {
         if let data = self.data(using: .utf8) {
@@ -1184,6 +1194,11 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
     var localizedNew: String {
+        let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
+
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+
         return MCLocalization.string(forKey: self)
     }
     func substring(offset: Int) -> String{
@@ -1219,6 +1234,8 @@ extension String {
         }
         return stringArray
     }
+    
+ 
     
     func inRialFormat()->String{
         

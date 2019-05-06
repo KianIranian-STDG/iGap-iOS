@@ -22,19 +22,29 @@ class SMHistoryDetailTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        initChangeCellLang()
     }
+    func initChangeCellLang() {
+        if SMLangUtil.lang == "fa" || SMLangUtil.lang == "ar"  {
+            
+            title.textAlignment = .right
+            value.textAlignment = .right
+           
+        }
+        else {
+            
+            title.textAlignment = .left
+            value.textAlignment = .left
+        }
+        
+    }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-		let transform = SMDirection.PageAffineTransform()
-		self.transform = transform
-		title.transform = transform
-		value.transform = transform
-		
-		title.textAlignment = SMDirection.TextAlignment()
-		value.textAlignment = SMDirection.TextAlignment()
+	
     }
 
 }

@@ -19,6 +19,7 @@ class SMHistory: SMEntity {
         var serverHistory = [PAY_obj_history]()
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
+            SMLoading.hideLoadingPage()
             for item in (response as! NSDictionary)["result"] as! [NSDictionary]{
                 let historyItem = PAY_obj_history()
                 ////////////////////////////////////Set object

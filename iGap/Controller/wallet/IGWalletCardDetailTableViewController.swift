@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGWalletCardDetailTableViewController: UITableViewController {
+class IGWalletCardDetailTableViewController: BaseTableViewController {
 
     @IBOutlet weak var lblCardNum : UILabel!
     @IBOutlet weak var imgBankLogo : UIImageView!
@@ -29,6 +29,11 @@ class IGWalletCardDetailTableViewController: UITableViewController {
         initView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblCardDefaultTitle.text = "TTL_SET_AS_DEFAULT_CARD".localizedNew
+        btnRemove.setTitle("DELETE_CARD".localizedNew, for: .normal)
+    }
     func initView() {
        imgBankLogo.image = UIImage(named: logoString)
        imgBackgroundCard.downloadedFrom(link: urlBack , cashable: true, contentMode: .scaleToFill, completion: {_ in

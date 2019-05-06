@@ -21,9 +21,9 @@ class IGHelperNearby {
             UIApplication.topViewController()?.navigationController!.pushViewController(createGroup, animated: true)
         } else {
             
-            let option = UIAlertController(title: "Notice! Activating Map Status", message: "Will result in making your location visible to others. Please be sure about it before turning on.", preferredStyle: IGGlobal.detectAlertStyle())
+            let option = UIAlertController(title: "TTL_MAP_STATUS".localizedNew, message: "SETTING_NEARBY_MAP_STATUS".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
             
-            let enable = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            let enable = UIAlertAction(title: "OK".localizedNew, style: .default, handler: { (action) in
                 IGGeoRegister.Generator.generate(enable: true).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         if let registerResponse = protoResponse as? IGPGeoRegisterResponse {
@@ -36,8 +36,8 @@ class IGHelperNearby {
                     switch errorCode {
                     case .timeout:
                         DispatchQueue.main.async {
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             UIApplication.topViewController()?.present(alert, animated: true, completion: nil)
                         }
@@ -48,7 +48,7 @@ class IGHelperNearby {
                 }).send()
             })
             
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             option.addAction(enable)
             option.addAction(cancel)
@@ -58,8 +58,8 @@ class IGHelperNearby {
     }
     
     func openMapAlert(){
-        let option = UIAlertController(title: "Attention", message: "Note: People on the map will be displayed with a 500-meter error. So no worries!", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+        let option = UIAlertController(title: "TTL_ATTENTION".localizedNew, message: "MSG_MAP_DISTANCE".localizedNew, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
             let createGroup = IGMap.instantiateFromAppStroryboard(appStoryboard: .Main)
             UIApplication.topViewController()?.navigationController!.pushViewController(createGroup, animated: true)
         })

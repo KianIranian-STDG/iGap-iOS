@@ -24,24 +24,25 @@ class SMHistoryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        currencyLabel.text = NSLocalizedString("ریال", comment: "")
-
-        let direction =  SMDirection.PageAffineTransform()
-        self.transform = direction
-        profileImage.transform = direction
-        titleLabel.transform = direction
-        titleImage.transform = direction
-        descLabel.transform = direction
-        timeLabel.transform = direction
-        amountLabel.transform = direction
-        currencyLabel.transform = direction
-
-        let alignment = SMDirection.TextAlignment()
-        titleLabel.textAlignment = alignment
-        descLabel.textAlignment = alignment
-        timeLabel.textAlignment = alignment
-        amountLabel.textAlignment = alignment
-        currencyLabel.textAlignment = (alignment == .right) ? .left : .right
+        initChangeCellLang()
+    }
+    func initChangeCellLang() {
+        if SMLangUtil.lang == "fa" || SMLangUtil.lang == "ar"  {
+            
+            titleLabel.textAlignment = .right
+            descLabel.textAlignment = .right
+            timeLabel.textAlignment = .right
+            amountLabel.textAlignment = .right
+            currencyLabel.textAlignment = .right
+        }
+        else {
+            titleLabel.textAlignment = .left
+            descLabel.textAlignment = .left
+            timeLabel.textAlignment = .left
+            amountLabel.textAlignment = .left
+            currencyLabel.textAlignment = .left
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

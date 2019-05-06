@@ -11,21 +11,32 @@
 import UIKit
 import RealmSwift
 
-class IGSettingChatWallpaperTableViewController: UITableViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate{
+class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate{
     
     var imagePicker = UIImagePickerController()
     var isColorPage    : Bool!
     var wallpaperLocal : NSData?
     
+    @IBOutlet weak var lblWallpaperLibrary : UILabel!
+    @IBOutlet weak var lblSolidColors : UILabel!
+    @IBOutlet weak var lblPhotos : UILabel!
+    @IBOutlet weak var lblReset : UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblReset.text = "SETTING_CW_RESET_WALLPAPER".localizedNew
+        lblPhotos.text = "SETTING_CW_PHOTOS".localizedNew
+        lblSolidColors.text = "SETTING_CW_SOLID_COLORS".localizedNew
+        lblWallpaperLibrary.text = "SETTING_CW_WALLPAPER_LIBRARY".localizedNew
+    }
     func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Chat Wallpaper")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHAT_WALLPAPER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -87,13 +98,13 @@ class IGSettingChatWallpaperTableViewController: UITableViewController, UINaviga
     func resetWallpaper(){
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
-        let resetWallpaper = UIAlertAction(title: "Reset Wallpaper", style: .destructive, handler: { (action) in
+        let resetWallpaper = UIAlertAction(title: "SETTING_CW_RESET_WALLPAPER".localizedNew, style: .destructive, handler: { (action) in
             IGWallpaperPreview.chatSolidColor = nil
             IGWallpaperPreview.chatWallpaper = nil
             IGFactory.shared.setWallpaperFile(wallpaper: nil)
             IGFactory.shared.setWallpaperSolidColor(solidColor: nil)
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         alert.addAction(resetWallpaper)
         alert.addAction(cancel)

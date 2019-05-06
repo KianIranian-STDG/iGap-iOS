@@ -14,7 +14,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGSettingContactBlockListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGSettingContactBlockListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
     
     var chooseBlockContactFromPrivacyandSecurityPage:Bool = false
     var blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter("isBlocked == 1")
@@ -54,7 +54,7 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "BlockedList")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_BLOCKED_USERS".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -73,6 +73,18 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
+        if let containerView = tableView.footerView(forSection: 0) {
+            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.sizeToFit()
+        }
+        if let header = tableView.headerView(forSection: 0) {
+            header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localizedNew
+            header.textLabel?.font = UIFont.igFont(ofSize: 15)
+            
+            header.sizeToFit()
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,14 +99,14 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
         let cell = tableView.dequeueReusableCell(withIdentifier: "BlockedCell", for: indexPath) as! IGSettingContactBlockTableViewCell
         let lastRowIndex = self.tableView.numberOfRows(inSection: 0) - 1
         if indexPath.row == lastRowIndex {
-            cell.blockedContactName.text = "Block Contact..."
+            cell.blockedContactName.text = "SETTING_PS_BLOCK_A_CONTACT".localizedNew
             cell.blockedContactName.textColor = UIColor.organizationalColor()
             cell.accessoryType = UITableViewCell.AccessoryType.none
         } else {
             cell.blockedContactName.text = blockedUsers[indexPath.row].displayName
         }
         
-        let btnUnblock = MGSwipeButton(title: "Unblock", backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+        let btnUnblock = MGSwipeButton(title: "UNBLOCK".localizedNew, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
             if !self.blockedUsers[indexPath.row].isInvalidated {
                 self.unblockedUser(blockedUserId: self.blockedUsers[indexPath.row].id)
             }
@@ -128,15 +140,16 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "You will not recieve messages from people on the block list."
+        return "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Blocked contacts"
+        
+        return "SETTING_CONTACTS_BLOCKLIST".localizedNew
     }
     
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Unblock"
+        return "UNBLOCK".localizedNew
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -163,8 +176,8 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -194,8 +207,8 @@ class IGSettingContactBlockListTableViewController: UITableViewController , UIGe
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

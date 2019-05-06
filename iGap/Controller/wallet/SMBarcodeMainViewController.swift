@@ -251,7 +251,7 @@ class SMBarcodeMainViewController: UIViewController {
     }
     func getUserInformation(accountId: String, qrType: Int, productId: String? = "") {
         
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         
         self.targetAccountId = String(describing:accountId)
         UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
@@ -280,7 +280,7 @@ class SMBarcodeMainViewController: UIViewController {
         
         self.qrCode = barcodeValue.inEnglishNumbers()
 
-        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localized)
+        SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         let request = WS_methods(delegate: self, failedDialog: true)
         
         request.addSuccessHandler { (response : Any) in

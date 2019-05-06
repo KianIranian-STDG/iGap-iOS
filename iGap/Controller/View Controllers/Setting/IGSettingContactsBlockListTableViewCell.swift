@@ -16,6 +16,7 @@ class IGSettingContactsBlockListTableViewCell: UITableViewCell {
     @IBOutlet weak var numberOfBlockedContacts: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        blockListTitle.text = "BLOCK_LIST".localizedNew
         // Initialization code
     }
     override func setSelected(_ selected: Bool, animated: Bool) {

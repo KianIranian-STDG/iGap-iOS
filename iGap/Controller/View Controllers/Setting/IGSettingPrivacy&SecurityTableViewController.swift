@@ -13,7 +13,17 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+
+    @IBOutlet weak var lblBlockedUserTitle: UILabel!
+    @IBOutlet weak var lblProfilePhotoTitle: UILabel!
+    @IBOutlet weak var lblLastSeenTitle: UILabel!
+    @IBOutlet weak var lblGroupsTitle: UILabel!
+    @IBOutlet weak var lblChannelsTitle: UILabel!
+    @IBOutlet weak var lblCallTitle: UILabel!
+    @IBOutlet weak var lblActiveSessionsTitle: UILabel!
+    @IBOutlet weak var lblTwoStepTitle: UILabel!
+    @IBOutlet weak var lblHint: UILabel!
 
     @IBOutlet weak var AlloLoginSwitch: UISwitch!
     @IBOutlet weak var whoCanSeeProfilePhotoLabel: UILabel!
@@ -43,7 +53,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Privacy & Security")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_TTL_PRIVACY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -52,7 +62,7 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
         
         let predicate = NSPredicate(format: "isBlocked == 1")
         blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
-        numberOfBlockedContacts.text = "\(blockedUsers.count) users"
+        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + "CONTACTS".localized
         
         self.notificationToken = blockedUsers.observe { (changes: RealmCollectionChange) in
             switch changes {
@@ -90,10 +100,46 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-        numberOfBlockedContacts.text = "\(blockedUsers.count) Contact "
+        numberOfBlockedContacts.text = "\(blockedUsers.count)" + "CONTACTS".localizedNew
         
         fetchBlockedContactsFromServer()
         showPrivacyInfo()
+        initChangeLang()
+    }
+    func initChangeLang() {
+        lblBlockedUserTitle.text = "SETTING_PS_BLOCKED_USERS".localizedNew
+        lblProfilePhotoTitle.text = "SETTING_PS_PROFILE_PHOTO".localizedNew
+        lblLastSeenTitle.text = "SETTING_PS_LAST_SEEN".localizedNew
+        lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
+        lblChannelsTitle.text = "SETTING_PS_CHANNELS".localizedNew
+        lblCallTitle.text = "SETTING_PS_CALL".localizedNew
+        lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
+        lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
+        lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
+        tableView.beginUpdates()
+        
+        if let containerView = tableView.footerView(forSection: 0) {
+            containerView.textLabel!.text = "SETTING_PS_PRIVACY_HINT".localizedNew
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.sizeToFit()
+        }
+        if let header = tableView.headerView(forSection: 0) {
+            header.textLabel!.text = "SETTING_PS_TTL_PRIVACY".localizedNew
+            header.textLabel?.font = UIFont.igFont(ofSize: 15)
+
+            header.sizeToFit()
+        }
+        if let headerT = tableView.headerView(forSection: 1) {
+            headerT.textLabel!.text = "SETTING_PS_TTL_SECURITY".localizedNew
+            headerT.textLabel?.font = UIFont.igFont(ofSize: 15)
+            headerT.sizeToFit()
+        }
+        
+        tableView.endUpdates()
+        lblActiveSessionsTitle.text = "SETTING_PS_ACTIVE_SESSIONS".localizedNew
+        lblTwoStepTitle.text = "SETTING_PS_TWO_STEP_VERFI".localizedNew
+
     }
     
     func showPrivacyInfo(){
@@ -128,13 +174,13 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             avatarUserPrivacy = avatarPrivacy
             switch  avatarPrivacy{
             case .allowAll:
-                whoCanSeeProfilePhotoLabel.text = "Everybody"
+                whoCanSeeProfilePhotoLabel.text = "EVERYBODY".localizedNew
                 break
             case .allowContacts:
-                whoCanSeeProfilePhotoLabel.text = "My Contacts"
+                whoCanSeeProfilePhotoLabel.text = "MY_CONTACTS".localizedNew
                 break
             case .denyAll:
-                whoCanSeeProfilePhotoLabel.text = "Nobody"
+                whoCanSeeProfilePhotoLabel.text = "NOBODY".localizedNew
                 break
             }
         }
@@ -148,13 +194,13 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             lastSeenUserPrivacy = userStatePrivacy
             switch userStatePrivacy {
             case .allowAll:
-                whoCanSeeLastSeenLabel.text = "Everybody"
+                whoCanSeeLastSeenLabel.text = "EVERYBODY".localizedNew
                 break
             case .allowContacts:
-                whoCanSeeLastSeenLabel.text = "My Contacts"
+                whoCanSeeLastSeenLabel.text = "MY_CONTACTS".localizedNew
                 break
             case .denyAll:
-                whoCanSeeLastSeenLabel.text = "Nobody"
+                whoCanSeeLastSeenLabel.text = "NOBODY".localizedNew
                 break
             }
         }
@@ -169,13 +215,13 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             switch channelInvitePrivacy {
                 
             case .allowAll:
-                whoCanAddingMeToChannelLabel.text = "Everybody"
+                whoCanAddingMeToChannelLabel.text = "EVERYBODY".localizedNew
                 break
             case .allowContacts:
-                whoCanAddingMeToChannelLabel.text = "My Contacts"
+                whoCanAddingMeToChannelLabel.text = "MY_CONTACTS".localizedNew
                 break
             case .denyAll:
-                whoCanAddingMeToChannelLabel.text = "Nobody"
+                whoCanAddingMeToChannelLabel.text = "NOBODY".localizedNew
                 break
             }
         }
@@ -189,13 +235,13 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             groupInviteUserPrivacy = groupInvitePrivacy
             switch groupInvitePrivacy {
             case .allowAll:
-                whoCanAddingToGroupLabel.text = "Everybody"
+                whoCanAddingToGroupLabel.text = "EVERYBODY".localizedNew
                 break
             case .allowContacts:
-                whoCanAddingToGroupLabel.text = "My Contacts"
+                whoCanAddingToGroupLabel.text = "MY_CONTACTS".localizedNew
                 break
             case .denyAll:
-                whoCanAddingToGroupLabel.text = "Nobody"
+                whoCanAddingToGroupLabel.text = "NOBODY".localizedNew
                 break
                 
             }
@@ -210,13 +256,13 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             self.callPrivacy = callPrivacy
             switch callPrivacy {
             case .allowAll:
-                whoCanCallMe.text = "Everybody"
+                whoCanCallMe.text = "EVERYBODY".localizedNew
                 break
             case .allowContacts:
-                whoCanCallMe.text = "My Contacts"
+                whoCanCallMe.text = "MY_CONTACTS".localizedNew
                 break
             case .denyAll:
-                whoCanCallMe.text = "Nobody"
+                whoCanCallMe.text = "NOBODY".localizedNew
                 break
             }
         }
@@ -356,8 +402,8 @@ class IGSettingPrivacy_SecurityTableViewController: UITableViewController, UIGes
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class chargeWalletTableViewController: UITableViewController,UITextFieldDelegate {
+class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelegate {
     @IBOutlet weak var tfAmount : UITextField!
     @IBOutlet weak var btnSubmit : UIButtonX!
     @IBOutlet weak var okButton: UIButton!
@@ -17,6 +17,7 @@ class chargeWalletTableViewController: UITableViewController,UITextFieldDelegate
     @IBOutlet weak var cashableBalanceLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var cashableAmountLabel: UILabel!
+    @IBOutlet weak var lblEnterChargePriceTitle: UILabel!
     
     var balance = "0".inLocalizedLanguage()
     var finishDelegate : HandleDefaultCard?
@@ -29,7 +30,29 @@ class chargeWalletTableViewController: UITableViewController,UITextFieldDelegate
         initDelegates ()
         initView()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initChangeLang()
+        initChangeDirection()
+    }
+    func initChangeLang() {
+        tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localizedNew
+        lblEnterChargePriceTitle.text = "TTL_ENTER_CHARGE_PRICE".localizedNew
+        amountTitleLabel.text = "TTL_WALLET_ACCOUNT_BALANCE".localizedNew
+        cashableAmountLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localizedNew
+//        balanceLabel.text = "TTL_WALLET_ACCOUNT_CASHABLE".localizedNew
+
+    }
+    func initChangeDirection() {
+        cashableAmountLabel.textAlignment = cashableAmountLabel.localizedNewDirection
+        balanceLabel.textAlignment = balanceLabel.localizedNewDirection
+
+        amountTitleLabel.textAlignment = cashableAmountLabel.localizedNewDirection
+        cashableBalanceLabel.textAlignment = balanceLabel.localizedNewDirection
+    }
     func initView() {
+        btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+
         self.cashableBalanceLabel.text = balance
         self.balanceLabel.text = balance
     }

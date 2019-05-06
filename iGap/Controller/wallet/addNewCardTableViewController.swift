@@ -8,7 +8,7 @@
 
 import UIKit
 
-class addNewCardTableViewController: UITableViewController , UITextFieldDelegate  {
+class addNewCardTableViewController: BaseTableViewController , UITextFieldDelegate  {
     @IBOutlet weak var cardTextField: UITextField!
     @IBOutlet weak var mounthTextField: UITextField!
     @IBOutlet weak var yearTextField: UITextField!
@@ -24,10 +24,25 @@ class addNewCardTableViewController: UITableViewController , UITextFieldDelegate
         initView()
         initNavigationBar()
     }
+    override func viewWillAppear(_ animated: Bool) {
+       super.viewWillAppear(animated)
+        initChangeLang()
+        btnSave.setTitle("SAVE".localizedNew, for: .normal)
+    }
+    func initChangeLang() {
+        lblcardNum.text = "TTL_CARDNUM".localizedNew
+        lblMonth.text = "TTL_MONTH".localizedNew
+        lblYear.text = "TTL_YEAR".localizedNew
+        
+        mounthTextField.placeholder = "TTL_MONTH".localizedNew
+        yearTextField.placeholder = "TTL_YEAR".localizedNew
+        lblMonth.textAlignment = lblMonth.localizedNewDirection
+        lblYear.textAlignment = lblYear.localizedNewDirection
+    }
     // MARK : - init View elements
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Add a new card")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "TTL_ADD_NEW_CARD".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         
     }
@@ -55,7 +70,7 @@ class addNewCardTableViewController: UITableViewController , UITextFieldDelegate
             
 
             if SMValidation.showConnectionErrorToast(err) {
-                SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
             }
         })
         

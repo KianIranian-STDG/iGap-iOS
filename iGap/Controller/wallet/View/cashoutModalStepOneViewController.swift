@@ -9,7 +9,10 @@
 import UIKit
 import maincore
 
-class cashoutModalStepOneViewController: UIViewController {
+class cashoutModalStepOneViewController: BaseViewController {
+    @IBOutlet weak var btnOk: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
+
     @IBOutlet weak var confirmStackView: UIStackView!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
@@ -30,7 +33,8 @@ class cashoutModalStepOneViewController: UIViewController {
     @IBOutlet weak var verticalConstraits: NSLayoutConstraint!
     @IBOutlet weak var confirmRequestView: UIView!
     @IBOutlet weak var passView: UIView!
-
+    @IBOutlet weak var lblWalletPinTitle: UILabel!
+    
     @IBOutlet weak var tfPin : UITextField!
     var isStepOne = true
     var keyBoardIsOpen = false
@@ -53,6 +57,14 @@ class cashoutModalStepOneViewController: UIViewController {
         handleUIChange()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initCHangeLang()
+    }
+    func initCHangeLang() {
+        lblWalletPinTitle.text = "ENTER_WALLET_PIN".localizedNew
+        dialogTitle.text = "WALLET_PIN".localizedNew
+    }
     
     func initView() {
         self.view.isUserInteractionEnabled = true
@@ -66,6 +78,8 @@ class cashoutModalStepOneViewController: UIViewController {
         
         prepareConfirm(resp: message, amount: amount)
         self.dialogTitle.text = dialogT
+        btnOk.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        btnCancel.setTitle("CANCEL_BTN".localizedNew, for: .normal)
     }
     func AnimateMainViewHeight() {
         UIView.animate(withDuration: 0.5, animations: {
@@ -115,6 +129,8 @@ class cashoutModalStepOneViewController: UIViewController {
         AnimateMainViewHeight()
         }
         else {
+            SMLoading.showLoadingPage(viewcontroller: self)
+
             SMCard.chashout(amount: Int(rightLBLone.text!) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: SMUserManager.token ?? "", sourceCardToken:SMUserManager.payGearToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: SMUserManager.accountId ,onSuccess: {resp in
                 SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localizedNew, message: "SUCCESS_OPERATION".localizedNew, yesPressed: { pin in
                     self.view.endEditing(true)
@@ -165,7 +181,7 @@ class cashoutModalStepOneViewController: UIViewController {
     }
     
     func GoToWalletPinUI() {
-        dialogTitle.text = "Wallet Pin"
+        dialogTitle.text = "WALLET_PIN".localizedNew
     }
     /*
     // MARK: - Navigation

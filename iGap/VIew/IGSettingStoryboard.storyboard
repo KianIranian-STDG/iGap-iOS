@@ -22,12 +22,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="O8d-so-e5Y">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="O8d-so-e5Y">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="194"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NO-Sq-9OI" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="137" y="33" width="100" height="100"/>
+                                    <rect key="frame" x="137.66666666666666" y="115" width="100" height="100"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="FJL-Ht-PYp"/>
@@ -35,7 +35,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdJ-KJ-h0A">
-                                    <rect key="frame" x="211" y="100" width="24" height="26"/>
+                                    <rect key="frame" x="211.66666666666666" y="182" width="24" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="itm-A2-666"/>
                                         <constraint firstAttribute="height" constant="26" id="j5o-Mb-6fY"/>
@@ -46,7 +46,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVd-v2-fme" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="144" y="141" width="86.333333333333343" height="20.333333333333343"/>
+                                    <rect key="frame" x="144.33333333333334" y="223" width="86.333333333333343" height="20.333333333333343"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -2851,6 +2851,10 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                     </tableView>
                     <navigationItem key="navigationItem" title="Chat Wallpaper" id="naV-4y-bWp" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="lblPhotos" destination="boQ-9r-Lzf" id="9hu-BC-VPX"/>
+                        <outlet property="lblReset" destination="HxX-Eo-ftB" id="GGc-eT-rGh"/>
+                        <outlet property="lblSolidColors" destination="R7m-mg-7i4" id="tKS-LT-QQn"/>
+                        <outlet property="lblWallpaperLibrary" destination="kQO-bC-9kU" id="LAn-rM-qqX"/>
                         <segue destination="OpA-fx-bUr" kind="show" identifier="showWallpaperListPage" id="6ru-We-Sy3"/>
                         <segue destination="ki2-oV-nJi" kind="show" identifier="showWallpaperPreview" id="vpP-Vs-3F7"/>
                     </connections>
@@ -3424,6 +3428,14 @@ Please wait 0:59</string>
                     <navigationItem key="navigationItem" title="Privacy&amp;Security" id="DFQ-O5-qkp" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="AlloLoginSwitch" destination="UdO-Gc-nJJ" id="JWn-af-YuS"/>
+                        <outlet property="lblActiveSessionsTitle" destination="RwX-yH-eYN" id="27C-pL-f8K"/>
+                        <outlet property="lblBlockedUserTitle" destination="Nzj-5f-IHr" id="pWB-ur-hGY"/>
+                        <outlet property="lblCallTitle" destination="IVx-Ob-UJs" id="pfD-uD-Lxc"/>
+                        <outlet property="lblChannelsTitle" destination="l6F-nO-vy8" id="GHb-Z0-98X"/>
+                        <outlet property="lblGroupsTitle" destination="SY8-N6-mb7" id="Afv-P3-Mmd"/>
+                        <outlet property="lblLastSeenTitle" destination="uo8-Ld-vcP" id="TDB-WS-bth"/>
+                        <outlet property="lblProfilePhotoTitle" destination="YY5-Ye-d8h" id="h4m-Ko-toG"/>
+                        <outlet property="lblTwoStepTitle" destination="GKb-YA-4Sy" id="wNW-FB-1Rt"/>
                         <outlet property="numberOfBlockedContacts" destination="fhw-QB-h72" id="1gI-GH-brW"/>
                         <outlet property="whoCanAddingMeToChannelLabel" destination="jLc-TO-d0d" id="4Cb-Yz-gIY"/>
                         <outlet property="whoCanAddingToGroupLabel" destination="QQs-cY-Zgo" id="PR7-EJ-wce"/>
@@ -6895,6 +6907,6 @@ Afg
         <segue reference="sIw-Hv-pyB"/>
         <segue reference="vpP-Vs-3F7"/>
         <segue reference="drr-8R-XU7"/>
-        <segue reference="FWu-Ni-6zD"/>
+        <segue reference="7wc-J4-g56"/>
     </inferredMetricsTieBreakers>
 </document>

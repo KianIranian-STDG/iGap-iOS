@@ -30,7 +30,7 @@ struct SMDirection {
     }
     
     static func PageAffineTransform() -> CGAffineTransform {
-        return (SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue) ? CGAffineTransform(scaleX: -1,y: 1) : CGAffineTransform(scaleX: 1,y: 1)
+        return (SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue) ? CGAffineTransform(scaleX: 1,y: 1) : CGAffineTransform(scaleX: -1,y: 1)
     }
     
     static func TextAlignment() -> NSTextAlignment {
