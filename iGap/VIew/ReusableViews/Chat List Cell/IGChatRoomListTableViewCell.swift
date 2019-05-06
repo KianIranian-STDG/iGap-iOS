@@ -153,7 +153,10 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     deinit {
         roomVariableFromRoomManagerCache = nil
     }
-    
+    //MARK: Configure
+    func configureOtherElements() {
+        
+    }
     //MARK: Configure
     func setRoom(room: IGRoom) {
         if room.isInvalidated {return}

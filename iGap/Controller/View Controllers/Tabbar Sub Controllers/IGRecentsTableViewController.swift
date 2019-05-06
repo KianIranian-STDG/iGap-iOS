@@ -737,7 +737,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)
         cell.layoutMargins = UIEdgeInsets.zero
-        /*
 
     */
         return cell
