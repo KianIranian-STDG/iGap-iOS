@@ -1427,6 +1427,9 @@ class IGUserIVandSetActivityRequest: IGRequest {
         IGGlobal.prgShow()
         IGUserIVandSetActivityRequest.Generator.generate(plancode: plancode).success({ (protoResponse) in
             IGGlobal.prgHide()
+            if let response = protoResponse as? IGPUserIVandSetActivityResponse {
+                IGHelperAlert.shared.showSuccessAlert(message: response.igpMessage, success: response.igpState, done: nil)
+            }
         }).error({ (errorCode, waitTime) in
             IGGlobal.prgHide()
         }).send()
