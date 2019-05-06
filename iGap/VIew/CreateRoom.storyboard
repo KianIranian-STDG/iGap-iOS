@@ -76,7 +76,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection footerTitle="You can provide an optional description for your group" id="0Sx-Z4-vpk">
+                            <tableViewSection id="0Sx-Z4-vpk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4Fc-ob-1B5">
                                         <rect key="frame" x="0.0" y="309" width="375" height="44"/>
@@ -524,7 +524,7 @@ Cg
         </scene>
     </scenes>
     <resources>
-        <image name="IG_New_Channel_Generic_Avatar" width="90" height="90"/>
-        <image name="IG_New_Group_Generic_Avatar" width="90" height="90"/>
+        <image name="IG_New_Channel_Generic_Avatar" width="180" height="180"/>
+        <image name="IG_New_Group_Generic_Avatar" width="180" height="180"/>
     </resources>
 </document>

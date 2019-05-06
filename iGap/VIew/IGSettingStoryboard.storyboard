@@ -20,7 +20,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Settings-->
+        <!-- -->
         <scene sceneID="ST3-4I-caM">
             <objects>
                 <tableViewController id="idX-F6-Llx" customClass="IGSettingTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -566,7 +566,7 @@
                             <outlet property="delegate" destination="idX-F6-Llx" id="TS6-rd-qp9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="siI-r3-Rht" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                    <navigationItem key="navigationItem" title=" " id="siI-r3-Rht" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
                         <barButtonItem key="rightBarButtonItem" id="rZ3-qo-rYr">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
@@ -4609,7 +4609,7 @@ Please wait 0:59</string>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O61-fS-jjK">
-                                <rect key="frame" x="93.000000000000014" y="137.66666666666666" width="199.33333333333337" height="20"/>
+                                <rect key="frame" x="92.999999999999986" y="134.33333333333334" width="197.66666666666663" height="26.666666666666657"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -6726,7 +6726,7 @@ kay*****@gm**.com</string>
             </objects>
             <point key="canvasLocation" x="-1113.0434782608697" y="-13053.260869565218"/>
         </scene>
-        <!--Account-->
+        <!--Setting Chnage Language Table View Controller-->
         <scene sceneID="FOt-tH-dzn">
             <objects>
                 <tableViewController storyboardIdentifier="ChnageLangSetting" id="Tk4-ts-mMN" customClass="IGSettingChnageLanguageTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
@@ -6829,7 +6829,7 @@ kay*****@gm**.com</string>
                             <outlet property="delegate" destination="Tk4-ts-mMN" id="bQq-Ls-3qM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Account" id="SWi-Op-GfA" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <navigationItem key="navigationItem" id="SWi-Op-GfA" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="lblArabicLang" destination="5Fs-tl-Pcf" id="Dkr-eu-uci"/>
                         <outlet property="lblEnglishLang" destination="az4-dz-UPB" id="mgS-To-p22"/>

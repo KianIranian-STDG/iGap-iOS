@@ -14,7 +14,7 @@ import RealmSwift
 private let reuseIdentifier = "StickerCell"
 
 @available(iOS 10.0, *)
-class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener, StickerCurrentGroupIdObserver {
+class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizerDelegate, StickerToolbarObserver, StickerAddListener, StickerCurrentGroupIdObserver {
     
     var numberOfItemsPerRow = 5.0 as CGFloat
     let interItemSpacing = 1.0 as CGFloat
@@ -75,7 +75,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     
     private func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Add Sticker")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "ADD_STICKER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -218,7 +218,7 @@ class IGStickerViewController: UICollectionViewController, UIGestureRecognizerDe
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if stickerPageType == StickerPageType.MAIN {
             if stickerTabs.count == 0 {
-                self.collectionView!.setEmptyMessage("Please Add Sticker!")
+                self.collectionView!.setEmptyMessage("PLEASE_ADD_STICKER".localizedNew)
             } else {
                 self.collectionView!.restore()
             }

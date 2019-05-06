@@ -17,11 +17,14 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        initNavigationBar()
+        
+    }
+    func initNavigationBar(){
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHANGE_LANGUAGE".localizedNew)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

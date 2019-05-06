@@ -199,7 +199,7 @@ extension UICollectionView {
         messageLabel.textColor = .black
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = .center;
-        messageLabel.font = UIFont(name: "Avenir-Light", size: 18)
+        messageLabel.font = UIFont.igFont(ofSize: 20)
         messageLabel.sizeToFit()
         
         self.backgroundView = messageLabel;
@@ -217,7 +217,7 @@ extension UITableView {
         messageLabel.textColor = .black
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = .center;
-        messageLabel.font = UIFont(name: "Avenir-Light", size: 18)
+        messageLabel.font = UIFont.igFont(ofSize: 20)
         messageLabel.sizeToFit()
         
         self.backgroundView = messageLabel;
@@ -1144,6 +1144,12 @@ extension UILabel {
     }
 }
 extension String {
+    
+    var isArabic: Bool {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", "(?s).*\\p{Arabic}.*")
+        return predicate.evaluate(with: self)
+    }
+    
     func convertToDictionary() -> [String: Any]? {
         if let data = self.data(using: .utf8) {
             do {

@@ -15,7 +15,7 @@ import IGProtoBuff
 import MBProgressHUD
 
 
-class IGCreateNewChatTableViewController: UITableViewController, UISearchResultsUpdating , UIGestureRecognizerDelegate, IGCallFromContactListObserver {
+class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResultsUpdating , UIGestureRecognizerDelegate, IGCallFromContactListObserver {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -57,11 +57,11 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
 
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        var title = "New Conversation"
+        var title = "NEW_CONVERSATION".localizedNew
         if forceCall {
-            title = "New Call"
+            title = "NEW_CALL".localizedNew
         }
-        navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: nil, title: title)
+        navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: nil, title: title)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -181,8 +181,8 @@ class IGCreateNewChatTableViewController: UITableViewController, UISearchResults
             }).error({ (errorCode, waitTime) in
                 DispatchQueue.main.async {
                     IGGlobal.prgHide()
-                    let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
-                    let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_RETRY".localizedNew, preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alertC.addAction(cancel)
                     self.present(alertC, animated: true, completion: nil)
                 }

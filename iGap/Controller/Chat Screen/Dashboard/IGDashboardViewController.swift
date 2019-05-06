@@ -144,7 +144,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
             self.collectionView!.isHidden = false
             self.btnRefresh!.isHidden = true
             if discovery.count == 0 {
-                self.collectionView!.setEmptyMessage("Please wait for get info!")
+                self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
             } else {
                 self.collectionView!.restore()
             }

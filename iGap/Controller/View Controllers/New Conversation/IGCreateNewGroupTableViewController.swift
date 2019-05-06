@@ -12,7 +12,7 @@ import UIKit
 import IGProtoBuff
 import MBProgressHUD
 
-class IGCreateNewGroupTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
 
     @IBOutlet weak var groupNameCell: UITableViewCell!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -37,7 +37,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
         groupAvatarImage.addGestureRecognizer(tap)
         groupAvatarImage.isUserInteractionEnabled = true
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Next", title: "New Group")
+        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -85,9 +85,9 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
     }
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Take a Photo")
+            print("TAKE_A_PHOTO".localizedNew)
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
                 self.imagePicker.allowsEditing = true
@@ -104,7 +104,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
                 }
             }
         })
-        let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Choose Photo")
             self.imagePicker.delegate = self
@@ -121,11 +121,11 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
             }
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
-        let removeAction = UIAlertAction(title: "Remove Photo", style: .default, handler: {
+        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.defualtImage = UIImage(named: "IG_New_Group_Generic_Avatar")
             self.groupAvatarImage.image = self.defualtImage
@@ -142,7 +142,7 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
         
         let alertActions = optionMenu.actions
         for action in alertActions {
-            if action.title == "Remove Photo"{
+            if action.title == "DELETE_PHOTO".localizedNew{
                 let removeColor = UIColor.red
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
@@ -334,8 +334,8 @@ class IGCreateNewGroupTableViewController: UITableViewController , UIGestureReco
                                 switch errorCode {
                                 case .timeout:
                                     DispatchQueue.main.async {
-                                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                         alert.addAction(okAction)
                                         self.hud.hide(animated: true)
                                         self.present(alert, animated: true, completion: nil)

@@ -13,7 +13,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewController ,UITextFieldDelegate,SSRadioButtonControllerDelegate , UIGestureRecognizerDelegate {
+class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewController ,UITextFieldDelegate,SSRadioButtonControllerDelegate , UIGestureRecognizerDelegate {
     
     @IBOutlet weak var publicChannelButton: SSRadioButton!
     @IBOutlet weak var privateChannel: SSRadioButton!
@@ -56,7 +56,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
     
     private func setNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "Next", title: "New Channel")
+        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -77,8 +77,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
     func convertChannelToPublic() {
         if let channelUserName = channelLinkTextField.text {
             if channelUserName == "" {
-                let alert = UIAlertController(title: "Error", message: "Channel link cannot be empty", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "CHECK_ALL_FIELDS".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.hud.hide(animated: true)
                 self.present(alert, animated: true, completion: nil)
@@ -86,8 +86,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
             }
             
             if channelUserName.count < 5 {
-                let alert = UIAlertController(title: "Error", message: "Enter at least 5 letters", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_MINIMUM_LENGH".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.hud.hide(animated: true)
                 self.present(alert, animated: true, completion: nil)
@@ -115,35 +115,35 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
                     case .channelUpdateUsernameIsInvalid:
-                        let alert = UIAlertController(title: "Error", message: "Username is invalid", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_INVALID_USERNAME".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
                         
                     case .channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
-                        let alert = UIAlertController(title: "Error", message: "Username has already been taken by another user", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_TAKEN_USERNAME".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
                         
                     case .channelUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
-                        let alert = UIAlertController(title: "Error", message: "More than the allowed usernmae have been selected by you", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "More than the allowed usernmae have been selected by you", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
                         
                     case .channelUpdateUsernameForbidden:
-                        let alert = UIAlertController(title: "Error", message: "Update username forbidden!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         break
@@ -151,8 +151,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
                     case .channelUpdateUsernameLock:
                         let time = waitTime
                         let remainingMiuntes = time!/60
-                        let alert = UIAlertController(title: "Error", message: "You can not change your username because you've recently changed it. waiting for \(remainingMiuntes) minutes", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_CHANGE_USERNAME_AFTER".localizedNew +  "\(remainingMiuntes)".inLocalizedLanguage() + "MINUTE".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true,completion: nil)
                         break
@@ -187,8 +187,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -250,14 +250,30 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: UITableViewControlle
         var footerText : String = ""
         if section == 1 {
             if radioButtonController?.selectedButton() == publicChannelButton {
-                footerText = "People can share this link whith others and find your channel using iGap search."
+                footerText = "MSG_CHANNEL_SHARE_FOOTER".localizedNew
             } else {
-                footerText = "People can join your channel by following this link.you can change the link at any time."
+                footerText = "MSG_CHANNEL_SHARE_JOIN".localizedNew
             }
         }
         return footerText
     }
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let containerView = view as! UITableViewHeaderFooterView
+        if section == 1 {
+            if radioButtonController?.selectedButton() == publicChannelButton {
+                containerView.textLabel!.text = "MSG_CHANNEL_SHARE_FOOTER".localizedNew
+            } else {
+                containerView.textLabel!.text = "MSG_CHANNEL_SHARE_JOIN".localizedNew
+            }
+        }
+        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+    }
     
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var headerText : String = ""
         if section == 0 {

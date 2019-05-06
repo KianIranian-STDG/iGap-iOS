@@ -118,7 +118,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
             }
             if mode == "CreateGroup" {
                 
-                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "New Group")
+                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "NEW_GROUP".localizedNew)
             }
             if mode == "Members" {
                 navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "Add Member")

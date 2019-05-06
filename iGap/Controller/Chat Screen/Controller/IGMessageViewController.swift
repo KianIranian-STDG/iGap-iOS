@@ -52,7 +52,7 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener {
+class IGMessageViewController: BaseViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate {
     
 
     @IBOutlet weak var pinnedMessageView: UIView!
@@ -237,7 +237,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+//        inputTextView.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
@@ -370,7 +372,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.managePinnedMessage()
         
         inputTextView.delegate = self
-        inputTextView.placeholder = "Message"
+        inputTextView.placeholder = "MESSAGE".localizedNew
+       
         inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
         inputTextView.maxHeight = 166.0 // almost 8 lines
         inputTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -1118,7 +1121,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if let draft = self.room!.draft {
             if draft.message != "" || draft.replyTo != -1 {
                 inputTextView.text = draft.message
-                inputTextView.placeholder = "Message"
+                inputTextView.placeholder = "MESSAGE".localizedNew
                 if draft.replyTo != -1 {
                     let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", draft.replyTo, self.room!.id)
                     if let replyToMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
@@ -2668,9 +2671,9 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         
         self.inputTextView.text = message.message
-        inputTextView.placeholder = "Message"
+        inputTextView.placeholder = "MESSAGE".localizedNew
         self.inputTextView.becomeFirstResponder()
-        self.inputBarOriginalMessageViewSenderNameLabel.text = "Edit Message"
+        self.inputBarOriginalMessageViewSenderNameLabel.text = "EDITE_MESSAGE".localizedNew
         self.inputBarOriginalMessageViewBodyTextLabel.text = message.message
         self.setInputBarHeight()
     }
@@ -2706,7 +2709,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         if textMessage != nil && !(textMessage?.isEmpty)! {
             
             if message.type == .sticker {
-                self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage! + " Sticker"
+                self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage! + "LBL_STICKER".localizedNew
             } else {
                 self.inputBarOriginalMessageViewBodyTextLabel.text = textMessage
                 
@@ -2781,28 +2784,28 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         let messageId = message.id
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "Abuse", style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".localizedNew, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.abuse)
         })
         
-        let spam = UIAlertAction(title: "Spam", style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".localizedNew, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.spam)
         })
         
-        let violence = UIAlertAction(title: "Violence", style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: "VIOLENCE".localizedNew, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "Pornography", style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".localizedNew, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, messageId: messageId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let other = UIAlertAction(title: "Other ", style: .default, handler: { (action) in
+        let other = UIAlertAction(title: "OTHER".localizedNew, style: .default, handler: { (action) in
             self.reportMessageId = messageId
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
             
         })
         
@@ -2916,6 +2919,11 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             destinationTv.locationDelegate = self
         }
     }
+    ////MARK: - UITextfield Delegate
+    func textFieldDidChange(_ textField: UITextField) {
+        print(textField.text)
+    }
+
 }
 
 ////MARK: - UICollectionView
@@ -4056,7 +4064,8 @@ extension IGMessageViewController {
             let newOffsett = CGPoint(x: 0, y: newOffsetY)
             self.collectionView.setContentOffset(newOffsett , animated: true)
         }
-    }    
+    }
+    
 }
 
 //MARK: - Set and cancel current action (typing, ...)

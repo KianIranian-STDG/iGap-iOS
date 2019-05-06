@@ -13,7 +13,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGCreateNewChannelTableViewController: UITableViewController {
+class IGCreateNewChannelTableViewController: BaseTableViewController {
 
     @IBOutlet weak var channelAvatarImage: UIImageView!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -34,14 +34,14 @@ class IGCreateNewChannelTableViewController: UITableViewController {
         channelAvatarImage.addGestureRecognizer(tap)
         channelAvatarImage.isUserInteractionEnabled = true
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: "Cancel", rightItemText: "Next", title: "New Channel")
+        navigationItem.addModalViewItems(leftItemText: "CANCEL_BTN".localizedNew, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
         navigationItem.leftViewContainer?.addAction {
             self.navigationController?.popToRootViewController(animated: true)
         }
         navigationItem.rightViewContainer?.addAction {
             if self.channelnameTextField.text?.isEmpty == true {
-                let alert = UIAlertController(title: "Hint", message: "Please write your channel name !", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "MSG_WRITE_YOUR_CHANNEL_NAME".localizedNew, preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: UIAlertAction.Style.default, handler: nil))
                 alert.view.tintColor = UIColor.organizationalColor()
                 self.present(alert, animated: true, completion: nil)
 
@@ -50,6 +50,11 @@ class IGCreateNewChannelTableViewController: UITableViewController {
             }
             
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        descriptionTextField.placeholder = "PRODUCTS_DETAILS".localizedNew
+        channelnameTextField.placeholder = "CHANNEL_NAME".localizedNew
     }
     
     func addBottomBorder(){
@@ -157,10 +162,22 @@ class IGCreateNewChannelTableViewController: UITableViewController {
         roundView.clipsToBounds = true
     }
 
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let containerView = view as! UITableViewHeaderFooterView
+        if section == 0 {
+                containerView.textLabel!.text = "MSG_CHANNEL_DESC".localizedNew
+        }
+        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
 
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Take a Photo")
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
@@ -179,7 +196,7 @@ class IGCreateNewChannelTableViewController: UITableViewController {
                 }
             }
         })
-        let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Choose Photo")
             self.imagePicker.delegate = self
@@ -196,11 +213,11 @@ class IGCreateNewChannelTableViewController: UITableViewController {
             }
         })
        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
-        let removeAction = UIAlertAction(title: "Remove Photo", style: .default, handler: {
+        let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.defaultImage = UIImage(named: "IG_New_Channel_Generic_Avatar")
             self.channelAvatarImage.image = self.defaultImage
@@ -214,7 +231,7 @@ class IGCreateNewChannelTableViewController: UITableViewController {
         }
         let alertActions = optionMenu.actions
         for action in alertActions {
-            if action.title == "Remove Photo"{
+            if action.title == "DELETE_PHOTO".localizedNew{
                 let removeColor = UIColor.red
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
