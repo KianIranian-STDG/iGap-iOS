@@ -46,7 +46,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         makeStickerAddButton()
         
         txtStickerTitle.text = sticker.name
-        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + "LBL_STICKER".localizedNew
+        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + "LBL_STICKER".localizedNew
     }
     
     func configureListPage(sticker: StickerTab, sectionIndex: Int) {
@@ -63,7 +63,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         makeStickerAddButton()
         
         txtStickerTitle.text = sticker.name
-        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + "LBL_STICKER".localizedNew
+        txtStickerCount.text = String(describing: sticker.stickers.count).inLocalizedLanguage() + " " + "LBL_STICKER".localizedNew
     }
     
     @objc func didTapOnAddOrRemove(_ gestureRecognizer: UITapGestureRecognizer) {

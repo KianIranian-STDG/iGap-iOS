@@ -269,6 +269,7 @@
         "PLEASE_ADD_STICKER" : "لطفا استیکر اضافه نمایید",
         "ADD_STICKER" : "افزودن استیکر",
         "LBL_STICKER" : "استیکر",
+        "STICKER_CATEGORY" : "دسته بندی های استیکر",
         "CONNECTING" : "در حال ارتصال ...",
         "WAITING_NETWORK" : "در حستجوی اینترنت ...",
         "RETURN_TO_CALL" : "بازگشت به صفحه تماس",
@@ -1137,6 +1138,7 @@
         "PLEASE_ADD_STICKER" : "Please Add Sticker!",
         "ADD_STICKER" : "Add Sticker!",
         "LBL_STICKER" : "Stickers",
+        "STICKER_CATEGORY" : "Sticker Categories",
 
         "TTL_DELETE_CONTACT" : "Delete Contact.",
         "TTL_MAP_STATUS" : "Notice! Activating Map Status",

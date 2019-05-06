@@ -22,7 +22,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Sticker Categories")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "STICKER_CATEGORY".localizedNew, width: 200)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
