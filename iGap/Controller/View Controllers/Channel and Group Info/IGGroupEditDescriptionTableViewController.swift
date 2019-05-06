@@ -38,7 +38,7 @@ class IGGroupEditDescriptionTableViewController: BaseTableViewController , UIGes
         myRole = room?.groupRoom?.role
         if myRole == .owner || myRole == .admin {
             groupDescriptionTextView.isUserInteractionEnabled = true
-            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "PRODUCTS_DETAILS".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "PRODUCTS_DETAILS".localizedNew)
             navigationItem.rightViewContainer?.addAction {
                 self.changeGroupDescription()
             }

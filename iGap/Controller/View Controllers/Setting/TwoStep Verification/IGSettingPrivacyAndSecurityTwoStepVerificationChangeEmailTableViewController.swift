@@ -16,6 +16,7 @@ import MBProgressHUD
 class IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var lbl: UILabel!
     
     var password: String?
     
@@ -25,11 +26,15 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewControll
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Change Email")
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "CHNAGE_EMAIL".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.changeEmail()
         }
+
+        lbl.text = "SETTING_PS_TV_EMAIL".localizedNew
+        emailTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+
     }
     
     func changeEmail(){

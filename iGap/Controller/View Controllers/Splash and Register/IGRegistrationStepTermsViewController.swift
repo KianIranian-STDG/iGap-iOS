@@ -21,7 +21,7 @@ class IGRegistrationStepTermsViewController: BaseViewController {
         super.viewDidLoad()
         
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "BTN_DONE".localizedNew, title: "TERMS".localizedNew)
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: "DONE_BTN".localizedNew, title: "TERMS".localizedNew)
         navItem.rightViewContainer?.addAction {
             self.dismiss(animated: true) {
                 
@@ -39,8 +39,9 @@ class IGRegistrationStepTermsViewController: BaseViewController {
                 switch responseProto {
                 case let pageInfoResponse as IGPInfoPageResponse:
                     let body = IGInfoPageRequest.Handler.interpret(response: pageInfoResponse)
-                    let htmlString = "<font face='IRANSans' size='3'>" + body
-                    self.webView.loadHTMLString(htmlString, baseURL: nil)
+                    let htmlString = "<font face='IRANSans' size='3'>" + "<p style='text-align:center'>" + body + "</p>"
+
+                        self.webView.loadHTMLString(htmlString, baseURL: nil)
                 default:
                     break
                 }

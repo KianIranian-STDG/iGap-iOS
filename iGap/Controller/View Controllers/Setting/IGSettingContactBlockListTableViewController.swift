@@ -73,19 +73,19 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController , UI
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-        if let containerView = tableView.footerView(forSection: 0) {
-            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-            containerView.sizeToFit()
-        }
-        if let header = tableView.headerView(forSection: 0) {
-            header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localizedNew
-            header.textLabel?.font = UIFont.igFont(ofSize: 15)
-            header.textLabel?.textAlignment = (header.textLabel?.localizedNewDirection)!
-
-            header.sizeToFit()
-        }
+//        if let containerView = tableView.footerView(forSection: 0) {
+//            containerView.textLabel!.text = "MSG_NO_MSG_FRM_BLOCKED_USERS".localizedNew
+//            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+//            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+//            containerView.sizeToFit()
+//        }
+//        if let header = tableView.headerView(forSection: 0) {
+//            header.textLabel!.text = "SETTING_PS_BLOCKED_USERS".localizedNew
+//            header.textLabel?.font = UIFont.igFont(ofSize: 15)
+//            header.textLabel?.textAlignment = (header.textLabel?.localizedNewDirection)!
+//
+//            header.sizeToFit()
+//        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

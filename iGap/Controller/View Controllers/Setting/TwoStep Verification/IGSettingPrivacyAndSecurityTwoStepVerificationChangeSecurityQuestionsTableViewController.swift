@@ -19,7 +19,11 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
     @IBOutlet weak var answer1TextField: UITextField!
     @IBOutlet weak var question2TextField: UITextField!
     @IBOutlet weak var answer2TextField: UITextField!
-    
+    @IBOutlet weak var lbl1:UILabel!
+    @IBOutlet weak var lbl2:UILabel!
+    @IBOutlet weak var lbl3:UILabel!
+    @IBOutlet weak var lbl4:UILabel!
+
     var password: String?
     var questionOne: String?
     var questionTwo: String?
@@ -33,9 +37,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepQuestion.changeRecoveryQuestion {
-            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PS_TV_CHANGE_RECOVER_QUESTION".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PS_TV_CHANGE_RECOVER_QUESTION".localizedNew)
         } else if self.pageAction == IGTwoStepQuestion.questionRecoveryPassword {
-            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PS_TV_RECOVER_PASS".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PS_TV_RECOVER_PASS".localizedNew)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -51,6 +55,15 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             question1TextField.text = questionOne
             question2TextField.text = questionTwo
         }
+
+        lbl1.text = "SETTING_PS_TV_Q1".localizedNew
+        lbl3.text = "SETTING_PS_TV_Q2".localizedNew
+        lbl2.text = "SETTING_PS_TV_A1".localizedNew
+        lbl4.text = "SETTING_PS_TV_A2".localizedNew
+        question1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        question2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        answer1TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        answer2TextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
     }
     
     func changeRecoveryQuestion(){

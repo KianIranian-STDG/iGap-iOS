@@ -44,7 +44,7 @@ class IGChannelInfoEditTypeTableViewController: BaseTableViewController ,UITextF
         privateIndexPath = IndexPath(row: 1, section: 0)
         publicIndexPath  = IndexPath(row: 0, section: 0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "TYPE".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "TYPE".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

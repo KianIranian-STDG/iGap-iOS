@@ -25,19 +25,22 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        btnForgetPassword.removeUnderline()
+//        btnForgetPassword.removeUnderline()
         
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "SETTING_PS_TV_VERIFY_PASSWORD".localizedNew, title: "PASSWORD".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "PASSWORD".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.verifyPassword()
         }
         btnForgetPassword.setTitle("FORGET_PASSWORD".localizedNew, for: .normal)
         btnForgetPassword.titleLabel!.font = UIFont.igFont(ofSize: 15)
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        passwordTextField.font = UIFont.igFont(ofSize: 17)
         
 
     }
@@ -51,19 +54,26 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewContr
 
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 0 {
         if let hint = self.twoStepVerification?.hint {
             return "SETTING_PS_TV_HINT".localizedNew + "\(hint)"
         }
         return ""
+        }
+        else {
+            return ""
+        }
+        
     }
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        
         let containerView = view as! UITableViewHeaderFooterView
         containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
         containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        return 50
     }
     var twoStepPassword:String?
     

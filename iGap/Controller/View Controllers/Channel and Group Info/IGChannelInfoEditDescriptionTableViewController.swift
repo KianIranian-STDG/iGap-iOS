@@ -32,7 +32,7 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
         myRole = room?.channelRoom?.role
         if myRole == .owner || myRole == .admin {
             channelDescriptionTextView.isUserInteractionEnabled = true
-            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "PRODUCTS_DETAILS".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "PRODUCTS_DETAILS".localizedNew)
             navigationItem.rightViewContainer?.addAction {
                 self.changeChannelDescription()
             }

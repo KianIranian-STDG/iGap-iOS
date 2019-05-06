@@ -36,13 +36,13 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
         
         self.roomId = room?.id
         if mode == "Admin" {
-            navigationTitle = "Admins"
+            navigationTitle = "ADMIN".localizedNew
             noDataTitle = "This group has no admin."
             filterRole = .admin
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld" , adminsRole , (room?.id)!)
             members =  try! Realm().objects(IGGroupMember.self).filter(predicate!)
         } else if mode == "Moderator" {
-            navigationTitle = "Moderators"
+            navigationTitle = "MODERATOR".localizedNew
             filterRole = .moderator
             noDataTitle = "This group has no moderator."
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
@@ -67,7 +67,7 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Add", title: navigationTitle)
+        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: navigationTitle)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

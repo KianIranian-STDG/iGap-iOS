@@ -38,7 +38,7 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
             members =  try! Realm().objects(IGChannelMember.self).filter(predicate!)
         }
         if mode == "Moderator" {
-            navigationTitle = "Moderators"
+            navigationTitle = "MODERATOR".localizedNew
             noDataTitle = "This channel has no moderator."
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
             members =  try! Realm().objects(IGChannelMember.self).filter(predicate!)
@@ -62,7 +62,7 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Add", title: navigationTitle)
+        navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: navigationTitle)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

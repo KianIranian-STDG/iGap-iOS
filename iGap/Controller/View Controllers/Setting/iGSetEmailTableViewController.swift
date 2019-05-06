@@ -29,7 +29,7 @@ class IGSetEmailTableViewController: UITableViewController,UITextFieldDelegate ,
         }
         getUserEmail()
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PAGE_ACCOUNT_EMAIL".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PAGE_ACCOUNT_EMAIL".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

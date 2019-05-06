@@ -17,6 +17,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewControlle
 
     @IBOutlet weak var hintTextField: UITextField!
     @IBOutlet weak var txtHint: UITextField!
+    @IBOutlet weak var lbl1: UILabel!
     var password: String?
     
     override func viewDidLoad() {
@@ -25,11 +26,13 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewControlle
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Change Hint")
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "CHANGE_HINT".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.changeHint()
         }
+        lbl1.text = "SETTING_PS_TV_HINT".localizedNew
+        txtHint.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localizedNew
     }
     
     func changeHint(){

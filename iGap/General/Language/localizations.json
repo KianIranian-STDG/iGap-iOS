@@ -106,6 +106,7 @@
         "MSG_USER_REPORTED_BEFOR" : "این کاربر قبلا ریپورت شده است",
         "MSG_REPORT_INVALID" : "توضیحات ریپورت مورد تایید نمی باشد",
         "TTL_PICKNUM_WITH_COUNTRYCODE" : "لطفا به منظور شروع فرایند ثبت نام کد کشور و شماره همراه خود را وارد نمایید",
+        "TTL_OPTIONS" : "گزینه ها",
         "LOGIN_USING_QR" : "ورود توسط اسکن کد کیو آر",
         "TERMS" : "شرایط",
         "SMS" : "پیامک",
@@ -170,6 +171,14 @@
         "MSG_JOINED_IGAP" : " به آیگپ ملحق شد",
         "MSG_DELETED_ACCOUNT" : " حساب خود را حدف کرد",
         "MSG_CHANNEL_WAS_CREATED" : "کانال ایجاد گردید",
+        "MSG_UNVERIFIED_EMAIL" : "ایمیل شما تایید نشده است:\n",
+        "REMOVE_PASSWORD" : "حذف رمز عبور",
+        "CHANGE_PASSWORD" : "تغییر رمز عبور",
+        "CHANGE_HINT" : "تغییر راهنما",
+        "CHNAGE_EMAIL" : "تغییر ایمیل",
+        "CHANGE_SECURITY_Q" : "تغییر سوال های امنیتی",
+        "SET_CHANGE_RECO_EMAIL" : "ورود یا تغییر ایمیل",
+        "VERIFY_EMAIL" : "تایید ایمیل",
 
         
         
@@ -270,7 +279,7 @@
         "A_LONG_TIME_AGO" : "خیلی وقت پیش",
         "LAST_MONTH" : "ماه قبل",
         "LAST_WEAK" : "هفته قبل",
-        "ONLINE" : "آنلابن",
+        "ONLINE" : "آنلاین",
         "LAST_SEEN_RECENTLY" : "همین حالا",
         "A_FEW_SEC_AGO" : "چند ثانبه قبل",
         "MINUTE" : "دقیقه",
@@ -437,6 +446,7 @@
         "FORGET_PASSWORD" : "فراموشی رمز عبور",
         "MSG_FORGET_PASSWORD" : "مایل به استفاده از کدام یک از روش های زیر برای تغییر رمز عبور خود هستید؟",
         "RECOVERY_QUESTIONS" : "سوال های امنیتی",
+        "RECOVER_PASS" : "بازیابی رمز عبور",
 
         "NEW_PASS" : "رمز عبور جدید",
         "SUCCESS_OTP" : "رمز یکبار مصرف با موفقیت برای شما ارسال شد",
@@ -765,6 +775,7 @@
         "AUTH_REGISTER_INFO" : "اطلاعات کاربری خودت رو وارد کن",
         "AUTH_USERNAME" : "شناسه کاربری",
         "AUTH_VERIFYMOBILE" : "کد تایید موبایل",
+        "VERFICATION_CODE" : "کد تایید",
         "AUTH_HINT_MOBILE" : "به شماره موبایل <MOBILE> کدی پیامک شده است، در صورت عدم دریافت دوباره درخواست بدهید.",
         "AUTH_RESEND" : "ثانیه تا ارسال دوباره پیامک",
         "AUTH_RESEND_BUTTON" : "ارسال دوباره پیامک",
@@ -818,6 +829,8 @@
         "GLOBAL_YES" : "بله",
         "GLOBAL_NO" : "خیر",
         "GLOBAL_OK" : "تایید",
+        "GLOBAL_DONE" : "تایید",
+
         "GLOBAL_TO" : "تا",
         "GLOBAL_BACK" : "بازگشت",
         "GLOBAL_CLOSE" : "بستن",
@@ -852,6 +865,8 @@
         "MSG_SURE_TO_DELETE_CHAT" : "Are you sure you want to Delete this chat?",
         "MSG_SURE_TO_DELETE_CHANNEL" : "Are you sure you want to Delete this chat?",
         "MSG_SURE_TO_LEAVE_CHANNEL" : "Are you sure you want to Leave this Channel?",
+        "TTL_OPTIONS" : "Options",
+        "MSG_UNVERIFIED_EMAIL" : "You have an unverifies email address:\n",
 
         "MSG_SURE_TO_DELETE_CACHE" : "Are you sure you want to Clear selected Data?",
         "MSG_SURE_TO_DELETE_CHAT_HISTORY" : "Are you sure you want to Delete chat history?",
@@ -1004,7 +1019,22 @@
         "MSG_JOINED_IGAP" : " Joined to iGap",
         "MSG_DELETED_ACCOUNT" : " Deleted his account",
         "MSG_CHANNEL_WAS_CREATED" : "Channel was created",
+        "REMOVE_PASSWORD" : "Remove Password",
+        "CHANGE_PASSWORD" : "Chnage Password",
+        "CHANGE_HINT" : "Change Hint",
+        "CHNAGE_EMAIL" : "Change Email",
+        "CHANGE_SECURITY_Q" : "Change Security Questions",
+        "SET_CHANGE_RECO_EMAIL" : "Change or Set Recovery Email",
+        "VERIFY_EMAIL" : "Verify Email",
 
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1257,6 +1287,7 @@
         "FORGET_PASSWORD" : "Forget Password",
         "MSG_FORGET_PASSWORD" : "Which option do you want to use to change your password?",
         "RECOVERY_QUESTIONS" : "Recovery Questions",
+        "RECOVER_PASS" : "Recover Password",
 
         "NEW_PASS" : "New password",
         "SUCCESS_OTP" : "OTP Code has been send to you successfully",
@@ -1600,6 +1631,8 @@
         "AUTH_REGISTER_INFO" : "Enter your login infos",
         "AUTH_USERNAME" : "Username",
         "AUTH_VERIFYMOBILE" : "Verification code",
+        "VERFICATION_CODE" : "Verification code",
+
         "AUTH_HINT_MOBILE" : " A verification code sent, if it doesn't received <MOBILE>, request a code again",
         "AUTH_RESEND" : "Seconds remained to send the code, again",
         "AUTH_RESEND_BUTTON" : "Send the code again",
@@ -1653,6 +1686,7 @@
         "GLOBAL_YES" : "yes",
         "GLOBAL_NO" : "No",
         "GLOBAL_OK" : "OK",
+        "GLOBAL_DONE" : "Done",
         "GLOBAL_TO" : "to",
         "GLOBAL_BACK" : "back",
         "GLOBAL_CLOSE" : "Close",

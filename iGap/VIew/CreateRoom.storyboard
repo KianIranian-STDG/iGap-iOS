@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
         <array key="iGap-Fontico.ttf">
             <string>iGap-Fontico</string>
         </array>
@@ -153,7 +156,7 @@
                                         <constraint firstAttribute="width" constant="180" id="ZaE-ee-iX6"/>
                                     </constraints>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="19"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                             </subviews>
@@ -175,19 +178,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FOE-Rw-87J">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FOE-Rw-87J">
                                                     <rect key="frame" x="15" y="0.0" width="356" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="FOE-Rw-87J" firstAttribute="width" secondItem="hl9-mo-e5X" secondAttribute="width" multiplier="0.95" id="8So-ND-yjU"/>
-                                                <constraint firstItem="FOE-Rw-87J" firstAttribute="centerY" secondItem="hl9-mo-e5X" secondAttribute="centerY" id="bgI-BV-6zB"/>
-                                                <constraint firstItem="FOE-Rw-87J" firstAttribute="centerX" secondItem="hl9-mo-e5X" secondAttribute="centerX" constant="5.5" id="byb-wI-6cX"/>
-                                                <constraint firstItem="FOE-Rw-87J" firstAttribute="height" secondItem="hl9-mo-e5X" secondAttribute="height" id="twd-uZ-NZF"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -524,7 +522,7 @@ Cg
         </scene>
     </scenes>
     <resources>
-        <image name="IG_New_Channel_Generic_Avatar" width="180" height="180"/>
-        <image name="IG_New_Group_Generic_Avatar" width="180" height="180"/>
+        <image name="IG_New_Channel_Generic_Avatar" width="90" height="90"/>
+        <image name="IG_New_Group_Generic_Avatar" width="90" height="90"/>
     </resources>
 </document>

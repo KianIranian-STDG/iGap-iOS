@@ -14,6 +14,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
 
     @IBOutlet weak var edtVerifyCode: UITextField!
     @IBOutlet weak var btnOutletResendCode: UIButton!
+    @IBOutlet weak var lbl: UILabel!
     
     var token: String = ""
     var manuallyResendCode = false
@@ -38,9 +39,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepEmail.verifyEmail {
-            navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Verify Email")
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "VERIFY_EMAIL".localizedNew)
         } else if self.pageAction == IGTwoStepEmail.recoverPassword{
-            navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Recover Password")
+            navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "RECOVER_PASS".localizedNew)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -56,9 +57,15 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail: UITa
         if self.pageAction == IGTwoStepEmail.verifyEmail {
             self.resendVerifyEmail()
         } else if self.pageAction == IGTwoStepEmail.recoverPassword{
-            btnOutletResendCode.setTitle("Resend Recover Code",for: .normal)
+            btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localizedNew,for: .normal)
             self.resendRecoveryToken()
         }
+        lbl.text = "VERFICATION_CODE".localizedNew
+        lbl.font = UIFont.igFont(ofSize: 17)
+        edtVerifyCode.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
+        btnOutletResendCode.setTitle("AUTH_RESEND_BUTTON".localizedNew, for: .normal)
+        btnOutletResendCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
+        edtVerifyCode.font = UIFont.igFont(ofSize: 15)
     }
     
     func resendVerifyEmail(){
