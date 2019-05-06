@@ -1101,7 +1101,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+//        UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -1890,37 +1892,38 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.inputTextView.resignFirstResponder()
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let camera = UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+        let camera = UIAlertAction(title: "CAMERA_DEVICE".localizedNew, style: .default, handler: { (action) in
             self.attachmentPicker(sourceType: .camera)
         })
         
-        let galley = UIAlertAction(title: "Gallery", style: .default, handler: { (action) in
+        let galley = UIAlertAction(title: "PHOTO_GALLERY".localizedNew, style: .default, handler: { (action) in
             self.attachmentPicker()
         })
         
-        let document = UIAlertAction(title: "File", style: .default, handler: { (action) in
+        let document = UIAlertAction(title: "FILE".localizedNew, style: .default, handler: { (action) in
             self.sendAsFileAlert()
         })
         
-        let contact = UIAlertAction(title: "Contact", style: .default, handler: { (action) in
+        let contact = UIAlertAction(title: "CONTACT".localizedNew, style: .default, handler: { (action) in
             self.openContact()
         })
         
-        let location = UIAlertAction(title: "Location", style: .default, handler: { (action) in
+        let location = UIAlertAction(title: "LOCATION".localizedNew, style: .default, handler: { (action) in
             self.openLocation()
         })
         //location.setValue(UIImage(named: "Location_Marker"), forKey: "image")
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+
         alertC.addAction(camera)
         alertC.addAction(galley)
         alertC.addAction(document)
         alertC.addAction(contact)
         alertC.addAction(location)
         alertC.addAction(cancel)
-        
+
         self.present(alertC, animated: true, completion: nil)
+        
     }
     
     private func sendAsFileAlert(){

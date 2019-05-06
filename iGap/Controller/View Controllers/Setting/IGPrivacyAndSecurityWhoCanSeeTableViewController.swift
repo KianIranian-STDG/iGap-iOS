@@ -14,8 +14,11 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGPrivacyAndSecurityWhoCanSeeTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var lblEveryOne: IGLabel!
+    @IBOutlet weak var lblMyContacts: IGLabel!
+    @IBOutlet weak var lblNone: IGLabel!
     var headerText = String()
     var footerText = String()
     var mode: String?
@@ -33,7 +36,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: UITableViewController , 
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: mode)
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: mode)
         navigationItem.rightViewContainer?.addAction {
             self.requestToSetPrivacyRule()
         }
@@ -75,7 +78,35 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: UITableViewController , 
         }
         return numberOfRows
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        changeDirection()
+        lblNone.text = "NOBODY".localizedNew
+        lblEveryOne.text = "EVERYBODY".localizedNew
+        lblMyContacts.text = "MY_CONTACTS".localizedNew
+    }
+    func changeDirection() {
+        let current : String = SMLangUtil.loadLanguage()
+        
+        //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        //        MCLocalization.sharedInstance().language = current
+        switch current {
+        case "fa" :
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
+            
+        case "en" :
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+
+        case "ar" :
+            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            //            self.loadViewIfNeeded()
+            
+        default :
+            break
+        }
+
+    }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return headerText
     }
@@ -96,7 +127,28 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: UITableViewController , 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return lastSeenFooterText
     }
-    
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            containerView.textLabel!.text = footerText
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+    }
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            containerView.textLabel!.text = headerText
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+    }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
     func requestToSetPrivacyRule() {
         var privacyLevel = IGPrivacyLevel.denyAll
         switch selectedIndexPath.row {
@@ -128,16 +180,16 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: UITableViewController , 
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
                 }
             default:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Error", message: "There was an error changing privacy settings.", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)

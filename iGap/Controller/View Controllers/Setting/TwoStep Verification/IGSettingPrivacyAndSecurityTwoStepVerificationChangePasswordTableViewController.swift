@@ -13,18 +13,25 @@ import SwiftProtobuf
 import IGProtoBuff
 import MBProgressHUD
 
-class IGSettingPrivacyAndSecurityTwoStepVerificationChangePasswordTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class IGSettingPrivacyAndSecurityTwoStepVerificationChangePasswordTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
 
     
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var verifyTextField: UITextField!
-    
+    @IBOutlet weak var lblVerify: UILabel!
+    @IBOutlet weak var lblPass: UILabel!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblPass.text = "SETTING_PS_TV_PASSWORD".localizedNew
+        lblVerify.text = "SETTING_PS_TV_VERIFY_PASSWORD".localizedNew
     }
     
 }

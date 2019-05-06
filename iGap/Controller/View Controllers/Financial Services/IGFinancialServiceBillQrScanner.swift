@@ -32,7 +32,7 @@ class IGFinancialServiceBillQrScanner: UIViewController, UIGestureRecognizerDele
         scanner = MTBBarcodeScanner(previewView: previewView)
         
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "QR Scanner")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_QRCODE_SCANNER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

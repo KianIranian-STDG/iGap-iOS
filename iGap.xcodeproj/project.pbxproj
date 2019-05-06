@@ -1446,7 +1446,6 @@
 			isa = PBXGroup;
 			children = (
 				8EC2179A2258BE0600105B5A /* wallet */,
-				FA99FF5B22351C63009035DF /* Dashboard */,
 				FAE07EFA2205999E00BE3593 /* Sticker */,
 				FA03C19A20429437008812E3 /* Call */,
 				93AA67B81E4F03290053380C /* Channel and Group Info */,
@@ -2153,6 +2152,7 @@
 		FAD5807F1DDC403200A242DE /* Chat Screen */ = {
 			isa = PBXGroup;
 			children = (
+				FA99FF5B22351C63009035DF /* Dashboard */,
 				FAA36046201611D100736F95 /* Chat Cells */,
 				FAD580801DDC48F500A242DE /* Controller */,
 				FAD580821DDC48F500A242DE /* Layout */,

@@ -124,9 +124,9 @@ class IGSettingChatWallpaperLibraryCollectionViewController: UICollectionViewCon
     
     func initNavigationBar() {
         
-        var title = "Wallpapers"
+        var title = "SETTING_CW_WALLPAPER_LIBRARY".localizedNew
         if isColorPage {
-            title = "Solid Colors"
+            title = "SETTING_CW_SOLID_COLORS".localizedNew
         }
         
         let navigationItem = self.navigationItem as! IGNavigationItem

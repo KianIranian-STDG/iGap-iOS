@@ -9,6 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+        <array key="IRANSans_Bold.ttf">
+            <string>IRANSans-Bold</string>
+        </array>
         <array key="iGap-Fontico.ttf">
             <string>iGap-Fontico</string>
         </array>
@@ -2583,6 +2589,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
         <!--About-->
         <scene sceneID="3je-hB-D6x">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RDP-cD-EYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="AboutPage" id="0S4-TI-aY3" customClass="IGSettingAboutTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="mja-nP-SHg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2598,26 +2605,24 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUU-5S-ieP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="4" width="120" height="35.666666666666664"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0.10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRM-tb-ziW" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="321.66666666666669" y="14" width="45.333333333333314" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sz0-It-4Yp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="29.999999999999993" y="9.3333333333333339" width="109.33333333333331" height="25.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="FUU-5S-ieP" secondAttribute="bottom" constant="4" id="0UO-ct-r2Q"/>
-                                                <constraint firstItem="FUU-5S-ieP" firstAttribute="top" secondItem="eqW-8E-KRV" secondAttribute="top" constant="4" id="7Tv-PY-1kO"/>
+                                                <constraint firstItem="sz0-It-4Yp" firstAttribute="leading" secondItem="eqW-8E-KRV" secondAttribute="leading" constant="30" id="0RC-bQ-sYy"/>
                                                 <constraint firstItem="jRM-tb-ziW" firstAttribute="top" secondItem="eqW-8E-KRV" secondAttribute="topMargin" constant="3" id="EFs-EB-zfc"/>
-                                                <constraint firstItem="FUU-5S-ieP" firstAttribute="leading" secondItem="eqW-8E-KRV" secondAttribute="leading" constant="15" id="La1-6b-62j"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="jRM-tb-ziW" secondAttribute="bottom" constant="3" id="UoS-MG-XPd"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="jRM-tb-ziW" secondAttribute="trailing" constant="1" id="dhG-df-YtT"/>
+                                                <constraint firstItem="sz0-It-4Yp" firstAttribute="centerY" secondItem="eqW-8E-KRV" secondAttribute="centerY" id="zkr-1n-wY8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2632,17 +2637,15 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGap Official Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knh-E9-ZXD" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="13" width="143.33333333333334" height="16"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGAP Officaial Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyV-Fv-10g" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="30" y="9" width="148" height="26"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="knh-E9-ZXD" firstAttribute="top" secondItem="bZm-57-P03" secondAttribute="topMargin" constant="2" id="8QJ-w1-pad"/>
-                                                <constraint firstItem="knh-E9-ZXD" firstAttribute="leading" secondItem="bZm-57-P03" secondAttribute="leadingMargin" constant="7" id="ALe-pD-oHI"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="knh-E9-ZXD" secondAttribute="bottom" constant="4" id="FHz-E7-fY2"/>
+                                                <constraint firstItem="kyV-Fv-10g" firstAttribute="centerY" secondItem="bZm-57-P03" secondAttribute="centerY" id="ldz-ca-2q2"/>
+                                                <constraint firstItem="kyV-Fv-10g" firstAttribute="leading" secondItem="bZm-57-P03" secondAttribute="leading" constant="30" id="m25-E1-28G"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2653,17 +2656,15 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGap Official Blog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hl8-tc-JGI" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="13" width="132" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGAP Officaial Blog" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDv-8E-X5Y" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="30" y="9" width="137" height="26"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hl8-tc-JGI" firstAttribute="bottom" secondItem="USo-b0-HlV" secondAttribute="bottomMargin" id="4bu-CV-f6a"/>
-                                                <constraint firstItem="hl8-tc-JGI" firstAttribute="top" secondItem="USo-b0-HlV" secondAttribute="topMargin" constant="2" id="O7d-R6-HJa"/>
-                                                <constraint firstItem="hl8-tc-JGI" firstAttribute="leading" secondItem="USo-b0-HlV" secondAttribute="leadingMargin" constant="7" id="dCn-5H-5BC"/>
+                                                <constraint firstItem="WDv-8E-X5Y" firstAttribute="leading" secondItem="USo-b0-HlV" secondAttribute="leading" constant="30" id="Qak-RF-l2i"/>
+                                                <constraint firstItem="WDv-8E-X5Y" firstAttribute="centerY" secondItem="USo-b0-HlV" secondAttribute="centerY" id="z2h-x6-ZuX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2674,19 +2675,15 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvf-x2-sNf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="13" width="129.33333333333334" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="3Aj-iV-b4P"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k86-PW-ZN1" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="30" y="9" width="120" height="26"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Cvf-x2-sNf" firstAttribute="leading" secondItem="Bhy-AU-CeT" secondAttribute="leadingMargin" constant="7" id="469-lE-e8s"/>
-                                                <constraint firstItem="Cvf-x2-sNf" firstAttribute="top" secondItem="Bhy-AU-CeT" secondAttribute="topMargin" constant="2" id="61A-Xk-rhL"/>
+                                                <constraint firstItem="k86-PW-ZN1" firstAttribute="centerY" secondItem="Bhy-AU-CeT" secondAttribute="centerY" id="gNZ-LN-5iw"/>
+                                                <constraint firstItem="k86-PW-ZN1" firstAttribute="leading" secondItem="Bhy-AU-CeT" secondAttribute="leading" constant="30" id="oas-7S-e29"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2701,10 +2698,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                     <navigationItem key="navigationItem" title="About" id="K7c-KQ-ptP" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="appVersionLabel" destination="jRM-tb-ziW" id="ESO-t6-sjE"/>
+                        <outlet property="lblBlog" destination="WDv-8E-X5Y" id="Fk6-Cf-sxO"/>
+                        <outlet property="lblCurrent" destination="sz0-It-4Yp" id="IIP-rc-45t"/>
+                        <outlet property="lblHome" destination="kyV-Fv-10g" id="dcL-3W-Fyn"/>
+                        <outlet property="lblSupport" destination="k86-PW-ZN1" id="NPv-a3-02x"/>
                         <segue destination="cI9-Ui-C7X" kind="show" identifier="GoToWebPage" id="yjv-YV-iRd"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RDP-cD-EYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2070" y="4652"/>
         </scene>
@@ -2721,16 +2721,16 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASf-K7-N7S">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ASf-K7-N7S" firstAttribute="centerX" secondItem="aQr-pp-sbb" secondAttribute="centerX" id="2WS-VB-rFX"/>
-                            <constraint firstItem="ASf-K7-N7S" firstAttribute="width" secondItem="aQr-pp-sbb" secondAttribute="width" id="Prz-iP-8YV"/>
-                            <constraint firstItem="ASf-K7-N7S" firstAttribute="height" secondItem="aQr-pp-sbb" secondAttribute="height" id="Tyc-UZ-bVX"/>
-                            <constraint firstItem="ASf-K7-N7S" firstAttribute="centerY" secondItem="aQr-pp-sbb" secondAttribute="centerY" id="qik-wi-QTE"/>
+                            <constraint firstItem="AWQ-Pl-Nyw" firstAttribute="top" secondItem="ASf-K7-N7S" secondAttribute="bottom" id="5HN-oW-5KZ"/>
+                            <constraint firstItem="ASf-K7-N7S" firstAttribute="top" secondItem="xTx-cK-VZz" secondAttribute="bottom" id="GgB-cY-eiA"/>
+                            <constraint firstAttribute="trailing" secondItem="ASf-K7-N7S" secondAttribute="trailing" id="ZpM-Os-1iM"/>
+                            <constraint firstItem="ASf-K7-N7S" firstAttribute="leading" secondItem="aQr-pp-sbb" secondAttribute="leading" id="eKd-cs-mdq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="eUt-cW-3JF" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
@@ -2740,7 +2740,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SlG-N0-sCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1109" y="4652"/>
+            <point key="canvasLocation" x="-1110.144927536232" y="4651.630434782609"/>
         </scene>
         <!--Chat Wallpaper-->
         <scene sceneID="FjG-dY-a1k">
@@ -3120,10 +3120,10 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Privacy" footerTitle="Change who can add you to groups and channels and who can see your profile picture and who can call you" id="mVW-fw-tTO">
+                            <tableViewSection id="mVW-fw-tTO">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="m45-TC-kvy">
-                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="35" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m45-TC-kvy" id="SOc-iV-Ogk">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3153,7 +3153,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="ms1-qm-gpD">
-                                        <rect key="frame" x="0.0" y="99.333333333333343" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="79" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ms1-qm-gpD" id="20p-lA-mvX">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3183,7 +3183,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="UI2-IN-ANs">
-                                        <rect key="frame" x="0.0" y="143.33333333333334" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="123" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UI2-IN-ANs" id="CrN-W8-nUo">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3213,7 +3213,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="hTN-T6-eg8">
-                                        <rect key="frame" x="0.0" y="187.33333333333334" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="167" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hTN-T6-eg8" id="7c7-YI-4GI">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3243,7 +3243,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="ZuB-76-Dc3">
-                                        <rect key="frame" x="0.0" y="231.33333333333334" width="414" height="44.000000000000028"/>
+                                        <rect key="frame" x="0.0" y="211" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZuB-76-Dc3" id="dyu-Ho-xDg">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3273,7 +3273,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="Q2K-lF-qQm">
-                                        <rect key="frame" x="0.0" y="275.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="255" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q2K-lF-qQm" id="uNZ-wr-ift">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3304,10 +3304,10 @@ Please wait 0:59</string>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Security" id="qG4-hI-oJa">
+                            <tableViewSection id="qG4-hI-oJa">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="jJS-YO-VcW">
-                                        <rect key="frame" x="0.0" y="403.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="335" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jJS-YO-VcW" id="Kf5-gh-O0f">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3328,7 +3328,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="izV-gi-c1b">
-                                        <rect key="frame" x="0.0" y="447.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="izV-gi-c1b" id="Zu9-0G-JlQ">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3349,7 +3349,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="11L-Sl-7f8">
-                                        <rect key="frame" x="0.0" y="491.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="423" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="11L-Sl-7f8" id="jbO-fe-hW7">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3370,7 +3370,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="AZH-Jo-0LH">
-                                        <rect key="frame" x="0.0" y="535.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="467" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AZH-Jo-0LH" id="upd-VG-HzT">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
@@ -3391,7 +3391,7 @@ Please wait 0:59</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="53d-tT-GCo">
-                                        <rect key="frame" x="0.0" y="579.33333333333337" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="511" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="53d-tT-GCo" id="I9P-WA-bED">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
@@ -3537,6 +3537,11 @@ Please wait 0:59</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="rId-SF-2nb" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <connections>
+                        <outlet property="lblEveryOne" destination="FaF-SA-eLr" id="jtN-db-6FP"/>
+                        <outlet property="lblMyContacts" destination="ATO-Qh-y1J" id="GQh-PS-tsb"/>
+                        <outlet property="lblNone" destination="gxg-OY-bwV" id="RWH-or-FTc"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYt-se-NdJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4495,7 +4500,7 @@ Please wait 0:59</string>
                                     <constraint firstAttribute="height" constant="40" id="xg0-uf-AkL"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                 <connections>
                                     <action selector="edtBillingID:" destination="bfj-3q-FFV" eventType="editingChanged" id="vYJ-FU-sLR"/>
@@ -4507,7 +4512,7 @@ Please wait 0:59</string>
                                     <constraint firstAttribute="height" constant="40" id="UQA-fP-hzj"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                 <connections>
                                     <action selector="edtPaymentCode:" destination="bfj-3q-FFV" eventType="editingChanged" id="ogw-GR-Gh4"/>
@@ -4519,7 +4524,7 @@ Please wait 0:59</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="i1s-db-XR3"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Pay">
                                     <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -4539,7 +4544,7 @@ Please wait 0:59</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="9ka-Ks-L00"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -4594,7 +4599,7 @@ Please wait 0:59</string>
                                     <constraint firstAttribute="height" constant="40" id="Jhz-lm-yan"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Zzu-LB-EKf">
@@ -4604,8 +4609,8 @@ Please wait 0:59</string>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O61-fS-jjK">
-                                <rect key="frame" x="93.000000000000014" y="139" width="173.33333333333337" height="17"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <rect key="frame" x="93.000000000000014" y="137.66666666666666" width="199.33333333333337" height="20"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -4615,6 +4620,7 @@ Please wait 0:59</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="H4K-ZK-4sr"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Credit Type">
                                     <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -4628,6 +4634,7 @@ Please wait 0:59</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="HUr-hI-HI0"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Price">
                                     <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -4641,7 +4648,7 @@ Please wait 0:59</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jFO-2O-RmU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Pay">
                                     <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -4655,6 +4662,7 @@ Please wait 0:59</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="1L9-ys-0ok"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Operator">
                                     <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -4666,24 +4674,24 @@ Please wait 0:59</string>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="JuW-Fl-KMn" firstAttribute="top" secondItem="b6L-HK-fCd" secondAttribute="bottom" constant="20" id="0Nc-nd-skV"/>
-                            <constraint firstItem="dm6-on-5cx" firstAttribute="leading" secondItem="m3u-Zh-BaL" secondAttribute="leadingMargin" constant="16" id="5rX-m7-LEw"/>
+                            <constraint firstItem="8M2-DO-KbL" firstAttribute="leading" secondItem="kx5-kI-Lgf" secondAttribute="leading" id="4Iw-Dv-vyy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kx5-kI-Lgf" secondAttribute="trailing" constant="16" id="9n8-Iz-nI9"/>
                             <constraint firstItem="kx5-kI-Lgf" firstAttribute="top" secondItem="Zzu-LB-EKf" secondAttribute="bottom" constant="25" id="Ce0-Go-DcG"/>
                             <constraint firstItem="JuW-Fl-KMn" firstAttribute="leading" secondItem="m3u-Zh-BaL" secondAttribute="leadingMargin" constant="16" id="Cfs-Sn-wB1"/>
                             <constraint firstItem="9fA-m6-IZ5" firstAttribute="leading" secondItem="m3u-Zh-BaL" secondAttribute="leadingMargin" constant="16" id="DcI-nG-2NX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dm6-on-5cx" secondAttribute="trailing" constant="16" id="GPD-bH-jc7"/>
-                            <constraint firstItem="8M2-DO-KbL" firstAttribute="leading" secondItem="m3u-Zh-BaL" secondAttribute="leadingMargin" constant="16" id="RVN-EV-qax"/>
+                            <constraint firstItem="dm6-on-5cx" firstAttribute="leading" secondItem="8M2-DO-KbL" secondAttribute="leading" id="KPl-H3-sqi"/>
                             <constraint firstItem="dm6-on-5cx" firstAttribute="top" secondItem="8M2-DO-KbL" secondAttribute="bottom" constant="8" id="TR5-b9-7Yt"/>
-                            <constraint firstItem="kx5-kI-Lgf" firstAttribute="leading" secondItem="m3u-Zh-BaL" secondAttribute="leadingMargin" constant="16" id="X9k-Z4-Gcg"/>
                             <constraint firstItem="8M2-DO-KbL" firstAttribute="top" secondItem="kx5-kI-Lgf" secondAttribute="bottom" constant="8" id="YbE-oR-pZX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JuW-Fl-KMn" secondAttribute="trailing" constant="16" id="ZlF-Yx-5MH"/>
                             <constraint firstItem="O61-fS-jjK" firstAttribute="centerY" secondItem="Zzu-LB-EKf" secondAttribute="centerY" id="aQW-aT-SVi"/>
                             <constraint firstAttribute="trailingMargin" secondItem="8M2-DO-KbL" secondAttribute="trailing" constant="16" id="cp9-29-IDo"/>
                             <constraint firstItem="O61-fS-jjK" firstAttribute="leading" secondItem="Zzu-LB-EKf" secondAttribute="trailing" constant="8" id="dWU-gG-97P"/>
-                            <constraint firstItem="Zzu-LB-EKf" firstAttribute="leading" secondItem="m3u-Zh-BaL" secondAttribute="leadingMargin" constant="16" id="eSl-Ha-WhC"/>
                             <constraint firstItem="Zzu-LB-EKf" firstAttribute="top" secondItem="JuW-Fl-KMn" secondAttribute="bottom" constant="8" id="gf8-BM-mTV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9fA-m6-IZ5" secondAttribute="trailing" constant="16" id="gxJ-75-vVb"/>
                             <constraint firstItem="9fA-m6-IZ5" firstAttribute="top" secondItem="dm6-on-5cx" secondAttribute="bottom" constant="30" id="jgi-0H-sPE"/>
+                            <constraint firstItem="Zzu-LB-EKf" firstAttribute="leading" secondItem="JuW-Fl-KMn" secondAttribute="leading" id="r5I-AY-GEl"/>
+                            <constraint firstItem="kx5-kI-Lgf" firstAttribute="leading" secondItem="Zzu-LB-EKf" secondAttribute="leading" id="wKA-r5-uPB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="A36-di-clD" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
@@ -4725,7 +4733,7 @@ Please wait 0:59</string>
                                                     <constraint firstAttribute="width" constant="70" id="vNS-Vf-0Nf"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number, 09xxxxxxxxx" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O3X-tO-JCr">
@@ -4734,7 +4742,7 @@ Please wait 0:59</string>
                                                     <constraint firstAttribute="height" constant="40" id="CH1-Qr-42c"/>
                                                 </constraints>
                                                 <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbJ-6b-c2i">
@@ -4743,7 +4751,7 @@ Please wait 0:59</string>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="6eb-0c-viL"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                 <state key="normal" title="Inquiry">
                                                     <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -4760,7 +4768,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="BDU-fp-PZY"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4769,7 +4777,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="yOn-s2-Mc9"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4778,7 +4786,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="VwN-gO-IDT"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4787,7 +4795,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="QHU-10-PqU"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4797,7 +4805,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="GMA-ZQ-YkC"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                         <state key="normal" title="Pay">
                                                             <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -4835,7 +4843,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="XjN-aQ-Ijw"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4844,7 +4852,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="QSO-WU-A97"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4853,7 +4861,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="QBv-qa-Vzf"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4862,7 +4870,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="frN-oX-4bx"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -4872,7 +4880,7 @@ Please wait 0:59</string>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="xSu-1f-BZd"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                         <state key="normal" title="Pay">
                                                             <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -5343,18 +5351,18 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DM8-M1-JLs">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="101" y="7.0000000000000018" width="305" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="ldM-hX-teV" secondAttribute="bottom" constant="7" id="G1g-6H-Ld7"/>
+                                                <constraint firstItem="DM8-M1-JLs" firstAttribute="leading" secondItem="ldM-hX-teV" secondAttribute="trailing" constant="10" id="Olf-ev-dju"/>
                                                 <constraint firstAttribute="trailing" secondItem="DM8-M1-JLs" secondAttribute="trailing" constant="8" id="fAn-kB-9Im"/>
                                                 <constraint firstItem="ldM-hX-teV" firstAttribute="top" secondItem="SHr-Ky-vpK" secondAttribute="top" constant="7" id="jR8-I7-pNA"/>
                                                 <constraint firstAttribute="bottom" secondItem="DM8-M1-JLs" secondAttribute="bottom" constant="7" id="jZB-a2-Vhv"/>
-                                                <constraint firstItem="DM8-M1-JLs" firstAttribute="leading" secondItem="SHr-Ky-vpK" secondAttribute="leadingMargin" constant="99" id="jwn-7t-wCa"/>
                                                 <constraint firstItem="DM8-M1-JLs" firstAttribute="top" secondItem="SHr-Ky-vpK" secondAttribute="top" constant="7" id="kO4-yc-azB"/>
                                                 <constraint firstItem="ldM-hX-teV" firstAttribute="leading" secondItem="SHr-Ky-vpK" secondAttribute="leading" constant="16" id="lUy-wy-npX"/>
                                             </constraints>
@@ -5374,16 +5382,16 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F45-ce-9li">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="73" y="7.0000000000000018" width="333" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="F45-ce-9li" secondAttribute="trailing" constant="8" id="6zF-Z4-C5A"/>
-                                                <constraint firstItem="F45-ce-9li" firstAttribute="leading" secondItem="bAF-O7-5of" secondAttribute="leadingMargin" constant="99" id="A04-zo-jId"/>
                                                 <constraint firstItem="F45-ce-9li" firstAttribute="top" secondItem="bAF-O7-5of" secondAttribute="top" constant="7" id="GGJ-vN-fBt"/>
+                                                <constraint firstItem="F45-ce-9li" firstAttribute="leading" secondItem="ujE-hU-Wvw" secondAttribute="trailing" constant="10" id="PRh-du-dQ5"/>
                                                 <constraint firstItem="ujE-hU-Wvw" firstAttribute="top" secondItem="bAF-O7-5of" secondAttribute="top" constant="7" id="f3v-0H-16t"/>
                                                 <constraint firstAttribute="bottom" secondItem="ujE-hU-Wvw" secondAttribute="bottom" constant="7" id="faU-yX-Q88"/>
                                                 <constraint firstItem="ujE-hU-Wvw" firstAttribute="leading" secondItem="bAF-O7-5of" secondAttribute="leading" constant="16" id="fmd-0A-3mc"/>
@@ -5405,19 +5413,19 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dWh-DW-APw">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="107" y="7.0000000000000018" width="299" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lQW-ZL-Bqi" firstAttribute="leading" secondItem="4A3-NM-Z2o" secondAttribute="leading" constant="16" id="2ce-XJ-JrV"/>
                                                 <constraint firstAttribute="bottom" secondItem="lQW-ZL-Bqi" secondAttribute="bottom" constant="7" id="AUQ-1O-DWa"/>
+                                                <constraint firstItem="dWh-DW-APw" firstAttribute="leading" secondItem="lQW-ZL-Bqi" secondAttribute="trailing" constant="10" id="I5O-nd-nQW"/>
                                                 <constraint firstAttribute="trailing" secondItem="dWh-DW-APw" secondAttribute="trailing" constant="8" id="IsH-bQ-Bca"/>
                                                 <constraint firstAttribute="bottom" secondItem="dWh-DW-APw" secondAttribute="bottom" constant="7" id="TiG-Ca-U1x"/>
                                                 <constraint firstItem="lQW-ZL-Bqi" firstAttribute="top" secondItem="4A3-NM-Z2o" secondAttribute="top" constant="7" id="Zbu-AU-C1s"/>
-                                                <constraint firstItem="dWh-DW-APw" firstAttribute="leading" secondItem="4A3-NM-Z2o" secondAttribute="leadingMargin" constant="99" id="gmS-BC-AkM"/>
                                                 <constraint firstItem="dWh-DW-APw" firstAttribute="top" secondItem="4A3-NM-Z2o" secondAttribute="top" constant="7" id="kSj-EQ-PGZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -5436,15 +5444,15 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qbl-08-CoZ">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="96" y="7.0000000000000018" width="310" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="qbl-08-CoZ" firstAttribute="leading" secondItem="smf-Df-TfK" secondAttribute="trailing" constant="10" id="9Kt-Iw-CjC"/>
                                                 <constraint firstAttribute="trailing" secondItem="qbl-08-CoZ" secondAttribute="trailing" constant="8" id="ECG-aK-B8U"/>
-                                                <constraint firstItem="qbl-08-CoZ" firstAttribute="leading" secondItem="WT0-zD-a6x" secondAttribute="leadingMargin" constant="99" id="J8o-ZZ-LdX"/>
                                                 <constraint firstItem="smf-Df-TfK" firstAttribute="top" secondItem="WT0-zD-a6x" secondAttribute="top" constant="7" id="PzA-5j-rbd"/>
                                                 <constraint firstItem="qbl-08-CoZ" firstAttribute="top" secondItem="WT0-zD-a6x" secondAttribute="top" constant="7" id="Wgo-gs-sol"/>
                                                 <constraint firstAttribute="bottom" secondItem="qbl-08-CoZ" secondAttribute="bottom" constant="7" id="chW-Kz-pnK"/>
@@ -5467,16 +5475,16 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ME6-Om-fs1">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="110" y="7.0000000000000018" width="296" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="ME6-Om-fs1" firstAttribute="leading" secondItem="BjO-OI-nao" secondAttribute="trailing" constant="10" id="Dkm-oU-eWj"/>
                                                 <constraint firstItem="BjO-OI-nao" firstAttribute="leading" secondItem="LGb-l7-nAM" secondAttribute="leading" constant="16" id="RuU-oE-bc8"/>
                                                 <constraint firstItem="ME6-Om-fs1" firstAttribute="top" secondItem="LGb-l7-nAM" secondAttribute="top" constant="7" id="azz-Gd-Rzd"/>
-                                                <constraint firstItem="ME6-Om-fs1" firstAttribute="leading" secondItem="LGb-l7-nAM" secondAttribute="leadingMargin" constant="99" id="e9l-cl-cab"/>
                                                 <constraint firstItem="BjO-OI-nao" firstAttribute="top" secondItem="LGb-l7-nAM" secondAttribute="top" constant="7" id="g2t-vb-U9A"/>
                                                 <constraint firstAttribute="bottom" secondItem="ME6-Om-fs1" secondAttribute="bottom" constant="7" id="hFy-Zm-QiB"/>
                                                 <constraint firstAttribute="trailing" secondItem="ME6-Om-fs1" secondAttribute="trailing" constant="8" id="hb2-wg-DnN"/>
@@ -5498,9 +5506,9 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t1O-a7-cOt">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="98" y="7.0000000000000018" width="308" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -5509,9 +5517,9 @@ Please wait 0:59</string>
                                                 <constraint firstItem="xRt-1H-nwS" firstAttribute="leading" secondItem="uJX-dv-QPY" secondAttribute="leading" constant="16" id="6ho-td-OOj"/>
                                                 <constraint firstAttribute="bottom" secondItem="t1O-a7-cOt" secondAttribute="bottom" constant="7" id="6ud-Kg-a9J"/>
                                                 <constraint firstItem="t1O-a7-cOt" firstAttribute="top" secondItem="uJX-dv-QPY" secondAttribute="top" constant="7" id="8JX-lR-5BV"/>
+                                                <constraint firstItem="t1O-a7-cOt" firstAttribute="leading" secondItem="xRt-1H-nwS" secondAttribute="trailing" constant="10" id="V2H-kW-deH"/>
                                                 <constraint firstAttribute="bottom" secondItem="xRt-1H-nwS" secondAttribute="bottom" constant="7" id="diy-3h-Atc"/>
                                                 <constraint firstAttribute="trailing" secondItem="t1O-a7-cOt" secondAttribute="trailing" constant="8" id="eHz-2o-hH3"/>
-                                                <constraint firstItem="t1O-a7-cOt" firstAttribute="leading" secondItem="uJX-dv-QPY" secondAttribute="leadingMargin" constant="99" id="ueX-0H-QZk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -5529,16 +5537,16 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4wC-3u-aRM">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="60.333333333333343" y="7.0000000000000018" width="345.66666666666663" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4wC-3u-aRM" firstAttribute="leading" secondItem="qCU-sa-vHu" secondAttribute="leadingMargin" constant="99" id="8LW-AG-mat"/>
                                                 <constraint firstAttribute="trailing" secondItem="4wC-3u-aRM" secondAttribute="trailing" constant="8" id="8Ua-yD-OIu"/>
                                                 <constraint firstAttribute="bottom" secondItem="qWd-YG-Ksv" secondAttribute="bottom" constant="7" id="EuZ-SR-oP5"/>
+                                                <constraint firstItem="4wC-3u-aRM" firstAttribute="leading" secondItem="qWd-YG-Ksv" secondAttribute="trailing" constant="10" id="Eun-ME-tOB"/>
                                                 <constraint firstItem="qWd-YG-Ksv" firstAttribute="top" secondItem="qCU-sa-vHu" secondAttribute="top" constant="7" id="Ga6-iJ-l5H"/>
                                                 <constraint firstAttribute="bottom" secondItem="4wC-3u-aRM" secondAttribute="bottom" constant="7" id="YlO-EJ-O8o"/>
                                                 <constraint firstItem="qWd-YG-Ksv" firstAttribute="leading" secondItem="qCU-sa-vHu" secondAttribute="leading" constant="16" id="gbC-F7-21n"/>
@@ -5560,19 +5568,19 @@ Please wait 0:59</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Recommended" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1e-hx-7Du">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="69.333333333333343" y="7.0000000000000018" width="336.66666666666663" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="s1e-hx-7Du" secondAttribute="bottom" constant="7" id="GeR-ic-o5m"/>
-                                                <constraint firstItem="s1e-hx-7Du" firstAttribute="leading" secondItem="CE2-jR-KBP" secondAttribute="leadingMargin" constant="99" id="KSF-iY-yQH"/>
                                                 <constraint firstItem="s1e-hx-7Du" firstAttribute="top" secondItem="CE2-jR-KBP" secondAttribute="top" constant="7" id="SBK-NF-JbS"/>
                                                 <constraint firstAttribute="trailing" secondItem="s1e-hx-7Du" secondAttribute="trailing" constant="8" id="aa8-bE-J3l"/>
                                                 <constraint firstAttribute="bottom" secondItem="IxD-R4-gUX" secondAttribute="bottom" constant="7" id="b04-E8-vqT"/>
                                                 <constraint firstItem="IxD-R4-gUX" firstAttribute="top" secondItem="CE2-jR-KBP" secondAttribute="top" constant="7" id="rJN-SV-eik"/>
+                                                <constraint firstItem="s1e-hx-7Du" firstAttribute="leading" secondItem="IxD-R4-gUX" secondAttribute="trailing" constant="10" id="uTG-4I-WqG"/>
                                                 <constraint firstItem="IxD-R4-gUX" firstAttribute="leading" secondItem="CE2-jR-KBP" secondAttribute="leading" constant="16" id="uf7-Qy-51L"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -5591,6 +5599,14 @@ Please wait 0:59</string>
                         <outlet property="answer2TextField" destination="t1O-a7-cOt" id="BoP-aL-hg9"/>
                         <outlet property="emailTextField" destination="s1e-hx-7Du" id="4Qb-7b-4bR"/>
                         <outlet property="hintTextField" destination="4wC-3u-aRM" id="QUd-Ny-S5S"/>
+                        <outlet property="lblA1" destination="smf-Df-TfK" id="7b9-N2-qnV"/>
+                        <outlet property="lblA2" destination="xRt-1H-nwS" id="Iza-sO-HcZ"/>
+                        <outlet property="lblEmail" destination="IxD-R4-gUX" id="nrU-8v-KJ9"/>
+                        <outlet property="lblHint" destination="qWd-YG-Ksv" id="Zti-RR-ZTU"/>
+                        <outlet property="lblPass" destination="ldM-hX-teV" id="0hU-OE-IaR"/>
+                        <outlet property="lblQ1" destination="lQW-ZL-Bqi" id="QgV-t2-MFf"/>
+                        <outlet property="lblQ2" destination="BjO-OI-nao" id="i2W-OL-u00"/>
+                        <outlet property="lblVerify" destination="ujE-hU-Wvw" id="v7w-L4-WMR"/>
                         <outlet property="passwordTextField" destination="DM8-M1-JLs" id="sDG-w4-8VW"/>
                         <outlet property="question1TextField" destination="dWh-DW-APw" id="hbz-lR-rcV"/>
                         <outlet property="question2TextField" destination="ME6-Om-fs1" id="qE7-KQ-aFQ"/>
@@ -5893,17 +5909,16 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xeP-rS-rPp">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="101.00000000000001" y="7.0000000000000018" width="61.666666666666671" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="xeP-rS-rPp" secondAttribute="trailing" constant="8" id="9op-Vz-vZa"/>
+                                                <constraint firstItem="xeP-rS-rPp" firstAttribute="leading" secondItem="Bb6-j0-C2d" secondAttribute="trailing" constant="10" id="CMW-xd-P9R"/>
                                                 <constraint firstItem="Bb6-j0-C2d" firstAttribute="leading" secondItem="6Nb-jj-aA2" secondAttribute="leading" constant="16" id="HVh-SK-Dw7"/>
                                                 <constraint firstItem="xeP-rS-rPp" firstAttribute="top" secondItem="6Nb-jj-aA2" secondAttribute="top" constant="7" id="MhH-1k-3Kh"/>
-                                                <constraint firstItem="xeP-rS-rPp" firstAttribute="leading" secondItem="6Nb-jj-aA2" secondAttribute="leadingMargin" constant="99" id="T1u-sa-D2S"/>
                                                 <constraint firstItem="Bb6-j0-C2d" firstAttribute="top" secondItem="6Nb-jj-aA2" secondAttribute="top" constant="7" id="Xx7-kH-tRA"/>
                                                 <constraint firstAttribute="bottom" secondItem="xeP-rS-rPp" secondAttribute="bottom" constant="7" id="e1b-PT-jlS"/>
                                                 <constraint firstAttribute="bottom" secondItem="Bb6-j0-C2d" secondAttribute="bottom" constant="7" id="vgT-9f-nVc"/>
@@ -5924,7 +5939,7 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGl-ap-zdP">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="73" y="7.0000000000000018" width="61.666666666666657" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -5933,9 +5948,8 @@ kay*****@gm**.com</string>
                                             <constraints>
                                                 <constraint firstItem="lGl-ap-zdP" firstAttribute="top" secondItem="7G3-o7-q2a" secondAttribute="top" constant="7" id="4Lr-wg-hDs"/>
                                                 <constraint firstItem="zmu-G4-gED" firstAttribute="leading" secondItem="7G3-o7-q2a" secondAttribute="leading" constant="16" id="5Ix-S7-Q4X"/>
+                                                <constraint firstItem="lGl-ap-zdP" firstAttribute="leading" secondItem="zmu-G4-gED" secondAttribute="trailing" constant="10" id="Fcf-tu-S4C"/>
                                                 <constraint firstAttribute="bottom" secondItem="lGl-ap-zdP" secondAttribute="bottom" constant="7" id="Jtk-12-Ou1"/>
-                                                <constraint firstItem="lGl-ap-zdP" firstAttribute="leading" secondItem="7G3-o7-q2a" secondAttribute="leadingMargin" constant="99" id="S3e-Ll-xEv"/>
-                                                <constraint firstAttribute="trailing" secondItem="lGl-ap-zdP" secondAttribute="trailing" constant="8" id="gGO-8W-QZN"/>
                                                 <constraint firstItem="zmu-G4-gED" firstAttribute="top" secondItem="7G3-o7-q2a" secondAttribute="top" constant="7" id="qWm-h9-abS"/>
                                                 <constraint firstAttribute="bottom" secondItem="zmu-G4-gED" secondAttribute="bottom" constant="7" id="wfx-qL-wFp"/>
                                             </constraints>
@@ -5951,6 +5965,8 @@ kay*****@gm**.com</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="MsL-DP-b6Y" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="lblPass" destination="Bb6-j0-C2d" id="wi5-pf-mpq"/>
+                        <outlet property="lblVerify" destination="zmu-G4-gED" id="1Zw-ak-560"/>
                         <outlet property="passwordTextField" destination="xeP-rS-rPp" id="4c7-tW-Suk"/>
                         <outlet property="verifyTextField" destination="lGl-ap-zdP" id="H1y-Qf-4F0"/>
                     </connections>
@@ -5978,25 +5994,24 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question 1:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iim-H4-WeH" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="7.0000000000000018" width="81" height="29.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="16" y="7.0000000000000018" width="77" height="29.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dcA-yG-BLS">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="103.00000000000001" y="7.0000000000000018" width="60.666666666666671" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="dcA-yG-BLS" secondAttribute="trailing" constant="8" id="05f-1S-aFu"/>
                                                 <constraint firstItem="Iim-H4-WeH" firstAttribute="top" secondItem="Oy7-Bd-ppa" secondAttribute="top" constant="7" id="5Zq-HN-dhx"/>
                                                 <constraint firstAttribute="bottom" secondItem="dcA-yG-BLS" secondAttribute="bottom" constant="7" id="DwA-Ye-Hla"/>
+                                                <constraint firstItem="dcA-yG-BLS" firstAttribute="leading" secondItem="Iim-H4-WeH" secondAttribute="trailing" constant="10" id="a9J-ZE-NFL"/>
                                                 <constraint firstItem="dcA-yG-BLS" firstAttribute="top" secondItem="Oy7-Bd-ppa" secondAttribute="top" constant="7" id="jOZ-jQ-vdw"/>
                                                 <constraint firstItem="Iim-H4-WeH" firstAttribute="leading" secondItem="Oy7-Bd-ppa" secondAttribute="leading" constant="16" id="mhe-aS-e81"/>
-                                                <constraint firstItem="dcA-yG-BLS" firstAttribute="leading" secondItem="Oy7-Bd-ppa" secondAttribute="leadingMargin" constant="99" id="puV-24-PTj"/>
                                                 <constraint firstAttribute="bottom" secondItem="Iim-H4-WeH" secondAttribute="bottom" constant="7" id="ujI-zO-dmG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -6009,15 +6024,15 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer 1:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVT-b4-Pji" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="7.0000000000000018" width="70" height="29.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="16" y="7.0000000000000018" width="67" height="29.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Qm-4E-Jy8">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="93" y="7.0000000000000018" width="60.666666666666657" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -6026,8 +6041,7 @@ kay*****@gm**.com</string>
                                                 <constraint firstItem="tVT-b4-Pji" firstAttribute="top" secondItem="SU7-ld-twE" secondAttribute="top" constant="7" id="CIU-Gw-wZY"/>
                                                 <constraint firstItem="7Qm-4E-Jy8" firstAttribute="top" secondItem="SU7-ld-twE" secondAttribute="top" constant="7" id="P4w-Jg-D1Z"/>
                                                 <constraint firstAttribute="bottom" secondItem="7Qm-4E-Jy8" secondAttribute="bottom" constant="7" id="U4o-HR-BAN"/>
-                                                <constraint firstItem="7Qm-4E-Jy8" firstAttribute="leading" secondItem="SU7-ld-twE" secondAttribute="leadingMargin" constant="99" id="gZp-zv-2rJ"/>
-                                                <constraint firstAttribute="trailing" secondItem="7Qm-4E-Jy8" secondAttribute="trailing" constant="8" id="viq-z3-vgs"/>
+                                                <constraint firstItem="7Qm-4E-Jy8" firstAttribute="leading" secondItem="tVT-b4-Pji" secondAttribute="trailing" constant="10" id="YQ2-yI-JYn"/>
                                                 <constraint firstAttribute="bottom" secondItem="tVT-b4-Pji" secondAttribute="bottom" constant="7" id="x0c-0x-mzk"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -6040,25 +6054,24 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question 2:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbB-wx-Hba" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="7.0000000000000018" width="84" height="29.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="16" y="7.0000000000000018" width="77" height="29.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5jL-3c-dRy">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="103.00000000000001" y="7.0000000000000018" width="60.666666666666671" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="5jL-3c-dRy" firstAttribute="leading" secondItem="bbB-wx-Hba" secondAttribute="trailing" constant="10" id="040-5O-BBw"/>
                                                 <constraint firstAttribute="bottom" secondItem="bbB-wx-Hba" secondAttribute="bottom" constant="7" id="9Dp-k9-7BP"/>
                                                 <constraint firstItem="5jL-3c-dRy" firstAttribute="top" secondItem="Nzm-hm-OVP" secondAttribute="top" constant="7" id="E0n-8T-Yxd"/>
                                                 <constraint firstItem="bbB-wx-Hba" firstAttribute="leading" secondItem="Nzm-hm-OVP" secondAttribute="leading" constant="16" id="HmM-Q3-tKC"/>
                                                 <constraint firstItem="bbB-wx-Hba" firstAttribute="top" secondItem="Nzm-hm-OVP" secondAttribute="top" constant="7" id="NMl-6J-JRa"/>
-                                                <constraint firstItem="5jL-3c-dRy" firstAttribute="leading" secondItem="Nzm-hm-OVP" secondAttribute="leadingMargin" constant="99" id="OZi-Ig-ITR"/>
-                                                <constraint firstAttribute="trailing" secondItem="5jL-3c-dRy" secondAttribute="trailing" constant="8" id="imY-Ol-754"/>
                                                 <constraint firstAttribute="bottom" secondItem="5jL-3c-dRy" secondAttribute="bottom" constant="7" id="iwB-J9-lJu"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -6071,15 +6084,15 @@ kay*****@gm**.com</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer 2:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Fp-sE-OcQ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="7.0000000000000018" width="72" height="29.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="16" y="7.0000000000000018" width="67" height="29.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ytv-KK-RtF">
-                                                    <rect key="frame" x="119" y="7.0000000000000018" width="287" height="29.666666666666671"/>
+                                                    <rect key="frame" x="93" y="7.0000000000000018" width="60.666666666666657" height="29.666666666666671"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -6087,10 +6100,9 @@ kay*****@gm**.com</string>
                                                 <constraint firstAttribute="bottom" secondItem="0Fp-sE-OcQ" secondAttribute="bottom" constant="7" id="6M7-CB-8Kb"/>
                                                 <constraint firstItem="0Fp-sE-OcQ" firstAttribute="top" secondItem="se2-vD-HHj" secondAttribute="top" constant="7" id="Gtz-mm-SNR"/>
                                                 <constraint firstAttribute="bottom" secondItem="ytv-KK-RtF" secondAttribute="bottom" constant="7" id="IZv-7z-9Ii"/>
-                                                <constraint firstItem="ytv-KK-RtF" firstAttribute="leading" secondItem="se2-vD-HHj" secondAttribute="leadingMargin" constant="99" id="Myq-fS-RjI"/>
                                                 <constraint firstItem="ytv-KK-RtF" firstAttribute="top" secondItem="se2-vD-HHj" secondAttribute="top" constant="7" id="W8f-TS-IX5"/>
+                                                <constraint firstItem="ytv-KK-RtF" firstAttribute="leading" secondItem="0Fp-sE-OcQ" secondAttribute="trailing" constant="10" id="lOh-U7-9II"/>
                                                 <constraint firstItem="0Fp-sE-OcQ" firstAttribute="leading" secondItem="se2-vD-HHj" secondAttribute="leading" constant="16" id="msq-1x-FjO"/>
-                                                <constraint firstAttribute="trailing" secondItem="ytv-KK-RtF" secondAttribute="trailing" constant="8" id="pBw-tY-acl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -6257,29 +6269,29 @@ kay*****@gm**.com</string>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IB-bg-5sJ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="13" width="51.666666666666657" height="24"/>
+                                            <rect key="frame" x="102" y="13" width="47.333333333333343" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="CIK-9P-4ZR"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqV-AP-TOy" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="39.333333333333329" width="33" height="16"/>
+                                            <rect key="frame" x="102" y="39.333333333333329" width="28.666666666666657" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="16" id="59v-wm-hgG"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SL-Ip-LUL" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="57.333333333333329" width="31" height="15"/>
+                                            <rect key="frame" x="102" y="57.333333333333329" width="28.666666666666657" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="Xvn-Qs-G5I"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -6406,39 +6418,28 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8CA-bj-TPf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="26.999999999999986" y="182.66666666666666" width="212.66666666666663" height="21"/>
+                                                    <rect key="frame" x="27" y="182.66666666666666" width="162.66666666666666" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="PL2-BM-uft"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="App Version:">
+                                                        <fragment content="App Version: iGap iOS 1.0.1">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" iGap iOS 1.0.1">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <font key="NSFont" size="13" name=".AppleSystemUIFont"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cUP-nK-fkm" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="212.66666666666666" width="176.66666666666666" height="21"/>
+                                                    <rect key="frame" x="27" y="212.66666666666666" width="145.33333333333334" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="fp9-Rv-YXi"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="Country:">
+                                                        <fragment content="Country: iGap iOs 1.0.1">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" iGap iOs 1.0.1">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -6446,58 +6447,42 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP5-bh-i3a" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="272.66666666666669" width="166.66666666666666" height="21"/>
+                                                    <rect key="frame" x="27" y="272.66666666666669" width="132.66666666666666" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="pCn-p0-npo"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="Last Activation:">
+                                                        <fragment content="Last Activation: iGap">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" iGap">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEP-rT-vGX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="302.66666666666669" width="93" height="21"/>
+                                                    <rect key="frame" x="27" y="302.66666666666669" width="77" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="TYa-U8-BHo"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="IP: ">
+                                                        <fragment content="IP: iGap iOS">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="iGap iOS">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <font key="NSFont" size="14" name=".SFNSText"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcP-i4-zgq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="153" width="182.66666666666666" height="20.666666666666657"/>
+                                                    <rect key="frame" x="27" y="153" width="150" height="20.666666666666657"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20.670000000000002" id="wYw-yJ-tbP"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="Platform:">
+                                                        <fragment content="Platform: iGap iOS 1.0.1">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" iGap iOS 1.0.1">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -6505,20 +6490,14 @@ kay*****@gm**.com</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5b-6b-dtr" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="27" y="242.66666666666666" width="153" height="20.999999999999972"/>
+                                                    <rect key="frame" x="26.999999999999993" y="242.66666666666666" width="124.33333333333331" height="20.999999999999972"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="pdb-C5-w5U"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="Created Time:">
+                                                        <fragment content="Created Time: iGap">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Arial-BoldMT"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" iGap">
-                                                            <attributes>
-                                                                <font key="NSFont" metaFont="system" size="17"/>
+                                                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -6584,6 +6563,7 @@ kay*****@gm**.com</string>
                         <outlet property="createdTimeSelectedSessionLabel" destination="m5b-6b-dtr" id="2sd-ds-Ge4"/>
                         <outlet property="ipSelectedSessionLabel" destination="xEP-rT-vGX" id="cbT-4m-Nhp"/>
                         <outlet property="lastActivationSelectedSessionLabel" destination="xP5-bh-i3a" id="uSu-7U-aSl"/>
+                        <outlet property="lblTerminate" destination="6uh-AE-MP9" id="6RM-g0-OYQ"/>
                         <outlet property="platformSelectedSessionLabel" destination="DcP-i4-zgq" id="WQG-lL-diG"/>
                         <outlet property="selectedSessionImageview" destination="36J-zz-61o" id="iir-pX-CEB"/>
                     </connections>

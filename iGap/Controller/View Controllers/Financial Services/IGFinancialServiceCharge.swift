@@ -16,7 +16,7 @@ protocol AlertClouser {
     func onActionClick(title: String)
 }
 
-class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, MerchantResultObserver, TopupMerchantResultObserver {
+class IGFinancialServiceCharge: BaseViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, MerchantResultObserver, TopupMerchantResultObserver {
 
     @IBOutlet weak var edtPhoneNubmer: UITextField!
     @IBOutlet weak var txtOperatorTransport: UILabel!
@@ -28,22 +28,22 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     let PHONE_LENGTH = 11
     var latestPhoneNumber = ""
     
-    let operatorIrancell = "Irancell"
-    let operatorMCI = "MCI"
-    let operatorRightel = "Rightel"
-    let operatorNotDetect = "Not Detect Operator"
+    let operatorIrancell = "IRANCELL".localizedNew
+    let operatorMCI = "MCI".localizedNew
+    let operatorRightel = "RIGHTEL".localizedNew
+    let operatorNotDetect = "NOT_DETECTED_OPERATOR".localizedNew
     
-    let normalCharge = "Normal"
-    let amazingCharge = "Amazing"
-    let wimaxCharge = "Wimax"
-    let permanently = "Permanently SIM Card"
+    let normalCharge = "NORMAL_CHARGE".localizedNew
+    let amazingCharge = "AMAZING_CHARGE".localizedNew
+    let wimaxCharge = "WIMAX_CHARGE".localizedNew
+    let permanently = "PERMANENTLY_SIM_CART".localizedNew
     
     let P1000: Int64 = 10000
     let P2000: Int64 = 20000
     let P5000: Int64 = 50000
     let P10000: Int64 = 100000
     let P20000: Int64 = 200000
-    let rials = "Rials"
+    let rials = "CURRENCY".localizedNew
     
     var operatorDictionary: [String:IGOperator] =
         ["0910":IGOperator.mci,
@@ -82,17 +82,28 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         edtPhoneNubmer.delegate = self
         
         initNavigationBar()
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
         ButtonViewActivate(button: btnOperator ,isEnable: false)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initCHangeLang()
+    }
+    func initCHangeLang() {
+        edtPhoneNubmer.placeholder = "PLACE_HOLDER_MOBILE_NUM".localizedNew
+        self.btnPrice.setTitle("CHARGE_PRICE".localizedNew, for: UIControl.State.normal)
+        self.btnBuy.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
+        self.btnOperator.setTitle("CHOOSE_OPERATOR".localizedNew, for: UIControl.State.normal)
+        self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localizedNew, for: UIControl.State.normal)
+
+    }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Top Up SIM Card")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_FS_TOP_UP".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -143,7 +154,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
         }
         
         operatorChargeType = nil
-        self.btnChargeType.setTitle("Choose Charge Type", for: UIControl.State.normal)
+        self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localizedNew, for: UIControl.State.normal)
     }
     
     private func showAlertView(title: String, message: String?, subtitles: [String], alertClouser: @escaping ((_ title :String) -> Void), hasCancel: Bool = true){
@@ -156,7 +167,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
             option.addAction(action)
         }
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
         
         option.addAction(cancel)
         
@@ -165,7 +176,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     
     private func showErrorAlertView(title: String, message: String?, dismiss: Bool = false){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .cancel, handler: { (action) in
             if dismiss {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -187,11 +198,11 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     @IBAction func switchToggle(_ sender: UISwitch) {
         if sender.isOn {
             operatorTransport = true
-            txtOperatorTransport.text = "Ported Subscriber Enable"
+            txtOperatorTransport.text = "PORTED_SUBSCRIBER_ENABLE".localizedNew
             txtOperatorTransport.textColor = UIColor.iGapColor()
         } else {
             operatorTransport = false
-            txtOperatorTransport.text = "Ported Subscriber Disable"
+            txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localizedNew
             txtOperatorTransport.textColor = UIColor.gray
             
             if operatorTypeBackup != nil {
@@ -204,7 +215,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     }
     
     @IBAction func btnChooseOperator(_ sender: UIButton) {
-        showAlertView(title: "Choose Operator", message: nil, subtitles: [operatorIrancell,operatorMCI,operatorRightel], alertClouser: { (title) -> Void in
+        showAlertView(title: "CHOOSE_OPERATOR".localizedNew, message: nil, subtitles: [operatorIrancell,operatorMCI,operatorRightel], alertClouser: { (title) -> Void in
             
             switch title {
             case self.operatorIrancell:
@@ -233,7 +244,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
             chargeType = [normalCharge,amazingCharge,wimaxCharge,permanently]
         }
         
-        showAlertView(title: "Topup Type", message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
+        showAlertView(title: "TOPUP_TYPE".localizedNew, message: nil, subtitles: chargeType, alertClouser: { (title) -> Void in
             
             switch title {
             case self.normalCharge:
@@ -273,7 +284,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
         
         let chargePrice = ["\(P1000) \(rials)" , "\(P2000) \(rials)" , "\(P5000) \(rials)", "\(P10000) \(rials)", "\(P20000) \(rials)"]
         
-        showAlertView(title: "Charge Price", message: nil, subtitles: chargePrice, alertClouser: { (title) -> Void in
+        showAlertView(title: "CHARGE_PRICE".localizedNew, message: nil, subtitles: chargePrice, alertClouser: { (title) -> Void in
             switch title {
             case "\(self.P1000) \(self.rials)":
                 self.chargeAmount = self.P1000
@@ -305,12 +316,12 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
         }
         
         if (phoneNumber.count) < 11 || !phoneNumber.isNumber ||  (operatorDictionary[(phoneNumber.substring(offset: 4))] == nil) {
-            showErrorAlertView(title: "Error", message: "phone number is wrong!")
+            showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "PHONE_NUMBER_WRONG".localizedNew)
             return
         }
         
         if operatorChargeType == nil || chargeAmount == nil {
-            showErrorAlertView(title: "Error", message: "Please complete all options!")
+            showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "CHECK_ALL_FIELDS".localizedNew)
             return
         }
         
@@ -321,7 +332,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
                 if getTokenResponse.igpStatus == 0 { //success
                     self.registerTopup(token: getTokenResponse.igpToken)
                 } else {
-                    self.showErrorAlertView(title: "خطا", message: getTokenResponse.igpMessage)
+                    self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: getTokenResponse.igpMessage)
                 }
             }
         }).error ({ (errorCode, waitTime) in
@@ -329,8 +340,8 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -351,7 +362,7 @@ class IGFinancialServiceCharge: UIViewController, UIGestureRecognizerDelegate, U
     }
     
     func TopupMerchantError(errorType: Int) {
-        showErrorAlertView(title: "Payment Error", message: "Payment error occurred!", dismiss: true)
+        showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "PAYMENT_ERROR_ACCURED".localizedNew, dismiss: true)
     }
     
     

@@ -10,11 +10,20 @@
 
 import UIKit
 import RealmSwift
-class IGSettingAboutTableViewController: UITableViewController , UIGestureRecognizerDelegate {
+class IGSettingAboutTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
     
     var index : Int?
     var appstoreWebView : Bool = false
     @IBOutlet weak var appVersionLabel: UILabel!
+    @IBOutlet weak var lblCurrent: UILabel!
+    @IBOutlet weak var lblHome: UILabel!
+    @IBOutlet weak var lblBlog: UILabel!
+    @IBOutlet weak var lblSupport: UILabel!
+
+    
+    
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +41,13 @@ class IGSettingAboutTableViewController: UITableViewController , UIGestureRecogn
         //appVersionLabel.text = Bundle.main.
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lblBlog.text = "SETTING_ABOUT_IGAP_BLOG".localizedNew
+        lblHome.text = "SETTING_ABOUT_IGAP_HOME".localizedNew
+        lblSupport.text = "SETTING_ABOUT_SUPPORT_REQUEST".localizedNew
+        lblCurrent.text = "SETTING_ABOUT_CYRRENT_VERSION".localizedNew
+    }
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
     }
@@ -89,13 +104,13 @@ class IGSettingAboutTableViewController: UITableViewController , UIGestureRecogn
             switch index! {
             case 0:
                 destination.pageUrl = "https://www.igap.net"
-                destination.pageTitle = "iGap Home"
+                destination.pageTitle = "SETTING_ABOUT_IGAP_HOME".localizedNew
             case 1:
                 destination.pageUrl = "https://blog.igap.net"
-                destination.pageTitle = "iGap Blog"
+                destination.pageTitle = "SETTING_ABOUT_IGAP_BLOG".localizedNew
             case 2:
                 destination.pageUrl = "https://support.igap.net"
-                destination.pageTitle = "Support"
+                destination.pageTitle = "SETTING_ABOUT_SUPPORT_REQUEST".localizedNew
             default:
                 break
             }

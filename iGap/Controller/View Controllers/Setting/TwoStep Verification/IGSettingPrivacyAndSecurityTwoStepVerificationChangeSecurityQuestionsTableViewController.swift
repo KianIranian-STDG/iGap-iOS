@@ -33,9 +33,9 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if self.pageAction == IGTwoStepQuestion.changeRecoveryQuestion {
-            navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Change Recovery Question")
+            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PS_TV_CHANGE_RECOVER_QUESTION".localizedNew)
         } else if self.pageAction == IGTwoStepQuestion.questionRecoveryPassword {
-            navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Recover Password")
+            navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PS_TV_RECOVER_PASS".localizedNew)
         }
         
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -71,14 +71,14 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                 case .userTwoStepVerificationChangeRecoveryQuestionMaxTryLock:
-                    let alert = UIAlertController(title: "Error", message: "Max Try Lock", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "SETTING_PS_TV_MAX_TRY_LOCK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -100,8 +100,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
         IGUserTwoStepVerificationRecoverPasswordByAnswersRequest.Generator.generate(answerOne: answer1TextField.text!, answerTwo: answer2TextField.text!).success({ (protoResponse) in
             DispatchQueue.main.async {
                 hud.hide(animated: true)
-                let alert = UIAlertController(title: "Success", message: "Your password removed", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+                let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "SETTING_PS_TV_YOUR_PASS_REMOVED".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     self.dismiss(animated: true, completion: nil)
                 })
                 alert.addAction(okAction)
@@ -111,19 +111,19 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    self.showAlert(title: "Timeout", message: "Please try again later")
+                    self.showAlert(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew)
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersMaxTryLock:
-                    self.showAlert(title: "Error", message: "Max Try Lock")
+                    self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "SETTING_PS_TV_MAX_TRY_LOCK".localizedNew)
                     break
                
                 case .userTwoStepVerificationRecoverPasswordByAnswersInvalidAnswers:
-                    self.showAlert(title: "Error", message: "Invalid Answers")
+                    self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "INVALID_ANSWER".localizedNew)
                     break
                     
                 case .userTwoStepVerificationRecoverPasswordByAnswersForbidden:
-                    self.showAlert(title: "Error", message: "Recover By Answers Is Forbidden")
+                    self.showAlert(title: "GLOBAL_WARNING".localizedNew, message: "RECOVER_BY_ANSWER_IS_FORBIDDEN".localizedNew)
                     break
                     
                 default:
@@ -136,8 +136,8 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTable
     
     private func isComplete() -> Bool {
         if question1TextField.text == "" || question2TextField.text == "" || answer1TextField.text == "" || answer2TextField.text == "" {
-            let alert = UIAlertController(title: "Error", message: "Please Complete All Sections", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "CHECK_ALL_FIELDS".localizedNew, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: nil)
             return false

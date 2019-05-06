@@ -13,7 +13,7 @@ import IGProtoBuff
 import PecPayment
 import SnapKit
 
-class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate , BillMerchantResultObserver {
+class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, UITextFieldDelegate , BillMerchantResultObserver {
 
     @IBOutlet weak var btnPayment: UIButton!
     @IBOutlet weak var edtBillingID: UITextField!
@@ -51,12 +51,22 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
             fetchBillInfo(billInfo: billInfo)
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initChangeLang()
+    }
+    func initChangeLang() {
+        edtBillingID.placeholder = "BILLING_ID".localizedNew
+        edtPaymentCode.placeholder = "PAYMENT_CODE".localizedNew
+        btnPayment.setTitle("BTN_PAY".localizedNew, for: .normal)
+        txtAmount.text = "PLACE_HOLDER_AMOUNT".localizedNew
+    }
     
     func initNavigationBar(){
         
-        var title = "Pay Bills"
+        var title = "SETTING_FS_PAY_BILLS".localizedNew
         if IGFinancialServiceBill.isTrafficOffenses {
-            title = "Pay Traffic Tickets"
+            title = "SETTING_FS_PAY_TRAFFIC_TICKETS".localizedNew
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title, width: 200)
@@ -127,7 +137,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
             edtPaymentCode.text = payId
         }
         if !price.isEmpty {
-            txtAmount.text = "\(Int(price)! * 1000) Rials"
+            txtAmount.text = "\(Int(price)! * 1000) ".inLocalizedLanguage() + "CURRENCY".localizedNew
         }
         
         if !IGFinancialServiceBill.isTrafficOffenses {
@@ -165,7 +175,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
     
     private func showErrorAlertView(title: String, message: String?, dismiss: Bool = false){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .cancel, handler: { (action) in
             if dismiss {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -217,7 +227,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
                     self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
                 } else {
-                    self.showErrorAlertView(title: "خطا", message: mplGetBillTokenResponse.igpMessage)
+                    self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: mplGetBillTokenResponse.igpMessage)
                 }
             }
             
@@ -226,8 +236,8 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -247,7 +257,7 @@ class IGFinancialServiceBill: UIViewController, UIGestureRecognizerDelegate, UIT
     }
     
     func BillMerchantError(errorType: Int) {
-        showErrorAlertView(title: "Bill Payment Error", message: "Bill payment error occurred!", dismiss: true)
+        showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "MSG_ERROR_BILL_PAYMENT".localizedNew, dismiss: true)
     }
     
     /********************************************/

@@ -12,7 +12,7 @@ import UIKit
 import AKMaskField
 import IGProtoBuff
 
-class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDelegate, IGRegistrationStepSelectCountryTableViewControllerDelegate {
+class IGSettingAddContactViewController: BaseViewController, UIGestureRecognizerDelegate, IGRegistrationStepSelectCountryTableViewControllerDelegate {
 
     @IBOutlet weak var edtFirstName: UITextField!
     @IBOutlet weak var edtLastName: UITextField!
@@ -34,7 +34,7 @@ class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDe
         makeView()
 
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "Done", title: "Add Contact")
+        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_BTN".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -78,8 +78,8 @@ class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDe
             switch errorCode {
             case .timeout:
                 DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -110,7 +110,7 @@ class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDe
     
     
     fileprivate func setSelectedCountry(_ country:IGCountryInfo) {
-        txtCountryCode.text = "+" + String(Int((country.countryCode)))
+        txtCountryCode.text = "+" + String(Int((country.countryCode))).inLocalizedLanguage()
         btnChooseCountry.setTitle(country.countryName , for: UIControl.State.normal)
         
         if country.codePattern != nil && country.codePattern != "" {

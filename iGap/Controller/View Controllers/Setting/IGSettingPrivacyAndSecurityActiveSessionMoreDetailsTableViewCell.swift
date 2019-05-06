@@ -14,14 +14,14 @@ class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewCell: UITableV
     @IBOutlet weak var moreDetailsLable: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        moreDetailsLable.text = "More Details"
+        moreDetailsLable.text = "SETTING_PS_AS_MORE_DETAILS".localizedNew
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
     func setSession(_ session : IGSession) {
-        moreDetailsLable.text = "More Details"
+        moreDetailsLable.text = "SETTING_PS_AS_MORE_DETAILS".localizedNew
         self.accessoryType = .disclosureIndicator
     }
 }

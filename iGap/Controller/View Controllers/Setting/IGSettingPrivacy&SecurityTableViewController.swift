@@ -96,6 +96,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
         
         showPrivacyInfo()
         requestToGetUserPrivacy()
+        initChangeLang()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -430,6 +431,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
         }
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         if indexPath.section == 0 {
@@ -481,7 +483,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
                             self.twoStepVerification = IGUserTwoStepVerificationGetPasswordDetailRequest.Handler.interpret(response: getPasswordDetailsResponse)
                             self.performSegue(withIdentifier: "ShowTwoStepVerificationPassword", sender: self)
                         default:
-                            self.showAlert(title: "Alert", message: "Bad response")
+                            self.showAlert(title: "GAME_ALERT_TITLE".localizedNew, message: "MSG_BAD_RESPONSE".localizedNew)
                         }
                     }
                 }).error({ (errorCode, waitTime) in
@@ -489,11 +491,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
                         hud.hide(animated: true)
                         switch errorCode {
                         case .userTwoStepVerificationGetPasswordDetailsBadPayload:
-                            self.showAlert(title: "Alert", message: "Bad payload")
+                            self.showAlert(title: "GAME_ALERT_TITLE".localizedNew, message: "Bad payload")
                         case .userTwoStepVerificationGetPasswordDetailsInternalServerError:
-                            self.showAlert(title: "Alert", message: "Internal Server Error")
+                            self.showAlert(title: "GAME_ALERT_TITLE".localizedNew, message: "Internal Server Error")
                         case .userTwoStepVerificationGetPasswordDetailsForbidden:
-                            self.showAlert(title: "Alert", message: "Forbidden")
+                            self.showAlert(title: "GAME_ALERT_TITLE".localizedNew, message: "Forbidden")
                         case .userTwoStepVerificationGetPasswordDetailsNoPassword:
                             self.performSegue(withIdentifier: "GoToTwoStepVerificationPage", sender: self)
                         default:
@@ -510,6 +512,27 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
         }
     }
 
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 0 {
+            return "SETTING_PS_PRIVACY_HINT".localizedNew
+
+        }
+        else {
+            return ""
+        }
+    }
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            containerView.textLabel!.text = "SETTING_PS_PRIVACY_HINT".localizedNew
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100
+    }
     private func alertWaiting(){
         let alert = UIAlertController(title: "Please Wait", message: "Please wait for detect your privacy info", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -518,7 +541,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
     }
     
     @IBAction func goBackToPrivacyAndSecurityList(seque:UIStoryboardSegue){
-        numberOfBlockedContacts.text = "\(blockedUsers.count) users"
+        numberOfBlockedContacts.text = "\(blockedUsers.count) ".inLocalizedLanguage() + "USERS".localizedNew
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -526,37 +549,37 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
             if selectedIndexPath.section == 0 {
                 switch selectedIndexPath.row {
                 case 1:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "Who can see my Profile Photo"
-                    whoCanSeeYourPrivacyAndSetting.mode = "Profile Photo"
+                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_SEE_MY_PROFILE_PHOTO".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_PROFILE_PHOTO".localizedNew
                     whoCanSeeYourPrivacyAndSetting.privacyType = .avatar
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = avatarUserPrivacy
                     break
                     
                 case 2:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "Who can see my Last Seen"
-                    whoCanSeeYourPrivacyAndSetting.lastSeenFooterText = "If you don't share your Last Seen , you won't be able to see people's Last Seen "
-                    whoCanSeeYourPrivacyAndSetting.mode = "Last Seen"
+                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_SEE_MY_PLAST_SEEN".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.lastSeenFooterText = "MSG_IF_NOT_SHARE_LAST_SEEN".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_LAST_SEEN".localizedNew
                     whoCanSeeYourPrivacyAndSetting.privacyType = .userStatus
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = lastSeenUserPrivacy
                     break
                     
                 case 3:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "Who can adding me to Groups"
-                    whoCanSeeYourPrivacyAndSetting.mode = "Adding me to Groups"
+                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_ADD_TO_GROUPS".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.mode = "TTL_ADDING_ME_TO_GROULS".localizedNew
                     whoCanSeeYourPrivacyAndSetting.privacyType = .groupInvite
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = groupInviteUserPrivacy
                     break
                     
                 case 4:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "Who can adding me to Channels"
-                    whoCanSeeYourPrivacyAndSetting.mode = "Adding me to Channels"
+                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_ADD_TO_CHANNNELS".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.mode = "TTL_ADDING_ME_TO_CHANNELS".localizedNew
                     whoCanSeeYourPrivacyAndSetting.privacyType = .channelInvite
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = channelInviteUserPrivacy
                     break
                     
                 case 5:
-                    whoCanSeeYourPrivacyAndSetting.headerText = "Who can call me"
-                    whoCanSeeYourPrivacyAndSetting.mode = "Call me"
+                    whoCanSeeYourPrivacyAndSetting.headerText = "TTL_WHO_CAN_CALL".localizedNew
+                    whoCanSeeYourPrivacyAndSetting.mode = "SETTING_PS_CALL".localizedNew
                     whoCanSeeYourPrivacyAndSetting.privacyType = .voiceCalling
                     whoCanSeeYourPrivacyAndSetting.privacyLevel = callPrivacy
                     break
@@ -569,4 +592,5 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIG
             destinationVC.twoStepVerification = twoStepVerification
         }
     }
+    
 }

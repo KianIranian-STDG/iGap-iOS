@@ -56,11 +56,11 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Connecting
     func setNavigationItemForConnecting() {
-        setNavigationItemWithCenterActivityIndicator(text: "Connecting")
+        setNavigationItemWithCenterActivityIndicator(text: "CONNECTING".localizedNew)
     }
     
     func setNavigationItemForWaitingForNetwork() {
-        setNavigationItemWithCenterActivityIndicator(text: "Waiting for network")
+        setNavigationItemWithCenterActivityIndicator(text: "WAITING_NETWORK".localizedNew)
     }
     
     private func returnToCallMethod(){
@@ -78,7 +78,7 @@ class IGNavigationItem: UINavigationItem {
         label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
-        label.text = "Return To Call"
+        label.text = "RETURN_TO_CALL".localizedNew
         self.titleView?.addSubview(label)
         
         self.titleView?.snp.makeConstraints { (make) in
@@ -111,7 +111,7 @@ class IGNavigationItem: UINavigationItem {
         self.titleView = centerViewContainer
         
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
+        label.font = UIFont.igFont(ofSize: 17,weight: .bold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
         label.text = text
@@ -226,6 +226,7 @@ class IGNavigationItem: UINavigationItem {
         }
         label.textAlignment = .right
         label.text = title
+        label.textAlignment = .right
         label.textColor = UIColor.iGapBarsInfo()
         rightViewContainer!.addSubview(label)
     }
@@ -236,10 +237,13 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
-        
+
         let labelFrame = CGRect(x: 0, y: 4.5, width: 100, height:31)
         let label = UILabel(frame: labelFrame)
         label.text = title
+        label.font = UIFont.igFont(ofSize: 15.0, weight: .bold)
+
+        label.textAlignment = .left
         label.textColor = UIColor.iGapBarsInfo()
         leftViewContainer!.addSubview(label)
     }
@@ -257,18 +261,74 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
-        let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-        let settingButtonImageView = UIImageView(frame: settingViewFrame)
-        settingButtonImageView.image = UIImage(named:"IG_Nav_Bar_Menu")
-        leftViewContainer!.addSubview(settingButtonImageView)
+        let current : String = SMLangUtil.loadLanguage()
+
+        switch current {
+        case "fa" :
+            let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+            let settingButtonImageView = UIImageView(frame: settingViewFrame)
+
+            settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+            leftViewContainer!.addSubview(settingButtonImageView)
+
+            
+        case "en" :
+            let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+            let settingButtonImageView = UIImageView(frame: settingViewFrame)
+
+            settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+            leftViewContainer!.addSubview(settingButtonImageView)
+
+            
+        case "ar" :
+            let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+            let settingButtonImageView = UIImageView(frame: settingViewFrame)
+
+            settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+            leftViewContainer!.addSubview(settingButtonImageView)
+
+            
+        default :
+            break
+        }
+
     }
     
     private func addComopseButton() {
         let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-        composeButtonImageView.image = UIImage(named:"IG_Nav_Bar_Plus")
-        rightViewContainer!.addSubview(composeButtonImageView)
+        let current : String = SMLangUtil.loadLanguage()
+        
+        switch current {
+        case "fa" :
+            let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+            let composeButtonImageView = UIImageView(frame: composeButtonFrame)
+
+            composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+            rightViewContainer!.addSubview(composeButtonImageView)
+
+            
+        case "en" :
+            let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+            let composeButtonImageView = UIImageView(frame: composeButtonFrame)
+
+            composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+            rightViewContainer!.addSubview(composeButtonImageView)
+
+            
+        case "ar" :
+            let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+            let composeButtonImageView = UIImageView(frame: composeButtonFrame)
+
+            composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+            rightViewContainer!.addSubview(composeButtonImageView)
+
+            
+        default :
+            break
+        }
     }
+    
     
     func addiGapLogo() {
         
@@ -386,9 +446,10 @@ class IGNavigationItem: UINavigationItem {
                 }
             } else if let groupRoom = room.groupRoom {
                 
-                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) member\(groupRoom.participantCount>1 ? "s" : "")"
+                self.centerViewSubLabel!.text = "\(groupRoom.participantCount) " + "MEMBER".localizedNew
+                
             } else if let channelRoom = room.channelRoom {
-                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) member\(channelRoom.participantCount>1 ? "s" : "")"
+                self.centerViewSubLabel!.text = "\(channelRoom.participantCount) " + "MEMBER".localizedNew
             }
         }
     }
@@ -529,9 +590,9 @@ class IGNavigationItem: UINavigationItem {
                 setLastSeenLabelForUser(peer , room: room)
             }
         } else if let groupRoom = room.groupRoom {
-            self.centerViewSubLabel!.text = "\(groupRoom.participantCount) member\(groupRoom.participantCount>1 ? "s" : "")"
+            self.centerViewSubLabel!.text = "\(groupRoom.participantCount)" + "MEMBER".localizedNew
         } else if let channelRoom = room.channelRoom {
-            self.centerViewSubLabel!.text = "\(channelRoom.participantCount) member\(channelRoom.participantCount>1 ? "s" : "")"
+            self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + "MEMBER".localizedNew
         }
     }
     
@@ -569,7 +630,7 @@ class IGNavigationItem: UINavigationItem {
         }
         
         if isBot(room: room){
-            self.centerViewSubLabel!.text = "Bot"
+            self.centerViewSubLabel!.text = "BOT".localizedNew
             return
         }
         
@@ -577,28 +638,28 @@ class IGNavigationItem: UINavigationItem {
             
             switch user.lastSeenStatus {
             case .longTimeAgo:
-                self.centerViewSubLabel!.text = "A long time ago"
+                self.centerViewSubLabel!.text = "A_LONG_TIME_AGO".localizedNew
                 break
             case .lastMonth:
-                self.centerViewSubLabel!.text = "Last month"
+                self.centerViewSubLabel!.text = "LAST_MONTH".localizedNew
                 break
             case .lastWeek:
-                self.centerViewSubLabel!.text = "Last week"
+                self.centerViewSubLabel!.text = "LAST_WEAK".localizedNew
                 break
             case .online:
-                self.centerViewSubLabel!.text = "Online"
+                self.centerViewSubLabel!.text = "ONLINE".localizedNew
                 break
             case .exactly:
-                self.centerViewSubLabel!.text = "\(user.lastSeen!.humanReadableForLastSeen())"
+                self.centerViewSubLabel!.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
                 break
             case .recently:
-                self.centerViewSubLabel!.text = "A few seconds ago"
+                self.centerViewSubLabel!.text = "A_FEW_SEC_AGO".localizedNew
                 break
             case .support:
-                self.centerViewSubLabel!.text = "iGap Support"
+                self.centerViewSubLabel!.text = "IGAP_SUPPORT".localizedNew
                 break
             case .serviceNotification:
-                self.centerViewSubLabel!.text = "Service Notification"
+                self.centerViewSubLabel!.text = "SERVICE_NOTIFI".localizedNew
                 break
             }
             
@@ -611,7 +672,7 @@ class IGNavigationItem: UINavigationItem {
     
     private func isCloud(room: IGRoom) -> Bool {
         if !room.isInvalidated, room.chatRoom?.peer?.id == IGAppManager.sharedManager.userID() {
-            self.centerViewSubLabel!.text = "My Cloud"
+            self.centerViewSubLabel!.text = "MY_CLOUD".localizedNew
             return true
         }
         return false

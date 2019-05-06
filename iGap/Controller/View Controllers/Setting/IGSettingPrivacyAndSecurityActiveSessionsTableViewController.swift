@@ -24,7 +24,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "Active Sessions")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_ACTIVE_SESSIONS".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -100,7 +100,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == otherSessions.count + 1 {
             if otherSessions.count > 0 {
-                return "Logs out all devices except for this one."
+                return "SETTINGS_PS_TERMINATE_ALL_EXEPT".localizedNew
             } else {
                 return nil
             }
@@ -112,12 +112,12 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         var headerText = ""
         switch section {
         case 0:
-            headerText = "Current Session"
+            headerText = "SETTING_PS_AS_CURRENT_SESSIONS".localizedNew
         case 1:
             if otherSessions.count > 0 {
-                headerText = "Active Sessions"
+                headerText = "SETTING_PS_ACTIVE_SESSIONS".localizedNew
             } else {
-                headerText = "No More Active Sessions"
+                headerText = "SETTING_PS_NO_MORE_ACTIVE_SESSIONS".localizedNew
             }
         default:
             break
@@ -134,7 +134,48 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
         return heightOfheader
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            var headerText = ""
+            switch section {
+            case 0:
+                headerText = "SETTING_PS_AS_CURRENT_SESSIONS".localizedNew
+                containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+
+            case 1:
+                if otherSessions.count > 0 {
+                    headerText = "SETTING_PS_ACTIVE_SESSIONS".localizedNew
+                    containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+
+                } else {
+                    headerText = "SETTING_PS_NO_MORE_ACTIVE_SESSIONS".localizedNew
+                    containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+
+                }
+            default:
+                break
+            }
+            containerView.textLabel!.text = headerText
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+    }
     
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        if section == 0 {
+            let containerView = view as! UITableViewHeaderFooterView
+            if section == otherSessions.count + 1 {
+                if otherSessions.count > 0 {
+                    containerView.textLabel!.text = "SETTINGS_PS_TERMINATE_ALL_EXEPT".localizedNew
+                } else {
+                    containerView.textLabel!.text = nil
+                }
+            }
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        }
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         if indexPath.section != otherSessions.count + 1 {
@@ -146,17 +187,17 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             self.tableView.isUserInteractionEnabled = false
             performSegue(withIdentifier: "GoToActiveSessionDetailsPage", sender: self)
         } else {
-            let logoutConfirmAlertView = UIAlertController(title: "Are you sure you want to Terminate All Sessions?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-            let logoutAction = UIAlertAction(title: "Terminate", style:.default , handler: { _ in
+            let logoutConfirmAlertView = UIAlertController(title: "SETTING_PS_AS_SURE_TO_TERMINATE".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            let logoutAction = UIAlertAction(title: "TERMINATE".localizedNew, style:.default , handler: { _ in
                 self.terminateAllSession()
             })
-            let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: { _ in
+            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: { _ in
             })
             logoutConfirmAlertView.addAction(logoutAction)
             logoutConfirmAlertView.addAction(cancelAction)
             let alertActions = logoutConfirmAlertView.actions
             for action in alertActions {
-                if action.title == "Terminate"{
+                if action.title == "TERMINATE".localizedNew{
                     let logoutColor = UIColor.red
                     action.setValue(logoutColor, forKey: "titleTextColor")
                 }
@@ -197,8 +238,8 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:

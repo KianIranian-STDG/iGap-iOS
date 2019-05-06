@@ -30,6 +30,7 @@ import MarkdownKit
 
 class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
+    @IBOutlet weak var widthImageIndicatorConstrait: NSLayoutConstraint!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
@@ -39,6 +40,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     @IBOutlet weak var unreadCountLabel: UILabel!
     @IBOutlet weak var lastMessageStatusContainerViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var roomTypeIndicatorImageView: UIImageView!
+
+    
     @IBOutlet weak var roomTitleLabelLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgMute: UIImageView!
     @IBOutlet weak var imgVerified: UIImageView!
@@ -157,8 +160,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         switch room.type {
         case .chat:
             roomTypeIndicatorImageView.image = nil
-            roomTitleLabelLeftConstraint.constant = 66
-            
+//            roomTitleLabelLeftConstraint.constant = 66
+                widthImageIndicatorConstrait.constant = 0
             if let user = room.chatRoom?.peer {
                 if user.isVerified {
                     verifyHidden(mute: room.mute)
@@ -169,13 +172,16 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             
         case .group:
             roomTypeIndicatorImageView.image = UIImage(named: "IG_Chat_List_Type_Group")
-            roomTitleLabelLeftConstraint.constant = 90
+//            roomTitleLabelLeftConstraint.constant = 90
+            widthImageIndicatorConstrait.constant = 16
+
             verifyHidden(isHidden: true, mute: room.mute)
             
         case .channel:
             roomTypeIndicatorImageView.image = UIImage(named: "IG_Chat_List_Type_Channel")
-            roomTitleLabelLeftConstraint.constant = 90
-            
+//            roomTitleLabelLeftConstraint.constant = 90
+            widthImageIndicatorConstrait.constant = 16
+
             if (room.channelRoom?.isVerified)! {
                 verifyHidden(mute: room.mute)
             } else {

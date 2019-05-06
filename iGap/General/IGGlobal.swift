@@ -582,17 +582,17 @@ extension Date {
     func humanReadableForLastSeen() -> String {
         let differenctToNow = Date().timeIntervalSince1970 - self.timeIntervalSince1970
         if differenctToNow < 10 {
-            return "just now"
+            return "JUST_NOW".localizedNew
         } else if differenctToNow < 120 {
-            return "in a minute"
+            return "IN_A_MINUTE".localizedNew
         } else if differenctToNow < 3600 {
             let minutes = Int(differenctToNow / 60)
-            return "\(minutes) minutes ago"
+            return "\(minutes)" + "MINUTES_AGO".localizedNew
         } else if differenctToNow < 3600 * 2 {
-            return "an hour ago"
+            return "AN_HOUR_AGO".localizedNew
         } else if differenctToNow < 3600 * 24 {
             let hours = Int(differenctToNow / 3600)
-            return "\(hours) hours ago"
+            return "\(hours)" + "HOURS_AGO".localizedNew
         }
         
         let dateFormatter = DateFormatter()
@@ -600,7 +600,7 @@ extension Date {
         let dateString = dateFormatter.string(from: self)
         dateFormatter.dateFormat = "h:mm a"
         let timeString = dateFormatter.string(from: self)
-        return dateString + " at " + timeString
+        return dateString + "AT".localizedNew + timeString
         
     }
 }
@@ -642,7 +642,7 @@ extension UIViewController {
     
     func showAlert(title: String, message: String, action: (()->())? = nil, completion: (() -> Swift.Void)? = nil) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default) { (alertAction) in
+        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default) { (alertAction) in
             if let action = action {
                 action()
             }

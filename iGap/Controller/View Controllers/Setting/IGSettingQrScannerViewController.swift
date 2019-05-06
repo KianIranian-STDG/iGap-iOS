@@ -23,23 +23,19 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initNavigationBar()
-        makeView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadScanner()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        self.scanner?.stopScanning()
-        super.viewDidDisappear(animated)
-    }
-    
-    private func initNavigationBar(){
+
+        previewView = UIView(frame: CGRect.zero)
+        self.view.addSubview(previewView)
+        previewView.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.height.equalToSuperview()
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+        }
+        scanner = MTBBarcodeScanner(previewView: previewView)
+        
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "QR Scanner")
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_QRCODE_SCANNER".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

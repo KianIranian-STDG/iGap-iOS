@@ -16,19 +16,25 @@ class BaseTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let current : String = SMLangUtil.loadLanguage()
-        
+        self.hideKeyboardWhenTappedAround()
 //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
 //        MCLocalization.sharedInstance().language = current
         switch current {
         case "fa" :
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
 
             
         case "en" :
             UIView.appearance().semanticContentAttribute = .forceLeftToRight
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+
             
         case "ar" :
             UIView.appearance().semanticContentAttribute = .forceRightToLeft
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+
 //            self.loadViewIfNeeded()
 
         default :

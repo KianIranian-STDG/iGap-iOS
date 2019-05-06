@@ -2105,26 +2105,26 @@
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Chat_Screen_Attachment" width="38" height="38"/>
-        <image name="IG_Chat_Screen_Record" width="38" height="38"/>
-        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
-        <image name="IG_Chat_Screen_Send" width="38" height="38"/>
-        <image name="IG_Splash_Cute_2" width="300" height="300"/>
-        <image name="IG_Tabbar_Call" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Channel_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_On" width="37" height="37"/>
-        <image name="IG_Tabbar_Chat_Room" width="37" height="37"/>
-        <image name="IG_Tabbar_Discovery" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_Off" width="37" height="37"/>
-        <image name="IG_Tabbar_Group_On" width="37" height="37"/>
-        <image name="Location_Marker" width="40" height="40"/>
+        <image name="IG_Chat_Screen_Attachment" width="76" height="76"/>
+        <image name="IG_Chat_Screen_Record" width="76" height="76"/>
+        <image name="IG_Chat_Screen_Scroll_To_Bottom" width="411.42855834960938" height="411.42855834960938"/>
+        <image name="IG_Chat_Screen_Send" width="76" height="76"/>
+        <image name="IG_Splash_Cute_2" width="600" height="600"/>
+        <image name="IG_Tabbar_Call_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Channel_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Channel_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_On" width="74" height="74"/>
+        <image name="IG_Tabbar_Chat_Room" width="74" height="74"/>
+        <image name="IG_Tabbar_Discovery" width="74" height="74"/>
+        <image name="IG_Tabbar_Group_Off" width="74" height="74"/>
+        <image name="IG_Tabbar_Group_On" width="74" height="74"/>
+        <image name="Location_Marker" width="19.200000762939453" height="19.200000762939453"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l1W-zY-RFK"/>
-        <segue reference="ebc-Vg-0Gq"/>
+        <segue reference="k9M-cr-cw2"/>
+        <segue reference="R4P-x7-LEg"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -85,8 +85,8 @@
                             <constraint firstAttribute="width" constant="18" id="yTq-FF-UP4"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1qj" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojI-a5-iIf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="106" y="20" width="163" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1qj" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojI-a5-iIf" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="108" y="20" width="56.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="syr-jV-AZB"/>
                         </constraints>
@@ -99,20 +99,19 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="j5O-4W-jNd" secondAttribute="trailing" constant="20" id="89g-Mo-hfX"/>
                     <constraint firstItem="wkw-rV-l3F" firstAttribute="centerY" secondItem="pyp-q7-jR9" secondAttribute="centerY" id="FwV-WV-96P"/>
+                    <constraint firstItem="ojI-a5-iIf" firstAttribute="leading" secondItem="cZr-RY-NKD" secondAttribute="trailing" constant="10" id="Jgi-u2-UJy"/>
                     <constraint firstAttribute="bottom" secondItem="wtp-vX-p7f" secondAttribute="bottom" constant="10" id="Le2-um-Yz0"/>
+                    <constraint firstItem="wtp-vX-p7f" firstAttribute="leading" secondItem="cZr-RY-NKD" secondAttribute="leading" id="QrH-PS-poZ"/>
                     <constraint firstItem="mQH-ck-rj3" firstAttribute="leading" secondItem="wtp-vX-p7f" secondAttribute="trailing" constant="20" id="Sb2-Wr-lsW"/>
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="leading" secondItem="pyp-q7-jR9" secondAttribute="trailing" constant="5" id="Wh2-7E-Bsb"/>
-                    <constraint firstItem="wtp-vX-p7f" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="82" id="WuA-el-2nc"/>
                     <constraint firstItem="ojI-a5-iIf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YBc-x6-aXr"/>
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="YGR-YU-lO1"/>
                     <constraint firstItem="cZr-RY-NKD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="66" id="ZQK-mk-PfS"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="leading" secondItem="wkw-rV-l3F" secondAttribute="trailing" constant="8" id="agQ-O5-Lhv"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="gtC-pN-UhD"/>
                     <constraint firstItem="cZr-RY-NKD" firstAttribute="top" secondItem="ojI-a5-iIf" secondAttribute="top" id="m9m-En-IE8"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ojI-a5-iIf" secondAttribute="trailing" constant="90" id="n2s-HV-Uwi"/>
                     <constraint firstAttribute="trailing" secondItem="2b6-Og-2B6" secondAttribute="trailing" constant="20" id="rTd-HL-qe4"/>
                     <constraint firstItem="j5O-4W-jNd" firstAttribute="centerY" secondItem="wtp-vX-p7f" secondAttribute="centerY" id="sI0-Cc-BTM"/>
-                    <constraint firstItem="ojI-a5-iIf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="90" id="zgq-TG-hTB"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -124,15 +123,16 @@
                 <outlet property="lastMessageStatusContainerViewWidthConstraint" destination="OWv-tU-iRl" id="o4z-BK-ZIy"/>
                 <outlet property="mainView" destination="H2p-sc-9uM" id="4nV-FS-Egh"/>
                 <outlet property="nameLabel" destination="ojI-a5-iIf" id="cf8-gx-tEn"/>
-                <outlet property="roomTitleLabelLeftConstraint" destination="zgq-TG-hTB" id="AY6-XF-taE"/>
+                <outlet property="roomTitleLabelLeftConstraint" destination="Jgi-u2-UJy" id="hWn-RO-6HJ"/>
                 <outlet property="roomTypeIndicatorImageView" destination="cZr-RY-NKD" id="Luj-HS-mpZ"/>
                 <outlet property="timeLabel" destination="2b6-Og-2B6" id="lsy-qc-QyG"/>
                 <outlet property="unreadCountLabel" destination="nTe-f6-GT6" id="dhc-Ad-jcD"/>
+                <outlet property="widthImageIndicatorConstrait" destination="PJZ-Rj-2j8" id="CpJ-0G-O1z"/>
             </connections>
             <point key="canvasLocation" x="-165.5" y="109.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="IG_Verify" width="20" height="20"/>
+        <image name="IG_Verify" width="40" height="40"/>
     </resources>
 </document>

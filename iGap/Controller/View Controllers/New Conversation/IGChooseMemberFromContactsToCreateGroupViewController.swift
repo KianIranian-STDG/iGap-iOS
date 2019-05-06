@@ -107,52 +107,133 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        if mode == "Admin" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Add" , title: "Add Admin")
+        let current : String = SMLangUtil.loadLanguage()
+        switch current {
+        case "fa" :
+            if mode == "Admin" {
+                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "Add Admin")
+            }
+            if mode == "Moderator" {
+                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "Add Moderator")
+            }
+            if mode == "CreateGroup" {
+                
+                navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "New Group")
+            }
+            if mode == "Members" {
+                navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "Add Member")
+            }
+            if mode == "Convert Chat To Group" {
+                navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "Add member to")
+            }
+
+        case "en" :
+            if mode == "Admin" {
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "Add Admin")
+            }
+            if mode == "Moderator" {
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "Add Moderator")
+            }
+            if mode == "CreateGroup" {
+                
+                navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "GLOBAL_CREAT".localizedNew, title: "New Group")
+            }
+            if mode == "Members" {
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "Add Member")
+            }
+            if mode == "Convert Chat To Group" {
+                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew , title: "Add member to")
+            }
+
+        case "ar" :
+            break
+        default :
+            break
         }
-        if mode == "Moderator" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Add" , title: "Add Moderator")
-        }
-        if mode == "CreateGroup" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Create", title: "New Group")
-        }
-        if mode == "Members" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Add" , title: "Add Member")
-        }
-        if mode == "Convert Chat To Group" {
-            navigationItem.addModalViewItems(leftItemText: "Close", rightItemText: "Create" , title: "Add member to")
-        }
+
         
         navigationItem.leftViewContainer?.addAction {
-            if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popViewController(animated: true)
+            let current : String = SMLangUtil.loadLanguage()
+            switch current {
+            case "fa" :
+                if self.mode == "Members" {
+                    self.requestToAddmember()
+                } else if self.mode == "Moderator" {
+                    self.requestToAddModeratorInGroup()
+                } else if self.mode == "Admin"{
+                    self.requestToAddAdminInGroup()
+                } else {
+                    let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                    let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
+                        return user.registredUser
+                    })
+                    createGroup.selectedUsersToCreateGroup = selectedUsersToCreateGroup
+                    createGroup.mode = self.mode
+                    createGroup.roomId = self.roomID
+                    self.navigationController!.pushViewController(createGroup, animated: true)
                 }
-                
-            }else{
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popViewController(animated: true)
+            
+
+            case "en" :
+                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }else{
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
+            case "ar" :
+                break
+            default :
+                break
             }
+
+
         }
         
         navigationItem.rightViewContainer?.addAction {
-            if self.mode == "Members" {
-                self.requestToAddmember()
-            } else if self.mode == "Moderator" {
-                self.requestToAddModeratorInGroup()
-            } else if self.mode == "Admin"{
-                self.requestToAddAdminInGroup()
-            } else {
-                let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
-                    return user.registredUser
-                })
-                createGroup.selectedUsersToCreateGroup = selectedUsersToCreateGroup
-                createGroup.mode = self.mode
-                createGroup.roomId = self.roomID
-                self.navigationController!.pushViewController(createGroup, animated: true)
+            let current : String = SMLangUtil.loadLanguage()
+            switch current {
+            case "fa" :
+                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }else{
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            case "en" :
+                if self.mode == "Members" {
+                    self.requestToAddmember()
+                } else if self.mode == "Moderator" {
+                    self.requestToAddModeratorInGroup()
+                } else if self.mode == "Admin"{
+                    self.requestToAddAdminInGroup()
+                } else {
+                    let createGroup = IGCreateNewGroupTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                    let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
+                        return user.registredUser
+                    })
+                    createGroup.selectedUsersToCreateGroup = selectedUsersToCreateGroup
+                    createGroup.mode = self.mode
+                    createGroup.roomId = self.roomID
+                    self.navigationController!.pushViewController(createGroup, animated: true)
+                }
+                
+                
+            case "ar" :
+                break
+            default :
+                break
             }
+            
+            
         }
     }
     
@@ -170,7 +251,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
     
     func requestToAddmember() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "Hint", message: "Please choose member")
+            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")
             return
         }
         
@@ -195,7 +276,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
     
     func requestToAddAdminInGroup() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "Hint", message: "Please choose member")
+            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")
             return
         }
         
@@ -240,7 +321,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: UIViewController , 
     
     func requestToAddModeratorInGroup() {
         if selectedUsers.count == 0 {
-            self.showAlert(title: "Hint", message: "Please choose member")
+            self.showAlert(title: "SETTING_PS_TV_HINT".localizedNew, message: "Please choose member")
             return
         }
         

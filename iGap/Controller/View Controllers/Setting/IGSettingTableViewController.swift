@@ -507,6 +507,9 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         } else if status == .authorizedWhenInUse || status == .authorizedAlways {
             IGHelperNearby.shared.openMap()
         }
+        else {
+            
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -518,7 +521,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
 
     func choosePhotoActionSheet(sender : UIButton){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+        let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
@@ -537,12 +540,12 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             }
         })
         
-        let deleteAction = UIAlertAction(title: "Delete Main Avatar", style: .destructive, handler: {
+        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
             self.deleteAvatar()
         })
         
-        let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+        let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.imagePicker.delegate = self
             self.imagePicker.allowsEditing = true
@@ -557,7 +560,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
                 self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
             }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         
@@ -625,8 +628,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     
     func showLogoutActionSheet(){
-        let logoutConfirmAlertView = UIAlertController(title: "Are you sure you want to Log out?", message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let logoutAction = UIAlertAction(title: "Log out", style:.default , handler: {
+        let logoutConfirmAlertView = UIAlertController(title: "MSG_PAGE_ACCOUNT_LOGOUT".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew, style:.default , handler: {
             (alert: UIAlertAction) -> Void in
             self.dismiss(animated: true, completion: {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -635,7 +638,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             })
             
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style:.cancel , handler: {
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
             (alert: UIAlertAction) -> Void in
         })
         logoutConfirmAlertView.addAction(logoutAction)

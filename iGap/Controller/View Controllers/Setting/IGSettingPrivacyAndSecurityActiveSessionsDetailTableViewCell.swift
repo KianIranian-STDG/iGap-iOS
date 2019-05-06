@@ -30,19 +30,19 @@ class IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell: UITableViewC
     func setSession(_ session: IGSession) {
         switch session.platform! {
         case .android :
-            activeSessionTitle.text = "Android"
+            activeSessionTitle.text = "ANDROID".localizedNew
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Android")
         case .iOS :
-            activeSessionTitle.text = "iOS"
+            activeSessionTitle.text = "IOS".localizedNew
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_iPhone")
         case .macOS :
-            activeSessionTitle.text = "macOS"
+            activeSessionTitle.text = "MACOS".localizedNew
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Mac")
         case .windows :
-            activeSessionTitle.text = "windows"
+            activeSessionTitle.text = "WINDOWS".localizedNew
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Windows")
         case .linux :
-            activeSessionTitle.text = "linux"
+            activeSessionTitle.text = "LINUX".localizedNew
             activeSessionImageView.image = UIImage(named:"IG_Settings_Active_Sessions_Device_Linux")
         case .blackberry :
             activeSessionTitle.text = "blackberry"
@@ -51,7 +51,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell: UITableViewC
         }
         
         let lastActiveDateString = Date(timeIntervalSince1970: TimeInterval(session.activeTime)).completeHumanReadableTime()
-        activeSessionLastseenLable.text = "Last active at: " + lastActiveDateString
+        activeSessionLastseenLable.text = "LAST_ACTIVE_AT".localizedNew + lastActiveDateString.inLocalizedLanguage()
         activesessionCountryLable.text = session.country
         
     }

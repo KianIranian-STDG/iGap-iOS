@@ -13,7 +13,7 @@ import IGProtoBuff
 import PecPayment
 import SnapKit
 
-class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, BillMerchantResultObserver {
+class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, BillMerchantResultObserver {
 
     @IBOutlet weak var edtPhoneNumber: UITextField!
     @IBOutlet weak var edtProvisionCode: UITextField!
@@ -50,7 +50,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }
             edtProvisionCode.isHidden = true
         } else {
-            edtPhoneNumber.placeholder = "Telephone Number, xxxxxxx"
+            edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localizedNew
         }
         
         initNavigationBar()
@@ -62,10 +62,30 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
         manageTextsView(labels: [txtBillingID,txtPaymentCode,txtAmount,txtBillingIDMid,txtPaymentCodeMid,txtAmountMid])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initChangeLang()
+    }
+    func initChangeLang() {
+        edtPhoneNumber.placeholder = "PLACE_HOLDER_PHONE_NUM".localizedNew
+        edtProvisionCode.placeholder = "PLACE_HOLDER_P_CODE".localizedNew
+        btnInquiry.setTitle("BTN_INQUERY".localizedNew, for: .normal)
+        btnPayment.setTitle("BTN_PAY".localizedNew, for: .normal)
+        btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: .normal)
+        txtAmount.text = "TXT_AMOUNT".localizedNew
+        txtMidTerm.text = "MID_TERM_BILL".localizedNew
+        txtLastTerm.text = "END_TERM_BILL".localizedNew
+        txtAmountMid.text = "TXT_AMOUNT".localizedNew
+        txtBillingID.text = "BILLING_ID".localizedNew
+        txtPaymentCode.text = "PAYMENT_CODE".localizedNew
+        txtBillingIDMid.text = "BILLING_ID".localizedNew
+        txtPaymentCodeMid.text = "PAYMENT_CODE".localizedNew
+        
+    }
     func initNavigationBar(){
-        var title = "Phone Bills Inquiry"
+        var title = "SETTING_FS_MBILL_INQUERY".localizedNew
         if IGFinancialServiceBillingInquiry.isMobile {
-            title = "Mobile Bills Inquiry"
+            title = "SETTING_FS_PHONE_INQUERY".localizedNew
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title, width: 200)
@@ -151,7 +171,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
                     self.initBillPaymanet(token: mplGetBillTokenResponse.igpToken)
                 } else {
-                    self.showErrorAlertView(title: "خطا", message: mplGetBillTokenResponse.igpMessage)
+                    self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: mplGetBillTokenResponse.igpMessage)
                 }
             }
             
@@ -160,8 +180,8 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 IGGlobal.prgHide()
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "Timeout", message: "Please try again later!", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -183,32 +203,32 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             self.paymentCode = "\(lastTerm.igpPayID)"
             self.txtBillingID.text = "\(lastTerm.igpBillID)"
             self.txtPaymentCode.text = "\(lastTerm.igpPayID)"
-            self.txtAmount.text = "\(lastTerm.igpAmount) Rials"
+            self.txtAmount.text = "\(lastTerm.igpAmount) " + "CURRENCY".localizedNew
             
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
             self.paymentCodeMid = "\(midTerm.igpPayID)"
             self.txtBillingIDMid.text = "\(midTerm.igpBillID)"
             self.txtPaymentCodeMid.text = "\(midTerm.igpPayID)"
-            self.txtAmountMid.text = "\(midTerm.igpAmount) Rials"
+            self.txtAmountMid.text = "\(midTerm.igpAmount) " + "CURRENCY".localizedNew
             
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             }
         }
     }
@@ -219,32 +239,32 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             self.paymentCode = "\(lastTerm.igpPayID)"
             self.txtBillingID.text = "\(lastTerm.igpBillID)"
             self.txtPaymentCode.text = "\(lastTerm.igpPayID)"
-            self.txtAmount.text = "\(lastTerm.igpAmount) Rials"
+            self.txtAmount.text = "\(lastTerm.igpAmount) " + "CURRENCY".localizedNew
             
             if lastTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPayment])
                 self.manageViews(views: [self.viewOne])
-                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPayment],enable: false)
                 self.manageViews(views: [self.viewOne], enable: false)
-                self.btnPayment.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPayment.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             }
             
             self.billingIdMid = "\(midTerm.igpBillID)"
             self.paymentCodeMid = "\(midTerm.igpPayID)"
             self.txtBillingIDMid.text = "\(midTerm.igpBillID)"
             self.txtPaymentCodeMid.text = "\(midTerm.igpPayID)"
-            self.txtAmountMid.text = "\(midTerm.igpAmount) Rials"
+            self.txtAmountMid.text = "\(midTerm.igpAmount) " + "CURRENCY".localizedNew
             
             if midTerm.igpAmount != 0 {
                 self.manageButtonsView(buttons: [self.btnPaymentMid])
                 self.manageViews(views: [self.viewTwo])
-                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             } else {
                 self.manageButtonsView(buttons: [self.btnPaymentMid],enable: false)
                 self.manageViews(views: [self.viewTwo], enable: false)
-                self.btnPaymentMid.setTitle("Pay", for: UIControl.State.normal)
+                self.btnPaymentMid.setTitle("BTN_PAY".localizedNew, for: UIControl.State.normal)
             }
         }
     }
@@ -265,7 +285,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }
             
             if (phoneNumber.count != 11 || !phoneNumber.isNumber) {
-                showErrorAlertView(title: "Error", message: "phone number is wrong!")
+                showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "MSG_ERROR_WROMG_MNUMBER".localizedNew)
                 return
             }
             
@@ -280,8 +300,8 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -297,7 +317,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }
             
             if (phoneNumber.count < 5 || !phoneNumber.isNumber) {
-                showErrorAlertView(title: "Error", message: "phone number is wrong!")
+                showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "MSG_ERROR_WROMG_MNUMBER".localizedNew)
                 return
             }
             
@@ -307,7 +327,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
             }
             
             if (provisionCode.count < 1 || !provisionCode.isNumber) {
-                showErrorAlertView(title: "Error", message: "phone number is wrong!")
+                showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "MSG_ERROR_WROMG_MNUMBER".localizedNew)
                 return
             }
             
@@ -322,8 +342,8 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
                 switch errorCode {
                 case .timeout:
                     DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "Timeout", message: "Please try again later!", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     }
@@ -352,7 +372,7 @@ class IGFinancialServiceBillingInquiry: UIViewController, UIGestureRecognizerDel
     }
     
     func BillMerchantError(errorType: Int) {
-        showErrorAlertView(title: "Bill Payment Error", message: "Bill payment error occurred!", dismiss: true)
+        showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: "MSG_ERROR_BILL_PAYMENT".localizedNew, dismiss: true)
     }
     
     /*********************************************************/
