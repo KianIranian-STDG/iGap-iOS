@@ -10,7 +10,7 @@ import UIKit
 import models
 import webservice
 
-class SMHistoryTableViewController: BaseTableViewController {
+class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
     
 	@IBOutlet var indicator: UIActivityIndicatorView!
 	var rowData : [PAY_obj_history]?
