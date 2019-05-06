@@ -269,14 +269,14 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             currentController!.present(callPage, animated: true, completion: nil)
             
         } else {
-            let callAlert = UIAlertController(title: nil, message: "Select the type of call", preferredStyle: IGGlobal.detectAlertStyle())
-            let voiceCall = UIAlertAction(title: "Voice Call", style: .default, handler: { (action) in
+            let callAlert = UIAlertController(title: nil, message: " ", preferredStyle: IGGlobal.detectAlertStyle())
+            let voiceCall = UIAlertAction(title: "VOICE_CALL".localizedNew, style: .default, handler: { (action) in
                 self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
             })
-            let videoCall = UIAlertAction(title: "Video Call", style: .default, handler: { (action) in
+            let videoCall = UIAlertAction(title: "VIDEO_CALL".localizedNew, style: .default, handler: { (action) in
                 self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.videoCalling, showAlert: false)
             })
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
             
             callAlert.addAction(voiceCall)
             callAlert.addAction(videoCall)

@@ -90,13 +90,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
                 
-                let newChat = UIAlertAction(title: "New Call", style: .default, handler: { (action) in
+                let newChat = UIAlertAction(title: "NEW_CALL".localizedNew, style: .default, handler: { (action) in
                     let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                     createChat.forceCall = true
                     self.navigationController!.pushViewController(createChat, animated: true)
                 })
                 
-                let clearCallLog = UIAlertAction(title: "Clear Call History", style: .default, handler: { (action) in
+                let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
                     if IGAppManager.sharedManager.userID() != nil {
                         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         hud.mode = .indeterminate
@@ -130,7 +130,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }
                 })
                 
-                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
                 
                 alertController.addAction(newChat)
                 alertController.addAction(clearCallLog)

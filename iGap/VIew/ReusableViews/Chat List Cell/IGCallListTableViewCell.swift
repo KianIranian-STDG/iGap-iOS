@@ -59,7 +59,7 @@ class IGCallListTableViewCell: UITableViewCell {
         }
         
         contactName.text = user?.displayName
-        offerTime.text = callLog.offerTime.completeHumanReadableTime()
+        offerTime.text = callLog.offerTime.completeHumanReadableTime().inLocalizedLanguage()
         
         setState(callLog: callLog)
     }
@@ -69,7 +69,7 @@ class IGCallListTableViewCell: UITableViewCell {
             
         case 0: //MISSED
             callStateView.text = ""
-            callState.text = "Missed Call"
+            callState.text = "MISSED_CALL".localizedNew
             
             callStateView.textColor = UIColor.callStatusColor(status: 0)
             callState.textColor = UIColor.callStatusColor(status: 0)
@@ -77,7 +77,7 @@ class IGCallListTableViewCell: UITableViewCell {
             
         case 1: //CANCELED
             callStateView.text = ""
-            callState.text = "Unanswerd Call"
+            callState.text = "UNANSWERED_CALL".localizedNew
             
             callStateView.textColor = UIColor.callStatusColor(status: 1)
             callState.textColor = UIColor.callStatusColor(status: 1)
@@ -85,7 +85,7 @@ class IGCallListTableViewCell: UITableViewCell {
             
         case 2: //INCOMING
             callStateView.text = ""
-            callState.text = convertDurationToHour(duration: callLog.duration)
+            callState.text = convertDurationToHour(duration: callLog.duration).inLocalizedLanguage()
             
             callStateView.textColor = UIColor.callStatusColor(status: 2)
             callState.textColor = UIColor.callStatusColor(status: 2)
@@ -93,7 +93,7 @@ class IGCallListTableViewCell: UITableViewCell {
             
         case 3: //OUTGOING
             callStateView.text = ""
-            callState.text = convertDurationToHour(duration: callLog.duration)
+            callState.text = convertDurationToHour(duration: callLog.duration).inLocalizedLanguage()
             
             callStateView.textColor = UIColor.callStatusColor(status: 3)
             callState.textColor = UIColor.callStatusColor(status: 3)

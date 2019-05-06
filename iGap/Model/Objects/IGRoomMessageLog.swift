@@ -164,15 +164,15 @@ class IGRoomMessageLog: Object {
             bodyString = "This room was deleted"
         case .missedVoiceCall:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
-                bodyString = "Did not respond to your voice call"
+                bodyString = "DID_NOT_RESPOND_TO_VOICE".localizedNew
             }else {
-                bodyString = "Missed voice call"
+                bodyString = "MISSED_CALL".localizedNew
             }
         case .missedVideoCall:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
-                bodyString = "Did not respond to your video call"
+                bodyString = "DID_NOT_RESPOND_TO_VIDEO".localizedNew
             }else {
-                bodyString = "Missed video call"
+                bodyString = "MISSED_CALL".localizedNew
             }
         case .missedScreenShare:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
@@ -182,7 +182,7 @@ class IGRoomMessageLog: Object {
             }
         case .missedSecretChat:
             if message.authorHash==IGAppManager.sharedManager.authorHash(){
-                bodyString = "Did not respond to your secret chat"
+                bodyString = "DID_NOT_RESPOND_TO_SCHAT".localizedNew
             }else {
                 bodyString = "Missed secret chat"
             }

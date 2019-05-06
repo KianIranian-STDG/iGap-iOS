@@ -130,10 +130,32 @@
         "BY_SIGNING_AGREEMENT" : "با ساخت حساب کاربری موافقت می کنید با  ",
         "TERMS_OF_SERVICE" : "شرایط و قوانین",
         "LETS_GO" : "بزن بریم",
+        "MISSED_CALL" : "تماس از دست رفته",
+        "UNANSWERED_CALL" : "تماس پاسخ داده نشده",
+        "VOICE_CALL" : "تماس صوتی",
+        "VIDEO_CALL" : "تماس تصویری",
+
+        
+        "COMMUNICATING" : "برقراری ارتباط",
+        "CONNECTED" : "متصل شد",
+        "DISCONNECTED" : "عدم اتصال",
+        "MISSED" : "از دست رفته",
+        "NOT_ANSWERED" : "عدم پاسخ دهی",
+        "REJECTED" : "رد شده",
+        "TOO_LONG" : "انتظار بیش از حد",
+        "FAILED" : "رد شده",
+        "UNAVAILABLE" : "هدم دسترسی",
+        "INCOMMING_CALL" : "تماس ورودی",
+        "RINGING" : "در حال زنگ خوردن",
+        "DIALING" : "در حال گرفتن شماره",
 
         
         
         
+        "DID_NOT_RESPOND_TO_VOICE" : "عدم پاسغ دهی به شروع تماس صوتی با شما",
+        "DID_NOT_RESPOND_TO_VIDEO" : "عدم پاسغ دهی به شروع تماس تصویری با شما",
+        "DID_NOT_RESPOND_TO_SCHAT" : "عدم پاسغ دهی به شروع گغت و گوی مخفی با شما",
+
         
         
         
@@ -909,10 +931,27 @@
         "BY_SIGNING_AGREEMENT" : "By signing up an account you agree to  ",
         "TERMS_OF_SERVICE" : "Terms of Services",
 
+        "MISSED_CALL" : "Missed Call",
+        "UNANSWERED_CALL" : "Unanswerd Call",
+
         
         
-        
-        
+        "COMMUNICATING" : "Communicating ...",
+        "CONNECTED" : "Connected",
+        "DISCONNECTED" : "Disconnected",
+        "MISSED" : "Missed",
+        "NOT_ANSWERED" : "Not Answered",
+        "REJECTED" : "Rejected",
+        "TOO_LONG" : "Too Long",
+        "FAILED" : "Failed",
+        "UNAVAILABLE" : "Unavailable",
+        "INCOMMING_CALL" : "Incomming Call ...",
+        "RINGING" : "Ringing ...",
+        "DIALING" : "Dialing ...",
+        "DID_NOT_RESPOND_TO_VOICE" : "Did not respond to your voice call",
+        "DID_NOT_RESPOND_TO_VIDEO" : "Did not respond to your video call",
+        "DID_NOT_RESPOND_TO_SCHAT" : "Did not respond to start a secret chat with you",
+
         
         
         
@@ -948,6 +987,8 @@
         "LOCATION_MESSAGE" : "Location Message",
         "DELETED_MESSAGE" : "Deleted Message",
         "DRAFT" : "Draft : ",
+        "VOICE_CALL" : "Voice Call",
+        "VIDEO_CALL" : "Video Call",
 
         
         

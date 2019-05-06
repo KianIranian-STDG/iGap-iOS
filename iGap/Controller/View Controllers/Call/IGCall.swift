@@ -260,7 +260,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     private func answerCall(withDelay: Bool = false){
         stopSound()
-        txtCallState.text = "Communicating..."
+        txtCallState.text = "COMMUNICATING".localizedNew
         manageView(stateAnswer: false)
         if withDelay {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5){
@@ -348,7 +348,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             //localCameraView.isHidden = false
             //imgAvatar.isHidden = true
             btnSwitchCamera.isEnabled = true
-            txtiGap.text = "iGap Video Call"
+            txtiGap.text = "VIDEO_CALL".localizedNew
             IGCallAudioManager.sharedInstance.setSpeaker(button: btnSpeaker)
             
         } else if callType == .voiceCalling {
@@ -365,7 +365,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
             btnSwitchCamera.isEnabled = false
-            txtiGap.text = "iGap Voice Call"
+            txtiGap.text = "VOICE_CALL".localizedNew
             btnSwitchCamera.setTitle("", for: UIControl.State.normal)
         }
         
@@ -509,7 +509,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 
                 IGCallEventListener.playHoldSound = false
                 self.txtCallTime.isHidden = false
-                self.txtCallState.text = "Connected"
+                self.txtCallState.text = "CONNECTED".localizedNew
                 
                 if !self.callIsConnected {
                     self.callIsConnected = true
@@ -557,61 +557,61 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 break
                 
             case .Finished, .Disconnected, .Accepted:
-                self.txtCallState.text = "Disconnected"
+                self.txtCallState.text = "DISCONNECTED".localizedNew
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 RTCClient.getInstance(justReturn: true)?.callStateDelegate = nil
                 break
                 
             case .Missed:
-                self.txtCallState.text = "Missed"
+                self.txtCallState.text = "MISSED".localizedNew
                 self.dismmis()
                 break
                 
             case .NotAnswered:
-                self.txtCallState.text = "NotAnswered"
+                self.txtCallState.text = "NOT_ANSWERED".localizedNew
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .Rejected:
-                self.txtCallState.text = "Rejected"
+                self.txtCallState.text = "REJECTED".localizedNew
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 break
                 
             case .TooLong:
-                self.txtCallState.text = "TooLong"
+                self.txtCallState.text = "TOO_LONG".localizedNew
                 self.playSound(sound: "igap_disconnect")
                 self.dismmis()
                 break
                 
             case .Failed:
-                self.txtCallState.text = "Failed"
+                self.txtCallState.text = "FAILED".localizedNew
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .Unavailable:
-                self.txtCallState.text = "Unavailable"
+                self.txtCallState.text = "UNAVAILABLE".localizedNew
                 self.playSound(sound: "igap_noresponse")
                 self.dismmis()
                 break
                 
             case .IncommingCall:
-                self.txtCallState.text = "IncommingCall..."
+                self.txtCallState.text = "INCOMMING_CALL".localizedNew
                 if self.callType == .videoCalling {
                     self.playSound(sound: "tone", repeatEnable: true)
                 }
                 break
                 
             case .Ringing:
-                self.txtCallState.text = "Ringing..."
+                self.txtCallState.text = "RINGING".localizedNew
                 self.playSound(sound: "igap_ringing", repeatEnable: true)
                 break
                 
             case .Dialing:
-                self.txtCallState.text = "Dialing..."
+                self.txtCallState.text = "DIALING".localizedNew
                 self.playSound(sound: "igap_signaling", repeatEnable: true)
                 break
                 

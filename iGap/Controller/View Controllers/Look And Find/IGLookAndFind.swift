@@ -14,8 +14,8 @@ import SwiftProtobuf
 import RealmSwift
 import Hero
 
-class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
-
+class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -46,18 +46,15 @@ class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        self.navigationController?.hero.navigationAnimationType = .fade
         let attributes:[NSAttributedString.Key:Any] = [
             NSAttributedString.Key.foregroundColor : UIColor.black,
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
 
-        self.navigationController?.hero.navigationAnimationType = .fade
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,7 +96,7 @@ class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDeleg
             self.checkSearchState()
         }).send()
     }
-
+    
     /*
      * after receive search result, check latest search text with
      * current text and if is different search again with current info
@@ -249,10 +246,7 @@ class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDeleg
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
             self.searchBar.hero.id = "searchBar"
-//            self.hero.replaceViewController(with: mainView)
-            
-            let appDelegate = AppDelegate()
-            appDelegate.resetApp()
+            self.hero.replaceViewController(with: mainView)
         }
     }
     
@@ -296,7 +290,7 @@ class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDeleg
             cell.setHeader(type: result.type)
             return cell
         }
-            
+        
         let cell: IGLookAndFindCell = self.tableView.dequeueReusableCell(withIdentifier: "LookUpSearch", for: indexPath) as! IGLookAndFindCell
         cell.setSearchResult(result: result)
         cell.separatorInset = UIEdgeInsets(top: 0, left: 74.0, bottom: 0, right: 0)
