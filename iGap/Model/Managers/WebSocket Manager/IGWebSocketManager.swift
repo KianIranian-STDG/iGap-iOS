@@ -83,7 +83,7 @@ class IGWebSocketManager: NSObject {
             // this is called on a background thread
             IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)
             IGAppManager.sharedManager.isUserLoggedIn.value = false
-            if reachability.isReachableViaWiFi {
+            if reachability.connection == .wifi {
                 print("Reachable via WiFi")
             } else {
                 print("Reachable via Cellular")

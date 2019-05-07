@@ -22,7 +22,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userAvatarView: IGAvatarView!
-    @IBOutlet weak var cameraButton: UIButton!
+
+    @IBOutlet weak var btnCamera: UIButton!
     @IBOutlet weak var versionCell: UITableViewCell!
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var switchInAppBrowser: UISwitch!
@@ -70,10 +71,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         initDetails()
 
         
-        
-        //roundUserImage(cameraButton)
-        let cameraBtnImage = UIImage(named: "camera")
-        cameraButton.setBackgroundImage(cameraBtnImage, for: .normal)
+//        btnCamera.backgroundColor = .red
+       btnCamera.setBackgroundImage(UIImage(named: "IG_Settings_Camera"), for: .normal)
         
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         
@@ -506,7 +505,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     }
     
     @IBAction func cameraButtonClick(_ sender: UIButton) {
-        choosePhotoActionSheet(sender: cameraButton)
+        choosePhotoActionSheet(sender: btnCamera)
     }
     
     func manageOpenMap(){
@@ -599,7 +598,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             print ("I don't have a camera.")
         }
         if let popoverController = optionMenu.popoverPresentationController {
-            popoverController.sourceView = cameraButton
+            popoverController.sourceView = btnCamera
         }
         self.present(optionMenu, animated: true, completion: nil)
     }

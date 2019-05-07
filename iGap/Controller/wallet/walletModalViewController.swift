@@ -119,7 +119,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate {
         })
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        var touch: UITouch? = touches.first
+        let touch: UITouch? = touches.first
         //location is relative to the current view
         // do something with the touched point
         if touch?.view != self {

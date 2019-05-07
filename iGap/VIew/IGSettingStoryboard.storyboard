@@ -34,26 +34,11 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NO-Sq-9OI" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                     <rect key="frame" x="137.66666666666666" y="47" width="100" height="100"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdJ-KJ-h0A">
-                                            <rect key="frame" x="76" y="74" width="24" height="26"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="24" id="itm-A2-666"/>
-                                                <constraint firstAttribute="height" constant="26" id="j5o-Mb-6fY"/>
-                                            </constraints>
-                                            <state key="normal" image="IG_Settings_Camera"/>
-                                            <connections>
-                                                <action selector="cameraButtonClick:" destination="idX-F6-Llx" eventType="touchUpInside" id="lzs-sd-0SA"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="QdJ-KJ-h0A" secondAttribute="bottom" id="Evm-As-I58"/>
                                         <constraint firstAttribute="height" constant="100" id="Fkq-nb-VCA"/>
                                         <constraint firstAttribute="width" secondItem="2NO-Sq-9OI" secondAttribute="height" multiplier="1:1" id="GDb-Fi-Lfb"/>
                                         <constraint firstAttribute="width" constant="100" id="aBM-8e-xDe"/>
-                                        <constraint firstAttribute="trailing" secondItem="QdJ-KJ-h0A" secondAttribute="trailing" id="hvZ-lO-luh"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVd-v2-fme" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -62,12 +47,24 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QdJ-KJ-h0A">
+                                    <rect key="frame" x="213.66666666666666" y="121" width="24" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="24" id="itm-A2-666"/>
+                                        <constraint firstAttribute="height" constant="26" id="j5o-Mb-6fY"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="cameraButtonClick:" destination="idX-F6-Llx" eventType="touchUpInside" id="AfQ-7q-f7c"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="2NO-Sq-9OI" firstAttribute="centerY" secondItem="O8d-so-e5Y" secondAttribute="centerY" id="MBY-CG-whk"/>
                                 <constraint firstItem="oVd-v2-fme" firstAttribute="centerX" secondItem="O8d-so-e5Y" secondAttribute="centerX" id="P3I-pv-i8d"/>
                                 <constraint firstItem="2NO-Sq-9OI" firstAttribute="centerX" secondItem="O8d-so-e5Y" secondAttribute="centerX" id="Urb-Nk-clX"/>
                                 <constraint firstItem="oVd-v2-fme" firstAttribute="top" secondItem="2NO-Sq-9OI" secondAttribute="bottom" constant="8" id="bkl-SC-Fzd"/>
+                                <constraint firstItem="QdJ-KJ-h0A" firstAttribute="trailing" secondItem="2NO-Sq-9OI" secondAttribute="trailing" id="kXt-zm-Sgu"/>
+                                <constraint firstItem="QdJ-KJ-h0A" firstAttribute="bottom" secondItem="2NO-Sq-9OI" secondAttribute="bottom" id="lzc-8F-zNh"/>
                             </constraints>
                         </view>
                         <sections>
@@ -576,7 +573,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
-                        <outlet property="cameraButton" destination="QdJ-KJ-h0A" id="s9b-QT-pS0"/>
+                        <outlet property="btnCamera" destination="QdJ-KJ-h0A" id="TFP-y4-OI3"/>
                         <outlet property="lblAbout" destination="LCD-o0-tQT" id="G25-1l-aYu"/>
                         <outlet property="lblAccount" destination="jcf-jh-dfI" id="9pG-Ub-pny"/>
                         <outlet property="lblCache" destination="fyn-PH-6cj" id="jMJ-O6-m5K"/>
@@ -6859,7 +6856,6 @@ kay*****@gm**.com</string>
         </scene>
     </scenes>
     <resources>
-        <image name="IG_Settings_Camera" width="25" height="25"/>
         <image name="IG_Settings_Change_Number" width="145" height="68"/>
         <image name="IG_Settings_Selected_Tick" width="14" height="14"/>
         <image name="IG_Settings_Warning" width="55" height="55"/>

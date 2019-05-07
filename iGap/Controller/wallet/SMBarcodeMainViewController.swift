@@ -153,7 +153,6 @@ class SMBarcodeMainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        print(scanner?.isScanning())
         if (scanner?.isScanning())! {
 //            scanner?.stopScanning()
             initView()
@@ -197,8 +196,6 @@ class SMBarcodeMainViewController: UIViewController {
             let value = String(code[range.upperBound...])
         if let json = value.toJSON() as? Dictionary<String, AnyObject> {
             if self.hasShown {
-                print(json["H"])
-                print(json["H"] as! String)
                 UserDefaults.standard.setValue(String(value).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
             self.getUserInformation(accountId: json["H"] as! String, qrType: Int(json["T"] as! String)!)
