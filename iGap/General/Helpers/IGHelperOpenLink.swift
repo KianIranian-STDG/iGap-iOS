@@ -16,11 +16,12 @@ class IGHelperOpenLink {
     static func openLink(urlString: String, navigationController: UINavigationController, forceOpenInApp: Bool = false){
         
         if !IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyInAppBrowser) && !forceOpenInApp {
-            UIApplication.shared.openURL(URL(string: urlString)!)
+            UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
+
         } else {
             for ignoreLink in ignoreLinks {
                 if urlString.contains(ignoreLink) {
-                    UIApplication.shared.openURL(URL(string: urlString)!)
+                    UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
                     return
                 }
             }

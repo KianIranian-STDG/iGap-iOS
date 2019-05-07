@@ -376,7 +376,7 @@ public class Utils {
     class func getAccessToken() -> String {
         let keychain = KeychainSwift()
         
-        let accessToken = "bearer" + keychain.get("accesstoken")! ?? ""
-        return accessToken ?? ""
+        let accessToken = "bearer" + keychain.get("accesstoken")!
+        return accessToken
     }
 }
