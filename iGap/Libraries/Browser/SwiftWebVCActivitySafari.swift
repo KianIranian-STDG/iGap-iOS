@@ -24,7 +24,8 @@ class SwiftWebVCActivitySafari : SwiftWebVCActivity {
     }
     
     override func perform() {
-        let completed: Bool = UIApplication.shared.openURL(URLToOpen! as URL)      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        let completed: Bool = UIApplication.shared.openURL(URLToOpen! as URL)
+        
 
         activityDidFinish(completed)
     }
