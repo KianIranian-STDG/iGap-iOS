@@ -138,10 +138,10 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
     
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
             alertClouser(AlertState.Ok)
         })
-        let cancel = UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
             alertClouser(AlertState.No)
         })
         
@@ -172,7 +172,7 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }
@@ -209,7 +209,7 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }

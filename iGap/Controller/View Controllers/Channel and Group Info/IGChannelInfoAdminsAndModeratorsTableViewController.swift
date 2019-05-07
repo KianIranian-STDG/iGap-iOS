@@ -32,9 +32,19 @@ class IGChannelInfoAdminsAndModeratorsTableViewController: BaseTableViewControll
     var adminMember = [IGChannelMember]()
     var moderatorMember = [IGChannelMember]()
     var index : Int!
-    var myRole : IGChannelMember.IGRole!
     var roomId: Int64!
     
+    var myRole : IGChannelMember.IGRole?
+    var notificationTokenModerator: NotificationToken?
+    var notificationAdmin: NotificationToken?
+    var adminsMembersCount : Results<IGChannelMember>!
+    var moderatorsMembersCount : Results<IGChannelMember>!
+    var adminsRole = IGChannelMember.IGRole.admin.rawValue
+    var moderatorRole = IGChannelMember.IGRole.moderator.rawValue
+    
+    var predicateAdmins : NSPredicate!
+    var predicateModerators : NSPredicate!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         myRole = room?.channelRoom?.role
@@ -47,6 +57,38 @@ class IGChannelInfoAdminsAndModeratorsTableViewController: BaseTableViewControll
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+        predicateModerators = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
+        moderatorsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateModerators!)
+        predicateAdmins = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.id)!)
+        adminsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateAdmins!)
+        
+        self.notificationTokenModerator = moderatorsMembersCount.observe { (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self.countOfModeratorLabel.text = "\(Set(self.moderatorsMembersCount).count)"
+                break
+            case .update(_, _, _, _):
+                self.countOfModeratorLabel.text = "\(Set(self.moderatorsMembersCount).count)"
+                break
+            case .error(let err):
+                fatalError("\(err)")
+                break
+            }
+        }
+        self.notificationAdmin = adminsMembersCount.observe { (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self.countOfAdmins.text = "\(Set(self.adminsMembersCount).count)"
+                break
+            case .update(_, _, _, _):
+                self.countOfAdmins.text = "\(Set(self.adminsMembersCount).count)"
+                break
+            case .error(let err):
+                fatalError("\(err)")
+                break
+            }
+        }
     }
 
     

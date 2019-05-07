@@ -211,6 +211,7 @@ enum IGError: String {
     case canNotAddThisUserAsModeratorToGroup    = "320.3"
     case canNotAddThisUserAsAdminToChannel      = "423.3"
     case canNotAddThisUserAsModeratorToChannel  = "420.3"
+    case channelCreatLimitReached  = "479"
     case clientSearchRoomHistoryNotFound        = "620"
     case clinetJoinByUsernameForbidden          = "637.2"
     

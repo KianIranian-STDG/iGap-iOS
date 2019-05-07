@@ -135,7 +135,35 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                         }
                     }
                 }).error({ (errorCode, waitTime) in
+
                     self.hideProgress()
+                    var errorTitle = ""
+                    var errorBody = ""
+                    switch errorCode {
+                    case .channelCreatLimitReached :
+                        errorTitle = "Error"
+                        errorBody = "You are restricted to create more rooms"
+                        break
+                    case .timeout:
+                        errorTitle = "Timeout"
+                        errorBody = "Please try again later."
+                        break
+                    default:
+                        errorTitle = "Unknown error"
+                        errorBody = "An error occured. Please try again later.\nCode \(errorCode)"
+                        break
+                    }
+                    if waitTime != nil &&  waitTime != 0 {
+                        errorBody += "\nPlease try again in \(waitTime!) seconds."
+                    }
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: errorTitle, message: errorBody, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.hud.hide(animated: true)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+
                 }).send()
                 
                 

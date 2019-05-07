@@ -86,7 +86,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                                                object: nil)
 
     }
-
+ 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: animated)
     }

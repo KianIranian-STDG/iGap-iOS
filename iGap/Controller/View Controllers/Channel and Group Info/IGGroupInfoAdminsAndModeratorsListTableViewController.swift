@@ -26,6 +26,7 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewContro
     @IBOutlet weak var lblModerator: UILabel!
     @IBOutlet weak var lblAdmin: UILabel!
 
+    var mode : String?
     var room : IGRoom?
     var hud = MBProgressHUD()
     var adminMember = [IGGroupMember]()
@@ -33,14 +34,26 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewContro
     var index : Int!
     var myRole : IGGroupMember.IGRole?
     var roomId: Int64!
-    
+    var notificationTokenModerator: NotificationToken?
+    var notificationAdmin: NotificationToken?
+    var adminsMembersCount : Results<IGGroupMember>!
+    var moderatorsMembersCount : Results<IGGroupMember>!
+    var adminsRole = IGGroupMember.IGRole.admin.rawValue
+    var moderatorRole = IGGroupMember.IGRole.moderator.rawValue
+
+    var predicateAdmins : NSPredicate!
+    var predicateModerators : NSPredicate!
+
     override func viewDidLoad() {
+//        innitObserver()
+        
         super.viewDidLoad()
         myRole = room?.groupRoom?.role
         roomId = room?.id
         if myRole == .admin {
             adminsCell.isHidden = true
         }
+
         
         fetchAdminChannelMemberFromServer()
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -48,9 +61,39 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewContro
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        predicateModerators = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
+        moderatorsMembersCount =  try! Realm().objects(IGGroupMember.self).filter(predicateModerators!)
+        predicateAdmins = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.id)!)
+        adminsMembersCount =  try! Realm().objects(IGGroupMember.self).filter(predicateAdmins!)
 
-        
+        self.notificationTokenModerator = moderatorsMembersCount.observe { (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self.groupModeratorsCountLabel.text = "\(Set(self.moderatorsMembersCount).count)"
+                break
+            case .update(_, _, _, _):
+                self.groupModeratorsCountLabel.text = "\(Set(self.moderatorsMembersCount).count)"
+                break
+            case .error(let err):
+                fatalError("\(err)")
+                break
+            }
+        }
+        self.notificationAdmin = adminsMembersCount.observe { (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self.groupAdminsCountLabel.text = "\(Set(self.adminsMembersCount).count)"
+                break
+            case .update(_, _, _, _):
+                self.groupAdminsCountLabel.text = "\(Set(self.adminsMembersCount).count)"
+                break
+            case .error(let err):
+                fatalError("\(err)")
+                break
+            }
+        }
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true
@@ -108,15 +151,18 @@ class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewContro
                     for member in igpMembers {
                         let igmember = IGGroupMember(igpMember: member, roomId: self.roomId)
                         if member.igpRole == .admin {
+                            self.adminMember.removeAll()
                             self.adminMember.append(igmember)
+                        
                         }
                         if member.igpRole == .moderator {
+                            self.moderatorMember.removeAll()
                             self.moderatorMember.append(igmember)
                         }
                     }
                     print(self.adminMember.count)
-                    self.groupAdminsCountLabel.text = "\(self.adminMember.count)"
-                    self.groupModeratorsCountLabel.text = "\(self.moderatorMember.count)"
+                    self.groupAdminsCountLabel.text = "\(Set(self.adminMember).count)"
+                    self.groupModeratorsCountLabel.text = "\(Set(self.moderatorMember).count)"
                     self.moderatorIndicator.stopAnimating()
                     self.adminsIndicator.stopAnimating()
                     self.adminsIndicator.hidesWhenStopped = true

@@ -12,6 +12,7 @@ import maincore
 struct SMConstants {
 	
     static let notificationMerchant = "merchant.info.updated"
+    static let notificationRefresh = "Notification.Refresh"
     static let isBackToMain = "isBackToMain"
 
 	

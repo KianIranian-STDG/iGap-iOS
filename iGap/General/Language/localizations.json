@@ -72,6 +72,8 @@
         "CHANNELSIGNMESSAGES" : "امضا پیام ها",
         "CHANNEL_INFO" : "اطلاعات کانال",
         "CHANNEL_LINK" : "لینک کانال :",
+        "GROUP_NO_MODERATOR" : "این گروه هیچ سردبیری ندارد",
+        "GROUP_NO_ADMIN" : "این گروه هیچ مدیری ندارد",
 
 
         "TYPE" : "نوع",
@@ -83,13 +85,13 @@
         "ALLMEMBER" : "اعضا",
         "ADMIN" : "مدیر",
         "MODERATOR" : "سردبیر",
-        "ADMINANDMODERATOR" : "ادمین و سردبیر",
+        "ADMINANDMODERATOR" : "مدیر و سردبیر",
         "SHAREDMEDIA" : "محتواهای اشتراک گذاشته شده",
-        "REMOVE_ADMIN" : "حذف ادمین",
+        "REMOVE_ADMIN" : "حذف مدیر",
         "REMOVE_MODERATOR" : "حذف سردبیر",
         "KICK_MEMBER" : "بیرون انداختن عضو",
         
-        "ARE_U_SURE_REMOVE_ADMIN" : "آیا از ایتکه وظیفه ادمین بودت را از این کاربر می خواهید بگیرید اطمینان  دارید ؟",
+        "ARE_U_SURE_REMOVE_ADMIN" : "آیا از ایتکه وظیفه مدیر بودن را از این کاربر می خواهید بگیرید اطمینان  دارید ؟",
         "ARE_U_SURE_REMOVE_MODERATOR" : "آیا از ایتکه وظیفه سردبیر بودن را از این کاربر می خواهید بگیرید اطمینان  دارید ؟",
         "ARE_U_SURE_KICK_USER" : "آیا از بیرون انداختن این کاربر اطمینان  دارید ؟",
         "HIDDEN" : "مخفی",
@@ -259,8 +261,8 @@
         "FAKE_ACCOUNT" : "حساب کاربری تقلبی",
         "PORNOGRAPHY" : "محتوای مستهحن",
         "OTHER" : "موارد دیگر",
-        "ADD_ADMIN" : "افزودن ادمین",
-        "ADD_MODERATOR" : "افزودن ادمین",
+        "ADD_ADMIN" : "افزودن مدیر",
+        "ADD_MODERATOR" : "افزودن سردبیر",
         "IN_A_MINUTE" : "یک دقیقه پیش",
         "JUST_NOW" : "همین الان",
         "MINUTES_AGO" : "دقیقه پیش",
@@ -384,7 +386,7 @@
         "MSG_CHANNEL_SHARE_JOIN" : ".کاربران می توانند توسط این لینک به کانال شما ملحق شوند.در آینده می توانید این لینک را نیز تفییر دهید",
         "MSG_CHANNEL_DESC" : ".برای کانال خود یک توضیح می توانید قرار دهید",
 
-        "PLEASE_WAIT_DATA_LOAD" : "لطفا تا زمان لود شدن تمام داده ها شکیبا باشید ...",
+        "PLEASE_WAIT_DATA_LOAD" : "لطفا تا زمان بارگزاری تمام داده ها شکیبا باشید ...",
 
         
         "TIME_OUT" : "عدم امکان اتصال به سرور",
@@ -862,6 +864,8 @@
         "NO_STATUS" : "No Status",
         "ABOUT" : "About ",
         "WALLET_SETTINGS" : "Wallet Settings",
+        "GROUP_NO_MODERATOR" : "This Group has No Moderator",
+        "GROUP_NO_ADMIN" : "This Group has No Admin",
         "MSG_SURE_TO_LEAVE_GROUP" : "Are you sure you want to Leave this group?",
         "MSG_SURE_TO_DELETE_GROUP" : "Are you sure you want to Delete this group?",
         "MSG_SURE_TO_DELETE_CHAT" : "Are you sure you want to Delete this chat?",

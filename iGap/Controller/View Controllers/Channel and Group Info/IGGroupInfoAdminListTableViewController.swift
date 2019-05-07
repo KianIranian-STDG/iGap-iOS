@@ -37,16 +37,19 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
         self.roomId = room?.id
         if mode == "Admin" {
             navigationTitle = "ADMIN".localizedNew
-            noDataTitle = "This group has no admin."
+            noDataTitle = "GROUP_NO_ADMIN".localizedNew
             filterRole = .admin
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld" , adminsRole , (room?.id)!)
             members =  try! Realm().objects(IGGroupMember.self).filter(predicate!)
+
+
         } else if mode == "Moderator" {
             navigationTitle = "MODERATOR".localizedNew
             filterRole = .moderator
-            noDataTitle = "This group has no moderator."
+            noDataTitle = "GROUP_NO_MODERATOR".localizedNew
             predicate = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
             members =  try! Realm().objects(IGGroupMember.self).filter(predicate!)
+  
         }
         
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
@@ -55,6 +58,8 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
                 self.tableView.reloadData()
                 break
             case .update(_, _, _, _):
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: SMConstants.notificationRefresh), object: nil)
+
                 self.tableView.reloadData()
                 break
             case .error(let err):
@@ -147,10 +152,10 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
     
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: { (action) in
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
             alertClouser(AlertState.Ok)
         })
-        let cancel = UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
             alertClouser(AlertState.No)
         })
         
@@ -180,7 +185,7 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }
@@ -214,7 +219,7 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
                         case .timeout:
                             DispatchQueue.main.async {
                                 let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }
@@ -249,7 +254,7 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
             case .timeout:
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 }
