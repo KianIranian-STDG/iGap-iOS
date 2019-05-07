@@ -193,7 +193,6 @@ class SMCard : SMEntity{
     static func addNewCardToServer(_ card: SMCard, onSuccess: SimpleCallBack? = nil,  onFailed: FailedCallBack? = nil){
 
         let cardItem = PC_obj_card()
-        var serverCard : Any?
         cardItem.card_number = card.pan?.inEnglishNumbers()
         cardItem.exp_m = card.exp_m?.inEnglishNumbers()
         cardItem.exp_y = card.exp_y?.inEnglishNumbers()
@@ -201,7 +200,6 @@ class SMCard : SMEntity{
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
             SMLoading.hideLoadingPage()
-            serverCard = response
             self.syncCardsWithServer(onSuccess: {
                 onSuccess?()
             }, onFailedCallBack : {err in

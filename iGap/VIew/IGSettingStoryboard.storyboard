@@ -2942,7 +2942,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                     <constraint firstAttribute="height" constant="50" id="h1F-HO-GWf"/>
                                     <constraint firstAttribute="width" constant="207" id="j6G-qr-O6t"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -2957,7 +2957,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                                     <constraint firstAttribute="width" constant="207" id="8Jm-pC-0Lc"/>
                                     <constraint firstAttribute="height" constant="50" id="Eh1-PI-Qgh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Set">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -3170,8 +3170,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5t-hj-6yn" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="300.33333333333331" y="10.000000000000002" width="73.666666666666686" height="21.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5t-hj-6yn" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="361.66666666666669" y="10.000000000000002" width="12.333333333333314" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3200,8 +3200,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIi-Ye-zob" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="303.33333333333331" y="10.000000000000002" width="73.666666666666686" height="20.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIi-Ye-zob" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="364.66666666666669" y="10.000000000000002" width="12.333333333333314" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3230,8 +3230,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQs-cY-Zgo" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="302.33333333333331" y="10.000000000000002" width="73.666666666666686" height="21.666666666666671"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQs-cY-Zgo" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="363.66666666666669" y="10.000000000000002" width="12.333333333333314" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3260,8 +3260,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLc-TO-d0d" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="302.33333333333331" y="10" width="73.666666666666686" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLc-TO-d0d" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="363.66666666666669" y="10" width="12.333333333333314" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -3290,8 +3290,8 @@ Please wait 0:59</string>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="detecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMX-Ih-EI8" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="302.33333333333331" y="10" width="73.666666666666686" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMX-Ih-EI8" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="363.66666666666669" y="10" width="12.333333333333314" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -6286,59 +6286,46 @@ kay*****@gm**.com</string>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActiveSessionCell" rowHeight="80" id="9wM-9M-GGk" customClass="IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="9wM-9M-GGk" id="9rE-Nh-q7Z">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9wM-9M-GGk" id="9rE-Nh-q7Z">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="79.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:B4L-Ci-VXo:image" translatesAutoresizingMaskIntoConstraints="NO" id="B4L-Ci-VXo">
-                                            <rect key="frame" x="27" y="13.000000000000004" width="60" height="59.333333333333343"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="L0p-Ad-6hU"/>
-                                                <constraint firstAttribute="height" constant="60" id="PIY-Gm-a7s"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2IB-bg-5sJ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="13" width="47.333333333333343" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="CIK-9P-4ZR"/>
-                                            </constraints>
+                                            <rect key="frame" x="102" y="10.000000000000002" width="47.333333333333343" height="21.666666666666671"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqV-AP-TOy" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="39.333333333333329" width="28.666666666666657" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="16" id="59v-wm-hgG"/>
-                                            </constraints>
+                                            <rect key="frame" x="102" y="39.666666666666664" width="28.666666666666657" height="13.333333333333336"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SL-Ip-LUL" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="102" y="57.333333333333329" width="28.666666666666657" height="15"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="Xvn-Qs-G5I"/>
-                                            </constraints>
+                                            <rect key="frame" x="102" y="55" width="28.666666666666657" height="13.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:B4L-Ci-VXo:image" translatesAutoresizingMaskIntoConstraints="NO" id="B4L-Ci-VXo">
+                                            <rect key="frame" x="20" y="10" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="UxW-qa-gtv"/>
+                                                <constraint firstAttribute="width" constant="60" id="c2W-Zo-Bge"/>
+                                                <constraint firstAttribute="width" secondItem="B4L-Ci-VXo" secondAttribute="height" multiplier="1:1" id="uzL-H5-LIp"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="kqV-AP-TOy" firstAttribute="leading" secondItem="B4L-Ci-VXo" secondAttribute="trailing" constant="15" id="02G-C8-kzy"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="B4L-Ci-VXo" secondAttribute="bottom" constant="2" id="2JJ-0X-iKk"/>
-                                        <constraint firstItem="2IB-bg-5sJ" firstAttribute="top" secondItem="B4L-Ci-VXo" secondAttribute="top" id="3WW-7U-eVz"/>
-                                        <constraint firstItem="kqV-AP-TOy" firstAttribute="top" secondItem="2IB-bg-5sJ" secondAttribute="bottom" constant="2.25" id="CWd-Zx-77Z"/>
-                                        <constraint firstItem="6SL-Ip-LUL" firstAttribute="top" secondItem="kqV-AP-TOy" secondAttribute="bottom" constant="2.25" id="FXI-Ds-LZR"/>
-                                        <constraint firstItem="B4L-Ci-VXo" firstAttribute="top" secondItem="9rE-Nh-q7Z" secondAttribute="topMargin" constant="2" id="MbE-jK-3Oo"/>
-                                        <constraint firstItem="B4L-Ci-VXo" firstAttribute="centerY" secondItem="9rE-Nh-q7Z" secondAttribute="centerY" id="PIv-ZW-Zh0"/>
-                                        <constraint firstItem="kqV-AP-TOy" firstAttribute="leading" secondItem="2IB-bg-5sJ" secondAttribute="leading" id="WUU-Yz-czd"/>
-                                        <constraint firstItem="6SL-Ip-LUL" firstAttribute="leading" secondItem="B4L-Ci-VXo" secondAttribute="trailing" constant="15" id="YUW-E2-mlV"/>
-                                        <constraint firstItem="kqV-AP-TOy" firstAttribute="leading" secondItem="6SL-Ip-LUL" secondAttribute="leading" id="YwR-gg-coX"/>
-                                        <constraint firstItem="2IB-bg-5sJ" firstAttribute="leading" secondItem="B4L-Ci-VXo" secondAttribute="trailing" constant="15" id="aPD-Ua-OQC"/>
-                                        <constraint firstItem="B4L-Ci-VXo" firstAttribute="leading" secondItem="9rE-Nh-q7Z" secondAttribute="leadingMargin" constant="7" id="bfn-x4-7N2"/>
-                                        <constraint firstItem="6SL-Ip-LUL" firstAttribute="bottom" secondItem="B4L-Ci-VXo" secondAttribute="bottom" id="c0M-Lw-ph4"/>
+                                        <constraint firstItem="B4L-Ci-VXo" firstAttribute="leading" secondItem="9rE-Nh-q7Z" secondAttribute="leading" constant="20" id="BS0-DT-spg"/>
+                                        <constraint firstItem="kqV-AP-TOy" firstAttribute="leading" secondItem="2IB-bg-5sJ" secondAttribute="leading" id="DfL-fB-u3G"/>
+                                        <constraint firstItem="6SL-Ip-LUL" firstAttribute="top" secondItem="kqV-AP-TOy" secondAttribute="bottom" constant="2" id="QEp-sP-Dc4"/>
+                                        <constraint firstItem="6SL-Ip-LUL" firstAttribute="leading" secondItem="kqV-AP-TOy" secondAttribute="leading" id="XwI-jC-Fwi"/>
+                                        <constraint firstItem="2IB-bg-5sJ" firstAttribute="top" secondItem="B4L-Ci-VXo" secondAttribute="top" id="aGT-K0-479"/>
+                                        <constraint firstItem="B4L-Ci-VXo" firstAttribute="centerY" secondItem="9rE-Nh-q7Z" secondAttribute="centerY" id="ftU-Bx-Yge"/>
+                                        <constraint firstItem="kqV-AP-TOy" firstAttribute="top" secondItem="2IB-bg-5sJ" secondAttribute="bottom" constant="8" id="gGz-XF-gwB"/>
+                                        <constraint firstItem="2IB-bg-5sJ" firstAttribute="leading" secondItem="B4L-Ci-VXo" secondAttribute="trailing" constant="22" id="moQ-jO-HIT"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

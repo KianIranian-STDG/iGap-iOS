@@ -15,7 +15,7 @@ class BaseCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.hideKeyboardWhenTappedAround()
-        let current : String = SMLangUtil.loadLanguage()
+        let _ : String = SMLangUtil.loadLanguage()
     }
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {

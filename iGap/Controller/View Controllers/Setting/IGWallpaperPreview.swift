@@ -59,7 +59,8 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        btnSet.setTitle("SET_BTN".localizedNew, for: .normal)
+        btnCancel.setTitle("CANCEL_BTN".localizedNew, for: .normal)
         initNavigationBar()
         customIndicatorView()
         

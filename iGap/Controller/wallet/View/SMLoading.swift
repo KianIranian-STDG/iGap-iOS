@@ -24,7 +24,7 @@ class SMLoading {
         
         var topPadding: CGFloat = 0.0
         if #available(iOS 11.0, *) {
-            let window = UIApplication.shared.keyWindow
+            _ = UIApplication.shared.keyWindow
             topPadding = /*(window?.safeAreaInsets.top)! +*/ viewcontroller.view.safeAreaLayoutGuide.layoutFrame.origin.y
             //            let bottomPadding = window?.safeAreaInsets.bottom
         }

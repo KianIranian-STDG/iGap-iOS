@@ -732,6 +732,7 @@
         "NP_ENTERTEXT" : "درج متن",
         "NP_SAVEIMAGE" : "ذخیره تصویر",
         "NP_SCANNERHINT" : "اسکنر نماد پرداخت فعال است",
+        "SET_BTN" : "ایجاد",
         
         "PRODUCTS_TOTALPRICE" : "مجموع قیمت نهایی",
         "PRODUCTS_CONTINUE" : "ادامه و تکمیل خرید",
@@ -1410,6 +1411,7 @@
         "SETTING_PS_TV_YOUR_PASS_REMOVED" : "Password Removed Successfully",
         "INVALID_ANSWER" : "Wrong Answer",
         "RECOVER_BY_ANSWER_IS_FORBIDDEN" : "Recovery Using Security question is forbidden",
+        "SET_BTN" : "Set",
 
         "SETTING_PS_TV_Q1" : "Question 1 :",
         "SETTING_PS_TV_Q2" : "Question 2 :",

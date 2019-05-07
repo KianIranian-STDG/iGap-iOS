@@ -130,7 +130,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         if imagePicker.sourceType == .photoLibrary {
             if let imageUrl = info["UIImagePickerControllerImageURL"] as? URL {
-                self.wallpaperLocal = try? NSData(contentsOf: imageUrl)
+                
+                self.wallpaperLocal = NSData(contentsOf: imageUrl)
                 self.isColorPage = false
                 performSegue(withIdentifier: "showWallpaperPreview", sender: self)
             }

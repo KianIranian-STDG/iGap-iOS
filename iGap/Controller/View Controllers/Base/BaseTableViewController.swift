@@ -15,7 +15,7 @@ class BaseTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let current : String = SMLangUtil.loadLanguage()
+        let _ : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
 //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
 //        MCLocalization.sharedInstance().language = current
