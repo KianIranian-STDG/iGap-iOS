@@ -98,9 +98,9 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
         let cell = tableView.dequeueReusableCell(withIdentifier: "adminCell", for: indexPath) as! IGChannelInfoAdminsTableViewCell
         cell.setUser(members[indexPath.row])
         
-        var kickText = "remove admin"
+        var kickText = "REMOVE_ADMIN".localizedNew
         if mode == "Moderator" {
-            kickText = "remove moderator"
+            kickText = "REMOVE_MODERATOR".localizedNew
         }
         
         let btnKick = MGSwipeButton(title: kickText, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
@@ -152,7 +152,7 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
     
     func kickAdmin(adminUserID: Int64) {
         if let channelRoom = room {
-            kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_ADMIN".localizedNew, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: adminUserID ).success({ (protoResponse) in
@@ -188,7 +188,7 @@ class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGe
     
     func kickModerator(moderatorUserId: Int64) {
         if let channelRoom = room {
-            kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_MODERATOR".localizedNew, message: "ARE_U_SURE_REMOVE_MODERATOR", alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: moderatorUserId).success({ (protoResponse) in

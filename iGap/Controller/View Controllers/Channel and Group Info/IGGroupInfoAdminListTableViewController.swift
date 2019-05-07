@@ -108,9 +108,9 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupAdminCell", for: indexPath) as! IGGroupAdminListTableViewCell
         cell.setUser(members[indexPath.row])
         
-        var kickText = "remove admin"
+        var kickText = "REMOVE_ADMIN".localizedNew
         if mode == "Moderator" {
-            kickText = "remove moderator"
+            kickText = "REMOVE_MODERATOR".localizedNew
         }
         
         let btnKick = MGSwipeButton(title: kickText, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
@@ -161,7 +161,7 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
     
     func kickAdmin(adminUserID: Int64) {
         if let groupRoom = room {
-            kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_ADMIN".localizedNew, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGGroupKickAdminRequest.Generator.generate(roomID: groupRoom.id , memberID: adminUserID ).success({ (protoResponse) in
@@ -195,7 +195,7 @@ class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestu
     
     func kickModerator(moderatorUserId: Int64) {
         if let groupRoom = room {
-            kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_MODERATOR".localizedNew, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGGroupKickModeratorRequest.Generator.generate(memberId: moderatorUserId, roomId: groupRoom.id).success({ (protoResponse) in

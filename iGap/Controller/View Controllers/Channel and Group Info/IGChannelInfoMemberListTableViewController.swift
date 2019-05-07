@@ -122,11 +122,11 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         switch myRole! {
         case .owner:
             if memberRole == .admin {
-                kickTitle = "remove admin"
+                kickTitle = "REMOVE_ADMIN".localizedNew
             } else if memberRole == .moderator {
-                kickTitle = "remove moderator"
+                kickTitle = "REMOVE_MODERATOR".localizedNew
             } else if memberRole == .member {
-                kickTitle = "kick member"
+                kickTitle = "KICK_MEMBER".localizedNew
             } else {
                 showOption = false
             }
@@ -134,9 +134,9 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             
         case .admin:
             if memberRole == .moderator {
-                kickTitle = "remove moderator"
+                kickTitle = "REMOVE_MODERATOR".localizedNew
             } else if memberRole == .member {
-                kickTitle = "kick member"
+                kickTitle = "KICK_MEMBER".localizedNew
             } else {
                 showOption = false
             }
@@ -144,7 +144,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             
         case .moderator:
             if memberRole == .member {
-                kickTitle = "kick member"
+                kickTitle = "KICK_MEMBER".localizedNew
             } else {
                 showOption = false
             }
@@ -212,7 +212,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     
     func kickAdmin(userId: Int64) {
         if let channelRoom = room {
-            kickAlert(title: "Remove Admin", message: "Are you sure you want to remove the admin role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_ADMIN".localizedNew, message: "ARE_U_SURE_REMOVE_ADMIN".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGChannelKickAdminRequest.Generator.generate(roomId: channelRoom.id , memberId: userId).success({ (protoResponse) in
@@ -248,7 +248,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     
     func kickModerator(userId: Int64) {
         if let channelRoom = room {
-            kickAlert(title: "Remove Moderator", message: "Are you sure you want to remove the moderator role from this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "REMOVE_MODERATOR".localizedNew, message: "ARE_U_SURE_REMOVE_MODERATOR".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGChannelKickModeratorRequest.Generator.generate(roomID: channelRoom.id, memberID: userId).success({ (protoResponse) in
@@ -286,7 +286,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     
     func kickMember(userId: Int64) {
         if let _ = room {
-            kickAlert(title: "Kick Member", message: "Are you sure you want to kick this member?", alertClouser: { (state) -> Void in
+            kickAlert(title: "KICK_MEMBER".localizedNew, message: "ARE_U_SURE_KICK_USER".localizedNew, alertClouser: { (state) -> Void in
                 if state == AlertState.Ok {
                     IGGlobal.prgShow(self.view)
                     IGChannelKickMemberRequest.Generator.generate(roomID: (self.room?.id)!, memberID: userId).success({ (protoResponse) in
