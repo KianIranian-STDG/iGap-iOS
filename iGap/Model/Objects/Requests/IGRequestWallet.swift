@@ -66,7 +66,7 @@ class IGRequestWalletGetAccessToken : IGRequest {
 //                let auth = WS_main()
                 securitymanager.setJWT(response.igpAccessToken)
 //                getUserIDFrmToken(token: response.igpAccessToken)
-                let tmpBase64Token : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
+                let _ : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
 //                getUserIDFrmToken(token: tmpBase64Token)
 
                 securitymanager.setTokenType("bearer")

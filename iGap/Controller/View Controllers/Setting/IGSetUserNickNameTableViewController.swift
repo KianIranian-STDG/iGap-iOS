@@ -54,8 +54,7 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
         }else{
             return true
         }
-        guard let text = nickNameTextField.text else { return true }
-        let newLength = text.count + string.count - range.length
+        let newLength = nickNameTextField.text!.count + string.count - range.length
         if(newLength <= 16) {
             return true
         } else {
