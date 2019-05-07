@@ -311,7 +311,7 @@ class IGFactory: NSObject {
     
     private func removeTaskFromQueueAndPerformNext(_ task: IGFactoryTask) {
         performInFactoryQueue {
-            if let index = self.tasks.index(of: task) {
+            if let index = self.tasks.firstIndex(of: task) {
                 self.tasks.remove(at: index)
                 self.performNextFactoryTaskIfPossible()
             }

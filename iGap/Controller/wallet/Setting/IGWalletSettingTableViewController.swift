@@ -40,7 +40,7 @@ class IGWalletSettingTableViewController: BaseTableViewController, UIGestureReco
         return 2
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) 
         if cell.tag == 0 {
             return 67
 
@@ -60,7 +60,7 @@ class IGWalletSettingTableViewController: BaseTableViewController, UIGestureReco
 
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) 
 
          let isprotected = SMUserManager.isProtected
 

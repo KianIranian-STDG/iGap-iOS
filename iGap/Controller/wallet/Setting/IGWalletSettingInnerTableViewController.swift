@@ -267,7 +267,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         return 4
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) 
 
         if cell.tag == 0 {
             if isFirstTime {

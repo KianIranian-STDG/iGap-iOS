@@ -74,7 +74,6 @@
 		8EC217BE2259E58B00105B5A /* SMCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217BD2259E58B00105B5A /* SMCard.swift */; };
 		8EC217C52259F59900105B5A /* SMBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217BF2259F59800105B5A /* SMBank.swift */; };
 		8EC217C62259F59900105B5A /* SMCashout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C02259F59800105B5A /* SMCashout.swift */; };
-		8EC217C72259F59900105B5A /* SMCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C12259F59800105B5A /* SMCard.swift */; };
 		8EC217C82259F59900105B5A /* SMHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C22259F59800105B5A /* SMHistory.swift */; };
 		8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C32259F59800105B5A /* SMIBAN.swift */; };
 		8EC217CA2259F59900105B5A /* SMMerchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C42259F59800105B5A /* SMMerchant.swift */; };
@@ -149,7 +148,6 @@
 		FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */; };
 		FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */; };
 		FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */; };
-		FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */; };
 		FA0953491E1B97700043ED3F /* IGSetNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953171E1B97700043ED3F /* IGSetNickNameTableViewController.swift */; };
 		FA09534A1E1B97700043ED3F /* IGSettingAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */; };
 		FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */; };
@@ -2539,7 +2537,7 @@
 					FAF795E91DAA330C0030509B = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = MBL7BDXS99;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -2839,10 +2837,8 @@
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
-				FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
 				8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */,
-				FA0953481E1B97700043ED3F /* iGSetEmailTableViewController.swift in Sources */,
 				8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */,
 				8E96A327225C9182007D8A77 /* SMCardGradient.swift in Sources */,
 				8E96A312225B6DCC007D8A77 /* SMHistoryDetailTableViewController.swift in Sources */,
@@ -3023,7 +3019,6 @@
 				FADE97B31DF2DBF100FF714A /* IGMusicPlayer.swift in Sources */,
 				FA09536B1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController.swift in Sources */,
 				93193F281E5811BA0039AC0C /* IGGroupInfoTableViewController.swift in Sources */,
-				8EC217C72259F59900105B5A /* SMCard.swift in Sources */,
 				FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */,
 				FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */,
 				FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */,
@@ -3468,8 +3463,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iGap/SupportingFiles/iGap-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = ./iGap/SupportingFiles/;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -3527,8 +3521,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iGap/SupportingFiles/iGap-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				"USER_HEADER_SEARCH_PATHS[arch=*]" = ./iGap/SupportingFiles/;
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

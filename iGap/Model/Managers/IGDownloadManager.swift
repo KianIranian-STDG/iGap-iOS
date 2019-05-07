@@ -137,7 +137,7 @@ class IGDownloadManager {
     }
     
     private func removeFromWaitingQueue(token: String){
-        if let index = taskQueueTokenArray.index(of: token) {
+        if let index = taskQueueTokenArray.firstIndex(of: token) {
             taskQueueTokenArray.remove(at: index)
             dictionaryDownloadTaskQueue.removeValue(forKey: token)
         }

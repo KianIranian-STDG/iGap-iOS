@@ -89,7 +89,7 @@ class IGUploadManager {
     
     private func removeFromQueueAndStartNext(task: IGUploadTask?) {
         if task != nil {
-            if let index = pendingUploads.index(of: task!) {
+            if let index = pendingUploads.firstIndex(of: task!) {
                 pendingUploads.remove(at: index)
                 performInUploadQueue {
                     self.startNextTaskIfPossible()

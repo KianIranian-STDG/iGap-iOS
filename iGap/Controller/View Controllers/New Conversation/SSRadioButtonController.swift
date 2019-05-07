@@ -60,7 +60,7 @@ class SSRadioButtonsController : NSObject
             iteratingButton = aButton
         }
         if(iteratingButton != nil) {
-            buttonsArray.remove(at: buttonsArray.index(of: iteratingButton!)!)
+            buttonsArray.remove(at: buttonsArray.firstIndex(of: iteratingButton!)!)
             iteratingButton!.removeTarget(self, action: #selector(SSRadioButtonsController.pressed(_:)), for: UIControl.Event.touchUpInside)
             iteratingButton!.isSelected = false
             if currentSelectedButton == iteratingButton {

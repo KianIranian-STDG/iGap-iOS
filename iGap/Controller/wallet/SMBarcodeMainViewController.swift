@@ -110,7 +110,7 @@ class SMBarcodeMainViewController: UIViewController {
     }
     func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String) {
         hasShown = true
-        if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController! {
+        if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController? {
             presentedViewController.providesPresentationContextTransitionStyle = true
             presentedViewController.definesPresentationContext = true
             presentedViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;

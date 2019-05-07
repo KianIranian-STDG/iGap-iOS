@@ -701,7 +701,7 @@ extension UIViewController {
 
 //MARK: -
 extension NSCache {
-    subscript (key: AnyObject) -> AnyObject? {
+    @objc subscript (key: AnyObject) -> AnyObject? {
         get {
             return (self as! NSCache<AnyObject,AnyObject>).object(forKey: key)
         }

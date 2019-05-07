@@ -106,7 +106,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     func showConfirmDialog(resp : Any?,amount: String?){
         
         
-        if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "cashoutModalStepOne") as! cashoutModalStepOneViewController! {
+        if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "cashoutModalStepOne") as! cashoutModalStepOneViewController? {
             presentedViewController.dialogT = "CASHOUT_REQUEST".localizedNew
             presentedViewController.amount = amount
             presentedViewController.message = resp
@@ -120,7 +120,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     
     func showInputPinDialog(viewController:UIViewController, icon:UIImage?, title:String, message:String, yesPressed: CallBack? = nil, noPressed: CallBack? = nil, forgotPin: SimpleCallBack? = nil){
         
-        let alertView : SMTextFieldAlertViewController! = storyboard?.instantiateViewController(withIdentifier: "textalert") as! SMTextFieldAlertViewController!
+        let alertView : SMTextFieldAlertViewController! = storyboard?.instantiateViewController(withIdentifier: "textalert") as! SMTextFieldAlertViewController?
 
         alertView.title = title
         alertView.message = message
@@ -142,7 +142,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     
     public func showNormalDialog(viewController:UIViewController, height: Float ,isleftButtonEnabled : Bool? = true ,title:String? ,message:String? ,leftButtonTitle : String? = "GLOBAL_NO".localizedNew ,rightButtonTitle :String? = "GLOBAL_YES".localizedNew , yesPressed: CallBack? = nil, noPressed: SimpleCallBack? = nil){
         
-        let alertView : SMNormalAlertViewController! = storyboard?.instantiateViewController(withIdentifier: "normalalert") as! SMNormalAlertViewController!
+        let alertView : SMNormalAlertViewController! = storyboard?.instantiateViewController(withIdentifier: "normalalert") as! SMNormalAlertViewController?
         alertView.dialogT = title
         alertView.leftButtonEnable = isleftButtonEnabled
         
@@ -328,7 +328,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! UITableViewCell
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) 
         if cell.tag == 0 {
             return 60
         }

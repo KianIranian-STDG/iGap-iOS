@@ -73,7 +73,7 @@ class IGMessageSender {
     
     func removeMessagesWithAttachmentTask(primaryKeyId: String){
         if let task = getAttachemntTaskWithFilePrimaryKeyId(primaryKeyId: primaryKeyId) {
-            if let index = messagesWithAttachmentArray.index(of: task) {
+            if let index = messagesWithAttachmentArray.firstIndex(of: task) {
                 messagesWithAttachmentArray.remove(at: index)
             }
         }
@@ -111,7 +111,7 @@ class IGMessageSender {
     fileprivate func removeTaskFromPlainMessagesQueue(_ task: IGMessageSenderTask?) {
         if task == nil {return}
         
-        if let index = plainMessagesArray.index(of: task!) {
+        if let index = plainMessagesArray.firstIndex(of: task!) {
             plainMessagesArray.remove(at: index)
         }
     }
@@ -122,7 +122,7 @@ class IGMessageSender {
     }
     
     private func moveMesageFromAttachmentedQueueToPlainQueue(_ task: IGMessageSenderTask) {
-        if let index = messagesWithAttachmentArray.index(of: task) {
+        if let index = messagesWithAttachmentArray.firstIndex(of: task) {
             messagesWithAttachmentArray.remove(at: index)
             addTaskToPlainMessagesQueue(task)
         }

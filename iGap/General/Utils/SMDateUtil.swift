@@ -212,7 +212,7 @@ import Foundation
     
     static func militaryTimeConversion(_ time: String) -> (Int?, Int?)? {
         if time.contains(":") {
-            let data = time.characters.split(separator: ":").map(String.init)
+            let data = time.split(separator: ":").map(String.init)
             return (Int(data[0]), Int(data[1]))
         }
         return nil

@@ -819,7 +819,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     // override this method for enable landscape orientation
-    func canRotate() -> Void {}
+    @objc func canRotate() -> Void {}
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         if latestLocalVideoSize != nil {
