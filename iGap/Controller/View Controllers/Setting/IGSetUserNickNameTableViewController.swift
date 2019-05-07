@@ -26,7 +26,7 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
         self.tableView.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SETTING_PAGE_ACCOUNT_NIKNAME".localizedNew)
-        navigationItem.navigationController = self.navigationController as! IGNavigationController
+        navigationItem.navigationController = (self.navigationController as! IGNavigationController)
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         navigationItem.rightViewContainer?.addAction {
@@ -63,7 +63,7 @@ class IGSetUserNickNameTableViewController: UITableViewController , UITextFieldD
         }
         
         
-        let numberOfChar = limitLength - newLength
+        _ = limitLength - newLength
         return newLength < limitLength
     }
     func getUserNickname(){

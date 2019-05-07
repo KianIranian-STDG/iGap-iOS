@@ -100,7 +100,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     
     @objc func showSetting(){
         
-        let walletSettingPage : IGWalletSettingTableViewController? = storyboard?.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController
+        let walletSettingPage : IGWalletSettingTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
         self.navigationController!.pushViewController(walletSettingPage!, animated: true)
         
     }
@@ -124,27 +124,27 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         return 3
     }
     @IBAction func btnGoToCashInTap(_ sender: Any) {
-        let cashinVC : chargeWalletTableViewController? = storyboard?.instantiateViewController(withIdentifier: "cashinVC") as! chargeWalletTableViewController
+        let cashinVC : chargeWalletTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "cashinVC") as! chargeWalletTableViewController)
         cashinVC!.balance = lblCurrency.text!
         cashinVC!.finishDelegate = self
         self.navigationController!.pushViewController(cashinVC!, animated: true)
         
     }
     @IBAction func btnGoToCashOutTap(_ sender: Any) {
-        let cashoutVC : chashoutCardTableViewController? = storyboard?.instantiateViewController(withIdentifier: "cashoutVC") as! chashoutCardTableViewController
+        let cashoutVC : chashoutCardTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "cashoutVC") as! chashoutCardTableViewController)
         cashoutVC!.balance = lblCurrency.text!
         cashoutVC!.finishDelegate = self
         self.navigationController!.pushViewController(cashoutVC!, animated: true)
         
     }
     @IBAction func btnQRcodeScan(_ sender: Any) {
-        let qrVC: QRMainTabbarController? = storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController
+        let qrVC: QRMainTabbarController? = (storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
         
         self.navigationController!.pushViewController(qrVC!, animated: true)
         
     }
     @IBAction func btnGoToHistory(_ sender: Any) {
-        let historyVC: SMHistoryTableViewController? = storyboard?.instantiateViewController(withIdentifier: "historytable") as! SMHistoryTableViewController
+        let historyVC: SMHistoryTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "historytable") as! SMHistoryTableViewController)
         self.navigationController!.pushViewController(historyVC!, animated: true)
         
     }
@@ -198,7 +198,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                         if self.hasValue  {
                             if (self.userCards?.count)! > 1 {
                                 
-                                let tmpUserCard = Array((self.userCards?.dropFirst())!)
+                                _ = Array((self.userCards?.dropFirst())!)
 
                                 self.stringImgArray.removeAll()
                                 self.stringCardNumArray.removeAll()
@@ -210,7 +210,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                                 self.stringCardisDefaultArray.removeAll()
                                 for element in self.userCards! {
                                     if element.type != 1 {
-                                    if let back : String = (element.backgroundimage)!  {
+                                        if let back : String = (element.backgroundimage!)  {
                                         let request = WS_methods(delegate: self, failedDialog: true)
                                         let str = request.fs_getFileURL(back)
                                         self.stringImgArray.append(str!)
@@ -317,16 +317,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
     //Mark : UIcollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("||||||||")
-        print(userCards?.count)
         if !hasValue {
             return 0
         }
         else {
-            print("||||||||2")
-
-            print(userCards?.count)
-            print("||||||||2")
             if (self.userCards?.count)! > 1 {
             return ((userCards?.count)! - 1)
             }

@@ -94,7 +94,8 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
     private func shareLocation(){
         if (UIApplication.shared.canOpenURL(NSURL(string:"http://maps.apple.com/maps")! as URL)) {
             let url = "http://maps.apple.com/maps?q=iGap+Marker&ll=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&z=14"
-            UIApplication.shared.openURL(URL(string:url)!)
+            UIApplication.shared.open(URL(string:url)!, options: [:], completionHandler: nil)
+
         }
     }
     
@@ -186,24 +187,28 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
             var placeMark: CLPlacemark!
             placeMark = placemarks?[0]
             // Location name
-            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+//            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+//                print(locationName)
+//                self.currentLocationNameLabel.text = locationName as String
+//            }
+            if let locationName = placeMark.name{
                 print(locationName)
                 self.currentLocationNameLabel.text = locationName as String
             }
             // Street address
-            if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
+            if let street = placeMark.thoroughfare {
                 print(street)
             }
             // City
-            if let city = placeMark.addressDictionary!["City"] as? NSString {
+            if let city = placeMark.subAdministrativeArea {
                 print(city)
             }
             // Zip code
-            if let zip = placeMark.addressDictionary!["ZIP"] as? NSString {
+            if let zip = placeMark.isoCountryCode {
                 print(zip)
             }
             // Country
-            if let country = placeMark.addressDictionary!["Country"] as? NSString {
+            if let country = placeMark.country {
                 print(country)
                 
             }

@@ -90,7 +90,7 @@ class cashoutModalStepOneViewController: BaseViewController {
     }
     func prepareConfirm(resp : Any?,amount: String!) {
         
-        let result = NSMutableDictionary()
+        _ = NSMutableDictionary()
         let personalItems = ((resp as! NSDictionary)["owner"]as! NSDictionary)
         let cardItems = ((resp as! NSDictionary)["destination_card_info"]as! NSDictionary)
         

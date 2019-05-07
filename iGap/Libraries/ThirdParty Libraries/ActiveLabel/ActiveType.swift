@@ -53,15 +53,16 @@ public enum ActiveType {
 }
 
 extension ActiveType: Hashable, Equatable {
-    public var hashValue: Int {
+    public func hash(into hasher: inout Hasher) {
         switch self {
-        case .mention: return -1
-        case .hashtag: return -2
-        case .url: return -3
-        case .bot: return -4
-        case .email: return -5
-        case .bold: return -6
-        case .custom(let regex): return regex.hashValue
+        case .mention: hasher.combine(-1)
+        case .hashtag: hasher.combine(-2)
+        case .url: hasher.combine(-3)
+        case .bot: hasher.combine(-4)
+        case .email:hasher.combine(-5)
+        case .bold: hasher.combine(-6)
+        case .custom(let regex): hasher.combine(regex)
+            
         }
     }
 }

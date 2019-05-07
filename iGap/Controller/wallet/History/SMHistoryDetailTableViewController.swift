@@ -97,10 +97,10 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
 		default:
 			status = "TTL_PAYMENT_PENDING_FRM".localizedNew
 		}
-        let dic = ["TTL_RECIEVER".localizedNew : rowData?.receiver.name ,"TTL_TRANSACTION_TYPE".localizedNew : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), "TTL_PAY_STATUS".localizedNew :  status , "TTL_AMOUNT".localizedNew : rowData?.amount  ,"TTL_INVOICE_NUMBER".localizedNew : rowData?.invoice_number,"TTL_DATE".localizedNew : date] as [String : Any]
+        let dic = ["TTL_RECIEVER".localizedNew : rowData?.receiver.name ?? "" ,"TTL_TRANSACTION_TYPE".localizedNew : SMStringUtil.getTransType(type: (rowData?.transaction_type.rawValue)!), "TTL_PAY_STATUS".localizedNew :  status , "TTL_AMOUNT".localizedNew : rowData?.amount ?? ""  ,"TTL_INVOICE_NUMBER".localizedNew : rowData?.invoice_number ?? "","TTL_DATE".localizedNew : date ?? ""] as [String : Any]
 //        let dic = ["status".localized :  (rowData?.is_paid)! == IS_PAID_STATUS.PAID ? "success.payment".localized : "history.paygear.receive.waiting".localized , "amount".localized : rowData?.amount,"invoice_number".localized : rowData?.invoice_number,"date".localized : date] as [String : Any]
         
-        let result = ["result" : dic ,"state" : rowData?.is_paid.rawValue] as NSDictionary
+        let result = ["result" : dic ,"state" : rowData?.is_paid.rawValue ?? ""] as NSDictionary
        
             SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
         
@@ -215,7 +215,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if let pic = row.sender.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -235,7 +235,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if let pic = row.receiver.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -262,7 +262,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if let pic = row.sender.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -282,7 +282,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if let pic = row.receiver.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{

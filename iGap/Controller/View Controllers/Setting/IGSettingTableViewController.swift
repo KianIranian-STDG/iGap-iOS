@@ -523,9 +523,14 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             self.present(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { action in
                 switch action.style{
-                case .default: UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+                case .default: UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
+                
+
                 case .cancel: print("cancel")
                 case .destructive: print("destructive")
+
+                @unknown default:
+                    print("ERROR")
 
                 }
             }))
