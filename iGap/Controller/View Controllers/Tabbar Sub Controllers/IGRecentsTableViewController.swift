@@ -503,36 +503,277 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        IGGlobal.getTime()
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
+        
         cell.setRoom(room: rooms![indexPath.row])
 
         let room = cell.room!
 
-        var muteTitle = "MUTE".localizedNew
+        var muteTitle = "MUTE"
         if room.mute == IGRoom.IGRoomMute.mute {
-            muteTitle = "UN_MUTE".localizedNew
+            muteTitle = "UN_MUTE"
         }
 
-        var pinTitle = "PINN".localizedNew
+        var pinTitle = "PINN"
         if room.pinId > 0 {
-            pinTitle = "UNPINN".localizedNew
+            pinTitle = "UNPINN"
         }
 
+        IGGlobal.getTime(string: "Final")
 
         return cell
     }
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
-            //TODO: edit the row at indexPath here
-        }
-        editAction.backgroundColor = .blue
+        let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
+        cell.setRoom(room: rooms![indexPath.row])
         
-        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (rowAction, indexPath) in
-            //TODO: Delete the row at indexPath here
-        }
-        deleteAction.backgroundColor = .red
+        let room = cell.room!
         
-        return [editAction,deleteAction]
+        var muteTitle = "MUTE".localizedNew
+        if room.mute == IGRoom.IGRoomMute.mute {
+            muteTitle = "UN_MUTE".localizedNew
+        }
+        
+        var pinTitle = "PINN".localizedNew
+        if room.pinId > 0 {
+            pinTitle = "UNPINN".localizedNew
+        }
+        //MUTE
+        let btnMuteSwipeCell = UITableViewRowAction(style: .normal, title: muteTitle) { (rowAction, indexPath) in
+            if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                self.muteRoom(room: room)
+            }
+
+        }
+        btnMuteSwipeCell.backgroundColor = UIColor.swipeGray()
+
+       //PIN
+        let btnPinSwipeCell = UITableViewRowAction(style: .normal, title: pinTitle) { (rowAction, indexPath) in
+            if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                
+            } else {
+                self.pinRoom(room: room)
+            }
+            
+        }
+        btnPinSwipeCell.backgroundColor = UIColor.swipeBlueGray()
+
+        //MORE
+        let btnMoreSwipeCell = UITableViewRowAction(style: .normal, title: "MORE".localizedNew) { (rowAction, indexPath) in
+
+            let title = room.title != nil ? room.title! : "BTN_DELETE".localizedNew
+            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let clear = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
+                switch room.type{
+                case .chat:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        self.clearChatMessageHistory(room: room)
+                    }
+                case .group:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        self.clearGroupMessageHistory(room: room)
+                    }
+                default:
+                    break
+                }
+            })
+            
+            let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
+                if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    self.muteRoom(room: room)
+                }
+            })
+            
+            let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
+                if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    self.pinRoom(room: room)
+                }
+            })
+            
+            let report = UIAlertAction(title: "REPORT".localizedNew, style: .default, handler: { (action) in
+                if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    self.report(room: room)
+                }
+            })
+            
+            let remove = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
+                switch room.type {
+                case .chat:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        self.deleteChat(room: room)
+                    }
+                    break
+                case .group:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        self.deleteGroup(room: room)
+                    }
+                    break
+                case .channel:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.deleteChannel(room: room)
+                    }
+                    break
+                }
+            })
+            
+            let leave = UIAlertAction(title: "LEAVE".localizedNew, style: .destructive, handler: { (action) in
+                switch room.type {
+                case .chat:
+                    break
+                case .group:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        
+                    } else {
+                        self.leaveGroup(room: room)
+                    }
+                case .channel:
+                    if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        
+                    } else {
+                        self.leaveChannel(room: room)
+                    }
+                }
+            })
+            
+            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+            
+            if room.type == .chat || room.type == .group {
+                alertC.addAction(clear)
+            }
+            
+            if !IGHelperPromote.isPromotedRoom(room: room) {
+                alertC.addAction(pin)
+            }
+            alertC.addAction(mute)
+            alertC.addAction(report)
+            
+            if room.chatRoom != nil {
+                if !IGHelperPromote.isPromotedRoom(room: room) {
+                    alertC.addAction(remove)
+                }
+            } else {
+                if let groupRoom = room.groupRoom {
+                    if groupRoom.role == .owner {
+                        alertC.addAction(leave)
+                        alertC.addAction(remove)
+                    } else{
+                        alertC.addAction(leave)
+                    }
+                } else if let channel = room.channelRoom {
+                    if channel.role == .owner {
+                        alertC.addAction(remove)
+                        alertC.addAction(leave)
+                    } else{
+                        alertC.addAction(leave)
+                    }
+                }
+            }
+            
+            alertC.addAction(cancel)
+            
+            self.present(alertC, animated: true, completion: nil)
+            
+            
+        }
+        btnMoreSwipeCell.backgroundColor = UIColor.swipeDarkBlue()
+
+        
+        var buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
+        if IGHelperPromote.isPromotedRoom(room: room) {
+            buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
+        }
+        
+        cell.rightSwipeSettings.transition = MGSwipeTransition.border
+        cell.rightExpansion.buttonIndex = 0
+        cell.rightExpansion.fillOnTrigger = true
+        cell.rightExpansion.threshold = 1.5
+        
+        cell.clipsToBounds = true
+        cell.swipeBackgroundColor = UIColor.clear
+        
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)
+        cell.layoutMargins = UIEdgeInsets.zero
+  
+                
+//        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
+//            //TODO: edit the row at indexPath here
+//        }
+//        editAction.backgroundColor = .blue
+//
+//        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (rowAction, indexPath) in
+//            //TODO: Delete the row at indexPath here
+//        }
+//        deleteAction.backgroundColor = .red
+//
+        return buttons
     }
     private func removeButtonsUnderline(buttons: [UIButton]){
         for btn in buttons {

@@ -3571,13 +3571,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     private func manageSendedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let copy = UIAlertAction(title: "Copy", style: .default, handler: { (action) in
+        let copy = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (action) in
             self.copyMessage(cellMessage)
         })
         
-        var pinTitle = "Pin Message"
+        var pinTitle = "PINN".localizedNew
         if self.room?.pinMessage != nil && self.room?.pinMessage?.id == cellMessage.id {
-            pinTitle = "Unpin Message"
+            pinTitle = "UNPINN".localizedNew
         }
         
         let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
