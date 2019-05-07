@@ -83,9 +83,8 @@ class IGHelperFinancial: NSObject, CardToCardResult {
         })
         
         let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-        
-        option.addAction(mobileCharge)
         option.addAction(cardToCard)
+        option.addAction(mobileCharge)
         option.addAction(payBills)
         option.addAction(trafficOffenses)
         option.addAction(mobileBillingInquiry)
