@@ -143,12 +143,12 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                         _  = response.gif
                         let image = response.image
                         let voice = response.voice
-                        self.sizeOfSharedVideos.text = "\(video)"
-                        self.sizeOfSharedFiles.text = "\(file)"
-                        self.sizeOfSharedImage.text = "\(image)"
-                        self.sizeOfSharedVoice.text = "\(voice)"
-                        self.sizeOfSharedAudiosLabel.text = "\(audio)"
-                        self.sizeOfSharedLinksLabel.text = "\(url)"
+                        self.sizeOfSharedVideos.text = "\(video)".inLocalizedLanguage()
+                        self.sizeOfSharedFiles.text = "\(file)".inLocalizedLanguage()
+                        self.sizeOfSharedImage.text = "\(image)".inLocalizedLanguage()
+                        self.sizeOfSharedVoice.text = "\(voice)".inLocalizedLanguage()
+                        self.sizeOfSharedAudiosLabel.text = "\(audio)".inLocalizedLanguage()
+                        self.sizeOfSharedLinksLabel.text = "\(url)".inLocalizedLanguage()
                         self.hud.hide(animated: true)
                         
                     default:
@@ -183,7 +183,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages.reversed() {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaImageFile.append(msg)
                         }
                         break
@@ -222,7 +222,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages.reversed() {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaAudioFile.append(msg)
                         }
                         
@@ -261,7 +261,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages.reversed() {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaVideoFile.append(msg)
                         }
                     default:
@@ -300,7 +300,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages.reversed() {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaFile.append(msg)
                         }
                     default:
@@ -337,7 +337,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages.reversed() {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaVoiceFile.append(msg)
                         }
                     default:
@@ -374,7 +374,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGes
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages.reversed() {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaLinkFile.append(msg)
                         }
                     default:

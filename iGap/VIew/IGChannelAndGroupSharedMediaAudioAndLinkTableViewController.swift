@@ -142,7 +142,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
                     case let clientSearchRoomHistoryResponse as IGPClientSearchRoomHistoryResponse:
                         let response =  IGClientSearchRoomHistoryRequest.Handler.interpret(response: clientSearchRoomHistoryResponse , roomId: selectedRoom.id)
                         for message in response.messages {
-                            let msg = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: selectedRoom.id)
+                            let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMedia.append(msg)
                         }
                         self.isFetchingFiles = false

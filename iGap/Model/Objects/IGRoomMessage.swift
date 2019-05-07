@@ -87,6 +87,9 @@ class IGRoomMessage: Object {
         return "primaryKeyId"
     }
     
+    /* Hint: Currently just use this constructor in the share media view controllers
+     * because use if use from putOrUpdate for those states app will be crashed, for write in db without transaction
+     */
     convenience init(igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) {
         self.init()
         let realm = try! Realm()
