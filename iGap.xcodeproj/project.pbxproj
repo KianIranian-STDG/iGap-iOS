@@ -60,6 +60,7 @@
 		8EACC7B022621A1F00F32DC3 /* maincore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7AF22621A1F00F32DC3 /* maincore.framework */; };
 		8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7B122621A3100F32DC3 /* webservice.framework */; };
 		8EACC7B422621ACA00F32DC3 /* localizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EACC7B322621ACA00F32DC3 /* localizations.json */; };
+		8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */; };
 		8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */; };
 		8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */; };
 		8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95DF2258811500A1F7E4 /* IGConstants.swift */; };
@@ -643,6 +644,7 @@
 		8EACC7AF22621A1F00F32DC3 /* maincore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = maincore.framework; path = Carthage/Build/iOS/maincore.framework; sourceTree = "<group>"; };
 		8EACC7B122621A3100F32DC3 /* webservice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webservice.framework; path = Carthage/Build/iOS/webservice.framework; sourceTree = "<group>"; };
 		8EACC7B322621ACA00F32DC3 /* localizations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizations.json; sourceTree = "<group>"; };
+		8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaUserAvatar.swift; sourceTree = "<group>"; };
 		8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisterChooseLanguageTableViewController.swift; sourceTree = "<group>"; };
 		8EBF95DF2258811500A1F7E4 /* IGConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGConstants.swift; sourceTree = "<group>"; };
@@ -1791,6 +1793,7 @@
 				931585141E6D567000F4C04B /* IGUserPrivacy.swift */,
 				FA8F22571DD89F7C005A90D1 /* IGAvatar.swift */,
 				FAD94C6F1E0136D0006D8D91 /* IGMedia.swift */,
+				8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */,
 				FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */,
 			);
 			name = "File, media, attachment";
@@ -2788,6 +2791,7 @@
 				FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */,
 				93A3D3CE1E4087B000D2686F /* IGNewChannelBottomViewCollectionCell.swift in Sources */,
 				FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */,
+				8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */,
 				FA09535A1E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift in Sources */,
 				FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */,
 				93AA67BA1E4F03290053380C /* IGChannelInfoTableViewController.swift in Sources */,

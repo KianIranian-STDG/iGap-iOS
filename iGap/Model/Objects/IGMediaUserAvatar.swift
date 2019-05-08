@@ -12,7 +12,7 @@ import UIKit
 import INSPhotoGallery
 import IGProtoBuff
 
-class IGMedia: INSPhotoViewable, Equatable {
+class IGMediaUserAvatar: INSPhotoViewable, Equatable {
     enum MediaType {
         case video
         case audio
@@ -24,8 +24,8 @@ class IGMedia: INSPhotoViewable, Equatable {
     var file: IGFile?
     var isDeletable : Bool {
         get {
-            return false
-
+            return true
+            
         }
     }
     
@@ -72,7 +72,7 @@ class IGMedia: INSPhotoViewable, Equatable {
         
         var finalFile: IGFile!
         var previewType: IGFile.PreviewType!
-
+        
         if let file = file?.smallThumbnail {
             finalFile = file
             previewType = IGFile.PreviewType.smallThumbnail
@@ -93,17 +93,17 @@ class IGMedia: INSPhotoViewable, Equatable {
     }
 }
 
-func ==<T: IGMedia>(lhs: T, rhs: T) -> Bool {
+func ==<T: IGMediaUserAvatar>(lhs: T, rhs: T) -> Bool {
     return lhs === rhs
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
+    return input.rawValue
 }

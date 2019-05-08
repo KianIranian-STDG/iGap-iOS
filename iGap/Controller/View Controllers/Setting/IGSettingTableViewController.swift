@@ -41,7 +41,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     @IBOutlet weak var lblAbout: UILabel!
     @IBOutlet weak var lblQRScan: UILabel!
 
-    
+    var userInDb : IGRegisteredUser!
     var imagePicker = UIImagePickerController()
     let locationManager = CLLocationManager()
     let borderName = CALayer()
@@ -52,7 +52,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
     //var downloadIndicatorMainView : IGDownloadUploadIndicatorView?
-        
+    var notificationToken: NotificationToken?
+
     
     let disposeBag = DisposeBag()
     
@@ -65,31 +66,9 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         super.viewDidLoad()
         
         requestToGetAvatarList()
-        let currentUserId = IGAppManager.sharedManager.userID()
         
-        self.clearsSelectionOnViewWillAppear = true
-        
-        let realm = try! Realm()
-        let predicate = NSPredicate(format: "id = %lld", currentUserId!)
-        if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
-            userAvatarView.setUser(userInDb, showMainAvatar: true)
-            usernameLabel.text = userInDb.displayName
-            user = userInDb
-            userAvatarView.avatarImageView?.isUserInteractionEnabled = true
-            let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
-            userAvatarView.avatarImageView?.addGestureRecognizer(tap)
+        initDetails()
 
-            let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "SETTING_VIEW".localizedNew)
-        }
-        
-        let navigationItem = self.navigationItem as! IGNavigationItem
-       // navigationItem.setChatListsNavigationItems()
-        navigationItem.rightViewContainer?.addAction {
-            self.dismiss(animated: true, completion: { 
-                
-            })
-        }
         
         
         //roundUserImage(cameraButton)
@@ -110,6 +89,33 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             switchInAppBrowser.isOn = false
         }
         
+    }
+    func initDetails() {
+        
+        self.clearsSelectionOnViewWillAppear = true
+        
+        USERinDB()
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "SETTING_VIEW".localizedNew)
+        
+        // navigationItem.setChatListsNavigationItems()
+        navigationItem.rightViewContainer?.addAction {
+            self.dismiss(animated: true, completion: {
+                
+            })
+        }
+        
+    }
+    func USERinDB() {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
+        userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+        userAvatarView.setUser(userInDb, showMainAvatar: true)
+        usernameLabel.text = userInDb.displayName
+        user = userInDb
+        userAvatarView.avatarImageView?.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
+        userAvatarView.avatarImageView?.addGestureRecognizer(tap)
     }
     func initChangeLanguage() {
 
@@ -198,25 +204,34 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             }
         }
     }
-    
+    var insDelete : INSPhotosOverlayView!
     var avatarPhotos : [INSPhotoViewable]?
     var galleryPhotos: INSPhotosViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
+    open private(set) var deleteToolbar: UIToolbar!
+
+  
+    
+    
     func showAvatar(avatar : IGAvatar) {
-            var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
-                return IGMedia(avatar: avatar)
+        
+            var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
+                return IGMediaUserAvatar(avatar: avatar)
             }
+        
         avatarPhotos = photos
+      
         if photos.count == 0 {
             return
         }
+//        insDelete.deleteToolbar.isUserInteractionEnabled = false
         let currentPhoto = photos[0]
 //        let deleteViewFrame = CGRect(x:320, y:595, width: 25 , height:25)
-        let trashImageView = UIImageView()
-        trashImageView.image = UIImage(named: "IG_Trash_avatar")
-        trashImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+//        let trashImageView = UIImageView()
+//        trashImageView.image = UIImage(named: "IG_Trash_avatar")
+//        trashImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
 //        deleteView = IGTappableView(frame: deleteViewFrame)
 //        deleteView?.addSubview(trashImageView)
         let downloadViewFrame = self.view.bounds
@@ -232,10 +247,22 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         downloadIndicatorMainView.addSubview(activityIndicatorView)
         
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: userAvatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
+
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
             return self?.userAvatarView
         }
         galleryPhotos = galleryPreview
+//        insDelete.deleteToolbar.tintColor = .red
+        galleryPreview.deletePhotoHandler = { [weak self] photo in
+            print( "DELETED" )
+            let currentIndex : Int! = photos.firstIndex{$0 === photo}
+
+            self!.deleteAvatar(index: currentIndex)
+
+        }
+        
+            
+        
         present(galleryPreview, animated: true, completion: nil)
         activityIndicatorView.startAnimating()
         //activityIndicatorView.startAnimating()
@@ -314,16 +341,17 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     }
 
     
-    func deleteAvatar() {
-        let avatar = self.avatars[0]
+    func deleteAvatar(index: Int!) {
+        let avatar = self.avatars[index]
         IGUserAvatarDeleteRequest.Generator.generate(avatarID: avatar.id).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userAvatarDeleteResponse as IGPUserAvatarDeleteResponse :
                     IGUserAvatarDeleteRequest.Handler.interpret(response: userAvatarDeleteResponse)
-                    self.avatarPhotos?.remove(at: 0)
-                    self.avatars.remove(at: 0)
+                    self.avatarPhotos?.remove(at: index)
+                    self.avatars.remove(at: index)
                     self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
+                    self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
                 default:
                     break
                 }
@@ -534,7 +562,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
         let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.deleteAvatar()
+//            self.deleteAvatar()
         })
         
         let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
