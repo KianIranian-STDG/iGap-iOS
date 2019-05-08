@@ -64,7 +64,7 @@ class IGWalletSettingTableViewController: BaseTableViewController, UIGestureReco
 
          let isprotected = SMUserManager.isProtected
 
-        let walletSettingInnerPage : IGWalletSettingInnerTableViewController? = storyboard?.instantiateViewController(withIdentifier: "walletSettingInnerPage") as! IGWalletSettingInnerTableViewController
+        let walletSettingInnerPage : IGWalletSettingInnerTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "walletSettingInnerPage") as! IGWalletSettingInnerTableViewController)
         if cell.tag == 0 {
             walletSettingInnerPage?.isOTP = false
             if isprotected! {

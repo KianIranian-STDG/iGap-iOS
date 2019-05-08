@@ -278,7 +278,7 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
-        let current : String = SMLangUtil.loadLanguage()
+        let _ : String = SMLangUtil.loadLanguage()
 
    
 
@@ -325,7 +325,7 @@ class IGNavigationItem: UINavigationItem {
     private func addComopseButton() {
         let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-        let current : String = SMLangUtil.loadLanguage()
+        let _ : String = SMLangUtil.loadLanguage()
         
         
         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")

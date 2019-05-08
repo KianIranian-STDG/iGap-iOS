@@ -301,7 +301,6 @@ class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecogni
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            print(myRole)
             switch indexPath.row {
             case 0:
                 if myRole == .owner || myRole == .admin {

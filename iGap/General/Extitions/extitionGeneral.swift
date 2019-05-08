@@ -384,7 +384,7 @@ extension String {
     }
 
     func addSepratorCardNum() -> String {
-        var string:String!
+        var _:String!
         var newString:String!
         
         newString = self.inserting(separator: "-", every: 4)
@@ -392,7 +392,7 @@ extension String {
         
     }
     func addSepratorforCardNum() -> String {
-        var string:String!
+        var _:String!
         var newString:String!
         
         newString = self.inserting(separator: "  ", every: 4)
@@ -400,12 +400,10 @@ extension String {
         
     }
     func removeSepratorCardNum() -> String {
-        var string:String!
+        var _:String!
         var newString:String!
         
         newString = self.replacingOccurrences(of: "-", with: "").trimmingCharacters(in: .whitespaces)
-        debugPrint("newString")
-        debugPrint(newString)
         return newString
         
     }
