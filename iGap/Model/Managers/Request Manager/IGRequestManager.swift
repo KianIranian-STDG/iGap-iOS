@@ -556,6 +556,7 @@ class IGRequestManager {
                 
                 let response = responseProtoMessage.igpResponse
                 //check if this is a `reponse` or a `push`
+
                 if let correspondingRequestWrapper = pendingRequests[response.igpID] {
                     if actionID == 0 { //-> failed
                         let errorProtoMessage = responseProtoMessage as! IGPErrorResponse

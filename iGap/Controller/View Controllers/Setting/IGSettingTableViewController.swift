@@ -11,7 +11,7 @@
 import UIKit
 import RealmSwift
 import IGProtoBuff
-import INSPhotoGallery
+///import INSPhotoGallery
 import RxRealm
 import RxSwift
 import Gifu
@@ -206,6 +206,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     var insDelete : INSPhotosOverlayView!
     var avatarPhotos : [INSPhotoViewable]?
     var galleryPhotos: INSPhotosViewController?
+    var galleryPhoto: INSPhotoViewController?
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
@@ -225,76 +226,44 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         if photos.count == 0 {
             return
         }
-//        insDelete.deleteToolbar.isUserInteractionEnabled = false
         let currentPhoto = photos[0]
-//        let deleteViewFrame = CGRect(x:320, y:595, width: 25 , height:25)
-//        let trashImageView = UIImageView()
-//        trashImageView.image = UIImage(named: "IG_Trash_avatar")
-//        trashImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-//        deleteView = IGTappableView(frame: deleteViewFrame)
-//        deleteView?.addSubview(trashImageView)
         let downloadViewFrame = self.view.bounds
-//        deleteView?.addAction {
-//            self.didTapOnTrashButton()
-//        }
-        let downloadIndicatorMainView = UIView()
-        downloadIndicatorMainView.backgroundColor = UIColor.white
-        downloadIndicatorMainView.frame = downloadViewFrame
-        let andicatorViewFrame = CGRect(x: view.bounds.midX, y: view.bounds.midY,width: 50 , height: 50)
-        let activityIndicatorView = NVActivityIndicatorView(frame: andicatorViewFrame,
-                                                            type: NVActivityIndicatorType.audioEqualizer)
-        downloadIndicatorMainView.addSubview(activityIndicatorView)
-        
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: userAvatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
 
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
             return self?.userAvatarView
         }
         galleryPhotos = galleryPreview
-//        insDelete.deleteToolbar.tintColor = .red
         galleryPreview.deletePhotoHandler = { [weak self] photo in
-            print( "DELETED" )
             let currentIndex : Int! = photos.firstIndex{$0 === photo}
-
             self!.deleteAvatar(index: currentIndex)
 
         }
         
-            
+
+        
+        
+//
+//        let testView = UIView()
+//        testView.backgroundColor = .red
+//        testView.frame = CGRect(x: 10, y: 10, width: 100, height: 100)
+//        let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapp(recognizer:)))
+//        testView.isUserInteractionEnabled = true
+//
+//        testView.addGestureRecognizer(tap)
+//
+//        galleryPreview.overlayView.view().addSubview(testView)
+//
+//
+        
         
         present(galleryPreview, animated: true, completion: nil)
-        activityIndicatorView.startAnimating()
-        //activityIndicatorView.startAnimating()
-
-//        DispatchQueue.main.async {
-//            let size = CGSize(width: 30, height: 30)
-//            self.startAnimating(size, message: nil, type: NVActivityIndicatorType.ballRotateChase)
-//
-//            let thisPhoto = galleryPreview.accessCurrentPhotoDetail()
-//
-//            //self.avatarPhotos.index(of:thisPhoto)
-//           if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
-//            self.lastIndex = index
-//            let currentAvatarFile = self.avatars[index].file
-//            self.currentAvatarId = self.avatars[index].id
-//            if currentAvatarFile?.status == .downloading {
-//                return
-//            }
-//
-//            if let attachment = currentAvatarFile {
-//                IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
-//                    DispatchQueue.main.async {
-//                        galleryPreview.hiddenDownloadView()
-//                        self.stopAnimating()
-//                    }
-//                }, failure: {
-//
-//                })
-//            }
-//
-//            }
-//            self.scheduledTimerWithTimeInterval()
-//       }
+    }
+    @objc func handleTapp(recognizer:UITapGestureRecognizer) {
+        if recognizer.state == .began {
+        }
+        else {
+        }
     }
     func scheduledTimerWithTimeInterval(){
         // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
@@ -302,41 +271,12 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     }
     
     @objc func updateCounting(){
-//        let nextPhoto = galleryPhotos?.accessCurrentPhotoDetail()
-//        if let index =  self.avatarPhotos?.index(where: {$0 === nextPhoto}) {
-//            let currentAvatarFile = self.avatars[index].file
-//            let nextAvatarId = self.avatars[index].id
-//            if nextAvatarId != self.currentAvatarId {
-//                let size = CGSize(width: 30, height: 30)
-//                self.startAnimating(size, message: nil, type: NVActivityIndicatorType.ballRotateChase)
-//                if currentAvatarFile?.status == .downloading {
-//                    return
-//                }
-//
-//                if let attachment = currentAvatarFile {
-//                    IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
-//                        self.galleryPhotos?.hiddenDownloadView()
-//                        self.stopAnimating()
-//                    }, failure: {
-//
-//                    })
-//                }
-//                self.currentAvatarId = nextAvatarId
-//            } else {
-//
-//            }
-//        }
     }
 
     
 
 
     func setThumbnailForAttachments() {
-        /*
-        if let attachment = self.userAvatar?.file {
-            self.currentPhoto.isHidden = false
-        }
-        */
     }
 
     
@@ -370,11 +310,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             
         }).send()
         
-        //        timer.invalidate()
-        //        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
-        //        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
-        //            let thisAvatarId = self.avatars[index].id
-        //        }
     }
     
     func getUserInfo(){

@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 import NVActivityIndicatorView
-import INSPhotoGallery
+///import INSPhotoGallery
 
 class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
 

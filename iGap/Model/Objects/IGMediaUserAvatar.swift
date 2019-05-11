@@ -9,7 +9,7 @@
  */
 
 import UIKit
-import INSPhotoGallery
+///import INSPhotoGallery
 import IGProtoBuff
 
 class IGMediaUserAvatar: INSPhotoViewable, Equatable {

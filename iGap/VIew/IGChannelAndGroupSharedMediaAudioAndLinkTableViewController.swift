@@ -13,7 +13,7 @@ import SwiftProtobuf
 import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
-import INSPhotoGallery
+///import INSPhotoGallery
 
 protocol IGUrlClickDelegate {
     func didTapOnURl(url: URL)

@@ -13,7 +13,7 @@ import SwiftProtobuf
 import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
-import INSPhotoGallery
+///import INSPhotoGallery
 import AVKit
 import AVFoundation
 

@@ -17,7 +17,7 @@ import RxCocoa
 import IGProtoBuff
 import MGSwipeTableCell
 import MBProgressHUD
-import INSPhotoGallery
+///import INSPhotoGallery
 import NVActivityIndicatorView
 
 class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
