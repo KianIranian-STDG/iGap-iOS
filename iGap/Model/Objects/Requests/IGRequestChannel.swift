@@ -375,6 +375,7 @@ class IGChannelSendMessageRequest: IGRequest {
             case let response as IGPChannelSendMessageResponse:
                 let messages: [IGPRoomMessage] = [response.igpRoomMessage]
                 IGFactory.shared.saveIgpMessagesToDatabase(messages, for: response.igpRoomID, updateLastMessage: true , isFromSharedMedia: false, isFromSendMessage: true)
+                IGFactory.shared.updateFirstUnreadMessage(roomId: response.igpRoomID, messageId: messages[0].igpMessageID)
             default:
                 break
             }

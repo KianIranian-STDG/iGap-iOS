@@ -36,7 +36,7 @@ class IGRoomMessage: Object {
     @objc dynamic var futureMessageId:    Int64                           = 0
     @objc dynamic var statusVersion:      Int64                           = -1
     @objc dynamic var deleteVersion:      Int64                           = -1
-    @objc dynamic var shouldFetchBefore:  Bool                            = false
+    @objc dynamic var shouldFetchBefore:  Bool                            = false // DEPRECATED
     @objc dynamic var shouldFetchAfter:   Bool                            = false
     @objc dynamic var isFirstMessage:     Bool                            = false
     @objc dynamic var isLastMessage:      Bool                            = false
@@ -317,16 +317,14 @@ class IGRoomMessage: Object {
             if author.hasIgpUser {
                 let authorUser = author.igpUser
                 let predicate = NSPredicate(format: "id = %lld", authorUser.igpUserID)
-                let realm = try! Realm()
-                if let userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first {
+                if let userInDb = realm!.objects(IGRegisteredUser.self).filter(predicate).first {
                     message.authorUser = userInDb
                     message.authorRoom = nil
                 }
             } else if author.hasIgpRoom {
                 let authorRoom = author.igpRoom
                 let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
-                let realm = try! Realm()
-                if let roomInDb = realm.objects(IGRoom.self).filter(predicate).first {
+                if let roomInDb = realm!.objects(IGRoom.self).filter(predicate).first {
                     message.authorRoom = roomInDb
                     message.authorUser = nil
                 }
@@ -359,6 +357,18 @@ class IGRoomMessage: Object {
         }
         
         message.additional = IGRealmAdditional.put(realm: realmFinal, message: igpMessage)
+        
+        // TODO - HINT: if is from share media do following code. following code not handled yet!
+        /*
+         message.previousMessageId = message.id
+         message.futureMessageId = message.id
+         */
+        
+        // TODO - if isGap param is set do following code!
+        /*
+         message.previousMessageId = igpMessage.igpPreviousMessageID
+         */
+        
         
         return message
     }

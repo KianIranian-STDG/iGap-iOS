@@ -219,10 +219,20 @@ class IGRoom: Object {
         
         if igpRoom.hasIgpLastMessage {
             var shouldFetchBefore = false
+            
+            /*if this message not exist set gap otherwise don't change in gap state */
+            var setGap = false
             if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpMessageID) {
                 shouldFetchBefore = true
+                setGap = true
             }
+            
             let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID)
+            if setGap {
+                message.previousMessageId = igpRoom.igpLastMessage.igpMessageID
+                message.futureMessageId = igpRoom.igpLastMessage.igpMessageID
+            }
+            
             if shouldFetchBefore {
                 message.shouldFetchBefore = shouldFetchBefore
             }
@@ -233,6 +243,13 @@ class IGRoom: Object {
         room.pinId = igpRoom.igpPinID
         room.isReadOnly = igpRoom.igpReadOnly
         room.isParticipant = igpRoom.igpIsParticipant
+        
+        if igpRoom.hasIgpFirstUnreadMessage {
+            let firstUnreadMessage = IGRoomMessage.putOrUpdate(igpMessage: igpRoom.igpFirstUnreadMessage, roomId: igpRoom.igpID)
+            firstUnreadMessage.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
+            room.firstUnreadMessage = firstUnreadMessage
+        }
+        
         if igpRoom.hasIgpDraft{
             room.draft = IGRoomDraft.putOrUpdate(realm: realm, igpDraft: igpRoom.igpDraft, roomId: room.id)
         }
@@ -247,14 +264,6 @@ class IGRoom: Object {
         }
         
         room.pinMessage = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID)
-        
-        /*
-        if IGHelperPromote.isPromotedRoom(roomId: igpRoom.igpID) {
-            room.isPromote = true
-        } else {
-            room.isPromote = false
-        }
-        */
         
         return room
     }

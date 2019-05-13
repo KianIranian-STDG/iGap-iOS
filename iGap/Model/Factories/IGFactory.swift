@@ -2932,4 +2932,30 @@ class IGFactory: NSObject {
         }
         //self.doFactoryTask(task: task)
     }
+    
+    func updateFirstUnreadMessage(roomId: Int64, messageId: Int64) {
+        //TODO - call this method after set message into the db
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            //let task = getFactoryTask()
+            self.factoryQueue.async {
+                IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                    try! IGDatabaseManager.shared.realm.write {
+                        
+                        let predicateRoom = NSPredicate(format: "id = %lld", roomId)
+                        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicateRoom).first, room.unreadCount <= 1 {
+                            let predicate = NSPredicate(format: "id = %lld", messageId)
+                            if let realmRoomMessage = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
+                                realmRoomMessage.futureMessageId = realmRoomMessage.id
+                                room.firstUnreadMessage = realmRoomMessage
+                            }
+                        }
+                    }
+                    IGFactory.shared.performInFactoryQueue {
+                        //self.setFactoryTaskSuccess(task: task)
+                    }
+                }
+            }
+            //self.doFactoryTask(task: task)
+        }
+    }
 }
