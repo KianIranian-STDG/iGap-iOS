@@ -17,6 +17,10 @@ import RxSwift
 import Gifu
 import NVActivityIndicatorView
 import MapKit
+public var currentSize : Int!
+public var currentIndexOfImage : Int!
+public var sizesArray = [Int?]()
+public var isAvatar = true
 
 class IGSettingTableViewController: BaseTableViewController, NVActivityIndicatorViewable, CLLocationManagerDelegate {
     
@@ -168,12 +172,13 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
                 case let UserAvatarGetListoResponse as IGPUserAvatarGetListResponse:
                     let responseAvatars =   IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
                     self.avatars = responseAvatars
-                    /*
-                    for avatar in self.avatars {
-                        let avatarView = IGImageView()
-                        avatarView.setImage(avatar: avatar)
+                    sizesArray.removeAll()
+
+                    for element in responseAvatars {
+                        sizesArray.append(element.file?.size)
                     }
-                    */
+                    //                    print(respo)
+                    
                     
                 default:
                     break
@@ -231,14 +236,21 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: userAvatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
 
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
+            let currentIndex : Int! = photos.firstIndex{$0 === photo}
+            currentSize = self!.avatars[currentIndex].file?.size
+
             return self?.userAvatarView
         }
+        
+
         galleryPhotos = galleryPreview
         galleryPreview.deletePhotoHandler = { [weak self] photo in
             let currentIndex : Int! = photos.firstIndex{$0 === photo}
+
             self!.deleteAvatar(index: currentIndex)
 
         }
+
         
 
         
@@ -289,6 +301,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
                     IGUserAvatarDeleteRequest.Handler.interpret(response: userAvatarDeleteResponse)
                     self.avatarPhotos?.remove(at: index)
                     self.avatars.remove(at: index)
+                    sizesArray.remove(at: index)
                     self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
                     self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
                 default:

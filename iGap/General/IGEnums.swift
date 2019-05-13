@@ -97,7 +97,7 @@ enum IGRoomMessageStatus: Int {
     }
 }
 
-enum IGRoomMessageType: Int {
+public enum IGRoomMessageType: Int {
     case unknown = -1
     case text
     case image

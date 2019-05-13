@@ -13,6 +13,10 @@ import UIKit
 import IGProtoBuff
 
 class IGMedia: INSPhotoViewable, Equatable {
+    var attachment: IGFile?
+    
+    var contentType: String?
+    
     enum MediaType {
         case video
         case audio
@@ -22,6 +26,8 @@ class IGMedia: INSPhotoViewable, Equatable {
     var thumbnailImage: UIImage?
     var attributedTitle: NSAttributedString?
     var file: IGFile?
+    var imageSize : Int!
+
     var isDeletable : Bool {
         get {
             return false
@@ -34,11 +40,23 @@ class IGMedia: INSPhotoViewable, Equatable {
         let roomMessage = message.forwardedFrom != nil ? message.forwardedFrom : message
         if let attachment = roomMessage?.attachment {
             file = attachment
-            image = UIImage.originalImage(for: attachment)
-            thumbnailImage = UIImage.thumbnail(for: attachment)
+            print(file)
+            if file?.typeRaw == 2 {
+                thumbnailImage = UIImage.thumbnail(for: attachment)
+
+                print(thumbnailImage)
+                print(thumbnailImage?.size)
+            }
+            else {
+                image = UIImage.originalImage(for: attachment)
+                thumbnailImage = UIImage.thumbnail(for: attachment)
+
+
+            }
             if let text = roomMessage?.message {
                 attributedTitle = NSAttributedString(string: text, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.white, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.black.withAlphaComponent(0.5)]))
             }
+
         }
     }
     
@@ -48,6 +66,8 @@ class IGMedia: INSPhotoViewable, Equatable {
             self.file = file
             image = UIImage.originalImage(for: file)
             thumbnailImage = UIImage.thumbnail(for: file)
+            imageSize = file.size
+
         }
     }
     
@@ -56,6 +76,10 @@ class IGMedia: INSPhotoViewable, Equatable {
             completion(image, nil)
             return
         }
+        imageSize = file?.size
+        currentSize = nil
+        currentSize = imageSize
+        
         self.image = UIImage.thumbnail(for: file!)
         IGDownloadManager.sharedManager.download(file: file!, previewType:.originalFile, completion: { (attachment) -> Void in
             self.image = UIImage.originalImage(for: attachment)
@@ -69,6 +93,9 @@ class IGMedia: INSPhotoViewable, Equatable {
             completion(thumbnailImage, nil)
             return
         }
+        imageSize = file?.size
+        currentSize = imageSize
+
         
         var finalFile: IGFile!
         var previewType: IGFile.PreviewType!

@@ -17,7 +17,7 @@ class IGFileManager {
     
 }
 
-class IGFile: Object {
+public class IGFile: Object {
     enum Status {
         case unknown
         
@@ -50,7 +50,7 @@ class IGFile: Object {
         case waveformThumbnail
     }
     
-    enum FileType: Int {
+    public enum FileType: Int {
         case image = 0
         case gif
         case video
@@ -165,15 +165,15 @@ class IGFile: Object {
         }
     }
 
-    override static func indexedProperties() -> [String] {
+    override public static func indexedProperties() -> [String] {
         return ["cacheID"]
     }
     
-    override static func primaryKey() -> String {
+    override public static func primaryKey() -> String {
         return "primaryKeyId"
     }
     
-    override static func ignoredProperties() -> [String] {
+    override public static func ignoredProperties() -> [String] {
         return ["previewType", "type", "attachedImage", "data", "sha256Hash", "status", "playingStatus", "downloadUploadPercent", "fileTypeBasedOnNameExtention"]
     }
     

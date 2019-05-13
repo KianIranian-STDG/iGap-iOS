@@ -941,6 +941,12 @@ extension UIImage {
         }
         return nil
     }
+    class func largeThumbnail(for attachment: IGFile) -> UIImage? {
+        if let thumbnail = attachment.largeThumbnail {
+            return self.originalImage(for: thumbnail)
+        }
+        return nil
+    }
     
     class func originalImage(for attachment: IGFile) -> UIImage? {
         if let path = attachment.path() {

@@ -106,6 +106,8 @@
 		8EE7FCA6225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */; };
 		8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FCA7226195E800B6C2C3 /* IGWalletSettingTableViewController.swift */; };
 		8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FCA922619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift */; };
+		8EFD2EB42287FEB00069B433 /* CTGalleryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2EB32287FEB00069B433 /* CTGalleryOverlayView.swift */; };
+		8EFD2EBC22880B7E0069B433 /* IGMediaChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
 		93193F281E5811BA0039AC0C /* IGGroupInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F271E5811BA0039AC0C /* IGGroupInfoTableViewController.swift */; };
 		93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93193F291E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift */; };
@@ -703,6 +705,8 @@
 		8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashoutModalStepOneViewController.swift; sourceTree = "<group>"; };
 		8EE7FCA7226195E800B6C2C3 /* IGWalletSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletSettingTableViewController.swift; sourceTree = "<group>"; };
 		8EE7FCA922619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletSettingInnerTableViewController.swift; sourceTree = "<group>"; };
+		8EFD2EB32287FEB00069B433 /* CTGalleryOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTGalleryOverlayView.swift; sourceTree = "<group>"; };
+		8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaChat.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
 		93193F271E5811BA0039AC0C /* IGGroupInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupInfoTableViewController.swift; sourceTree = "<group>"; };
 		93193F291E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGGroupInfoEditNameTableViewController.swift; sourceTree = "<group>"; };
@@ -1317,6 +1321,7 @@
 				8EB887C82282EA040069DDE3 /* INSPhotoGallery.h */,
 				8EB887C92282EA040069DDE3 /* INSPhoto.swift */,
 				8EB887CA2282EA040069DDE3 /* UIVIew+INSPhotoViewer.swift */,
+				8EFD2EB32287FEB00069B433 /* CTGalleryOverlayView.swift */,
 			);
 			name = INSPhotoGallery;
 			path = "../../../../Downloads/INSPhotoGallery-master/INSPhotoGallery";
@@ -1827,6 +1832,7 @@
 				931585141E6D567000F4C04B /* IGUserPrivacy.swift */,
 				FA8F22571DD89F7C005A90D1 /* IGAvatar.swift */,
 				FAD94C6F1E0136D0006D8D91 /* IGMedia.swift */,
+				8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */,
 				8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */,
 				FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */,
 			);
@@ -2871,6 +2877,7 @@
 				93193F341E5813620039AC0C /* IGGroupMemberListInvitedLinkTableViewCell.swift in Sources */,
 				FA86D44821A95CB0007B80D7 /* IGHelperView.swift in Sources */,
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
+				8EFD2EB42287FEB00069B433 /* CTGalleryOverlayView.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
@@ -2919,6 +2926,7 @@
 				FA8F22521DD89C6B005A90D1 /* IGChatRoom.swift in Sources */,
 				FA09535E1E1B97700043ED3F /* IGSettingContactBlockListTableViewController.swift in Sources */,
 				FA5CFC4E21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift in Sources */,
+				8EFD2EBC22880B7E0069B433 /* IGMediaChat.swift in Sources */,
 				FA99FF6C2235413B009035DF /* DashboardCell4.swift in Sources */,
 				FA96EF541DEB09A6009BE640 /* IGRequestChat.swift in Sources */,
 				FA7886C6223639E30006336F /* AbstractDashboardCell.swift in Sources */,

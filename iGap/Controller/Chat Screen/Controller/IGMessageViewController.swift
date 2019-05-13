@@ -26,7 +26,10 @@ import MBProgressHUD
 import ContactsUI
 import MobileCoreServices
 import MarkdownKit
+import Lightbox
 
+
+public var indexOfVideos = [Int]()
 class IGHeader: UICollectionReusableView {
     
     override var reuseIdentifier: String? {
@@ -240,6 +243,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
+//        LightboxConfig.DeleteButton.enabled = true
+//        LightboxConfig.DeleteButton.text = "Delete"
+//
+        
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
 //        inputTextView.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
@@ -348,7 +355,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         
-        let messagesWithMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", self.room!.id, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.imageAndText.rawValue)
+        let messagesWithMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", self.room!.id, IGRoomMessageType.video.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.imageAndText.rawValue)
         messagesWithMedia = try! Realm().objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
         
         let messagesWithForwardedMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (forwardedFrom.typeRaw == 1 OR forwardedFrom.typeRaw == 2 OR forwardedFrom.typeRaw == 3 OR forwardedFrom.typeRaw == 4)", self.room!.id)
@@ -3814,15 +3821,80 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         var photos: [INSPhotoViewable] = Array(roomMessageLists.map { (message) -> IGMedia in
             return IGMedia(message: message, forwardedMedia: false)
         })
+        //        var photos: [LightboxImage] = Array(roomMessageLists.map { (message) -> IGMediaChat in
+        //            return IGMediaChat(message: message, forwardedMedia: false)
+        //        })
+
+//                var photos: [LightboxImage] = Array(roomMessageLists.map { (message) -> IGMediaChat in
+//                    return IGMediaChat(message: message, forwardedMedia: false)
+//                })
+
+//        let photos: [LightboxImage] = Array(roomMessageLists.map { (message) -> LightboxImage in
+//                    let roomMessage = message.forwardedFrom != nil ? message.forwardedFrom : message
+//                    let attachment = roomMessage?.attachment
+//                    let text = roomMessage?.message
+//                    if attachment!.type == .video {
+//                        print("___M_____")
+//                        print(attachment?.path())
+//
+//                        return LightboxImage(image: UIImage(named: "photo2")!, videoURL: URL(string: (attachment?.publicUrl)!))
+//
+//                        }
+//                        else {
+//                        print("___I_____")
+//                        print(attachment?.path())
+//
+//                        return LightboxImage(imageURL: URL(string: (attachment?.publicUrl)!)!)
+//
+//                        }
+//
+//
+//        })
+//
+
+        print("__||photos||__")
+
+        sizesArray.removeAll()
+        indexOfVideos.removeAll()
+
+        for element in roomMessageLists {
+//            sizesArray.append(element.attachment?.size)
+            indexOfVideos.append((element.typeRaw))
+        }
+
+
         
+        
+
         let currentPhoto = photos[indexOfThis]
+        
+        
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: imageView)
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { photo in
             return imageView
         }
         present(galleryPreview, animated: true, completion: nil)
+//        showLightBox()
+//        let images = [LightboxImage(
+//            image: UIImage(named: "photo2")!,
+//            text: "Emoji 😍 (/ɪˈmoʊdʒi/; singular emoji, plural emoji or emojis;[4] from the Japanese 絵文字えもじ, pronounced [emodʑi]) are ideograms and smileys used in electronic messages and web pages. Emoji are used much like emoticons and exist in various genres, including facial expressions, common objects, places and types of weather 🌅☔️💦, and animals 🐶🐱",
+//            videoURL: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
+//            )]
+//
+//
+//        let controller = LightboxController(images: images)
+        
+//        controller.dynamicBackground = true
+//        //controller.pageDelegate
+//
+//
+//        present(controller, animated: true, completion: nil)
+
+        
     }
     
+    func showLightBox() {
+    }
     func didTapOnForwardedAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
         if let forwardedMsgType = cellMessage.forwardedFrom?.type {
         switch forwardedMsgType {
@@ -4169,4 +4241,12 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
 	return input.rawValue
+}
+
+
+
+extension Array where Element: Equatable {
+    func indexes(of element: Element) -> [Int] {
+        return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
+    }
 }

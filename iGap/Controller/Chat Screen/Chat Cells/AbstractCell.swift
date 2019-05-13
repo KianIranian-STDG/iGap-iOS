@@ -81,6 +81,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         self.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         self.backgroundColor = UIColor.clear
+        isAvatar = false
     }
     
     override init(frame: CGRect) {

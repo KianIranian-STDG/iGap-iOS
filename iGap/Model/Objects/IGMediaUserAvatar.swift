@@ -13,6 +13,11 @@ import UIKit
 import IGProtoBuff
 
 class IGMediaUserAvatar: INSPhotoViewable, Equatable {
+    var attachment: IGFile?
+    
+    
+    var contentType: String?
+    
     enum MediaType {
         case video
         case audio
@@ -22,6 +27,7 @@ class IGMediaUserAvatar: INSPhotoViewable, Equatable {
     var thumbnailImage: UIImage?
     var attributedTitle: NSAttributedString?
     var file: IGFile?
+    var imageSize : Int!
     var isDeletable : Bool {
         get {
             return true
@@ -48,6 +54,8 @@ class IGMediaUserAvatar: INSPhotoViewable, Equatable {
             self.file = file
             image = UIImage.originalImage(for: file)
             thumbnailImage = UIImage.thumbnail(for: file)
+            imageSize = file.size            
+
         }
     }
     
@@ -57,6 +65,10 @@ class IGMediaUserAvatar: INSPhotoViewable, Equatable {
             return
         }
         self.image = UIImage.thumbnail(for: file!)
+        imageSize = file?.size
+        currentSize = nil
+        currentSize = imageSize
+
         IGDownloadManager.sharedManager.download(file: file!, previewType:.originalFile, completion: { (attachment) -> Void in
             self.image = UIImage.originalImage(for: attachment)
             completion(self.image, nil)
@@ -70,6 +82,9 @@ class IGMediaUserAvatar: INSPhotoViewable, Equatable {
             return
         }
         
+        imageSize = file?.size
+        currentSize = imageSize
+
         var finalFile: IGFile!
         var previewType: IGFile.PreviewType!
         
@@ -88,6 +103,9 @@ class IGMediaUserAvatar: INSPhotoViewable, Equatable {
         
         IGDownloadManager.sharedManager.download(file: finalFile!, previewType: previewType, completion: { (attachment) -> Void in
             self.thumbnailImage = UIImage.thumbnail(for: attachment)
+            self.imageSize = self.file?.size
+            currentSize = self.imageSize
+
             completion(self.thumbnailImage, nil)
         }, failure: {})
     }
