@@ -309,12 +309,12 @@ class IGMessageLoader {
                 bottomMore = methodResult.hasMore
             }
             
-            var structMessageInfos = methodResult.realmRoomMessages
-            if (structMessageInfos.count > 0) {
+            var realmRoomMessages = methodResult.realmRoomMessages
+            if (realmRoomMessages.count > 0) {
                 if (direction == .up) {
-                    startFutureMessageIdUp = Int64(structMessageInfos[structMessageInfos.count - 1].id)
+                    startFutureMessageIdUp = Int64(realmRoomMessages[realmRoomMessages.count - 1].id)
                 } else {
-                    startFutureMessageIdDown = Int64(structMessageInfos[structMessageInfos.count - 1].id)
+                    startFutureMessageIdDown = Int64(realmRoomMessages[realmRoomMessages.count - 1].id)
                 }
             } else {
                 /**
@@ -330,21 +330,21 @@ class IGMessageLoader {
             }
 
             /* send existing message to the view */
-            onMessageReceive(structMessageInfos, direction)
+            onMessageReceive(realmRoomMessages, direction)
             
             /**
              * if gap is exist ,check that reached to gap or not and if
              * reached send request to server for clientGetRoomHistory
              */
             if (gapMessageId > 0) {
-                let hasSpaceToGap: Bool  = methodResult.hasSpaceToGap //boolean hasSpaceToGap = (boolean) object[2];
+                let hasSpaceToGap: Bool = methodResult.hasSpaceToGap
                 if (!hasSpaceToGap) {
                     /**
                      * send request to server for clientGetRoomHistory
                      */
                     var oldMessageId: Int64!
-                    if (structMessageInfos.count > 0) {
-                        oldMessageId = Int64(structMessageInfos[structMessageInfos.count - 1].id)
+                    if (realmRoomMessages.count > 0) {
+                        oldMessageId = Int64(realmRoomMessages[realmRoomMessages.count - 1].id)
                     } else {
                         oldMessageId = gapMessageId
                     }
@@ -744,7 +744,7 @@ class IGMessageLoader {
     private func getLocalMessage(roomId: Int64, messageId: Int64, gapMessageId: Int64, duplicateMessage: Bool, direction: IGPClientGetRoomHistory.IGPDirection) -> (realmRoomMessages: [IGRoomMessage], hasMore: Bool, hasSpaceToGap: Bool) {
         
         var hasMore = true
-        var hasSpaceToGap = true
+        var hasSpaceToGap = true // TODO - check usage of this variable. if is not need remove it
         var realmRoomMessages: Results<IGRoomMessage>!
         
         if (messageId == 0) {
@@ -937,7 +937,8 @@ class IGMessageLoader {
             let realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
             
             if (realmRoomMessages.count > 0) {
-                if let realmRoomMessage = realmRoomMessages.first {
+                realmRoomMessage = realmRoomMessages.first
+                if realmRoomMessage != nil {
                     checkMessageId = realmRoomMessage.previousMessageId
                 }
             }
@@ -961,7 +962,7 @@ class IGMessageLoader {
          */
         if (realmRoomMessage != nil) {
             
-            let predicate = NSPredicate(format: "id >= %lld", checkMessageId)
+            let predicate = NSPredicate(format: "id = %lld", checkMessageId)
             let realmRoomMessageGap = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first
             
             /**
@@ -970,9 +971,9 @@ class IGMessageLoader {
              */
             if (realmRoomMessageGap == nil) {
                 gapMessageId = checkMessageId
-            } else if (realmRoomMessageGap!.id == checkMessageId) {
+            } else if realmRoomMessageGap!.id == checkMessageId {
                 /**
-                 * this step means that client insert checkMessageId in own message
+                 * this step means that client insert checkMessageId in itself message
                  */
                 gapMessageId = checkMessageId
             }

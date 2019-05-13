@@ -317,14 +317,14 @@ class IGRoomMessage: Object {
             if author.hasIgpUser {
                 let authorUser = author.igpUser
                 let predicate = NSPredicate(format: "id = %lld", authorUser.igpUserID)
-                if let userInDb = realm!.objects(IGRegisteredUser.self).filter(predicate).first {
+                if let userInDb = realmFinal.objects(IGRegisteredUser.self).filter(predicate).first {
                     message.authorUser = userInDb
                     message.authorRoom = nil
                 }
             } else if author.hasIgpRoom {
                 let authorRoom = author.igpRoom
                 let predicate = NSPredicate(format: "id = %lld", authorRoom.igpRoomID)
-                if let roomInDb = realm!.objects(IGRoom.self).filter(predicate).first {
+                if let roomInDb = realmFinal.objects(IGRoom.self).filter(predicate).first {
                     message.authorRoom = roomInDb
                     message.authorUser = nil
                 }
