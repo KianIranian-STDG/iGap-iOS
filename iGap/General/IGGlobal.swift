@@ -48,7 +48,8 @@ class IGGlobal {
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var dispoasDic: [Int64:Disposable] = [:]
-    
+    static var dispoasDicString: [String:Disposable] = [:]
+
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()

@@ -886,18 +886,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     indicatorViewAbs?.size = attachment.sizeToString()
                     indicatorViewAbs?.delegate = self
                 }
+    
                 
-                /**** seems to not need ****
-                if finalRoomMessage.type == .gif || finalRoomMessage.type == .gifAndText {
-                    attachment.loadData()
-                    if let data = attachment.data {
-                        imgMediaAbs.prepareForAnimation(withGIFData: data)
-                        imgMediaAbs.startAnimatingGIF()
-                    } else {
-                        self.downloadUploadIndicatorDidTap(indicatorViewAbs)
-                    }
-                }
-                */
                 indicatorViewAbs?.shouldShowSize = true
                 break
             default:
