@@ -306,6 +306,7 @@
 		FA451F4622662DAD005F4853 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA451F3C22662DAD005F4853 /* MainInterface.storyboard */; };
 		FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */; };
 		FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */; };
+		FA4CBBD322894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */; };
 		FA4CFD0721A0490D005FCBF2 /* IGHelperPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */; };
 		FA4F47B8214D0C5400ABE7A0 /* IGRealmWallpaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */; };
 		FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */; };
@@ -973,6 +974,7 @@
 		FA451F3D22662DAD005F4853 /* Share.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
 		FA4BD8A11DF2A53400CCB239 /* IGMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGMusicViewController.swift; sourceTree = "<group>"; };
 		FA4BD8A21DF2A53400CCB239 /* IGMusicViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IGMusicViewController.xib; sourceTree = "<group>"; };
+		FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructClientGetRoomHistoryIdentity.swift; sourceTree = "<group>"; };
 		FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPreferences.swift; sourceTree = "<group>"; };
 		FA4F47B7214D0C5400ABE7A0 /* IGRealmWallpaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmWallpaper.swift; sourceTree = "<group>"; };
 		FA4F47B9214D1DA500ABE7A0 /* IGWallpaperPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWallpaperPreview.swift; sourceTree = "<group>"; };
@@ -2519,6 +2521,7 @@
 				FA8FCBB2219C1DAD0028457F /* IGApiStruct.swift */,
 				FAD8A02D21EE095A006996E1 /* IGStructAdditionalButton.swift */,
 				FAB4367222097B850073EEE1 /* IGStructSticker.swift */,
+				FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -3326,6 +3329,7 @@
 				FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */,
 				FA0953581E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewController.swift in Sources */,
 				FA09536C1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsDetailTableViewCell.swift in Sources */,
+				FA4CBBD322894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift in Sources */,
 				FA0953641E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewController.swift in Sources */,
 				FA6A22781F41D73E0063DF07 /* IGRequestQrCode.swift in Sources */,
 				FAE6062A21EB39DB00F03FFC /* SwiftWebVCActivity.swift in Sources */,

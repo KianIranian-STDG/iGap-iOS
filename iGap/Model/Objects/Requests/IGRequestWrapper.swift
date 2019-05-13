@@ -20,7 +20,7 @@ class IGRequestWrapper :NSObject {
     var id       = ""
     var actionId = 0
     var message  : RequestMessage!
-    var identity = "" // If you give identity, then the request data also returns
+    var identity : Any?
     var time     : Int?
     var IV       = Data()
     
@@ -33,7 +33,7 @@ class IGRequestWrapper :NSObject {
     var success: ((ResponseMessage)->())? // simple success just return server response
     var successPowerful: ((ResponseMessage, IGRequestWrapper)->())? //successPowerful has IGRequestWrapper for use identity or another info that used in send request
     var error: ((IGError, IGErrorWaitTime?)->())?
-    var errorPowerful: ((IGError, IGErrorWaitTime?, IGRequestWrapper)->())? // Hint: Always use 'errorPowerful' just with 'successPowerful'
+    var errorPowerful: ((IGError, IGErrorWaitTime?, IGRequestWrapper)->())? // errorPowerful has IGRequestWrapper for use identity or another info that used in send request
     
     
     init(message: RequestMessage!, actionID:Int) {
@@ -41,7 +41,7 @@ class IGRequestWrapper :NSObject {
         self.actionId = actionID
     }
     
-    init(message: RequestMessage!, actionID:Int, identity:String) {
+    init(message: RequestMessage!, actionID:Int, identity:Any) {
         self.message = message
         self.actionId = actionID
         self.identity = identity

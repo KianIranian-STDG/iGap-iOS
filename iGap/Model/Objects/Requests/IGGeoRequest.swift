@@ -87,15 +87,15 @@ class IGGeoUpdatePosition : IGRequest {
 
 class IGGeoGetComment : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(userId: Int64, identity: String = "") -> IGRequestWrapper {
+        class func generate(userId: Int64, identity: Any? = nil) -> IGRequestWrapper {
             var getComment = IGPGeoGetComment()
             getComment.igpUserID = userId
             
-            if identity.isEmpty {
+            if identity == nil {
                 return IGRequestWrapper(message: getComment, actionID: 1003)
             }
             
-            return IGRequestWrapper(message: getComment, actionID: 1003, identity: identity)
+            return IGRequestWrapper(message: getComment, actionID: 1003, identity: identity!)
             
         }
     }
@@ -212,12 +212,12 @@ class IGGeoGetNearbyDistance : IGRequest {
         }
         
         class func getUserComment(userId: Int64){
-            IGGeoGetComment.Generator.generate(userId: userId, identity: "\(userId)").successPowerful ({ (protoResponse, requestWrapper) in
+            IGGeoGetComment.Generator.generate(userId: userId, identity: userId).successPowerful ({ (protoResponse, requestWrapper) in
                 DispatchQueue.main.async {
                     if let comment = protoResponse as? IGPGeoGetCommentResponse {
-                        IGFactory.shared.updateNearbyDistanceComment(userId: Int64(requestWrapper.identity)!, comment: comment.igpComment)
-                        if userNoInfoDictionary[Int64(requestWrapper.identity)!] != nil {
-                            userNoInfoDictionary.removeValue(forKey: Int64(requestWrapper.identity)!)
+                        IGFactory.shared.updateNearbyDistanceComment(userId: requestWrapper.identity as! Int64, comment: comment.igpComment)
+                        if userNoInfoDictionary[requestWrapper.identity as! Int64] != nil {
+                            userNoInfoDictionary.removeValue(forKey: requestWrapper.identity as! Int64)
                         }
                     }
                 }

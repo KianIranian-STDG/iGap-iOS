@@ -508,10 +508,10 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UIGestureRecognizerD
     }
     
     func getUserComment(userId: Int64){
-        IGGeoGetComment.Generator.generate(userId: userId, identity: "\(userId)").successPowerful ({ (protoResponse, requestWrapper) in
+        IGGeoGetComment.Generator.generate(userId: userId, identity: userId).successPowerful ({ (protoResponse, requestWrapper) in
             DispatchQueue.main.async {
                 if let comment = protoResponse as? IGPGeoGetCommentResponse {
-                    let userId = Int64(requestWrapper.identity)!
+                    let userId = requestWrapper.identity as! Int64
                     self.usersCommentDictionary[userId] = comment.igpComment
                     
                     if let nearbyCoordinate = self.userNoInfoDictionary[userId] {

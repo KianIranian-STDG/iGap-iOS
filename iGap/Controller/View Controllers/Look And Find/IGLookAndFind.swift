@@ -111,7 +111,8 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
             
             if let searchUsernameRequest = requestWrapper.message as? IGPClientSearchUsername {
-                if requestWrapper.identity.starts(with: "@") {
+                let search = requestWrapper.identity as! String
+                if search.starts(with: "@") {
                     self.fillResutl(searchText: searchUsernameRequest.igpQuery, isUsername: true)
                 } else {
                     self.fillResutl(searchText: searchUsernameRequest.igpQuery)

@@ -91,7 +91,7 @@ class IGClientGetRoomHistoryRequest : IGRequest {
             getRoomHistoryRequestMessage.igpLimit = limit
             getRoomHistoryRequestMessage.igpDirection = direction
             getRoomHistoryRequestMessage.igpFirstMessageID = firstMessageID
-            let identity = "\(reachMessageId)*\(firstMessageID)"
+            let identity = IGStructClientGetRoomHistoryIdentity(firstMessageId: firstMessageID, reachMessageId: reachMessageId)
             return IGRequestWrapper(message: getRoomHistoryRequestMessage, actionID: 603, identity: identity)
         }
     }

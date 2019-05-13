@@ -61,7 +61,7 @@ class IGMessageLoader {
     /**
      * manage save changeState , unread message , load from local or need get message from server and finally load message
      */
-    public func getMessages(onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    public func getMessages(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         var direction: IGPClientGetRoomHistory.IGPDirection!
         var messageInfos: [IGRoomMessage] = []
         /**
@@ -141,7 +141,7 @@ class IGMessageLoader {
             if (resultsUp.count > 1) {
                 let _ = gapDetection(results: resultsUp, direction: .up)
             } else {
-                getOnlineMessage(oldMessageId: fetchMessageId, direction: .up)
+                getOnlineMessage(oldMessageId: fetchMessageId, direction: .up, onMessageReceive: onMessageReceive)
             }
 
             results = resultsDown
@@ -189,7 +189,7 @@ class IGMessageLoader {
                     /**
                      * send request to server for clientGetRoomHistory
                      */
-                    getOnlineMessage(oldMessageId: oldMessageId, direction: direction)
+                    getOnlineMessage(oldMessageId: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
                 }
             } else {
                 /**
@@ -198,9 +198,9 @@ class IGMessageLoader {
                  */
                 if ((direction == .up && !topMore) || (direction == .down && !bottomMore)) {
                     if (messageInfos.count > 0) {
-                        getOnlineMessage(oldMessageId: messageInfos[messageInfos.count - 1].id, direction: direction)
+                        getOnlineMessage(oldMessageId: messageInfos[messageInfos.count - 1].id, direction: direction, onMessageReceive: onMessageReceive)
                     } else {
-                        getOnlineMessage(oldMessageId: 0, direction: direction)
+                        getOnlineMessage(oldMessageId: 0, direction: direction, onMessageReceive: onMessageReceive)
                     }
                 }
             }
@@ -218,7 +218,7 @@ class IGMessageLoader {
                 }
             }
             
-            getOnlineMessage(oldMessageId: oldMessageId, direction: direction)
+            getOnlineMessage(oldMessageId: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
         }
         
         if (direction == .up) {
@@ -290,7 +290,7 @@ class IGMessageLoader {
     /**
      * manage load message from local or from server(online)
      */
-    public func loadMessage(direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    public func loadMessage(direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         var gapMessageId: Int64 = 0
         var startFutureMessageId: Int64 = 0
         if (direction == .up) {
@@ -349,7 +349,7 @@ class IGMessageLoader {
                         oldMessageId = gapMessageId
                     }
                     
-                    getOnlineMessage(oldMessageId: oldMessageId, direction: direction)
+                    getOnlineMessage(oldMessageId: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
                 }
             }
         } else if (gapMessageId > 0) {
@@ -359,11 +359,11 @@ class IGMessageLoader {
              * in some cases maybe startFutureMessageIdUp Equal to zero , so i used from this if.))
              */
             if (startFutureMessageId != 0) {
-                getOnlineMessage(oldMessageId: startFutureMessageId, direction: direction)
+                getOnlineMessage(oldMessageId: startFutureMessageId, direction: direction, onMessageReceive: onMessageReceive)
             }
         } else {
             if (((direction == .up && allowGetHistoryUp) || (direction == .down && allowGetHistoryDown)) && startFutureMessageId != 0) {
-                getOnlineMessage(oldMessageId: startFutureMessageId, direction: direction)
+                getOnlineMessage(oldMessageId: startFutureMessageId, direction: direction, onMessageReceive: onMessageReceive)
             }
         }
     }
@@ -373,7 +373,7 @@ class IGMessageLoader {
      *
      * @param oldMessageId if set oldMessageId=0 messages will be get from latest message that exist in server
      */
-    private func getOnlineMessage(oldMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {
+    private func getOnlineMessage(oldMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         
         if ((direction == .up && !isWaitingForHistoryUp && allowGetHistoryUp) || (direction == .down && !isWaitingForHistoryDown && allowGetHistoryDown)) {
             /**
@@ -381,7 +381,7 @@ class IGMessageLoader {
              */
             //progressItem(SHOW, direction);
             if (!IGAppManager.sharedManager.isUserLoggiedIn()) {
-                getOnlineMessageAfterTimeOut(messageIdGetHistory: oldMessageId, direction: direction)
+                getOnlineMessageAfterTimeOut(messageIdGetHistory: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
                 return
             }
             
@@ -435,7 +435,7 @@ class IGMessageLoader {
                  * I do this for set addToView true
                  */
                 if (direction == .down && realmRoomMessages.count < (self.LIMIT_GET_HISTORY_NORMAL - 1)) {
-                    self.getOnlineMessage(oldMessageId: self.startFutureMessageIdDown, direction: direction)
+                    self.getOnlineMessage(oldMessageId: self.startFutureMessageIdDown, direction: direction, onMessageReceive: onMessageReceive)
                 }
                 
                 /**
@@ -499,7 +499,7 @@ class IGMessageLoader {
                     } else {
                         self.isWaitingForHistoryDown = false
                     }
-                    self.getOnlineMessageAfterTimeOut(messageIdGetHistory: messageIdGetHistory, direction: direction)
+                    //self.getOnlineMessageAfterTimeOut(messageIdGetHistory: messageIdGetHistory, direction: direction, onMessageReceive: <#(([IGRoomMessage], IGPClientGetRoomHistory.IGPDirection) -> Void)#>)
                     
                     break
                     
@@ -510,12 +510,12 @@ class IGMessageLoader {
         }
     }
     
-    private func getOnlineMessageAfterTimeOut(messageIdGetHistory: Int64, direction: IGPClientGetRoomHistory.IGPDirection) {
+    private func getOnlineMessageAfterTimeOut(messageIdGetHistory: Int64, direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         if (IGAppManager.sharedManager.isUserLoggiedIn()) {
-            getOnlineMessage(oldMessageId: messageIdGetHistory, direction: direction)
+            getOnlineMessage(oldMessageId: messageIdGetHistory, direction: direction, onMessageReceive: onMessageReceive)
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.getOnlineMessageAfterTimeOut(messageIdGetHistory: messageIdGetHistory, direction: direction)
+                self.getOnlineMessageAfterTimeOut(messageIdGetHistory: messageIdGetHistory, direction: direction, onMessageReceive: onMessageReceive)
             }
         }
     }
@@ -625,7 +625,7 @@ class IGMessageLoader {
      *
      * @param messageId set gap for this message id
      */
-    private func setGapAndGetMessage(messageId: Int64, onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+    private func setGapAndGetMessage(messageId: Int64, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         IGFactory.shared.setGap(messageId: messageId)
         getMessages(onMessageReceive: onMessageReceive)
     }
@@ -824,9 +824,9 @@ class IGMessageLoader {
                                       error: @escaping ((_ error: IGError, _ messageIdGetHistory: Int64, _ historyDirection: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         
         IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: roomId, firstMessageID: messageIdGetHistory, reachMessageId: reachMessageId, limit: limit, direction: direction).successPowerful({ (responseProto, requestWrapper) in
-            
-            let identity = requestWrapper.identity.split(separator: "*")
-            let reachMessageIdRequest: Int64! = Int64(identity[0])
+
+            let identity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
+            let reachMessageIdRequest: Int64! = identity.reachMessageId
             
             if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
                 if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
@@ -895,8 +895,8 @@ class IGMessageLoader {
             }
         }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
             if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
-                let identity = requestWrapper.identity.split(separator: "*")
-                let messageIdGetHistory: Int64! = Int64(identity[1])
+                let identity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
+                let messageIdGetHistory: Int64! = identity.firstMessageId
                 error(errorCode, messageIdGetHistory, roomHistoryRequest.igpDirection)
             }
         }).send()

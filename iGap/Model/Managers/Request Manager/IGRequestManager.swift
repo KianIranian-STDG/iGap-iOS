@@ -586,18 +586,14 @@ class IGRequestManager {
                         }
                     } else { // -> successful
                         
-                        if correspondingRequestWrapper.identity == "" { // if not set identity call simple success
-                            if let sucess = correspondingRequestWrapper.success {
-                                sucess(responseProtoMessage)
-                            } else {
-                                requestHandlerClassName.handlePush(responseProtoMessage: responseProtoMessage)
-                            }
+                        /* return callback to each one of the callbacks that has value.
+                         */
+                        if let success = correspondingRequestWrapper.success {
+                            success(responseProtoMessage)
+                        } else if let successPowerful = correspondingRequestWrapper.successPowerful {
+                            successPowerful(responseProtoMessage, correspondingRequestWrapper)
                         } else {
-                            if let sucessPowerful = correspondingRequestWrapper.successPowerful {
-                                sucessPowerful(responseProtoMessage, correspondingRequestWrapper)
-                            } else {
-                                requestHandlerClassName.handlePush(responseProtoMessage: responseProtoMessage)
-                            }
+                            requestHandlerClassName.handlePush(responseProtoMessage: responseProtoMessage)
                         }
                     }
                     resolvedRequests[response.igpID] = correspondingRequestWrapper
@@ -639,7 +635,7 @@ class IGRequestManager {
     
     func cancelRequest(identity: String) {
         for requestWrapper in pendingRequests.values {
-            if requestWrapper.identity == identity {
+            if (requestWrapper.identity as! String) == identity {
                 resolvedRequests[requestWrapper.id] = requestWrapper
                 pendingRequests[requestWrapper.id] = nil
             }
