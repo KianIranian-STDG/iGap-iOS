@@ -88,13 +88,13 @@ class CellSizeLimit: NSObject {
         }
         
         struct File {
-            static let Width: CGFloat = 250.0
+            static let Width: CGFloat = 230.0
             static let Height: CGFloat = 70.0
         }
         
         struct Location {
             static let Width: CGFloat = 230.0
-            static let Height: CGFloat = 130.0
+            static let Height: CGFloat = 160.0
         }
         
         struct Contact {

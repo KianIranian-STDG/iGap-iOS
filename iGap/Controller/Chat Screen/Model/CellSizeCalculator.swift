@@ -101,7 +101,7 @@ class CellSizeCalculator: NSObject {
                 break
                 
             case .file, .fileAndText:
-                finalSize.width = CellSizeLimit.ConstantSizes.Voice.Width
+                finalSize.width = CellSizeLimit.ConstantSizes.File.Width
                 finalSize.height += CellSizeLimit.ConstantSizes.File.Height
                 break
                 
@@ -132,7 +132,8 @@ class CellSizeCalculator: NSObject {
         } else if finalMessage.type == .location {
             finalSize.width = CellSizeLimit.ConstantSizes.Location.Width
             finalSize.height += CellSizeLimit.ConstantSizes.Location.Height
-            messageAttachmentHeight = finalSize.height
+            finalSize.height += CellSizeLimit.ConstantSizes.Media.ExtraHeight
+            messageAttachmentHeight = CellSizeLimit.ConstantSizes.Location.Height
             
         } else if finalMessage.type == .text { // Text Message
             if text != nil && text != "" {
