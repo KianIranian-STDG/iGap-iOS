@@ -48,7 +48,9 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         IGStickerViewController.stickerAddListener = self
         IGStickerViewController.stickerCurrentGroupIdObserver = self
         if IGStickerViewController.previewSectionIndex != -1 && stickerPageType == StickerPageType.CATEGORY {
-            self.collectionView?.reloadSections(IndexSet([IGStickerViewController.previewSectionIndex]))
+            if self.collectionView!.numberOfSections >= IGStickerViewController.previewSectionIndex + 1 {
+                self.collectionView?.reloadSections(IndexSet([IGStickerViewController.previewSectionIndex]))
+            }
             IGStickerViewController.previewSectionIndex = -1
         }
     }

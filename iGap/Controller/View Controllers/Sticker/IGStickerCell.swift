@@ -99,10 +99,10 @@ class IGStickerCell: UICollectionViewCell {
     @objc func openStickerPreview(_ gestureRecognizer: UITapGestureRecognizer) {
         IGStickerViewController.previewSectionIndex = self.sectionIndex
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGStickerViewController") as! IGStickerViewController
-        messagesVc.stickerGroupId = self.stickerItemStruct.groupID
-        messagesVc.stickerPageType = StickerPageType.PREVIEW
-        UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+        let stickerViewController = storyBoard.instantiateViewController(withIdentifier: "IGStickerViewController") as! IGStickerViewController
+        stickerViewController.stickerGroupId = self.stickerItemStruct.groupID
+        stickerViewController.stickerPageType = StickerPageType.PREVIEW
+        UIApplication.topViewController()!.navigationController!.pushViewController(stickerViewController, animated: true)
     }
     
     /********************************/
