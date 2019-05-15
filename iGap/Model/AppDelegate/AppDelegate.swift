@@ -111,6 +111,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         return true
     }
     
+
     func compactRealm() {
         let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
         let defaultParentURL = defaultURL.deletingLastPathComponent()
@@ -434,7 +435,68 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
     }
     
+    //Deep Link Handler
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        print(url)
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        
+        let host = urlComponents?.host ?? ""
+        
+        print(host)
+        
+        if host == "resolve" {
+            
+            let sb = UIStoryboard(name: "Main", bundle: .main)
+            
+            let secretVC = sb.instantiateViewController(withIdentifier: "messageViewController") as? IGMessageViewController
+            let messageID : String?
+            let RoomID : String?
+            let _ : String?
+            RoomID = urlComponents?.queryItems?.first?.value
+            messageID = urlComponents?.queryItems?.last?.value
+            let strAsNSString = messageID! as NSString
+            _ = strAsNSString.longLongValue
+//            let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", value, username)
+            let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID!)
+            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                
+                secretVC!.room = room
+                window?.rootViewController = secretVC
 
+            }
+
+//                if let username = IGRoom.fetchUsername(room: room) {
+//                    let predicate = NSPredicate(format: "id = %lld AND channelRoom.publicExtra.username = %@", value, username)
+//
+//                    if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+//
+//                    }
+//                }
+
+            
+
+//
+//
+//            if let username = IGRoom.fetchUsername(room: room!) { // if username is for current room don't open this room again
+//                if username == value.dropFirst() {
+//                    return
+//                }
+//            }
+//            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+//
+//            }
+
+            //        secretVC?.secretMessage = urlComponents?.queryItems?.first?.value
+            
+//            window?.rootViewController = secretVC
+        }
+        
+        return false
+    }
+    
 }
 
 

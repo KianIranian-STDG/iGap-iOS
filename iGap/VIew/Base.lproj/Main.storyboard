@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-GU-ejX">
-                                <rect key="frame" x="0.0" y="70" width="320" height="361"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jVs-8m-lwG">
                                     <size key="itemSize" width="50" height="50"/>
@@ -1799,7 +1799,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lag-5t-Bo2">
-                                <rect key="frame" x="0.0" y="70" width="320" height="410"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldf-Fa-K1P">
                                 <rect key="frame" x="6" y="70" width="308" height="40"/>
@@ -1989,8 +1989,8 @@
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k9M-cr-cw2"/>
+        <segue reference="jRj-hY-oEr"/>
         <segue reference="R4P-x7-LEg"/>
-        <segue reference="ONr-pK-81u"/>
+        <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>
 </document>

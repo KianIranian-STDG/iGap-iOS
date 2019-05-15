@@ -3852,7 +3852,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
 //        })
 //
 
-        print("__||photos||__")
+//        print("__||photos||__")
 
         sizesArray.removeAll()
         indexOfVideos.removeAll()
