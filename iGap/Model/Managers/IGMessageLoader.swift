@@ -814,7 +814,9 @@ class IGMessageLoader {
              */
             hasMore = false
             hasSpaceToGap = false
-            realmRoomMessagesArray = realmRoomMessagesArray.chunks(realmRoomMessagesArray.count)[0]
+            if realmRoomMessagesArray.count > 0 {
+                realmRoomMessagesArray = realmRoomMessagesArray.chunks(realmRoomMessagesArray.count)[0]
+            }
         }
 
         return (realmRoomMessagesArray, hasMore, hasSpaceToGap)
