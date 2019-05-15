@@ -167,6 +167,9 @@ class IGRoom: Object {
             var setGap = false
             if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpMessageID) {
                 shouldFetchBefore = true
+            }
+            
+            if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpPreviousMessageID) {
                 setGap = true
             }
             
@@ -249,6 +252,9 @@ class IGRoom: Object {
             var setGap = false
             if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpMessageID) {
                 shouldFetchBefore = true
+            }
+            
+            if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpPreviousMessageID) {
                 setGap = true
             }
             
