@@ -93,7 +93,7 @@ class IGMessageLoader {
                     if (firstUnreadMessage == nil) {
                         resetMessagingValue()
                         getMessages(onMessageReceive: onMessageReceive)
-                        return;
+                        return
                     }
                     /*
                     countNewMessage = unreadCount;
@@ -115,6 +115,7 @@ class IGMessageLoader {
             
             startFutureMessageIdUp = fetchMessageId
             
+            // Hint: is need to do following action?
             // we have firstUnreadMessage but for gapDetection method we need RealmResult so get this message with query; if we change gap detection method will be can use from firstUnreadMessage
             let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id = %lld ", roomId, fetchMessageId)
             resultsDown = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesDown)
@@ -248,45 +249,9 @@ class IGMessageLoader {
         }
         
         /*
-        /**
-         * make scrollListener for detect change in scroll and load more in chat
-         */
-        scrollListener = new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                
-                if (FragmentChat.isLoadingMoreMessage) {
-                    return;
-                }
-                LinearLayoutManager linearLayoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
-                int firstVisiblePosition = linearLayoutManager.findFirstVisibleItemPosition();
-                View view = linearLayoutManager.getChildAt(0);
-                if (firstVisiblePosition > 0 && view != null) {
-                    firstVisiblePositionOffset = view.getTop();
-                }
-                
-                visibleItemCount = linearLayoutManager.getChildCount();
-                totalItemCount = linearLayoutManager.getItemCount();
-                
-                if (firstVisiblePosition < scrollEnd) {  /** scroll to top */
-                    loadMessage(UP);
-                    
-                    /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
-                     * finally for solve this problem we to check following state and load DOWN even totalItemCount is lower than scrollEnd count
-                     */
-                    if (totalItemCount <= scrollEnd) {
-                        loadMessage(DOWN);
-                    }
-                } else if (firstVisiblePosition + visibleItemCount >= (totalItemCount - scrollEnd)) { /** scroll to bottom */
-                    loadMessage(DOWN);
-                }
-            }
-        };
-        
-        recyclerView.addOnScrollListener(scrollListener);
-        if (unreadCount > 0)
-        recyclerView.scrollToPosition(0);
+        if (unreadCount > 0) {
+           recyclerView.scrollToPosition(0);
+        }
         */
     }
     
@@ -669,7 +634,7 @@ class IGMessageLoader {
      */
     private func getFirstUnreadMessage() -> IGRoomMessage? {
         let realm = try! Realm()
-        let realmRoom = realm.objects(IGRoom.self).filter(NSPredicate(format: "", roomId)).first // TODO - try for this query with object instead objects
+        let realmRoom = realm.objects(IGRoom.self).filter(NSPredicate(format: "id == %lld", roomId)).first // TODO - try for this query with object instead objects
         if (realmRoom != nil) {
             return realmRoom?.firstUnreadMessage
         }
@@ -760,7 +725,7 @@ class IGMessageLoader {
             if (direction == .up) {
                 
                 let sortPropertiesUp = [SortDescriptor(keyPath: "id", ascending: false)]
-                if (duplicateMessage) {
+                if duplicateMessage {
                     let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id <= %lld", roomId, gapMessageId, messageId)
                     realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesUp)
                 } else {
@@ -769,19 +734,19 @@ class IGMessageLoader {
                 }
             } else {
                 let sortPropertiesDown = [SortDescriptor(keyPath: "id", ascending: true)]
-                if (duplicateMessage) {
+                if duplicateMessage {
                     let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id <= %lld", roomId, messageId, gapMessageId)
                     realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesDown)
                 } else {
-                    let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id <= %lld", roomId, messageId, gapMessageId)
+                    let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id > %lld AND id <= %lld", roomId, messageId, gapMessageId)
                     realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesDown)
                 }
             }
         } else {
-            if (direction == .up) {
+            if direction == .up {
                 
                 let sortPropertiesUp = [SortDescriptor(keyPath: "id", ascending: false)]
-                if (duplicateMessage) {
+                if duplicateMessage {
                     let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id <= %lld AND id != %lld", roomId, messageId, 0)
                     realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesUp)
                 } else {
@@ -790,7 +755,7 @@ class IGMessageLoader {
                 }
             } else {
                 let sortPropertiesDown = [SortDescriptor(keyPath: "id", ascending: true)]
-                if (duplicateMessage) {
+                if duplicateMessage {
                     let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id != %lld", roomId, messageId, 0)
                     realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesDown)
                 } else {
