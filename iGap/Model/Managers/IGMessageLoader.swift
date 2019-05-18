@@ -286,9 +286,9 @@ class IGMessageLoader {
                 }
             } else {
                 /**
-                 * don't set zero. when user come to room for first time with -@roomId-
+                 * don't set zero. when user come to room for first time with -@username-
                  * for example : @public ,this block will be called and set zero this value and finally
-                 * don't allow to user for get top history, also that sounds this block isn't helpful
+                 * don't allow to user for get top history, also seems to this block isn't helpful
                  */
                 if (direction == .up) {
                     startFutureMessageIdUp = 0
@@ -820,7 +820,7 @@ class IGMessageLoader {
                                 gapReached = true;
                                 /**
                                  * if gapReached now check that future gap is reached or no. if future gap reached this means
-                                 * that with get this history , client jumped from local messages and now is in another gap
+                                 * with get this history , client jumped from local messages and now is in another gap
                                  */
                                 
                                 if startMessageId <= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .up).gapMessageId {
@@ -832,9 +832,9 @@ class IGMessageLoader {
                                 gapReached = true
                                 /**
                                  * if gapReached now check that future gap is reached or no. if future gap reached this means
-                                 * that with get this history , client jumped from local messages and now is in another gap
+                                 * with get this history , client jumped from local messages and now is in another gap
                                  */
-                                if startMessageId <= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .down).gapMessageId {
+                                if endMessageId >= self.gapExist(roomId: roomId, messageId: reachMessageId, direction: .down).gapMessageId {
                                     jumpOverLocal = true
                                 }
                             }
