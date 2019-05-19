@@ -387,7 +387,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.item)
         
-        let cardDetailVC : IGWalletCardDetailTableViewController? = storyboard?.instantiateViewController(withIdentifier: "IGWalletCardDetail") as! IGWalletCardDetailTableViewController
+        let cardDetailVC : IGWalletCardDetailTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "IGWalletCardDetail") as! IGWalletCardDetailTableViewController)
       
         cardDetailVC!.logoString = self.stringBankLogoArray[indexPath.item]
         cardDetailVC!.urlBack = self.stringImgArray[indexPath.item]

@@ -36,8 +36,6 @@ func extractTokenFromAccessToken(token : String) -> String {
         .drop(while: { $0 != quote }).dropFirst() // Drop everything until the first "
         .prefix(while: { $0 != quote }).dropLast() // Take until the next "
     let base64Token : String = String(tmpBase64Token)
-    let base64TokenData : Data = Data(base64Token.utf8)
-    print(base64Token)
     return base64Token
 }
 func getUserIDFrmToken(token : String) -> String {
@@ -55,8 +53,8 @@ class IGRequestWalletGetAccessToken : IGRequest {
             
             if let response = protoResponse as? IGPWalletGetAccessTokenResponse {
                     let keychain = KeychainSwift()
-                keychain.set(response.igpAccessToken ?? "", forKey: "accesstoken")
-                keychain.set("bearer" ?? "", forKey: "tokentype")
+                keychain.set(response.igpAccessToken , forKey: "accesstoken")
+                keychain.set("bearer" , forKey: "tokentype")
                 keychain.set(nil ?? "", forKey: "refreshtoken")
 
                 print("||||||||||||||||||||||||| \n")
@@ -65,11 +63,10 @@ class IGRequestWalletGetAccessToken : IGRequest {
                 print("\n")
                 print("||||||||||||||||||||||||| \n")
                 let securitymanager = WS_SecurityManager()
-                let auth = WS_main()
+//                let auth = WS_main()
                 securitymanager.setJWT(response.igpAccessToken)
 //                getUserIDFrmToken(token: response.igpAccessToken)
-
-                let _ : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
+                let tmpBase64Token : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
 //                getUserIDFrmToken(token: tmpBase64Token)
 
                 securitymanager.setTokenType("bearer")
@@ -144,7 +141,7 @@ class IGRequestWalletRegister : IGRequest {
     }
     class Generator : IGRequest.Generator{
         class func generate() -> IGRequestWrapper {
-            var requestRegister = IGPWalletRegister()
+            let requestRegister = IGPWalletRegister()
            
             return IGRequestWrapper(message: requestRegister, actionID: 9002)
         }

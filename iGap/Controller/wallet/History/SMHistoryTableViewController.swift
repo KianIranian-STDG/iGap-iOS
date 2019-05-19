@@ -26,14 +26,14 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
         SMLoading.showLoadingPage(viewcontroller: self)
 		if accountId == nil {
             SMHistory.getHistoryFromServer(last : "",  {his in
-                self.doSuccess(his)
+                self.doSuccess(his as Any)
             }, onFailed: {err in
                 self.doFail(err)
             })
 		}
 		else {
 			SMHistory.getHistoryFromServer(last : "", accountId: accountId!,  {his in
-				self.doSuccess(his)
+				self.doSuccess(his as Any)
 			}, onFailed: {err in
 				self.doFail(err)
 			})
@@ -71,7 +71,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
 		if accountId == nil {
 			SMHistory.getHistoryFromServer(last : "",  {his in
 				self.refreshControl?.endRefreshing()
-				self.doSuccess(his)
+				self.doSuccess(his as Any)
 			}, onFailed: {err in
 				self.refreshControl?.endRefreshing()
 				self.doFail(err)
@@ -80,7 +80,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
 		else {
 			SMHistory.getHistoryFromServer(last : "", accountId: accountId!,  {his in
 				self.refreshControl?.endRefreshing()
-				self.doSuccess(his)
+				self.doSuccess(his as Any)
 			}, onFailed: {err in
 				self.refreshControl?.endRefreshing()
 				self.doFail(err)
@@ -230,7 +230,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
     func p2p(cell: SMHistoryTableViewCell , row : PAY_obj_history){
        
         cell.titleImage.isHidden = false
-        print(accountId)
+        print(accountId as Any)
         print(SMUserManager.accountId)
 		let cAccountId = accountId != nil ? accountId : SMUserManager.accountId
         if row.receiver.account_id == cAccountId {
@@ -245,7 +245,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
             
             if let pic = row.sender.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -265,7 +265,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
             
             if let pic = row.receiver.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -292,7 +292,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
             
             if let pic = row.sender.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -312,7 +312,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
             
             if let pic = row.receiver.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
-                let str = request.fs_getFileURL(pic)
+                _ = request.fs_getFileURL(pic)
 //                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
@@ -330,7 +330,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let historyDetailsVC: SMHistoryDetailTableViewController? = storyboard?.instantiateViewController(withIdentifier: "historydetail") as! SMHistoryDetailTableViewController
+        let historyDetailsVC: SMHistoryDetailTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "historydetail") as! SMHistoryDetailTableViewController)
         historyDetailsVC!.rowData = rowData?[indexPath.row]
         historyDetailsVC!.accountId = accountId
         self.navigationController!.pushViewController(historyDetailsVC!, animated: true)

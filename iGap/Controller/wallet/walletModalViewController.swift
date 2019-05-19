@@ -31,25 +31,15 @@ class walletModalViewController: UIViewController , UITextFieldDelegate {
     /// Dictionary contains name, productName, subTitle, price, imagePath
     var value: [String: String]!{
         didSet {
-            print(value)
             if type == 0 {
-                
-                
-                
-            }
-            else if type == 1 {
-                
-                
-            }
-            else if type == 2 {
+            }else if type == 1 {
+            }else if type == 2 {
                 lblDescription.text = name
-                
                 if let price = price {
                     tfAmount.text = price as String
                     tfAmount.isEnabled = false
                 }
             }
-            
             DispatchQueue.main.async {
                 let request = WS_methods(delegate: self, failedDialog: true)
                 let str = request.fs_getFileURL(self.profilePicUrl)
@@ -89,9 +79,6 @@ class walletModalViewController: UIViewController , UITextFieldDelegate {
         transportId = UserDefaults.standard.string(forKey: "modalTrasnportID")
         targetAccountId = UserDefaults.standard.string(forKey: "modalTargetAccountID")
         qrCode = UserDefaults.standard.string(forKey: "modalQRCode")
-
-        print(name)
-
 
             if type == 2 {
                 

@@ -2497,6 +2497,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             print("failed")
         case .possible:
             print("possible")
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -2938,7 +2940,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }
     ////MARK: - UITextfield Delegate
     func textFieldDidChange(_ textField: UITextField) {
-        print(textField.text)
     }
 
 }

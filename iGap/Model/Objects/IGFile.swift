@@ -418,7 +418,7 @@ class IGFile: Object {
         data.withUnsafeBytes {
             _ = CC_SHA256($0, CC_LONG(data.count), &hash)
         }
-        return Data(bytes: hash)
+        return Data(hash)
     }
 
     public func sizeToString() -> String {

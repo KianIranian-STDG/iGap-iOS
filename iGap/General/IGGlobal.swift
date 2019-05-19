@@ -39,7 +39,7 @@ class IGGlobal {
         }
         let currentTime = IGGlobal.getCurrentMillis()
         if string != nil {
-            print("TTT || time \(string): \(currentTime - IGGlobal.latestTime)")
+            print("TTT || time \(string ?? ""): \(currentTime - IGGlobal.latestTime)")
         } else {
             print("TTT || time: \(currentTime - IGGlobal.latestTime)")
         }
@@ -659,7 +659,7 @@ extension Data {
         self.withUnsafeBytes {
             _ = CC_SHA256($0, CC_LONG(self.count), &hash)
         }
-        return Data(bytes: hash)
+        return Data(hash)
     }
 }
 //MARK: -

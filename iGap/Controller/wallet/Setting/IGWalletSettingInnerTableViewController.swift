@@ -302,7 +302,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     }
     func otpSequence() {
         var otp = ""
-        var currentPassword = ""
+        _ = ""
         var newPassword = ""
         var newCPassword = ""
         if isOTP {

@@ -94,7 +94,6 @@ class SMBarcodeMainViewController: UIViewController {
         })
     }
     @IBAction func btnTorch(_ sender: Any) {
-        print(self.scanner?.torchMode)
         if self.scanner?.torchMode == .off {
             
         self.scanner?.torchMode = .on
@@ -115,12 +114,11 @@ class SMBarcodeMainViewController: UIViewController {
             presentedViewController.definesPresentationContext = true
             presentedViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
             presentedViewController.view.backgroundColor = UIColor.init(white: 0.4, alpha: 0.8)
-            let value : [String: String]!
+            let _ : [String: String]!
             presentedViewController.name = name
             presentedViewController.profilePicUrl = imgUser
             UserDefaults.standard.setValue(imgUser, forKey: "modalUserPic")
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
-            print(lblCurrency.text)
             UserDefaults.standard.setValue(self.lblCurrency.text!, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
 

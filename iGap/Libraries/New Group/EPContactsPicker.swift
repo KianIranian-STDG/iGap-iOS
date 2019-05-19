@@ -217,6 +217,8 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                     print(error.localizedDescription)
                 }
             
+        @unknown default:
+            fatalError()
         }
     }
     

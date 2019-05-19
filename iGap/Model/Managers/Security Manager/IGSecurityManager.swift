@@ -140,7 +140,7 @@ class IGSecurityManager: NSObject {
         let keyData = symmetricKey.data(using: .utf8)!
         let aes = try AES(key: [UInt8](keyData), blockMode: setEncryptionBlockMode(iv: [UInt8](iv)), padding: encryptoinPaddingType)
         let ciphered = try aes.encrypt(Array(rawData))
-        return Data(bytes: ciphered)
+        return Data(ciphered)
     }
     
     private func generateIV() -> Data {
@@ -157,7 +157,7 @@ class IGSecurityManager: NSObject {
         let aes = try AES(key: [UInt8](keyData), blockMode: setEncryptionBlockMode(iv: [UInt8](iv)), padding: encryptoinPaddingType)
         
         let deciphered = try aes.decrypt(Array(encryptedPayload))
-        return Data(bytes: deciphered)
+        return Data(deciphered)
     }
 }
 

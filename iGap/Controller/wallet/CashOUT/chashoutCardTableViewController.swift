@@ -176,7 +176,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         
         if cashoutTypeSeg.selectedSegmentIndex == 0 {
         
-            guard let cardNu = cardNumber?.onlyDigitChars() else {
+            guard (cardNumber?.onlyDigitChars()) != nil else {
                 return
             }
             SMCard.confirmChashout(amount: amount,
@@ -229,7 +229,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             }, forgotPin: {
                 let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
 
-                let walletSettingPage : IGWalletSettingTableViewController? = storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController
+                let walletSettingPage : IGWalletSettingTableViewController? = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
                 self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
             
         }
@@ -392,7 +392,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
 
         }
         else if textField.tag == 1 {
-            let minLength = 8
+            _ = 8
             
             newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
             textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inEnglishNumbers()

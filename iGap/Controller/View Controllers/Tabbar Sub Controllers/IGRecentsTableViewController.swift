@@ -81,7 +81,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func setDefaultNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
-        let current : String = SMLangUtil.loadLanguage()
+        let _ : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
         
         navigationItem.rightViewContainer?.addAction {
@@ -270,7 +270,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
     }
     @objc private func changeDirectionOfUI() {
-        let current : String = SMLangUtil.loadLanguage()
+        let _ : String = SMLangUtil.loadLanguage()
     }
     @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
         if !IGContactManager.syncedPhoneBookContact {
@@ -329,14 +329,16 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if AppDelegate.isDeprecatedClient {
                 let alert = UIAlertController(title: "GAME_ALERT_TITLE", message: "VERSION_DEPRICATED".localizedNew, preferredStyle: .alert)
                 let update = UIAlertAction(title: "UPDATE".localizedNew, style: .default, handler: { (action) in
-                    UIApplication.shared.openURL(self.iGapStoreLink!)
+                    UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
+
                 })
                 alert.addAction(update)
                 self.present(alert, animated: true, completion: nil)
             } else if AppDelegate.isUpdateAvailable {
                 let alert = UIAlertController(title: "UPDATE".localizedNew, message: "VERSION_NEW".localizedNew, preferredStyle: .alert)
                 let update = UIAlertAction(title: "UPDATE".localizedNew, style: .default, handler: { (action) in
-                    UIApplication.shared.openURL(self.iGapStoreLink!)
+                    UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
+
                 })
                 let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .destructive, handler: nil)
                 alert.addAction(update)
@@ -507,19 +509,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
         
         cell.setRoom(room: rooms![indexPath.row])
-
-        let room = cell.room!
-
-        var muteTitle = "MUTE"
-        if room.mute == IGRoom.IGRoomMute.mute {
-            muteTitle = "UN_MUTE"
-        }
-
-        var pinTitle = "PINN"
-        if room.pinId > 0 {
-            pinTitle = "UNPINN"
-        }
-
         IGGlobal.getTime(string: "Final")
 
         return cell

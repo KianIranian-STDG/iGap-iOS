@@ -82,7 +82,7 @@ class IGMusicPlayer {
     }
     
     func seekToTime(value : CMTime) {
-        player.currentItem?.seek(to: value)
+        player.currentItem?.seek(to: value ,completionHandler: nil)
     }
 
     
