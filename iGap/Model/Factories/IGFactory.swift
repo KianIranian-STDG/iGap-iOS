@@ -1318,6 +1318,7 @@ class IGFactory: NSObject {
                         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                             try! IGDatabaseManager.shared.realm.write {
                                 let registeredUser = IGRegisteredUser.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpUser: userInfo)
+                                registeredUser.isInContacts = true
                                 IGDatabaseManager.shared.realm.add(registeredUser, update: true)
                                 //IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: true)
                             }

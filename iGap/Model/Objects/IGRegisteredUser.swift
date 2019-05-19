@@ -185,18 +185,15 @@ class IGRegisteredUser: Object {
         user.initials = igpUser.igpInitials
         user.color = igpUser.igpColor
         user.lastSeenStatus = IGRegisteredUser.IGLastSeenStatus.fromIGP(status: igpUser.igpStatus)
-        
         user.lastSeen = Date(timeIntervalSince1970: TimeInterval(igpUser.igpLastSeen))
         user.isDeleted = igpUser.igpDeleted
         user.isMutual = igpUser.igpMutual
-        if igpUser.hasIgpAvatar{
-            user.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpUser.igpAvatar)
-        }
-        
         user.isVerified = igpUser.igpVerified
         user.isBot = igpUser.igpBot
-        user.isInContacts = IGRegisteredUser.fetchContactState(userId: igpUser.igpID)
         
+        if igpUser.hasIgpAvatar {
+            user.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpUser.igpAvatar)
+        }
         return user
     }
     
