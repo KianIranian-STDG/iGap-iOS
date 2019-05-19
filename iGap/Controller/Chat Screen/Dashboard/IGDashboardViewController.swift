@@ -14,7 +14,7 @@ import MapKit
 
 class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate, CLLocationManagerDelegate, DiscoveryObserver {
 
-    static let itemCorner: CGFloat = 5
+    static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
     private var discovery: [IGPDiscovery] = []
