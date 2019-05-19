@@ -11,6 +11,7 @@
 import RealmSwift
 import Foundation
 
+/* DEPRECATED */
 class IGContact: Object {
 
     @objc dynamic  var phoneNumber: String?

@@ -925,12 +925,30 @@ class IGFactory: NSObject {
         //self.doFactoryTask(task: task)
     }
     
-    func clearContacts(){
+    /* set "isInContacts" to false when "isDeleted" is true */
+    func clearExtraContacts(){
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
-                    try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1").setValue(false, forKey: "isInContacts")
+                    try! Realm().objects(IGRegisteredUser.self).filter("isDeleted == 1").setValue(false, forKey: "isInContacts")
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
+    
+    func markContactsAsDeleted(){
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                
+                try! IGDatabaseManager.shared.realm.write {
+                    IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter("isDeleted == false").setValue(true, forKey: "isDeleted")
                 }
                 
                 IGFactory.shared.performInFactoryQueue {
@@ -1292,25 +1310,21 @@ class IGFactory: NSObject {
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 var delay = 0.0
+                var savedCount = 0
                 let registredUsersArray = igpRegistredUsers.chunks(15)
                 for registredUsers in registredUsersArray {
                     for userInfo in registredUsers {
-                        delay += 1
+                        delay += 0.5
                         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                            let user = IGRegisteredUser(igpUser: userInfo)
-                            user.isInContacts = true
                             try! IGDatabaseManager.shared.realm.write {
-                                IGDatabaseManager.shared.realm.add(user, update: true)
+                                let registeredUser = IGRegisteredUser.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpUser: userInfo)
+                                IGDatabaseManager.shared.realm.add(registeredUser, update: true)
                                 //IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: true)
                             }
-                            let predicate = NSPredicate(format: "id = %lld", user.id)
-                            if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
-                                let cotactPredicate = NSPredicate(format: "phoneNumber = %@", "\(user.phone)")
-                                if let contactInDB = try! Realm().objects(IGContact.self).filter(cotactPredicate).first {
-                                    try! IGDatabaseManager.shared.realm.write {
-                                        contactInDB.user = userInDb
-                                    }
-                                }
+                            
+                            savedCount = savedCount+1
+                            if savedCount == igpRegistredUsers.count {
+                                self.clearExtraContacts()
                             }
                         }
                     }
