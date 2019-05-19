@@ -87,6 +87,7 @@
 		8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */; };
 		8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */; };
 		8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */; };
+		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */; };
 		8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */; };
 		8EE7FC97225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC96225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift */; };
@@ -148,7 +149,6 @@
 		FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953131E1B97700043ED3F /* IGDeleteAccountTableViewController.swift */; };
 		FA0953461E1B97700043ED3F /* iGPhoneNumberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */; };
 		FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */; };
-		FA0953491E1B97700043ED3F /* IGSetNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953171E1B97700043ED3F /* IGSetNickNameTableViewController.swift */; };
 		FA09534A1E1B97700043ED3F /* IGSettingAboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */; };
 		FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */; };
 		FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */; };
@@ -671,6 +671,7 @@
 		8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBankModel.swift; sourceTree = "<group>"; };
 		8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRootTableViewController.swift; sourceTree = "<group>"; };
 		8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMessageAttachmentLocation.swift; sourceTree = "<group>"; };
+		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNormalAlertViewController.swift; sourceTree = "<group>"; };
 		8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMConfirmAlertViewController.swift; sourceTree = "<group>"; };
 		8EE7FC96225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMTextFieldAlertViewController.swift; sourceTree = "<group>"; };
@@ -736,7 +737,6 @@
 		FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iGPhoneNumberPageViewController.swift; sourceTree = "<group>"; };
 		FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGPrivacyAndSecurityWhoCanSeeTableViewController.swift; sourceTree = "<group>"; };
 		FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iGSetEmailTableViewController.swift; sourceTree = "<group>"; };
-		FA0953171E1B97700043ED3F /* IGSetNickNameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSetNickNameTableViewController.swift; sourceTree = "<group>"; };
 		FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAboutTableViewController.swift; sourceTree = "<group>"; };
 		FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAccountPhoneNumberTableViewController.swift; sourceTree = "<group>"; };
 		FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingAccountUsernameTableViewController.swift; sourceTree = "<group>"; };
@@ -1485,7 +1485,7 @@
 				FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */,
 				FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */,
 				FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */,
-				FA0953171E1B97700043ED3F /* IGSetNickNameTableViewController.swift */,
+				8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */,
 				FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */,
 				FA0953191E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift */,
 				FA09531A1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift */,
@@ -2817,7 +2817,6 @@
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
 				FAEC02D71F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift in Sources */,
 				FAEEB0C31E1BC11600B6775F /* IGContact.swift in Sources */,
-				FA0953491E1B97700043ED3F /* IGSetNickNameTableViewController.swift in Sources */,
 				FABE0A7021D3BDBE009C46D7 /* IGCallAudioManager.swift in Sources */,
 				FA63BAAB1DD70E9C000B60AD /* IGRequestFile.swift in Sources */,
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
@@ -3095,6 +3094,7 @@
 				FA09535F1E1B97700043ED3F /* IGSettingContactBlockTableViewCell.swift in Sources */,
 				8E96A301225A2318007D8A77 /* IGRequestWallet.swift in Sources */,
 				8EC217BC2259E1A100105B5A /* SMConstants.swift in Sources */,
+				8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */,
 				FA42EF0B1E5C224F00CF8A32 /* GIFAnimatable.swift in Sources */,
 				FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */,
 				93AA67CC1E4F40260053380C /* IGChannelInfoMemberListInviteLinkTableViewCell.swift in Sources */,

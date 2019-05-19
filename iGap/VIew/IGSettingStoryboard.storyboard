@@ -1552,7 +1552,7 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
         <!--Nickname-->
         <scene sceneID="IpA-hW-SNE">
             <objects>
-                <tableViewController storyboardIdentifier="SetNickNamePage" id="m4c-sZ-8p8" customClass="IGSetNickNameTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SetNickNamePage" id="m4c-sZ-8p8" customClass="IGSetUserNickNameTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="iMp-TI-XGr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3928,19 +3928,18 @@ Please wait 0:59</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Nb-Ww-3cc" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="15" y="10.666666666666664" width="42" height="21"/>
+                                            <rect key="frame" x="25" y="14.333333333333336" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="3Nb-Ww-3cc" firstAttribute="leading" secondItem="r56-dy-7Ym" secondAttribute="leadingMargin" constant="7" id="EHJ-bv-VhQ"/>
                                         <constraint firstItem="urp-R6-Zhr" firstAttribute="top" secondItem="r56-dy-7Ym" secondAttribute="top" constant="10" id="F3b-QR-JH8"/>
+                                        <constraint firstItem="3Nb-Ww-3cc" firstAttribute="centerY" secondItem="r56-dy-7Ym" secondAttribute="centerY" id="HRN-9g-3U2"/>
                                         <constraint firstAttribute="bottom" secondItem="urp-R6-Zhr" secondAttribute="bottom" constant="18" id="Jie-qp-5rl"/>
-                                        <constraint firstItem="3Nb-Ww-3cc" firstAttribute="leading" secondItem="r56-dy-7Ym" secondAttribute="leading" constant="15" id="PFc-js-4HA"/>
-                                        <constraint firstItem="3Nb-Ww-3cc" firstAttribute="baseline" secondItem="urp-R6-Zhr" secondAttribute="baseline" id="SZz-Bo-enz"/>
                                         <constraint firstAttribute="trailing" secondItem="urp-R6-Zhr" secondAttribute="trailing" id="cnY-Vi-rz5"/>
+                                        <constraint firstItem="3Nb-Ww-3cc" firstAttribute="leading" secondItem="r56-dy-7Ym" secondAttribute="leading" constant="25" id="m1w-QG-MvC"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -3956,32 +3955,32 @@ Please wait 0:59</string>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWV-Un-LZY" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="334" y="10.000000000000002" width="42" height="21.666666666666671"/>
+                                            <rect key="frame" x="334" y="14.666666666666666" width="42" height="20.333333333333336"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TnT-IC-VYh">
-                                            <rect key="frame" x="27" y="13" width="13" height="20"/>
+                                            <rect key="frame" x="27" y="15" width="13" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="Mrm-ET-7KY"/>
+                                                <constraint firstAttribute="width" constant="13" id="fA3-zi-hEK"/>
+                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRv-Gg-QgD" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="50" y="10.666666666666664" width="42" height="21"/>
+                                            <rect key="frame" x="50" y="14.333333333333336" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="TnT-IC-VYh" firstAttribute="top" secondItem="3Kh-TK-zDj" secondAttribute="topMargin" constant="2" id="3ha-iZ-EV5"/>
-                                        <constraint firstItem="xRv-Gg-QgD" firstAttribute="baseline" secondItem="gWV-Un-LZY" secondAttribute="baseline" id="5tE-ey-l0P"/>
-                                        <constraint firstItem="TnT-IC-VYh" firstAttribute="leading" secondItem="3Kh-TK-zDj" secondAttribute="leadingMargin" constant="7" id="B2z-gU-gtw"/>
-                                        <constraint firstItem="gWV-Un-LZY" firstAttribute="top" secondItem="3Kh-TK-zDj" secondAttribute="top" constant="10" id="ERa-dr-7qq"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="TnT-IC-VYh" secondAttribute="bottom" constant="6" id="Kmy-Ad-Gsc"/>
-                                        <constraint firstAttribute="bottom" secondItem="gWV-Un-LZY" secondAttribute="bottom" constant="18" id="OtM-4C-l5Y"/>
-                                        <constraint firstItem="xRv-Gg-QgD" firstAttribute="leading" secondItem="TnT-IC-VYh" secondAttribute="trailing" constant="10" id="Zo0-Nq-q7l"/>
-                                        <constraint firstItem="xRv-Gg-QgD" firstAttribute="leading" secondItem="3Kh-TK-zDj" secondAttribute="leadingMargin" constant="42" id="dka-cE-Rhe"/>
-                                        <constraint firstItem="xRv-Gg-QgD" firstAttribute="leading" secondItem="3Kh-TK-zDj" secondAttribute="leading" constant="50" id="hC6-cL-4hi"/>
-                                        <constraint firstAttribute="trailing" secondItem="gWV-Un-LZY" secondAttribute="trailing" id="mxe-K2-gKk"/>
+                                        <constraint firstItem="TnT-IC-VYh" firstAttribute="leading" secondItem="3Kh-TK-zDj" secondAttribute="leadingMargin" constant="7" id="6Dz-5I-CZM"/>
+                                        <constraint firstAttribute="trailing" secondItem="gWV-Un-LZY" secondAttribute="trailing" id="6s5-45-bhL"/>
+                                        <constraint firstItem="gWV-Un-LZY" firstAttribute="centerY" secondItem="xRv-Gg-QgD" secondAttribute="centerY" id="Fj6-PY-sPm"/>
+                                        <constraint firstItem="xRv-Gg-QgD" firstAttribute="leading" secondItem="TnT-IC-VYh" secondAttribute="trailing" constant="10" id="cUO-ts-1Pp"/>
+                                        <constraint firstItem="xRv-Gg-QgD" firstAttribute="centerY" secondItem="TnT-IC-VYh" secondAttribute="centerY" id="dgX-9t-HOg"/>
+                                        <constraint firstItem="TnT-IC-VYh" firstAttribute="centerY" secondItem="3Kh-TK-zDj" secondAttribute="centerY" id="yl8-BU-v81"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -6898,8 +6897,8 @@ Afg
         <segue reference="DaW-k4-iW0"/>
         <segue reference="Oa0-mY-XGu"/>
         <segue reference="P15-0g-TjZ"/>
-        <segue reference="Xzv-Yc-EAf"/>
-        <segue reference="sIw-Hv-pyB"/>
+        <segue reference="v0b-nh-nsK"/>
+        <segue reference="27T-6v-Qpf"/>
         <segue reference="vpP-Vs-3F7"/>
         <segue reference="drr-8R-XU7"/>
         <segue reference="7wc-J4-g56"/>
