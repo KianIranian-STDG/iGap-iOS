@@ -26,7 +26,6 @@ import MBProgressHUD
 import ContactsUI
 import MobileCoreServices
 import MarkdownKit
-import Lightbox
 
 
 public var indexOfVideos = [Int]()
