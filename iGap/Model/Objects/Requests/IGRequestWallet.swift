@@ -42,7 +42,6 @@ func getUserIDFrmToken(token : String) -> String {
 
 let auth = WS_SecurityManager()
     let tmpUserId : String = auth.getSSOId()
-    print(tmpUserId)
     SMUserManager.accountId = tmpUserId
     return tmpUserId
 }
@@ -57,11 +56,6 @@ class IGRequestWalletGetAccessToken : IGRequest {
                 keychain.set("bearer" , forKey: "tokentype")
                 keychain.set(nil ?? "", forKey: "refreshtoken")
 
-                print("||||||||||||||||||||||||| \n")
-                print("\n")
-                print(response.igpAccessToken)
-                print("\n")
-                print("||||||||||||||||||||||||| \n")
                 let securitymanager = WS_SecurityManager()
 //                let auth = WS_main()
                 securitymanager.setJWT(response.igpAccessToken)
@@ -162,7 +156,6 @@ extension String {
     
     func base64Decoded() -> String? {
         guard let data = Data(base64Encoded: self) else { return nil }
-        print(data)
         return String(data: data, encoding: .utf8)
     }
 }

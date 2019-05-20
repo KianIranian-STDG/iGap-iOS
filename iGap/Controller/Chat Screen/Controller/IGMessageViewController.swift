@@ -16,7 +16,6 @@ import pop
 import SnapKit
 import AVFoundation
 import DBAttachmentPickerControllerLibrary
-///import INSPhotoGallery
 import AVKit
 import RealmSwift
 import RxRealm
@@ -2714,11 +2713,11 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         self.selectedMessageToEdit = nil
         if isReply {
-            prefix = "reply"
+            prefix = "REPLY".localizedNew
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
             self.selectedMessageToReply = message
         } else {
-            prefix = "forward"
+            prefix = "FORWARD".localizedNew
             self.selectedMessageToReply = nil
             IGMessageViewController.selectedMessageToForwardFromThisRoom = message
             self.setSendAndRecordButtonStates()
@@ -3608,9 +3607,13 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         let forward = UIAlertAction(title: "FORWARD".localizedNew, style: .default, handler: { (action) in
             IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
             IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-            self.navigationController?.popViewController(animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                IGRecentsTableViewController.forwardStartObserver.openForwardPage()
+            
+            if IGLookAndFind.isEnableGlobalSearch { // if global search is enable should be replce view controller. do this because of "hero" lib
+                IGLookAndFind.isEnableGlobalSearch = false
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
+            } else {
+                self.navigationController?.popViewController(animated: true)
             }
         })
         let edit = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in

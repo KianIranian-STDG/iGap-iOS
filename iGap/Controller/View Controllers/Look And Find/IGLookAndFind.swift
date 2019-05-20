@@ -20,6 +20,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     @IBOutlet weak var searchBar: UISearchBar!
     
     static var enableForward = false //open forward page or main tab due to the this value
+    static var isEnableGlobalSearch = false
     var findResult: [IGLookAndFindStruct] = []
     var searching = false // use this param for avoid from duplicate search
     var latestSearchText = ""
@@ -46,6 +47,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        IGLookAndFind.isEnableGlobalSearch = true
         self.navigationController?.hero.navigationAnimationType = .fade
         let attributes:[NSAttributedString.Key:Any] = [
             NSAttributedString.Key.foregroundColor : UIColor.black,
@@ -71,7 +73,8 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     private func search(query: String){
-        if query.starts(with: "#") || !IGGlobal.matches(for: "[A-Za-z0-9]", in: query) || query.contains(" ") {
+        // search username in server is enable for 5 character or more than this
+        if query.count < 5 || query.starts(with: "#") || !IGGlobal.matches(for: "[A-Za-z0-9]", in: query) || query.contains(" ") {
             fillResutl(searchText: query)
             return
         }
@@ -115,8 +118,8 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             self.findResult = []
             let realm = try! Realm()
             
-            if IGLookAndFind.enableForward {
-                self.fillUser(realm: realm, searchText: searchText)
+            if IGGlobal.isForwardEnable() {
+                self.fillUser(realm: realm, searchText: searchText, searchDisplayName: true)
                 self.fillRoom(realm: realm, searchText: searchText, searchTitle: true, isForwardEnable: true, roomType: .channel)
                 self.fillRoom(realm: realm, searchText: searchText, searchTitle: true, isForwardEnable: true, roomType: .group)
             } else if isUsername {
@@ -237,7 +240,8 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         IGRecentsTableViewController.needGetInfo = false
-        if IGLookAndFind.enableForward {
+        IGLookAndFind.isEnableGlobalSearch = false
+        if IGGlobal.isForwardEnable() {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForwardPage")
             self.searchBar.hero.id = "searchBar"
@@ -260,7 +264,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        if(searchText.count >= 5){
+        if(searchText.count >= 1){
             if let text = searchBar.text {
                 self.search(query: text)
             }
@@ -314,7 +318,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             type = IGPClientSearchUsernameResponse.IGPResult.IGPType.user.rawValue
         }
         
-        if IGLookAndFind.enableForward {
+        if IGGlobal.isForwardEnable() {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 IGRecentsTableViewController.forwardStartObserver.onForwardStart(user: searchResult.user, room: room, type: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!)
@@ -324,7 +328,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             dismiss(animated: true, completion: nil)
             
         } else {
-            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room, isForwardEnable: IGLookAndFind.enableForward)
+            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room)
         }
     }
     

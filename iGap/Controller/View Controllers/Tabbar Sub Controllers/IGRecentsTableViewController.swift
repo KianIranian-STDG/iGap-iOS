@@ -497,22 +497,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms!.count
     }
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
-
-        print(indexPath.row)
-    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        IGGlobal.getTime()
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
-        
         cell.setRoom(room: rooms![indexPath.row])
-        IGGlobal.getTime(string: "Final")
-
         return cell
     }
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
         cell.setRoom(room: rooms![indexPath.row])
@@ -898,12 +889,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
     }
     
-    func openForwardPage() {
-        self.performSegue(withIdentifier: "showForwardMessageTable", sender: self)
-    }
-    
     func onForwardStart(user: IGRegisteredUser?, room: IGRoom?, type: IGPClientSearchUsernameResponse.IGPResult.IGPType) {
-        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: type, user: user, room: room, isForwardEnable: true)
+        IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: type, user: user, room: room)
     }
 }
 
@@ -1485,7 +1472,6 @@ extension IGRecentsTableViewController {
 
 extension IGRecentsTableViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        IGLookAndFind.enableForward = false
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true

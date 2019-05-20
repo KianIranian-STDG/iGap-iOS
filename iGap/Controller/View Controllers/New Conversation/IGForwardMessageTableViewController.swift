@@ -210,7 +210,6 @@ class IGForwardMessageTableViewController: BaseTableViewController {
 
 extension IGForwardMessageTableViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        IGLookAndFind.enableForward = true
         IGGlobal.heroTabIndex = -1
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true

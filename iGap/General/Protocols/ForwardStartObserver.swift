@@ -12,6 +12,6 @@
 import IGProtoBuff
 
 protocol ForwardStartObserver {
-    func openForwardPage()
+    // open chat after call this protocol
     func onForwardStart(user: IGRegisteredUser?, room: IGRoom?, type: IGPClientSearchUsernameResponse.IGPResult.IGPType)
 }

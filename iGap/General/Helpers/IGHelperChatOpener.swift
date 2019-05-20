@@ -72,8 +72,8 @@ class IGHelperChatOpener {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
         messagesVc.room = room
-        viewController.navigationController!.pushViewController(messagesVc, animated:false)
-        viewController.navigationController?.setNavigationBarHidden(false, animated: true)
+        UIApplication.topViewController()?.navigationController?.pushViewController(messagesVc, animated:false)
+        UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     
@@ -128,11 +128,11 @@ class IGHelperChatOpener {
      * open chat room if username is for room or bot otherwise open user profile
      * also if "isForwardEnable" is true directly open chat for send forward message
      **/
-    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?, isForwardEnable: Bool = false){
+    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?){
         switch usernameType {
         case .user:
             if user == nil || (user?.isInvalidated)! {return}
-            if (user!.isBot || isForwardEnable) {
+            if (user!.isBot || IGGlobal.isForwardEnable()) {
                 IGHelperChatOpener.createChat(viewController: viewController, userId: (user?.id)!)
             } else {
                 IGHelperChatOpener.openUserProfile(user: user! , room: nil, viewController: viewController)

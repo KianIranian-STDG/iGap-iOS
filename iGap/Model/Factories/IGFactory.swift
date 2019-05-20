@@ -1323,8 +1323,8 @@ class IGFactory: NSObject {
                                 //IGDatabaseManager.shared.realm.add(IGHelperGetShareData.setRealmShareInfo(igpUser: igpRegistredUser, igUser: user), update: true)
                             }
                             
-                            savedCount = savedCount+1
-                            if savedCount == igpRegistredUsers.count {
+                            savedCount = savedCount + 1
+                            if savedCount == igpRegistredUsers.count { //after add all contacts to db do contact clearization
                                 self.clearExtraContacts()
                             }
                         }
