@@ -222,10 +222,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .payDirect:
-            let data = "{\"inquiry\":false,\"price\":123400,\"invoiceNumber\":12323455654353456,\"description\":\"کمک به سیل زدگان خوزستان\",\"title\":\"خیریه برکت\",\"toId\":147131692540747669}"
-            //            IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
-//            IGHelperAlert.shared.showAlert(data: data)
-
+            IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
         default:
             return
         }
