@@ -393,9 +393,15 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 case .sticker:
                     self.lastMessageLabel.text = "STICKERS_MESSAGE".localizedNew
                 case .wallet:
-                    self.lastMessageLabel.text = "Wallet message"
+                    if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+                        self.lastMessageLabel.text = "WALLET_MESSAGE".localizedNew
+                    } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+                        self.lastMessageLabel.text = "PAYMENT_MESSAGE".localizedNew
+                    } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+                        self.lastMessageLabel.text = "CARD_TO_CARD_MESSAGE".localizedNew
+                    }
                 default:
-                    self.lastMessageLabel.text = "Some other type of message"
+                    self.lastMessageLabel.text = "UNKNOWN_MESSAGE".localizedNew
                     break
                 }
             }

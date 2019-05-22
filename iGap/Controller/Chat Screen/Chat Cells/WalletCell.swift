@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import IGProtoBuff
 
 class WalletCell: IGMessageGeneralCollectionViewCell {
     
@@ -47,7 +48,7 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localizedNew
         lblAmountTitle.text = "PRICE".localizedNew
         lblTraceNumberTitle.text = "TRACE_NUMBER".localizedNew
-            ttlTransfer.text = "TRANSFER_MONEY".localizedNew
+        ttlTransfer.text = "TRANSFER_MONEY".localizedNew
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)
     }
@@ -56,8 +57,13 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         self.mainView.layer.cornerRadius = 12.0
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()
-        
-        guard let wallet = message.wallet else {
+
+        var wallet: IGRoomMessageMoneyTransfer!
+        if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+            wallet = message.wallet!.moneyTrasfer
+        } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+            wallet = message.wallet!.payment
+        } else {
             return
         }
         
