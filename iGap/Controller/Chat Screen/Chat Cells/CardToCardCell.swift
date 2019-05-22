@@ -11,8 +11,7 @@
 import UIKit
 import IGProtoBuff
 
-/* WalletCell is for MoneyTransfer & Payment */
-class WalletCell: IGMessageGeneralCollectionViewCell {
+class CardToCardCell: IGMessageGeneralCollectionViewCell {
     
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var txtAmount: UILabel!
@@ -29,7 +28,7 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var lblToTitle: UILabel!
     @IBOutlet weak var ttlTransfer: IGLabel!
     class func nib() -> UINib {
-        return UINib(nibName: "WalletCell", bundle: Bundle(for: self))
+        return UINib(nibName: "CardToCardCell", bundle: Bundle(for: self))
     }
     
     class func cellReuseIdentifier() -> String {
@@ -59,31 +58,8 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()
 
-        var wallet: IGRoomMessageMoneyTransfer!
-        if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-            wallet = message.wallet!.moneyTrasfer
-        } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-            wallet = message.wallet!.payment
-        } else {
+        guard let cardToCard = message.wallet?.cardToCard else {
             return
-        }
-        
-        txtAmount.text = String(describing: wallet.amount).inLocalizedLanguage() + "CURRENCY".localizedNew
-        txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
-        txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
-        
-        if let senderUser = IGRegisteredUser.getUserInfo(id: wallet.fromUserId) {
-            txtFrom.font = UIFont.igFont(ofSize: 13)
-            txtFrom.text = senderUser.displayName
-        }
-        
-        if let receiverUser = IGRegisteredUser.getUserInfo(id: wallet.toUserId) {
-            txtTo.font = UIFont.igFont(ofSize: 13)
-            txtTo.text = receiverUser.displayName
-        }
-        
-        if let time = TimeInterval(exactly: wallet.payTime) {
-            txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
         }
     }
 }

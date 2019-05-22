@@ -457,6 +457,8 @@
 		FAB436712209751A0073EEE1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB436702209751A0073EEE1 /* Alamofire.framework */; };
 		FAB4367322097B850073EEE1 /* IGStructSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367222097B850073EEE1 /* IGStructSticker.swift */; };
 		FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */; };
+		FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB623E9229526D3006DEA00 /* CardToCardCell.swift */; };
+		FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB623EB229526D5006DEA00 /* CardToCardCell.xib */; };
 		FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB798AD21A5681C0019FC92 /* Hero.framework */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
 		FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */; };
@@ -1069,6 +1071,8 @@
 		FAB436702209751A0073EEE1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		FAB4367222097B850073EEE1 /* IGStructSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructSticker.swift; sourceTree = "<group>"; };
 		FAB4367422098C7D0073EEE1 /* IGRealmSticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmSticker.swift; sourceTree = "<group>"; };
+		FAB623E9229526D3006DEA00 /* CardToCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardToCardCell.swift; sourceTree = "<group>"; };
+		FAB623EB229526D5006DEA00 /* CardToCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardToCardCell.xib; sourceTree = "<group>"; };
 		FAB798AD21A5681C0019FC92 /* Hero.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hero.framework; path = Carthage/Build/iOS/Hero.framework; sourceTree = "<group>"; };
 		FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallObserver.swift; sourceTree = "<group>"; };
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
@@ -2147,6 +2151,8 @@
 				FAB1BF73220C341300BA980B /* StickerCell.xib */,
 				FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */,
 				FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */,
+				FAB623E9229526D3006DEA00 /* CardToCardCell.swift */,
+				FAB623EB229526D5006DEA00 /* CardToCardCell.xib */,
 			);
 			path = "Chat Cells";
 			sourceTree = "<group>";
@@ -2655,6 +2661,7 @@
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
 				FA9EE5BD221ECD7100BA7735 /* WalletCell.xib in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
+				FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
@@ -3071,6 +3078,7 @@
 				93A3D3CA1E407E5200D2686F /* IGChooseMemberFromContactToCreateChannelViewController.swift in Sources */,
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
+				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
 				93AA67BC1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift in Sources */,
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
