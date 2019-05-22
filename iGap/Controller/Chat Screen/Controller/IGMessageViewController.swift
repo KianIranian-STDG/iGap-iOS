@@ -3123,7 +3123,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
         } else if messageType == .wallet {
             
-            if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+            if message.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
                 let cell: CardToCardCell = collectionView.dequeueReusableCell(withReuseIdentifier: CardToCardCell.cellReuseIdentifier(), for: indexPath) as! CardToCardCell
                 let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
                 cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
