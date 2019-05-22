@@ -48,6 +48,7 @@ class IGRoomMessageWallet: Object {
             wallet.id = message.primaryKeyId
         }
 
+        wallet.type = igpRoomMessageWallet.igpType.rawValue
         if igpRoomMessageWallet.igpType == .moneyTransfer {
             wallet.moneyTrasfer = IGRoomMessageMoneyTransfer.putOrUpdate(realm: realm, igpRoomMessageWallet: igpRoomMessageWallet, for: message)
         } else if igpRoomMessageWallet.igpType == .payment {
