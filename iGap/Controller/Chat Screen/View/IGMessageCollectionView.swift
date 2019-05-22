@@ -52,6 +52,7 @@ class IGMessageCollectionView: UICollectionView {
         self.register(LocationCell.nib(), forCellWithReuseIdentifier: LocationCell.cellReuseIdentifier())
         self.register(StickerCell.nib(), forCellWithReuseIdentifier: StickerCell.cellReuseIdentifier())
         self.register(WalletCell.nib(), forCellWithReuseIdentifier: WalletCell.cellReuseIdentifier())
+        self.register(CardToCardCell.nib(), forCellWithReuseIdentifier: CardToCardCell.cellReuseIdentifier())
         self.register(IGMessageLogCollectionViewCell.nib(), forCellWithReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier())
         self.register(IGMessageLogCollectionViewCell.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier())
     }

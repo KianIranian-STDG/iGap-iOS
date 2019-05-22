@@ -744,7 +744,11 @@
         "PRODUCTS_DETAILS" : "توضیحات",
         "PRODUCTS_NO_DETAILS" : "فاقد توضیحات",
         "TRANSFER_MONEY" : "انتقال وجه",
-
+        "WALLET_TRANSFER_MONEY" : "انتقال وجه کیف پول",
+        "CARD_TRANSFER_MONEY" : "انتقال وجه کارت به کارت",
+        "PAYMENT_TRANSFER_MONEY" : "پرداخت",
+        
+        
         "PRODUCTS_SELLER" : "فروشنده",
         "PRODUCTS_SELECT_CATEGORY" : "انتخاب دسته",
         "PRODUCTS" : "محصولات",
@@ -1309,7 +1313,11 @@
         "MSG_FORGET_PASSWORD" : "Which option do you want to use to change your password?",
         "RECOVERY_QUESTIONS" : "Recovery Questions",
         "RECOVER_PASS" : "Recover Password",
-
+        "TRANSFER_MONEY" : "Transfer Money",
+        "WALLET_TRANSFER_MONEY" : "Wallet Money Transfer",
+        "CARD_TRANSFER_MONEY" : "Card To Card Money Transfer",
+        "PAYMENT_TRANSFER_MONEY" : "Payment Money Transfer",
+        
         "NEW_PASS" : "New password",
         "SUCCESS_OTP" : "OTP Code has been send to you successfully",
         "SERVER_DOWN" : "Server is down, please try later",

@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import IGProtoBuff
 
 typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: CGFloat, additionalHeight: CGFloat)
 
@@ -117,10 +118,24 @@ class CellSizeCalculator: NSObject {
             }
             
         } else if finalMessage.type == .wallet {
-            finalSize.height = CellSizeLimit.ConstantSizes.Wallet.Height
-            finalSize.width = CellSizeLimit.ConstantSizes.Wallet.Width
+            if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+                finalSize.height = CellSizeLimit.ConstantSizes.Wallet.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Wallet.Width
+
+            } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+
+            } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+                finalSize.height = CellSizeLimit.ConstantSizes.CardToCard.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.CardToCard.Width
+
+            }
+
+           
             
-        } else if finalMessage.type == .log {
+        }
+    
+            
+        else if finalMessage.type == .log {
             finalSize.height = CellSizeLimit.ConstantSizes.Log.Height
             
         } else if finalMessage.type == .contact {

@@ -104,7 +104,38 @@ class IGMplSetSalesResult : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
- 
+class IGMplSetCardToCardResult : IGRequest {
+    
+    class func sendRequest(data : String){
+        IGMplSetCardToCardResult.Generator.generate(data : data).success({ (protoResponse) in
+            if let response = protoResponse as? IGPMplSetCardToCardResultResponse {
+                print("RESPONSE SALES SET :",response)
+            }
+        }).error ({ (errorCode, waitTime) in
+            print(errorCode)
+            switch errorCode {
+            case .timeout:
+                sendRequest(data : data)
+                
+            default:
+                break
+            }
+        }).send()
+    }
+    class Generator : IGRequest.Generator{
+        class func generate(data : String) -> IGRequestWrapper {
+            var mplSetCardToCardResult = IGPMplSetCardToCardResult()
+            mplSetCardToCardResult.igpData = data
+            return IGRequestWrapper(message: mplSetCardToCardResult, actionID: 9108)
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response reponseProtoMessage:IGPMplSetCardToCardResultResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
 class IGMplGetCardToCardToken : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate() -> IGRequestWrapper {

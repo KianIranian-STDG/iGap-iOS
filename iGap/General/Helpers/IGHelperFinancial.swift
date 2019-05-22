@@ -130,7 +130,8 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
                 }).send()
     }
     func ctcResult(encData: String, message: String, status: Int, resultCode: Int) {
-        
+        IGMplSetCardToCardResult.sendRequest(data: encData)
+
     }
     func update(encData: String, message: String, status: Int) {
         IGMplSetSalesResult.sendRequest(data: encData)

@@ -14,19 +14,24 @@ import IGProtoBuff
 class CardToCardCell: IGMessageGeneralCollectionViewCell {
     
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var txtAmount: UILabel!
-    @IBOutlet weak var txtFrom: UILabel!
-    @IBOutlet weak var txtTo: UILabel!
-    @IBOutlet weak var txtTrace: UILabel!
-    @IBOutlet weak var txtInvoice: UILabel!
-    @IBOutlet weak var txtDate: UILabel!
-    
-    @IBOutlet weak var lblAmountTitle: UILabel!
-    @IBOutlet weak var lblFromTitle: UILabel!
-    @IBOutlet weak var ttlInvoicelblInvoiceTitle: UILabel!
-    @IBOutlet weak var lblTraceNumberTitle: UILabel!
-    @IBOutlet weak var lblToTitle: UILabel!
+    @IBOutlet weak var ttlAmount: UILabel!
+    @IBOutlet weak var ttlFrom: UILabel!
+    @IBOutlet weak var ttlTo: UILabel!
+    @IBOutlet weak var ttlTrace: UILabel!
+    @IBOutlet weak var ttlInvoice: UILabel!
+    @IBOutlet weak var ttlSourceCardNUmber: UILabel!
+    @IBOutlet weak var ttlDestinationCardNUmber: UILabel!
+
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblFrom: UILabel!
+    @IBOutlet weak var lblSourceCard: UILabel!
+    @IBOutlet weak var lblDestinationCard: UILabel!
+    @IBOutlet weak var ttlInvoicelblInvoiceNumber: UILabel!
+    @IBOutlet weak var lblTraceNumber: UILabel!
+    @IBOutlet weak var lblTo: UILabel!
     @IBOutlet weak var ttlTransfer: IGLabel!
+    @IBOutlet weak var ttlDate: UILabel!
+
     class func nib() -> UINib {
         return UINib(nibName: "CardToCardCell", bundle: Bundle(for: self))
     }
@@ -43,14 +48,23 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
     }
     func initChangeLang() {
-        lblToTitle.text = "GLOBAL_TO".localizedNew
-        lblFromTitle.text = "GLOBAL_FROM".localizedNew
-        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localizedNew
-        lblAmountTitle.text = "PRICE".localizedNew
-        lblTraceNumberTitle.text = "TRACE_NUMBER".localizedNew
-        ttlTransfer.text = "TRANSFER_MONEY".localizedNew
+        ttlTransfer.text = "CARD_TRANSFER_MONEY".localizedNew
+        ttlTransfer.backgroundColor = UIColor.iGapSkyBlue()
+        ttlDate.backgroundColor = UIColor.iGapSkyBlue()
+        ttlTransfer.textColor = UIColor.black
+        ttlDate.textColor = UIColor.black
+        ttlTo.text = "GLOBAL_TO".localizedNew
+        ttlFrom.text = "GLOBAL_FROM".localizedNew
+        ttlInvoice.text = "TTL_INVOICE_NUMBER".localizedNew
+        ttlAmount.text = "PRICE".localizedNew
+        ttlTransfer.text = "TRACE_NUMBER".localizedNew
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
-        txtDate.font = UIFont.igFont(ofSize: 15)
+        ttlDate.font = UIFont.igFont(ofSize: 15)
+        ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".localizedNew
+        ttlSourceCardNUmber.text = "TTL_CARDNUM".localizedNew
+
+
+        
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {

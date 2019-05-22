@@ -21,6 +21,7 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var txtTrace: UILabel!
     @IBOutlet weak var txtInvoice: UILabel!
     @IBOutlet weak var txtDate: UILabel!
+    var wallet: IGRoomMessageMoneyTransfer!
     
     @IBOutlet weak var lblAmountTitle: UILabel!
     @IBOutlet weak var lblFromTitle: UILabel!
@@ -49,7 +50,6 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localizedNew
         lblAmountTitle.text = "PRICE".localizedNew
         lblTraceNumberTitle.text = "TRACE_NUMBER".localizedNew
-        ttlTransfer.text = "TRANSFER_MONEY".localizedNew
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)
     }
@@ -58,16 +58,27 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         self.mainView.layer.cornerRadius = 12.0
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()
-
-        var wallet: IGRoomMessageMoneyTransfer!
+        
         if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
             wallet = message.wallet!.moneyTrasfer
+            ttlTransfer.text = "WALLET_TRANSFER_MONEY".localizedNew
+            ttlTransfer.backgroundColor = UIColor.iGapYellow()
+            txtDate.backgroundColor = UIColor.iGapYellow()
+            ttlTransfer.textColor = UIColor.black
+            txtDate.textColor = UIColor.black
+            
         } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
             wallet = message.wallet!.payment
+            ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".localizedNew
+            ttlTransfer.backgroundColor = UIColor.iGapGreen()
+            txtDate.backgroundColor = UIColor.iGapGreen()
+            ttlTransfer.textColor = UIColor.white
+            txtDate.textColor = UIColor.white
+            
+            
         } else {
             return
         }
-        
         txtAmount.text = String(describing: wallet.amount).inLocalizedLanguage() + "CURRENCY".localizedNew
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()

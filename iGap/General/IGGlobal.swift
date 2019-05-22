@@ -31,12 +31,12 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 
 class IGGlobal {
-
+    
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
-
+    
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -73,7 +73,7 @@ class IGGlobal {
         }
         return nil
     }
-
+    
     /*
      * check file exist in path or no. also if 'fileSize' is set to the input of the method,
      * size of file that exist in path and 'fileSize' which is set, will be compared.
@@ -365,6 +365,12 @@ extension UIColor {
     
     class func iGapGreen() -> UIColor {
         return iGapMainColor()
+    }
+    class func iGapYellow() -> UIColor {
+        return UIColor(red: 244/255.0, green: 212/255.0, blue: 66/255.0, alpha: 0.9)
+    }
+    class func iGapSkyBlue() -> UIColor {
+        return UIColor(red: 66/255.0, green: 212/255.0, blue: 244/255.0, alpha: 0.9)
     }
     
     class func iGapGray() -> UIColor {
@@ -754,11 +760,11 @@ extension UIImageView {
                 let previewType: IGFile.PreviewType = .smallThumbnail
                 let thumbnail: IGFile = attachment.smallThumbnail!
                 /*
-                if fileSizeKB > 1024 {
-                    previewType = .largeThumbnail
-                    thumbnail = attachment.largeThumbnail!
-                }
-                */
+                 if fileSizeKB > 1024 {
+                 previewType = .largeThumbnail
+                 thumbnail = attachment.largeThumbnail!
+                 }
+                 */
                 
                 do {
                     var path = URL(string: "")
@@ -1256,10 +1262,10 @@ extension String {
     }
     var localizedNew: String {
         let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
-
+        
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
-
+        
         return MCLocalization.string(forKey: self)
     }
     func substring(offset: Int) -> String{
@@ -1296,7 +1302,7 @@ extension String {
         return stringArray
     }
     
- 
+    
     
     func inRialFormat()->String{
         
@@ -1321,7 +1327,7 @@ extension String {
         }
         return false
     }
-
+    
     subscript(_ range: CountableRange<Int>) -> String {
         let idx1 = index(startIndex, offsetBy: max(0, range.lowerBound))
         let idx2 = index(startIndex, offsetBy: min(self.count, range.upperBound))
@@ -1349,7 +1355,7 @@ extension Character {
             || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
     }
 }
-        
+
 extension Float {
     var cleanDecimal: String {
         return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
@@ -1448,11 +1454,11 @@ extension UIApplication {
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
+    return input.rawValue
 }

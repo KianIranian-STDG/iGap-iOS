@@ -110,6 +110,11 @@ class CellSizeLimit: NSObject {
             static let Width: CGFloat = 220.0
             static let Height: CGFloat = 300.0
         }
+        
+        struct CardToCard {
+            static let Width: CGFloat = 220.0
+            static let Height: CGFloat = 400.0
+        }
     }
     
     private struct ChannelConstantSizes {
