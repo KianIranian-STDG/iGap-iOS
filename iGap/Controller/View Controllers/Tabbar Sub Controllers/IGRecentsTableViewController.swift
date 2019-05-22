@@ -763,9 +763,15 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRoomForSegue = rooms![indexPath.row]
-        self.tableView.isUserInteractionEnabled = false
+        if selectedRoomForSegue == nil || selectedRoomForSegue!.isInvalidated {
+            return
+        }
 
-        performSegue(withIdentifier: "showRoomMessages", sender: self)
+        if IGGlobal.isForwardEnable() && selectedRoomForSegue!.isReadOnly {
+            IGHelperAlert.shared.showAlert(view: self, title: selectedRoomForSegue?.title, message: "FORWARD_PERMISSION".localizedNew)
+        } else {
+            performSegue(withIdentifier: "showRoomMessages", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

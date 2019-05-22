@@ -851,7 +851,8 @@
         "GLOBAL_ERRORMSG" : "خطایی رخ داده است مجددا تلاش نمایید.",
         "PU_BALLOON" : "طرح ها",
         "PU_MERCHANTS" : "فروشگاه ها",
-        "Token_Error" : "نرم‌افزار نیاز به بروزرسانی اطلاعات اکانت شما دارد. لطفا مجددا تلاش نمایید."
+        "Token_Error" : "نرم‌افزار نیاز به بروزرسانی اطلاعات اکانت شما دارد. لطفا مجددا تلاش نمایید.",
+        "FORWARD_PERMISSION" : "متاسفانه امکان ارسال پیام در گفتگو برای شما وجود ندارد!"
     },
     "en": {
         "NEW_MESSAGES" : "New Messages",
@@ -1715,7 +1716,8 @@
         "GLOBAL_PERCENT" : "Percent",
         "PU_BALLOON" : "Plans",
         "PU_MERCHANTS" : "Stores",
-        "Token_Error" : "App needed to refresh your authentication detail, please try again."
+        "Token_Error" : "App needed to refresh your authentication detail, please try again.",
+        "FORWARD_PERMISSION" : "Sorry, you are not allowed to send any messages to this chat!"
     }
 }
 

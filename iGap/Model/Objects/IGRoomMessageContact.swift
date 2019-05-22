@@ -95,7 +95,9 @@ class IGRoomMessageContact: Object {
         let predicate = NSPredicate(format: "id = %@", message.primaryKeyId!)
         var contactInDb: IGRoomMessageContact! = realm.objects(IGRoomMessageContact.self).filter(predicate).first
 
-        if contactInDb == nil {
+        if contactInDb != nil {
+            return contactInDb
+        } else {
             contactInDb = IGRoomMessageContact()
             contactInDb.id = message.primaryKeyId
         }
