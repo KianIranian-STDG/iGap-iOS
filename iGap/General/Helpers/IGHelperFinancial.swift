@@ -12,7 +12,7 @@ import IGProtoBuff
 import RealmSwift
 import PecPayment
 
-class IGHelperFinancial: NSObject, CardToCardResult {
+class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     
     static let shared = IGHelperFinancial()
     
@@ -110,7 +110,34 @@ class IGHelperFinancial: NSObject, CardToCardResult {
         }).send()
     }
     
+    public func sendPayDirectRequest(inquery: Bool, amount: Int64 , toUserId: Int64 , invoiceNUmber: Int64 , description: String ){
+        IGGlobal.prgShow()
+        IGMplGetSalesToken.Generator.generate(inquery: inquery, amount: amount , toUserId: toUserId , invoiceNUmber: invoiceNUmber , description: description).success({ (protoResponse) in
+            IGGlobal.prgHide()
+
+                    if let response = protoResponse as? IGPMplGetSalesTokenResponse {
+                        let initpayment = InitPayment()
+                        initpayment.registerPay(merchant: self)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+
+                        initpayment.initPay(Token: response.igpToken, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
+
+                        }
+                    }
+                }).error ({ (errorCode, waitTime) in
+                                            IGGlobal.prgHide()
+
+                }).send()
+    }
     func ctcResult(encData: String, message: String, status: Int, resultCode: Int) {
         
     }
+    func update(encData: String, message: String, status: Int) {
+        IGMplSetSalesResult.sendRequest(data: encData)
+    }
+    
+    func error(errorType: Int, orderID: Int) {
+    }
+    
+    
 }

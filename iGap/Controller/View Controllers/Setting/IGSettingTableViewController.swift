@@ -426,9 +426,13 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "showCacheSetting", sender: self)
             } else if rowIndex == 10 {
-                shareContent = "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net"
-                let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
-                present(activityViewController, animated: true, completion: nil)
+//                shareContent = "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net"
+//                let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
+//                present(activityViewController, animated: true, completion: nil)
+                let data = "{\"inquiry\":false,\"price\":1000,\"invoiceNumber\":12567600005003456,\"description\":\"کمک به سیل زدگان خوزستان\",\"title\":\"خیریه برکت\",\"toId\":147131692540747669}"
+                //            IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
+                IGHelperAlert.shared.showAlert(data: data)
+
             } else if rowIndex == 11 {
                 self.tableView.isUserInteractionEnabled = false
                 performSegue(withIdentifier: "GoToAboutSettingPage", sender: self)
@@ -440,7 +444,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         }
         self.tableView.deselectRow(at: indexPath, animated: false)
     }
-    
+  
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return CGFloat.leastNormalMagnitude

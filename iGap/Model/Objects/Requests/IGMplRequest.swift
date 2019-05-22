@@ -48,13 +48,19 @@ class IGMplGetTopupToken : IGRequest {
     }
 }
 
-/*
 class IGMplGetSalesToken : IGRequest {
+    
+    
+    
+    
     class Generator : IGRequest.Generator{
-        class func generate(botId: Int64, amount: Int64) -> IGRequestWrapper {
+        class func generate(inquery: Bool, amount: Int64 , toUserId: Int64 , invoiceNUmber: Int64 , description: String ) -> IGRequestWrapper {
             var mplGetSales = IGPMplGetSalesToken()
-            mplGetSales.igpBotID = botId
             mplGetSales.igpAmount = amount
+            mplGetSales.igpInquiry = inquery
+            mplGetSales.igpToUserID = toUserId
+            mplGetSales.igpDescription = description
+            mplGetSales.igpInvoiceNumber = invoiceNUmber
             return IGRequestWrapper(message: mplGetSales, actionID: 9102)
         }
     }
@@ -64,8 +70,41 @@ class IGMplGetSalesToken : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
-*/
 
+class IGMplSetSalesResult : IGRequest {
+    
+    class func sendRequest(data : String){
+        IGMplSetSalesResult.Generator.generate(data : data).success({ (protoResponse) in
+            if let response = protoResponse as? IGPMplSetSalesResultResponse {
+                print("RESPONSE SALES SET :",response)
+            }
+        }).error ({ (errorCode, waitTime) in
+            print(errorCode)
+            switch errorCode {
+            case .timeout:
+                sendRequest(data : data)
+                
+            default:
+                break
+            }
+        }).send()
+    }
+    class Generator : IGRequest.Generator{
+        class func generate(data : String) -> IGRequestWrapper {
+            var mplSetSalesResult = IGPMplSetSalesResult()
+            mplSetSalesResult.igpData = data
+            print(data)
+            print(mplSetSalesResult.igpData)
+            return IGRequestWrapper(message: mplSetSalesResult, actionID: 9103)
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response reponseProtoMessage:IGPMplSetSalesResultResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+ 
 class IGMplGetCardToCardToken : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate() -> IGRequestWrapper {

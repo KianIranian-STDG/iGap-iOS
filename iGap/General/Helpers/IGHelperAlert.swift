@@ -43,7 +43,10 @@ class IGHelperAlert {
             alertView!.present(alert, animated: true, completion: nil)
         }
     }
-    
+    func showAlert(data : String) {
+        let alert = CustomAlertDirectPay(data: data)
+        alert.show(animated: true)
+    }
     func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil){
         DispatchQueue.main.async {
             
