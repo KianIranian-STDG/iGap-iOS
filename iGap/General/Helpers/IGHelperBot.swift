@@ -9,7 +9,7 @@
  */
 
 import SnapKit
-
+var tmpUserID : Int64!
 class IGHelperBot {
     
     static let shared = IGHelperBot()
@@ -188,6 +188,9 @@ class IGHelperBot {
     /**************************************************/
     
     private func manageAdditionalActions(structAdditional: IGStructAdditionalButton){
+
+
+        
         switch structAdditional.actionType {
             
         case ButtonActionType.NONE.rawValue :
@@ -226,6 +229,8 @@ class IGHelperBot {
             break
             
         case ButtonActionType.PAY_DIRECT.rawValue :
+            IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
+
             break
             
         case ButtonActionType.REQUEST_PHONE.rawValue :

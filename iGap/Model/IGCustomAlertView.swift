@@ -40,9 +40,17 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         let data = Data(str.utf8)
         
         do {
+            
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                print(json)
-                toUserID = json["toId"] as! Int64
+                if str.contains("toId") {
+                    toUserID = json["toId"] as! Int64
+
+                }
+                else {
+                    toUserID = tmpUserID
+
+                }
                 amount = json["price"] as! Int64
                 invoiceNumber = json["invoiceNumber"] as! Int64
                 descriptionR = (json["description"] as! String)

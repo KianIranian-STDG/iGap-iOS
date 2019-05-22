@@ -241,12 +241,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-//        LightboxConfig.DeleteButton.enabled = true
-//        LightboxConfig.DeleteButton.text = "Delete"
-//
+        tmpUserID  =  self.room?.chatRoom?.peer?.id
+
         
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
-//        inputTextView.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
@@ -881,6 +879,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
     /* overrided method */
     func onAdditionalSendMessage(structAdditional: IGStructAdditionalButton) {
+        
         let message = IGRoomMessage(body: structAdditional.label)
         message.additional = IGRealmAdditional(additionalData: structAdditional.json, additionalType: 3)
         let detachedMessage = message.detach()
@@ -903,6 +902,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func onBotClick(){
         self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
     }
+    func onAdditionalRequestPayDirect(structAdditional :IGStructAdditionalButton){
+        tmpUserID  =  self.room?.chatRoom?.peer?.id
+        IGHelperAlert.shared.showAlert(data: structAdditional.value)
+    }
+    
     
     private func manageRequestPhone(){
         self.view.endEditing(true)
@@ -4252,3 +4256,5 @@ extension Array where Element: Equatable {
         return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
     }
 }
+
+
