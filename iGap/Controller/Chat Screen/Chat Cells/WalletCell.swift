@@ -20,6 +20,12 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var txtInvoice: UILabel!
     @IBOutlet weak var txtDate: UILabel!
     
+    @IBOutlet weak var lblAmountTitle: UILabel!
+    @IBOutlet weak var lblFromTitle: UILabel!
+    @IBOutlet weak var ttlInvoicelblInvoiceTitle: UILabel!
+    @IBOutlet weak var lblTraceNumberTitle: UILabel!
+    @IBOutlet weak var lblToTitle: UILabel!
+    @IBOutlet weak var ttlTransfer: IGLabel!
     class func nib() -> UINib {
         return UINib(nibName: "WalletCell", bundle: Bundle(for: self))
     }
@@ -30,9 +36,20 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        initChangeLang()
         self.cellMessage = nil
         self.delegate = nil
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
+    }
+    func initChangeLang() {
+        lblToTitle.text = "GLOBAL_TO".localizedNew
+        lblFromTitle.text = "GLOBAL_FROM".localizedNew
+        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localizedNew
+        lblAmountTitle.text = "PRICE".localizedNew
+        lblTraceNumberTitle.text = "TRACE_NUMBER".localizedNew
+            ttlTransfer.text = "TRANSFER_MONEY".localizedNew
+        ttlTransfer.font = UIFont.igFont(ofSize: 15)
+        txtDate.font = UIFont.igFont(ofSize: 15)
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
@@ -44,9 +61,9 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
             return
         }
         
-        txtAmount.text = String(describing: wallet.amount) + " Rials"
-        txtTrace.text = String(describing: wallet.traceNumber)
-        txtInvoice.text = String(describing: wallet.invoiceNumber)
+        txtAmount.text = String(describing: wallet.amount).inLocalizedLanguage() + "CURRENCY".localizedNew
+        txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
+        txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         
         if let senderUser = IGRegisteredUser.getUserInfo(id: wallet.fromUserId) {
             txtFrom.font = UIFont.igFont(ofSize: 13)
@@ -59,7 +76,7 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         }
         
         if let time = TimeInterval(exactly: wallet.payTime) {
-            txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime()
+            txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
         }
     }
 }

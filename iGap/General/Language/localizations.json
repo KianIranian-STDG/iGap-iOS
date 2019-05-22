@@ -288,7 +288,7 @@
         "A_FEW_SEC_AGO" : "چند ثانیه قبل",
         "MINUTE" : "دقیقه",
 
-        
+        "PRICE" : "مبلغ",
         "TTL_DELETE_CONTACT" : "حذف مخاطب.",
         "TTL_MAP_STATUS" : "فعال سازی قابلیت اطراف من",
         "TTL_ATTENTION" : "توجه",
@@ -739,6 +739,7 @@
         "PRODUCTS_DISCOUNT" : "تخفیف، سود شما",
         "PRODUCTS_DETAILS" : "توضیحات",
         "PRODUCTS_NO_DETAILS" : "فاقد توضیحات",
+        "TRANSFER_MONEY" : "انتقال وجه",
 
         "PRODUCTS_SELLER" : "فروشنده",
         "PRODUCTS_SELECT_CATEGORY" : "انتخاب دسته",
@@ -835,8 +836,9 @@
         "GLOBAL_NO" : "خیر",
         "GLOBAL_OK" : "تایید",
         "GLOBAL_DONE" : "تایید",
+        "TRACE_NUMBER" : "شماره پیگیری",
 
-        "GLOBAL_TO" : "تا",
+        "GLOBAL_TO" : "به",
         "GLOBAL_BACK" : "بازگشت",
         "GLOBAL_CLOSE" : "بستن",
         "GLOBAL_CREAT" : "ایجاد",
@@ -1034,6 +1036,7 @@
         "CHANGE_SECURITY_Q" : "Change Security Questions",
         "SET_CHANGE_RECO_EMAIL" : "Change or Set Recovery Email",
         "VERIFY_EMAIL" : "Verify Email",
+        "TRANSFER_MONEY" : "Transfer Money",
 
         
         
@@ -1689,7 +1692,7 @@
         "GLOBAL_COUPON" : "Coupon",
         "GLOBAL_MESSAGE" : "Message",
         "GLOBAL_ALL" : "All",
-        "GLOBAL_FROM" : "from",
+        "GLOBAL_FROM" : "From",
         "GLOBAL_UNKNOWN" : "Unknown",
         "GLOBAL_OKCLOSE" : "verify and close",
         "GLOBAL_OKGO" : "verify and continue",
@@ -1697,10 +1700,12 @@
         "GLOBAL_NO" : "No",
         "GLOBAL_OK" : "OK",
         "GLOBAL_DONE" : "Done",
-        "GLOBAL_TO" : "to",
+        "GLOBAL_TO" : "To",
         "GLOBAL_BACK" : "back",
         "GLOBAL_CLOSE" : "Close",
         "GLOBAL_CREAT" : "Creat",
+        "PRICE" : "Amount",
+        "TRACE_NUMBER" : "Trace Number",
 
         "GLOBAL_UNLIMITED" : "unlimited",
         "GLOBAL_CAPTION" : "subject",
