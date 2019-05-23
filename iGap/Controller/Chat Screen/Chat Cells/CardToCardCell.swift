@@ -95,7 +95,7 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         lblTo.text = cardToCard.cardOwnerName!
 
         if let time = TimeInterval(exactly: cardToCard.requestTime) {
-            ttlDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
+            ttlDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage()
         }
     }
 }

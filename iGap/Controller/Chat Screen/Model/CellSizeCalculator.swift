@@ -126,7 +126,7 @@ class CellSizeCalculator: NSObject {
                 /* increase wallet description height if has data */
                 if let walletDescription = finalMessage.wallet?.moneyTrasfer?.walletDescription, !walletDescription.isEmpty {
                     let descriptionWidth = CellSizeLimit.ConstantSizes.MoneyTransfer.Width - 40 // '40' is margin from left & right for description label
-                    let walletDescriptionSize = CellSizeCalculator.bodyRect(text: IGGlobal.sampleText as NSString, width: descriptionWidth, isEdited: false, room: room)
+                    let walletDescriptionSize = CellSizeCalculator.bodyRect(text: walletDescription as NSString, width: descriptionWidth, isEdited: false, room: room)
                     finalSize.height += walletDescriptionSize.height
                     // Hint: use "messageAttachmentHeight" for description height in "MoneyTransferCell"
                     messageAttachmentHeight = walletDescriptionSize.height
@@ -139,7 +139,7 @@ class CellSizeCalculator: NSObject {
                 /* increase wallet description height if has data */
                 if let paymentDescription = finalMessage.wallet?.payment?.walletDescription, !paymentDescription.isEmpty {
                     let descriptionWidth = CellSizeLimit.ConstantSizes.Payment.Width - 40 // '40' is margin from left & right for description label
-                    let paymentDescriptionSize = CellSizeCalculator.bodyRect(text: IGGlobal.sampleText as NSString, width: descriptionWidth, isEdited: false, room: room)
+                    let paymentDescriptionSize = CellSizeCalculator.bodyRect(text: paymentDescription as NSString, width: descriptionWidth, isEdited: false, room: room)
                     finalSize.height += paymentDescriptionSize.height
                     // Hint: use "messageAttachmentHeight" for description height in "PaymentCell"
                     messageAttachmentHeight = paymentDescriptionSize.height

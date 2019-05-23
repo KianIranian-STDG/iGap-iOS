@@ -586,10 +586,10 @@ extension Date {
         return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))".inLocalizedLanguage()
     }
     
-    func completeHumanReadableTime() -> String {
+    func completeHumanReadableTime(showHour: Bool = false) -> String {
         let dayTimePeriodFormatter = DateFormatter()
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY - HH:mm"
-        let dateString = self.localizedDate()
+        let dateString = self.localizedDate(showHour: showHour)
         return dateString.inLocalizedLanguage()
     }
     

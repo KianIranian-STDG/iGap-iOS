@@ -22,13 +22,12 @@ extension Date {
         return convertedDate
     }
     
-    func localizedDate() -> String {
+    func localizedDate(showHour: Bool = false) -> String {
         var convertedDate = ""
         if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            convertedDate =  SMDateUtil.toGregorianOnlyDate(self).inLocalizedLanguage()
-        }
-        else {
-            convertedDate =  SMDateUtil.toPersianOnlyDate(self).inLocalizedLanguage()
+            convertedDate =  SMDateUtil.toGregorianOnlyDate(self, showHour: showHour).inLocalizedLanguage()
+        } else {
+            convertedDate =  SMDateUtil.toPersianOnlyDate(self, showHour: showHour).inLocalizedLanguage()
         }
         return convertedDate
     }
@@ -73,8 +72,7 @@ extension String {
     func inLocalizedLanguage()->String{
         if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
             return self.inEnglishNumbers()
-        }
-        else{
+        } else {
             return self.inPersianNumbers()
         }
     }
@@ -87,8 +85,6 @@ extension String {
             }
         }
     }
-    
-    
 }
 
 extension UIImageView {

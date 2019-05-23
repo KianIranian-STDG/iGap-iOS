@@ -92,7 +92,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         }
         
         if let time = TimeInterval(exactly: wallet.payTime) {
-            txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
+            txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime(showHour: true).inLocalizedLanguage()
         }
         
         mainViewHeight.constant = messageSizes.bubbleSize.height

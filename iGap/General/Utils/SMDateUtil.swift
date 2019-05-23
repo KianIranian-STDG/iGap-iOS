@@ -129,21 +129,33 @@ import Foundation
         return String(day!) + " " + m + " " + String(year!)
     }
     
-    static func toPersianOnlyDate(_ date: Date) -> String {
+    static func toPersianOnlyDate(_ date: Date, showHour: Bool = false) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.persian)
         let day = (calendar as NSCalendar?)?.component(NSCalendar.Unit.day, from: date)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
         let m = month!
+        
+        if showHour {
+            let hour = (calendar as NSCalendar?)?.component(.hour, from: date)
+            let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
+            return String(year!) + "/" + String(m) + "/" + String(day!) + "  -  " + String(hour!) + ":" + String(minute!)
+        }
         return String(year!) + "/" + String(m) + "/" + String(day!);
     }
     
-    static func toGregorianOnlyDate(_ date: Date) -> String {
+    static func toGregorianOnlyDate(_ date: Date, showHour: Bool = false) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let day = (calendar as NSCalendar?)?.component(NSCalendar.Unit.day, from: date)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
         let m = month!
+        
+        if showHour {
+            let hour = (calendar as NSCalendar?)?.component(.hour, from: date)
+            let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
+            return String(year!) + "/" + String(m) + "/" + String(day!) + "  -  " + String(hour!) + ":" + String(minute!)
+        }
         return String(year!) + "/" + String(m) + "/" + String(day!);
     }
     
