@@ -441,6 +441,8 @@
         "WAGE" : "کارمزد",
         "DEST_CARD" : "کارت مقصد",
         "DEST_BANK" : "بانک مقصد",
+        "SOURCE_BANK" : "بانک مبدا",
+
         "OWNER_NAME" : "نام صاحب",
         "OTP_CODE" : "کد یکبارمصرف",
         "CONFIRM_NEW_PASS" : "تکرار رمز عبور",
@@ -1301,6 +1303,7 @@
         "WAGE" : "Wage",
         "DEST_CARD" : "Destination Card",
         "DEST_BANK" : "Destination Bank",
+        "SOURCE_BANK" : "Source Bank",
         "OWNER_NAME" : "Owner Name",
         "OTP_CODE" : "OTP Code",
         "CONFIRM_NEW_PASS" : "Confirm new password",

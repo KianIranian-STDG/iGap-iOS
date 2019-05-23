@@ -21,7 +21,11 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var ttlInvoice: UILabel!
     @IBOutlet weak var ttlSourceCardNUmber: UILabel!
     @IBOutlet weak var ttlDestinationCardNUmber: UILabel!
+    @IBOutlet weak var ttlDestinationBankName: UILabel!
+    @IBOutlet weak var ttlSourceBankName: UILabel!
 
+    @IBOutlet weak var lblDestinationBankName: UILabel!
+    @IBOutlet weak var lblSourceBankName: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblFrom: UILabel!
     @IBOutlet weak var lblSourceCard: UILabel!
@@ -57,14 +61,14 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         ttlFrom.text = "GLOBAL_FROM".localizedNew
         ttlInvoice.text = "TTL_INVOICE_NUMBER".localizedNew
         ttlAmount.text = "PRICE".localizedNew
-        ttlTransfer.text = "TRACE_NUMBER".localizedNew
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         ttlDate.font = UIFont.igFont(ofSize: 15)
         ttlDestinationCardNUmber.text = "TTL_DESTI_CARDNUM".localizedNew
         ttlSourceCardNUmber.text = "TTL_CARDNUM".localizedNew
+        ttlSourceBankName.text = "SOURCE_BANK".localizedNew
+        ttlDestinationBankName.text = "DEST_BANK".localizedNew
+        ttlTrace.text = "TRACE_NUMBER".localizedNew
 
-
-        
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
@@ -74,6 +78,27 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
 
         guard let cardToCard = message.wallet?.cardToCard else {
             return
+        }
+        lblAmount.text = String(describing: cardToCard.amount).inLocalizedLanguage() + "CURRENCY".localizedNew
+        lblTraceNumber.text =  (cardToCard.traceNumber)!.inLocalizedLanguage()
+        ttlInvoicelblInvoiceNumber.text = (cardToCard.rrn)!.inLocalizedLanguage()
+        lblSourceCard.text = (cardToCard.sourceCardNumber)!.inLocalizedLanguage()
+        lblDestinationCard.text = (cardToCard.destCardNumber)!.inLocalizedLanguage()
+        lblSourceBankName.text = (cardToCard.bankName)!.inLocalizedLanguage()
+        lblDestinationBankName.text = (cardToCard.destBankName)!.inLocalizedLanguage()
+
+        if let senderUser = IGRegisteredUser.getUserInfo(id: cardToCard.fromUserId) {
+            lblFrom.font = UIFont.igFont(ofSize: 13)
+            lblFrom.text = senderUser.displayName
+        }
+        lblTo.font = UIFont.igFont(ofSize: 13)
+        lblTo.text = cardToCard.cardOwnerName!
+
+       
+        
+        
+        if let time = TimeInterval(exactly: cardToCard.requestTime) {
+            ttlDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
         }
     }
 }

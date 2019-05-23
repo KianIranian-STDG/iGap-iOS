@@ -113,7 +113,7 @@ class CellSizeLimit: NSObject {
         
         struct CardToCard {
             static let Width: CGFloat = 220.0
-            static let Height: CGFloat = 400.0
+            static let Height: CGFloat = 480.0
         }
     }
     

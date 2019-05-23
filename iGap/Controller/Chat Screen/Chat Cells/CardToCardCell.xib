@@ -17,14 +17,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CardToCardCell" customModule="iGap">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="480"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="400"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="480"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxx-iN-ihX">
-                        <rect key="frame" x="40" y="12.5" width="220" height="375"/>
+                        <rect key="frame" x="40" y="0.0" width="220" height="480"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer Money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXj-hQ-xRd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="220" height="30"/>
@@ -148,14 +148,64 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vox-Nd-Qme">
-                                <rect key="frame" x="20" y="304" width="180" height="1"/>
+                                <rect key="frame" x="20" y="409" width="180" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="DXv-pp-ODX"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6u2-Dw-ofL">
+                                <rect key="frame" x="20" y="363" width="180" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ssg-lF-d8j"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trace Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlw-71-72c" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="369" width="220" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="LNX-Bs-7Vo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wuq-V7-bDd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="389" width="220" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="fXa-h1-QPF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEY-mm-eQg">
+                                <rect key="frame" x="20" y="271" width="180" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="ZLe-lJ-58o"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trace Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHJ-UB-BJ4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="277" width="220" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="z5L-rm-CS7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPm-Tf-wZ5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="297" width="220" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="vAu-p6-SVr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invoice Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nn-ja-PsI" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="310" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="415" width="220" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="CNc-Vh-KTv"/>
                                 </constraints>
@@ -164,7 +214,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWi-Nd-w6u" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="330" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="435" width="220" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="PRF-A0-XoK"/>
                                 </constraints>
@@ -173,10 +223,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date of transfer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-Mw-Hqj" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="345" width="220" height="30"/>
+                                <rect key="frame" x="0.0" y="450" width="220" height="30"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="mOd-8Z-Edi"/>
+                                    <constraint firstAttribute="height" constant="30" id="vdb-vg-4X3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -189,26 +239,26 @@
                                     <constraint firstAttribute="height" constant="1" id="A9N-wu-bWS"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6u2-Dw-ofL">
-                                <rect key="frame" x="20" y="258" width="180" height="1"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1G-W6-WaJ">
+                                <rect key="frame" x="20" y="317" width="180" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="ssg-lF-d8j"/>
+                                    <constraint firstAttribute="height" constant="1" id="Ywk-xX-mhe"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trace Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlw-71-72c" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="264" width="220" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trace Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdp-8Q-xJq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="323" width="220" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="LNX-Bs-7Vo"/>
+                                    <constraint firstAttribute="height" constant="15" id="ilk-be-MAH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wuq-V7-bDd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="284" width="220" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDM-bB-jhx" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="343" width="220" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="fXa-h1-QPF"/>
+                                    <constraint firstAttribute="height" constant="15" id="UeB-03-dCF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
@@ -217,13 +267,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.89803921568627454" green="0.88235294117647056" blue="0.86274509803921573" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="tPm-Tf-wZ5" secondAttribute="trailing" id="06F-kb-Y3V"/>
+                            <constraint firstItem="ZEY-mm-eQg" firstAttribute="top" secondItem="k8C-fJ-yb3" secondAttribute="bottom" constant="17" id="0QW-1J-3We"/>
                             <constraint firstItem="uST-xH-BKZ" firstAttribute="top" secondItem="HI7-Vi-jvM" secondAttribute="bottom" constant="5" id="1I1-3j-VIP"/>
-                            <constraint firstItem="dSq-Mw-Hqj" firstAttribute="top" secondItem="QWi-Nd-w6u" secondAttribute="bottom" id="2o9-ge-RRY"/>
+                            <constraint firstItem="ZEY-mm-eQg" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="4wt-49-kGM"/>
                             <constraint firstItem="YqU-0f-1FH" firstAttribute="top" secondItem="zdG-1H-RlP" secondAttribute="bottom" constant="5" id="4x4-G0-Z4i"/>
                             <constraint firstAttribute="trailing" secondItem="sYl-qu-tud" secondAttribute="trailing" id="547-G6-qGJ"/>
                             <constraint firstItem="2Nn-ja-PsI" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="5NY-hF-sTw"/>
                             <constraint firstAttribute="trailing" secondItem="2Nn-ja-PsI" secondAttribute="trailing" id="6gP-P4-0wd"/>
-                            <constraint firstAttribute="height" constant="375" id="75D-SA-7gv"/>
+                            <constraint firstItem="A1G-W6-WaJ" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="71Q-SX-gli"/>
+                            <constraint firstAttribute="height" constant="480" id="75D-SA-7gv"/>
                             <constraint firstItem="vox-Nd-Qme" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="8Wv-KM-dYN"/>
                             <constraint firstItem="Wuq-V7-bDd" firstAttribute="top" secondItem="wlw-71-72c" secondAttribute="bottom" constant="5" id="8cm-W0-ZlZ"/>
                             <constraint firstItem="zMS-aO-wiK" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="9hz-Wt-gYT"/>
@@ -240,16 +293,21 @@
                             <constraint firstItem="6u2-Dw-ofL" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="DZs-hD-8si"/>
                             <constraint firstAttribute="width" constant="220" id="EsD-2W-DkV"/>
                             <constraint firstItem="zQ3-y0-spZ" firstAttribute="top" secondItem="mmS-TW-VOb" secondAttribute="bottom" constant="5" id="FEY-ko-Bmp"/>
+                            <constraint firstItem="HDM-bB-jhx" firstAttribute="top" secondItem="mdp-8Q-xJq" secondAttribute="bottom" constant="5" id="Gvi-B3-f4D"/>
                             <constraint firstItem="k8C-fJ-yb3" firstAttribute="top" secondItem="I0v-SK-KAe" secondAttribute="bottom" constant="5" id="Hbc-C8-1uk"/>
                             <constraint firstAttribute="trailing" secondItem="KXj-hQ-xRd" secondAttribute="trailing" id="IxI-5a-pLZ"/>
                             <constraint firstAttribute="trailing" secondItem="zQ3-y0-spZ" secondAttribute="trailing" id="MhK-LF-vtg"/>
                             <constraint firstItem="OMu-c0-3nB" firstAttribute="top" secondItem="Nlf-bF-dcu" secondAttribute="bottom" constant="5" id="Msd-Rw-N8a"/>
                             <constraint firstItem="zdG-1H-RlP" firstAttribute="top" secondItem="uST-xH-BKZ" secondAttribute="bottom" constant="5" id="Mxf-qs-S0n"/>
                             <constraint firstAttribute="trailing" secondItem="HI7-Vi-jvM" secondAttribute="trailing" constant="20" id="Nzv-uP-Xld"/>
+                            <constraint firstAttribute="trailing" secondItem="A1G-W6-WaJ" secondAttribute="trailing" constant="20" id="OGg-hW-Wxc"/>
+                            <constraint firstItem="mdp-8Q-xJq" firstAttribute="top" secondItem="A1G-W6-WaJ" secondAttribute="bottom" constant="5" id="OJn-mQ-wKR"/>
                             <constraint firstAttribute="trailing" secondItem="Nlf-bF-dcu" secondAttribute="trailing" id="P9b-Xw-337"/>
                             <constraint firstItem="2Nn-ja-PsI" firstAttribute="top" secondItem="vox-Nd-Qme" secondAttribute="bottom" constant="5" id="Ptr-ft-Nnc"/>
                             <constraint firstItem="mmS-TW-VOb" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="PxW-fw-QpB"/>
+                            <constraint firstItem="wHJ-UB-BJ4" firstAttribute="top" secondItem="ZEY-mm-eQg" secondAttribute="bottom" constant="5" id="Pzf-YF-bjU"/>
                             <constraint firstAttribute="trailing" secondItem="yJa-6b-mKZ" secondAttribute="trailing" constant="20" id="QXd-P1-eu2"/>
+                            <constraint firstItem="mdp-8Q-xJq" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="Qhl-OC-PT4"/>
                             <constraint firstItem="HI7-Vi-jvM" firstAttribute="top" secondItem="zQ3-y0-spZ" secondAttribute="bottom" constant="5" id="Qil-Vh-g7f"/>
                             <constraint firstItem="wlw-71-72c" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="Qr2-EX-Tla"/>
                             <constraint firstItem="k8C-fJ-yb3" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="Rhv-ao-Qmf"/>
@@ -258,13 +316,15 @@
                             <constraint firstItem="KXj-hQ-xRd" firstAttribute="top" secondItem="Kxx-iN-ihX" secondAttribute="top" id="SuP-pL-36d"/>
                             <constraint firstItem="Nlf-bF-dcu" firstAttribute="top" secondItem="zMS-aO-wiK" secondAttribute="bottom" constant="5" id="Szc-vm-9zn"/>
                             <constraint firstAttribute="trailing" secondItem="YqU-0f-1FH" secondAttribute="trailing" constant="20" id="TT3-UK-wMZ"/>
-                            <constraint firstItem="6u2-Dw-ofL" firstAttribute="top" secondItem="k8C-fJ-yb3" secondAttribute="bottom" constant="4" id="ULD-mw-z4j"/>
                             <constraint firstItem="uST-xH-BKZ" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="VyL-GK-f8z"/>
                             <constraint firstItem="dSq-Mw-Hqj" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="W4Q-j2-gKH"/>
                             <constraint firstItem="yJa-6b-mKZ" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="XfW-iM-Ifc"/>
+                            <constraint firstItem="tPm-Tf-wZ5" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="YSO-nl-vSM"/>
+                            <constraint firstAttribute="trailing" secondItem="wHJ-UB-BJ4" secondAttribute="trailing" id="YUX-L2-1A7"/>
                             <constraint firstItem="OMu-c0-3nB" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="YtS-ou-Kit"/>
                             <constraint firstAttribute="trailing" secondItem="mmS-TW-VOb" secondAttribute="trailing" id="ZcU-Ko-BKV"/>
                             <constraint firstItem="QWi-Nd-w6u" firstAttribute="top" secondItem="2Nn-ja-PsI" secondAttribute="bottom" constant="5" id="auE-k1-MCb"/>
+                            <constraint firstAttribute="trailing" secondItem="HDM-bB-jhx" secondAttribute="trailing" id="bYL-c1-CpR"/>
                             <constraint firstItem="DPa-af-eRi" firstAttribute="top" secondItem="sYl-qu-tud" secondAttribute="bottom" constant="5" id="bzA-dv-9bi"/>
                             <constraint firstItem="Wuq-V7-bDd" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="c1r-PE-h89"/>
                             <constraint firstItem="DPa-af-eRi" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="c7C-AX-bk5"/>
@@ -272,21 +332,29 @@
                             <constraint firstItem="KXj-hQ-xRd" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="dPw-QO-zzl"/>
                             <constraint firstItem="zMS-aO-wiK" firstAttribute="top" secondItem="yJa-6b-mKZ" secondAttribute="bottom" constant="5" id="eRZ-eJ-EUg"/>
                             <constraint firstAttribute="trailing" secondItem="DPa-af-eRi" secondAttribute="trailing" id="eTC-gj-Cte"/>
+                            <constraint firstItem="HDM-bB-jhx" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="ecd-EU-MIS"/>
                             <constraint firstItem="YqU-0f-1FH" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="eqo-dP-Utp"/>
+                            <constraint firstItem="A1G-W6-WaJ" firstAttribute="top" secondItem="tPm-Tf-wZ5" secondAttribute="bottom" constant="5" id="g7V-EA-0eT"/>
                             <constraint firstAttribute="trailing" secondItem="dSq-Mw-Hqj" secondAttribute="trailing" id="hJd-E6-joZ"/>
                             <constraint firstItem="zdG-1H-RlP" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="hrq-xJ-GeI"/>
+                            <constraint firstItem="dSq-Mw-Hqj" firstAttribute="top" secondItem="QWi-Nd-w6u" secondAttribute="bottom" id="jzw-Ds-OMk"/>
                             <constraint firstItem="I0v-SK-KAe" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="kMB-Eb-jav"/>
                             <constraint firstItem="QWi-Nd-w6u" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="ldf-rc-kK9"/>
                             <constraint firstItem="I0v-SK-KAe" firstAttribute="top" secondItem="YqU-0f-1FH" secondAttribute="bottom" constant="5" id="lsw-za-v61"/>
                             <constraint firstAttribute="trailing" secondItem="zMS-aO-wiK" secondAttribute="trailing" id="mxR-ev-7RL"/>
                             <constraint firstItem="sYl-qu-tud" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="nZW-vm-3yI"/>
+                            <constraint firstItem="6u2-Dw-ofL" firstAttribute="top" secondItem="HDM-bB-jhx" secondAttribute="bottom" constant="5" id="nmY-h0-t1l"/>
                             <constraint firstAttribute="trailing" secondItem="QWi-Nd-w6u" secondAttribute="trailing" id="qdL-UE-tbu"/>
                             <constraint firstAttribute="trailing" secondItem="k8C-fJ-yb3" secondAttribute="trailing" id="rKZ-XF-VlZ"/>
+                            <constraint firstItem="wHJ-UB-BJ4" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="sWG-X3-zH2"/>
                             <constraint firstAttribute="trailing" secondItem="6u2-Dw-ofL" secondAttribute="trailing" constant="20" id="tSV-uK-fCe"/>
                             <constraint firstAttribute="trailing" secondItem="I0v-SK-KAe" secondAttribute="trailing" id="vig-oM-oum"/>
+                            <constraint firstAttribute="trailing" secondItem="mdp-8Q-xJq" secondAttribute="trailing" id="w3X-V7-3Co"/>
                             <constraint firstAttribute="trailing" secondItem="vox-Nd-Qme" secondAttribute="trailing" constant="20" id="wXK-hK-fwZ"/>
                             <constraint firstItem="HI7-Vi-jvM" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="xK1-nm-fIp"/>
+                            <constraint firstItem="tPm-Tf-wZ5" firstAttribute="top" secondItem="wHJ-UB-BJ4" secondAttribute="bottom" constant="5" id="xTS-cD-rMe"/>
                             <constraint firstAttribute="trailing" secondItem="OMu-c0-3nB" secondAttribute="trailing" constant="20" id="xZt-gR-Okn"/>
+                            <constraint firstAttribute="trailing" secondItem="ZEY-mm-eQg" secondAttribute="trailing" constant="20" id="zlF-fG-eTk"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -298,24 +366,28 @@
             <size key="customSize" width="555" height="344"/>
             <connections>
                 <outlet property="lblAmount" destination="DPa-af-eRi" id="47Y-nG-f1E"/>
+                <outlet property="lblDestinationBankName" destination="HDM-bB-jhx" id="zPs-aF-izu"/>
                 <outlet property="lblDestinationCard" destination="k8C-fJ-yb3" id="3X8-dh-vPt"/>
                 <outlet property="lblFrom" destination="Nlf-bF-dcu" id="78c-tz-mxS"/>
+                <outlet property="lblSourceBankName" destination="tPm-Tf-wZ5" id="anZ-No-LxM"/>
                 <outlet property="lblSourceCard" destination="zQ3-y0-spZ" id="82h-ax-oL4"/>
                 <outlet property="lblTo" destination="zdG-1H-RlP" id="1mj-Wa-wTc"/>
                 <outlet property="lblTraceNumber" destination="Wuq-V7-bDd" id="PpQ-ib-iW5"/>
                 <outlet property="mainView" destination="Kxx-iN-ihX" id="35G-dW-dhF"/>
                 <outlet property="ttlAmount" destination="sYl-qu-tud" id="YLz-ML-B0e"/>
                 <outlet property="ttlDate" destination="dSq-Mw-Hqj" id="fAm-jS-tN6"/>
+                <outlet property="ttlDestinationBankName" destination="mdp-8Q-xJq" id="79d-Se-g2C"/>
                 <outlet property="ttlDestinationCardNUmber" destination="I0v-SK-KAe" id="VZ2-XH-jTE"/>
                 <outlet property="ttlFrom" destination="zMS-aO-wiK" id="raL-Bo-Wl0"/>
                 <outlet property="ttlInvoice" destination="2Nn-ja-PsI" id="h0z-Ao-Ku7"/>
                 <outlet property="ttlInvoicelblInvoiceNumber" destination="QWi-Nd-w6u" id="2er-bl-WaG"/>
+                <outlet property="ttlSourceBankName" destination="wHJ-UB-BJ4" id="lqD-xu-wVC"/>
                 <outlet property="ttlSourceCardNUmber" destination="mmS-TW-VOb" id="Vnr-VG-fzW"/>
                 <outlet property="ttlTo" destination="uST-xH-BKZ" id="JIt-gl-Sea"/>
                 <outlet property="ttlTrace" destination="wlw-71-72c" id="3LP-T4-tDj"/>
                 <outlet property="ttlTransfer" destination="KXj-hQ-xRd" id="VZV-aW-kZR"/>
             </connections>
-            <point key="canvasLocation" x="-59.200000000000003" y="-78.710644677661179"/>
+            <point key="canvasLocation" x="-59.200000000000003" y="-79.160419790104953"/>
         </collectionViewCell>
     </objects>
 </document>
