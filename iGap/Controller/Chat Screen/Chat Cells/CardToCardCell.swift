@@ -94,9 +94,6 @@ class CardToCardCell: IGMessageGeneralCollectionViewCell {
         lblTo.font = UIFont.igFont(ofSize: 13)
         lblTo.text = cardToCard.cardOwnerName!
 
-       
-        
-        
         if let time = TimeInterval(exactly: cardToCard.requestTime) {
             ttlDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
         }

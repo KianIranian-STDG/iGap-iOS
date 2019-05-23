@@ -120,8 +120,8 @@ class CellSizeCalculator: NSObject {
         } else if finalMessage.type == .wallet {
             
             if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                finalSize.height = CellSizeLimit.ConstantSizes.Wallet.Height
-                finalSize.width = CellSizeLimit.ConstantSizes.Wallet.Width
+                finalSize.height = CellSizeLimit.ConstantSizes.MoneyTransfer.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.MoneyTransfer.Width
                 
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.Payment.Height

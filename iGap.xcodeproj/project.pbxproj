@@ -418,8 +418,8 @@
 		FA9D86A022796B44002F981A /* IGTabBarStickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */; };
 		FA9EE5B7221EB01100BA7735 /* ConstantSizeLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */; };
 		FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */; };
-		FA9EE5BC221ECD2300BA7735 /* WalletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */; };
-		FA9EE5BD221ECD7100BA7735 /* WalletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */; };
+		FA9EE5BC221ECD2300BA7735 /* MoneyTransferCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9EE5BB221ECD2300BA7735 /* MoneyTransferCell.swift */; };
+		FA9EE5BD221ECD7100BA7735 /* MoneyTransferCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9EE5BA221ECD1000BA7735 /* MoneyTransferCell.xib */; };
 		FA9F73562127E589004418E5 /* EPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F73502127E589004418E5 /* EPConstants.swift */; };
 		FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F73512127E589004418E5 /* EPContactCell.swift */; };
 		FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9F73522127E589004418E5 /* EPContactCell.xib */; };
@@ -1034,8 +1034,8 @@
 		FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTabBarStickerController.swift; sourceTree = "<group>"; };
 		FA9EE5B6221EB01100BA7735 /* ConstantSizeLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantSizeLimit.swift; sourceTree = "<group>"; };
 		FA9EE5B8221EC05500BA7735 /* IGRoomMessageWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomMessageWallet.swift; sourceTree = "<group>"; };
-		FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCell.xib; sourceTree = "<group>"; };
-		FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCell.swift; sourceTree = "<group>"; };
+		FA9EE5BA221ECD1000BA7735 /* MoneyTransferCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoneyTransferCell.xib; sourceTree = "<group>"; };
+		FA9EE5BB221ECD2300BA7735 /* MoneyTransferCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferCell.swift; sourceTree = "<group>"; };
 		FA9F73502127E589004418E5 /* EPConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPConstants.swift; sourceTree = "<group>"; };
 		FA9F73512127E589004418E5 /* EPContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPContactCell.swift; sourceTree = "<group>"; };
 		FA9F73522127E589004418E5 /* EPContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPContactCell.xib; sourceTree = "<group>"; };
@@ -2153,8 +2153,8 @@
 				FA417E4F212179C900B5FBCD /* LocationCell.xib */,
 				FAA65CFA220AC0270006994A /* StickerCell.swift */,
 				FAB1BF73220C341300BA980B /* StickerCell.xib */,
-				FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */,
-				FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */,
+				FA9EE5BB221ECD2300BA7735 /* MoneyTransferCell.swift */,
+				FA9EE5BA221ECD1000BA7735 /* MoneyTransferCell.xib */,
 				FA7CD4A222958431002918AD /* PaymentCell.swift */,
 				FA7CD4A12295842E002918AD /* PaymentCell.xib */,
 				FAB623E9229526D3006DEA00 /* CardToCardCell.swift */,
@@ -2665,7 +2665,7 @@
 				FA76598522902ACE006322A3 /* INSPhotoGallery.bundle in Resources */,
 				FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */,
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
-				FA9EE5BD221ECD7100BA7735 /* WalletCell.xib in Resources */,
+				FA9EE5BD221ECD7100BA7735 /* MoneyTransferCell.xib in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
 				FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */,
 				FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */,
@@ -3075,7 +3075,7 @@
 				FA0953621E1B97700043ED3F /* IGSettingContactTableViewCell.swift in Sources */,
 				FA50A8C41DD35E8500C6D2EA /* IGAppManager.swift in Sources */,
 				FA8F22501DD89C31005A90D1 /* IGRoomDraft.swift in Sources */,
-				FA9EE5BC221ECD2300BA7735 /* WalletCell.swift in Sources */,
+				FA9EE5BC221ECD2300BA7735 /* MoneyTransferCell.swift in Sources */,
 				8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */,
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,

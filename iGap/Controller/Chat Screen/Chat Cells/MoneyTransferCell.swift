@@ -11,8 +11,7 @@
 import UIKit
 import IGProtoBuff
 
-/* WalletCell is for MoneyTransfer & Payment */
-class WalletCell: IGMessageGeneralCollectionViewCell {
+class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
     
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var txtAmount: UILabel!
@@ -21,6 +20,7 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var txtTrace: UILabel!
     @IBOutlet weak var txtInvoice: UILabel!
     @IBOutlet weak var txtDate: UILabel!
+    @IBOutlet weak var txtDescription: UILabel!
     var wallet: IGRoomMessageMoneyTransfer!
     
     @IBOutlet weak var lblAmountTitle: UILabel!
@@ -28,9 +28,11 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var ttlInvoicelblInvoiceTitle: UILabel!
     @IBOutlet weak var lblTraceNumberTitle: UILabel!
     @IBOutlet weak var lblToTitle: UILabel!
-    @IBOutlet weak var ttlTransfer: IGLabel!
+    @IBOutlet weak var ttlTransfer: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    
     class func nib() -> UINib {
-        return UINib(nibName: "WalletCell", bundle: Bundle(for: self))
+        return UINib(nibName: "MoneyTransferCell", bundle: Bundle(for: self))
     }
     
     class func cellReuseIdentifier() -> String {
@@ -59,26 +61,13 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()
         
-        if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-            wallet = message.wallet!.moneyTrasfer
-            ttlTransfer.text = "WALLET_TRANSFER_MONEY".localizedNew
-            ttlTransfer.backgroundColor = UIColor.iGapYellow()
-            txtDate.backgroundColor = UIColor.iGapYellow()
-            ttlTransfer.textColor = UIColor.black
-            txtDate.textColor = UIColor.black
-            
-        } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-            wallet = message.wallet!.payment
-            ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".localizedNew
-            ttlTransfer.backgroundColor = UIColor.iGapGreen()
-            txtDate.backgroundColor = UIColor.iGapGreen()
-            ttlTransfer.textColor = UIColor.white
-            txtDate.textColor = UIColor.white
-            
-            
-        } else {
-            return
-        }
+        guard let wallet = message.wallet?.moneyTrasfer else { return }
+        
+        ttlTransfer.text = "WALLET_TRANSFER_MONEY".localizedNew
+        ttlTransfer.backgroundColor = UIColor.iGapYellow()
+        txtDate.backgroundColor = UIColor.iGapYellow()
+        ttlTransfer.textColor = UIColor.black
+        txtDate.textColor = UIColor.black
         txtAmount.text = String(describing: wallet.amount).inLocalizedLanguage() + "CURRENCY".localizedNew
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
@@ -91,6 +80,12 @@ class WalletCell: IGMessageGeneralCollectionViewCell {
         if let receiverUser = IGRegisteredUser.getUserInfo(id: wallet.toUserId) {
             txtTo.font = UIFont.igFont(ofSize: 13)
             txtTo.text = receiverUser.displayName
+        }
+
+        if wallet.walletDescription!.isEmpty {
+            txtDescription.text = "NO_DESCRIPTION".localizedNew
+        } else {
+            txtDescription.text = message.wallet?.moneyTrasfer?.walletDescription
         }
         
         if let time = TimeInterval(exactly: wallet.payTime) {
