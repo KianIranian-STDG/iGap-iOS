@@ -29,7 +29,10 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet weak var lblTraceNumberTitle: UILabel!
     @IBOutlet weak var lblToTitle: UILabel!
     @IBOutlet weak var ttlTransfer: UILabel!
-    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var lblDescription: ActiveLabel!
+    
+    @IBOutlet weak var mainViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var descriptionHeight: NSLayoutConstraint!
     
     class func nib() -> UINib {
         return UINib(nibName: "MoneyTransferCell", bundle: Bundle(for: self))
@@ -91,5 +94,9 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         if let time = TimeInterval(exactly: wallet.payTime) {
             txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
         }
+        
+        mainViewHeight.constant = messageSizes.bubbleSize.height
+        // Hint: use "messageAttachmentHeight" for description height in "MoneyTransferCell"
+        descriptionHeight?.constant = messageSizes.messageAttachmentHeight
     }
 }

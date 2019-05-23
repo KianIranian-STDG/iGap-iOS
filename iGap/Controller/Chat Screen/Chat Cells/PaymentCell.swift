@@ -34,6 +34,9 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
     @IBOutlet var lblDescription: UILabel!
     @IBOutlet weak var ttlTransfer: UILabel!
     
+    @IBOutlet weak var mainViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var descriptionHeight: NSLayoutConstraint!
+    
     class func nib() -> UINib {
         return UINib(nibName: "PaymentCell", bundle: Bundle(for: self))
     }
@@ -55,7 +58,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
         ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localizedNew
         lblAmountTitle.text = "PRICE".localizedNew
         lblTraceNumberTitle.text = "TRACE_NUMBER".localizedNew
-        ttlTransfer.text = "TRANSFER_MONEY".localizedNew
+        ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".localizedNew
         lblCardNumber.text = "TTL_CARDNUM".localizedNew
         lblRRN.text = "TTL_REFERENCE_NUMBER".localizedNew
         lblDescription.text = "DESCRIPTION".localizedNew
@@ -102,5 +105,9 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
         if let time = TimeInterval(exactly: wallet.payTime) {
             txtDate.text = Date(timeIntervalSince1970: time).completeHumanReadableTime().inLocalizedLanguage()
         }
+        
+        mainViewHeight.constant = messageSizes.bubbleSize.height
+        // Hint: use "messageAttachmentHeight" for description height in "PaymentCell"
+        descriptionHeight?.constant = messageSizes.messageAttachmentHeight
     }
 }

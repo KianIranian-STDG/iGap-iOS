@@ -24,10 +24,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxx-iN-ihX">
-                        <rect key="frame" x="40" y="19.5" width="220" height="472"/>
+                        <rect key="frame" x="30" y="19.5" width="240" height="472"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer Money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXj-hQ-xRd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rWJ-UO-40o"/>
@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYl-qu-tud" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="35" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="35" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Jhf-8y-QGu"/>
                                 </constraints>
@@ -46,7 +46,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 Rial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-af-eRi" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="55" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="MKH-vD-VBO"/>
                                 </constraints>
@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMS-aO-wiK" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="81" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="81" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="FP9-xS-Bcp"/>
                                 </constraints>
@@ -64,7 +64,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sender money name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlf-bF-dcu" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="101" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="101" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="O3n-rl-pNZ"/>
                                 </constraints>
@@ -73,14 +73,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMu-c0-3nB">
-                                <rect key="frame" x="20" y="121" width="180" height="1"/>
+                                <rect key="frame" x="20" y="121" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="TiE-Zf-IgD"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source Card Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmS-TW-VOb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="127" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="127" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="iGZ-uJ-fkK"/>
                                 </constraints>
@@ -89,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQ3-y0-spZ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="147" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="147" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="6Xm-Ox-Xnf"/>
                                 </constraints>
@@ -98,14 +98,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HI7-Vi-jvM">
-                                <rect key="frame" x="20" y="167" width="180" height="1"/>
+                                <rect key="frame" x="20" y="167" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Ebc-9g-pn3"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uST-xH-BKZ">
-                                <rect key="frame" x="0.0" y="173" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="173" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="ecL-X8-2lc"/>
                                 </constraints>
@@ -114,7 +114,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2837634" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdG-1H-RlP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="193" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="193" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="rBm-JD-Xl2"/>
                                 </constraints>
@@ -123,14 +123,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqU-0f-1FH">
-                                <rect key="frame" x="20" y="213" width="180" height="1"/>
+                                <rect key="frame" x="20" y="213" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Fv9-dW-bu7"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination Card Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0v-SK-KAe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="219" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="219" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="baR-eT-4Fo"/>
                                 </constraints>
@@ -139,7 +139,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8C-fJ-yb3" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="239" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="239" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="iIU-VX-LkS"/>
                                 </constraints>
@@ -148,21 +148,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vox-Nd-Qme">
-                                <rect key="frame" x="20" y="397" width="180" height="1"/>
+                                <rect key="frame" x="20" y="397" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="DXv-pp-ODX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6u2-Dw-ofL">
-                                <rect key="frame" x="20" y="351" width="180" height="1"/>
+                                <rect key="frame" x="20" y="351" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="ssg-lF-d8j"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reference Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlw-71-72c" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="357" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="357" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="LNX-Bs-7Vo"/>
                                 </constraints>
@@ -171,7 +171,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wuq-V7-bDd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="377" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="377" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="fXa-h1-QPF"/>
                                 </constraints>
@@ -180,14 +180,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEY-mm-eQg">
-                                <rect key="frame" x="20" y="259" width="180" height="1"/>
+                                <rect key="frame" x="20" y="259" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="ZLe-lJ-58o"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source Bank" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHJ-UB-BJ4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="265" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="265" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="z5L-rm-CS7"/>
                                 </constraints>
@@ -196,7 +196,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPm-Tf-wZ5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="285" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="285" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="vAu-p6-SVr"/>
                                 </constraints>
@@ -205,7 +205,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invoice Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nn-ja-PsI" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="403" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="403" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="CNc-Vh-KTv"/>
                                 </constraints>
@@ -214,7 +214,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWi-Nd-w6u" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="423" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="423" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="PRF-A0-XoK"/>
                                 </constraints>
@@ -223,28 +223,28 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date of transfer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-Mw-Hqj" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="443" width="220" height="29"/>
+                                <rect key="frame" x="0.0" y="443" width="240" height="29"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJa-6b-mKZ">
-                                <rect key="frame" x="20" y="75" width="180" height="1"/>
+                                <rect key="frame" x="20" y="75" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="A9N-wu-bWS"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1G-W6-WaJ">
-                                <rect key="frame" x="20" y="305" width="180" height="1"/>
+                                <rect key="frame" x="20" y="305" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Ywk-xX-mhe"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination Bank" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdp-8Q-xJq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="311" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="311" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="ilk-be-MAH"/>
                                 </constraints>
@@ -253,7 +253,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDM-bB-jhx" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="331" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="331" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="UeB-03-dCF"/>
                                 </constraints>
@@ -287,7 +287,7 @@
                             <constraint firstItem="mmS-TW-VOb" firstAttribute="top" secondItem="OMu-c0-3nB" secondAttribute="bottom" constant="5" id="DDk-82-du9"/>
                             <constraint firstItem="zQ3-y0-spZ" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="DSU-xu-41L"/>
                             <constraint firstItem="6u2-Dw-ofL" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="DZs-hD-8si"/>
-                            <constraint firstAttribute="width" constant="220" id="EsD-2W-DkV"/>
+                            <constraint firstAttribute="width" constant="240" id="EsD-2W-DkV"/>
                             <constraint firstItem="zQ3-y0-spZ" firstAttribute="top" secondItem="mmS-TW-VOb" secondAttribute="bottom" constant="5" id="FEY-ko-Bmp"/>
                             <constraint firstItem="ZEY-mm-eQg" firstAttribute="top" secondItem="k8C-fJ-yb3" secondAttribute="bottom" constant="5" id="G2S-3i-myy"/>
                             <constraint firstItem="tPm-Tf-wZ5" firstAttribute="top" secondItem="wHJ-UB-BJ4" secondAttribute="bottom" constant="5" id="HPU-Y8-K3E"/>

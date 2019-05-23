@@ -17,17 +17,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MoneyTransferCell" customModule="iGap" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="441"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="441"/>
+                <rect key="frame" x="0.0" y="0.0" width="300" height="363"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kxx-iN-ihX">
-                        <rect key="frame" x="40" y="53" width="220" height="335"/>
+                        <rect key="frame" x="30" y="14" width="240" height="335"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer Money" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXj-hQ-xRd">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rWJ-UO-40o"/>
@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYl-qu-tud" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="35" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="35" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Jhf-8y-QGu"/>
                                 </constraints>
@@ -46,7 +46,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 Rial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-af-eRi" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="55" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="MKH-vD-VBO"/>
                                 </constraints>
@@ -55,14 +55,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJa-6b-mKZ">
-                                <rect key="frame" x="20" y="75" width="180" height="1"/>
+                                <rect key="frame" x="20" y="75" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="A9N-wu-bWS"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMS-aO-wiK" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="81" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="81" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="FP9-xS-Bcp"/>
                                 </constraints>
@@ -71,7 +71,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sender money name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlf-bF-dcu" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="101" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="101" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="O3n-rl-pNZ"/>
                                 </constraints>
@@ -80,14 +80,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMu-c0-3nB">
-                                <rect key="frame" x="20" y="121" width="180" height="1"/>
+                                <rect key="frame" x="20" y="121" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="TiE-Zf-IgD"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmS-TW-VOb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="127" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="127" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="iGZ-uJ-fkK"/>
                                 </constraints>
@@ -96,7 +96,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="money receiver name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQ3-y0-spZ" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="147" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="147" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="6Xm-Ox-Xnf"/>
                                 </constraints>
@@ -105,14 +105,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HI7-Vi-jvM">
-                                <rect key="frame" x="20" y="167" width="180" height="1"/>
+                                <rect key="frame" x="20" y="167" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Ebc-9g-pn3"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trace Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uST-xH-BKZ">
-                                <rect key="frame" x="0.0" y="173" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="173" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="ecL-X8-2lc"/>
                                 </constraints>
@@ -121,7 +121,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2837634" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdG-1H-RlP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="193" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="193" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="rBm-JD-Xl2"/>
                                 </constraints>
@@ -130,14 +130,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqU-0f-1FH">
-                                <rect key="frame" x="20" y="213" width="180" height="1"/>
+                                <rect key="frame" x="20" y="213" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Fv9-dW-bu7"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invoice Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0v-SK-KAe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="219" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="219" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="baR-eT-4Fo"/>
                                 </constraints>
@@ -146,7 +146,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="72364823" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8C-fJ-yb3" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="239" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="239" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="iIU-VX-LkS"/>
                                 </constraints>
@@ -155,21 +155,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date of transfer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-Mw-Hqj" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="305" width="220" height="30"/>
+                                <rect key="frame" x="0.0" y="305" width="240" height="30"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jk2-aU-vxB">
-                                <rect key="frame" x="20" y="259" width="180" height="1"/>
+                                <rect key="frame" x="20" y="259" width="200" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="61R-bh-g8I"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbw-vL-GO4">
-                                <rect key="frame" x="0.0" y="265" width="220" height="15"/>
+                                <rect key="frame" x="0.0" y="265" width="240" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="82s-VA-fqZ"/>
                                 </constraints>
@@ -177,8 +177,8 @@
                                 <color key="textColor" red="0.17254901959999999" green="0.21176470589999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d93-Ch-rQN">
-                                <rect key="frame" x="0.0" y="285" width="220" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d93-Ch-rQN" customClass="ActiveLabel" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="20" y="285" width="200" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="ewC-Am-Q9g"/>
                                 </constraints>
@@ -202,7 +202,7 @@
                             <constraint firstAttribute="trailing" secondItem="zdG-1H-RlP" secondAttribute="trailing" id="CTK-z9-rwW"/>
                             <constraint firstItem="mmS-TW-VOb" firstAttribute="top" secondItem="OMu-c0-3nB" secondAttribute="bottom" constant="5" id="DDk-82-du9"/>
                             <constraint firstItem="zQ3-y0-spZ" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="DSU-xu-41L"/>
-                            <constraint firstAttribute="width" constant="220" id="EsD-2W-DkV"/>
+                            <constraint firstAttribute="width" constant="240" id="EsD-2W-DkV"/>
                             <constraint firstItem="zQ3-y0-spZ" firstAttribute="top" secondItem="mmS-TW-VOb" secondAttribute="bottom" constant="5" id="FEY-ko-Bmp"/>
                             <constraint firstItem="Rbw-vL-GO4" firstAttribute="top" secondItem="jk2-aU-vxB" secondAttribute="bottom" constant="5" id="G2T-Hn-XpO"/>
                             <constraint firstItem="k8C-fJ-yb3" firstAttribute="top" secondItem="I0v-SK-KAe" secondAttribute="bottom" constant="5" id="Hbc-C8-1uk"/>
@@ -245,11 +245,11 @@
                             <constraint firstItem="sYl-qu-tud" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="nZW-vm-3yI"/>
                             <constraint firstAttribute="trailing" secondItem="k8C-fJ-yb3" secondAttribute="trailing" id="rKZ-XF-VlZ"/>
                             <constraint firstAttribute="trailing" secondItem="Rbw-vL-GO4" secondAttribute="trailing" id="swt-v6-Nmj"/>
-                            <constraint firstItem="d93-Ch-rQN" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" id="vft-Dp-1ow"/>
+                            <constraint firstItem="d93-Ch-rQN" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="vft-Dp-1ow"/>
                             <constraint firstAttribute="trailing" secondItem="I0v-SK-KAe" secondAttribute="trailing" id="vig-oM-oum"/>
                             <constraint firstItem="HI7-Vi-jvM" firstAttribute="leading" secondItem="Kxx-iN-ihX" secondAttribute="leading" constant="20" id="xK1-nm-fIp"/>
                             <constraint firstAttribute="trailing" secondItem="OMu-c0-3nB" secondAttribute="trailing" constant="20" id="xZt-gR-Okn"/>
-                            <constraint firstAttribute="trailing" secondItem="d93-Ch-rQN" secondAttribute="trailing" id="zB9-jz-4ft"/>
+                            <constraint firstAttribute="trailing" secondItem="d93-Ch-rQN" secondAttribute="trailing" constant="20" id="zB9-jz-4ft"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -258,14 +258,16 @@
                 <constraint firstItem="Kxx-iN-ihX" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="6oF-4r-802"/>
                 <constraint firstItem="Kxx-iN-ihX" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="nqF-wi-qmN"/>
             </constraints>
-            <size key="customSize" width="555" height="422"/>
+            <size key="customSize" width="555" height="344"/>
             <connections>
+                <outlet property="descriptionHeight" destination="ewC-Am-Q9g" id="R5p-pr-6Yn"/>
                 <outlet property="lblAmountTitle" destination="sYl-qu-tud" id="61d-jY-7Nb"/>
                 <outlet property="lblDescription" destination="Rbw-vL-GO4" id="atl-4c-cow"/>
                 <outlet property="lblFromTitle" destination="zMS-aO-wiK" id="vz1-om-cFa"/>
                 <outlet property="lblToTitle" destination="mmS-TW-VOb" id="xRG-Qh-eya"/>
                 <outlet property="lblTraceNumberTitle" destination="uST-xH-BKZ" id="dZy-03-jSc"/>
                 <outlet property="mainView" destination="Kxx-iN-ihX" id="KSe-yB-WaV"/>
+                <outlet property="mainViewHeight" destination="75D-SA-7gv" id="sPz-Dr-rR5"/>
                 <outlet property="ttlInvoicelblInvoiceTitle" destination="I0v-SK-KAe" id="UPm-WE-ZCH"/>
                 <outlet property="ttlTransfer" destination="KXj-hQ-xRd" id="8wW-Xk-tQx"/>
                 <outlet property="txtAmount" destination="DPa-af-eRi" id="9If-j9-ds3"/>
@@ -276,7 +278,7 @@
                 <outlet property="txtTo" destination="zQ3-y0-spZ" id="2aW-G7-NDw"/>
                 <outlet property="txtTrace" destination="zdG-1H-RlP" id="X9D-W6-ubv"/>
             </connections>
-            <point key="canvasLocation" x="-59.200000000000003" y="13.043478260869566"/>
+            <point key="canvasLocation" x="-59.200000000000003" y="12.143928035982009"/>
         </collectionViewCell>
     </objects>
 </document>

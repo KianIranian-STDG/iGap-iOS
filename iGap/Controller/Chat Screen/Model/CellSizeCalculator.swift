@@ -122,10 +122,28 @@ class CellSizeCalculator: NSObject {
             if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.MoneyTransfer.Height
                 finalSize.width = CellSizeLimit.ConstantSizes.MoneyTransfer.Width
+
+                /* increase wallet description height if has data */
+                if let walletDescription = finalMessage.wallet?.moneyTrasfer?.walletDescription, !walletDescription.isEmpty {
+                    let descriptionWidth = CellSizeLimit.ConstantSizes.MoneyTransfer.Width - 40 // '40' is margin from left & right for description label
+                    let walletDescriptionSize = CellSizeCalculator.bodyRect(text: IGGlobal.sampleText as NSString, width: descriptionWidth, isEdited: false, room: room)
+                    finalSize.height += walletDescriptionSize.height
+                    // Hint: use "messageAttachmentHeight" for description height in "MoneyTransferCell"
+                    messageAttachmentHeight = walletDescriptionSize.height
+                }
                 
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.Payment.Height
                 finalSize.width = CellSizeLimit.ConstantSizes.Payment.Width
+                
+                /* increase wallet description height if has data */
+                if let paymentDescription = finalMessage.wallet?.payment?.walletDescription, !paymentDescription.isEmpty {
+                    let descriptionWidth = CellSizeLimit.ConstantSizes.Payment.Width - 40 // '40' is margin from left & right for description label
+                    let paymentDescriptionSize = CellSizeCalculator.bodyRect(text: IGGlobal.sampleText as NSString, width: descriptionWidth, isEdited: false, room: room)
+                    finalSize.height += paymentDescriptionSize.height
+                    // Hint: use "messageAttachmentHeight" for description height in "PaymentCell"
+                    messageAttachmentHeight = paymentDescriptionSize.height
+                }
                 
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.CardToCard.Height
