@@ -75,6 +75,9 @@ class IGRoomMessageMoneyTransfer: Object {
     @objc dynamic var traceNumber:       Int64    = 0
     @objc dynamic var invoiceNumber:     Int64    = 0
     @objc dynamic var payTime:           Int32    = 0
+    @objc dynamic var cardNumber:        String?
+    @objc dynamic var rrn:               Int64    = 0
+    @objc dynamic var desc:              String?
     @objc dynamic var walletDescription: String?
     
     override static func primaryKey() -> String {
@@ -98,6 +101,11 @@ class IGRoomMessageMoneyTransfer: Object {
         moneyTransfer.invoiceNumber = igpRoomMessageWallet.igpMoneyTransfer.igpInvoiceNumber
         moneyTransfer.payTime = igpRoomMessageWallet.igpMoneyTransfer.igpPayTime
         moneyTransfer.walletDescription = igpRoomMessageWallet.igpMoneyTransfer.igpDescription
+        moneyTransfer.cardNumber = igpRoomMessageWallet.igpMoneyTransfer.igpCardNumber
+        moneyTransfer.rrn = igpRoomMessageWallet.igpMoneyTransfer.igpRrn
+        moneyTransfer.desc = igpRoomMessageWallet.igpMoneyTransfer.igpDescription
+        print("DDD || igpRoomMessageWallet: \(igpRoomMessageWallet)")
+        print("DDD || igpDescription: \(igpRoomMessageWallet.igpMoneyTransfer.igpDescription)")
         return moneyTransfer
     }
     

@@ -118,24 +118,21 @@ class CellSizeCalculator: NSObject {
             }
             
         } else if finalMessage.type == .wallet {
+            
             if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.Wallet.Height
                 finalSize.width = CellSizeLimit.ConstantSizes.Wallet.Width
-
+                
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-
+                finalSize.height = CellSizeLimit.ConstantSizes.Payment.Height
+                finalSize.width = CellSizeLimit.ConstantSizes.Payment.Width
+                
             } else if finalMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
                 finalSize.height = CellSizeLimit.ConstantSizes.CardToCard.Height
                 finalSize.width = CellSizeLimit.ConstantSizes.CardToCard.Width
-
             }
-
-           
             
-        }
-    
-            
-        else if finalMessage.type == .log {
+        } else if finalMessage.type == .log {
             finalSize.height = CellSizeLimit.ConstantSizes.Log.Height
             
         } else if finalMessage.type == .contact {

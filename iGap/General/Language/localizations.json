@@ -313,9 +313,10 @@
         "TTL_TRANSACTION_TYPE" : "نوع تراکنش :",
         "TTL_AMOUNT" : "مبلغ :",
         "TTL_PAY_STATUS" : "وضعیت پرداخت :",
-        "TTL_INVOICE_NUMBER" : "شماره مرجع :",
+        "TTL_INVOICE_NUMBER" : "شماره صورتحساب",
         "TTL_DATE" : "تاریخ :",
         "TTL_CARDNUM" : "شماره کارت",
+        "TTL_REFERENCE_NUMBER" : "شماره مرجع",
         "TTL_DESTI_CARDNUM" : "شماره کارت مقصد",
         "TTL_DESTI_IBAN" : "شماره شبای مقصد",
         "TTL_PAY_NUMBER" : "شماره پیگیری",
@@ -862,7 +863,9 @@
         "PU_BALLOON" : "طرح ها",
         "PU_MERCHANTS" : "فروشگاه ها",
         "Token_Error" : "نرم‌افزار نیاز به بروزرسانی اطلاعات اکانت شما دارد. لطفا مجددا تلاش نمایید.",
-        "FORWARD_PERMISSION" : "متاسفانه امکان ارسال پیام در گفتگو برای شما وجود ندارد!"
+        "FORWARD_PERMISSION" : "متاسفانه امکان ارسال پیام در گفتگو برای شما وجود ندارد!",
+        "DESCRIPTION" : "توضیحات",
+        "NO_DESCRIPTION" : "توضیحی ثبت نشده است"
     },
     "en": {
         "NEW_MESSAGES" : "New Messages",
@@ -1178,16 +1181,18 @@
         "TTL_PAYMENT_PENDING_FRM" : "Payment Pending",
         "TTL_PAYED_WITH_WALLED_CARD_TO" : "Cashout From Wallet to",
         "TTL_PAY_WITH_WALLET_CARD_PENDING" : "Cashout Pending ",
-        "TTL_BUY_CLUB_FROM" : "خرید طرح باشگاه از",
+        "TTL_BUY_CLUB_FROM" : "Buy Club From",
         "TTL_WALLET_ACCOUNT" : "Wallent Account",
         "TTL_SUCCESS_PAYMENT" : "Successfull",
         "TTL_RECIEVER" : "Reciever :",
         "TTL_TRANSACTION_TYPE" : "Transaction Type :",
         "TTL_AMOUNT" : "Amount :",
         "TTL_PAY_STATUS" : "Payment Status :",
-        "TTL_INVOICE_NUMBER" : "Invoice Number :",
+        "TTL_INVOICE_NUMBER" : "Invoice Number",
         "TTL_DATE" : "Date :",
         "TTL_CARDNUM" : "Card Number",
+        "TTL_REFERENCE_NUMBER" : "Reference Number",
+        "TTL_DESCRIPTION" : "Description",
         "TTL_DESTI_CARDNUM" : "Destination Card Number",
         "TTL_DESTI_IBAN" : "Destination IBAN Number",
         "TTL_PAY_NUMBER" : "Payment Number",
@@ -1736,7 +1741,9 @@
         "PU_BALLOON" : "Plans",
         "PU_MERCHANTS" : "Stores",
         "Token_Error" : "App needed to refresh your authentication detail, please try again.",
-        "FORWARD_PERMISSION" : "Sorry, you are not allowed to send any messages to this chat!"
+        "FORWARD_PERMISSION" : "Sorry, you are not allowed to send any messages to this chat!",
+        "DESCRIPTION" : "Description",
+        "NO_DESCRIPTION" : "There is no description"
     }
 }
 

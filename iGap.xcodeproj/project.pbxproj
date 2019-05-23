@@ -325,6 +325,8 @@
 		FA7886C6223639E30006336F /* AbstractDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7886C5223639E30006336F /* AbstractDashboardCell.swift */; };
 		FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */; };
 		FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */; };
+		FA7CD4A322958431002918AD /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7CD4A222958431002918AD /* PaymentCell.swift */; };
+		FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7CD4A12295842E002918AD /* PaymentCell.xib */; };
 		FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */; };
 		FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */; };
 		FA7E9BD422631D7900FB861D /* SelectCountryObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */; };
@@ -937,6 +939,8 @@
 		FA7886C5223639E30006336F /* AbstractDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractDashboardCell.swift; sourceTree = "<group>"; };
 		FA7A2ED21DF5830F00164435 /* IGRegisteredUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegisteredUser.swift; sourceTree = "<group>"; };
 		FA7BC82921F76BC200D357D9 /* IGRealmClientCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmClientCondition.swift; sourceTree = "<group>"; };
+		FA7CD4A12295842E002918AD /* PaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentCell.xib; sourceTree = "<group>"; };
+		FA7CD4A222958431002918AD /* PaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCell.swift; sourceTree = "<group>"; };
 		FA7DE2722205BEC9008C8ECA /* IGStickerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStickerToolbar.swift; sourceTree = "<group>"; };
 		FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRepresentativeViewController.swift; sourceTree = "<group>"; };
 		FA7E9BD322631D7900FB861D /* SelectCountryObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCountryObserver.swift; sourceTree = "<group>"; };
@@ -2151,6 +2155,8 @@
 				FAB1BF73220C341300BA980B /* StickerCell.xib */,
 				FA9EE5BB221ECD2300BA7735 /* WalletCell.swift */,
 				FA9EE5BA221ECD1000BA7735 /* WalletCell.xib */,
+				FA7CD4A222958431002918AD /* PaymentCell.swift */,
+				FA7CD4A12295842E002918AD /* PaymentCell.xib */,
 				FAB623E9229526D3006DEA00 /* CardToCardCell.swift */,
 				FAB623EB229526D5006DEA00 /* CardToCardCell.xib */,
 			);
@@ -2662,6 +2668,7 @@
 				FA9EE5BD221ECD7100BA7735 /* WalletCell.xib in Resources */,
 				FA33063C1F445AE80096031A /* IRANSans_Light.ttf in Resources */,
 				FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */,
+				FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
@@ -3137,6 +3144,7 @@
 				FAD2B5821DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift in Sources */,
 				93AA67C21E4F37D10053380C /* IGChannelInfoMemberListTableViewController.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
+				FA7CD4A322958431002918AD /* PaymentCell.swift in Sources */,
 				FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */,
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
