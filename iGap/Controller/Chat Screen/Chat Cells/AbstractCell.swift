@@ -950,10 +950,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             DispatchQueue.main.async {
                 self.makeAdditionalView(additionalView: additionalView, removeView: false)
             }
-        } else if let additionalData = finalRoomMessage.additional?.data,
-            finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
-            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData),
-            isIncommingMessage {
+        } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+            
             let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
             IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
             self.makeAdditionalView(additionalView: additionalView)

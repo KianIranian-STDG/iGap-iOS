@@ -221,7 +221,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var stickerPageType = StickerPageType.MAIN
     var stickerGroupId: String!
     var latestIndexPath: IndexPath!
-    
+    var isCardToCardRequestEnable = false
     var latestKeyboardAdditionalView: UIView!
     
     private var cellSizeLimit: CellSizeLimit!
@@ -1783,11 +1783,27 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK: IBActions
     @IBAction func didTapOnSendButton(_ sender: UIButton) {
-        if currentAttachment == nil && inputTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil {
+        if currentAttachment == nil && inputTextView.text == "" && IGMessageViewController.selectedMessageToForwardToThisRoom == nil && !isCardToCardRequestEnable {
             return
         }
         
         inputTextView.text = inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if isCardToCardRequestEnable {
+            let message = IGRoomMessage.makeCardToCardRequest(message: inputTextView.text, toUserId: (self.room?.chatRoom?.peer!.id)!)
+            let detachedMessage = message.detach()
+            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+            IGMessageSender.defaultSender.send(message: message, to: self.room!)
+            
+            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+            self.sendMessageState(enable: false)
+            self.isCardToCardRequestEnable = false
+            self.inputTextView.text = ""
+            self.currentAttachment = nil
+            self.selectedMessageToReply = nil
+            self.setInputBarHeight()
+            return
+        }
         
         if selectedMessageToEdit != nil {
             switch room!.type {
@@ -1922,6 +1938,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.inputTextView.resignFirstResponder()
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        
+        let cardToCardRequest = UIAlertAction(title: "CARD_TO_CARD_REQUEST".localizedNew, style: .default, handler: { (action) in
+            self.isCardToCardRequestEnable = true
+            self.manageCardToCardInputBar()
+        })
+        
         let camera = UIAlertAction(title: "CAMERA_DEVICE".localizedNew, style: .default, handler: { (action) in
             self.attachmentPicker(sourceType: .camera)
         })
@@ -1945,6 +1967,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
 
+        if allowCardToCard() {
+            alertC.addAction(cardToCardRequest)
+        }
         alertC.addAction(camera)
         alertC.addAction(galley)
         alertC.addAction(document)
@@ -1953,7 +1978,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         alertC.addAction(cancel)
 
         self.present(alertC, animated: true, completion: nil)
-        
+    }
+    
+    private func allowCardToCard() -> Bool {
+        if self.room?.type == .chat && !isBotRoom() {
+            return true
+        }
+        return false
     }
     
     private func sendAsFileAlert(){
@@ -2378,6 +2409,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     @IBAction func didTapOnDeleteSelectedAttachment(_ sender: UIButton) {
         self.currentAttachment = nil
+        self.isCardToCardRequestEnable = false
         self.setInputBarHeight()
         let text = inputTextView.text as NSString
         if text.length > 0 {
@@ -2760,7 +2792,13 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         self.setInputBarHeight()
     }
-    
+
+    private func manageCardToCardInputBar(){
+        self.inputBarOriginalMessageViewSenderNameLabel.text = "CARD_TO_CARD_REQUEST".localizedNew
+        self.inputBarOriginalMessageViewBodyTextLabel.text = "CARD_TO_CARD_FILL_INFO".localizedNew
+        self.setInputBarHeight()
+    }
+
     func reportRoom(roomId: Int64, messageId: Int64, reason: IGPClientRoomReport.IGPReason) {
         self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
         self.hud.mode = .indeterminate
@@ -3505,6 +3543,10 @@ extension IGMessageViewController: GrowingTextViewDelegate {
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false
         } else if IGMessageViewController.selectedMessageToForwardToThisRoom != nil {
+            inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
+            inputBarHeight += 36.0
+            inputBarOriginalMessageView.isHidden = false
+        } else if isCardToCardRequestEnable {
             inputBarOriginalMessageViewBottomConstraint.constant = inputBarHeight
             inputBarHeight += 36.0
             inputBarOriginalMessageView.isHidden = false

@@ -151,7 +151,11 @@ class IGHelperBot {
         }
         
         btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
-        btn.setTitle(additionalButton.label, for: UIControl.State.normal)
+        if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
+            btn.setTitle("CARD_TO_CARD".localizedNew, for: UIControl.State.normal)
+        } else {
+            btn.setTitle(additionalButton.label, for: UIControl.State.normal)
+        }
         btn.removeUnderline()
         
         /*
