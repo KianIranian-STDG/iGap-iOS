@@ -1790,7 +1790,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.text = inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if isCardToCardRequestEnable {
-            let message = IGRoomMessage.makeCardToCardRequest(message: inputTextView.text, toUserId: (self.room?.chatRoom?.peer!.id)!)
+            let message = IGRoomMessage.makeCardToCardRequest(message: inputTextView.text)
             let detachedMessage = message.detach()
             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
             IGMessageSender.defaultSender.send(message: message, to: self.room!)

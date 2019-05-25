@@ -262,9 +262,9 @@ class IGRoomMessage: Object {
         return "\(prefix)\(messageID)_\(roomID)" + IGGlobal.randomString(length: 3)
     }
     
-    static func makeCardToCardRequest(message: String, toUserId: Int64) -> IGRoomMessage {
+    static func makeCardToCardRequest(message: String) -> IGRoomMessage {
         let message = IGRoomMessage(body: message)
-        let additionalData = "[[{\"actionType\":27,\"label\":\"CARD_TO_CARD\",\"imageUrl\":\"\",\"value\":\(toUserId)}]]"
+        let additionalData = "[[{\"actionType\":\(IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue),\"label\":\"CARD_TO_CARD\",\"imageUrl\":\"\",\"value\":\(IGAppManager.sharedManager.userID()!)}]]"
         let additional = IGRealmAdditional(additionalData: additionalData, additionalType: Int32(AdditionalType.UNDER_MESSAGE_BUTTON.rawValue))
         message.additional = additional
         return message

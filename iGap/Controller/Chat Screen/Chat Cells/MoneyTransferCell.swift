@@ -71,7 +71,7 @@ class MoneyTransferCell: IGMessageGeneralCollectionViewCell {
         txtDate.backgroundColor = UIColor.iGapYellow()
         ttlTransfer.textColor = UIColor.black
         txtDate.textColor = UIColor.black
-        txtAmount.text = String(describing: wallet.amount).inLocalizedLanguage() + "CURRENCY".localizedNew
+        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         
