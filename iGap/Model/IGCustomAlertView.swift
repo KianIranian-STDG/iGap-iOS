@@ -144,8 +144,9 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         
         //BUTTON
         let btnAction = UIButton()
-        btnAction.frame.origin = CGPoint(x: 0, y: separatorView2.frame.height + separatorView2.frame.origin.y + 8)
-        btnAction.frame.size = CGSize(width: dialogViewWidth , height: 40)
+        btnAction.frame.origin = CGPoint(x: 8, y: separatorView2.frame.height + separatorView2.frame.origin.y + 8)
+        btnAction.frame.size = CGSize(width: dialogViewWidth - 16 , height: 40)
+        btnAction.layer.cornerRadius = 10.0
         btnAction.setTitle("BTN_PAY".localizedNew, for: .normal)
         btnAction.titleLabel?.font = UIFont.igFont(ofSize: 17)
         btnAction.backgroundColor = UIColor.iGapGreen()
@@ -153,7 +154,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
 
         dialogView.addSubview(btnAction)
         
-        let dialogViewHeight = titleLabel.frame.height + 8 + descriptionLabel.frame.height + 8 + priceLabel.frame.height + 8 + priceTitleLabel.frame.height + 8 + separatorLineView.frame.height + 8 + separatorView1.frame.height + 8 + separatorView2.frame.height + 8 + btnAction.frame.height
+        let dialogViewHeight = titleLabel.frame.height + 8 + descriptionLabel.frame.height + 8 + priceLabel.frame.height + 8 + priceTitleLabel.frame.height + 8 + separatorLineView.frame.height + 8 + separatorView1.frame.height + 8 + separatorView2.frame.height + 8 + btnAction.frame.height + 8
         
         dialogView.frame.origin = CGPoint(x: 32, y: frame.height)
         dialogView.frame.size = CGSize(width: frame.width, height: dialogViewHeight)
