@@ -2409,7 +2409,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     @IBAction func didTapOnDeleteSelectedAttachment(_ sender: UIButton) {
         self.currentAttachment = nil
-        self.isCardToCardRequestEnable = false
         self.setInputBarHeight()
         let text = inputTextView.text as NSString
         if text.length > 0 {
@@ -2421,6 +2420,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     @IBAction func didTapOnCancelReplyOrForwardButton(_ sender: UIButton) {
         IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+        self.isCardToCardRequestEnable = false
         self.selectedMessageToReply = nil
         if self.selectedMessageToEdit != nil {
             self.selectedMessageToEdit = nil
