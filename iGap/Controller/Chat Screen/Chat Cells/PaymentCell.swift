@@ -71,12 +71,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()
 
-        var wallet: IGRoomMessageMoneyTransfer!
-        if message.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-            wallet = message.wallet!.moneyTrasfer
-        } else if message.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-            wallet = message.wallet!.payment
-        } else {
+        guard let wallet = message.wallet?.payment else {
             return
         }
         
