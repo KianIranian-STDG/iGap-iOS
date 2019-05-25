@@ -25,6 +25,7 @@ import MBProgressHUD
 import ContactsUI
 import MobileCoreServices
 import MarkdownKit
+import SwiftyJSON
 
 
 public var indexOfVideos = [Int]()
@@ -902,8 +903,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func onBotClick(){
         self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
     }
+    
     func onAdditionalRequestPayDirect(structAdditional :IGStructAdditionalButton){
-        tmpUserID  =  self.room?.chatRoom?.peer?.id
+        tmpUserID = self.room?.chatRoom?.peer?.id
         IGHelperAlert.shared.showAlert(data: structAdditional.value)
     }
     

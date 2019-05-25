@@ -70,6 +70,9 @@ class IGHelperJson {
         return 0
     }
     
+    internal static func parseAdditionalPayDirect(data: Any) -> IGStructAdditionalPayDirect? {
+        return IGStructAdditionalPayDirect(json: JSON(arrayLiteral: data)[0])
+    }
     
     /*************************************************************************/
     /******************************** Sticker ********************************/

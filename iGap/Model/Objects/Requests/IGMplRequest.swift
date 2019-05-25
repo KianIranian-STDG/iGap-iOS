@@ -106,26 +106,25 @@ class IGMplSetSalesResult : IGRequest {
 }
 class IGMplSetCardToCardResult : IGRequest {
     
-    class func sendRequest(data : String){
-        IGMplSetCardToCardResult.Generator.generate(data : data).success({ (protoResponse) in
-            if let response = protoResponse as? IGPMplSetCardToCardResultResponse {
-                print("RESPONSE SALES SET :",response)
-            }
+    class func sendRequest(data : String, toUserId: Int64? = nil){
+        IGMplSetCardToCardResult.Generator.generate(data : data, toUserId: toUserId).success({ (protoResponse) in
         }).error ({ (errorCode, waitTime) in
-            print(errorCode)
             switch errorCode {
             case .timeout:
                 sendRequest(data : data)
-                
             default:
                 break
             }
         }).send()
     }
+    
     class Generator : IGRequest.Generator{
-        class func generate(data : String) -> IGRequestWrapper {
+        class func generate(data : String, toUserId: Int64? = nil) -> IGRequestWrapper {
             var mplSetCardToCardResult = IGPMplSetCardToCardResult()
             mplSetCardToCardResult.igpData = data
+            if toUserId != nil {
+                mplSetCardToCardResult.igpToUserID = toUserId!
+            }
             return IGRequestWrapper(message: mplSetCardToCardResult, actionID: 9108)
         }
     }
@@ -136,10 +135,11 @@ class IGMplSetCardToCardResult : IGRequest {
     }
 }
 
+/* Hint: not need "toUserId" for following request, but after do this action for send "IGMplSetCardToCardResult" request, "toUserId" is needed. */
 class IGMplGetCardToCardToken : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate() -> IGRequestWrapper {
-            return IGRequestWrapper(message: IGPMplGetCardToCardToken(), actionID: 9106)
+        class func generate(toUserId: Int64 = 0) -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPMplGetCardToCardToken(), actionID: 9106, identity: "\(toUserId)")
         }
     }
     

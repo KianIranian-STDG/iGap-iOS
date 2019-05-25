@@ -43,10 +43,22 @@ class IGHelperAlert {
             alertView!.present(alert, animated: true, completion: nil)
         }
     }
-    func showAlert(data : String) {
+    
+    func showAlert(data: String) {
         let alert = CustomAlertDirectPay(data: data)
         alert.show(animated: true)
     }
+    
+    func showAlert(data: IGStructAdditionalButton) {
+        if let value = data.value, !value.isEmpty {
+            let alert = CustomAlertDirectPay(data: value)
+            alert.show(animated: true)
+        } else if let valueJson = data.valueJson, let finalData = IGHelperJson.parseAdditionalPayDirect(data: valueJson) {
+            let alert = CustomAlertDirectPay(data: finalData)
+            alert.show(animated: true)
+        }
+    }
+    
     func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil){
         DispatchQueue.main.async {
             

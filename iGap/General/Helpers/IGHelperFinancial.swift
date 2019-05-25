@@ -17,6 +17,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     static let shared = IGHelperFinancial()
     
     private var uiViewController: UIViewController!
+    private var cardToCardUserId: Int64!
     
     override init() {}
     
@@ -95,15 +96,22 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     }
     
     
-    public func sendCardToCardRequest(){
+    public func sendCardToCardRequest(toUserId: Int64 = 0){
         IGGlobal.prgShow()
-        IGMplGetCardToCardToken.Generator.generate().success({ (protoResponse) in
+        IGMplGetCardToCardToken.Generator.generate(toUserId: toUserId).successPowerful({ (protoResponse, requestWrapper) in
             IGGlobal.prgHide()
+            if let toUserId = Int64(requestWrapper.identity), toUserId != 0 {
+                self.cardToCardUserId = toUserId
+            } else {
+                self.cardToCardUserId = 0
+            }
             
             if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
-                InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
-                                                MerchantVCArg: UIApplication.topViewController()!,
-                                                callback: self)
+                DispatchQueue.main.async {
+                    InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
+                                                    MerchantVCArg: UIApplication.topViewController()!,
+                                                    callback: self)
+                }
             }
         }).error ({ (errorCode, waitTime) in
             IGGlobal.prgHide()
@@ -114,31 +122,25 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
         IGGlobal.prgShow()
         IGMplGetSalesToken.Generator.generate(inquery: inquery, amount: amount , toUserId: toUserId , invoiceNUmber: invoiceNUmber , description: description).success({ (protoResponse) in
             IGGlobal.prgHide()
-
-                    if let response = protoResponse as? IGPMplGetSalesTokenResponse {
-                        let initpayment = InitPayment()
-                        initpayment.registerPay(merchant: self)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-
-                        initpayment.initPay(Token: response.igpToken, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
-
-                        }
-                    }
-                }).error ({ (errorCode, waitTime) in
-                                            IGGlobal.prgHide()
-
-                }).send()
+            if let response = protoResponse as? IGPMplGetSalesTokenResponse {
+                let initpayment = InitPayment()
+                initpayment.registerPay(merchant: self)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    initpayment.initPay(Token: response.igpToken, MerchantVCArg: UIApplication.topViewController()!, TSPEnabled: 0)
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
     }
+    
     func ctcResult(encData: String, message: String, status: Int, resultCode: Int) {
-        IGMplSetCardToCardResult.sendRequest(data: encData)
-
+        IGMplSetCardToCardResult.sendRequest(data: encData, toUserId: self.cardToCardUserId)
     }
+    
     func update(encData: String, message: String, status: Int) {
         IGMplSetSalesResult.sendRequest(data: encData)
     }
     
-    func error(errorType: Int, orderID: Int) {
-    }
-    
-    
+    func error(errorType: Int, orderID: Int) {}
 }

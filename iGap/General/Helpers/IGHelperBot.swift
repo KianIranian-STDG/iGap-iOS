@@ -9,6 +9,8 @@
  */
 
 import SnapKit
+import IGProtoBuff
+
 var tmpUserID : Int64!
 class IGHelperBot {
     
@@ -189,8 +191,6 @@ class IGHelperBot {
     
     private func manageAdditionalActions(structAdditional: IGStructAdditionalButton){
 
-
-        
         switch structAdditional.actionType {
             
         case ButtonActionType.NONE.rawValue :
@@ -230,7 +230,6 @@ class IGHelperBot {
             
         case ButtonActionType.PAY_DIRECT.rawValue :
             IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
-
             break
             
         case ButtonActionType.REQUEST_PHONE.rawValue :
@@ -242,6 +241,12 @@ class IGHelperBot {
             break
             
         case ButtonActionType.SHOWA_ALERT.rawValue :
+            break
+            
+        case IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue :
+            if let toUserId = Int64(structAdditional.value) {
+                IGHelperFinancial.shared.sendCardToCardRequest(toUserId: toUserId)
+            }
             break
             
         default:

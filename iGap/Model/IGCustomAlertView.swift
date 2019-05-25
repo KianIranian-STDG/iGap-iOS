@@ -25,9 +25,13 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
     convenience init(data: String) {
         self.init(frame: UIScreen.main.bounds)
         parseData(data: data)
-
-        
     }
+    
+    convenience init(data: IGStructAdditionalPayDirect) {
+        self.init(frame: UIScreen.main.bounds)
+        initialize(title: data.title, price: data.price, description: data.description)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

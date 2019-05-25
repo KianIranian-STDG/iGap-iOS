@@ -17,6 +17,7 @@ class IGStructAdditionalButton {
     var label : String!
     var imageUrl : URL!
     var value : String!
+    var valueJson : Any! // use this param when value is json
     
     init(json: JSON) {
         self.json = json.description
@@ -24,5 +25,26 @@ class IGStructAdditionalButton {
         self.label = json["label"].stringValue
         self.imageUrl = json["imageUrl"].url
         self.value = json["value"].stringValue
+        self.valueJson = json["value"].object
+    }
+}
+
+
+class IGStructAdditionalPayDirect {
+    
+    var title : String!
+    var invoiceNumber : String!
+    var price : String!
+    var description : String!
+    var toId : Int64!
+    var inquiry : Bool!
+    
+    init(json: JSON) {
+        self.title = json["title"].stringValue
+        self.invoiceNumber = json["invoiceNumber"].stringValue
+        self.price = json["price"].stringValue
+        self.description = json["description"].stringValue
+        self.toId = json["toId"].int64
+        self.inquiry = json["inquiry"].bool
     }
 }
