@@ -45,10 +45,11 @@ class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, U
         }
         
         if defaultBillInfo != nil {
-            billId = defaultBillInfo?.BID
-            payId = defaultBillInfo?.PID
-            edtBillingID.text = defaultBillInfo?.BID
-            edtPaymentCode.text = defaultBillInfo?.PID
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                let billId: String! = self.defaultBillInfo?.BID
+                let payId: String! = self.defaultBillInfo?.PID
+                self.fetchBillInfo(billInfo: "\(billId!)\(payId!)", setText: true)
+            }
         }
     }
     
