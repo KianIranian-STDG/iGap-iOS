@@ -113,15 +113,19 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
 
     func compactRealm() {
-        let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
-        let defaultParentURL = defaultURL.deletingLastPathComponent()
-        let compactedURL = defaultParentURL.appendingPathComponent("default-compact.realm")
-        autoreleasepool {
-            let realm = try! Realm()
-            try! realm.writeCopy(toFile: compactedURL)
+        do {
+            let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
+            let defaultParentURL = defaultURL.deletingLastPathComponent()
+            let compactedURL = defaultParentURL.appendingPathComponent("default-compact.realm")
+            try autoreleasepool {
+                let realm = try! Realm()
+                try realm.writeCopy(toFile: compactedURL)
+            }
+            try FileManager.default.removeItem(at: defaultURL)
+            try FileManager.default.moveItem(at: compactedURL, to: defaultURL)
+        } catch let error {
+            print(error)
         }
-        try! FileManager.default.removeItem(at: defaultURL)
-        try! FileManager.default.moveItem(at: compactedURL, to: defaultURL)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
