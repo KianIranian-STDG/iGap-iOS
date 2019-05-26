@@ -47,6 +47,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.change(textFont: UIFont.igFont(ofSize: 15))
+            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+
         }
     }
     private let disposeBag = DisposeBag()
@@ -1479,6 +1481,8 @@ extension IGRecentsTableViewController {
 extension IGRecentsTableViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
         self.searchBar.hero.id = "searchBar"

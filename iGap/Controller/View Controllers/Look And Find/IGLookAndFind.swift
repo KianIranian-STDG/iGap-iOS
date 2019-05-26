@@ -17,8 +17,14 @@ import Hero
 class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
+//            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+            
+        }
+    }
+
     static var enableForward = false //open forward page or main tab due to the this value
     static var isEnableGlobalSearch = false
     var findResult: [IGLookAndFindStruct] = []
@@ -27,6 +33,20 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        for view:UIView in (searchBar?.subviews)!
+        {
+            for subView:UIView in (view.subviews)
+            {
+                if ( subView is UIButton )
+                {
+                    let cancelBut = subView as! UIButton
+                    cancelBut.backgroundColor = .clear
+                    cancelBut.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                    cancelBut.titleLabel?.font = UIFont.igFont(ofSize: 16)
+                    //do stuff with cancelButton here
+                }
+            }
+        }
         searchBar.delegate = self
         searchBar.hero.id = "searchBar"
         setNavigationItem()
@@ -42,7 +62,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.searchBar.becomeFirstResponder()
         }
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
 
     }
     
@@ -54,10 +74,16 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
 
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+
+    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         self.view.endEditing(true)
