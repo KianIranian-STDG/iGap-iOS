@@ -29,6 +29,9 @@ class SMMyBarCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.tabBarItem.title = "MY_QR"
+        self.tabBarController?.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.igFont(ofSize: 10)], for: .normal)
 //        initNavigationBar()
         // Do any additional setup after loading the view.
         
@@ -82,8 +85,10 @@ class SMMyBarCodeViewController: UIViewController {
     
     // MARK : - init View elements
     func initNavigationBar(){
-        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController!.navigationBar.topItem!.title = "MY_QR".localizedNew
+
+
         
     }
     override func didReceiveMemoryWarning() {

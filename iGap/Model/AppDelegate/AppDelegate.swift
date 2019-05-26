@@ -103,7 +103,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         let tabBarItemApperance = UITabBarItem.appearance()
         tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor.red]), for: UIControl.State.normal)
         tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor.white]), for: UIControl.State.selected)
-        
+//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.igFont(ofSize: 10)], for: .normal)
+
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
 
         pushNotification(application)

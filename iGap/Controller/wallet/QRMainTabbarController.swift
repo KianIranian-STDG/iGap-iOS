@@ -21,19 +21,31 @@ class QRMainTabbarController: UITabBarController {
         override func viewDidLoad() {
             super.viewDidLoad()
             self.tabBar.barTintColor = UIColor.iGapBars()
+            tabBar.items![0].title = "MY_QR".localizedNew
+            tabBar.items![1].title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+
         }
         
         override func viewWillAppear(_ animated: Bool) {
             selectedItemTitleMustbeBold()
+            tabBar.items![0].title = "MY_QR".localizedNew
+            tabBar.items![1].title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+
         }
         
         override func viewDidAppear(_ animated: Bool) {
             selectedItemTitleMustbeBold()
+            tabBar.items![0].title = "MY_QR".localizedNew
+            tabBar.items![1].title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+
         }
         
         
         override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
             selectedItemTitleMustbeBold()
+            tabBar.items![0].title = "MY_QR".localizedNew
+            tabBar.items![1].title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+
         }
         
         func selectedItemTitleMustbeBold(){
@@ -43,12 +55,12 @@ class QRMainTabbarController: UITabBarController {
                 }
                 if tabBar.selectedItem == item {
                     setCurrentTab(tag: (tabBar.selectedItem?.tag)!)
-                    let selectedTitleFont = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.bold)
+                    let selectedTitleFont = UIFont.igFont(ofSize: 12, weight: .bold)
                     let selectedTitleColor = UIColor.black
                     item.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): selectedTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): selectedTitleColor]), for: UIControl.State.normal)
                 } else {
-                    let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.regular)
-                    let normalTitleColor = UIColor(red: 176.0/255.0, green: 224.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+                    let normalTitleFont = UIFont.igFont(ofSize: 12, weight: .regular)
+                    let normalTitleColor = UIColor.white
                     item.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): normalTitleFont, convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): normalTitleColor, convertFromNSAttributedStringKey(NSAttributedString.Key.backgroundColor): UIColor.black]), for: UIControl.State.normal)
                 }
             }

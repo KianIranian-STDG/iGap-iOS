@@ -170,7 +170,9 @@ class SMBarcodeMainViewController: UIViewController {
     // MARK : - init View elements
     func initNavigationBar(){
        
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController!.navigationBar.topItem!.title = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
