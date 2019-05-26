@@ -374,7 +374,7 @@ class IGAppManager: NSObject {
                     case .userLoginFailed, .userLoginFailedOne, .userLoginFailedTwo, .userLoginFailedThree, .userLoginFaieldUserIsBlocked:
                         DispatchQueue.main.async {
                             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                            appDelegate.showLoginFaieldAlert(title: "Login Failed. Code: \(errorCode)")
+                            appDelegate.showLoginFaieldAlert(title: "Login Failed")
                         }
                     default:
                         break

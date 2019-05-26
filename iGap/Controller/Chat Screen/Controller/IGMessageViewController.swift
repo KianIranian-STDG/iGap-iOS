@@ -906,7 +906,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     func onAdditionalRequestPayDirect(structAdditional :IGStructAdditionalButton){
         tmpUserID = self.room?.chatRoom?.peer?.id
-        IGHelperAlert.shared.showAlert(data: structAdditional.value)
+        IGHelperAlert.shared.showAlert(data: structAdditional)
     }
     
     
@@ -3269,7 +3269,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         
         if let message = messages?[section] {
             if message.type == .wallet {
-                return UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0)
+                return UIEdgeInsets.init(top: 5, left: 0, bottom: 5, right: 0)
             }
         }
         return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)

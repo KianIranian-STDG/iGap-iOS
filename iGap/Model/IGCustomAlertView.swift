@@ -29,6 +29,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
     
     convenience init(data: IGStructAdditionalPayDirect) {
         self.init(frame: UIScreen.main.bounds)
+        toUserID = tmpUserID
         initialize(title: data.title, price: data.price, description: data.description)
     }
     
@@ -46,14 +47,10 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         do {
             
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-               print(json)
                 if str.contains("toId") {
                     toUserID = json["toId"] as! Int64
-
-                }
-                else {
+                } else {
                     toUserID = tmpUserID
-
                 }
                 amount = json["price"] as! Int64
                 invoiceNumber = json["invoiceNumber"] as! Int64
@@ -61,9 +58,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
                 let tmpInquery = (json["inquiry"] as! Bool)
                 if tmpInquery  {
                     inquery = true
-
-                }
-                else {
+                } else {
                     inquery = false
                 }
                 initialize(title : json["title"] as! String , price: String(amount) , description : json["description"] as! String)
