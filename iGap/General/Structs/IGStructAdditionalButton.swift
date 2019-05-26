@@ -48,3 +48,15 @@ class IGStructAdditionalPayDirect {
         self.inquiry = json["inquiry"].bool
     }
 }
+
+
+class IGStructBillInfo {
+    
+    var PID : String!
+    var BID : String!
+    
+    init(json: JSON) {
+        self.PID = json["PID"].stringValue
+        self.BID = json["BID"].stringValue
+    }
+}

@@ -74,6 +74,18 @@ class IGHelperJson {
         return IGStructAdditionalPayDirect(json: JSON(arrayLiteral: data)[0])
     }
     
+    internal static func parseBillInfo(data: String) -> IGStructBillInfo? {
+        do {
+            if let dataFromString = data.data(using: .utf8, allowLossyConversion: false) {
+                let jsonBillInfo = try JSON(data: dataFromString)
+                return IGStructBillInfo(json: jsonBillInfo)
+            }
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
+    
     /*************************************************************************/
     /******************************** Sticker ********************************/
     

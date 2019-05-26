@@ -156,6 +156,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             IGFinancialServiceBill.isTrafficOffenses = false
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+            messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
             UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
             return
             
@@ -164,6 +165,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             IGFinancialServiceBill.isTrafficOffenses = true
             let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
             let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+            messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: discoveryInfo.igpValue)
             UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
             return
             

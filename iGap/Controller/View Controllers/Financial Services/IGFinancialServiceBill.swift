@@ -23,6 +23,7 @@ class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, U
     
     var billId: String! = ""
     var payId: String! = ""
+    var defaultBillInfo: IGStructBillInfo?
     
     internal static var isTrafficOffenses = false
     internal static var BillInfo: String?
@@ -41,6 +42,13 @@ class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, U
         
         if IGFinancialServiceBill.isTrafficOffenses {
             imgCompany.image = UIImage(named: "bill_jarime_pec")
+        }
+        
+        if defaultBillInfo != nil {
+            billId = defaultBillInfo?.BID
+            payId = defaultBillInfo?.PID
+            edtBillingID.text = defaultBillInfo?.BID
+            edtPaymentCode.text = defaultBillInfo?.PID
         }
     }
     
