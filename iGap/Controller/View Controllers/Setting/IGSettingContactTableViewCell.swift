@@ -46,6 +46,7 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
         self.registeredUser = user
         
         contactNameLable.text = user.displayName
+        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
         userAvatarView.setUser(user)
         if user.isBlocked {
             blockedLabel.isHidden = false
