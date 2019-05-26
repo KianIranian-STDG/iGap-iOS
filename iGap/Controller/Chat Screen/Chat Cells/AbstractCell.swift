@@ -704,23 +704,34 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             let direction = pan.direction(in: superview!)
             
             if direction.contains(.Left) {
-                
-                if (shouldReply) {
-                    let collectionView: UICollectionView = self.superview as! UICollectionView
-                    let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
-                    collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onSwipe(_:)), forItemAt: indexPath, withSender: nil)
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.setNeedsLayout()
-                        self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!, cell: self)
-                        self.layoutIfNeeded()
-                    })
-                    
-                } else {
+                switch realmRoomMessage.status {
+
+                case .failed, .unknown , .sending:
                     UIView.animate(withDuration: 0.2, animations: {
                         self.setNeedsLayout()
                         self.layoutIfNeeded()
                     })
+                    break
+                default :
+                    if (shouldReply) {
+                        let collectionView: UICollectionView = self.superview as! UICollectionView
+                        let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
+                        collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onSwipe(_:)), forItemAt: indexPath, withSender: nil)
+                        UIView.animate(withDuration: 0.2, animations: {
+                            self.setNeedsLayout()
+                            self.delegate?.swipToReply(cellMessage: self.realmRoomMessage!, cell: self)
+                            self.layoutIfNeeded()
+                        })
+                        
+                    } else {
+                        UIView.animate(withDuration: 0.2, animations: {
+                            self.setNeedsLayout()
+                            self.layoutIfNeeded()
+                        })
+                    }
+                    break
                 }
+
             } else if direction.contains(.Down) {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.setNeedsLayout()
