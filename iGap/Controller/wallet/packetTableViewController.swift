@@ -58,6 +58,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         initView()
         defaultHeightSize = Int(cardCollectionView.frame.height)
         defaultWidthSize = Int(cardCollectionView.frame.width)
+        self.tableView.backgroundColor = UIColor.iGapTableViewBackground()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

@@ -369,6 +369,9 @@ extension UIColor {
     class func iGapYellow() -> UIColor {
         return UIColor(red: 244/255.0, green: 212/255.0, blue: 66/255.0, alpha: 0.9)
     }
+    class func iGapTableViewBackground() -> UIColor {
+        return UIColor(red: 239/255.0, green: 239/255.0, blue: 244/255.0, alpha: 1.0)
+    }
     class func iGapSkyBlue() -> UIColor {
         return UIColor(red: 66/255.0, green: 212/255.0, blue: 244/255.0, alpha: 0.9)
     }

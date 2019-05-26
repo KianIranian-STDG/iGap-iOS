@@ -57,7 +57,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
         card.pan = cardTextField.text?.onlyDigitChars().inEnglishNumbers()
         card.exp_y = yearTextField.text?.inEnglishNumbers()
         card.exp_m = mounthTextField.text?.inEnglishNumbers()
-        card.isDefault = switchIsDefault.isOn
+//        card.isDefault = switchIsDefault.isOn
         SMLoading.showLoadingPage(viewcontroller: self)
 
 
