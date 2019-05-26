@@ -512,9 +512,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         let room = cell.room!
         
-        var muteTitle = "MUTE".localizedNew
+        var muteTitle = "UN_MUTE".localizedNew
         if room.mute == IGRoom.IGRoomMute.mute {
+            muteTitle = "UN_MUTE".localizedNew
+        }
+        else {
             muteTitle = "MUTE".localizedNew
+
         }
         
         var pinTitle = "PINN".localizedNew
