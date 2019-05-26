@@ -11,6 +11,7 @@
 import IGProtoBuff
 import RealmSwift
 
+// IMPORTANT TODO - convert current class to builder
 class IGHelperAlert {
     
     static let shared = IGHelperAlert()
@@ -114,4 +115,50 @@ class IGHelperAlert {
     func showErrorAlert(done: (() -> Void)? = nil){
         showAlert(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, done: done)
     }
+
+    
+    func showForwardAlert(title: String, isForbidden: Bool = false, cancelForward: (() -> Void)? = nil, done: (() -> Void)? = nil){
+        DispatchQueue.main.async {
+            
+            let alertView = UIApplication.topViewController()
+            
+            var message: String!
+            if isForbidden {
+                message = "FORWARD_PERMISSION".localizedNew
+            } else {
+                message = "FORWARD_QUESTION".localizedNew
+            }
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let titleFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15, weight: .bold)]
+            let titleAttrString = NSMutableAttributedString(string: title, attributes: titleFont)
+            alert.setValue(titleAttrString, forKey: "attributedTitle")
+            
+            if message != nil {
+                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+                let messageAttrString = NSMutableAttributedString(string: message!, attributes: messageFont)
+                alert.setValue(messageAttrString, forKey: "attributedMessage")
+            }
+            
+            if !isForbidden {
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+                    done?()
+                })
+                alert.addAction(okAction)
+            }
+            
+            let cancelAction = UIAlertAction(title: "FORWARD_CANCEL".localizedNew, style: .default, handler: { (action) in
+                cancelForward?()
+            })
+            alert.addAction(cancelAction)
+            
+            let anotherRoom = UIAlertAction(title: "ANOTHER_ROOM".localizedNew, style: .default, handler: nil)
+            alert.addAction(anotherRoom)
+            
+            alertView!.present(alert, animated: true, completion: nil)
+        }
+    }
+ 
+ 
 }

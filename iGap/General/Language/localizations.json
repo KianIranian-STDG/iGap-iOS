@@ -868,6 +868,9 @@
         "PU_MERCHANTS" : "فروشگاه ها",
         "Token_Error" : "نرم‌افزار نیاز به بروزرسانی اطلاعات اکانت شما دارد. لطفا مجددا تلاش نمایید.",
         "FORWARD_PERMISSION" : "متاسفانه امکان ارسال پیام در گفتگو برای شما وجود ندارد!",
+        "FORWARD_QUESTION" : "آیا میخواهید پیام را به این چت ارسال کنید؟",
+        "FORWARD_CANCEL" : "انصراف از ارسال",
+        "ANOTHER_ROOM" : "چت دیگر",
         "DESCRIPTION" : "توضیحات",
         "NO_DESCRIPTION" : "توضیحی ثبت نشده است"
     },
@@ -1749,6 +1752,9 @@
         "PU_MERCHANTS" : "Stores",
         "Token_Error" : "App needed to refresh your authentication detail, please try again.",
         "FORWARD_PERMISSION" : "Sorry, you are not allowed to send any messages to this chat!",
+        "FORWARD_QUESTION" : "Do you want to forward message to this room ?",
+        "FORWARD_CANCEL" : "Cancel Forward",
+        "ANOTHER_ROOM" : "Another Room",
         "DESCRIPTION" : "Description",
         "NO_DESCRIPTION" : "There is no description"
     }
