@@ -226,6 +226,24 @@ class IGHelperBot {
             IGMessageViewController.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
             break
             
+        case IGPDiscoveryField.IGPButtonActionType.billMenu.rawValue :
+            IGFinancialServiceBill.BillInfo = nil
+            IGFinancialServiceBill.isTrafficOffenses = false
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+            messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            break
+            
+        case IGPDiscoveryField.IGPButtonActionType.trafficBillMenu.rawValue :
+            IGFinancialServiceBill.BillInfo = nil
+            IGFinancialServiceBill.isTrafficOffenses = true
+            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+            messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+            break
+            
         case ButtonActionType.STREAM_PLAY.rawValue :
             break
             

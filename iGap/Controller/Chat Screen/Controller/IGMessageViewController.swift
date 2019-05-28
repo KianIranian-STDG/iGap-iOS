@@ -2967,8 +2967,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 stickerViewController.stickerPageType = self.stickerPageType
                 stickerViewController.stickerGroupId = self.stickerGroupId
             }
-        } else if segue.identifier == "showForwardMessageTable" {
-            IGForwardMessageTableViewController.forwardMessageDelegate = self
         } else if segue.identifier == "showReportPage" {
             let destinationTv = segue.destination as! IGReport
             destinationTv.room = self.room
@@ -3676,13 +3674,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
             IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
             
-            if IGLookAndFind.isEnableGlobalSearch { // if global search is enable should be replce view controller. do this because of "hero" lib
-                IGLookAndFind.isEnableGlobalSearch = false
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
-            } else {
-                self.navigationController?.popViewController(animated: true)
-            }
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
         })
         let edit = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
@@ -4215,24 +4208,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             alert.addAction(openNow)
             self.present(alert, animated: true, completion: nil)
         }
-    }
-}
-
-//MARK: - IGForwardMessageDelegate
-extension IGMessageViewController : IGForwardMessageDelegate {
-    func didSelectRoomToForwardMessage(room: IGRoom) {
-        if room.id == self.room?.id {
-            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-            self.forwardOrReplyMessage(IGMessageViewController.selectedMessageToForwardFromThisRoom!, isReply: false)
-            return
-        }
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-        self.inputTextView.resignFirstResponder()
-        messagesVc.room = room
-        IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-        IGMessageViewController.selectedMessageToForwardFromThisRoom = nil
-        self.navigationController!.pushViewController(messagesVc, animated:false)
     }
 }
 

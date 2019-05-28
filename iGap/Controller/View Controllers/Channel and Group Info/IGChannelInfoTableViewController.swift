@@ -658,7 +658,7 @@ class IGChannelInfoTableViewController: BaseTableViewController , UIGestureRecog
             actionTitle = "BTN_DELETE".localizedNew
         } else {
             title = "MSG_SURE_TO_LEAVE_CHANNEL".localizedNew
-            actionTitle = "LEADVE".localizedNew
+            actionTitle = "LEAVE".localizedNew
         }
         let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: {

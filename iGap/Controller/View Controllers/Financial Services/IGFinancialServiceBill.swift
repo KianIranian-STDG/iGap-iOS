@@ -23,6 +23,7 @@ class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, U
     
     var billId: String! = ""
     var payId: String! = ""
+    var defaultBillInfo: IGStructBillInfo?
     
     internal static var isTrafficOffenses = false
     internal static var BillInfo: String?
@@ -41,6 +42,22 @@ class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, U
         
         if IGFinancialServiceBill.isTrafficOffenses {
             imgCompany.image = UIImage(named: "bill_jarime_pec")
+            if defaultBillInfo != nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.billId = self.defaultBillInfo?.BID
+                    self.payId = self.defaultBillInfo?.PID
+                    self.edtBillingID.text = self.billId
+                    self.edtPaymentCode.text = self.payId
+                }
+            }
+        } else {
+            if defaultBillInfo != nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    let billId: String! = self.defaultBillInfo?.BID
+                    let payId: String! = self.defaultBillInfo?.PID
+                    self.fetchBillInfo(billInfo: "\(billId!)\(payId!)", setText: true)
+                }
+            }
         }
     }
     

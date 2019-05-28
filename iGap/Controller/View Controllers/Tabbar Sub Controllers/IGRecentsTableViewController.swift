@@ -512,9 +512,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         let room = cell.room!
         
-        var muteTitle = "MUTE".localizedNew
+        var muteTitle = "UN_MUTE".localizedNew
         if room.mute == IGRoom.IGRoomMute.mute {
+            muteTitle = "UN_MUTE".localizedNew
+        }
+        else {
             muteTitle = "MUTE".localizedNew
+
         }
         
         var pinTitle = "PINN".localizedNew
@@ -769,8 +773,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             return
         }
 
-        if IGGlobal.isForwardEnable() && selectedRoomForSegue!.isReadOnly {
-            IGHelperAlert.shared.showAlert(view: self, title: selectedRoomForSegue?.title, message: "FORWARD_PERMISSION".localizedNew)
+        if IGGlobal.isForwardEnable() {
+            IGHelperAlert.shared.showForwardAlert(title: selectedRoomForSegue!.title!, isForbidden: selectedRoomForSegue!.isReadOnly, cancelForward: {
+                IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+            }, done: {
+                self.performSegue(withIdentifier: "showRoomMessages", sender: self)
+            })
         } else {
             performSegue(withIdentifier: "showRoomMessages", sender: self)
         }
