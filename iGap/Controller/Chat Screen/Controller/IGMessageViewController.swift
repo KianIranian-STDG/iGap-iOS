@@ -3676,13 +3676,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
             IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
             
-            if IGLookAndFind.isEnableGlobalSearch { // if global search is enable should be replce view controller. do this because of "hero" lib
-                IGLookAndFind.isEnableGlobalSearch = false
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
-            } else {
-                self.navigationController?.popViewController(animated: true)
-            }
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
         })
         let edit = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {

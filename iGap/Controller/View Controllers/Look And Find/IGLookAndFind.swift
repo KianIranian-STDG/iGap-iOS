@@ -26,7 +26,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
 
     static var enableForward = false //open forward page or main tab due to the this value
-    static var isEnableGlobalSearch = false
     var findResult: [IGLookAndFindStruct] = []
     var searching = false // use this param for avoid from duplicate search
     var latestSearchText = ""
@@ -67,7 +66,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        IGLookAndFind.isEnableGlobalSearch = true
         self.navigationController?.hero.navigationAnimationType = .fade
         let attributes:[NSAttributedString.Key:Any] = [
             NSAttributedString.Key.foregroundColor : UIColor.black,
@@ -266,7 +264,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         IGRecentsTableViewController.needGetInfo = false
-        IGLookAndFind.isEnableGlobalSearch = false
         if IGGlobal.isForwardEnable() {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForwardPage")
