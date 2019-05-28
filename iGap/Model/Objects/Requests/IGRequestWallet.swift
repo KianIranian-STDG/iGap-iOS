@@ -59,6 +59,8 @@ class IGRequestWalletGetAccessToken : IGRequest {
                 let securitymanager = WS_SecurityManager()
 //                let auth = WS_main()
                 securitymanager.setJWT(response.igpAccessToken)
+                print(response.igpAccessToken)
+                getUserIDFrmToken(token: "1234")
 //                getUserIDFrmToken(token: response.igpAccessToken)
                 let _ : String =  extractTokenFromAccessToken(token: response.igpAccessToken)
 //                getUserIDFrmToken(token: tmpBase64Token)

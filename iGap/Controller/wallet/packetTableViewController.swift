@@ -73,6 +73,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         initChangeLanguage()
+        IGRequestWalletGetAccessToken.sendRequest()
     }
     
     //MARK: change Language Handler
