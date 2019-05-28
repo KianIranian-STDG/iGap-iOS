@@ -38,7 +38,7 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     }
     
     private func makeView(){
-        previewView = UIView(frame: CGRect.zero)
+        previewView = UIView(frame: mainView.bounds)
         mainView.addSubview(previewView)
         previewView.snp.makeConstraints { (make) in
             make.top.equalTo(mainView.snp.top)
