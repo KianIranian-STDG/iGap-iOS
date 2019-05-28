@@ -2967,8 +2967,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 stickerViewController.stickerPageType = self.stickerPageType
                 stickerViewController.stickerGroupId = self.stickerGroupId
             }
-        } else if segue.identifier == "showForwardMessageTable" {
-            IGForwardMessageTableViewController.forwardMessageDelegate = self
         } else if segue.identifier == "showReportPage" {
             let destinationTv = segue.destination as! IGReport
             destinationTv.room = self.room
@@ -4210,24 +4208,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             alert.addAction(openNow)
             self.present(alert, animated: true, completion: nil)
         }
-    }
-}
-
-//MARK: - IGForwardMessageDelegate
-extension IGMessageViewController : IGForwardMessageDelegate {
-    func didSelectRoomToForwardMessage(room: IGRoom) {
-        if room.id == self.room?.id {
-            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-            self.forwardOrReplyMessage(IGMessageViewController.selectedMessageToForwardFromThisRoom!, isReply: false)
-            return
-        }
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-        self.inputTextView.resignFirstResponder()
-        messagesVc.room = room
-        IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-        IGMessageViewController.selectedMessageToForwardFromThisRoom = nil
-        self.navigationController!.pushViewController(messagesVc, animated:false)
     }
 }
 

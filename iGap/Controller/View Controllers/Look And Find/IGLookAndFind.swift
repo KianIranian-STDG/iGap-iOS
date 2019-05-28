@@ -264,17 +264,10 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         IGRecentsTableViewController.needGetInfo = false
-        if IGGlobal.isForwardEnable() {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForwardPage")
-            self.searchBar.hero.id = "searchBar"
-            self.hero.replaceViewController(with: mainView)
-        } else {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
-            self.searchBar.hero.id = "searchBar"
-            self.hero.replaceViewController(with: mainView)
-        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
+        self.searchBar.hero.id = "searchBar"
+        self.hero.replaceViewController(with: mainView)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
