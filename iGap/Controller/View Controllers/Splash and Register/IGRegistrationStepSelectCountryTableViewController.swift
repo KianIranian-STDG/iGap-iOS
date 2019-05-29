@@ -16,7 +16,7 @@ protocol IGRegistrationStepSelectCountryTableViewControllerDelegate {
 }
 
 
-class IGRegistrationStepSelectCountryTableViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
+class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!

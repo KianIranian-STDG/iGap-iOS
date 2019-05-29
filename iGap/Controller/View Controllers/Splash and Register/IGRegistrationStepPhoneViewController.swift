@@ -78,11 +78,11 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
+        countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
         btnLoginQrCode.setTitle("LOGIN_USING_QR".localizedNew, for: .normal)
         btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
-
-//        btnLoginQrCode.removeUnderline()
-//
+        
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
                 self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
@@ -109,9 +109,6 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIView.appearance().semanticContentAttribute = .forceLeftToRight
-        lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
-        countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
-        
         
         navigationController?.navigationItem.hidesBackButton = true
         countryBackgroundView.layer.cornerRadius = 6.0;
