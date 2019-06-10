@@ -27,7 +27,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var btnLoginQrCode: UIButton!
     
-    
+    var body : String!
     @IBOutlet weak var lblHeader: UILabel!
 
     
@@ -298,8 +298,25 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
     
     @objc func showTermsWebLink() {
-        IGHelperOpenLink.openLink(urlString: "https://www.igap.net/privacy.html", navigationController: self.navigationController!)
+        let myURLString = "https://www.igap.net/privacy.html"
+        guard let myURL = URL(string: myURLString) else {
+            print("Error: \(myURLString) doesn't seem to be a valid URL")
+            return
+        }
+        
+        do {
+            let myHTMLString = try String(contentsOf: myURL, encoding: .ascii)
+            body = myHTMLString
+        } catch let error {
+            print("Error: \(error)")
+        }
+        self.performSegue(withIdentifier: "presentPrivacyPolicy", sender: self)
+
+
+//        IGHelperOpenLink.openLink(urlString: "https://www.igap.net/privacy.html", navigationController: self.navigationController!)
     }
+ 
+    
     
     func getUserCurrentLocation() {
         IGInfoLocationRequest.Generator.generate().success({(protoResponse) in
@@ -340,6 +357,10 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             destination.delegate = self
         } else if segue.identifier == "presentTerms" {
             
+        }else if segue.identifier == "presentPrivacyPolicy" {
+            let destination = segue.destination as! IGRegistrationStepPrivacyPolicyViewController
+            destination.body = body
+
         } else if segue.identifier == "showRegistration" {
             let destination = segue.destination as! IGRegistrationStepVerificationCodeViewController
             destination.codeDigitsCount = self.registrationResponse?.codeDigitsCount
@@ -370,6 +391,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
             phoneNumberField.setMask(codePatternMask, withMaskTemplate: codePatternTemplate)
         }
     }
+    
     
 }
 

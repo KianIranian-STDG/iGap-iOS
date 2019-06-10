@@ -13,7 +13,7 @@ import MBProgressHUD
 import IGProtoBuff
 
 class IGRegistrationStepTermsViewController: BaseViewController {
-
+    
     @IBOutlet weak var webView: UIWebView!
     
     
@@ -40,20 +40,28 @@ class IGRegistrationStepTermsViewController: BaseViewController {
                 case let pageInfoResponse as IGPInfoPageResponse:
                     let body = IGInfoPageRequest.Handler.interpret(response: pageInfoResponse)
                     let htmlString = "<font face='IRANSans' size='3'>" + "<p style='text-align:center'>" + body + "</p>"
+                    
+                    if SMLangUtil.loadLanguage() == "fa" {
+                        
+                        self.webView.loadHTMLString(htmlString.replacingOccurrences(of: "justify", with: "right"), baseURL: nil)
 
-                        self.webView.loadHTMLString(htmlString, baseURL: nil)
+                    }
+                    else {
+                        self.webView.loadHTMLString(htmlString.replacingOccurrences(of: "justify", with: "left"), baseURL: nil)
+
+                    }
                 default:
                     break
                 }
                 hud.hide(animated: true)
             }
-        }.error { (errorCode, waitTime) in
-            DispatchQueue.main.async {
-                hud.hide(animated: true)
-            }
-        }.send()
+            }.error { (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    hud.hide(animated: true)
+                }
+            }.send()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
