@@ -20,10 +20,45 @@ import Intents
 import CoreData
 import messages
 import maincore
+import PushKit
+import CallKit
+
 
 
 @UIApplicationMain
-class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate , PKPushRegistryDelegate,CXProviderDelegate {
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+        print("PUSH RECIEVED First :")
+        print("voip token: \(pushCredentials.token.toHexString())")
+        }
+    func providerDidReset(_ provider: CXProvider) {
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        action.fulfill()
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        action.fulfill()
+    }
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
+
+        let payloadDict = payload.dictionaryPayload["data"]! as! Dictionary<String, Any>
+        let name = payloadDict["name"]! as Any
+        let userId = payloadDict["userID"]! as Any
+
+        showCallPage(userId: userId as! Int64 , userName: (name as! String))
+
+        
+    }
+    func voipRegistration () {
+        let mainQueue = DispatchQueue.main
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = [PKPushType.voIP]
+        
+    }
+ 
 
     var window: UIWindow?
     var isNeedToSetNickname : Bool = true
@@ -36,10 +71,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     internal static var appIsInBackground : Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        MCLocalization.load(from: core_utils.getResourcesBundle().url(forResource: "strings.json", withExtension: nil), defaultLanguage: "en")
-
         let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
-
-        print(SMLangUtil.loadLanguage())
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
 
@@ -53,28 +85,29 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
         SMUserManager.clearKeychainOnFirstRun()
         SMUserManager.loadFromKeychain()
-//        let config = Realm.Configuration(schemaVersion: try! schemaVersionAtURL(Realm.Configuration.defaultConfiguration.fileURL!) + 1)
-//        Realm.Configuration.defaultConfiguration = config
-//        
-//        _ = try! Realm()
+        realmConfig()
+        Fabric.with([Crashlytics.self])
+        _ = IGDatabaseManager.shared
+        _ = IGWebSocketManager.sharedManager
+        _ = IGFactory.shared
+        _ = IGCallEventListener.sharedManager // detect cellular call state
         
-        // Share
-        /*
-        let fileURL = FileManager.default
-            .containerURL(forSecurityApplicationGroupIdentifier: "group.im.iGap")!
-            .appendingPathComponent("default.realm")
+        UITabBar.appearance().tintColor = UIColor.white
         
-        if !FileManager.default.fileExists(atPath: fileURL.path) {
-            let defaultRealmPath = Realm.Configuration.defaultConfiguration.fileURL!
-            if FileManager.default.fileExists(atPath: defaultRealmPath.path) {
-                do {
-                    try FileManager.default.copyItem(atPath: defaultRealmPath.path, toPath: fileURL.path)
-                } catch let error as NSError {
-                    print("error occurred, here are the details:\n \(error)")
-                }
-            }
-        }
-        */
+        let tabBarItemApperance = UITabBarItem.appearance()
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor.red]), for: UIControl.State.normal)
+        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor.white]), for: UIControl.State.selected)
+
+        UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
+
+        pushNotification(application)
+        
+        detectBackground()
+        return true
+    }
+    
+
+    func realmConfig() {
         
         let config = Realm.Configuration (
             // Share
@@ -90,29 +123,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         compactRealm()
         _ = try! Realm()
         
-        
-        Fabric.with([Crashlytics.self])
-        _ = IGDatabaseManager.shared
-        _ = IGWebSocketManager.sharedManager
-        _ = IGFactory.shared
-        _ = IGCallEventListener.sharedManager // detect cellular call state
-        
-        UITabBar.appearance().tintColor = UIColor.white
-        //UITabBar.appearance().barTintColor = UIColor(red: 0.0, green: 176.0/255.0, blue: 191.0/255.0, alpha: 1.0)
-        
-        let tabBarItemApperance = UITabBarItem.appearance()
-        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor.red]), for: UIControl.State.normal)
-        tabBarItemApperance.setTitleTextAttributes(convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor):UIColor.white]), for: UIControl.State.selected)
-//        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.igFont(ofSize: 10)], for: .normal)
 
-        UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
-
-        pushNotification(application)
-        detectBackground()
-        return true
     }
-    
-
     func compactRealm() {
         do {
             let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
@@ -194,8 +206,13 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
 
         application.registerForRemoteNotifications()
+        self.voipRegistration()
+
     }
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        voipRegistration()
+    }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         if let roomId = userInfo["roomId"] as? String {
             let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
@@ -258,11 +275,16 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         })
     }
     
-    func showCallPage(userId: Int64 , isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, showAlert: Bool = true){
+    func showCallPage(userId: Int64 ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, showAlert: Bool = true){
         
         if isIncommmingCall || !showAlert {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
+            //Mark:- show Display Name of caller User if Nil we are not in terminate State
+            if userName != nil {
+                callPage.callerName = userName
+            }
+            //End
             callPage.userId = userId
             callPage.isIncommingCall = isIncommmingCall
             callPage.callType = type

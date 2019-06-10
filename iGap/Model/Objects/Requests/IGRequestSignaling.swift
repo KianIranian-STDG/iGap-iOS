@@ -71,6 +71,7 @@ class IGSignalingOfferRequest : IGRequest {
                 }
                 
                 DispatchQueue.main.async {
+
                     (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: offerProtoResponse.igpCallerUserID,
                                                                                  sdp: offerProtoResponse.igpCallerSdp,
                                                                                  type: offerProtoResponse.igpType)

@@ -36,6 +36,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     @IBOutlet weak var remoteCameraView: RTCEAGLVideoView!
     @IBOutlet weak var holdView: UIView!
     @IBOutlet weak var txtHold: UILabel!
+    var callerName : String! = nil
     
     let SWITCH_CAMERA_DELAY : Int64 = 1000
     let mainWidth = UIScreen.main.bounds.width
@@ -100,10 +101,20 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
             return
         }
+
+   
         phoneNumber = String(describing: userRegisteredInfo.phone)
         IGCall.callUUID = UUID()
         if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
-            CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
+            if callerName == nil {
+                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: self.phoneNumber)
+
+            }
+            else {
+                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: callerName)
+
+            }
+
         }
         super.viewDidLoad()
 
@@ -129,6 +140,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         holdView.layer.cornerRadius = 10
         txtCallerName.text = userRegisteredInfo.displayName
+
+      
         txtCallState.text = "Communicating..."
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
