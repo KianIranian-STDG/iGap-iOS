@@ -15,13 +15,22 @@ import webservice
 
 
 
-class SMBarcodeMainViewController: UIViewController {
+class SMBarcodeMainViewController: UIViewController ,HandleReciept{
+    func close() {
+        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+    }
+    
+    func screenView() {
+        print("test")
+    }
+    
 
     @IBOutlet weak var heightConstants: NSLayoutConstraint!
     @IBOutlet weak var lblCurrency: UILabel!
     @IBOutlet weak var mianView:UIView!
     @IBOutlet weak var previewView: UIView!
     private var userCards: [SMCard]?
+    private var userMerchants: [SMMerchant]?
     private var targetAccountId: String!
     private var transportId : String?
     private var qrCode : String?
@@ -30,7 +39,8 @@ class SMBarcodeMainViewController: UIViewController {
     var hasShown = false
     private var currentAmount: String = "0" {
         didSet {
-            lblCurrency.text = "TTL_WALLET_BALANCE".localizedNew + "\(" \n")\(currentAmount) \(" ")" + "CURRENCY".localizedNew
+            
+            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(currentAmount) \(" ")" + "CURRENCY".localizedNew
         }
     }
     override func viewDidLoad() {
@@ -38,9 +48,37 @@ class SMBarcodeMainViewController: UIViewController {
         initView()
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
-        self.updateAmountOfPayGear()
+        self.userMerchants = SMMerchant.getAllMerchantsFromDB()
+
+        
+        switch currentBussinessType {
+        case 0 :
+            lblCurrency.text = "TTL_WALLET_BALANCE_STORE".localizedNew + "\(" \n")\(merchantBalance) \(" ")" + "CURRENCY".localizedNew
+
+            break
+        case 2 :
+            lblCurrency.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew + "\(" \n")\(merchantBalance) \(" ")" + "CURRENCY".localizedNew
+
+            break
+        case 3 :
+            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance) \(" ")" + "CURRENCY".localizedNew
+            self.updateAmountOfPayGear()
+
+            break
+            
+        default :
+            break
+            
+        }
+
         
     }
+    private func updateAmountOfMerchant() {
+        for i in userMerchants! {
+
+        }
+    }
+
     private func updateAmountOfPayGear() {
         if let cards = userCards {
             if cards.count > 0 {
@@ -115,12 +153,21 @@ class SMBarcodeMainViewController: UIViewController {
             presentedViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;
             presentedViewController.view.backgroundColor = UIColor.init(white: 0.4, alpha: 0.8)
             let _ : [String: String]!
+            presentedViewController.name = nil
             presentedViewController.name = name
+            if (type == SMAmountPopupType.PopupNoProductTaxi) ||  (type == SMAmountPopupType.PopupProductedTaxi) {
+                isTaxi = true
+            }
+            else {
+               isTaxi = false
+
+            }
             presentedViewController.profilePicUrl = imgUser
             UserDefaults.standard.setValue(imgUser, forKey: "modalUserPic")
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
             UserDefaults.standard.setValue(self.lblCurrency.text!, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
+            UserDefaults.standard.setValue(self.transportId!, forKey: "modalTrasnportID")
 
 
             presentedViewController.type = 2//user Type nuber
@@ -197,6 +244,7 @@ class SMBarcodeMainViewController: UIViewController {
 
             let value = String(code[range.upperBound...])
         if let json = value.toJSON() as? Dictionary<String, AnyObject> {
+            print(json)
             if self.hasShown {
                 UserDefaults.standard.setValue(String(value).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
@@ -211,7 +259,7 @@ class SMBarcodeMainViewController: UIViewController {
         
     }
     
-    func getAccountInformation (accountId: String, closure: @escaping (_ name: String, _ subTitle: String, _ imagePath: String) -> ()) {
+    func getAccountInformation (accountId: String, closure: @escaping (_ name: String, _ subTitle: String, _ imagePath: String, _ acountType: Int) -> ()) {
         
         
         let account = PU_obj_account()
@@ -225,11 +273,13 @@ class SMBarcodeMainViewController: UIViewController {
                 var name: String = ""
                 var subTitle: String = ""
                 var imagePath: String = ""
+                var acountType: Int = 2
                 if let n = jsonResult["name"] { name = n as! String }
                 if let s = jsonResult["sub_title"] { subTitle = s as! String }
                 if let i = jsonResult["profile_picture"] { imagePath = i as! String }
-                
-                closure(name , subTitle, imagePath)
+                if let at = jsonResult["account_type"] { acountType = at as! Int }
+
+                closure(name , subTitle, imagePath, acountType)
             }
             
         }
@@ -253,19 +303,60 @@ class SMBarcodeMainViewController: UIViewController {
         self.targetAccountId = String(describing:accountId)
         UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
 
-        self.getAccountInformation(accountId:  String(describing:accountId), closure: {name, subTitle, imagePath in
+        self.getAccountInformation(accountId:  String(describing:accountId), closure: {name, subTitle, imagePath, acountType in
             
             if qrType == Int(SMQRCode.SMAccountType.User.rawValue) {
                 SMLoading.hideLoadingPage()
 //                self.showPopup(type: .PopupUser, value:["name": name, "subTitle": subTitle, "imagePath": imagePath])
                 if self.hasShown {
-                    print(name)
-                    print(imagePath)
-                self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
+
+                    switch acountType {
+                    case 0 :
+                        DispatchQueue.main.async {
+                            self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+
+                        }
+                        break
+                    case 1 :
+                        DispatchQueue.main.async {
+                            self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                            
+                        }
+
+                        break
+                    case 2 :
+                        DispatchQueue.main.async {
+                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
+                            
+                        }
+
+                        break
+                    default :
+                        break
+                    }
+                    
                 }
             }
             else {
-                
+
+                switch acountType {
+                case 0 :
+                    DispatchQueue.main.async {
+                        self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                        
+                    }
+                    break
+                case 1 :
+                    DispatchQueue.main.async {
+                        self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                        
+                    }
+                    break
+                case 2 :
+                    break
+                default :
+                    break
+                }
             }
         })
     }

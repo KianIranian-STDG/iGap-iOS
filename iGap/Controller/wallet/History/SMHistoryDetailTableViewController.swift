@@ -227,7 +227,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             
             if row.is_paid == .PAID {
                 cell.titleImage.image = UIImage.init(named: "down-arrow")
-                cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO ".localizedNew
+                cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
                 cell.titleLabel.text = "TTL_PAY_WITH_WALLET_CARD_PENDING".localizedNew

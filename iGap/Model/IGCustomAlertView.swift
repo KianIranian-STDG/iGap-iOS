@@ -15,7 +15,7 @@ import UIKit
 class CustomAlertDirectPay: UIView, IGCustomModal {
     var backgroundView = UIView()
     var dialogView = UIView()
-
+    
     var inquery : Bool!
     var amount : Int64!
     var toUserID : Int64!
@@ -62,7 +62,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
                     inquery = false
                 }
                 initialize(title : json["title"] as! String , price: String(amount) , description : json["description"] as! String)
-
+                
             }
         } catch let error as NSError {
             print("Failed to load: \(error.localizedDescription)")
@@ -70,7 +70,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
     }
     
     func initialize(title : String , price: String , description : String){
-
+        
         
         dialogView.clipsToBounds = true
         
@@ -85,7 +85,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         let titleLabel = UILabel(frame: CGRect(x: 8, y: 8, width: dialogViewWidth-16, height: 30))
         titleLabel.text = title
         titleLabel.font = UIFont.igFont(ofSize: 17)
-
+        
         titleLabel.textAlignment = .center
         dialogView.addSubview(titleLabel)
         
@@ -117,10 +117,10 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         
         let priceLabel = UILabel(frame: CGRect(x: 8, y: priceTitleLabel.frame.height + priceTitleLabel.frame.origin.y + 8, width: dialogViewWidth-16, height: 30))
         priceLabel.font = UIFont.igFont(ofSize: 20, weight: .bold)
-//        priceLabel.textColor = .black
+        //        priceLabel.textColor = .black
         priceLabel.text = price.inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew
         priceLabel.textColor = UIColor.iGapGreen()
-
+        
         priceLabel.textAlignment = .center
         dialogView.addSubview(priceLabel)
         
@@ -146,7 +146,7 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
         btnAction.titleLabel?.font = UIFont.igFont(ofSize: 17)
         btnAction.backgroundColor = UIColor.iGapGreen()
         btnAction.addTarget(self, action: #selector(sendRequest), for: .touchUpInside)
-
+        
         dialogView.addSubview(btnAction)
         
         let dialogViewHeight = titleLabel.frame.height + 8 + descriptionLabel.frame.height + 8 + priceLabel.frame.height + 8 + priceTitleLabel.frame.height + 8 + separatorLineView.frame.height + 8 + separatorView1.frame.height + 8 + separatorView2.frame.height + 8 + btnAction.frame.height + 8
@@ -164,7 +164,9 @@ class CustomAlertDirectPay: UIView, IGCustomModal {
     @objc func sendRequest(){
         IGHelperFinancial.shared.sendPayDirectRequest(inquery: inquery, amount: amount, toUserId: toUserID, invoiceNUmber: invoiceNumber, description: descriptionR)
         dismiss(animated: true)
-
+        
         
     }
 }
+
+

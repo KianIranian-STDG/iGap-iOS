@@ -81,7 +81,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
     @IBAction func okPressed(_ sender: Any) {
         
         SMLoading.showLoadingPage(viewcontroller: self)
-        SMCard.initPayment(amount: Int((self.tfAmount.text?.onlyDigitChars())!),accountId:  SMUserManager.accountId, onSuccess: { response in
+        SMCard.initPayment(amount: Int((self.tfAmount.text?.onlyDigitChars())!),accountId:  SMUserManager.accountId, discount_price: "0", onSuccess: { response in
             SMLoading.hideLoadingPage()
             let json = response as? Dictionary<String, AnyObject>
             if let ipg = json?["ipg_url"] as? String ,ipg != "" {

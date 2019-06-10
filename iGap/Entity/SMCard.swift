@@ -219,27 +219,36 @@ class SMCard : SMEntity{
     }
 
 
-    static func initPayment(amount : Int? ,accountId : String?, from : String? = nil, transportId: String? = nil, orderType: ORDER_TYPE? = .DEFAULT, preOrder: Bool? = false, qrCode: String? = nil, isCredit : Bool = false , onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
+    static func initPayment(amount : Int? ,accountId : String?, from : String? = nil, transportId: String? = nil, orderType: ORDER_TYPE? = .DEFAULT, preOrder: Bool? = false, qrCode: String? = nil, discount_price: String?, isCredit : Bool = false, transaction_type: Int? = 4, hyperme_invoice_number: String? = nil, onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil) {
         let payObj = PC_obj_payinit()
         payObj.amount = amount ?? 0
         payObj.to = accountId
         from != nil ? payObj.from = from : print("isnil")
         payObj.transaction_type = 4
         payObj.credit = isCredit
+        if let discount = discount_price {
+            if let discount = Int((discount.onlyDigitChars())) , discount > 0 {
+                payObj.discount_price = discount
+            }
+        }
+        if let hyperme_invoice_number = hyperme_invoice_number {
+            payObj.hyperme_invoice_number = hyperme_invoice_number
+        }
+        
         if transportId != nil {
             payObj.transportId = transportId
         }
         else {
             payObj.to = accountId
             payObj.transaction_type = 4
-
+            
             if orderType != .DEFAULT  {
                 payObj.order_type = orderType!
             }
             payObj.credit = isCredit
             payObj.pre_order = preOrder!
             payObj.from = from
-
+            
             if transportId != nil {
                 payObj.transportId = transportId
             }
@@ -247,26 +256,19 @@ class SMCard : SMEntity{
                 payObj.qrCode = qrCode
             }
         }
-
-        let cardRequest = WS_methods(delegate: self, failedDialog: false)
+        
+        let cardRequest = WS_methods(delegate: self, failedDialog: true)
         cardRequest.addSuccessHandler { (response : Any) in
-
-                onSuccess?(response)
+            
+            onSuccess?(response)
         }
-
-
         cardRequest.addFailedHandler({ (response: Any) in
             SMLog.SMPrint("faild")
             onFailed?(response)
-            print(testConvert(response))
-            
-            
-            SMMessage.showWithMessage(SMCard.testConvert(response))
-
-
         })
         cardRequest.pc_payment_init(payObj)
     }
+    
     static func testConvert(_ something: Any) -> String  {
         guard let dict = something as? [AnyHashable: Any] else {
             print("\(something) couldn't be converted to Dictionary")
@@ -578,3 +580,14 @@ class SMCard : SMEntity{
     }
 }
 
+
+class SMCardMerchant : SMEntity{
+    
+    static let ENTITY_NAME = "Card"
+    
+    
+    
+    var bType:Int?
+    var type:Int64?
+    var cashablebalance:Int64?
+}

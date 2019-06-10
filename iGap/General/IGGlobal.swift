@@ -24,6 +24,7 @@ let kIGGoDissmissLangENNotificationName = "im.igap.ios.dismiss.langEN"
 let kIGGoDissmissLangARNotificationName = "im.igap.ios.dismiss.langAR"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
 let kIGNoticationForPushUserExpire = "im.igap.ios.user.expire"
+let kIGNoticationDismissWalletPay = "im.igap.ios.dismiss.wallet.pay"
 
 let IGNotificationStatusBarTapped         = Notification(name: Notification.Name(rawValue: "im.igap.statusbarTapped"))
 let IGNotificationPushLoginToken          = Notification(name: Notification.Name(rawValue: "im.igap.ios.user.push.token"))

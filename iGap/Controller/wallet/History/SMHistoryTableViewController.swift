@@ -11,7 +11,7 @@ import models
 import webservice
 
 class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
-    
+    var isInStandardHistoPage = false
 	@IBOutlet var indicator: UIActivityIndicatorView!
 	var rowData : [PAY_obj_history]?
 	var loadingData : Bool = false
@@ -19,6 +19,44 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
     @IBOutlet weak var placeHolderLabel: UILabel!
 	var accountId: String?
 	
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateHisto(_:)),
+                                               name: NSNotification.Name(rawValue: SMConstants.notificationHistoryMerchantUpdate),
+                                               object: nil)
+    }
+    
+    @objc func updateHisto(_ aNotification: Notification) {
+        self.rowData?.removeAll()
+        self.tableView.reloadWithAnimation()
+        if let userId = aNotification.userInfo?["id"] as? String
+        
+        {
+            accountId = userId
+            if accountId == nil {
+                SMHistory.getHistoryFromServer(last : "",  {his in
+                    self.refreshControl?.endRefreshing()
+                    self.doSuccess(his as Any)
+                }, onFailed: {err in
+                    self.refreshControl?.endRefreshing()
+                    self.doFail(err)
+                })
+            }
+            else {
+                SMHistory.getHistoryFromServer(last : "", accountId: accountId!,  {his in
+                    self.refreshControl?.endRefreshing()
+                    self.doSuccess(his as Any)
+                }, onFailed: {err in
+                    self.refreshControl?.endRefreshing()
+                    self.doFail(err)
+                })
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
@@ -63,8 +101,10 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "WALLET_HISTORY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
+        if isInStandardHistoPage {
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        }
     }
 	@objc func pullToRefresh() {
 		

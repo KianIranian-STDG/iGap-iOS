@@ -10,10 +10,34 @@ import UIKit
 import webservice
 import RealmSwift
 
+/// Type of product QR code
+///
+/// - khati: The taxi with source and destination and defined price
+/// - gardeshi: the taxi without information about places and price
+/// - Ajans: private taxi
+public var isMerchant = false
+enum SMTransportType: Int {
+    case khati = 0;
+    case gardeshi = 1;
+    case Ajans    = 2;
+}
+
+/// Type of Payment pop up
+///
+/// - PopupNoProductTaxi: The taxi pop up shows the information of taxi and driver name, no price is provided at this type, so user must enter it
+/// - PopupProductedTaxi: Taxi popup with product shows the information of taxi and driver name with price, the price could be increased by unit
+/// - PopupUser: User popup is normal type to show receiver name and price
+enum SMAmountPopupType: Int {
+    case PopupNoProductTaxi = 0
+    case PopupProductedTaxi = 1
+    case PopupUser          = 2
+    case HyperMe            = 3
+}
 
 /// This class generate QR code of user by its id and shows it in a image view
 class SMMyBarCodeViewController: UIViewController {
 
+    
     var realm = try! Realm()
 
     @IBOutlet var barcodeImageView: UIImageView!
@@ -22,7 +46,7 @@ class SMMyBarCodeViewController: UIViewController {
 
     /// If the merchant QR code is selected, this variable has value.
     /// In normal user page, this value is null
-//    var merchant : SMMerchant?
+    var merchant : SMMerchant?
     
     private var accountId = ""
     private var accountType : String?
@@ -32,23 +56,21 @@ class SMMyBarCodeViewController: UIViewController {
         
         self.tabBarController?.tabBarItem.title = "MY_QR"
         self.tabBarController?.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.igFont(ofSize: 10)], for: .normal)
-//        initNavigationBar()
-        // Do any additional setup after loading the view.
-        
-//        if merchant == nil {
-//            accountType = SMQRCode.SMAccountType.User.rawValue
-//        }
-//        else {
-//
+        if !isMerchant {
             accountType = SMQRCode.SMAccountType.User.rawValue
-        
-        if let sessionInfo = realm.objects(IGSessionInfo.self).first {
-            if sessionInfo.loginToken != nil {
-                fillUserInfo(sessionInfo: sessionInfo)
+//            if let sessionInfo = realm.objects(IGSessionInfo.self).first {
+//                if sessionInfo.loginToken != nil {
+//                    fillUserInfo(sessionInfo: sessionInfo)
+//                }
+//            }
+            accountId = merchantID
 
-            }
         }
-//        }
+        else {
+            accountType = SMQRCode.SMAccountType.User.rawValue
+            accountId = merchantID
+
+        }
         
         getBarcode()
         infoLbl.text = "SHOW_THIS_QR".localizedNew
@@ -112,7 +134,7 @@ class SMMyBarCodeViewController: UIViewController {
         
         var string: String = SMQRCode.URL
         string.append("{\"T\":")
-//        string.append("\"")
+        string.append("\"")
         string.append(accountType!)
         string.append("\"")
         string.append(",")
@@ -127,7 +149,6 @@ class SMMyBarCodeViewController: UIViewController {
         
         filter?.setValue(data, forKey: "inputMessage")
         filter?.setValue("Q", forKey: "inputCorrectionLevel")
-        
         
         let transform = CGAffineTransform(scaleX: 3, y: 3)
         

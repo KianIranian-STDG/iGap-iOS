@@ -22,11 +22,11 @@ class SMMerchant: SMEntity {
 	/// Defined roles name on application for merchant
 	static let roleString : [String]  = [
 		///Sore key name
-		"store".localized,
+		"store".localizedNew,
 		///No name
 		"",
 		///Driver key name
-		"driver".localized]
+		"driver".localizedNew]
 	
 	
 	///Merchant name
@@ -190,7 +190,7 @@ class SMMerchant: SMEntity {
 	/// This function removes all merchants from db and inserts all fetched merchant
 	
 	static func getAllMerchantsFromServer(_ accountId: String, _ onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
-		
+		print(accountId)
 		var serverMerchants = [SMMerchant]()
 		let cardRequest = WS_methods(delegate: self, failedDialog: false)
 		cardRequest.addSuccessHandler { (response : Any) in

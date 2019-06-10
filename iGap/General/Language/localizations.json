@@ -1,5 +1,14 @@
 {
     "fa": {
+        "paygearuser" : "حساب شخصی",
+        "finance" : "مالی",
+        "admin" : "مدیر",
+        "store" : "فروشگاه",
+        "driver" : "راننده",
+        "MONEY_TRANSFER_HISTORY" : "گردش حساب",
+
+        
+        
         "NEW_MESSAGES" : "پیام جدید",
         "WHICH_TYPE_OF" : "تمایل به ایجاد کدام یک از موارد زیر را دارید؟",
         "MY_CLOUD" : "فضای ابری من",
@@ -299,7 +308,9 @@
         "TTL_DELETE_CONTACT" : "حذف مخاطب.",
         "TTL_MAP_STATUS" : "فعال سازی قابلیت اطراف من",
         "TTL_ATTENTION" : "توجه",
-        "TTL_WALLET_BALANCE" : "موجودی کیف",
+        "TTL_WALLET_BALANCE_USER" : "موجودی کیف کاربر",
+        "TTL_WALLET_BALANCE_STORE" : "موجودی کیف فروشگاه",
+        "TTL_WALLET_BALANCE_DRIVER" : "موجودی کیف راننده",
         "TTL_MY_CARDS" : "کارت های من",
         "TTL_TRANSITION_CHARGE_WALLET" : "شارژ کیف پول",
         "TTL_IS_PAYED" : "تسویه حساب شده",
@@ -418,6 +429,8 @@
         "BTN_EDITE" : "ویرایش",
         "BTN_CHARGE_WALLET" : "شارژ کیف پول",
         "BTN_CASHOUT_WALLET" : "برداشت از کیف پول",
+        "BTN_CASHOUT_WALLET_STORE" : "برداشت از کیف پول فروشگاه",
+        "BTN_CASHOUT_WALLET_DRIVER" : "برداشت از کیف پول راننده",
         "BTN_SHOW_RECEPIET" : "نمایش رسید",
         "BTN_PAY_CASHOUT" : "برداشت",
 
@@ -875,6 +888,15 @@
         "NO_DESCRIPTION" : "توضیحی ثبت نشده است"
     },
     "en": {
+        "paygearuser" : "Personal Account",
+        "finance" : "Finance",
+        "admin" : "Admin",
+        "store" : "Store",
+        "driver" : "Driver",
+        "MONEY_TRANSFER_HISTORY" : "Money Transactions History",
+
+        
+        
         "NEW_MESSAGES" : "New Messages",
         "WHICH_TYPE_OF" : "Which type of conversation would you like to initiate?",
         "MY_CLOUD" : "My Cloud",
@@ -1180,7 +1202,9 @@
         "TTL_DELETE_CONTACT" : "Delete Contact.",
         "TTL_MAP_STATUS" : "Notice! Activating Map Status",
         "TTL_ATTENTION" : "Attention",
-        "TTL_WALLET_BALANCE" : "Wallet Balance",
+        "TTL_WALLET_BALANCE_USER" : "User Wallet Balance",
+        "TTL_WALLET_BALANCE_STORE" : "Store Wallet Balance",
+        "TTL_WALLET_BALANCE_DRIVER" : "Store Wallet Balance",
         "TTL_MY_CARDS" : "My Cards",
         "TTL_TRANSITION_CHARGE_WALLET" : "Charge Wallet",
         "TTL_IS_PAYED" : "Cashout",
@@ -1288,6 +1312,8 @@
         "BTN_EDITE" : "Edit",
         "BTN_CHARGE_WALLET" : "Charge",
         "BTN_CASHOUT_WALLET" : "Cash Out",
+        "BTN_CASHOUT_WALLET_STORE" : "Cash Out from Store Wallet",
+        "BTN_CASHOUT_WALLET_DRIVER" : "Cash Out from Driver Wallet",
         "BTN_SHOW_RECEPIET" : "Show Reciept",
 
         "MID_TERM_BILL" : "Mid-Term Bill",

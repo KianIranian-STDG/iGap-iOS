@@ -18,9 +18,12 @@ class SMQRCode:NSObject{
     public enum SMAccountType:String {
         case User                = "8"
         case Merchant            = "9"
+        case HyperMe             = "50"
+
     }
     
 }
+
 struct SMDirection {
     
     public enum SMPageDirection : String {

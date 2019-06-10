@@ -98,6 +98,12 @@
 		8EE7FCA6225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */; };
 		8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FCA7226195E800B6C2C3 /* IGWalletSettingTableViewController.swift */; };
 		8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FCA922619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift */; };
+		8EEE895622A3CF360072383C /* DropUpMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE895022A3CF340072383C /* DropUpMenu.swift */; };
+		8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE895322A3CF350072383C /* SectionHeader.swift */; };
+		8EEE895922A3CF360072383C /* DropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE895422A3CF350072383C /* DropdownMenu.swift */; };
+		8EEE895A22A3CF360072383C /* DropdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE895522A3CF360072383C /* DropdownItem.swift */; };
+		8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */; };
+		8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEE896222ACFBC70072383C /* PushKit.framework */; };
 		8EFD2EBC22880B7E0069B433 /* IGMediaChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */; };
 		8EFD2EBE228BC9140069B433 /* IGMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2EBD228BC9140069B433 /* IGMNavigationController.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
@@ -702,6 +708,13 @@
 		8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashoutModalStepOneViewController.swift; sourceTree = "<group>"; };
 		8EE7FCA7226195E800B6C2C3 /* IGWalletSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletSettingTableViewController.swift; sourceTree = "<group>"; };
 		8EE7FCA922619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletSettingInnerTableViewController.swift; sourceTree = "<group>"; };
+		8EEE895022A3CF340072383C /* DropUpMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropUpMenu.swift; sourceTree = "<group>"; };
+		8EEE895122A3CF340072383C /* DropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropdownMenu.h; sourceTree = "<group>"; };
+		8EEE895322A3CF350072383C /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
+		8EEE895422A3CF350072383C /* DropdownMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownMenu.swift; sourceTree = "<group>"; };
+		8EEE895522A3CF360072383C /* DropdownItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownItem.swift; sourceTree = "<group>"; };
+		8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		8EEE896222ACFBC70072383C /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaChat.swift; sourceTree = "<group>"; };
 		8EFD2EBD228BC9140069B433 /* IGMNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMNavigationController.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
@@ -1200,6 +1213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */,
 				FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */,
 				8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */,
 				8EACC7B022621A1F00F32DC3 /* maincore.framework in Frameworks */,
@@ -1428,6 +1442,18 @@
 				8EE7FCA922619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		8EEE895B22A3CF620072383C /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				8EEE895522A3CF360072383C /* DropdownItem.swift */,
+				8EEE895122A3CF340072383C /* DropdownMenu.h */,
+				8EEE895422A3CF350072383C /* DropdownMenu.swift */,
+				8EEE895022A3CF340072383C /* DropUpMenu.swift */,
+				8EEE895322A3CF350072383C /* SectionHeader.swift */,
+			);
+			path = DropDown;
 			sourceTree = "<group>";
 		};
 		93AA67B81E4F03290053380C /* Channel and Group Info */ = {
@@ -1758,6 +1784,7 @@
 				FA50A8C91DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift */,
 				FA9CE15A2068DF4E0056C866 /* IGSelectCountryCell.swift */,
 				FA50A8CA1DD35EFD00C6D2EA /* IGRegistrationStepTermsViewController.swift */,
+				8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */,
 				4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */,
 				FAEC02D61F439E47001EB4B6 /* IGRegistrationStepQrViewController.swift */,
 				FA7E9BD1226305CA00FB861D /* IGRepresentativeViewController.swift */,
@@ -2010,6 +2037,7 @@
 		FA930D961E5B178F00069EE1 /* ThirdParty Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8EEE895B22A3CF620072383C /* DropDown */,
 				8E1F413622391A7400910E30 /* Vendor */,
 				FAD959021F48AD8600FBD306 /* MTBBarcodeScanner */,
 				FA0CC8101E5DD99400556283 /* Thread */,
@@ -2460,6 +2488,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8EEE896222ACFBC70072383C /* PushKit.framework */,
 				FA6C2DE422670C76005654AC /* AFNetworking.framework */,
 				8EACC7B122621A3100F32DC3 /* webservice.framework */,
 				8EACC7AF22621A1F00F32DC3 /* maincore.framework */,
@@ -2966,6 +2995,7 @@
 				FAC0F08920F0C8C700182758 /* IGFinancialServiceBillQrScanner.swift in Sources */,
 				FAEC476421F31B1B006C07A4 /* AdditionalObserver.swift in Sources */,
 				932D1ABA1E741C18000F0D97 /* IGChannelAndGroupSharedMediaAudioAndLinkTableViewController.swift in Sources */,
+				8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
@@ -2988,6 +3018,7 @@
 				FA85066322670703002EEBF7 /* CardsCollectionViewCell.swift in Sources */,
 				8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */,
 				FA76598722902ACE006322A3 /* CTGalleryOverlayView.swift in Sources */,
+				8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */,
 				FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */,
 				FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */,
 				931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */,
@@ -3101,6 +3132,7 @@
 				FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */,
 				932D1ABE1E7426AD000F0D97 /* IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell.swift in Sources */,
 				FA5301DD2150D12B00A95C2C /* IGHelperChatOpener.swift in Sources */,
+				8EEE895922A3CF360072383C /* DropdownMenu.swift in Sources */,
 				FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */,
 				FAA30F671DAA6F790061B8C9 /* IGWebSocketManager.swift in Sources */,
 				FA76598122902ACE006322A3 /* INSScalingImageView.swift in Sources */,
@@ -3133,6 +3165,7 @@
 				8E96A31E225C902B007D8A77 /* SMRecieptView.swift in Sources */,
 				FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */,
 				FA0953651E1B97700043ED3F /* IGSettingNotificationTableViewController.swift in Sources */,
+				8EEE895622A3CF360072383C /* DropUpMenu.swift in Sources */,
 				FA0953631E1B97700043ED3F /* IGSettingHaveCheckmarkOntheLeftTableViewCell.swift in Sources */,
 				FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */,
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,
@@ -3224,6 +3257,7 @@
 				8EFD2EBE228BC9140069B433 /* IGMNavigationController.swift in Sources */,
 				8E96A326225C9182007D8A77 /* SMGradientButton.swift in Sources */,
 				FA09536D1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsTableViewController.swift in Sources */,
+				8EEE895A22A3CF360072383C /* DropdownItem.swift in Sources */,
 				FA99FF6822354031009035DF /* DashboardCell3.swift in Sources */,
 				FA927E0C20288A7E00DF7145 /* FileCell.swift in Sources */,
 				93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */,

@@ -20,51 +20,55 @@ class SMHistory: SMEntity {
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
             SMLoading.hideLoadingPage()
-            for item in (response as! NSDictionary)["result"] as! [NSDictionary]{
-                let historyItem = PAY_obj_history()
-                ////////////////////////////////////Set object
-                historyItem._id = item["_id"] as? String ?? ""
-                historyItem.amount = item["amount"] as? Int ?? 0
-//                historyItem.card_number = item["card_number"] as! String
-                historyItem.club_cash_back_amount = item["club_cash_back_amount"] as? Int ?? 0
-                historyItem.club_discount_price = item["club_discount_price"] as? Int ?? 0
-                historyItem.created_at_timestamp = item["created_at_timestamp"] as? Int ?? 0
-				if (item["status"] as AnyObject).isKind(of:NSNull.self) {
-					historyItem.is_paid = IS_PAID_STATUS.WAITING
-				}
-				else {
-					historyItem.is_paid = IS_PAID_STATUS(rawValue: UInt(item["status"] as! NSInteger)) ?? IS_PAID_STATUS.WAITING
-				}
-//                historyItem. = item["desc"] as! String
-                historyItem.discount_price = item["discount_price"] as? Int ?? 0
-                historyItem.has_coupon = (item["has_coupon"] != nil)
-                historyItem.invoice_number = item["invoice_number"] as? Int ?? 0
-                let receiver = PU_obj_account()
-                let sender = PU_obj_account()
-                if let receive = (item["receiver"] as? NSDictionary){
-                receiver.account_id = receive["_id"] as? String ?? ""
-                receiver.account_type = ACCOUNT_TYPE.init(receive["account_type"] as? UInt32 ?? 0)
-                receiver.name = receive["name"] as? String ?? ""
-                receiver.username = receive["username"] as? String ?? ""
-                receiver.profile_picture = receive["profile_picture"] as? String ?? ""
+            if  (response as! NSDictionary).count > 0 {
+                
+                for item in (response as! NSDictionary)["result"] as! [NSDictionary]{
+                    let historyItem = PAY_obj_history()
+                    ////////////////////////////////////Set object
+                    historyItem._id = item["_id"] as? String ?? ""
+                    historyItem.amount = item["amount"] as? Int ?? 0
+                    //                historyItem.card_number = item["card_number"] as! String
+                    historyItem.club_cash_back_amount = item["club_cash_back_amount"] as? Int ?? 0
+                    historyItem.club_discount_price = item["club_discount_price"] as? Int ?? 0
+                    historyItem.created_at_timestamp = item["created_at_timestamp"] as? Int ?? 0
+                    if (item["status"] as AnyObject).isKind(of:NSNull.self) {
+                        historyItem.is_paid = IS_PAID_STATUS.WAITING
+                    }
+                    else {
+                        historyItem.is_paid = IS_PAID_STATUS(rawValue: UInt(item["status"] as! NSInteger)) ?? IS_PAID_STATUS.WAITING
+                    }
+                    //                historyItem. = item["desc"] as! String
+                    historyItem.discount_price = item["discount_price"] as? Int ?? 0
+                    historyItem.has_coupon = (item["has_coupon"] != nil)
+                    historyItem.invoice_number = item["invoice_number"] as? Int ?? 0
+                    let receiver = PU_obj_account()
+                    let sender = PU_obj_account()
+                    if let receive = (item["receiver"] as? NSDictionary){
+                        receiver.account_id = receive["_id"] as? String ?? ""
+                        receiver.account_type = ACCOUNT_TYPE.init(receive["account_type"] as? UInt32 ?? 0)
+                        receiver.name = receive["name"] as? String ?? ""
+                        receiver.username = receive["username"] as? String ?? ""
+                        receiver.profile_picture = receive["profile_picture"] as? String ?? ""
+                    }
+                    if let send = (item["sender"] as? NSDictionary){
+                        sender.account_id = send["_id"] as? String ?? ""
+                        sender.account_type = ACCOUNT_TYPE.init(send["account_type"] as? UInt32 ?? 0)
+                        sender.name = send["name"] as? String ?? ""
+                        sender.username = send["username"] as? String ?? ""
+                        sender.profile_picture = send["profile_picture"] as? String ?? ""
+                    }
+                    historyItem.order_type = ORDER_TYPE(rawValue: item["order_type"] as! NSInteger) ?? ORDER_TYPE.DEFAULT
+                    historyItem.pay_date = item["pay_date"] as? Int ?? 0
+                    historyItem.payed_price = item["payed_price"] as? Int ?? 0
+                    historyItem.target_card_number = item["target_card_number"] as? String ?? ""
+                    historyItem.receiver = receiver
+                    historyItem.sender = sender
+                    serverHistory.append(historyItem)
                 }
-                if let send = (item["sender"] as? NSDictionary){
-                sender.account_id = send["_id"] as? String ?? ""
-                sender.account_type = ACCOUNT_TYPE.init(send["account_type"] as? UInt32 ?? 0)
-                sender.name = send["name"] as? String ?? ""
-                sender.username = send["username"] as? String ?? ""
-                sender.profile_picture = send["profile_picture"] as? String ?? ""
-                }
-                historyItem.order_type = ORDER_TYPE(rawValue: item["order_type"] as! NSInteger) ?? ORDER_TYPE.DEFAULT
-                historyItem.pay_date = item["pay_date"] as? Int ?? 0
-                historyItem.payed_price = item["payed_price"] as? Int ?? 0
-                historyItem.target_card_number = item["target_card_number"] as? String ?? ""
-                historyItem.receiver = receiver
-                historyItem.sender = sender
-                serverHistory.append(historyItem)
+                onSuccess?(serverHistory)
+
             }
             
-            onSuccess?(serverHistory)
         }
         
         

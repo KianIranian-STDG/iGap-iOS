@@ -130,7 +130,7 @@ class SMLangUtil: NSObject {
             }
         case "iGap.packetTableViewController":
             if tag == 1 {
-                return "TTL_WALLET_BALANCE".localizedNew
+                return "TTL_WALLET_BALANCE_USER".localizedNew
             }
             else if tag == 2 {
                 return "CURRENCY".localizedNew
