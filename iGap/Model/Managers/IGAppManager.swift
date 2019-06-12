@@ -165,6 +165,10 @@ class IGAppManager: NSObject {
         IGContactManager.importedContact = false // for allow user that import contact list after than logged in again
         IGRecentsTableViewController.needGetInfo = true
         IGDashboardViewController.needGetFirstPage = true
+        
+        if let delegate = RTCClient.getInstance()?.callStateDelegate {
+            delegate.onStateChange(state: RTCClientConnectionState.Unavailable)
+        }
     }
     
     public func setUserLoginSuccessful() {

@@ -163,9 +163,16 @@ class IGSignalingLeaveRequest : IGRequest {
     }
 
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPSignalingLeaveResponse)  {
+        class func interpret(response responseProtoMessage:IGPSignalingLeaveResponse, repeatCount: Int = 0)  {
             
             guard let delegate = RTCClient.getInstance()?.callStateDelegate else {
+                // Hint: do this action with delay because in this state seems to we need more time for open call page and activation protocl callbacks
+                if repeatCount < 5 {
+                    let repeatCountFinal = repeatCount + 1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        IGSignalingLeaveRequest.Handler.interpret(response: responseProtoMessage, repeatCount: repeatCountFinal)
+                    }
+                }
                 return
             }
             
