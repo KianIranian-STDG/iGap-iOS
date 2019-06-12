@@ -20,6 +20,14 @@
         </array>
     </customFonts>
     <scenes>
+        <!--mainWalletViewController-->
+        <scene sceneID="okU-KV-gcO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="wallet" referencedIdentifier="mainWalletViewController" id="LJr-W3-MN8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ggd-Ch-l7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3472" y="-2666"/>
+        </scene>
         <!-- -->
         <scene sceneID="ST3-4I-caM">
             <objects>
@@ -606,11 +614,12 @@
                         <segue destination="6Hy-fe-G4M" kind="show" identifier="showWallpaperOptionPage" id="drr-8R-XU7"/>
                         <segue destination="X0Z-3P-dTg" kind="show" identifier="showCacheSetting" id="sIw-Hv-pyB"/>
                         <segue destination="Tk4-ts-mMN" kind="show" identifier="showChangeLanguagePage" id="hjr-lP-Ydk"/>
+                        <segue destination="LJr-W3-MN8" kind="show" identifier="showWallet" id="cdH-N6-Vpi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KyK-za-w4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3318.115942028986" y="-2031.521739130435"/>
+            <point key="canvasLocation" x="-3431" y="-1832"/>
         </scene>
         <!--QR Reader-->
         <scene sceneID="jBd-LC-TWQ">

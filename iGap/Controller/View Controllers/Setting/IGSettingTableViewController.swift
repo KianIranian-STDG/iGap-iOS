@@ -398,6 +398,16 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             else if rowIndex == 3 {
                 let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
                 self.navigationController?.pushViewController(vc!, animated: true)
+
+//                let vc2 = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "walletTabbar") as? UITabBarController
+//                self.navigationController?.pushViewController(vc2!, animated: true)
+//                let mainView = UIStoryboard(name: "wallet", bundle: nil).instantiateViewController(withIdentifier: "walletTabbar")
+//                self.hero.replaceViewController(with: mainView)
+
+
+                
+//                                self.performSegue(withIdentifier: "showWallet", sender: self)
+//
             }
             else if rowIndex == 4 {
                 IGHelperFinancial.getInstance(viewController: self).manageFinancialServiceChoose()

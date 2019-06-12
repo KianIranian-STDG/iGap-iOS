@@ -33,11 +33,11 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             if let senderId = self.detail?.sender.account_id, senderId != "", let receiverId = self.detail?.receiver.account_id, receiverId != "" {
                 if SMUserManager.accountId == senderId {
                     if let sender_balance_atm = self.detail?.sender.balance_atm {
-                        self.detailArray?.append(("".localized, String(sender_balance_atm).inRialFormat().inLocalizedLanguage() + " " + NSLocalizedString("ریال", comment: "")))
+                        self.detailArray?.append(("".localized, String(sender_balance_atm).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew))
                     }
                 } else if SMUserManager.accountId == receiverId {
                     if let receiver_balance_atm = self.detail?.receiver.balance_atm {
-                        self.detailArray?.append(("TTL_REMAINING_AMOUNT".localizedNew, String(receiver_balance_atm).inRialFormat().inLocalizedLanguage() + " " + NSLocalizedString("ریال", comment: "")))
+                        self.detailArray?.append(("TTL_REMAINING_AMOUNT".localizedNew, String(receiver_balance_atm).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew))
                     }
                 }
             }
@@ -146,7 +146,8 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         cell.frame = CGRect.init(x: 0.0, y: 0.0, width: self.view.frame.width, height: 80.0)
         cell.amountLabel.text = String(rowData!.amount).inRialFormat().inLocalizedLanguage()
         cell.timeLabel.text = Date.init(timeIntervalSince1970: TimeInterval((rowData!.pay_date != 0 ? rowData!.pay_date: rowData!.created_at_timestamp)/1000)).localizedDateTime()
-		
+        cell.currencyLabel.text = "CURRENCY".localizedNew
+
         cell.descLabel.text = rowData!.receiver.name
         
         switch rowData!.order_type {
@@ -158,11 +159,11 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         case .CASH_OUT:
             cell.titleImage.isHidden = false
             if rowData!.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "down-arrow")
+                cell.titleImage.image = UIImage.init(named: "up-arrow")
                 cell.titleLabel.text = "TTL_IS_PAYED".localizedNew
 			}
 			else if (rowData?.is_paid == .REFUND) {
-				cell.titleImage.image = UIImage.init(named: "up-arrow")
+				cell.titleImage.image = UIImage.init(named: "down-arrow")
 				cell.titleLabel.text = "TTL_MONEY_REFUND".localizedNew
 			}
 			else {
@@ -193,8 +194,16 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailcell", for: indexPath) as! SMHistoryDetailTableViewCell
-        cell.title.text = detailArray![indexPath.row].0.inLocalizedLanguage()
-        cell.value.text = detailArray![indexPath.row].1.inLocalizedLanguage()
+        if SMLangUtil.loadLanguage() == "fa" {
+            cell.title.text = detailArray![indexPath.row].1.inLocalizedLanguage()
+            cell.value.text = detailArray![indexPath.row].0.inLocalizedLanguage()
+
+        }
+        else {
+            cell.title.text = detailArray![indexPath.row].0.inLocalizedLanguage()
+            cell.value.text = detailArray![indexPath.row].1.inLocalizedLanguage()
+
+        }
         return cell
     }
     
@@ -226,7 +235,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         else{
             
             if row.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "down-arrow")
+                cell.titleImage.image = UIImage.init(named: "up-arrow")
                 cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
@@ -273,7 +282,7 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
         else{
             
             if row.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "down-arrow")
+                cell.titleImage.image = UIImage.init(named: "up-arrow")
                 cell.titleLabel.text = "فروش طرح باشگاه به".localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")

@@ -22,11 +22,9 @@ class SMRecieptRowView: UIView{
     }
     
     func setupUI(){
-        self.transform = SMDirection.PageAffineTransform()
-        recieptTitleLabel.transform = SMDirection.PageAffineTransform()
-        valueLabel.transform = SMDirection.PageAffineTransform()
-        recieptTitleLabel.textAlignment = SMDirection.TextAlignment()
-        valueLabel.textAlignment = SMDirection.TextAlignment()
+//        self.transform = SMDirection.PageAffineTransform()
+        recieptTitleLabel.textAlignment = valueLabel.localizedNewDirection
+        valueLabel.textAlignment = valueLabel.localizedNewDirection
        
     }
     

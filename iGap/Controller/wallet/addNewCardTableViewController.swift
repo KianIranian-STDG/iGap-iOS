@@ -10,8 +10,8 @@ import UIKit
 
 class addNewCardTableViewController: BaseTableViewController , UITextFieldDelegate  {
     @IBOutlet weak var cardTextField: UITextField!
-    @IBOutlet weak var mounthTextField: UITextField!
-    @IBOutlet weak var yearTextField: UITextField!
+    @IBOutlet weak var mounthTextField: customUITextField!
+    @IBOutlet weak var yearTextField: customUITextField!
     @IBOutlet weak var btnSave : UIButtonX!
     @IBOutlet weak var imgBankLogo : UIImageViewX!
     @IBOutlet weak var lblcardNum : UILabel!
@@ -35,6 +35,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
         lblYear.text = "TTL_YEAR".localizedNew
         
         mounthTextField.placeholder = "TTL_MONTH".localizedNew
+        cardTextField.placeholder = "TTL_ENTER_CARD_NUMBER".localizedNew
         yearTextField.placeholder = "TTL_YEAR".localizedNew
         lblMonth.textAlignment = lblMonth.localizedNewDirection
         lblYear.textAlignment = lblYear.localizedNewDirection
@@ -50,30 +51,40 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
         cardTextField.delegate = self
         mounthTextField.delegate = self
         yearTextField.delegate = self
+
     }
     
     @IBAction func btnSaveTap(_ sender: Any) {
-        let card = SMCard()
-        card.pan = cardTextField.text?.onlyDigitChars().inEnglishNumbers()
-        card.exp_y = yearTextField.text?.inEnglishNumbers()
-        card.exp_m = mounthTextField.text?.inEnglishNumbers()
-//        card.isDefault = switchIsDefault.isOn
-        SMLoading.showLoadingPage(viewcontroller: self)
-
-
-        SMCard.addNewCardToServer(card, onSuccess: {
+        if (yearTextField.text != nil) && (yearTextField.text != "") && (mounthTextField.text != nil) && (mounthTextField.text != "") && (cardTextField.text != nil) && (cardTextField.text != "") {
             
-           
-            self.navigationController?.popViewController(animated: true)
+            let card = SMCard()
+            card.pan = cardTextField.text?.onlyDigitChars().inEnglishNumbers()
+            card.exp_y = yearTextField.text?.inEnglishNumbers()
+            card.exp_m = mounthTextField.text?.inEnglishNumbers()
+            //        card.isDefault = switchIsDefault.isOn
+            SMLoading.showLoadingPage(viewcontroller: self)
             
-        }, onFailed: { err in
             
-
-            if SMValidation.showConnectionErrorToast(err) {
-                SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
-            }
-        })
+            SMCard.addNewCardToServer(card, onSuccess: {
+                
+                
+                self.navigationController?.popViewController(animated: true)
+                
+            }, onFailed: { err in
+                
+                
+                if SMValidation.showConnectionErrorToast(err) {
+                    SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
+                }
+            })
+            
+            
+        }
+        else {
+            IGHelperAlert.shared.showAlert(message: "CHECK_ALL_FIELDS".localizedNew)
+        }
         
+       
     }
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,7 +98,12 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
     }
 
     //Mark: TextField delegates
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 2 {
+            print("FOCOUSED")
+
+        }
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var newStr = string
         
@@ -101,7 +117,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
             }
             
             newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-            textField.text = CardUtils.separateFormat(newStr, separators: [4, 4, 4, 4], delimiter: "-")
+            textField.text = CardUtils.separateFormat(newStr, separators: [4, 4, 4, 4], delimiter: "-").inLocalizedLanguage()
             
             if string == "" && range.location < textField.text!.length {
                 let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!
@@ -110,19 +126,15 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
             
             
         }
-        else if textField.tag == 1 {
-            newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-            let currentCharacterCount = newStr.count
-            let newLength = currentCharacterCount + string.count - range.length
-            return newLength <= 3
+      
+        else if textField.tag == 1 || textField.tag == 2 {
+            newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars().inLocalizedLanguage()
+            //            mounthTextField.text = newStr
             
-        }
-        else if textField.tag == 2 {
-            newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
             let currentCharacterCount = newStr.count
-            let newLength = currentCharacterCount + string.count - range.length
+            let newLength = (currentCharacterCount + string.count - range.length)
             return newLength <= 3
-            
+
         }
         return false
     }

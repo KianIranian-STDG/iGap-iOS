@@ -25,18 +25,9 @@ class SMHistoryDetailTableViewCell: UITableViewCell {
         initChangeCellLang()
     }
     func initChangeCellLang() {
-        if SMLangUtil.lang == "fa" || SMLangUtil.lang == "ar"  {
-            
-            title.textAlignment = .right
-            value.textAlignment = .right
-           
-        }
-        else {
-            
-            title.textAlignment = .left
-            value.textAlignment = .left
-        }
-        
+        value.textAlignment = value.localizedNewDirection
+        title.textAlignment = value.localizedNewDirection
+
     }
 
 

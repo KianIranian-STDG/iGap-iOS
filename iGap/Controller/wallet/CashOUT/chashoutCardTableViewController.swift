@@ -8,6 +8,7 @@
 
 import UIKit
 import Presentr
+import models
 
 
 class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelegate {
@@ -16,7 +17,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     @IBOutlet weak var widthConstrait: NSLayoutConstraint!
     
     @IBOutlet weak var btnGetIban: UIButtonX!
-    @IBOutlet weak var tfAmount: UITextField!
+    @IBOutlet weak var tfAmount: customUITextField!
     @IBOutlet weak var tfCardNumber: UITextField!
     @IBOutlet weak var lblWalletAmountBalance: UILabel!
     @IBOutlet weak var lblCashableAmountBalance: UILabel!
@@ -26,12 +27,14 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     @IBOutlet weak var lblEnterCardNUmberHeader: UILabel!
     var presenter: Presentr?
     var selectCard : SMCashout?
-
+    var tmpCardToken : String? = ""
+    var cardToken : String? = ""
     var merchant : SMMerchant!
     var sourceCard: SMCard!
     var balance = "0".inLocalizedLanguage()
     var finishDelegate : HandleDefaultCard?
     var isImmediate = true
+    var isToWallet = false
     override func viewDidLoad() {
         super.viewDidLoad()
         tfAmount.addTarget(self, action: #selector(myTextFieldDidChange), for: .editingChanged)
@@ -41,12 +44,42 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         initNavigationBar()
         initDelegates ()
         initView()
+        if currentRole == "admin" {
+            getMerChantCards()
+        }
+    }
+    func getMerChantCards(){
+        SMLoading.showLoadingPage(viewcontroller: self)
+        
+        DispatchQueue.main.async {
+            SMCard.getMerchatnCardsFromServer(accountId: merchantID, { (value) in
+                if let card = value {
+                    self.sourceCard = card as? SMCard
+                    self.prepareMerChantCard()
+                }
+            }, onFailed: { (value) in
+                // think about it
+            })
+        }
+    }
+    
+    func prepareMerChantCard() {
+        SMLoading.hideLoadingPage()
+        if let card = sourceCard {
+            if card.type == 1 {
+                //                amountLbl.isHidden = false
+                
+                cardToken = card.token!
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 17)]
         cashoutTypeSeg.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
-        
+        if currentRole != "admin" {
+            self.cashoutTypeSeg.removeSegment(at: 2, animated: true)
+        }
         initChangeLang()
         initChangeDirection()
     }
@@ -57,7 +90,10 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         lblCashableAmountBalanceTitle.text = "TTL_WALLET_ACCOUNT_CASHABLE".localizedNew
         cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_IMMIDIATE".localizedNew, forSegmentAt: 0)
         cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localizedNew, forSegmentAt: 1)
-        cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_NORMAL".localizedNew, forSegmentAt: 1)
+        if currentRole == "admin" {
+            cashoutTypeSeg.setTitle("TTL_CASHOUT_TYPE_TO_WALLET".localizedNew, forSegmentAt: 2)
+
+        }
         btnGetIban.setTitle("TTL_HOW_TO_GET_IBAN".localizedNew, for: .normal)
         btnpay.setTitle("BTN_PAY_CASHOUT".localizedNew, for: .normal)
 
@@ -67,14 +103,21 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         lblCashableAmountBalanceTitle.textAlignment = lblWalletAccountBalanceTitle.localizedNewDirection
     }
     @IBAction func cardPickTap(_ sender: Any) {
-
+        tmpCardToken = ""
         SMLoading.shared.showSavedCardDialog(viewController: self, icon: nil, title: "SAVED_CARDS".localizedNew, cards: SMCashout.getAllCardsFromDB(),yesPressed: { card, saveDefault in
             self.selectCard = (card as! SMCashout)
+            print("CARDS IN DB:")
+            print(SMCashout.getAllCardsFromDB())
             if let pan = self.selectCard?.pan {
                 
                 let newStr = pan
                 self.tfCardNumber.text = SMStringUtil.separateFormat(newStr, separators: [4, 4, 4, 4], delimiter: "-").inLocalizedLanguage()
                 self.tfCardNumber.font = UIFont.igFont(ofSize: 15)
+            }
+            if let cardToken = self.selectCard?.token! {
+                
+                let newStr = cardToken
+                self.tmpCardToken = cardToken
             }
         },noPressed: {
             
@@ -93,6 +136,14 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         self.tfAmount.placeholder = "PLACE_HOLDER_AMOUNT".localizedNew
         self.lblWalletAmountBalance.text = balance + " " + "CURRENCY".localizedNew
         self.lblCashableAmountBalance.text = balance + " " + "CURRENCY".localizedNew
+        if currentRole == "admin" {
+            widthConstrait.constant = 0
+            
+        }
+        else {
+            widthConstrait.constant = 0
+
+        }
     }
     func initDelegates () {
         self.tfAmount.delegate = self
@@ -108,7 +159,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "cashoutModalStepOne") as! cashoutModalStepOneViewController? {
             presentedViewController.dialogT = "CASHOUT_REQUEST".localizedNew
-            presentedViewController.amount = amount
+            presentedViewController.amount = amount!.inEnglishNumbers()
             presentedViewController.message = resp
             presentedViewController.providesPresentationContextTransitionStyle = true
             presentedViewController.definesPresentationContext = true
@@ -162,7 +213,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         
     }
     
-    func payNormal(amountStr:String? , cardNumber : String?) {
+    func payNormal(amountStr:String? , cardNumber : String? = "" ,cardToken : String? = "") {
         
         guard let amount = Int(amountStr!.onlyDigitChars()) else {
             return
@@ -170,7 +221,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         
         
         
-            let accountId = (merchant != nil) ? merchant.id : SMUserManager.accountId
+            let accountId = merchantID
 //            gotoLoadingState()
         
         
@@ -181,7 +232,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             }
             SMCard.confirmChashout(amount: amount,
                                    cardNumber: (cardNumber?.removeSepratorCardNum()),
-                                   cardToken:  "",
+                                   cardToken:  cardToken,
                                    accountId: accountId , onSuccess: {resp in
                                     DispatchQueue.main.async(execute: { () -> Void in
                                         self.showConfirmDialog(resp: resp, amount: amountStr)
@@ -198,7 +249,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 
             })
         }
-        else {
+        else if cashoutTypeSeg.selectedSegmentIndex == 1 {
             var sourceCardToken  = ""
             if self.sourceCard != nil { sourceCardToken = self.sourceCard.token! } else { sourceCardToken = SMUserManager.payGearToken! }
             guard let cardNu = cardNumber?.inEnglishNumbers() else {
@@ -208,7 +259,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "ENTER_WALLET_PIN".localizedNew, yesPressed: { pin in
 //                self.gotoLoadingState()
                 SMLoading.showLoadingPage(viewcontroller: self)
-                SMCard.chashout(amount: amount , cardNumber:  cardNu, cardToken: "",sourceCardToken: sourceCardToken, pin: (pin as? String) ,isFast : false, accountId: accountId ,onSuccess: {resp in
+                SMCard.chashout(amount: amount , cardNumber:  cardNu, cardToken: "",sourceCardToken: cardToken, pin: (pin as? String) ,isFast : false, accountId: accountId ,onSuccess: {resp in
                     
                     SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "SUCCESS_OPERATION".localizedNew, message: "SUCCESS".localizedNew, yesPressed: { pin in
                         
@@ -233,6 +284,66 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
             
         }
+        else {
+            //show get pin popup
+            SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "enterpin".localized, yesPressed: { pin in
+                
+                self.gotoLoadingState()
+                SMCard.initPayment(amount: amount, accountId: SMUserManager.accountId, from: merchantID, orderType: ORDER_TYPE.P2P, discount_price: nil, isCredit: true, onSuccess: { response in
+                    
+                    let json = response as? Dictionary<String, AnyObject>
+                    SMUserManager.publicKey = json?["pub_key"] as? String
+                    SMUserManager.payToken = json?["token"] as? String
+                    
+                    
+
+                    if let card = self.sourceCard {
+                        if card.type == 1 {
+
+                            let para  = NSMutableDictionary()
+                            
+                            para.setValue(card.token, forKey: "c")
+                            para.setValue((pin as! String).onlyDigitChars(), forKey: "p2")
+                            para.setValue(card.type, forKey: "type")
+                            para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
+                            para.setValue(card.bankCode, forKey: "bc")
+                            
+                            let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
+                            let jsonString = String(data: jsonData, encoding: .utf8)
+                            
+                            if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
+                                //self.popup.endEditing(true)
+                                //self.showReciept(response: NSDictionary())
+                                SMCard.payPayment(enc: enc, enc2: nil, onSuccess: {resp in
+                                    
+                                    if let result = resp as? NSDictionary{
+                                        
+                                        SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+                                    }
+                                }, onFailed: {err in
+                                    SMLoading.hideLoadingPage()
+                                    
+                                })
+                                
+                            }
+
+                            
+                        }
+                    }
+
+                }, onFailed: { (err) in
+                    SMLog.SMPrint(err)
+                })
+                
+                
+                
+            }, forgotPin: {
+                
+                let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
+                
+                let walletSettingPage : IGWalletSettingTableViewController? = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
+                self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
+        }
     }
     
     
@@ -256,26 +367,66 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     }
     //Mark: Actions
     @IBAction func btnPayTap(_ sender: Any) {
-        if tfAmount.text == nil || tfCardNumber.text == nil || tfAmount.text == "" || tfCardNumber.text == "" {
-            
-        }
-        else {
-            let amount : Int! =  Int(tfAmount.text!.onlyDigitChars())
-            if amount <= Int(SMUserManager.userBalance) {
-                if isReadyToPay(isImmediate: isImmediate, cardNum: tfCardNumber.text!, amount: tfAmount.text!) {
-                    payNormal(amountStr: tfAmount.text!, cardNumber: tfCardNumber.text!)
-                }
-                else {
-                    SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localizedNew)
-                }
+        if currentRole != "admin" {
+            if tfAmount.text == nil || tfCardNumber.text == nil || tfAmount.text == "" || tfCardNumber.text == "" {
+                IGHelperAlert.shared.showAlert(message: "CHECK_ALL_FIELDS".localizedNew)
                 
             }
             else {
-                SMMessage.showWithMessage("BALANCE_NOT_ENOUGH".localizedNew)
+                let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbers())
+                if amount <= Int(SMUserManager.userBalance) {
+                    if currentRole == "admin" {
+                        self.tmpCardToken = ""
+                    }
+                    if isReadyToPay(isImmediate: isImmediate, cardNum: (tfCardNumber.text!).inEnglishNumbers(), amount: (tfAmount.text!).inEnglishNumbers().onlyDigitChars()) {
+                        payNormal(amountStr: (tfAmount.text!).inEnglishNumbers().onlyDigitChars(), cardNumber: (tfCardNumber.text!).inEnglishNumbers(),cardToken: self.tmpCardToken)
+                    }
+                    else {
+                        SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localizedNew)
+                    }
+                    
+                }
+                else {
+                    SMMessage.showWithMessage("BALANCE_NOT_ENOUGH".localizedNew)
+                }
+                
             }
             
+        }else {
+
+            if tfAmount.text == nil || tfAmount.text == ""  {
+                IGHelperAlert.shared.showAlert(message: "CHECK_ALL_FIELDS".localizedNew)
+                
+            }
+            else {
+                let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbers())
+                if amount <= Int(SMUserManager.userBalance) {
+                    if currentRole == "admin" {
+                        payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers(), cardNumber: "" ,cardToken: self.tmpCardToken)
+
+                    }
+                    else {
+                        if isReadyToPay(isImmediate: isImmediate, cardNum: (tfCardNumber.text!).inEnglishNumbers(), amount: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers()) {
+                            payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers(), cardNumber: (tfCardNumber.text!).inEnglishNumbers(),cardToken: self.tmpCardToken)
+                        }
+                        else {
+                            SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localizedNew)
+                        }
+                    }
+
+                    
+                }
+                else {
+                    SMMessage.showWithMessage("BALANCE_NOT_ENOUGH".localizedNew)
+                }
+                
+            }
+            
+            
+            
+            
         }
-      
+
     }
     
     func isReadyToPay(isImmediate: Bool ,cardNum: String , amount : String) -> Bool {
@@ -306,25 +457,63 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     }
     @IBAction func segmentTap(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            widthConstrait.constant = 46
+            if currentRole == "admin" {
+                widthConstrait.constant = 0
+                
+            }
+            else {
+                widthConstrait.constant = 0
+
+            }
             self.loadViewIfNeeded()
             tfCardNumber.placeholder = "PLAVE_HOLDER_16_DIGIT".localizedNew
+            lblEnterCardNUmberHeader.text = "TTL_ENTER_CARD_NUMBER".localizedNew
 
             isImmediate = true
+            isToWallet = false
             clearUI()
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
 
         }
-        else {
-            
+        else if sender.selectedSegmentIndex == 1  {
+            if currentRole == "admin" {
+                widthConstrait.constant = 0
+
+            }
+            else {
+                widthConstrait.constant = 0
+
+            }
             widthConstrait.constant = 0
             self.loadViewIfNeeded()
             tfCardNumber.placeholder = "PLAVE_HOLDER_24_DIGIT".localizedNew
+            lblEnterCardNUmberHeader.text = "TTL_ENTER_IBAN_NUMBER".localizedNew
+
             isImmediate = false
+            isToWallet = false
+
             clearUI()
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
+        }
+        else {
+            self.loadViewIfNeeded()
+            if currentRole == "admin" {
+                widthConstrait.constant = 0
+                
+            }
+            else {
+                widthConstrait.constant = 0
+                
+            }
+            isImmediate = false
+            isToWallet = true
+
+            clearUI()
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -342,10 +531,36 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             return 64
         }
         if cell.tag == 4 {
-            return 36
+            if currentRole != "admin" {
+                
+                return 36
+
+            }else {
+                if !isToWallet {
+                    return 36
+
+                }
+                else {
+                    return 0
+
+                }
+
+            }
         }
         if cell.tag == 5 {
-            return 64
+            if currentRole != "admin" {
+                return 64
+
+            }else {
+                if !isToWallet {
+                    return 64
+
+                }
+                else {
+                    return 0
+                    
+                }
+            }
         }
         if cell.tag == 6 {
             return 64
@@ -355,7 +570,19 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 return 0
             }
             else {
-                return 64
+                if currentRole != "admin" {
+                    return 64
+                    
+                }else {
+                    if !isToWallet {
+                        return 64
+
+                    }
+                    else {
+                        return 0
+                        
+                    }
+                }
             }
         }
         else {
@@ -375,7 +602,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             if isImmediate {
 
            
-                newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
+                newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars().inLocalizedLanguage()
                 textField.text = CardUtils.separateFormat(newStr, separators: [4, 4, 4, 4], delimiter: "-")
                 
                 if string == "" && range.location < textField.text!.length {
@@ -395,7 +622,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             _ = 8
             
             newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-            textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inEnglishNumbers()
+            textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inLocalizedLanguage()
             
             if string == "" && range.location < textField.text!.length{
                 let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!
@@ -404,13 +631,13 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             if isImmediate {
                 if newStr.length > 8 {
                     
-                    self.tfAmount.text = "30000000".currencyFormat()
+                    self.tfAmount.text = "30000000".currencyFormat().inLocalizedLanguage()
                 }
             }
             else {
                 if newStr.length > 9 {
                     
-                    self.tfAmount.text = "150000000".currencyFormat()
+                    self.tfAmount.text = "150000000".currencyFormat().inLocalizedLanguage()
                 }
             }
            
@@ -424,7 +651,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
     }
     
     @objc func myTextFieldDidChange(_ textField: UITextField) {
-        
+        textField.text = textField.text?.inLocalizedLanguage()
       
         if let string = tfAmount.text {
             let amount = string.RemoveingCurrencyFormat()
@@ -432,7 +659,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 if cashoutTypeSeg.selectedSegmentIndex == 0 {
                     if intAmount > 30000000 {
                         
-                        tfAmount.text = "30000000".currencyFormat()
+                        tfAmount.text = "30000000".currencyFormat().inLocalizedLanguage()
                         return
                     }
 
@@ -440,7 +667,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 else {
                     if intAmount > 150000000 {
                         
-                        tfAmount.text = "150000000".currencyFormat()
+                        tfAmount.text = "150000000".currencyFormat().inLocalizedLanguage()
                         return
                     }
 

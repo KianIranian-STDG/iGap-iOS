@@ -21,6 +21,7 @@ class CardsCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.darkGray.cgColor
+        lblCardNum.font = UIFont.igFont(ofSize: 20 , weight: .bold)
 //        imgBackground.layer.cornerRadius = 15.0
 //        imgBackground.layer.masksToBounds = true
     }

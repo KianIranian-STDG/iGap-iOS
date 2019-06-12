@@ -40,30 +40,56 @@ class IGWalletSettingTableViewController: BaseTableViewController, UIGestureReco
         return 2
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath) 
-        if cell.tag == 0 {
-            return 67
-
-        }
-        else if cell.tag == 1 {
-            let isprotected = SMUserManager.isProtected
-            if isprotected! {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        if currentRole == "paygearuser" {
+            if cell.tag == 0 {
                 return 67
+                
+            }
+            else if cell.tag == 1 {
+                let isprotected = SMUserManager.isProtected
+                if isprotected! {
+                    return 67
+                }
+                else {
+                    return 0
+                }
+            }
+            else {
+                return 67
+            }
+        }
+        else if currentRole == "admin" {
+            if cell.tag == 0 {
+                return 0
+                
+            }
+            else if cell.tag == 1 {
+                    return 67
+            }
+            else {
+                return 67
+            }
+        }
+        else {
+            if cell.tag == 0 {
+                return 0
+                
+            }
+            else if cell.tag == 1 {
+                return 0
             }
             else {
                 return 0
             }
         }
-        else {
-            return 67
-        }
+       
 
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = super.tableView(tableView, cellForRowAt: indexPath) 
 
-         let isprotected = SMUserManager.isProtected
-
+        let isprotected = SMUserManager.isProtected
         let walletSettingInnerPage : IGWalletSettingInnerTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "walletSettingInnerPage") as! IGWalletSettingInnerTableViewController)
         if cell.tag == 0 {
             walletSettingInnerPage?.isOTP = false

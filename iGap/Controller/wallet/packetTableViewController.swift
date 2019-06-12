@@ -73,8 +73,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        merchantID = SMUserManager.accountId
-        getMerchantData()
         initNavigationBar()
         defaultHeightSize = Int(cardCollectionView.frame.height)
         defaultWidthSize = Int(cardCollectionView.frame.width)
@@ -88,13 +86,19 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         callRefreshToken()
         finishDefault(isPaygear: true, isCard: false)
         initCollectionView()
-        
+        currentRole = "paygearuser"
+
+       self.setupUI()
+        self.view.layoutIfNeeded()
+        self.btnCharge.layoutIfNeeded()
        SMCard.updateBaseInfoFromServer()
 
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        merchantID = SMUserManager.accountId
+        getMerchantData()
         initChangeLanguage()
         IGRequestWalletGetAccessToken.sendRequest()
         
@@ -115,20 +119,30 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     func initView() {
         
 
-
+        hasShownQrCode = false
         let settingItem = UIBarButtonItem.init(image: UIImage(named: "settings"), style: .done, target: self, action: #selector(showSetting))
         let receiverItem = UIBarButtonItem.init(image: UIImage(named: "store"), style: .done, target: self, action: #selector(showReceivers))
-        if (userMerchants?.count)! > 1  {
-
-            self.navigationItem.rightBarButtonItems = [settingItem , receiverItem]
+        if userMerchants?.count != nil {
+            if (userMerchants?.count)! > 1  {
+                
+                if currentRole == "admin" || currentRole == "paygearuser" {
+                    self.navigationItem.rightBarButtonItems = [settingItem , receiverItem]
+                }
+                else {
+                    self.navigationItem.rightBarButtonItems = [receiverItem]
+                    
+                }
+            }
+            else {
+                self.navigationItem.rightBarButtonItems = [settingItem]
+                
+            }
         }
-        else {
-            self.navigationItem.rightBarButtonItems = [settingItem]
 
-        }
+
 
     }
-    func setupUI () {
+    func setupUI() {
         switch currentRole {
         case "paygearuser" :
             self.btnCharge.isHidden = false
@@ -136,7 +150,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             self.btnHisto.isHidden = false
             self.lblWalletBalance.text = "TTL_WALLET_BALANCE_USER".localizedNew
             self.btnCashout.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
-
+            initView()
             self.view.layoutIfNeeded()
 
             break
@@ -153,6 +167,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 self.lblWalletBalance.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew
 
             }
+            initView()
             self.view.layoutIfNeeded()
             break
         case "finance" :
@@ -168,6 +183,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 self.lblWalletBalance.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew
                 
             }
+            initView()
             self.view.layoutIfNeeded()
 
             break
@@ -478,7 +494,20 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 if card.type == 1{
                     
                     lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
-                    
+                    print(lblCurrency.text)
+                    if (lblCurrency.text)?.inEnglishNumbers() == "0" {
+                        btnCashout.isEnabled = false
+                        btnCashout.backgroundColor = .iGapGray()
+                        btnCharge.backgroundColor = .iGapGreen()
+                        btnCashout.isUserInteractionEnabled = false
+                    }
+                    else {
+                        btnCashout.isEnabled = true
+                        btnCashout.backgroundColor = .iGapGreen()
+                        btnCharge.backgroundColor = .iGapGreen()
+                        btnCashout.isUserInteractionEnabled = true
+
+                    }
 
                     SMUserManager.payGearToken = card.token
                     SMUserManager.isProtected = card.protected
@@ -573,7 +602,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         if hasValue {
             cell.imgBackground.downloadedFrom(link: stringImgArray[indexPath.item] , cashable: true, contentMode: .scaleToFill, completion: {_ in
             })
-            cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].addSepratorforCardNum()
+            cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].addSepratorforCardNum().inLocalizedLanguage()
             cell.lblBankName.text = self.stringBankNameArray[indexPath.item]
             cell.imgBankLogo.image = UIImage(named: self.stringBankLogoArray[indexPath.item])
             
@@ -648,6 +677,22 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             if card.type == 1 {
 //                amountLbl.isHidden = false
                 lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
+                let tmp = lblCurrency.text
+                if tmp?.inEnglishNumbers() == "0" {
+                    btnCashout.isEnabled = false
+                    btnCashout.backgroundColor = .iGapGray()
+                    btnCharge.backgroundColor = .iGapGreen()
+
+                    btnCashout.isUserInteractionEnabled = false
+                }
+                else {
+                    btnCashout.isEnabled = true
+                    btnCashout.backgroundColor = .iGapGreen()
+                    btnCharge.backgroundColor = .iGapGreen()
+                    btnCashout.isUserInteractionEnabled = true
+
+
+                }
                 NotificationCenter.default.post(name: Notification.Name(SMConstants.notificationHistoryMerchantUpdate), object: nil,
                                                 userInfo: ["id": merchantID])
 

@@ -81,7 +81,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
     @IBAction func okPressed(_ sender: Any) {
         
         SMLoading.showLoadingPage(viewcontroller: self)
-        SMCard.initPayment(amount: Int((self.tfAmount.text?.onlyDigitChars())!),accountId:  SMUserManager.accountId, discount_price: "0", onSuccess: { response in
+        SMCard.initPayment(amount: Int(((self.tfAmount.text?.onlyDigitChars())!).inEnglishNumbers()),accountId:  SMUserManager.accountId, discount_price: "0", onSuccess: { response in
             SMLoading.hideLoadingPage()
             let json = response as? Dictionary<String, AnyObject>
             if let ipg = json?["ipg_url"] as? String ,ipg != "" {
@@ -110,7 +110,7 @@ class chargeWalletTableViewController: BaseTableViewController,UITextFieldDelega
         var newStr = string
         
         newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars()
-        textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inEnglishNumbers()
+        textField.text = newStr == "" ? "" : newStr.onlyDigitChars().inRialFormat().inEnglishNumbers().inLocalizedLanguage()
         
         if string == "" && range.location < textField.text!.length{
             let position = textField.position(from: textField.beginningOfDocument, offset: range.location)!

@@ -104,6 +104,7 @@
 		8EEE895A22A3CF360072383C /* DropdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE895522A3CF360072383C /* DropdownItem.swift */; };
 		8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */; };
 		8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EEE896222ACFBC70072383C /* PushKit.framework */; };
+		8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEE896522AF6D0B0072383C /* customTextfield.swift */; };
 		8EFD2EBC22880B7E0069B433 /* IGMediaChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */; };
 		8EFD2EBE228BC9140069B433 /* IGMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2EBD228BC9140069B433 /* IGMNavigationController.swift */; };
 		931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931585141E6D567000F4C04B /* IGUserPrivacy.swift */; };
@@ -715,6 +716,7 @@
 		8EEE895522A3CF360072383C /* DropdownItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownItem.swift; sourceTree = "<group>"; };
 		8EEE896022ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		8EEE896222ACFBC70072383C /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
+		8EEE896522AF6D0B0072383C /* customTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextfield.swift; sourceTree = "<group>"; };
 		8EFD2EBB22880B7E0069B433 /* IGMediaChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaChat.swift; sourceTree = "<group>"; };
 		8EFD2EBD228BC9140069B433 /* IGMNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMNavigationController.swift; sourceTree = "<group>"; };
 		931585141E6D567000F4C04B /* IGUserPrivacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGUserPrivacy.swift; sourceTree = "<group>"; };
@@ -1418,6 +1420,7 @@
 				8ECC182B222FB875006E43E8 /* buttonX.swift */,
 				8ECC1830222FDBD2006E43E8 /* imagViewX.swift */,
 				8ECC1836222FEAEA006E43E8 /* extitionGeneral.swift */,
+				8EEE896522AF6D0B0072383C /* customTextfield.swift */,
 			);
 			path = Extitions;
 			sourceTree = "<group>";
@@ -3151,6 +3154,7 @@
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,
 				FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */,
 				FA2A506920ECAC02002C5322 /* IGFinancialServiceBill.swift in Sources */,
+				8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */,
 				FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */,
 				FA0953701E1B97700043ED3F /* IGSettingsChatStickersModalView.swift in Sources */,
 				FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */,

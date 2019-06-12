@@ -71,11 +71,19 @@ class IGWebSocketManager: NSObject {
         WebSocket.shouldMask = false
         IGAppManager.sharedManager.setNetworkConnectionStatus(.connected)
     }
+    public func forceConnect() {
+        self.connectIfPossible()
+    }
+
 
     public func isSecureConnection()->Bool{
         return isConnectionSecured;
     }
     
+    public func isConnected()->Bool{
+
+        return self.socket.isConnected
+    }
     
     //MARK: Private methods
     private func connectIfPossible() {

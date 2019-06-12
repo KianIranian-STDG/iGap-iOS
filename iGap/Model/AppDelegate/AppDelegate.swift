@@ -59,6 +59,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         
     }
  
+    var timer = Timer()
 
     var window: UIWindow?
     var isNeedToSetNickname : Bool = true
@@ -152,9 +153,19 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         /* change this values for import contact after than contact changed in phone contact */
         IGContactManager.syncedPhoneBookContact = false
         IGContactManager.importedContact = false
+        print("APPLICATION IS IN BACKGROUND")
+
+
+//        self.checkAppState()
+        
+
     }
 
+ 
+
     func applicationWillEnterForeground(_ application: UIApplication) {
+        print("APPLICATION IS IN FOREGROUND")
+
         AppDelegate.appIsInBackground = false
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             IGHelperGetShareData.manageShareDate()

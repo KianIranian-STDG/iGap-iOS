@@ -14,10 +14,11 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     var isOTP = false
     var isFirstTime = false
     var merchant: SMMerchant?
-    var cardInfo: SMCard?
-    @IBOutlet weak var tfFirst : UITextField!
-    @IBOutlet weak var tfSecond : UITextField!
-    @IBOutlet weak var tfThird : UITextField!
+    var merchantCard: SMCard?
+    var cardToken : String!
+    @IBOutlet weak var tfFirst : customUITextField!
+    @IBOutlet weak var tfSecond : customUITextField!
+    @IBOutlet weak var tfThird : customUITextField!
 
     @IBOutlet weak var lblFirstRow: UILabel!
     @IBOutlet weak var lblSecondRow : UILabel!
@@ -27,7 +28,34 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        initView()
+        getMerChantCards()
+
+    }
+    func getMerChantCards(){
+        SMLoading.showLoadingPage(viewcontroller: self)
+        
+        DispatchQueue.main.async {
+            SMCard.getMerchatnCardsFromServer(accountId: merchantID, { (value) in
+                if let card = value {
+                    self.merchantCard = card as? SMCard
+                    self.prepareMerChantCard()
+                }
+            }, onFailed: { (value) in
+                // think about it
+            })
+        }
+    }
+    
+    func prepareMerChantCard() {
+        SMLoading.hideLoadingPage()
+        if let card = merchantCard {
+            if card.type == 1 {
+                //                amountLbl.isHidden = false
+
+                cardToken = card.token!
+                initView()
+            }
+        }
     }
     func initView() {
         btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
@@ -100,10 +128,8 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             SMLoading.hideLoadingPage()
         }
         
-        let accountId = (merchant != nil) ? merchant?.id : SMUserManager.accountId
-        let cardHash =  SMUserManager.payGearToken
-        
-        request.pc_otp(toResetWalletPinCardhash: cardHash, accountId: accountId)
+        let accountId = merchantID
+        request.pc_otp(toResetWalletPinCardhash: cardToken, accountId: accountId)
         
     }
     
@@ -158,15 +184,15 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         
         if isFirstTime {
             oldPassword = ""
-            newCPassword = self.tfThird.text!
-            newPassword = self.tfSecond.text!
+            newCPassword = self.tfThird.text!.inEnglishNumbers()
+            newPassword = self.tfSecond.text!.inEnglishNumbers()
 
         }
         else {
             
-            oldPassword = self.tfFirst.text!
-            newCPassword = self.tfThird.text!
-            newPassword = self.tfSecond.text!
+            oldPassword = self.tfFirst.text!.inEnglishNumbers()
+            newCPassword = self.tfThird.text!.inEnglishNumbers()
+            newPassword = self.tfSecond.text!.inEnglishNumbers()
             
         }
         
@@ -306,9 +332,9 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         var newPassword = ""
         var newCPassword = ""
         if isOTP {
-            otp = self.tfFirst.text!
-            newPassword = self.tfSecond.text!
-            newCPassword = self.tfThird.text!
+            otp = self.tfFirst.text!.inEnglishNumbers()
+            newPassword = self.tfSecond.text!.inEnglishNumbers()
+            newCPassword = self.tfThird.text!.inEnglishNumbers()
             
             if SMValidation.walletPassCodeValidation(otp.onlyDigitChars().inEnglishNumbers()), SMValidation.walletPassCodeValidation(newPassword.onlyDigitChars().inEnglishNumbers()) {
                 

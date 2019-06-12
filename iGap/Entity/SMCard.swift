@@ -339,22 +339,24 @@ class SMCard : SMEntity{
 
     }
 
-    static func payPayment(enc : String? , onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
-
-        let cardRequest = WS_methods(delegate: self, failedDialog: false)
+    static func payPayment(enc : String?, enc2: String?, onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
+        
+        let cardRequest = WS_methods(delegate: self, failedDialog: true)
         cardRequest.addSuccessHandler { (response : Any) in
-
+            
             onSuccess?(response)
-
+            
         }
         cardRequest.addFailedHandler({ (response: Any) in
             SMLog.SMPrint("faild")
             onFailed?(response)
-            SMMessage.showWithMessage(SMCard.testConvert(response))
-
         })
-        cardRequest.pc_payment(withToken: SMUserManager.payToken , enc: enc)
-
+        if enc2 == nil {
+            cardRequest.pc_payment(withToken: SMUserManager.payToken , enc: enc)
+        } else {
+            cardRequest.pc_payment(withToken: SMUserManager.payToken , enc: enc, enc2: enc2)
+        }
+        
     }
 
 
@@ -439,7 +441,6 @@ class SMCard : SMEntity{
 
         var serverCards = [SMCard]()
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
-        print(cardRequest)
         cardRequest.addSuccessHandler { (response : Any) in
             SMLoading.hideLoadingPage()
 

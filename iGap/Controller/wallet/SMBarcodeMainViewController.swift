@@ -14,9 +14,11 @@ import IGProtoBuff
 import webservice
 
 
-
+var hasShownQrCode = false
+var toID = ""
 class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     func close() {
+        hasShownQrCode = false
         self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
     }
     
@@ -36,7 +38,6 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     private var qrCode : String?
     var manualInputView : SMSingleInputView!
     var scanner: MTBBarcodeScanner?
-    var hasShown = false
     private var currentAmount: String = "0" {
         didSet {
             
@@ -146,7 +147,6 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
        
     }
     func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String) {
-        hasShown = true
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController? {
             presentedViewController.providesPresentationContextTransitionStyle = true
             presentedViewController.definesPresentationContext = true
@@ -167,7 +167,10 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
             UserDefaults.standard.setValue(self.lblCurrency.text!, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
-            UserDefaults.standard.setValue(self.transportId!, forKey: "modalTrasnportID")
+            print (self.transportId)
+            if (self.transportId)  != nil {
+                UserDefaults.standard.setValue(self.transportId!, forKey: "modalTrasnportID")
+            }
 
 
             presentedViewController.type = 2//user Type nuber
@@ -240,19 +243,24 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         print("Found code: \(code)")
         
         if let range = code.range(of: "?jj=") {
-            hasShown = true
 
             let value = String(code[range.upperBound...])
         if let json = value.toJSON() as? Dictionary<String, AnyObject> {
             print(json)
-            if self.hasShown {
+            if !hasShownQrCode {
+                hasShownQrCode = true
+
                 UserDefaults.standard.setValue(String(value).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
             self.getUserInformation(accountId: json["H"] as! String, qrType: Int(json["T"] as! String)!)
             }
         }
         else {
+            if !hasShownQrCode {
+                hasShownQrCode = true
+
             self.getQRCodeInformation(barcodeValue: String(value).onlyDigitChars())
+            }
         }
         }
         
@@ -308,7 +316,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
             if qrType == Int(SMQRCode.SMAccountType.User.rawValue) {
                 SMLoading.hideLoadingPage()
 //                self.showPopup(type: .PopupUser, value:["name": name, "subTitle": subTitle, "imagePath": imagePath])
-                if self.hasShown {
+                if hasShownQrCode {
 
                     switch acountType {
                     case 0 :

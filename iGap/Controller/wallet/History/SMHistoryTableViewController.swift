@@ -168,9 +168,10 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
         let row = rowData![indexPath.row]
         cell.amountLabel.text = String(row.amount).inRialFormat().inLocalizedLanguage()
         cell.timeLabel.text = Date.init(timeIntervalSince1970: TimeInterval((row.pay_date != 0 ? row.pay_date: row.created_at_timestamp)/1000)).localizedDateTime()
+        cell.currencyLabel.text = "CURRENCY".localizedNew
         cell.descLabel.text = row.receiver.name
-        print(row)
-        print(row.order_type)
+        print("ROW||||")
+        print(row.order_type.rawValue)
         print(row)
         switch row.order_type {
         case .CHARGE:
@@ -181,11 +182,11 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
         case .CASH_OUT:
             cell.titleImage.isHidden = false
             if row.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "down-arrow")
+                cell.titleImage.image = UIImage.init(named: "up-arrow")
                 cell.titleLabel.text = "TTL_IS_PAYED".localizedNew
             }
 			else if (row.is_paid == .REFUND) {
-				cell.titleImage.image = UIImage.init(named: "up-arrow")
+				cell.titleImage.image = UIImage.init(named: "down-arrow")
 				cell.titleLabel.text = "TTL_MONEY_REFUND".localizedNew
 			}
 			else{
@@ -274,29 +275,25 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
         print(SMUserManager.accountId)
 		let cAccountId = accountId != nil ? accountId : SMUserManager.accountId
         if row.receiver.account_id == cAccountId {
-            
             if row.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "up-arrow")
+                cell.titleImage.image = UIImage.init(named: "down-arrow")
                 cell.titleLabel.text = "TTL_RECIEVE_FRM".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
                 cell.titleLabel.text = "TTL_PAYMENT_PENDING_FRM".localizedNew
             }
-            
             if let pic = row.sender.profile_picture , pic != "" {
                 let request = WS_methods(delegate: self, failedDialog: false)
                 _ = request.fs_getFileURL(pic)
-//                cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
             }
             else{
                 cell.profileImage.image = UIImage.init(named: "AppIcon")
             }
-            cell.descLabel.text = row.sender.name
+                cell.descLabel.text = row.sender.name
         }
         else{
-            
             if row.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "down-arrow")
+                cell.titleImage.image = UIImage.init(named: "up-arrow")
                 cell.titleLabel.text = "TTL_PAYED_WITH_WALLED_CARD_TO".localizedNew
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
@@ -343,7 +340,7 @@ class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizer
         else{
             
             if row.is_paid == .PAID {
-                cell.titleImage.image = UIImage.init(named: "down-arrow")
+                cell.titleImage.image = UIImage.init(named: "up-arrow")
                 cell.titleLabel.text = "فروش طرح باشگاه به".localized
             }else{
                 cell.titleImage.image = UIImage.init(named: "hourglass")
