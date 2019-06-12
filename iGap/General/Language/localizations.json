@@ -6,6 +6,7 @@
         "store" : "فروشگاه",
         "driver" : "راننده",
         "MONEY_TRANSFER_HISTORY" : "گردش حساب",
+        "PAIED_TO_LBL" : "پرداخت به :",
 
         
         
@@ -902,6 +903,7 @@
         "MONEY_TRANSFER_HISTORY" : "Money Transactions History",
         "ENTER_RECIEVER_CODE" : "Enter Reciever Code",
         "ENTER_CODE" : "Enter Code",
+        "PAIED_TO_LBL" : "Paied To :",
 
         
         

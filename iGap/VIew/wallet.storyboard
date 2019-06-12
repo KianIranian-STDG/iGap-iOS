@@ -1381,13 +1381,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paid to :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="OaZ-14-IFp">
-                                                <rect key="frame" x="66" y="15.000000000000002" width="63.333333333333343" height="26.666666666666671"/>
+                                                <rect key="frame" x="66" y="15.000000000000002" width="340" height="26.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="......" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="SYe-44-iKH">
-                                                <rect key="frame" x="66" y="38.333333333333314" width="29" height="26.666666666666671"/>
+                                                <rect key="frame" x="66" y="38.333333333333314" width="340" height="26.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1400,8 +1400,10 @@
                                             <constraint firstItem="SYe-44-iKH" firstAttribute="leading" secondItem="OaZ-14-IFp" secondAttribute="leading" id="N0w-Kl-rnU"/>
                                             <constraint firstItem="l5Y-i5-6iu" firstAttribute="centerY" secondItem="cgw-8W-qkY" secondAttribute="centerY" id="PPZ-1E-n43"/>
                                             <constraint firstItem="SYe-44-iKH" firstAttribute="bottom" secondItem="l5Y-i5-6iu" secondAttribute="bottom" id="Xex-Yb-Oju"/>
+                                            <constraint firstAttribute="trailing" secondItem="SYe-44-iKH" secondAttribute="trailing" constant="8" id="b5U-WS-gAG"/>
                                             <constraint firstItem="l5Y-i5-6iu" firstAttribute="leading" secondItem="cgw-8W-qkY" secondAttribute="leadingMargin" id="bPP-k2-x4A"/>
                                             <constraint firstItem="OaZ-14-IFp" firstAttribute="leading" secondItem="l5Y-i5-6iu" secondAttribute="trailing" constant="8" id="f3q-Yt-MLD"/>
+                                            <constraint firstAttribute="trailing" secondItem="OaZ-14-IFp" secondAttribute="trailing" constant="8" id="k6w-PS-sQK"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8K-XE-lAW">
@@ -1430,10 +1432,10 @@
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="MW4-8V-cbe">
-                                        <rect key="frame" x="146.66666666666666" y="90" width="120.99999999999997" height="28"/>
+                                        <rect key="frame" x="107" y="90" width="200" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="27" id="5Ri-xw-Gh4"/>
-                                            <constraint firstAttribute="width" constant="121" id="diz-bA-z47"/>
+                                            <constraint firstAttribute="width" constant="200" id="diz-bA-z47"/>
                                         </constraints>
                                         <segments>
                                             <segment title="Wallet"/>
@@ -1504,6 +1506,7 @@
                         <outlet property="btnPay" destination="d8K-XE-lAW" id="kJf-dt-PwT"/>
                         <outlet property="imgProfile" destination="l5Y-i5-6iu" id="XZB-xg-aaz"/>
                         <outlet property="lblDescription" destination="SYe-44-iKH" id="xfF-J2-VQy"/>
+                        <outlet property="lblPaidToTitle" destination="OaZ-14-IFp" id="DU2-Al-fVW"/>
                         <outlet property="lblPersonesCount" destination="hDf-jC-l8v" id="8dg-Ab-l6b"/>
                         <outlet property="mainView" destination="tiF-FU-s1J" id="MLl-IR-8bh"/>
                         <outlet property="mainViewHeight" destination="8UV-m9-c77" id="9Dp-bW-PMp"/>

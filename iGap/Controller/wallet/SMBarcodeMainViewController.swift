@@ -194,13 +194,18 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         // do something with the touched point
         if touch?.view != self {
             self.view.endEditing(true)
+            if manualInputView != nil {
+
             hideManualInputView()
+            }
         }
     }
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
         // handling code
-        hideManualInputView()
-        
+        if manualInputView != nil {
+            
+            hideManualInputView()
+        }
     }
     func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String) {
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController? {
@@ -236,8 +241,10 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     }
     @objc func confirmManualButtonSelected() {
         
-        hideManualInputView()
-        //go to process info
+        if manualInputView != nil {
+            
+            hideManualInputView()
+        }        //go to process info
         
         if manualInputView.inputTF.text! == "" {
             SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "ERROR_FORM".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in
@@ -332,7 +339,11 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                 }
             }
         }else {
-            self.hideManualInputView()
+            if manualInputView != nil {
+                
+                self.hideManualInputView()
+            }
+            
         }
         
         

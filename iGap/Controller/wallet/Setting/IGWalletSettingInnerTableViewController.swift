@@ -69,7 +69,9 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             if card.type == 1 {
                 //                amountLbl.isHidden = false
 
+                print(card)
                 cardToken = card.token!
+                
                 initView()
             }
         }
@@ -188,8 +190,18 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         }
         
         let accountId = merchantID
-        let cardHash =  SMUserManager.payGearToken
+        var cardHash : String! = ""
 
+        if currentRole == "admin" {
+            cardHash = cardToken
+        }
+        else {
+            cardHash =  SMUserManager.payGearToken
+
+        }
+//        let cardHash =  SMUserManager.payGearToken
+
+//        let cardHash = "5f349a8c-5411-4013-8704-126b8032000c"
         request.pc_resetWalletpin(otp, newPin: newPass, cardhash: cardHash, accountId: accountId)
         
     }
@@ -218,15 +230,8 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
             if newPassword == newCPassword {
 
                 SMUserManager.loadPassFromKeychain()
-//                if oldPassword == SMUserManager.userPass {
                     //Request to server
                     callAPI(oldPass: oldPassword, newPass: newPassword)
-//
-//                }
-//                else {
-//                    SMMessage.showWithMessage("OLD_PASSCODE_NOT_MACHED".localizedNew)
-//
-//                }
             }
             else {
                 

@@ -28,6 +28,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
 
     
     @IBOutlet weak var lblPersonesCount: UILabel!
+    @IBOutlet weak var lblPaidToTitle: UILabel!
     @IBOutlet weak var stepperPersons: UIStepper!
     @IBOutlet weak var verticalConstraints: NSLayoutConstraint!
     @IBOutlet weak var imgProfile: UIImageViewX!
@@ -90,7 +91,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 17)]
+        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
         segmentPick.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
 
         name = UserDefaults.standard.string(forKey: "modalUserName")
@@ -150,6 +151,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         segmentPick.setTitle("SETTING_PAGE_WALLET".localizedNew, forSegmentAt: 0)
         segmentPick.setTitle("SETTING_PAGE_CARD".localizedNew, forSegmentAt: 1)
         btnPay.setTitle("BTN_PAY_CASHOUT".localizedNew, for: .normal)
+        lblPaidToTitle.text = "PAIED_TO_LBL".localizedNew
+        lblPaidToTitle.textAlignment = lblPaidToTitle.localizedNewDirection
+        lblDescription.textAlignment = lblDescription.localizedNewDirection
 
     }
     
