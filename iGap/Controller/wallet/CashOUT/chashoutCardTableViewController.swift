@@ -449,11 +449,9 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
 
     }
     @IBAction func btnIbanGuidTap(_ sender: Any) {
-        
         UIApplication.shared.open(URL(string : "https://paygear.ir/iban")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: { (status) in
             
         })
-        
     }
     @IBAction func segmentTap(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {

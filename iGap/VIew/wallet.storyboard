@@ -1206,7 +1206,7 @@
                                             <action selector="btnTorch:" destination="mMf-Lk-WNT" eventType="touchUpInside" id="dqY-Qu-3Mg"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MS5-gE-5Da">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MS5-gE-5Da">
                                         <rect key="frame" x="343" y="526" width="63" height="63"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="MS5-gE-5Da" secondAttribute="height" multiplier="1:1" id="A4f-7P-05V"/>

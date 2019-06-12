@@ -35,9 +35,16 @@ class SMSingleInputView: UIView, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+
     }
-    
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        //location is relative to the current view
+        // do something with the touched point
+        if touch?.view != self {
+            inputTF.endEditing(true)
+        }
+    }
     /// Layout subview after loading view to support autolayout
     public override func layoutSubviews() {
         super.layoutSubviews()

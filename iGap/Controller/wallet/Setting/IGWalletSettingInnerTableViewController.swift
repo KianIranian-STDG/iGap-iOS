@@ -28,6 +28,23 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        btnSubmit.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+        btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 17)
+        if isOTP {
+            initNavigationBar(title: "RESET_WALLET_PIN".localizedNew)
+            self.lblFirstRow.text = "OTP_CODE".localizedNew
+            self.tfFirst.placeholder = "OTP_CODE_PLACEHOLDER".localizedNew
+            self.lblSecondRow.text = "NEW_PASS".localizedNew
+            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
+        }
+        else {
+            initNavigationBar(title: "WALLET_PIN".localizedNew)
+            self.lblFirstRow.text = "CURRENT_PASS".localizedNew
+            self.lblSecondRow.text = "NEW_PASS".localizedNew
+            self.lblThirdRow.text = "CONFIRM_NEW_PASS".localizedNew
+            
+            
+        }
         getMerChantCards()
 
     }
@@ -170,7 +187,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
 
         }
         
-        let accountId = (merchant != nil) ? merchant?.id : SMUserManager.accountId
+        let accountId = merchantID
         let cardHash =  SMUserManager.payGearToken
 
         request.pc_resetWalletpin(otp, newPin: newPass, cardhash: cardHash, accountId: accountId)

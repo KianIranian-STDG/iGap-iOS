@@ -12,7 +12,7 @@ import UIKit
 import AKMaskField
 import IGProtoBuff
 
-class IGSettingAddContactViewController: BaseViewController, UIGestureRecognizerDelegate, IGRegistrationStepSelectCountryTableViewControllerDelegate {
+class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDelegate, IGRegistrationStepSelectCountryTableViewControllerDelegate {
 
     @IBOutlet weak var edtFirstName: UITextField!
     @IBOutlet weak var edtLastName: UITextField!
@@ -32,9 +32,11 @@ class IGSettingAddContactViewController: BaseViewController, UIGestureRecognizer
         super.viewDidLoad()
         
         makeView()
+        btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
+        btnChooseCountry.titleLabel?.font = UIFont.igFont(ofSize: 20)
 
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "ADD_BTN".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "+", title: "ADD_BTN".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -44,8 +46,6 @@ class IGSettingAddContactViewController: BaseViewController, UIGestureRecognizer
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
-        btnChooseCountry.titleLabel?.font = UIFont.igFont(ofSize: 20)
         edtFirstName.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
         edtLastName.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
         let current : String = SMLangUtil.loadLanguage()

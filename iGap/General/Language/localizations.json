@@ -611,6 +611,8 @@
         "SETTING_PAGE_NEARBY" : "اطراف من",
         "SETTING_PAGE_WALLET" : "کیف پول",
         "SETTING_PAGE_CARD" : "کارت بانکی",
+        "ENTER_RECIEVER_CODE" : "کد گیرنده را وارد نمایید",
+        "ENTER_CODE" : "کد را وارد نمایید",
 
         "SETTING_PAGE_FINANCIAL_SERVICES" : "خدمات مالی",
         "SETTING_PAGE_CHANGE_LANGUAGE" : "تغییر زبان",
@@ -898,6 +900,8 @@
         "store" : "Store",
         "driver" : "Driver",
         "MONEY_TRANSFER_HISTORY" : "Money Transactions History",
+        "ENTER_RECIEVER_CODE" : "Enter Reciever Code",
+        "ENTER_CODE" : "Enter Code",
 
         
         
@@ -1383,7 +1387,7 @@
         "BALANCE_NOT_ENOUGH" : "Wallet balance is not enough",
         "SUCCESS_OPERATION" : "The operation was successful",
         "INVALID_QR" : "QR data is unknown",
-        "FILL_AMOUNT" : "Please input amount filed",
+        "FILL_AMOUNT" : "Please Fill input amount",
         "AMOUNT_IS_NOT_ENOUGH" : "PayGear balance is not enough, you could use card to pay.",
         "SAVED_CARDS" : "Choose Destination Card",
         "ENTER_WALLET_PIN" : "Please Enter your wallet Pin",

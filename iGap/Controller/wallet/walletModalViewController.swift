@@ -90,6 +90,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 17)]
+        segmentPick.setTitleTextAttributes((font as! [NSAttributedString.Key : Any]), for: .normal)
+
         name = UserDefaults.standard.string(forKey: "modalUserName")
 
         lblDescription.text = name

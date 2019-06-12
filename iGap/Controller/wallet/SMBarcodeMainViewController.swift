@@ -37,6 +37,8 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     private var transportId : String?
     private var qrCode : String?
     var manualInputView : SMSingleInputView!
+    var ManualCodeActive = false
+
     var scanner: MTBBarcodeScanner?
     private var currentAmount: String = "0" {
         didSet {
@@ -47,6 +49,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        self.hideKeyboardWhenTappedAround()
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
         self.userMerchants = SMMerchant.getAllMerchantsFromDB()
@@ -144,7 +147,60 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     }
     @IBAction func btnModalTap(_ sender: Any)
     {
-       
+        self.ManualCodeActive = true
+
+        if manualInputView == nil {
+            manualInputView = SMSingleInputView.loadFromNib()
+            manualInputView.confirmBtn.addTarget(self, action: #selector(confirmManualButtonSelected), for: .touchUpInside)
+            manualInputView!.frame = CGRect(x: 0, y: self.view.frame.height, width: self.view.frame.width, height: manualInputView.frame.height)
+            
+            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+            manualInputView.inputTF.placeholder = "ENTER_CODE".localizedNew
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(SMBarcodeMainViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            manualInputView.addGestureRecognizer(swipeDown)
+            self.view.addSubview(manualInputView!)
+            
+        }
+        else {
+            manualInputView.confirmBtn.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+            manualInputView.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+            manualInputView.inputTF.placeholder = "ENTER_CODE".localizedNew
+        }
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let topPadding = window?.safeAreaInsets.top
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.manualInputView!.frame = CGRect(x: 0, y: self.view.frame.height - self.manualInputView.frame.height - 45 -  bottomPadding!, width: self.view.frame.width, height: self.manualInputView.frame.height)
+                
+            }
+        }
+        else {
+            UIView.animate(withDuration: 0.3) {
+                self.manualInputView!.frame = CGRect(x: 0, y: self.view.frame.height - self.manualInputView.frame.height - 45, width: self.view.frame.width, height: self.manualInputView.frame.height)
+            }
+        }
+        
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        //location is relative to the current view
+        // do something with the touched point
+        if touch?.view != self {
+            self.view.endEditing(true)
+            hideManualInputView()
+        }
+    }
+    @objc func handleGesture(gesture: UITapGestureRecognizer) {
+        // handling code
+        hideManualInputView()
+        
     }
     func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String) {
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController? {
@@ -183,16 +239,19 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         hideManualInputView()
         //go to process info
         
-        if manualInputView.inputTF.text! == ""{
-//            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: "fill".localized, leftButtonTitle: "", rightButtonTitle: "ok".localized,yesPressed: { yes in return;})
-        }else{
-            
-//            getQRCodeInformation(barcodeValue: manualInputView.inputTF.text!)
+        if manualInputView.inputTF.text! == "" {
+            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "ERROR_FORM".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in
+                return
+            })
+        } else {
+            getQRCodeInformation(barcodeValue: (manualInputView.inputTF.text!).inEnglishNumbers().onlyDigitChars())
         }
         
     }
     
     func hideManualInputView() {
+        self.ManualCodeActive = false
+
         UIView.animate(withDuration: 0.3, animations: {
             self.manualInputView.frame.origin.y = self.view.frame.height
             self.manualInputView.inputTF.endEditing(true)
@@ -202,6 +261,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setupNotifications()
 
         if (scanner?.isScanning())! {
 //            scanner?.stopScanning()
@@ -227,18 +287,74 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("TAB0")
+        self.hideKeyboardWhenTappedAround()
+
         initNavigationBar()
+        setupNotifications()
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.scanner?.stopScanning()
-        
+        unsetNotifications()
+
         super.viewWillDisappear(animated)
+    }
+    func setupNotifications() {
+        unsetNotifications()
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(SMBarcodeMainViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(SMBarcodeMainViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unsetNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        let userInfo = notification.userInfo!
+        let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
+        let window = UIApplication.shared.keyWindow!
+        
+        if ManualCodeActive {
+            if let manualInput = manualInputView {
+                window.addSubview(manualInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = manualInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
+                    manualInput.frame = frame
+                    
+                }
+            }
+        }else {
+            self.hideManualInputView()
+        }
+        
+        
+        
+        self.view.layoutIfNeeded()
+    }
     
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        if let manualInput = manualInputView {
+            self.view.addSubview(manualInput)
+            UIView.animate(withDuration: 0.3) {
+                if manualInput.frame.origin.y < self.view.frame.size.height {
+                    manualInput.frame = CGRect(x: 0, y: self.view.frame.height - manualInput.frame.height - 45, width: self.view.frame.width, height: manualInput.frame.height)
+                }
+            }
+        }
+        
+        self.view.layoutIfNeeded()
+    }
+    
+
     func resolveScannedQrCode(_ code: String) {
         print("Found code: \(code)")
         
@@ -322,20 +438,17 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                     case 0 :
                         DispatchQueue.main.async {
                             self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
-
                         }
                         break
                     case 1 :
                         DispatchQueue.main.async {
                             self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
-                            
                         }
 
                         break
                     case 2 :
                         DispatchQueue.main.async {
                             self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
-                            
                         }
 
                         break
@@ -382,10 +495,8 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         request.addSuccessHandler { (response : Any) in
             if let jsonResult = response as? Dictionary<String, AnyObject> {
                 if let id = jsonResult["_id"] as? String , id == "" {
-                    
                     SMLoading.hideLoadingPage()
-//                    try! self.scanner?.startScanning()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localizedNew, message: "INVALID_QR".localizedNew, rightButtonTitle: "OK".localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localizedNew, message: "INVALID_QR".localizedNew, rightButtonTitle: "GLOBAL_OK".localizedNew)
                 }
                 else if let accountId = jsonResult["account_id"], !accountId.isKind(of: NSNull.self) {
                     SMLoading.hideLoadingPage()
@@ -394,39 +505,20 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                     self.getUserInformation(accountId: accountId as! String, qrType: Int(truncating: jsonResult["qr_type"]! as! NSNumber), productId: jsonResult["value"] as? String)
                 }
                 else {
-                    
                     SMLoading.hideLoadingPage()
                     try! self.scanner?.startScanning()
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localizedNew, message: "INVALID_QR".localizedNew, rightButtonTitle: "OK".localized)
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled:false, title: "GLOBAL_WARNING".localizedNew, message: "INVALID_QR".localizedNew, rightButtonTitle: "GLOBAL_OK".localizedNew)
                 }
             }
-            
         }
         request.addFailedHandler { (response: Any) in
-            
             SMLoading.hideLoadingPage()
             try! self.scanner?.startScanning()
             if SMValidation.showConnectionErrorToast(response) {
                 SMLoading.showToast(viewcontroller: self, text: "SERVER_DOWN".localizedNew)
             }
             SMMessage.showWithMessage(SMCard.testConvert(response))
-
-            
-            
         }
-        
         request.mc_getqrcodewithid(barcodeValue.inEnglishNumbers())
-        
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

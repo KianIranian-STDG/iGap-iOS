@@ -51,27 +51,7 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let current : String = SMLangUtil.loadLanguage()
-        print(IGTabBarController.currentTabStatic)
-        switch current {
-            
-        case "fa" :
-                UIView.appearance().semanticContentAttribute = .forceRightToLeft
-                UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        case "en" :
-            UIView.appearance().semanticContentAttribute = .forceLeftToRight
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-            
-        case "ar" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-            
-        default :
-            break
-        }
+      
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
