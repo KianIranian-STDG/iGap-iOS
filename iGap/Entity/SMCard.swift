@@ -212,7 +212,9 @@ class SMCard : SMEntity{
         cardRequest.addFailedHandler({ (response: Any) in
             SMLog.SMPrint("faild")
             onFailed?(response)
+            
             SMMessage.showWithMessage(SMCard.testConvert(response))
+            SMLoading.hideLoadingPage()
 
         })
         cardRequest.pc_addcard(cardItem)
@@ -276,7 +278,14 @@ class SMCard : SMEntity{
         }
         print(String(dict.values.description))
         let tmpString : String = String(dict.values.description)
-        return tmpString.slice(from: "[", to: "]")!
+        if dict.values.count > 1 {
+            return tmpString.slice(from: ",", to: "]")!
+
+        }
+        else {
+            return tmpString.slice(from: "[", to: "]")!
+
+        }
         
 
     }

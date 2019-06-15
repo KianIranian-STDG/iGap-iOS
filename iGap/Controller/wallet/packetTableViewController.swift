@@ -605,6 +605,16 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].addSepratorforCardNum().inLocalizedLanguage()
             cell.lblBankName.text = self.stringBankNameArray[indexPath.item]
             cell.imgBankLogo.image = UIImage(named: self.stringBankLogoArray[indexPath.item])
+            if (cell.lblBankName.text?.contains("پاس"))! {
+                cell.lblCardNum.textColor = UIColor.iGapGold()
+                cell.lblBankName.textColor = UIColor.iGapGold()
+            }
+            else {
+                cell.lblCardNum.textColor = UIColor.black
+                cell.lblBankName.textColor = UIColor.black
+
+
+            }
             
         
 

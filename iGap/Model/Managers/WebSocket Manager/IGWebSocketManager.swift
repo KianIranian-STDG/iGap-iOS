@@ -29,6 +29,7 @@ class IGWebSocketManager: NSObject {
 
     private override init() {
         super.init()
+        
         socket.delegate = self
         socket.pongDelegate = self
         IGAppManager.sharedManager.setNetworkConnectionStatus(.connecting)

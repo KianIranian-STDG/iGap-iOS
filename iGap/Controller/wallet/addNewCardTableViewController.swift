@@ -10,8 +10,8 @@ import UIKit
 
 class addNewCardTableViewController: BaseTableViewController , UITextFieldDelegate  {
     @IBOutlet weak var cardTextField: UITextField!
-    @IBOutlet weak var mounthTextField: customUITextField!
-    @IBOutlet weak var yearTextField: customUITextField!
+    @IBOutlet weak var mounthTextField: customYearTextfield!
+    @IBOutlet weak var yearTextField: customYearTextfield!
     @IBOutlet weak var btnSave : UIButtonX!
     @IBOutlet weak var imgBankLogo : UIImageViewX!
     @IBOutlet weak var lblcardNum : UILabel!
@@ -49,8 +49,8 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
     }
     func initView() {
         cardTextField.delegate = self
-        mounthTextField.delegate = self
-        yearTextField.delegate = self
+//        mounthTextField.delegate = self
+//        yearTextField.delegate = self
 
     }
     
@@ -127,15 +127,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
             
         }
       
-        else if textField.tag == 1 || textField.tag == 2 {
-            newStr = (textField.text! as NSString).replacingCharacters(in: range, with: newStr).onlyDigitChars().inLocalizedLanguage()
-            //            mounthTextField.text = newStr
-            
-            let currentCharacterCount = newStr.count
-            let newLength = (currentCharacterCount + string.count - range.length)
-            return newLength <= 3
 
-        }
         return false
     }
    

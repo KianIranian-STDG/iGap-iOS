@@ -154,6 +154,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         IGContactManager.syncedPhoneBookContact = false
         IGContactManager.importedContact = false
         print("APPLICATION IS IN BACKGROUND")
+        
 
 
 //        self.checkAppState()
