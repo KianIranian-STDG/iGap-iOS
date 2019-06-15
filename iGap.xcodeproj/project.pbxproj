@@ -58,7 +58,7 @@
 		8E96A32B225C920A007D8A77 /* SMReciept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A32A225C920A007D8A77 /* SMReciept.swift */; };
 		8E96A32E225C96C3007D8A77 /* RecieptRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32C225C96C3007D8A77 /* RecieptRow.xib */; };
 		8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32D225C96C3007D8A77 /* RecieptView.xib */; };
-		8E96A33D225CAA2C007D8A77 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A33F225CAA2C007D8A77 /* Localization.strings */; };
+		8E96A33D225CAA2C007D8A77 /* localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A33F225CAA2C007D8A77 /* localizable.strings */; };
 		8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */; };
 		8EACC7B022621A1F00F32DC3 /* maincore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7AF22621A1F00F32DC3 /* maincore.framework */; };
 		8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7B122621A3100F32DC3 /* webservice.framework */; };
@@ -664,8 +664,8 @@
 		8E96A338225CA98E007D8A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		8E96A339225CA9C4007D8A77 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		8E96A33A225CA9C4007D8A77 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/Main.strings"; sourceTree = "<group>"; };
-		8E96A33E225CAA2C007D8A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
-		8E96A340225CAA2F007D8A77 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/Localization.strings"; sourceTree = "<group>"; };
+		8E96A33E225CAA2C007D8A77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/localizable.strings; sourceTree = "<group>"; };
+		8E96A340225CAA2F007D8A77 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/localizable.strings"; sourceTree = "<group>"; };
 		8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSavedCardsAlertViewController.swift; sourceTree = "<group>"; };
 		8EACC7AF22621A1F00F32DC3 /* maincore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = maincore.framework; path = Carthage/Build/iOS/maincore.framework; sourceTree = "<group>"; };
 		8EACC7B122621A3100F32DC3 /* webservice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webservice.framework; path = Carthage/Build/iOS/webservice.framework; sourceTree = "<group>"; };
@@ -1914,7 +1914,7 @@
 			children = (
 				8E8D8E18225CE39A00039191 /* strings.json */,
 				8EACC7B322621ACA00F32DC3 /* localizations.json */,
-				8E96A33F225CAA2C007D8A77 /* Localization.strings */,
+				8E96A33F225CAA2C007D8A77 /* localizable.strings */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -2654,7 +2654,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				Base,
 				"fa-IR",
 				en,
@@ -2724,7 +2723,7 @@
 				FAF796071DAA392F0030509B /* Main.storyboard in Resources */,
 				FA417E51212179C900B5FBCD /* LocationCell.xib in Resources */,
 				FAE6062D21EB39FB00F03FFC /* Media.xcassets in Resources */,
-				8E96A33D225CAA2C007D8A77 /* Localization.strings in Resources */,
+				8E96A33D225CAA2C007D8A77 /* localizable.strings in Resources */,
 				FAE6063D21EB3A0C00F03FFC /* en.lproj in Resources */,
 				FA927E0A20286FE800DF7145 /* ContactCell.xib in Resources */,
 				FA99FF712235428A009035DF /* DashboardCell5.xib in Resources */,
@@ -3300,13 +3299,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8E96A33F225CAA2C007D8A77 /* Localization.strings */ = {
+		8E96A33F225CAA2C007D8A77 /* localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8E96A33E225CAA2C007D8A77 /* en */,
 				8E96A340225CAA2F007D8A77 /* fa-IR */,
 			);
-			name = Localization.strings;
+			name = localizable.strings;
 			sourceTree = "<group>";
 		};
 		FAF796011DAA392F0030509B /* LaunchScreen.storyboard */ = {

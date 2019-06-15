@@ -90,21 +90,21 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
         
         //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         //        MCLocalization.sharedInstance().language = current
-        switch current {
-        case "fa" :
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-            
-        case "en" :
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-
-        case "ar" :
-            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-            //            self.loadViewIfNeeded()
-            
-        default :
-            break
-        }
+//        switch current {
+//        case "fa" :
+//            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+//
+//            
+//        case "en" :
+//            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+//
+//        case "ar" :
+//            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+//            //            self.loadViewIfNeeded()
+//            
+//        default :
+//            break
+//        }
 
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

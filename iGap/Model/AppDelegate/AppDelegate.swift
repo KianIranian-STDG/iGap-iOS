@@ -226,6 +226,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         voipRegistration()
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
         if let roomId = userInfo["roomId"] as? String {
             let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
             application.applicationIconBadgeNumber = unreadCount

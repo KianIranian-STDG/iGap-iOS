@@ -76,19 +76,7 @@ class IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController: UICol
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        case "en" :
-            UICollectionView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "ar" :
-            UICollectionView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        default :
-            break
-        }
+
 
     }
     

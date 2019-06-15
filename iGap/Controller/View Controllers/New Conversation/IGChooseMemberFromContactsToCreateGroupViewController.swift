@@ -104,19 +104,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let current : String = SMLangUtil.loadLanguage()
-        switch current {
-        case "fa" :
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        case "en" :
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        case "ar" :
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        default :
-            break
-        }
+
     }
     
     private func setNavigationItem(){
