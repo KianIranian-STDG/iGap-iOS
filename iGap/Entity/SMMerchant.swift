@@ -258,7 +258,7 @@ class SMMerchant: SMEntity {
 		
 		cardRequest.addFailedHandler({ (response: Any) in
 			SMLog.SMPrint("faild")
-//            SMLoading.hideLoadingPage()
+            SMLoading.hideLoadingPage()
 			onFailed?(response)
 			
 		})

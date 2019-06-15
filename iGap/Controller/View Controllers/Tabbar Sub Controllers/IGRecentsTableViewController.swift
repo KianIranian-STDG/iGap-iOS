@@ -211,6 +211,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isfromPacket = false
+
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
@@ -283,6 +285,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isfromPacket = false
+
         searchBar.placeholder = "PLACE_HOLDER_SEARCH".localizedNew
         if SMLangUtil.loadLanguage() == "fa" {
             searchBar.semanticContentAttribute = .forceRightToLeft

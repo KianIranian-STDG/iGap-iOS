@@ -28,7 +28,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        isfromPacket = false
         initNavigationBar()
         registerCellsNib()
         self.collectionView.dataSource = self

@@ -82,13 +82,13 @@
                                                     <rect key="frame" x="20" y="66" width="374" height="208"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clP-Pw-Zvl">
-                                                            <rect key="frame" x="20" y="81.333333333333343" width="334" height="45.666666666666657"/>
+                                                            <rect key="frame" x="20" y="73.333333333333343" width="334" height="61.333333333333343"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="39"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rials" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1T-7L-ZGT">
-                                                            <rect key="frame" x="168.66666666666666" y="135" width="37" height="65"/>
+                                                            <rect key="frame" x="168" y="142.66666666666666" width="38" height="57.333333333333343"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -178,7 +178,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TOH-HG-8cz" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="55" y="13" width="262" height="21"/>
+                                                            <rect key="frame" x="55" y="9.3333333333333339" width="262" height="28.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
@@ -239,7 +239,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="yNS-qI-NDb" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="13" width="317" height="21"/>
+                                                            <rect key="frame" x="0.0" y="9.3333333333333339" width="317" height="28.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
@@ -290,7 +290,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="367" height="222"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tjo-Or-UQe">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_card_pattern" translatesAutoresizingMaskIntoConstraints="NO" id="tjo-Or-UQe">
                                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="222"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="O6y-Vh-Yig">
@@ -371,7 +371,7 @@
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="V97-oL-uXd" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="13" width="317" height="21"/>
+                                                            <rect key="frame" x="0.0" y="9.3333333333333339" width="317" height="28.333333333333329"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
@@ -533,13 +533,13 @@
                                                     <rect key="frame" x="20" y="0.0" width="374" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="caZ-7W-sGr">
-                                                            <rect key="frame" x="0.0" y="9.3333333333333339" width="182" height="17.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="6.3333333333333339" width="182" height="23.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="joE-e5-vWN">
-                                                            <rect key="frame" x="192" y="9.3333333333333339" width="182" height="17.666666666666664"/>
+                                                            <rect key="frame" x="192" y="6.3333333333333339" width="182" height="23.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -728,7 +728,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Charge Price :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="HsB-DC-pJd">
-                                                    <rect key="frame" x="20" y="0.0" width="134.66666666666666" height="36"/>
+                                                    <rect key="frame" x="20" y="0.0" width="137" height="36"/>
                                                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -966,7 +966,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Cashout Price :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="KbP-1B-o3e">
-                                                    <rect key="frame" x="20" y="0.0" width="142.66666666666666" height="36"/>
+                                                    <rect key="frame" x="20" y="0.0" width="144.66666666666666" height="36"/>
                                                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1009,7 +1009,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Card Number :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="EOK-PH-9fT">
-                                                    <rect key="frame" x="20" y="0.0" width="172.66666666666666" height="36"/>
+                                                    <rect key="frame" x="20" y="0.0" width="175.33333333333334" height="36"/>
                                                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1100,7 +1100,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHP-a8-3LP" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="11" width="128" height="42"/>
+                                                    <rect key="frame" x="20" y="11" width="129" height="42"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
                                                     <state key="normal" title="How to get IBAN"/>
@@ -1562,19 +1562,19 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9rF-Od-tkf">
-                                            <rect key="frame" x="90" y="7.3333333333333357" width="42" height="65"/>
+                                            <rect key="frame" x="90" y="7.3333333333333357" width="41.666666666666657" height="65"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzp-Bs-Sbs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="21.666666666666668"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="21.666666666666668"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naZ-Ir-Jvc">
-                                                            <rect key="frame" x="0.0" y="0.0" width="32" height="21.666666666666668"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="31.666666666666668" height="21.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xE9-xR-4ke">
-                                                            <rect key="frame" x="32" y="0.0" width="10" height="21.666666666666668"/>
+                                                            <rect key="frame" x="31.666666666666671" y="0.0" width="10" height="21.666666666666668"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="10" id="5yw-dl-KsK"/>
                                                             </constraints>
@@ -1586,13 +1586,13 @@
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21i-Ho-miC">
-                                                    <rect key="frame" x="0.0" y="21.666666666666664" width="42" height="21.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="21.666666666666664" width="41.666666666666664" height="21.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpp-n6-VJK">
-                                                    <rect key="frame" x="0.0" y="43.333333333333329" width="42" height="21.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="43.333333333333329" width="41.666666666666664" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1604,16 +1604,16 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="u6u-RT-qlt">
-                                            <rect key="frame" x="321" y="7.3333333333333357" width="37" height="65"/>
+                                            <rect key="frame" x="321.66666666666669" y="7.3333333333333357" width="36.333333333333314" height="65"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99Y-62-iYI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="32.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="32.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ریال" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6s-LG-Wo0">
-                                                    <rect key="frame" x="0.0" y="32.666666666666657" width="37" height="32.333333333333343"/>
+                                                    <rect key="frame" x="0.0" y="32.666666666666657" width="36.333333333333336" height="32.333333333333343"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1689,35 +1689,35 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1xS-KC-3BY">
-                                            <rect key="frame" x="347" y="7.3333333333333357" width="37" height="65"/>
+                                            <rect key="frame" x="347.66666666666669" y="7.3333333333333357" width="36.333333333333314" height="65"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ax-Na-hgo">
-                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="32.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="32.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ریال" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qef-7H-hmB">
-                                                    <rect key="frame" x="0.0" y="32.666666666666657" width="37" height="32.333333333333343"/>
+                                                    <rect key="frame" x="0.0" y="32.666666666666657" width="36.333333333333336" height="32.333333333333343"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="QVy-eR-A7l">
-                                            <rect key="frame" x="83" y="7.3333333333333357" width="42" height="65"/>
+                                            <rect key="frame" x="83" y="7.3333333333333357" width="41.666666666666657" height="65"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U1G-xm-PiT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="21.666666666666668"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="21.666666666666668"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axK-8E-BFc">
-                                                            <rect key="frame" x="0.0" y="3.333333333333333" width="32" height="15.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="0.66666666666666607" width="31.666666666666668" height="20.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="82c-dR-Wun">
-                                                            <rect key="frame" x="32" y="0.0" width="10" height="21.666666666666668"/>
+                                                            <rect key="frame" x="31.666666666666671" y="0.0" width="10" height="21.666666666666668"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="10" id="0XZ-g7-Cf8"/>
                                                             </constraints>
@@ -1728,13 +1728,13 @@
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hd-SB-Fz2">
-                                                    <rect key="frame" x="0.0" y="21.666666666666664" width="42" height="21.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="21.666666666666664" width="41.666666666666664" height="21.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" semanticContentAttribute="forceRightToLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvd-fA-Kve">
-                                                    <rect key="frame" x="0.0" y="43.333333333333329" width="42" height="21.666666666666671"/>
+                                                    <rect key="frame" x="0.0" y="43.333333333333329" width="41.666666666666664" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -2024,7 +2024,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set as Default Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="M3n-Hw-l4Z">
-                                                    <rect key="frame" x="30" y="12" width="300" height="20"/>
+                                                    <rect key="frame" x="30" y="8.6666666666666661" width="300" height="26.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2082,6 +2082,31 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Sh7-wP-hfw">
+                                        <rect key="frame" x="0.0" y="343" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sh7-wP-hfw" id="p2c-fK-1kS">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNz-w5-aAH" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
+                                                    <state key="normal" title="0">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="JNz-w5-aAH" firstAttribute="leading" secondItem="p2c-fK-1kS" secondAttribute="leading" id="4nt-nr-PuX"/>
+                                                <constraint firstItem="JNz-w5-aAH" firstAttribute="top" secondItem="p2c-fK-1kS" secondAttribute="top" id="ILN-yI-hop"/>
+                                                <constraint firstAttribute="bottom" secondItem="JNz-w5-aAH" secondAttribute="bottom" id="VWV-3m-TWD"/>
+                                                <constraint firstAttribute="trailing" secondItem="JNz-w5-aAH" secondAttribute="trailing" id="nLq-M2-pG4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -2091,6 +2116,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="btnAmount" destination="JNz-w5-aAH" id="fjS-v8-0Ev"/>
                         <outlet property="btnRemove" destination="7ck-eD-iF3" id="3fZ-bi-u1o"/>
                         <outlet property="imgBackgroundCard" destination="OYk-Vm-eh5" id="Djt-Qk-6dc"/>
                         <outlet property="imgBankLogo" destination="x1v-4h-1wB" id="WdN-rD-xl8"/>
@@ -2250,10 +2276,10 @@
                                 <rect key="frame" x="16" y="22.666666666666657" width="343" height="330"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZHe-Xn-K2K">
-                                        <rect key="frame" x="20" y="282" width="303" height="32"/>
+                                        <rect key="frame" x="20" y="275" width="303" height="39"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-ux-xX8">
-                                                <rect key="frame" x="0.0" y="0.0" width="146.66666666666666" height="32"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="146.66666666666666" height="39"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                 <state key="normal" title="انصراف">
                                                     <color key="titleColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -2271,7 +2297,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yib-Qt-Qr7" customClass="SMBottomButton" customModule="iGap" customModuleProvider="target">
-                                                <rect key="frame" x="156.66666666666663" y="0.0" width="146.33333333333337" height="32"/>
+                                                <rect key="frame" x="156.66666666666663" y="0.0" width="146.33333333333337" height="39"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                 <state key="normal" title="تایید">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2371,7 +2397,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="UXu-47-qTI">
-                                                    <rect key="frame" x="87" y="25.333333333333336" width="104" height="16.333333333333336"/>
+                                                    <rect key="frame" x="87" y="22.333333333333329" width="105.33333333333331" height="22"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2404,7 +2430,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="BYF-dr-to0">
-                                                    <rect key="frame" x="87" y="25.333333333333336" width="102" height="16.333333333333336"/>
+                                                    <rect key="frame" x="87" y="22.333333333333329" width="102" height="22"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2489,40 +2515,40 @@
                                         <rect key="frame" x="8" y="88" width="398" height="207"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tDM-AP-cPp">
-                                                <rect key="frame" x="0.0" y="0.0" width="37" height="207"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="207"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="N48-it-5ir">
-                                                        <rect key="frame" x="0.0" y="0.0" width="37" height="30.333333333333332"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="30.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="jmJ-Wm-Apm">
-                                                        <rect key="frame" x="0.0" y="35.333333333333314" width="37" height="30.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="35.333333333333314" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="4LS-qt-uHj">
-                                                        <rect key="frame" x="0.0" y="70.666666666666686" width="37" height="30.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="70.666666666666686" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-bO-Low">
-                                                        <rect key="frame" x="0.0" y="106" width="37" height="30.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="106" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="dvy-Yf-n1p">
-                                                        <rect key="frame" x="0.0" y="141.33333333333331" width="37" height="30.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="141.33333333333331" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="yGh-G0-ftF">
-                                                        <rect key="frame" x="0.0" y="176.66666666666669" width="37" height="30.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="176.66666666666669" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2538,40 +2564,40 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2bn-sM-5hJ">
-                                                <rect key="frame" x="361" y="0.0" width="37" height="207"/>
+                                                <rect key="frame" x="361.66666666666669" y="0.0" width="36.333333333333314" height="207"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="XXj-DH-aAB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="37" height="30.333333333333332"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="36.333333333333336" height="30.333333333333332"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sQg-kz-7T4">
-                                                        <rect key="frame" x="0.0" y="35.333333333333314" width="37" height="30.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="35.333333333333314" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8yL-rN-Q4k">
-                                                        <rect key="frame" x="0.0" y="70.666666666666686" width="37" height="30.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="70.666666666666686" width="36.333333333333336" height="30.333333333333329"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Evf-Qv-XaK">
-                                                        <rect key="frame" x="0.0" y="106" width="37" height="30.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="106" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BCh-Rh-trR">
-                                                        <rect key="frame" x="0.0" y="141.33333333333331" width="37" height="30.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="141.33333333333331" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8EE-MM-nHF">
-                                                        <rect key="frame" x="0.0" y="176.66666666666669" width="37" height="30.333333333333343"/>
+                                                        <rect key="frame" x="0.0" y="176.66666666666669" width="36.333333333333336" height="30.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2610,7 +2636,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Enter Your Wallet Pin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-Ba-SEf">
-                                                <rect key="frame" x="0.0" y="66" width="398" height="17.666666666666671"/>
+                                                <rect key="frame" x="0.0" y="59.999999999999993" width="398" height="23.666666666666664"/>
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                 <color key="textColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2762,13 +2788,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Mkg-qN-z8K">
-                                                    <rect key="frame" x="7.9999999999999929" y="16" width="120.33333333333331" height="17.666666666666671"/>
+                                                    <rect key="frame" x="7.9999999999999929" y="16" width="120.33333333333331" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5q-UR-jBO" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="41.666666666666657" width="398" height="50.333333333333343"/>
+                                                    <rect key="frame" x="8" y="47.666666666666657" width="398" height="44.333333333333343"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
@@ -2792,13 +2818,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-CD-Kqo">
-                                                    <rect key="frame" x="8" y="16" width="101" height="17.666666666666671"/>
+                                                    <rect key="frame" x="8" y="16" width="101" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NZI-BR-bnU" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="41.666666666666657" width="398" height="50.333333333333343"/>
+                                                    <rect key="frame" x="8" y="47.666666666666657" width="398" height="44.333333333333343"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
@@ -2822,13 +2848,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm New Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="1lW-vN-tWe">
-                                                    <rect key="frame" x="8" y="16" width="158.33333333333334" height="17.666666666666671"/>
+                                                    <rect key="frame" x="8" y="16" width="159.33333333333334" height="23.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eZO-2T-C02" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="41.666666666666657" width="398" height="50.333333333333343"/>
+                                                    <rect key="frame" x="8" y="47.666666666666657" width="398" height="44.333333333333343"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES" textContentType="password"/>
@@ -3079,6 +3105,7 @@
         <image name="IG_Wallet_Plus" width="1024" height="1024"/>
         <image name="bank" width="200" height="200"/>
         <image name="baseline" width="1024" height="1024"/>
+        <image name="default_card_pattern" width="985" height="616"/>
         <image name="qr-code_25" width="25" height="25"/>
         <image name="scan_Holder" width="512" height="512"/>
         <image name="scan_qr-code_25" width="25" height="25"/>

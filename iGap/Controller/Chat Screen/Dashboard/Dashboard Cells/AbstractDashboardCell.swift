@@ -108,7 +108,8 @@ class AbstractDashboardCell: UICollectionViewCell {
         IGClientSetDiscoveryItemClickRequest.sendRequest(itemId: discoveryInfo.igpID)
         
         let actionType = discoveryInfo.igpActiontype
-        
+        let valueType = String(discoveryInfo.igpValue)
+
         switch actionType {
         case .none:
             return
@@ -222,9 +223,27 @@ class AbstractDashboardCell: UICollectionViewCell {
         case .cardToCard:
             IGHelperFinancial.shared.sendCardToCardRequest()
             return
+
             
         case .payDirect:
             IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
+        case .walletMenu:
+            switch valueType {
+            case "QR_USER_WALLET" :
+                let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
+                let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
+                UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
+
+                break
+                
+            case "QR_MERCHANT_WALLET" :
+                break
+            default :
+                let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
+                UIApplication.topViewController()!.navigationController!.pushViewController(vc!, animated: true)
+
+                break
+            }
         default:
             return
         }

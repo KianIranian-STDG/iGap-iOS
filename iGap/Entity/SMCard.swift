@@ -449,6 +449,7 @@ class SMCard : SMEntity{
     static func getAllCardsFromServer(_ onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
 
         var serverCards = [SMCard]()
+        serverCards.removeAll()
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
             SMLoading.hideLoadingPage()

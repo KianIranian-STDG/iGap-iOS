@@ -16,12 +16,14 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
     @IBOutlet weak var switchDefaultCard : UISwitch!
     @IBOutlet weak var lblCardDefaultTitle : UILabel!
     @IBOutlet weak var btnRemove : UIButton!
-    
+    @IBOutlet weak var btnAmount : UIButton!
+    var cardType : Int64!
     var cardNum : String!
     var logoString : String!
     var urlBack : String!
     var cardToken : String!
     var cardDefault : Bool!
+    var amount : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +37,15 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
         btnRemove.setTitle("DELETE_CARD".localizedNew, for: .normal)
     }
     func initView() {
+        self.btnAmount.setTitle(amount.inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew, for: .normal)
+        
        imgBankLogo.image = UIImage(named: logoString)
        imgBackgroundCard.downloadedFrom(link: urlBack , cashable: true, contentMode: .scaleToFill, completion: {_ in
             print(link)
             
         })
        lblCardNum.text = cardNum
+        lblCardNum.font = UIFont.igFont(ofSize: 20 , weight: .bold)
         switchDefaultCard.setOn(cardDefault, animated: true)
     }
     // MARK: - Table view data source
@@ -65,9 +70,43 @@ class IGWalletCardDetailTableViewController: BaseTableViewController {
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return 4
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0 :
+          
+            return 220
+        case 1 :
+            if cardType == 1 {
+                return 0
+            }
+            else {
+                return 44
+                
+            }
+        case 2 :
+            if cardType == 1 {
+                return 0
+            }
+            else {
+                return 44
+            }
+        case 3 :
+            if cardType == 1 {
+                return 44
+            }
+            else {
+                return 0
+            }
+            break
+        default :
+            return 44
+
+        }
+
+    }
     @IBAction func segchanged(_ sender: Any) {
         SMCard.defaultCardFromServer(self.cardToken,isDefault: "\((sender as! UISwitch).isOn)", onSuccess: {
             SMLoading.showLoadingPage(viewcontroller: self)

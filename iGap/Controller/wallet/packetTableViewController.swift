@@ -44,6 +44,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var hasValue = false
     var bank = SMBank()
     var defaultHeightSize : Int = 0
+    var defaultCelltSize : Int = 0
     var defaultWidthSize : Int = 0
     @IBOutlet weak var cardCollectionView: UICollectionView!
     func valueChanged(value: Bool) {
@@ -56,12 +57,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var userCards: [SMCard]?
     var merchantCard : SMCard?
 
-    //array for holding background of cards
+    //MARK:-ARRAYS FOR BANK CARDS
     var stringImgArray = [String]()
-    //array for holding cardnum of cards
     var stringCardNumArray = [String]()
-
-    //array for holding logo of banks of cards
     var stringBankCodeArray = [Int64]()
     var stringBankLogoArray = [String]()
     var stringBankNameArray = [String]()
@@ -69,15 +67,28 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var stringCardTypeArray = [Int64]()
     var stringCardisDefaultArray = [Bool]()
 
+    //MARK:-ARRAYS FOR CLUB CARDS
+    var stringClubAmountsArray = [Int64]()
+
+
     var userMerchants: [SMMerchant]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isfromPacket = false
+        btnCashout.backgroundColor = .iGapGreen()
+        btnCharge.backgroundColor = .iGapGreen()
+        btnCashout.isUserInteractionEnabled = true
+
         initNavigationBar()
         defaultHeightSize = Int(cardCollectionView.frame.height)
+        print(defaultHeightSize)
         defaultWidthSize = Int(cardCollectionView.frame.width)
         self.tableView.backgroundColor = UIColor.iGapTableViewBackground()
-    }
+        DispatchQueue.main.async {
+            SMLoading.hideLoadingPage()
+            
+        }    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         shouldShowHisto = false
@@ -97,6 +108,11 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        isfromPacket = true
+        btnCashout.backgroundColor = .iGapGreen()
+        btnCharge.backgroundColor = .iGapGreen()
+        btnCashout.isUserInteractionEnabled = true
+
         merchantID = SMUserManager.accountId
         getMerchantData()
         initChangeLanguage()
@@ -137,6 +153,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 self.navigationItem.rightBarButtonItems = [settingItem]
                 
             }
+            
         }
 
 
@@ -152,7 +169,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             self.btnCashout.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
             initView()
             self.view.layoutIfNeeded()
-
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                
+            }
             break
         case "admin" :
             self.btnCharge.isHidden = true
@@ -169,6 +189,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             }
             initView()
             self.view.layoutIfNeeded()
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                
+            }
             break
         case "finance" :
             self.btnCharge.isHidden = true
@@ -185,6 +209,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             }
             initView()
             self.view.layoutIfNeeded()
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                
+            }
 
             break
         default :
@@ -196,7 +224,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     }
     
     func getMerchantData() {
-        
+        SMLoading.showLoadingPage(viewcontroller: self)
         SMMerchant.getAllMerchantsFromServer(SMUserManager.accountId, { (response) in
             
             self.userMerchants = SMMerchant.getAllMerchantsFromDB()
@@ -426,14 +454,16 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                                 self.stringCardTypeArray.removeAll()
                                 self.stringCardTokenArray.removeAll()
                                 self.stringCardisDefaultArray.removeAll()
+//                                print(self.userCards)
                                 for element in self.userCards! {
-                                    if element.type != 1 {
+                                    if !(element.pan!.contains("پیگیر")) {
                                         if let back : String = (element.backgroundimage!)  {
-                                        let request = WS_methods(delegate: self, failedDialog: true)
-                                        let str = request.fs_getFileURL(back)
-                                        self.stringImgArray.append(str!)
-                                  
-                                    }
+                                            let request = WS_methods(delegate: self, failedDialog: true)
+                                            
+                                            let str = request.fs_getFileURL(back)
+                                            self.stringImgArray.append(str!)
+                                            
+                                        }
                                         if let tmpCardNum : String = (element.pan) {
                                             self.stringCardNumArray.append(tmpCardNum)
                                             
@@ -453,9 +483,15 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                                         if let tmpIsDefaultState : Bool = (element.isDefault) {
                                             self.stringCardisDefaultArray.append(tmpIsDefaultState)
                                         }
+                                        if let tmpIsDefaultAmount : Int64 = ((element.balance ?? 0)) {
+                                            self.stringClubAmountsArray.append(tmpIsDefaultAmount)
+                                        }
                                         self.getBankInfo()
                                         
+                                        
+
                                     }
+                                    
                                 }
                                 
                                 self.plusValue = ((self.userCards?.count)! - 2 ) * 100
@@ -491,10 +527,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         if let cards = userCards {
             for card in cards {
                 
-                if card.type == 1{
+                if card.type == 1 && card.pan!.contains("پیگیر"){
                     
                     lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
-                    print(lblCurrency.text)
                     if (lblCurrency.text)?.inEnglishNumbers() == "0" {
                         btnCashout.isEnabled = false
                         btnCashout.backgroundColor = .iGapGray()
@@ -536,7 +571,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                     return CGFloat(1 * (defaultHeightSize))
                 }
                 else {
-                    return CGFloat((CGFloat((self.userCards?.count)!) * CGFloat(defaultHeightSize) - (CGFloat((self.userCards?.count)! - 1) * CGFloat(100))))
+//                    let tmpMin : Int! = ((self.userCards?.count)! - 1)  * (100)
+//                    return CGFloat((CGFloat((self.userCards?.count)!) * CGFloat(defaultHeightSize) - (CGFloat((self.userCards?.count)! - tmpMin))))
+                    return CGFloat(((self.userCards?.count)!) * (defaultCelltSize / 2))
                     
                 }
             }
@@ -598,12 +635,35 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        SMLoading.showLoadingPage(viewcontroller: self)
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardsCollectionViewCell", for: indexPath) as! CardsCollectionViewCell
         if hasValue {
-            cell.imgBackground.downloadedFrom(link: stringImgArray[indexPath.item] , cashable: true, contentMode: .scaleToFill, completion: {_ in
+            cell.imgBackground.downloadedFrom(link: self.stringImgArray[indexPath.item] , cashable: true, contentMode: .scaleToFill, completion: {_ in
             })
-            cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].addSepratorforCardNum().inLocalizedLanguage()
-            cell.lblBankName.text = self.stringBankNameArray[indexPath.item]
+            cell.cellType = self.stringCardTypeArray[indexPath.item]
+            let tmpType = self.stringCardTypeArray[indexPath.item]
+            if cell.cellType == 1 {
+                cell.lblBankName.text = self.stringCardNumArray[indexPath.item]
+                cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].inLocalizedLanguage()
+                let cardNum = (self.stringCardNumArray[indexPath.item])
+            }
+            else {
+                cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].addSepratorforCardNum().inLocalizedLanguage()
+
+                let cardNum = (self.stringCardNumArray[indexPath.item])
+                let trimmedString: String = (cardNum as NSString).substring(from: max(cardNum.length-4,0)).inLocalizedLanguage()
+                if SMLangUtil.loadLanguage() == "fa" {
+                    cell.lblBankName.text = self.stringBankNameArray[indexPath.item] + " - " + trimmedString + "****"
+
+                }
+                else {
+                    cell.lblBankName.text = self.stringBankNameArray[indexPath.item] + " - " + "****" + trimmedString
+
+                }
+                
+                }
+            
             cell.imgBankLogo.image = UIImage(named: self.stringBankLogoArray[indexPath.item])
             if (cell.lblBankName.text?.contains("پاس"))! {
                 cell.lblCardNum.textColor = UIColor.iGapGold()
@@ -612,14 +672,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             else {
                 cell.lblCardNum.textColor = UIColor.black
                 cell.lblBankName.textColor = UIColor.black
-
-
             }
-            
-        
-
-          
-
+        }
+        DispatchQueue.main.async {
+            SMLoading.hideLoadingPage()
 
         }
         return cell
@@ -631,7 +687,14 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         for element in self.stringBankCodeArray {
             bank.setBankInfo(code: element)
             stringBankLogoArray.append(bank.logoRes!)
-            stringBankNameArray.append(bank.nameFA!)
+            if element == 69 {
+                
+                stringBankNameArray.append(bank.nameFA!)
+
+            }
+            else {
+                stringBankNameArray.append(bank.nameFA!)
+            }
             
         }
     }
@@ -647,7 +710,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
 
         layout.itemSize = cellSize
-        
+        defaultCelltSize = Int(cellSize.height)
         cardCollectionView.collectionViewLayout = layout
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -655,9 +718,18 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
       
         cardDetailVC!.logoString = self.stringBankLogoArray[indexPath.item]
         cardDetailVC!.urlBack = self.stringImgArray[indexPath.item]
-        cardDetailVC?.cardNum = self.stringCardNumArray[indexPath.item].addSepratorforCardNum()
+        if (self.stringCardTypeArray[indexPath.item]) == 1 {
+            cardDetailVC?.cardNum = self.stringCardNumArray[indexPath.item]
+
+        }
+        else {
+            cardDetailVC?.cardNum = self.stringCardNumArray[indexPath.item].addSepratorforCardNum()
+
+        }
         cardDetailVC?.cardToken = self.stringCardTokenArray[indexPath.item]
         cardDetailVC?.cardDefault = self.stringCardisDefaultArray[indexPath.item]
+        cardDetailVC?.cardType = self.stringCardTypeArray[indexPath.item]
+        cardDetailVC?.amount = String((self.stringClubAmountsArray[indexPath.item]))
 
         let topIndex = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at: topIndex, at: .top, animated: true)
@@ -677,12 +749,20 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 }
             }, onFailed: { (value) in
                 // think about it
-            })
+                DispatchQueue.main.async {
+                    SMLoading.hideLoadingPage()
+                    
+                }            })
         }
+        DispatchQueue.main.async {
+            SMLoading.hideLoadingPage()
+            
+        }
+        
     }
     
     func prepareMerChantCard() {
-        SMLoading.hideLoadingPage()
+        
         if let card = merchantCard {
             if card.type == 1 {
 //                amountLbl.isHidden = false
@@ -707,6 +787,8 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                                                 userInfo: ["id": merchantID])
 
             }
+            SMLoading.hideLoadingPage()
+
         }
     }
 

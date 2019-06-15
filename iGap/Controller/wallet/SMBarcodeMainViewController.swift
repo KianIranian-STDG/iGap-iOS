@@ -15,6 +15,8 @@ import webservice
 
 
 var hasShownQrCode = false
+var isfromPacket = false
+
 var toID = ""
 class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     func close() {
@@ -40,7 +42,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     var ManualCodeActive = false
 
     var scanner: MTBBarcodeScanner?
-    private var currentAmount: String = "0" {
+    private var currentAmount: String = "Updating ...".localizedNew {
         didSet {
             
             lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(currentAmount) \(" ")" + "CURRENCY".localizedNew
@@ -53,35 +55,38 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
         self.userMerchants = SMMerchant.getAllMerchantsFromDB()
+        lblCurrency.text = "Updating ...".localizedNew
 
-        
-        switch currentBussinessType {
-        case 0 :
-            lblCurrency.text = "TTL_WALLET_BALANCE_STORE".localizedNew + "\(" \n")\(merchantBalance) \(" ")" + "CURRENCY".localizedNew
-
-            break
-        case 2 :
-            lblCurrency.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew + "\(" \n")\(merchantBalance) \(" ")" + "CURRENCY".localizedNew
-
-            break
-        case 3 :
-            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance) \(" ")" + "CURRENCY".localizedNew
-            self.updateAmountOfPayGear()
-
-            break
+        if isfromPacket {
+            switch currentBussinessType {
+            case 0 :
+                lblCurrency.text = "TTL_WALLET_BALANCE_STORE".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                
+                break
+            case 2 :
+                lblCurrency.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                
+                break
+            case 3 :
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                self.updateAmountOfPayGear()
+                
+                break
+                
+            default :
+                
+                break
+                
+            }
             
-        default :
-            break
             
         }
-
-        
-    }
-    private func updateAmountOfMerchant() {
-        for i in userMerchants! {
-
+        else {
+            initCards()
         }
+       
     }
+
 
     private func updateAmountOfPayGear() {
         if let cards = userCards {
@@ -294,17 +299,50 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("TAB0")
+        
         self.hideKeyboardWhenTappedAround()
 
         initNavigationBar()
         setupNotifications()
+        if isfromPacket {
+            
+        }
+        else {
+            initCards()
 
+        }
+
+    }
+    func initCards() {
+        
+        SMCard.getAllCardsFromServer({ cards in
+            if cards != nil{
+                if (cards as? [SMCard]) != nil{
+                    if (cards as! [SMCard]).count > 0
+                    {
+                    print((cards as! [SMCard]))
+                        
+                    print((cards as! [SMCard])[0])
+                        let amount = ((cards as! [SMCard])[0]).balance!
+
+                        let strAsNSString = String.init(describing: amount ?? 0).inRialFormat()
+                       
+
+                        self.lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(strAsNSString) \(" ")" + "CURRENCY".localizedNew
+
+                    }
+                }
+            }
+            needToUpdate = true
+        }, onFailed: {err in
+            //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.scanner?.stopScanning()
         unsetNotifications()
-
+        
         super.viewWillDisappear(animated)
     }
     func setupNotifications() {

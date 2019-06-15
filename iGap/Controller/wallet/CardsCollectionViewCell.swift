@@ -15,6 +15,7 @@ class CardsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblCardNum: UILabel!
     @IBOutlet weak var lblBankName: UILabel!
 
+    var cellType : Int64!
     
     override func awakeFromNib() {
         self.layer.cornerRadius = 20.0
@@ -22,6 +23,8 @@ class CardsCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1.0
         self.layer.borderColor = UIColor.darkGray.cgColor
         lblCardNum.font = UIFont.igFont(ofSize: 20 , weight: .bold)
+        lblBankName.font = UIFont.igFont(ofSize: 15 , weight: .bold)
+//        lblBankName.textAlignment = lblBankName.localizedNewDirection
 //        imgBackground.layer.cornerRadius = 15.0
 //        imgBackground.layer.masksToBounds = true
     }
