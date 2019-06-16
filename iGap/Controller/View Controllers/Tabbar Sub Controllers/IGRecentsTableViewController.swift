@@ -407,8 +407,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
      * from server again and update vote actions data
      **/
     private func deleteChannelMessages() {
-        if IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyChannelDeleteMessage) {
-            IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyChannelDeleteMessage, state: false)
+        if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyChannelDeleteMessage) {
+            IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyChannelDeleteMessage, state: false)
             IGRoomMessage.deleteAllChannelMessages()
         }
     }
@@ -440,7 +440,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         
                         if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
                             IGFactory.shared.markRoomsAsDeleted(igpRooms: getRoomListResponse.igpRooms)
-                            self.fetchPromotedRooms()
+                            IGClientGetPromoteRequest.fetchPromotedRooms()
                             self.sendClientCondition(clientConditionRooms: clientConditionRooms!)
                         }
                         
@@ -468,21 +468,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             switch errorCode {
             case .timeout:
                 self.fetchRoomList(offset: offset, limit: limit)
-            default:
-                break
-            }
-        }).send()
-    }
-    
-    private func fetchPromotedRooms() {
-        IGClientGetPromoteRequest.Generator.generate().success ({ (responseProtoMessage) in
-            if let promoteResponse = responseProtoMessage as? IGPClientGetPromoteResponse {
-                IGClientGetPromoteRequest.Handler.interpret(response: promoteResponse)
-            }
-        }).error({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                self.fetchPromotedRooms()
             default:
                 break
             }
@@ -699,16 +684,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 alertC.addAction(clear)
             }
             
-            if !IGHelperPromote.isPromotedRoom(room: room) {
-                alertC.addAction(pin)
-            }
+            alertC.addAction(pin)
             alertC.addAction(mute)
             alertC.addAction(report)
             
             if room.chatRoom != nil {
-                if !IGHelperPromote.isPromotedRoom(room: room) {
-                    alertC.addAction(remove)
-                }
+                alertC.addAction(remove)
             } else {
                 if let groupRoom = room.groupRoom {
                     if groupRoom.role == .owner {
@@ -736,10 +717,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         btnMoreSwipeCell.backgroundColor = UIColor.swipeDarkBlue()
 
         
-        var buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
-        if IGHelperPromote.isPromotedRoom(room: room) {
-            buttons = [btnMuteSwipeCell, btnMoreSwipeCell]
-        }
+        let buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
         
         cell.rightSwipeSettings.transition = MGSwipeTransition.border
         cell.rightExpansion.buttonIndex = 0

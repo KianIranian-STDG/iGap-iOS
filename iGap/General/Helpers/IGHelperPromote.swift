@@ -25,7 +25,8 @@ class IGHelperPromote {
             clearUnPromoteRooms(promoteList: promoteList)
         }
         
-        if promoteList.count <= position {
+        if promoteList.count <= position { // after get all promote list disable premission for avoid from get promote list next time
+            IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyAllowFetchPromote, state: false)
             return
         }
         
@@ -86,7 +87,8 @@ class IGHelperPromote {
             IGChatGetRoomRequest.Generator.generate(peerId: userId).success ({ (responseProto) in
                 if let chatGetRoomResponse = responseProto as? IGPChatGetRoomResponse {
                     let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                    DispatchQueue.main.async {
+                    // need more time for insuring about save room info to realm
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         if let room = IGRoom.getRoomInfo(roomId: roomId) {
                             self.pinRoom(roomId: roomId)
                             IGFactory.shared.promoteRoom(roomId: roomId)

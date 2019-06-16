@@ -63,7 +63,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     let disposeBag = DisposeBag()
     
     @IBAction func switchInAppBrowser(_ sender: UISwitch) {
-        IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: sender.isOn)
+        IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: sender.isOn)
     }
     
 
@@ -86,7 +86,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
       
         
-        if IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
+        if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
             switchInAppBrowser.isOn = true
         } else {
             switchInAppBrowser.isOn = false
@@ -423,10 +423,10 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
                 
                 if switchInAppBrowser.isOn {
                     switchInAppBrowser.setOn(false, animated: true)
-                    IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: false)
+                    IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: false)
                 } else {
                     switchInAppBrowser.setOn(true, animated: true)
-                    IGHelperPreferences.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: true)
+                    IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: true)
                 }
                 
             } else if rowIndex == 8 {

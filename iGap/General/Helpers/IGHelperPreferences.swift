@@ -12,11 +12,14 @@ import UIKit
 
 class IGHelperPreferences {
 
+    static let shared = IGHelperPreferences()
+    
     //setting preferences
     public static let keyInAppBrowser = "IN_APP_BROWSER"
     public static let keyChannelDeleteMessage = "CHANNEL_DELETE_MESSAGES"
+    public static let keyAllowFetchPromote = "ALLOW_FETCH_PROMOTE"
     
-    internal static func readBoolean(key: String) -> Bool {
+    public func readBoolean(key: String) -> Bool {
         let preferences = UserDefaults.standard
         let currentLevelKey = key
         if preferences.object(forKey: currentLevelKey) != nil {
@@ -25,9 +28,15 @@ class IGHelperPreferences {
         return true
     }
 
-    internal static func writeBoolean(key: String, state: Bool){
+    public func writeBoolean(key: String, state: Bool){
         let preferences = UserDefaults.standard
         preferences.set(state, forKey: key)
         preferences.synchronize()
+    }
+    
+    public func removeAllPreferences(){
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
     }
 }

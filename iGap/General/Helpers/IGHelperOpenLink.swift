@@ -15,7 +15,7 @@ class IGHelperOpenLink {
     
     static func openLink(urlString: String, navigationController: UINavigationController, forceOpenInApp: Bool = false){
         
-        if !IGHelperPreferences.readBoolean(key: IGHelperPreferences.keyInAppBrowser) && !forceOpenInApp {
+        if !IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) && !forceOpenInApp {
             UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
 
         } else {

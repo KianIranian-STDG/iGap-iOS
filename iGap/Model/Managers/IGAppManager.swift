@@ -80,6 +80,7 @@ class IGAppManager: NSObject {
     public func clearDataOnLogout() {
         IGDatabaseManager.shared.emptyQueue()
         IGRequestManager.sharedManager.userDidLogout()
+        IGHelperPreferences.shared.removeAllPreferences()
         try! realm.write {
             realm.deleteAll()
             

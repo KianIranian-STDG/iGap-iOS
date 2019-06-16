@@ -420,6 +420,28 @@ class IGClientRegisterDeviceRequest: IGRequest {
 }
 
 class IGClientGetPromoteRequest: IGRequest {
+    
+    class func fetchPromotedRooms() {
+        
+        // just fetch promote one time and disable this action after do completely and get response from server
+        if !IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyAllowFetchPromote) {
+            return
+        }
+        
+        IGClientGetPromoteRequest.Generator.generate().success ({ (responseProtoMessage) in
+            if let promoteResponse = responseProtoMessage as? IGPClientGetPromoteResponse {
+                IGClientGetPromoteRequest.Handler.interpret(response: promoteResponse)
+            }
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.fetchPromotedRooms()
+            default:
+                break
+            }
+        }).send()
+    }
+    
     class Generator: IGRequest.Generator {
         class func generate() -> IGRequestWrapper {
             return IGRequestWrapper(message: IGPClientGetPromote(), actionID: 618)
