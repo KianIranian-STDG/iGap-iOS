@@ -44,7 +44,8 @@ class CallManager: NSObject, CXProviderDelegate {
     
     func reportIncomingCallFor(uuid: UUID, phoneNumber: String) {
         let update = CXCallUpdate.init()
-        update.remoteHandle = CXHandle.init(type: CXHandle.HandleType.phoneNumber, value: phoneNumber)
+//        update.remoteHandle = CXHandle.init(type: CXHandle.HandleType.phoneNumber, value: "hتتتتت")
+        update.localizedCallerName = phoneNumber
         weak var weakSelf = self
         provider!.reportNewIncomingCall(with: uuid, update: update, completion: { (error : Error?) in
             if error != nil {

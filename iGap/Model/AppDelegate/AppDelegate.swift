@@ -294,9 +294,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let callPage = storyboard.instantiateViewController(withIdentifier: "IGCall") as! IGCall
             //Mark:- show Display Name of caller User if Nil we are not in terminate State
-            if userName != nil {
-                callPage.callerName = userName
-            }
+            callPage.callerName = userName ?? "UNKNOWN".localizedNew
             //End
             callPage.userId = userId
             callPage.isIncommingCall = isIncommmingCall
