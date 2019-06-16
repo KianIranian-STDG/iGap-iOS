@@ -11,6 +11,7 @@
 import IGProtoBuff
 import RealmSwift
 import PecPayment
+var cardToCardTapCount : Int!
 
 class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     
@@ -97,6 +98,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
     
     
     public func sendCardToCardRequest(toUserId: Int64 = 0){
+        
         IGGlobal.prgShow()
         IGMplGetCardToCardToken.Generator.generate(toUserId: toUserId).successPowerful({ (protoResponse, requestWrapper) in
             IGGlobal.prgHide()

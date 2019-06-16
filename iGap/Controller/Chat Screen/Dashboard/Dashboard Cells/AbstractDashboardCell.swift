@@ -12,7 +12,7 @@ import UIKit
 import IGProtoBuff
 
 class AbstractDashboardCell: UICollectionViewCell {
-
+    
     var dashboardAbs: [IGPDiscoveryField]!
     var mainViewAbs:  UIView?
     var img1Abs: IGImageView?
@@ -109,7 +109,11 @@ class AbstractDashboardCell: UICollectionViewCell {
         
         let actionType = discoveryInfo.igpActiontype
         let valueType = String(discoveryInfo.igpValue)
-
+        self.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isUserInteractionEnabled = true
+            
+        }
         switch actionType {
         case .none:
             return
