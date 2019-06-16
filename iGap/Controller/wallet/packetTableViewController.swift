@@ -18,6 +18,7 @@ var needToUpdate = false
 class packetTableViewController: BaseTableViewController , HandleDefaultCard,UICollectionViewDelegate , UICollectionViewDataSource {
     var shouldShowHisto = false
     var merchant : SMMerchant!
+    var layout =  UICollectionViewFlowLayout()
 
     @IBOutlet weak var lblWalletBalance : UILabel!
     @IBOutlet weak var lblCurrencyFormat : UILabel!
@@ -65,6 +66,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var stringBankNameArray = [String]()
     var stringCardTokenArray = [String]()
     var stringCardTypeArray = [Int64]()
+    var indexOfCardsWithEmptyBG = [Int]()
     var stringCardisDefaultArray = [Bool]()
 
     //MARK:-ARRAYS FOR CLUB CARDS
@@ -109,6 +111,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isfromPacket = true
+
         btnCashout.backgroundColor = .iGapGreen()
         btnCharge.backgroundColor = .iGapGreen()
         btnCashout.isUserInteractionEnabled = true
@@ -120,6 +123,24 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         
     }
     
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+        if gesture.state != .ended {
+            return
+        }
+        
+        let p = gesture.location(in: self.cardCollectionView)
+        print(p)
+        if let indexPath = self.cardCollectionView.indexPathForItem(at: p) {
+            // get the cell at indexPath (the one you long pressed)
+            let cell = self.cardCollectionView.cellForItem(at: indexPath)
+            // do stuff with the cell
+            print(cell?.frame.height)
+
+            print("cell selected index is :",indexPath)
+        } else {
+            print("couldn't find index path")
+        }
+    }
     //MARK: change Language Handler
     func initChangeLanguage() {
         //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
@@ -447,6 +468,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                                 _ = Array((self.userCards?.dropFirst())!)
 
                                 self.stringImgArray.removeAll()
+                                self.indexOfCardsWithEmptyBG.removeAll()
                                 self.stringCardNumArray.removeAll()
                                 self.stringBankCodeArray.removeAll()
                                 self.stringBankNameArray.removeAll()
@@ -457,38 +479,90 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 //                                print(self.userCards)
                                 for element in self.userCards! {
                                     if !(element.pan!.contains("پیگیر")) {
-                                        if let back : String = (element.backgroundimage!)  {
-                                            let request = WS_methods(delegate: self, failedDialog: true)
-                                            
-                                            let str = request.fs_getFileURL(back)
-                                            self.stringImgArray.append(str!)
-                                            
-                                        }
-                                        if let tmpCardNum : String = (element.pan) {
-                                            self.stringCardNumArray.append(tmpCardNum)
-                                            
-                                        }
-                                        if let tmpBankCode : Int64 = (element.bankCode) {
-                                            self.stringBankCodeArray.append(tmpBankCode)
-                                            
-                                        }
-                                        if let tmpcardToken : String = (element.token) {
-                                            self.stringCardTokenArray.append(tmpcardToken)
-                                            
-                                        }
-                                        if let tmpCardType : Int64 = (element.type) {
-                                            self.stringCardTypeArray.append(tmpCardType)
-                                            
-                                        }
-                                        if let tmpIsDefaultState : Bool = (element.isDefault) {
-                                            self.stringCardisDefaultArray.append(tmpIsDefaultState)
-                                        }
-                                        if let tmpIsDefaultAmount : Int64 = ((element.balance ?? 0)) {
-                                            self.stringClubAmountsArray.append(tmpIsDefaultAmount)
-                                        }
-                                        self.getBankInfo()
                                         
-                                        
+                                        if (element.type) == 1 {
+                                            if let back : String = (element.backgroundimage ?? "")  {
+                                                let request = WS_methods(delegate: self, failedDialog: true)
+                                                if back == "" {
+                                                    
+                                                    self.stringImgArray.append(back)
+                                                    
+                                                }
+                                                else {
+                                                    let str = request.fs_getFileURL(back)
+                                                    self.stringImgArray.append(str!)
+                                                    
+                                                }
+                                                
+                                            }
+                                            if let tmpCardNum : String = (element.pan) {
+                                                self.stringCardNumArray.append(tmpCardNum)
+                                                
+                                            }
+                                            if let tmpBankCode : Int64 = (element.bankCode) {
+                                                self.stringBankCodeArray.append(tmpBankCode)
+                                                
+                                            }
+                                            if let tmpcardToken : String = (element.token) {
+                                                self.stringCardTokenArray.append(tmpcardToken)
+                                                
+                                            }
+                                            if let tmpCardType : Int64 = (element.type) {
+                                                self.stringCardTypeArray.append(tmpCardType)
+                                                
+                                            }
+                                            if let tmpIsDefaultState : Bool = (element.isDefault) {
+                                                self.stringCardisDefaultArray.append(tmpIsDefaultState)
+                                            }
+                                            if let tmpIsDefaultAmount : Int64 = ((element.balance ?? 0)) {
+                                                self.stringClubAmountsArray.append(tmpIsDefaultAmount)
+                                            }
+                                            self.getBankInfo()
+                                            
+                                            
+                                        }
+                                        else {
+                                            if let back : String = (element.backgroundimage ?? "")  {
+                                                let request = WS_methods(delegate: self, failedDialog: true)
+                                                if back == "" {
+                                                    
+                                                    self.stringImgArray.insert(back, at: 0)
+                                                    
+                                                }
+                                                else {
+                                                    let str = request.fs_getFileURL(back)
+                                                    self.stringImgArray.insert(str!, at: 0)
+                                                    
+                                                }
+                                                
+                                            }
+                                            if let tmpCardNum : String = (element.pan) {
+                                                self.stringCardNumArray.insert(tmpCardNum, at: 0)
+                                                
+                                            }
+                                            if let tmpBankCode : Int64 = (element.bankCode) {
+                                                self.stringBankCodeArray.insert(tmpBankCode, at: 0)
+                                                
+                                            }
+                                            if let tmpcardToken : String = (element.token) {
+                                                self.stringCardTokenArray.insert(tmpcardToken, at: 0)
+                                                
+                                            }
+                                            if let tmpCardType : Int64 = (element.type) {
+                                                self.stringCardTypeArray.insert(tmpCardType, at: 0)
+                                                
+                                            }
+                                            if let tmpIsDefaultState : Bool = (element.isDefault) {
+                                                self.stringCardisDefaultArray.insert(tmpIsDefaultState, at: 0)
+                                            }
+                                            if let tmpIsDefaultAmount : Int64 = ((element.balance ?? 0)) {
+                                                self.stringClubAmountsArray.insert(tmpIsDefaultAmount, at: 0)
+                                            }
+                                            self.getBankInfo()
+                                            
+                                            
+                                        }
+                        
 
                                     }
                                     
@@ -639,8 +713,15 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardsCollectionViewCell", for: indexPath) as! CardsCollectionViewCell
         if hasValue {
-            cell.imgBackground.downloadedFrom(link: self.stringImgArray[indexPath.item] , cashable: true, contentMode: .scaleToFill, completion: {_ in
-            })
+            if (self.stringImgArray[indexPath.item]) == "" {
+                
+                cell.imgBackground.image = UIImage(named:"default_card_pattern")
+                }
+                else {
+                
+                cell.imgBackground.downloadedFrom(link: self.stringImgArray[indexPath.item] , cashable: true, contentMode: .scaleToFill, completion: {_ in
+                })
+                }
             cell.cellType = self.stringCardTypeArray[indexPath.item]
             let tmpType = self.stringCardTypeArray[indexPath.item]
             if cell.cellType == 1 {
@@ -700,19 +781,26 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     }
     
     func initCollectionView() {
-        let layout = cardCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
+
+        self.cardCollectionView.addGestureRecognizer(lpgr)
+        layout = cardCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+
         layout.minimumInteritemSpacing = 10
         
         let heideghtSize = ((defaultWidthSize) / 2 )
-        layout.minimumLineSpacing =  CGFloat((Double(heideghtSize) / 1.5) * -1)
+        layout.minimumLineSpacing =  CGFloat((Double(heideghtSize) / 1.8) * -1)
 
         let cellSize = CGSize(width:((UIScreen.main.bounds.width) - 40) , height: CGFloat(heideghtSize))
         layout.sectionInset = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
 
         layout.itemSize = cellSize
+        print(cellSize.height)
+
         defaultCelltSize = Int(cellSize.height)
         cardCollectionView.collectionViewLayout = layout
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cardDetailVC : IGWalletCardDetailTableViewController? = (storyboard?.instantiateViewController(withIdentifier: "IGWalletCardDetail") as! IGWalletCardDetailTableViewController)
       
