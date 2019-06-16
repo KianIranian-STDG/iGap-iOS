@@ -174,6 +174,11 @@ class IGHelperBot {
     }
     
     @objc private func onBotButtonClick(sender: UIButton){
+        sender.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            sender.isEnabled = true
+
+        }
         IGMessageViewController.additionalObserver.onBotClick()
         if let structAdditional = buttonActionDic[sender] {
             manageAdditionalActions(structAdditional: structAdditional)
@@ -194,7 +199,7 @@ class IGHelperBot {
     /**************************************************/
     
     private func manageAdditionalActions(structAdditional: IGStructAdditionalButton){
-
+        
         switch structAdditional.actionType {
             
         case ButtonActionType.NONE.rawValue :
