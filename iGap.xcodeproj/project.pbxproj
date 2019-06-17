@@ -93,6 +93,7 @@
 		8ECCA1E622B6587E00D3A734 /* SMMoneyTransactionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */; };
 		8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */; };
 		8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */; };
+		8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1EB22B7CF7A00D3A734 /* customAmountTextField.swift */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */; };
 		8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */; };
@@ -700,6 +701,7 @@
 		8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMMoneyTransactionOptions.swift; sourceTree = "<group>"; };
 		8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSingleAmountInputView.swift; sourceTree = "<group>"; };
 		8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMSingleAmountInputView.xib; sourceTree = "<group>"; };
+		8ECCA1EB22B7CF7A00D3A734 /* customAmountTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customAmountTextField.swift; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNormalAlertViewController.swift; sourceTree = "<group>"; };
 		8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMConfirmAlertViewController.swift; sourceTree = "<group>"; };
@@ -1429,6 +1431,7 @@
 				8ECC1836222FEAEA006E43E8 /* extitionGeneral.swift */,
 				8EEE896522AF6D0B0072383C /* customTextfield.swift */,
 				8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */,
+				8ECCA1EB22B7CF7A00D3A734 /* customAmountTextField.swift */,
 			);
 			path = Extitions;
 			sourceTree = "<group>";
@@ -3083,6 +3086,7 @@
 				FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */,
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
+				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,
 				FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,

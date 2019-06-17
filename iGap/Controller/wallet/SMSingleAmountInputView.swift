@@ -9,12 +9,12 @@
 import UIKit
 
 /// Input view to get only one input and button to confirm action
-class SMSingleAmountInputView: UIView, UITextFieldDelegate {
+class SMSingleAmountInputView: UIView {
     
     /// Title of view
     @IBOutlet var infoLbl: UILabel!
     
-    @IBOutlet var inputTF: UITextField!
+    @IBOutlet var inputTF: customAmountTextField!
     @IBOutlet var confirmBtn: UIButton!
     @IBOutlet var containerView: UIView!
     /*
@@ -35,6 +35,7 @@ class SMSingleAmountInputView: UIView, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        infoLbl.text = "TTL_AMOUNT".localizedNew
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -54,20 +55,13 @@ class SMSingleAmountInputView: UIView, UITextFieldDelegate {
         containerView.layer.cornerRadius = 12
         
         //        self.transform = SMDirection.PageAffineTransform()
-        infoLbl.transform = self.transform
-        inputTF.transform = self.transform
-        confirmBtn.transform = self.transform
+//        infoLbl.transform = self.transform
+//        inputTF.transform = self.transform
+//        confirmBtn.transform = self.transform
         
-        //        infoLbl.textAlignment = SMDirection.TextAlignment()
-        inputTF.textAlignment = infoLbl.textAlignment
+        infoLbl.textAlignment = SMDirection.TextAlignment()
+//        inputTF.textAlignment = inputTF.textAlignment
         
-    }
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        inputTF.resignFirstResponder()
-        return true
     }
 
     

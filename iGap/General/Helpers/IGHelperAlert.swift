@@ -114,7 +114,7 @@ class IGHelperAlert {
     }
     
     func showErrorAlert(done: (() -> Void)? = nil){
-        showAlert(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, done: done)
+        showAlert(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew)
     }
 
     

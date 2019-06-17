@@ -42,7 +42,7 @@
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                             <state key="normal" title="تایید"/>
                         </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dnL-FT-ZxG">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dnL-FT-ZxG" customClass="customAmountTextField" customModule="iGap" customModuleProvider="target">
                             <rect key="frame" x="55" y="9" width="281" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="0fV-EM-HAY"/>
@@ -50,9 +50,6 @@
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done"/>
-                            <connections>
-                                <outlet property="delegate" destination="vFO-mc-BkB" id="mj8-Ja-43o"/>
-                            </connections>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -98,7 +95,7 @@
                 <outlet property="confirmBtn" destination="dRc-mA-ePK" id="FL1-PJ-2xk"/>
                 <outlet property="containerView" destination="c7H-jN-Rl6" id="Qns-VM-rfo"/>
                 <outlet property="infoLbl" destination="G1p-5D-DTa" id="2sc-ke-5Dt"/>
-                <outlet property="inputTF" destination="dnL-FT-ZxG" id="jII-EM-DlE"/>
+                <outlet property="inputTF" destination="dnL-FT-ZxG" id="7Ce-QQ-FWv"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="52"/>
         </view>

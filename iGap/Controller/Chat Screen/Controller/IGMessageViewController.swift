@@ -313,9 +313,34 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         switch self.room!.type {
 
         case .chat:
-            self.inputBarMoneyTransferButton.isHidden = false
-            self.RightBarConstraints.constant = 70
-            self.view.layoutIfNeeded()
+            if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+                
+                UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
+                    self.inputBarMoneyTransferButton.isHidden = true
+                    self.RightBarConstraints.constant = 38
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            }
+            else {
+                if !(IGAppManager.sharedManager.mplActive()) && (IGAppManager.sharedManager.walletActive()) {
+                    
+                }
+                else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+                    self.inputBarMoneyTransferButton.isHidden = false
+                    self.RightBarConstraints.constant = 70
+                    self.view.layoutIfNeeded()
+
+                    self.isCardToCardRequestEnable = true
+                    self.manageCardToCardInputBar()
+                    
+                }
+                else {
+                self.inputBarMoneyTransferButton.isHidden = false
+                self.RightBarConstraints.constant = 70
+                self.view.layoutIfNeeded()
+                }
+            }
+            
 
         default:
             self.inputBarMoneyTransferButton.isHidden = true
@@ -2098,6 +2123,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     /************************************************************************/
     @IBAction func didTapOnMoneyTransactionsButton(_ sender: UIButton) {
         self.inputTextView.resignFirstResponder()
+        self.hideMoneyInputModal()
 
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             
@@ -2294,32 +2320,37 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     @objc func confirmTapped() {
         
-        if MoneyTransactionModal != nil {
-            
-            hideMoneyTransactionModal()
-            self.hideMoneyInputModal()
-
-            let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
-            SMLoading.showLoadingPage(viewcontroller: self)
-            IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbers().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
-                SMLoading.hideLoadingPage()
-                if let response = protoResponse as? IGPWalletPaymentInitResponse {
-                    
-                    SMUserManager.publicKey = response.igpPublicKey
-                    SMUserManager.payToken = response.igpToken
-                    self.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
-                    
-                }
-            }).error ({ (errorCode, waitTime) in
-                switch errorCode {
-                    
-                case .timeout:
+        if MoneyInputModal != nil {
+            if MoneyInputModal.inputTF.text == "" ||  MoneyInputModal.inputTF.text == nil {
+                IGHelperAlert.shared.showAlert(message: "FILL_AMOUNT".localizedNew)
+            }
+            else {
+                self.hideMoneyTransactionModal()
+                self.hideMoneyInputModal()
+                
+                let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
+                SMLoading.showLoadingPage(viewcontroller: self)
+                IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbers().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
                     SMLoading.hideLoadingPage()
-                    self.walletTransferTapped()
-                default:
-                    break
-                }
-            }).send()
+                    if let response = protoResponse as? IGPWalletPaymentInitResponse {
+                        
+                        SMUserManager.publicKey = response.igpPublicKey
+                        SMUserManager.payToken = response.igpToken
+                        self.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
+                        
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    switch errorCode {
+                        
+                    case .timeout:
+                        SMLoading.hideLoadingPage()
+                        self.walletTransferTapped()
+                    default:
+                        break
+                    }
+                }).send()
+
+            }
         }
     }
     @objc func cardToCardTaped() {
