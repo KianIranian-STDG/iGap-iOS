@@ -26,6 +26,10 @@ import ContactsUI
 import MobileCoreServices
 import MarkdownKit
 import SwiftyJSON
+import Alamofire
+import KeychainSwift
+import webservice
+import SwiftyRSA
 
 
 public var indexOfVideos = [Int]()
@@ -54,8 +58,58 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept {
+    ///Handle reciept
+    func close() {
+        
+        self.dismiss(animated: true, completion: {
+            self.tabBarController?.tabBar.isUserInteractionEnabled = true
+            self.callCallBackApi(token: SMUserManager.payToken!)
+        })
+    }
+    func callCallBackApi(token : String) {
+        let url: String! = SMUserManager.callBackUrl
+        guard let serviceUrl = URL(string: url) else { return }
+        let parameters: Parameters = ["token" : token]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            return
+        }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+            }.resume()
+    }
     
+    
+    
+    func screenView() {
+        close()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            SMReciept.getInstance().screenReciept(viewcontroller: self)
+        }
+    }
+    
+    
+    var MoneyTransactionModal : SMMoneyTransactionOptions!
+    var MoneyInputModal : SMSingleAmountInputView!
+    var MoneyTransactionModalIsActive = false
+    var MoneyInputModalIsActive = false
+
 
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
@@ -76,6 +130,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var inputBarRecordButton: UIButton!
     @IBOutlet weak var btnScrollToBottom: UIButton!
     @IBOutlet weak var inputBarSendButton: UIButton!
+    @IBOutlet weak var inputBarMoneyTransferButton: UIButton!
     @IBOutlet weak var btnCancelReplyOrForward: UIButton!
     @IBOutlet weak var btnDeleteSelectedAttachment: UIButton!
     @IBOutlet weak var btnClosePin: UIButton!
@@ -85,6 +140,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var inputBarRecodingBlinkingView: UIView!
     @IBOutlet weak var inputBarRecordRightView: UIView!
     @IBOutlet weak var inputBarRecordViewLeftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var RightBarConstraints: NSLayoutConstraint!
     @IBOutlet weak var inputBarAttachmentView: UIView!
     @IBOutlet weak var inputBarAttachmentViewThumnailImageView: UIImageView!
     @IBOutlet weak var inputBarAttachmentViewFileNameLabel: UILabel!
@@ -242,12 +298,35 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
+        if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+            RightBarConstraints.constant = 38
+            inputBarMoneyTransferButton.isHidden = true
+            self.view.layoutIfNeeded()
+        }else {
+            RightBarConstraints.constant = 70
+            inputBarMoneyTransferButton.isHidden = false
+            self.view.layoutIfNeeded()
+
+        }
         tmpUserID  =  self.room?.chatRoom?.peer?.id
 
-        
+        switch self.room!.type {
+
+        case .chat:
+            self.inputBarMoneyTransferButton.isHidden = false
+            self.RightBarConstraints.constant = 70
+            self.view.layoutIfNeeded()
+
+        default:
+            self.inputBarMoneyTransferButton.isHidden = true
+            self.RightBarConstraints.constant = 38
+            self.view.layoutIfNeeded()
+
+        }
+
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
 
-        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
+        removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, inputBarMoneyTransferButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
@@ -535,6 +614,65 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
     }
+    
+    func setupNotifications() {
+        unsetNotifications()
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(IGMessageViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unsetNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        let userInfo = notification.userInfo!
+        let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
+        let window = UIApplication.shared.keyWindow!
+        
+        if MoneyInputModalIsActive {
+            if let MoneyInput = MoneyInputModal {
+                window.addSubview(MoneyInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MoneyInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
+                    MoneyInput.frame = frame
+                    
+                }
+            }
+        }else {
+            if MoneyInputModal != nil {
+                
+                self.hideMoneyInputModal()
+            }
+            
+        }
+        
+        
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        if let MoneyInput = MoneyInputModal {
+            self.view.addSubview(MoneyInput)
+            UIView.animate(withDuration: 0.3) {
+                if MoneyInput.frame.origin.y < self.view.frame.size.height {
+                    MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+                }
+            }
+        }
+        
+        self.view.layoutIfNeeded()
+    }
+    
     
     func onStickerTap(stickerItem: IGRealmStickerItem) {
         
@@ -1128,6 +1266,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewWillAppear(_ animated: Bool) {
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
+        setupNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
         
@@ -1159,6 +1298,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         inputTextView.setContentOffset(.zero, animated: true)
         inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
 
@@ -1191,7 +1331,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
     override func viewWillDisappear(_ animated: Bool) {
         currentPageName = "" 
-
+        unsetNotifications()
         if !inputBarOriginalMessageView.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
@@ -1301,19 +1441,28 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     /* if send message state is enable show send button and hide sticker & record button */
     private func sendMessageState(enable: Bool){
-        
         if enable {
-            
+            self.hideMoneyTransactionModal()
+            self.hideMoneyInputModal()
+
             if inputBarRecordButton.isHidden {
                 return
             }
             
             UIView.transition(with: self.inputBarRecordButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.inputBarRecordButton.isHidden = true
+                self.inputBarMoneyTransferButton.isHidden = false
+                self.RightBarConstraints.constant = 70
+                self.view.layoutIfNeeded()
+
+
             }, completion: { (completed) in
                 
                 UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
                     self.inputBarSendButton.isHidden = false
+                    self.inputBarMoneyTransferButton.isHidden = true
+                    self.RightBarConstraints.constant = 38
+                    self.view.layoutIfNeeded()
                 }, completion: nil)
             })
             
@@ -1323,13 +1472,25 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }, completion: nil)
 
         } else {
-            
+            self.hideMoneyTransactionModal()
+            self.hideMoneyInputModal()
+
             UIView.transition(with: self.inputBarSendButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.inputBarSendButton.isHidden = true
+                self.inputBarMoneyTransferButton.isHidden = false
+                self.RightBarConstraints.constant = 70
+                self.view.layoutIfNeeded()
+
+
             }, completion: { (completed) in
                 
                 UIView.transition(with: self.inputBarRecordButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
                     self.inputBarRecordButton.isHidden = false
+                    self.inputBarMoneyTransferButton.isHidden = false
+                    self.RightBarConstraints.constant = 70
+                    self.view.layoutIfNeeded()
+
+
                 }, completion: nil)
                 
                 UIView.transition(with: self.txtSticker, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
@@ -1932,6 +2093,302 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
+    /************************************************************************/
+    /*********************** MONEY TRANSACTIONS ***********************/
+    /************************************************************************/
+    @IBAction func didTapOnMoneyTransactionsButton(_ sender: UIButton) {
+        self.inputTextView.resignFirstResponder()
+
+        if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+            
+        }
+        else {
+            if !(IGAppManager.sharedManager.mplActive()) && (IGAppManager.sharedManager.walletActive()) {
+                
+            }
+            else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
+                self.isCardToCardRequestEnable = true
+                self.manageCardToCardInputBar()
+
+            }
+            else {
+                
+                self.finishDefault(isPaygear: true, isCard: false)
+                self.MoneyTransactionModalIsActive = true
+                self.MoneyInputModalIsActive = false
+
+                if MoneyTransactionModal == nil {
+                    MoneyTransactionModal = SMMoneyTransactionOptions.loadFromNib()
+                    MoneyTransactionModal.btnCard.addTarget(self, action: #selector(cardToCardTaped), for: .touchUpInside)
+                    MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
+                    MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
+                    
+                    
+                    
+                    MoneyTransactionModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
+                    MoneyTransactionModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localizedNew, for: .normal)
+//                    MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+                    
+                    let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+                    swipeDown.direction = .down
+                    
+                    MoneyTransactionModal.addGestureRecognizer(swipeDown)
+                    self.view.addSubview(MoneyTransactionModal!)
+                    
+                }
+                else {
+                    MoneyTransactionModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
+                    MoneyTransactionModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localizedNew, for: .normal)
+//                    MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+//                    MoneyTransactionModal.inputTF.placeholder = "ENTER_CODE".localizedNew
+                }
+                
+                if #available(iOS 11.0, *) {
+                    let window = UIApplication.shared.keyWindow
+                    let topPadding = window?.safeAreaInsets.top
+                    let bottomPadding = window?.safeAreaInsets.bottom
+                    
+                    UIView.animate(withDuration: 0.3) {
+                        self.MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyTransactionModal.frame.height - 45 -  bottomPadding!, width: self.view.frame.width, height: self.MoneyTransactionModal.frame.height)
+                        
+                    }
+                }
+                else {
+                    UIView.animate(withDuration: 0.3) {
+                        self.MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyTransactionModal.frame.height - 45, width: self.view.frame.width, height: self.MoneyTransactionModal.frame.height)
+                    }
+                }
+                
+            }
+
+        }
+    }
+    var hasValue = false
+    var userCards: [SMCard]?
+    var sourceCard: SMCard!
+
+    func finishDefault(isPaygear: Bool? ,isCard : Bool?) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+                SMCard.getAllCardsFromServer({ cards in
+            if cards != nil{
+                if (cards as? [SMCard]) != nil{
+                    if (cards as! [SMCard]).count > 0 {
+                        //                        self.walletView.dismissPresentedCardView(animated: true)
+                        //                        self.walletHeaderView.alpha = 1.0
+                        self.userCards = SMCard.getAllCardsFromDB()
+                        self.hasValue = true
+                        
+                        if self.hasValue  {
+                        }
+                        if isPaygear!{
+                            self.preparePayGearCard()
+                        }
+                    }
+                }
+            }
+            needToUpdate = true
+        }, onFailed: {err in
+            //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+        })
+    }
+    func transferToWallet(pbKey: String!,token: String)  {
+        
+        SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "enterpin".localized, yesPressed: { pin in
+            self.payFromSingleCard(card: self.sourceCard , pin : (pin as! String))
+        }, forgotPin: {
+            
+            let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
+            
+            let walletSettingPage : IGWalletSettingTableViewController? = (storyboard.instantiateViewController(withIdentifier: "walletSettingPage") as! IGWalletSettingTableViewController)
+            self.navigationController!.pushViewController(walletSettingPage!, animated: true)            })
+        
+    }
+    func preparePayGearCard(){
+        
+        if let cards = userCards {
+            for card in cards {
+                
+                if card.type == 1 && card.pan!.contains("پیگیر"){
+                    self.sourceCard = card
+                    SMUserManager.payGearToken = card.token
+                    SMUserManager.isProtected = card.protected
+                    SMUserManager.userBalance = card.balance
+                }
+            }
+        }
+    }
+    
+    private func payFromSingleCard(card: SMCard,pin: String) {
+        
+        
+        let para  = NSMutableDictionary()
+        para.setValue(card.token, forKey: "c")
+        para.setValue((pin).onlyDigitChars().inEnglishNumbers(), forKey: "p2")
+        para.setValue(card.type, forKey: "type")
+        para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
+        para.setValue(card.bankCode, forKey: "bc")
+
+        let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
+            //                                    self.showReciept(response: NSDictionary())
+            SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
+                if let result = resp as? NSDictionary{
+                  
+                    SMUserManager.callBackUrl = (result.allValues[1]) as! String
+                    SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+                }
+            }, onFailed: {err in
+                SMLog.SMPrint(err)
+                if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                }
+            })
+        }
+    }
+    @objc func walletTransferTapped() {
+        
+        self.hideMoneyTransactionModal()
+             self.hideMoneyInputModal()
+            self.MoneyInputModalIsActive = true
+            
+            if MoneyInputModal == nil {
+                MoneyInputModal = SMSingleAmountInputView.loadFromNib()
+                MoneyInputModal.confirmBtn.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
+                
+                MoneyInputModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyInputModal.frame.height)
+                
+                
+                
+                MoneyInputModal.confirmBtn.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+                //                    MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+                
+                let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+                swipeDown.direction = .down
+                
+                MoneyInputModal.addGestureRecognizer(swipeDown)
+                self.view.addSubview(MoneyInputModal!)
+                
+            }
+            else {
+                MoneyInputModal.confirmBtn.setTitle("GLOBAL_OK".localizedNew, for: .normal)
+            }
+            
+            if #available(iOS 11.0, *) {
+                let window = UIApplication.shared.keyWindow
+                let topPadding = window?.safeAreaInsets.top
+                let bottomPadding = window?.safeAreaInsets.bottom
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.MoneyInputModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyInputModal.frame.height - 45 -  bottomPadding!, width: self.view.frame.width, height: self.MoneyInputModal.frame.height)
+                    
+                }
+            }
+            else {
+                UIView.animate(withDuration: 0.3) {
+                    self.MoneyInputModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.MoneyInputModal.frame.height - 45, width: self.view.frame.width, height: self.MoneyInputModal.frame.height)
+                }
+            }
+
+    }
+    @objc func confirmTapped() {
+        
+        if MoneyTransactionModal != nil {
+            
+            hideMoneyTransactionModal()
+            self.hideMoneyInputModal()
+
+            let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbers().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
+                SMLoading.hideLoadingPage()
+                if let response = protoResponse as? IGPWalletPaymentInitResponse {
+                    
+                    SMUserManager.publicKey = response.igpPublicKey
+                    SMUserManager.payToken = response.igpToken
+                    self.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
+                    
+                }
+            }).error ({ (errorCode, waitTime) in
+                switch errorCode {
+                    
+                case .timeout:
+                    SMLoading.hideLoadingPage()
+                    self.walletTransferTapped()
+                default:
+                    break
+                }
+            }).send()
+        }
+    }
+    @objc func cardToCardTaped() {
+        
+        if MoneyTransactionModal != nil {
+            
+            hideMoneyTransactionModal()
+             self.hideMoneyInputModal()
+            self.isCardToCardRequestEnable = true
+            self.manageCardToCardInputBar()
+
+        }        //go to process info
+
+        
+    }
+    
+    func hideMoneyTransactionModal() {
+        self.MoneyTransactionModalIsActive = false
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.MoneyTransactionModal.frame.origin.y = self.view.frame.height
+            
+        }) { (true) in
+        }
+    }
+    
+    func hideMoneyInputModal() {
+        self.MoneyInputModalIsActive = false
+        if MoneyInputModal != nil {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.MoneyInputModal.frame.origin.y = self.view.frame.height
+                
+            }) { (true) in
+            }
+            MoneyInputModal.inputTF.endEditing(true)
+        }
+        
+       
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        //location is relative to the current view
+        // do something with the touched point
+        if touch?.view != self {
+            self.view.endEditing(true)
+            if MoneyTransactionModal != nil {
+                
+                hideMoneyTransactionModal()
+            }
+            if MoneyInputModal != nil {
+                
+                hideMoneyInputModal()
+            }
+        }
+    }
+    @objc func handleGesture(gesture: UITapGestureRecognizer) {
+        // handling code
+        if MoneyTransactionModal != nil {
+            
+            hideMoneyTransactionModal()
+        }
+        if MoneyInputModal != nil {
+            
+            hideMoneyInputModal()
+            self.view.endEditing(true)
+            
+        }
+    }
     /************************************************************************/
     /*********************** Attachment Manager Start ***********************/
     /************************************************************************/

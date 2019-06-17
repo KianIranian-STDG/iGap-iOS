@@ -724,7 +724,7 @@ class IGChannelInfoTableViewController: BaseTableViewController , UIGestureRecog
                 IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixChannel + "\n" + channelLink!, viewController: self)
             })
             
-            let changeAction = UIAlertAction(title: "CHANGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
+            let changeAction = UIAlertAction(title: "CHNAGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
                 if self.room?.channelRoom?.type == .publicRoom {
                     self.performSegue(withIdentifier: "showChannelInfoSetType", sender: self)
                 }

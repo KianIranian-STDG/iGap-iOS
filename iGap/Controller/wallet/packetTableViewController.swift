@@ -432,7 +432,6 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         SMLoading.showLoadingPage(viewcontroller: self)
 
         if isCard! == false && isPaygear == true {
-//            paygearAmountLoading.isHidden = false
             if needToUpdate {
                 lblCurrency.text = "Updating ...".localizedNew
 

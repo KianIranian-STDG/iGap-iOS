@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-GU-ejX">
-                                <rect key="frame" x="0.0" y="70" width="320" height="361"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jVs-8m-lwG">
                                     <size key="itemSize" width="50" height="50"/>
@@ -1272,36 +1272,47 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84p-pD-00v">
-                                                <rect key="frame" x="282" y="91" width="38" height="38"/>
+                                                <rect key="frame" x="250" y="91" width="70" height="38"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Ym-D0e">
-                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                                        <state key="normal" image="IG_Chat_Screen_Record"/>
-                                                    </button>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                                        <state key="normal" image="IG_Chat_Screen_Send"/>
-                                                        <connections>
-                                                            <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Xid-u6-pzI"/>
-                                                        </connections>
-                                                    </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6XE-hX-qS1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="38"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgh-FS-H7F">
+                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
+                                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="19"/>
+                                                                <state key="normal" title="">
+                                                                    <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="didTapOnMoneyTransactionsButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="FHG-N9-hpC"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Ym-D0e">
+                                                                <rect key="frame" x="32" y="0.0" width="38" height="38"/>
+                                                                <state key="normal" image="IG_Chat_Screen_Record"/>
+                                                            </button>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
+                                                                <rect key="frame" x="70" y="0.0" width="0.0" height="38"/>
+                                                                <state key="normal" image="IG_Chat_Screen_Send"/>
+                                                                <connections>
+                                                                    <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Xid-u6-pzI"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="JfN-2p-VQo" secondAttribute="trailing" id="2J1-YM-XOd"/>
-                                                    <constraint firstAttribute="width" constant="38" id="Fk5-7Q-M7C"/>
-                                                    <constraint firstAttribute="trailing" secondItem="aWE-Ym-D0e" secondAttribute="trailing" id="YnK-5l-sIf"/>
-                                                    <constraint firstAttribute="bottom" secondItem="JfN-2p-VQo" secondAttribute="bottom" id="b9Q-Bu-aDU"/>
-                                                    <constraint firstItem="aWE-Ym-D0e" firstAttribute="top" secondItem="84p-pD-00v" secondAttribute="top" id="eDe-1P-ySO"/>
+                                                    <constraint firstItem="6XE-hX-qS1" firstAttribute="leading" secondItem="84p-pD-00v" secondAttribute="leading" id="4Rl-b6-tCB"/>
+                                                    <constraint firstAttribute="bottom" secondItem="6XE-hX-qS1" secondAttribute="bottom" id="5rW-bA-Llz"/>
+                                                    <constraint firstAttribute="width" constant="70" id="Fk5-7Q-M7C"/>
+                                                    <constraint firstItem="6XE-hX-qS1" firstAttribute="top" secondItem="84p-pD-00v" secondAttribute="top" id="IIu-Iz-Ayq"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6XE-hX-qS1" secondAttribute="trailing" id="cCP-qV-57s"/>
                                                     <constraint firstAttribute="height" constant="38" id="ndP-zq-ZfI"/>
-                                                    <constraint firstItem="JfN-2p-VQo" firstAttribute="top" secondItem="84p-pD-00v" secondAttribute="top" id="o8H-3G-hrE"/>
-                                                    <constraint firstItem="aWE-Ym-D0e" firstAttribute="leading" secondItem="84p-pD-00v" secondAttribute="leading" id="sSe-gY-6PS"/>
-                                                    <constraint firstAttribute="bottom" secondItem="aWE-Ym-D0e" secondAttribute="bottom" id="sfh-Xu-Vsj"/>
-                                                    <constraint firstItem="JfN-2p-VQo" firstAttribute="leading" secondItem="84p-pD-00v" secondAttribute="leading" id="uYa-i1-01O"/>
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agE-XC-sCP" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                <rect key="frame" x="47" y="100" width="226" height="20"/>
+                                                <rect key="frame" x="47" y="100" width="194" height="20"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="i0G-sC-VLl"/>
@@ -1311,7 +1322,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-Dt-CKY">
-                                                <rect key="frame" x="241" y="97.5" width="25" height="25"/>
+                                                <rect key="frame" x="209" y="97.5" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="4tD-M0-oUJ"/>
                                                     <constraint firstAttribute="height" constant="25" id="eFZ-Ix-aLS"/>
@@ -1473,14 +1484,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-H7-OPt">
-                                <rect key="frame" x="112" y="74" width="96" height="24"/>
+                                <rect key="frame" x="112.5" y="74" width="95.5" height="24"/>
                                 <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="bhY-h4-UcM"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="floating date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfs-sg-eWx">
-                                <rect key="frame" x="119" y="77.5" width="82" height="17"/>
+                                <rect key="frame" x="119.5" y="77.5" width="81.5" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="tfU-iL-Llh"/>
                                 </constraints>
@@ -1521,6 +1532,7 @@
                     <navigationItem key="navigationItem" title="Title" id="yRi-nN-wYI" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="RightBarConstraints" destination="Fk5-7Q-M7C" id="NK3-Ox-k0R"/>
                         <outlet property="btnAttachment" destination="UiX-6W-6LP" id="MgQ-kl-R5d"/>
                         <outlet property="btnCancelReplyOrForward" destination="pFr-44-9aA" id="UhW-bI-JnR"/>
                         <outlet property="btnClosePin" destination="grH-pt-p4x" id="q2A-FT-LNb"/>
@@ -1539,6 +1551,7 @@
                         <outlet property="inputBarHeightConstraint" destination="rzN-sF-8pZ" id="M8R-V6-UtN"/>
                         <outlet property="inputBarHeightContainerConstraint" destination="kQj-k2-k9z" id="kW4-lk-7EK"/>
                         <outlet property="inputBarLeftView" destination="hI3-wW-ErK" id="tsn-uz-XJG"/>
+                        <outlet property="inputBarMoneyTransferButton" destination="Dgh-FS-H7F" id="YXU-nv-XX5"/>
                         <outlet property="inputBarOriginalMessageView" destination="E41-Xs-Ose" id="7Vv-kc-7bT"/>
                         <outlet property="inputBarOriginalMessageViewBodyTextLabel" destination="rUv-eg-9V4" id="20a-db-xIX"/>
                         <outlet property="inputBarOriginalMessageViewBottomConstraint" destination="eli-ge-EGI" id="aLG-hb-hTC"/>
@@ -1691,7 +1704,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lag-5t-Bo2">
-                                <rect key="frame" x="0.0" y="70" width="320" height="410"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldf-Fa-K1P">
                                 <rect key="frame" x="6" y="70" width="308" height="40"/>
@@ -1805,7 +1818,7 @@
             <objects>
                 <navigationController id="hzm-cV-P5b" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xsr-Kl-K9a">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1881,7 +1894,7 @@
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k9M-cr-cw2"/>
+        <segue reference="jRj-hY-oEr"/>
         <segue reference="R4P-x7-LEg"/>
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>

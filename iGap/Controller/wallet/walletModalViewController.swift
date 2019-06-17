@@ -212,7 +212,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             
             //popup.confirmBtn.gotoLoadingState()
             if segmentPick.selectedSegmentIndex == 0 {
-                
+
+                let tmp1 = Int(self.tfAmountToPy.text!.inEnglishNumbers().onlyDigitChars())!
+                let tmp2 = Int(self.currentAmount.inEnglishNumbers().onlyDigitChars())!
                 if Int(self.tfAmountToPy.text!.inEnglishNumbers().onlyDigitChars())! > Int(self.currentAmount.inEnglishNumbers().onlyDigitChars())! {
                     //show message about your amount is not enough
                     SMMessage.showWithMessage("AMOUNT_IS_NOT_ENOUGH".localizedNew)

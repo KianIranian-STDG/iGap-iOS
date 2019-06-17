@@ -402,7 +402,7 @@
                                         <rect key="frame" x="0.0" y="712" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DBA-Dz-cCj" id="l1v-En-3cJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="266.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spE-Vn-DHB">

@@ -99,6 +99,25 @@ class IGRequestWalletGetAccessToken : IGRequest {
     }
 }
 class IGRequestWalletPaymentInit : IGRequest {
+    
+    class func sendRequest(jwt: String,amount: Int64,userID: Int64,description: String,language: IGPLanguage){
+        IGRequestWalletPaymentInit.Generator.generate(jwt: jwt,amount: amount,userID: userID,description: description,language: language).success({ (protoResponse) in
+            if let response = protoResponse as? IGPWalletPaymentInitResponse {
+                
+                SMUserManager.publicKey = response.igpPublicKey
+                SMUserManager.payToken = response.igpToken
+
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                sendRequest(jwt: jwt,amount: amount,userID: userID,description: description,language: language)
+            default:
+                break
+            }
+        }).send()
+    }
+    
     class Generator : IGRequest.Generator{
         class func generate(jwt: String,amount: Int64,userID: Int64,description: String,language: IGPLanguage) -> IGRequestWrapper {
             var requestPaymentInit = IGPWalletPaymentInit()

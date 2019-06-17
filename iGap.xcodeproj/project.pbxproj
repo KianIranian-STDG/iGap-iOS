@@ -89,6 +89,10 @@
 		8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */; };
 		8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */; };
 		8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */; };
+		8ECCA1E422B6585700D3A734 /* SMMoneyTransactionOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E322B6585700D3A734 /* SMMoneyTransactionOptions.xib */; };
+		8ECCA1E622B6587E00D3A734 /* SMMoneyTransactionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */; };
+		8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */; };
+		8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */; };
 		8EE1BFC82281604D001A2867 /* IGSetUserNickNameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */; };
 		8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */; };
 		8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */; };
@@ -692,6 +696,10 @@
 		8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperBankModel.swift; sourceTree = "<group>"; };
 		8ECC1840222FFED2006E43E8 /* BaseRootTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRootTableViewController.swift; sourceTree = "<group>"; };
 		8ECC19B32236937D006E43E8 /* IGMessageAttachmentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMessageAttachmentLocation.swift; sourceTree = "<group>"; };
+		8ECCA1E322B6585700D3A734 /* SMMoneyTransactionOptions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMMoneyTransactionOptions.xib; sourceTree = "<group>"; };
+		8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMMoneyTransactionOptions.swift; sourceTree = "<group>"; };
+		8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSingleAmountInputView.swift; sourceTree = "<group>"; };
+		8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMSingleAmountInputView.xib; sourceTree = "<group>"; };
 		8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGSetUserNickNameTableViewController.swift; sourceTree = "<group>"; };
 		8EE7FC92225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMNormalAlertViewController.swift; sourceTree = "<group>"; };
 		8EE7FC94225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMConfirmAlertViewController.swift; sourceTree = "<group>"; };
@@ -1313,6 +1321,8 @@
 			isa = PBXGroup;
 			children = (
 				8EC217962258BD9E00105B5A /* SMSingleInputView.xib */,
+				8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */,
+				8ECCA1E322B6585700D3A734 /* SMMoneyTransactionOptions.xib */,
 				8E96A32C225C96C3007D8A77 /* RecieptRow.xib */,
 				8E96A32D225C96C3007D8A77 /* RecieptView.xib */,
 			);
@@ -1369,6 +1379,8 @@
 				FA85065722670702002EEBF7 /* SMMyBarCodeViewController.swift */,
 				8E8D8E45225DBB9000039191 /* SMNavigationController.swift */,
 				8EC217982258BDF400105B5A /* SMSingleInputView.swift */,
+				8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */,
+				8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */,
 				8EC217A82259B90F00105B5A /* walletModalViewController.swift */,
 			);
 			name = wallet;
@@ -2692,6 +2704,7 @@
 				FA7CD4A422959020002918AD /* PaymentCell.xib in Resources */,
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
+				8ECCA1E422B6585700D3A734 /* SMMoneyTransactionOptions.xib in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
 				FA6A22761F41D0210063DF07 /* iGap-Fontico.ttf in Resources */,
 				FA33063E1F445AE90096031A /* IRANSans_UltraLight.ttf in Resources */,
@@ -2723,6 +2736,7 @@
 				FAE6063E21EB3A0C00F03FFC /* zh-Hant.lproj in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
+				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
@@ -2896,6 +2910,7 @@
 				FAD530621E0BD80800FE6C54 /* IGNavigationBar.swift in Sources */,
 				FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */,
 				FA85066422670703002EEBF7 /* addNewCardTableViewController.swift in Sources */,
+				8ECCA1E622B6587E00D3A734 /* SMMoneyTransactionOptions.swift in Sources */,
 				8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */,
 				8EC217C52259F59900105B5A /* SMBank.swift in Sources */,
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
@@ -3190,6 +3205,7 @@
 				8EC217A02258C0ED00105B5A /* NSBundle+Language.m in Sources */,
 				FAEEB0C11E1BC04E00B6775F /* IGContactManager.swift in Sources */,
 				93AA67C61E4F38620053380C /* IGChannelInfoSharedMediaDetailTableViewController.swift in Sources */,
+				8ECCA1E822B7B1E200D3A734 /* SMSingleAmountInputView.swift in Sources */,
 				8E96A318225B757E007D8A77 /* SMLangUtil.swift in Sources */,
 				93193F361E5814570039AC0C /* IGGroupInfoAdminsAndModeratorsListTableViewController.swift in Sources */,
 				FAA9DFBC1F4B1CD60076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTableViewController.swift in Sources */,

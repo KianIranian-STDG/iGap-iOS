@@ -22,6 +22,7 @@ class SMUserManager: NSObject {
     static var userPass:String?
     static var userBalance : Int64!
     static let imageSource = "https://api.paygeer.ir/files/v3/"
+    static var callBackUrl = "https://secure.igap.net/api/wallet/callback/"
 
     
     static var accountId: String {
