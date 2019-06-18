@@ -19,6 +19,7 @@ protocol IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnSenderAvatar(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
+    func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell)
     func didTapOnHashtag(hashtagText: String)
     func didTapOnMention(mentionText: String)
     func didTapOnEmail(email: String)

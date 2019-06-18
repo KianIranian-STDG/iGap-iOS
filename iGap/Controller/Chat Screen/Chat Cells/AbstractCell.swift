@@ -70,9 +70,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var swipeGesture: UIPanGestureRecognizer!
     var originalPoint: CGPoint!
     var imgReply: UIImageView!
+    var imgMultiForward: UIImageView!
 
     let disposeBag = DisposeBag()
     var pan: UIPanGestureRecognizer!
+    var tapMulti: UITapGestureRecognizer!
     var isForward = false
     var isReply = false
     
@@ -86,11 +88,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         makeSwipeImage()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+
         makeSwipeImage()
     }
 
@@ -441,7 +445,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     private func manageCellBubble(){
-        
+      
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18
         if finalRoomMessage.type == .sticker {
@@ -486,6 +490,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             if leadingAbs != nil { leadingAbs?.activate() }
             if trailingAbs != nil { trailingAbs?.activate() }
         }
+        /************ Add multi Forward icon only in Rooms ************/
+        makeMultiForwardIconInRooms()
+
     }
     
     /*
@@ -611,6 +618,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
     }
     
+    @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        self.delegate?.didTapOnMultiForward(cellMessage: realmRoomMessage!, cell: self)
+//        print("LALA LAND")
+    }
+
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnAttachment(cellMessage: realmRoomMessage!, cell: self, imageView: imgMediaAbs)
     }
@@ -680,6 +692,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     private func swipePositionManager(){
+        if room.type == .chat || self.room.type == .group {
+
         if (pan.state == UIGestureRecognizer.State.changed) {
             self.insertSubview(imgReply, belowSubview: self.contentView)
             let p: CGPoint = pan.translation(in: self)
@@ -690,6 +704,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
         } else if (pan.state == UIGestureRecognizer.State.ended) || (pan.state == UIGestureRecognizer.State.cancelled) {
             self.imgReply.removeFromSuperview()
+        }
         }
     }
     
@@ -1022,6 +1037,37 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
      ******************************* View Maker (all methods for programmatically create cell view is here) *****************************
      ************************************************************************************************************************************
      */
+    private func makeMultiForwardIconInRooms() {
+        if imgMultiForward == nil {
+        imgMultiForward = UIImageView()
+        imgMultiForward.contentMode = .scaleAspectFit
+        imgMultiForward.image = UIImage(named: "ig_message_reply")
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
+            imgMultiForward.addGestureRecognizer(tap)
+            imgMultiForward.isUserInteractionEnabled = true
+
+        if room.type == .channel {
+            imgMultiForward.alpha = 0.5
+
+            self.contentView.addSubview(imgMultiForward)
+            self.contentView.bringSubviewToFront(imgMultiForward)
+
+
+            
+            imgMultiForward.snp.makeConstraints{ (make) in
+                make.leading.equalTo(mainBubbleViewAbs.snp.trailing).offset(2)
+                make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-5)
+                make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+            }
+
+        }
+        else {
+            
+        }
+        }
+        
+    }
     
     private func makeSenderName(){
         

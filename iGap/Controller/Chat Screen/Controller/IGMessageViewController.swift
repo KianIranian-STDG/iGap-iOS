@@ -4505,6 +4505,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser, room: forwardMessage.authorRoom)
         }
     }
+    func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+        
+    }
     
     func didTapOnMention(mentionText: String) {
         IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: self, username: mentionText)
