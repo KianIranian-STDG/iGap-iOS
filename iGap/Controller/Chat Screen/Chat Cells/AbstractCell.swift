@@ -71,6 +71,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var originalPoint: CGPoint!
     var imgReply: UIImageView!
     var imgMultiForward: UIImageView!
+    var btnCheckMark: UIButton!
 
     let disposeBag = DisposeBag()
     var pan: UIPanGestureRecognizer!
@@ -473,8 +474,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 if shouldShowAvatar {
                     leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(999).constraint
                 } else {
-                    leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(16).priority(999).constraint
-                }
+                    if IGGlobal.shouldMultiSelect {
+                        
+                        leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(36).priority(999).constraint
+                        
+                    }
+                    else {
+                        leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(16).priority(999).constraint
+                        
+                    }                }
                 trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(250).constraint
                 
             } else {
@@ -482,8 +490,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 if #available(iOS 11.0, *) {
                     mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 }
-                
-                trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(999).constraint
+                    trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(999).constraint
+
                 leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(250).constraint
             }
             
@@ -491,7 +499,20 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             if trailingAbs != nil { trailingAbs?.activate() }
         }
         /************ Add multi Forward icon only in Rooms ************/
-        makeMultiForwardIconInRooms()
+//        makeMultiForwardIconInRooms()
+        if IGGlobal.shouldMultiSelect {
+            if btnCheckMark == nil {
+        makeMultiSelectButton()
+            }
+            
+        }
+        else {
+            if btnCheckMark != nil {
+
+                self.btnCheckMark.removeFromSuperview()
+                self.btnCheckMark = nil
+            }
+        }
 
     }
     
@@ -1039,32 +1060,66 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
      */
     private func makeMultiForwardIconInRooms() {
         if imgMultiForward == nil {
-        imgMultiForward = UIImageView()
-        imgMultiForward.contentMode = .scaleAspectFit
-        imgMultiForward.image = UIImage(named: "ig_message_reply")
+            imgMultiForward = UIImageView()
+            imgMultiForward.contentMode = .scaleAspectFit
+            imgMultiForward.image = UIImage(named: "ig_message_reply")
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
             imgMultiForward.addGestureRecognizer(tap)
             imgMultiForward.isUserInteractionEnabled = true
-
-        if room.type == .channel {
-            imgMultiForward.alpha = 0.5
-
-            self.contentView.addSubview(imgMultiForward)
-            self.contentView.bringSubviewToFront(imgMultiForward)
-
-
             
-            imgMultiForward.snp.makeConstraints{ (make) in
-                make.leading.equalTo(mainBubbleViewAbs.snp.trailing).offset(2)
-                make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-5)
-                make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
-                make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+            if room.type == .channel {
+                imgMultiForward.alpha = 0.5
+                
+                self.contentView.addSubview(imgMultiForward)
+                self.contentView.bringSubviewToFront(imgMultiForward)
+                
+                
+                
+                imgMultiForward.snp.makeConstraints{ (make) in
+                    make.leading.equalTo(mainBubbleViewAbs.snp.trailing).offset(2)
+                    make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-5)
+                    make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                    make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                }
+                
             }
-
+            else {
+                
+            }
+        }
+        
+    }
+    
+    private func makeMultiSelectButton() {
+        if btnCheckMark == nil {
+            btnCheckMark = UIButton()
+//            btnCheckMark.contentMode = .scaleAspectFit
+            btnCheckMark.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
+            btnCheckMark.titleLabel!.textAlignment = .center
+            btnCheckMark.titleLabel?.font = UIFont.iGapFontico(ofSize: 17.0)
+            btnCheckMark.setTitle("", for: .normal)
+//            let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
+//            btnCheckMark.addGestureRecognizer(tap)
+            btnCheckMark.isUserInteractionEnabled = true
+            
+//                btnCheckMark.alpha = 0.5
+            
+                self.contentView.addSubview(btnCheckMark)
+                self.contentView.bringSubviewToFront(btnCheckMark)
+                
+                
+                
+                btnCheckMark.snp.makeConstraints{ (make) in
+                    make.leading.equalTo(self.contentView.snp.leading).offset(0)
+                    make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
+                    make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                    make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                }
+                
+            
         }
         else {
             
-        }
         }
         
     }

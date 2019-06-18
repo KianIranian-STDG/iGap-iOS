@@ -58,7 +58,19 @@ class IGHeader: UICollectionReusableView {
     
 }
 
-class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept {
+class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept,HandleBackNavigation {
+    
+    func diselect() {
+        IGGlobal.shouldMultiSelect = false
+        
+        self.showMultiSelectUI(state: false)
+
+    }
+    
+    
+    
+    var selectedMessages : [IGRoomMessage] = []
+//    var shouldMultiSelect : Bool! = false
     ///Handle reciept
     func close() {
         
@@ -107,10 +119,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
+    var MultiShareModal : IGMultiForwardModal!
     var MoneyTransactionModalIsActive = false
     var MoneyInputModalIsActive = false
+    var MultiShareModalIsActive = false
 
+    var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+    var blurEffectView = UIVisualEffectView()
 
+    
+    
     @IBOutlet weak var pinnedMessageView: UIView!
     @IBOutlet weak var txtPinnedMessage: UILabel!
     @IBOutlet weak var collectionView: IGMessageCollectionView!
@@ -130,11 +148,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var inputBarRecordButton: UIButton!
     @IBOutlet weak var btnScrollToBottom: UIButton!
     @IBOutlet weak var inputBarSendButton: UIButton!
+    @IBOutlet weak var inputBarShareButton: UIButton!
+    @IBOutlet weak var inputBarDeleteButton: UIButton!
+    @IBOutlet weak var inputBarForwardButton: UIButton!
     @IBOutlet weak var inputBarMoneyTransferButton: UIButton!
     @IBOutlet weak var btnCancelReplyOrForward: UIButton!
     @IBOutlet weak var btnDeleteSelectedAttachment: UIButton!
     @IBOutlet weak var btnClosePin: UIButton!
     @IBOutlet weak var btnAttachment: UIButton!
+    @IBOutlet weak var lblSelectedMessages: UILabel!
     @IBOutlet weak var inputBarRecordTimeLabel: UILabel!
     @IBOutlet weak var inputBarRecordView: UIView!
     @IBOutlet weak var inputBarRecodingBlinkingView: UIView!
@@ -157,6 +179,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
     var previousRect = CGRect.zero
+    var selectedIndex : [Int64] = []
 
     var webView: UIWebView!
     var webViewProgressbar: UIActivityIndicatorView!
@@ -294,7 +317,59 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func onNavigationControllerDetection() -> UINavigationController {
         return self.navigationController!
     }
-    
+
+    func showMultiSelectUI(state : Bool!) {
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.setNavigationBarForRoom(room!)
+
+        if state {
+            
+            UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
+                self.inputTextView.isHidden = true
+                self.txtSticker.isHidden = true
+                self.inputBarMoneyTransferButton.isHidden = true
+                self.inputBarRecordButton.isHidden = true
+                self.inputBarShareButton.isHidden = false
+                self.lblSelectedMessages.isHidden = false
+                self.RightBarConstraints.constant = 38
+                
+                self.inputBarDeleteButton.isHidden = false
+                self.inputBarForwardButton.isHidden = true
+                self.btnAttachment.isHidden = true
+
+                
+                self.view.layoutIfNeeded()
+                self.collectionView.reloadData()
+
+            }, completion: { (completed) in
+                
+            })
+        }
+        else {
+            UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
+                self.inputTextView.isHidden = false
+                self.txtSticker.isHidden = false
+                self.inputBarMoneyTransferButton.isHidden = false
+                self.inputBarRecordButton.isHidden = false
+                self.inputBarShareButton.isHidden = true
+                self.lblSelectedMessages.isHidden = true
+
+                self.RightBarConstraints.constant = 70
+                
+                self.inputBarDeleteButton.isHidden = true
+                self.inputBarForwardButton.isHidden = true
+                self.btnAttachment.isHidden = false
+
+                self.view.layoutIfNeeded()
+                self.collectionView.reloadData()
+
+
+            }, completion: { (completed) in
+                
+            })
+        }
+
+    }
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -373,6 +448,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.addNotificationObserverForTapOnStatusBar()
         var canBecomeFirstResponder: Bool { return true }
         let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.delegate = self
         navigationItem.setNavigationBarForRoom(room!)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -681,10 +757,29 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     
                 }
             }
-        }else {
+        }
+        else if MultiShareModalIsActive {
+            if let MultiShare = MultiShareModal {
+                window.addSubview(MultiShare)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = MultiShare.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height  + (200))
+                    MultiShare.frame = frame
+                    MultiShare.frame.size.height =  MultiShare.frame.size.height - (200)
+                    
+                }
+            }
+        }
+        else {
             if MoneyInputModal != nil {
                 
                 self.hideMoneyInputModal()
+            }
+            if MultiShareModal != nil {
+                self.hideMultiShareModal()
+                
+
             }
             
         }
@@ -695,16 +790,31 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        
-        if let MoneyInput = MoneyInputModal {
-            self.view.addSubview(MoneyInput)
-            UIView.animate(withDuration: 0.3) {
-                if MoneyInput.frame.origin.y < self.view.frame.size.height {
-                    MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+        if MoneyInputModalIsActive {
+            if let MoneyInput = MoneyInputModal {
+                self.view.addSubview(MoneyInput)
+                UIView.animate(withDuration: 0.3) {
+                    if MoneyInput.frame.origin.y < self.view.frame.size.height {
+                        MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+                    }
                 }
             }
+            
+
         }
-        
+        else if MultiShareModalIsActive {
+            if let MultiShare = MultiShareModal {
+                self.view.addSubview(MultiShare)
+                UIView.animate(withDuration: 0.3) {
+                    if MultiShare.frame.origin.y < self.view.frame.size.height {
+                        let tmpY = ((self.view.frame.height) - (MultiShare.frame.height) - (200))
+                        MultiShare.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: MultiShare.frame.height + (200))
+                    }
+                }
+            }
+            
+        }
+
         self.view.layoutIfNeeded()
     }
     
@@ -1298,6 +1408,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }).send()
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
@@ -1365,7 +1476,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
 
     override func viewWillDisappear(_ animated: Bool) {
-        currentPageName = "" 
+        currentPageName = ""
+        IGGlobal.shouldMultiSelect = false
         unsetNotifications()
         if !inputBarOriginalMessageView.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
@@ -2370,21 +2482,41 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if MoneyTransactionModal != nil {
             
             hideMoneyTransactionModal()
-             self.hideMoneyInputModal()
+            self.hideMoneyInputModal()
             self.isCardToCardRequestEnable = true
             self.manageCardToCardInputBar()
-
+            
         }        //go to process info
-
         
+        
+    }
+    @objc func sendMultiForwardRequest() {
+        
+        if MultiShareModal != nil {
+            
+            hideMultiShareModal()
+            let message = IGMessageViewController.selectedMessageToForwardFromThisRoom
+            let detachedMessage = message!.detach()
+            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+            let tmpArrayToSend = MultiShareModal.rooms
+//            IGMessageSender.defaultSender.send(message: message!, to: tmpArrayToSend![6])
+        }
+        //go to process info
     }
     
     func hideMoneyTransactionModal() {
+        
         self.MoneyTransactionModalIsActive = false
-        if self.MoneyTransactionModal != nil {
+        if MoneyTransactionModal != nil {
             UIView.animate(withDuration: 0.3, animations: {
                 self.MoneyTransactionModal.frame.origin.y = self.view.frame.height
-            })
+                
+            }) { (true) in
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                //                self.MoneyTransactionModal.removeFromSuperview()
+                self.MoneyTransactionModal = nil
+            }
         }
     }
     
@@ -2393,26 +2525,39 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if MoneyInputModal != nil {
             UIView.animate(withDuration: 0.3, animations: {
                 self.MoneyInputModal.frame.origin.y = self.view.frame.height
-            })
+                
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                self.MoneyInputModal.removeFromSuperview()
+                self.MoneyInputModal = nil
+            }
             MoneyInputModal.inputTF.endEditing(true)
         }
+        
+        
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch: UITouch? = touches.first
-        //location is relative to the current view
-        // do something with the touched point
-        if touch?.view != self {
-            self.view.endEditing(true)
-            if MoneyTransactionModal != nil {
-                
-                hideMoneyTransactionModal()
+    func hideMultiShareModal() {
+        self.MultiShareModalIsActive = false
+        
+        if MultiShareModal != nil {
+            self.blurEffectView.removeFromSuperview()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.MultiShareModal.frame.origin.y = self.view.frame.height
+            }) { (true) in
             }
-            if MoneyInputModal != nil {
-                
-                hideMoneyInputModal()
+            
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                self.MultiShareModal.removeFromSuperview()
+                self.MultiShareModal = nil
             }
+            
         }
+        MultiShareModal.searchBar.endEditing(true)
+        
+        
     }
     @objc func handleGesture(gesture: UITapGestureRecognizer) {
         // handling code
@@ -2423,6 +2568,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if MoneyInputModal != nil {
             
             hideMoneyInputModal()
+            self.view.endEditing(true)
+            
+        }
+        if MultiShareModal != nil {
+            
+            hideMultiShareModal()
             self.view.endEditing(true)
             
         }
@@ -3571,6 +3722,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             }
             */
         }
+
         
         if self.room?.type == .channel { // isIncommingMessage means that show message left side
             isIncommingMessage = true
@@ -3589,7 +3741,40 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
+            
+            if IGGlobal.shouldMultiSelect && message.type != .log {
+                if selectedIndex.count > 0 {
+                    
+                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                        
+                            UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                                cell.btnCheckMark.setTitle("", for: .normal)
+
+                            }, completion: nil)
+                            
+                    }
+                    else {
+                        UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
+                            cell.btnCheckMark.setTitle("", for: .normal)
+                            
+                        }, completion: nil)
+
+                    }
+                }
+                else {
+                    if cell.btnCheckMark != nil {
+                        cell.btnCheckMark.setTitle("", for: .normal)
+                    }
+//                    else {
+//                        cell.btnCheckMark.setTitle("", for: .normal)
+//
+//                    }
+                }
+                
+            }
+           
             cell.delegate = self
+            
             return cell
             
         } else if messageType == .image ||  messageType == .imageAndText {
@@ -3777,9 +3962,31 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.inputTextView.resignFirstResponder()
+        var tmpID = (messages[indexPath.section].id)
+
+        if (IGGlobal.shouldMultiSelect) {
+            if selectedIndex.contains(tmpID) {
+                //            let tmp = self.selectedIndex.filter(){$0 != indexPath.item}
+                let index = self.selectedIndex.firstIndex(of: tmpID)!
+                self.selectedIndex.remove(at: index)
+                
+                
+            }
+            else {
+                self.selectedIndex.append(tmpID)
+                
+            }
+            print("SELECTED INDEXES ID:",self.selectedIndex)
+            self.collectionView.reloadItems(at: [indexPath])
+            
+
+        }
+        else {
+            self.inputTextView.resignFirstResponder()
+        }
     }
     
     
@@ -4119,9 +4326,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.view.endEditing(true)
         
         if cellMessage.status == IGRoomMessageStatus.failed {
-            manageFailedMessage(cellMessage: cellMessage, cell: cell)
+            if !(IGGlobal.shouldMultiSelect) {
+                manageFailedMessage(cellMessage: cellMessage, cell: cell)
+            }
         } else {
-            manageSendedMessage(cellMessage: cellMessage, cell: cell)
+            if !(IGGlobal.shouldMultiSelect) {
+                manageSendedMessage(cellMessage: cellMessage, cell: cell)
+
+            }
         }
     }
     func swipToReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
@@ -4138,6 +4350,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     private func manageSendedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let copy = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (action) in
             self.copyMessage(cellMessage)
@@ -4169,9 +4382,25 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         let forward = UIAlertAction(title: "FORWARD".localizedNew, style: .default, handler: { (action) in
             IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
             IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-            
+//            IGGlobal.shouldMultiSelect = true
+            self.collectionView.layoutIfNeeded()
+            self.collectionView.layoutSubviews()
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
+        })
+        let multiForward = UIAlertAction(title: "MULTI_FORWARD".localizedNew, style: .default, handler: { (action) in
+            IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
+            //            IGMessageViewController.selectedMessageToForwardToThisRoom =       IGMessageViewController.selectedMessageToForwardFromThisRoom
+            //            self.shouldMultiSelect = true
+            
+            self.showMultiShareModal()
+            
+        })
+        let test = UIAlertAction(title: "TEST", style: .default, handler: { (action) in
+//            self.shouldMultiSelect = true
+            IGGlobal.shouldMultiSelect = true
+
+            self.showMultiSelectUI(state: true)
         })
         let edit = UIAlertAction(title: "BTN_EDITE".localizedNew, style: .default, handler: { (action) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
@@ -4180,6 +4409,8 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
             }else {
+//                self.shouldMultiSelect = true
+                //MARK:-DELETE CELL
                 self.editMessage(cellMessage)
             }
         })
@@ -4230,7 +4461,12 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         //Forward
+        
         alertC.addAction(forward)
+        alertC.addAction(test)
+
+        //MultiForward
+        alertC.addAction(multiForward)
         
         //Edit
         if self.allowEdit(cellMessage){
@@ -4258,6 +4494,60 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
+    func showMultiShareModal() {
+        self.MultiShareModalIsActive = true
+
+        if MultiShareModal == nil {
+            blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(blurEffectView)
+
+            
+            MultiShareModal = IGMultiForwardModal.loadFromNib()
+            MultiShareModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
+            MultiShareModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MultiShareModal.frame.height)
+            
+            
+            
+//            MoneyTransactionModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
+            //MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            MultiShareModal.addGestureRecognizer(swipeDown)
+            self.view.addSubview(MultiShareModal!)
+            self.view.bringSubviewToFront(MultiShareModal!)
+            
+        }
+        else {
+//            MultiShareModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
+//            MultiShareModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localizedNew, for: .normal)
+            //MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
+        }
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let topPadding = window?.safeAreaInsets.top
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                let tmpY = ((self.view.frame.height) - (self.MultiShareModal.frame.height))
+                self.MultiShareModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.MultiShareModal.frame.height)
+                
+            }
+        }
+        else {
+            
+            UIView.animate(withDuration: 0.3) {
+                let tmpY = ((self.view.frame.height) - (self.MultiShareModal.frame.height))
+
+                self.MultiShareModal!.frame = CGRect(x: 0, y: tmpY, width: self.view.frame.width, height: self.MultiShareModal.frame.height)
+            }
+        }
+        
+    }
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         

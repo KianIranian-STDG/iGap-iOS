@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+        <array key="iGap-Fontico.ttf">
+            <string>iGap-Fontico</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellIdentifier" id="gTV-IL-0wX" customClass="multiForwardShareUsers" customModule="iGap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="50" height="80"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lDq-8P-c4W" customClass="UIViewX" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXO-6T-Wxu">
+                                <rect key="frame" x="4" y="13" width="42" height="24"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zjG-dn-Luf" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yXO-6T-Wxu" firstAttribute="leading" secondItem="lDq-8P-c4W" secondAttribute="leading" constant="4" id="89J-NU-LIV"/>
+                            <constraint firstAttribute="trailing" secondItem="zjG-dn-Luf" secondAttribute="trailing" id="DdS-lt-UKy"/>
+                            <constraint firstAttribute="width" constant="50" id="NKL-1l-K5Y"/>
+                            <constraint firstItem="yXO-6T-Wxu" firstAttribute="centerY" secondItem="lDq-8P-c4W" secondAttribute="centerY" id="NfD-9b-1qE"/>
+                            <constraint firstAttribute="bottom" secondItem="zjG-dn-Luf" secondAttribute="bottom" id="Nqw-ef-JYY"/>
+                            <constraint firstItem="zjG-dn-Luf" firstAttribute="leading" secondItem="lDq-8P-c4W" secondAttribute="leading" id="OPJ-cj-X5v"/>
+                            <constraint firstItem="yXO-6T-Wxu" firstAttribute="centerX" secondItem="lDq-8P-c4W" secondAttribute="centerX" id="SAZ-vs-daN"/>
+                            <constraint firstAttribute="height" constant="50" id="SlS-4t-y6Q"/>
+                            <constraint firstItem="zjG-dn-Luf" firstAttribute="top" secondItem="lDq-8P-c4W" secondAttribute="top" id="aUB-8c-TE5"/>
+                            <constraint firstAttribute="trailing" secondItem="yXO-6T-Wxu" secondAttribute="trailing" constant="4" id="cHl-Nt-1Jm"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3y-NK-WM1" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="31" y="31" width="19" height="19"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="HHI-4L-rxU"/>
+                            <constraint firstAttribute="width" constant="19" id="aW2-Eo-ytp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="13"/>
+                        <state key="normal" title="">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved  Messages" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tru-oO-Hgp">
+                        <rect key="frame" x="0.0" y="55" width="50" height="25"/>
+                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="10"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Tru-oO-Hgp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="7wb-iw-IaY"/>
+                <constraint firstAttribute="bottom" secondItem="Tru-oO-Hgp" secondAttribute="bottom" id="MCV-rP-Snl"/>
+                <constraint firstItem="lDq-8P-c4W" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Q73-e8-gQr"/>
+                <constraint firstAttribute="trailing" secondItem="Tru-oO-Hgp" secondAttribute="trailing" id="c9P-k0-esy"/>
+                <constraint firstItem="lDq-8P-c4W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="igR-kA-O5Y"/>
+                <constraint firstItem="c3y-NK-WM1" firstAttribute="bottom" secondItem="lDq-8P-c4W" secondAttribute="bottom" id="jgW-dZ-dBY"/>
+                <constraint firstItem="Tru-oO-Hgp" firstAttribute="top" secondItem="lDq-8P-c4W" secondAttribute="bottom" constant="5" id="m5s-Yy-gPH"/>
+                <constraint firstItem="c3y-NK-WM1" firstAttribute="trailing" secondItem="lDq-8P-c4W" secondAttribute="trailing" id="toE-rv-efu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="50" height="80"/>
+            <connections>
+                <outlet property="btnCheckMark" destination="c3y-NK-WM1" id="QnU-IR-Bis"/>
+                <outlet property="imgUser" destination="zjG-dn-Luf" id="kTr-l0-nRT"/>
+                <outlet property="lblInitials" destination="yXO-6T-Wxu" id="BgW-m4-dQ0"/>
+                <outlet property="lblName" destination="Tru-oO-Hgp" id="PPH-Cw-0dW"/>
+                <outlet property="viewHolder" destination="lDq-8P-c4W" id="2zw-K3-xEN"/>
+            </connections>
+            <point key="canvasLocation" x="-220.28985507246378" y="-10.714285714285714"/>
+        </collectionViewCell>
+    </objects>
+</document>

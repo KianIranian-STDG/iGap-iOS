@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+        <array key="iGap-Fontico.ttf">
+            <string>iGap-Fontico</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="v7B-Af-fTF" customClass="SMMoneyTransactionOptions" customModule="iGap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry5-8L-AFt">
+                    <rect key="frame" x="15" y="13" width="345" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Ya4-D0-VVf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-d9-NiL">
+                    <rect key="frame" x="15" y="30" width="345" height="80"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VKV-66-wJS">
+                            <rect key="frame" x="20" y="0.0" width="305" height="80"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cvA-4j-Ynk">
+                                    <rect key="frame" x="0.0" y="0.0" width="305" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IE-Ev-FMv">
+                                            <rect key="frame" x="0.0" y="0.0" width="152.5" height="40"/>
+                                            <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="28"/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUQ-8F-Kc3">
+                                            <rect key="frame" x="152.5" y="0.0" width="152.5" height="40"/>
+                                            <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="26"/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aAt-dQ-87F">
+                                    <rect key="frame" x="0.0" y="40" width="305" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vP1-HJ-yy2">
+                                            <rect key="frame" x="0.0" y="3" width="152.5" height="34"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                                            <state key="normal" title="wallet">
+                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySM-xu-iWc">
+                                            <rect key="frame" x="152.5" y="3" width="152.5" height="34"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                                            <state key="normal" title="Card To Card">
+                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="cvA-4j-Ynk" firstAttribute="leading" secondItem="VKV-66-wJS" secondAttribute="leading" id="2sh-6s-Ug7"/>
+                                <constraint firstItem="aAt-dQ-87F" firstAttribute="leading" secondItem="VKV-66-wJS" secondAttribute="leading" id="BW0-zK-Afd"/>
+                                <constraint firstItem="cvA-4j-Ynk" firstAttribute="top" secondItem="VKV-66-wJS" secondAttribute="top" id="FoO-Vf-7wg"/>
+                                <constraint firstAttribute="trailing" secondItem="aAt-dQ-87F" secondAttribute="trailing" id="MMm-ag-F1E"/>
+                                <constraint firstAttribute="bottom" secondItem="aAt-dQ-87F" secondAttribute="bottom" id="Uin-RS-X7I"/>
+                                <constraint firstAttribute="trailing" secondItem="cvA-4j-Ynk" secondAttribute="trailing" id="ctg-Bq-8qe"/>
+                                <constraint firstItem="aAt-dQ-87F" firstAttribute="top" secondItem="cvA-4j-Ynk" secondAttribute="bottom" id="zHH-p9-b3Q"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="EIV-6m-zUG"/>
+                        <constraint firstAttribute="bottom" secondItem="VKV-66-wJS" secondAttribute="bottom" id="Pqu-gE-Gwe"/>
+                        <constraint firstAttribute="trailing" secondItem="VKV-66-wJS" secondAttribute="trailing" constant="20" id="eK5-jU-RFx"/>
+                        <constraint firstItem="VKV-66-wJS" firstAttribute="top" secondItem="1gK-d9-NiL" secondAttribute="top" id="tqk-l0-So4"/>
+                        <constraint firstItem="VKV-66-wJS" firstAttribute="leading" secondItem="1gK-d9-NiL" secondAttribute="leading" constant="20" id="xyl-Ad-oMH"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-ps-j9j">
+                    <rect key="frame" x="67" y="5" width="241" height="3"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="3" id="4bO-mY-8cX"/>
+                        <constraint firstAttribute="width" constant="241" id="ALM-qP-Lm7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1gK-d9-NiL" firstAttribute="leading" secondItem="v7B-Af-fTF" secondAttribute="leading" constant="15" id="Flc-re-skI"/>
+                <constraint firstItem="4i3-ps-j9j" firstAttribute="centerX" secondItem="v7B-Af-fTF" secondAttribute="centerX" id="OGr-cZ-LjX"/>
+                <constraint firstAttribute="trailing" secondItem="1gK-d9-NiL" secondAttribute="trailing" constant="15" id="Oe8-RH-qRw"/>
+                <constraint firstAttribute="trailing" secondItem="Ry5-8L-AFt" secondAttribute="trailing" constant="15" id="UDr-zS-1Jk"/>
+                <constraint firstItem="Ry5-8L-AFt" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="5" id="Z87-jk-ebJ"/>
+                <constraint firstAttribute="bottom" secondItem="1gK-d9-NiL" secondAttribute="bottom" constant="10" id="qxs-xt-i4j"/>
+                <constraint firstItem="4i3-ps-j9j" firstAttribute="top" secondItem="v7B-Af-fTF" secondAttribute="top" constant="5" id="sUh-E2-4UZ"/>
+                <constraint firstItem="Ry5-8L-AFt" firstAttribute="leading" secondItem="v7B-Af-fTF" secondAttribute="leading" constant="15" id="tbY-VQ-2zm"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="rhb-MW-1Co"/>
+            <connections>
+                <outlet property="btnCard" destination="cUQ-8F-Kc3" id="HAX-0w-I8R"/>
+                <outlet property="btnCardToCardTransfer" destination="ySM-xu-iWc" id="o3s-4T-Bin"/>
+                <outlet property="btnWallet" destination="7IE-Ev-FMv" id="1D6-tU-seU"/>
+                <outlet property="btnWalletTransfer" destination="vP1-HJ-yy2" id="UAK-xy-PZ9"/>
+            </connections>
+            <point key="canvasLocation" x="23.913043478260871" y="51.5625"/>
+        </view>
+    </objects>
+</document>

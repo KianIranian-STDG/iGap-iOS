@@ -35,6 +35,7 @@ class IGGlobal {
     
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
+    static var shouldMultiSelect : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
     
@@ -394,6 +395,9 @@ extension UIColor {
     
     class func iGapGray() -> UIColor {
         return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+    }
+    class func iGapDarkGray() -> UIColor {
+        return UIColor(red: 31/255.0, green: 33/255.0, blue: 36/255.0, alpha: 0.9)
     }
     
     class func failedColor() -> UIColor {

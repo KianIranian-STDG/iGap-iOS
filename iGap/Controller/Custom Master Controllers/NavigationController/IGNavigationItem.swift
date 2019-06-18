@@ -11,11 +11,14 @@
 import UIKit
 import SnapKit
 import MBProgressHUD
-
+protocol HandleBackNavigation {
+    func diselect()
+}
 var currentPageName : String! = ""
 
 class IGNavigationItem: UINavigationItem {
-    
+    var delegate : HandleBackNavigation?
+
     var rightViewContainer:  IGTappableView?
     var centerViewContainer: IGTappableView?
     var leftViewContainer:   IGTappableView?
@@ -151,7 +154,14 @@ class IGNavigationItem: UINavigationItem {
         backViewContainer = IGTappableView(frame: backViewFrame)
         backViewContainer!.backgroundColor = UIColor.clear
         let backArrowImageView = UIImageView(frame: CGRect(x: 5, y: 10, width: 25, height: 25))
-        backArrowImageView.image = UIImage(named: "IG_Nav_Bar_BackButton")
+        if IGGlobal.shouldMultiSelect {
+            backArrowImageView.image = UIImage(named: "ig_cross_icon")
+
+        }
+        else {
+            backArrowImageView.image = UIImage(named: "IG_Nav_Bar_BackButton")
+
+        }
         backViewContainer?.addSubview(backArrowImageView)
         let backBarButton = UIBarButtonItem(customView: backViewContainer!)
         self.leftBarButtonItem = backBarButton
@@ -160,13 +170,21 @@ class IGNavigationItem: UINavigationItem {
         backViewContainer?.addAction {
             self.backViewContainer?.isUserInteractionEnabled = false
             guard let numberOfPages = self.navigationController?.viewControllers.count else { return }
-            if numberOfPages == 2  {
-                currentPageName = ""
-                _ = self.navigationController?.popViewController(animated: true)
-            } else {
-                _ = self.navigationController?.popViewController(animated: true)
+            if IGGlobal.shouldMultiSelect {
+                self.delegate?.diselect()
+
             }
-        }        
+            else {
+                if numberOfPages == 2  {
+                    IGGlobal.shouldMultiSelect = false
+                    currentPageName = ""
+                    _ = self.navigationController?.popViewController(animated: true)
+                } else {
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+
+            }
+        }
     }
     
     //MARK: - Modal VCs
@@ -421,13 +439,24 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Messages View
     func setNavigationBarForRoom(_ room: IGRoom) {
-        setRoomAvatar(room)
-        setRoomInfo(room)
-        addNavigationBackItem()
+        if  IGGlobal.shouldMultiSelect {
+            addNavigationBackItem()
+        }
+        else {
+            setRoomAvatar(room)
+            setRoomInfo(room)
+            addNavigationBackItem()
+
+        }
     }
     
     func updateNavigationBarForRoom(_ room: IGRoom) {
-        
+        if IGGlobal.shouldMultiSelect {
+            
+        }
+        else {
+            
+        }
         if IGCall.callPageIsEnable || centerViewMainLabel == nil {
             return
         }

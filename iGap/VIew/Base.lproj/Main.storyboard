@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-GU-ejX">
-                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="361"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jVs-8m-lwG">
                                     <size key="itemSize" width="50" height="50"/>
@@ -109,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4W-xY-YF8">
-                                <rect key="frame" x="0.0" y="64" width="320" height="356"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="350"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjF-99-u5b" customClass="IGTappableView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="420" width="320" height="60"/>
@@ -149,7 +149,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location_Marker" translatesAutoresizingMaskIntoConstraints="NO" id="dzT-ao-hN1">
-                                <rect key="frame" x="135" y="192" width="50" height="50"/>
+                                <rect key="frame" x="135" y="195" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="afQ-eQ-1Eb"/>
                                     <constraint firstAttribute="height" constant="50" id="lGm-3q-Vk7"/>
@@ -169,7 +169,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9Zi-OB-nXt">
-                                <rect key="frame" x="85" y="84" width="150" height="28"/>
+                                <rect key="frame" x="85" y="90" width="150" height="28"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="Iqr-8q-T6O"/>
@@ -1253,21 +1253,46 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hI3-wW-ErK">
                                                 <rect key="frame" x="0.0" y="91" width="38" height="38"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiX-6W-6LP">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KBo-mj-Z8H">
                                                         <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                                        <state key="normal" image="IG_Chat_Screen_Attachment"/>
-                                                        <connections>
-                                                            <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="aPc-f0-En5"/>
-                                                        </connections>
-                                                    </button>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiX-6W-6LP">
+                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                                                                <state key="normal" image="IG_Chat_Screen_Attachment"/>
+                                                                <connections>
+                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="aPc-f0-En5"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bp0-tg-ib7">
+                                                                <rect key="frame" x="0.0" y="1.5" width="0.0" height="35"/>
+                                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
+                                                                <state key="normal" title="">
+                                                                    <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="uMg-Jp-gWX"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpS-nc-Mwr">
+                                                                <rect key="frame" x="0.0" y="1.5" width="0.0" height="35"/>
+                                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
+                                                                <state key="normal" title="">
+                                                                    <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="cE9-5i-wo6"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="UiX-6W-6LP" secondAttribute="trailing" id="7pv-1i-N22"/>
-                                                    <constraint firstItem="UiX-6W-6LP" firstAttribute="leading" secondItem="hI3-wW-ErK" secondAttribute="leading" id="WZl-S6-Wlb"/>
-                                                    <constraint firstAttribute="bottom" secondItem="UiX-6W-6LP" secondAttribute="bottom" id="bfm-vv-EhP"/>
+                                                    <constraint firstItem="KBo-mj-Z8H" firstAttribute="leading" secondItem="hI3-wW-ErK" secondAttribute="leading" id="QA0-0X-rIC"/>
                                                     <constraint firstAttribute="height" constant="38" id="fPc-B9-qmD"/>
-                                                    <constraint firstItem="UiX-6W-6LP" firstAttribute="top" secondItem="hI3-wW-ErK" secondAttribute="top" id="iMm-VX-c7L"/>
+                                                    <constraint firstAttribute="trailing" secondItem="KBo-mj-Z8H" secondAttribute="trailing" id="i11-Ob-NH4"/>
+                                                    <constraint firstAttribute="bottom" secondItem="KBo-mj-Z8H" secondAttribute="bottom" id="lKt-zV-QjN"/>
+                                                    <constraint firstItem="KBo-mj-Z8H" firstAttribute="top" secondItem="hI3-wW-ErK" secondAttribute="top" id="rmh-Qo-ABD"/>
                                                     <constraint firstAttribute="width" constant="38" id="sbl-9p-GZX"/>
                                                 </constraints>
                                             </view>
@@ -1296,6 +1321,13 @@
                                                                 <state key="normal" image="IG_Chat_Screen_Send"/>
                                                                 <connections>
                                                                     <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Xid-u6-pzI"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agU-js-JDV">
+                                                                <rect key="frame" x="70" y="8" width="0.0" height="22"/>
+                                                                <state key="normal" image="igap_share_icon-1"/>
+                                                                <connections>
+                                                                    <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="cPX-aO-Zfl"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -1381,6 +1413,12 @@
                                                     <constraint firstAttribute="trailing" secondItem="Jdp-hz-zaS" secondAttribute="trailing" id="yim-K8-NOb"/>
                                                 </constraints>
                                             </view>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzM-Ei-pSv">
+                                                <rect key="frame" x="48" y="100" width="230" height="21"/>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1389,9 +1427,12 @@
                                             <constraint firstItem="oQj-74-6dV" firstAttribute="leading" secondItem="0xP-Py-NoP" secondAttribute="trailing" constant="9" id="4Wr-Bw-uOo"/>
                                             <constraint firstItem="agE-XC-sCP" firstAttribute="leading" secondItem="hI3-wW-ErK" secondAttribute="trailing" constant="9" id="BVd-Xa-BgU"/>
                                             <constraint firstItem="84p-pD-00v" firstAttribute="centerY" secondItem="agE-XC-sCP" secondAttribute="centerY" id="DzR-oz-BuB"/>
+                                            <constraint firstAttribute="trailing" secondItem="dzM-Ei-pSv" secondAttribute="trailing" constant="42" id="JFK-x5-YvK"/>
                                             <constraint firstItem="84p-pD-00v" firstAttribute="leading" secondItem="agE-XC-sCP" secondAttribute="trailing" constant="9" id="NSg-fg-wYL"/>
                                             <constraint firstItem="0xP-Py-NoP" firstAttribute="top" secondItem="oQj-74-6dV" secondAttribute="top" id="Och-q7-vFY"/>
+                                            <constraint firstItem="dzM-Ei-pSv" firstAttribute="centerY" secondItem="f1F-hm-WrH" secondAttribute="centerY" id="YJr-hX-Eri"/>
                                             <constraint firstItem="oQj-74-6dV" firstAttribute="leading" secondItem="f1F-hm-WrH" secondAttribute="leading" constant="74" id="Ym6-fk-ya6"/>
+                                            <constraint firstItem="dzM-Ei-pSv" firstAttribute="leading" secondItem="f1F-hm-WrH" secondAttribute="leading" constant="48" id="ZiH-PA-AlJ"/>
                                             <constraint firstAttribute="trailing" secondItem="E41-Xs-Ose" secondAttribute="trailing" id="eI1-mA-azG"/>
                                             <constraint firstAttribute="bottom" secondItem="agE-XC-sCP" secondAttribute="bottom" constant="6" id="eQJ-nR-RKf"/>
                                             <constraint firstItem="5nb-Dt-CKY" firstAttribute="centerY" secondItem="agE-XC-sCP" secondAttribute="centerY" id="fdu-rT-93O"/>
@@ -1548,6 +1589,8 @@
                         <outlet property="inputBarAttachmentViewThumnailImageView" destination="CCl-SO-FOd" id="7VT-Jd-awH"/>
                         <outlet property="inputBarBackgroundView" destination="gfk-FX-lPd" id="6q3-uS-Y1d"/>
                         <outlet property="inputBarContainerView" destination="4eQ-gi-PNj" id="SdF-6w-oQc"/>
+                        <outlet property="inputBarDeleteButton" destination="bp0-tg-ib7" id="BRI-Eq-iI1"/>
+                        <outlet property="inputBarForwardButton" destination="rpS-nc-Mwr" id="Zlg-f8-b9U"/>
                         <outlet property="inputBarHeightConstraint" destination="rzN-sF-8pZ" id="M8R-V6-UtN"/>
                         <outlet property="inputBarHeightContainerConstraint" destination="kQj-k2-k9z" id="kW4-lk-7EK"/>
                         <outlet property="inputBarLeftView" destination="hI3-wW-ErK" id="tsn-uz-XJG"/>
@@ -1564,11 +1607,13 @@
                         <outlet property="inputBarRecordViewLeftConstraint" destination="Ym6-fk-ya6" id="yNC-Ra-njp"/>
                         <outlet property="inputBarRightiew" destination="84p-pD-00v" id="rP8-hi-IOa"/>
                         <outlet property="inputBarSendButton" destination="JfN-2p-VQo" id="Car-If-StI"/>
+                        <outlet property="inputBarShareButton" destination="agU-js-JDV" id="VAV-UD-7Tv"/>
                         <outlet property="inputBarView" destination="f1F-hm-WrH" id="n4X-Kk-jjx"/>
                         <outlet property="inputBarViewBottomConstraint" destination="l9j-I8-pUw" id="9nC-iT-dAP"/>
                         <outlet property="inputTextView" destination="agE-XC-sCP" id="32J-G6-ltg"/>
                         <outlet property="inputTextViewHeightConstraint" destination="i0G-sC-VLl" id="O1Y-ij-3h7"/>
                         <outlet property="joinButton" destination="uLc-FX-WjP" id="gTz-2h-Ury"/>
+                        <outlet property="lblSelectedMessages" destination="dzM-Ei-pSv" id="ph5-f8-sRx"/>
                         <outlet property="mainView" destination="ziz-lj-PYe" id="dTw-Uu-Ri1"/>
                         <outlet property="pinnedMessageView" destination="gI9-RR-rF9" id="bFj-zu-R1g"/>
                         <outlet property="scrollToBottomContainerView" destination="5mR-SM-BTR" id="Xvj-fw-UgO"/>
@@ -1584,7 +1629,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="43J-bV-cLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5232.8000000000002" y="-1952.473763118441"/>
+            <point key="canvasLocation" x="5231.25" y="-1952.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Yd7-wc-OUp">
@@ -1818,7 +1863,7 @@
             <objects>
                 <navigationController id="hzm-cV-P5b" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xsr-Kl-K9a">
-                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1892,6 +1937,7 @@
         <image name="IG_Tabbar_Discovery" width="37" height="37"/>
         <image name="Location_Marker" width="40" height="40"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
+        <image name="igap_share_icon-1" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jRj-hY-oEr"/>
