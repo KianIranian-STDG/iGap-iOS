@@ -2146,7 +2146,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 if MoneyTransactionModal == nil {
                     MoneyTransactionModal = SMMoneyTransactionOptions.loadFromNib()
                     MoneyTransactionModal.btnCard.addTarget(self, action: #selector(cardToCardTaped), for: .touchUpInside)
+                    MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTaped), for: .touchUpInside)
                     MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
+                    MoneyTransactionModal.btnWalletTransfer.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
                     MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
                     
                     
