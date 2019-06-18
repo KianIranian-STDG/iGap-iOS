@@ -89,8 +89,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         self.tableView.backgroundColor = UIColor.iGapTableViewBackground()
         DispatchQueue.main.async {
             SMLoading.hideLoadingPage()
-            
-        }    }
+        }
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_WALLET_PAGE)
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         shouldShowHisto = false

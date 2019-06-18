@@ -572,12 +572,22 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             fetchRoomHistoryWhenDbIsClear()
         }
     }
-//    func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
-//        if gesture.state == UIGestureRecognizer.State.began {
-//            print("respond to beginning of pop gesture")
-//            navigationController?.popViewController(animated: true)
-//        }
-//    }
+    
+
+    private func sendTracker(){
+        if self.room?.type == .chat {
+            if isBotRoom() {
+                IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_BOT_VIEW)
+            } else {
+                IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_CHAT_VIEW)
+            }
+        } else if self.room?.type == .group {
+            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_GROUP_VIEW)
+        } else if self.room?.type == .channel {
+            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_CHANNEL_VIEW)
+        }
+    }
+
     @objc @available(iOS 10.0, *)
     private func openStickerView(){
         let viewController:UIViewController
@@ -2371,11 +2381,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     func hideMoneyTransactionModal() {
         self.MoneyTransactionModalIsActive = false
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.MoneyTransactionModal.frame.origin.y = self.view.frame.height
-            
-        }) { (true) in
+        if self.MoneyTransactionModal != nil {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.MoneyTransactionModal.frame.origin.y = self.view.frame.height
+            })
         }
     }
     
@@ -2384,13 +2393,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if MoneyInputModal != nil {
             UIView.animate(withDuration: 0.3, animations: {
                 self.MoneyInputModal.frame.origin.y = self.view.frame.height
-                
-            }) { (true) in
-            }
+            })
             MoneyInputModal.inputTF.endEditing(true)
         }
-        
-       
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

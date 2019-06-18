@@ -18,6 +18,7 @@ class IGHelperPreferences {
     public static let keyInAppBrowser = "IN_APP_BROWSER"
     public static let keyChannelDeleteMessage = "CHANNEL_DELETE_MESSAGES"
     public static let keyAllowFetchPromote = "ALLOW_FETCH_PROMOTE"
+    public static let keyTrackInstallUser = "TRACK_INSTALL_USER"
     
     public func readBoolean(key: String) -> Bool {
         let preferences = UserDefaults.standard

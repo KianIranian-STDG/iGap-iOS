@@ -53,6 +53,7 @@ class IGSplashScreenViewController: UIViewController {
                             "Leave a new world around me. Around you, find your friends, entertainment centers, art, business and other and enjoy your moments ...",
                             "You can have one-on-one or group chats and even create your own channel and add members in order to share information with millions of people."]
         
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_INSTALL_USER)
     }
     
     override func viewWillAppear(_ animated: Bool) {

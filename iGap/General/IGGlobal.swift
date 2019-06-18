@@ -139,6 +139,18 @@ class IGGlobal {
         return IGMessageViewController.selectedMessageToForwardToThisRoom != nil
     }
     
+    /**
+     * Hint: this method before return file value will be replaced "\n" with "".
+     * this action is because of an extra line in file text. if exist another
+     * solution so can remove this replce from code
+     */
+    internal static func readStringFromFile(fileName: String) -> String? {
+        let path = Bundle.main.path(forResource: fileName, ofType: "txt")
+        let fileValue = try! NSString(contentsOfFile: path!, encoding: String.Encoding.utf8.rawValue) as String
+        let finalValue = fileValue.replace("\n", withString: "")
+        return finalValue
+    }
+    
     //MARK: RegEx
     public class func matches(for regex: String, in text: String) -> Bool {
         do {

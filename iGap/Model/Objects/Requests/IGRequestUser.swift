@@ -44,6 +44,8 @@ class IGUserRegisterRequest : IGRequest {
         
         class func intrepret(response responseProtoMessage: IGPUserRegisterResponse) -> (username:String, userId:Int64, authorHash: String, verificationMethod: IGVerificationCodeSendMethod, resendDelay:Int32, codeDigitsCount:Int32, codeRegex:String, callMethodSupport: Bool) {
             
+            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_SUBMIT_NUMBER)
+            
             var codeSendMethod : IGVerificationCodeSendMethod
             
             switch responseProtoMessage.igpMethod {
@@ -95,8 +97,8 @@ class IGUserVerifyRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func intrepret(response responseProtoMessage: IGPUserVerifyResponse) -> (token:String, newuser:Bool) {
-            return (token : responseProtoMessage.igpToken,
-                    newuser : responseProtoMessage.igpNewUser )
+            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ACTIVATION_CODE)
+            return (token: responseProtoMessage.igpToken, newuser: responseProtoMessage.igpNewUser)
         }
         
         override class func handlePush(responseProtoMessage: Message) {}

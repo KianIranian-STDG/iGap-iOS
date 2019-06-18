@@ -26,20 +26,11 @@ class IGGroupCreateRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler {
-        class func interpret(response responseProtoMessage:IGPGroupCreateResponse) -> (roomID: Int64, invitedLink: String) {
-            let roomID = responseProtoMessage.igpRoomID
-            let invitedLink = responseProtoMessage.igpInviteLink
-            return (roomID: roomID , invitedLink: invitedLink)
+        class func interpret() {
+            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_CREATE_GROUP)
         }
         
-        override class func handlePush(responseProtoMessage: Message) {
-            switch responseProtoMessage {
-            case let groupCreateResponse as IGPGroupCreateResponse:
-                let _ = self.interpret(response: groupCreateResponse)
-            default:
-                break
-            }
-        }
+        override class func handlePush(responseProtoMessage: Message) {}
     }
 }
 

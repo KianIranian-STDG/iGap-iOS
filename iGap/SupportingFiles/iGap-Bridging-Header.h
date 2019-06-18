@@ -18,5 +18,8 @@
 #import "FRHyperLabel.h"
 #import "KPDropMenu.h"
 #import "DropdownMenu.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 
 #endif /* iGap_Bridging_Header_h */

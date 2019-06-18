@@ -25,7 +25,7 @@ class IGChannelCreateRequest : IGRequest {
     }
     class Handler : IGRequest.Handler {
         class func interpret(response responseProtoMessage:IGPChannelCreateResponse) ->(String) {
-            
+            IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_CREATE_CHANNEL)
             return responseProtoMessage.igpInviteLink
         }
         

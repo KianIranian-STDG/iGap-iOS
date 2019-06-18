@@ -48,24 +48,13 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         btnRefresh.layer.shadowOpacity = 0.3
         
         getDiscoveryList()
+        
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(UIView.appearance().semanticContentAttribute.rawValue)
-        print(UITableView.appearance().semanticContentAttribute.rawValue)
-        print(UICollectionView.appearance().semanticContentAttribute.rawValue)
         IGDashboardViewController.discoveryObserver = self
-        print(UIView.appearance().semanticContentAttribute.rawValue)
-        print(UITableView.appearance().semanticContentAttribute.rawValue)
-        print(UICollectionView.appearance().semanticContentAttribute.rawValue)
         collectionView.reloadData()
-
-        
-        /*
-        if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
-            navigationItem.addiGapLogo()
-        }
-        */
     }
     
     private func initNavigationBar(){

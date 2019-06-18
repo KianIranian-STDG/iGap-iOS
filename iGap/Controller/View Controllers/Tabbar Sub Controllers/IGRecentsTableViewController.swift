@@ -272,6 +272,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         // use current line for enable support gif in SDWebImage library
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
+        
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
     }
     @objc private func changeDirectionOfUI() {
         let _ : String = SMLangUtil.loadLanguage()

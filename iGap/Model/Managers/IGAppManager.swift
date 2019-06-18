@@ -203,8 +203,6 @@ class IGAppManager: NSObject {
     }
     
     public func isUserLoggiedIn() -> Bool {
-        if isUserLoggedIn.value == true {
-        }
         return isUserLoggedIn.value
     }
     

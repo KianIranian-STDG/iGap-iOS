@@ -892,7 +892,8 @@
         "FORWARD_CANCEL" : "انصراف از ارسال",
         "ANOTHER_ROOM" : "چت دیگر",
         "DESCRIPTION" : "توضیحات",
-        "NO_DESCRIPTION" : "توضیحی ثبت نشده است"
+        "NO_DESCRIPTION" : "توضیحی ثبت نشده است",
+        "NO_CALL_HISTORY" : "تاریخچه تماس وجود ندارد!"
     },
     "en": {
         "paygearuser" : "Personal Account",
@@ -1795,7 +1796,8 @@
         "FORWARD_CANCEL" : "Cancel Forward",
         "ANOTHER_ROOM" : "Another Room",
         "DESCRIPTION" : "Description",
-        "NO_DESCRIPTION" : "There is no description"
+        "NO_DESCRIPTION" : "There is no description",
+        "NO_CALL_HISTORY" : "Not exist call history!"
     }
 }
 

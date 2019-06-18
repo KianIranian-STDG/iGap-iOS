@@ -1,10 +1,12 @@
-//
-//  IGSettingChnageLanguageTableViewController.swift
-//  iGap
-//
-//  Created by BenyaminMokhtarpour on 4/17/19.
-//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
-//
+/*
+ * This is the source code of iGap for iOS
+ * It is licensed under GNU AGPL v3.0
+ * You should have received a copy of the license in this archive (see LICENSE).
+ * Copyright © 2017 , iGap - www.iGap.net
+ * iGap Messenger | Free, Fast and Secure instant messaging application
+ * The idea of the Kianiranian STDG - www.kianiranian.com
+ * All rights reserved.
+ */
 
 import UIKit
 
@@ -16,137 +18,72 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         initNavigationBar()
-        
     }
+    
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_CHANGE_LANGUAGE".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         initChangeLanguage()
     }
+    
     func initChangeLanguage() {
-        //        UIView.appearance().semanticContentAttribute = .forceRightToLeft
-        
         lblPersianLang.text = SMLangUtil.changeLblText(tag: lblPersianLang.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblEnglishLang.text = SMLangUtil.changeLblText(tag: lblEnglishLang.tag, parentViewController: NSStringFromClass(self.classForCoder))
         lblArabicLang.text = SMLangUtil.changeLblText(tag: lblArabicLang.tag, parentViewController: NSStringFromClass(self.classForCoder))
     }
-    // MARK: - Table view data source
-
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 2
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.row {
         case 0 :
-            if lastLang == "fa" {
-
-            }
-            else {
-                
+            if lastLang != "fa" {
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
                 UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-                let appDelegate = AppDelegate()
-                appDelegate.resetApp()
-
+                resetApp()
             }
+            break
+            
         case 1:
-            if lastLang == "en" {
-                
-            }
-            else {
+            if lastLang != "en" {
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English.rawValue)
                 UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-                let appDelegate = AppDelegate()
-                appDelegate.resetApp()
+                resetApp()
             }
-           
-
-        case 2:
-            if lastLang == "ar" {
-                
-            }
-            else {
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
-                let appDelegate = AppDelegate()
-                appDelegate.resetApp()
-            }
+            break
             
-
+        case 2:
+            if lastLang != "ar" {
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
+                resetApp()
+            }
+            break
+            
         default :
             break
         }
     }
     
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    func resetApp() {
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_CHANGE_LANGUAGE)
+        if SMLangUtil.loadLanguage() == "fa" {
+            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+        } else {
+            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        }
+        UIApplication.shared.windows[0].rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

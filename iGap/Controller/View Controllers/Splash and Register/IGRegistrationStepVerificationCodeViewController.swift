@@ -320,9 +320,11 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
                     IGUserLoginRequest.Handler.intrepret(response: (protoResponse as? IGPUserLoginResponse)!)
                     IGAppManager.sharedManager.isUserLoggedIn.value = true
                     if self.isUserNew! {
+                        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_REGISTRATION_NEW_USER)
                         self.hud.hide(animated: true)
                         self.performSegue(withIdentifier: "showYourProfile", sender: self)
                     } else {
+                        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_REGISTRATION_USER)
                         IGUserInfoRequest.Generator.generate(userID: IGAppManager.sharedManager.userID()!).success({ (protoResponse) in
                             DispatchQueue.main.async {
                                 switch protoResponse {

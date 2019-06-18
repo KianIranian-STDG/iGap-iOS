@@ -106,17 +106,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         phoneNumber = String(describing: userRegisteredInfo.phone)
         IGCall.callUUID = UUID()
         if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
-
-                if self.phoneNumber == "0" {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
-
-                }
-                else {
-                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: phoneNumber)
-
-                }
-
-
+            if self.phoneNumber == "0" {
+                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+            } else {
+                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: phoneNumber)
+            }
         }
         super.viewDidLoad()
 
@@ -142,8 +136,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         holdView.layer.cornerRadius = 10
         txtCallerName.text = userRegisteredInfo.displayName
-
-      
         txtCallState.text = "Communicating..."
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.tapOnMainView))
@@ -159,6 +151,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 self.incommingCall()
             } else {
                 self.outgoingCall(displayName: userRegisteredInfo.displayName)
+            }
+        }
+        
+        // for better tracking call state just send connecting state when user is login
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
+            if self.callType == .voiceCalling {
+                IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VOICE_CALL_CONNECTING)
+            } else if self.callType == .videoCalling {
+                IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VIDEO_CALL_CONNECTING)
             }
         }
     }
@@ -529,6 +530,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 if !self.callIsConnected {
                     self.callIsConnected = true
                     self.playSound(sound: "igap_connect")
+                    
+                    if self.callType == .voiceCalling {
+                        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VOICE_CALL_CONNECTED)
+                    } else if self.callType == .videoCalling {
+                        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VIDEO_CALL_CONNECTED)
+                    }
                 }
                 
                 do {

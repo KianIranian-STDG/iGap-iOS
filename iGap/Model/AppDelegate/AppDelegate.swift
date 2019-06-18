@@ -252,20 +252,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
     }
     
-    func resetApp() {
-        if SMLangUtil.loadLanguage() == "fa" {
-            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-            
-        }
-        else {
-            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-            
-        }
-                UIApplication.shared.windows[0].rootViewController = UIStoryboard(
-            name: "Main",
-            bundle: nil
-            ).instantiateInitialViewController()
-    }
     func logoutAndShowRegisterViewController(mainRoot: Bool = false) {
         UIApplication.shared.unregisterForRemoteNotifications()
         

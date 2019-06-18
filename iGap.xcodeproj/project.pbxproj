@@ -312,6 +312,13 @@
 		FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6C2DE422670C76005654AC /* AFNetworking.framework */; };
 		FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C2DE622673B21005654AC /* IGHelperAlert.swift */; };
 		FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6C2DE82267413A005654AC /* IGScoreViewController.swift */; };
+		FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */; };
+		FA6F311D22B8BFFF00DB942E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F311C22B8BFFF00DB942E /* CoreData.framework */; };
+		FA6F311F22B8C04100DB942E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F311E22B8C04100DB942E /* SystemConfiguration.framework */; };
+		FA6F312122B8C18600DB942E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F312022B8C18600DB942E /* libGoogleAnalyticsServices.a */; };
+		FA6F312322B8C37600DB942E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F312222B8C37600DB942E /* libz.tbd */; };
+		FA6F312522B8C3D300DB942E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6F312422B8C3D200DB942E /* libsqlite3.tbd */; };
+		FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA6F312622B8E49D00DB942E /* trackingId.txt */; };
 		FA712AE0225DC5AE00FD78AA /* DashboardCell7.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */; };
 		FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */; };
 		FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */; };
@@ -324,7 +331,6 @@
 		FA76598422902ACE006322A3 /* INSPhotosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597822902ACD006322A3 /* INSPhotosDataSource.swift */; };
 		FA76598522902ACE006322A3 /* INSPhotoGallery.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA76597922902ACD006322A3 /* INSPhotoGallery.bundle */; };
 		FA76598622902ACE006322A3 /* INSPhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597A22902ACD006322A3 /* INSPhotosTransitionAnimator.swift */; };
-		FA76598722902ACE006322A3 /* CTGalleryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597B22902ACE006322A3 /* CTGalleryOverlayView.swift */; };
 		FA76598822902ACE006322A3 /* UIVIew+INSPhotoViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597C22902ACE006322A3 /* UIVIew+INSPhotoViewer.swift */; };
 		FA76598922902ACE006322A3 /* INSPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597D22902ACE006322A3 /* INSPhotosViewController.swift */; };
 		FA76598A22902ACE006322A3 /* INSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76597F22902ACE006322A3 /* INSPhoto.swift */; };
@@ -932,6 +938,23 @@
 		FA6C2DE422670C76005654AC /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = "<group>"; };
 		FA6C2DE622673B21005654AC /* IGHelperAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperAlert.swift; sourceTree = "<group>"; };
 		FA6C2DE82267413A005654AC /* IGScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGScoreViewController.swift; sourceTree = "<group>"; };
+		FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperTracker.swift; sourceTree = "<group>"; };
+		FA6F311222B8BC4100DB942E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		FA6F311322B8BC4100DB942E /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		FA6F311422B8BC4100DB942E /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		FA6F311522B8BC4200DB942E /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		FA6F311622B8BC4200DB942E /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		FA6F311722B8BC4200DB942E /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		FA6F311822B8BC4200DB942E /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		FA6F311922B8BC4200DB942E /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		FA6F311A22B8BC4200DB942E /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		FA6F311B22B8BC4200DB942E /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
+		FA6F311C22B8BFFF00DB942E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FA6F311E22B8C04100DB942E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FA6F312022B8C18600DB942E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		FA6F312222B8C37600DB942E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		FA6F312422B8C3D200DB942E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		FA6F312622B8E49D00DB942E /* trackingId.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = trackingId.txt; sourceTree = "<group>"; };
 		FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCell7.swift; sourceTree = "<group>"; };
 		FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell7.xib; sourceTree = "<group>"; };
 		FA712AE4225DCC4300FD78AA /* IGRealmDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmDiscovery.swift; sourceTree = "<group>"; };
@@ -945,7 +968,6 @@
 		FA76597822902ACD006322A3 /* INSPhotosDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhotosDataSource.swift; sourceTree = "<group>"; };
 		FA76597922902ACD006322A3 /* INSPhotoGallery.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = INSPhotoGallery.bundle; sourceTree = "<group>"; };
 		FA76597A22902ACD006322A3 /* INSPhotosTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhotosTransitionAnimator.swift; sourceTree = "<group>"; };
-		FA76597B22902ACE006322A3 /* CTGalleryOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTGalleryOverlayView.swift; sourceTree = "<group>"; };
 		FA76597C22902ACE006322A3 /* UIVIew+INSPhotoViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIew+INSPhotoViewer.swift"; sourceTree = "<group>"; };
 		FA76597D22902ACE006322A3 /* INSPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INSPhotosViewController.swift; sourceTree = "<group>"; };
 		FA76597E22902ACE006322A3 /* INSPhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INSPhotoGallery.h; sourceTree = "<group>"; };
@@ -1220,6 +1242,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6F311F22B8C04100DB942E /* SystemConfiguration.framework in Frameworks */,
+				FA6F311D22B8BFFF00DB942E /* CoreData.framework in Frameworks */,
 				8EEE896422AD11EC0072383C /* PushKit.framework in Frameworks */,
 				FA6C2DE522670C76005654AC /* AFNetworking.framework in Frameworks */,
 				8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */,
@@ -1275,6 +1299,9 @@
 				FAF985B51E2E10EC00B26940 /* SwiftyRSA.framework in Frameworks */,
 				93CE90811EC4B93F002BFEC1 /* NVActivityIndicatorView.framework in Frameworks */,
 				FAF5D2E71F8D81A900A26EE1 /* SwiftProtobuf.framework in Frameworks */,
+				FA6F312522B8C3D300DB942E /* libsqlite3.tbd in Frameworks */,
+				FA6F312322B8C37600DB942E /* libz.tbd in Frameworks */,
+				FA6F312122B8C18600DB942E /* libGoogleAnalyticsServices.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1783,6 +1810,7 @@
 				8ECC183C222FEF9B006E43E8 /* IGHelperBankModel.swift */,
 				FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */,
 				FA6C2DE622673B21005654AC /* IGHelperAlert.swift */,
+				FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1943,10 +1971,27 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		FA6F311122B8BC2400DB942E /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				FA6F311222B8BC4100DB942E /* GAI.h */,
+				FA6F311422B8BC4100DB942E /* GAIDictionaryBuilder.h */,
+				FA6F311B22B8BC4200DB942E /* GAIEcommerceFields.h */,
+				FA6F311322B8BC4100DB942E /* GAIEcommerceProduct.h */,
+				FA6F311822B8BC4200DB942E /* GAIEcommerceProductAction.h */,
+				FA6F311922B8BC4200DB942E /* GAIEcommercePromotion.h */,
+				FA6F311522B8BC4200DB942E /* GAIFields.h */,
+				FA6F311A22B8BC4200DB942E /* GAILogger.h */,
+				FA6F311622B8BC4200DB942E /* GAITrackedViewController.h */,
+				FA6F311722B8BC4200DB942E /* GAITracker.h */,
+				FA6F312022B8C18600DB942E /* libGoogleAnalyticsServices.a */,
+			);
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
 		FA76597322902AB3006322A3 /* INSPhotoGallery */ = {
 			isa = PBXGroup;
 			children = (
-				FA76597B22902ACE006322A3 /* CTGalleryOverlayView.swift */,
 				FA76597F22902ACE006322A3 /* INSPhoto.swift */,
 				FA76597922902ACD006322A3 /* INSPhotoGallery.bundle */,
 				FA76597E22902ACE006322A3 /* INSPhotoGallery.h */,
@@ -2248,6 +2293,7 @@
 		FAD5807E1DDC402600A242DE /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FA6F311122B8BC2400DB942E /* GoogleAnalytics */,
 				FA76597322902AB3006322A3 /* INSPhotoGallery */,
 				FAE6062021EB39CE00F03FFC /* Browser */,
 				FA9F734F2127E4C0004418E5 /* Contact Picker */,
@@ -2452,7 +2498,6 @@
 		FAF796081DAA39460030509B /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				8E94B7462237E61D005F6868 /* webServiceKey.txt */,
 				FA752C321E1EC571008694C6 /* iGap.entitlements */,
 				FA5097D21DEDA18000A44699 /* iGap-Bridging-Header.h */,
 				FAB8210D20D7D583003938BB /* Firebase.h */,
@@ -2462,6 +2507,8 @@
 				FA27F74120BD780300EC6A97 /* secret.key */,
 				FA27F73F20BD77ED00EC6A97 /* api.key */,
 				FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */,
+				FA6F312622B8E49D00DB942E /* trackingId.txt */,
+				8E94B7462237E61D005F6868 /* webServiceKey.txt */,
 				8EC218082259FF3500105B5A /* Model.xcdatamodeld */,
 			);
 			path = SupportingFiles;
@@ -2501,6 +2548,10 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA6F312422B8C3D200DB942E /* libsqlite3.tbd */,
+				FA6F312222B8C37600DB942E /* libz.tbd */,
+				FA6F311E22B8C04100DB942E /* SystemConfiguration.framework */,
+				FA6F311C22B8BFFF00DB942E /* CoreData.framework */,
 				8EEE896222ACFBC70072383C /* PushKit.framework */,
 				FA6C2DE422670C76005654AC /* AFNetworking.framework */,
 				8EACC7B122621A3100F32DC3 /* webservice.framework */,
@@ -2661,6 +2712,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 			);
 			mainGroup = FAF795E11DAA330C0030509B;
@@ -2692,6 +2744,7 @@
 			files = (
 				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
+				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
@@ -2900,6 +2953,7 @@
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
+				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
 				FA42EF0A1E5C224F00CF8A32 /* FrameStore.swift in Sources */,
@@ -3030,7 +3084,6 @@
 				8EC217B62259DCF400105B5A /* SMEntity.swift in Sources */,
 				FA85066322670703002EEBF7 /* CardsCollectionViewCell.swift in Sources */,
 				8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */,
-				FA76598722902ACE006322A3 /* CTGalleryOverlayView.swift in Sources */,
 				8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */,
 				FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */,
 				FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */,
@@ -3544,6 +3597,10 @@
 				INFOPLIST_FILE = iGap/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iGap/Libraries/GoogleAnalytics",
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
@@ -3602,7 +3659,10 @@
 				INFOPLIST_FILE = iGap/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/iGap/Libraries/GoogleAnalytics",
+				);
 				OTHER_LDFLAGS = (
 					"$(OTHER_LDFLAGS)",
 					"-ObjC",

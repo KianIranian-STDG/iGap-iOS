@@ -63,6 +63,8 @@ class IGCallsTableViewController: BaseTableViewController {
                                                    name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
                                                    object: nil)
         }
+        
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_CALL_HISTORY_PAGE)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +100,7 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if callLogList!.count == 0 {
-            self.tableView!.setEmptyMessage("not exist call history!")
+            self.tableView!.setEmptyMessage("NO_CALL_HISTORY".localizedNew)
         } else {
             self.tableView!.restore()
         }

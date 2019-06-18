@@ -110,6 +110,8 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UIGestureRecognizerD
         manageCommentView()
         manageCommentButtonView(commentState: .NONE)
         buttonViewCustomize(button: btnCurrentLocation, color: UIColor.white)
+        
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_NEARBY_PAGE)
     }
     
     /************************************************************/
