@@ -36,20 +36,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mQH-ck-rj3">
-                                <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.69019607839999997" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="nTe-f6-GT6" firstAttribute="top" secondItem="j5O-4W-jNd" secondAttribute="top" id="8La-ac-njC"/>
                             <constraint firstAttribute="width" constant="18" id="OWv-tU-iRl"/>
-                            <constraint firstItem="mQH-ck-rj3" firstAttribute="leading" secondItem="j5O-4W-jNd" secondAttribute="leading" id="Qqf-Gd-X2O"/>
-                            <constraint firstItem="mQH-ck-rj3" firstAttribute="top" secondItem="j5O-4W-jNd" secondAttribute="top" id="U3r-uM-vWd"/>
-                            <constraint firstAttribute="bottom" secondItem="mQH-ck-rj3" secondAttribute="bottom" id="Zrg-il-Q4p"/>
                             <constraint firstAttribute="bottom" secondItem="nTe-f6-GT6" secondAttribute="bottom" id="fUk-qV-hp9"/>
                             <constraint firstAttribute="height" constant="18" id="hBl-aF-qkM"/>
-                            <constraint firstAttribute="trailing" secondItem="mQH-ck-rj3" secondAttribute="trailing" id="mIb-ks-vPf"/>
                             <constraint firstItem="nTe-f6-GT6" firstAttribute="leading" secondItem="j5O-4W-jNd" secondAttribute="leading" id="rzm-Xz-Ji9"/>
                             <constraint firstAttribute="trailing" secondItem="nTe-f6-GT6" secondAttribute="trailing" id="sHZ-cQ-Jeh"/>
                         </constraints>
@@ -102,7 +95,6 @@
                     <constraint firstItem="ojI-a5-iIf" firstAttribute="leading" secondItem="cZr-RY-NKD" secondAttribute="trailing" constant="10" id="Jgi-u2-UJy"/>
                     <constraint firstAttribute="bottom" secondItem="wtp-vX-p7f" secondAttribute="bottom" constant="10" id="Le2-um-Yz0"/>
                     <constraint firstItem="wtp-vX-p7f" firstAttribute="leading" secondItem="cZr-RY-NKD" secondAttribute="leading" id="QrH-PS-poZ"/>
-                    <constraint firstItem="mQH-ck-rj3" firstAttribute="leading" secondItem="wtp-vX-p7f" secondAttribute="trailing" constant="20" id="Sb2-Wr-lsW"/>
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="leading" secondItem="pyp-q7-jR9" secondAttribute="trailing" constant="5" id="Wh2-7E-Bsb"/>
                     <constraint firstItem="ojI-a5-iIf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="YBc-x6-aXr"/>
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="YGR-YU-lO1"/>
@@ -110,12 +102,12 @@
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="leading" secondItem="wkw-rV-l3F" secondAttribute="trailing" constant="8" id="agQ-O5-Lhv"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="gtC-pN-UhD"/>
                     <constraint firstItem="cZr-RY-NKD" firstAttribute="top" secondItem="ojI-a5-iIf" secondAttribute="top" id="m9m-En-IE8"/>
+                    <constraint firstItem="j5O-4W-jNd" firstAttribute="leading" secondItem="wtp-vX-p7f" secondAttribute="trailing" constant="20" id="o8r-jz-xT4"/>
                     <constraint firstAttribute="trailing" secondItem="2b6-Og-2B6" secondAttribute="trailing" constant="20" id="rTd-HL-qe4"/>
                     <constraint firstItem="j5O-4W-jNd" firstAttribute="centerY" secondItem="wtp-vX-p7f" secondAttribute="centerY" id="sI0-Cc-BTM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="deliveryStateImageView" destination="mQH-ck-rj3" id="BRU-Jn-s2L"/>
                 <outlet property="imgMute" destination="pyp-q7-jR9" id="Zci-d3-xoW"/>
                 <outlet property="imgVerified" destination="wkw-rV-l3F" id="rsR-ME-PTZ"/>
                 <outlet property="lastMessageLabel" destination="wtp-vX-p7f" id="Gz8-NP-Vl3"/>

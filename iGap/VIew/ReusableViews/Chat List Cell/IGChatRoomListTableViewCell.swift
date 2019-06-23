@@ -36,19 +36,16 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     @IBOutlet weak var lastMessageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var lastMessageStatusContainerView: UIView!
-    @IBOutlet weak var deliveryStateImageView: UIImageView!
     @IBOutlet weak var unreadCountLabel: UILabel!
     @IBOutlet weak var lastMessageStatusContainerViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var roomTypeIndicatorImageView: UIImageView!
 
-    
     @IBOutlet weak var roomTitleLabelLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgMute: UIImageView!
     @IBOutlet weak var imgVerified: UIImageView!
     
+    var imgStatus: UIImageView!
  
-    
-    
     var avatarImage: IGAvatarView!
     let currentLoggedInUserID = IGAppManager.sharedManager.userID()
     
@@ -58,6 +55,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     var users = try! Realm().objects(IGRegisteredUser.self)
     let disposeBag = DisposeBag()
     var leadingVerify: Constraint!
+    
     
     //MARK: - Class Methods
     class func nib() -> UINib {
@@ -145,7 +143,6 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         nameLabel.text?.removeAll()
         lastMessageLabel.text?.removeAll()
         timeLabel.text?.removeAll()
-        deliveryStateImageView.image = nil
         roomVariableFromRoomManagerCache = nil
         roomTypeIndicatorImageView.image = nil
     }
@@ -258,8 +255,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         
         
         if room.unreadCount > 0 {
+            removeStatus()
             lastMessageStatusContainerView.isHidden = false
-            deliveryStateImageView.isHidden = true
             unreadCountLabel.isHidden = false
             unreadCountLabel.text = "\(room.unreadCount)".inLocalizedLanguage()
             let labelFrame = unreadCountLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: 18.0) , limitedToNumberOfLines: 1)
@@ -276,42 +273,41 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             }
 
             if room.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: room) {
+                makeStatus()
                 lastMessageStatusContainerView.isHidden = false
-                deliveryStateImageView.isHidden = false
                 unreadCountLabel.isHidden = true
-                deliveryStateImageView.image = UIImage(named: "IG_Chat_List_Pin")
+                imgStatus.image = UIImage(named: "IG_Chat_List_Pin")
                 lastMessageStatusContainerView.backgroundColor = UIColor.clear
             } else {
 
                 if isLastMessageIncomming {
+                    removeStatus()
                     lastMessageStatusContainerView.isHidden = true
-                    deliveryStateImageView.isHidden = true
                     unreadCountLabel.isHidden = true
-                    
                 } else {
+                    makeStatus()
                     lastMessageStatusContainerView.isHidden = false
-                    deliveryStateImageView.isHidden = false
                     unreadCountLabel.isHidden = true
                     if let lastMessage = room.lastMessage {
                         switch lastMessage.status {
                         case .sending:
-                            deliveryStateImageView.image = UIImage(named: "IG_Chat_List_Delivery_State_Pending")
+                            imgStatus.image = UIImage(named: "IG_Chat_List_Delivery_State_Pending")
                             lastMessageStatusContainerView.backgroundColor = UIColor.clear
                             break
                         case .sent:
-                            deliveryStateImageView.image = UIImage(named: "IG_Chat_List_Delivery_State_Sent")
+                            imgStatus.image = UIImage(named: "IG_Chat_List_Delivery_State_Sent")
                             lastMessageStatusContainerView.backgroundColor = UIColor.clear
                             break
                         case .delivered:
-                            deliveryStateImageView.image = UIImage(named: "IG_Chat_List_Delivery_State_Delivered")
+                            imgStatus.image = UIImage(named: "IG_Chat_List_Delivery_State_Delivered")
                             lastMessageStatusContainerView.backgroundColor = UIColor.clear
                             break
                         case .seen:
-                            deliveryStateImageView.image = UIImage(named: "IG_Chat_List_Delivery_State_Seen")
+                            imgStatus.image = UIImage(named: "IG_Chat_List_Delivery_State_Seen")
                             lastMessageStatusContainerView.backgroundColor = UIColor.clear
                             break
                         case .failed:
-                            deliveryStateImageView.image = UIImage(named: "IG_Chat_List_Delivery_State_Failed")
+                            imgStatus.image = UIImage(named: "IG_Chat_List_Delivery_State_Failed")
                             lastMessageStatusContainerView.backgroundColor = UIColor.red
                             break
                         default:
@@ -415,6 +411,26 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         } else {
             self.timeLabel.text = ""
             self.lastMessageLabel.text  = ""
+        }
+    }
+    
+    private func makeStatus(){
+        if imgStatus == nil {
+            imgStatus = UIImageView()
+            lastMessageStatusContainerView.addSubview(imgStatus)
+            imgStatus.snp.makeConstraints { (make) in
+                make.leading.equalTo(lastMessageStatusContainerView.snp.leading)
+                make.trailing.equalTo(lastMessageStatusContainerView.snp.trailing)
+                make.bottom.equalTo(lastMessageStatusContainerView.snp.bottom)
+                make.top.equalTo(lastMessageStatusContainerView.snp.top)
+            }
+        }
+    }
+    
+    private func removeStatus(){
+        if imgStatus != nil {
+            imgStatus.removeFromSuperview()
+            imgStatus = nil
         }
     }
 }
