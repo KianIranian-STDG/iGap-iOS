@@ -86,6 +86,12 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
             }
         }
         FilteredMuliShareContacts = muliShareContacts
+        
+        print(tmpChats)
+        print("===================")
+        print(tmpContacts)
+        print("===================")
+        print(FilteredMuliShareContacts)
 
         
 
@@ -199,7 +205,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
             self.selectedNames.append(FilteredMuliShareContacts[indexPath.item].displayName)
 
         }
-        print(selectedIndex)
+        print("selectedIndex is:",selectedIndex)
 
         self.usersCollectionView.reloadItems(at: [indexPath])
         lblCount.text = String(self.selectedIndex.count).inPersianNumbers()

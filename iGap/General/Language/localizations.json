@@ -7,6 +7,7 @@
         "driver" : "راننده",
         "MONEY_TRANSFER_HISTORY" : "گردش حساب",
         "PAIED_TO_LBL" : "پرداخت به :",
+        "SELECTED" : "انتخاب شده",
 
         
         
@@ -974,6 +975,7 @@
         "FORWARDED_MESSAGE" : "Forwarded Message",
         "REOLY_TO" : "Reply to : ",
         "CHANNEL_LINK" : "Channel Link :",
+        "SELECTED" : "Selected",
 
         
         

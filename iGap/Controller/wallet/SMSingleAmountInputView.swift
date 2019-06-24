@@ -36,6 +36,8 @@ class SMSingleAmountInputView: UIView {
         super.awakeFromNib()
         
         infoLbl.text = "TTL_AMOUNT".localizedNew
+        self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
+
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

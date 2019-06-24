@@ -120,8 +120,10 @@ class IGHelperBot {
         
         buttonActionDic[btn] = additionalButton
         buttonViewDic[btn] = view
-        
-        btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
+        if !(IGGlobal.shouldMultiSelect) {
+            btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
+
+        }
         btn.titleLabel?.textAlignment = NSTextAlignment.center
         view.addSubview(btn)
         
@@ -199,85 +201,87 @@ class IGHelperBot {
     /**************************************************/
     
     private func manageAdditionalActions(structAdditional: IGStructAdditionalButton){
-        
-        switch structAdditional.actionType {
-            
-        case ButtonActionType.NONE.rawValue :
-            break
-            
-        case ButtonActionType.JOIN_LINK.rawValue :
-            if let observer = IGMessageViewController.messageViewControllerObserver {
-                IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: structAdditional.value)
+        if !(IGGlobal.shouldMultiSelect) {
+
+            switch structAdditional.actionType {
+                
+            case ButtonActionType.NONE.rawValue :
+                break
+                
+            case ButtonActionType.JOIN_LINK.rawValue :
+                if let observer = IGMessageViewController.messageViewControllerObserver {
+                    IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: structAdditional.value)
+                }
+                break
+                
+            case ButtonActionType.BOT_ACTION.rawValue :
+                IGMessageViewController.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
+                break
+                
+            case ButtonActionType.USERNAME_LINK.rawValue :
+                if let observer = IGMessageViewController.messageViewControllerObserver {
+                    IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: observer.onMessageViewControllerDetection(), username: structAdditional.value, joinToRoom: false)
+                }
+                break
+                
+            case ButtonActionType.WEB_LINK.rawValue :
+                if let observer = IGMessageViewController.messageViewControllerObserver {
+                    IGHelperOpenLink.openLink(urlString: structAdditional.value, navigationController: observer.onNavigationControllerDetection(), forceOpenInApp: true)
+                }
+                break
+                
+            case ButtonActionType.WEBVIEW_LINK.rawValue :
+                IGMessageViewController.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
+                break
+                
+            case IGPDiscoveryField.IGPButtonActionType.billMenu.rawValue :
+                IGFinancialServiceBill.BillInfo = nil
+                IGFinancialServiceBill.isTrafficOffenses = false
+                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                break
+                
+            case IGPDiscoveryField.IGPButtonActionType.trafficBillMenu.rawValue :
+                IGFinancialServiceBill.BillInfo = nil
+                IGFinancialServiceBill.isTrafficOffenses = true
+                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
+                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
+                messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
+                UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
+                break
+                
+            case ButtonActionType.STREAM_PLAY.rawValue :
+                break
+                
+            case ButtonActionType.PAY_BY_WALLET.rawValue :
+                break
+                
+            case ButtonActionType.PAY_DIRECT.rawValue :
+                IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
+                break
+                
+            case ButtonActionType.REQUEST_PHONE.rawValue :
+                IGMessageViewController.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
+                break
+                
+            case ButtonActionType.REQUEST_LOCATION.rawValue :
+                IGMessageViewController.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
+                break
+                
+            case ButtonActionType.SHOWA_ALERT.rawValue :
+                break
+                
+            case IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue :
+                if let toUserId = Int64(structAdditional.value) {
+                    IGHelperFinancial.shared.sendCardToCardRequest(toUserId: toUserId)
+                }
+                break
+                
+            default:
+                break
             }
-            break
-            
-        case ButtonActionType.BOT_ACTION.rawValue :
-            IGMessageViewController.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
-            break
-            
-        case ButtonActionType.USERNAME_LINK.rawValue :
-            if let observer = IGMessageViewController.messageViewControllerObserver {
-                IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: observer.onMessageViewControllerDetection(), username: structAdditional.value, joinToRoom: false)
-            }
-            break
-            
-        case ButtonActionType.WEB_LINK.rawValue :
-            if let observer = IGMessageViewController.messageViewControllerObserver {
-                IGHelperOpenLink.openLink(urlString: structAdditional.value, navigationController: observer.onNavigationControllerDetection(), forceOpenInApp: true)
-            }
-            break
-            
-        case ButtonActionType.WEBVIEW_LINK.rawValue :
-            IGMessageViewController.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
-            break
-            
-        case IGPDiscoveryField.IGPButtonActionType.billMenu.rawValue :
-            IGFinancialServiceBill.BillInfo = nil
-            IGFinancialServiceBill.isTrafficOffenses = false
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-            messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
-            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
-            break
-            
-        case IGPDiscoveryField.IGPButtonActionType.trafficBillMenu.rawValue :
-            IGFinancialServiceBill.BillInfo = nil
-            IGFinancialServiceBill.isTrafficOffenses = true
-            let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-            let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceBill") as! IGFinancialServiceBill
-            messagesVc.defaultBillInfo = IGHelperJson.parseBillInfo(data: structAdditional.value)
-            UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
-            break
-            
-        case ButtonActionType.STREAM_PLAY.rawValue :
-            break
-            
-        case ButtonActionType.PAY_BY_WALLET.rawValue :
-            break
-            
-        case ButtonActionType.PAY_DIRECT.rawValue :
-            IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
-            break
-            
-        case ButtonActionType.REQUEST_PHONE.rawValue :
-            IGMessageViewController.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
-            break
-            
-        case ButtonActionType.REQUEST_LOCATION.rawValue :
-            IGMessageViewController.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
-            break
-            
-        case ButtonActionType.SHOWA_ALERT.rawValue :
-            break
-            
-        case IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue :
-            if let toUserId = Int64(structAdditional.value) {
-                IGHelperFinancial.shared.sendCardToCardRequest(toUserId: toUserId)
-            }
-            break
-            
-        default:
-            break
         }
     }
 }

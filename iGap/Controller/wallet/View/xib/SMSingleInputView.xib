@@ -67,11 +67,11 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Au5-mG-51J">
-                    <rect key="frame" x="67" y="5" width="241" height="3"/>
+                    <rect key="frame" x="137.5" y="17" width="100" height="3"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="3" id="6nR-3T-eZD"/>
-                        <constraint firstAttribute="width" constant="241" id="kHk-I2-hR0"/>
+                        <constraint firstAttribute="width" constant="100" id="kHk-I2-hR0"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -88,7 +88,7 @@
                 <constraint firstItem="Aqy-6L-jId" firstAttribute="top" secondItem="fEu-1y-B1m" secondAttribute="bottom" constant="11" id="SCs-qA-l6h"/>
                 <constraint firstAttribute="trailing" secondItem="Aqy-6L-jId" secondAttribute="trailing" constant="15" id="XBz-Uf-KeR"/>
                 <constraint firstAttribute="trailing" secondItem="fEu-1y-B1m" secondAttribute="trailing" constant="15" id="YpB-Mt-a9c"/>
-                <constraint firstItem="Au5-mG-51J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="dEk-vS-ces"/>
+                <constraint firstItem="Au5-mG-51J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="17" id="dEk-vS-ces"/>
                 <constraint firstAttribute="bottom" secondItem="Aqy-6L-jId" secondAttribute="bottom" constant="10" id="mMg-Se-TqO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

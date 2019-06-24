@@ -1076,7 +1076,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9G6-WI-YVj" customClass="IGMessageCollectionView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="410"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TTu-g1-jEU">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1253,34 +1253,34 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hI3-wW-ErK">
                                                 <rect key="frame" x="0.0" y="91" width="38" height="38"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KBo-mj-Z8H">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-z5-1z0">
                                                         <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UiX-6W-6LP">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Ic-xrU">
                                                                 <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Attachment"/>
                                                                 <connections>
-                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="aPc-f0-En5"/>
+                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="dhv-wQ-8FF"/>
                                                                 </connections>
                                                             </button>
-                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bp0-tg-ib7">
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXn-uZ-OLO">
                                                                 <rect key="frame" x="0.0" y="1.5" width="0.0" height="35"/>
                                                                 <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
                                                                 <state key="normal" title="">
                                                                     <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="uMg-Jp-gWX"/>
+                                                                    <action selector="didTapOnDeleteButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="0bR-aA-Fyg"/>
                                                                 </connections>
                                                             </button>
-                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpS-nc-Mwr">
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DA-hv-jGN">
                                                                 <rect key="frame" x="0.0" y="1.5" width="0.0" height="35"/>
                                                                 <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
-                                                                <state key="normal" title="">
+                                                                <state key="normal" title="">
                                                                     <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="cE9-5i-wo6"/>
+                                                                    <action selector="didTapOnForwardButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="UZ2-en-VCt"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -1288,12 +1288,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="KBo-mj-Z8H" firstAttribute="leading" secondItem="hI3-wW-ErK" secondAttribute="leading" id="QA0-0X-rIC"/>
+                                                    <constraint firstItem="kfV-z5-1z0" firstAttribute="leading" secondItem="hI3-wW-ErK" secondAttribute="leading" id="0Py-tC-Wwj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="kfV-z5-1z0" secondAttribute="trailing" id="Kky-Bh-Li8"/>
+                                                    <constraint firstItem="kfV-z5-1z0" firstAttribute="top" secondItem="hI3-wW-ErK" secondAttribute="top" id="Zg9-SG-mZk"/>
                                                     <constraint firstAttribute="height" constant="38" id="fPc-B9-qmD"/>
-                                                    <constraint firstAttribute="trailing" secondItem="KBo-mj-Z8H" secondAttribute="trailing" id="i11-Ob-NH4"/>
-                                                    <constraint firstAttribute="bottom" secondItem="KBo-mj-Z8H" secondAttribute="bottom" id="lKt-zV-QjN"/>
-                                                    <constraint firstItem="KBo-mj-Z8H" firstAttribute="top" secondItem="hI3-wW-ErK" secondAttribute="top" id="rmh-Qo-ABD"/>
-                                                    <constraint firstAttribute="width" constant="38" id="sbl-9p-GZX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="kfV-z5-1z0" secondAttribute="bottom" id="zZ0-Xz-o2t"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84p-pD-00v">
@@ -1463,7 +1462,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gI9-RR-rF9">
-                                <rect key="frame" x="0.0" y="64" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODy-Ce-ZEZ">
                                         <rect key="frame" x="8" y="5" width="3" height="40"/>
@@ -1525,14 +1524,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-H7-OPt">
-                                <rect key="frame" x="112.5" y="74" width="95.5" height="24"/>
+                                <rect key="frame" x="112.5" y="80" width="95.5" height="24"/>
                                 <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="bhY-h4-UcM"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="floating date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfs-sg-eWx">
-                                <rect key="frame" x="119.5" y="77.5" width="81.5" height="17"/>
+                                <rect key="frame" x="119.5" y="83.5" width="81.5" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="tfU-iL-Llh"/>
                                 </constraints>
@@ -1574,7 +1573,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="RightBarConstraints" destination="Fk5-7Q-M7C" id="NK3-Ox-k0R"/>
-                        <outlet property="btnAttachment" destination="UiX-6W-6LP" id="MgQ-kl-R5d"/>
+                        <outlet property="btnAttachment" destination="aEG-Ic-xrU" id="R2y-Os-ixH"/>
                         <outlet property="btnCancelReplyOrForward" destination="pFr-44-9aA" id="UhW-bI-JnR"/>
                         <outlet property="btnClosePin" destination="grH-pt-p4x" id="q2A-FT-LNb"/>
                         <outlet property="btnDeleteSelectedAttachment" destination="IvY-L2-6Iw" id="fy8-mA-1E9"/>
@@ -1589,8 +1588,8 @@
                         <outlet property="inputBarAttachmentViewThumnailImageView" destination="CCl-SO-FOd" id="7VT-Jd-awH"/>
                         <outlet property="inputBarBackgroundView" destination="gfk-FX-lPd" id="6q3-uS-Y1d"/>
                         <outlet property="inputBarContainerView" destination="4eQ-gi-PNj" id="SdF-6w-oQc"/>
-                        <outlet property="inputBarDeleteButton" destination="bp0-tg-ib7" id="BRI-Eq-iI1"/>
-                        <outlet property="inputBarForwardButton" destination="rpS-nc-Mwr" id="Zlg-f8-b9U"/>
+                        <outlet property="inputBarDeleteButton" destination="jXn-uZ-OLO" id="ZZ1-GK-Tks"/>
+                        <outlet property="inputBarForwardButton" destination="8DA-hv-jGN" id="KLL-EI-H3R"/>
                         <outlet property="inputBarHeightConstraint" destination="rzN-sF-8pZ" id="M8R-V6-UtN"/>
                         <outlet property="inputBarHeightContainerConstraint" destination="kQj-k2-k9z" id="kW4-lk-7EK"/>
                         <outlet property="inputBarLeftView" destination="hI3-wW-ErK" id="tsn-uz-XJG"/>

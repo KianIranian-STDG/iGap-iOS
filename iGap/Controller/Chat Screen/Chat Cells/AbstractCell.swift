@@ -89,19 +89,27 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        if !(IGGlobal.shouldMultiSelect) {
 
         makeSwipeImage()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        if !(IGGlobal.shouldMultiSelect) {
 
         makeSwipeImage()
+        }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        if !(IGGlobal.shouldMultiSelect) {
+
         swipePositionManager()
+        }
+    
     }
     
     override func prepareForReuse() {
@@ -130,6 +138,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         manageGustureRecognizers()
         manageAttachment()
         manageAdditional()
+        showMultiSelect()
     }
     /*
      ******************************************************************
@@ -499,19 +508,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             if trailingAbs != nil { trailingAbs?.activate() }
         }
         /************ Add multi Forward icon only in Rooms ************/
-//        makeMultiForwardIconInRooms()
-        if IGGlobal.shouldMultiSelect {
-            if btnCheckMark == nil {
-        makeMultiSelectButton()
-            }
-            
-        }
-        else {
-            if btnCheckMark != nil {
+        if room.type == .channel {
+                    makeMultiForwardIconInRooms()
 
-                self.btnCheckMark.removeFromSuperview()
-                self.btnCheckMark = nil
-            }
         }
 
     }
@@ -686,10 +685,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let direction = pan.direction(in: superview!)
-        if direction.contains(.Left) {
-            return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
-        } else {
+        if pan != nil {
+            let direction = pan.direction(in: superview!)
+            if direction.contains(.Left) {
+                return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
+            } else {
+                return false
+            }
+        }
+        else {
             return false
         }
     }
@@ -706,26 +710,32 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         imgReply.contentMode = .scaleAspectFit
         imgReply.image = UIImage(named: "ig_message_reply")
         imgReply.alpha = 0.5
-        
+
         pan = UIPanGestureRecognizer(target: self, action: #selector(onSwipe(_:)))
+            
         pan.delegate = self
         self.addGestureRecognizer(pan)
     }
     
     private func swipePositionManager(){
         if room.type == .chat || self.room.type == .group {
-
-        if (pan.state == UIGestureRecognizer.State.changed) {
-            self.insertSubview(imgReply, belowSubview: self.contentView)
-            let p: CGPoint = pan.translation(in: self)
-            let width = self.contentView.frame.width
-            let height = self.contentView.frame.height
-            self.contentView.frame = CGRect(x: p.x,y: 0, width: width, height: height);
-            self.imgReply.frame = CGRect(x: p.x + width + imgReply.frame.size.width, y: (height/2) - (imgReply.frame.size.height) / 2 , width: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT), height: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
-            
-        } else if (pan.state == UIGestureRecognizer.State.ended) || (pan.state == UIGestureRecognizer.State.cancelled) {
-            self.imgReply.removeFromSuperview()
-        }
+            if pan != nil {
+                
+                if (pan.state == UIGestureRecognizer.State.changed) {
+                    self.insertSubview(imgReply, belowSubview: self.contentView)
+                    let p: CGPoint = pan.translation(in: self)
+                    let width = self.contentView.frame.width
+                    let height = self.contentView.frame.height
+                    self.contentView.frame = CGRect(x: p.x,y: 0, width: width, height: height);
+                    self.imgReply.frame = CGRect(x: p.x + width + imgReply.frame.size.width, y: (height/2) - (imgReply.frame.size.height) / 2 , width: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT), height: CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+                    
+                } else if (pan.state == UIGestureRecognizer.State.ended) || (pan.state == UIGestureRecognizer.State.cancelled) {
+                    self.imgReply.removeFromSuperview()
+                }
+            }
+            else {
+                return
+            }
         }
     }
     
@@ -1083,45 +1093,48 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 }
                 
             }
-            else {
-                
-            }
         }
         
     }
-    
+    func showMultiSelect() {
+        
+        if IGGlobal.shouldMultiSelect {
+            makeMultiSelectButton()
+        }
+        else {
+            removeMultySelect()
+        }
+    }
+    func removeMultySelect() {
+        if btnCheckMark != nil {
+            
+            self.btnCheckMark.removeFromSuperview()
+            self.btnCheckMark = nil
+        }
+
+    }
     private func makeMultiSelectButton() {
+        removeMultySelect()
+
+
         if btnCheckMark == nil {
             btnCheckMark = UIButton()
-//            btnCheckMark.contentMode = .scaleAspectFit
             btnCheckMark.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
             btnCheckMark.titleLabel!.textAlignment = .center
             btnCheckMark.titleLabel?.font = UIFont.iGapFontico(ofSize: 17.0)
             btnCheckMark.setTitle("", for: .normal)
-//            let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
-//            btnCheckMark.addGestureRecognizer(tap)
             btnCheckMark.isUserInteractionEnabled = true
             
-//                btnCheckMark.alpha = 0.5
-            
                 self.contentView.addSubview(btnCheckMark)
-                self.contentView.bringSubviewToFront(btnCheckMark)
-                
-                
-                
-                btnCheckMark.snp.makeConstraints{ (make) in
-                    make.leading.equalTo(self.contentView.snp.leading).offset(0)
-                    make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
-                    make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
-                    make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
-                }
-                
             
         }
-        else {
-            
+        btnCheckMark.snp.makeConstraints{ (make) in
+            make.leading.equalTo(self.contentView.snp.leading).offset(0)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
+            make.height.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
+            make.width.equalTo(CGFloat(CellSizeCalculator.IMG_REPLY_DEFAULT_HEIGHT))
         }
-        
+
     }
     
     private func makeSenderName(){

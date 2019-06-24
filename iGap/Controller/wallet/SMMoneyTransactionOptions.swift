@@ -28,8 +28,17 @@ class SMMoneyTransactionOptions: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
+
         
-        
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = (touches.first)
+        //location is relative to the current view
+        // do something with the touched point
+        if touch?.view != self {
+        }
+
     }
    
     /// Layout subview after loading view to support autolayout
