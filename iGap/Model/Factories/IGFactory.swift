@@ -571,6 +571,9 @@ class IGFactory: NSObject {
                      }
                      */
                     IGDatabaseManager.shared.realm.add(message, update: true)
+                    
+                    self.updateRoomLastMessageIfPossible(roomID: roomId)
+
                 }
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)

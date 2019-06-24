@@ -2622,7 +2622,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                 let tmpMSG = self.messages[index]
                                                 message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                                
                                                 IGMessageSender.defaultSender.send(message: message, to: room)
+                                                //Hint : Force Update last message of eache room we send message as forward message
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.2) {
+
+                                                }
+                                                
                                             }
                                         }
                                     }
@@ -2660,6 +2666,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                             message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                             IGMessageSender.defaultSender.send(message: message, to: room)
+                                                            //Hint : Force Update last message of eache room we send message as forward message
+                                                            DispatchQueue.main.asyncAfter(deadline: .now() + count + 0.2) {
+                                                                
+//                                                                IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -2712,6 +2723,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 let tmpMSG = self.messages[index]
                                                 message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 IGMessageSender.defaultSender.send(message: message, to: room)
+                                                //Hint : Force Update last message of eache room we send message as forward message
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.2) {
+                                                    
+//                                                    IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
+                                                }
                                             }
                                         }
                                     }
@@ -2744,6 +2760,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                             message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                             IGMessageSender.defaultSender.send(message: message, to: room)
+                                                            //Hint : Force Update last message of eache room we send message as forward message
+                                                            DispatchQueue.main.asyncAfter(deadline: .now() + count + 0.2) {
+                                                                
+//                                                                IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -2780,6 +2801,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
         roomVC.room = room
+//        IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
+
         self.navigationController!.pushViewController(roomVC, animated: true)
     }
     func hideMoneyTransactionModal() {
