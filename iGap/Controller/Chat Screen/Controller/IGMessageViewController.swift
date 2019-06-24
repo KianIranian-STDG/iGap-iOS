@@ -2606,7 +2606,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
                             let tmpArray = MultiShareModal.FilteredMuliShareContacts
                             //if has chat
-                            if let room = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
+                            if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
                                 
                                 //if selected any message to forward
                                 if self.selectedIndex.count > 0 {
@@ -2615,32 +2615,28 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                     for element in self.selectedIndex {
                                         
                                         countt += 0.2
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.2) {
-                                            
-                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
-                                                let message = IGRoomMessage(body: "")
-                                                message.type = .text
-                                                message.roomId = self.room!.id
-                                                let detachedMessage = message.detach()
-                                                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                let tmpMSG = self.messages[index]
-                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                        
+                                        if let index = self.messages.firstIndex(where: { $0.id == element }) {
+                                            let message = IGRoomMessage(body: "")
+                                            message.type = .text
+                                            message.roomId = roomU.id
+                                            let detachedMessage = message.detach()
+                                            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                                            let tmpMSG = self.messages[index]
+                                            message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
                                                 
-                                                IGMessageSender.defaultSender.send(message: message, to: room)
-                                                //Hint : Force Update last message of eache room we send message as forward message
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.2) {
-
-                                                }
-                                                
+                                                IGMessageSender.defaultSender.send(message: message, to: roomU)
                                             }
                                         }
+                                        
                                     }
                                     
                                 }
                                 else {
                                     return
                                 }
-                                    openChat(room: room)
+                                    openChat(room: roomU)
                                 
                                 
                                 
@@ -2653,31 +2649,26 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                         IGGlobal.prgHide()
                                         if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                                             let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                            let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
+                                            let roomU = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
                                             //if selected any message to forward
                                             if self.selectedIndex.count > 0 {
                                                 var count:Double = 0
                                                 for element in (self.selectedIndex) {
                                                     count = count + 0.2
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.2)) {
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
                                                         
                                                         if let index = self.messages.firstIndex(where: { $0.id == element }) {
                                                             let message = IGRoomMessage(body: "")
                                                             message.type = .text
-                                                            message.roomId = self.room!.id
+                                                            message.roomId = roomU.id
                                                             let detachedMessage = message.detach()
                                                             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                             message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                                            IGMessageSender.defaultSender.send(message: message, to: room)
-                                                            //Hint : Force Update last message of eache room we send message as forward message
-                                                            DispatchQueue.main.asyncAfter(deadline: .now() + count + 0.2) {
-                                                                
-//                                                                IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
-                                                            }
+                                                            IGMessageSender.defaultSender.send(message: message, to: roomU)
                                                         }
                                                     }
                                                 }
-                                                    self.openChat(room: room)
+                                                    self.openChat(room: roomU)
                                                 
                                             }
                                             else {
@@ -2700,37 +2691,31 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         
                     }
                 default :
-                    
                     for id in MultiShareModal.selectedIndex {
                         
                         if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
                             let tmpArray = MultiShareModal.FilteredMuliShareContacts
                             //if has chat
-                            if let room = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
+                            if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
                                 
                                 //if selected any message to forward
                                 if self.selectedIndex.count > 0 {
                                     var countt:Double = 0
-                                    
                                     for element in self.selectedIndex {
                                         
                                         countt += 0.2
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.2) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
                                             
                                             if let index = self.messages.firstIndex(where: { $0.id == element }) {
                                                 let message = IGRoomMessage(body: "")
                                                 message.type = .text
-                                                message.roomId = self.room!.id
+                                                message.roomId = roomU.id
                                                 let detachedMessage = message.detach()
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                let tmpMSG = self.messages[index]
+                                                //let tmpMSG = self.messages[index]
                                                 message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                                IGMessageSender.defaultSender.send(message: message, to: room)
-                                                //Hint : Force Update last message of eache room we send message as forward message
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.2) {
-                                                    
-//                                                    IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
-                                                }
+                                                IGMessageSender.defaultSender.send(message: message, to: roomU)
+                                                
                                             }
                                         }
                                     }
@@ -2747,27 +2732,22 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                         IGGlobal.prgHide()
                                         if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                                             let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                            let room = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
+                                            let roomU = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
                                             //if selected any message to forward
                                             if self.selectedIndex.count > 0 {
                                                 var count:Double = 0
                                                 for element in (self.selectedIndex) {
                                                     count = count + 0.2
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.2)) {
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
                                                         
                                                         if let index = self.messages.firstIndex(where: { $0.id == element }) {
                                                             let message = IGRoomMessage(body: "")
                                                             message.type = .text
-                                                            message.roomId = self.room!.id
+                                                            message.roomId = roomU.id
                                                             let detachedMessage = message.detach()
                                                             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                             message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                                            IGMessageSender.defaultSender.send(message: message, to: room)
-                                                            //Hint : Force Update last message of eache room we send message as forward message
-                                                            DispatchQueue.main.asyncAfter(deadline: .now() + count + 0.2) {
-                                                                
-//                                                                IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
-                                                            }
+                                                            IGMessageSender.defaultSender.send(message: message, to: roomU)
                                                         }
                                                     }
                                                 }
@@ -4083,7 +4063,11 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         
         if messageType == .text {
             let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
+            
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+            print("bubbleSize:")
+            print(bubbleSize)
+
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect && message.type != .log {
@@ -4109,10 +4093,6 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
-//                    else {
-//                        cell.btnCheckMark.setTitle("", for: .normal)
-//
-//                    }
                 }
                 
             }
@@ -4553,6 +4533,9 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var tmpID = (messages[indexPath.section].id)
+        let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: messages![indexPath.section])
+        print("bubbleSize:")
+        print(bubbleSize)
 
         if (IGGlobal.shouldMultiSelect) {
             if selectedIndex.contains(tmpID) {
