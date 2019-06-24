@@ -86,7 +86,9 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
             }
         }
         FilteredMuliShareContacts = muliShareContacts
-        
+
+        showAccountDetail()
+
         print("===================")
         print(FilteredMuliShareContacts)
 
@@ -117,6 +119,22 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
 
         
     }
+    var currentUser: IGRegisteredUser!
+
+    func showAccountDetail(){
+        let currentUserId = IGAppManager.sharedManager.userID()
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", currentUserId!)
+        currentUser = realm.objects(IGRegisteredUser.self).filter(predicate).first!
+
+            if let index = FilteredMuliShareContacts.firstIndex(where: { $0.displayName == currentUser.displayName }) {
+                var element = FilteredMuliShareContacts[index]
+                element.displayName = "MY_CLOUD".localizedNew
+                FilteredMuliShareContacts.remove(at: index)
+                FilteredMuliShareContacts.insert(element, at: 1)
+            }
+    }
+
     var selectedIndex : [Int64] = []
     var selectedNames : [String] = []
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

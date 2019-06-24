@@ -2614,7 +2614,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                     
                                     for element in self.selectedIndex {
                                         
-                                        countt += 0.2
+                                        countt += 0.5
                                         
                                         if let index = self.messages.firstIndex(where: { $0.id == element }) {
                                             let message = IGRoomMessage(body: "")
@@ -2654,7 +2654,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                             if self.selectedIndex.count > 0 {
                                                 var count:Double = 0
                                                 for element in (self.selectedIndex) {
-                                                    count = count + 0.2
+                                                    count = count + 0.5
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
                                                         
                                                         if let index = self.messages.firstIndex(where: { $0.id == element }) {
@@ -2703,7 +2703,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                     var countt:Double = 0
                                     for element in self.selectedIndex {
                                         
-                                        countt += 0.2
+                                        countt += 0.5
                                         DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
                                             
                                             if let index = self.messages.firstIndex(where: { $0.id == element }) {
@@ -2737,7 +2737,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                             if self.selectedIndex.count > 0 {
                                                 var count:Double = 0
                                                 for element in (self.selectedIndex) {
-                                                    count = count + 0.2
+                                                    count = count + 0.5
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
                                                         
                                                         if let index = self.messages.firstIndex(where: { $0.id == element }) {
