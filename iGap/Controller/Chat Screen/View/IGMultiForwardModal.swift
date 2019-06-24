@@ -87,9 +87,6 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         }
         FilteredMuliShareContacts = muliShareContacts
         
-        print(tmpChats)
-        print("===================")
-        print(tmpContacts)
         print("===================")
         print(FilteredMuliShareContacts)
 

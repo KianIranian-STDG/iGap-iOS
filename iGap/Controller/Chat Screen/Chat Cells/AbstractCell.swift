@@ -585,30 +585,59 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             let onReplyClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnReply(_:)))
             replyViewAbs.addGestureRecognizer(onReplyClick)
             replyViewAbs.isUserInteractionEnabled = true
+            if !(IGGlobal.shouldMultiSelect) {
+                replyViewAbs.isUserInteractionEnabled = true
+
+            }
+            else {
+                replyViewAbs.isUserInteractionEnabled = false
+
+            }
         }
         
         if forwardViewAbs != nil {
             let onForwardClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnForward(_:)))
             forwardViewAbs.addGestureRecognizer(onForwardClick)
-            forwardViewAbs.isUserInteractionEnabled = true
+            if !(IGGlobal.shouldMultiSelect) {
+                forwardViewAbs.isUserInteractionEnabled = true
+            }
+            else {
+                forwardViewAbs.isUserInteractionEnabled = false
+            }
         }
         
         if imgFileAbs != nil {
             let onFileClick = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
             imgFileAbs.addGestureRecognizer(onFileClick)
-            imgFileAbs.isUserInteractionEnabled = true
+            
+            if !(IGGlobal.shouldMultiSelect) {
+                imgFileAbs.isUserInteractionEnabled = true
+            }
+            else {
+                imgFileAbs.isUserInteractionEnabled = false
+            }
         }
         
         if mediaContainerViewAbs != nil {
             let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
             mediaContainerViewAbs?.addGestureRecognizer(tap1)
-            mediaContainerViewAbs?.isUserInteractionEnabled = true
+            if !(IGGlobal.shouldMultiSelect) {
+                mediaContainerViewAbs?.isUserInteractionEnabled = true
+            }
+            else {
+                mediaContainerViewAbs?.isUserInteractionEnabled = false
+            }
         }
 
         if imgMediaAbs != nil {
             let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapOnAttachment(_:)))
             imgMediaAbs?.addGestureRecognizer(tap2)
-            imgMediaAbs?.isUserInteractionEnabled = true
+            if !(IGGlobal.shouldMultiSelect) {
+                imgMediaAbs?.isUserInteractionEnabled = true
+            }
+            else {
+                imgMediaAbs?.isUserInteractionEnabled = false
+            }
         }
         
         let tap5 = UITapGestureRecognizer(target: self, action: #selector(didTapOnSenderAvatar(_:)))
@@ -1072,7 +1101,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         if imgMultiForward == nil {
             imgMultiForward = UIImageView()
             imgMultiForward.contentMode = .scaleAspectFit
-            imgMultiForward.image = UIImage(named: "ig_message_reply")
+            imgMultiForward.image = UIImage(named: "ig_message_forward")
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.onMultiForwardTap(_:)))
             imgMultiForward.addGestureRecognizer(tap)
             imgMultiForward.isUserInteractionEnabled = true

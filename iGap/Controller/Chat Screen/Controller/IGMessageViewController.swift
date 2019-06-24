@@ -336,18 +336,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.lblSelectedMessages.isHidden = false
                     self.RightBarConstraints.constant = 38
                     //rightbar btns
-                    self.inputBarShareButton.isHidden = !isForward!
+                    self.inputBarShareButton.isHidden = true
                     self.inputBarDeleteButton.isHidden = true
                     self.inputBarForwardButton.isHidden = !isForward!
                     self.btnAttachment.isHidden = true
                     
                     self.collectionView.reloadData()
-                    self.inputBarShareButton.isHidden = !isForward!
+                    self.inputBarShareButton.isHidden = true
                     self.inputBarForwardButton.isHidden = !isForward!
 
                     
                 }, completion: { (completed) in
-                    self.inputBarShareButton.isHidden = !isForward!
+                    self.inputBarShareButton.isHidden = true
                     self.inputBarForwardButton.isHidden = !isForward!
 
                     //                self.view.layoutIfNeeded()
@@ -356,7 +356,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 print(!isForward!)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 
-                self.inputBarShareButton.isHidden = !isForward!
+                self.inputBarShareButton.isHidden = true
                 self.inputBarForwardButton.isHidden = !isForward!
                 }
 
@@ -766,8 +766,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             make.bottom.equalTo((self.inputTextView.inputView?.snp.bottom)!)
             make.top.equalTo((self.inputTextView.inputView?.snp.top)!)
         }
-        
         viewController.didMove(toParent: self)
+        
     }
     
     @objc func tapOnStickerToolbar(sender: UIButton) {
@@ -2132,13 +2132,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func didTapOnStickerButton() {
-        if isStickerKeyboard {
-            isStickerKeyboard = false
+            print(self.isStickerKeyboard)
+            if self.isStickerKeyboard {
+                self.isStickerKeyboard = false
         } else {
-            isStickerKeyboard = true
+                self.isStickerKeyboard = true
         }
         
-        stickerViewState(enable: isStickerKeyboard)
+            self.stickerViewState(enable: self.isStickerKeyboard)
+        
     }
     
     @IBAction func didTapOnPinClose(_ sender: UIButton) {
@@ -5053,8 +5055,12 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
         
         //Forward
-        
-        alertC.addAction(forward)
+        switch room!.type {
+            case .channel :
+                break
+            default:
+                alertC.addAction(forward)
+        }
         //Edit
         if self.allowEdit(cellMessage){
             alertC.addAction(edit)
@@ -5392,7 +5398,12 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
+        print(cellMessage)
+//        IGGlobal.shouldMultiSelect = true
+        self.selectedIndex.removeAll()
         
+        self.selectedIndex.append(cellMessage.id)
+        showMultiShareModal()
     }
     
     func didTapOnMention(mentionText: String) {
