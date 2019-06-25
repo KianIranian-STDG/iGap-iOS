@@ -106,11 +106,17 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         phoneNumber = String(describing: userRegisteredInfo.phone)
         IGCall.callUUID = UUID()
         if #available(iOS 10.0, *), self.callType == .voiceCalling, self.isIncommingCall {
-            if self.phoneNumber == "0" {
-                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
-            } else {
-                CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: phoneNumber)
-            }
+
+                if self.phoneNumber == "0" {
+                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+
+                }
+                else {
+                    CallManager.sharedInstance.reportIncomingCallFor(uuid: IGCall.callUUID, phoneNumber: userRegisteredInfo.displayName)
+
+                }
+
+
         }
         super.viewDidLoad()
 
