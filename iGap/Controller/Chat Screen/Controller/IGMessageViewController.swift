@@ -2561,7 +2561,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func didtapOutSide() {
-        
+        if dismissBtn != nil {
         if MoneyTransactionModal != nil {
             
             hideMoneyTransactionModal()
@@ -2574,6 +2574,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         dismissBtn.removeFromSuperview()
         dismissBtn = nil
+        }
 
         
     }
