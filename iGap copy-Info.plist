@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.9.1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>msg.iGap</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>igap</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>489</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>a8bb9474c4f59357347dbd3fd5707ca541e2a740</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+	<key>FirebaseMessagingAutoInitEnabled</key>
+	<true/>
+	<key>FirebaseScreenReportingEnabled</key>
+	<true/>
+	<key>LSApplicationCategoryType</key>
+	<dict/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>iGap needs to access your Camera.
+It has access to take photos and send to others. Note that you can not access this if you do not want to take a photo.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>iGap needs to access your address book and sync your contact list to its servers in order for you to be able to find other iGap users, call and text for free</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>iGap needs to access your Location.
+This access is that perhaps you are sending your position to someone else or using the Nearby to view people around you.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>iGap needs to access your Microphone.
+It has access to record your voice, you want to record your voice and send it to another.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) needs to access your gallery for save this photo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>iGap needs to access your Photo-Library.
+This is the option to choose a photo from your gallery and send it to someone else.</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>iGap-Fontico.ttf</string>
+		<string>IRANSans_Bold.ttf</string>
+		<string>IRANSans_Light.ttf</string>
+		<string>IRANSans_Medium.ttf</string>
+		<string>IRANSans_UltraLight.ttf</string>
+		<string>IRANSans.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>remote-notification</string>
+		<string>voip</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>

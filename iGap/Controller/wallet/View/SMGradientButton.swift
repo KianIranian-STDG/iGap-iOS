@@ -45,7 +45,8 @@ class SMGradientButton: UIButton {
             layer.insertSublayer(gradientLayer, at: 0)
         }
         
-        self.titleLabel?.font = SMFonts.IranYekanRegular(16)
+        self.titleLabel?.font = UIFont.igFont(ofSize: 17)
+            
         self.titleLabel?.adjustsFontSizeToFitWidth = true
         
         self.titleLabel?.layer.shadowRadius = 3

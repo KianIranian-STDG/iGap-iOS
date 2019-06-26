@@ -16,9 +16,19 @@ import webservice
 
 var hasShownQrCode = false
 var isfromPacket = false
+var isUser : Bool! = false
+var isHyperMe : Bool! = false
 
 var toID = ""
-class SMBarcodeMainViewController: UIViewController ,HandleReciept{
+class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftView,HandlePassBalance,HandlePayModal{
+    func payTaped() {
+        print("TESTTING BENJI")
+    }
+    
+    func sendBalanceToScannerVC(cardBalance: String) {
+        //
+    }
+    
     func close() {
         hasShownQrCode = false
         self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
@@ -28,10 +38,15 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         print("test")
     }
     
+    var SequenceNumber: String?
+    var hyperMePrice = ""
+    var hyperMeShomareFactor: String? = nil
 
+    
     @IBOutlet weak var heightConstants: NSLayoutConstraint!
     @IBOutlet weak var lblCurrency: UILabel!
     @IBOutlet weak var mianView:UIView!
+    @IBOutlet weak var QRHolder:UIImageView!
     @IBOutlet weak var previewView: UIView!
     private var userCards: [SMCard]?
     private var userMerchants: [SMMerchant]?
@@ -45,11 +60,18 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     private var currentAmount: String = "Updating ...".localizedNew {
         didSet {
             
-            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(currentAmount) \(" ")" + "CURRENCY".localizedNew
+            lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if SMLangUtil.loadLanguage() == "fa" {
+            QRHolder.image = UIImage(named: "scan_Holder_FA")
+        }
+        else {
+            QRHolder.image = UIImage(named: "scan_Holder_EN")
+        }
+
         initView()
         self.hideKeyboardWhenTappedAround()
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
@@ -228,11 +250,22 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                isTaxi = false
 
             }
+            if isHyperMe {
+                presentedViewController.tfAmountToPy.text = (self.hyperMePrice).inLocalizedLanguage().currencyFormat()
+                presentedViewController.isEditing = false
+            }
+            else {
+                presentedViewController.tfAmountToPy.text = ""
+
+                presentedViewController.isEditing = true
+            }
             presentedViewController.profilePicUrl = imgUser
             UserDefaults.standard.setValue(imgUser, forKey: "modalUserPic")
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
-            UserDefaults.standard.setValue(self.lblCurrency.text!, forKey: "modalUserAmount")
+            UserDefaults.standard.setValue(merchantBalance, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
+            UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
+
             print (self.transportId)
             if (self.transportId)  != nil {
                 UserDefaults.standard.setValue(self.transportId!, forKey: "modalTrasnportID")
@@ -256,7 +289,13 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                 return
             })
         } else {
-            getQRCodeInformation(barcodeValue: (manualInputView.inputTF.text!).inEnglishNumbers().onlyDigitChars())
+            if !hasShownQrCode {
+//                hasShownQrCode = true
+                isUser = false
+                getQRCodeInformation(barcodeValue: (manualInputView.inputTF.text!).inEnglishNumbers().onlyDigitChars())
+
+            }
+            
         }
         
     }
@@ -264,6 +303,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     func hideManualInputView() {
         self.ManualCodeActive = false
 
+        hasShownQrCode = false
         UIView.animate(withDuration: 0.3, animations: {
             self.manualInputView.frame.origin.y = self.view.frame.height
             self.manualInputView.inputTF.endEditing(true)
@@ -406,15 +446,19 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
 
     func resolveScannedQrCode(_ code: String) {
         print("Found code: \(code)")
-        
+        let urlComponents = URLComponents(string: code)
+
+        print(urlComponents!)
         if let range = code.range(of: "?jj=") {
 
+            isUser = true
             let value = String(code[range.upperBound...])
         if let json = value.toJSON() as? Dictionary<String, AnyObject> {
             print(json)
             if !hasShownQrCode {
                 hasShownQrCode = true
-
+                isHyperMe = false
+                isUser = true
                 UserDefaults.standard.setValue(String(value).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
             self.getUserInformation(accountId: json["H"] as! String, qrType: Int(json["T"] as! String)!)
@@ -423,10 +467,29 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         else {
             if !hasShownQrCode {
                 hasShownQrCode = true
-
+                isHyperMe = false
+                isUser = false
             self.getQRCodeInformation(barcodeValue: String(value).onlyDigitChars())
             }
         }
+        }
+        else if urlComponents!.host == "www.hyperme.ir" {
+            if !hasShownQrCode {
+                hasShownQrCode = true
+
+//        else if let range = code.range(of: "hyperme") {
+            isUser = false
+
+            let pathes = urlComponents!.path
+            let pathesArray = pathes.components(separatedBy: "/")
+            self.hyperMePrice = pathesArray[1]
+            self.hyperMeShomareFactor = pathesArray[2]
+            let code = pathesArray[3]
+//
+            isHyperMe = true
+            
+            self.getQRCodeInformation(barcodeValue: code.onlyDigitChars())
+            }
         }
         
         
@@ -478,15 +541,21 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
 
         self.getAccountInformation(accountId:  String(describing:accountId), closure: {name, subTitle, imagePath, acountType in
             
-            if qrType == Int(SMQRCode.SMAccountType.User.rawValue) {
+            if qrType == Int(SMQRCode.SMAccountType.User.rawValue) || qrType == Int(SMQRCode.SMAccountType.HyperMe.rawValue) {
                 SMLoading.hideLoadingPage()
+                if isHyperMe {
+                    let tmp = self.hyperMePrice
+                    UserDefaults.standard.setValue(self.hyperMePrice, forKey: "modalHyperPrice")
+                }
+
 //                self.showPopup(type: .PopupUser, value:["name": name, "subTitle": subTitle, "imagePath": imagePath])
-                if hasShownQrCode {
 
                     switch acountType {
                     case 0 :
                         DispatchQueue.main.async {
-                            self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                            
+//                            self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
                         }
                         break
                     case 1 :
@@ -505,7 +574,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                         break
                     }
                     
-                }
+                
             }
             else {
 
@@ -527,6 +596,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                 default :
                     break
                 }
+                
             }
         })
     }
@@ -535,7 +605,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
     ///
     /// - Parameter barcodeValue: qr code
     func getQRCodeInformation(barcodeValue: String) {
-        
+
         self.qrCode = barcodeValue.inEnglishNumbers()
 
         SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
@@ -551,7 +621,13 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
                     SMLoading.hideLoadingPage()
                     self.targetAccountId = String(describing:accountId)
                     self.transportId = jsonResult["value"] as? String
-                    self.getUserInformation(accountId: accountId as! String, qrType: Int(truncating: jsonResult["qr_type"]! as! NSNumber), productId: jsonResult["value"] as? String)
+                    if jsonResult["qr_type"]! as! NSNumber != 10 {
+                        self.getUserInformation(accountId: accountId as! String, qrType: Int(truncating: jsonResult["qr_type"]! as! NSNumber), productId: jsonResult["value"] as? String)
+                    } else {
+                        SMLoading.hideLoadingPage()
+                        self.GetGift(Response: jsonResult as NSDictionary)
+                    }
+
                 }
                 else {
                     SMLoading.hideLoadingPage()
@@ -570,4 +646,63 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept{
         }
         request.mc_getqrcodewithid(barcodeValue.inEnglishNumbers())
     }
+    //HINT : QR GIFT Data
+    private func GetGift(Response: NSDictionary) {
+        //SMClubsMerchantInfo.getInstance().showInfo(viewcontroller: self, infoDic: Information)
+        if Response.value(forKey: "disable") as! Int64 == 0 {
+            let Temp = Response.value(forKey: "sequence_number") as? Int64
+            //self.SequenceNumber = String(Temp)
+            self.SequenceNumber = "\(Temp ?? 0)"
+//            self.scanner?.stopScanning()
+
+            
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: Response.value(forKey: "_id") as! String, value: Response.value(forKey: "value") as! String, isFaild: false)
+        } else {
+//            self.scanner?.stopScanning()
+
+            // not active\
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "GLOBAL_WARNING".localizedNew, value: "barcode.gift.used".localizedNew, isFaild: true)
+        }
+    }
+    func confirmGift() {
+        hasShownQrCode = false
+
+        SMLoading.showLoadingPage(viewcontroller: self)
+        let request = WS_methods(delegate: self, failedDialog: false)
+        request.addSuccessHandler { (response : Any) in
+            if let jsonResult = response as? Dictionary<String, AnyObject> {
+                let message = (jsonResult as NSDictionary).value(forKey: "message") as! String
+                SMLoading.hideLoadingPage()
+                self.closeGift()
+                SMGetGift.getInstance().showSuccess(viewcontroller: self, Message: message)
+            }
+            
+        }
+        request.addFailedHandler({ (response: Any) in
+            SMLoading.hideLoadingPage()
+            self.closeGift()
+            //show popup
+            SMGetGift.getInstance().showInfo(viewcontroller: self, id: "Oops!", value: "GLOBAL_WARNING".localizedNew, isFaild: true)
+            //SMGetGift.getInstance().showSuccess(viewcontroller: self)
+        })
+        
+        request.mc_GetQrCodeGift(self.SequenceNumber)
+    }
+    
+    func closeGift() {
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.dismiss(animated: false, completion: {
+                hasShownQrCode = false
+                
+                self.view.endEditing(true)
+                //            try! self.scanner?.startScanning()
+                DispatchQueue.main.async {
+                }
+            })
+            
+        })
+
+
+    }
+
 }

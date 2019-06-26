@@ -746,6 +746,12 @@
         "SOCKET_CONNECTING" : "در حال اتصال...",
         "MESSAGE_TITLE" : "پیغام ها",
         "HASHTAGS" : "هشتگ ها",
+        "barcode.gift.used" : "این هدیه قبلا استفاده شده است.",
+        "barcode.gift.title" : "هدیه",
+        "barcode.gift.message" : "",
+        "barcode.gift.confirm" : "ثبت هدیه",
+        "barcode.gift.cancel" : "انصراف",
+        "barcode.gift.wrongemessage" : "پاسخ درستی دریافت نشد",
 
         "MESSAGE" : "پیغام",
         "EDITE_MESSAGE" : "ویرایش پیغام",
@@ -1806,6 +1812,13 @@
         "ANOTHER_ROOM" : "Another Room",
         "DESCRIPTION" : "Description",
         "NO_DESCRIPTION" : "There is no description",
+        
+        "barcode.gift.used" : "Gift has Been Used",
+        "barcode.gift.title" : "Gift",
+        "barcode.gift.message" : "",
+        "barcode.gift.confirm" : "Get Gift",
+        "barcode.gift.cancel" : "Cancel",
+
         "NO_CALL_HISTORY" : "Not exist call history!"
     }
 }

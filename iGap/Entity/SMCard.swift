@@ -265,7 +265,7 @@ class SMCard : SMEntity{
             onSuccess?(response)
         }
         cardRequest.addFailedHandler({ (response: Any) in
-            SMLog.SMPrint("faild")
+//            SMLog.SMPrint("faild")
             onFailed?(response)
         })
         cardRequest.pc_payment_init(payObj)
@@ -350,15 +350,16 @@ class SMCard : SMEntity{
 
     static func payPayment(enc : String?, enc2: String?, onSuccess: CallBack? = nil,  onFailed: FailedCallBack? = nil){
         
-        let cardRequest = WS_methods(delegate: self, failedDialog: true)
+        let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
             
             onSuccess?(response)
             
         }
         cardRequest.addFailedHandler({ (response: Any) in
-            SMLog.SMPrint("faild")
+//            SMLog.SMPrint("faild")
             onFailed?(response)
+            print("FAILED RESPONSE BENJI:",response)
         })
         if enc2 == nil {
             cardRequest.pc_payment(withToken: SMUserManager.payToken , enc: enc)

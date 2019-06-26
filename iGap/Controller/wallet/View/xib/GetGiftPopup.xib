@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GetGiftPopupView" customModule="iGap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="168"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="هدیه" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNL-pt-7gg">
+                    <rect key="frame" x="132.5" y="0.0" width="35" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="x53-wq-wPg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="لورم ایپسوم یا طرح نما  یک متن آزمایشی  است که طراحان گرافیک از آن استفاده میکنند؟" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggU-LR-8Vo">
+                    <rect key="frame" x="16" y="44" width="268" height="69"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="69" id="gjC-eg-bU1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="med-HV-oNa">
+                    <rect key="frame" x="0.0" y="123" width="150" height="45"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="woM-Cx-Zbv"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="انصراف"/>
+                    <connections>
+                        <action selector="CancelButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="xxP-uo-PlZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J6L-un-EMl" customClass="SMGradientButton" customModule="iGap" customModuleProvider="target">
+                    <rect key="frame" x="150" y="123" width="150" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="8cg-4d-uAd"/>
+                        <constraint firstAttribute="height" constant="45" id="TEy-VO-bku"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
+                    <state key="normal" title="ثبت هدیه">
+                        <color key="titleColor" red="0.1647058824" green="0.56862745100000001" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="fromColor">
+                            <color key="value" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="toColor">
+                            <color key="value" red="0.74901960779999999" green="0.8862745098" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="ConfirmButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ecs-qh-PXu"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAi-C3-D0D">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="123"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2u-4d-z1b">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="82"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yawmdzhr" translatesAutoresizingMaskIntoConstraints="NO" id="IJI-Ld-Q2a">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="82"/>
+                                </imageView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dance" translatesAutoresizingMaskIntoConstraints="NO" id="AML-pS-yND">
+                                    <rect key="frame" x="120" y="11" width="60" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="SF1-MN-XOS"/>
+                                        <constraint firstAttribute="width" constant="60" id="TNA-ZD-5yr"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="IJI-Ld-Q2a" firstAttribute="top" secondItem="N2u-4d-z1b" secondAttribute="top" id="4Sk-nJ-tUh"/>
+                                <constraint firstItem="AML-pS-yND" firstAttribute="centerX" secondItem="N2u-4d-z1b" secondAttribute="centerX" id="BQ4-40-MIQ"/>
+                                <constraint firstItem="AML-pS-yND" firstAttribute="centerY" secondItem="N2u-4d-z1b" secondAttribute="centerY" id="HZB-i9-4Z1"/>
+                                <constraint firstAttribute="trailing" secondItem="IJI-Ld-Q2a" secondAttribute="trailing" id="Jcf-j2-a2d"/>
+                                <constraint firstAttribute="bottom" secondItem="IJI-Ld-Q2a" secondAttribute="bottom" id="m1l-yH-gUt"/>
+                                <constraint firstItem="IJI-Ld-Q2a" firstAttribute="leading" secondItem="N2u-4d-z1b" secondAttribute="leading" id="xPz-4K-Iad"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="مبلغ ۱۰۰ ریال به شما هدیه داده می‌شود." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wD7-g0-Zvg">
+                            <rect key="frame" x="8" y="90" width="284" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="0EX-hB-Ad1"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="wD7-g0-Zvg" secondAttribute="bottom" constant="8" id="E4j-f4-shi"/>
+                        <constraint firstAttribute="trailing" secondItem="N2u-4d-z1b" secondAttribute="trailing" id="Fkc-SB-EBd"/>
+                        <constraint firstItem="wD7-g0-Zvg" firstAttribute="top" secondItem="N2u-4d-z1b" secondAttribute="bottom" constant="8" id="OhJ-gh-XqB"/>
+                        <constraint firstItem="wD7-g0-Zvg" firstAttribute="leading" secondItem="ZAi-C3-D0D" secondAttribute="leading" constant="8" id="VaP-8w-98V"/>
+                        <constraint firstItem="N2u-4d-z1b" firstAttribute="top" secondItem="ZAi-C3-D0D" secondAttribute="top" id="WwR-UE-hUu"/>
+                        <constraint firstAttribute="trailing" secondItem="wD7-g0-Zvg" secondAttribute="trailing" constant="8" id="Xzi-DY-s6j"/>
+                        <constraint firstItem="N2u-4d-z1b" firstAttribute="leading" secondItem="ZAi-C3-D0D" secondAttribute="leading" id="eFP-OC-2li"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kNL-pt-7gg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0Er-6c-E2R"/>
+                <constraint firstItem="ZAi-C3-D0D" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="3Rc-Wm-y9l"/>
+                <constraint firstItem="med-HV-oNa" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="CzN-hq-O33"/>
+                <constraint firstItem="ggU-LR-8Vo" firstAttribute="top" secondItem="kNL-pt-7gg" secondAttribute="bottom" constant="4" id="Pmi-Zb-F5Y"/>
+                <constraint firstItem="med-HV-oNa" firstAttribute="top" secondItem="ZAi-C3-D0D" secondAttribute="bottom" id="SxN-Kr-Md3"/>
+                <constraint firstItem="med-HV-oNa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Z00-Gq-mF0"/>
+                <constraint firstItem="J6L-un-EMl" firstAttribute="leading" secondItem="med-HV-oNa" secondAttribute="trailing" id="ela-3j-FZZ"/>
+                <constraint firstItem="J6L-un-EMl" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="iUo-ZO-wBE"/>
+                <constraint firstItem="ZAi-C3-D0D" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="k2p-nA-onQ"/>
+                <constraint firstItem="kNL-pt-7gg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="qQb-6R-n7D"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ggU-LR-8Vo" secondAttribute="trailing" constant="16" id="s2J-Zf-8zF"/>
+                <constraint firstItem="ZAi-C3-D0D" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vBQ-bI-bzC"/>
+                <constraint firstItem="ggU-LR-8Vo" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="vFd-Xq-e0n"/>
+                <constraint firstItem="J6L-un-EMl" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="woY-iP-Aw1"/>
+                <constraint firstItem="med-HV-oNa" firstAttribute="top" secondItem="ggU-LR-8Vo" secondAttribute="bottom" constant="10" id="x8N-O6-hgP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="CancelButton" destination="med-HV-oNa" id="iRW-V2-wQL"/>
+                <outlet property="ConfirmButton" destination="J6L-un-EMl" id="djy-3B-Wji"/>
+                <outlet property="ConfirmButtonWidth" destination="8cg-4d-uAd" id="0KO-N8-01Q"/>
+                <outlet property="GradiantView" destination="N2u-4d-z1b" id="sEy-lL-n5D"/>
+                <outlet property="MessageLabel" destination="ggU-LR-8Vo" id="1WV-61-aYQ"/>
+                <outlet property="ResultLabel" destination="wD7-g0-Zvg" id="3gd-HP-wkb"/>
+                <outlet property="TitleLabel" destination="kNL-pt-7gg" id="FkD-7S-oKh"/>
+                <outlet property="resultBackGroundView" destination="ZAi-C3-D0D" id="LYw-Ux-qJZ"/>
+            </connections>
+            <point key="canvasLocation" x="41.600000000000001" y="134.93253373313345"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dance" width="80" height="80"/>
+        <image name="yawmdzhr" width="500" height="200"/>
+    </resources>
+</document>

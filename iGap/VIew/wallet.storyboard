@@ -294,13 +294,13 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="222"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="O6y-Vh-Yig">
-                                                                        <rect key="frame" x="26" y="30" width="255" height="17.666666666666671"/>
+                                                                        <rect key="frame" x="26" y="30" width="255" height="23.666666666666671"/>
                                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="usR-a8-3hs">
-                                                                        <rect key="frame" x="161.66666666666666" y="100.66666666666667" width="43.666666666666657" height="21"/>
+                                                                        <rect key="frame" x="161.66666666666666" y="97" width="43.666666666666657" height="28.333333333333329"/>
                                                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="18"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -402,7 +402,7 @@
                                         <rect key="frame" x="0.0" y="712" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DBA-Dz-cCj" id="l1v-En-3cJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="266.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spE-Vn-DHB">
@@ -1251,6 +1251,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="qr-code_25" id="xtl-h9-UmG"/>
                     <connections>
+                        <outlet property="QRHolder" destination="fgr-Ya-gqg" id="3OO-Co-Pvx"/>
                         <outlet property="heightConstants" destination="Y3g-2P-Or6" id="CzI-Hb-YO2"/>
                         <outlet property="lblCurrency" destination="beI-k9-Xao" id="TWH-CN-QTh"/>
                         <outlet property="mianView" destination="DhX-r6-7C5" id="nmW-za-EYz"/>
@@ -1422,7 +1423,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="payBtnTap:" destination="gJb-e8-HUz" eventType="touchUpInside" id="3hE-Hz-92q"/>
+                                            <action selector="payBtnTapedDows:" destination="gJb-e8-HUz" eventType="touchDown" id="bxe-zk-qbD"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Rials" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZUQ-Ri-Wl2" customClass="customUITextField" customModule="iGap" customModuleProvider="target">
@@ -2024,7 +2025,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set as Default Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="M3n-Hw-l4Z">
-                                                    <rect key="frame" x="30" y="8.6666666666666661" width="300" height="26.666666666666671"/>
+                                                    <rect key="frame" x="30" y="12" width="300" height="20"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

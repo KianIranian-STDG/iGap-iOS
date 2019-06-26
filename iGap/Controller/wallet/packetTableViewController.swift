@@ -15,10 +15,15 @@ var merchantBalance : String = "0"
 var currentRole = "paygearuser"
 
 var needToUpdate = false
+
+protocol HandlePassBalance {
+    func sendBalanceToScannerVC(cardBalance: String)
+}
 class packetTableViewController: BaseTableViewController , HandleDefaultCard,UICollectionViewDelegate , UICollectionViewDataSource {
     var shouldShowHisto = false
     var merchant : SMMerchant!
     var layout =  UICollectionViewFlowLayout()
+    var delegate: HandlePassBalance? = nil
 
     @IBOutlet weak var lblWalletBalance : UILabel!
     @IBOutlet weak var lblCurrencyFormat : UILabel!
@@ -121,6 +126,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         getMerchantData()
         initChangeLanguage()
         IGRequestWalletGetAccessToken.sendRequest()
+        btnCashout.backgroundColor = .iGapGreen()
+        btnCharge.backgroundColor = .iGapGreen()
+
         
     }
     
@@ -407,6 +415,8 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     @IBAction func btnQRcodeScan(_ sender: Any) {
         let qrVC: QRMainTabbarController? = (storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
         merchantBalance = (lblCurrency.text!).inEnglishNumbers()
+        
+        
         self.navigationController!.pushViewController(qrVC!, animated: true)
         
     }
@@ -467,6 +477,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                                 
                                 _ = Array((self.userCards?.dropFirst())!)
 
+                                self.stringClubAmountsArray.removeAll()
                                 self.stringImgArray.removeAll()
                                 self.indexOfCardsWithEmptyBG.removeAll()
                                 self.stringCardNumArray.removeAll()
@@ -604,6 +615,8 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 if card.type == 1 && card.pan!.contains("پیگیر"){
                     
                     lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
+                    merchantBalance = (lblCurrency.text!).inEnglishNumbers()
+
                     if (lblCurrency.text)?.inEnglishNumbers() == "0" {
                         btnCashout.isEnabled = false
                         btnCashout.backgroundColor = .iGapGray()
@@ -725,7 +738,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
             cell.cellType = self.stringCardTypeArray[indexPath.item]
             let tmpType = self.stringCardTypeArray[indexPath.item]
             if cell.cellType == 1 {
-                cell.lblBankName.text = self.stringCardNumArray[indexPath.item]
+                cell.lblBankName.text = ""
                 cell.lblCardNum.text = self.stringCardNumArray[indexPath.item].inLocalizedLanguage()
                 let cardNum = (self.stringCardNumArray[indexPath.item])
             }
@@ -819,6 +832,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         cardDetailVC?.cardType = self.stringCardTypeArray[indexPath.item]
         cardDetailVC?.amount = String((self.stringClubAmountsArray[indexPath.item]))
 
+        let tmp = (self.stringClubAmountsArray)
         let topIndex = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at: topIndex, at: .top, animated: true)
         self.navigationController!.pushViewController(cardDetailVC!, animated: true)
