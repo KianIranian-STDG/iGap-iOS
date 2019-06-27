@@ -1659,6 +1659,19 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     /* if send message state is enable show send button and hide sticker & record button */
     private func sendMessageState(enable: Bool){
+        switch self.room!.type {
+        case .chat:
+            self.inputBarMoneyTransferButton.isHidden = false
+            self.RightBarConstraints.constant = 70
+            self.view.layoutIfNeeded()
+
+            break
+        default :
+            self.inputBarMoneyTransferButton.isHidden = true
+            self.RightBarConstraints.constant = 38
+            self.view.layoutIfNeeded()
+            
+        }
         if enable {
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
@@ -1669,8 +1682,19 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
             UIView.transition(with: self.inputBarRecordButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.inputBarRecordButton.isHidden = true
-                self.inputBarMoneyTransferButton.isHidden = false
-                self.RightBarConstraints.constant = 70
+                switch self.room!.type {
+                case .chat:
+                    self.inputBarMoneyTransferButton.isHidden = false
+                    self.RightBarConstraints.constant = 70
+                    self.view.layoutIfNeeded()
+                    
+                    break
+                default :
+                    self.inputBarMoneyTransferButton.isHidden = true
+                    self.RightBarConstraints.constant = 38
+                    self.view.layoutIfNeeded()
+                    
+                }
                 self.view.layoutIfNeeded()
 
 
@@ -1679,7 +1703,19 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
                     self.inputBarSendButton.isHidden = false
                     self.inputBarMoneyTransferButton.isHidden = true
-                    self.RightBarConstraints.constant = 38
+                    switch self.room!.type {
+                    case .chat:
+                        self.inputBarMoneyTransferButton.isHidden = false
+                        self.RightBarConstraints.constant = 70
+                        self.view.layoutIfNeeded()
+                        
+                        break
+                    default :
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
+                        self.view.layoutIfNeeded()
+                        
+                    }
                     self.view.layoutIfNeeded()
                 }, completion: nil)
             })
@@ -1696,7 +1732,19 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             UIView.transition(with: self.inputBarSendButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.inputBarSendButton.isHidden = true
                 self.inputBarMoneyTransferButton.isHidden = false
-                self.RightBarConstraints.constant = 70
+                switch self.room!.type {
+                case .chat:
+                    self.inputBarMoneyTransferButton.isHidden = false
+                    self.RightBarConstraints.constant = 70
+                    self.view.layoutIfNeeded()
+                    
+                    break
+                default :
+                    self.inputBarMoneyTransferButton.isHidden = true
+                    self.RightBarConstraints.constant = 38
+                    self.view.layoutIfNeeded()
+                    
+                }
                 self.view.layoutIfNeeded()
 
 
@@ -1705,7 +1753,19 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 UIView.transition(with: self.inputBarRecordButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
                     self.inputBarRecordButton.isHidden = false
                     self.inputBarMoneyTransferButton.isHidden = false
-                    self.RightBarConstraints.constant = 70
+                    switch self.room!.type {
+                    case .chat:
+                        self.inputBarMoneyTransferButton.isHidden = false
+                        self.RightBarConstraints.constant = 70
+                        self.view.layoutIfNeeded()
+                        
+                        break
+                    default :
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
+                        self.view.layoutIfNeeded()
+                        
+                    }
                     self.view.layoutIfNeeded()
 
 
@@ -4781,6 +4841,7 @@ extension IGMessageViewController: GrowingTextViewDelegate {
                                                            userInfo: nil,
                                                            repeats:  false)
         }
+        
     }
     
     func allowSendTyping() -> Bool {
