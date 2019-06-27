@@ -1565,6 +1565,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 IGFactory.shared.updateRoomParticipant(roomId: room.id, isParticipant: false)
             }
         }
+//        if self.selectedMessageToReply != nil {
+//            self.selectedMessageToReply = nil
+//        }
         
         NotificationCenter.default.removeObserver(self)
     }
@@ -4537,6 +4540,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         print("bubbleSize:")
         print(bubbleSize)
 
+  
+        
         if (IGGlobal.shouldMultiSelect) {
             if selectedIndex.contains(tmpID) {
                 //            let tmp = self.selectedIndex.filter(){$0 != indexPath.item}
@@ -5180,7 +5185,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func didTapOnAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell, imageView: IGImageView?) {
-        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(0.3)), animations: {
+            self.inputBarViewBottomConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        }, completion: { (completed) in
+            self.inputBarViewBottomConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+
+        })
         var finalMessage = cellMessage
         var roomMessageLists = self.messagesWithMedia
         if cellMessage.forwardedFrom != nil {
