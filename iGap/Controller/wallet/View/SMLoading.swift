@@ -213,5 +213,24 @@ class SMLoading {
         viewController.customPresentViewController(self.presenter(), viewController: alertView, animated: true, completion: nil)
         
     }
+    func showClubCardDialog(viewController:UIViewController, icon:UIImage? ,title:String? ,cards : [SMCard]? , yesPressed: MoreActionCallBack? = nil, noPressed: SimpleCallBack? = nil) {
+        
+        let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
+        
+        let alertView : SMSavedCardsAlertViewController! = (storyboard.instantiateViewController(withIdentifier: "savedcards") as! SMSavedCardsAlertViewController)
+        
+        alertView.dialogT = title
+        
+        alertView.savedClubs = cards!
+        
+        alertView.leftButtonTitle = "GLOBAL_NO".localizedNew
+        alertView.leftButtonAction = noPressed
+        
+        alertView.rightButtonTitle = "GLOBAL_OK".localizedNew
+        alertView.rightButtonAction = yesPressed
+        
+        viewController.customPresentViewController(self.presenter(), viewController: alertView, animated: true, completion: nil)
+        
+    }
     
 }

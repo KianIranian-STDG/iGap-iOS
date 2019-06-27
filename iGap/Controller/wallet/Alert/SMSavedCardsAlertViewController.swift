@@ -22,6 +22,7 @@ class SMSavedCardsAlertViewController: UIViewController,UIPickerViewDelegate,UIP
 	
     var dialogT : String?
     var savedCards = [SMCashout]()
+    var savedClubs = [SMCard]()
 	var savedIBANs = [SMIBAN]()
     var leftButtonTitle:String?
     var rightButtonTitle:String?
@@ -80,6 +81,10 @@ class SMSavedCardsAlertViewController: UIViewController,UIPickerViewDelegate,UIP
 			rightButtonAction?(savedIBANs[cardsPicker.selectedRow(inComponent: 0)], defaultSwitch.isOn)
 
 		}
+        else if savedClubs.count != 0 {
+            rightButtonAction?(savedClubs[cardsPicker.selectedRow(inComponent: 0)], defaultSwitch.isOn)
+
+        }
     }
     /*
      // MARK: - Navigation
@@ -98,9 +103,12 @@ class SMSavedCardsAlertViewController: UIViewController,UIPickerViewDelegate,UIP
 		if savedCards.count != 0 {
 			return savedCards.count
 		}
-		else if savedIBANs.count != 0 {
-			return savedIBANs.count
-		}
+        else if savedIBANs.count != 0 {
+            return savedIBANs.count
+        }
+        else if savedClubs.count != 0 {
+            return savedClubs.count
+        }
 		return 0
 		
     }
@@ -124,10 +132,14 @@ class SMSavedCardsAlertViewController: UIViewController,UIPickerViewDelegate,UIP
 			label.text = card.pan!.inLocalizedLanguage()
 
 		}
-		else if savedIBANs.count != 0 {
-			let card = savedIBANs[row]
-			label.text = card.ibanNumber!.inLocalizedLanguage()
-		}
+        else if savedIBANs.count != 0 {
+            let card = savedIBANs[row]
+            label.text = card.ibanNumber!.inLocalizedLanguage()
+        }
+        else if savedClubs.count != 0 {
+            let card = savedClubs[row]
+            label.text = card.pan
+        }
 		/*
 		this code shows bank name too but it has a bug on persian numbers
 		if SMDirection.TextAlignment() == .left {

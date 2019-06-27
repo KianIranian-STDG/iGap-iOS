@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Card" representedClassName="Card" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundimage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="balance" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -8,6 +8,7 @@
         <attribute name="cashablebalance" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cashin" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="cashout" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="club_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="exp_m" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="exp_y" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCashout" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -38,9 +39,9 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Card" positionX="-36" positionY="9" width="128" height="300"/>
         <element name="CashoutCard" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="IBAN" positionX="-54" positionY="-9" width="128" height="75"/>
-        <element name="Card" positionX="-36" positionY="9" width="128" height="285"/>
         <element name="Merchant" positionX="-18" positionY="27" width="128" height="165"/>
     </elements>
 </model>

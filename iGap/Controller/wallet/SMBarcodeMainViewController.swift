@@ -234,7 +234,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             hideManualInputView()
         }
     }
-    func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String) {
+    func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String, discount_percent: Int? = nil, discount_value: Int? = nil) {
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController? {
             presentedViewController.providesPresentationContextTransitionStyle = true
             presentedViewController.definesPresentationContext = true
@@ -264,7 +264,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
             UserDefaults.standard.setValue(merchantBalance, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
-            UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
+//            UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
             print (self.transportId)
             if (self.transportId)  != nil {
@@ -448,7 +448,6 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
         print("Found code: \(code)")
         let urlComponents = URLComponents(string: code)
 
-        print(urlComponents!)
         if let range = code.range(of: "?jj=") {
 
             isUser = true
@@ -495,7 +494,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
         
     }
     
-    func getAccountInformation (accountId: String, closure: @escaping (_ name: String, _ subTitle: String, _ imagePath: String, _ acountType: Int) -> ()) {
+    func getAccountInformation (accountId: String, closure: @escaping (_ name: String, _ subTitle: String, _ imagePath: String, _ acountType: Int ,_ discount_percent: Int?, _ discount_value: Int?) -> ()) {
         
         
         let account = PU_obj_account()
@@ -510,12 +509,18 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
                 var subTitle: String = ""
                 var imagePath: String = ""
                 var acountType: Int = 2
+                var discount_percent: Int?
+                var discount_value: Int?
+
                 if let n = jsonResult["name"] { name = n as! String }
                 if let s = jsonResult["sub_title"] { subTitle = s as! String }
                 if let i = jsonResult["profile_picture"] { imagePath = i as! String }
                 if let at = jsonResult["account_type"] { acountType = at as! Int }
 
-                closure(name , subTitle, imagePath, acountType)
+                if let dp = jsonResult["discount_percent"] as? Int, dp != 0 { discount_percent = dp }
+                if let dv = jsonResult["discount_value"] as? Int, dv != 0 { discount_value = dv }
+
+                closure(name , subTitle, imagePath, acountType, discount_percent, discount_value)
             }
             
         }
@@ -539,7 +544,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
         self.targetAccountId = String(describing:accountId)
         UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
 
-        self.getAccountInformation(accountId:  String(describing:accountId), closure: {name, subTitle, imagePath, acountType in
+        self.getAccountInformation(accountId:  String(describing:accountId), closure: {name, subTitle, imagePath, acountType, discount_percent, discount_value  in
             
             if qrType == Int(SMQRCode.SMAccountType.User.rawValue) || qrType == Int(SMQRCode.SMAccountType.HyperMe.rawValue) {
                 SMLoading.hideLoadingPage()
@@ -607,6 +612,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
     func getQRCodeInformation(barcodeValue: String) {
 
         self.qrCode = barcodeValue.inEnglishNumbers()
+        UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
         SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         let request = WS_methods(delegate: self, failedDialog: true)

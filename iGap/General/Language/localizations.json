@@ -8,6 +8,10 @@
         "MONEY_TRANSFER_HISTORY" : "گردش حساب",
         "PAIED_TO_LBL" : "پرداخت به :",
         "SELECTED" : "انتخاب شده",
+        
+        "WALLET_PAY_LBL3" : "مبلغ قابل پرداخت(ریال) :",
+        "WALLET_PAY_LBL1" : "مبلغ تخفیف(ریال) :",
+        "WALLET_PAY_LBL0" : "مبلغ کل(ریال) :",
 
         
         
@@ -252,6 +256,7 @@
         "UNKNOWN_MESSAGE" : "پیام ناشناس",
         "DELETED_MESSAGE" : "پیام حذف شده",
         "DRAFT" : "پیش نویس : ",
+        "enterpin" : "رمز کیف پول را وارد نمایید",
 
 
 
@@ -433,6 +438,7 @@
         "BTN_DELETE" : "حذف",
         "BTN_EDITE" : "ویرایش",
         "BTN_CHARGE_WALLET" : "شارژ کیف پول",
+        "BTN_CASHOUT" : "برداشت از",
         "BTN_CASHOUT_WALLET" : "برداشت از کیف پول",
         "BTN_CASHOUT_WALLET_STORE" : "برداشت از کیف پول فروشگاه",
         "BTN_CASHOUT_WALLET_DRIVER" : "برداشت از کیف پول راننده",
@@ -731,7 +737,7 @@
         "PU_FOLLOW" : "دنبال کردن",
         "PU_NODATA" : "اطلاعاتی برای نمایش وجود ندارد.",
         "PU_EDITPROFILE" : "ویرایش اطلاعات",
-        "PU_PAYMENT" : "پرداخت پول",
+        "PU_PAYMENT" : "پرداخت",
         "PU_FOLLOWER" : "دنبال کننده",
         "PU_FOLLOWINGS" : "دنبال شونده",
         "PU_POSTS" : "پست ها",
@@ -782,7 +788,7 @@
         "WALLET_TRANSFER_MONEY" : "انتقال وجه کیف پول",
         "CARD_TRANSFER_MONEY" : "انتقال وجه کارت به کارت",
         "PAYMENT_TRANSFER_MONEY" : "پرداخت",
-        
+
         
         "PRODUCTS_SELLER" : "فروشنده",
         "PRODUCTS_SELECT_CATEGORY" : "انتخاب دسته",
@@ -1106,7 +1112,10 @@
 
         
         
-        
+        "WALLET_PAY_LBL3" : "Total Amount (Rials) :",
+        "WALLET_PAY_LBL1" : "Discount Amount (Rials) :",
+        "WALLET_PAY_LBL0" : "Payable Amount (Rials) :",
+
         
         
         
@@ -1337,6 +1346,7 @@
         "BTN_DELETE" : "Delete",
         "BTN_EDITE" : "Edit",
         "BTN_CHARGE_WALLET" : "Charge",
+        "BTN_CASHOUT" : "Cash Out",
         "BTN_CASHOUT_WALLET" : "Cash Out",
         "BTN_CASHOUT_WALLET_STORE" : "Cash Out from Store Wallet",
         "BTN_CASHOUT_WALLET_DRIVER" : "Cash Out from Driver Wallet",
@@ -1503,6 +1513,8 @@
         "INVALID_ANSWER" : "Wrong Answer",
         "RECOVER_BY_ANSWER_IS_FORBIDDEN" : "Recovery Using Security question is forbidden",
         "SET_BTN" : "Set",
+
+        "enterpin" : "Enter Pin",
 
         "SETTING_PS_TV_Q1" : "Question 1 :",
         "SETTING_PS_TV_Q2" : "Question 2 :",

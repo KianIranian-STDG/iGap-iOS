@@ -37,6 +37,7 @@ class SMCard : SMEntity{
     var backgroundimage:String?
     var token:String?
     var isDefault:Bool? = false
+    var clubID:String?
 
 //
 //
@@ -64,7 +65,7 @@ class SMCard : SMEntity{
             nsmo.setValue(card.exp_m, forKey: "exp_m")
             nsmo.setValue(card.backgroundimage, forKey: "backgroundimage")
             nsmo.setValue(card.isDefault, forKey: "default")
-
+            nsmo.setValue(card.clubID, forKey: "club_id")
             if card.isDefault == true{
                 nsmo.setValue(0, forKey: "order")
             }
@@ -95,6 +96,8 @@ class SMCard : SMEntity{
         c.token = nsmo.value(forKey: "token") as? String
         c.isDefault = nsmo.value(forKey: "default") as? Bool ?? false
         c.backgroundimage = nsmo.value(forKey: "backgroundimage") as? String
+        c.clubID = nsmo.value(forKey: "club_id") as? String
+
 
         let bank = SMBank()
         bank.setBankInfo(code: c.bankCode ?? 0)
@@ -469,6 +472,8 @@ class SMCard : SMEntity{
                 card.bankCode = cardItem?["bank_code"] as? Int64
                 card.backgroundimage = cardItem?["background_image"] as? String
                 card.isDefault = cardItem?["default"] as? Bool ?? false
+                card.clubID = cardItem?["club_id"] as? String
+
                 let bank = SMBank()
                 bank.setBankInfo(code: card.bankCode ?? 0)
                 card.bank = bank
@@ -479,6 +484,7 @@ class SMCard : SMEntity{
             SMCard.deleteAllCardsFromDB()
             SMCard.addCardsToDB(cards:serverCards)
 
+            let tmpCards = SMCard.getAllCardsFromDB()
             onSuccess?(serverCards)
         }
 
@@ -514,6 +520,8 @@ class SMCard : SMEntity{
                 card.bankCode = cardItem?["bank_code"] as? Int64
                 card.backgroundimage = cardItem?["background_image"] as? String
                 card.isDefault = cardItem?["default"] as? Bool ?? false
+                card.clubID = cardItem?["club_id"] as? String
+
                 let bank = SMBank()
                 bank.setBankInfo(code: card.bankCode ?? 0)
                 card.bank = bank
