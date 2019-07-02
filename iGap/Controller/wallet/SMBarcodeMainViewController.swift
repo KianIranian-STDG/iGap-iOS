@@ -264,8 +264,10 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
             UserDefaults.standard.setValue(merchantBalance, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
+            UserDefaults.standard.setValue(discount_percent!, forKey: "modalDiscountPercent")
 //            UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
+            print (UserDefaults.standard.integer(forKey: "modalDiscountPercent"))
             print (self.transportId)
             if (self.transportId)  != nil {
                 UserDefaults.standard.setValue(self.transportId!, forKey: "modalTrasnportID")
@@ -560,18 +562,18 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
                         DispatchQueue.main.async {
                             
 //                            self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
-                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
+                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:discount_percent)
                         }
                         break
                     case 1 :
                         DispatchQueue.main.async {
-                            self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                            self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:discount_percent)
                         }
 
                         break
                     case 2 :
                         DispatchQueue.main.async {
-                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
+                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:discount_percent)
                         }
 
                         break

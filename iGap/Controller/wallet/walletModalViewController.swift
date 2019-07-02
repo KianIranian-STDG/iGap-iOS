@@ -19,8 +19,8 @@ protocol HandlePayModal {
 }
 
 class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleReciept {
-
-
+    
+    
     struct _mutual_club_card_info {
         var club_revoked = Int()
         var id = String()
@@ -33,7 +33,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         var merchant_revoked = Int()
         var min = Int()
     }
-
+    
     func close() {
         hasShownQrCode = false
         self.dismiss(animated: true, completion: nil)
@@ -47,15 +47,18 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     
     
     ////
+    var selectedCardTpPay: SMCard!
+    var paygearCard: SMCard!
+    
     var currentStep = 0
     @IBOutlet weak var mainView: UIViewX!
     @IBOutlet weak var mainViewHeight: NSLayoutConstraint!
     var MutualClubCards: [Any]!
     var FinalMutualCards = [SMCard()]
     var serverCards = [_mutual_club_card_info()]
-
+    var disCountPercent  : Int = 0
     @IBOutlet weak var btnPickClub: UIButton!
-
+    
     @IBOutlet weak var holder0: UIView!
     @IBOutlet weak var lblTTL0: UILabel!
     @IBOutlet weak var lblVALUE0: UILabel!
@@ -131,11 +134,11 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         
         
         self.mainView.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
-
+        
         lblPersonesCount.font = UIFont.igFont(ofSize: 20)
         self.userCards = SMCard.getAllCardsFromDB()
-       
- 
+        
+        
         initView()
         handleUIChange()
         initUI(stepCount: 0)
@@ -143,7 +146,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)]
@@ -176,13 +179,15 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         self.btnPickClub.layer.cornerRadius = 15
         self.btnPickClub.layer.borderWidth = 1
         self.btnPickClub.layer.borderColor = UIColor.black.cgColor
-
+        
         self.btnPay.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
         self.tfAmountToPy.font = UIFont.igFont(ofSize: 15)
         self.tfPin.attributedPlaceholder = NSAttributedString(string: "enterpin".localizedNew, attributes: [
             .foregroundColor: UIColor.lightGray,
             .font: UIFont.igFont(ofSize: 15)
             ])
+        disCountPercent = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
+        let tmp = disCountPercent
         profilePicUrl = UserDefaults.standard.string(forKey: "modalUserPic")
         currentAmount = UserDefaults.standard.string(forKey: "modalUserAmount")
         transportId = UserDefaults.standard.string(forKey: "modalTrasnportID")
@@ -248,7 +253,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 self.stepHolderAmount.isHidden = false
                 self.holderPin.isHidden = true
                 self.tfPin.isHidden = true
-
+                
                 self.holderButton.isHidden = false
                 
                 self.lblTTL0.text  = "WALLET_PAY_LBL0".localizedNew
@@ -256,6 +261,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 self.lblTTL3.text  = "WALLET_PAY_LBL3".localizedNew
                 self.lblVALUE0.text  = self.tfAmountToPy.text
                 self.lblVALUE1.text  = "0".inLocalizedLanguage()
+                
                 self.lblVALUE3.text  = "0".inLocalizedLanguage()
                 self.mainView.layoutIfNeeded()
             })
@@ -268,7 +274,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             UIView.animate(withDuration: 0.3, animations: {
                 self.holder0.isHidden = false
                 self.holder1.isHidden = false
-                self.holder3.isHidden = true
+                self.holder3.isHidden = false
                 self.holder4.isHidden = false
                 self.holderStepCounter.isHidden = true
                 self.stepHolderPicker.isHidden = false
@@ -281,9 +287,24 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 self.lblTTL1.text  = "WALLET_PAY_LBL1".localizedNew
                 self.lblTTL3.text  = "WALLET_PAY_LBL3".localizedNew
                 self.lblVALUE0.text  = self.tfAmountToPy.text
-                self.lblVALUE1.text  = "0".inLocalizedLanguage()
-                self.lblVALUE3.text  = "0".inLocalizedLanguage()
-
+                let tmp = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
+                let tmpAmountToPay = self.lblVALUE0.text
+                let tmppP = tmpAmountToPay?.onlyDigitChars()
+                if tmp == 0 {
+                    self.lblVALUE1.text  = "0".inLocalizedLanguage()
+                    
+                }
+                else {
+                    let tmpPercent = Int((tmp))
+                    let tmpSum = Int(tmppP!)
+                    var tmpValue = tmpSum! * tmpPercent
+                    tmpValue = tmpValue / 100
+                    self.lblVALUE1.text  = (String(tmpValue)).inRialFormat().inLocalizedLanguage()
+                    
+                }
+                
+                self.lblVALUE3.text  = String(Int(((self.lblVALUE0.text)?.onlyDigitChars())!)! - Int(((self.lblVALUE1.text)?.onlyDigitChars())!)!).inRialFormat()
+                
                 self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
                 self.btnPay.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
                 self.mainView.layoutIfNeeded()
@@ -295,8 +316,17 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             self.mainViewHeight.constant = 300
             UIView.animate(withDuration: 0.3, animations: {
                 self.holder0.isHidden = false
-                self.holder1.isHidden = false
-                self.holder3.isHidden = true
+                if self.selectedCardTpPay?.bankCode == 69 && self.selectedCardTpPay?.clubID == nil {
+                    self.holder1.isHidden = true
+                    self.lblVALUE1.text  = String(self.selectedCardTpPay.balance!).inRialFormat().inLocalizedLanguage()
+                    
+                }
+                else {
+                    self.holder1.isHidden = false
+                    self.lblVALUE1.text  = String(self.selectedCardTpPay.balance!).inRialFormat().inLocalizedLanguage()
+                    
+                }
+                self.holder3.isHidden = false
                 self.holder4.isHidden = true
                 self.holderStepCounter.isHidden = true
                 self.stepHolderPicker.isHidden = true
@@ -306,12 +336,28 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 
                 self.holderButton.isHidden = false
                 
-                self.lblTTL0.text  = "WALLET_PAY_LBL0".localizedNew
-                self.lblTTL1.text  = "WALLET_PAY_LBL1".localizedNew
-                self.lblTTL3.text  = "WALLET_PAY_LBL3".localizedNew
+                self.lblTTL0.text  = "WALLET_PAY_LBL3".localizedNew
+                self.lblTTL1.text  = "TTL_WALLET_CLUB_USER".localizedNew
+                self.lblTTL3.text  = "TTL_WALLET_BALANCE_USER".localizedNew
                 self.lblVALUE0.text  = self.tfAmountToPy.text
-                self.lblVALUE1.text  = "0".inLocalizedLanguage()
-                self.lblVALUE3.text  = "0".inLocalizedLanguage()
+                let tmpAmountToPayy = (self.tfAmountToPy.text)?.inEnglishNumbers()
+                let tmp = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
+                let tmpAmountToPay = self.lblVALUE0.text
+                let tmppP = tmpAmountToPay?.onlyDigitChars()
+                if tmp == 0 {
+                    self.lblVALUE0.text  = self.tfAmountToPy.text
+                    
+                }
+                else {
+                    let tmpPercent = Int((tmp))
+                    let tmpSum = Int(tmppP!)
+                    var tmpValue = tmpSum! * tmpPercent
+                    tmpValue = tmpValue / 100
+                    self.lblVALUE0.text  = String(Int(((tmpAmountToPayy)?.onlyDigitChars())!)! - Int((tmpValue))).inRialFormat()
+                    
+                }
+                self.lblVALUE3.text  = merchantBalance.inLocalizedLanguage()
+                
                 self.holderPin.layoutIfNeeded()
                 
                 self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
@@ -349,6 +395,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     }
     @objc func didtapOutSide() {
         if dismissBtn != nil {
+            UserDefaults.standard.setValue(0, forKey: "modalDiscountPercent")
+            
             
             name = nil
             lblDescription.text = ""
@@ -367,24 +415,24 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         
     }
     
-//    @IBAction func payBtnTapedDows(_ sender: Any) {
-//
-//        tfAmountToPy.resignFirstResponder()
-//
-//        if self.tfAmountToPy.text == "" ||
-//            self.tfAmountToPy.text?.inEnglishNumbers() == "0" {
-//            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "FILL_AMOUNT".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in return;})
-//        }
-//
-//        else {
-//
-//            self.GetMutualClubList(MerchantCode: self.targetAccountId, UserCode: merchantID) { response in
-//                //                self.getAmountPopup.removeFromSuperview()
-//                self.paySequence(ClubList: response)
-//
-//            }
-//        }
-//    }
+    //    @IBAction func payBtnTapedDows(_ sender: Any) {
+    //
+    //        tfAmountToPy.resignFirstResponder()
+    //
+    //        if self.tfAmountToPy.text == "" ||
+    //            self.tfAmountToPy.text?.inEnglishNumbers() == "0" {
+    //            SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "FILL_AMOUNT".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in return;})
+    //        }
+    //
+    //        else {
+    //
+    //            self.GetMutualClubList(MerchantCode: self.targetAccountId, UserCode: merchantID) { response in
+    //                //                self.getAmountPopup.removeFromSuperview()
+    //                self.paySequence(ClubList: response)
+    //
+    //            }
+    //        }
+    //    }
     
     
     @IBAction func payBtnTapedDows(_ sender: Any) {
@@ -392,7 +440,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         switch currentStep {
         case 0:
             self.currentStep = 1
-
+            
             tfAmountToPy.resignFirstResponder()
             if self.tfAmountToPy.text == "" ||
                 self.tfAmountToPy.text?.inEnglishNumbers() == "0" {
@@ -404,10 +452,10 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     self.initUI(stepCount: self.currentStep)
                     self.getCardMutralClubs(cards: response)
                     //                self.getAmountPopup.removeFromSuperview()
-//                    self.paySequence(ClubList: response)
+                    //                    self.paySequence(ClubList: response)
                 }
             }
-
+            
         case 1:
             if segmentPick.selectedSegmentIndex == 1 {
                 paySequence()
@@ -415,9 +463,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             else {
                 self.currentStep = 2
                 self.initUI(stepCount: self.currentStep)
-
+                
             }
-
+            
             break
         case 2 :
             
@@ -426,7 +474,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 self.initUI(stepCount: self.currentStep)
                 self.currentStep = 3
                 
-
+                
             }
         case 3 :
             
@@ -459,7 +507,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             serverCards.append(card)
         }
         self.FetchClubCardList(RecivedClubsCardDataFromWeb: serverCards)
-
+        
     }
     
     func FetchClubCardList(RecivedClubsCardDataFromWeb: [_mutual_club_card_info]) {
@@ -482,15 +530,17 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         self.FinalMutualCards = FinalCards
     }
     @IBAction func cardPickTap(_ sender: Any) {
-
+        
         SMLoading.shared.showClubCardDialog(viewController: self, icon: nil, title: "SAVED_CARDS".localizedNew, cards: self.FinalMutualCards,yesPressed: { card, saveDefault in
-
+            
+            let tmp = self.FinalMutualCards
             let selectCard = (card as! SMCard)
+            self.selectedCardTpPay = selectCard
             if let pan = selectCard.pan {
                 
                 let newStr = pan
                 self.btnPickClub.setTitle((self.btnPickClub.currentTitle!) + "     " + newStr, for: .normal)
-
+                
             }
             
         },noPressed: {
@@ -510,25 +560,25 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             self.stepHolderPicker.isHidden = false
             if currentStep == 1 {
                 self.initUI(stepCount: currentStep)
-            self.btnPay.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
+                self.btnPay.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
             }
             else if currentStep == 0 {
                 self.stepHolderPicker.isHidden = true
                 self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
-
+                
             }
             else {
                 self.initUI(stepCount: currentStep)
                 self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
-
+                
             }
-
+            
         }
         else {
             print("Card")
             self.stepHolderPicker.isHidden = true
             self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
-
+            
         }
     }
     func AnimateMainViewHeight() {
@@ -538,8 +588,10 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         })
     }
     
-
+    
     func paySequence() {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        
         self.tfPin.resignFirstResponder()
         if segmentPick.selectedSegmentIndex == 0 {
             
@@ -551,27 +603,61 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 return
             }
             
-
-        if isTaxi {
-            if isUser {
-                self.qrCode?.removeAll()
-                
-            }
-            SMCard.initPayment(amount: Int(tmp1), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : "0", isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
-                
-                let json = response as? Dictionary<String, AnyObject>
-                SMUserManager.publicKey = json?["pub_key"] as? String
-                SMUserManager.payToken = json?["token"] as? String
-                
-                
-                for card in self.userCards! {
-                    if card.type == 1 {
+            
+            if isTaxi {
+                if isUser {
+                    self.qrCode?.removeAll()
+                    
+                }
+                SMCard.initPayment(amount: Int(tmp1), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : "0", isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
+                    
+                    let json = response as? Dictionary<String, AnyObject>
+                    SMUserManager.publicKey = json?["pub_key"] as? String
+                    SMUserManager.payToken = json?["token"] as? String
+                    
+                    //
+                    //                for card in self.userCards! {
+                    //                    if card.type == 1 {
+                    //                        let para  = NSMutableDictionary()
+                    //                        para.setValue(card.token, forKey: "c")
+                    //                        para.setValue((self.tfPin.text!).onlyDigitChars(), forKey: "p2")
+                    //                        para.setValue(card.type, forKey: "type")
+                    //                        para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
+                    //                        para.setValue(card.bankCode, forKey: "bc")
+                    //
+                    //                        let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
+                    //                        let jsonString = String(data: jsonData, encoding: .utf8)
+                    //
+                    //                        if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
+                    //                            //                                            self.popup.endEditing(true)
+                    //                            //                                    self.showReciept(response: NSDictionary())
+                    //                            SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
+                    //
+                    //                                //                                                self.gotobuttonState()
+                    //                                if let result = resp as? NSDictionary{
+                    //                                    SMLoading.hideLoadingPage()
+                    //
+                    //                                    SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+                    //                                }
+                    //                            }, onFailed: {err in
+                    //                                SMLog.SMPrint(err)
+                    //
+                    //                                if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
+                    //                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                    //                                }
+                    //                                //                                                self.gotobuttonState()
+                    //                            })
+                    //                        }
+                    //
+                    //                    }
+                    //                }
+                    if self.selectedCardTpPay.type == 1 {
                         let para  = NSMutableDictionary()
-                        para.setValue(card.token, forKey: "c")
+                        para.setValue(self.selectedCardTpPay.token, forKey: "c")
                         para.setValue((self.tfPin.text!).onlyDigitChars(), forKey: "p2")
-                        para.setValue(card.type, forKey: "type")
+                        para.setValue(self.selectedCardTpPay.type, forKey: "type")
                         para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
-                        para.setValue(card.bankCode, forKey: "bc")
+                        para.setValue(self.selectedCardTpPay.bankCode, forKey: "bc")
                         
                         let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
                         let jsonString = String(data: jsonData, encoding: .utf8)
@@ -583,6 +669,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                                 
                                 //                                                self.gotobuttonState()
                                 if let result = resp as? NSDictionary{
+                                    SMLoading.hideLoadingPage()
                                     
                                     SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
                                 }
@@ -597,64 +684,163 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                         }
                         
                     }
-                }
-                
-                
-            }, onFailed: { (err) in
-                self.dismiss(animated: true, completion: nil)
-                //                                }
-            })
-        }
-        else {
-            
-            self.qrCode = merchantID
-            let tmp = self.qrCode
-            SMCard.initPayment(amount: Int(tmp1), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : "0", isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
-                
-                let json = response as? Dictionary<String, AnyObject>
-                SMUserManager.publicKey = json?["pub_key"] as? String
-                SMUserManager.payToken = json?["token"] as? String
-                
-                
-                for card in self.userCards! {
-                    if card.type == 1 {
-                        
+                    else {
                         let para  = NSMutableDictionary()
-                        
-                        para.setValue(card.token, forKey: "c")
+                        para.setValue(self.selectedCardTpPay.token, forKey: "c")
                         para.setValue((self.tfPin.text!).onlyDigitChars(), forKey: "p2")
-                        para.setValue(card.type, forKey: "type")
+                        para.setValue(self.selectedCardTpPay.type, forKey: "type")
                         para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
-                        para.setValue(card.bankCode, forKey: "bc")
+                        para.setValue(self.selectedCardTpPay.bankCode, forKey: "bc")
                         
                         let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
                         let jsonString = String(data: jsonData, encoding: .utf8)
                         
                         if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
-                            //                                        self.popup.endEditing(true)
+                            //                                            self.popup.endEditing(true)
                             //                                    self.showReciept(response: NSDictionary())
-                            SMCard.payPayment(enc: enc, enc2: nil, onSuccess: {resp in
+                            SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
                                 
+                                //                                                self.gotobuttonState()
                                 if let result = resp as? NSDictionary{
+                                    SMLoading.hideLoadingPage()
                                     
                                     SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
                                 }
                             }, onFailed: {err in
-                                SMLoading.hideLoadingPage()
+                                SMLog.SMPrint(err)
                                 
+                                if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
+                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                                }
+                                //                                                self.gotobuttonState()
                             })
                         }
-                    }
-                    else {
                         
                     }
-                }
-            }, onFailed: {err in
-                SMLog.SMPrint(err)
+                    
+                }, onFailed: { (err) in
+                    self.dismiss(animated: true, completion: nil)
+                    //                                }
+                })
+            }
+            else {
                 
-                SMLoading.hideLoadingPage()
-            })
-        }
+                self.qrCode = merchantID
+                let tmp = self.qrCode
+                SMCard.initPayment(amount: Int(tmp1), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : "0", isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
+                    
+                    let json = response as? Dictionary<String, AnyObject>
+                    SMUserManager.publicKey = json?["pub_key"] as? String
+                    SMUserManager.payToken = json?["token"] as? String
+                    
+                    
+//                    for card in self.userCards! {
+//                        if card.type == 1 {
+//
+//                            let para  = NSMutableDictionary()
+//
+//                            para.setValue(card.token, forKey: "c")
+//                            para.setValue((self.tfPin.text!).onlyDigitChars(), forKey: "p2")
+//                            para.setValue(card.type, forKey: "type")
+//                            para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
+//                            para.setValue(card.bankCode, forKey: "bc")
+//
+//                            let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
+//                            let jsonString = String(data: jsonData, encoding: .utf8)
+//
+//                            if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
+//                                //                                        self.popup.endEditing(true)
+//                                //                                    self.showReciept(response: NSDictionary())
+//                                SMCard.payPayment(enc: enc, enc2: nil, onSuccess: {resp in
+//
+//                                    if let result = resp as? NSDictionary{
+//                                        SMLoading.hideLoadingPage()
+//
+//                                        SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+//                                    }
+//                                }, onFailed: {err in
+//                                    SMLoading.hideLoadingPage()
+//
+//                                })
+//                            }
+//                        }
+//                        else {
+//
+//                        }
+//                    }
+                    if self.selectedCardTpPay.type == 1 {
+                        let para  = NSMutableDictionary()
+                        para.setValue(self.selectedCardTpPay.token, forKey: "c")
+                        para.setValue((self.tfPin.text!).onlyDigitChars(), forKey: "p2")
+                        para.setValue(self.selectedCardTpPay.type, forKey: "type")
+                        para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
+                        para.setValue(self.selectedCardTpPay.bankCode, forKey: "bc")
+                        
+                        let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
+                        let jsonString = String(data: jsonData, encoding: .utf8)
+                        
+                        if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
+                            //                                            self.popup.endEditing(true)
+                            //                                    self.showReciept(response: NSDictionary())
+                            SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
+                                
+                                //                                                self.gotobuttonState()
+                                if let result = resp as? NSDictionary{
+                                    SMLoading.hideLoadingPage()
+                                    
+                                    SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+                                }
+                            }, onFailed: {err in
+                                SMLog.SMPrint(err)
+                                
+                                if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
+                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                                }
+                                //                                                self.gotobuttonState()
+                            })
+                        }
+                        
+                    }
+                    else {
+                        let para  = NSMutableDictionary()
+                        para.setValue(self.selectedCardTpPay.token, forKey: "c")
+                        para.setValue((self.tfPin.text!).onlyDigitChars(), forKey: "p2")
+                        para.setValue(self.selectedCardTpPay.type, forKey: "type")
+                        para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
+                        para.setValue(self.selectedCardTpPay.bankCode, forKey: "bc")
+                        
+                        let jsonData = try! JSONSerialization.data(withJSONObject: para, options: [])
+                        let jsonString = String(data: jsonData, encoding: .utf8)
+                        
+                        if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
+                            //                                            self.popup.endEditing(true)
+                            //                                    self.showReciept(response: NSDictionary())
+                            SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
+                                
+                                //                                                self.gotobuttonState()
+                                if let result = resp as? NSDictionary{
+                                    SMLoading.hideLoadingPage()
+                                    
+                                    SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+                                }
+                            }, onFailed: {err in
+                                SMLog.SMPrint(err)
+                                
+                                if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
+                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                                }
+                                //                                                self.gotobuttonState()
+                            })
+                        }
+                        
+                    }
+
+                }, onFailed: {err in
+                    SMLog.SMPrint(err)
+                    
+                    SMLoading.hideLoadingPage()
+                })
+            }
         }
         else {
             //pay by card
@@ -859,7 +1045,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         request.addFailedHandler { (response: Any) in
             
             SMLoading.hideLoadingPage()
-//            self.reader.startScanning()
+            //            self.reader.startScanning()
             if SMValidation.showConnectionErrorToast(response) {
                 SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: "serverDown".localized)
             } else if (response as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
