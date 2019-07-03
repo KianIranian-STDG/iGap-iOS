@@ -264,10 +264,9 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             UserDefaults.standard.setValue(name, forKey: "modalUserName")
             UserDefaults.standard.setValue(merchantBalance, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
-            UserDefaults.standard.setValue(discount_percent!, forKey: "modalDiscountPercent")
+            UserDefaults.standard.setValue(discount_percent ?? 0, forKey: "modalDiscountPercent")
 //            UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
-            print (UserDefaults.standard.integer(forKey: "modalDiscountPercent"))
             print (self.transportId)
             if (self.transportId)  != nil {
                 UserDefaults.standard.setValue(self.transportId!, forKey: "modalTrasnportID")

@@ -139,6 +139,9 @@ class SMSavedCardsAlertViewController: UIViewController,UIPickerViewDelegate,UIP
         else if savedClubs.count != 0 {
             let card = savedClubs[row]
             label.text = card.pan
+            if card.pan == "پیگیر کارت" {
+                label.text = "کیف پول کاربر"
+            }
         }
 		/*
 		this code shows bank name too but it has a bug on persian numbers
