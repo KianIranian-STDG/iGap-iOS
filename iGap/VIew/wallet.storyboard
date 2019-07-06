@@ -435,6 +435,7 @@
                         <outlet property="btnCashout" destination="jRM-iJ-XVk" id="fla-Th-Ytt"/>
                         <outlet property="btnCharge" destination="A45-HS-xdb" id="ZYL-eb-NRB"/>
                         <outlet property="btnHisto" destination="OaC-m7-M05" id="LfA-3m-UxG"/>
+                        <outlet property="btnQrCodeScan" destination="kT3-Sj-NQE" id="6bj-ki-ePV"/>
                         <outlet property="cardCollectionView" destination="MUQ-Lc-vt9" id="5KA-Aw-Z2w"/>
                         <outlet property="lblCurrency" destination="clP-Pw-Zvl" id="HC4-ut-Njh"/>
                         <outlet property="lblCurrencyFormat" destination="W1T-7L-ZGT" id="AwJ-AK-Vds"/>

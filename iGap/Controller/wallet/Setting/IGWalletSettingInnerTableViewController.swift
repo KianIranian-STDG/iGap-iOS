@@ -213,21 +213,21 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         
         if isFirstTime {
             oldPassword = ""
-            newCPassword = self.tfThird.text!.inEnglishNumbers()
-            newPassword = self.tfSecond.text!.inEnglishNumbers()
+            newCPassword = self.tfThird.text!.inEnglishNumbers().onlyDigitChars()
+            newPassword = self.tfSecond.text!.inEnglishNumbers().onlyDigitChars()
 
         }
         else {
             
-            oldPassword = self.tfFirst.text!.inEnglishNumbers()
-            newCPassword = self.tfThird.text!.inEnglishNumbers()
-            newPassword = self.tfSecond.text!.inEnglishNumbers()
+            oldPassword = self.tfFirst.text!.inEnglishNumbers().onlyDigitChars()
+            newCPassword = self.tfThird.text!.inEnglishNumbers().onlyDigitChars()
+            newPassword = self.tfSecond.text!.inEnglishNumbers().onlyDigitChars()
             
         }
         
-        if  SMValidation.walletPassCodeValidation(newPassword) {
+        if  SMValidation.walletPassCodeValidation(newPassword.onlyDigitChars()) {
             
-            if newPassword == newCPassword {
+            if newPassword.onlyDigitChars() == newCPassword.onlyDigitChars() {
 
                 SMUserManager.loadPassFromKeychain()
                     //Request to server
@@ -355,8 +355,8 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         var newCPassword = ""
         if isOTP {
             otp = self.tfFirst.text!.inEnglishNumbers()
-            newPassword = self.tfSecond.text!.inEnglishNumbers()
-            newCPassword = self.tfThird.text!.inEnglishNumbers()
+            newPassword = self.tfSecond.text!.inEnglishNumbers().onlyDigitChars()
+            newCPassword = self.tfThird.text!.inEnglishNumbers().onlyDigitChars()
             
             if SMValidation.walletPassCodeValidation(otp.onlyDigitChars().inEnglishNumbers()), SMValidation.walletPassCodeValidation(newPassword.onlyDigitChars().inEnglishNumbers()) {
                 

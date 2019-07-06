@@ -11,7 +11,7 @@ import Presentr
 import models
 
 
-class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelegate {
+class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelegate,HandleReciept {
     @IBOutlet weak var btnpay: UIButtonX!
     @IBOutlet weak var cashoutTypeSeg: UISegmentedControl!
     @IBOutlet weak var widthConstrait: NSLayoutConstraint!
@@ -231,7 +231,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 return
             }
             SMCard.confirmChashout(amount: amount,
-                                   cardNumber: (cardNumber?.removeSepratorCardNum()),
+                                   cardNumber: (self.tfCardNumber.text?.removeSepratorCardNum().inEnglishNumbers()),
                                    cardToken:  cardToken,
                                    accountId: accountId , onSuccess: {resp in
                                     DispatchQueue.main.async(execute: { () -> Void in
@@ -244,6 +244,9 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 if SMValidation.showConnectionErrorToast(err)  {
                     SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
                 }
+                let message = (err as! NSDictionary).value(forKey: "message") as! String
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+
 
                 
                 
@@ -259,7 +262,10 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "ENTER_WALLET_PIN".localizedNew, yesPressed: { pin in
 //                self.gotoLoadingState()
                 SMLoading.showLoadingPage(viewcontroller: self)
-                SMCard.chashout(amount: amount , cardNumber:  cardNu, cardToken: "",sourceCardToken: cardToken, pin: (pin as? String) ,isFast : false, accountId: accountId ,onSuccess: {resp in
+                if currentRole == "admin" {
+                    
+                }
+                SMCard.chashout(amount: amount , cardNumber:  cardNu, cardToken: "",sourceCardToken: sourceCardToken, pin: (pin as? String) ,isFast : false, accountId: accountId ,onSuccess: {resp in
                     
                     SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "SUCCESS_OPERATION".localizedNew, message: "SUCCESS".localizedNew, yesPressed: { pin in
                         
@@ -271,7 +277,11 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                     })
                     SMLog.SMPrint(resp)
                 }, onFailed: {err in
+                    
                     SMLoading.hideLoadingPage()
+                    let message = (err as! NSDictionary).value(forKey: "message") as! String
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+
                     
                 })
                 
@@ -288,9 +298,12 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
             //show get pin popup
             SMLoading.shared.showInputPinDialog(viewController: self, icon: nil, title: "", message: "enterpin".localized, yesPressed: { pin in
                 
-                self.gotoLoadingState()
+//                self.gotoLoadingState()
+                SMLoading.showLoadingPage(viewcontroller: self)
+
                 SMCard.initPayment(amount: amount, accountId: SMUserManager.accountId, from: merchantID, orderType: ORDER_TYPE.P2P, discount_price: nil, isCredit: true, onSuccess: { response in
-                    
+                    SMLoading.hideLoadingPage()
+
                     let json = response as? Dictionary<String, AnyObject>
                     SMUserManager.publicKey = json?["pub_key"] as? String
                     SMUserManager.payToken = json?["token"] as? String
@@ -321,6 +334,9 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                                         SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
                                     }
                                 }, onFailed: {err in
+                                    let message = (err as! NSDictionary).value(forKey: "message") as! String
+                                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+
                                     SMLoading.hideLoadingPage()
                                     
                                 })
@@ -333,6 +349,9 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
 
                 }, onFailed: { (err) in
                     SMLog.SMPrint(err)
+                    let message = (err as! NSDictionary).value(forKey: "message") as! String
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+
                 })
                 
                 
@@ -364,6 +383,20 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         // #warning Incomplete implementation, return the number of rows
       
             return 8
+    }
+    ///Handle reciept
+    func close() {
+        
+        self.dismiss(animated: true, completion: {
+            self.tabBarController?.tabBar.isUserInteractionEnabled = true
+        })
+    }
+    
+    func screenView() {
+        close()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            SMReciept.getInstance().screenReciept(viewcontroller: self)
+        }
     }
     //Mark: Actions
     @IBAction func btnPayTap(_ sender: Any) {
@@ -402,7 +435,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbers())
                 if amount <= Int(SMUserManager.userBalance) {
                     if currentRole == "admin" {
-                        payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers(), cardNumber: "" ,cardToken: self.tmpCardToken)
+                        payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers(), cardNumber: self.tfCardNumber.text?.inEnglishNumbers() ,cardToken: self.tmpCardToken)
 
                     }
                     else {

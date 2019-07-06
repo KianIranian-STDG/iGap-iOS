@@ -33,6 +33,7 @@ class SMNormalAlertViewController : BaseViewController {
         dialogTitle.textAlignment = .center
         if let mess = message {
         messageLabel.text = mess
+            messageLabel.sizeToFit()
         }
         rightButton.enable()
         if leftButtonEnable!{

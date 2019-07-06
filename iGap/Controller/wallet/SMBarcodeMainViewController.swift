@@ -265,6 +265,15 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             UserDefaults.standard.setValue(merchantBalance, forKey: "modalUserAmount")
             UserDefaults.standard.setValue(self.targetAccountId!, forKey: "modalTargetAccountID")
             UserDefaults.standard.setValue(discount_percent ?? 0, forKey: "modalDiscountPercent")
+            UserDefaults.standard.setValue(discount_value ?? 0, forKey: "modalDiscountValue")
+            if discount_value != nil {
+                presentedViewController.shouldUsePercent = false
+
+            }
+            else {
+                presentedViewController.shouldUsePercent = true
+
+            }
 //            UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
 
             print (self.transportId)
@@ -547,6 +556,10 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
 
         self.getAccountInformation(accountId:  String(describing:accountId), closure: {name, subTitle, imagePath, acountType, discount_percent, discount_value  in
             
+            let tmpVal : Int? = discount_value
+            let tmpPercent : Int? = discount_percent
+
+            
             if qrType == Int(SMQRCode.SMAccountType.User.rawValue) || qrType == Int(SMQRCode.SMAccountType.HyperMe.rawValue) {
                 SMLoading.hideLoadingPage()
                 if isHyperMe {
@@ -560,19 +573,49 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
                     case 0 :
                         DispatchQueue.main.async {
                             
-//                            self.showPayModal(type: .PopupNoProductTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
-                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:discount_percent)
+                            if discount_percent != nil {
+                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:tmpPercent)
+                            }
+                            else if discount_value != nil {
+                                self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_value:tmpVal)
+
+                            }
+                            else {
+                                self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
+
+                            }
                         }
                         break
                     case 1 :
                         DispatchQueue.main.async {
-                            self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:discount_percent)
+                            if discount_percent != nil {
+                                self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:tmpPercent)
+                            }
+                            else if discount_value != nil {
+                                self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath,discount_value:tmpVal)
+                                
+                            }
+                            else {
+                                self.showPayModal(type: .PopupProductedTaxi, name: name, subTitle: subTitle, imgUser: imagePath)
+                                
+                            }
                         }
 
                         break
                     case 2 :
                         DispatchQueue.main.async {
-                            self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:discount_percent)
+                            
+                            if discount_percent != nil {
+                                self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_percent:tmpPercent)
+                            }
+                            else if discount_value != nil {
+                                self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath,discount_value:tmpVal)
+                                
+                            }
+                            else {
+                                self.showPayModal(type: .PopupUser, name: name, subTitle: subTitle, imgUser: imagePath)
+                                
+                            }
                         }
 
                         break

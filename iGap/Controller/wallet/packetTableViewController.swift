@@ -31,7 +31,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     @IBOutlet weak var lblMyCards: UILabel!
     @IBOutlet weak var btnCashout: UIButtonX!
     @IBOutlet weak var btnHisto: UIButton!
+    @IBOutlet weak var btnQrCodeScan: UIButton!
     @IBOutlet weak var btnCharge: UIButtonX!
+    
     var bussinessArray : [Int]! = []
     var showSection: Bool = true
     var selectedRow: Int = 0

@@ -36,17 +36,23 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     
     func close() {
         hasShownQrCode = false
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+
     }
     
+
     func screenView() {
-        print("test")
+        close()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            SMReciept.getInstance().screenReciept(viewcontroller: self)
+        }
     }
-    
     
     
     
     ////
+    var shouldUsePercent : Bool! = true
     var selectedCardTpPay: SMCard!
     var paygearCard: SMCard!
     var hypermePrice : String! = ""
@@ -194,6 +200,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             .font: UIFont.igFont(ofSize: 15)
             ])
         disCountPercent = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
+        disCountPercent = UserDefaults.standard.integer(forKey: "modalDiscountValue")
         let tmp = disCountPercent
         profilePicUrl = UserDefaults.standard.string(forKey: "modalUserPic")
         currentAmount = UserDefaults.standard.string(forKey: "modalUserAmount")
@@ -311,20 +318,46 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     self.lblVALUE0.text  = self.tfAmountToPy.text
                 }
                 let tmp = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
+                let tmpVal = UserDefaults.standard.integer(forKey: "modalDiscountValue")
                 let tmpAmountToPay = self.lblVALUE0.text
                 let tmppP = tmpAmountToPay?.onlyDigitChars()
-                if tmp == 0 {
+                if tmp == 0 && tmpVal == 0 {
+                    
                     self.lblVALUE1.text  = "0".inLocalizedLanguage()
                     
                 }
-                else {
-                    let tmpPercent = Int((tmp))
-                    let tmpSum = Int(tmppP!)
-                    var tmpValue = tmpSum! * tmpPercent
-                    tmpValue = tmpValue / 100
-                    self.lblVALUE1.text  = (String(tmpValue)).inRialFormat().inLocalizedLanguage()
                     
+                else {
+                    if self.shouldUsePercent {
+                        if tmp == 0 {
+                            self.lblVALUE1.text  = "0".inLocalizedLanguage()
+                            
+                        }
+                        else {
+                            let tmpPercent = Int((tmp))
+                            let tmpSum = Int(tmppP!)
+                            var tmpValue = tmpSum! * tmpPercent
+                            tmpValue = tmpValue / 100
+                            self.lblVALUE1.text  = (String(tmpValue)).inRialFormat().inLocalizedLanguage()
+                            
+                        }
+                    }
+                    else {
+                        if tmpVal == 0 {
+                            self.lblVALUE1.text  = "0".inLocalizedLanguage()
+                            
+                        }
+                        else {
+                            let tmpValue = Int((tmpVal))
+                            let tmpSum = Int(tmppP!)
+//                            tmpValue = tmpSum! - tmpValue
+                            self.lblVALUE1.text  = (String(tmpValue)).inRialFormat().inLocalizedLanguage()
+                            
+                        }
+                    }
+ 
                 }
+                
                 
                 self.lblVALUE3.text  = String(Int(((self.lblVALUE0.text)?.onlyDigitChars())!)! - Int(((self.lblVALUE1.text)?.onlyDigitChars())!)!).inRialFormat()
                 
@@ -381,41 +414,86 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     
                 }
                 let tmpAmountToPayy = (self.lblVALUE0.text)?.inEnglishNumbers()
-                let tmp = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
                 let tmpAmountToPay = self.lblVALUE0.text
                 let tmppP = tmpAmountToPay?.onlyDigitChars()
-                if tmp == 0 {
-                    self.discount_price = "0"
-                    if isHyperMe  {
-                        self.lblVALUE0.text  = self.tfAmountToPy.placeholder
+                if self.shouldUsePercent {
+                    let tmp = UserDefaults.standard.integer(forKey: "modalDiscountPercent")
 
-                    }
-                    else {
-                        self.lblVALUE0.text  = self.tfAmountToPy.text
+                    if tmp == 0 {
+                        
+                        self.discount_price = "0"
+                        if isHyperMe  {
+                            self.lblVALUE0.text  = self.tfAmountToPy.placeholder
+                            self.payableAmountWithoutDisc = self.lblVALUE0.text!
+                            
+                        }
+                        else {
+                            self.lblVALUE0.text  = self.tfAmountToPy.text
+                            self.payableAmountWithoutDisc = self.lblVALUE0.text!
+                            
+                        }
                         
                     }
-                    self.payableAmountWithoutDisc = self.lblVALUE0.text!
+                    else {
+                        let tmpPercent = Int((tmp))
+                        let tmpSum = Int(tmppP!)
+                        self.payableAmountWithoutDisc = String(tmpSum!)
+                        var tmpValue = tmpSum! * tmpPercent
+                        tmpValue = tmpValue / 100
+                        self.discount_price = String(tmpValue)
+                        self.lblVALUE0.text  = String(Int(((tmpAmountToPayy)?.onlyDigitChars())!)! - Int((tmpValue))).inRialFormat()
+                        
+                    }
+                    self.payableAmount = tmppP!
+                    self.payableAmountWithoutDisc = tmppP!
+                    self.lblVALUE3.text  = merchantBalance.inLocalizedLanguage()
+                    
+                    self.holderPin.layoutIfNeeded()
+                    
+                    self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
+                    self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+                    self.mainView.layoutIfNeeded()
 
                 }
                 else {
-                    let tmpPercent = Int((tmp))
-                    let tmpSum = Int(tmppP!)
-                    self.payableAmountWithoutDisc = String(tmpSum!)
-                    var tmpValue = tmpSum! * tmpPercent
-                    tmpValue = tmpValue / 100
-                    self.discount_price = String(tmpValue)
-                    self.lblVALUE0.text  = String(Int(((tmpAmountToPayy)?.onlyDigitChars())!)! - Int((tmpValue))).inRialFormat()
+                    let tmp = UserDefaults.standard.integer(forKey: "modalDiscountValue")
+
+                    if tmp == 0 {
+                        
+                        self.discount_price = "0"
+                        if isHyperMe  {
+                            self.lblVALUE0.text  = self.tfAmountToPy.placeholder
+                            self.payableAmountWithoutDisc = self.lblVALUE0.text!
+                            
+                        }
+                        else {
+                            self.lblVALUE0.text  = self.tfAmountToPy.text
+                            self.payableAmountWithoutDisc = self.lblVALUE0.text!
+                            
+                        }
+                        
+                    }
+                    else {
+                        let tmpValue = Int((tmp))
+                        let tmpSum = Int(tmppP!)
+
+                        self.discount_price = String(tmpValue)
+                        self.lblVALUE0.text  = String(Int(((tmpAmountToPayy)?.onlyDigitChars())!)! - Int((tmpValue))).inRialFormat()
+                        
+                    }
+                    self.payableAmount = tmppP!
+                    self.payableAmountWithoutDisc = tmppP!
+                    self.lblVALUE3.text  = merchantBalance.inLocalizedLanguage()
                     
+                    self.holderPin.layoutIfNeeded()
+                    
+                    self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
+                    self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
+                    self.mainView.layoutIfNeeded()
+                    
+
                 }
-                self.payableAmount = self.lblVALUE0.text!
-                self.payableAmountWithoutDisc = tmppP!
-                self.lblVALUE3.text  = merchantBalance.inLocalizedLanguage()
-                
-                self.holderPin.layoutIfNeeded()
-                
-                self.btnPickClub.setTitle("BTN_CASHOUT".localizedNew, for: .normal)
-                self.btnPay.setTitle("PU_PAYMENT".localizedNew, for: .normal)
-                self.mainView.layoutIfNeeded()
+
             }, completion: {res in
                 self.holderPin.isHidden = false
                 self.tfPin.isHidden = false
@@ -721,6 +799,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     SMLoading.hideLoadingPage()
 
                     if (err as! Dictionary<String, AnyObject>)["message"] != nil {
+                        SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+
                     } else if (err as! Dictionary<String, AnyObject>)["server serror"] != nil {
                         SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: "serverDown".localized)
                     }
@@ -731,7 +811,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             }
             else {
                 
-                SMCard.initPayment(amount: Int(self.lblVALUE0.text!.onlyDigitChars().inEnglishNumbers()), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : self.discount_price, isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
+                SMCard.initPayment(amount: Int(self.tfAmountToPy.text!.onlyDigitChars().inEnglishNumbers()), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : self.discount_price, isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
                     SMLoading.hideLoadingPage()
 
                     let json = response as? Dictionary<String, AnyObject>
@@ -746,6 +826,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     SMLoading.hideLoadingPage()
 
                     if (err as! Dictionary<String, AnyObject>)["message"] != nil {
+                        SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
+                        
                     } else if (err as! Dictionary<String, AnyObject>)["server serror"] != nil {
                         SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: "serverDown".localized)
                         
@@ -758,7 +840,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         else {
             //pay by card
             SMLoading.showLoadingPage(viewcontroller: self)
-            SMCard.initPayment(amount: Int((self.tfAmountToPy.text?.inEnglishNumbers().onlyDigitChars())!), accountId: self.targetAccountId,from : merchantID, transportId: self.transportId, qrCode: "", discount_price: self.discount_price, onSuccess: { response in
+            SMCard.initPayment(amount: Int((self.lblVALUE3.text?.inEnglishNumbers().onlyDigitChars())!), accountId: self.targetAccountId,from : merchantID, transportId: self.transportId, qrCode: "", discount_price: self.discount_price, onSuccess: { response in
                 
                 
                 SMLoading.hideLoadingPage()
@@ -839,10 +921,11 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 }
             }, onFailed: {err in
                 SMLog.SMPrint(err)
+                let message = (err as! NSDictionary).value(forKey: "message") as! String
+                SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+
+              
                 
-                if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
-                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
-                }
             })
         }
     }
@@ -886,9 +969,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     SMLog.SMPrint(err)
                     SMLoading.showToast(viewcontroller: self, text: "error".localized)
                     SMLoading.hideLoadingPage()
-                    if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
-                        SMLoading.shared.showNormalDialog(viewController: self, height: 300, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
-                    }
+                    let message = (err as! NSDictionary).value(forKey: "message") as! String
+                    SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
+
                 })
             }
         }
