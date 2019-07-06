@@ -681,7 +681,10 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 }
             }
             if let pan = selectCard.pan {
-                let newStr = pan
+                var newStr = pan
+                if newStr == "پیگیر کارت" {
+                    newStr = "کیف پول کاربر"
+                }
                 self.btnPickClub.setTitle(("BTN_CASHOUT".localizedNew) + "     " + newStr, for: .normal)
                 
             }

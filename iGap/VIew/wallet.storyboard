@@ -432,6 +432,7 @@
                     <tabBarItem key="tabBarItem" title="" image="qr-code_25" id="upV-qy-BHp"/>
                     <navigationItem key="navigationItem" id="VvT-gU-7d5" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="barcodeQrwidth" destination="ZkK-I9-d1c" id="3c4-3Q-XJ7"/>
                         <outlet property="btnCashout" destination="jRM-iJ-XVk" id="fla-Th-Ytt"/>
                         <outlet property="btnCharge" destination="A45-HS-xdb" id="ZYL-eb-NRB"/>
                         <outlet property="btnHisto" destination="OaC-m7-M05" id="LfA-3m-UxG"/>

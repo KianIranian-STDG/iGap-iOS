@@ -82,11 +82,11 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
         if isfromPacket {
             switch currentBussinessType {
             case 0 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_STORE".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
                 
                 break
             case 2 :
-                lblCurrency.text = "TTL_WALLET_BALANCE_DRIVER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
+                lblCurrency.text = "TTL_WALLET_BALANCE_USER".localizedNew + "\(" \n")\(merchantBalance.inLocalizedLanguage()) \(" ")" + "CURRENCY".localizedNew
                 
                 break
             case 3 :

@@ -25,6 +25,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     var layout =  UICollectionViewFlowLayout()
     var delegate: HandlePassBalance? = nil
 
+    @IBOutlet weak var barcodeQrwidth: NSLayoutConstraint!
     @IBOutlet weak var lblWalletBalance : UILabel!
     @IBOutlet weak var lblCurrencyFormat : UILabel!
     @IBOutlet weak var lblMyHistoryTitle : UILabel!
@@ -175,15 +176,27 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 
                 if currentRole == "admin" || currentRole == "paygearuser" {
                     self.navigationItem.rightBarButtonItems = [settingItem , receiverItem]
+                    if currentRole == "paygearuser" {
+                        barcodeQrwidth.constant = 47.0
+                        self.btnQrCodeScan.layoutIfNeeded()
+                        self.view.layoutIfNeeded()
+
+                    }
                 }
                 else {
                     self.navigationItem.rightBarButtonItems = [receiverItem]
-                    
+                    barcodeQrwidth.constant = 0.0
+                    self.btnQrCodeScan.layoutIfNeeded()
+                    self.view.layoutIfNeeded()
+
                 }
             }
             else {
                 self.navigationItem.rightBarButtonItems = [settingItem]
-                
+                barcodeQrwidth.constant = 0.0
+                self.btnQrCodeScan.layoutIfNeeded()
+                self.view.layoutIfNeeded()
+
             }
             
         }
