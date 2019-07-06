@@ -41,7 +41,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
     var selectedIndexPath: IndexPath = IndexPath(row: 0, section: 0)
     var items: [[DropdownItem]]!
-    var otheritems: [DropdownItem]!
+    var otheritems: [DropdownItem] = []
     var Taxyitems: [DropdownItem] = []
     var Merchantitems: [DropdownItem] = []
 
@@ -292,6 +292,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         bussinessArray.removeAll()
         Merchantitems.removeAll()
         Taxyitems.removeAll()
+        otheritems.removeAll()
         var menuView: DropdownMenu?
         menuView?.layer.cornerRadius = 15.0
         menuView?.clipsToBounds = true
@@ -300,6 +301,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         for i in 0..<userMerchants!.count {
             bussinessArray.append(userMerchants![i].businessType ?? 3)
         }
+        let tt = userMerchants
         bussinessArray = uniq(source: bussinessArray)
         for ii in userMerchants! {
             if let tmpVal : Int = ii.businessType {
@@ -310,6 +312,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                     Merchantitems.append(tmpItem)
                     break
                 case 1 :
+                    let tmpItem = DropdownItem(image: nil, title: "\((ii.name)!) - \((ii.role!).localizedNew)", id: (ii.id!), role: (ii.role!), bType: (ii.businessType!))
+                    otheritems.append(tmpItem)
+
                     break
                 case 2 :
                     let tmpItem = DropdownItem(image: nil, title: "\((ii.name)!) - \((ii.role!).localizedNew)", id: (ii.id!), role: (ii.role!), bType: (ii.businessType!))
@@ -323,6 +328,8 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 
         }
         if showSection {
+            let test = bussinessArray.count
+            let testT = bussinessArray
             switch bussinessArray.count {
             case 1 :
                 let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
@@ -335,16 +342,27 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 if bussinessArray.contains(0) {
                     let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
-
+                    
                     let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
-
-               
+                    
+                    
                     
                     items = [[item0],Merchantitems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1], selectedIndexPath: selectedIndexPath)
-
+                    
                 }
-                
+                else if bussinessArray.contains(1) {
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
+                    
+                    let section1 = DropdownSection(sectionIdentifier:  "other".localizedNew, items: otheritems)
+                    
+                    
+                    
+                    items = [[item0],otheritems]
+                    menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1], selectedIndexPath: selectedIndexPath)
+                    
+                }
                 else if bussinessArray.contains(2) {
                     let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
@@ -357,25 +375,69 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1], selectedIndexPath: selectedIndexPath)
                     
                 }
+                
 
                 
                 break
             case 3 :
-                if bussinessArray.contains(0) {
+                if (bussinessArray.contains(0)) && (bussinessArray.contains(1)) {
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
+                    
+                    let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
+                    let section2 = DropdownSection(sectionIdentifier:  "other".localizedNew, items: otheritems)
+                    
+                    
+                    
+                    items = [[item0],Merchantitems ,otheritems]
+                    menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2], selectedIndexPath: selectedIndexPath)
+                    
+                }
+                
+                else if (bussinessArray.contains(0)) && (bussinessArray.contains(2)) {
                     let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
                     let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
                     
                     let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
                     let section2 = DropdownSection(sectionIdentifier:  "driver".localizedNew, items: Taxyitems)
-
+                    
                     
                     
                     items = [[item0],Merchantitems ,Taxyitems]
                     menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2], selectedIndexPath: selectedIndexPath)
                     
                 }
+                
+                else if (bussinessArray.contains(1)) && (bussinessArray.contains(2)) {
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
+                    
+                    let section1 = DropdownSection(sectionIdentifier:  "other".localizedNew, items: otheritems)
+                    let section2 = DropdownSection(sectionIdentifier:  "driver".localizedNew, items: Taxyitems)
+                    
+                    
+                    
+                    items = [[item0],otheritems ,Taxyitems]
+                    menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2], selectedIndexPath: selectedIndexPath)
+                    
+                }
                 break
             case 4 :
+                
+                if (bussinessArray.contains(0)) && (bussinessArray.contains(1))  && (bussinessArray.contains(2)) {
+                    let item0 = DropdownItem(image: nil, title: "paygearuser".localizedNew, id: SMUserManager.accountId, role: ("paygearuser"), bType: 3)
+                    let section0 = DropdownSection(sectionIdentifier:  "", items: [item0])
+                    
+                    let section1 = DropdownSection(sectionIdentifier:  "store".localizedNew, items: Merchantitems)
+                    let section2 = DropdownSection(sectionIdentifier:  "other".localizedNew, items: otheritems)
+                    let section3 = DropdownSection(sectionIdentifier:  "driver".localizedNew, items: Taxyitems)
+
+                    
+                    
+                    items = [[item0],Merchantitems ,otheritems,Taxyitems]
+                    menuView = DropdownMenu(navigationController: navigationController!, sections: [section0,section1 ,section2,section3], selectedIndexPath: selectedIndexPath)
+                    
+                }
                 break
             default :
                 break
@@ -955,9 +1017,22 @@ extension packetTableViewController: DropdownMenuDelegate {
             setupUI()
             getMerChantCards()
             isMerchant = true
-
+            
             self.tableView.endUpdates()
-
+            
+            break
+        case 3 :
+            shouldShowHisto = true
+            self.tableView.beginUpdates()
+            merchantID = items[indexPath.section][indexPath.row].id
+            currentBussinessType = items[indexPath.section][indexPath.row].bType ?? 2
+            currentRole = items[indexPath.section][indexPath.row].role
+            setupUI()
+            getMerChantCards()
+            isMerchant = true
+            
+            self.tableView.endUpdates()
+            
             break
         default :
             break

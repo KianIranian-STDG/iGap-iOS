@@ -17,7 +17,9 @@ public var isTaxi : Bool! = false
 protocol HandlePayModal {
     func payTaped()
 }
-
+protocol walletPayHandler {
+    func closeAll()
+}
 class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleReciept {
     
     
@@ -36,8 +38,10 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     
     func close() {
         hasShownQrCode = false
-//        self.dismiss(animated: true, completion: nil)
-        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.delegateHandler?.closeAll()
+        })
+        //        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
 
     }
     
@@ -91,7 +95,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     ///
     var dismissBtn : UIButton!
     var delegate : HandlePayModal?
-    
+    var delegateHandler : walletPayHandler?
     @IBOutlet weak var lblPersonesCount: UILabel!
     @IBOutlet weak var lblPaidToTitle: UILabel!
     @IBOutlet weak var stepperPersons: UIStepper!
@@ -764,9 +768,12 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 }
 
             }
+            let t = self.currentAmount
             let tmp1 = Int(self.payableAmount.inEnglishNumbers().onlyDigitChars())!
             let tmp2 = Int(self.currentAmount.inEnglishNumbers().onlyDigitChars())!
             if Int(tmp1) > Int(tmp2) {
+                SMLoading.hideLoadingPage()
+
                 //show message about your amount is not enough
                 SMMessage.showWithMessage("AMOUNT_IS_NOT_ENOUGH".localizedNew)
                 return
@@ -776,6 +783,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 
                 SMCard.initPayment(amount: Int(payableAmountWithoutDisc), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : self.discount_price, isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
                     SMLoading.hideLoadingPage()
+                    SMLoading.showLoadingPage(viewcontroller: self)
+
                     let json = response as? Dictionary<String, AnyObject>
                     SMUserManager.publicKey = json?["pub_key"] as? String
                     SMUserManager.payToken = json?["token"] as? String
@@ -845,7 +854,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             SMLoading.showLoadingPage(viewcontroller: self)
             SMCard.initPayment(amount: Int((self.lblVALUE3.text?.inEnglishNumbers().onlyDigitChars())!), accountId: self.targetAccountId,from : merchantID, transportId: self.transportId, qrCode: "", discount_price: self.discount_price, onSuccess: { response in
                 
-                
+//                self.dismiss(animated: true, completion: nil)
+
                 SMLoading.hideLoadingPage()
                 let json = response as? Dictionary<String, AnyObject>
                 if let ipg = json?["ipg_url"] as? String ,ipg != "" {
@@ -916,14 +926,20 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         
         if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
             //                                    self.showReciept(response: NSDictionary())
+            SMLoading.showLoadingPage(viewcontroller: self)
+
             SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
-                
+                SMLoading.hideLoadingPage()
                 if let result = resp as? NSDictionary{
-                    
+//                    self.dismiss(animated: true, completion: nil)
+
                     SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
+                    
                 }
             }, onFailed: {err in
                 SMLog.SMPrint(err)
+                SMLoading.hideLoadingPage()
+
                 let message = (err as! NSDictionary).value(forKey: "message") as! String
                 SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: message)
 
@@ -963,9 +979,14 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         
         if let enc1 = RSA.encryptString(jsonString1, publicKey: SMUserManager.publicKey) {
             if let enc2 = RSA.encryptString(jsonString2, publicKey: SMUserManager.publicKey) {
+                SMLoading.showLoadingPage(viewcontroller: self)
+
                 SMCard.payPayment(enc: enc1, enc2: enc2, onSuccess: { resp in
-                    
+                    SMLoading.hideLoadingPage()
+
                     if let result = resp as? NSDictionary{
+//                        self.dismiss(animated: true, completion: nil)
+
                         SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
                     }
                 }, onFailed: { err in

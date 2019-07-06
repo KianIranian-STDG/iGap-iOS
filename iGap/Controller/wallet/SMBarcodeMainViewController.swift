@@ -20,7 +20,7 @@ var isUser : Bool! = false
 var isHyperMe : Bool! = false
 
 var toID = ""
-class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftView,HandlePassBalance,HandlePayModal{
+class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftView,HandlePassBalance,HandlePayModal,walletPayHandler{
     func payTaped() {
         print("TESTTING BENJI")
     }
@@ -28,7 +28,11 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
     func sendBalanceToScannerVC(cardBalance: String) {
         //
     }
-    
+    func closeAll() {
+        hasShownQrCode = false
+        self.dismiss(animated: true, completion: nil)
+
+    }
     func close() {
         hasShownQrCode = false
         self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
@@ -73,6 +77,8 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
         }
 
         initView()
+        
+
         self.hideKeyboardWhenTappedAround()
         self.lblCurrency.font = UIFont.igFont(ofSize: 18)
         self.userCards = SMCard.getAllCardsFromDB()
@@ -236,6 +242,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
     }
     func showPayModal(type: SMAmountPopupType, name:String , subTitle : String , imgUser : String, discount_percent: Int? = nil, discount_value: Int? = nil) {
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "payModal") as! walletModalViewController? {
+            presentedViewController.delegateHandler = self
             presentedViewController.providesPresentationContextTransitionStyle = true
             presentedViewController.definesPresentationContext = true
             presentedViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext;

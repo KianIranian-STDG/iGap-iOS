@@ -24,7 +24,7 @@ class SMMerchant: SMEntity {
 		///Sore key name
 		"store".localizedNew,
 		///No name
-		"",
+		"other".localizedNew,
 		///Driver key name
 		"driver".localizedNew]
 	
