@@ -448,7 +448,7 @@
             <objects>
                 <navigationController id="0dA-6f-aoV" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jq8-LT-PiL">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1251,13 +1251,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hI3-wW-ErK">
-                                                <rect key="frame" x="0.0" y="91" width="38" height="38"/>
+                                                <rect key="frame" x="0.0" y="91" width="16" height="38"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-z5-1z0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="16" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Ic-xrU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                                                                <rect key="frame" x="0.0" y="8" width="16" height="22"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Attachment"/>
                                                                 <connections>
                                                                     <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="dhv-wQ-8FF"/>
@@ -1312,11 +1312,11 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Ym-D0e">
-                                                                <rect key="frame" x="32" y="0.0" width="38" height="38"/>
+                                                                <rect key="frame" x="54" y="8" width="16" height="22"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Record"/>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
-                                                                <rect key="frame" x="70" y="0.0" width="0.0" height="38"/>
+                                                                <rect key="frame" x="70" y="8" width="0.0" height="22"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Send"/>
                                                                 <connections>
                                                                     <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Xid-u6-pzI"/>
@@ -1343,7 +1343,7 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agE-XC-sCP" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                <rect key="frame" x="47" y="100" width="194" height="20"/>
+                                                <rect key="frame" x="25" y="100" width="216" height="20"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="i0G-sC-VLl"/>
@@ -1748,7 +1748,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lag-5t-Bo2">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="70" width="320" height="410"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldf-Fa-K1P">
                                 <rect key="frame" x="6" y="70" width="308" height="40"/>
@@ -1939,7 +1939,7 @@
         <image name="igap_share_icon-1" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k9M-cr-cw2"/>
+        <segue reference="jRj-hY-oEr"/>
         <segue reference="R4P-x7-LEg"/>
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>

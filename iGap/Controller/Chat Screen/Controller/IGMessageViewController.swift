@@ -399,12 +399,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             UIView.transition(with: self.inputTextView, duration: ANIMATE_TIME, options: .transitionCrossDissolve, animations: {
                 self.inputTextView.isHidden = false
                 self.txtSticker.isHidden = false
-                self.inputBarMoneyTransferButton.isHidden = false
+                self.inputBarMoneyTransferButton.isHidden = true
                 self.inputBarRecordButton.isHidden = false
                 self.inputBarShareButton.isHidden = true
                 self.lblSelectedMessages.isHidden = true
 
-                self.RightBarConstraints.constant = 70
+                self.RightBarConstraints.constant = 38
                 
                 self.inputBarDeleteButton.isHidden = true
                 self.inputBarForwardButton.isHidden = true
@@ -446,8 +446,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             inputBarMoneyTransferButton.isHidden = true
             self.view.layoutIfNeeded()
         }else {
-            RightBarConstraints.constant = 70
-            inputBarMoneyTransferButton.isHidden = false
+            if isBotRoom(){
+                RightBarConstraints.constant = 38
+                inputBarMoneyTransferButton.isHidden = true
+
+            }
+            else {
+                RightBarConstraints.constant = 70
+                inputBarMoneyTransferButton.isHidden = false
+
+            }
             self.view.layoutIfNeeded()
 
         }
@@ -469,17 +477,36 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     
                 }
                 else if (IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
-                    self.inputBarMoneyTransferButton.isHidden = false
-                    self.RightBarConstraints.constant = 70
-                    self.view.layoutIfNeeded()
+                    if isBotRoom(){
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
+                        self.view.layoutIfNeeded()
+                        
+                        self.isCardToCardRequestEnable = false
 
-                    self.isCardToCardRequestEnable = true
-                    self.manageCardToCardInputBar()
+                    }
+                    else {
+                        self.inputBarMoneyTransferButton.isHidden = false
+                        self.RightBarConstraints.constant = 70
+                        self.view.layoutIfNeeded()
+                        
+                        self.isCardToCardRequestEnable = true
+                        self.manageCardToCardInputBar()
+
+                    }
                     
                 }
                 else {
-                self.inputBarMoneyTransferButton.isHidden = false
-                self.RightBarConstraints.constant = 70
+                    if isBotRoom(){
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
+
+                    }
+                    else {
+                        self.inputBarMoneyTransferButton.isHidden = false
+                        self.RightBarConstraints.constant = 70
+
+                    }
                 self.view.layoutIfNeeded()
                 }
             }
@@ -635,7 +662,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 //        inputTextView.minHeight = 25.0 // almost 8 lines
 
         inputTextView.maxHeight = 166.0 // almost 8 lines
-        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         inputTextView.layer.borderColor = UIColor.gray.cgColor
         inputTextView.layer.borderWidth = 0.4
         inputTextView.layer.cornerRadius = 17.0
@@ -1661,8 +1688,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func sendMessageState(enable: Bool){
         switch self.room!.type {
         case .chat:
-            self.inputBarMoneyTransferButton.isHidden = false
-            self.RightBarConstraints.constant = 70
+            
+            self.inputBarMoneyTransferButton.isHidden = true
+            self.RightBarConstraints.constant = 38
             self.view.layoutIfNeeded()
 
             break
@@ -1684,8 +1712,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.inputBarRecordButton.isHidden = true
                 switch self.room!.type {
                 case .chat:
-                    self.inputBarMoneyTransferButton.isHidden = false
-                    self.RightBarConstraints.constant = 70
+                    if self.isBotRoom() {
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
+
+                    }
+                    else {
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
+
+                    }
                     self.view.layoutIfNeeded()
                     
                     break
@@ -1705,8 +1741,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.inputBarMoneyTransferButton.isHidden = true
                     switch self.room!.type {
                     case .chat:
-                        self.inputBarMoneyTransferButton.isHidden = false
-                        self.RightBarConstraints.constant = 70
+                        self.inputBarMoneyTransferButton.isHidden = true
+                        self.RightBarConstraints.constant = 38
                         self.view.layoutIfNeeded()
                         
                         break
@@ -1731,11 +1767,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
             UIView.transition(with: self.inputBarSendButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.inputBarSendButton.isHidden = true
-                self.inputBarMoneyTransferButton.isHidden = false
+                self.inputBarMoneyTransferButton.isHidden = true
                 switch self.room!.type {
                 case .chat:
-                    self.inputBarMoneyTransferButton.isHidden = false
-                    self.RightBarConstraints.constant = 70
+                    self.inputBarMoneyTransferButton.isHidden = true
+                    self.RightBarConstraints.constant = 38
                     self.view.layoutIfNeeded()
                     
                     break
@@ -1755,8 +1791,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.inputBarMoneyTransferButton.isHidden = false
                     switch self.room!.type {
                     case .chat:
-                        self.inputBarMoneyTransferButton.isHidden = false
-                        self.RightBarConstraints.constant = 70
+                        if self.isBotRoom(){
+                            self.inputBarMoneyTransferButton.isHidden = true
+                            self.RightBarConstraints.constant = 38
+
+                        }
+                        else {
+                            self.inputBarMoneyTransferButton.isHidden = false
+                            self.RightBarConstraints.constant = 70
+
+                        }
                         self.view.layoutIfNeeded()
                         
                         break
@@ -1776,6 +1820,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         self.txtSticker.isHidden = true
                     } else {
                         self.txtSticker.isHidden = false
+                        
                     }
                 }, completion: nil)
                 
@@ -2766,8 +2811,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                             if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
                                 print("ROOM U :" , roomU)
                                 //if selected any message to forward
+                                var countt:Double = 0
+
                                 if self.selectedIndex.count > 0 {
-                                    var countt:Double = 0
                                     for element in self.selectedIndex {
 
                                         countt += 0.5
@@ -2781,7 +2827,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                 //let tmpMSG = self.messages[index]
                                                 message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+
                                                 IGMessageSender.defaultSender.send(message: message, to: roomU)
+                                                }
 
                                             }
                                         }
@@ -2801,8 +2850,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                             let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                                             let roomU = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
                                             //if selected any message to forward
+                                            var count:Double = 0
+
                                             if self.selectedIndex.count > 0 {
-                                                var count:Double = 0
                                                 for element in (self.selectedIndex) {
                                                     count = count + 0.5
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
