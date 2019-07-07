@@ -21,7 +21,8 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var contactViewBottomConstraizt: NSLayoutConstraint!
     @IBOutlet weak var contactViewHeightConstraint: NSLayoutConstraint!
-    
+    var baseUser: IGRegisteredUser?
+
     class User: NSObject {
         let registredUser: IGRegisteredUser
         @objc let name: String
@@ -35,7 +36,9 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     class Section  {
         var users = [User]()
         func addUser(_ user:User){
+            
             self.users.append(user)
+            
         }
     }
     
@@ -71,7 +74,11 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         }
         
         for user in users {
-            sections[user.section!].addUser(user)
+            if !(user.registredUser.id == baseUser?.id) {
+                sections[user.section!].addUser(user)
+
+            }
+          
         }
         
         for section in sections {
@@ -88,7 +95,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let tmp = baseUser
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
         collectionView.dataSource = self
@@ -128,7 +135,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
             if mode == "Members" {
                 navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
             }
-            if mode == "Convert Chat To Group" {
+            if mode == "ConvertChatToGroup" {
                 navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
             }
 
@@ -146,7 +153,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
             if mode == "Members" {
                 navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "Add Member")
             }
-            if mode == "Convert Chat To Group" {
+            if mode == "ConvertChatToGroup" {
                 navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew , title: "ADD_MEMBER_TO".localizedNew)
             }
 
@@ -207,7 +214,9 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
                         return user.registredUser
                     })
-                    createGroup.selectedUsersToCreateGroup = selectedUsersToCreateGroup
+                    var tmp = selectedUsersToCreateGroup
+                    tmp.append(self.baseUser!)
+                    createGroup.selectedUsersToCreateGroup = tmp
                     createGroup.mode = self.mode
                     createGroup.roomId = self.roomID
                     self.navigationController!.pushViewController(createGroup, animated: true)
@@ -225,7 +234,10 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                     let selectedUsersToCreateGroup = self.selectedUsers.map({ (user) -> IGRegisteredUser in
                         return user.registredUser
                     })
-                    createGroup.selectedUsersToCreateGroup = selectedUsersToCreateGroup
+                    var tmp = selectedUsersToCreateGroup
+                    tmp.append(self.baseUser!)
+                    createGroup.selectedUsersToCreateGroup = tmp
+
                     createGroup.mode = self.mode
                     createGroup.roomId = self.roomID
                     self.navigationController!.pushViewController(createGroup, animated: true)
@@ -415,6 +427,16 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
                 selectedUsers.append((currentCell?.user)!)
             }
             if self.mode == "CreateGroup" {
+                selectedUsers.append((currentCell?.user)!)
+                selectedIndexPath = indexPath
+                self.contactViewBottomConstraizt.constant = 0
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.selectedContactsView.alpha = 1
+                    self.view.layoutIfNeeded()
+                })
+                
+            }
+            if self.mode == "ConvertChatToGroup" {
                 selectedUsers.append((currentCell?.user)!)
                 selectedIndexPath = indexPath
                 self.contactViewBottomConstraizt.constant = 0

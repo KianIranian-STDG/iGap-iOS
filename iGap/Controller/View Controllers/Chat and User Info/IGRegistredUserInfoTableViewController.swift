@@ -764,8 +764,10 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestur
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
-        destination.mode = "Convert Chat To Group"
+        destination.mode = "ConvertChatToGroup"
         destination.roomID = previousRoomId
+        let tmp = user
+        destination.baseUser = user
     }
 
 }
