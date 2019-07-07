@@ -27,6 +27,7 @@ class IGMessageSender {
     
     func send(message: IGRoomMessage, to room: IGRoom) {
         let task = IGMessageSenderTask(message: message, room: room)
+        print("MESSAGE IS BEING SENT :" , message.id)
         if message.attachment != nil {
             addTaskToMessagesWithAttachmentQueue(task)
         } else {

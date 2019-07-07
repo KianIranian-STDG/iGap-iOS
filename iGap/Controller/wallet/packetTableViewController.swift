@@ -182,6 +182,12 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                         self.view.layoutIfNeeded()
 
                     }
+                    if currentRole == "admin" {
+                        barcodeQrwidth.constant = 0.0
+                        self.btnQrCodeScan.layoutIfNeeded()
+                        self.view.layoutIfNeeded()
+
+                    }
                 }
                 else {
                     self.navigationItem.rightBarButtonItems = [receiverItem]

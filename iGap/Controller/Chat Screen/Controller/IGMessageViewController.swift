@@ -2754,21 +2754,25 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         
                     }
                 default :
+                    print("SELECTED INDEX IS :",MultiShareModal.selectedIndex)
+
+                    
+                    
                     for id in MultiShareModal.selectedIndex {
-                        
+
                         if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
                             let tmpArray = MultiShareModal.FilteredMuliShareContacts
                             //if has chat
                             if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
-                                
+                                print("ROOM U :" , roomU)
                                 //if selected any message to forward
                                 if self.selectedIndex.count > 0 {
                                     var countt:Double = 0
                                     for element in self.selectedIndex {
-                                        
+
                                         countt += 0.5
                                         DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
-                                            
+
                                             if let index = self.messages.firstIndex(where: { $0.id == element }) {
                                                 let message = IGRoomMessage(body: "")
                                                 message.type = .text
@@ -2778,7 +2782,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 //let tmpMSG = self.messages[index]
                                                 message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 IGMessageSender.defaultSender.send(message: message, to: roomU)
-                                                
+
                                             }
                                         }
                                     }
@@ -2802,7 +2806,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 for element in (self.selectedIndex) {
                                                     count = count + 0.5
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
-                                                        
+
                                                         if let index = self.messages.firstIndex(where: { $0.id == element }) {
                                                             let message = IGRoomMessage(body: "")
                                                             message.type = .text
@@ -2830,9 +2834,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                     }
                                 }).send()
                             }
-                            
+
                         }
-                        
+
                     }
                 }
             }
@@ -2843,6 +2847,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         diselect()
         //go to process info
     }
+    
     func openChat(room : IGRoom){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
@@ -5748,5 +5753,6 @@ extension Array where Element: Equatable {
         return self.enumerated().filter({ element == $0.element }).map({ $0.offset })
     }
 }
+
 
 
