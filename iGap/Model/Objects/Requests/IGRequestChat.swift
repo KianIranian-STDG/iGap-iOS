@@ -171,7 +171,7 @@ class IGChatEditMessageRequest : IGRequest {
             editMessageRequestMessage.igpMessageID = message.id
             editMessageRequestMessage.igpMessage = newText
             editMessageRequestMessage.igpRoomID = room.id
-            return IGRequestWrapper(message: editMessageRequestMessage, actionID: 203)
+            return IGRequestWrapper(message: editMessageRequestMessage, actionID: 203, identity: message)
         }
     }
     
@@ -183,8 +183,7 @@ class IGChatEditMessageRequest : IGRequest {
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let response as IGPChatEditMessageResponse:
-                let type = IGRoomMessageType.unknown.fromIGP(response.igpMessageType)
-                IGFactory.shared.editMessage(response.igpMessageID, roomID: response.igpRoomID, message: response.igpMessage, messageType: type, messageVersion: response.igpMessageVersion)
+                IGFactory.shared.editMessage(response.igpMessageID, roomID: response.igpRoomID, message: response.igpMessage, messageType: response.igpMessageType, messageVersion: response.igpMessageVersion)
             default:
                 break
             }

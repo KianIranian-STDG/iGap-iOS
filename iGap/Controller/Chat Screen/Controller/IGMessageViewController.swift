@@ -233,6 +233,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     let sortPropertiesForMedia = [SortDescriptor(keyPath: "creationTime", ascending: true),
                                   SortDescriptor(keyPath: "id", ascending: true)]
     var messages: [IGRoomMessage]? = []
+    static var messageIdsStatic: [Int64] = []
     var messagesWithMedia = try! Realm().objects(IGRoomMessage.self)
     
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
@@ -6093,6 +6094,9 @@ extension Array where Element: Equatable {
 /********************************** Message Loader **********************************/
 extension IGMessageViewController: MessageOnChatReceiveObserver {
     
+    /*************************************************************************/
+    /******************************* Observers *******************************/
+    
     func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType) {
         /**
          * set "firstLoadDown" to false value for avoid from scroll to top after receive/send message
@@ -6102,7 +6106,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         self.messageLoader.setFirstLoadDown(firstLoadDown : false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if let message = IGRoomMessage.getMessageWithId(messageId: message.igpMessageID) {
-                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down, scrollToBottom: true)
             }
         }
     }
@@ -6116,7 +6120,34 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
-    func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection){
+    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64, updatePosition: Int?) {
+        if updatePosition == nil {return}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            /* this messageId updated so after get this message from realm it has latest update */
+            if let newMessage = IGRoomMessage.getMessageWithId(messageId: messageId) {
+                self.messages![updatePosition!] = newMessage
+                self.collectionView.reloadItems(at: [IndexPath(row: updatePosition!, section: 0)])
+            }
+        }
+    }
+    
+    /**
+     * compute and set oldMessage into the "onMessageEdit" callback method for find position of collection
+     * and messages array not worked, so i have to fetch position with this method
+     */
+    func getEditPosition(messageId: Int64) -> Int? {
+        return IGMessageViewController.messageIdsStatic.index(of: messageId)
+    }
+    
+    private func updateMessge(newMessage: IGRoomMessage, oldMessage: IGRoomMessage){
+        
+    }
+    
+    
+    /*********************************************************************************/
+    /******************************* Add to Collection *******************************/
+    
+    func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = false){
         if realmRoomMessages.count == 0 {
             return
         }
@@ -6130,9 +6161,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    for message in realmRoomMessages {
-                        self.messages!.append(message)
-                    }
+                    self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToTop(count: realmRoomMessages.count)
                     self.messageLoader.setFirstLoadUp(firstLoadUp: false)
                     self.messageLoader.setForceFirstLoadUp(forceFirstLoadUp: false)
@@ -6140,9 +6169,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    for message in realmRoomMessages {
-                        self.messages!.append(message)
-                    }
+                    self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToTop(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
                 }
@@ -6150,9 +6177,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         } else { // Down Direction
             if self.messageLoader.isFirstLoadDown() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    for message in realmRoomMessages {
-                        self.messages!.insert(message, at: 0)
-                    }
+                    self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count)
                     let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
                     self.collectionView.setContentOffset(bottomOffset, animated: true)
@@ -6161,12 +6186,12 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    for message in realmRoomMessages {
-                        self.messages!.insert(message, at: 0)
-                    }
+                    self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
-                    self.scrollManager()
+                    if scrollToBottom {
+                        self.scrollManager()
+                    }
                 }
             }
         }
@@ -6204,6 +6229,28 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             
             self.collectionView?.insertItems(at: arrayIndex)
         }, completion: nil)
+    }
+    
+    
+    /*********************************************************************************/
+    /******************************** Popular Methods ********************************/
+    
+    private func appendMessageArray(_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection){
+        if direction == .up {
+            for message in messages {
+                self.messages!.append(message)
+                IGMessageViewController.messageIdsStatic.append(message.id)
+            }
+        } else {
+            for message in messages {
+                self.messages!.insert(message, at: 0)
+                IGMessageViewController.messageIdsStatic.append(message.id)
+            }
+        }
+    }
+    
+    private func removeMessageArray(){
+        
     }
     
     /**

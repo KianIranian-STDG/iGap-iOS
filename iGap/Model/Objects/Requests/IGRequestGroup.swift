@@ -787,7 +787,7 @@ class IGGroupEditMessageRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPGroupEditMessageResponse) {
-            IGFactory.shared.editMessage(response.igpMessageID, roomID: response.igpRoomID, message: response.igpMessage, messageType: IGRoomMessageType.unknown.fromIGP(response.igpMessageType), messageVersion: response.igpMessageVersion)
+            IGFactory.shared.editMessage(response.igpMessageID, roomID: response.igpRoomID, message: response.igpMessage, messageType: response.igpMessageType, messageVersion: response.igpMessageVersion)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

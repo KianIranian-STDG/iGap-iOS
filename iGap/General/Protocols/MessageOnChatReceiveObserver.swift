@@ -13,4 +13,6 @@ import IGProtoBuff
 protocol MessageOnChatReceiveObserver {
     func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType)
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage)
+    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64, updatePosition: Int?)
+    func getEditPosition(messageId: Int64) -> Int?
 }
