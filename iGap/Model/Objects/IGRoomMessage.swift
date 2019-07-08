@@ -470,6 +470,7 @@ class IGRoomMessage: Object {
             let detachedForwarded = forwardedFrom.detach()
             detachedMessage.forwardedFrom = detachedForwarded
         }
+       
         if let reply = self.repliedTo {
             let detachedReply = reply.detach()
             detachedMessage.repliedTo = detachedReply

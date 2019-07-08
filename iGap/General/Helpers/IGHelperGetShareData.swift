@@ -481,10 +481,17 @@ class IGHelperGetShareData {
     /************************************************************************************************************/
     
     internal static func clearShareInfo(){
-        let realm = try! Realm()
-        try! realm.write {
-            realm.delete(realm.objects(IGShareInfo.self))
+        do {
+            let realm = try Realm()
+
+            try realm.write {
+                realm.delete(realm.objects(IGShareInfo.self))
+            }
+        } catch {
+            print("REALM ERROR HAPPENDED: ", error)
         }
+     
+        
     }
     
     

@@ -672,49 +672,54 @@ class IGNavigationItem: UINavigationItem {
     }
     
     private func setLastSeenLabelForUser(_ user: IGRegisteredUser , room : IGRoom) {
-        
-        if isCloud(room: room){
-            return
-        }
-        
-        if isBot(room: room){
-            self.centerViewSubLabel!.text = "BOT".localizedNew
-            return
-        }
-        
-        if room.currenctActionsByUsers.first?.value.1 != .typing && typingIndicatorView == nil {
-            
-            switch user.lastSeenStatus {
-            case .longTimeAgo:
-                self.centerViewSubLabel!.text = "A_LONG_TIME_AGO".localizedNew
-                break
-            case .lastMonth:
-                self.centerViewSubLabel!.text = "LAST_MONTH".localizedNew
-                break
-            case .lastWeek:
-                self.centerViewSubLabel!.text = "LAST_WEAK".localizedNew
-                break
-            case .online:
-                self.centerViewSubLabel!.text = "ONLINE".localizedNew
-                break
-            case .exactly:
-                self.centerViewSubLabel!.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
-                break
-            case .recently:
-                self.centerViewSubLabel!.text = "A_FEW_SEC_AGO".localizedNew
-                break
-            case .support:
-                self.centerViewSubLabel!.text = "IGAP_SUPPORT".localizedNew
-                break
-            case .serviceNotification:
-                self.centerViewSubLabel!.text = "SERVICE_NOTIFI".localizedNew
-                break
+        if !(room.isInvalidated) && !(user.isInvalidated) {
+            if isCloud(room: room){
+                return
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { // TODO - saeed - use realm notification listener
-                self.setLastSeenLabelForUser(user , room: room)
+            if isBot(room: room){
+                self.centerViewSubLabel!.text = "BOT".localizedNew
+                return
+            }
+            
+            if room.currenctActionsByUsers.first?.value.1 != .typing && typingIndicatorView == nil {
+                
+                switch user.lastSeenStatus {
+                case .longTimeAgo:
+                    self.centerViewSubLabel!.text = "A_LONG_TIME_AGO".localizedNew
+                    break
+                case .lastMonth:
+                    self.centerViewSubLabel!.text = "LAST_MONTH".localizedNew
+                    break
+                case .lastWeek:
+                    self.centerViewSubLabel!.text = "LAST_WEAK".localizedNew
+                    break
+                case .online:
+                    self.centerViewSubLabel!.text = "ONLINE".localizedNew
+                    break
+                case .exactly:
+                    self.centerViewSubLabel!.text = "\(user.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
+                    break
+                case .recently:
+                    self.centerViewSubLabel!.text = "A_FEW_SEC_AGO".localizedNew
+                    break
+                case .support:
+                    self.centerViewSubLabel!.text = "IGAP_SUPPORT".localizedNew
+                    break
+                case .serviceNotification:
+                    self.centerViewSubLabel!.text = "SERVICE_NOTIFI".localizedNew
+                    break
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { // TODO - saeed - use realm notification listener
+                    self.setLastSeenLabelForUser(user , room: room)
+                }
             }
         }
+        else {
+            print("ERROR HAPPEND IN REALM")
+        }
+       
     }
     
     

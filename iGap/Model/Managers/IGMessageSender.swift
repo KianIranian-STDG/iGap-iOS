@@ -25,24 +25,12 @@ class IGMessageSender {
         messagesWithAttachmentQueue = DispatchQueue(label: "im.igap.ios.queue.message.attachment")
     }
     
-    func send(message: IGRoomMessage, to room: IGRoom) {
+    func send(message: IGRoomMessage, to room: IGRoom, sendRequest: Bool = true) {
         let task = IGMessageSenderTask(message: message, room: room)
         if message.attachment != nil {
-            addTaskToMessagesWithAttachmentQueue(task)
+            addTaskToMessagesWithAttachmentQueue(task, sendRequest: sendRequest)
         } else {
-            addTaskToPlainMessagesQueue(task)
-        }
-    }
-    func sendMultiMessages(messages: [IGRoomMessage], to room: IGRoom) {
-        for message in messages {
-            let task = IGMessageSenderTask(message: message, room: room)
-
-            if message.attachment != nil {
-                addTaskToMessagesWithAttachmentQueue(task)
-            } else {
-                addTaskToPlainMessagesQueue(task)
-            }
-
+            addTaskToPlainMessagesQueue(task, sendRequest: sendRequest)
         }
     }
     
@@ -62,24 +50,30 @@ class IGMessageSender {
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){
-        var count:Double = 0
-        let realm = try! Realm()
-        var predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
-        if roomId != 0 {
-            predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.sending.rawValue)
-        }
-        
-        for message in realm.objects(IGRoomMessage.self).filter(predicate) {
-            if message.isInvalidated {
-                break
+        do {
+            var count:Double = 0
+
+            let realm = try Realm()
+            var predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
+            if roomId != 0 {
+                predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.sending.rawValue)
             }
-            count = count + 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + count){
-                let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
-                if room != nil && !room!.isInvalidated {
-                    IGMessageSender.defaultSender.resend(message: message, to: room!)
+            
+            for message in realm.objects(IGRoomMessage.self).filter(predicate) {
+                if message.isInvalidated {
+                    break
+                }
+                count = count + 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + count){
+                    let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
+                    if room != nil && !room!.isInvalidated {
+                        IGMessageSender.defaultSender.resend(message: message, to: room!)
+                    }
                 }
             }
+
+        } catch let error as NSError {
+            print("REALM ERROR HAPPENDED: ", error)
         }
     }
     
@@ -115,9 +109,11 @@ class IGMessageSender {
     }
     
     //MARK: Queue Handler
-    private func addTaskToPlainMessagesQueue(_ task: IGMessageSenderTask) {
+    private func addTaskToPlainMessagesQueue(_ task: IGMessageSenderTask, sendRequest: Bool = true) {
         plainMessagesArray.append(task)
-        sendNextPlainRequest()
+        if sendRequest {
+            sendNextPlainRequest()
+        }
     }
     
     fileprivate func removeTaskFromPlainMessagesQueue(_ task: IGMessageSenderTask?) {
@@ -128,9 +124,11 @@ class IGMessageSender {
         }
     }
     
-    private func addTaskToMessagesWithAttachmentQueue(_ task: IGMessageSenderTask) {
+    private func addTaskToMessagesWithAttachmentQueue(_ task: IGMessageSenderTask, sendRequest: Bool = true) {
         messagesWithAttachmentArray.append(task)
+        if sendRequest {
         uploadAttahcmentForNextRequest()
+        }
     }
     
     private func moveMesageFromAttachmentedQueueToPlainQueue(_ task: IGMessageSenderTask) {
@@ -160,7 +158,7 @@ class IGMessageSender {
     
     
     //MARK: Send Next
-    private func sendNextPlainRequest() {
+    func sendNextPlainRequest() {
         if let nextMessageTask = plainMessagesArray.first {
             switch nextMessageTask.room.type {
             case .chat:
@@ -241,7 +239,7 @@ class IGMessageSender {
         }
     }
     
-    private func uploadAttahcmentForNextRequest() {
+     func uploadAttahcmentForNextRequest() {
         if let nextMessageToUpload = messagesWithAttachmentArray.first {
             if let nextMessageUploadTask = IGUploadManager.sharedManager.upload(file: nextMessageToUpload.message.attachment!, start: {
                 self.fileUploadStarted(nextMessageToUpload)

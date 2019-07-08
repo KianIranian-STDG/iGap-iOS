@@ -114,7 +114,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
             ViewWithDownloadIndicator.size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sizesArray[0]!)
         }
         else {
-            ViewWithDownloadIndicator.size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sizesArray[currentIndexOfImage]!)
+            ViewWithDownloadIndicator.size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sizesArray[currentIndexOfImage] ?? 0)
         }
             self.ViewWithDownloadIndicator.shouldShowSize = true
 
