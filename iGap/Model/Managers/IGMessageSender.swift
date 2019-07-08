@@ -27,11 +27,22 @@ class IGMessageSender {
     
     func send(message: IGRoomMessage, to room: IGRoom) {
         let task = IGMessageSenderTask(message: message, room: room)
-        print("MESSAGE IS BEING SENT :" , message.id)
         if message.attachment != nil {
             addTaskToMessagesWithAttachmentQueue(task)
         } else {
             addTaskToPlainMessagesQueue(task)
+        }
+    }
+    func sendMultiMessages(messages: [IGRoomMessage], to room: IGRoom) {
+        for message in messages {
+            let task = IGMessageSenderTask(message: message, room: room)
+
+            if message.attachment != nil {
+                addTaskToMessagesWithAttachmentQueue(task)
+            } else {
+                addTaskToPlainMessagesQueue(task)
+            }
+
         }
     }
     

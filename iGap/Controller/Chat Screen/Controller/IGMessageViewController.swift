@@ -2803,44 +2803,39 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 
                     
                     
-                    for id in MultiShareModal.selectedIndex {
+                    //////////////////////////NEW
 
+
+                    var emptyMessageArray = [IGRoomMessage?]()
+                    var emptyRoomArray = [IGRoom?]()
+                    var messageID = [Int64?]()
+                    emptyRoomArray.removeAll()
+                    emptyMessageArray.removeAll()
+
+
+
+                    for id in MultiShareModal.selectedIndex {
                         if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
                             let tmpArray = MultiShareModal.FilteredMuliShareContacts
                             //if has chat
                             if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
-                                print("ROOM U :" , roomU)
-                                //if selected any message to forward
-                                var countt:Double = 0
 
-                                if self.selectedIndex.count > 0 {
-                                    for element in self.selectedIndex {
+                                if emptyRoomArray.count == 0 {
+                                    emptyRoomArray.append(roomU)
+                                }
+                                else {
+                                    for elemnt in emptyRoomArray {
+                                        if elemnt!.id == roomU.id {
 
-                                        countt += 0.5
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
+                                        }
+                                        else {
+                                            emptyRoomArray.append(roomU)
 
-                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
-                                                let message = IGRoomMessage(body: "")
-                                                message.type = .text
-                                                message.roomId = roomU.id
-                                                let detachedMessage = message.detach()
-                                                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                //let tmpMSG = self.messages[index]
-                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-
-                                                IGMessageSender.defaultSender.send(message: message, to: roomU)
-                                                }
-
-                                            }
                                         }
                                     }
                                 }
-                                else {
-                                    return
-                                }
                             }
-                                //if dont have chat with contact
+                                //if dont has chat
                             else {
                                 IGGlobal.prgShow(self.view)
                                 IGChatGetRoomRequest.Generator.generate(peerId: tmpArray[index].id).success({ (protoResponse) in
@@ -2849,45 +2844,191 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                         if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                                             let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                                             let roomU = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
-                                            //if selected any message to forward
-                                            var count:Double = 0
 
-                                            if self.selectedIndex.count > 0 {
-                                                for element in (self.selectedIndex) {
-                                                    count = count + 0.5
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
+                                            if emptyRoomArray.count == 0 {
+                                                emptyRoomArray.append(roomU)
+                                            }
+                                            else {
+                                                for elemnt in emptyRoomArray {
+                                                    if elemnt!.id == roomU.id {
 
-                                                        if let index = self.messages.firstIndex(where: { $0.id == element }) {
-                                                            let message = IGRoomMessage(body: "")
-                                                            message.type = .text
-                                                            message.roomId = roomU.id
-                                                            let detachedMessage = message.detach()
-                                                            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                            message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                                            IGMessageSender.defaultSender.send(message: message, to: roomU)
-                                                        }
+                                                    }
+                                                    else {
+                                                        emptyRoomArray.append(roomU)
+
                                                     }
                                                 }
                                             }
-                                            else {
-                                                return
-                                            }
                                         }
                                     }
-                                }).error({ (errorCode, waitTime) in
-                                    DispatchQueue.main.async {
-                                        IGGlobal.prgHide()
-                                        let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
-                                        let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                        alertC.addAction(cancel)
-                                        self.present(alertC, animated: true, completion: nil)
-                                    }
-                                }).send()
+                                })
                             }
-
                         }
 
                     }
+                    //Message Handler
+                    for rm in emptyRoomArray {
+                        if self.selectedIndex.count > 0 {
+                            for msg in self.selectedIndex {
+
+                                if let index = self.messages.firstIndex(where: { $0.id == msg }) {
+                                    let message = IGRoomMessage(body: "")
+                                    message.type = .text
+                                    message.roomId = rm!.id
+                                    let detachedMessage = message.detach()
+                                    IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                                    //let tmpMSG = self.messages[index]
+                                    message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                    //                                    IGMessageSender.defaultSender.send(message: message, to: rm!)
+                                    if emptyMessageArray.count == 0 {
+                                        emptyMessageArray.append(message)
+                                    }
+                                    else {
+                                        for element in emptyMessageArray {
+                                            let tmp1 = element?.forwardedFrom?.id
+                                            let tmp2 = message.forwardedFrom?.id
+                                            if tmp1  == tmp2 {
+
+                                            }
+                                            else {
+                                                emptyMessageArray.append(message)
+
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    let tmpCount = (emptyMessageArray.count) - (self.selectedIndex.count)
+                    var tmpEmptyMessageArray = [IGRoomMessage?]()
+                    emptyMessageArray = Array(emptyMessageArray[0...(self.selectedIndex.count) - 1])
+
+
+                    print("-----------------")
+                    print("-----------------")
+
+//                                        for id in emptyRoomArray {
+//                                            var t1 = 0
+//                                            print("t1",id?.id)
+//                                            var count:Double = 0
+//                                            for msg in emptyMessageArray {
+//                                                count += 0.5
+//                                                DispatchQueue.main.asyncAfter(deadline: .now() + count + 0.1) {
+//
+//                                                    IGMessageSender.defaultSender.send(message: emptyMessageArray[0]!, to: id!)
+//
+//                                                }
+//                                                var t2 = 0
+//                                                print("t2",msg?.forwardedFrom?.id)
+//                                                t2 += 1
+//                                            }
+//                                            t1 += 1
+//
+//                                        }
+
+                                        for room in 0...(emptyRoomArray.count) - 1 {
+
+                                            //                                                IGMessageSender.defaultSender.sendMultiMessages(messages: emptyMessageArray as! [IGRoomMessage], to: id!)
+                                            for msg in 0...(emptyMessageArray.count) - 1 {
+                                                IGMessageSender.defaultSender.send(message: emptyMessageArray[msg]!, to: emptyRoomArray[room]!)
+
+                                            }
+
+                                        }
+             
+                    loop(times: 5)
+
+                    print("-----------------")
+                    print("-----------------")
+
+                    ////////////END - NEW
+
+                    
+                    
+//
+//                    for id in MultiShareModal.selectedIndex {
+//
+//                        if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
+//                            let tmpArray = MultiShareModal.FilteredMuliShareContacts
+//                            //if has chat
+//                            if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
+//                                print("ROOM U :" , roomU)
+//                                //if selected any message to forward
+//                                if self.selectedIndex.count > 0 {
+//                                    var countt:Double = 0
+//                                    for element in self.selectedIndex {
+//
+//                                        countt += 0.5
+//                                        DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
+//
+//                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
+//                                                let message = IGRoomMessage(body: "")
+//                                                message.type = .text
+//                                                message.roomId = roomU.id
+//                                                let detachedMessage = message.detach()
+//                                                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+//                                                //let tmpMSG = self.messages[index]
+//                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+//                                                IGMessageSender.defaultSender.send(message: message, to: roomU)
+//
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                                else {
+//                                    return
+//                                }
+//                            }
+//                                //if dont have chat with contact
+//                            else {
+//                                IGGlobal.prgShow(self.view)
+//                                IGChatGetRoomRequest.Generator.generate(peerId: tmpArray[index].id).success({ (protoResponse) in
+//                                    DispatchQueue.main.async {
+//                                        IGGlobal.prgHide()
+//                                        if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
+//                                            let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+//                                            let roomU = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
+//                                            //if selected any message to forward
+//                                            if self.selectedIndex.count > 0 {
+//                                                var count:Double = 0
+//                                                for element in (self.selectedIndex) {
+//                                                    count = count + 0.5
+//                                                    DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
+//
+//                                                        if let index = self.messages.firstIndex(where: { $0.id == element }) {
+//                                                            let message = IGRoomMessage(body: "")
+//                                                            message.type = .text
+//                                                            message.roomId = roomU.id
+//                                                            let detachedMessage = message.detach()
+//                                                            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+//                                                            message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+//                                                            IGMessageSender.defaultSender.send(message: message, to: roomU)
+//                                                        }
+//                                                    }
+//                                                }
+//                                            }
+//                                            else {
+//                                                return
+//                                            }
+//                                        }
+//                                    }
+//                                }).error({ (errorCode, waitTime) in
+//                                    DispatchQueue.main.async {
+//                                        IGGlobal.prgHide()
+//                                        let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
+//                                        let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                                        alertC.addAction(cancel)
+//                                        self.present(alertC, animated: true, completion: nil)
+//                                    }
+//                                }).send()
+//                            }
+//
+//                        }
+//
+//                    }
                 }
             }
             else {
@@ -2897,7 +3038,23 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         diselect()
         //go to process info
     }
-    
+    func loop(times: Int) {
+        var i = 0
+        
+        func nextIteration() {
+            if i < times {
+                print("i is \(i)")
+                
+                i += 1
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+                    nextIteration()
+                }
+            }
+        }
+        
+        nextIteration()
+    }
     func openChat(room : IGRoom){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
