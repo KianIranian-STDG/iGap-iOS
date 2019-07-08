@@ -1721,10 +1721,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     /* fetch visible message from collection view according to entered index */
     private func fetchVisibleMessage(visibleCells: [UICollectionViewCell], index: Int) -> IGRoomMessage? {
-        if let visibleMessage = visibleCells[index] as? AbstractCell {
-            return visibleMessage.finalRoomMessage
-        } else if let visibleMessage = visibleCells[index] as? IGMessageGeneralCollectionViewCell {
-            return visibleMessage.cellMessage
+        if visibleCells.count > 0 {
+            if let visibleMessage = visibleCells[index] as? AbstractCell {
+                return visibleMessage.finalRoomMessage
+            } else if let visibleMessage = visibleCells[index] as? IGMessageGeneralCollectionViewCell {
+                return visibleMessage.cellMessage
+            }
         }
         return nil
     }
