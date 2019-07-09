@@ -490,30 +490,34 @@ class IGRequestManager {
     //MARK: Public Methods
     //MARK: Send
     func addRequestIDAndSend(requestWrappers : IGRequestWrapper ...) {
-        for requestWrapper in requestWrappers {
-            //TODO: handle batch requests
-            var shouldSendRequest = false
-            
-            if IGAppManager.sharedManager.isUserLoggedIn.value {
-                shouldSendRequest = true
-            } else if actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn.contains(requestWrapper.actionId) {
-                shouldSendRequest = true
-            }
-            
-            if shouldSendRequest {
-                if let request = generateIGRequestObject() {
-                    pendingRequests[request.igpID] = requestWrapper
-                    requestWrapper.id = request.igpID
-                    _ = requestWrapper.message.igpRequest = request
-                    IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
-                        self.internalTimeOut(for: requestWrapper)
-                    })
+        if requestWrappers.count > 0 {
+         
+            for requestWrapper in requestWrappers {
+                //TODO: handle batch requests
+                var shouldSendRequest = false
+                
+                if IGAppManager.sharedManager.isUserLoggedIn.value {
+                    shouldSendRequest = true
+                } else if actionIdOfMethodsThatCanBeSentWithoutBeingLoggedIn.contains(requestWrapper.actionId) {
+                    shouldSendRequest = true
                 }
-            } else {
-                let randomID = generateRandomRequestID()
-                queuedRequests[randomID] = requestWrapper
+                
+                if shouldSendRequest {
+                    if let request = generateIGRequestObject() {
+                        pendingRequests[request.igpID] = requestWrapper
+                        requestWrapper.id = request.igpID
+                        _ = requestWrapper.message.igpRequest = request
+                        IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
+                            self.internalTimeOut(for: requestWrapper)
+                        })
+                    }
+                } else {
+                    let randomID = generateRandomRequestID()
+                    queuedRequests[randomID] = requestWrapper
+                }
             }
+            
         }
     }
     
@@ -611,7 +615,8 @@ class IGRequestManager {
     
     
     func internalTimeOut(for requestWrapper: IGRequestWrapper) {
-        //check if request is still pending 
+        //check if request is still pending
+
         if pendingRequests[requestWrapper.id] != nil {
             resolvedRequests[requestWrapper.id] = requestWrapper
             pendingRequests[requestWrapper.id]  = nil

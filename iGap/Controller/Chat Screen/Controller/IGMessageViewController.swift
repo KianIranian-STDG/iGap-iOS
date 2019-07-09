@@ -1438,10 +1438,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func findAllMessages(isHistory: Bool = false) -> Results<IGRoomMessage>!{
         
         if lastId == 0 {
-            let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
+            
             do {
+                
                 let realm = try Realm()
-                allMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+                try realm.write {
+                    let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
+                    allMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+
+                }
                 
                 let messageCount = allMessages.count
                 if messageCount == 0 {

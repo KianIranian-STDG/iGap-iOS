@@ -603,43 +603,60 @@ class IGFactory: NSObject {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "id = %lld", roomID)
             if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                var shouldIncreamentUnreadCount = true
-                var lastMessage: IGRoomMessage?
-                let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", roomID)
-                
-                if let lastMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).sorted(byKeyPath: "creationTime").last {
-                    if let authorHash = lastMessageInDb.authorHash {
-                        if authorHash == IGAppManager.sharedManager.authorHash() {
-                            shouldIncreamentUnreadCount = false
+                if !(roomInDb.isInvalidated) {
+                    var shouldIncreamentUnreadCount = true
+                    var lastMessage: IGRoomMessage?
+                    let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", roomID)
+                    
+                    if let lastMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).sorted(byKeyPath: "creationTime").last {
+                        if !(lastMessageInDb.isInvalidated) {
+                            if let authorHash = lastMessageInDb.authorHash {
+                                if authorHash == IGAppManager.sharedManager.authorHash() {
+                                    shouldIncreamentUnreadCount = false
+                                }
+                            }
+                            
+                            if roomInDb.lastMessage?.id == lastMessageInDb.id {
+                                return
+                            }
+                            lastMessage = lastMessageInDb
                         }
+                        else {
+                            print("RLM EXEPTION ERR lastMessageInDb IS INVALIDATED",String(describing: self),error)
+
+                        }
+                    } else {
+                        //room has no message
+                        shouldIncreamentUnreadCount = false
                     }
                     
-                    if roomInDb.lastMessage?.id == lastMessageInDb.id {
-                        return
+                    var notificationTokens = [NotificationToken]()
+                    if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
+                        notificationTokens.append(notificationToken)
                     }
-                    lastMessage = lastMessageInDb
-                } else {
-                    //room has no message
-                    shouldIncreamentUnreadCount = false
-                }
-                
-                var notificationTokens = [NotificationToken]()
-                if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
-                    notificationTokens.append(notificationToken)
-                }
-                IGDatabaseManager.shared.realm.beginWrite()
-                if shouldIncreamentUnreadCount {
-                    let unreadCount = roomInDb.unreadCount + 1
-                    if !AppDelegate.appIsInBackground {
-                        roomInDb.badgeUnreadCount = unreadCount
+                    IGDatabaseManager.shared.realm.beginWrite()
+                    if shouldIncreamentUnreadCount {
+                        let unreadCount = roomInDb.unreadCount + 1
+                        if !AppDelegate.appIsInBackground {
+                            roomInDb.badgeUnreadCount = unreadCount
+                        }
+                        roomInDb.unreadCount = unreadCount
                     }
-                    roomInDb.unreadCount = unreadCount
+                    roomInDb.lastMessage = lastMessage
+                    if let messageTime = lastMessage?.creationTime?.timeIntervalSinceReferenceDate {
+                        roomInDb.sortimgTimestamp = messageTime
+                    }
+                    do {
+                        try IGDatabaseManager.shared.realm.commitWrite()
+                        
+                    } catch let error as NSError {
+                        print("RLM EXEPTION ERR HAPPENDED SAVE ROOMS TO DB:",String(describing: self),error)
+                    }
                 }
-                roomInDb.lastMessage = lastMessage
-                if let messageTime = lastMessage?.creationTime?.timeIntervalSinceReferenceDate {
-                    roomInDb.sortimgTimestamp = messageTime
+                else {
+                    print("RLM EXEPTION ERR ROOMINDB IS INVALIDATED",String(describing: self))
+
                 }
-                try! IGDatabaseManager.shared.realm.commitWrite()
             }
         }
     }

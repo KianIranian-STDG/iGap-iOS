@@ -192,7 +192,10 @@ extension IGWebSocketManager: WebSocketDelegate {
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         resetConnectionProblemDetectorTimer()
+        if !(data.isEmpty) || !(data.count == 0) {
         inerpretAndTakeAction(receivedData: data)
+        }
+        
     }
 }
 
