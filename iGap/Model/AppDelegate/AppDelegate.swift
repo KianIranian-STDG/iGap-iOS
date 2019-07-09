@@ -72,6 +72,15 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     internal static var appIsInBackground : Bool = false
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        MCLocalization.load(from: core_utils.getResourcesBundle().url(forResource: "strings.json", withExtension: nil), defaultLanguage: "en")
+        
+        print("===========================")
+        print("===========================")
+        print("===========================")
+        print("===========================")
+        print("===========================")
+        print("===========================")
+        print("===========================")
+
         let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()

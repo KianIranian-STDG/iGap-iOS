@@ -707,9 +707,9 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
     private func GetGift(Response: NSDictionary) {
         //SMClubsMerchantInfo.getInstance().showInfo(viewcontroller: self, infoDic: Information)
         if Response.value(forKey: "disable") as! Int64 == 0 {
-            let Temp = Response.value(forKey: "sequence_number") as? Int64
+            let Temp = Response.value(forKey: "sequence_number") as? String
             //self.SequenceNumber = String(Temp)
-            self.SequenceNumber = "\(Temp ?? 0)"
+            self.SequenceNumber = "\(Temp ?? "0")"
 //            self.scanner?.stopScanning()
 
             

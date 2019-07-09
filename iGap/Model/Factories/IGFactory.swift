@@ -622,7 +622,7 @@ class IGFactory: NSObject {
                             lastMessage = lastMessageInDb
                         }
                         else {
-                            print("RLM EXEPTION ERR lastMessageInDb IS INVALIDATED",String(describing: self),error)
+                            print("RLM EXEPTION ERR lastMessageInDb IS INVALIDATED",String(describing: self))
 
                         }
                     } else {
