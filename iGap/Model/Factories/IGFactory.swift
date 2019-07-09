@@ -730,9 +730,9 @@ class IGFactory: NSObject {
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
-                if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
-                    try! IGDatabaseManager.shared.realm.write {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
+                    if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                         switch status {
                         case .delivered:
                             messageInDb.status = .delivered
@@ -752,6 +752,7 @@ class IGFactory: NSObject {
                         messageInDb.statusVersion = statusVersion
                     }
                 }
+                IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(roomId: roomID, messageId: messageID)
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)
                 }
