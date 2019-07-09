@@ -73,13 +73,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        MCLocalization.load(from: core_utils.getResourcesBundle().url(forResource: "strings.json", withExtension: nil), defaultLanguage: "en")
         
-        print("===========================")
-        print("===========================")
-        print("===========================")
-        print("===========================")
-        print("===========================")
-        print("===========================")
-        print("===========================")
+        IGGlobal.getTime()
+        print("====================================#1=======================================")
+        print("=================================APPDELEGATE=================================")
 
         let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
@@ -113,12 +109,19 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         pushNotification(application)
         
         detectBackground()
+        print("=======================================#GO TO UI=========================================")
+        print("==================================================================================")
+        IGGlobal.getTime()
+
         return true
     }
     
 
     func realmConfig() {
-        
+        print("=======================================#2 DB CONFIG=========================================")
+        print("==================================================================================")
+        IGGlobal.getTime()
+
         let config = Realm.Configuration (
             // Share
             // fileURL: fileURL,
@@ -149,6 +152,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         } catch let error {
             print(error)
         }
+        print("=======================================#3 DONE DB CONFIG=========================================")
+        print("==================================================================================")
+        IGGlobal.getTime()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

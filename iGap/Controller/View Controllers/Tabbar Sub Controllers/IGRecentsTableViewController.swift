@@ -218,6 +218,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("=======================================#1 UISTATE=========================================")
+        print("==================================================================================")
+        IGGlobal.getTime()
+        
         isfromPacket = false
 
         IGRecentsTableViewController.forwardStartObserver = self
@@ -286,6 +290,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
+        print("=======================================#2 VIEWDID LOADED UISTATE=========================================")
+        print("========================================================================================================")
+        IGGlobal.getTime()
     }
     @objc private func changeDirectionOfUI() {
         let _ : String = SMLangUtil.loadLanguage()
@@ -299,6 +306,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+     
         isfromPacket = false
 
         searchBar.placeholder = "PLACE_HOLDER_SEARCH".localizedNew

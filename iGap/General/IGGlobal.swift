@@ -32,7 +32,8 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 
 class IGGlobal {
-    
+    static var latestTime: Int64 = 0
+
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var shouldMultiSelect : Bool = false
@@ -64,7 +65,18 @@ class IGGlobal {
     /****************** Progress ******************/
     /**********************************************/
     
-    
+    internal static func getTime(_ string: String? = nil){
+        if IGGlobal.latestTime == 0 {
+            IGGlobal.latestTime = IGGlobal.getCurrentMillis()
+        }
+        let currentTime = IGGlobal.getCurrentMillis()
+        if string != nil {
+            print("TTT || time \(string): \(currentTime - IGGlobal.latestTime)")
+        } else {
+            print("TTT || time: \(currentTime - IGGlobal.latestTime)")
+        }
+        IGGlobal.latestTime = currentTime
+    }
     /**********************************************/
     /******************** File ********************/
     
