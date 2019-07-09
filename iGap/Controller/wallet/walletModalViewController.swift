@@ -306,7 +306,15 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 self.holder3.isHidden = false
                 self.holder4.isHidden = false
                 self.holderStepCounter.isHidden = true
-                self.stepHolderPicker.isHidden = false
+                if self.segmentPick.selectedSegmentIndex == 1 {
+                    self.stepHolderPicker.isHidden = true
+                    
+                }
+                else {
+                    self.stepHolderPicker.isHidden = false
+                    
+                }
+                
                 self.stepHolderAmount.isHidden = true
                 self.holderPin.isHidden = true
                 self.tfPin.isHidden = true
@@ -582,7 +590,14 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                 SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "FILL_AMOUNT".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in return;})
             }
             else {
-                
+                if segmentPick.selectedSegmentIndex == 1 {
+                    stepHolderPicker.isHidden = true
+                    
+                }
+                else {
+                    stepHolderPicker.isHidden = false
+
+                }
                 self.GetMutualClubList(MerchantCode: self.targetAccountId, UserCode: merchantID) { response in
                     self.initUI(stepCount: self.currentStep)
                     self.getCardMutralClubs(cards: response)
@@ -594,10 +609,17 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         case 1:
             if segmentPick.selectedSegmentIndex == 1 {
                 paySequence()
+                
             }
             else {
-                self.currentStep = 2
-                self.initUI(stepCount: self.currentStep)
+                if !((btnPickClub.currentTitle)! == "BTN_CASHOUT".localizedNew) || !((btnPickClub.currentTitle?.contains("BTN_CASHOUT".localizedNew))!) {
+                    self.currentStep = 2
+                    self.initUI(stepCount: self.currentStep)
+
+                }
+                else {
+                    btnPickClub.shake()
+                }
                 
             }
             
@@ -605,7 +627,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         case 2 :
             
             print(btnPickClub.titleLabel!.text)
-            if !((btnPickClub.currentTitle)! == "BTN_CASHOUT") {
+            if !((btnPickClub.currentTitle)! == "BTN_CASHOUT".localizedNew) || !((btnPickClub.currentTitle?.contains("BTN_CASHOUT".localizedNew))!) {
 //                self.initUI(stepCount: self.currentStep)
                 self.currentStep = 3
                 if ((tfPin.text == "") || (tfPin.text == nil)) {
@@ -617,6 +639,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
 
                 
             }
+            
             break
 
         case 3 :
