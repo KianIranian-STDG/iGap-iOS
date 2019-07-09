@@ -593,7 +593,6 @@ class IGFactory: NSObject {
                 let roomId = message.roomId
                 IGFactory.shared.performInFactoryQueue {
                     self.updateRoomLastMessageIfPossible(roomID: roomId)
-                    //self.setFactoryTaskSuccess(task: task)
                 }
             }
         }
@@ -661,6 +660,7 @@ class IGFactory: NSObject {
                 }
                 let roomId = message.roomId
                 IGFactory.shared.performInFactoryQueue {
+                    
                     self.updateRoomLastMessageIfPossible(roomID: roomId)
                     //self.setFactoryTaskSuccess(task: task)
                 }
@@ -1970,7 +1970,9 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                try! IGDatabaseManager.shared.realm.write {
+               do {
+               
+                try IGDatabaseManager.shared.realm.write {
                     for igpRoom in rooms {
                         IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
                     }
@@ -1978,6 +1980,9 @@ class IGFactory: NSObject {
                     IGFactory.shared.performInFactoryQueue {
                         self.setFactoryTaskSuccess(task: task)
                     }
+                }
+               } catch let error as NSError {
+                    print("RLM EXEPTION ERR HAPPENDED SAVE ROOMS TO DB:",String(describing: self),error)
                 }
             }
         }

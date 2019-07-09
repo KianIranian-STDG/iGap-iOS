@@ -234,6 +234,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                   SortDescriptor(keyPath: "id", ascending: true)]
     var messages: Results<IGRoomMessage>! //try! Realm().objects(IGRoomMessage.self)
     var messagesWithMedia = try! Realm().objects(IGRoomMessage.self)
+    
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
     var notificationToken: NotificationToken?
     
@@ -609,30 +610,47 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
-            let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
-            if messagesCount == 0 {
-                inputBarContainerView.isHidden = true
-                joinButton.isHidden = false
-                joinButton.setTitle("Start", for: UIControl.State.normal)
-                joinButton.layer.cornerRadius = 5
-                joinButton.layer.masksToBounds = false
-                joinButton.layer.shadowColor = UIColor.black.cgColor
-                joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-                joinButton.layer.shadowRadius = 4.0
-                joinButton.layer.shadowOpacity = 0.15
-            } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self.manageKeyboard(firstEnter: true)
+            do {
+                let realm = try Realm()
+                let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
+                if messagesCount == 0 {
+                    inputBarContainerView.isHidden = true
+                    joinButton.isHidden = false
+                    joinButton.setTitle("Start", for: UIControl.State.normal)
+                    joinButton.layer.cornerRadius = 5
+                    joinButton.layer.masksToBounds = false
+                    joinButton.layer.shadowColor = UIColor.black.cgColor
+                    joinButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+                    joinButton.layer.shadowRadius = 4.0
+                    joinButton.layer.shadowOpacity = 0.15
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        self.manageKeyboard(firstEnter: true)
+                    }
                 }
+                
+            } catch let error as NSError {
+                print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR ISBOT ROOM:",String(describing: self))
             }
         }
         
         let messagesWithMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d OR forwardedFrom.typeRaw = %d)", self.room!.id, IGRoomMessageType.video.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.imageAndText.rawValue, IGRoomMessageType.video.rawValue, IGRoomMessageType.image.rawValue, IGRoomMessageType.videoAndText.rawValue, IGRoomMessageType.imageAndText.rawValue)
-        messagesWithMedia = try! Realm().objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
+        do {
+            let realm = try Realm()
+            messagesWithMedia = realm.objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
+
+        } catch let error as NSError {
+            print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH MEDIA:",String(describing: self))
+        }
         
         let messagesWithForwardedMediaPredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND (forwardedFrom.typeRaw == 1 OR forwardedFrom.typeRaw == 2 OR forwardedFrom.typeRaw == 3 OR forwardedFrom.typeRaw == 4)", self.room!.id)
-        messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self).filter(messagesWithForwardedMediaPredicate).sorted(by: sortPropertiesForMedia)
-        
+        do {
+            let realm = try Realm()
+            messagesWithForwardedMedia = realm.objects(IGRoomMessage.self).filter(messagesWithForwardedMediaPredicate).sorted(by: sortPropertiesForMedia)
+
+        } catch let error as NSError {
+            print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH FORWARD MEDIA:",String(describing: self))
+        }
         self.collectionView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
         self.collectionView.delaysContentTouches = false
         self.collectionView.keyboardDismissMode = .none
@@ -738,7 +756,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         messages = findAllMessages()
         updateObserver()
-        
+        let t = messages
         if messages.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
@@ -1211,36 +1229,41 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if let chatRoom = self.room?.chatRoom {
             if (chatRoom.peer?.isBot)! {
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-                let latestMessage = try! Realm().objects(IGRoomMessage.self).filter(predicate).last
-                
-                let additionalData = getAdditional(roomMessage: latestMessage)
-                
-                if !self.inputTextView.isFirstResponder {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        self.collectionView.reloadData()
-                    }
-                }
-                
-                if additionalData != nil {
-                    self.makeKeyboardButton()
-                    isCustomKeyboard = true
-                    btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
-                    latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
-                    self.inputTextView.inputView = latestKeyboardAdditionalView
-                    self.inputTextView.reloadInputViews()
+                do {
+                    let realm = try Realm()
+                    let latestMessage = realm.objects(IGRoomMessage.self).filter(predicate).last
+                    let additionalData = getAdditional(roomMessage: latestMessage)
+                    
                     if !self.inputTextView.isFirstResponder {
-                        self.inputTextView.becomeFirstResponder()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            self.collectionView.reloadData()
+                        }
                     }
-                } else {
-                    if additionalData == nil {
-                        self.removeKeyboardButton()
+                    
+                    if additionalData != nil {
+                        self.makeKeyboardButton()
+                        isCustomKeyboard = true
+                        btnChangeKeyboard.setTitle(KEYBOARD_MAIN_ICON, for: UIControl.State.normal)
+                        latestKeyboardAdditionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalData!, isKeyboard: true)
+                        self.inputTextView.inputView = latestKeyboardAdditionalView
+                        self.inputTextView.reloadInputViews()
+                        if !self.inputTextView.isFirstResponder {
+                            self.inputTextView.becomeFirstResponder()
+                        }
+                    } else {
+                        if additionalData == nil {
+                            self.removeKeyboardButton()
+                        }
+                        isCustomKeyboard = false
+                        if btnChangeKeyboard != nil {
+                            btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControl.State.normal)
+                        }
+                        inputTextView.inputView = nil
+                        inputTextView.reloadInputViews()
                     }
-                    isCustomKeyboard = false
-                    if btnChangeKeyboard != nil {
-                        btnChangeKeyboard.setTitle(KEYBOARD_CUSTOM_ICON, for: UIControl.State.normal)
-                    }
-                    inputTextView.inputView = nil
-                    inputTextView.reloadInputViews()
+
+                } catch let error as NSError {
+                    print("RLM EXEPTION ERR HAPPENDED IN MANAGE KEYBOARD:",String(describing: self))
                 }
             }
         }
@@ -1332,7 +1355,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func myLastMessage() -> IGRoomMessage? {
         if let authorHash = IGAppManager.sharedManager.authorHash() {
             let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND authorHash CONTAINS[cd] %@ AND id != %lld", self.room!.id, authorHash,0)
-            return try! Realm().objects(IGRoomMessage.self).filter(predicate).last
+            do {
+                let realm = try Realm()
+                return realm.objects(IGRoomMessage.self).filter(predicate).last
+
+            } catch let error as NSError {
+                print("RLM EXEPTION ERR HAPPENDED IN MY LAST MESSAGE:",String(describing: self))
+            }
         }
         return nil
     }
@@ -1410,23 +1439,29 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         if lastId == 0 {
             let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-            allMessages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-            
-            let messageCount = allMessages.count
-            if messageCount == 0 {
-                return allMessages
+            do {
+                let realm = try Realm()
+                allMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+                
+                let messageCount = allMessages.count
+                if messageCount == 0 {
+                    return allMessages
+                }
+                
+                firstId = allMessages.toArray()[0].id
+                
+                if messageCount <= getMessageLimit {
+                    hasLocal = false
+                    scrollToTopLimit = 500
+                    lastId = allMessages.toArray()[allMessages.count-1].id
+                } else {
+                    lastId = allMessages.toArray()[getMessageLimit].id
+                }
+                
+            } catch let error as NSError {
+                print("RLM EXEPTION ERR HAPPENDED IN findAllMessages:",String(describing: self))
             }
-            
-            firstId = allMessages.toArray()[0].id
-            
-            if messageCount <= getMessageLimit {
-                hasLocal = false
-                scrollToTopLimit = 500
-                lastId = allMessages.toArray()[allMessages.count-1].id
-            } else {
-                lastId = allMessages.toArray()[getMessageLimit].id
-            }
-            
+
         } else {
             page += 1
             
@@ -1447,13 +1482,20 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
-        let messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-        
+        var tmpMessages:Results<IGRoomMessage>!
+
+        do {
+            let realm = try Realm()
+            tmpMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+
+        } catch let error as NSError {
+            print("RLM EXEPTION ERR HAPPENDED IN findAllMessagesII:",String(describing: self))
+        }
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
         
-        return messages
+        return tmpMessages
     }
     
     /* reset values for get history from first */
@@ -4723,11 +4765,17 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             lowerAllow = false
             
             let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-            messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-            updateObserver()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.fetchRoomHistoryIfPossibleBefore(message: message)
+            do {
+                let realm = try Realm()
+                messages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+                updateObserver()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.fetchRoomHistoryIfPossibleBefore(message: message)
+                }
+
+            } catch let error as NSError {
+                print("RLM EXEPTION ERR HAPPENDED IN willDisplay:",String(describing: self))
             }
         } else if (messages!.count < 20 || messages!.indices.contains(indexPath.section + 1)) && message.shouldFetchBefore {
             
@@ -4859,41 +4907,55 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     }
     
     private func fetchRoomHistoryIfPossibleBefore(message: IGRoomMessage, forceGetHistory: Bool = false) {
-        if !message.isLastMessage {
+        if message.isInvalidated {
+            print("MSG IS INVALIDATED")
+
+        }
+        else {
+            print("MSG IS NOT INVALIDATED")
+
+        }
+        
+        if message.isInvalidated {
+            print("RLM ERROR HANDLED")
+        } else {
             
-            if allowForGetHistory || forceGetHistory {
-                allowForGetHistory = false
+            if !message.isLastMessage {
                 
-                IGClientGetRoomHistoryRequest.Generator.generate(roomID: self.room!.id, firstMessageID: message.id).success({ (responseProto) in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                        self.allowForGetHistory = true
-                    }
+                if allowForGetHistory || forceGetHistory {
+                    allowForGetHistory = false
                     
-                    DispatchQueue.main.async {
-                        IGFactory.shared.setMessageNeedsToFetchBefore(false, messageId: message.id, roomId: message.roomId)
-                        switch responseProto {
-                        case let roomHistoryReponse as IGPClientGetRoomHistoryResponse:
-                            IGClientGetRoomHistoryRequest.Handler.interpret(response: roomHistoryReponse, roomId: self.room!.id)
-                        default:
-                            break
-                        }
-                    }
-                }).error({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        switch errorCode {
-                        case .clinetGetRoomHistoryNoMoreMessage:
-                            self.allowForGetHistory = false
-                            IGFactory.shared.setMessageIsLastMesssageInRoom(messageId: message.id, roomId: message.roomId)
-                            break
-                        case .timeout:
+                    IGClientGetRoomHistoryRequest.Generator.generate(roomID: self.room!.id, firstMessageID: message.id).success({ (responseProto) in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             self.allowForGetHistory = true
-                            break
-                        default:
-                            self.allowForGetHistory = true
-                            break
                         }
-                    }
-                }).send()
+                        
+                        DispatchQueue.main.async {
+                            IGFactory.shared.setMessageNeedsToFetchBefore(false, messageId: message.id, roomId: message.roomId)
+                            switch responseProto {
+                            case let roomHistoryReponse as IGPClientGetRoomHistoryResponse:
+                                IGClientGetRoomHistoryRequest.Handler.interpret(response: roomHistoryReponse, roomId: self.room!.id)
+                            default:
+                                break
+                            }
+                        }
+                    }).error({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            switch errorCode {
+                            case .clinetGetRoomHistoryNoMoreMessage:
+                                self.allowForGetHistory = false
+                                IGFactory.shared.setMessageIsLastMesssageInRoom(messageId: message.id, roomId: message.roomId)
+                                break
+                            case .timeout:
+                                self.allowForGetHistory = true
+                                break
+                            default:
+                                self.allowForGetHistory = true
+                                break
+                            }
+                        }
+                    }).send()
+                }
             }
         }
     }

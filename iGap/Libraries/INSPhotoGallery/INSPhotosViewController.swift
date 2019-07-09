@@ -90,7 +90,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
      */
     open var currentPhoto: INSPhotoViewable? {
         
-        currentIndexOfImage = self.dataSource.indexOfPhoto(currentPhotoViewController!.photo)!
+        currentIndexOfImage = self.dataSource.indexOfPhoto(currentPhotoViewController!.photo) ?? 0
         print(indexOfVideos)
         if indexOfVideos.indexes(of: 4).contains(currentIndexOfImage)  || indexOfVideos.indexes(of: 3).contains(currentIndexOfImage) {
             isVideo = true

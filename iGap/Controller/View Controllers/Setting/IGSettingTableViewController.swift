@@ -204,6 +204,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
             if let userAvatar = user?.avatar {
+            requestToGetAvatarList()
             showAvatar( avatar: userAvatar)
             }
         }
@@ -303,7 +304,11 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
                     self.avatars.remove(at: index)
                     sizesArray.remove(at: index)
                     self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
-                    self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
+                    if self.avatars.count > 0 {
+                        self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
+                    } else {
+                        self.userAvatarView.avatarImageView?.image = UIImage(named:"AppIcon")
+                    }
                 default:
                     break
                 }
@@ -524,7 +529,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
         let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
             (alert: UIAlertAction!) -> Void in
-//            self.deleteAvatar()
         })
         
         let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {

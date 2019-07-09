@@ -104,31 +104,38 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         hud.mode = .indeterminate
                         
                         let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
-                        guard let clearId = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
-                            return
+                        do {
+                            let realm = try Realm()
+                            guard let clearId = realm.objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
+                                return
+                            }
+                            
+                            IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
+                                DispatchQueue.main.async {
+                                    if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
+                                        IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
+                                        hud.hide(animated: true)
+                                    }
+                                }
+                            }).error({ (errorCode, waitTime) in
+                                DispatchQueue.main.async {
+                                    switch errorCode {
+                                    case .timeout:
+                                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        alert.addAction(okAction)
+                                        self.present(alert, animated: true, completion: nil)
+                                    default:
+                                        break
+                                    }
+                                    self.hud.hide(animated: true)
+                                }
+                            }).send()
+
+                        } catch let error as NSError {
+                            print("RLM EXEPTION ERR HAPPENDED IN SET DEFAULT NAVIGATION ITEM :",String(describing: self))
                         }
-                        
-                        IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
-                            DispatchQueue.main.async {
-                                if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
-                                    IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
-                                    hud.hide(animated: true)
-                                }
-                            }
-                        }).error({ (errorCode, waitTime) in
-                            DispatchQueue.main.async {
-                                switch errorCode {
-                                case .timeout:
-                                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                    alert.addAction(okAction)
-                                    self.present(alert, animated: true, completion: nil)
-                                default:
-                                    break
-                                }
-                                self.hud.hide(animated: true)
-                            }
-                        }).send()
+                      
                     }
                 })
                 
@@ -218,8 +225,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         searchBar.delegate = self
         
         let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
-        self.rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
-        
+        do {
+            let realm = try Realm()
+            self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
+
+        } catch let error as NSError {
+            print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
+        }
         self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
@@ -789,61 +801,21 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     //MARK: - Tabbar badge
     func setTabbarBadge() {
         var unreadCount = 0
-        let rooms = try! Realm().objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue)
-        unreadCount = rooms.sum(ofProperty: "unreadCount")
-        if unreadCount == 0 {
-            self.tabBarController?.tabBar.items?[0].badgeValue = nil
-        } else {
-            self.tabBarController?.tabBar.items?[0].badgeValue = "\(unreadCount)"
-        }
-        /*
-        if unreadCount == 0 {
-            self.tabBarController?.tabBar.items?[0].badgeValue = nil
-            self.tabBarController?.tabBar.items?[1].badgeValue = nil
-            self.tabBarController?.tabBar.items?[2].badgeValue = nil
-            self.tabBarController?.tabBar.items?[3].badgeValue = nil
-        } else {
-            let predicateChat = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.chat.rawValue)
-            let predicateGroup = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.group.rawValue)
-            let predicateChannel = NSPredicate(format: "typeRaw = %d", IGRoom.IGType.channel.rawValue)
-
-            var countChat : Int32 = 0
-            var countGroup : Int32 = 0
-            var countChannel : Int32 = 0
-            
-            for chat in rooms.filter(predicateChat) {
-                countChat += chat.unreadCount
-            }
-            
-            for group in rooms.filter(predicateGroup) {
-                countGroup += group.unreadCount
-            }
-            
-            for channel in rooms.filter(predicateChannel) {
-                countChannel += channel.unreadCount
-            }
-            
-            if countChannel == 0 {
+        do {
+            let realm = try Realm()
+            let rooms = realm.objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue)
+            unreadCount = rooms.sum(ofProperty: "unreadCount")
+            if unreadCount == 0 {
                 self.tabBarController?.tabBar.items?[0].badgeValue = nil
             } else {
-                self.tabBarController?.tabBar.items?[0].badgeValue = "\(countChannel)"
+                self.tabBarController?.tabBar.items?[0].badgeValue = "\(unreadCount)"
             }
-            
-            if countGroup == 0 {
-                self.tabBarController?.tabBar.items?[1].badgeValue = nil
-            } else {
-                self.tabBarController?.tabBar.items?[1].badgeValue = "\(countGroup)"
-            }
-            
-            if countChat == 0 {
-                self.tabBarController?.tabBar.items?[3].badgeValue = nil
-            } else {
-                self.tabBarController?.tabBar.items?[3].badgeValue = "\(countChat)"
-            }
-            
-            self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
+
+        } catch let error as NSError {
+            // handle error
+            print("RLM EXEPTION ERR HAPPENDED IN SET TABBAR BADGE:",String(describing: self))
+
         }
-        */
         
         if !AppDelegate.appIsInBackground {
             UIApplication.shared.applicationIconBadgeNumber = unreadCount
@@ -1351,41 +1323,45 @@ extension IGRecentsTableViewController {
     /***************** Send Rooms Status *****************/
     
     func onMessageRecieve(messages: [IGPRoomMessage]) {
-        
-        let realm = try! Realm()
-        
-        for message in messages {
-            var roomId: Int64 = 0
-            var roomType: IGRoom.IGType = .chat
-            var roomMessageStatus: IGPRoomMessageStatus = .delivered
+        do {
+            let realm = try Realm()
             
-            if message.igpAuthor.hasIgpUser { // chat
+            for message in messages {
+                var roomId: Int64 = 0
+                var roomType: IGRoom.IGType = .chat
+                var roomMessageStatus: IGPRoomMessageStatus = .delivered
                 
-                let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", message.igpAuthor.igpUser.igpUserID)
-                if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
-                    roomId = roomInfo.id
-                }
-            } else { // group or channel
-                
-                let predicate = NSPredicate(format: "id = %lld", message.igpAuthor.igpRoom.igpRoomID)
-                if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
-                    roomId = roomInfo.id
-                    if roomInfo.groupRoom != nil {
-                        roomType = .group
-                    } else {
-                        roomType = .channel
+                if message.igpAuthor.hasIgpUser { // chat
+                    
+                    let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", message.igpAuthor.igpUser.igpUserID)
+                    if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
+                        roomId = roomInfo.id
+                    }
+                } else { // group or channel
+                    
+                    let predicate = NSPredicate(format: "id = %lld", message.igpAuthor.igpRoom.igpRoomID)
+                    if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
+                        roomId = roomInfo.id
+                        if roomInfo.groupRoom != nil {
+                            roomType = .group
+                        } else {
+                            roomType = .channel
+                        }
                     }
                 }
+                
+                let seenStatus = IGRecentsTableViewController.visibleChat[roomId]
+                
+                if seenStatus != nil && seenStatus! {
+                    roomMessageStatus = .seen
+                }
+                
+                sendSeenForReceivedMessage(roomId: roomId, roomType: roomType, message: message, status: roomMessageStatus)
             }
-            
-            let seenStatus = IGRecentsTableViewController.visibleChat[roomId]
-            
-            if seenStatus != nil && seenStatus! {
-                roomMessageStatus = .seen
-            }
-            
-            sendSeenForReceivedMessage(roomId: roomId, roomType: roomType, message: message, status: roomMessageStatus)
+        } catch let error as NSError {
+            print("RLM EXEPTION ERR HAPPENDED IN ONMESSAGERECIEVE:",String(describing: self))
         }
+        
     }
     
     private func sendSeenForReceivedMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage, status: IGPRoomMessageStatus) {

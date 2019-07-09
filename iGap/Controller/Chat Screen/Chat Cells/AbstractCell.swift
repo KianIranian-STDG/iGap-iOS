@@ -931,7 +931,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             return
         }
         
-        if var attachment = finalRoomMessage.attachment {
+        if var attachment = finalRoomMessage.attachment , !(attachment.isInvalidated) {
             
             if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
                 self.attachment = attachmentVariableInCache.value
@@ -966,16 +966,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             switch (finalRoomMessage.type) {
             case .image, .imageAndText, .video, .videoAndText, .gif, .gifAndText:
-                
-                imgMediaAbs.setThumbnail(for: attachment)
-                if attachment.status != .ready {
-                    indicatorViewAbs?.size = attachment.sizeToString()
-                    indicatorViewAbs?.delegate = self
+                if !(attachment.isInvalidated) {
+                    imgMediaAbs.setThumbnail(for: attachment)
+                    if attachment.status != .ready {
+                        indicatorViewAbs?.size = attachment.sizeToString()
+                        indicatorViewAbs?.delegate = self
+                    }
+                    
+                    
+                    indicatorViewAbs?.shouldShowSize = true
+                    break
+
                 }
-    
-                
-                indicatorViewAbs?.shouldShowSize = true
-                break
+                else {
+                    print("ATTACHMENT IN ABSTRACT CELL IS INVALIDATED")
+                }
             default:
                 break
             }

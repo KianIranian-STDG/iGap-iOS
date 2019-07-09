@@ -60,20 +60,26 @@ class IGMessageSender {
             }
             
             for message in realm.objects(IGRoomMessage.self).filter(predicate) {
-                if message.isInvalidated {
-                    break
-                }
-                count = count + 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + count){
-                    let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
-                    if room != nil && !room!.isInvalidated {
-                        IGMessageSender.defaultSender.resend(message: message, to: room!)
+                if !(message.isInvalidated) {
+                    count = count + 1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + count){
+                        if !(message.isInvalidated) {
+                            let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
+                            if room != nil && !room!.isInvalidated {
+                                IGMessageSender.defaultSender.resend(message: message, to: room!)
+                            }
+                        }
+                        else {
+                            print("MSG IS INVALIDATED")
+                        }
                     }
+                } else {
+                    print("MSG IS INVALIDATED")
                 }
             }
 
         } catch let error as NSError {
-            print("REALM ERROR HAPPENDED: ", error)
+            print("RLM EXEPTION ERR HAPPENDED IN :",String(describing: self))
         }
     }
     

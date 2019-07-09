@@ -738,103 +738,150 @@ extension NSCache {
 var imagesMap = [String : UIImageView]()
 
 //MARK: -
+extension UIView {
+    
+    
+    // Using CAMediaTimingFunction
+    func shake(duration: TimeInterval = 0.5, values: [CGFloat]) {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        
+        // Swift 4.2 and above
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        
+        // Swift 4.1 and below
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        
+        
+        animation.duration = duration // You can set fix duration
+        animation.values = values  // You can set fix values here also
+        self.layer.add(animation, forKey: "shake")
+    }
+    
+    
+    // Using SpringWithDamping
+    func shake(duration: TimeInterval = 0.5, xValue: CGFloat = 12, yValue: CGFloat = 0) {
+        self.transform = CGAffineTransform(translationX: xValue, y: yValue)
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transform = CGAffineTransform.identity
+        }, completion: nil)
+        
+    }
+    
+    
+    // Using CABasicAnimation
+    func shake(duration: TimeInterval = 0.05, shakeCount: Float = 6, xValue: CGFloat = 12, yValue: CGFloat = 0){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = duration
+        animation.repeatCount = shakeCount
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - xValue, y: self.center.y - yValue))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + xValue, y: self.center.y - yValue))
+        self.layer.add(animation, forKey: "shake")
+    }
+    
+}
 extension UIImageView {
     func setThumbnail(for attachment:IGFile) {
-        if attachment.type == .voice {
-            self.image = UIImage(named:"IG_Message_Cell_Voice")
-        } else if attachment.type == .file {
-            let filename: NSString = attachment.name! as NSString
-            let fileExtension = filename.pathExtension
-            
-            if fileExtension != "" {
-                if fileExtension == "doc" {
-                    self.image = UIImage(named:"IG_Message_Cell_File_Doc")
-                    
-                } else if fileExtension == "exe" {
-                    self.image = UIImage(named:"IG_Message_Cell_File_Exe")
-                    
-                } else if fileExtension == "pdf" {
-                    self.image = UIImage(named:"IG_Message_Cell_File_Pdf")
-                    
-                } else if fileExtension == "txt" {
-                    self.image = UIImage(named:"IG_Message_Cell_File_Txt")
+        if !(attachment.isInvalidated) {
+            if attachment.type == .voice {
+                self.image = UIImage(named:"IG_Message_Cell_Voice")
+            } else if attachment.type == .file {
+                let filename: NSString = attachment.name! as NSString
+                let fileExtension = filename.pathExtension
+                
+                if fileExtension != "" {
+                    if fileExtension == "doc" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Doc")
+                        
+                    } else if fileExtension == "exe" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Exe")
+                        
+                    } else if fileExtension == "pdf" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Pdf")
+                        
+                    } else if fileExtension == "txt" {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Txt")
+                        
+                    } else {
+                        self.image = UIImage(named:"IG_Message_Cell_File_Generic")
+                    }
                     
                 } else {
                     self.image = UIImage(named:"IG_Message_Cell_File_Generic")
                 }
                 
+            } else if attachment.type == .audio {
+                self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
             } else {
-                self.image = UIImage(named:"IG_Message_Cell_File_Generic")
-            }
-            
-        } else if attachment.type == .audio {
-            self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
-        } else {
-            
-            /* for big images show largeThumbnail if exist, even main file was downloaded before.
-             * currently check size for 1024 KB(1MB)
-             */
-            let fileSizeKB = attachment.size/1024
-            
-            if fileSizeKB < 1024 && IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
-                self.sd_setImage(with: attachment.path(), completed: nil)
-            } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                 
-                let previewType: IGFile.PreviewType = .smallThumbnail
-                let thumbnail: IGFile = attachment.smallThumbnail!
-                /*
-                 if fileSizeKB > 1024 {
-                 previewType = .largeThumbnail
-                 thumbnail = attachment.largeThumbnail!
-                 }
+                /* for big images show largeThumbnail if exist, even main file was downloaded before.
+                 * currently check size for 1024 KB(1MB)
                  */
+                let fileSizeKB = attachment.size/1024
                 
-                do {
-                    var path = URL(string: "")
-                    if attachment.attachedImage != nil {
-                        self.image = attachment.attachedImage
-                    } else {
-                        var image: UIImage?
-                        path = thumbnail.path()
-                        if IGGlobal.isFileExist(path: path) {
-                            image = UIImage(contentsOfFile: path!.path)
-                        }
-                        
-                        if image != nil {
-                            self.sd_setImage(with: path, completed: nil)
+                if fileSizeKB < 1024 && IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+                    self.sd_setImage(with: attachment.path(), completed: nil)
+                } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
+                    
+                    let previewType: IGFile.PreviewType = .smallThumbnail
+                    let thumbnail: IGFile = attachment.smallThumbnail!
+                    /*
+                     if fileSizeKB > 1024 {
+                     previewType = .largeThumbnail
+                     thumbnail = attachment.largeThumbnail!
+                     }
+                     */
+                    
+                    do {
+                        var path = URL(string: "")
+                        if attachment.attachedImage != nil {
+                            self.image = attachment.attachedImage
                         } else {
-                            throw NSError(domain: "asa", code: 1234, userInfo: nil)
-                        }
-                    }
-                } catch {
-                    imagesMap[attachment.token!] = self
-                    IGDownloadManager.sharedManager.download(file: thumbnail, previewType: previewType, completion: { (attachment) -> Void in
-                        DispatchQueue.main.async {
-                            if let image = imagesMap[attachment.token!] {
-                                imagesMap.removeValue(forKey: attachment.token!)
-                                image.sd_setImage(with: attachment.path(), completed: nil)
+                            var image: UIImage?
+                            path = thumbnail.path()
+                            if IGGlobal.isFileExist(path: path) {
+                                image = UIImage(contentsOfFile: path!.path)
+                            }
+                            
+                            if image != nil {
+                                self.sd_setImage(with: path, completed: nil)
+                            } else {
+                                throw NSError(domain: "asa", code: 1234, userInfo: nil)
                             }
                         }
-                    }, failure: {
-                        
-                    })
-                }
-            } else {
-                switch attachment.type {
-                case .image:
-                    self.image = nil
-                    break
-                case .gif:
-                    break
-                case .video:
-                    break
-                case .audio:
-                    self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
-                    break
-                default:
-                    break
+                    } catch {
+                        imagesMap[attachment.token!] = self
+                        IGDownloadManager.sharedManager.download(file: thumbnail, previewType: previewType, completion: { (attachment) -> Void in
+                            DispatchQueue.main.async {
+                                if let image = imagesMap[attachment.token!] {
+                                    imagesMap.removeValue(forKey: attachment.token!)
+                                    image.sd_setImage(with: attachment.path(), completed: nil)
+                                }
+                            }
+                        }, failure: {
+                            
+                        })
+                    }
+                } else {
+                    switch attachment.type {
+                    case .image:
+                        self.image = nil
+                        break
+                    case .gif:
+                        break
+                    case .video:
+                        break
+                    case .audio:
+                        self.image = UIImage(named:"IG_Message_Cell_Player_Default_Cover")
+                        break
+                    default:
+                        break
+                    }
                 }
             }
+        }
+        else {
+            print("ATTACHMENT IS INVALIDATED")
         }
     }
     
