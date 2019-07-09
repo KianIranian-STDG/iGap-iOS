@@ -475,7 +475,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
                 hasShownQrCode = true
                 isHyperMe = false
                 isUser = true
-                UserDefaults.standard.setValue(String(value).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
+                UserDefaults.standard.setValue(String(value).inEnglishNumbers(), forKey: "modalQRCode")
 
             self.getUserInformation(accountId: json["H"] as! String, qrType: Int(json["T"] as! String)!)
             }
@@ -485,7 +485,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
                 hasShownQrCode = true
                 isHyperMe = false
                 isUser = false
-            self.getQRCodeInformation(barcodeValue: String(value).onlyDigitChars())
+            self.getQRCodeInformation(barcodeValue: String(value))
             }
         }
         }
@@ -504,7 +504,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
 //
             isHyperMe = true
             
-            self.getQRCodeInformation(barcodeValue: code.onlyDigitChars())
+            self.getQRCodeInformation(barcodeValue: code)
             }
         }
         
