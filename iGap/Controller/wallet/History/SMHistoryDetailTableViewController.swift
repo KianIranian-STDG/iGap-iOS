@@ -181,6 +181,9 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             SMLog.SMPrint("partial")
         case .MULTIPLE_PAY:
             SMLog.SMPrint("multiple")
+        case .SALE_SHARE:
+            SaleShare(cell: cell, row: rowData!)
+
         default:
             p2p(cell: cell, row: rowData!)
         }
@@ -299,6 +302,25 @@ class SMHistoryDetailTableViewController: UITableViewController,HandleReciept, U
             }
         }
     }
+    func SaleShare(cell: SMHistoryTableViewCell , row: PAY_obj_history) {
+        cell.titleImage.isHidden = false
+        //let cAccountId = accountId != nil ? accountId : SMUserManager.accountId
+        if row.is_paid  == .PAID{
+            cell.titleImage.image = UIImage.init(named: "down-arrow")
+            cell.titleLabel.text = "history.sale.share".localizedNew
+        }
+        if let pic = row.sender.profile_picture , pic != "" {
+            let request = WS_methods(delegate: self, failedDialog: true)
+            let str = request.fs_getFileURL(pic)
+            cell.profileImage?.downloadedFrom(link: str ?? "", cashable: true, contentMode: .scaleAspectFit)
+        }
+        else{
+            cell.profileImage.image = UIImage.init(named: "AppIcon")
+        }
+        cell.descLabel.text = row.sender.name
+        
+    }
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50

@@ -489,7 +489,7 @@
         "RECOVERY_QUESTIONS" : "سوال های امنیتی",
         "RECOVER_PASS" : "بازیابی رمز عبور",
         "AGREE_TO_TERMS" : "موافقت با شرایط و قوانین",
-
+        "history.sale.share" : "سهم از فروش",
         "NEW_PASS" : "رمز عبور جدید",
         "SUCCESS_OTP" : "رمز یکبار مصرف با موفقیت برای شما ارسال شد",
         "SERVER_DOWN" : "خطای برقراری ارتباط با سرور",
@@ -927,7 +927,8 @@
         "ENTER_CODE" : "Enter Code",
         "PAIED_TO_LBL" : "Paied To :",
 
-        
+        "history.sale.share" : "Share of Sales",
+
         
         "NEW_MESSAGES" : "New Messages",
         "WHICH_TYPE_OF" : "Which type of conversation would you like to initiate?",
