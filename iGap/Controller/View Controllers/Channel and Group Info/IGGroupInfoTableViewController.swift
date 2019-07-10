@@ -136,6 +136,7 @@ class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecogni
         
         let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
         groupRoom =  try! Realm().objects(IGRoom.self).filter(predicate)
+        
         self.notificationToken = groupRoom.observe { (changes: RealmCollectionChange) in
             
             let predicatea = NSPredicate(format: "id = %lld", (self.room?.id)!)
@@ -612,34 +613,37 @@ class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecogni
 
 
     func showGroupInfo() {
-        groupNameTitleLabel.text = room?.title
-        groupNameLabel.text = room?.title
-        groupDescriptionLabel.text = room?.groupRoom?.roomDescription
-        if let groupRoom = room {
-            groupAvatarView.setRoom(groupRoom, showMainAvatar: true)
-        }
-        if let groupType = room?.groupRoom?.type {
-            switch groupType {
-            case .privateRoom:
-                groupTypeLabel.text = "PRIVATE".localizedNew
-            case .publicRoom:
-                groupTypeLabel.text = "PUBLIC".localizedNew
-                break
+        if !(room!.isInvalidated) {
+            groupNameTitleLabel.text = room?.title
+            groupNameLabel.text = room?.title
+            groupDescriptionLabel.text = room?.groupRoom?.roomDescription
+            if let groupRoom = room {
+                groupAvatarView.setRoom(groupRoom, showMainAvatar: true)
             }
-        }
-        if let memberCount = room?.groupRoom?.participantCount {
-            memberCountLabel.text = "\(memberCount)"
-        }
-        var groupLink: String? = ""
-        if room?.groupRoom?.type == .privateRoom {
-            groupLink = room?.groupRoom?.privateExtra?.inviteLink
-        }
-        if room?.groupRoom?.type == .publicRoom {
-            if let groupUsername = room?.groupRoom?.publicExtra?.username {
-                groupLink = "iGap.net/\(groupUsername)"
+            if let groupType = room?.groupRoom?.type {
+                switch groupType {
+                case .privateRoom:
+                    groupTypeLabel.text = "PRIVATE".localizedNew
+                case .publicRoom:
+                    groupTypeLabel.text = "PUBLIC".localizedNew
+                    break
+                }
             }
+            if let memberCount = room?.groupRoom?.participantCount {
+                memberCountLabel.text = "\(memberCount)"
+            }
+            var groupLink: String? = ""
+            if room?.groupRoom?.type == .privateRoom {
+                groupLink = room?.groupRoom?.privateExtra?.inviteLink
+            }
+            if room?.groupRoom?.type == .publicRoom {
+                if let groupUsername = room?.groupRoom?.publicExtra?.username {
+                    groupLink = "iGap.net/\(groupUsername)"
+                }
+            }
+            groupLinkLabel.text = groupLink
+
         }
-        groupLinkLabel.text = groupLink
     }
     
     func showDeleteChannelActionSheet() {

@@ -135,64 +135,67 @@ class IGSettingAccountUsernameTableViewController: UITableViewController , UIGes
     }
     
     func didTapOnDoneButton() {
-        if usernamecurrentStatus! == .available {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            if let username = usernameTextField.text {
-                IGUserProfileUpdateUsernameRequest.Generator.generate(username: username).success({ (protoResponse) in
-                    DispatchQueue.main.async {
-                        switch protoResponse {
-                        case let setUsernameProtoResponse as IGPUserProfileUpdateUsernameResponse:
-                            IGUserProfileUpdateUsernameRequest.Handler.interpret(response: setUsernameProtoResponse)
-                            if self.navigationController is IGNavigationController {
-                                _ = self.navigationController?.popViewController(animated: true)
+        if usernamecurrentStatus != nil {
+            
+            if usernamecurrentStatus! == .available {
+                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                self.hud.mode = .indeterminate
+                if let username = usernameTextField.text {
+                    IGUserProfileUpdateUsernameRequest.Generator.generate(username: username).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let setUsernameProtoResponse as IGPUserProfileUpdateUsernameResponse:
+                                IGUserProfileUpdateUsernameRequest.Handler.interpret(response: setUsernameProtoResponse)
+                                if self.navigationController is IGNavigationController {
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                }
+                            default:
+                                break
                             }
-                        default:
-                            break
-                        }
-                        self.hud.hide(animated: true)
-                    }
-
-                }).error ({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        switch errorCode {
-                        case .timeout:
-                            let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                            break
-                            
-                        case .userProfileUpdateUsernameIsInvaild:
-                            let alert = UIAlertController(title: "Timeout", message: "Username is invalid", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                            break
-                            
-                        case .userProfileUpdateUsernameHasAlreadyBeenTaken:
-                            let alert = UIAlertController(title: "Timeout", message: "Username has already been taken by another user", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: nil)
-                            break
-                            
-                        case .userProfileUpdateLock:
-                            let time = waitTime
-                            let remainingMiuntes = time!/60
-                            let alert = UIAlertController(title: "Error", message: "You can not change your username because you've recently changed it. waiting for \(remainingMiuntes) minutes", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true,completion: nil)
-                            break
-                            
-                        default:
-                            break
+                            self.hud.hide(animated: true)
                         }
                         
-                        self.hud.hide(animated: true)
-                    }
-                }).send()
+                    }).error ({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            switch errorCode {
+                            case .timeout:
+                                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
+                                break
+                                
+                            case .userProfileUpdateUsernameIsInvaild:
+                                let alert = UIAlertController(title: "Timeout", message: "Username is invalid", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
+                                break
+                                
+                            case .userProfileUpdateUsernameHasAlreadyBeenTaken:
+                                let alert = UIAlertController(title: "Timeout", message: "Username has already been taken by another user", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
+                                break
+                                
+                            case .userProfileUpdateLock:
+                                let time = waitTime
+                                let remainingMiuntes = time!/60
+                                let alert = UIAlertController(title: "Error", message: "You can not change your username because you've recently changed it. waiting for \(remainingMiuntes) minutes", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true,completion: nil)
+                                break
+                                
+                            default:
+                                break
+                            }
+                            
+                            self.hud.hide(animated: true)
+                        }
+                    }).send()
+                }
             }
         }
     }

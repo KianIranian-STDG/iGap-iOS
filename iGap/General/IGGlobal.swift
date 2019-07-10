@@ -39,7 +39,8 @@ class IGGlobal {
     static var shouldMultiSelect : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
-    
+    static var carpinoAgreement : Bool = false
+
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()

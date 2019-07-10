@@ -10,6 +10,8 @@
 
 import UIKit
 import IGProtoBuff
+import MBProgressHUD
+
 
 class AbstractDashboardCell: UICollectionViewCell {
     
@@ -99,6 +101,29 @@ class AbstractDashboardCell: UICollectionViewCell {
         }
     }
     
+    //Carpino Agrement
+    func carpinoAggrement(agrementSlug: String!,itemID: Int32!,url : String!) {
+        IGInfoPageRequest.Generator.generate(pageID: agrementSlug).success { (responseProto) in
+            DispatchQueue.main.async {
+                switch responseProto {
+                case let pageInfoResponse as IGPInfoPageResponse:
+                    let body = IGInfoPageRequest.Handler.interpret(response: pageInfoResponse)
+                    let htmlString = "<font face='IRANSans' size='3'>" + "<p style='text-align:center'>" + body + "</p>"
+                    let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    iGapBrowser.itemID = itemID
+                    iGapBrowser.url = url
+                    iGapBrowser.htmlString = htmlString
+                    UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
+                    return
+
+                default:
+                    break
+                }
+            }
+            }.error { (errorCode, waitTime) in
+            }.send()
+    }
+    //
     
     /**********************************************************************/
     /*************************** Action Manager ***************************/
@@ -131,11 +156,23 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .webViewLink:
-            let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
-            iGapBrowser.url = discoveryInfo.igpValue
-            UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
-            return
-            
+            let t = discoveryInfo.igpAgreementSlug
+            let b = discoveryInfo.igpAgreement
+            if !(t == "") {
+                if (b == false) && (IGGlobal.carpinoAgreement == false) {
+                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+
+                } else {
+                    let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    iGapBrowser.url = discoveryInfo.igpValue
+                    iGapBrowser.htmlString = nil
+                    UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
+                    return
+
+                }
+            } else {
+                return
+            }
         case .showAlert:
             IGHelperAlert.shared.showAlert(message: discoveryInfo.igpValue)
             return

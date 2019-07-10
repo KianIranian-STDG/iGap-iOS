@@ -327,6 +327,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGClientGetDiscoveryRequest.Handler.self        as IGRequest.Handler.Type),
     30621: (IGPClientSetDiscoveryItemClickResponse.self     as ResponseMessage.Type,
             IGClientSetDiscoveryItemClickRequest.Handler.self as IGRequest.Handler.Type),
+    30623: (IGPClientSetDiscoveryItemAgreementResponse.self     as ResponseMessage.Type,
+            IGClientSetDiscoveryItemAgreemnetRequest.Handler.self as IGRequest.Handler.Type),
 
     //File: 307xx
     30700: (IGPFileUploadOptionResponse.self                as ResponseMessage.Type,

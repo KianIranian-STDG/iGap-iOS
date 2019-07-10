@@ -488,6 +488,7 @@
         "MSG_FORGET_PASSWORD" : "مایل به استفاده از کدام یک از روش های زیر برای تغییر رمز عبور خود هستید؟",
         "RECOVERY_QUESTIONS" : "سوال های امنیتی",
         "RECOVER_PASS" : "بازیابی رمز عبور",
+        "AGREE_TO_TERMS" : "موافقت با شرایط و قوانین",
 
         "NEW_PASS" : "رمز عبور جدید",
         "SUCCESS_OTP" : "رمز یکبار مصرف با موفقیت برای شما ارسال شد",
@@ -1066,6 +1067,7 @@
         "twoStepVerfi_HEADER" : "You have enabled Two-Step verification, so your account is protected with an additional password",
         "BY_SIGNING_AGREEMENT" : "By signing up an account you agree to  ",
         "TERMS_OF_SERVICE" : "Terms of Services",
+        "AGREE_TO_TERMS" : "Agree To Terms",
 
         "MISSED_CALL" : "Missed Call",
         "UNANSWERED_CALL" : "Unanswerd Call",

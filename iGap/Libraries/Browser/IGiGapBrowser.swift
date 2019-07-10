@@ -16,15 +16,24 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
     
     var webView: UIWebView!
     var webViewProgressbar: UIActivityIndicatorView!
-    
+    var htmlString : String!
+    var itemID : Int32!
     var url: String!
     var pageTitle: String = ""
-    
-    
+    var tapCounter : Int! = 0
+    var btnAgree : UIButtonX!
+    var lblAgrement : UILabel!
+    var checkBtn : UIButtonX!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
-        openWebView(url: self.url)
+        if (htmlString == nil) {
+            openWebView(url: self.url)
+        }
+        else {
+            openWebViewWithHTMLString(string: htmlString)
+        }
     }
     
     func initNavigationBar(){
@@ -66,6 +75,22 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
             task.resume()
         }
     }
+    private func openWebViewWithHTMLString(string:String)  {
+        
+        makeWebViewForAgreement()
+        
+        self.webView.isHidden = false
+        self.view.endEditing(true)
+        if SMLangUtil.loadLanguage() == "fa" {
+            self.webView.loadHTMLString(htmlString.replacingOccurrences(of: "justify", with: "right"), baseURL: nil)
+        }
+        else {
+            self.webView.loadHTMLString(htmlString.replacingOccurrences(of: "justify", with: "center"), baseURL: nil)
+        }
+        makeAgrementBtns()
+        
+    }
+    
     
     func closeWebView() {
         self.webView.stopLoading()
@@ -87,7 +112,148 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
         }
         self.webView.delegate = self
     }
+    private func makeWebViewForAgreement(){
+        if self.webView == nil {
+            self.webView = UIWebView()
+        }
+        mainView.addSubview(self.webView)
+        self.webView.snp.makeConstraints { (make) in
+            make.top.equalTo(mainView.snp.top)
+            make.bottom.equalTo(mainView.snp.bottom).offset(-70)
+            make.right.equalTo(mainView.snp.right)
+            make.left.equalTo(mainView.snp.left)
+        }
+        self.webView.delegate = self
+    }
+    private func makeAgrementBtns(){
+
+        
+        btnAgree = UIButtonX()
+        lblAgrement = UILabel()
+        checkBtn = UIButtonX()
+        
+        btnAgree.backgroundColor = UIColor.iGapGray()
+        btnAgree.cornerRadius = 7.0
+        btnAgree.popIn = true
+        btnAgree.setTitle("GLOBAL_OKGO".localizedNew, for: .normal)
+        btnAgree.titleLabel?.font = UIFont.igFont(ofSize: 20,weight: .bold)
+        btnAgree.titleLabel?.textColor = UIColor.white
+        btnAgree.isUserInteractionEnabled = false
+        btnAgree.addTarget(self, action: #selector(self.didTapOnAgreeAndGo(sender:)), for: .touchUpInside)
+
+        mainView.addSubview(btnAgree)
+        
+        btnAgree.snp.makeConstraints { (make) in
+            make.bottom.equalTo(mainView.snp.bottom).offset(-2)
+            make.height.equalTo(40)
+            make.right.equalTo(mainView.snp.right).offset(-10)
+            make.left.equalTo(mainView.snp.left).offset(10)
+        }
+        checkBtn.backgroundColor = UIColor.clear
+        checkBtn.borderColor = UIColor.black
+        checkBtn.borderWidth = 2.0
+        checkBtn.cornerRadius = 7.0
+        checkBtn.popIn = true
+        checkBtn.addTarget(self, action: #selector(self.didTapOnCheckBox(sender:)), for: .touchUpInside)
+
+        mainView.addSubview(checkBtn)
+        checkBtn.snp.makeConstraints { (make) in
+            make.bottom.equalTo(btnAgree.snp.top).offset(-5)
+            make.height.equalTo(20)
+            make.width.equalTo(20)
+            make.left.equalTo(btnAgree.snp.left)
+        }
+
+        lblAgrement.text = "AGREE_TO_TERMS".localizedNew
+        lblAgrement.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnLbl))
+        lblAgrement.isUserInteractionEnabled = true
+        lblAgrement.addGestureRecognizer(tap)
+
+        mainView.addSubview(lblAgrement)
+        lblAgrement.snp.makeConstraints { (make) in
+            make.bottom.equalTo(checkBtn.snp.bottom)
+            make.left.equalTo(checkBtn.snp.right).offset(5)
+        }
+
+    }
+    @objc
+    func didTapOnLbl(sender:UITapGestureRecognizer) {
+        tapCounter += 1
+        if tapCounter % 2 == 0 {
+            checkBtn.backgroundColor = .clear
+            btnAgree.isUserInteractionEnabled = false
+            btnAgree.backgroundColor = UIColor.iGapGray()
+        } else {
+            checkBtn.backgroundColor = .black
+            btnAgree.isUserInteractionEnabled = true
+            btnAgree.backgroundColor = UIColor.iGapGreen()
+        }
+    }
+    @objc func didTapOnAgreeAndGo(sender: UIButtonX!) {
+        btnAgree.removeFromSuperview()
+        lblAgrement.removeFromSuperview()
+        checkBtn.removeFromSuperview()
+        self.webView.snp.updateConstraints { (make) in
+            make.top.equalTo(mainView.snp.top)
+            make.bottom.equalTo(mainView.snp.bottom)
+            make.right.equalTo(mainView.snp.right)
+            make.left.equalTo(mainView.snp.left)
+        }
+        self.mainView.layoutIfNeeded()
+        self.webView.layoutIfNeeded()
+
+        
+        carpinoAggrement(itemID: itemID)
+    }
+    @objc func didTapOnCheckBox(sender: UIButtonX!) {
+        tapCounter += 1
+        if tapCounter % 2 == 0 {
+            checkBtn.backgroundColor = .clear
+            btnAgree.isUserInteractionEnabled = false
+            btnAgree.backgroundColor = UIColor.iGapGray()
+        } else {
+            checkBtn.backgroundColor = .black
+            btnAgree.isUserInteractionEnabled = true
+            btnAgree.backgroundColor = UIColor.iGapGreen()
+        }
+    }
+    //setAgreement Slug and Go
+    private func carpinoAggrement(itemID:Int32!) {
+        let t = self.url
+        self.webView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
+
+        IGClientSetDiscoveryItemAgreemnetRequest.Generator.generate(itemId: itemID).success { (responseProto) in
+            DispatchQueue.main.async {
+                IGGlobal.carpinoAgreement = true
+
+                
+                let url = URL(string: self.url)
+                if let unwrappedURL = url {
+                    
+                    let request = URLRequest(url: unwrappedURL)
+                    let session = URLSession.shared
+                    
+                    
+                    let task = session.dataTask(with: request) { (data, response, error) in
+                        
+                        if error == nil {
+                            DispatchQueue.main.async {
+                                self.webView?.loadRequest(request)
+                            }
+                        } else {
+                            self.webView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
+                        }
+                    }
+                    task.resume()
+                }
+                
+                }
+            }.error { (errorCode, waitTime) in
+            }.send()
+    }
     
+    //
     private func removeWebView(){
         if self.webView != nil {
             self.webView.removeFromSuperview()

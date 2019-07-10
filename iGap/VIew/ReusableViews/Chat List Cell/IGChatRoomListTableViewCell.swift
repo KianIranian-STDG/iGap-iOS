@@ -106,8 +106,10 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                 DispatchQueue.main.async {
                     if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
                         let roomId =  IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                        if self.room?.id == roomId {
-                            self.setRoom(room: self.room!)
+                        if self.room!.isInvalidated {
+                            if self.room?.id == roomId {
+                                self.setRoom(room: self.room!)
+                            }
                         }
                     }
                 }

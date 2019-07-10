@@ -503,3 +503,23 @@ class IGClientSetDiscoveryItemClickRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
+
+class IGClientSetDiscoveryItemAgreemnetRequest: IGRequest {
+    
+    class func sendRequest(itemId: Int32){
+        IGClientSetDiscoveryItemAgreemnetRequest.Generator.generate(itemId: itemId).success({ (protoResponse) in
+        }).error ({ (errorCode, waitTime) in }).send()
+    }
+    
+    class Generator: IGRequest.Generator {
+        class func generate(itemId: Int32) -> IGRequestWrapper {
+            var request = IGPClientSetDiscoveryItemAgreement()
+            request.igpItemID = itemId
+            return IGRequestWrapper(message: request, actionID: 623)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientSetDiscoveryItemAgreementResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
