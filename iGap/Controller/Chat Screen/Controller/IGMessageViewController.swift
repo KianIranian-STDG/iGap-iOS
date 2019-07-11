@@ -955,6 +955,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
             IGMessageSender.defaultSender.sendSticker(message: message, to: self.room!)
             
+            self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            
             self.sendMessageState(enable: false)
             self.inputTextView.text = ""
             self.currentAttachment = nil
@@ -1295,6 +1297,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let detachedMessage = message.detach()
         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
         IGMessageSender.defaultSender.send(message: message, to: room!)
+        
+        self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
     }
     
     func onAdditionalLinkClick(structAdditional: IGStructAdditionalButton) {
@@ -2013,6 +2017,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         IGMessageSender.defaultSender.send(message: message, to: room!)
         
+        self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.sendMessageState(enable: false)
             self.inputTextView.text = ""
@@ -2490,6 +2496,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
             message.repliedTo = selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
             IGMessageSender.defaultSender.send(message: message, to: room!)
+            
+            self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
             
             self.sendMessageState(enable: false)
             self.inputTextView.text = ""
@@ -3735,6 +3743,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         message.forwardedFrom = IGMessageViewController.selectedMessageToForwardToThisRoom // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         IGMessageSender.defaultSender.send(message: message, to: self.room!)
+        
+        self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.sendMessageState(enable: false)
