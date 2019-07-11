@@ -314,6 +314,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     internal static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
     
     private var messageLoader: IGMessageLoader!
+    private var currentRoomId: Int64!
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -1562,6 +1563,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     
     override func viewWillAppear(_ animated: Bool) {
+        self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         setupNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -6104,6 +6106,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     /******************************* Observers *******************************/
     
     func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType) {
+        
+        // if message is for another room shouldn't be add to current room
+        if self.currentRoomId != roomId {return}
+        
         /**
          * set "firstLoadDown" to false value for avoid from scroll to top after receive/send message
          * from current callback when not loaded before any message from get history callback
