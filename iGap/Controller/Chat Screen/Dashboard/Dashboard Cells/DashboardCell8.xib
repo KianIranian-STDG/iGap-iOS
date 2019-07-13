@@ -29,7 +29,7 @@
                                 <rect key="frame" x="8" y="4" width="534" height="334"/>
                                 <color key="backgroundColor" red="0.78427058459999999" green="0.78005510570000003" blue="0.80065268280000002" alpha="0.20743257705479451" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atw-AB-Qbd" customClass="BasicBarChart" customModule="iGap" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atw-AB-Qbd" customClass="BeautifulBarChart" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="8" y="4" width="534" height="334"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -61,7 +61,7 @@
             <viewLayoutGuide key="safeArea" id="d4p-c4-3pa"/>
             <size key="customSize" width="550" height="114"/>
             <connections>
-                <outlet property="basicBarChart" destination="atw-AB-Qbd" id="dNk-f5-aHf"/>
+                <outlet property="basicBarChart" destination="atw-AB-Qbd" id="dVI-Ws-RUI"/>
                 <outlet property="mainView" destination="B5p-X1-L98" id="uFT-wJ-OrE"/>
                 <outlet property="view" destination="teU-3X-tA6" id="Eo4-AO-fhr"/>
             </connections>

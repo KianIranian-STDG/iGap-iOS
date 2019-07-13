@@ -16,10 +16,11 @@ class DashboardCell8: AbstractDashboardCell {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var view: UIView!
-    @IBOutlet weak var basicBarChart: BasicBarChart!
+    @IBOutlet weak var basicBarChart: BeautifulBarChart!
     private let numEntry = 20
     var dashboardAbsPollInner: [IGPPollField]!
     var pollListInner: [IGPPoll] = []
+    var tmpMax: [Int64] = []
 
     var lblHint : UILabel!
     override func awakeFromNib() {
@@ -133,15 +134,20 @@ class DashboardCell8: AbstractDashboardCell {
     func generateRandomDataEntries() -> [DataEntry] {
    
         result.removeAll()
+        tmpMax.removeAll()
         if dashboardAbsPollInner != nil {
+            
             for elemnt in dashboardAbsPollInner {
-
+                tmpMax.append(elemnt.igpSum)
+            }
+            for elemnt in dashboardAbsPollInner {
+                
                 var t = elemnt.igpLabel
                 if t.count > 15 {
                     t.removeLast((t.count) - 15)
                     t  = t + "..."
                 }
-                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float((elemnt.igpSum)) / 100), textValue: String(elemnt.igpSum).inLocalizedLanguage(), title: t)
+                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(1 * (elemnt.igpSum) / tmpMax.max()!)), textValue: String(elemnt.igpSum).inRialFormat().inLocalizedLanguage(), title: t)
                 
                 result.append(tmpDataEntry)
             }
