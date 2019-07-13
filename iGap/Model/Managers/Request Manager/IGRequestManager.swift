@@ -16,15 +16,15 @@ import RxSwift
 
 let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler: IGRequest.Handler.Type)] = [
     //System: xx
-        0: (IGPErrorResponse.self                           as ResponseMessage.Type,
-            IGErrorRequest.Handler.self                     as IGRequest.Handler.Type),
+    0: (IGPErrorResponse.self                           as ResponseMessage.Type,
+        IGErrorRequest.Handler.self                     as IGRequest.Handler.Type),
     30001: (IGPConnectionSecuringResponse.self              as ResponseMessage.Type,
             IGConnectionSecuringRequest.Handler.self        as IGRequest.Handler.Type),
     30002: (IGPConnectionSymmetricKeyResponse.self          as ResponseMessage.Type,
             IGConnectionSymmetricKeyRequest.Handler.self    as IGRequest.Handler.Type),
     30003: (IGPHeartbeatResponse.self                       as ResponseMessage.Type,
             IGHeartBeatRequest.Handler.self                 as IGRequest.Handler.Type),
-
+    
     //User: 301xx
     30100: (IGPUserRegisterResponse.self                    as ResponseMessage.Type,
             IGUserRegisterRequest.Handler.self              as IGRequest.Handler.Type),
@@ -135,7 +135,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
     30155: (IGPUserIVandSetActivityResponse.self                                    as ResponseMessage.Type,
             IGUserIVandSetActivityRequest.Handler.self                              as IGRequest.Handler.Type),
     
-
+    
     //Chat: 302xx
     30200: (IGPChatGetRoomResponse.self                     as ResponseMessage.Type,
             IGChatGetRoomRequest.Handler.self               as IGRequest.Handler.Type),
@@ -144,9 +144,9 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
     30202: (IGPChatUpdateStatusResponse.self                as ResponseMessage.Type,
             IGChatUpdateStatusRequest.Handler.self          as IGRequest.Handler.Type),
     30203: (IGPChatEditMessageResponse.self                 as ResponseMessage.Type,
-             IGChatEditMessageRequest.Handler.self          as IGRequest.Handler.Type),
+            IGChatEditMessageRequest.Handler.self          as IGRequest.Handler.Type),
     30204: (IGPChatDeleteMessageResponse.self               as ResponseMessage.Type,
-             IGChatDeleteMessageRequest.Handler.self        as IGRequest.Handler.Type),
+            IGChatDeleteMessageRequest.Handler.self        as IGRequest.Handler.Type),
     30205: (IGPChatClearMessageResponse.self                as ResponseMessage.Type,
             IGChatClearMessageRequest.Handler.self          as IGRequest.Handler.Type),
     30206: (IGPChatDeleteResponse.self                      as ResponseMessage.Type,
@@ -158,8 +158,8 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
     30209: (IGPChatConvertToGroupResponse.self              as ResponseMessage.Type,
             IGChatConvertToGroupRequest.Handler.self        as IGRequest.Handler.Type),
     30210: (IGPChatSetActionResponse.self                   as ResponseMessage.Type,
-             IGChatSetActionRequest.Handler.self            as IGRequest.Handler.Type),
-
+            IGChatSetActionRequest.Handler.self            as IGRequest.Handler.Type),
+    
     //Group: 303xx
     30300: (IGPGroupCreateResponse.self                     as ResponseMessage.Type,
             IGGroupCreateRequest.Handler.self               as IGRequest.Handler.Type),
@@ -215,7 +215,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGGroupEditMessageRequest.Handler.self          as IGRequest.Handler.Type),
     30326: (IGPGroupPinMessageResponse.self                 as ResponseMessage.Type,
             IGGroupPinMessageRequest.Handler.self           as IGRequest.Handler.Type),
-
+    
     //Channel: 304xx
     30400: (IGPChannelCreateResponse.self                   as ResponseMessage.Type,
             IGChannelCreateRequest.Handler.self             as IGRequest.Handler.Type),
@@ -273,7 +273,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGChannelUpdateReactionStatusRequest.Handler.self as IGRequest.Handler.Type),
     30427: (IGPChannelPinMessageResponse.self               as ResponseMessage.Type,
             IGChannelPinMessageRequest.Handler.self         as IGRequest.Handler.Type),
-
+    
     //Info: 305xx
     30500: (IGPInfoLocationResponse.self                    as ResponseMessage.Type,
             IGInfoLocationRequest.Handler.self              as IGRequest.Handler.Type),
@@ -283,7 +283,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGInfoPageRequest.Handler.self                  as IGRequest.Handler.Type),
     30504: (IGPInfoWallpaperResponse.self                   as ResponseMessage.Type,
             IGInfoWallpaperRequest.Handler.self             as IGRequest.Handler.Type),
-
+    
     //Client: 306xx
     30600: (IGPClientConditionResponse.self                 as ResponseMessage.Type,
             IGClientConditionRequest.Handler.self           as IGRequest.Handler.Type),
@@ -329,7 +329,12 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGClientSetDiscoveryItemClickRequest.Handler.self as IGRequest.Handler.Type),
     30623: (IGPClientSetDiscoveryItemAgreementResponse.self     as ResponseMessage.Type,
             IGClientSetDiscoveryItemAgreemnetRequest.Handler.self as IGRequest.Handler.Type),
-
+    30624: (IGPClientGetPollResponse.self                     as ResponseMessage.Type,
+            IGPClientGetPollRequest.Handler.self              as IGRequest.Handler.Type),
+    30625: (IGPClientSetPollItemClickResponse.self            as ResponseMessage.Type,
+            IGPClientSetPollItemClickRequest.Handler.self     as IGRequest.Handler.Type),
+    
+    
     //File: 307xx
     30700: (IGPFileUploadOptionResponse.self                as ResponseMessage.Type,
             IGFileUploadOptionRequest.Handler.self          as IGRequest.Handler.Type),
@@ -343,12 +348,12 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGFileInfoRequest.Handler.self                  as IGRequest.Handler.Type),
     30705: (IGPFileDownloadResponse.self                    as ResponseMessage.Type,
             IGFileDownloadRequest.Handler.self              as IGRequest.Handler.Type),
-
+    
     //QR: 308xx
     30802: (IGPQrCodeNewDeviceResponse.self                 as ResponseMessage.Type,
             IGQrCodeNewDeviceRequest.Handler.self           as IGRequest.Handler.Type),
-
-
+    
+    
     //Signaling 309xx
     30900: (IGPSignalingGetConfigurationResponse.self      as ResponseMessage.Type,
             IGSignalingGetConfigurationRequest.Handler.self as IGRequest.Handler.Type),
@@ -387,7 +392,7 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGGeoGetCoordinateDistance.Handler.self        as IGRequest.Handler.Type),
     31007: (IGPGeoGetConfigurationResponse.self            as ResponseMessage.Type,
             IGGeoGetConfiguration.Handler.self             as IGRequest.Handler.Type),
-
+    
     //Wallet 90xx
     39000: (IGPWalletGetAccessTokenResponse.self           as ResponseMessage.Type,
             IGRequestWalletGetAccessToken.Handler.self     as IGRequest.Handler.Type),
@@ -395,24 +400,24 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGRequestWalletPaymentInit.Handler.self        as IGRequest.Handler.Type),
     39002: (IGPWalletRegisterResponse.self                 as ResponseMessage.Type,
             IGRequestWalletRegister.Handler.self           as IGRequest.Handler.Type),
-
+    
     //Mpl 91xx
     39100: (IGPMplGetBillTokenResponse.self                as ResponseMessage.Type,
             IGMplGetBillToken.Handler.self                 as IGRequest.Handler.Type),
     39101: (IGPMplGetTopupTokenResponse.self               as ResponseMessage.Type,
             IGMplGetTopupToken.Handler.self                as IGRequest.Handler.Type),
-
+    
     39102: (IGPMplGetSalesTokenResponse.self               as ResponseMessage.Type,
             IGMplGetSalesToken.Handler.self                as IGRequest.Handler.Type),
-
+    
     39103: (IGPMplSetSalesResultResponse.self               as ResponseMessage.Type,
             IGMplSetSalesResult.Handler.self                as IGRequest.Handler.Type),
-
+    
     39106: (IGPMplGetCardToCardTokenResponse.self          as ResponseMessage.Type,
             IGMplGetCardToCardToken.Handler.self           as IGRequest.Handler.Type),
     39108: (IGPMplSetCardToCardResultResponse.self         as ResponseMessage.Type,
             IGMplSetCardToCardResult.Handler.self          as IGRequest.Handler.Type),
-
+    
     //BillInquiry 92xx
     39200: (IGPBillInquiryMciResponse.self                 as ResponseMessage.Type,
             IGBillInquiryMci.Handler.self                  as IGRequest.Handler.Type),
@@ -462,7 +467,7 @@ class IGRequestManager {
             }
         }, onError: { (error) in
             
-        }, onCompleted: { 
+        }, onCompleted: {
             
         }, onDisposed: {
             
@@ -493,7 +498,7 @@ class IGRequestManager {
     //MARK: Send
     func addRequestIDAndSend(requestWrappers : IGRequestWrapper ...) {
         if requestWrappers.count > 0 {
-         
+            
             for requestWrapper in requestWrappers {
                 //TODO: handle batch requests
                 var shouldSendRequest = false
@@ -506,13 +511,14 @@ class IGRequestManager {
                 
                 if shouldSendRequest {
                     if let request = generateIGRequestObject() {
-                        pendingRequests[request.igpID] = requestWrapper
-                        requestWrapper.id = request.igpID
-                        _ = requestWrapper.message.igpRequest = request
-                        IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
-                            self.internalTimeOut(for: requestWrapper)
-                        })
+                            pendingRequests[request.igpID] = requestWrapper
+                            requestWrapper.id = request.igpID
+                            _ = requestWrapper.message.igpRequest = request
+                            IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
+                                self.internalTimeOut(for: requestWrapper)
+                            })
+                        
                     }
                 } else {
                     let randomID = generateRandomRequestID()
@@ -529,13 +535,13 @@ class IGRequestManager {
         resolvedRequests = [String : IGRequestWrapper]()
     }
     
-//    func requestWrapperForReponse(_ response:IGPResponse) -> IGRequestWrapper? {
-//        let requestWrapper = pendingRequests[response.igpID]
-//        if requestWrapper != nil {
-//            return requestWrapper
-//        }
-//        return nil
-//    }
+    //    func requestWrapperForReponse(_ response:IGPResponse) -> IGRequestWrapper? {
+    //        let requestWrapper = pendingRequests[response.igpID]
+    //        if requestWrapper != nil {
+    //            return requestWrapper
+    //        }
+    //        return nil
+    //    }
     
     //MARK: Receive
     func didReceive(decryptedData: NSData) {
@@ -555,19 +561,19 @@ class IGRequestManager {
         if !IGWebSocketManager.sharedManager.isSecureConnection() && !unsecureResponseActionID.contains(actionID) {
             return
         }
-
-
+        
+        
         if let lookupTableResult = protoClassesLookupTable[actionID] {
             let protoClassName = lookupTableResult.proto
             do {
-                let responseProtoMessage = try protoClassName.init(serializedData: payload) 
+                let responseProtoMessage = try protoClassName.init(serializedData: payload)
                 let requestHandlerClassName = lookupTableResult.reponseHandler
                 
                 print("\n______________________________\nRESPONSE ➤➤➤ Action ID: \(actionID)   || \(responseProtoMessage) \n------------------------------\n")
                 
                 let response = responseProtoMessage.igpResponse
                 //check if this is a `reponse` or a `push`
-
+                
                 if let correspondingRequestWrapper = pendingRequests[response.igpID] {
                     if actionID == 0 { //-> failed
                         let errorProtoMessage = responseProtoMessage as! IGPErrorResponse
@@ -618,7 +624,7 @@ class IGRequestManager {
     
     func internalTimeOut(for requestWrapper: IGRequestWrapper) {
         //check if request is still pending
-
+        
         if pendingRequests[requestWrapper.id] != nil {
             resolvedRequests[requestWrapper.id] = requestWrapper
             pendingRequests[requestWrapper.id]  = nil
@@ -642,7 +648,7 @@ class IGRequestManager {
         var requestMessage = IGPRequest()
         requestMessage.igpID = generateRandomRequestID()
         return requestMessage
-
+        
     }
     
     private func generateRandomRequestID() -> String {

@@ -52,7 +52,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         btnRefresh.layer.shadowOpacity = 0.3
         
         if IGGlobal.shouldShowChart {
-//            getPollRequest()
+            getPollRequest()
         }
         else {
             getDiscoveryList()
@@ -89,7 +89,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     @objc private func loadData(){
         if IGGlobal.shouldShowChart {
-//            getPollRequest()
+            getPollRequest()
         }
         else {
             getDiscoveryList()
@@ -100,7 +100,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     @IBAction func btnRefresh(_ sender: UIButton) {
         if IGGlobal.shouldShowChart {
-//            getPollRequest()
+            getPollRequest()
         }
         else {
             getDiscoveryList()
@@ -112,44 +112,44 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     //pollReq
-//
-//    private func getPollRequest(){
-//
-//
-//
-//        if !IGAppManager.sharedManager.isUserLoggiedIn() {
-//            return
-//        }
-//
-//        IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
-//            if let response = protoResponse as? IGPClientGetPollResponse {
-//                self.pollList = response.igpPolls
-//
-//
-//                print("8=8=8=8=")
-//                print(self.pollList.count)
-//                print("8=8=8=8=")
-//
-//                DispatchQueue.main.async {
-//                    let navigationItem = self.navigationItem as! IGNavigationItem
-//                    navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
-//                    self.collectionView.reloadData()
-//                }
-//            }
-//        }).error ({ (errorCode, waitTime) in
-//            print("8=8=ERROR=8=8=")
-//            print(errorCode)
-//            print("8=8=ERROR=8=8=")
-//
-//            switch errorCode {
-//            case .timeout:
-//                self.getPollRequest()
-//                self.manageShowDiscovery()
-//            default:
-//                break
-//            }
-//        }).send()
-//    }
+    
+    private func getPollRequest(){
+        
+        
+        
+        if !IGAppManager.sharedManager.isUserLoggiedIn() {
+            return
+        }
+        
+        IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
+            if let response = protoResponse as? IGPClientGetPollResponse {
+                self.pollList = response.igpPolls
+                
+                
+                print("8=8=8=8=")
+                print(self.pollList.count)
+                print("8=8=8=8=")
+                
+                DispatchQueue.main.async {
+                    let navigationItem = self.navigationItem as! IGNavigationItem
+                    navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    self.collectionView.reloadData()
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            print("8=8=ERROR=8=8=")
+            print(errorCode)
+            print("8=8=ERROR=8=8=")
+            
+            switch errorCode {
+            case .timeout:
+                self.getPollRequest()
+                self.manageShowDiscovery()
+            default:
+                break
+            }
+        }).send()
+    }
     
     //end
     

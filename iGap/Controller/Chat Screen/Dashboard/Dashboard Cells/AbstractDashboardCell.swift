@@ -240,7 +240,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         }
         else {
             if pollInfo.igpClickable {
-//                IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
+                IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
                 self.isUserInteractionEnabled = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isUserInteractionEnabled = true

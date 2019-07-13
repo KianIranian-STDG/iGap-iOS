@@ -90,14 +90,14 @@ class IGClientGetRoomHistoryRequest : IGRequest {
         class func interpret(response responseProtoMessage:IGPClientGetRoomHistoryResponse, roomId: Int64) { //-> [IGRoomMessage]{
             IGFactory.shared.saveIgpMessagesToDatabase(responseProtoMessage.igpMessage, for: roomId, updateLastMessage: false , isFromSharedMedia: false)
             
-//            var messages = [IGRoomMessage]()
-//            for igpMessage in responseProtoMessage.igpMessage {
-//                if !igpMessage.igpDeleted {
-//                    let message = IGRoomMessage(igpMessage: igpMessage)
-//                    messages.append(message)
-//                }
-//            }
-//            return messages
+            //            var messages = [IGRoomMessage]()
+            //            for igpMessage in responseProtoMessage.igpMessage {
+            //                if !igpMessage.igpDeleted {
+            //                    let message = IGRoomMessage(igpMessage: igpMessage)
+            //                    messages.append(message)
+            //                }
+            //            }
+            //            return messages
         }
         
         
@@ -146,7 +146,7 @@ class IGClientSearchRoomHistoryRequest : IGRequest {
             
         }
         override class func handlePush(responseProtoMessage: Message) {}
-
+        
         
     }
 }
@@ -201,7 +201,7 @@ class IGClinetCheckInviteLinkRequest: IGRequest {
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
-    
+
 
 
 class IGClientJoinByInviteLinkRequest: IGRequest {
@@ -234,7 +234,7 @@ class IGClientJoinByUsernameRequest: IGRequest {
         class func interpret( response responseProtoMessage : IGPClientJoinByUsernameResponse, roomId: Int64) {
             IGRoom.setParticipant(roomId: roomId, isParticipant: true)
         }
-         override class func handlePush(responseProtoMessage: Message) {}
+        override class func handlePush(responseProtoMessage: Message) {}
     }
 }
 
@@ -331,7 +331,7 @@ class IGClientMuteRoomRequest: IGRequest {
             if roomMute == IGRoom.IGRoomMute.mute {
                 mute = IGPRoomMute.mute
             }
-
+            
             var clientMuteRoom = IGPClientMuteRoom()
             clientMuteRoom.igpRoomID = roomId
             clientMuteRoom.igpRoomMute = mute
@@ -484,6 +484,46 @@ class IGClientGetDiscoveryRequest: IGRequest {
     }
 }
 
+//poll
+
+
+class IGPClientGetPollRequest: IGRequest {
+    
+    class Generator: IGRequest.Generator {
+        class func generate(pageId: Int32 = 0) -> IGRequestWrapper {
+            var request = IGPClientGetPoll()
+            request.igpPollID = pageId
+            return IGRequestWrapper(message: request, actionID: 624, identity: String(describing: pageId))
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientGetPollResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+class IGPClientSetPollItemClickRequest: IGRequest {
+    
+    class func sendRequest(itemId: Int32){
+        IGPClientSetPollItemClickRequest.Generator.generate(itemId: itemId).success({ (protoResponse) in
+        }).error ({ (errorCode, waitTime) in }).send()
+    }
+    
+    class Generator: IGRequest.Generator {
+        class func generate(itemId: Int32) -> IGRequestWrapper {
+            var request = IGPClientSetPollItemClick()
+            request.igpItemID = itemId
+            return IGRequestWrapper(message: request, actionID: 625)
+        }
+    }
+    class Handler: IGRequest.Handler {
+        class func interpret(response responseProtoMessage : IGPClientSetPollItemClickResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+
+//end
 class IGClientSetDiscoveryItemClickRequest: IGRequest {
     
     class func sendRequest(itemId: Int32){
