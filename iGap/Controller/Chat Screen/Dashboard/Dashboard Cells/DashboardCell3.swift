@@ -12,7 +12,7 @@ import UIKit
 import IGProtoBuff
 
 class DashboardCell3: AbstractDashboardCell {
-
+    
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var img1: IGImageView!
     @IBOutlet weak var img2: IGImageView!
@@ -39,5 +39,13 @@ class DashboardCell3: AbstractDashboardCell {
         view2Abs = view2
         super.initView(dashboard: dashboard)
     }
-
+    public override func initViewPoll(dashboard: [IGPPollField]){
+        mainViewAbs = mainView
+        img1Abs = img1
+        img2Abs = img2
+        view1Abs = view1
+        view2Abs = view2
+        super.initViewPoll(dashboard: dashboard)
+    }
+    
 }

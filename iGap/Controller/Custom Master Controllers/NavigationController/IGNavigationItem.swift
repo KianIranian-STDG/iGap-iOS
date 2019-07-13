@@ -18,7 +18,7 @@ var currentPageName : String! = ""
 
 class IGNavigationItem: UINavigationItem {
     var delegate : HandleBackNavigation?
-
+    
     var rightViewContainer:  IGTappableView?
     var centerViewContainer: IGTappableView?
     var leftViewContainer:   IGTappableView?
@@ -89,7 +89,7 @@ class IGNavigationItem: UINavigationItem {
             make.width.equalTo(150)
             make.height.equalTo(30)
         }
-
+        
         label.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.titleView!.snp.centerX)
             make.centerY.equalTo(self.titleView!.snp.centerY)
@@ -156,23 +156,24 @@ class IGNavigationItem: UINavigationItem {
         let backArrowImageView = UIImageView(frame: CGRect(x: 5, y: 10, width: 25, height: 25))
         if IGGlobal.shouldMultiSelect {
             backArrowImageView.image = UIImage(named: "ig_cross_icon")
-
+            
         }
         else {
             backArrowImageView.image = UIImage(named: "IG_Nav_Bar_BackButton")
-
+            
         }
         backViewContainer?.addSubview(backArrowImageView)
         let backBarButton = UIBarButtonItem(customView: backViewContainer!)
         self.leftBarButtonItem = backBarButton
         self.title = ""
-
+        
         backViewContainer?.addAction {
+            IGGlobal.shouldShowChart = false
             self.backViewContainer?.isUserInteractionEnabled = false
             guard let numberOfPages = self.navigationController?.viewControllers.count else { return }
             if IGGlobal.shouldMultiSelect {
                 self.delegate?.diselect()
-
+                
             }
             else {
                 if numberOfPages == 2  {
@@ -182,7 +183,7 @@ class IGNavigationItem: UINavigationItem {
                 } else {
                     _ = self.navigationController?.popViewController(animated: true)
                 }
-
+                
             }
         }
     }
@@ -248,7 +249,7 @@ class IGNavigationItem: UINavigationItem {
             labelFrame = CGRect(x: -50, y: 0, width: 100, height:40)
             label = UILabel(frame: labelFrame)
             label.font = UIFont.igFont(ofSize: 15.0, weight: .bold)
-
+            
         }
         label.textAlignment = .right
         label.text = title
@@ -263,12 +264,12 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.backgroundColor = UIColor.clear
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
-
+        
         let labelFrame = CGRect(x: 0, y: 4.5, width: 100, height:31)
         let label = UILabel(frame: labelFrame)
         label.text = title
         label.font = UIFont.igFont(ofSize: 15.0, weight: .bold)
-
+        
         label.textAlignment = .left
         label.textColor = UIColor.iGapBarsInfo()
         leftViewContainer!.addSubview(label)
@@ -288,47 +289,47 @@ class IGNavigationItem: UINavigationItem {
         let leftBarButton = UIBarButtonItem(customView: leftViewContainer!)
         self.leftBarButtonItem = leftBarButton
         let _ : String = SMLangUtil.loadLanguage()
-
-   
-
+        
+        
+        
         let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
         let settingButtonImageView = UIImageView(frame: settingViewFrame)
         
         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
         leftViewContainer!.addSubview(settingButtonImageView)
         
-
+        
         /*
-        switch current {
-        case "fa" :
-            let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
-            let settingButtonImageView = UIImageView(frame: settingViewFrame)
-
-            settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
-            leftViewContainer!.addSubview(settingButtonImageView)
-
-            
-        case "en" :
-            let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-            let settingButtonImageView = UIImageView(frame: settingViewFrame)
-
-            settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
-            leftViewContainer!.addSubview(settingButtonImageView)
-
-            
-        case "ar" :
-            let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
-            let settingButtonImageView = UIImageView(frame: settingViewFrame)
-
-            settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
-            leftViewContainer!.addSubview(settingButtonImageView)
-
-            
-        default :
-            break
-        }
- */
-
+         switch current {
+         case "fa" :
+         let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+         let settingButtonImageView = UIImageView(frame: settingViewFrame)
+         
+         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+         leftViewContainer!.addSubview(settingButtonImageView)
+         
+         
+         case "en" :
+         let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+         let settingButtonImageView = UIImageView(frame: settingViewFrame)
+         
+         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+         leftViewContainer!.addSubview(settingButtonImageView)
+         
+         
+         case "ar" :
+         let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+         let settingButtonImageView = UIImageView(frame: settingViewFrame)
+         
+         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+         leftViewContainer!.addSubview(settingButtonImageView)
+         
+         
+         default :
+         break
+         }
+         */
+        
     }
     
     private func addComopseButton() {
@@ -339,31 +340,31 @@ class IGNavigationItem: UINavigationItem {
         
         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
         rightViewContainer!.addSubview(composeButtonImageView)
-       /*
-        switch current {
-        case "fa" :
-            let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-            let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-
-            composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
-            rightViewContainer!.addSubview(composeButtonImageView)
-
-            
-        case "en" :
-
-            
-        case "ar" :
-            let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-            let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-
-            composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
-            rightViewContainer!.addSubview(composeButtonImageView)
-
-            
-        default :
-            break
-        }
- */
+        /*
+         switch current {
+         case "fa" :
+         let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
+         
+         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+         rightViewContainer!.addSubview(composeButtonImageView)
+         
+         
+         case "en" :
+         
+         
+         case "ar" :
+         let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
+         
+         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+         rightViewContainer!.addSubview(composeButtonImageView)
+         
+         
+         default :
+         break
+         }
+         */
     }
     
     
@@ -398,42 +399,42 @@ class IGNavigationItem: UINavigationItem {
             self.titleView = titleView
             
             /*
-            var title = ""
-            var width: Double!
-            
-            if IGTabBarController.currentTabStatic == .Dashboard {
-                title = "Dashboard"
-                width = 100
-            } else if IGTabBarController.currentTabStatic == .Call {
-                title = "Calls History"
-                width = 110
-            }
-            
-            /*
-            if IGTabBarController.currentTabStatic == .Chat {
-                title = "Chats"
-                width = 60
-            } else if IGTabBarController.currentTabStatic == .Group {
-                title = "Groups"
-                width = 65
-            } else if IGTabBarController.currentTabStatic == .Channel {
-                title = "Channels"
-                width = 80
-            } else if IGTabBarController.currentTabStatic == .Call {
-                title = "Calls History"
-                width = 110
-            }
-            */
-            
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
-            let lableView = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 23))
-            lableView.text = title
-            lableView.textColor = UIColor.iGapBarsInfo()
-            lableView.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.bold)
-            
-            titleView.addSubview(lableView)
-            self.titleView = titleView
-            */
+             var title = ""
+             var width: Double!
+             
+             if IGTabBarController.currentTabStatic == .Dashboard {
+             title = "Dashboard"
+             width = 100
+             } else if IGTabBarController.currentTabStatic == .Call {
+             title = "Calls History"
+             width = 110
+             }
+             
+             /*
+             if IGTabBarController.currentTabStatic == .Chat {
+             title = "Chats"
+             width = 60
+             } else if IGTabBarController.currentTabStatic == .Group {
+             title = "Groups"
+             width = 65
+             } else if IGTabBarController.currentTabStatic == .Channel {
+             title = "Channels"
+             width = 80
+             } else if IGTabBarController.currentTabStatic == .Call {
+             title = "Calls History"
+             width = 110
+             }
+             */
+             
+             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
+             let lableView = UILabel(frame: CGRect(x: 0, y: 8, width: width, height: 23))
+             lableView.text = title
+             lableView.textColor = UIColor.iGapBarsInfo()
+             lableView.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.bold)
+             
+             titleView.addSubview(lableView)
+             self.titleView = titleView
+             */
         }
     }
     
@@ -446,7 +447,7 @@ class IGNavigationItem: UINavigationItem {
             setRoomAvatar(room)
             setRoomInfo(room)
             addNavigationBackItem()
-
+            
         }
     }
     
@@ -533,7 +534,7 @@ class IGNavigationItem: UINavigationItem {
         let callView = IGTappableView()
         
         let titleContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 45))
-
+        
         self.titleView = titleContainerView
         titleContainerView.addSubview(self.centerViewContainer!)
         titleContainerView.addSubview(callView)
@@ -544,7 +545,7 @@ class IGNavigationItem: UINavigationItem {
             make.trailing.equalTo(titleContainerView.snp.trailing)
             make.width.equalTo(50)
         }
-
+        
         self.centerViewContainer?.snp.makeConstraints { (make) in
             make.top.equalTo(titleContainerView.snp.top)
             make.bottom.equalTo(titleContainerView.snp.bottom)
@@ -719,7 +720,7 @@ class IGNavigationItem: UINavigationItem {
         else {
             print("ERROR HAPPEND IN REALM")
         }
-       
+        
     }
     
     

@@ -33,14 +33,16 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 class IGGlobal {
     static var latestTime: Int64 = 0
-
+    
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var shouldMultiSelect : Bool = false
     static var dispoasDic: [Int64:Disposable] = [:]
     static var dispoasDicString: [String:Disposable] = [:]
     static var carpinoAgreement : Bool = false
-
+    static var barSpace : Int = 50
+    
+    static var shouldShowChart : Bool = false
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -1245,6 +1247,9 @@ extension UIFont {
     
     class func iGapFontico(ofSize fontSize: CGFloat) -> UIFont {
         return UIFont(name: "iGap-Fontico", size: fontSize)!
+    }
+    class func iGapFonticoNew(ofSize fontSize: CGFloat) -> UIFont {
+        return UIFont(name: "iGap-fontico", size: fontSize)!
     }
     
     //    func bold() -> UIFont {

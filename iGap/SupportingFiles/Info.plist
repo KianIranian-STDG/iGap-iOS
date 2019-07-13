@@ -79,6 +79,7 @@ This is the option to choose a photo from your gallery and send it to someone el
 	<key>UIAppFonts</key>
 	<array>
 		<string>iGap-Fontico.ttf</string>
+		<string>iGap-fontico.ttf</string>
 		<string>IRANSans_Bold.ttf</string>
 		<string>IRANSans_Light.ttf</string>
 		<string>IRANSans_Medium.ttf</string>

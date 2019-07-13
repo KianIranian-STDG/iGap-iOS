@@ -13,7 +13,7 @@
         "WALLET_PAY_LBL3" : "مبلغ قابل پرداخت(ریال) :",
         "WALLET_PAY_LBL1" : "مبلغ تخفیف(ریال) :",
         "WALLET_PAY_LBL0" : "مبلغ کل(ریال) :",
-
+        
         
         
         "NEW_MESSAGES" : "پیام جدید",
@@ -36,7 +36,7 @@
         "MSG_SURE_TO_LEAVE_GROUP" : "آیا از ترک این گروه مطمین هستید؟",
         "MSG_SURE_TO_DELETE_CHANNEL" :  "آیا از حذف این کانال مطمین هستید؟",
         "MSG_SURE_TO_LEAVE_CHANNEL" : "آیا از ترک این کانال مطمین هستید؟",
-
+        
         "MSG_SURE_TO_DELETE_CHAT_HISTORY" : "آیا از حذف تاریخچه چت مطمین هستید؟",
         "INVALID_CODE" : "کد اشتباه",
         "MSG_THE_CODE_INVALID" : "کد وارد شده صحیح نمی باشد",
@@ -91,14 +91,15 @@
         "CHANNEL_LINK" : "لینک کانال :",
         "GROUP_NO_MODERATOR" : "این گروه هیچ سردبیری ندارد",
         "GROUP_NO_ADMIN" : "این گروه هیچ مدیری ندارد",
-
-
+        "MSG_U_HAVE_ALREADY_VOTED" : "شما قبلا رای خود را ثبت کرده اید",
+        
+        
         "TYPE" : "نوع",
         "ADD_ADMIN" : "افزودن مدیر",
         "ADD_MODERATOR" : "افزودن سردبیر",
         "ADD_MEMBER" : "افزودن عضو",
         "ADD_MEMBER_TO" : "افزودن عضو به",
-
+        
         "ALLMEMBER" : "اعضا",
         "ADMIN" : "مدیر",
         "MODERATOR" : "سردبیر",
@@ -155,7 +156,7 @@
         "UNANSWERED_CALL" : "تماس پاسخ داده نشده",
         "VOICE_CALL" : "تماس صوتی",
         "VIDEO_CALL" : "تماس تصویری",
-
+        
         
         "COMMUNICATING" : "برقراری ارتباط",
         "CONNECTED" : "متصل شد",
@@ -169,14 +170,14 @@
         "INCOMMING_CALL" : "تماس ورودی",
         "RINGING" : "در حال زنگ خوردن",
         "DIALING" : "در حال گرفتن شماره",
-
+        
         
         
         
         "DID_NOT_RESPOND_TO_VOICE" : "عدم پاسخ دهی به شروع تماس صوتی با شما",
         "DID_NOT_RESPOND_TO_VIDEO" : "عدم پاسخ دهی به شروع تماس تصویری با شما",
         "DID_NOT_RESPOND_TO_SCHAT" : "عدم پاسخ دهی به شروع گغت و گوی مخفی با شما",
-
+        
         "MSG_CREATED_ROOM" : "این صفحه را ایجاد کرد ",
         "MSG_ADDED" : " اضافه کرد",
         "MSG_KICKED" : " بیرون انداخت",
@@ -199,7 +200,7 @@
         "CHANGE_SECURITY_Q" : "تغییر سوال های امنیتی",
         "SET_CHANGE_RECO_EMAIL" : "ورود یا تغییر ایمیل",
         "VERIFY_EMAIL" : "تایید ایمیل",
-
+        
         
         
         
@@ -225,7 +226,7 @@
         "WALLET_SETTINGS" : "تنظیمات کیف پول",
         "RESET_WALLET_PIN" : "بازنشانی رمز کیف پول",
         "SHOW_THIS_QR" : "این کیو آر را به دیگران به منظور اسکن کردن و پرداخت وجه به شما نشان دهید",
-
+        
         "FILES" : "فایل ها",
         "LINKS" : "لینک ها",
         "GIFS" : "تصاویر متحرگ",
@@ -258,9 +259,9 @@
         "DELETED_MESSAGE" : "پیام حذف شده",
         "DRAFT" : "پیش نویس : ",
         "enterpin" : "رمز کیف پول را وارد نمایید",
-
-
-
+        
+        
+        
         "NEW_GROUP" : "گروه جدید",
         "NEW_CHANNEL" : "کانال جدید",
         "VERSION_DEPRICATED" : "نسخه فعلی منقضی شده است لطفا برای استفاده به روز رسانی نمایید",
@@ -273,7 +274,7 @@
         "WHAT_DO_U_WANT" : "چه کاری میخواهید انجام دهید؟",
         "CLEAR_HISTORY" : "پاک کردن تاریخچه",
         "SHOW_HISTORY" : "نمایش تاریخچه",
-
+        
         "REPORT" : "گزارش تخلف",
         "LEAVE" : "خروج",
         "REPORT_SUBMITED" : "گزارش تخلف با موفقیت ارسال شد",
@@ -312,7 +313,7 @@
         "LAST_SEEN_RECENTLY" : "همین حالا",
         "A_FEW_SEC_AGO" : "چند ثانیه قبل",
         "MINUTE" : "دقیقه",
-
+        
         "PRICE" : "مبلغ",
         "TTL_DELETE_CONTACT" : "حذف مخاطب.",
         "TTL_MAP_STATUS" : "فعال سازی قابلیت اطراف من",
@@ -385,7 +386,7 @@
         "COUNTRY" : "کشور : ",
         "SESSION_INITIATED_AT" : "زمان ایجاد نشست : ",
         "IP" : "آی پی : ",
-
+        
         "TTL_SET_AS_DEFAULT_CARD" : "قرار دادن به عنوان کارت پیش فرض",
         "TTL_WHO_CAN_SEE_MY_PROFILE_PHOTO" : "چه کسی بتواند تصویر پروفایل من را ببیند؟",
         "TTL_WHO_CAN_SEE_MY_PLAST_SEEN" : "چه کسی بتواند آخرین مشاهده من را ببیند؟",
@@ -417,15 +418,15 @@
         "MSG_CHANNEL_SHARE_FOOTER" : "کاربران می توانند پس از به اشتراک گذاشتن کانال شما توسط این لینک و جست و جوی آن به کانال شما ملحق شوند",
         "MSG_CHANNEL_SHARE_JOIN" : ".کاربران می توانند توسط این لینک به کانال شما ملحق شوند.در آینده می توانید این لینک را نیز تفییر دهید",
         "MSG_CHANNEL_DESC" : ".برای کانال خود یک توضیح می توانید قرار دهید",
-
+        
         "PLEASE_WAIT_DATA_LOAD" : "لطفا تا زمان بارگزاری تمام داده ها شکیبا باشید ...",
-
+        
         
         "TIME_OUT" : "عدم امکان اتصال به سرور",
         "TIME_OUT_MSG_EMAIL" : "عدم امکان دریافت اطلاعات ایمیل شما از سرور.لطفا مجددا تلاش فرمایید",
         "TIME_OUT_MSG_BIO" : "عدم امکان دریافت اطلاعات بیوگرافی شما از سرور.لطفا مجددا تلاش فرمایید",
         "TIME_OUT_MSG_SELFD" : "عدم امکان دریافت ساعت های تخریب خودکار از سرور.لطفا مجددا تلاش فرمایید",
-
+        
         "PLACE_HOLDER_F_NAME" : "نام",
         "PLACE_HOLDER_L_NAME" : "نام خانوادگی",
         "PLAVE_HOLDER_16_DIGIT" : "شماره ۱۶ رقمی کارت",
@@ -434,7 +435,7 @@
         "PLACE_HOLDER_MOBILE_NUM" : "۰۹*********",
         "PLACE_HOLDER_PHONE_NUM" : "شماره ثابت",
         "PLACE_HOLDER_P_CODE" : "کد شهر",
-
+        
         "BTN_EDITE_CONTACT" : "ویرایش مخاطب",
         "BTN_HINT" : "نشانه",
         "BTN_DELETE" : "حذف",
@@ -446,13 +447,13 @@
         "BTN_CASHOUT_WALLET_DRIVER" : "برداشت از کیف پول راننده",
         "BTN_SHOW_RECEPIET" : "نمایش رسید",
         "BTN_PAY_CASHOUT" : "برداشت",
-
+        
         "SAVED_CARDS" : "کارت های ذخیره شده",
         "Loading ..." : "در حال دریافت ...",
         "MORE" : "بیشتر ...",
         "Updating ..." : "در حال بروزرسانی",
         "UPDATE" : "بروزرسانی",
-
+        
         "MONTH" : " ماه",
         "MONTHS" : " ماه",
         "ADD_BTN" : "افزودن",
@@ -465,7 +466,7 @@
         "END_TERM_BILL" : "قبض پایان دوره",
         "TXT_AMOUNT" : "مبلغ(ریال)",
         "CHANNEL_NAME" : "نام کانال",
-
+        
         "CURRENCY" : "ریال",
         "AMOUNT_IN" : "مبلغ واریزی",
         "AMOUNT_OUT" : "مبلغ برداشت",
@@ -473,7 +474,7 @@
         "DEST_CARD" : "کارت مقصد",
         "DEST_BANK" : "بانک مقصد",
         "SOURCE_BANK" : "بانک مبدا",
-
+        
         "OWNER_NAME" : "نام صاحب",
         "OTP_CODE" : "کد یکبارمصرف",
         "CONFIRM_NEW_PASS" : "تکرار رمز عبور",
@@ -483,7 +484,7 @@
         "MSG_PASSWORD_IS_NOT_SET" : "رمز عبور برای این حساب کاربری ایجاد نشده است",
         "MSG_INVALID_PASS" : "رمز عبور اشتباه",
         "MSG_INTERNAL_SERVER_ERROR" : "خطای داخلی سرور",
-
+        
         "FORGET_PASSWORD" : "فراموشی رمز عبور",
         "MSG_FORGET_PASSWORD" : "مایل به استفاده از کدام یک از روش های زیر برای تغییر رمز عبور خود هستید؟",
         "RECOVERY_QUESTIONS" : "سوال های امنیتی",
@@ -505,7 +506,7 @@
         "BALANCE_NOT_ENOUGH" : "موجودی کیف پول کافی نمی باشد",
         "SUCCESS_OPERATION" : "عملیات با موفقیت انجام شد",
         "WALLET_PIN" : "رمز کیف پول",
-
+        
         "CART_ACCOUNTS" : "لیست سبدها",
         "CART_NOACCOUNTS" : "سبدی برای نمایش وجود ندارد.",
         "EDIT_PROFILE" : "ویرایش مشخصات",
@@ -516,7 +517,7 @@
         "FILE" : "فایل",
         "CONTACT" : "مخاطب",
         "LOCATION" : "موقعیت مکانی",
-
+        
         "FIELD_CITY" : "شهر",
         "FIELD_BIRTHDATE" : "تاریخ تولد",
         "FIELD_EMAIL" : "آدرس ایمیل",
@@ -539,12 +540,12 @@
         "DELETE_SUB1" :  "حذف اطلاعات حساب و تصویر حساب کاربری شما",
         "DELETE_SUB2" :  "حذف شما از تمامی گروه ها",
         "DELETE_SUB3" :  "حذف تاریخچه پیام های شما از تلفن همراه",
-
+        
         "DELETE_POST" : "حذف پست",
         "DELETE_PHOTO" : "حذف تصویر",
         "MY_QR" : "کیو آر من",
         "PLACE_HOLDER_SEARCH" : "جست و جو نمایید",
-
+        
         "INVALID_QR" : "کیو آر ناشناخته می باشد",
         "FILL_AMOUNT" : "لطفا فیلد مبلغ را پر نمایید",
         "AMOUNT_IS_NOT_ENOUGH" : "موجودی کیف پول کافی نمی باشد.جهت انجام فرایند پرداخت می توانید از کارت بانکی استفاده نمایید",
@@ -576,9 +577,9 @@
         "TAKE_A_PHOTO" : "گرفتن عکس",
         "DELETE_MAIN_AVATAR" : "حذف آواتار",
         "CHOOSE_PHOTO" : "انتخاب تصویر",
-
-
-
+        
+        
+        
         
         "paygear_card" : "کیف پول",
         "bank_parsian" : "بانک پارسیان",
@@ -625,7 +626,7 @@
         "SETTING_PAGE_CARD" : "کارت بانکی",
         "ENTER_RECIEVER_CODE" : "کد گیرنده را وارد نمایید",
         "ENTER_CODE" : "کد را وارد نمایید",
-
+        
         "SETTING_PAGE_FINANCIAL_SERVICES" : "خدمات مالی",
         "SETTING_PAGE_CHANGE_LANGUAGE" : "تغییر زبان",
         "SETTING_PAGE_CHOOSE_LANGUAGE" : "Choose Language - انتخاب زبان",
@@ -641,7 +642,7 @@
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "لقب",
         "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "باشگاه آیگپ",
         "SETTING_PAGE_ACCOUNT_SCORE_PAGE" : "امتیاز",
-
+        
         "SETTING_PAGE_ACCOUNT_PHONENUMBER" : "شماره تماس",
         "SETTING_PAGE_ACCOUNT_USERNAME" : "نام کاربری",
         "SETTING_PAGE_ACCOUNT_EMAIL" : "ایمیل",
@@ -680,11 +681,11 @@
         "SETTING_PS_NO_MORE_ACTIVE_SESSIONS" : "نشست فعال دیگری وجود ندارد",
         "SETTINGS_PS_TERMINATE_ALL_EXEPT" : "لغو تمامی جلسات فعال بجز نشست فعلی",
         "TERMINATE_ALL_SESSIONS" : "لغو تمامی نشست ها",
-
+        
         "SETTING_PS_AS_SURE_TO_TERMINATE" : "آیا از لغو همهٔ جلسات فعال اطمینان دارید؟ ",
         "SETTING_PS_AS_SURE_TO_TERMINATE_THIS" : "آیا از لغو این نشست  اطمینان دارید؟ ",
         "SETTING_PS_TV_FOOTER_HINT" : "لطفا از ورود ایمیل صحیح اطمینان حاصل کنید چرا که در صورت فراموشی رمز عبور تنها راه بازیابی می باشد",
-
+        
         "SETTING_PS_TWO_STEP_VERFI" : "فعال سازی دو مرحله ای",
         "SETTING_PS_AS_CURRENT_SESSIONS" : "نشست  فعلی",
         "SETTING_PS_AS_MORE_DETAILS" : "اطلاعات بیشتر",
@@ -701,10 +702,10 @@
         "SETTING_PS_TV_YOUR_PASS_REMOVED" : "پسورد با موفقیت حذف گردید",
         "INVALID_ANSWER" : "پاسخ اشتباه است",
         "RECOVER_BY_ANSWER_IS_FORBIDDEN" : "بازیابی توسط پاسخ امنیتی ممنوع می باشد",
-
+        
         "SETTING_PS_BLOCK_A_CONTACT" : "مسدود سازی مخاطب...",
         "BLLOCK_CONTACT" : "مسدود سازی مخاطب",
-
+        
         "UNBLOCK" : "آزاد سازی",
         "SETTING_PS_TV_Q1" : "سوال امنیتی اول :",
         "SETTING_PS_TV_Q2" : "سوال امنیتی دوم :",
@@ -727,7 +728,7 @@
         "MY_CONTACTS" : "مخاطبان من",
         "NOBODY" : "هیچ کس",
         "TERMINATE" : "از بین بردن",
-
+        
         "TIMELINE_LIKES" : "پسندیده اند",
         "PU_GETDATA" : "در حال دریافت ...",
         "PU_COUPON" : "کوپن تخفیف",
@@ -761,7 +762,7 @@
         "barcode.gift.confirm" : "ثبت هدیه",
         "barcode.gift.cancel" : "انصراف",
         "barcode.gift.wrongemessage" : "پاسخ درستی دریافت نشد",
-
+        
         "MESSAGE" : "پیغام",
         "EDITE_MESSAGE" : "ویرایش پیغام",
         "NO_MESSAGE" : "پیغامی برای نمایش وجود ندارد",
@@ -791,7 +792,7 @@
         "WALLET_TRANSFER_MONEY" : "انتقال وجه کیف پول",
         "CARD_TRANSFER_MONEY" : "انتقال وجه کارت به کارت",
         "PAYMENT_TRANSFER_MONEY" : "پرداخت",
-
+        
         
         "PRODUCTS_SELLER" : "فروشنده",
         "PRODUCTS_SELECT_CATEGORY" : "انتخاب دسته",
@@ -845,7 +846,7 @@
         "USERS" : "کاربر",
         "SHARE_TO" : "ارسال به",
         "SELECT_CHATS" : "انتخاب گفت و گو",
-
+        
         "GLOBAL_HOME" : "خانه",
         "POD_ADDRESSES" : "آدرس ها",
         "POD_MYADDRESS" : "آدرس های من",
@@ -892,7 +893,7 @@
         "GLOBAL_OK" : "تایید",
         "GLOBAL_DONE" : "تایید",
         "TRACE_NUMBER" : "شماره پیگیری",
-
+        
         "GLOBAL_TO" : "به",
         "GLOBAL_BACK" : "بازگشت",
         "GLOBAL_CLOSE" : "بستن",
@@ -926,9 +927,9 @@
         "ENTER_RECIEVER_CODE" : "Enter Reciever Code",
         "ENTER_CODE" : "Enter Code",
         "PAIED_TO_LBL" : "Paied To :",
-
+        
         "history.sale.share" : "Share of Sales",
-
+        
         
         "NEW_MESSAGES" : "New Messages",
         "WHICH_TYPE_OF" : "Which type of conversation would you like to initiate?",
@@ -952,7 +953,7 @@
         "MSG_SURE_TO_LEAVE_CHANNEL" : "Are you sure you want to Leave this Channel?",
         "TTL_OPTIONS" : "Options",
         "MSG_UNVERIFIED_EMAIL" : "You have an unverifies email address:\n",
-
+        
         "MSG_SURE_TO_DELETE_CACHE" : "Are you sure you want to Clear selected Data?",
         "MSG_SURE_TO_DELETE_CHAT_HISTORY" : "Are you sure you want to Delete chat history?",
         "INVALID_CODE" : "Invalid Code",
@@ -984,7 +985,7 @@
         "U_JOINED" : "You Joined",
         "TO" : "to",
         "OPEN_NOW" : "Open Now",
-
+        
         "GROUP_DOES_NOT_EXIST" : "Sorry,this group does not seem to exist.",
         "PLEASE_WRITE_UR_REPORT" : "Please write your report description",
         "REPORT_SUCCESS" : "Your report has been successfully submitted",
@@ -993,7 +994,7 @@
         "REOLY_TO" : "Reply to : ",
         "CHANNEL_LINK" : "Channel Link :",
         "SELECTED" : "Selected",
-
+        
         
         
         
@@ -1012,7 +1013,7 @@
         "CHANNELTYPE" : "Channel Type",
         "CHANNELREACTION" : "Channel Reaction",
         "CHANNELSIGNMESSAGES" : "Sign Messages",
-
+        
         "GROUPDESC" : "Group Desciption",
         "GROUPTYPE" : "Group Type",
         "ALLMEMBER" : "Members",
@@ -1028,7 +1029,7 @@
         "TYPE" : "Type",
         "ADD_MEMBER" : "Add member",
         "ADD_MEMBER_TO" : "Add member to",
-
+        
         "ARE_U_SURE_REMOVE_ADMIN" : "Are you sure you want to remove the admin role from this member?",
         "ARE_U_SURE_REMOVE_MODERATOR" : "Are you sure you want to remove the Moderator role from this member?",
         "ARE_U_SURE_KICK_USER" : "Are you sure you want to Kick this member?",
@@ -1069,10 +1070,10 @@
         "BY_SIGNING_AGREEMENT" : "By signing up an account you agree to  ",
         "TERMS_OF_SERVICE" : "Terms of Services",
         "AGREE_TO_TERMS" : "Agree To Terms",
-
+        
         "MISSED_CALL" : "Missed Call",
         "UNANSWERED_CALL" : "Unanswerd Call",
-
+        
         
         
         "COMMUNICATING" : "Communicating ...",
@@ -1090,9 +1091,9 @@
         "DID_NOT_RESPOND_TO_VOICE" : "Did not respond to your voice call",
         "DID_NOT_RESPOND_TO_VIDEO" : "Did not respond to your video call",
         "DID_NOT_RESPOND_TO_SCHAT" : "Did not respond to start a secret chat with you",
-
+        
         "USERNAME_VALID_CHARS" : "You can use a-z,0-9 and underscores.",
-
+        
         
         "MSG_CREATED_ROOM" : " Created this room",
         "MSG_ADDED" : " Added",
@@ -1115,13 +1116,13 @@
         "CHANGE_SECURITY_Q" : "Change Security Questions",
         "SET_CHANGE_RECO_EMAIL" : "Change or Set Recovery Email",
         "VERIFY_EMAIL" : "Verify Email",
-
+        
         
         
         "WALLET_PAY_LBL3" : "Total Amount (Rials) :",
         "WALLET_PAY_LBL1" : "Discount Amount (Rials) :",
         "WALLET_PAY_LBL0" : "Payable Amount (Rials) :",
-
+        
         
         
         
@@ -1170,7 +1171,7 @@
         "DRAFT" : "Draft : ",
         "VOICE_CALL" : "Voice Call",
         "VIDEO_CALL" : "Video Call",
-
+        
         
         
         "PLACE_HOLDER_SEARCH" : "Begin your search by tapping here",
@@ -1179,9 +1180,9 @@
         "UNPIN_FOR_ALL" : "Unpin for all users",
         "UNPIN_FOR_ME" : "Unpin for me",
         "PIN_ARE_U_SURE" : "Are you sure pin this message?",
-
-
-
+        
+        
+        
         
         "NEW_C_C" : "New Conversation Or Call",
         "NEW_CALL" : "New Call",
@@ -1197,7 +1198,7 @@
         "NO_NETWORK" : "No network Connection",
         "WHAT_DO_U_WANT" : "What do you want to do?",
         "CLEAR_HISTORY" : "Clear History",
-
+        
         "SHOW_HISTORY" : "Show History",
         "REPORT" : "Report",
         "LEAVE" : "Leave",
@@ -1213,7 +1214,8 @@
         "OTHER" : "Other",
         "MY_QR" : "My QR",
         "BTN_PAY_CASHOUT" : "Cash Out",
-
+        "MSG_U_HAVE_ALREADY_VOTED" : "You Have Already Voted!",
+        
         "CONNECTING" : "Connecting ...",
         "WAITING_NETWORK" : "Waiting for Network ...",
         "RETURN_TO_CALL" : "Return to call screen",
@@ -1237,7 +1239,7 @@
         "ADD_STICKER" : "Add Sticker!",
         "LBL_STICKER" : "Stickers",
         "STICKER_CATEGORY" : "Sticker Categories",
-
+        
         "TTL_DELETE_CONTACT" : "Delete Contact.",
         "TTL_MAP_STATUS" : "Notice! Activating Map Status",
         "TTL_ATTENTION" : "Attention",
@@ -1277,7 +1279,7 @@
         "TTL_INCASH" : "In Cash",
         "TTL_PAYMENT_GATEWAY" : "Pay Gateway",
         "TTL_ADD_NEW_CARD" : "Add New Card",
-
+        
         
         "TTL_CASHOUT_TYPE_IMMIDIATE" : "Immidiate",
         "TTL_CASHOUT_TYPE_NORMAL" : "Normal",
@@ -1299,7 +1301,7 @@
         "TTL_ADDING_ME_TO_GROULS" : "Adding me To Groups",
         "TTL_ADDING_ME_TO_CHANNELS" : "Adding me To Channels",
         "TTL_WHO_CAN_CALL" : "Who can call me?",
-
+        
         
         
         "MSG_CHANNEL_SHARE_FOOTER" : "People can share this link whith others and find your channel using iGap search.",
@@ -1327,8 +1329,8 @@
         "MSG_GROUP_DESC" : "Enter some text to describe your Group ...",
         "MSG_GROUP_CHANNEL" : "Enter some text to describe your Channel ...",
         "MSG_PLEASE_CHOOSE_MEMBER" : "Please Choose a member",
-
-
+        
+        
         
         
         "TIME_OUT" : "can't connect to the server",
@@ -1344,10 +1346,10 @@
         "PLACE_HOLDER_PHONE_NUM" : "Telephone Number",
         "PLACE_HOLDER_P_CODE" : "Code",
         
-
+        
         "UNBLOCK" : "Unblock",
         "CONTACT_INFO" : "Contact Info",
-
+        
         "BTN_EDITE_CONTACT" : "Edit Contact",
         "BTN_HINT" : "Hint",
         "BTN_DELETE" : "Delete",
@@ -1358,15 +1360,15 @@
         "BTN_CASHOUT_WALLET_STORE" : "Cash Out from Store Wallet",
         "BTN_CASHOUT_WALLET_DRIVER" : "Cash Out from Driver Wallet",
         "BTN_SHOW_RECEPIET" : "Show Reciept",
-
+        
         "MID_TERM_BILL" : "Mid-Term Bill",
         "END_TERM_BILL" : "End-Term Bill",
         "TXT_AMOUNT" : "Amount (Rial)",
-
+        
         "ADD_BTN" : "Add",
         "CANCEL_BTN" : "Cancel",
         "DONE_BTN" : "Done",
-
+        
         "MONTH" : " Month",
         "MONTHS" : " Months",
         "CONTACTS" : " Contacts",
@@ -1380,7 +1382,7 @@
         "Loading ..." : "Loading ...",
         "Updating ..." : "Updating ...",
         "UPDATE" : "Update",
-
+        
         "CURRENCY" : "Rial",
         "AMOUNT_IN" : "Amount In",
         "AMOUNT_OUT" : "Amount Out",
@@ -1432,7 +1434,7 @@
         "MINUTE" : "Minute",
         "CHANNEL_NAME" : "Channel Name",
         "LETS_GO" : "Let's Go",
-
+        
         
         
         
@@ -1510,7 +1512,7 @@
         "SETTING_PS_TV_VERIFY_PASSWORD" : "Verify Password :",
         "SETTING_PS_TV_REQUIRED_FIELD" : "Required",
         "SETTING_PS_TV_RECOMMENDED_FIELD" : "Recommended",
-
+        
         "SETTING_PS_TV_VERIFY_PASSWORD_NOTMATCH" : "Password and verify password do not match",
         "SETTING_PS_TV_HINT_ERROR" : "Hint Can't Be The Same As Password",
         "SETTING_PS_TV_RECOVER_PASS" : "Password Recovery",
@@ -1520,9 +1522,9 @@
         "INVALID_ANSWER" : "Wrong Answer",
         "RECOVER_BY_ANSWER_IS_FORBIDDEN" : "Recovery Using Security question is forbidden",
         "SET_BTN" : "Set",
-
+        
         "enterpin" : "Enter Pin",
-
+        
         "SETTING_PS_TV_Q1" : "Question 1 :",
         "SETTING_PS_TV_Q2" : "Question 2 :",
         "SETTING_PS_TV_A1" : "Answer 1 :",
@@ -1560,7 +1562,7 @@
         "APP_VERSION" : "App Version : ",
         "COUNTRY" : "Country : ",
         "SESSION_INITIATED_AT" : "Session Initiated at : ",
-
+        
         "IRANCELL" : "Irancell",
         "MCI" : "MCI",
         "RIGHTEL" : "Rightel",
@@ -1570,7 +1572,7 @@
         "WIMAX_CHARGE" : "Wimax",
         "PERMANENTLY_SIM_CART" : "Permanently Sim Card",
         "CHOOSE_COUNTRY" : "Choose Country",
-
+        
         "CHOOSE_CHARGE_TYPE" : "Choose Charge Type",
         "CHOOSE_OPERATOR" : "Choose Operator",
         "TOPUP_TYPE" : "Top Up Type",
@@ -1583,9 +1585,9 @@
         "BTN_INQUERY" : "Inquiry",
         "BILLING_ID" : "Billing ID",
         "PAYMENT_CODE" : "Payment Code",
-
-
-
+        
+        
+        
         "paygear_card" : "Paygear Card",
         "bank_parsian" : "Parsian Bank",
         "bank_saman" : "Saman Bank",
@@ -1621,7 +1623,7 @@
         "bank_etebari_kosar" : "Kosar Credit Institute",
         "bank_etebari_tosee" : "Tosee Credit Institute",
         "bank_etebari_asgarieh" : "Askariye Credit Institute",
-
+        
         "DELETE_POST" : "Remove Post",
         "DELETE_PHOTO" : "Remove Photo",
         "DELETE_CARD" : "Remove Card",
@@ -1657,9 +1659,9 @@
         "DELETE_SUB1" :  "Delete your profile picture and account info",
         "DELETE_SUB2" :  "Delete you from all Groups",
         "DELETE_SUB3" :  "Delete your message history on this phone",
-
+        
         "IP" : "IP : ",
-
+        
         "TIMELINE_LIKES" : "Liked",
         "PU_GETDATA" : "Receiving data …",
         "PU_COUPON" : "Coupon",
@@ -1689,7 +1691,7 @@
         "HASHTAGS" : "Hashtags",
         "MESSAGE" : "Message",
         "EDITE_MESSAGE" : "Edite Message",
-
+        
         "NO_MESSAGE" : "No messages to show",
         
         "MESSAGE_INPUT" : "Write your message...",
@@ -1752,7 +1754,7 @@
         "AUTH_USERNAME" : "Username",
         "AUTH_VERIFYMOBILE" : "Verification code",
         "VERFICATION_CODE" : "Verification code",
-
+        
         "AUTH_HINT_MOBILE" : " A verification code sent, if it doesn't received <MOBILE>, request a code again",
         "AUTH_RESEND" : "Seconds remained to send the code, again",
         "AUTH_RESEND_BUTTON" : "Send the code again",
@@ -1815,7 +1817,7 @@
         "GLOBAL_CREAT" : "Creat",
         "PRICE" : "Amount",
         "TRACE_NUMBER" : "Trace Number",
-
+        
         "GLOBAL_UNLIMITED" : "unlimited",
         "GLOBAL_CAPTION" : "subject",
         "GLOBAL_WARNING" : "Error",
@@ -1837,7 +1839,7 @@
         "barcode.gift.message" : "",
         "barcode.gift.confirm" : "Get Gift",
         "barcode.gift.cancel" : "Cancel",
-
+        
         "NO_CALL_HISTORY" : "Not exist call history!"
     }
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<device id="retina6_1" orientation="portrait">
+<adaptation id="fullscreen"/>
+</device>
+<dependencies>
+<deployment identifier="iOS"/>
+<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+<capability name="Safe area layout guides" minToolsVersion="9.0"/>
+<capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+</dependencies>
+<objects>
+<placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+<placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+<collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="j5U-e9-2bY" customClass="DashboardCell8" customModule="iGap">
+<rect key="frame" x="0.0" y="0.0" width="550" height="342"/>
+<autoresizingMask key="autoresizingMask"/>
+<view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+<rect key="frame" x="0.0" y="0.0" width="550" height="342"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<subviews>
+<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5p-X1-L98">
+<rect key="frame" x="0.0" y="0.0" width="550" height="342"/>
+<subviews>
+<imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fNf-Dw-uHU" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
+<rect key="frame" x="8" y="4" width="534" height="334"/>
+</imageView>
+<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="teU-3X-tA6">
+<rect key="frame" x="8" y="4" width="534" height="334"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+</view>
+<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atw-AB-Qbd" customClass="BasicBarChart" customModule="iGap" customModuleProvider="target">
+<rect key="frame" x="8" y="4" width="534" height="334"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+</view>
+</subviews>
+<color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+<constraints>
+<constraint firstAttribute="bottom" secondItem="fNf-Dw-uHU" secondAttribute="bottom" constant="4" id="8zt-kL-N0N"/>
+<constraint firstItem="fNf-Dw-uHU" firstAttribute="top" secondItem="teU-3X-tA6" secondAttribute="top" id="CDg-Uo-eOK"/>
+<constraint firstItem="fNf-Dw-uHU" firstAttribute="leading" secondItem="B5p-X1-L98" secondAttribute="leading" constant="8" id="Dal-rT-0a1"/>
+<constraint firstItem="atw-AB-Qbd" firstAttribute="top" secondItem="B5p-X1-L98" secondAttribute="top" constant="4" id="Lhf-kW-PsD"/>
+<constraint firstAttribute="trailing" secondItem="fNf-Dw-uHU" secondAttribute="trailing" constant="8" id="RyN-3v-LFX"/>
+<constraint firstItem="fNf-Dw-uHU" firstAttribute="leading" secondItem="teU-3X-tA6" secondAttribute="leading" id="Sia-R2-yf5"/>
+<constraint firstItem="atw-AB-Qbd" firstAttribute="leading" secondItem="B5p-X1-L98" secondAttribute="leading" constant="8" id="hhY-zh-LTm"/>
+<constraint firstItem="fNf-Dw-uHU" firstAttribute="trailing" secondItem="teU-3X-tA6" secondAttribute="trailing" id="j9I-Px-Ahc"/>
+<constraint firstAttribute="bottom" secondItem="atw-AB-Qbd" secondAttribute="bottom" constant="4" id="mZg-77-9Sj"/>
+<constraint firstItem="fNf-Dw-uHU" firstAttribute="top" secondItem="B5p-X1-L98" secondAttribute="top" constant="4" id="sGC-Af-CAp"/>
+<constraint firstItem="fNf-Dw-uHU" firstAttribute="bottom" secondItem="teU-3X-tA6" secondAttribute="bottom" id="yp4-Xc-94i"/>
+<constraint firstAttribute="trailing" secondItem="atw-AB-Qbd" secondAttribute="trailing" constant="8" id="zdL-jo-IRe"/>
+</constraints>
+</view>
+</subviews>
+</view>
+<constraints>
+<constraint firstItem="B5p-X1-L98" firstAttribute="leading" secondItem="j5U-e9-2bY" secondAttribute="leading" id="9pI-ij-plf"/>
+<constraint firstAttribute="trailing" secondItem="B5p-X1-L98" secondAttribute="trailing" id="D1x-q2-H58"/>
+<constraint firstItem="B5p-X1-L98" firstAttribute="top" secondItem="j5U-e9-2bY" secondAttribute="top" id="myu-Jl-xqH"/>
+<constraint firstAttribute="bottom" secondItem="B5p-X1-L98" secondAttribute="bottom" id="okH-Yy-XrQ"/>
+</constraints>
+<viewLayoutGuide key="safeArea" id="d4p-c4-3pa"/>
+<size key="customSize" width="550" height="114"/>
+<connections>
+<outlet property="basicBarChart" destination="atw-AB-Qbd" id="hCB-uY-8wu"/>
+<outlet property="mainView" destination="B5p-X1-L98" id="uFT-wJ-OrE"/>
+<outlet property="view" destination="teU-3X-tA6" id="Eo4-AO-fhr"/>
+</connections>
+<point key="canvasLocation" x="14.4" y="125.03748125937032"/>
+</collectionViewCell>
+</objects>
+</document>

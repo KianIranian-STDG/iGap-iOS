@@ -12,12 +12,15 @@ import UIKit
 import IGProtoBuff
 import MapKit
 
-class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate, CLLocationManagerDelegate, DiscoveryObserver {
 
+class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIGestureRecognizerDelegate, CLLocationManagerDelegate, DiscoveryObserver {
+    
+    
     static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
     private var discovery: [IGPDiscovery] = []
+    private var pollList: [IGPPoll] = []
     private var refresher: UIRefreshControl!
     private let locationManager = CLLocationManager()
     static var discoveryObserver: DiscoveryObserver!
@@ -25,6 +28,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +51,13 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         btnRefresh.layer.shadowOffset = CGSize(width: 0, height: 0)
         btnRefresh.layer.shadowOpacity = 0.3
         
-        getDiscoveryList()
+        if IGGlobal.shouldShowChart {
+//            getPollRequest()
+        }
+        else {
+            getDiscoveryList()
+            
+        }
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
     }
@@ -74,23 +84,78 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         self.collectionView!.register(DashboardCell5.nib(), forCellWithReuseIdentifier: DashboardCell5.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell6.nib(), forCellWithReuseIdentifier: DashboardCell6.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell7.nib(), forCellWithReuseIdentifier: DashboardCell7.cellReuseIdentifier())
+        self.collectionView!.register(DashboardCell8.nib(), forCellWithReuseIdentifier: DashboardCell8.cellReuseIdentifier())
     }
     
     @objc private func loadData(){
-        getDiscoveryList()
+        if IGGlobal.shouldShowChart {
+//            getPollRequest()
+        }
+        else {
+            getDiscoveryList()
+            
+        }
         stopRefresher()
     }
     
     @IBAction func btnRefresh(_ sender: UIButton) {
-        getDiscoveryList()
+        if IGGlobal.shouldShowChart {
+//            getPollRequest()
+        }
+        else {
+            getDiscoveryList()
+        }
     }
     
     func stopRefresher() {
         self.refresher.endRefreshing()
     }
     
+    //pollReq
+//
+//    private func getPollRequest(){
+//
+//
+//
+//        if !IGAppManager.sharedManager.isUserLoggiedIn() {
+//            return
+//        }
+//
+//        IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
+//            if let response = protoResponse as? IGPClientGetPollResponse {
+//                self.pollList = response.igpPolls
+//
+//
+//                print("8=8=8=8=")
+//                print(self.pollList.count)
+//                print("8=8=8=8=")
+//
+//                DispatchQueue.main.async {
+//                    let navigationItem = self.navigationItem as! IGNavigationItem
+//                    navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+//                    self.collectionView.reloadData()
+//                }
+//            }
+//        }).error ({ (errorCode, waitTime) in
+//            print("8=8=ERROR=8=8=")
+//            print(errorCode)
+//            print("8=8=ERROR=8=8=")
+//
+//            switch errorCode {
+//            case .timeout:
+//                self.getPollRequest()
+//                self.manageShowDiscovery()
+//            default:
+//                break
+//            }
+//        }).send()
+//    }
+    
+    //end
+    
+    
     private func getDiscoveryList(){
-
+        
         if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
             self.discovery = discovery.igpDiscoveries
             self.collectionView.reloadData()
@@ -103,6 +168,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPClientGetDiscoveryResponse {
                 self.discovery = response.igpDiscoveries
+                
                 
                 /* just save first page info */
                 if let request = requestWrapper.message as? IGPClientGetDiscovery, request.igpPageID == 0 {
@@ -141,11 +207,21 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
             self.collectionView!.isHidden = false
             self.btnRefresh!.isHidden = true
-            if discovery.count == 0 {
-                self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
-            } else {
-                self.collectionView!.restore()
+            if IGGlobal.shouldShowChart {
+                if pollList.count == 0 {
+                    self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                } else {
+                    self.collectionView!.restore()
+                }
             }
+            else {
+                if discovery.count == 0 {
+                    self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
+                } else {
+                    self.collectionView!.restore()
+                }
+            }
+            
         } else {
             self.collectionView!.isHidden = true
             self.btnRefresh!.isHidden = false
@@ -185,8 +261,16 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     /*********************** collectionView ***********************/
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        manageShowDiscovery()
-        return discovery.count
+        if IGGlobal.shouldShowChart {
+            manageShowDiscovery()
+            return pollList.count
+            
+        }
+        else {
+            manageShowDiscovery()
+            return discovery.count
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -194,47 +278,146 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let item = discovery[indexPath.section]
-
-        if item.igpModel == .model1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else if item.igpModel == .model2 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else if item.igpModel == .model3 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else if item.igpModel == .model4 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else if item.igpModel == .model5 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else if item.igpModel == .model6 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else if item.igpModel == .model7 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
-            cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier(), for: indexPath) as! DashboardCellUnknown
-            cell.initView()
-            return cell
+        if IGGlobal.shouldShowChart {
+            
+            let item = pollList[indexPath.section]
+            if item.igpModel == .model1 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                return cell
+            } else if item.igpModel == .model2 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                return cell
+            } else if item.igpModel == .model3 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                return cell
+            } else if item.igpModel == .model4 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                return cell
+            } else if item.igpModel == .model5 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                return cell
+            } else if item.igpModel == .model6 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                return cell
+            } else if item.igpModel == .model7 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                return cell
+                
+            }
+            else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
+                cell.item = indexPath.item
+                cell.dashboardIGPPoll = self.pollList
+                
+                cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
+                return cell
+                
+            }
+                
+            else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier(), for: indexPath) as! DashboardCellUnknown
+                cell.initView()
+                return cell
+            }
+            
+            
+            
+            
+            
+            
         }
+        else {
+            
+            let item = discovery[indexPath.section]
+            if item.igpModel == .model1 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+            } else if item.igpModel == .model2 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+            } else if item.igpModel == .model3 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+            } else if item.igpModel == .model4 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+            } else if item.igpModel == .model5 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+            } else if item.igpModel == .model6 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+            } else if item.igpModel == .model7 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+                
+            }
+            else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
+                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                return cell
+                
+            }
+                
+            else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier(), for: indexPath) as! DashboardCellUnknown
+                cell.initView()
+                return cell
+            }
+            
+            
+            
+            
+            
+            
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // Hint: plus height with 16 ,because in storyboard we used 4 space from top and 4 space from bottom
-        return CGSize(width: screenWidth, height: computeHeight(scale: discovery[indexPath.section].igpScale) + 8)
+        if IGGlobal.shouldShowChart {
+            return CGSize(width: screenWidth, height: computeHeight(scale: pollList[indexPath.section].igpScale) + 8)
+            
+        }
+        else {
+            return CGSize(width: screenWidth, height: computeHeight(scale: discovery[indexPath.section].igpScale) + 8)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

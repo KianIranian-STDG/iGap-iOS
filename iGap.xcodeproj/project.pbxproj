@@ -65,6 +65,21 @@
 		8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */; };
 		8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */; };
 		8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */; };
+		8EBF54EC22D9AF9100834E6A /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF54EB22D9AF9100834E6A /* iGap_fontico.ttf */; };
+		8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */; };
+		8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EE22D9B60B00834E6A /* DataEntry.swift */; };
+		8EBF54FA22D9B60D00834E6A /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */; };
+		8EBF54FB22D9B60D00834E6A /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F022D9B60B00834E6A /* UIBezierPathExtension.swift */; };
+		8EBF54FC22D9B60D00834E6A /* BasicBarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F122D9B60B00834E6A /* BasicBarEntry.swift */; };
+		8EBF54FD22D9B60D00834E6A /* BasicBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F222D9B60C00834E6A /* BasicBarChartPresenter.swift */; };
+		8EBF54FE22D9B60D00834E6A /* CustomSegments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F322D9B60C00834E6A /* CustomSegments.swift */; };
+		8EBF54FF22D9B60D00834E6A /* BeautifulBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F422D9B60C00834E6A /* BeautifulBarChart.swift */; };
+		8EBF550022D9B60D00834E6A /* BeautifulBarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F522D9B60C00834E6A /* BeautifulBarEntry.swift */; };
+		8EBF550122D9B60D00834E6A /* BasicBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F622D9B60C00834E6A /* BasicBarChart.swift */; };
+		8EBF550222D9B60D00834E6A /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54F722D9B60C00834E6A /* ArrayExtension.swift */; };
+		8EBF550522D9B65000834E6A /* DynamicTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */; };
+		8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF550622D9B84900834E6A /* DashboardCell8.xib */; };
+		8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550822D9B85400834E6A /* DahsboardCell8.swift */; };
 		8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95DF2258811500A1F7E4 /* IGConstants.swift */; };
 		8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */; };
 		8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC217962258BD9E00105B5A /* SMSingleInputView.xib */; };
@@ -685,6 +700,21 @@
 		8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaUserAvatar.swift; sourceTree = "<group>"; };
 		8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisterChooseLanguageTableViewController.swift; sourceTree = "<group>"; };
+		8EBF54EB22D9AF9100834E6A /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
+		8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChartPresenter.swift; sourceTree = "<group>"; };
+		8EBF54EE22D9B60B00834E6A /* DataEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntry.swift; sourceTree = "<group>"; };
+		8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
+		8EBF54F022D9B60B00834E6A /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
+		8EBF54F122D9B60B00834E6A /* BasicBarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarEntry.swift; sourceTree = "<group>"; };
+		8EBF54F222D9B60C00834E6A /* BasicBarChartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChartPresenter.swift; sourceTree = "<group>"; };
+		8EBF54F322D9B60C00834E6A /* CustomSegments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegments.swift; sourceTree = "<group>"; };
+		8EBF54F422D9B60C00834E6A /* BeautifulBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChart.swift; sourceTree = "<group>"; };
+		8EBF54F522D9B60C00834E6A /* BeautifulBarEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarEntry.swift; sourceTree = "<group>"; };
+		8EBF54F622D9B60C00834E6A /* BasicBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChart.swift; sourceTree = "<group>"; };
+		8EBF54F722D9B60C00834E6A /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextLayer.swift; sourceTree = "<group>"; };
+		8EBF550622D9B84900834E6A /* DashboardCell8.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell8.xib; sourceTree = "<group>"; };
+		8EBF550822D9B85400834E6A /* DahsboardCell8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DahsboardCell8.swift; sourceTree = "<group>"; };
 		8EBF95DF2258811500A1F7E4 /* IGConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGConstants.swift; sourceTree = "<group>"; };
 		8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMUserManager.swift; sourceTree = "<group>"; };
 		8EC217962258BD9E00105B5A /* SMSingleInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSingleInputView.xib; sourceTree = "<group>"; };
@@ -1397,6 +1427,25 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		8EBF550322D9B61200834E6A /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				8EBF54F722D9B60C00834E6A /* ArrayExtension.swift */,
+				8EBF54F622D9B60C00834E6A /* BasicBarChart.swift */,
+				8EBF54F222D9B60C00834E6A /* BasicBarChartPresenter.swift */,
+				8EBF54F122D9B60B00834E6A /* BasicBarEntry.swift */,
+				8EBF54F422D9B60C00834E6A /* BeautifulBarChart.swift */,
+				8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */,
+				8EBF54F522D9B60C00834E6A /* BeautifulBarEntry.swift */,
+				8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */,
+				8EBF54F322D9B60C00834E6A /* CustomSegments.swift */,
+				8EBF54EE22D9B60B00834E6A /* DataEntry.swift */,
+				8EBF54F022D9B60B00834E6A /* UIBezierPathExtension.swift */,
+				8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */,
+			);
+			path = BarChart;
+			sourceTree = "<group>";
+		};
 		8EBF95E4225884F200A1F7E4 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1954,6 +2003,7 @@
 		FA6A22741F41CAFB0063DF07 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				8EBF54EB22D9AF9100834E6A /* iGap_fontico.ttf */,
 				FA6A22751F41CB0B0063DF07 /* iGap-Fontico.ttf */,
 				FA3306351F445A570096031A /* IRANSans.ttf */,
 				FA3306371F445AE80096031A /* IRANSans_Bold.ttf */,
@@ -2115,6 +2165,7 @@
 		FA930D961E5B178F00069EE1 /* ThirdParty Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8EBF550322D9B61200834E6A /* BarChart */,
 				8EEE895B22A3CF620072383C /* DropDown */,
 				8E1F413622391A7400910E30 /* Vendor */,
 				FAD959021F48AD8600FBD306 /* MTBBarcodeScanner */,
@@ -2183,6 +2234,8 @@
 				FA99FF73223544B2009035DF /* DashboardCell6.xib */,
 				FA712ADF225DC5AE00FD78AA /* DashboardCell7.swift */,
 				FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */,
+				8EBF550822D9B85400834E6A /* DahsboardCell8.swift */,
+				8EBF550622D9B84900834E6A /* DashboardCell8.xib */,
 			);
 			path = "Dashboard Cells";
 			sourceTree = "<group>";
@@ -2821,6 +2874,7 @@
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
+				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
 				FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
@@ -2831,6 +2885,7 @@
 				8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */,
 				8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */,
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
+				8EBF54EC22D9AF9100834E6A /* iGap_fontico.ttf in Resources */,
 				8EEB1FF622C1F68B00EFD2ED /* GetGiftPopup.xib in Resources */,
 				FA5656BE204AB18F00DB46F0 /* igap_signaling.mp3 in Resources */,
 				FA786D58206A575300608A2D /* profile.storyboard in Resources */,
@@ -2967,6 +3022,7 @@
 				FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */,
 				FA8DD02121A401F200BBB1B3 /* IGLookAndFindStruct.swift in Sources */,
 				FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */,
+				8EBF54FF22D9B60D00834E6A /* BeautifulBarChart.swift in Sources */,
 				93AA67C41E4F38260053380C /* IGChannelInfoAdminsAndModeratorsTableViewController.swift in Sources */,
 				FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */,
 				FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */,
@@ -3007,6 +3063,7 @@
 				FAA9DFB81F4B1CC10076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController.swift in Sources */,
 				FA0953451E1B97700043ED3F /* IGDeleteAccountTableViewController.swift in Sources */,
 				FA0953601E1B97700043ED3F /* IGSettingContactsBlockListTableViewCell.swift in Sources */,
+				8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */,
 				8E96A32B225C920A007D8A77 /* SMReciept.swift in Sources */,
 				8E96A311225B6DCC007D8A77 /* SMHistoryTableViewController.swift in Sources */,
 				FA8F22581DD89F7C005A90D1 /* IGAvatar.swift in Sources */,
@@ -3048,6 +3105,7 @@
 				FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */,
 				FA96EF4E1DEB0431009BE640 /* IGMessageSender.swift in Sources */,
 				FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */,
+				8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */,
 				FA0953431E1B97700043ED3F /* IGDeleteAccountConfirmationTableViewController.swift in Sources */,
 				FA76598922902ACE006322A3 /* INSPhotosViewController.swift in Sources */,
 				FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */,
@@ -3079,6 +3137,8 @@
 				93193F301E5812CA0039AC0C /* IGGroupInfoMemberListTableViewController.swift in Sources */,
 				8E96A30B225B4637007D8A77 /* Utils.swift in Sources */,
 				FA0953681E1B97700043ED3F /* IGSettingPrivacy&SecurityTableViewController.swift in Sources */,
+				8EBF550022D9B60D00834E6A /* BeautifulBarEntry.swift in Sources */,
+				8EBF54FB22D9B60D00834E6A /* UIBezierPathExtension.swift in Sources */,
 				FA8F22561DD89C88005A90D1 /* IGChannelRoom.swift in Sources */,
 				FA9F73572127E589004418E5 /* EPContactCell.swift in Sources */,
 				FA99FF6422353401009035DF /* DashboardCell2.swift in Sources */,
@@ -3121,6 +3181,7 @@
 				931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */,
 				FA0953831E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroup.swift in Sources */,
 				FAA9DFB41F4B1C200076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController.swift in Sources */,
+				8EBF550522D9B65000834E6A /* DynamicTextLayer.swift in Sources */,
 				FAE6064621EB4B7200F03FFC /* IGHelperOpenLink.swift in Sources */,
 				93193F2C1E5812420039AC0C /* IGGroupEditDescriptionTableViewController.swift in Sources */,
 				FA09535D1E1B97700043ED3F /* IGSettingChooseContactToAddToBlockListTableViewController.swift in Sources */,
@@ -3133,6 +3194,7 @@
 				8E96A307225B4393007D8A77 /* mainRequest.swift in Sources */,
 				FA42EF0C1E5C224F00CF8A32 /* GIFImageView.swift in Sources */,
 				FA844D8721F88FCF000E6750 /* SSLClientCertificate.swift in Sources */,
+				8EBF54FD22D9B60D00834E6A /* BasicBarChartPresenter.swift in Sources */,
 				FA09534F1E1B97700043ED3F /* IGSettingChatCatchTableViewCell.swift in Sources */,
 				FA0953571E1B97700043ED3F /* IGSettingChatWallpaperLibraryCollectionViewCell.swift in Sources */,
 				8EE7FC97225DE16100B6C2C3 /* SMTextFieldAlertViewController.swift in Sources */,
@@ -3170,6 +3232,7 @@
 				FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */,
 				FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */,
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
+				8EBF54FE22D9B60D00834E6A /* CustomSegments.swift in Sources */,
 				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,
 				FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
@@ -3208,6 +3271,7 @@
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
 				FA63BAA51DD70DD0000B60AD /* IGRequest.swift in Sources */,
+				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,
 				93A3D3CA1E407E5200D2686F /* IGChooseMemberFromContactToCreateChannelViewController.swift in Sources */,
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
@@ -3231,6 +3295,7 @@
 				FA1C449C1DC716A20016C346 /* IGCountry.swift in Sources */,
 				932D1ABE1E7426AD000F0D97 /* IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell.swift in Sources */,
 				FA5301DD2150D12B00A95C2C /* IGHelperChatOpener.swift in Sources */,
+				8EBF54FC22D9B60D00834E6A /* BasicBarEntry.swift in Sources */,
 				8EEE895922A3CF360072383C /* DropdownMenu.swift in Sources */,
 				FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */,
 				FAA30F671DAA6F790061B8C9 /* IGWebSocketManager.swift in Sources */,
@@ -3264,6 +3329,7 @@
 				93A3D3CC1E40831E00D2686F /* IGChooseMemberToCreateChannelTableViewCell.swift in Sources */,
 				FA927E0820286FAD00DF7145 /* ContactCell.swift in Sources */,
 				FA0953861E1B97E20043ED3F /* IGContactTableViewCell.swift in Sources */,
+				8EBF550222D9B60D00834E6A /* ArrayExtension.swift in Sources */,
 				8E96A31E225C902B007D8A77 /* SMRecieptView.swift in Sources */,
 				FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */,
 				FA0953651E1B97700043ED3F /* IGSettingNotificationTableViewController.swift in Sources */,
@@ -3373,6 +3439,7 @@
 				FA0953871E1B97E20043ED3F /* IGCreateNewChannelTableViewController.swift in Sources */,
 				FAD530631E0BD80800FE6C54 /* IGNavigationController.swift in Sources */,
 				FAD8A02E21EE095A006996E1 /* IGStructAdditionalButton.swift in Sources */,
+				8EBF54FA22D9B60D00834E6A /* CALayerExtension.swift in Sources */,
 				FA865C752078A32000B9D585 /* IGMap.swift in Sources */,
 				8E96A313225B6DCC007D8A77 /* SMHistoryDetailTableViewCell.swift in Sources */,
 				8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */,
@@ -3381,6 +3448,7 @@
 				FA85066722670703002EEBF7 /* packetTableViewController.swift in Sources */,
 				FA96A8152053EBD1004369C7 /* IGRealmClientSearchUsername.swift in Sources */,
 				FAA9DFB21F4B1B600076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController.swift in Sources */,
+				8EBF550122D9B60D00834E6A /* BasicBarChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

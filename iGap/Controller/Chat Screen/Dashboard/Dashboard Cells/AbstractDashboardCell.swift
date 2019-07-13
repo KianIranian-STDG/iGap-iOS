@@ -15,7 +15,12 @@ import MBProgressHUD
 
 class AbstractDashboardCell: UICollectionViewCell {
     
+    var btnCheckMark: UIButton!
+    var item : Int = 0
+    
     var dashboardAbs: [IGPDiscoveryField]!
+    var dashboardAbsPoll: [IGPPollField]!
+    var dashboardIGPPoll: [IGPPoll]!
     var mainViewAbs:  UIView?
     var img1Abs: IGImageView?
     var img2Abs: IGImageView?
@@ -23,9 +28,11 @@ class AbstractDashboardCell: UICollectionViewCell {
     var view1Abs: UIView?
     var view2Abs: UIView?
     var view3Abs: UIView?
-    
+    var numberOfChecked : Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
     }
     
     public func initView(dashboard: [IGPDiscoveryField]){
@@ -54,6 +61,57 @@ class AbstractDashboardCell: UICollectionViewCell {
         manageGesture()
     }
     
+    public func initViewPoll(dashboard: [IGPPollField]){
+        self.dashboardAbsPoll = dashboard
+        if img1Abs != nil {
+            customizeImage(img: img1Abs!, view: view1Abs)
+            if dashboard.count > 0, let url = URL(string: dashboard[0].igpImageurl) {
+                img1Abs?.sd_setImage(with: url, completed: nil)
+                if dashboardAbsPoll[0].igpClicked {
+                    self.numberOfChecked += 1
+                    self.showCheckMark(imageView: self.img1Abs)
+                }
+            }
+            //            if dashboard.count > 0,  (dashboard[0].igpClicked) {
+            //                showCheckMark()
+            //            }
+            
+            
+            
+        }
+        
+        if img2Abs != nil {
+            customizeImage(img: img2Abs!, view: view2Abs)
+            if dashboard.count > 1, let url = URL(string: dashboard[1].igpImageurl) {
+                img2Abs?.sd_setImage(with: url, completed: nil)
+                if dashboardAbsPoll[1].igpClicked {
+                    self.numberOfChecked += 1
+                    self.showCheckMark(imageView: self.img2Abs)
+                }
+            }
+            //            if dashboard.count > 1,  (dashboard[1].igpClicked) {
+            //                showCheckMark()
+            //            }
+        }
+        
+        if img3Abs != nil {
+            customizeImage(img: img3Abs!, view: view3Abs)
+            if dashboard.count > 2, let url = URL(string: dashboard[2].igpImageurl) {
+                img3Abs?.sd_setImage(with: url, completed: nil)
+                if dashboardAbsPoll[2].igpClicked {
+                    self.numberOfChecked += 1
+                    self.showCheckMark(imageView: self.img3Abs)
+                }
+            }
+            //            if dashboard.count > 2,  (dashboard[2].igpClicked) {
+            //                showCheckMark()
+            //            }
+        }
+        
+        
+        manageGesture()
+    }
+    
     private func customizeImage(img: UIImageView, view: UIView?){
         view?.layer.masksToBounds = false
         view?.layer.cornerRadius = IGDashboardViewController.itemCorner
@@ -72,6 +130,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     private func manageGesture(){
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapImage1(_:)))
         img1Abs?.addGestureRecognizer(tap1)
+        
         img1Abs?.isUserInteractionEnabled = true
         
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapImage2(_:)))
@@ -82,22 +141,50 @@ class AbstractDashboardCell: UICollectionViewCell {
         img3Abs?.addGestureRecognizer(tap3)
         img3Abs?.isUserInteractionEnabled = true
     }
-    
+    //Tap on First - second and third cell
     @objc func didTapImage1(_ gestureRecognizer: UITapGestureRecognizer){
-        if self.dashboardAbs.count > 0 {
-            actionManager(discoveryInfo: self.dashboardAbs[0])
+        
+        if IGGlobal.shouldShowChart {
+            if self.dashboardAbsPoll.count > 0 {
+                actionManagerPoll(pollInfo: self.dashboardAbsPoll![0],item : 0)
+            }
+            
+        }
+        else {
+            if self.dashboardAbs.count > 0 {
+                actionManager(discoveryInfo: self.dashboardAbs[0])
+            }
+            
         }
     }
     
     @objc func didTapImage2(_ gestureRecognizer: UITapGestureRecognizer){
-        if self.dashboardAbs.count > 1 {
-            actionManager(discoveryInfo: self.dashboardAbs[1])
+        if IGGlobal.shouldShowChart {
+            if self.dashboardAbsPoll.count > 1 {
+                actionManagerPoll(pollInfo: self.dashboardAbsPoll![1],item : 1)
+            }
+            
+        }
+        else {
+            if self.dashboardAbs.count > 1 {
+                actionManager(discoveryInfo: self.dashboardAbs[1])
+            }
+            
         }
     }
     
     @objc func didTapImage3(_ gestureRecognizer: UITapGestureRecognizer){
-        if self.dashboardAbs.count > 2 {
-            actionManager(discoveryInfo: self.dashboardAbs[2])
+        if IGGlobal.shouldShowChart {
+            if self.dashboardAbsPoll.count > 2 {
+                actionManagerPoll(pollInfo: self.dashboardAbsPoll![2],item : 2)
+            }
+            
+        }
+        else {
+            if self.dashboardAbs.count > 2 {
+                actionManager(discoveryInfo: self.dashboardAbs[2])
+            }
+            
         }
     }
     
@@ -115,7 +202,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     iGapBrowser.htmlString = htmlString
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
-
+                    
                 default:
                     break
                 }
@@ -124,12 +211,68 @@ class AbstractDashboardCell: UICollectionViewCell {
             }.send()
     }
     //
-    
+    func showCheckMark(imageView: IGImageView?) {
+        btnCheckMark = UIButton()
+        btnCheckMark.setTitle("", for: .normal)
+        btnCheckMark.titleLabel?.font = UIFont.iGapFonticoNew(ofSize: 25)
+        btnCheckMark.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        
+        btnCheckMark.layer.cornerRadius = IGDashboardViewController.itemCorner
+        
+        imageView!.addSubview(btnCheckMark)
+        btnCheckMark?.snp.makeConstraints { (make) in
+            make.width.equalTo((imageView?.frame.width)!)
+            make.height.equalTo((imageView?.frame.height)!)
+            make.centerX.equalTo(imageView!.snp.centerX)
+            make.centerY.equalTo(imageView!.snp.centerY)
+        }
+    }
     /**********************************************************************/
     /*************************** Action Manager ***************************/
+    private func actionManagerPoll(pollInfo: IGPPollField,item : Int!){
+        
+        IGGlobal.shouldShowChart = true
+        
+        print(dashboardIGPPoll)
+        
+        if pollInfo.igpClicked {
+            IGHelperAlert.shared.showAlert(message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew)
+        }
+        else {
+            if pollInfo.igpClickable {
+//                IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
+                self.isUserInteractionEnabled = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.isUserInteractionEnabled = true
+                }
+                switch item {
+                case 0 :
+                    showCheckMark(imageView: self.img1Abs)
+                    self.numberOfChecked += 1
+                    
+                    break
+                case 1:
+                    showCheckMark(imageView: self.img2Abs)
+                    self.numberOfChecked += 1
+                    
+                    
+                    break
+                case 2 :
+                    showCheckMark(imageView: self.img3Abs)
+                    self.numberOfChecked += 1
+                    
+                    break
+                default :
+                    break
+                }
+            }
+        }
+        
+        
+    }
     
     private func actionManager(discoveryInfo: IGPDiscoveryField){
-        
+        IGGlobal.shouldShowChart = false
         IGClientSetDiscoveryItemClickRequest.sendRequest(itemId: discoveryInfo.igpID)
         
         let actionType = discoveryInfo.igpActiontype
@@ -152,6 +295,9 @@ class AbstractDashboardCell: UICollectionViewCell {
             return
             
         case .webLink:
+            
+            //            showCheckMark()
+            
             IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
             return
             
@@ -161,14 +307,14 @@ class AbstractDashboardCell: UICollectionViewCell {
             if !(t == "") {
                 if (b == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
-
+                    
                 } else {
                     let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                     iGapBrowser.url = discoveryInfo.igpValue
                     iGapBrowser.htmlString = nil
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
-
+                    
                 }
             } else {
                 return
@@ -182,7 +328,14 @@ class AbstractDashboardCell: UICollectionViewCell {
             dashboard.pageId = Int32(discoveryInfo.igpValue)!
             UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
             return
-            
+        //Pull actions
+        case .poll:
+            let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            dashboard.pageId = Int32(discoveryInfo.igpValue)!
+            IGGlobal.shouldShowChart = true
+            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+            return
+        // End
         case .financialMenu:
             IGHelperFinancial.getInstance(viewController: UIApplication.topViewController()!).manageFinancialServiceChoose()
             return
@@ -256,7 +409,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
             UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
             return
-
+            
         case .ivandscore:
             IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
             return
@@ -264,7 +417,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         case .cardToCard:
             IGHelperFinancial.shared.sendCardToCardRequest()
             return
-
+            
             
         case .payDirect:
             IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
@@ -274,7 +427,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let storyboard : UIStoryboard = UIStoryboard(name: "wallet", bundle: nil)
                 let qrVC: QRMainTabbarController? = (storyboard.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
                 UIApplication.topViewController()!.navigationController!.pushViewController(qrVC!, animated: true)
-
+                
                 break
                 
             case "QR_MERCHANT_WALLET" :
@@ -282,7 +435,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             default :
                 let vc = UIStoryboard.init(name: "wallet", bundle: Bundle.main).instantiateViewController(withIdentifier: "packetTableViewController") as? packetTableViewController
                 UIApplication.topViewController()!.navigationController!.pushViewController(vc!, animated: true)
-
+                
                 break
             }
         default:
