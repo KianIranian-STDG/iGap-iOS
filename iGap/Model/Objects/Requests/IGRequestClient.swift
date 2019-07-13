@@ -488,7 +488,10 @@ class IGClientGetDiscoveryRequest: IGRequest {
 
 
 class IGPClientGetPollRequest: IGRequest {
-    
+    class func sendRequest(pageId: Int32){
+        IGPClientGetPollRequest.Generator.generate(pageId: pageId).success({ (protoResponse) in
+        }).error ({ (errorCode, waitTime) in }).send()
+    }
     class Generator: IGRequest.Generator {
         class func generate(pageId: Int32 = 0) -> IGRequestWrapper {
             var request = IGPClientGetPoll()

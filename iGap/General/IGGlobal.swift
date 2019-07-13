@@ -16,6 +16,7 @@ import SwiftyRSA
 import SDWebImage
 import RxSwift
 import maincore
+import IGProtoBuff
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
@@ -41,8 +42,13 @@ class IGGlobal {
     static var dispoasDicString: [String:Disposable] = [:]
     static var carpinoAgreement : Bool = false
     static var barSpace : Int = 50
+    static var chartIGPPollFields: [IGPPollField]! = []
+    static var pageIDChartUpdate: Int32 = 0
+
+
     
     static var shouldShowChart : Bool = false
+    static var hideBarChart : Bool = true
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()

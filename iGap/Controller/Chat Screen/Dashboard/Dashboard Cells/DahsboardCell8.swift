@@ -12,7 +12,8 @@ import UIKit
 import IGProtoBuff
 
 class DashboardCell8: AbstractDashboardCell {
-    
+    var result: [DataEntry] = []
+
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var basicBarChart: BasicBarChart!
@@ -25,7 +26,69 @@ class DashboardCell8: AbstractDashboardCell {
         self.view.layer.cornerRadius = IGDashboardViewController.itemCorner
 
         barchart()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateBar(_:)), name: NSNotification.Name(rawValue: "updateChart"), object: nil)
         
+        // handle notification
+        
+    }
+    @objc func updateBar(_ notification: NSNotification) {
+        
+//
+            if let id = notification.userInfo?["id"] as? Int32 {
+                
+                getPollRequest(pageId: id)
+                //                // do something with your image
+//
+//                for (index, element) in result.enumerated() {
+//                    print(index, ":", element)
+//                    if element.title == id  {
+//                        print(index)
+//                        var tmpResult = result[index]
+//
+//                        let tt = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(((tmpResult.textValue) as NSString).longLongValue + 1) / 100), textValue: String(((tmpResult.textValue) as NSString).longLongValue + 1).inLocalizedLanguage(), title: tmpResult.title)
+//                        result.remove(at: index)
+//                        result.insert(tt, at: index)
+//                        self.basicBarChart.updateDataEntries(dataEntries: result, animated: true)
+//
+//
+//                    }
+//                }
+//
+        }
+        }
+
+    private func getPollRequest(pageId : Int32){
+        
+        
+        IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
+            if let response = protoResponse as? IGPClientGetPollResponse {
+
+               
+                self.dashboardAbsPollInner.removeAll()
+                
+                for elemnt in response.igpPolls {
+                    for elemnt in elemnt.igpPollfields {
+                        if elemnt.igpClickable == true {
+                            self.dashboardAbsPollInner.append(elemnt)
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+
+                self.barchart()
+                }
+
+            
+            }
+        }).error ({ (errorCode, waitTime) in
+            
+            switch errorCode {
+            case .timeout:
+                self.getPollRequest(pageId: pageId)
+            default:
+                break
+            }
+        }).send()
     }
     
     func barchart() {
@@ -46,14 +109,11 @@ class DashboardCell8: AbstractDashboardCell {
     }
     
     func generateRandomDataEntries() -> [DataEntry] {
-        var result: [DataEntry] = []
    
+        result.removeAll()
         if dashboardAbsPollInner != nil {
             for elemnt in dashboardAbsPollInner {
 
-                print("HEIGHT IS :")
-                print(Float((elemnt.igpSum)) / 100)
-                
                 let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float((elemnt.igpSum)) / 100), textValue: String(elemnt.igpSum).inLocalizedLanguage(), title: elemnt.igpLabel)
                 
                 result.append(tmpDataEntry)

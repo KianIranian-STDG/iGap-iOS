@@ -123,6 +123,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
             return
         }
+        IGGlobal.pageIDChartUpdate = pageId
         
         IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPClientGetPollResponse {
@@ -146,7 +147,6 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                     }
                 }
                 
-                print(self.pollListInfoInner.count)
                 self.pollList.append(tmpPollList)
 
                 
@@ -158,9 +158,6 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 }
             }
         }).error ({ (errorCode, waitTime) in
-            print("8=8=ERROR=8=8=")
-            print(errorCode)
-            print("8=8=ERROR=8=8=")
             
             switch errorCode {
             case .timeout:

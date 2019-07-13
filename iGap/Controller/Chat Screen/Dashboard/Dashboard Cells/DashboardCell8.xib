@@ -61,7 +61,7 @@
             <viewLayoutGuide key="safeArea" id="d4p-c4-3pa"/>
             <size key="customSize" width="550" height="114"/>
             <connections>
-                <outlet property="basicBarChart" destination="atw-AB-Qbd" id="hCB-uY-8wu"/>
+                <outlet property="basicBarChart" destination="atw-AB-Qbd" id="dNk-f5-aHf"/>
                 <outlet property="mainView" destination="B5p-X1-L98" id="uFT-wJ-OrE"/>
                 <outlet property="view" destination="teU-3X-tA6" id="Eo4-AO-fhr"/>
             </connections>

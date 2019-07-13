@@ -14,10 +14,10 @@ import MBProgressHUD
 
 
 class AbstractDashboardCell: UICollectionViewCell {
-    
+
     var btnCheckMark: UIButton!
     var item : Int = 0
-    
+    var dashboardAbsPollMain: [IGPPollField]! = []
     var dashboardAbs: [IGPDiscoveryField]!
     var dashboardAbsPoll: [IGPPollField]!
     var dashboardIGPPoll: IGPClientGetPollResponse!
@@ -69,6 +69,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                 img1Abs?.sd_setImage(with: url, completed: nil)
                 if dashboardAbsPoll[0].igpClicked {
                     self.numberOfChecked += 1
+                    IGGlobal.hideBarChart = false
+
                     self.showCheckMark(imageView: self.img1Abs)
                 }
             }
@@ -86,6 +88,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                 img2Abs?.sd_setImage(with: url, completed: nil)
                 if dashboardAbsPoll[1].igpClicked {
                     self.numberOfChecked += 1
+                    IGGlobal.hideBarChart = false
+
                     self.showCheckMark(imageView: self.img2Abs)
                 }
             }
@@ -100,6 +104,8 @@ class AbstractDashboardCell: UICollectionViewCell {
                 img3Abs?.sd_setImage(with: url, completed: nil)
                 if dashboardAbsPoll[2].igpClicked {
                     self.numberOfChecked += 1
+                    IGGlobal.hideBarChart = false
+
                     self.showCheckMark(imageView: self.img3Abs)
                 }
             }
@@ -210,6 +216,14 @@ class AbstractDashboardCell: UICollectionViewCell {
             }.error { (errorCode, waitTime) in
             }.send()
     }
+    func update(itemID: Int32) {
+        let imageDataDict:[String: Int32] = ["id": itemID]
+        
+        // post a notification
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateChart"), object: nil, userInfo: imageDataDict)
+        // `default` is now a property, not a method call
+
+    }
     //
     func showCheckMark(imageView: IGImageView?) {
         btnCheckMark = UIButton()
@@ -256,18 +270,28 @@ class AbstractDashboardCell: UICollectionViewCell {
                         case 0 :
                             self.showCheckMark(imageView: self.img1Abs)
                             self.numberOfChecked += 1
+                            self.update(itemID: IGGlobal.pageIDChartUpdate)
+//                            self.updateBarCHartData(Name: pollInfo.igpLabel)
+                            IGGlobal.hideBarChart = false
                             
                             break
                         case 1:
                             self.showCheckMark(imageView: self.img2Abs)
                             self.numberOfChecked += 1
-                            
+                            IGGlobal.hideBarChart = false
+//                            self.updateBarCHartData(Name: pollInfo.igpLabel)
+                            self.update(itemID: IGGlobal.pageIDChartUpdate)
+
                             
                             break
                         case 2 :
                             self.showCheckMark(imageView: self.img3Abs)
                             self.numberOfChecked += 1
-                            
+                            IGGlobal.hideBarChart = false
+//                            self.updateBarCHartData(Name: pollInfo.igpLabel)
+                            self.update(itemID: IGGlobal.pageIDChartUpdate)
+
+
                             break
                         default :
                             break
@@ -296,6 +320,8 @@ class AbstractDashboardCell: UICollectionViewCell {
         
         
     }
+    
+   
     
     private func actionManager(discoveryInfo: IGPDiscoveryField){
         IGGlobal.shouldShowChart = false
