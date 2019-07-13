@@ -21,11 +21,29 @@ class DashboardCell8: AbstractDashboardCell {
     var dashboardAbsPollInner: [IGPPollField]!
     var pollListInner: [IGPPoll] = []
 
+    var lblHint : UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         self.view.layer.cornerRadius = IGDashboardViewController.itemCorner
 
-        barchart()
+        if IGGlobal.hideBarChart {
+            lblHint = UILabel()
+            lblHint.font = UIFont.igFont(ofSize: 13)
+            lblHint.textAlignment = .center
+            lblHint.textColor = UIColor.black.withAlphaComponent(0.8)
+            lblHint.text = "MSG_VOTE_TO_SEE_CHART".localizedNew
+            self.mainView!.addSubview(lblHint)
+            self.mainView.bringSubviewToFront(lblHint)
+            lblHint?.snp.makeConstraints { (make) in
+                make.leading.equalTo(mainView.snp.leading).offset(8)
+                make.trailing.equalTo(mainView.snp.trailing).offset(8)
+                make.centerY.equalTo(mainView!.snp.centerY)
+                make.centerX.equalTo(mainView!.snp.centerX)
+            }
+        }
+        else {
+            barchart()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateBar(_:)), name: NSNotification.Name(rawValue: "updateChart"), object: nil)
         
         // handle notification
@@ -92,8 +110,12 @@ class DashboardCell8: AbstractDashboardCell {
     }
     
     func barchart() {
-        
-        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[unowned self] (timer) in
+        if lblHint != nil {
+            lblHint.isHidden = true
+            self.lblHint.removeFromSuperview()
+
+        }
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {[unowned self] (timer) in
             let dataEntries = self.generateRandomDataEntries()
             self.basicBarChart.updateDataEntries(dataEntries: dataEntries, animated: true)
         }
@@ -114,7 +136,12 @@ class DashboardCell8: AbstractDashboardCell {
         if dashboardAbsPollInner != nil {
             for elemnt in dashboardAbsPollInner {
 
-                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float((elemnt.igpSum)) / 100), textValue: String(elemnt.igpSum).inLocalizedLanguage(), title: elemnt.igpLabel)
+                var t = elemnt.igpLabel
+                if t.count > 15 {
+                    t.removeLast((t.count) - 15)
+                    t  = t + "..."
+                }
+                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float((elemnt.igpSum)) / 100), textValue: String(elemnt.igpSum).inLocalizedLanguage(), title: t)
                 
                 result.append(tmpDataEntry)
             }

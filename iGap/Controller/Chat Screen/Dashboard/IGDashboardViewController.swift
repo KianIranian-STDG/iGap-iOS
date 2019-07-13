@@ -142,6 +142,9 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 for elemnt in self.pollList {
                     for elemnt in elemnt.igpPollfields {
                         if elemnt.igpClickable == true {
+                            if elemnt.igpClicked == true {
+                                IGGlobal.hideBarChart = false
+                            }
                             self.pollListInfoInner.append(elemnt)
                         }
                     }

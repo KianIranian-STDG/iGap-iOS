@@ -92,7 +92,8 @@
         "GROUP_NO_MODERATOR" : "این گروه هیچ سردبیری ندارد",
         "GROUP_NO_ADMIN" : "این گروه هیچ مدیری ندارد",
         "MSG_U_HAVE_ALREADY_VOTED" : "شما قبلا رای خود را ثبت کرده اید",
-        "MSG_U_HAVE_REACHED_VOTE_LIMIT" : "شما به تعداد مجاز رای خود را ثبت کرده اید!",
+        "MSG_U_HAVE_REACHED_VOTE_LIMIT" : "شما به تعداد مجاز رای خود را ثبت کرده اید",
+        "MSG_VOTE_TO_SEE_CHART" : "برای مشاهده نتیجه نظرسنجی لطفا ابتدا رای خود را ثبت نمایید !",
 
         
         "TYPE" : "نوع",
@@ -1216,7 +1217,8 @@
         "MY_QR" : "My QR",
         "BTN_PAY_CASHOUT" : "Cash Out",
         "MSG_U_HAVE_ALREADY_VOTED" : "You Have Already Voted!",
-        "MSG_U_HAVE_REACHED_VOTE_LIMIT" : "You Have Reached Your Vote Limit!",
+        "MSG_U_HAVE_REACHED_VOTE_LIMIT" : "You Have Reached Your Vote Limit",
+        "MSG_VOTE_TO_SEE_CHART" : "Please Vote to see the BarChart !",
 
         "CONNECTING" : "Connecting ...",
         "WAITING_NETWORK" : "Waiting for Network ...",
