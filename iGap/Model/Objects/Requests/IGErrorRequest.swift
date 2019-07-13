@@ -138,7 +138,8 @@ enum IGError: String {
     case clientRoomReportDescriptionIsInvalid = "657.4"
     case clientRoomReportReportedBefore = "658"
     case clientRoomReportForbidden = "659"
-    
+    case selectIsBiggerThanMax = "677.6"
+
     case signalingOfferForbiddenUserIsBlocked = "904.6"
     case signalingOfferForbiddenDialedNumberIsNotActive = "904.7"
     case signalingOfferForbiddenYouAreTalkingWithYourOtherDevices = "904.8"

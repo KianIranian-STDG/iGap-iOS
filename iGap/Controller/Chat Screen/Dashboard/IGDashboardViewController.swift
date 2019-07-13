@@ -21,10 +21,13 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     public var pageId: Int32 = 0
     private var discovery: [IGPDiscovery] = []
     private var pollList: [IGPPoll] = []
+    private var pollListInfoInner: [IGPPollField] = []
     private var refresher: UIRefreshControl!
     private let locationManager = CLLocationManager()
     static var discoveryObserver: DiscoveryObserver!
     static var needGetFirstPage = true
+    private var pollResponse: IGPClientGetPollResponse!
+
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
@@ -123,12 +126,30 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         
         IGPClientGetPollRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPClientGetPollResponse {
+                self.pollResponse = response
                 self.pollList = response.igpPolls
                 
                 
-                print("8=8=8=8=")
-                print(self.pollList.count)
-                print("8=8=8=8=")
+                var tmpPollList = response.igpPolls[self.pollList.count-1]
+
+                tmpPollList.igpModel = IGPDiscovery.IGPDiscoveryModel(rawValue: 7)!
+                tmpPollList.igpScale = "8:4"
+                tmpPollList.igpPollfields[0].igpImageurl = ""
+                tmpPollList.igpPollfields[0].igpID = 99999999
+                tmpPollList.igpPollfields[0].igpLabel = "نمودار"
+
+                for elemnt in self.pollList {
+                    for elemnt in elemnt.igpPollfields {
+                        if elemnt.igpClickable == true {
+                            self.pollListInfoInner.append(elemnt)
+                        }
+                    }
+                }
+                
+                print(self.pollListInfoInner.count)
+                self.pollList.append(tmpPollList)
+
+                
                 
                 DispatchQueue.main.async {
                     let navigationItem = self.navigationItem as! IGNavigationItem
@@ -285,57 +306,54 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
+                cell.dashboardIGPPoll = self.pollResponse
                 return cell
             } else if item.igpModel == .model2 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
+
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
             } else if item.igpModel == .model3 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
+
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
             } else if item.igpModel == .model4 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
+
                 return cell
             } else if item.igpModel == .model5 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
             } else if item.igpModel == .model6 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
             } else if item.igpModel == .model7 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
                 return cell
                 
             }
             else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
                 cell.item = indexPath.item
-                cell.dashboardIGPPoll = self.pollList
-                
+                cell.dashboardIGPPoll = self.pollResponse
+                cell.dashboardAbsPollInner = self.pollListInfoInner
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
                 

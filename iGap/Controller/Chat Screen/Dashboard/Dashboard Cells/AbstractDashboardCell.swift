@@ -20,7 +20,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     
     var dashboardAbs: [IGPDiscoveryField]!
     var dashboardAbsPoll: [IGPPollField]!
-    var dashboardIGPPoll: [IGPPoll]!
+    var dashboardIGPPoll: IGPClientGetPollResponse!
     var mainViewAbs:  UIView?
     var img1Abs: IGImageView?
     var img2Abs: IGImageView?
@@ -213,8 +213,8 @@ class AbstractDashboardCell: UICollectionViewCell {
     //
     func showCheckMark(imageView: IGImageView?) {
         btnCheckMark = UIButton()
-        btnCheckMark.setTitle("", for: .normal)
-        btnCheckMark.titleLabel?.font = UIFont.iGapFonticoNew(ofSize: 25)
+        btnCheckMark.setTitle("", for: .normal)
+        btnCheckMark.titleLabel?.font = UIFont.iGapFontico(ofSize: 25)
         btnCheckMark.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         
         btnCheckMark.layer.cornerRadius = IGDashboardViewController.itemCorner
@@ -233,38 +233,64 @@ class AbstractDashboardCell: UICollectionViewCell {
         
         IGGlobal.shouldShowChart = true
         
-        print(dashboardIGPPoll)
         
         if pollInfo.igpClicked {
             IGHelperAlert.shared.showAlert(message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew)
         }
         else {
             if pollInfo.igpClickable {
-                IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
-                self.isUserInteractionEnabled = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.isUserInteractionEnabled = true
-                }
-                switch item {
-                case 0 :
-                    showCheckMark(imageView: self.img1Abs)
-                    self.numberOfChecked += 1
+//                IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
+                IGPClientSetPollItemClickRequest.Generator.generate(itemId: pollInfo.igpID).success({ (protoResponse) in
+                    DispatchQueue.main.async {
+                         let setPollResponse = protoResponse as! IGPClientSetPollItemClickResponse
+                        print("========================")
+                        print(setPollResponse.igpResponse)
+                        print("========================")
+
+                        
+                        self.isUserInteractionEnabled = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.isUserInteractionEnabled = true
+                        }
+                        switch item {
+                        case 0 :
+                            self.showCheckMark(imageView: self.img1Abs)
+                            self.numberOfChecked += 1
+                            
+                            break
+                        case 1:
+                            self.showCheckMark(imageView: self.img2Abs)
+                            self.numberOfChecked += 1
+                            
+                            
+                            break
+                        case 2 :
+                            self.showCheckMark(imageView: self.img3Abs)
+                            self.numberOfChecked += 1
+                            
+                            break
+                        default :
+                            break
+                        }
+                        
+                        
+                    }
+                }).error ({ (errorCode, waitTime) in
+                    print(errorCode)
                     
-                    break
-                case 1:
-                    showCheckMark(imageView: self.img2Abs)
-                    self.numberOfChecked += 1
-                    
-                    
-                    break
-                case 2 :
-                    showCheckMark(imageView: self.img3Abs)
-                    self.numberOfChecked += 1
-                    
-                    break
-                default :
-                    break
-                }
+                    switch errorCode {
+                    case .timeout:
+                        IGPClientSetPollItemClickRequest.sendRequest(itemId: pollInfo.igpID)
+                        break
+                    case .selectIsBiggerThanMax:
+                        IGHelperAlert.shared.showAlert(message: "MSG_U_HAVE_REACHED_VOTE_LIMIT".localizedNew)
+
+                        break
+                    default:
+                        break
+                    }
+                }).send()
+
             }
         }
         

@@ -54,9 +54,7 @@ class BasicBarChartPresenter {
         
         let horizontalLineInfos = [
             (value: CGFloat(0.0), isDashed: false),
-            (value: CGFloat(0.5), isDashed: true),
-            (value: CGFloat(1.0), isDashed: false)
-        ]
+            (value: CGFloat(0.5), isDashed: true)        ]
         
         for lineInfo in horizontalLineInfos {
             let yPosition = viewHeight - bottomSpace -  lineInfo.value * (viewHeight - bottomSpace - topSpace)
@@ -64,7 +62,7 @@ class BasicBarChartPresenter {
             let length = self.computeContentWidth()
             let lineSegment = LineSegment(
                 startPoint: CGPoint(x: 0, y: yPosition),
-                endPoint: CGPoint(x: length, y: yPosition)
+                endPoint: CGPoint(x: 2000, y: yPosition)
             )
             let line = HorizontalLine(
                 segment: lineSegment,

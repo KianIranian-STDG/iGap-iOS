@@ -511,7 +511,9 @@ class IGRequestManager {
                 
                 if shouldSendRequest {
                     if let request = generateIGRequestObject() {
-                            pendingRequests[request.igpID] = requestWrapper
+                        print("COUNT IS : ")
+
+                        pendingRequests[request.igpID] = requestWrapper
                             requestWrapper.id = request.igpID
                             _ = requestWrapper.message.igpRequest = request
                             IGWebSocketManager.sharedManager.send(requestW: requestWrapper)

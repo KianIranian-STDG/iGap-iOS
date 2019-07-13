@@ -17,10 +17,15 @@ class DashboardCell8: AbstractDashboardCell {
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var basicBarChart: BasicBarChart!
     private let numEntry = 20
-    
+    var dashboardAbsPollInner: [IGPPollField]!
+    var pollListInner: [IGPPoll] = []
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.view.layer.cornerRadius = IGDashboardViewController.itemCorner
+
         barchart()
+        
     }
     
     func barchart() {
@@ -41,13 +46,20 @@ class DashboardCell8: AbstractDashboardCell {
     }
     
     func generateRandomDataEntries() -> [DataEntry] {
-        let colors = [#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1), #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1), #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)]
         var result: [DataEntry] = []
+   
+        if dashboardAbsPollInner != nil {
+            for elemnt in dashboardAbsPollInner {
+
+                print("HEIGHT IS :")
+                print(Float((elemnt.igpSum)) / 100)
+                
+                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float((elemnt.igpSum)) / 100), textValue: String(elemnt.igpSum).inLocalizedLanguage(), title: elemnt.igpLabel)
+                
+                result.append(tmpDataEntry)
+            }
+        }
         
-        result = [
-            DataEntry(color: UIColor.red, height: 0.2, textValue: "20", title: "میثم زمانی بنیامین مختارپور ابوالفضل"),
-            DataEntry(color: UIColor.green, height: 0.7, textValue: "70", title: "Some title")
-        ]
         return result
     }
     class func nib() -> UINib {
