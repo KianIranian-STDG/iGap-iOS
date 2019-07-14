@@ -110,7 +110,6 @@ class IGChatSendMessageRequest : IGRequest {
     class Handler : IGRequest.Handler{
         class func interpret(response:IGPChatSendMessageResponse, identity: IGRoomMessage? = nil) {
             IGHelperMessageResponse.shared.handleMessage(roomId: response.igpRoomID, roomMessage: response.igpRoomMessage, roomType: IGPRoom.IGPType.chat, sender: !response.igpResponse.igpID.isEmpty, oldMessage: identity)
-            //IGFactory.shared.updateFirstUnreadMessage(roomId: response.igpRoomID, messageId: response.igpRoomMessage.igpMessageID)
         }
         
         override class func handlePush(responseProtoMessage: Message) {

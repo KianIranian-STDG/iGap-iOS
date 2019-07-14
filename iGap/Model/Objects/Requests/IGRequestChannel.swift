@@ -367,15 +367,13 @@ class IGChannelSendMessageRequest: IGRequest {
         }
     }
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPChannelSendMessageResponse) {
-            self.handlePush(responseProtoMessage: responseProtoMessage)
+        class func interpret(response responseProtoMessage:IGPChannelSendMessageResponse, identity: IGRoomMessage? = nil) {
+            IGHelperMessageResponse.shared.handleMessage(roomId: responseProtoMessage.igpRoomID, roomMessage: responseProtoMessage.igpRoomMessage, roomType: IGPRoom.IGPType.channel, sender: !responseProtoMessage.igpResponse.igpID.isEmpty, oldMessage: identity)
         }
         override class func handlePush(responseProtoMessage: Message) {
             switch responseProtoMessage {
             case let response as IGPChannelSendMessageResponse:
-                let messages: [IGPRoomMessage] = [response.igpRoomMessage]
-                IGFactory.shared.saveIgpMessagesToDatabase(messages, for: response.igpRoomID, updateLastMessage: true , isFromSharedMedia: false, isFromSendMessage: true)
-                IGFactory.shared.updateFirstUnreadMessage(roomId: response.igpRoomID, messageId: messages[0].igpMessageID)
+                IGChannelSendMessageRequest.Handler.interpret(response: response)
             default:
                 break
             }

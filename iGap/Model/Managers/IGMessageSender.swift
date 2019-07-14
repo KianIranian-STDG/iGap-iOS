@@ -182,12 +182,12 @@ class IGMessageSender {
                     
                 }).send()
             case .group:
-                IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
+                IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
                     DispatchQueue.main.async {
-                        if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse {
-                            IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse)
+                        if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                            IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
                             if !groupSendMessageResponse.igpResponse.igpID.isEmpty {
-                                IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                                //IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
                             } else {
                                 IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: groupSendMessageResponse.igpRoomMessage)
                             }
@@ -207,12 +207,12 @@ class IGMessageSender {
                 }).send()
                 break
             case .channel:
-                IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
+                IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
                     DispatchQueue.main.async {
-                        if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse {
-                            IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse)
+                        if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                            IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
                             if !channelSendMessageResponse.igpResponse.igpID.isEmpty {
-                                IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                                //IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
                             } else {
                                 IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: channelSendMessageResponse.igpRoomMessage)
                             }

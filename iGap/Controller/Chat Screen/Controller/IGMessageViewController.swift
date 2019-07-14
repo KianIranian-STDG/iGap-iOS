@@ -4861,11 +4861,12 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
 //            }
 //        }
         
-        if shouldShowFooter {
-            return CGSize(width: 35, height: 50.0)
-        } else {
-            return CGSize(width: 0.001, height: 0.001)//CGSize.zero
-        }
+//        if shouldShowFooter {
+//            return CGSize(width: 35, height: 50.0)
+//        } else {
+//            return CGSize(width: 0.001, height: 0.001)//CGSize.zero
+//        }
+        return CGSize(width: 0.001, height: 0.001)//CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -6200,7 +6201,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
                 }
             } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToTop(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
@@ -6208,7 +6209,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             }
         } else { // Down Direction
             if self.messageLoader.isFirstLoadDown() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count)
                     let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
