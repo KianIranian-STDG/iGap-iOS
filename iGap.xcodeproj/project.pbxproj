@@ -80,6 +80,8 @@
 		8EBF550522D9B65000834E6A /* DynamicTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */; };
 		8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF550622D9B84900834E6A /* DashboardCell8.xib */; };
 		8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550822D9B85400834E6A /* DahsboardCell8.swift */; };
+		8EBF550F22DB581300834E6A /* localizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF550E22DB581300834E6A /* localizationsFa.json */; };
+		8EBF551122DB582700834E6A /* localizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF551022DB582700834E6A /* localizationsEn.json */; };
 		8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95DF2258811500A1F7E4 /* IGConstants.swift */; };
 		8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */; };
 		8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC217962258BD9E00105B5A /* SMSingleInputView.xib */; };
@@ -715,6 +717,8 @@
 		8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTextLayer.swift; sourceTree = "<group>"; };
 		8EBF550622D9B84900834E6A /* DashboardCell8.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCell8.xib; sourceTree = "<group>"; };
 		8EBF550822D9B85400834E6A /* DahsboardCell8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DahsboardCell8.swift; sourceTree = "<group>"; };
+		8EBF550E22DB581300834E6A /* localizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizationsFa.json; sourceTree = "<group>"; };
+		8EBF551022DB582700834E6A /* localizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizationsEn.json; sourceTree = "<group>"; };
 		8EBF95DF2258811500A1F7E4 /* IGConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGConstants.swift; sourceTree = "<group>"; };
 		8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMUserManager.swift; sourceTree = "<group>"; };
 		8EC217962258BD9E00105B5A /* SMSingleInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSingleInputView.xib; sourceTree = "<group>"; };
@@ -2019,6 +2023,8 @@
 			children = (
 				8E8D8E18225CE39A00039191 /* strings.json */,
 				8EACC7B322621ACA00F32DC3 /* localizations.json */,
+				8EBF550E22DB581300834E6A /* localizationsFa.json */,
+				8EBF551022DB582700834E6A /* localizationsEn.json */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -2826,6 +2832,7 @@
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
+				8EBF550F22DB581300834E6A /* localizationsFa.json in Resources */,
 				FA33063D1F445AE90096031A /* IRANSans_Medium.ttf in Resources */,
 				FA842A3C225CAA8100E500A4 /* DashboardCellUnknown.xib in Resources */,
 				FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */,
@@ -2847,6 +2854,7 @@
 				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
+				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,
 				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,

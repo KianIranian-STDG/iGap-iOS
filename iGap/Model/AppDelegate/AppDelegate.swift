@@ -76,8 +76,12 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         IGGlobal.getTime()
         print("====================================#1=======================================")
         print("=================================APPDELEGATE=================================")
-
-        let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "localizationsFa"
+        } else {
+            IGGlobal.languageFileName = "localizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
 

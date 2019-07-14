@@ -44,6 +44,7 @@ class IGGlobal {
     static var barSpace : Int = 50
     static var chartIGPPollFields: [IGPPollField]! = []
     static var pageIDChartUpdate: Int32 = 0
+    static var languageFileName: String = "localizationsFa"
 
 
     
@@ -1355,8 +1356,13 @@ extension String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
     var localizedNew: String {
-        let stringPath : String! = Bundle.main.path(forResource: "localizations", ofType: "json")
-        
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "localizationsFa"
+        } else {
+            IGGlobal.languageFileName = "localizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
         
