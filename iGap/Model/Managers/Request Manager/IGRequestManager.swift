@@ -496,6 +496,7 @@ class IGRequestManager {
     
     //MARK: Public Methods
     //MARK: Send
+    var tmpRequestWrapper : IGRequestWrapper!
     func addRequestIDAndSend(requestWrappers : IGRequestWrapper ...) {
         if requestWrappers.count > 0 {
             
@@ -512,13 +513,13 @@ class IGRequestManager {
                 if shouldSendRequest {
                     if let request = generateIGRequestObject() {
                         print("COUNT IS : ")
-
+                        tmpRequestWrapper = requestWrapper
                         pendingRequests[request.igpID] = requestWrapper
                             requestWrapper.id = request.igpID
                             _ = requestWrapper.message.igpRequest = request
                             IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
                             DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
-                                self.internalTimeOut(for: requestWrapper)
+                                self.internalTimeOut(for: self.tmpRequestWrapper)
                             })
                         
                     }

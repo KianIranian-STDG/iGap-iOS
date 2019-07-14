@@ -51,8 +51,8 @@ import UIKit
     @objc open var attributedTitle: NSAttributedString?
 
     public init(image: UIImage?, thumbnailImage: UIImage?) {
-        self.image = image
-        self.thumbnailImage = thumbnailImage
+        self.image = image ?? UIImage(named: "AppIcon")
+        self.thumbnailImage = thumbnailImage ?? UIImage(named: "AppIcon")
         self.isDeletable = false
     }
     
