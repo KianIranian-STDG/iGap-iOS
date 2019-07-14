@@ -388,6 +388,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     // MARK: - UIPageViewControllerDataSource / UIPageViewControllerDelegate
 
     public func initializePhotoViewControllerForPhoto(_ photo: INSPhotoViewable) -> INSPhotoViewController {
+        
         let photoViewController = INSPhotoViewController(photo: photo)
         singleTapGestureRecognizer.require(toFail: photoViewController.doubleTapGestureRecognizer)
         photoViewController.longPressGestureHandler = { [weak self] gesture in

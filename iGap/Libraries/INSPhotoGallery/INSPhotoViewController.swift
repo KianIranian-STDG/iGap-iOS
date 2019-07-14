@@ -143,7 +143,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
         view.addGestureRecognizer(longPressGestureRecognizer)
         
 
-        print(self.photo.file?.typeRaw)
+        
         if let image = photo.image {
             self.scalingImageView.image = image
             self.loadBtnDownload(state: false)
