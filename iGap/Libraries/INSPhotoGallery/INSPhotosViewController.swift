@@ -308,6 +308,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         if !dataSource.containsPhoto(photo) {
             return
         }
+
         let photoViewController = initializePhotoViewControllerForPhoto(photo)
         pageViewController.setViewControllers([photoViewController], direction: direction, animated: animated, completion: nil)
         updateCurrentPhotosInformation()
