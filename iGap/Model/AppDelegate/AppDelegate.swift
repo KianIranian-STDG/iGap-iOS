@@ -116,6 +116,29 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         print("=======================================#GO TO UI=========================================")
         print("==================================================================================")
         IGGlobal.getTime()
+//        print("====================================#1=======================================")
+//        print("=================================PHONENUMBERS=================================")
+//        let a = ["09370384415","09370384416","09370384417","09370384418","09370384419","09370384420"]
+//        var tmpString = ""
+//        for elemnt in a {
+//            tmpString = tmpString + elemnt + ","
+//        }
+//        tmpString = String(tmpString.dropLast())
+//
+//        let md5Data = tmpString.MD5(string: tmpString)
+//
+//
+//        let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
+//        print("====================================#HEX=======================================")
+//
+//        print("md5Hex: \(md5Hex)")
+//
+//        let md5Base64 = md5Data.base64EncodedString()
+//        print("====================================#BASE64=======================================")
+//
+//        print("md5Base64: \(md5Base64)")
+//        print("====================================#2=======================================")
+//        print("=================================PHONENUMBERS=================================")
 
         return true
     }

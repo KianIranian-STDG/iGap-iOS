@@ -111,7 +111,42 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController , UIGest
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let roomU = IGRoom.existRoomInLocal(userId: self.members[indexPath.row].userID) {
+            openChat(room: roomU)
+        } else { //dont have chat
+            IGGlobal.prgShow(self.view)
+            IGChatGetRoomRequest.Generator.generate(peerId: self.members[indexPath.row].userID).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
+                    if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
+                        let _ = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        let roomU = IGRoom(igpRoom: chatGetRoomResponse.igpRoom)
+                        self.openChat(room: roomU)
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
+                    let alertC = UIAlertController(title: "Error", message: "An error occured trying to create a conversation", preferredStyle: .alert)
+                    let cancel = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertC.addAction(cancel)
+                    self.present(alertC, animated: true, completion: nil)
+                }
+            }).send()
+        }
+    }
 
+    func openChat(room : IGRoom){
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+        roomVC.room = room
+        //        IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
+        
+        self.navigationController!.pushViewController(roomVC, animated: true)
+    }
     private func detectSwipeOption(memberRole: IGGroupMember.IGRole!) -> (showOption:Bool, kickTitle:String) {
         var showOption = true
         var kickTitle: String = ""
