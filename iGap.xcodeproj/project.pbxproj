@@ -82,6 +82,9 @@
 		8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF550822D9B85400834E6A /* DahsboardCell8.swift */; };
 		8EBF550F22DB581300834E6A /* localizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF550E22DB581300834E6A /* localizationsFa.json */; };
 		8EBF551122DB582700834E6A /* localizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF551022DB582700834E6A /* localizationsEn.json */; };
+		8EBF551322DC4B3200834E6A /* FavouriteDashboardCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */; };
+		8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */; };
+		8EBF551822DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */; };
 		8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95DF2258811500A1F7E4 /* IGConstants.swift */; };
 		8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */; };
 		8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC217962258BD9E00105B5A /* SMSingleInputView.xib */; };
@@ -719,6 +722,9 @@
 		8EBF550822D9B85400834E6A /* DahsboardCell8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DahsboardCell8.swift; sourceTree = "<group>"; };
 		8EBF550E22DB581300834E6A /* localizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizationsFa.json; sourceTree = "<group>"; };
 		8EBF551022DB582700834E6A /* localizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizationsEn.json; sourceTree = "<group>"; };
+		8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteDashboardCell1.swift; sourceTree = "<group>"; };
+		8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteDashboardCell1.xib; sourceTree = "<group>"; };
+		8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractFavouriteDashboardCell.swift; sourceTree = "<group>"; };
 		8EBF95DF2258811500A1F7E4 /* IGConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGConstants.swift; sourceTree = "<group>"; };
 		8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMUserManager.swift; sourceTree = "<group>"; };
 		8EC217962258BD9E00105B5A /* SMSingleInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSingleInputView.xib; sourceTree = "<group>"; };
@@ -1448,6 +1454,15 @@
 				8EBF550422D9B65000834E6A /* DynamicTextLayer.swift */,
 			);
 			path = BarChart;
+			sourceTree = "<group>";
+		};
+		8EBF551622DC4B4E00834E6A /* FavouriteChannels */ = {
+			isa = PBXGroup;
+			children = (
+				8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */,
+				8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */,
+			);
+			path = FavouriteChannels;
 			sourceTree = "<group>";
 		};
 		8EBF95E4225884F200A1F7E4 /* Wallet */ = {
@@ -2224,6 +2239,7 @@
 			isa = PBXGroup;
 			children = (
 				FA7886C5223639E30006336F /* AbstractDashboardCell.swift */,
+				8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */,
 				FA99FF5E22352109009035DF /* DashboardCellUnknown.swift */,
 				FA842A3B225CA96F00E500A4 /* DashboardCellUnknown.xib */,
 				FA842A39225CA96A00E500A4 /* DashboardCell1.swift */,
@@ -2242,6 +2258,7 @@
 				FA712AE1225DC5BC00FD78AA /* DashboardCell7.xib */,
 				8EBF550822D9B85400834E6A /* DahsboardCell8.swift */,
 				8EBF550622D9B84900834E6A /* DashboardCell8.xib */,
+				8EBF551622DC4B4E00834E6A /* FavouriteChannels */,
 			);
 			path = "Dashboard Cells";
 			sourceTree = "<group>";
@@ -2855,6 +2872,7 @@
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,
+				8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */,
 				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
@@ -3042,6 +3060,7 @@
 				93AA67BA1E4F03290053380C /* IGChannelInfoTableViewController.swift in Sources */,
 				FA50A8CF1DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift in Sources */,
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,
+				8EBF551822DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift in Sources */,
 				FAD57EE11E191DB000FC17D9 /* IGMessageLogCollectionViewCell.swift in Sources */,
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
@@ -3360,6 +3379,7 @@
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
 				FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */,
+				8EBF551322DC4B3200834E6A /* FavouriteDashboardCell1.swift in Sources */,
 				FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */,
 				FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */,
 				8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */,

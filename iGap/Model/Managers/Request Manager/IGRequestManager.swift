@@ -514,10 +514,10 @@ class IGRequestManager {
                     if let request = generateIGRequestObject() {
                         print("COUNT IS : ")
                         tmpRequestWrapper = requestWrapper
-                        pendingRequests[request.igpID] = requestWrapper
-                            requestWrapper.id = request.igpID
+                        pendingRequests[request.igpID] = tmpRequestWrapper
+                            tmpRequestWrapper.id = request.igpID
                             _ = requestWrapper.message.igpRequest = request
-                            IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
+                            IGWebSocketManager.sharedManager.send(requestW: tmpRequestWrapper)
                             DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
                                 self.internalTimeOut(for: self.tmpRequestWrapper)
                             })
@@ -537,7 +537,6 @@ class IGRequestManager {
         pendingRequests  = [String : IGRequestWrapper]()
         resolvedRequests = [String : IGRequestWrapper]()
     }
-    
     //    func requestWrapperForReponse(_ response:IGPResponse) -> IGRequestWrapper? {
     //        let requestWrapper = pendingRequests[response.igpID]
     //        if requestWrapper != nil {
@@ -545,7 +544,6 @@ class IGRequestManager {
     //        }
     //        return nil
     //    }
-    
     //MARK: Receive
     func didReceive(decryptedData: NSData) {
         //var convertedData = NSData(data: decryptedData)
@@ -627,11 +625,11 @@ class IGRequestManager {
     
     func internalTimeOut(for requestWrapper: IGRequestWrapper) {
         //check if request is still pending
-        
-        if pendingRequests[requestWrapper.id] != nil {
-            resolvedRequests[requestWrapper.id] = requestWrapper
-            pendingRequests[requestWrapper.id]  = nil
-            if let error = requestWrapper.error {
+        let tmpRequestWrapper = requestWrapper
+        if pendingRequests[tmpRequestWrapper.id] != nil {
+            resolvedRequests[tmpRequestWrapper.id] = tmpRequestWrapper
+            pendingRequests[tmpRequestWrapper.id]  = nil
+            if let error = tmpRequestWrapper.error {
                 error(.timeout, nil)
             }
         }
