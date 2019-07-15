@@ -129,6 +129,8 @@ class IGCallsTableViewController: BaseTableViewController {
         
         DispatchQueue.main.async {
             (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: self.selectedRowUser!.id, isIncommmingCall: false)
+            self.tableView.isUserInteractionEnabled = true
+
         }
     }
     
