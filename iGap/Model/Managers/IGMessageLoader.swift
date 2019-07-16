@@ -201,6 +201,7 @@ class IGMessageLoader {
             addToView = false
             direction = .down
         } else {
+            setFirstLoadDown(firstLoadDown: false)
             addToView = true
             direction = .up
         }

@@ -769,7 +769,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func startLoadMessage(){
         messageLoader = IGMessageLoader(room: self.room!)
         messageLoader.getMessages { (messages, direction) in
-            self.addChatItem(realmRoomMessages: messages, direction: direction)
+            self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
         }
     }
     
@@ -5005,7 +5005,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
             if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
                 self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction)
+                    self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
                 })
             }
             
@@ -5020,7 +5020,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         if (scrollView.contentOffset.y < 0) { //reach bottom
             if !self.messageLoader.isFirstLoadDown() && !self.messageLoader.isWaitingHistoryDownLocal() {
                 self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction)
+                    self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
                 })
             }
         }
@@ -6168,7 +6168,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         self.messageLoader.setFirstLoadDown(firstLoadDown : false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if let message = IGRoomMessage.getMessageWithId(messageId: message.igpMessageID) {
-                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down, scrollToBottom: true)
+                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
             }
         }
     }
@@ -6219,7 +6219,8 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     /*********************************************************************************/
     /******************* Collection Manager (Add , Remove , Update) ******************/
     
-    func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = false){
+    /* scroll to bottom as default for send message (Text Message/File Message) */
+    func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = true){
         if realmRoomMessages.count == 0 {
             return
         }
