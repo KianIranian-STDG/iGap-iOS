@@ -43,6 +43,7 @@ class IGHelperMessageResponse {
                 }
             }
             
+            //TODO - do better action instead repeat method with delay
             if (oldMessage != nil) {
                 IGRoomMessage.deleteMessage(primaryKeyId: oldMessage!.primaryKeyId!)
             }

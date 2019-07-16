@@ -549,9 +549,15 @@ class IGRoomMessage: Object {
         return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first
     }
     
-    internal static func deleteMessage(primaryKeyId: String) {
+    internal static func deleteMessage(primaryKeyId: String, retry: Bool = true) {
         if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "primaryKeyId = %@", primaryKeyId)).first {
             IGDatabaseManager.shared.realm.delete(message)
+        } else if retry {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                try! IGDatabaseManager.shared.realm.write {
+                    IGRoomMessage.deleteMessage(primaryKeyId: primaryKeyId, retry: false)
+                }
+            }
         }
     }
     
