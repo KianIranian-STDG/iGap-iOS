@@ -88,6 +88,10 @@ class IGRealmChannelExtra: Object {
                         }
                     }
                 }
+                
+                for state in igpChannelMessageStats {
+                    IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: state.igpMessageID)
+                }
             }
         }
     }

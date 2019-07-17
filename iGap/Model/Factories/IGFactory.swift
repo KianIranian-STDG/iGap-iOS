@@ -779,7 +779,7 @@ class IGFactory: NSObject {
                         messageInDb.statusVersion = statusVersion
                     }
                 }
-                IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(roomId: roomID, messageId: messageID)
+                IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: messageID)
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)
                 }
