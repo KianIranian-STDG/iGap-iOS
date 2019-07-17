@@ -120,30 +120,68 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
             navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_MEMBER".localizedNew)
         }
         navigationItem.leftViewContainer?.addAction {
-            if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popViewController(animated: true)
+            let current : String = SMLangUtil.loadLanguage()
+            switch current {
+            case "fa" :
+                // if self.selectedUsers.count > 0 {
+                if self.mode == "CreateChannel" {
+                    self.requestToCreateChannel()
+                } else if self.mode == "Admin" {
+                    self.requestToAddAdminInChannel()
+                } else if self.mode == "Moderator" {
+                    self.requestToAddModeratorInChannel()
+                } else if self.mode == "Members" {
+                    self.requestToAddmember()
                 }
 
-            }else{
-                if self.navigationController is IGNavigationController {
-                    self.navigationController?.popToRootViewController(animated: true)
+            case "en" :
+                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }else{
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
                 }
+            default :
+                break
             }
         }
         navigationItem.rightViewContainer?.addAction {
-            // if self.selectedUsers.count > 0 {
-            if self.mode == "CreateChannel" {
-                self.requestToCreateChannel()
-            } else if self.mode == "Admin" {
-                self.requestToAddAdminInChannel()
-            } else if self.mode == "Moderator" {
-                self.requestToAddModeratorInChannel()
-            } else if self.mode == "Members" {
-                self.requestToAddmember()
+            let current : String = SMLangUtil.loadLanguage()
+            switch current {
+            case "fa" :
+                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }else{
+                    if self.navigationController is IGNavigationController {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+            case "en" :
+      
+                
+                
+                // if self.selectedUsers.count > 0 {
+                if self.mode == "CreateChannel" {
+                    self.requestToCreateChannel()
+                } else if self.mode == "Admin" {
+                    self.requestToAddAdminInChannel()
+                } else if self.mode == "Moderator" {
+                    self.requestToAddModeratorInChannel()
+                } else if self.mode == "Members" {
+                    self.requestToAddmember()
+                }
+                
+            default :
+                break
             }
         }
-        
         
     }
     //MARK: Segue
@@ -192,7 +230,6 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
                         switch protoResponse {
                         case let channelAddMemberResponse as IGPChannelAddMemberResponse :
                             let _ = IGChannelAddMemberRequest.Handler.interpret(response: channelAddMemberResponse)
-                            self.openChannel()
                         default:
                             break
                         }
@@ -202,8 +239,9 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
                 }).send()
             }
         } else {
-            openChannel()
         }
+        self.openChannel()
+
     }
     
     private func openChannel(){

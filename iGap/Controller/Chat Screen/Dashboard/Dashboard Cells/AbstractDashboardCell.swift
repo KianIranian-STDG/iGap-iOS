@@ -31,8 +31,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     var numberOfChecked : Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
+        counter = 0
     }
     
     public func initView(dashboard: [IGPDiscoveryField]){
@@ -331,6 +330,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         let valueType = String(discoveryInfo.igpValue)
         let agreementSlug = discoveryInfo.igpAgreementSlug
         let agreementValue = discoveryInfo.igpAgreement
+        let actionData = discoveryInfo.igpParam
 
         self.isUserInteractionEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -388,18 +388,54 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .webViewLink:
             if !(agreementSlug == "") {
+    
+                
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
+                    if actionData == "" {
+                        let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+                        iGapBrowser.url = discoveryInfo.igpValue
+                        iGapBrowser.htmlString = nil
+                        UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
+                        return
+
+                    } else {
+                        
+                        let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+
+                        iGapBrowser.request = URLRequest(url: URL(string: discoveryInfo.igpValue)!)
+                        iGapBrowser.htmlString = nil
+                        iGapBrowser.isPost = true
+                        iGapBrowser.param = actionData
+                        UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
+                        return
+
+                        
+                    }
+                }
+            } else {
+                if actionData == "" {
                     let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                     iGapBrowser.url = discoveryInfo.igpValue
                     iGapBrowser.htmlString = nil
                     UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
                     return
                     
+                } else {
+                    
+                    let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    
+                    iGapBrowser.request = URLRequest(url: URL(string: discoveryInfo.igpValue)!)
+                    iGapBrowser.htmlString = nil
+                    iGapBrowser.isPost = true
+                    iGapBrowser.param = actionData
+                    UIApplication.topViewController()!.navigationController!.pushViewController(iGapBrowser, animated:true)
+                    return
+                    
+                    
                 }
-            } else {
                 let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
                 iGapBrowser.url = discoveryInfo.igpValue
                 iGapBrowser.htmlString = nil
@@ -416,7 +452,7 @@ class AbstractDashboardCell: UICollectionViewCell {
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
-                    
+
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!

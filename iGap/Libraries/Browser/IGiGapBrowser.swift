@@ -9,27 +9,38 @@
  */
 
 import UIKit
+import WebKit
 
-class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDelegate {
+class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet var mainView: UIView!
     
-    var webView: UIWebView!
+    var webView: WKWebView!
     var webViewProgressbar: UIActivityIndicatorView!
     var htmlString : String!
     var itemID : Int32!
     var url: String!
+    var isPost : Bool = false
+    var param: String = ""
     var pageTitle: String = ""
     var tapCounter : Int! = 0
     var btnAgree : UIButtonX!
     var lblAgrement : UILabel!
     var checkBtn : UIButtonX!
 
+    var request : URLRequest!
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
         if (htmlString == nil) {
-            openWebView(url: self.url)
+            if isPost {
+                request.httpMethod = "POST"
+                let postString = "id=\(param)"
+                request.httpBody = postString.data(using: .utf8)
+                openWebViewForPostReq(request: request)
+            } else {
+                openWebView(url: self.url)
+            }
         }
         else {
             openWebViewWithHTMLString(string: htmlString)
@@ -66,13 +77,25 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
                 
                 if error == nil {
                     DispatchQueue.main.async {
-                        self.webView?.loadRequest(request)
+                        self.webView?.load(request)
                     }
                 } else {
                     print("ERROR: \(String(describing: error))")
                 }
             }
             task.resume()
+        }
+    }
+    
+    private func openWebViewForPostReq(request:URLRequest)  {
+        
+        makeWebView()
+        
+        self.webView.isHidden = false
+        self.view.endEditing(true)
+        
+        DispatchQueue.main.async {
+            self.webView.load(request) //if your `webView` is `UIWebView`
         }
     }
     private func openWebViewWithHTMLString(string:String)  {
@@ -101,7 +124,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
     
     private func makeWebView(){
         if self.webView == nil {
-            self.webView = UIWebView()
+            self.webView = WKWebView()
         }
         mainView.addSubview(self.webView)
         self.webView.snp.makeConstraints { (make) in
@@ -110,11 +133,11 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
             make.right.equalTo(mainView.snp.right)
             make.left.equalTo(mainView.snp.left)
         }
-        self.webView.delegate = self
+//        self.webView.delegate = self
     }
     private func makeWebViewForAgreement(){
         if self.webView == nil {
-            self.webView = UIWebView()
+            self.webView = WKWebView()
         }
         mainView.addSubview(self.webView)
         self.webView.snp.makeConstraints { (make) in
@@ -123,7 +146,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
             make.right.equalTo(mainView.snp.right)
             make.left.equalTo(mainView.snp.left)
         }
-        self.webView.delegate = self
+//        self.webView.delegate = self
     }
     private func makeAgrementBtns(){
 
@@ -221,7 +244,7 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
     //setAgreement Slug and Go
     private func carpinoAggrement(itemID:Int32!) {
         let t = self.url
-        self.webView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
+        self.webView.load(URLRequest.init(url: URL.init(string: "about:blank")!))
 
         IGClientSetDiscoveryItemAgreemnetRequest.Generator.generate(itemId: itemID).success { (responseProto) in
             DispatchQueue.main.async {
@@ -239,10 +262,10 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate, UIWebViewDel
                         
                         if error == nil {
                             DispatchQueue.main.async {
-                                self.webView?.loadRequest(request)
+                                self.webView?.load(request)
                             }
                         } else {
-                            self.webView.loadRequest(URLRequest.init(url: URL.init(string: "about:blank")!))
+                            self.webView.load(URLRequest.init(url: URL.init(string: "about:blank")!))
                         }
                     }
                     task.resume()

@@ -133,8 +133,15 @@ class DashboardCell8: AbstractDashboardCell {
     
     func generateRandomDataEntries() -> [DataEntry] {
    
-        result.removeAll()
-        tmpMax.removeAll()
+        if tmpMax.count > 0 {
+            tmpMax.removeAll()
+            
+        }
+        if result.count > 0 {
+            result.removeAll()
+
+        }
+
         if dashboardAbsPollInner != nil {
             
             for elemnt in dashboardAbsPollInner {

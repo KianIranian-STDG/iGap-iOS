@@ -85,6 +85,18 @@
 		8EBF551322DC4B3200834E6A /* FavouriteDashboardCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */; };
 		8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */; };
 		8EBF551822DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */; };
+		8EBF552022DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */; };
+		8EBF552322DCA95C00834E6A /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552122DCA95C00834E6A /* ProfileModel.swift */; };
+		8EBF552422DCA95C00834E6A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */; };
+		8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */; };
+		8EBF552822DCA9B000834E6A /* SliderTypeOneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */; };
+		8EBF552A22DCAA9500834E6A /* ServerData.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF552922DCAA9500834E6A /* ServerData.json */; };
+		8EBF552C22DCBAE900834E6A /* SliderTypeTwoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */; };
+		8EBF552E22DCBAFD00834E6A /* SliderTypeTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */; };
+		8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */; };
+		8EBF553222DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF553022DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib */; };
+		8EBF553422DCC9F700834E6A /* SliderTypeThreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF553322DCC9F700834E6A /* SliderTypeThreeCell.swift */; };
+		8EBF553622DCCA0600834E6A /* SliderTypeThreeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF553522DCCA0600834E6A /* SliderTypeThreeCell.xib */; };
 		8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95DF2258811500A1F7E4 /* IGConstants.swift */; };
 		8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */; };
 		8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC217962258BD9E00105B5A /* SMSingleInputView.xib */; };
@@ -725,6 +737,18 @@
 		8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteDashboardCell1.swift; sourceTree = "<group>"; };
 		8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteDashboardCell1.xib; sourceTree = "<group>"; };
 		8EBF551722DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractFavouriteDashboardCell.swift; sourceTree = "<group>"; };
+		8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardTableViewController.swift; sourceTree = "<group>"; };
+		8EBF552122DCA95C00834E6A /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SliderTypeOneCell.xib; sourceTree = "<group>"; };
+		8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderTypeOneCell.swift; sourceTree = "<group>"; };
+		8EBF552922DCAA9500834E6A /* ServerData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ServerData.json; sourceTree = "<group>"; };
+		8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTypeTwoCell.xib; sourceTree = "<group>"; };
+		8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderTypeTwoCell.swift; sourceTree = "<group>"; };
+		8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelsDashboardCollectionViewCell.swift; sourceTree = "<group>"; };
+		8EBF553022DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGFavouriteChannelsDashboardCollectionViewCell.xib; sourceTree = "<group>"; };
+		8EBF553322DCC9F700834E6A /* SliderTypeThreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderTypeThreeCell.swift; sourceTree = "<group>"; };
+		8EBF553522DCCA0600834E6A /* SliderTypeThreeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTypeThreeCell.xib; sourceTree = "<group>"; };
 		8EBF95DF2258811500A1F7E4 /* IGConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGConstants.swift; sourceTree = "<group>"; };
 		8EBF95E2225884EB00A1F7E4 /* SMUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMUserManager.swift; sourceTree = "<group>"; };
 		8EC217962258BD9E00105B5A /* SMSingleInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMSingleInputView.xib; sourceTree = "<group>"; };
@@ -1459,8 +1483,19 @@
 		8EBF551622DC4B4E00834E6A /* FavouriteChannels */ = {
 			isa = PBXGroup;
 			children = (
+				8EBF552922DCAA9500834E6A /* ServerData.json */,
+				8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */,
+				8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */,
+				8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */,
+				8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */,
+				8EBF553322DCC9F700834E6A /* SliderTypeThreeCell.swift */,
+				8EBF553522DCCA0600834E6A /* SliderTypeThreeCell.xib */,
 				8EBF551222DC4B3200834E6A /* FavouriteDashboardCell1.swift */,
 				8EBF551422DC4B4600834E6A /* FavouriteDashboardCell1.xib */,
+				8EBF552122DCA95C00834E6A /* ProfileModel.swift */,
+				8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */,
+				8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */,
+				8EBF553022DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib */,
 			);
 			path = FavouriteChannels;
 			sourceTree = "<group>";
@@ -2269,6 +2304,7 @@
 				FA8A49E1226AEB6F00544B06 /* Score */,
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
+				8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
 			);
 			path = Dashboard;
@@ -2873,6 +2909,7 @@
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,
 				8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */,
+				8EBF553622DCCA0600834E6A /* SliderTypeThreeCell.xib in Resources */,
 				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
@@ -2881,6 +2918,7 @@
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				FAE6063F21EB3A0C00F03FFC /* es.lproj in Resources */,
 				FA99FF6922354031009035DF /* DashboardCell3.xib in Resources */,
+				8EBF552C22DCBAE900834E6A /* SliderTypeTwoCell.xib in Resources */,
 				FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */,
 				8E96A32E225C96C3007D8A77 /* RecieptRow.xib in Resources */,
 				8EC217972258BD9E00105B5A /* SMSingleInputView.xib in Resources */,
@@ -2905,6 +2943,7 @@
 				FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
+				8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
 				8EACC7B422621ACA00F32DC3 /* localizations.json in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
@@ -2922,6 +2961,7 @@
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
 				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
 				FAE6063C21EB3A0C00F03FFC /* de.lproj in Resources */,
+				8EBF552A22DCAA9500834E6A /* ServerData.json in Resources */,
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				FAE6064021EB3A0C00F03FFC /* es-ES.lproj in Resources */,
 				FAE6063B21EB3A0C00F03FFC /* pt.lproj in Resources */,
@@ -2929,6 +2969,7 @@
 				8E8D8E19225CE39B00039191 /* strings.json in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
 				FA99FF75223544B2009035DF /* DashboardCell6.xib in Resources */,
+				8EBF553222DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3074,10 +3115,12 @@
 				8EC217C62259F59900105B5A /* SMCashout.swift in Sources */,
 				8E96A321225C9074007D8A77 /* SMBottomButton.swift in Sources */,
 				FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */,
+				8EBF552322DCA95C00834E6A /* ProfileModel.swift in Sources */,
 				FA9F735A2127E589004418E5 /* EPContactsPicker.swift in Sources */,
 				8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */,
 				FAD530621E0BD80800FE6C54 /* IGNavigationBar.swift in Sources */,
 				FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */,
+				8EBF552022DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift in Sources */,
 				FA85066422670703002EEBF7 /* addNewCardTableViewController.swift in Sources */,
 				8ECCA1E622B6587E00D3A734 /* SMMoneyTransactionOptions.swift in Sources */,
 				8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */,
@@ -3115,8 +3158,10 @@
 				8EC217992258BDF400105B5A /* SMSingleInputView.swift in Sources */,
 				FAEC476621F33149006C07A4 /* IGHelperJoin.swift in Sources */,
 				FA417E50212179C900B5FBCD /* LocationCell.swift in Sources */,
+				8EBF553422DCC9F700834E6A /* SliderTypeThreeCell.swift in Sources */,
 				93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */,
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
+				8EBF552E22DCBAFD00834E6A /* SliderTypeTwoCell.swift in Sources */,
 				FA85066822670703002EEBF7 /* SMBarCodeScannerViewController.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
 				FA76598322902ACE006322A3 /* INSPhotosOverlayView.swift in Sources */,
@@ -3202,6 +3247,7 @@
 				8EC217B62259DCF400105B5A /* SMEntity.swift in Sources */,
 				FA85066322670703002EEBF7 /* CardsCollectionViewCell.swift in Sources */,
 				8EE7FC93225DDE4D00B6C2C3 /* SMNormalAlertViewController.swift in Sources */,
+				8EBF552422DCA95C00834E6A /* ProfileViewModel.swift in Sources */,
 				8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */,
 				FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */,
 				FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */,
@@ -3288,6 +3334,7 @@
 				8E96A329225C91EB007D8A77 /* SMStringUtil.swift in Sources */,
 				FA76598622902ACE006322A3 /* INSPhotosTransitionAnimator.swift in Sources */,
 				FA42EF0F1E5C224F00CF8A32 /* UIImage.swift in Sources */,
+				8EBF552822DCA9B000834E6A /* SliderTypeOneCell.swift in Sources */,
 				FA0953621E1B97700043ED3F /* IGSettingContactTableViewCell.swift in Sources */,
 				FA50A8C41DD35E8500C6D2EA /* IGAppManager.swift in Sources */,
 				8ECCA1EE22B8B99100D3A734 /* IGMultiForwardModal.swift in Sources */,
@@ -3448,6 +3495,7 @@
 				FA09538B1E1B97E20043ED3F /* IGNewChannelChoosePublicOrPrivateTableViewController.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */,
+				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
 				93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */,
 				FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */,
 				FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */,

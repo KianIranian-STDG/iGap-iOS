@@ -37,6 +37,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         
         let predicate = NSPredicate(format: "roomID = %lld", (room?.id)!)
         members =  try! Realm().objects(IGChannelMember.self).filter(predicate)
+
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:

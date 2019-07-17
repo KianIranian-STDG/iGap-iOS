@@ -1,0 +1,350 @@
+{
+    "data": [
+        {
+            "id": "5d1cc0bc072e82477b6a9e92",
+            "type": "advertisement",
+            "info": {
+                "looped": false,
+                "title": "اسلایدر ۳",
+                "titleEn": "Slider 3",
+                "playback_time": 3000,
+                "scale": "8:4"
+            },
+            "data_count": 5,
+            "slides": [
+                {
+                    "title": "اسلاید ۴",
+                    "titleEn": "Slide 4",
+                    "id": "5d1cc0bc072e82477b6a9993",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006419.jpg"
+                },
+                {
+                    "title": "اسلاید ۳",
+                    "titleEn": "Slide 3",
+                    "id": "5d1cc0bc072e82477b6a9992",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000005883.jpg"
+                },
+                {
+                    "title": "اسلاید ۹",
+                    "titleEn": "Slider 9",
+                    "id": "5d1cc0bc072e82477b6a9998",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006396.jpg"
+                },
+                {
+                    "title": "اسلاید ۵",
+                    "titleEn": "Slider 5",
+                    "id": "5d1cc0bc072e82477b6a9994",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006392.jpg"
+                },
+                {
+                    "title": "اسلاید ۱۱",
+                    "titleEn": "Slider 11",
+                    "playbackTime": 1200,
+                    "id": "5d1cc0bc072e82477b6a999a",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006406.jpg"
+                }
+            ]
+        },
+        {
+            "id": "5d1cc0bc072e82477b6a9579",
+            "type": "channelFeaturedCategory",
+            "info": {
+                "title": "کانال های پرمخاطب",
+                "titleEn": "Popular Channels"
+            },
+            "data_count": 3,
+            "channels": [
+                {
+                    "title": "باشگاه استقلال",
+                    "titleEn": "Esteghlal FC",
+                    "slug": "@no9",
+                    "icon": "https://upload.wikimedia.org/wikipedia/en/8/8e/Esteghlal_FC_logo.png",
+                    "id": "5d230f45d4eda7828b5fd89c"
+                },
+                {
+                    "title": "باشگاه بایرن مونیخ",
+                    "titleEn": "Bayern FC",
+                    "slug": "@no11",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d230f45d4eda7828b5fd8a7"
+                },
+                {
+                    "title": "باشگاه ریال مادرید",
+                    "titleEn": "Real Madrid FC",
+                    "slug": "@no17",
+                    "icon": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/260px-Real_Madrid_CF.svg.png",
+                    "id": "5d25bffe9942dabaf741a932"
+                }
+            ]
+        },
+        {
+            "id": "5d1cc0bc072e82477b6a957a",
+            "type": "channelFeaturedCategory",
+            "info": {
+                "title": "جدیدترین ها",
+                "titleEn": "Recently Added Channels"
+            },
+            "data_count": 5,
+            "channels": [
+                {
+                    "title": "کانال 12",
+                    "titleEn": "Channel 21",
+                    "slug": "@no12",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d230f45d4eda7828b5fd8a8"
+                },
+                {
+                    "title": "کانال 10",
+                    "titleEn": "Channel 10",
+                    "slug": "@no10",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d230f45d4eda7828b5fd8aa"
+                },
+                {
+                    "title": "کانال 19",
+                    "titleEn": "Channel 19",
+                    "slug": "@no19",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d2ae688a1aa50c519f5f9c2"
+                },
+                {
+                    "title": "کانال 5",
+                    "titleEn": "Channel 5",
+                    "slug": "@no5",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d2ae688a1aa50c519f5f9bf"
+                },
+                {
+                    "title": "کانال 20",
+                    "titleEn": "Channel 20",
+                    "slug": "@no20",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d2ae688a1aa50c519f5f9be"
+                }
+            ]
+        },
+        {
+            "id": "5d1cc0bc072e82477b6a957b",
+            "type": "channelFeaturedCategory",
+            "info": {
+                "title": "بروزترین ها",
+                "titleEn": "Most Actives Channels"
+            },
+            "data_count": 4,
+            "channels": [
+                {
+                    "title": "کانال 15",
+                    "titleEn": "Channel 15",
+                    "slug": "@no15",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d230f45d4eda7828b5fd89e"
+                },
+                {
+                    "title": "کانال 2",
+                    "titleEn": "Channel 2",
+                    "slug": "@no1",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d230f45d4eda7828b5fd8ab"
+                },
+                {
+                    "title": "کانال 14",
+                    "titleEn": "Channel 14",
+                    "slug": "@no14",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d230f45d4eda7828b5fd8ad"
+                },
+                {
+                    "title": "کانال 22",
+                    "titleEn": "Channel 22",
+                    "slug": "@no22",
+                    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/440px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png",
+                    "id": "5d2ae688a1aa50c519f5f9c0"
+                }
+            ]
+        },
+        {
+            "id": "5d1cc0bc072e82477b6a9e92",
+            "type": "advertisement",
+            "info": {
+                "looped": false,
+                "title": "اسلایدر ۳",
+                "titleEn": "Slider 3",
+                "playback_time": 4000,
+                "scale": "8:2"
+            },
+            "data_count": 3,
+            "slides": [
+                {
+                    "title": "اسلاید ۴",
+                    "titleEn": "Slide 4",
+                    "id": "5d1cc0bc072e82477b6a9993",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000005883.jpg"
+                },
+                {
+                    "title": "اسلاید ۳",
+                    "titleEn": "Slide 3",
+                    "id": "5d1cc0bc072e82477b6a9992",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006396.jpg"
+                },
+                {
+                    "title": "اسلاید ۹",
+                    "titleEn": "Slide 9",
+                    "id": "5d1cc0bc072e82477b6a9998",
+                    "action_type": 0,
+                    "action_link": "",
+                    "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006392.jpg"
+                }
+            ]
+        },
+        {
+            "id": "",
+            "type": "channelNormalCategory",
+            "info": {
+                "order_by": "title",
+                "sort": "asc"
+            },
+            "data_count": 18,
+            "categories": [
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "آموزش",
+                    "titleEn": "Education and Teaching",
+                    "slug": "@no6",
+                    "id": "5d1cc0bc072e82477b6a9584"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "اخبار و تازه ها",
+                    "titleEn": "News",
+                    "slug": "@no12",
+                    "id": "5d1cc0bc072e82477b6a957c"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "ادبیات و شعر",
+                    "titleEn": "Poetry and Literature",
+                    "slug": "@no13",
+                    "id": "5d1cc0bc072e82477b6a957d"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "خانه و خانواده",
+                    "titleEn": "Home and Family",
+                    "slug": "@no16",
+                    "id": "5d1cc0bc072e82477b6a9582"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "دنیای آشپزی",
+                    "titleEn": "Cooking World",
+                    "slug": "@no20",
+                    "id": "5d1cc0bc072e82477b6a9585"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "دین و معارف",
+                    "slug": "@no7",
+                    "id": "5d1cc0bc072e82477b6a9589"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "سایر",
+                    "titleEn": "Others",
+                    "slug": "@no22",
+                    "id": "5d1cc0bc072e82477b6a958d"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "سبک زندگی",
+                    "titleEn": "Life Style",
+                    "slug": "@no4",
+                    "id": "5d1cc0bc072e82477b6a9581"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "سفر و گردشگری",
+                    "titleEn": "Tourism and Trip",
+                    "slug": "@no15",
+                    "id": "5d1cc0bc072e82477b6a9580"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "سینما و تياتر",
+                    "titleEn": "Cinema and Theatre",
+                    "slug": "@no5",
+                    "id": "5d1cc0bc072e82477b6a9587"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "علم و فناوری",
+                    "titleEn": "Science and Technology",
+                    "slug": "@no6",
+                    "id": "5d1cc0bc072e82477b6a9583"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "فرهنگ و هنر",
+                    "titleEn": "Art and Culture",
+                    "slug": "@no19",
+                    "id": "5d1cc0bc072e82477b6a9588"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "فروشگاه آنلاین",
+                    "titleEn": "Online Shop",
+                    "slug": "@no17",
+                    "id": "5d1cc0bc072e82477b6a958b"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "مد و زیبایی",
+                    "titleEn": "Fashion and Beauty",
+                    "slug": "@no21",
+                    "id": "5d1cc0bc072e82477b6a958c"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "موسیقی",
+                    "titleEn": "Music",
+                    "slug": "@no20",
+                    "id": "5d1cc0bc072e82477b6a9586"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "ورزش و تناسب اندام",
+                    "titleEn": "Sport",
+                    "slug": "@no14",
+                    "id": "5d1cc0bc072e82477b6a957f"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "پزشکی و سلامت",
+                    "titleEn": "Health and Fitness",
+                    "slug": "@no1",
+                    "id": "5d1cc0bc072e82477b6a957e"
+                },
+                {
+                    "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+                    "title": "کودک و نوجوان",
+                    "titleEn": "Kids and Teenagers",
+                    "slug": "@no7",
+                    "id": "5d1cc0bc072e82477b6a958a"
+                }
+            ]
+        }
+    ]
+}
