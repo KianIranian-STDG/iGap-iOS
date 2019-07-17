@@ -114,6 +114,10 @@ class IGMessageLoader {
     /*************************************************/
     /******************** Getters ********************/
     
+    public func allowAddToView() -> Bool {
+        return addToView
+    }
+    
     public func isWaitingHistoryUpLocal() -> Bool {
         return isWaitingForHistoryUpLocal
     }
@@ -745,7 +749,7 @@ class IGMessageLoader {
     /**
      * reset to default value for reload message again
      */
-    private func resetMessagingValue() {
+    public func resetMessagingValue() {
         //prgWaiting.setVisibility(View.VISIBLE);
         //clearAdapterItems();
         

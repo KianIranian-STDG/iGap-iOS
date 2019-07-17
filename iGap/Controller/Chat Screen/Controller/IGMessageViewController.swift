@@ -767,7 +767,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func startLoadMessage(){
-        messageLoader = IGMessageLoader(room: self.room!)
+        if messageLoader == nil {
+            messageLoader = IGMessageLoader(room: self.room!)
+        }
         messageLoader.getMessages { (messages, direction) in
             self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
         }
@@ -3786,7 +3788,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @IBAction func didTapOnScrollToBottomButton(_ sender: UIButton) {
-        scrollToBottom()
+        if self.messageLoader.allowAddToView() {
+            scrollToBottom()
+        } else {
+            self.messageLoader.resetMessagingValue()
+            self.messages?.removeAll()
+            self.collectionView.reloadData()
+            self.scrollToBottomContainerView.isHidden = true
+            startLoadMessage()
+        }
     }
     
     private func scrollToBottom(){
@@ -6225,6 +6235,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             return
         }
         
+        if scrollToBottom && !self.messageLoader.allowAddToView() {
+            resetAndGetFromEnd()
+        }
+        
         if direction == .up { // Up direction
             if self.messageLoader.isFirstLoadUp() {
                 
@@ -6369,6 +6383,15 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         let message = IGRoomMessage(body: dateString.inLocalizedLanguage())
         message.type = .time
         return message
+    }
+    
+    private func resetAndGetFromEnd(){
+        self.scrollToBottomContainerView.isHidden = true
+        self.messageLoader.resetMessagingValue()
+        self.messages?.removeAll()
+        IGMessageViewController.messageIdsStatic.removeAll()
+        self.collectionView.reloadData()
+        startLoadMessage()
     }
     
     /**
