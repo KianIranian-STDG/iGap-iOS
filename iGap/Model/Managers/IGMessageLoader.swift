@@ -60,7 +60,7 @@ class IGMessageLoader {
     private let LIMIT_GET_HISTORY_LOW: Int32 = 10
     private let LIMIT_GET_HISTORY_NORMAL: Int32 = 25
     
-    public static let STORE_MESSAGE_POSITION_LIMIT = 2
+    public static let STORE_MESSAGE_POSITION_LIMIT = 1
     
     let sortPropertiesUp = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesDown = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: true)]
