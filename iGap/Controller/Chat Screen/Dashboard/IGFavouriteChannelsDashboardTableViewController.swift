@@ -41,19 +41,11 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
     @objc func refreshOnCall(_ nofication: Notification)  {
         self.tableView.reloadData()
     }
-    public func dataFromFile(_ filename: String) -> Data? {
-        @objc class TestClass: NSObject { }
-        
-        let bundle = Bundle(for: TestClass.self)
-        if let path = bundle.path(forResource: filename, ofType: "json") {
-            return (try? Data(contentsOf: URL(fileURLWithPath: path)))
-        }
-        return nil
-    }
+
     
 
     func getData() {
-        guard let data = dataFromFile("ServerData") else {
+        guard let data = IGGlobal.dataFromFile("ServerData") else {
             return
         }
         
@@ -191,7 +183,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
 
             cell.categoriesDataArray = galleryCategoriesDataArray
-            
+            cell.isInnenr = false
             cell.initView()
 
             return cell

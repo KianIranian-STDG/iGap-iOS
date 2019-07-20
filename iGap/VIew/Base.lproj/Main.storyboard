@@ -34,10 +34,31 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Lb1-yX-DhH" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <connections>
+                        <segue destination="2Jd-b2-By7" kind="show" id="1Xy-jt-N2m"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltE-dm-5rf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2661" y="-2755"/>
+        </scene>
+        <!--Favourite Channels Dashboard Inner Table View Controller-->
+        <scene sceneID="qft-Wm-ptn">
+            <objects>
+                <tableViewController storyboardIdentifier="IGFavouriteChannelsDashboardInnerTableViewController" id="2Jd-b2-By7" customClass="IGFavouriteChannelsDashboardInnerTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GUh-0G-FbA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="2Jd-b2-By7" id="A1k-Zm-S4L"/>
+                            <outlet property="delegate" destination="2Jd-b2-By7" id="hlw-ET-Tew"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9pE-AD-Qwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3893" y="-2755"/>
         </scene>
         <!--Title-->
         <scene sceneID="fe4-zV-nJ3">

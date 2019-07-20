@@ -29,6 +29,7 @@ class SliderTypeOneCell: UITableViewCell {
     var timer = Timer()
     var photoCount:Int = 0
     var galleryScale : String = "8:5"
+    var playbackTime : Int = 2000
     var imageUrl : [String] = []
     @IBOutlet weak var btnPRV: UIButton?
     @IBOutlet weak var btnNXT: UIButton?
@@ -79,7 +80,19 @@ class SliderTypeOneCell: UITableViewCell {
         
         sliderImages(imageUrlll : imageUrlll,loopTime: loopTime)
         btnConfig()
-
+        
+    }
+    public func initViewInner(scale : String , loopTime : Int, imageUrl : [String]){
+        heightConstraint.constant = computeHeight(scale: scale)
+        
+        pictureImageView?.layer.cornerRadius = 15
+        pictureImageView?.clipsToBounds = true
+        pictureImageView?.contentMode = .scaleAspectFill
+        pictureImageView?.backgroundColor = UIColor.lightGray
+        
+        sliderImages(imageUrlll : imageUrl,loopTime: loopTime)
+        btnConfig()
+        
     }
     func sliderImages(imageUrlll : [String],loopTime: Int) {
 

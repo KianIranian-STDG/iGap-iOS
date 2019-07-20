@@ -1,0 +1,135 @@
+{
+    "info": {
+        "id": "5d1cc0bc072e82477b6a9579",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "type": "FEATURED",
+        "title": "کانال های پرمخاطب",
+        "titleEn": "Popular Channels",
+        "slug": "@no1",
+        "advertisement": {
+            "slides": [
+            {
+                "title": "اسلاید ۶",
+                "titleEn": "Slide 6",
+                "id": "5d1cc0bc072e82477b6a9995",
+                "action_type": 0,
+                "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006419.jpg"
+            },
+            {
+                "title": "اسلاید ۵",
+                "titleEn": "Slide 5",
+                "id": "5d1cc0bc072e82477b6a9994",
+                "action_type": 0,
+                "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000005883.jpg"
+            },
+            {
+                "title": "اسلاید ۳",
+                "titleEn": "Slide 3",
+                "id": "5d1cc0bc072e82477b6a9992",
+                "action_type": 0,
+                "image_url": "https://dkstatics-public.digikala.com/digikala-adservice-banners/1000006392.jpg"
+            }
+            ],
+            "looped": true,
+            "title": "اسلایدر ۱",
+            "titleEn": "Slider 1",
+            "scale": "8:2",
+            "id": "5d1cc0bc072e82477b6a9e95",
+            "playback_time": 2000
+        },
+        "has_ad": true
+    },
+    "channels": [
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a957c",
+        "5d1cc0bc072e82477b6a9583",
+        "5d1cc0bc072e82477b6a9579"
+        ],
+        "title": "کانال 21",
+        "titleEn": "Channel 21",
+        "slug": "@no21",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d2ae688a1aa50c519f5f9c5"
+    },
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a9579",
+        "5d1cc0bc072e82477b6a957c"
+        ],
+        "title": "کانال 11",
+        "titleEn": "Channel 11",
+        "slug": "@no11",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d2d6ea27413284b4591489f"
+    },
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a9579",
+        "5d1cc0bc072e82477b6a957c"
+        ],
+        "title": "کانال 9",
+        "titleEn": "Channel 9",
+        "slug": "@no9",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d2d6ea27413284b459148a1"
+    },
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a957c",
+        "5d1cc0bc072e82477b6a957d",
+        "5d1cc0bc072e82477b6a9579"
+        ],
+        "title": "کانال 17",
+        "titleEn": "Channel 17",
+        "slug": "@no17",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d25bffe9942dabaf741a932"
+    },
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a957c",
+        "5d1cc0bc072e82477b6a957d",
+        "5d1cc0bc072e82477b6a9579"
+        ],
+        "title": "کانال 7",
+        "titleEn": "Channel 7",
+        "slug": "@no7",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d25bffe9942dabaf741a931"
+    },
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a9579",
+        "5d1cc0bc072e82477b6a957c"
+        ],
+        "title": "کانال 11",
+        "titleEn": "Channel 11",
+        "slug": "@no11",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d2d714c7413284b45914993"
+    },
+    {
+        "categories": [
+        "5d1cc0bc072e82477b6a9579",
+        "5d1cc0bc072e82477b6a957c"
+        ],
+        "title": "کانال 9",
+        "titleEn": "Channel 9",
+        "slug": "@no9",
+        "icon": "https://image.flaticon.com/icons/svg/1373/1373276.svg",
+        "id": "5d2d714c7413284b45914994"
+    }
+    ],
+    "pagination": {
+        "totalDocs": 7,
+        "limit": 10,
+        "hasPrevPage": false,
+        "hasNextPage": false,
+        "page": 1,
+        "totalPages": 1,
+        "pagingCounter": 1,
+        "prevPage": null,
+        "nextPage": null
+    }
+}

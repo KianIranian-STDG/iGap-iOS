@@ -46,11 +46,8 @@ class SliderTypeTwoCell: UITableViewCell,UICollectionViewDelegate, UICollectionV
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGFavouriteChannelsDashboardCollectionViewCell", for: indexPath as IndexPath) as! IGFavouriteChannelsDashboardCollectionViewCell
-
-
         cell.lbl.text = titleArray[indexPath.item]
         cell.imgBG.image = imageArray[indexPath.item]
-//        tmpIMG.sd_setImage(with: channelsDataArray[inde], completed: nil)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -116,6 +113,15 @@ class SliderTypeTwoCell: UITableViewCell,UICollectionViewDelegate, UICollectionV
             
             titleArray = tmptitleArray
     
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                
+                self.collectionView.reloadData()
+            }
     }
 }
+    ///btnMore Action Handler
+    @IBAction func didTapOnBtnMore(_ sender: Any) {
+        let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+    }
 }

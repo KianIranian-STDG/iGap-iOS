@@ -58,8 +58,9 @@ class IGGroupEditDescriptionTableViewController: BaseTableViewController , UIGes
             groupDescriptionTextView.isUserInteractionEnabled = false
             if room?.groupRoom?.roomDescription == "" {
                 groupDescriptionTextView.text = "PRODUCTS_NO_DETAILS".localizedNew
-                groupDescriptionTextView.textAlignment = placeholderLabel.localizedNewDirection
-
+                if placeholderLabel != nil {
+                    groupDescriptionTextView.textAlignment = placeholderLabel.localizedNewDirection
+                }
             }
         }
         descriptionSize = groupDescriptionTextView.text.height(withConstrainedWidth: self.view.frame.width, font: groupDescriptionTextView.font!)

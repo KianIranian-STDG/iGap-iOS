@@ -207,6 +207,15 @@ class IGGlobal {
     public class func getCurrentMillis()->Int64{
         return  Int64(NSDate().timeIntervalSince1970 * 1000)
     }
+    internal static func dataFromFile(_ filename: String) -> Data? {
+        @objc class TestClass: NSObject { }
+        
+        let bundle = Bundle(for: TestClass.self)
+        if let path = bundle.path(forResource: filename, ofType: "json") {
+            return (try? Data(contentsOf: URL(fileURLWithPath: path)))
+        }
+        return nil
+    }
 }
 
 extension UIViewController {

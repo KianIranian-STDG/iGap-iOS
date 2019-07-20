@@ -450,26 +450,26 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .page:
             
-//            if !(agreementSlug == "") {
-//                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-//                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
-//
-//                } else {
-//                    let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-//                    dashboard.pageId = Int32(discoveryInfo.igpValue)!
-//                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-//                    return
-//                }
-//            } else {
-//                let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-//                dashboard.pageId = Int32(discoveryInfo.igpValue)!
-//                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-//                return
-//            }
-            
-            let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+            if !(agreementSlug == "") {
+                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
+                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
 
+                } else {
+                    let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                    return
+                }
+            } else {
+                let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                return
+            }
+            
+//            let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+//            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+//
         //Pull actions
         case .poll:
             if !(agreementSlug == "") {
