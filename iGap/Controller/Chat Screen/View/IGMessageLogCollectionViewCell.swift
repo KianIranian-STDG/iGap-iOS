@@ -48,6 +48,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
     
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+        self.cellMessage = message
         self.logLabel.textColor = UIColor.white
         if message.log?.type == .pinnedMessage {
             self.logLabel.text = IGRoomMessage.detectPinMessage(message: message)

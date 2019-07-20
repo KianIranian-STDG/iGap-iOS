@@ -60,6 +60,8 @@ class IGMessageLoader {
     private let LIMIT_GET_HISTORY_LOW: Int32 = 10
     private let LIMIT_GET_HISTORY_NORMAL: Int32 = 25
     
+    public static let STORE_MESSAGE_POSITION_LIMIT = 2
+    
     let sortPropertiesUp = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesDown = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: true)]
     
@@ -319,7 +321,7 @@ class IGMessageLoader {
                     LinearLayoutManager linearLayout = (LinearLayoutManager) recyclerView.getLayoutManager();
                     linearLayout.scrollToPositionWithOffset(position, firstVisiblePositionOffset);
                     */
-                    savedScrollMessageId = 0;
+                    //savedScrollMessageId = 0;
                 }
             }
         }
@@ -735,7 +737,7 @@ class IGMessageLoader {
     /**
      * return saved scroll messageId
      */
-    private func getSavedState() -> Int64 {
+    public func getSavedState() -> Int64 {
         return savedScrollMessageId
     }
     
@@ -764,6 +766,7 @@ class IGMessageLoader {
         totalItemCount = 0
         unreadCount = 0
         biggestMessageId = 0
+        savedScrollMessageId = 0
     }
 
     

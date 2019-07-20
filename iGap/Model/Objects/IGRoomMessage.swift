@@ -271,7 +271,13 @@ class IGRoomMessage: Object {
         return message
     }
     
-    static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false) -> IGRoomMessage {
+    static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false, enableCache: Bool = false) -> IGRoomMessage {
+        
+        // read imported room message from cache for avoid from duplicate primaryKey
+        // (IMPORTANT_HINT) : fill this value for put message from get room list and clear cache after do this work
+        if enableCache, let message = IGGlobal.importedRoomMessageDic[igpMessage.igpMessageID], !message.isInvalidated {
+            return message
+        }
         
         var realmFinal: Realm! = realm
         if realmFinal == nil {
@@ -370,6 +376,9 @@ class IGRoomMessage: Object {
          message.previousMessageId = igpMessage.igpPreviousMessageID
          */
         
+        if enableCache {
+            IGGlobal.importedRoomMessageDic[message.id] = message
+        }
         
         return message
     }

@@ -1982,7 +1982,7 @@ class IGFactory: NSObject {
     }
     */
     
-    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, removeDeleted: Bool = false) {
+    func saveRoomsToDatabase(_ rooms: [IGPRoom], ignoreLastMessage: Bool, removeDeleted: Bool = false, enableCache: Bool = false) {
         
         let task = IGFactoryTask()
         task.task = {

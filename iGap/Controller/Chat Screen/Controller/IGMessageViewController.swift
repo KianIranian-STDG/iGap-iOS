@@ -1627,6 +1627,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false
         unsetNotifications()
+        saveMessagePosition()
+        
         if !inputBarOriginalMessageView.isHidden { // maybe has forward
             IGMessageViewController.selectedMessageToForwardToThisRoom = nil
         }
@@ -1673,6 +1675,55 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     break
                 }
             }).send()
+    }
+    
+    private func saveMessagePosition() {
+        let visibleCells = self.collectionView.indexPathsForVisibleItems.sorted(by:{
+            $0.section < $1.section || $0.row < $1.row
+        }).compactMap({
+            self.collectionView.cellForItem(at: $0)
+        })
+        
+        guard let firstVisibleItem = fetchVisibleMessage(visibleCells: visibleCells, index: 0) else {
+            return
+        }
+        guard let lastVisibleItem = fetchVisibleMessage(visibleCells: visibleCells, index: visibleCells.count-1) else {
+            return
+        }
+        
+        var saveState = true
+        let numberOfItems = collectionView.numberOfItems(inSection: 0)
+        
+        if self.collectionView.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
+            for index in 1...IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
+                var cell: IGRoomMessage!
+                if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - index, section: 0)) as? AbstractCell {
+                    cell = collectionCell.finalRoomMessage
+                } else if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - index, section: 0)) as? IGMessageGeneralCollectionViewCell {
+                    cell = collectionCell.cellMessage
+                }
+                
+                if cell != nil && cell.id == firstVisibleItem.id {
+                    saveState = false
+                    break
+                }
+            }
+            if saveState {
+                IGRoom.saveMessagePosition(roomId: self.room!.id, saveScrollMessageId: lastVisibleItem.id)
+            }
+        } else { // clear save message position
+            IGRoom.saveMessagePosition(roomId: self.room!.id, saveScrollMessageId: 0)
+        }
+    }
+    
+    /* fetch visible message from collection view according to entered index */
+    private func fetchVisibleMessage(visibleCells: [UICollectionViewCell], index: Int) -> IGRoomMessage? {
+        if let visibleMessage = visibleCells[index] as? AbstractCell {
+            return visibleMessage.finalRoomMessage
+        } else if let visibleMessage = visibleCells[index] as? IGMessageGeneralCollectionViewCell {
+            return visibleMessage.cellMessage
+        }
+        return nil
     }
     
     //MARK - Send Seen Status
@@ -6037,7 +6088,7 @@ extension IGMessageViewController {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                     for message in realmRoomMessages {
+                    for message in realmRoomMessages {
                         self.messages!.append(message)
                     }
                     self.addChatItemToTop(count: realmRoomMessages.count)

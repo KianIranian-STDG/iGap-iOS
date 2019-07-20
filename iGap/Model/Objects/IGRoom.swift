@@ -225,7 +225,7 @@ class IGRoom: Object {
         }
     }
     
-    class func putOrUpdate(realm: Realm, _ igpRoom: IGPRoom) -> IGRoom {
+    class func putOrUpdate(realm: Realm, _ igpRoom: IGPRoom, enableCache: Bool = false) -> IGRoom {
         
         let predicate = NSPredicate(format: "id = %lld", igpRoom.igpID)
         var room: IGRoom! = realm.objects(IGRoom.self).filter(predicate).first
@@ -256,7 +256,7 @@ class IGRoom: Object {
                 setGap = true
             }
             
-            let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID)
+            let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID, enableCache: enableCache)
             if setGap {
                 message.previousMessageId = igpRoom.igpLastMessage.igpMessageID
                 message.futureMessageId = igpRoom.igpLastMessage.igpMessageID
@@ -274,7 +274,7 @@ class IGRoom: Object {
         room.isParticipant = igpRoom.igpIsParticipant
         
         if igpRoom.hasIgpFirstUnreadMessage {
-            let firstUnreadMessage = IGRoomMessage.putOrUpdate(igpMessage: igpRoom.igpFirstUnreadMessage, roomId: igpRoom.igpID)
+            let firstUnreadMessage = IGRoomMessage.putOrUpdate(igpMessage: igpRoom.igpFirstUnreadMessage, roomId: igpRoom.igpID, enableCache: enableCache)
             firstUnreadMessage.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
             room.firstUnreadMessage = firstUnreadMessage
         }
@@ -292,7 +292,7 @@ class IGRoom: Object {
             room.channelRoom = IGChannelRoom.putOrUpdate(realm: realm, igpChannelRoom: igpRoom.igpChannelRoomExtra, id: room.id)
         }
         
-        room.pinMessage = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID)
+        room.pinMessage = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID, enableCache: enableCache)
         
         return room
     }
@@ -696,5 +696,19 @@ extension IGRoom {
             return pinnedMessage
         }
         return nil
+    }
+    
+    /* save state of message in room */
+    static func saveMessagePosition(roomId: Int64, saveScrollMessageId: Int64) {
+        DispatchQueue.main.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                let predicate = NSPredicate(format: "id = %lld", roomId)
+                if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
+                    try! IGDatabaseManager.shared.realm.write {
+                        roomInDb.savedScrollMessageId = saveScrollMessageId
+                    }
+                }
+            }
+        }
     }
 }
