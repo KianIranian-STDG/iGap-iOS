@@ -16,6 +16,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
     
     @IBOutlet weak var logLabel: UILabel!
     @IBOutlet weak var labelBackgrondView: UIView!
+    @IBOutlet weak var labelBackgroundViewWidth: NSLayoutConstraint!
     
     
     //MARK: - Class Methods
@@ -42,7 +43,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
     }
 
     override func prepareForReuse() {
-        
+        labelBackgroundViewWidth.constant = 15
     }
     
     
@@ -54,12 +55,22 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
             self.logLabel.text = IGRoomMessageLog.textForLogMessage(message)
         }
         self.labelBackgrondView.layer.cornerRadius = 12.0
+        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
+    }
+    
+    func setUnreadMessage(_ message: IGRoomMessage){
+        self.logLabel.textColor = UIColor.white
+        self.logLabel.text = message.message
+        self.labelBackgrondView.layer.cornerRadius = 12.0
+        self.labelBackgrondView.backgroundColor = UIColor.iGapMainColor()
+        self.labelBackgroundViewWidth.constant = 210
     }
     
     func setUnknownMessage(){
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = "unknown message"
         self.labelBackgrondView.layer.cornerRadius = 12.0
+        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
     }
     
     
@@ -67,5 +78,6 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = text
         self.labelBackgrondView.layer.cornerRadius = 12.0
+        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
     }
 }

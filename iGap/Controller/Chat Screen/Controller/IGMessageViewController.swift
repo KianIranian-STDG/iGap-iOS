@@ -4746,6 +4746,14 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!,isIncommingMessage: true,shouldShowAvatar: false,messageSizes:bubbleSize,isPreviousMessageFromSameSender: false,isNextMessageFromSameSender: false)
             return cell
+        } else if message.type == .unread {
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            cell.setUnreadMessage(message)
+            return cell
+        } else {
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            cell.setUnknownMessage()
+            return cell
         }
         
         let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
@@ -4910,12 +4918,14 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
             })
         }
         */
-
+        
         //currently use inverse
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
-            self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
-                self.addChatItem(realmRoomMessages: messages, direction: direction)
-            })
+            if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
+                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
+                    self.addChatItem(realmRoomMessages: messages, direction: direction)
+                })
+            }
             
             /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
              * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
@@ -4926,9 +4936,11 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         }
         
         if (scrollView.contentOffset.y < 0) { //reach bottom
-            self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
-                self.addChatItem(realmRoomMessages: messages, direction: direction)
-            })
+            if !self.messageLoader.isFirstLoadDown() && !self.messageLoader.isWaitingHistoryDownLocal() {
+                self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
+                    self.addChatItem(realmRoomMessages: messages, direction: direction)
+                })
+            }
         }
         
         //100 is an arbitrary number. can be anything
@@ -6002,25 +6014,55 @@ extension Array where Element: Equatable {
 extension IGMessageViewController {
     
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection){
-        print("RRR || realmRoomMessages: \(realmRoomMessages.count)")
         if realmRoomMessages.count == 0 {
             return
         }
         
-        if direction != .up {
-            for message in realmRoomMessages {
-                messages!.insert(message, at: 0)
+        if direction == .up { // Up direction
+            if self.messageLoader.isFirstLoadUp() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    for message in realmRoomMessages {
+                        self.messages!.append(message)
+                    }
+                    self.addChatItemToTop(count: realmRoomMessages.count)
+                    self.messageLoader.setFirstLoadUp(firstLoadUp: false)
+                    self.messageLoader.setForceFirstLoadUp(forceFirstLoadUp: false)
+                    self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    for message in realmRoomMessages {
+                        self.messages!.append(message)
+                    }
+                    self.addChatItemToTop(count: realmRoomMessages.count)
+                    self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
+                }
             }
-            addChatItemToTop(count: realmRoomMessages.count)
-        } else {
-            for message in realmRoomMessages {
-                messages!.append(message)
+        } else { // Down Direction
+            if self.messageLoader.isFirstLoadDown() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    for message in realmRoomMessages {
+                        self.messages!.insert(message, at: 0)
+                    }
+                    self.addChatItemToBottom(count: realmRoomMessages.count)
+                    let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
+                    self.collectionView.setContentOffset(bottomOffset, animated: true)
+                    self.messageLoader.setFirstLoadDown(firstLoadDown : false)
+                    self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    for message in realmRoomMessages {
+                        self.messages!.insert(message, at: 0)
+                    }
+                    self.addChatItemToBottom(count: realmRoomMessages.count)
+                    self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
+                }
             }
-            addChatItemToBottom(count: realmRoomMessages.count)
         }
     }
     
-    private func addChatItemToTop(count: Int) {
+    private func addChatItemToBottom(count: Int) {
         let contentHeight = self.collectionView!.contentSize.height
         let offsetY = self.collectionView!.contentOffset.y
         let bottomOffset = contentHeight - offsetY
@@ -6043,7 +6085,7 @@ extension IGMessageViewController {
         })
     }
     
-    private func addChatItemToBottom(count: Int) {
+    private func addChatItemToTop(count: Int) {
         self.collectionView?.performBatchUpdates({
             var arrayIndex: [IndexPath] = []
             

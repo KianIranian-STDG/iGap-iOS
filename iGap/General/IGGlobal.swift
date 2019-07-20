@@ -365,6 +365,14 @@ extension UIColor {
         return UIColor.messageText()
     }
     
+    class func logBackground() -> UIColor { // filename, contact, ...
+        return UIColor(red:168/255.0, green:168/255.0, blue:168/255.0, alpha:1)
+    }
+    
+    class func unreadBackground() -> UIColor { // filename, contact, ...
+        return UIColor.iGapMainColor()
+    }
+    
     class func pinnedChats() -> UIColor {
         return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.2)
     }

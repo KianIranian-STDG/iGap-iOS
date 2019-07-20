@@ -120,6 +120,16 @@ class CellSizeLimit: NSObject {
             static let Width: CGFloat = 240.0
             static let Height: CGFloat = 435.0
         }
+        
+        struct Unread {
+            static let Height: CGFloat = 30.0
+            static let Width: CGFloat = IGGlobal.fetchUIScreen().width
+        }
+        
+        struct Wallet {
+            static let Width: CGFloat = 220.0
+            static let Height: CGFloat = 300.0
+        }
     }
     
     private struct ChannelConstantSizes {

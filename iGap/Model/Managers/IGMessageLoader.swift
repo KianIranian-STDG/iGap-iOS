@@ -20,45 +20,115 @@ import RealmSwift
  */
 class IGMessageLoader {
     
-    var addToView = false // allow to message for add to recycler view or no
-    var topMore = true // more message exist in local for load in up direction (topMore default value is true for allowing that try load top message )
-    var bottomMore = false // more message exist in local for load in bottom direction
-    var isWaitingForHistoryUp = false // client send request for getHistory, avoid for send request again
-    var isWaitingForHistoryDown = false // client send request for getHistory, avoid for send request again
-    var allowGetHistoryUp = true // after insuring for get end of message from server set this false. (set false in history error maybe was wrong , because maybe this was for another error not end  of message, (hint: can check error code for end of message from history))
-    var allowGetHistoryDown = true // after insuring for get end of message from server set this false. (set false in history error maybe was wrong , because maybe this was for another error not end  of message, (hint: can check error code for end of message from history))
-    var firstUp = true // if is firstUp getClientRoomHistory with low limit in UP direction
-    var firstDown = true // if is firstDown getClientRoomHistory with low limit in DOWN direction
-    var gapMessageIdUp: Int64 = 0 // messageId that maybe lost in local
-    var gapMessageIdDown: Int64 = 0 // messageId that maybe lost in local
-    var reachMessageIdUp: Int64 = 0 // messageId that will be checked after getHistory for detect reached to that or no
-    var reachMessageIdDown: Int64 = 0 // messageId that will be checked after getHistory for detect reached to that or no
-    var startFutureMessageIdUp: Int64 = 0 // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
-    var startFutureMessageIdDown: Int64 = 0 // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
-    var progressIdentifierUp: Int64 = 0 // store identifier for Up progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
-    var progressIdentifierDown: Int64 = 0 // store identifier for Down progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
-    var firstVisiblePosition: Int32 = 0 // difference between start of adapter item and items that Showing.
-    var firstVisiblePositionOffset: Int32 = 0 // amount of offset from top of view for first visible item in adapter
-    var visibleItemCount: Int32 = 0 // visible item in recycler view
-    var totalItemCount: Int32 = 0 // all item in recycler view
-    var scrollEnd: Int32 = 80 // (hint: It should be less than MessageLoader.LOCAL_LIMIT) to determine the limits to get to the bottom or top of the list
+    private var addToView = false // allow to message for add to recycler view or no
+    private var topMore = true // more message exist in local for load in up direction (topMore default value is true for allowing that try load top message )
+    private var bottomMore = false // more message exist in local for load in bottom direction
+    private var isWaitingForHistoryUpOnline = false // client send request for getHistory, avoid for send request again
+    private var isWaitingForHistoryDownOnline = false // client send request for getHistory, avoid for send request again
+    private var isWaitingForHistoryUpLocal = false // load message from local db for up direction. use this varible for avoid from multi call for "loadMessage" method at up direction. without this variable local messages will be loaded continuously to end.
+    private var isWaitingForHistoryDownLocal = false // load message from local db for down direction. use this varible for avoid from multi call for "loadMessage" method at down direction. without this variable local messages will be loaded continuously to end.
+    private var allowGetHistoryUp = true // after insuring for get end of message from server set this false. (set false in history error maybe was wrong , because maybe this was for another error not end  of message, (hint: can check error code for end of message from history))
+    private var allowGetHistoryDown = true // after insuring for get end of message from server set this false. (set false in history error maybe was wrong , because maybe this was for another error not end  of message, (hint: can check error code for end of message from history))
+    private var firstUpOnline = true // if is firstUpOnline getClientRoomHistory with low limit in UP direction
+    private var firstDownOnline = true // if is firstDownOnline getClientRoomHistory with low limit in DOWN direction
+    private var gapMessageIdUp: Int64 = 0 // messageId that maybe lost in local
+    private var gapMessageIdDown: Int64 = 0 // messageId that maybe lost in local
+    private var reachMessageIdUp: Int64 = 0 // messageId that will be checked after getHistory for detect reached to that or no
+    private var reachMessageIdDown: Int64 = 0 // messageId that will be checked after getHistory for detect reached to that or no
+    private var startFutureMessageIdUp: Int64 = 0 // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
+    private var startFutureMessageIdDown: Int64 = 0 // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
+    private var progressIdentifierUp: Int64 = 0 // store identifier for Up progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
+    private var progressIdentifierDown: Int64 = 0 // store identifier for Down progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
+    private var firstVisiblePosition: Int32 = 0 // difference between start of adapter item and items that Showing.
+    private var firstVisiblePositionOffset: Int32 = 0 // amount of offset from top of view for first visible item in adapter
+    private var visibleItemCount: Int32 = 0 // visible item in recycler view
+    private var totalItemCount: Int32 = 0 // all item in recycler view
+    private var scrollEnd: Int32 = 80 // (hint: It should be less than MessageLoader.LOCAL_LIMIT) to determine the limits to get to the bottom or top of the list
     
+    private var firstLoadUp = true // first load message to the up direction for load from local or from server. after load set this variable to false. now we use this variable for set delay at first time load message.
+    private var firstLoadDown = true // first load message to the down direction for load from local or from server. after load set this variable to false. now we use this variable for set delay at first time load message.
+    private var forceFirstLoadUp = false // if exist 'unread' or 'savedScrollMessageId' set this param true for allow scroll top to load up message from local or server
     
-    var roomId: Int64 = 0
-    var savedScrollMessageId: Int64 = 0 // should be load chat from a specific message if value is not zero
-    var biggestMessageId: Int64 = 0
-    var messageId: Int64 = 0 // if set messageId this value will be overrided on savedScrollMessageId
-    var firstUnreadMessage: IGRoomMessage!
-    var firstUnreadMessageInChat: IGRoomMessage! // when user is in this room received new message
-    var unreadCount: Int32 = 0 // if unread count is not zero and not exist savedScrollMessageId so should be load chat from a specific message if value is not zero
-    let LIMIT_GET_HISTORY_LOW: Int32 = 10
-    let LIMIT_GET_HISTORY_NORMAL: Int32 = 50
+    private var roomId: Int64 = 0
+    private var savedScrollMessageId: Int64 = 0 // should be load chat from a specific message if value is not zero
+    private var biggestMessageId: Int64 = 0
+    private var messageId: Int64 = 0 // if set messageId this value will be overrided on savedScrollMessageId
+    private var firstUnreadMessage: IGRoomMessage!
+    private var firstUnreadMessageInChat: IGRoomMessage! // when user is in this room received new message
+    private var unreadCount: Int32 = 0 // if unread count is not zero and not exist savedScrollMessageId so should be load chat from a specific message if value is not zero
+    private var isShowLayoutUnreadMessage = false
+    private let LIMIT_GET_HISTORY_LOW: Int32 = 11
+    private let LIMIT_GET_HISTORY_NORMAL: Int32 = 50
     
     let sortPropertiesUp = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesDown = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: true)]
     
     init(roomId: Int64) {
         self.roomId = roomId
+    }
+    
+    /*************************************************/
+    /******************** Setters ********************/
+    
+    public func setUnreadCount(unreadCount: Int32) -> IGMessageLoader {
+        self.unreadCount = unreadCount
+        return self
+    }
+    
+    public func setFirstUnreadMessage(firstUnreadMessage: IGRoomMessage) -> IGMessageLoader {
+        self.firstUnreadMessage = firstUnreadMessage
+        return self
+    }
+
+    public func setWaitingHistoryUpLocal(isWaiting: Bool) {
+        self.isWaitingForHistoryUpLocal = isWaiting
+    }
+    
+    public func setWaitingHistoryDownLocal(isWaiting: Bool) {
+        self.isWaitingForHistoryDownLocal = isWaiting
+    }
+    
+    public func setFirstLoadUp(firstLoadUp: Bool) {
+        self.firstLoadUp = firstLoadUp
+    }
+    
+    public func setFirstLoadDown(firstLoadDown: Bool) {
+        self.firstLoadDown = firstLoadDown
+    }
+    
+    public func setForceFirstLoadUp(forceFirstLoadUp: Bool) {
+        self.forceFirstLoadUp = forceFirstLoadUp
+    }
+    
+    public func isShowingUnreadLayout() -> Bool {
+        return isShowLayoutUnreadMessage
+    }
+    
+    /*************************************************/
+    /******************** Getters ********************/
+    
+    public func isWaitingHistoryUpLocal() -> Bool {
+        return isWaitingForHistoryUpLocal
+    }
+    
+    public func isWaitingHistoryDownLocal() -> Bool {
+        return isWaitingForHistoryDownLocal
+    }
+   
+    public func isFetchingUpHistoryLocal(firstLoadUp: Bool) {
+        self.firstLoadUp = firstLoadUp
+    }
+    
+    public func isFirstLoadUp() -> Bool {
+        return firstLoadUp
+    }
+    
+    public func isFirstLoadDown() -> Bool {
+        return firstLoadDown
+    }
+    
+    public func isForceFirstLoadUp() -> Bool {
+        return forceFirstLoadUp
     }
     
     /**
@@ -78,6 +148,7 @@ class IGMessageLoader {
         var fetchMessageId: Int64 = 0 // with this value realm will be queried for get message
         
         if (hasUnread() || hasSavedState()) {
+            setForceFirstLoadUp(forceFirstLoadUp: true)
             // TODO - Seems to not need check following code, just use firstUnreadMessage
             if firstUnreadMessage == nil || firstUnreadMessage.isInvalidated || firstUnreadMessage.isDeleted  {
                 firstUnreadMessage = getFirstUnreadMessage()
@@ -109,7 +180,7 @@ class IGMessageLoader {
                     getMessages(onMessageReceive: onMessageReceive)
                     return
                 }
-                unreadLayoutMessage()
+                unreadLayoutMessage(onMessageReceive: onMessageReceive)
                 fetchMessageId = firstUnreadMessage.id
             }
             
@@ -262,9 +333,11 @@ class IGMessageLoader {
         var gapMessageId: Int64 = 0
         var startFutureMessageId: Int64 = 0
         if (direction == .up) {
+            setWaitingHistoryUpLocal(isWaiting: true)
             gapMessageId = gapMessageIdUp
             startFutureMessageId = startFutureMessageIdUp
         } else {
+            setWaitingHistoryDownLocal(isWaiting: true)
             gapMessageId = gapMessageIdDown
             startFutureMessageId = startFutureMessageIdDown
         }
@@ -343,7 +416,7 @@ class IGMessageLoader {
      */
     private func getOnlineMessage(oldMessageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         
-        if ((direction == .up && !isWaitingForHistoryUp && allowGetHistoryUp) || (direction == .down && !isWaitingForHistoryDown && allowGetHistoryDown)) {
+        if ((direction == .up && !isWaitingForHistoryUpOnline && allowGetHistoryUp) || (direction == .down && !isWaitingForHistoryDownOnline && allowGetHistoryDown)) {
             /**
              * show progress when start for get history from server
              */
@@ -356,16 +429,17 @@ class IGMessageLoader {
             var reachMessageId: Int64!
             if (direction == .up) {
                 reachMessageId = reachMessageIdUp
-                isWaitingForHistoryUp = true
+                isWaitingForHistoryUpOnline = true
             } else {
                 reachMessageId = reachMessageIdDown
-                isWaitingForHistoryDown = true
+                isWaitingForHistoryDownOnline = true
             }
             
             var limit: Int32 = LIMIT_GET_HISTORY_NORMAL
-            if ((firstUp && direction == .up) || (firstDown && direction == .down)) {
+            if ((firstUpOnline && direction == .up) || (firstDownOnline && direction == .down)) {
                 limit = LIMIT_GET_HISTORY_LOW
             }
+            limit = LIMIT_GET_HISTORY_LOW
             
             getMessageFromServer(roomId: roomId, messageIdGetHistory: oldMessageId, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive, success: { (roomId, startMessageId, endMessageId, gapReached, jumpOverLocal, direction, onMessageRecieve) in
                 // should be check roomId in IGMessageViewController
@@ -384,13 +458,13 @@ class IGMessageLoader {
                 var sort: [SortDescriptor]!
                 
                 if (direction == .up) {
-                    self.firstUp = false
-                    self.isWaitingForHistoryUp = false
+                    self.firstUpOnline = false
+                    self.isWaitingForHistoryUpOnline = false
                     self.startFutureMessageIdUp = startMessageId
                     sort = [SortDescriptor(keyPath: "id", ascending: false)]
                 } else {
-                    self.firstDown = false
-                    self.isWaitingForHistoryDown = false
+                    self.firstDownOnline = false
+                    self.isWaitingForHistoryDownOnline = false
                     self.startFutureMessageIdDown = endMessageId
                     sort = [SortDescriptor(keyPath: "id", ascending: true)]
                 }
@@ -448,11 +522,11 @@ class IGMessageLoader {
                 switch errorCode {
                 case .clinetGetRoomHistoryNoMoreMessage:
                     if (requestClientGetRoomHistory.igpDirection == .up) {
-                        self.isWaitingForHistoryUp = false
+                        self.isWaitingForHistoryUpOnline = false
                         self.allowGetHistoryUp = false
                     } else {
                         self.addToView = true
-                        self.isWaitingForHistoryDown = false
+                        self.isWaitingForHistoryDownOnline = false
                         self.allowGetHistoryDown = false
                     }
                     break
@@ -462,9 +536,9 @@ class IGMessageLoader {
                      * if time out came up try again for get history with previous value
                      */
                     if (requestClientGetRoomHistory.igpDirection == .up) {
-                        self.isWaitingForHistoryUp = false
+                        self.isWaitingForHistoryUpOnline = false
                     } else {
-                        self.isWaitingForHistoryDown = false
+                        self.isWaitingForHistoryDownOnline = false
                     }
                     
                     self.getOnlineMessageAfterTimeOut(messageIdGetHistory: requestIdentity.firstMessageId, direction: direction, onMessageReceive: requestIdentity.onMessageReceive)
@@ -615,15 +689,13 @@ class IGMessageLoader {
     /**
      * make unread layout message and add to the view
      */
-    private func unreadLayoutMessage() {
-        /*
-        int unreadMessageCount = unreadCount;
-        if (unreadMessageCount > 0) {
-            RealmRoomMessage unreadMessage = RealmRoomMessage.makeUnreadMessage(unreadMessageCount);
-            mAdapter.add(0, new UnreadMessage(mAdapter, FragmentChat.this).setMessage(StructMessageInfo.convert(getRealmChat(), unreadMessage)).withIdentifier(SUID.id().get()));
-            isShowLayoutUnreadMessage = true;
+    private func unreadLayoutMessage(onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+        if (unreadCount > 0) {
+            isShowLayoutUnreadMessage = true
+            let message = IGRoomMessage(body: "\(unreadCount) unread message")
+            message.type = .unread
+            onMessageReceive([message], .down)
         }
-        */
     }
     
     
@@ -672,8 +744,8 @@ class IGMessageLoader {
         addToView = true
         topMore = false
         bottomMore = false
-        isWaitingForHistoryUp = false
-        isWaitingForHistoryDown = false
+        isWaitingForHistoryUpOnline = false
+        isWaitingForHistoryDownOnline = false
         gapMessageIdUp = 0
         gapMessageIdDown = 0
         reachMessageIdUp = 0
@@ -695,11 +767,10 @@ class IGMessageLoader {
     /**************************************************************************/
     
     
-    let LOCAL_LIMIT = 100
+    let LOCAL_LIMIT = 10
     
     /**
-     * fetch local message from RealmRoomMessage.
-     * (hint : deleted message doesn't count)
+     * fetch local message from IGRoomMessage
      *
      * @param roomId           roomId that want show message for that
      * @param messageId        start query with this messageId

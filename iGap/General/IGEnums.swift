@@ -116,6 +116,7 @@ public enum IGRoomMessageType: Int {
     case gifAndText
     case sticker
     case wallet
+    case unread
     
     func toIGP() -> IGPRoomMessageType {
         switch self {
@@ -153,6 +154,8 @@ public enum IGRoomMessageType: Int {
             return .sticker
         case .wallet:
             return .wallet
+        case .unread:
+            return .UNRECOGNIZED(-10)
         }
     }
     
