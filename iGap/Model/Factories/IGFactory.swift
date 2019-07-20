@@ -597,10 +597,11 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
                     IGDatabaseManager.shared.realm.add(message, update: true)
+                    let roomId = message.roomId
+                    self.updateRoomLastMessageIfPossibleWithoutTransaction(roomID: roomId)
                 }
-                let roomId = message.roomId
                 IGFactory.shared.performInFactoryQueue {
-                    self.updateRoomLastMessageIfPossible(roomID: roomId)
+                    //self.setFactoryTaskSuccess(task: task)
                 }
             }
         }
@@ -611,38 +612,31 @@ class IGFactory: NSObject {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             let predicate = NSPredicate(format: "id = %lld", roomID)
             if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                if !(roomInDb.isInvalidated) {
-                    var shouldIncreamentUnreadCount = true
-                    var lastMessage: IGRoomMessage?
-                    let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", roomID)
-                    
-                    if let lastMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).sorted(byKeyPath: "creationTime").last {
-                        if !(lastMessageInDb.isInvalidated) {
-                            if let authorHash = lastMessageInDb.authorHash {
-                                if authorHash == IGAppManager.sharedManager.authorHash() {
-                                    shouldIncreamentUnreadCount = false
-                                }
-                            }
-                            
-                            if roomInDb.lastMessage?.id == lastMessageInDb.id {
-                                return
-                            }
-                            lastMessage = lastMessageInDb
+                var shouldIncreamentUnreadCount = true
+                var lastMessage: IGRoomMessage?
+                let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", roomID)
+                
+                if let lastMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).sorted(byKeyPath: "creationTime").last {
+                    if let authorHash = lastMessageInDb.authorHash {
+                        if authorHash == IGAppManager.sharedManager.authorHash() {
+                            shouldIncreamentUnreadCount = false
                         }
-                        else {
-                            print("RLM EXEPTION ERR lastMessageInDb IS INVALIDATED",String(describing: self))
-
-                        }
-                    } else {
-                        //room has no message
-                        shouldIncreamentUnreadCount = false
                     }
                     
-                    var notificationTokens = [NotificationToken]()
-                    if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
-                        notificationTokens.append(notificationToken)
+                    if roomInDb.lastMessage?.id == lastMessageInDb.id || lastMessageInDb.isInvalidated {
+                        return
                     }
-                    IGDatabaseManager.shared.realm.beginWrite()
+                    lastMessage = lastMessageInDb
+                } else {
+                    //room has no message
+                    shouldIncreamentUnreadCount = false
+                }
+                
+                var notificationTokens = [NotificationToken]()
+                if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
+                    notificationTokens.append(notificationToken)
+                }
+                try! IGDatabaseManager.shared.realm.write {
                     if shouldIncreamentUnreadCount {
                         let unreadCount = roomInDb.unreadCount + 1
                         if !AppDelegate.appIsInBackground {
@@ -654,17 +648,48 @@ class IGFactory: NSObject {
                     if let messageTime = lastMessage?.creationTime?.timeIntervalSinceReferenceDate {
                         roomInDb.sortimgTimestamp = messageTime
                     }
-                    do {
-                        try IGDatabaseManager.shared.realm.commitWrite()
-                        
-                    } catch let error as NSError {
-                        print("RLM EXEPTION ERR HAPPENDED SAVE ROOMS TO DB:",String(describing: self),error)
+                }
+            }
+        }
+    }
+    
+    func updateRoomLastMessageIfPossibleWithoutTransaction(roomID: Int64) {
+        let predicate = NSPredicate(format: "id = %lld", roomID)
+        if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
+            var shouldIncreamentUnreadCount = true
+            var lastMessage: IGRoomMessage?
+            let messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", roomID)
+            
+            if let lastMessageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).sorted(byKeyPath: "creationTime").last {
+                if let authorHash = lastMessageInDb.authorHash {
+                    if authorHash == IGAppManager.sharedManager.authorHash() {
+                        shouldIncreamentUnreadCount = false
                     }
                 }
-                else {
-                    print("RLM EXEPTION ERR ROOMINDB IS INVALIDATED",String(describing: self))
-
+                
+                if roomInDb.lastMessage?.id == lastMessageInDb.id || lastMessageInDb.isInvalidated {
+                    return
                 }
+                lastMessage = lastMessageInDb
+            } else {
+                //room has no message
+                shouldIncreamentUnreadCount = false
+            }
+            
+            var notificationTokens = [NotificationToken]()
+            if let notificationToken = IGAppManager.sharedManager.currentMessagesNotificationToekn {
+                notificationTokens.append(notificationToken)
+            }
+            if shouldIncreamentUnreadCount {
+                let unreadCount = roomInDb.unreadCount + 1
+                if !AppDelegate.appIsInBackground {
+                    roomInDb.badgeUnreadCount = unreadCount
+                }
+                roomInDb.unreadCount = unreadCount
+            }
+            roomInDb.lastMessage = lastMessage
+            if let messageTime = lastMessage?.creationTime?.timeIntervalSinceReferenceDate {
+                roomInDb.sortimgTimestamp = messageTime
             }
         }
     }

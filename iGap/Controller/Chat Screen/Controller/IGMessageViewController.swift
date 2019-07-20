@@ -3748,7 +3748,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
         IGMessageSender.defaultSender.send(message: message, to: self.room!)
         
-        self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+        self.appendMessageArray([message], .down)
+        self.addChatItemToBottom(count: 1)
+        self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
+        self.scrollManager()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.sendMessageState(enable: false)
