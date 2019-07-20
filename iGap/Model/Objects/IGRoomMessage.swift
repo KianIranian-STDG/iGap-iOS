@@ -554,4 +554,12 @@ class IGRoomMessage: Object {
             IGDatabaseManager.shared.realm.delete(message)
         }
     }
+    
+    internal static func clearLocalMessage(roomId: Int64) {
+        let lastMessage = IGRoom.getLastMessage(roomId: roomId)
+        try! IGDatabaseManager.shared.realm.write {
+            let allMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "roomId == %lld AND id != %lld", roomId, lastMessage?.id ?? 0))
+            IGDatabaseManager.shared.realm.delete(allMessages)
+        }
+    }
 }

@@ -767,7 +767,7 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
-                    let updatePosition = IGMessageViewController.messageOnChatReceiveObserver?.getEditPosition(messageId: messageInDb.id)
+                    let updatePosition = IGMessageViewController.messageOnChatReceiveObserver?.getEditPosition(messageId: messageID)
                     try! IGDatabaseManager.shared.realm.write {
                         messageInDb.isEdited = true
                         messageInDb.message = message

@@ -275,6 +275,7 @@
         "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",
         "WHAT_DO_U_WANT" : "چه کاری میخواهید انجام دهید؟",
         "CLEAR_HISTORY" : "پاک کردن تاریخچه",
+        "CLEAR_HISTORY_LOCAL" : "پاک کردن تاریخچه از گوشی",
         "SHOW_HISTORY" : "نمایش تاریخچه",
         
         "REPORT" : "گزارش تخلف",
@@ -1201,6 +1202,7 @@
         "WHAT_DO_U_WANT" : "What do you want to do?",
         "CLEAR_HISTORY" : "Clear History",
         
+        "CLEAR_HISTORY_LOCAL" : "Clear Local History",
         "SHOW_HISTORY" : "Show History",
         "REPORT" : "Report",
         "LEAVE" : "Leave",

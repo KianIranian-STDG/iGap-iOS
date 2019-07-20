@@ -598,6 +598,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
+            let clearLocalMessage = UIAlertAction(title: "CLEAR_HISTORY_LOCAL".localizedNew, style: .default, handler: { (action) in
+                IGRoomMessage.clearLocalMessage(roomId: room.id)
+            })
+            
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                     let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
@@ -707,6 +711,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
             
             alertC.addAction(pin)
+            alertC.addAction(clearLocalMessage)
+            
+            if !IGHelperPromote.isPromotedRoom(room: room) {
+                alertC.addAction(pin)
+            }
             alertC.addAction(mute)
             alertC.addAction(report)
             

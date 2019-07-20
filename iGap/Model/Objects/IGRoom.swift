@@ -711,4 +711,12 @@ extension IGRoom {
             }
         }
     }
+    
+    static func getLastMessage(roomId: Int64) -> IGRoomMessage? {
+        let predicate = NSPredicate(format: "id = %lld", roomId)
+        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
+            return room.lastMessage
+        }
+        return nil
+    }
 }
