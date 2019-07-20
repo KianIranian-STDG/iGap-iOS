@@ -1330,9 +1330,14 @@ extension IGRecentsTableViewController {
     
     /***************** Send Rooms Status *****************/
     
-    func onMessageRecieve(messages: [IGPRoomMessage]) {
-        do {
-            let realm = try Realm()
+    func onMessageRecieveInRoomList(messages: [IGPRoomMessage]) {
+        
+        let realm = try! Realm()
+        
+        for message in messages {
+            var roomId: Int64 = 0
+            var roomType: IGRoom.IGType = .chat
+            var roomMessageStatus: IGPRoomMessageStatus = .delivered
             
             for message in messages {
                 var roomId: Int64 = 0

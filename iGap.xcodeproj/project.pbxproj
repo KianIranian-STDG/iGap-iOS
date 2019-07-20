@@ -522,6 +522,7 @@
 		FAB623EC22952727006DEA00 /* CardToCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB623EB229526D5006DEA00 /* CardToCardCell.xib */; };
 		FAB798AE21A5681C0019FC92 /* Hero.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB798AD21A5681C0019FC92 /* Hero.framework */; };
 		FAB7FF5321BFB39D0081FDBA /* VideoCallObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */; };
+		FAB9064222B63F2600E81287 /* MessageOnChatReceiveObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9064122B63F2600E81287 /* MessageOnChatReceiveObserver.swift */; };
 		FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */; };
 		FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */ = {isa = PBXBuildFile; fileRef = FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */; };
 		FABA60F222180D6B00FFBB5A /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABA60F122180D6B00FFBB5A /* SDWebImage.framework */; };
@@ -1206,6 +1207,7 @@
 		FAB7FF5221BFB39D0081FDBA /* VideoCallObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallObserver.swift; sourceTree = "<group>"; };
 		FAB8210D20D7D583003938BB /* Firebase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
 		FAB8210E20D7D589003938BB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		FAB9064122B63F2600E81287 /* MessageOnChatReceiveObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageOnChatReceiveObserver.swift; sourceTree = "<group>"; };
 		FAB91BBA22393F6000459595 /* IGRealmChannelExtra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRealmChannelExtra.swift; sourceTree = "<group>"; };
 		FABA60EF221803D500FFBB5A /* stickerPublicKey.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stickerPublicKey.txt; sourceTree = "<group>"; };
 		FABA60F122180D6B00FFBB5A /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
@@ -2212,6 +2214,7 @@
 			isa = PBXGroup;
 			children = (
 				FA90B72920B53EBC00043C89 /* MessageReceiveObserver.swift */,
+				FAB9064122B63F2600E81287 /* MessageOnChatReceiveObserver.swift */,
 				FAEC476321F31B1B006C07A4 /* AdditionalObserver.swift */,
 				FAEC476921F3360A006C07A4 /* MessageViewControllerObserver.swift */,
 				FA764FA921FC66ED0077E851 /* ForwardStartObserver.swift */,
@@ -3314,6 +3317,7 @@
 				FA0953841E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroupViewController.swift in Sources */,
 				8EBF54FE22D9B60D00834E6A /* CustomSegments.swift in Sources */,
 				8ECCA1EC22B7CF7A00D3A734 /* customAmountTextField.swift in Sources */,
+				FAB9064222B63F2600E81287 /* MessageOnChatReceiveObserver.swift in Sources */,
 				FA6C2DE92267413A005654AC /* IGScoreViewController.swift in Sources */,
 				FA899B6F2046DFC8001A33CB /* CallStateObserver.swift in Sources */,
 				FAD8A02B21EE0860006996E1 /* IGHelperJson.swift in Sources */,

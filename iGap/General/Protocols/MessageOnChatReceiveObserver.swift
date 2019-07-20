@@ -10,6 +10,6 @@
 
 import IGProtoBuff
 
-protocol MessageReceiveObserver {
-    func onMessageRecieveInRoomList(messages: [IGPRoomMessage])
+protocol MessageOnChatReceiveObserver {
+    func onMessageRecieveInChatPage(message: IGPRoomMessage)
 }

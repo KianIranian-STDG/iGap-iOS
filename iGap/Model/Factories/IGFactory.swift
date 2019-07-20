@@ -412,7 +412,7 @@ class IGFactory: NSObject {
     func saveIgpMessagesToDatabase(_ igpMessages: [IGPRoomMessage], for roomId: Int64, updateLastMessage: Bool, isFromSharedMedia: Bool?, isFromSendMessage: Bool=false) {
         
         if IGRecentsTableViewController.messageReceiveDelegat != nil {
-            IGRecentsTableViewController.messageReceiveDelegat.onMessageRecieve(messages: igpMessages)
+            IGRecentsTableViewController.messageReceiveDelegat.onMessageRecieveInRoomList(messages: igpMessages)
         }
         
         var userIDs = [Int64: String]()
@@ -527,6 +527,12 @@ class IGFactory: NSObject {
                 }
                 try! IGDatabaseManager.shared.realm.commitWrite()
                 
+                if isFromSendMessage {
+                    if IGMessageViewController.messageOnChatReceiveObserver != nil {
+                        IGMessageViewController.messageOnChatReceiveObserver.onMessageRecieveInChatPage(message: igpMessages[0])
+                    }
+                }
+                
                 //check if should update last messages and unread count
                 var shouldUpdateLastMessage = false
                 let predicate = NSPredicate(format: "id = %lld", roomId)
@@ -564,7 +570,7 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 try! IGDatabaseManager.shared.realm.write {
                     let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId)
-                    message.primaryKeyId = primaryKeyId
+                    //message.primaryKeyId = primaryKeyId
                     /*
                      if igpMessage.igpAdditionalType == AdditionalType.STICKER.rawValue {
                      message.type = .sticker

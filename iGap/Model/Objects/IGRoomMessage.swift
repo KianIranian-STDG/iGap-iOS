@@ -544,4 +544,8 @@ class IGRoomMessage: Object {
         }
         return true
     }
+    
+    internal static func getMessageWithId(messageId: Int64) -> IGRoomMessage? {
+        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first
+    }
 }

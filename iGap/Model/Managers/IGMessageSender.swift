@@ -171,6 +171,7 @@ class IGMessageSender {
                 IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse {
+                            IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse)
                             
                             if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
                                 IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
@@ -197,6 +198,7 @@ class IGMessageSender {
                 IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse {
+                            IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse)
                             if !groupSendMessageResponse.igpResponse.igpID.isEmpty {
                                 IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
                             } else {
@@ -221,6 +223,7 @@ class IGMessageSender {
                 IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
                     DispatchQueue.main.async {
                         if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse {
+                            IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse)
                             if !channelSendMessageResponse.igpResponse.igpID.isEmpty {
                                 IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
                             } else {

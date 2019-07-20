@@ -310,6 +310,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     fileprivate var typingStatusExpiryTimer = Timer() //use this to send cancel for typing status
     internal static var additionalObserver: AdditionalObserver!
     internal static var messageViewControllerObserver: MessageViewControllerObserver!
+    internal static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
     
     private var messageLoader: IGMessageLoader!
     
@@ -1598,6 +1599,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         IGMessageViewController.messageViewControllerObserver = self
         IGMessageViewController.additionalObserver = self
+        IGMessageViewController.messageOnChatReceiveObserver = self
         if #available(iOS 10.0, *) {
             IGStickerViewController.stickerTapListener = self
         }
@@ -6062,7 +6064,15 @@ extension Array where Element: Equatable {
 
 
 /********************************** Message Loader **********************************/
-extension IGMessageViewController {
+extension IGMessageViewController: MessageOnChatReceiveObserver {
+    
+    func onMessageRecieveInChatPage(message: IGPRoomMessage) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if let message = IGRoomMessage.getMessageWithId(messageId: message.igpMessageID) {
+                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            }
+        }
+    }
     
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection){
         if realmRoomMessages.count == 0 {
