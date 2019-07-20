@@ -311,7 +311,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     internal static var additionalObserver: AdditionalObserver!
     internal static var messageViewControllerObserver: MessageViewControllerObserver!
     
-    var isLoadingTop = false
     private var messageLoader: IGMessageLoader!
     
     func onMessageViewControllerDetection() -> UIViewController {
@@ -767,7 +766,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             fetchRoomHistoryWhenDbIsClear()
         }
     }
-    
     
     private func sendTracker(){
         if self.room?.type == .chat {
@@ -4914,14 +4912,10 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         */
 
         //currently use inverse
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) && !isLoadingTop) { //reach top
-            isLoadingTop = true
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
-                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
-                    self.addChatItem(realmRoomMessages: messages, direction: direction)
-                    self.isLoadingTop = false
-                })
-            }
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
+            self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
+                self.addChatItem(realmRoomMessages: messages, direction: direction)
+            })
             
             /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
              * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count

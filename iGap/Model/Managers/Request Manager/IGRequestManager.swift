@@ -616,7 +616,7 @@ class IGRequestManager {
             //at this point ignore this data
             //maybe new command (protos) added to server but
             //not supported yet by this version of iOS client
-            print("\n\n RESPONSE ➤➤➤ Action ID: \(actionID)   || This id not exist in LookUpTable \n\n")
+            //print("\n\n RESPONSE ➤➤➤ Action ID: \(actionID)   || This id not exist in LookUpTable \n\n")
         }
     }
     

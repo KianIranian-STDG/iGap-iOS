@@ -161,6 +161,30 @@ class IGRoom: Object {
         self.badgeUnreadCount = igpRoom.igpUnreadCount
         self.priority = igpRoom.igpPriority
         if igpRoom.hasIgpLastMessage {
+            var shouldFetchBefore = false
+            
+            /*if this message not exist set gap otherwise don't change in gap state */
+            var setGap = false
+            if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpMessageID) {
+                shouldFetchBefore = true
+                setGap = true
+            }
+            
+            let message = IGRoomMessage(igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID)
+            if setGap {
+                message.previousMessageId = igpRoom.igpLastMessage.igpMessageID
+                message.futureMessageId = igpRoom.igpLastMessage.igpMessageID
+            }
+            
+            if shouldFetchBefore {
+                message.shouldFetchBefore = shouldFetchBefore
+            }
+            
+            self.lastMessage = message
+            self.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)!
+        }
+        /*
+        if igpRoom.hasIgpLastMessage {
             let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpRoom.igpLastMessage.igpMessageID, igpRoom.igpID)
             let realm = try! Realm()
             if let messageInDb = realm.objects(IGRoomMessage.self).filter(predicate).first {
@@ -170,6 +194,7 @@ class IGRoom: Object {
                 
             }
         }
+        */
         
         self.pinId = igpRoom.igpPinID
         self.isReadOnly = igpRoom.igpReadOnly

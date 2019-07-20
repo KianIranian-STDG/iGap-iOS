@@ -85,13 +85,14 @@ class IGClientGetRoomHistoryRequest : IGRequest {
             return IGRequestWrapper(message: getRoomHistoryRequestMessage, actionID: 603)
         }
         
-        class func generatePowerful(roomID: Int64, firstMessageID: Int64 = 0, reachMessageId: Int64, limit: Int32, direction: IGPClientGetRoomHistory.IGPDirection) -> IGRequestWrapper {
+        class func generatePowerful(roomID: Int64, firstMessageID: Int64 = 0, reachMessageId: Int64, limit: Int32, direction: IGPClientGetRoomHistory.IGPDirection,
+                                    onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) -> IGRequestWrapper {
             var getRoomHistoryRequestMessage = IGPClientGetRoomHistory()
             getRoomHistoryRequestMessage.igpRoomID = roomID
-            getRoomHistoryRequestMessage.igpLimit = limit
+            getRoomHistoryRequestMessage.igpLimit = 22//limit
             getRoomHistoryRequestMessage.igpDirection = direction
             getRoomHistoryRequestMessage.igpFirstMessageID = firstMessageID
-            let identity = IGStructClientGetRoomHistoryIdentity(firstMessageId: firstMessageID, reachMessageId: reachMessageId)
+            let identity = IGStructClientGetRoomHistoryIdentity(firstMessageId: firstMessageID, reachMessageId: reachMessageId, onMessageReceive: onMessageReceive)
             return IGRequestWrapper(message: getRoomHistoryRequestMessage, actionID: 603, identity: identity)
         }
     }

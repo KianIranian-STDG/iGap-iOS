@@ -33,8 +33,6 @@ let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name
 
 
 class IGGlobal {
-    static var latestTime: Int64 = 0
-    
     static var imgDic : [String: IGImageView] = [:]
     static var heroTabIndex : Int = -1
     static var shouldMultiSelect : Bool = false

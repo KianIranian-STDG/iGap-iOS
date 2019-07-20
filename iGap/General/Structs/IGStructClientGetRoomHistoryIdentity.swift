@@ -8,14 +8,17 @@
  * All rights reserved.
  */
 
+import IGProtoBuff
 
 struct IGStructClientGetRoomHistoryIdentity {
     
     var firstMessageId : Int64!
     var reachMessageId : Int64!
+    var onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> ())
     
-    init(firstMessageId: Int64, reachMessageId: Int64) {
+    init(firstMessageId: Int64, reachMessageId: Int64, onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         self.firstMessageId = firstMessageId
         self.reachMessageId = reachMessageId
+        self.onMessageReceive = onMessageReceive
     }
 }
