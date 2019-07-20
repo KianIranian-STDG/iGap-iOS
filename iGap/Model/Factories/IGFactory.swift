@@ -528,9 +528,11 @@ class IGFactory: NSObject {
                 try! IGDatabaseManager.shared.realm.commitWrite()
                 
                 if isFromSendMessage {
+                    /*
                     if IGMessageViewController.messageOnChatReceiveObserver != nil {
                         IGMessageViewController.messageOnChatReceiveObserver.onMessageRecieveInChatPage(message: igpMessages[0])
                     }
+                    */
                 }
                 
                 //check if should update last messages and unread count

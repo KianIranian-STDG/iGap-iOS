@@ -81,4 +81,11 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.labelBackgrondView.layer.cornerRadius = 12.0
         self.labelBackgrondView.backgroundColor = UIColor.logBackground()
     }
+    
+    func setTime(_ time: String) {
+        self.logLabel.textColor = UIColor.white
+        self.logLabel.text = time
+        self.labelBackgrondView.layer.cornerRadius = 12.0
+        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
+    }
 }

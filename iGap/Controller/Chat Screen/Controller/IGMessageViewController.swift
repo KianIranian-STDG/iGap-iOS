@@ -313,6 +313,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     internal static var messageViewControllerObserver: MessageViewControllerObserver!
     internal static var messageOnChatReceiveObserver: MessageOnChatReceiveObserver!
     
+    private var saveDate: [String] = []
+    private var firstSetDate = true
     private var messageLoader: IGMessageLoader!
     private var currentRoomId: Int64!
     
@@ -4821,6 +4823,10 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!,isIncommingMessage: true,shouldShowAvatar: false,messageSizes:bubbleSize,isPreviousMessageFromSameSender: false,isNextMessageFromSameSender: false)
             return cell
+        } else if message.type == .time {
+            let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            cell.setTime(message.message!)
+            return cell
         } else if message.type == .unread {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
             cell.setUnreadMessage(message)
@@ -5047,17 +5053,50 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         let arrayOfVisibleItems = collectionView.indexPathsForVisibleItems.sorted()
         if let lastIndexPath = arrayOfVisibleItems.last {
             if latestIndexPath != lastIndexPath {
+                
+                if let cell = self.collectionView?.cellForItem(at: IndexPath(row: lastIndexPath.row, section: 0)) as? IGMessageLogCollectionViewCell, cell.cellMessage?.type != .log {
+                    return
+                }
+                
                 latestIndexPath = lastIndexPath
             } else {
                 return
             }
             
             if latestIndexPath.row < messages!.count {
+                
+                var previousMessage: IGRoomMessage!
+                if  messages!.count > latestIndexPath.row + 1 {
+                    previousMessage = (messages?[latestIndexPath.row + 1])!
+                }
+                
                 if let message = messages?[latestIndexPath.row] {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
                     let dateString = (message.creationTime!).localizedDate()
+                    
+                    var previousDateString = ""
+                    if previousMessage != nil {
+                        let dayTimePeriodFormatter1 = DateFormatter()
+                        dayTimePeriodFormatter1.dateFormat = "MMMM dd"
+                        dayTimePeriodFormatter1.calendar = Calendar.current
+                        previousDateString = (previousMessage.creationTime!).localizedDate()
+                    }
+                    
+                    if !previousDateString.isEmpty && previousDateString != dateString {
+                        if !saveDate.contains(dateString) {
+                            saveDate.append(dateString)
+                            if firstSetDate {
+                                firstSetDate = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    self.appendAtSpecificPosition(self.makeTimeItem(date: message.creationTime!), cellPosition: lastIndexPath.row + 1)
+                                }
+                            } else {
+                                self.appendAtSpecificPosition(self.makeTimeItem(date: message.creationTime!), cellPosition: lastIndexPath.row + 1)
+                            }
+                        }
+                    }
                     
                     txtFloatingDate.text = dateString.inLocalizedLanguage()
                     UIView.animate(withDuration: 0.5, animations: {
@@ -6295,6 +6334,15 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
+    private func appendAtSpecificPosition(_ message: IGRoomMessage, cellPosition: Int){
+        self.messages!.insert(message, at: cellPosition)
+        IGMessageViewController.messageIdsStatic.insert(message.id, at: cellPosition)
+        
+        self.collectionView?.performBatchUpdates({
+            self.collectionView?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
+        }, completion: nil)
+    }
+    
     private func removeMessageArray(messageId: Int64){
         if let index = IGMessageViewController.messageIdsStatic.index(of: messageId) {
             IGMessageViewController.messageIdsStatic.remove(at: index)
@@ -6309,6 +6357,17 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     private func updateMessageArray(cellPosition: Int, message: IGRoomMessage){
         self.messages![cellPosition] = message
         IGMessageViewController.messageIdsStatic[cellPosition] = message.id
+    }
+    
+    private func makeTimeItem(date: Date) -> IGRoomMessage {
+        let dayTimePeriodFormatter = DateFormatter()
+        dayTimePeriodFormatter.dateFormat = "MMMM dd"
+        dayTimePeriodFormatter.calendar = Calendar.current
+        let dateString = date.localizedDate()
+        
+        let message = IGRoomMessage(body: dateString.inLocalizedLanguage())
+        message.type = .time
+        return message
     }
     
     /**
