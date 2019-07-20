@@ -356,13 +356,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 }, completion: { (completed) in
                     self.inputBarShareButton.isHidden = true
                     self.inputBarForwardButton.isHidden = !isForward!
-                    
-                    //                self.view.layoutIfNeeded()
-                    
                 })
-                print(!isForward!)
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    
                     self.inputBarShareButton.isHidden = true
                     self.inputBarForwardButton.isHidden = !isForward!
                 }
@@ -394,12 +390,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.inputBarDeleteButton.isHidden = !isDelete!
                     
                 })
-                print(!isDelete!)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.inputBarDeleteButton.isHidden = !isDelete!
                 }
-                
-                
             }
         }
         else {
@@ -526,8 +519,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         }
         
-        messageLoader = IGMessageLoader(roomId: self.room!.id)
-        
         IGMessageViewController.messageIdsStatic = []
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
         
@@ -620,7 +611,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
             let predicate = NSPredicate(format: "roomId = %lld AND (id >= %lld OR statusRaw == %d OR statusRaw == %d) AND isDeleted == false AND id != %lld" , self.room!.id, lastId ,0 ,1 ,0)
             do {
-                let realm = try Realm()
                 let messagesCount = try! Realm().objects(IGRoomMessage.self).filter(predicate).count
                 if messagesCount == 0 {
                     inputBarContainerView.isHidden = true
@@ -638,7 +628,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     }
                 }
                 
-            } catch let error as NSError {
+            } catch let _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR ISBOT ROOM:",String(describing: self))
             }
         }
@@ -648,7 +638,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let realm = try Realm()
             messagesWithMedia = realm.objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
 
-        } catch let error as NSError {
+        } catch let _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH MEDIA:",String(describing: self))
         }
         
@@ -657,7 +647,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let realm = try Realm()
             messagesWithForwardedMedia = realm.objects(IGRoomMessage.self).filter(messagesWithForwardedMediaPredicate).sorted(by: sortPropertiesForMedia)
 
-        } catch let error as NSError {
+        } catch let _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH FORWARD MEDIA:",String(describing: self))
         }
         self.collectionView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
@@ -1276,7 +1266,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         inputTextView.reloadInputViews()
                     }
 
-                } catch let error as NSError {
+                } catch let _ as NSError {
                     print("RLM EXEPTION ERR HAPPENDED IN MANAGE KEYBOARD:",String(describing: self))
                 }
             }
@@ -1375,7 +1365,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 let realm = try Realm()
                 return realm.objects(IGRoomMessage.self).filter(predicate).last
 
-            } catch let error as NSError {
+            } catch let _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN MY LAST MESSAGE:",String(describing: self))
             }
         }
@@ -1481,7 +1471,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     lastId = allMessages.toArray()[getMessageLimit].id
                 }
                 
-            } catch let error as NSError {
+            } catch let _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN findAllMessages:",String(describing: self))
             }
 
@@ -1511,7 +1501,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let realm = try Realm()
             tmpMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
 
-        } catch let error as NSError {
+        } catch let _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN findAllMessagesII:",String(describing: self))
         }
         DispatchQueue.main.async {
@@ -2362,7 +2352,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func didTapOnStickerButton() {
-        print(self.isStickerKeyboard)
         if self.isStickerKeyboard {
             self.isStickerKeyboard = false
         } else {
@@ -2370,7 +2359,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         self.stickerViewState(enable: self.isStickerKeyboard)
-        
     }
     
     @IBAction func didTapOnPinClose(_ sender: UIButton) {
@@ -2697,15 +2685,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let jsonString = String(data: jsonData, encoding: .utf8)
         
         if let enc = RSA.encryptString(jsonString, publicKey: SMUserManager.publicKey) {
-            //                                    self.showReciept(response: NSDictionary())
             SMCard.payPayment(enc: enc, enc2: nil, onSuccess: { resp in
                 if let result = resp as? NSDictionary{
-                    
                     SMUserManager.callBackUrl = (result.allValues[1]) as! String
                     SMReciept.getInstance().showReciept(viewcontroller: self, response: result)
                 }
             }, onFailed: {err in
-                SMLog.SMPrint(err)
                 if (err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"] != nil {
                     SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "error".localized, message: ((err as! Dictionary<String, AnyObject>)["NSLocalizedDescription"]! as! String).localized)
                 }
@@ -2842,7 +2827,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                             let tmpArray = MultiShareModal.FilteredMuliShareContacts
                             //if has chat
                             if tmpArray[index].typeRaw == 0 {
-                                print("isChat")
                                 if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
                                     
                                     //if selected any message to forward
@@ -2853,33 +2837,24 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                             
                                             countt += 0.5
                                             
-                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
+                                            if let index = self.messages!.firstIndex(where: { $0.id == element }) {
                                                 let message = IGRoomMessage(body: "")
                                                 message.type = .text
                                                 message.roomId = roomU.id
                                                 let detachedMessage = message.detach()
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                let tmpMSG = self.messages[index]
-                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                                message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
-                                                    
                                                     IGMessageSender.defaultSender.send(message: message, to: roomU)
                                                 }
                                             }
-                                            
                                         }
-                                        
-                                    }
-                                    else {
+                                    } else {
                                         return
                                     }
                                     openChat(room: roomU)
                                     
-                                    
-                                    
-                                }
-                                    //if dont have chat with contact
-                                else {
+                                } else {
                                     IGGlobal.prgShow(self.view)
                                     IGChatGetRoomRequest.Generator.generate(peerId: tmpArray[index].id).success({ (protoResponse) in
                                         DispatchQueue.main.async {
@@ -2894,13 +2869,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                         count = count + 0.5
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
                                                             
-                                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
+                                                            if let index = self.messages!.firstIndex(where: { $0.id == element }) {
                                                                 let message = IGRoomMessage(body: "")
                                                                 message.type = .text
                                                                 message.roomId = roomU.id
                                                                 let detachedMessage = message.detach()
                                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                                                message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                                 IGMessageSender.defaultSender.send(message: message, to: roomU)
                                                             }
                                                         }
@@ -2925,7 +2900,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                 }
                                 
                             } else {
-                                print("isNotChat")
                                 if let roomU = IGRoom.existRoomInLocal(roomId: tmpArray[index].id) {
                                     
                                     //if selected any message to forward
@@ -2936,14 +2910,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                             
                                             countt += 0.5
                                             
-                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
+                                            if let index = self.messages!.firstIndex(where: { $0.id == element }) {
                                                 let message = IGRoomMessage(body: "")
                                                 message.type = .text
                                                 message.roomId = roomU.id
                                                 let detachedMessage = message.detach()
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                let tmpMSG = self.messages[index]
-                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                                let tmpMSG = self.messages![index]
+                                                message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
                                                     
                                                     IGMessageSender.defaultSender.send(message: message, to: roomU)
@@ -2977,13 +2951,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                         count = count + 0.5
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
                                                             
-                                                            if let index = self.messages.firstIndex(where: { $0.id == element }) {
+                                                            if let index = self.messages!.firstIndex(where: { $0.id == element }) {
                                                                 let message = IGRoomMessage(body: "")
                                                                 message.type = .text
                                                                 message.roomId = roomU.id
                                                                 let detachedMessage = message.detach()
                                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                                                message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                                 IGMessageSender.defaultSender.send(message: message, to: roomU)
                                                             }
                                                         }
@@ -3013,11 +2987,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         
                     }
                 default :
-                    print("SELECTED INDEX IS :",MultiShareModal.selectedIndex)
                     
                     var emptyMessageArray = [IGRoomMessage?]()
                     var emptyRoomArray = [IGRoom?]()
-                    var messageID = [Int64?]()
                     emptyRoomArray.removeAll()
                     emptyMessageArray.removeAll()
                     for id in MultiShareModal.selectedIndex {
@@ -3088,11 +3060,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     for rm in emptyRoomArray {
                         for msg in self.selectedIndex {
                             
-                            if let index = self.messages.firstIndex(where: { $0.id == msg }) {
+                            if let index = self.messages!.firstIndex(where: { $0.id == msg }) {
                                 let message = IGRoomMessage(body: "")
                                 message.type = .text
                                 message.roomId = rm!.id
-                                message.forwardedFrom = self.messages[index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
+                                message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                 //                                    IGMessageSender.defaultSender.send(message: message, to: rm!)
                                 emptyMessageArray.append(message)
                                 
@@ -3127,20 +3099,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         msg?.forwardedFrom = tmpMsg
                         
                     }
-                    
-                    
-                    print("-------SEND REQ-------")
                     for room in emptyRoomArray{
                         for msg in emptyMessageArray {
                             IGMessageSender.defaultSender.send(message: msg!, to: room!, sendRequest: false)
                         }
                     }
-                    
-                    
                     IGMessageSender.defaultSender.sendNextPlainRequest()
-                    
-                    print("-----------------")
-                    
                 }
             }
             else {
@@ -3149,23 +3113,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         //go to process info
     }
-    func loop(times: Int) {
-        var i = 0
-        
-        func nextIteration() {
-            if i < times {
-                print("i is \(i)")
-                
-                i += 1
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
-                    nextIteration()
-                }
-            }
-        }
-        
-        nextIteration()
-    }
+    
     func openChat(room : IGRoom){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
@@ -3252,23 +3200,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     /*********************** Delete Start ***********************/
     /************************************************************************/
     @IBAction func didTapOnDeleteButton(_ sender: UIButton) {
-        
-        
-        //        print(messages)
-        //
-        //        print("=======")
-        //        print(self.selectedIndex)
         if self.selectedIndex.count > 0 {
             for element in self.selectedIndex {
-                if let index = self.messages.firstIndex(where: { $0.id == element }) {
-                    //                    DispatchQueue.main.asyncAfter(deadline: .now() + .0) {
-                    self.deleteMessage(self.messages[index],both:self.isBoth)
-                    //                    }
-                    
+                if let index = self.messages!.firstIndex(where: { $0.id == element }) {
+                    self.deleteMessage(self.messages![index],both:self.isBoth)
                 }
             }
-        }
-        else {
+        } else {
             return
         }
     }
@@ -4467,15 +4405,12 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
             
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
-            print("bubbleSize:")
-            print(bubbleSize)
-            
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect && message.type != .log {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4511,7 +4446,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4545,7 +4480,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4579,7 +4514,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4613,7 +4548,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4647,7 +4582,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4681,7 +4616,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4715,7 +4650,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4749,7 +4684,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4783,7 +4718,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages[indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.section].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4926,15 +4861,15 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight + 2)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        if let message = messages?[section] {
-            if message.type == .wallet {
-                return UIEdgeInsets.init(top: 5, left: 0, bottom: 5, right: 0)
-            }
-        }
-        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//
+//        if let message = messages?[section] {
+//            if message.type == .wallet {
+//                return UIEdgeInsets.init(top: 5, left: 0, bottom: 5, right: 0)
+//            }
+//        }
+//        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -4947,40 +4882,29 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var tmpID = (messages[indexPath.section].id)
-        let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: messages![indexPath.section])
-        print("bubbleSize:")
-        print(bubbleSize)
-        
-        
+        let tmpID = (messages![indexPath.section].id)
         
         if (IGGlobal.shouldMultiSelect) {
             if selectedIndex.contains(tmpID) {
-                //            let tmp = self.selectedIndex.filter(){$0 != indexPath.item}
                 let index = self.selectedIndex.firstIndex(of: tmpID)!
                 self.selectedIndex.remove(at: index)
-            }
-            else {
+            } else {
                 self.selectedIndex.append(tmpID)
             }
+            
             if self.selectedIndex.count > 0 {
                 lblSelectedMessages.text = String(self.selectedIndex.count).inLocalizedLanguage() + " " + "SELECTED".localizedNew
                 inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
                 inputBarDeleteButton.isEnabled = true
-                
-                
-            }
-            else {
+            } else {
                 lblSelectedMessages.text = ""
                 inputBarDeleteButton.setTitleColor(UIColor.iGapGray(), for: .normal)
                 inputBarDeleteButton.isEnabled = false
-                
             }
+            
             self.collectionView.reloadItems(at: [indexPath])
             
-            
-        }
-        else {
+        } else {
             self.inputTextView.resignFirstResponder()
         }
     }
@@ -5151,11 +5075,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     private func fetchRoomHistoryIfPossibleBefore(message: IGRoomMessage, forceGetHistory: Bool = false) {
         if message.isInvalidated {
             print("MSG IS INVALIDATED")
-
-        }
-        else {
+        } else {
             print("MSG IS NOT INVALIDATED")
-
         }
         
         if message.isInvalidated {
@@ -5393,22 +5314,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
             
             if let cellCollection = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - 1, section: 0)) as? AbstractCell {
-                let message1 = self.messages![numberOfItems - 1]
                 let message2 = self.messages![numberOfItems - 2]
-                let index1 = self.messages?.index(of: cellCollection.realmRoomMessage)
-                print("QQQ || index1: \(index1)  ||  message1: \(message1.message)  ||  message2: \(message2.message)")
+                let index1 = self.messages?.firstIndex(of: cellCollection.realmRoomMessage)
                 self.messages![index1!] = message2
-                
-                if let cellCollection = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - 1, section: 0)) as? AbstractCell {
-                    
-                    let message1 = self.messages![numberOfItems - 1]
-                    let message2 = self.messages![numberOfItems - 2]
-                    
-                    
-                    print("QQQ || message1: \(message1.message)  ||  message2: \(message2.message)")
-                    //cellCollection.realmRoomMessage = self.messages![numberOfItems - 2]
-                }
-                
                 self.collectionView.reloadItems(at: [IndexPath(row: numberOfItems - 1, section: 0)])
             }
         })
@@ -5731,86 +5639,29 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         let thisMessageInSharedMediaResult = roomMessageLists.filter("id == \(cellMessage.id)")
         var indexOfThis = 0
         if let this = thisMessageInSharedMediaResult.first {
-            indexOfThis = roomMessageLists.index(of: this)!
+            indexOfThis = roomMessageLists.firstIndex(of: this)!
         }
         
         var photos: [INSPhotoViewable] = Array(roomMessageLists.map { (message) -> IGMedia in
             return IGMedia(message: message, forwardedMedia: false)
         })
-        //        var photos: [LightboxImage] = Array(roomMessageLists.map { (message) -> IGMediaChat in
-        //            return IGMediaChat(message: message, forwardedMedia: false)
-        //        })
-        
-        //                var photos: [LightboxImage] = Array(roomMessageLists.map { (message) -> IGMediaChat in
-        //                    return IGMediaChat(message: message, forwardedMedia: false)
-        //                })
-        
-        //        let photos: [LightboxImage] = Array(roomMessageLists.map { (message) -> LightboxImage in
-        //                    let roomMessage = message.forwardedFrom != nil ? message.forwardedFrom : message
-        //                    let attachment = roomMessage?.attachment
-        //                    let text = roomMessage?.message
-        //                    if attachment!.type == .video {
-        //                        print("___M_____")
-        //                        print(attachment?.path())
-        //
-        //                        return LightboxImage(image: UIImage(named: "photo2")!, videoURL: URL(string: (attachment?.publicUrl)!))
-        //
-        //                        }
-        //                        else {
-        //                        print("___I_____")
-        //                        print(attachment?.path())
-        //
-        //                        return LightboxImage(imageURL: URL(string: (attachment?.publicUrl)!)!)
-        //
-        //                        }
-        //
-        //
-        //        })
-        //
-        
-        //        print("__||photos||__")
         
         sizesArray.removeAll()
         indexOfVideos.removeAll()
         
         for element in roomMessageLists {
-            //            sizesArray.append(element.attachment?.size)
             indexOfVideos.append((element.typeRaw))
         }
         
-        
-        
-        
-        
         let currentPhoto = photos[indexOfThis]
-        
         
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: imageView)
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { photo in
             return imageView
         }
         present(galleryPreview, animated: true, completion: nil)
-        //        showLightBox()
-        //        let images = [LightboxImage(
-        //            image: UIImage(named: "photo2")!,
-        //            text: "Emoji 😍 (/ɪˈmoʊdʒi/; singular emoji, plural emoji or emojis;[4] from the Japanese 絵文字えもじ, pronounced [emodʑi]) are ideograms and smileys used in electronic messages and web pages. Emoji are used much like emoticons and exist in various genres, including facial expressions, common objects, places and types of weather 🌅☔️💦, and animals 🐶🐱",
-        //            videoURL: URL(string: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
-        //            )]
-        //
-        //
-        //        let controller = LightboxController(images: images)
-        
-        //        controller.dynamicBackground = true
-        //        //controller.pageDelegate
-        //
-        //
-        //        present(controller, animated: true, completion: nil)
-        
-        
     }
     
-    func showLightBox() {
-    }
     func didTapOnForwardedAttachment(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
         if let forwardedMsgType = cellMessage.forwardedFrom?.type {
             switch forwardedMsgType {
@@ -5863,10 +5714,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         }
     }
     func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
-        print(cellMessage)
-        //        IGGlobal.shouldMultiSelect = true
         self.selectedIndex.removeAll()
-        
         self.selectedIndex.append(cellMessage.id)
         showMultiShareModal()
     }
@@ -6188,7 +6036,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let indexOfMessage = self.messages?.index(of: identity) {
+            if let indexOfMessage = self.messages?.firstIndex(of: identity) {
                 self.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: message, roomId: roomId))
                 self.updateItem(cellPosition: indexOfMessage)
             }
@@ -6197,7 +6045,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onMessageUpdateStatus(messageId: Int64) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let indexOfMessage = IGMessageViewController.messageIdsStatic.index(of: messageId) {
+            if let indexOfMessage = IGMessageViewController.messageIdsStatic.firstIndex(of: messageId) {
                 if let message = IGRoomMessage.getMessageWithId(messageId: messageId) {
                     self.updateMessageArray(cellPosition: indexOfMessage, message: message)
                     self.updateItem(cellPosition: indexOfMessage)
@@ -6218,7 +6066,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     func onMessageDelete(roomId: Int64, messageId: Int64) {
-        removeItem(cellPosition: IGMessageViewController.messageIdsStatic.index(of: messageId))
+        removeItem(cellPosition: IGMessageViewController.messageIdsStatic.firstIndex(of: messageId))
     }
     
     /**
@@ -6226,7 +6074,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
      * and messages array not worked, so i have to fetch position with this method
      */
     func getEditPosition(messageId: Int64) -> Int? {
-        return IGMessageViewController.messageIdsStatic.index(of: messageId)
+        return IGMessageViewController.messageIdsStatic.firstIndex(of: messageId)
     }
     
     /*********************************************************************************/
@@ -6332,6 +6180,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     private func updateItem(cellPosition: Int){
+        if self.messages!.count <= cellPosition  {
+            return
+        }
+        
         self.collectionView.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
     }
     
@@ -6362,17 +6214,25 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     private func removeMessageArray(messageId: Int64){
-        if let index = IGMessageViewController.messageIdsStatic.index(of: messageId) {
+        if let index = IGMessageViewController.messageIdsStatic.firstIndex(of: messageId) {
             IGMessageViewController.messageIdsStatic.remove(at: index)
         }
     }
     
     private func removeMessageArrayByPosition(cellPosition: Int?){
+        if cellPosition != nil && self.messages!.count <= cellPosition!  {
+            return
+        }
+        
         self.messages?.remove(at: cellPosition!)
         IGMessageViewController.messageIdsStatic.remove(at: cellPosition!)
     }
     
     private func updateMessageArray(cellPosition: Int, message: IGRoomMessage){
+        if self.messages!.count <= cellPosition  {
+            return
+        }
+        
         self.messages![cellPosition] = message
         IGMessageViewController.messageIdsStatic[cellPosition] = message.id
     }

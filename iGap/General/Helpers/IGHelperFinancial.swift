@@ -104,7 +104,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
         IGGlobal.prgShow()
         IGMplGetCardToCardToken.Generator.generate(toUserId: toUserId).successPowerful({ (protoResponse, requestWrapper) in
             IGGlobal.prgHide()
-            if let toUserId = Int64(requestWrapper.identity), toUserId != 0 {
+            if let toUserId = requestWrapper.identity as? Int64, toUserId != 0 {
                 self.cardToCardUserId = toUserId
             } else {
                 self.cardToCardUserId = 0
