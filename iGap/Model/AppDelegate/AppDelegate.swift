@@ -24,40 +24,8 @@ import PushKit
 import CallKit
 
 
-
 @UIApplicationMain
 class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate , PKPushRegistryDelegate,CXProviderDelegate {
-    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
-        print("PUSH RECIEVED First :")
-        print("voip token: \(pushCredentials.token.toHexString())")
-        }
-    func providerDidReset(_ provider: CXProvider) {
-    }
-    
-    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        action.fulfill()
-    }
-    
-    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-        action.fulfill()
-    }
-    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
-
-        let payloadDict = payload.dictionaryPayload["data"]! as! Dictionary<String, Any>
-        let name = payloadDict["name"]! as Any
-        let userId = payloadDict["userID"]! as Any
-
-        showCallPage(userId: userId as! Int64 , userName: (name as! String))
-
-        
-    }
-    func voipRegistration () {
-        let mainQueue = DispatchQueue.main
-        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
-        voipRegistry.delegate = self
-        voipRegistry.desiredPushTypes = [PKPushType.voIP]
-        
-    }
  
     var timer = Timer()
 
@@ -70,12 +38,68 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     internal static var isUpdateAvailable : Bool = false
     internal static var isDeprecatedClient : Bool = false
     internal static var appIsInBackground : Bool = false
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        MCLocalization.load(from: core_utils.getResourcesBundle().url(forResource: "strings.json", withExtension: nil), defaultLanguage: "en")
+    
+    // MARK: - Core Data stack
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application.
+        let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
+    }()
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let applicationDocumentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first!
+        let url = applicationDocumentsDirectory.appendingPathComponent("CoreData.sqlite")
         
-        IGGlobal.getTime()
-        print("====================================#1=======================================")
-        print("=================================APPDELEGATE=================================")
+        do {
+            let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption:true]
+            
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
+        } catch {
+            SMLog.SMPrint("Unresolved error \(error)")
+            abort()
+        }
+        
+        return coordinator
+    }()
+    
+    @available(iOS 10.0, *)
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        let container = NSPersistentContainer(name: "iGap")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if SMLangUtil.loadLanguage() == "fa" {
             IGGlobal.languageFileName = "localizationsFa"
         } else {
@@ -87,12 +111,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
 
         if SMLangUtil.loadLanguage() == "fa" {
             UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-
-        }
-        else {
+        } else {
             UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-
         }
+        
         SMUserManager.clearKeychainOnFirstRun()
         SMUserManager.loadFromKeychain()
         realmConfig()
@@ -111,44 +133,11 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
 
         pushNotification(application)
-        
         detectBackground()
-        print("=======================================#GO TO UI=========================================")
-        print("==================================================================================")
-        IGGlobal.getTime()
-//        print("====================================#1=======================================")
-//        print("=================================PHONENUMBERS=================================")
-//        let a = ["09370384415","09370384416","09370384417","09370384418","09370384419","09370384420"]
-//        var tmpString = ""
-//        for elemnt in a {
-//            tmpString = tmpString + elemnt + ","
-//        }
-//        tmpString = String(tmpString.dropLast())
-//
-//        let md5Data = tmpString.MD5(string: tmpString)
-//
-//
-//        let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
-//        print("====================================#HEX=======================================")
-//
-//        print("md5Hex: \(md5Hex)")
-//
-//        let md5Base64 = md5Data.base64EncodedString()
-//        print("====================================#BASE64=======================================")
-//
-//        print("md5Base64: \(md5Base64)")
-//        print("====================================#2=======================================")
-//        print("=================================PHONENUMBERS=================================")
-
         return true
     }
-    
 
     func realmConfig() {
-        print("=======================================#2 DB CONFIG=========================================")
-        print("==================================================================================")
-        IGGlobal.getTime()
-
         let config = Realm.Configuration (
             // Share
             // fileURL: fileURL,
@@ -162,9 +151,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         Realm.Configuration.defaultConfiguration = config
         compactRealm()
         _ = try! Realm()
-        
-
     }
+    
     func compactRealm() {
         do {
             let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
@@ -179,9 +167,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         } catch let error {
             print(error)
         }
-        print("=======================================#3 DONE DB CONFIG=========================================")
-        print("==================================================================================")
-        IGGlobal.getTime()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -195,30 +180,18 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         /* change this values for import contact after than contact changed in phone contact */
         IGContactManager.syncedPhoneBookContact = false
         IGContactManager.importedContact = false
-        print("APPLICATION IS IN BACKGROUND")
-        
-
-
-//        self.checkAppState()
-        
-
     }
 
- 
-
     func applicationWillEnterForeground(_ application: UIApplication) {
-        print("APPLICATION IS IN FOREGROUND")
-
         AppDelegate.appIsInBackground = false
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             IGHelperGetShareData.manageShareDate()
             IGAppManager.sharedManager.setUserUpdateStatus(status: .online)
         }
-//        self.callRefreshToken()
     }
+    
     func callRefreshToken() {
         SMUserManager.refreshToken(delegate: self, onSuccess: { (response) in
-            
         }, onFail: { (response) in
             NSLog("%@", "FailedHandler")
         })
@@ -421,70 +394,6 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         return true
     }
 
-    
-    // MARK: - Core Data stack
-    lazy var managedObjectContext: NSManagedObjectContext = {
-        let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        return managedObjectContext
-    }()
-    
-    
-    
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application.
-        let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
-    }()
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let applicationDocumentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first!
-        let url = applicationDocumentsDirectory.appendingPathComponent("CoreData.sqlite")
-        
-        do {
-            let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption:true]
-            
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
-        } catch {
-            SMLog.SMPrint("Unresolved error \(error)")
-            abort()
-        }
-        
-        return coordinator
-    }()
-    
-    
-    
-    @available(iOS 10.0, *)
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
-        let container = NSPersistentContainer(name: "iGap")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-    
     // MARK: - Core Data Saving support
     @available(iOS 10.0, *)
     func saveContext () {
@@ -501,22 +410,16 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         }
     }
     
-    //Deep Link Handler
+    /*****************************************************************************************************/
+    /***************************************** Deep Link Handler *****************************************/
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        print(url)
-        
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        
         let host = urlComponents?.host ?? ""
         
-        print(host)
-        
         if host == "resolve" {
-            
             let sb = UIStoryboard(name: "Main", bundle: .main)
-            
             let secretVC = sb.instantiateViewController(withIdentifier: "messageViewController") as? IGMessageViewController
             let messageID : String?
             let RoomID : String?
@@ -525,46 +428,46 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             messageID = urlComponents?.queryItems?.last?.value
             let strAsNSString = messageID! as NSString
             _ = strAsNSString.longLongValue
-//            let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", value, username)
             let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID!)
             if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                
                 secretVC!.room = room
                 window?.rootViewController = secretVC
-
             }
-
-//                if let username = IGRoom.fetchUsername(room: room) {
-//                    let predicate = NSPredicate(format: "id = %lld AND channelRoom.publicExtra.username = %@", value, username)
-//
-//                    if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-//
-//                    }
-//                }
-
-            
-
-//
-//
-//            if let username = IGRoom.fetchUsername(room: room!) { // if username is for current room don't open this room again
-//                if username == value.dropFirst() {
-//                    return
-//                }
-//            }
-//            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-//
-//            }
-
-            //        secretVC?.secretMessage = urlComponents?.queryItems?.first?.value
-            
-//            window?.rootViewController = secretVC
         }
-        
         return false
     }
     
+    /******************************************************************************************************/
+    /********************************************** Push Kit **********************************************/
+    
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {}
+    
+    func providerDidReset(_ provider: CXProvider) {}
+    
+    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        action.fulfill()
+    }
+    
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        action.fulfill()
+    }
+    
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
+        
+        let payloadDict = payload.dictionaryPayload["data"]! as! Dictionary<String, Any>
+        let name = payloadDict["name"]! as Any
+        let userId = payloadDict["userID"]! as Any
+        
+        showCallPage(userId: userId as! Int64 , userName: (name as! String))
+    }
+    
+    func voipRegistration () {
+        let mainQueue = DispatchQueue.main
+        let voipRegistry: PKPushRegistry = PKPushRegistry(queue: mainQueue)
+        voipRegistry.delegate = self
+        voipRegistry.desiredPushTypes = [PKPushType.voIP]
+    }
 }
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {

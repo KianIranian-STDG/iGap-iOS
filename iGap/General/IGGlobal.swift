@@ -44,9 +44,9 @@ class IGGlobal {
     static var pageIDChartUpdate: Int32 = 0
     static var languageFileName: String = "localizationsFa"
     static var importedRoomMessageDic: [Int64:IGRoomMessage] = [:]
-    
     static var shouldShowChart : Bool = false
     static var hideBarChart : Bool = true
+    
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -69,21 +69,7 @@ class IGGlobal {
             IGGlobal.progressHUD.hide(animated: true)
         }
     }
-    /****************** Progress ******************/
-    /**********************************************/
     
-    internal static func getTime(_ string: String? = nil){
-        if IGGlobal.latestTime == 0 {
-            IGGlobal.latestTime = IGGlobal.getCurrentMillis()
-        }
-        let currentTime = IGGlobal.getCurrentMillis()
-        if string != nil {
-            print("TTT || time \(string): \(currentTime - IGGlobal.latestTime)")
-        } else {
-            print("TTT || time: \(currentTime - IGGlobal.latestTime)")
-        }
-        IGGlobal.latestTime = currentTime
-    }
     /**********************************************/
     /******************** File ********************/
     

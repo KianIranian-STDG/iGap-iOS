@@ -802,7 +802,6 @@
 		8EE7FCA5225E0E4A00B6C2C3 /* cashoutModalStepOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashoutModalStepOneViewController.swift; sourceTree = "<group>"; };
 		8EE7FCA7226195E800B6C2C3 /* IGWalletSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletSettingTableViewController.swift; sourceTree = "<group>"; };
 		8EE7FCA922619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGWalletSettingInnerTableViewController.swift; sourceTree = "<group>"; };
-		8EEB1FF222C1E72B00EFD2ED /* iGap copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "iGap copy-Info.plist"; path = "/Users/igap2/Developer/iGAP/iGap copy-Info.plist"; sourceTree = "<absolute>"; };
 		8EEB1FF322C1F48400EFD2ED /* SMGetGift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMGetGift.swift; sourceTree = "<group>"; };
 		8EEB1FF522C1F68B00EFD2ED /* GetGiftPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetGiftPopup.xib; sourceTree = "<group>"; };
 		8EEB1FF722C1F6A100EFD2ED /* GetGiftPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetGiftPopupView.swift; sourceTree = "<group>"; };
@@ -2603,7 +2602,6 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
-				8EEB1FF222C1E72B00EFD2ED /* iGap copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};

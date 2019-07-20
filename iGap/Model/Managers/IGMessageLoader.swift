@@ -168,7 +168,16 @@ class IGMessageLoader {
              * show unread layout and also set firstUnreadMessageId in startFutureMessageIdUp
              * for try load top message and also topMore default value is true for this target
              */
-            if (hasSavedState()) {
+            if (hasUnread()) {
+                if (firstUnreadMessage == nil) {
+                    resetMessagingValue()
+                    getMessages(onMessageReceive: onMessageReceive)
+                    return
+                }
+                unreadLayoutMessage(onMessageReceive: onMessageReceive)
+                fetchMessageId = firstUnreadMessage.id
+                
+            } else {
                 fetchMessageId = getSavedState()
                 
                 if (hasUnread()) {
@@ -178,21 +187,13 @@ class IGMessageLoader {
                         return
                     }
                     /*
-                    countNewMessage = unreadCount;
-                    txtNewUnreadMessage.setVisibility(View.VISIBLE);
-                    txtNewUnreadMessage.setText(countNewMessage + "");
-                    setDownBtnVisible();
-                    */
+                     countNewMessage = unreadCount;
+                     txtNewUnreadMessage.setVisibility(View.VISIBLE);
+                     txtNewUnreadMessage.setText(countNewMessage + "");
+                     setDownBtnVisible();
+                     */
                     firstUnreadMessageInChat = firstUnreadMessage
                 }
-            } else {
-                if (firstUnreadMessage == nil) {
-                    resetMessagingValue()
-                    getMessages(onMessageReceive: onMessageReceive)
-                    return
-                }
-                unreadLayoutMessage(onMessageReceive: onMessageReceive)
-                fetchMessageId = firstUnreadMessage.id
             }
             
             startFutureMessageIdUp = fetchMessageId
