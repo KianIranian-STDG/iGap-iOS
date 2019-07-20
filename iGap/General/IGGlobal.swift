@@ -1362,7 +1362,21 @@ extension String {
             IGGlobal.languageFileName = "localizationsEn"
         }
         let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
-
+        
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+        
+        return MCLocalization.string(forKey: self)
+    }
+    
+    var RecentTableViewlocalizedNew: String {
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "RecentTableViewlocalizationsFa"
+        } else {
+            IGGlobal.languageFileName = "RecentTableViewlocalizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        
         MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
         

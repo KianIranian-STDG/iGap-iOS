@@ -47,7 +47,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.change(textFont: UIFont.igFont(ofSize: 15))
-            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
 
         }
     }
@@ -92,13 +92,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
                 
-                let newChat = UIAlertAction(title: "NEW_CALL".localizedNew, style: .default, handler: { (action) in
+                let newChat = UIAlertAction(title: "NEW_CALL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                     let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                     createChat.forceCall = true
                     self.navigationController!.pushViewController(createChat, animated: true)
                 })
                 
-                let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
+                let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                     if IGAppManager.sharedManager.userID() != nil {
                         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                         hud.mode = .indeterminate
@@ -139,7 +139,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }
                 })
                 
-                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+                let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: nil)
                 
                 alertController.addAction(newChat)
                 alertController.addAction(clearCallLog)
@@ -149,8 +149,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 return
             }
             
-            let alertController = UIAlertController(title: "NEW_MESSAGES".localizedNew, message: "WHICH_TYPE_OF".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-            let myCloud = UIAlertAction(title: "MY_CLOUD".localizedNew, style: .default, handler: { (action) in
+            let alertController = UIAlertController(title: "NEW_MESSAGES".RecentTableViewlocalizedNew, message: "WHICH_TYPE_OF".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let myCloud = UIAlertAction(title: "MY_CLOUD".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 if let userId = IGAppManager.sharedManager.userID() {
                     let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                     hud.mode = .indeterminate
@@ -172,30 +172,30 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }).error({ (errorCode, waitTime) in
                         DispatchQueue.main.async {
                             hud.hide(animated: true)
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, preferredStyle: .alert)
                             
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                             alertC.addAction(cancel)
                             self.present(alertC, animated: true, completion: nil)
                         }
                     }).send()
                 }
             })
-            let newChat = UIAlertAction(title: "NEW_C_C".localizedNew, style: .default, handler: { (action) in
+            let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                 self.navigationController!.pushViewController(createChat, animated: true)
             })
-            let newGroup = UIAlertAction(title: "NEW_GROUP".localizedNew, style: .default, handler: { (action) in
+            let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 createGroup.mode = "CreateGroup"
                 self.navigationController!.pushViewController(createGroup, animated: true)
             })
-            let newChannel = UIAlertAction(title: "NEW_CHANNEL".localizedNew, style: .default, handler: { (action) in
+            let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
                 self.navigationController!.pushViewController(createChannel, animated: true)
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
+            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
                 
             })
             
@@ -304,7 +304,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
      
         isfromPacket = false
 
-        searchBar.placeholder = "PLACE_HOLDER_SEARCH".localizedNew
+        searchBar.placeholder = "PLACE_HOLDER_SEARCH".RecentTableViewlocalizedNew
         if SMLangUtil.loadLanguage() == "fa" {
             searchBar.semanticContentAttribute = .forceRightToLeft
 
@@ -350,20 +350,20 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func checkAppVersion() {
         DispatchQueue.main.async {
             if AppDelegate.isDeprecatedClient {
-                let alert = UIAlertController(title: "GAME_ALERT_TITLE", message: "VERSION_DEPRICATED".localizedNew, preferredStyle: .alert)
-                let update = UIAlertAction(title: "UPDATE".localizedNew, style: .default, handler: { (action) in
+                let alert = UIAlertController(title: "GAME_ALERT_TITLE".RecentTableViewlocalizedNew, message: "VERSION_DEPRICATED".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                let update = UIAlertAction(title: "UPDATE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
 
                 })
                 alert.addAction(update)
                 self.present(alert, animated: true, completion: nil)
             } else if AppDelegate.isUpdateAvailable {
-                let alert = UIAlertController(title: "UPDATE".localizedNew, message: "VERSION_NEW".localizedNew, preferredStyle: .alert)
-                let update = UIAlertAction(title: "UPDATE".localizedNew, style: .default, handler: { (action) in
+                let alert = UIAlertController(title: "UPDATE".RecentTableViewlocalizedNew, message: "VERSION_NEW".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                let update = UIAlertAction(title: "UPDATE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
 
                 })
-                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .destructive, handler: nil)
+                let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .destructive, handler: nil)
                 alert.addAction(update)
                 alert.addAction(cancel)
                 self.present(alert, animated: true, completion: nil)
@@ -518,24 +518,24 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         let room = cell.room!
         
-        var muteTitle = "UN_MUTE".localizedNew
+        var muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
         if room.mute == IGRoom.IGRoomMute.mute {
-            muteTitle = "UN_MUTE".localizedNew
+            muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
         }
         else {
-            muteTitle = "MUTE".localizedNew
+            muteTitle = "MUTE".RecentTableViewlocalizedNew
 
         }
         
-        var pinTitle = "PINN".localizedNew
+        var pinTitle = "PINN".RecentTableViewlocalizedNew
         if room.pinId > 0 {
-            pinTitle = "UNPINN".localizedNew
+            pinTitle = "UNPINN".RecentTableViewlocalizedNew
         }
         //MUTE
         let btnMuteSwipeCell = UITableViewRowAction(style: .normal, title: muteTitle) { (rowAction, indexPath) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
                 
@@ -549,8 +549,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
        //PIN
         let btnPinSwipeCell = UITableViewRowAction(style: .normal, title: pinTitle) { (rowAction, indexPath) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
                 
@@ -562,16 +562,16 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         btnPinSwipeCell.backgroundColor = UIColor.swipeBlueGray()
 
         //MORE
-        let btnMoreSwipeCell = UITableViewRowAction(style: .normal, title: "MORE".localizedNew) { (rowAction, indexPath) in
+        let btnMoreSwipeCell = UITableViewRowAction(style: .normal, title: "MORE".RecentTableViewlocalizedNew) { (rowAction, indexPath) in
 
-            let title = room.title != nil ? room.title! : "BTN_DELETE".localizedNew
-            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".localizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-            let clear = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style: .default, handler: { (action) in
+            let title = room.title != nil ? room.title! : "BTN_DELETE".RecentTableViewlocalizedNew
+            let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let clear = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 switch room.type{
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -580,8 +580,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -599,8 +599,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let mute = UIAlertAction(title: muteTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
@@ -611,8 +611,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             let pin = UIAlertAction(title: pinTitle, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
@@ -621,10 +621,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let report = UIAlertAction(title: "REPORT".localizedNew, style: .default, handler: { (action) in
+            let report = UIAlertAction(title: "REPORT".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                 if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
@@ -633,12 +633,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let remove = UIAlertAction(title: "BTN_DELETE".localizedNew, style: .destructive, handler: { (action) in
+            let remove = UIAlertAction(title: "BTN_DELETE".RecentTableViewlocalizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -648,8 +648,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -659,8 +659,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     break
                 case .channel:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     } else {
@@ -670,14 +670,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let leave = UIAlertAction(title: "LEAVE".localizedNew, style: .destructive, handler: { (action) in
+            let leave = UIAlertAction(title: "LEAVE".RecentTableViewlocalizedNew, style: .destructive, handler: { (action) in
                 switch room.type {
                 case .chat:
                     break
                 case .group:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -687,8 +687,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     }
                 case .channel:
                     if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
-                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                         
@@ -699,7 +699,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             })
             
-            let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: nil)
             
             if room.type == .chat || room.type == .group {
                 alertC.addAction(clear)
@@ -855,8 +855,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     DispatchQueue.main.async {
                         switch errorCode {
                         case .timeout:
-                            let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                            let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
                         default:
@@ -926,8 +926,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -962,8 +962,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -999,8 +999,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -1018,8 +1018,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPClientRoomReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -1031,15 +1031,15 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .clientRoomReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localizedNew, message: "ROOM_REPORTED_BEFOR".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -1066,8 +1066,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch protoResponse {
                 case _ as IGPUserReportResponse:
-                    let alert = UIAlertController(title: "SUCCESS".localizedNew, message: "REPORT_SUBMITED".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "SUCCESS".RecentTableViewlocalizedNew, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -1079,15 +1079,15 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
                     
                 case .userReportReportedBefore:
-                    let alert = UIAlertController(title: "GLLOBAL_WARNING".localizedNew, message: "USER_REPORTED_BEFOR".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "USER_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     break
@@ -1114,13 +1114,13 @@ extension IGRecentsTableViewController {
         var title = ""
         
         if roomType == .chat {
-            title = "REPORT_REASON".localizedNew
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
         } else {
-            title = "REPORT_REASON".localizedNew
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
         }
         
         let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let abuse = UIAlertAction(title: "ABUSE".localizedNew, style: .default, handler: { (action) in
+        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             
             if roomType == .chat {
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
@@ -1129,7 +1129,7 @@ extension IGRecentsTableViewController {
             }
         })
         
-        let spam = UIAlertAction(title: "SPAM".localizedNew, style: .default, handler: { (action) in
+        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             
             if roomType == .chat {
                 self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
@@ -1138,24 +1138,24 @@ extension IGRecentsTableViewController {
             }
         })
         
-        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".localizedNew, style: .default, handler: { (action) in
+        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
         })
         
-        let violence = UIAlertAction(title: "VIOLENCE".localizedNew, style: .default, handler: { (action) in
+        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
         })
         
-        let pornography = UIAlertAction(title: "PORNOGRAPHY".localizedNew, style: .default, handler: { (action) in
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
         })
         
-        let other = UIAlertAction(title: "OTHER".localizedNew, style: .default, handler: { (action) in
+        let other = UIAlertAction(title: "OTHER".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
             self.selectedRoomForSegue = room
             self.performSegue(withIdentifier: "showReportPage", sender: self)
         })
         
-        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: { (action) in
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
             
         })
         
@@ -1192,8 +1192,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
@@ -1223,8 +1223,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -1252,8 +1252,8 @@ extension IGRecentsTableViewController {
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
@@ -1284,8 +1284,8 @@ extension IGRecentsTableViewController {
                 DispatchQueue.main.async {
                     switch errorCode {
                     case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         self.present(alert, animated: true, completion: nil)
                     default:
@@ -1316,8 +1316,8 @@ extension IGRecentsTableViewController {
             DispatchQueue.main.async {
                 switch errorCode {
                 case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                 default:
@@ -1472,7 +1472,7 @@ extension IGRecentsTableViewController {
 extension IGRecentsTableViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
 
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true

@@ -1450,10 +1450,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             do {
                 
                 let realm = try Realm()
-                try realm.write {
-                    let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-                    allMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-
+                if !(realm.isInWriteTransaction) {
+                    try realm.write {
+                        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
+                        allMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+                        
+                    }
                 }
                 
                 let messageCount = allMessages.count
