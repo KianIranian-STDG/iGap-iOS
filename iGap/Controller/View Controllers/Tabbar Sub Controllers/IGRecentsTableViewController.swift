@@ -707,10 +707,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             alertC.addAction(pin)
             alertC.addAction(clearLocalMessage)
-            
-            if !IGHelperPromote.isPromotedRoom(room: room) {
-                alertC.addAction(pin)
-            }
             alertC.addAction(mute)
             alertC.addAction(report)
             

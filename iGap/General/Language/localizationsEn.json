@@ -281,7 +281,7 @@
         "NO_NETWORK" : "No network Connection",
         "WHAT_DO_U_WANT" : "What do you want to do?",
         "CLEAR_HISTORY" : "Clear History",
-        
+        "CLEAR_HISTORY_LOCAL" : "Clear Local History",
         "SHOW_HISTORY" : "Show History",
         "REPORT" : "Report",
         "LEAVE" : "Leave",
