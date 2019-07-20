@@ -94,5 +94,6 @@ class IGHelperMessageResponse {
              */
             IGMessageViewController.messageOnChatReceiveObserver?.onMessageRecieveInChatPage(roomId: roomId, message: roomMessage, roomType: roomType)
         }
+        IGRecentsTableViewController.messageReceiveDelegat?.onMessageRecieveInRoomList(messages: [roomMessage])
     }
 }

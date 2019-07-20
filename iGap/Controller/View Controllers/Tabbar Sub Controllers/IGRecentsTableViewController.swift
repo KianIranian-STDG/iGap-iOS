@@ -1348,42 +1348,52 @@ extension IGRecentsTableViewController {
             var roomType: IGRoom.IGType = .chat
             var roomMessageStatus: IGPRoomMessageStatus = .delivered
             
-            for message in messages {
-                var roomId: Int64 = 0
-                var roomType: IGRoom.IGType = .chat
-                var roomMessageStatus: IGPRoomMessageStatus = .delivered
+            if message.igpAuthor.hasIgpUser { // chat
                 
-                if message.igpAuthor.hasIgpUser { // chat
-                    
-                    let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", message.igpAuthor.igpUser.igpUserID)
-                    if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
-                        roomId = roomInfo.id
-                    }
-                } else { // group or channel
-                    
-                    let predicate = NSPredicate(format: "id = %lld", message.igpAuthor.igpRoom.igpRoomID)
-                    if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
-                        roomId = roomInfo.id
-                        if roomInfo.groupRoom != nil {
-                            roomType = .group
-                        } else {
-                            roomType = .channel
-                        }
+                let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", message.igpAuthor.igpUser.igpUserID)
+                if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
+                    roomId = roomInfo.id
+                }
+            } else { // group or channel
+                
+                let predicate = NSPredicate(format: "id = %lld", message.igpAuthor.igpRoom.igpRoomID)
+                if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
+                    roomId = roomInfo.id
+                    if roomInfo.groupRoom != nil {
+                        roomType = .group
+                    } else {
+                        roomType = .channel
                     }
                 }
-                
-                let seenStatus = IGRecentsTableViewController.visibleChat[roomId]
-                
-                if seenStatus != nil && seenStatus! {
-                    roomMessageStatus = .seen
-                }
-                
-                sendSeenForReceivedMessage(roomId: roomId, roomType: roomType, message: message, status: roomMessageStatus)
             }
-        } catch let error as NSError {
-            print("RLM EXEPTION ERR HAPPENDED IN ONMESSAGERECIEVE:",String(describing: self))
+            
+            let seenStatus = IGRecentsTableViewController.visibleChat[roomId]
+            
+            if seenStatus != nil && seenStatus! {
+                roomMessageStatus = .seen
+            }
+            
+            manageUnreadMessage(roomId: roomId, roomType: roomType, message: message)
+            sendSeenForReceivedMessage(roomId: roomId, roomType: roomType, message: message, status: roomMessageStatus)
         }
-        
+    }
+    
+    private func manageUnreadMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage){
+        let realm = try! Realm()
+        try! realm.write {
+            let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", roomId)).first
+            let message = realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id = %lld", message.igpMessageID)).first
+            
+            if room != nil && message != nil {
+                /**
+                 * client checked (room.unreadCount <= 1) because in IGHelperMessage unreadCount++
+                 */
+                if (room!.unreadCount <= Int32(1)) {
+                    message?.futureMessageId = message!.id
+                    room?.firstUnreadMessage = message
+                }
+            }
+        }
     }
     
     private func sendSeenForReceivedMessage(roomId: Int64, roomType: IGRoom.IGType, message: IGPRoomMessage, status: IGPRoomMessageStatus) {
