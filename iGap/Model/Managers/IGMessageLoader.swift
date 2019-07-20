@@ -57,27 +57,32 @@ class IGMessageLoader {
     private var firstUnreadMessageInChat: IGRoomMessage! // when user is in this room received new message
     private var unreadCount: Int32 = 0 // if unread count is not zero and not exist savedScrollMessageId so should be load chat from a specific message if value is not zero
     private var isShowLayoutUnreadMessage = false
-    private let LIMIT_GET_HISTORY_LOW: Int32 = 11
-    private let LIMIT_GET_HISTORY_NORMAL: Int32 = 50
+    private let LIMIT_GET_HISTORY_LOW: Int32 = 10
+    private let LIMIT_GET_HISTORY_NORMAL: Int32 = 25
     
     let sortPropertiesUp = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesDown = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: true)]
     
-    init(roomId: Int64) {
-        self.roomId = roomId
+    init(room: IGRoom) {
+        self.roomId = room.id
+        setUnreadCount(unreadCount: room.unreadCount)
+        setFirstUnreadMessage(firstUnreadMessage: room.firstUnreadMessage)
+        setSavedScrollMessageId(savedScrollMessageId: room.savedScrollMessageId)
     }
     
     /*************************************************/
     /******************** Setters ********************/
     
-    public func setUnreadCount(unreadCount: Int32) -> IGMessageLoader {
+    private func setUnreadCount(unreadCount: Int32) {
         self.unreadCount = unreadCount
-        return self
     }
     
-    public func setFirstUnreadMessage(firstUnreadMessage: IGRoomMessage) -> IGMessageLoader {
+    private func setFirstUnreadMessage(firstUnreadMessage: IGRoomMessage?) {
         self.firstUnreadMessage = firstUnreadMessage
-        return self
+    }
+    
+    private func setSavedScrollMessageId(savedScrollMessageId: Int64) {
+        self.savedScrollMessageId = savedScrollMessageId
     }
 
     public func setWaitingHistoryUpLocal(isWaiting: Bool) {
@@ -439,7 +444,6 @@ class IGMessageLoader {
             if ((firstUpOnline && direction == .up) || (firstDownOnline && direction == .down)) {
                 limit = LIMIT_GET_HISTORY_LOW
             }
-            limit = LIMIT_GET_HISTORY_LOW
             
             getMessageFromServer(roomId: roomId, messageIdGetHistory: oldMessageId, reachMessageId: reachMessageId, limit: limit, direction: direction, onMessageReceive: onMessageReceive, success: { (roomId, startMessageId, endMessageId, gapReached, jumpOverLocal, direction, onMessageRecieve) in
                 // should be check roomId in IGMessageViewController
@@ -495,6 +499,7 @@ class IGMessageLoader {
                         self.gapMessageIdDown = 0
                         self.reachMessageIdDown = 0
                         self.bottomMore = true
+                        print("bottomMore is exist")
                     }
                     
                     let _ = self.gapDetection(results: realmRoomMessages, direction: direction)
@@ -716,14 +721,14 @@ class IGMessageLoader {
     /**
      * check that this room has unread or no
      */
-    private func hasUnread() -> Bool {
+    public func hasUnread() -> Bool {
         return unreadCount > 0
     }
     
     /**
      * check that this room has saved changeState or no
      */
-    private func hasSavedState() -> Bool {
+    public func hasSavedState() -> Bool {
         return savedScrollMessageId > 0
     }
     

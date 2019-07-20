@@ -635,7 +635,7 @@ class IGRequestManager {
     
     func cancelRequest(identity: String) {
         for requestWrapper in pendingRequests.values {
-            if (requestWrapper.identity as! String) == identity {
+            if let identityValue = requestWrapper.identity as? String, identityValue == identity {
                 resolvedRequests[requestWrapper.id] = requestWrapper
                 pendingRequests[requestWrapper.id] = nil
             }

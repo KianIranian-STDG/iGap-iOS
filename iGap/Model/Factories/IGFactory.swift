@@ -1987,18 +1987,17 @@ class IGFactory: NSObject {
         let task = IGFactoryTask()
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-               do {
-               
-                try IGDatabaseManager.shared.realm.write {
+                do {
                     for igpRoom in rooms {
-                        IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
+                        try! IGDatabaseManager.shared.realm.write {
+                            IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
+                        }
+                        
+                        IGFactory.shared.performInFactoryQueue {
+                            self.setFactoryTaskSuccess(task: task)
+                        }
                     }
-                    
-                    IGFactory.shared.performInFactoryQueue {
-                        self.setFactoryTaskSuccess(task: task)
-                    }
-                }
-               } catch let error as NSError {
+                } catch let error as NSError {
                     print("RLM EXEPTION ERR HAPPENDED SAVE ROOMS TO DB:",String(describing: self),error)
                 }
             }

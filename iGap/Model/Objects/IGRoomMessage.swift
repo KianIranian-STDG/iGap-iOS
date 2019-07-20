@@ -260,7 +260,7 @@ class IGRoomMessage: Object {
             prefix = "R_"
         }
         // generate random string for create a distinction for upload same file simultaneously
-        return "\(prefix)\(messageID)_\(roomID)" + IGGlobal.randomString(length: 3)
+        return "\(prefix)\(messageID)_\(roomID)"// + IGGlobal.randomString(length: 3)
     }
     
     static func makeCardToCardRequest(message: String) -> IGRoomMessage {
@@ -278,7 +278,8 @@ class IGRoomMessage: Object {
             realmFinal = try! Realm()
         }
         let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
-        let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
+        //let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
+        let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
         var message: IGRoomMessage! = realmFinal.objects(IGRoomMessage.self).filter(predicate).first
         
         if message == nil {

@@ -64,6 +64,7 @@ class IGRoom: Object {
     @objc dynamic var channelRoom:        IGChannelRoom?
     @objc dynamic var lastMessage:        IGRoomMessage?
     @objc dynamic var firstUnreadMessage: IGRoomMessage?
+    @objc dynamic var savedScrollMessageId:Int64 = 0
     @objc dynamic var sortimgTimestamp:   Double                  = 0.0
     @objc dynamic var clearIdString:      String?
     @objc dynamic var muteRoom:           IGRoomMute.RawValue     = IGRoomMute.unmute.rawValue
@@ -252,9 +253,6 @@ class IGRoom: Object {
             var setGap = false
             if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpMessageID) {
                 shouldFetchBefore = true
-            }
-            
-            if !IGRoomMessage.existMessage(messageId: igpRoom.igpLastMessage.igpPreviousMessageID) {
                 setGap = true
             }
             

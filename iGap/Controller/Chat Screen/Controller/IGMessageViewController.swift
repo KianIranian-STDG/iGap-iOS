@@ -756,14 +756,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let tapAndHoldOnRecord = UILongPressGestureRecognizer(target: self, action: #selector(didTapAndHoldOnRecord(_:)))
         tapAndHoldOnRecord.minimumPressDuration = 0.5
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
-        
+
+        startLoadMessage()
+    }
+    
+    private func startLoadMessage(){
+        messageLoader = IGMessageLoader(room: self.room!)
         messageLoader.getMessages { (messages, direction) in
             self.addChatItem(realmRoomMessages: messages, direction: direction)
-        }
-        updateObserver()
-        let t = messages
-        if messages!.count == 0 {
-            fetchRoomHistoryWhenDbIsClear()
         }
     }
     
@@ -6020,7 +6020,13 @@ extension IGMessageViewController {
         
         if direction == .up { // Up direction
             if self.messageLoader.isFirstLoadUp() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                
+                var delay: Double = 0
+                if self.messageLoader.hasUnread() || self.messageLoader.hasSavedState() {
+                    delay = 1
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     for message in realmRoomMessages {
                         self.messages!.append(message)
                     }
@@ -6031,7 +6037,7 @@ extension IGMessageViewController {
                 }
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    for message in realmRoomMessages {
+                     for message in realmRoomMessages {
                         self.messages!.append(message)
                     }
                     self.addChatItemToTop(count: realmRoomMessages.count)
@@ -6069,7 +6075,6 @@ extension IGMessageViewController {
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        UIView.setAnimationsEnabled(false)
         
         self.collectionView?.performBatchUpdates({
             var arrayIndex: [IndexPath] = []
