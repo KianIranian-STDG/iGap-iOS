@@ -103,24 +103,19 @@ class IGChatSendMessageRequest : IGRequest {
                 sendMessageRequestMessage.igpAdditionalData = additional.data!
             }
             
-            return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 201)
+            return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 201, identity: message)
         }
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPChatSendMessageResponse) {
-            self.handlePush(responseProtoMessage: responseProtoMessage)
+        class func interpret(response:IGPChatSendMessageResponse, identity: IGRoomMessage? = nil) {
+            IGHelperMessageResponse.shared.handleMessage(roomId: response.igpRoomID, roomMessage: response.igpRoomMessage, roomType: IGPRoom.IGPType.chat, sender: !response.igpResponse.igpID.isEmpty, oldMessage: identity)
+            //IGFactory.shared.updateFirstUnreadMessage(roomId: response.igpRoomID, messageId: response.igpRoomMessage.igpMessageID)
         }
         
         override class func handlePush(responseProtoMessage: Message) {
-            //pushed IGPRoomMessages are handled here
-            switch responseProtoMessage {
-            case let response as IGPChatSendMessageResponse:
-                let messages: [IGPRoomMessage] = [response.igpRoomMessage]
-                IGFactory.shared.saveIgpMessagesToDatabase(messages, for: response.igpRoomID, updateLastMessage: true, isFromSharedMedia: false, isFromSendMessage: true)
-                IGFactory.shared.updateFirstUnreadMessage(roomId: response.igpRoomID, messageId: messages[0].igpMessageID)
-            default:
-                break
+            if let response = responseProtoMessage as? IGPChatSendMessageResponse {
+                IGChatSendMessageRequest.Handler.interpret(response: response, identity: nil)
             }
         }
     }

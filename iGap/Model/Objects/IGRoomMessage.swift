@@ -271,11 +271,11 @@ class IGRoomMessage: Object {
         return message
     }
     
-    static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, isForward: Bool = false, isReply: Bool = false, enableCache: Bool = false) -> IGRoomMessage {
+    static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, options: IGStructMessageOption = IGStructMessageOption()) -> IGRoomMessage {
         
         // read imported room message from cache for avoid from duplicate primaryKey
         // (IMPORTANT_HINT) : fill this value for put message from get room list and clear cache after do this work
-        if enableCache, let message = IGGlobal.importedRoomMessageDic[igpMessage.igpMessageID], !message.isInvalidated {
+        if options.isEnableCache, let message = IGGlobal.importedRoomMessageDic[igpMessage.igpMessageID], !message.isInvalidated {
             return message
         }
         
@@ -283,9 +283,9 @@ class IGRoomMessage: Object {
         if realmFinal == nil {
             realmFinal = try! Realm()
         }
-        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: isForward, isReply: isReply)
-        //let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
-        let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
+        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: options.isForward, isReply: options.isReply)
+        let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
+        //let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
         var message: IGRoomMessage! = realmFinal.objects(IGRoomMessage.self).filter(predicate).first
         
         if message == nil {
@@ -293,7 +293,7 @@ class IGRoomMessage: Object {
             message.primaryKeyId = primaryKeyId
         }
         
-        if !isForward && !isReply {
+        if !options.isForward && !options.isReply {
             message.roomId = roomId
         }
         
@@ -354,10 +354,10 @@ class IGRoomMessage: Object {
             message.contact = IGRoomMessageContact.putOrUpdate(realm: realmFinal, igpRoomMessageContact: igpMessage.igpContact, for: message)
         }
         if igpMessage.hasIgpForwardFrom {
-            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: roomId, isForward: true)
+            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: roomId, options: IGStructMessageOption(isForward: true, isEnableCache: true))
         }
         if igpMessage.hasIgpReplyTo {
-            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: roomId, isReply: true)
+            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: roomId, options: IGStructMessageOption(isReply: true, isEnableCache: true))
         }
         if igpMessage.hasIgpChannelExtra {
             message.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realmFinal, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
@@ -376,7 +376,7 @@ class IGRoomMessage: Object {
          message.previousMessageId = igpMessage.igpPreviousMessageID
          */
         
-        if enableCache {
+        if options.isEnableCache {
             IGGlobal.importedRoomMessageDic[message.id] = message
         }
         
@@ -547,5 +547,11 @@ class IGRoomMessage: Object {
     
     internal static func getMessageWithId(messageId: Int64) -> IGRoomMessage? {
         return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first
+    }
+    
+    internal static func deleteMessage(primaryKeyId: String) {
+        if let message = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "primaryKeyId = %@", primaryKeyId)).first {
+            IGDatabaseManager.shared.realm.delete(message)
+        }
     }
 }

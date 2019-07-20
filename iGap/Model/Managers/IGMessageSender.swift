@@ -50,36 +50,23 @@ class IGMessageSender {
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){
-        do {
-            var count:Double = 0
-
-            let realm = try Realm()
-            var predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
-            if roomId != 0 {
-                predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.sending.rawValue)
-            }
-            
-            for message in realm.objects(IGRoomMessage.self).filter(predicate) {
-                if !(message.isInvalidated) {
+        var count:Double = 0
+        let realm = try! Realm()
+        var predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
+        if roomId != 0 {
+            predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.sending.rawValue)
+        }
+        
+        for message in realm.objects(IGRoomMessage.self).filter(predicate) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + count){
+                if !message.isInvalidated {
                     count = count + 1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + count){
-                        if !(message.isInvalidated) {
-                            let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
-                            if room != nil && !room!.isInvalidated {
-                                IGMessageSender.defaultSender.resend(message: message, to: room!)
-                            }
-                        }
-                        else {
-                            print("MSG IS INVALIDATED")
-                        }
+                    let room = realm.objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", message.roomId)).first
+                    if room != nil && !room!.isInvalidated {
+                        IGMessageSender.defaultSender.resend(message: message, to: room!)
                     }
-                } else {
-                    print("MSG IS INVALIDATED")
                 }
             }
-
-        } catch let error as NSError {
-            print("RLM EXEPTION ERR HAPPENDED IN :",String(describing: self))
         }
     }
     
@@ -168,13 +155,13 @@ class IGMessageSender {
         if let nextMessageTask = plainMessagesArray.first {
             switch nextMessageTask.room.type {
             case .chat:
-                IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).success({ (protoResponse) in
+                IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
                     DispatchQueue.main.async {
-                        if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse {
-                            IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse)
+                        if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                            IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
                             
                             if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
-                                IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                                //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
                             } else {
                                 IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: chatSendMessageResponse.igpRoomMessage)
                             }

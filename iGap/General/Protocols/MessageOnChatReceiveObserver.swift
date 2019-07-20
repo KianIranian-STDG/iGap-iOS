@@ -11,5 +11,6 @@
 import IGProtoBuff
 
 protocol MessageOnChatReceiveObserver {
-    func onMessageRecieveInChatPage(message: IGPRoomMessage)
+    func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType)
+    func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage)
 }

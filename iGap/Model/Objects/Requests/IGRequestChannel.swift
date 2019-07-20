@@ -363,7 +363,7 @@ class IGChannelSendMessageRequest: IGRequest {
                 channelSendMessageRequestMessage.igpAdditionalData = additional.data!
             }
             
-            return IGRequestWrapper(message: channelSendMessageRequestMessage, actionID: 410)
+            return IGRequestWrapper(message: channelSendMessageRequestMessage, actionID: 410, identity: message)
         }
     }
     class Handler : IGRequest.Handler{

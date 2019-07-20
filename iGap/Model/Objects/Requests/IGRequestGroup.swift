@@ -375,7 +375,7 @@ class IGGroupSendMessageRequest : IGRequest {
                 sendMessageRequestMessage.igpAdditionalData = additional.data!
             }
             
-            return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 310)
+            return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 310, identity: message)
         }
     }
     

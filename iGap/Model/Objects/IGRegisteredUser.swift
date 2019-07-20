@@ -197,6 +197,25 @@ class IGRegisteredUser: Object {
         return user
     }
     
+    /**
+     * compare user cacheId , if was equal don't do anything
+     * otherwise send request for get user info
+     *
+     * @param userId  userId for get old cacheId from RealmRegisteredInfo
+     * @param cacheId new cacheId
+     * @return return true if need update otherwise return false
+     */
+    
+    public static func needUpdateUser(userId: Int64, cacheId: String?) -> Bool {
+        let realmRegisteredInfo = IGRegisteredUser.getUserInfo(id: userId)
+        if (realmRegisteredInfo != nil && cacheId != nil && realmRegisteredInfo?.cacheID == cacheId) {
+            return false
+        }
+        IGUserInfoRequest.sendRequestAvoidDuplicate(userId: userId)
+        return true
+    }
+
+    
     //detach from current realm
     func detach() -> IGRegisteredUser {
         let detachedUser = IGRegisteredUser(value: self)

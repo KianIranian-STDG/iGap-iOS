@@ -55,6 +55,17 @@ class IGClientGetRoomListRequest : IGRequest {
 
 
 class IGClientGetRoomRequest : IGRequest {
+    
+    class func sendRequest(roomId: Int64){
+        IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+            if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
+                IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+            }
+        }).error ({ (errorCode, waitTime) in
+            IGClientGetRoomRequest.sendRequest(roomId: roomId)
+        }).send()
+    }
+    
     class Generator : IGRequest.Generator{
         class func generate(roomId: Int64) -> IGRequestWrapper {
             var clientGetRoomRequestMessage = IGPClientGetRoom()

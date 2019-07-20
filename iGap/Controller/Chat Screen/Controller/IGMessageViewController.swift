@@ -2513,6 +2513,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     message.repliedTo = self.selectedMessageToReply // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                     IGMessageSender.defaultSender.send(message: message, to: self.room!)
                     
+                    self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+                    
                     self.sendMessageState(enable: false)
                     self.inputTextView.text = ""
                     self.currentAttachment = nil
@@ -3766,6 +3768,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @IBAction func didTapOnScrollToBottomButton(_ sender: UIButton) {
+        scrollToBottom()
+    }
+    
+    private func scrollToBottom(){
         self.collectionView.setContentOffset(CGPoint(x: 0, y: -self.collectionView.contentInset.top) , animated: false)
     }
     
@@ -5314,7 +5320,28 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let copy = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (action) in
-            self.copyMessage(cellMessage)
+            
+            let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
+            
+            if let cellCollection = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - 1, section: 0)) as? AbstractCell {
+                let message1 = self.messages![numberOfItems - 1]
+                let message2 = self.messages![numberOfItems - 2]
+                let index1 = self.messages?.index(of: cellCollection.realmRoomMessage)
+                print("QQQ || index1: \(index1)  ||  message1: \(message1.message)  ||  message2: \(message2.message)")
+                self.messages![index1!] = message2
+                
+                if let cellCollection = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - 1, section: 0)) as? AbstractCell {
+                    
+                    let message1 = self.messages![numberOfItems - 1]
+                    let message2 = self.messages![numberOfItems - 2]
+                    
+                    
+                    print("QQQ || message1: \(message1.message)  ||  message2: \(message2.message)")
+                    //cellCollection.realmRoomMessage = self.messages![numberOfItems - 2]
+                }
+                
+                self.collectionView.reloadItems(at: [IndexPath(row: numberOfItems - 1, section: 0)])
+            }
         })
         
         var pinTitle = "PINN".localizedNew
@@ -6066,10 +6093,25 @@ extension Array where Element: Equatable {
 /********************************** Message Loader **********************************/
 extension IGMessageViewController: MessageOnChatReceiveObserver {
     
-    func onMessageRecieveInChatPage(message: IGPRoomMessage) {
+    func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType) {
+        /**
+         * set "firstLoadDown" to false value for avoid from scroll to top after receive/send message
+         * from current callback when not loaded before any message from get history callback
+         * Hint-TODO : do better action if is possible instead set false after each message
+         */
+        self.messageLoader.setFirstLoadDown(firstLoadDown : false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if let message = IGRoomMessage.getMessageWithId(messageId: message.igpMessageID) {
                 self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
+            }
+        }
+    }
+    
+    func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if let indexOfMessage = self.messages?.index(of: identity) {
+                self.messages![indexOfMessage] = IGRoomMessage(igpMessage: message, roomId: roomId)
+                self.collectionView.reloadItems(at: [IndexPath(row: indexOfMessage, section: 0)])
             }
         }
     }
@@ -6124,6 +6166,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     }
                     self.addChatItemToBottom(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
+                    self.scrollManager()
                 }
             }
         }
@@ -6161,6 +6204,15 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             
             self.collectionView?.insertItems(at: arrayIndex)
         }, completion: nil)
+    }
+    
+    /**
+     * send scroll to bottom if needed
+     */
+    private func scrollManager(){
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.scrollToBottom()
+        }
     }
     
     //TODO - make delete method for find deleted item position and then detect that deleted item is upper than user position or is lower that from user, and finally remove item without move view because of remove item

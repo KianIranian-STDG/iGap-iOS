@@ -549,6 +549,28 @@ class IGUserAvatarGetListRequest : IGRequest {
 
 //MARK: -
 class IGUserInfoRequest : IGRequest {
+    public static let CLEAR_ARRAY_TIME: Double = 3
+    public static var userIdArrayList : [Int64] = []
+
+    /**
+     * for avoid from duplicate send request, after send each request for each user shouldn't be send as mush as 'CLEAR_ARRAY_TIME' second
+     */
+    class func sendRequestAvoidDuplicate(userId: Int64){
+        if IGAppManager.sharedManager.isUserLoggiedIn() && !userIdArrayList.contains(userId) {
+            userIdArrayList.append(userId)
+            IGUserInfoRequest.Generator.generate(userID: userId).success({ (protoResponse) in
+                if let userInfoResponse = protoResponse as? IGPUserInfoResponse {
+                    IGUserInfoRequest.Handler.interpret(response: userInfoResponse)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + IGUserInfoRequest.CLEAR_ARRAY_TIME) {
+                        if let indexOfUserId = userIdArrayList.index(of: userInfoResponse.igpUser.igpID) {
+                            userIdArrayList.remove(at: indexOfUserId)
+                        }
+                    }
+                }
+            }).error({ (errorCode, waitTime) in }).send()
+        }
+    }
     
     class func sendRequest(userId: Int64){
         if userId == 0 {return}
