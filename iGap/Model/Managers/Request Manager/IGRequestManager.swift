@@ -581,6 +581,8 @@ class IGRequestManager {
                         let errorData = IGErrorRequest.Handler.interpret(response: errorProtoMessage)
                         if let error = correspondingRequestWrapper.error {
                             error(errorData.error, errorData.wait)
+                        } else if let errorPowerful = correspondingRequestWrapper.errorPowerful {
+                            errorPowerful(errorData.error, errorData.wait, correspondingRequestWrapper)
                         }
                     } else { // -> successful
                         

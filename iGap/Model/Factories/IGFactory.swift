@@ -2884,4 +2884,52 @@ class IGFactory: NSObject {
         }
         //self.doFactoryTask(task: task)
     }
+    
+    func clearGap(roomId: Int64, fromPosition: Int64, toPosition: Int64) {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    // TODO - set all these values with list, without loop
+                    let predicate = NSPredicate(format: "roomId = %lld AND id >= %lld AND id <= %lld", roomId, fromPosition, toPosition)
+                    for realmRoomMessage in IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate) {
+                        realmRoomMessage.previousMessageId = 0
+                        realmRoomMessage.futureMessageId = 0
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
+    
+    /* if don't set direction, messageId will be set for both of previousMessageId & futureMessageId */
+    func setGap(messageId: Int64, direction: IGPClientGetRoomHistory.IGPDirection? = nil) {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                try! IGDatabaseManager.shared.realm.write {
+                    let predicate = NSPredicate(format: "id = %lld", messageId)
+                    if let realmRoomMessage = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
+                        if direction == nil {
+                            realmRoomMessage.previousMessageId = messageId
+                            realmRoomMessage.futureMessageId = messageId
+                        } else {
+                            if (direction == .up) {
+                                realmRoomMessage.previousMessageId = messageId
+                            } else {
+                                realmRoomMessage.futureMessageId = messageId
+                            }
+                        }
+                    }
+                }
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
 }

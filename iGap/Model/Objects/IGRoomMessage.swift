@@ -32,7 +32,8 @@ class IGRoomMessage: Object {
     @objc dynamic var roomId:             Int64                           = -1
     @objc dynamic var primaryKeyId:       String?
     @objc dynamic var messageVersion:     Int64                           = -1
-    @objc dynamic var previuosMessageUID: Int64                           = -1
+    @objc dynamic var previousMessageId:  Int64                           = 0
+    @objc dynamic var futureMessageId:    Int64                           = 0
     @objc dynamic var statusVersion:      Int64                           = -1
     @objc dynamic var deleteVersion:      Int64                           = -1
     @objc dynamic var shouldFetchBefore:  Bool                            = false
@@ -221,7 +222,7 @@ class IGRoomMessage: Object {
             self.repliedTo = IGRoomMessage(igpMessage: igpMessage.igpReplyTo, roomId: roomId, isReply: true)
         }
         if igpMessage.igpPreviousMessageID != 0 {
-            self.previuosMessageUID = igpMessage.igpPreviousMessageID
+            self.previousMessageId = igpMessage.igpPreviousMessageID
         }
         
         self.randomId = igpMessage.igpRandomID
@@ -305,7 +306,7 @@ class IGRoomMessage: Object {
             message.statusVersion = igpMessage.igpStatusVersion
         }
         if igpMessage.igpPreviousMessageID != 0 {
-            message.previuosMessageUID = igpMessage.igpPreviousMessageID
+            message.previousMessageId = igpMessage.igpPreviousMessageID
         }
         if igpMessage.hasIgpAuthor {
             let author = igpMessage.igpAuthor

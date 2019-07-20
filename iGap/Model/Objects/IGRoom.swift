@@ -63,6 +63,7 @@ class IGRoom: Object {
     @objc dynamic var groupRoom:          IGGroupRoom?
     @objc dynamic var channelRoom:        IGChannelRoom?
     @objc dynamic var lastMessage:        IGRoomMessage?
+    @objc dynamic var firstUnreadMessage: IGRoomMessage?
     @objc dynamic var sortimgTimestamp:   Double                  = 0.0
     @objc dynamic var clearIdString:      String?
     @objc dynamic var muteRoom:           IGRoomMute.RawValue     = IGRoomMute.unmute.rawValue

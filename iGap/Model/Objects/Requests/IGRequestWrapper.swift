@@ -33,6 +33,7 @@ class IGRequestWrapper :NSObject {
     var success: ((ResponseMessage)->())? // simple success just return server response
     var successPowerful: ((ResponseMessage, IGRequestWrapper)->())? //successPowerful has IGRequestWrapper for use identity or another info that used in send request
     var error: ((IGError, IGErrorWaitTime?)->())?
+    var errorPowerful: ((IGError, IGErrorWaitTime?, IGRequestWrapper)->())? // Hint: Always use 'errorPowerful' just with 'successPowerful'
     
     
     init(message: RequestMessage!, actionID:Int) {
@@ -61,6 +62,12 @@ class IGRequestWrapper :NSObject {
     @discardableResult
     func error(_ error: @escaping (IGError, IGErrorWaitTime?)->()) -> IGRequestWrapper {
         self.error = error
+        return self
+    }
+    
+    @discardableResult
+    func errorPowerful(_ errorPowerful: @escaping (IGError, IGErrorWaitTime?, IGRequestWrapper)->()) -> IGRequestWrapper {
+        self.errorPowerful = errorPowerful
         return self
     }
     
