@@ -232,7 +232,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                           SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesForMedia = [SortDescriptor(keyPath: "creationTime", ascending: true),
                                   SortDescriptor(keyPath: "id", ascending: true)]
-    var messages: Results<IGRoomMessage>! //try! Realm().objects(IGRoomMessage.self)
+    var messages: [IGRoomMessage]? = []
     var messagesWithMedia = try! Realm().objects(IGRoomMessage.self)
     
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
@@ -311,6 +311,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     internal static var additionalObserver: AdditionalObserver!
     internal static var messageViewControllerObserver: MessageViewControllerObserver!
     
+    var isLoadingTop = false
+    private var messageLoader: IGMessageLoader!
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -519,6 +521,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.view.layoutIfNeeded()
             
         }
+        
+        messageLoader = IGMessageLoader(roomId: self.room!.id)
         
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
         
@@ -754,10 +758,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         tapAndHoldOnRecord.minimumPressDuration = 0.5
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
         
-        messages = findAllMessages()
+        messageLoader.getMessages { (messages, direction) in
+            self.addChatItem(realmRoomMessages: messages, direction: direction)
+        }
         updateObserver()
         let t = messages
-        if messages.count == 0 {
+        if messages!.count == 0 {
             fetchRoomHistoryWhenDbIsClear()
         }
     }
@@ -1397,6 +1403,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func updateObserver(){
+        /*
         self.notificationToken?.invalidate()
         self.notificationToken = messages?.observe { (changes: RealmCollectionChange) in
             switch changes {
@@ -1433,6 +1440,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 break
             }
         }
+        */
     }
     
     func findAllMessages(isHistory: Bool = false) -> Results<IGRoomMessage>!{
@@ -4295,20 +4303,19 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: IGMessageCollectionView, messageAt indexpath: IndexPath) -> IGRoomMessage {
-        return messages![indexpath.section]
+        return messages![indexpath.row]
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+       return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if messages != nil {
             return messages!.count
         }
         return 0
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
     
     func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         
@@ -4327,7 +4334,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         }
         
         self.collectionView = collectionView as? IGMessageCollectionView
-        let message = messages![indexPath.section]
+        let message = messages![indexPath.row]
         var isIncommingMessage = true
         var shouldShowAvatar = false
         var isPreviousMessageFromSameSender = false
@@ -4336,8 +4343,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         let messageType = getMessageType(message: message)
         
         if message.type != .log {
-            if messages!.indices.contains(indexPath.section + 1){
-                let previousMessage = messages![(indexPath.section + 1)]
+            if messages!.indices.contains(indexPath.row + 1){
+                let previousMessage = messages![(indexPath.row + 1)]
                 if previousMessage.type != .log && message.authorHash == previousMessage.authorHash {
                     isPreviousMessageFromSameSender = true
                 }
@@ -4345,13 +4352,13 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
             //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
             /*
-             if messages!.indices.contains(indexPath.section - 1){
-             let nextMessage = messages![(indexPath.section - 1)]
-             if message.authorHash == nextMessage.authorHash {
-             isNextMessageFromSameSender = true
-             }
-             }
-             */
+            if messages!.indices.contains(indexPath.row - 1){
+                let nextMessage = messages![(indexPath.row - 1)]
+                if message.authorHash == nextMessage.authorHash {
+                    isNextMessageFromSameSender = true
+                }
+            }
+            */
         }
         
         
@@ -4750,28 +4757,28 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        var shouldShowFooter = false
+        var shouldShowFooter = true
         
-        if let message = messages?[section] {
-            if message.shouldFetchBefore {
-                shouldShowFooter = true
-            } else if section < messages!.count - 1, let previousMessage =  messages?[section + 1] {
-                let thisMessageDateComponents     = Calendar.current.dateComponents([.year, .month, .day], from: message.creationTime!)
-                let previousMessageDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: previousMessage.creationTime!)
-                
-                if thisMessageDateComponents.year == previousMessageDateComponents.year &&
-                    thisMessageDateComponents.month == previousMessageDateComponents.month &&
-                    thisMessageDateComponents.day == previousMessageDateComponents.day
-                {
-                    
-                } else {
-                    shouldShowFooter = true
-                }
-            } else {
-                //first message in room -> always show time
-                shouldShowFooter = true
-            }
-        }
+//        if let message = messages?[section] {
+//            if message.shouldFetchBefore {
+//                shouldShowFooter = true
+//            } else if section < messages!.count - 1, let previousMessage =  messages?[section + 1] {
+//                let thisMessageDateComponents     = Calendar.current.dateComponents([.year, .month, .day], from: message.creationTime!)
+//                let previousMessageDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: previousMessage.creationTime!)
+//
+//                if thisMessageDateComponents.year == previousMessageDateComponents.year &&
+//                    thisMessageDateComponents.month == previousMessageDateComponents.month &&
+//                    thisMessageDateComponents.day == previousMessageDateComponents.day
+//                {
+//
+//                } else {
+//                    shouldShowFooter = true
+//                }
+//            } else {
+//                //first message in room -> always show time
+//                shouldShowFooter = true
+//            }
+//        }
         
         if shouldShowFooter {
             return CGSize(width: 35, height: 50.0)
@@ -4786,8 +4793,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: IGMessageLogCollectionViewCell.cellReuseIdentifier(), for: indexPath) as! IGMessageLogCollectionViewCell
             
-            if indexPath.section < messages.count {
-                if let message = messages?[indexPath.section] {
+            if indexPath.row < messages!.count {
+                if let message = messages?[indexPath.row] {
                     if message.shouldFetchBefore {
                         header.setText("Loading ...".localizedNew)
                     } else {
@@ -4811,7 +4818,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
 extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let message = messages![indexPath.section]
+        let message = messages![indexPath.row]
         let size = self.collectionView.layout.sizeCell(room: self.room!, for: message)
         let frame = size.bubbleSize
         
@@ -4877,68 +4884,57 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let message = messages![indexPath.section]
-        if (messages!.count < 20 && lowerAllow) { // HINT: this number(20) should set lower than getMessageLimit(25) for work correct
-            lowerAllow = false
-            
-            let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-            do {
-                let realm = try Realm()
-                messages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-                updateObserver()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.fetchRoomHistoryIfPossibleBefore(message: message)
-                }
-
-            } catch let error as NSError {
-                print("RLM EXEPTION ERR HAPPENDED IN willDisplay:",String(describing: self))
-            }
-        } else if (messages!.count < 20 || messages!.indices.contains(indexPath.section + 1)) && message.shouldFetchBefore {
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.fetchRoomHistoryIfPossibleBefore(message: message, forceGetHistory: true)
-            }
-        }
-    }
-    
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { // TODO - when isWaiting for get from server return this method and don't do any action
         
-        if self.collectionView.numberOfSections == 0 {
+        if self.collectionView.numberOfItems(inSection: 0) == 0 {
             return
         }
         
         setFloatingDate()
         
-        let spaceToTop = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.height
-        if spaceToTop < self.scrollToTopLimit {
+        /*
+        if (scrollView.contentOffset.y < 0) { //reach top
+            self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
+                self.addChatItem(realmRoomMessages: messages, direction: direction)
+            })
             
-            if hasLocal {
-                if allowForGetHistoryLocal {
-                    allowForGetHistoryLocal = false
-                    messages = findAllMessages()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.allowForGetHistoryLocal = true
-                    }
-                }
-            } else {
-                let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", self.room!.id, 0)
-                if let message = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties).last {
-                    if isFirstHistory {
-                        isFirstHistory = false
-                        messages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-                        updateObserver()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            self.fetchRoomHistoryIfPossibleBefore(message: message)
-                        }
-                    } else {
-                        self.fetchRoomHistoryIfPossibleBefore(message: message)
-                    }
-                }
+            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
+             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
+             */
+            //if (totalItemCount <= scrollEnd) {
+            //    loadMessage(DOWN);
+            //}
+        }
+        
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach bottom
+            self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
+                self.addChatItem(realmRoomMessages: messages, direction: direction)
+            })
+        }
+        */
+
+        //currently use inverse
+        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) && !isLoadingTop) { //reach top
+            isLoadingTop = true
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5){
+                self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
+                    self.addChatItem(realmRoomMessages: messages, direction: direction)
+                    self.isLoadingTop = false
+                })
             }
+            
+            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
+             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
+             */
+            //if (totalItemCount <= scrollEnd) {
+            //    loadMessage(DOWN);
+            //}
+        }
+        
+        if (scrollView.contentOffset.y < 0) { //reach bottom
+            self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
+                self.addChatItem(realmRoomMessages: messages, direction: direction)
+            })
         }
         
         //100 is an arbitrary number. can be anything
@@ -4953,13 +4949,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                 }
             }
             self.scrollToBottomContainerView.isHidden = true
-        }
-        
-        let scrollOffset = scrollView.contentOffset.y;
-        if (scrollOffset <= 300){ // reach end of scroll
-            isEndOfScroll = true
-        } else {
-            isEndOfScroll = false
         }
     }
     
@@ -4981,8 +4970,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                 return
             }
             
-            if latestIndexPath.section < messages.count {
-                if let message = messages?[latestIndexPath.section] {
+            if latestIndexPath.row < messages!.count {
+                if let message = messages?[latestIndexPath.row] {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
@@ -5492,7 +5481,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func goToPosition(cellMessage: IGRoomMessage){
         var count = 0
-        for message in self.messages {
+        for message in self.messages! {
             if cellMessage.id == message.id {
                 let indexPath = IndexPath(row: 0, section: count)
                 self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
@@ -6015,3 +6004,62 @@ extension Array where Element: Equatable {
 
 
 
+/********************************** Message Loader **********************************/
+extension IGMessageViewController {
+    
+    func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection){
+        print("RRR || realmRoomMessages: \(realmRoomMessages.count)")
+        if realmRoomMessages.count == 0 {
+            return
+        }
+        
+        if direction != .up {
+            for message in realmRoomMessages {
+                messages!.insert(message, at: 0)
+            }
+            addChatItemToTop(count: realmRoomMessages.count)
+        } else {
+            for message in realmRoomMessages {
+                messages!.append(message)
+            }
+            addChatItemToBottom(count: realmRoomMessages.count)
+        }
+    }
+    
+    private func addChatItemToTop(count: Int) {
+        let contentHeight = self.collectionView!.contentSize.height
+        let offsetY = self.collectionView!.contentOffset.y
+        let bottomOffset = contentHeight - offsetY
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        UIView.setAnimationsEnabled(false)
+        
+        self.collectionView?.performBatchUpdates({
+            var arrayIndex: [IndexPath] = []
+            
+            for index in 0...(count-1) {
+                arrayIndex.append(IndexPath(row: index, section: 0))
+            }
+            
+            self.collectionView?.insertItems(at: arrayIndex)
+        }, completion: { _ in
+            self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
+            CATransaction.commit()
+        })
+    }
+    
+    private func addChatItemToBottom(count: Int) {
+        self.collectionView?.performBatchUpdates({
+            var arrayIndex: [IndexPath] = []
+            
+            for index in 0...(count-1) {
+                arrayIndex.append(IndexPath(row: (messages!.count-count)+index, section: 0))
+            }
+            
+            self.collectionView?.insertItems(at: arrayIndex)
+        }, completion: nil)
+    }
+    
+    //TODO - make delete method for find deleted item position and then detect that deleted item is upper than user position or is lower that from user, and finally remove item without move view because of remove item
+}

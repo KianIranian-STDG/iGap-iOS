@@ -26,14 +26,14 @@ class IGMessageLoader {
     var allowGetHistoryDown = true // after insuring for get end of message from server set this false. (set false in history error maybe was wrong , because maybe this was for another error not end  of message, (hint: can check error code for end of message from history))
     var firstUp = true // if is firstUp getClientRoomHistory with low limit in UP direction
     var firstDown = true // if is firstDown getClientRoomHistory with low limit in DOWN direction
-    var gapMessageIdUp: Int64! // messageId that maybe lost in local
-    var gapMessageIdDown: Int64! // messageId that maybe lost in local
-    var reachMessageIdUp: Int64! // messageId that will be checked after getHistory for detect reached to that or no
-    var reachMessageIdDown: Int64! // messageId that will be checked after getHistory for detect reached to that or no
-    var startFutureMessageIdUp: Int64! // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
-    var startFutureMessageIdDown: Int64! // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
-    var progressIdentifierUp: Int64! = 0 // store identifier for Up progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
-    var progressIdentifierDown: Int64! = 0 // store identifier for Down progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
+    var gapMessageIdUp: Int64 = 0 // messageId that maybe lost in local
+    var gapMessageIdDown: Int64 = 0 // messageId that maybe lost in local
+    var reachMessageIdUp: Int64 = 0 // messageId that will be checked after getHistory for detect reached to that or no
+    var reachMessageIdDown: Int64 = 0 // messageId that will be checked after getHistory for detect reached to that or no
+    var startFutureMessageIdUp: Int64 = 0 // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
+    var startFutureMessageIdDown: Int64 = 0 // for get history from local or online in next step use from this param, ( hint : don't use from adapter items, because maybe this item was deleted and in this changeState messageId for get history won't be detected.
+    var progressIdentifierUp: Int64 = 0 // store identifier for Up progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
+    var progressIdentifierDown: Int64 = 0 // store identifier for Down progress item and use it if progress not removed from view after check 'instanceOf' in 'progressItem' method
     var firstVisiblePosition: Int32 = 0 // difference between start of adapter item and items that Showing.
     var firstVisiblePositionOffset: Int32 = 0 // amount of offset from top of view for first visible item in adapter
     var visibleItemCount: Int32 = 0 // visible item in recycler view
@@ -54,10 +54,14 @@ class IGMessageLoader {
     let sortPropertiesUp = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesDown = [SortDescriptor(keyPath: "creationTime", ascending: false), SortDescriptor(keyPath: "id", ascending: true)]
     
+    init(roomId: Int64) {
+        self.roomId = roomId
+    }
+    
     /**
      * manage save changeState , unread message , load from local or need get message from server and finally load message
      */
-    private func getMessages() {
+    public func getMessages(onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         var direction: IGPClientGetRoomHistory.IGPDirection!
         var messageInfos: [IGRoomMessage] = []
         /**
@@ -85,7 +89,7 @@ class IGMessageLoader {
                 if (hasUnread()) {
                     if (firstUnreadMessage == nil) {
                         resetMessagingValue()
-                        getMessages()
+                        getMessages(onMessageReceive: onMessageReceive)
                         return;
                     }
                     /*
@@ -99,7 +103,7 @@ class IGMessageLoader {
             } else {
                 if (firstUnreadMessage == nil) {
                     resetMessagingValue()
-                    getMessages()
+                    getMessages(onMessageReceive: onMessageReceive)
                     return
                 }
                 unreadLayoutMessage()
@@ -218,9 +222,9 @@ class IGMessageLoader {
         }
         
         if (direction == .up) {
-            //switchAddItem(messageInfos, true);
+            onMessageReceive(messageInfos, .up)
         } else {
-            //switchAddItem(messageInfos, false);
+            onMessageReceive(messageInfos, .down)
             if (hasSavedState()) {
                 
                 if (messageId != 0) {
@@ -286,9 +290,9 @@ class IGMessageLoader {
     /**
      * manage load message from local or from server(online)
      */
-    private func loadMessage(direction: IGPClientGetRoomHistory.IGPDirection) {
-        var gapMessageId: Int64!
-        var startFutureMessageId: Int64!
+    public func loadMessage(direction: IGPClientGetRoomHistory.IGPDirection, onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
+        var gapMessageId: Int64 = 0
+        var startFutureMessageId: Int64 = 0
         if (direction == .up) {
             gapMessageId = gapMessageIdUp
             startFutureMessageId = startFutureMessageIdUp
@@ -305,7 +309,7 @@ class IGMessageLoader {
                 bottomMore = methodResult.hasMore
             }
             
-            var structMessageInfos: [IGRoomMessage] = [] // final ArrayList<StructMessageInfo> structMessageInfos = (ArrayList<StructMessageInfo>) object[0];
+            var structMessageInfos = methodResult.realmRoomMessages
             if (structMessageInfos.count > 0) {
                 if (direction == .up) {
                     startFutureMessageIdUp = Int64(structMessageInfos[structMessageInfos.count - 1].id)
@@ -324,19 +328,9 @@ class IGMessageLoader {
                     startFutureMessageIdDown = 0
                 }
             }
-            
-            /*
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (direction == UP) {
-                        switchAddItem(structMessageInfos, true);
-                    } else {
-                        switchAddItem(structMessageInfos, false);
-                    }
-                }
-            });
-            */
+
+            /* send existing message to the view */
+            onMessageReceive(structMessageInfos, direction)
             
             /**
              * if gap is exist ,check that reached to gap or not and if
@@ -631,9 +625,9 @@ class IGMessageLoader {
      *
      * @param messageId set gap for this message id
      */
-    private func setGapAndGetMessage(messageId: Int64) {
+    private func setGapAndGetMessage(messageId: Int64, onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) {
         IGFactory.shared.setGap(messageId: messageId)
-        getMessages()
+        getMessages(onMessageReceive: onMessageReceive)
     }
 
     
