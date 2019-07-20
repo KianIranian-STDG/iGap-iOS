@@ -525,6 +525,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         messageLoader = IGMessageLoader(roomId: self.room!.id)
         
+        IGMessageViewController.messageIdsStatic = []
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, inputBarMoneyTransferButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
@@ -6093,7 +6094,10 @@ extension Array where Element: Equatable {
 
 
 
+/************************************************************************************/
 /********************************** Message Loader **********************************/
+/************************************************************************************/
+
 extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     /*************************************************************************/
@@ -6116,8 +6120,8 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if let indexOfMessage = self.messages?.index(of: identity) {
-                self.messages![indexOfMessage] = IGRoomMessage(igpMessage: message, roomId: roomId)
-                self.collectionView.reloadItems(at: [IndexPath(row: indexOfMessage, section: 0)])
+                self.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: message, roomId: roomId))
+                self.updateItem(cellPosition: indexOfMessage)
             }
         }
     }
@@ -6127,10 +6131,14 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             /* this messageId updated so after get this message from realm it has latest update */
             if let newMessage = IGRoomMessage.getMessageWithId(messageId: messageId) {
-                self.messages![updatePosition!] = newMessage
-                self.collectionView.reloadItems(at: [IndexPath(row: updatePosition!, section: 0)])
+                self.updateMessageArray(cellPosition: updatePosition!, message: newMessage)
+                self.updateItem(cellPosition: updatePosition!)
             }
         }
+    }
+    
+    func onMessageDelete(roomId: Int64, messageId: Int64) {
+        removeItem(cellPosition: IGMessageViewController.messageIdsStatic.index(of: messageId))
     }
     
     /**
@@ -6141,13 +6149,8 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         return IGMessageViewController.messageIdsStatic.index(of: messageId)
     }
     
-    private func updateMessge(newMessage: IGRoomMessage, oldMessage: IGRoomMessage){
-        
-    }
-    
-    
     /*********************************************************************************/
-    /******************************* Add to Collection *******************************/
+    /******************* Collection Manager (Add , Remove , Update) ******************/
     
     func addChatItem(realmRoomMessages: [IGRoomMessage], direction: IGPClientGetRoomHistory.IGPDirection, scrollToBottom: Bool = false){
         if realmRoomMessages.count == 0 {
@@ -6232,7 +6235,20 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             self.collectionView?.insertItems(at: arrayIndex)
         }, completion: nil)
     }
+
+    private func removeItem(cellPosition: Int?){
+        if cellPosition == nil {return}
+        DispatchQueue.main.async {
+            self.removeMessageArrayByPosition(cellPosition: cellPosition)
+            self.collectionView?.performBatchUpdates({
+                self.collectionView?.deleteItems(at: [IndexPath(row: cellPosition!, section: 0)])
+            }, completion: nil)
+        }
+    }
     
+    private func updateItem(cellPosition: Int){
+        self.collectionView.reloadItems(at: [IndexPath(row: cellPosition, section: 0)])
+    }
     
     /*********************************************************************************/
     /******************************** Popular Methods ********************************/
@@ -6246,13 +6262,25 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         } else {
             for message in messages {
                 self.messages!.insert(message, at: 0)
-                IGMessageViewController.messageIdsStatic.append(message.id)
+                IGMessageViewController.messageIdsStatic.insert(message.id, at: 0)
             }
         }
     }
     
-    private func removeMessageArray(){
-        
+    private func removeMessageArray(messageId: Int64){
+        if let index = IGMessageViewController.messageIdsStatic.index(of: messageId) {
+            IGMessageViewController.messageIdsStatic.remove(at: index)
+        }
+    }
+    
+    private func removeMessageArrayByPosition(cellPosition: Int?){
+        self.messages?.remove(at: cellPosition!)
+        IGMessageViewController.messageIdsStatic.remove(at: cellPosition!)
+    }
+    
+    private func updateMessageArray(cellPosition: Int, message: IGRoomMessage){
+        self.messages![cellPosition] = message
+        IGMessageViewController.messageIdsStatic[cellPosition] = message.id
     }
     
     /**

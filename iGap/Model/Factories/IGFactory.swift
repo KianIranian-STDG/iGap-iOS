@@ -795,6 +795,7 @@ class IGFactory: NSObject {
                         messageInDb.deleteVersion = deleteVersion
                     }
                 }
+                IGMessageViewController.messageOnChatReceiveObserver?.onMessageDelete(roomId: roomID, messageId: messageID)
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)
                 }
