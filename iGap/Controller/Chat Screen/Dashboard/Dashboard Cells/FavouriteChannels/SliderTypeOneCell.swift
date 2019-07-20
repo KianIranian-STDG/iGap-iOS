@@ -16,6 +16,12 @@ struct channels {
     var id: String
     var iconUrl : String
 }
+struct categories {
+    var titleEn: String
+    var titleFa: String
+    var id: String
+    var iconUrl : String
+}
 
 class SliderTypeOneCell: UITableViewCell {
 

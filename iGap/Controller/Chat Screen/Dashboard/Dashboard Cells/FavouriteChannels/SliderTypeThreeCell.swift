@@ -7,20 +7,13 @@
 //
 
 import UIKit
-var counter = 0
-var CategoriesCounter = 0
 
-class SliderTypeTwoCell: UITableViewCell,UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    
     var timer = Timer()
     var photoCount:Int = 0
-    var collectionCounts : Int = 0
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var mainView : UIView!
-    @IBOutlet weak var collectionHolderView : UIView!
-    @IBOutlet weak var btnMore : UIButton!
-    @IBOutlet weak var lblTitle : UILabel!
-    var channelsDataArray : [channels] = []
+    var categoriesDataArray : [categories] = []
     var titleArray : [String] = []
     var imageArray : [UIImage] = []
 
@@ -34,54 +27,48 @@ class SliderTypeTwoCell: UITableViewCell,UICollectionViewDelegate, UICollectionV
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titleArray.count
+        return 15
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IGFavouriteChannelsDashboardCollectionViewCell", for: indexPath as IndexPath) as! IGFavouriteChannelsDashboardCollectionViewCell
-
-
+        cell.backgroundColor = .lightGray
         cell.lbl.text = titleArray[indexPath.item]
         cell.imgBG.image = imageArray[indexPath.item]
-//        tmpIMG.sd_setImage(with: channelsDataArray[inde], completed: nil)
+
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.bounds.width
         let collectionViewHeight = collectionView.bounds.height
-        return CGSize(width: collectionViewWidth/4.0 , height: collectionViewWidth/4.0)
+        return CGSize(width: collectionViewWidth/4.5 , height: collectionViewWidth/4.5)
     }
+    
     public func initView(){
-        counter += 1
-        mainView?.layer.cornerRadius = 10
-        collectionHolderView?.layer.cornerRadius = 10
-        
+        CategoriesCounter += 1
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.register(UINib.init(nibName: "IGFavouriteChannelsDashboardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IGFavouriteChannelsDashboardCollectionViewCell")
         
+        
         self.collectionView.backgroundColor = .clear
         self.getData()
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            let t = counter
-            let h = self.collectionCounts
-            if counter <= self.collectionCounts {
+            let t = CategoriesCounter
+            if CategoriesCounter <= 3 {
                 self.collectionView.reloadData()
-                NotificationCenter.default.post(name: Notification.Name(SMConstants.refreshTableView), object: nil)
             }
         }
         ///
         
     }
-
+    
     
     private func getData() {
         var tmptitleArray : [String] = []
@@ -92,9 +79,9 @@ class SliderTypeTwoCell: UITableViewCell,UICollectionViewDelegate, UICollectionV
         if tmpimageArray.count > 0 {
             tmpimageArray.removeAll()
         }
-        for i in channelsDataArray {
-        
-    
+        for i in categoriesDataArray {
+            
+            
             tmptitleArray.append(i.titleFa)
             let tmpImg = UIImageView()
             let url = URL(string: i.iconUrl)!
@@ -105,17 +92,17 @@ class SliderTypeTwoCell: UITableViewCell,UICollectionViewDelegate, UICollectionV
             else {
                 tmpimageArray.append((tmpImg.image!))
             }
-//                let data = try? Data(contentsOf: url)
-//                if let imageData = data {
-//                    let image = UIImage(data: imageData)
-//                    self.imageArray.append((image!))
-//                }
-//            } else {
-//            }
+            //                let data = try? Data(contentsOf: url)
+            //                if let imageData = data {
+            //                    let image = UIImage(data: imageData)
+            //                    self.imageArray.append((image!))
+            //                }
+            //            } else {
+            //            }
             imageArray = tmpimageArray
             
             titleArray = tmptitleArray
-    
+            
+        }
     }
-}
 }

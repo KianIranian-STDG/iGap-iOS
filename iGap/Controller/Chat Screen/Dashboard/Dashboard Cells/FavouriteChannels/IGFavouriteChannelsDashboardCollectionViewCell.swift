@@ -18,7 +18,7 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
         // Initialization code
         self.backgroundColor = .white
         self.layer.cornerRadius = 10.0
-        
+        lbl.backgroundColor = .white
         self.contentView.layer.cornerRadius = 10.0
         self.contentView.layer.borderWidth = 1.0
         self.contentView.layer.borderColor = UIColor.white.cgColor

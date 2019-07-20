@@ -16,6 +16,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
     var galleryLoopTimeArray : [Int] = []
     var galleryImageUrlArray : [[String]] = [[]]
     var galleryChannelsDataArray : [[channels]] = [[]]
+    var galleryCategoriesDataArray : [categories] = []
     var sectionTitleArrays : [String] = []
     var sectionTitleEnArrays : [String] = []
     var galleryScaleArray : [String] = []
@@ -99,6 +100,19 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
                     galleryImageUrlArray.append([])
                 }
                 if (elemnt["categories"]).exists() {
+                    var tmpCategories :[categories] = []
+                    if tmpCategories.count > 0 {
+                        tmpCategories.removeAll()
+                    }
+                    for elemnt in (elemnt["categories"]).arrayValue {
+                        let tmpIconUrl = (elemnt["icon"]).description
+                        let tmpTitleEn = (elemnt["titleEn"]).description
+                        let tmpTitleFa = (elemnt["title"]).description
+                        let tmpId = (elemnt["id"]).description
+                        let t = categories(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
+                        galleryCategoriesDataArray.append(t)
+                    }
+                    
                     
                 } else {
                     
@@ -175,6 +189,10 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
             break
         case "channelNormalCategory" :
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
+
+            cell.categoriesDataArray = galleryCategoriesDataArray
+            
+            cell.initView()
 
             return cell
 
