@@ -23,6 +23,8 @@
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
+		8E7EE0C922E354D500133485 /* MessageViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */; };
+		8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
 		8E8D8E19225CE39B00039191 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E18225CE39A00039191 /* strings.json */; };
 		8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E2C225DB6A500039191 /* Fast.xib */; };
@@ -682,6 +684,8 @@
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
+		8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsFa.json; sourceTree = "<group>"; };
+		8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsEn.json; sourceTree = "<group>"; };
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
 		8E8D8E2C225DB6A500039191 /* Fast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Fast.xib; sourceTree = "<group>"; };
@@ -2093,6 +2097,8 @@
 				8E8D8E18225CE39A00039191 /* strings.json */,
 				8EACC7B322621ACA00F32DC3 /* localizations.json */,
 				8EBF550E22DB581300834E6A /* localizationsFa.json */,
+				8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */,
+				8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */,
 				8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */,
 				8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */,
 				8EBF551022DB582700834E6A /* localizationsEn.json */,
@@ -2972,6 +2978,7 @@
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
 				8EBF552722DCA9B000834E6A /* SliderTypeOneCell.xib in Resources */,
+				8E7EE0C922E354D500133485 /* MessageViewlocalizationsFa.json in Resources */,
 				FA93EE2A2029A41200DD1521 /* VoiceCell.xib in Resources */,
 				8EACC7B422621ACA00F32DC3 /* localizations.json in Resources */,
 				FA927E0E20288AEE00DF7145 /* FileCell.xib in Resources */,
@@ -2989,6 +2996,7 @@
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
 				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
 				FAE6063C21EB3A0C00F03FFC /* de.lproj in Resources */,
+				8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */,
 				8EBF552A22DCAA9500834E6A /* ServerData.json in Resources */,
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				FAE6064021EB3A0C00F03FFC /* es-ES.lproj in Resources */,

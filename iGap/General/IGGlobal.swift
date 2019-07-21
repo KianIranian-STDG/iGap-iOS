@@ -1382,6 +1382,20 @@ extension String {
         
         return MCLocalization.string(forKey: self)
     }
+    
+    var MessageViewlocalizedNew: String {
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "MessageViewlocalizationsFa"
+        } else {
+            IGGlobal.languageFileName = "MessageViewlocalizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+        
+        return MCLocalization.string(forKey: self)
+    }
     func substring(offset: Int) -> String{
         if self.count < offset {
             return self

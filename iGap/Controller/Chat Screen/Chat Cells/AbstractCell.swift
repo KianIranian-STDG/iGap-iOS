@@ -855,7 +855,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             } else if body != nil && !(body?.isEmpty)! {
                 
                 if repliedMessage.type == .sticker {
-                    txtReplyMessageAbs.text = body! + "LBL_STICKER".localizedNew
+                    txtReplyMessageAbs.text = body! + "LBL_STICKER".MessageViewlocalizedNew
                 } else {
                     let markdown = MarkdownParser()
                     markdown.enabledElements = MarkdownParser.EnabledElements.bold
@@ -888,11 +888,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             makeForward()
             
             if let user = originalMessage.authorUser {
-                txtForwardAbs.text = "FORWARDED_FROM".localizedNew + " \(user.displayName)"
+                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user.displayName)"
             } else if let room = originalMessage.authorRoom {
-                txtForwardAbs.text = "FORWARDED_FROM".localizedNew + " \(room.title != nil ? room.title! : "")"
+                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(room.title != nil ? room.title! : "")"
             } else {
-                txtForwardAbs.text = "FORWARDED_FROM"
+                txtForwardAbs.text = "FORWARDED_FROM".MessageViewlocalizedNew
             }
 
             let text = originalMessage.message

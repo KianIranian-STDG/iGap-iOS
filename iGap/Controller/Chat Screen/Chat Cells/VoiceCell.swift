@@ -154,9 +154,9 @@ class VoiceCell: AbstractCell {
         
         let attachment: IGFile! = finalRoomMessage.attachment
         if finalRoomMessage.authorUser != nil {
-            txtVoiceRecorderName.text = "RECORDED_BY".localizedNew + " \(finalRoomMessage.authorUser!.displayName)"
+            txtVoiceRecorderName.text = "RECORDED_BY".MessageViewlocalizedNew + " \(finalRoomMessage.authorUser!.displayName)"
         } else if finalRoomMessage.authorRoom != nil {
-            txtVoiceRecorderName.text = "RECORDED_VOICE".localizedNew
+            txtVoiceRecorderName.text = "RECORDED_VOICE".MessageViewlocalizedNew
         }
         
         if isIncommingMessage {
