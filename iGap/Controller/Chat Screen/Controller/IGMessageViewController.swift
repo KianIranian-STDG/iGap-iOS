@@ -4412,7 +4412,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect && message.type != .log {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4448,7 +4448,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4482,7 +4482,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4516,7 +4516,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4550,7 +4550,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4584,7 +4584,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4618,7 +4618,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4652,7 +4652,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4686,7 +4686,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4720,7 +4720,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             if IGGlobal.shouldMultiSelect {
                 if selectedIndex.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.section].id) {
+                    if self.selectedIndex.contains(messages![indexPath.row].id) {
                         
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
@@ -4796,32 +4796,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var shouldShowFooter = true
         
-//        if let message = messages?[section] {
-//            if message.shouldFetchBefore {
-//                shouldShowFooter = true
-//            } else if section < messages!.count - 1, let previousMessage =  messages?[section + 1] {
-//                let thisMessageDateComponents     = Calendar.current.dateComponents([.year, .month, .day], from: message.creationTime!)
-//                let previousMessageDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: previousMessage.creationTime!)
-//
-//                if thisMessageDateComponents.year == previousMessageDateComponents.year &&
-//                    thisMessageDateComponents.month == previousMessageDateComponents.month &&
-//                    thisMessageDateComponents.day == previousMessageDateComponents.day
-//                {
-//
-//                } else {
-//                    shouldShowFooter = true
-//                }
-//            } else {
-//                //first message in room -> always show time
-//                shouldShowFooter = true
-//            }
-//        }
-        
-//        if shouldShowFooter {
-//            return CGSize(width: 35, height: 50.0)
-//        } else {
-//            return CGSize(width: 0.001, height: 0.001)//CGSize.zero
-//        }
+
         return CGSize(width: 0.001, height: 0.001)//CGSize.zero
     }
     
@@ -4884,7 +4859,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tmpID = (messages![indexPath.section].id)
+        let tmpID = (messages![indexPath.row].id)
         
         if (IGGlobal.shouldMultiSelect) {
             if selectedIndex.contains(tmpID) {
@@ -5347,14 +5322,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.forwardOrReplyMessage(cellMessage)
         })
         let forward = UIAlertAction(title: "FORWARD".localizedNew, style: .default, handler: { (action) in
-            //            IGMessageViewController.selectedMessageToForwardFromThisRoom = cellMessage
-            //            IGMessageViewController.selectedMessageToForwardToThisRoom = IGMessageViewController.selectedMessageToForwardFromThisRoom
-            //            IGGlobal.shouldMultiSelect = true
-            //            self.collectionView.layoutIfNeeded()
-            //            self.collectionView.layoutSubviews()
-            //
-            //            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            //            self.hero.replaceViewController(with: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar"))
             self.enableMultiSelect(State: true, cellMessage: cellMessage,isForward : true,isDelete : false,isShare : false)
             
         })
@@ -5368,6 +5335,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             }else {
                 //                self.shouldMultiSelect = true
                 //MARK:-DELETE CELL
+                
                 self.editMessage(cellMessage)
             }
         })
@@ -5457,9 +5425,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func enableMultiSelect(State:Bool! , cellMessage : IGRoomMessage,isForward:Bool? = nil,isDelete:Bool?=nil,isShare:Bool?=nil) {
         IGGlobal.shouldMultiSelect = State
         self.selectedIndex.removeAll()
-        
         self.selectedIndex.append(cellMessage.id)
-        
+        let t = self.selectedIndex
+        let c = cellMessage
+
         self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete)
         
     }
@@ -5480,8 +5449,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             
             
             
-            //            MoneyTransactionModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
-            //MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -5491,12 +5458,6 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             self.view.bringSubviewToFront(MultiShareModal!)
             
         }
-        else {
-            //            MultiShareModal.btnWalletTransfer.setTitle("BTN_CASHOUT_WALLET".localizedNew, for: .normal)
-            //            MultiShareModal.btnCardToCardTransfer.setTitle("CARD_TO_CARD".localizedNew, for: .normal)
-            //MoneyTransactionModal.infoLbl.text = "ENTER_RECIEVER_CODE".localizedNew
-        }
-        
         if #available(iOS 11.0, *) {
             let window = UIApplication.shared.keyWindow
             let topPadding = window?.safeAreaInsets.top
