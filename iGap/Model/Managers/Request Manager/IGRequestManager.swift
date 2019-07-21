@@ -451,17 +451,22 @@ class IGRequestManager {
     private var pendingRequests  = [String : IGRequestWrapper]()
     private var resolvedRequests = [String : IGRequestWrapper]()
     
+    /* use "async(flags: .barrier)" for "writes on data"  AND  use "sync" for "read and assign value" */
+    fileprivate var syncroniseQueue = DispatchQueue(label: "thread-safe-obj", attributes: .concurrent)
+    
     private init() {
         //send pending request and listen for network changes
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (networkStatus) in
             if networkStatus == .connected || networkStatus == .iGap {
-                if self.queuedRequests.count > 0 {
-                    self.queuedRequests.forEach {
-                        let id = $0.key
-                        let reqW = $0.value
-                        self.queuedRequests.removeValue(forKey: id)
-                        self.addRequestIDAndSend(requestWrappers: reqW)
-                        
+                self.syncroniseQueue.async(flags: .barrier) {
+                    if self.queuedRequests.count > 0 {
+                        self.queuedRequests.forEach {
+                            let id = $0.key
+                            let reqW = $0.value
+                            self.queuedRequests.removeValue(forKey: id)
+                            self.addRequestIDAndSend(requestWrappers: reqW)
+                            
+                        }
                     }
                 }
             }
@@ -476,12 +481,14 @@ class IGRequestManager {
         
         IGAppManager.sharedManager.isUserLoggedIn.asObservable().subscribe(onNext: { (loginState) in
             if loginState {
-                if self.queuedRequests.count > 0 {
-                    self.queuedRequests.forEach {
-                        let id = $0.key
-                        let reqW = $0.value
-                        self.queuedRequests.removeValue(forKey: id)
-                        self.addRequestIDAndSend(requestWrappers: reqW)
+                self.syncroniseQueue.async(flags: .barrier) {
+                    if self.queuedRequests.count > 0 {
+                        self.queuedRequests.forEach {
+                            let id = $0.key
+                            let reqW = $0.value
+                            self.queuedRequests.removeValue(forKey: id)
+                            self.addRequestIDAndSend(requestWrappers: reqW)
+                        }
                     }
                 }
             }
@@ -521,8 +528,10 @@ class IGRequestManager {
                         
                     }
                 } else {
-                    let randomID = generateRandomRequestID()
-                    queuedRequests[randomID] = requestWrapper
+                    self.syncroniseQueue.async(flags: .barrier) {
+                        let randomID = self.generateRandomRequestID()
+                        self.queuedRequests[randomID] = requestWrapper
+                    }
                 }
             }
         }
@@ -592,9 +601,9 @@ class IGRequestManager {
                             requestHandlerClassName.handlePush(responseProtoMessage: responseProtoMessage)
                         }
                     }
-                    resolvedRequests[response.igpID] = correspondingRequestWrapper
-                    if pendingRequests[response.igpID] != nil {
-                        pendingRequests[response.igpID] = nil
+                    self.syncroniseQueue.async(flags: .barrier) {
+                        self.resolvedRequests[response.igpID] = correspondingRequestWrapper
+                        self.pendingRequests[response.igpID] = nil
                     }
                 } else if resolvedRequests[response.igpID] != nil {
                     print ("✦ \(NSDate.timeIntervalSinceReferenceDate) -----XXX Response is already resolved")
@@ -619,12 +628,10 @@ class IGRequestManager {
     
     func internalTimeOut(for requestWrapper: IGRequestWrapper) {
         //check if request is still pending
-        sync(lock: pendingRequests) {
-            if pendingRequests[requestWrapper.id] != nil {
-                sync(lock: resolvedRequests) {
-                    resolvedRequests[requestWrapper.id] = requestWrapper
-                }
-                pendingRequests[requestWrapper.id]  = nil
+        self.syncroniseQueue.async(flags: .barrier) {
+            if self.pendingRequests[requestWrapper.id] != nil {
+                self.resolvedRequests[requestWrapper.id] = requestWrapper
+                self.pendingRequests[requestWrapper.id]  = nil
                 if let error = requestWrapper.error {
                     error(.timeout, nil)
                 }
@@ -632,17 +639,13 @@ class IGRequestManager {
         }
     }
     
-    func sync(lock: [String : IGRequestWrapper], closure: () -> Void) {
-        objc_sync_enter(lock)
-        closure()
-        objc_sync_exit(lock)
-    }
-    
     func cancelRequest(identity: String) {
-        for requestWrapper in pendingRequests.values {
-            if let identityValue = requestWrapper.identity as? String, identityValue == identity {
-                resolvedRequests[requestWrapper.id] = requestWrapper
-                pendingRequests[requestWrapper.id] = nil
+        self.syncroniseQueue.async(flags: .barrier) {
+            for requestWrapper in self.pendingRequests.values {
+                if let identityValue = requestWrapper.identity as? String, identityValue == identity {
+                    self.resolvedRequests[requestWrapper.id] = requestWrapper
+                    self.pendingRequests[requestWrapper.id] = nil
+                }
             }
         }
     }
