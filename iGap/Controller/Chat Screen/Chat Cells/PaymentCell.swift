@@ -53,15 +53,15 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
     }
     func initChangeLang() {
-        lblToTitle.text = "GLOBAL_TO".localizedNew
-        lblFromTitle.text = "GLOBAL_FROM".localizedNew
-        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".localizedNew
-        lblAmountTitle.text = "PRICE".localizedNew
-        lblTraceNumberTitle.text = "TRACE_NUMBER".localizedNew
-        ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".localizedNew
-        lblCardNumber.text = "TTL_CARDNUM".localizedNew
-        lblRRN.text = "TTL_REFERENCE_NUMBER".localizedNew
-        lblDescription.text = "DESCRIPTION".localizedNew
+        lblToTitle.text = "GLOBAL_TO".MessageViewlocalizedNew
+        lblFromTitle.text = "GLOBAL_FROM".MessageViewlocalizedNew
+        ttlInvoicelblInvoiceTitle.text = "TTL_INVOICE_NUMBER".MessageViewlocalizedNew
+        lblAmountTitle.text = "PRICE".MessageViewlocalizedNew
+        lblTraceNumberTitle.text = "TRACE_NUMBER".MessageViewlocalizedNew
+        ttlTransfer.text = "PAYMENT_TRANSFER_MONEY".MessageViewlocalizedNew
+        lblCardNumber.text = "TTL_CARDNUM".MessageViewlocalizedNew
+        lblRRN.text = "TTL_REFERENCE_NUMBER".MessageViewlocalizedNew
+        lblDescription.text = "DESCRIPTION".MessageViewlocalizedNew
         ttlTransfer.font = UIFont.igFont(ofSize: 15)
         txtDate.font = UIFont.igFont(ofSize: 15)
     }
@@ -75,7 +75,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
             return
         }
         
-        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".localizedNew
+        txtAmount.text = String(describing: wallet.amount).inRialFormat().inLocalizedLanguage() + " " + "CURRENCY".MessageViewlocalizedNew
         txtTrace.text = String(describing: wallet.traceNumber).inLocalizedLanguage()
         txtInvoice.text = String(describing: wallet.invoiceNumber).inLocalizedLanguage()
         txtRRN.text = String(describing: wallet.rrn)
@@ -92,7 +92,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
         }
         
         if wallet.walletDescription!.isEmpty {
-            txtDescription.text = "NO_DESCRIPTION".localizedNew
+            txtDescription.text = "NO_DESCRIPTION".MessageViewlocalizedNew
         } else {
             txtDescription.text = wallet.walletDescription
         }
