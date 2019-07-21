@@ -956,7 +956,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     IGGlobal.dispoasDic.removeValue(forKey: self.realmRoomMessage.id)
                     disposable.dispose()
                 }
-                
                 let subscriber = variableInCache.asObservable().subscribe({ (event) in
                     DispatchQueue.main.async {
                         self.updateAttachmentDownloadUploadIndicatorView()
@@ -974,8 +973,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                         indicatorViewAbs?.size = attachment.sizeToString()
                         indicatorViewAbs?.delegate = self
                     }
-                    
-                    
                     indicatorViewAbs?.shouldShowSize = true
                     break
 
