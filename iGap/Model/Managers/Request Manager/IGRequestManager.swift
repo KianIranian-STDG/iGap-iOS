@@ -619,14 +619,23 @@ class IGRequestManager {
     
     func internalTimeOut(for requestWrapper: IGRequestWrapper) {
         //check if request is still pending
-        let tmpRequestWrapper = requestWrapper
-        if pendingRequests[tmpRequestWrapper.id] != nil {
-            resolvedRequests[tmpRequestWrapper.id] = tmpRequestWrapper
-            pendingRequests[tmpRequestWrapper.id]  = nil
-            if let error = tmpRequestWrapper.error {
-                error(.timeout, nil)
+        sync(lock: pendingRequests) {
+            if pendingRequests[requestWrapper.id] != nil {
+                sync(lock: resolvedRequests) {
+                    resolvedRequests[requestWrapper.id] = requestWrapper
+                }
+                pendingRequests[requestWrapper.id]  = nil
+                if let error = requestWrapper.error {
+                    error(.timeout, nil)
+                }
             }
         }
+    }
+    
+    func sync(lock: [String : IGRequestWrapper], closure: () -> Void) {
+        objc_sync_enter(lock)
+        closure()
+        objc_sync_exit(lock)
     }
     
     func cancelRequest(identity: String) {
