@@ -1471,10 +1471,10 @@
                         <segue destination="m4c-sZ-8p8" kind="show" identifier="GoToNicknamePage" id="R8U-l5-fke"/>
                         <segue destination="0Ff-hu-iVw" kind="show" identifier="GoToPhoneNumberPage" id="AJj-Sw-hZb"/>
                         <segue destination="FAG-zY-df3" kind="show" identifier="GoToUsernamePage" id="trp-9O-oSV"/>
-                        <segue destination="6Sp-ZJ-mgs" kind="show" identifier="GoToEmailPage" id="cfq-em-srA"/>
                         <segue destination="NUN-eA-XK7" kind="show" identifier="GoToSelfDestructionTimePage" id="Xzv-Yc-EAf"/>
                         <segue destination="aK4-46-ezj" kind="show" identifier="GoToDeleteAccountPage" id="a2N-Qn-Owm"/>
                         <segue destination="tJ3-G3-f6s" kind="show" identifier="GoToBioPage" id="NqG-Ht-dmY"/>
+                        <segue destination="6Sp-ZJ-mgs" kind="show" identifier="GoToEmailPage" id="pjS-uO-Nqo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wu9-3g-XES" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1830,13 +1830,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                             </tableViewSection>
                         </sections>
                         <connections>
-                            <outlet property="dataSource" destination="6Sp-ZJ-mgs" id="jVZ-bC-kzq"/>
-                            <outlet property="delegate" destination="6Sp-ZJ-mgs" id="qiu-2o-EAv"/>
+                            <outlet property="dataSource" destination="6Sp-ZJ-mgs" id="r4S-Gn-oqm"/>
+                            <outlet property="delegate" destination="6Sp-ZJ-mgs" id="eJ7-Ua-BDy"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Email" id="1aK-br-kXf" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
-                        <outlet property="emailTextField" destination="MWh-RC-YfH" id="QZe-lQ-nyy"/>
+                        <outlet property="emailTextField" destination="MWh-RC-YfH" id="dq6-bT-iEn"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gg8-iO-9nT" userLabel="First Responder" sceneMemberID="firstResponder"/>

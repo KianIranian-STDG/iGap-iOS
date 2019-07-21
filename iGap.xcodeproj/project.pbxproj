@@ -340,6 +340,7 @@
 		FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA5EC5D91E06728C006E2850 /* IGChatRoomListTableViewCell.xib */; };
 		FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EC5E01E069A1E006E2850 /* IGTextAttachment.swift */; };
 		FA60ADD4200BA39B004EE151 /* IGReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA60ADD3200BA39B004EE151 /* IGReport.swift */; };
+		FA61C7EC22E455850043547D /* iGSetEmailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */; };
 		FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63BA9A1DD6DF32000B60AD /* IGUploadManager.swift */; };
 		FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63BA9C1DD6E030000B60AD /* IGFile.swift */; };
 		FA63BAA01DD70D60000B60AD /* IGRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA63BA9F1DD70D60000B60AD /* IGRequestWrapper.swift */; };
@@ -3115,6 +3116,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA61C7EC22E455850043547D /* iGSetEmailTableViewController.swift in Sources */,
 				FA712AE5225DCCCC00FD78AA /* IGRealmDiscovery.swift in Sources */,
 				FA85066522670703002EEBF7 /* IGWalletCardDetailTableViewController.swift in Sources */,
 				FA0953881E1B97E20043ED3F /* IGCreateNewChatTableViewController.swift in Sources */,
