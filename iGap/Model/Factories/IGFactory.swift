@@ -2025,8 +2025,8 @@ class IGFactory: NSObject {
         task.task = {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 do {
-                    for igpRoom in rooms {
-                        try! IGDatabaseManager.shared.realm.write {
+                    try! IGDatabaseManager.shared.realm.write {
+                        for igpRoom in rooms {
                             IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpRoom))
                         }
                         

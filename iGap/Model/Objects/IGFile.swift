@@ -292,7 +292,11 @@ public class IGFile: Object {
         self.name = cacheID
     }
     
-    static func putOrUpdate(realm: Realm, igpFile : IGPFile, messageType: IGRoomMessageType) -> IGFile {
+    static func putOrUpdate(realm: Realm, igpFile : IGPFile, messageType: IGRoomMessageType, enableCache: Bool = false) -> IGFile {
+        
+        if enableCache, let file = IGGlobal.importedFileDic[igpFile.igpCacheID], !file.isInvalidated {
+            return file
+        }
         
         let predicate = NSPredicate(format: "cacheID = %@", igpFile.igpCacheID)
         var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
@@ -328,6 +332,10 @@ public class IGFile: Object {
         }
         if igpFile.hasIgpWaveformThumbnail {
             file.waveformThumbnail = IGFile.putOrUpdateThumbnail(realm: realm, igpThumbnail: igpFile.igpWaveformThumbnail, previewType: .largeThumbnail, token:file.token)
+        }
+        
+        if enableCache {
+            IGGlobal.importedFileDic[igpFile.igpCacheID] = file
         }
         
         return file

@@ -47,6 +47,7 @@ class IGClientGetRoomListRequest : IGRequest {
             let igpRooms: Array<IGPRoom> = responseProtoMessage.igpRooms
             IGFactory.shared.saveRoomsToDatabase(igpRooms, ignoreLastMessage: false, removeDeleted: removeDeleted, enableCache: true)
             IGGlobal.importedRoomMessageDic.removeAll()
+            IGGlobal.importedFileDic.removeAll()
             return igpRooms.count
         }
         override class func handlePush(responseProtoMessage: Message) {}
