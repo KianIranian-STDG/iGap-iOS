@@ -6114,7 +6114,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             }
         } else { // Down Direction
             if self.messageLoader.isFirstLoadDown() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count)
                     let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
