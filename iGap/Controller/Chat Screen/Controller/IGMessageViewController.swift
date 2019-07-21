@@ -4252,7 +4252,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if let attachment = message.attachment {
             IGDownloadManager.sharedManager.pauseDownload(attachment: attachment)
         }
+        
         diselect()
+        self.collectionView.reloadData()
     }
     
     
