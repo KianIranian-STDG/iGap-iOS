@@ -139,6 +139,8 @@ class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecogni
         
         self.notificationToken = groupRoom.observe { (changes: RealmCollectionChange) in
             
+            if self.room == nil || self.room!.isInvalidated {return}
+            
             let predicatea = NSPredicate(format: "id = %lld", (self.room?.id)!)
             self.room =  try! Realm().objects(IGRoom.self).filter(predicatea).first!
             
