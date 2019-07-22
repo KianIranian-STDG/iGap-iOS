@@ -82,7 +82,8 @@
         "TTL_DESTI_CARDNUM" : "Destination Card Number",
         "SOURCE_BANK" : "Source Bank",
         "DEST_CARD" : "Destination Card",
-        "DEST_BANK" : "Destination Bank"
+        "DEST_BANK" : "Destination Bank",
+        "CLEAR_HISTORY_LOCAL" : "Clear Local History"
 
     }
 }

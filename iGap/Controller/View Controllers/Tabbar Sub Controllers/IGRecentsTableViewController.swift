@@ -784,14 +784,23 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.performSegue(withIdentifier: "showRoomMessages", sender: self)
             })
         } else {
+            print("watcher segue")
+            IGGlobal.getTime("watcher segue")
             performSegue(withIdentifier: "showRoomMessages", sender: self)
+            print("watcher segue edn")
+
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showRoomMessages") {
+
             let destination = segue.destination as! IGMessageViewController
             destination.room = selectedRoomForSegue
+            
+            print("watcher segue end")
+            IGGlobal.getTime("watcher segue end")
+
         } else if segue.identifier == "createANewGroup" {
             let destination = segue.destination as! IGNavigationController
             let chooseContactTv =  destination.topViewController as! IGChooseMemberFromContactsToCreateGroupViewController

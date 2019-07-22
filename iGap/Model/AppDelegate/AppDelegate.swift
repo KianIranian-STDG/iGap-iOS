@@ -97,7 +97,34 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         })
         return container
     }()
-    
+    func clearAllFilesFromDirectory() {
+        
+        let fileManager = FileManager.default
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+        let documentsPath = documentsUrl.path
+        
+        do {
+            if let documentPathValue = documentsPath{
+                
+                let path = documentPathValue.replacingOccurrences(of: "file://", with: "")
+                let fileNames = try fileManager.contentsOfDirectory(atPath: "\(path)")
+                print("all files in cache: \(fileNames)")
+                
+                for fileName in fileNames {
+                    
+                    let tempPath = String(format: "%@/%@", path, fileName)
+                    
+                    //Check for specific file which you don't want to delete. For me .sqlite files
+//                    if !tempPath.contains(".sql") {
+//                        try fileManager.removeItem(atPath: tempPath)
+//                    }
+                }
+            }
+            
+        } catch {
+            print("Could not clear document directory \(error)")
+        }
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if SMLangUtil.loadLanguage() == "fa" {
@@ -134,6 +161,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
 
         pushNotification(application)
         detectBackground()
+        IGGlobal.checkRealmFileSize()
         return true
     }
 

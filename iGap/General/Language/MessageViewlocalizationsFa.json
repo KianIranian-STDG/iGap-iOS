@@ -82,6 +82,8 @@
         "TTL_DESTI_CARDNUM" : "شماره کارت مقصد",
         "SOURCE_BANK" : "بانک مبدا",
         "DEST_CARD" : "کارت مقصد",
-        "DEST_BANK" : "بانک مقصد"
+        "DEST_BANK" : "بانک مقصد",
+        "CLEAR_HISTORY_LOCAL" : "پاک کردن تاریخچه از گوشی"
+
     }
 }

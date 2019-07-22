@@ -17,6 +17,7 @@ import SDWebImage
 import RxSwift
 import maincore
 import IGProtoBuff
+import RealmSwift
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
@@ -47,7 +48,20 @@ class IGGlobal {
     static var importedFileDic: [String:IGFile] = [:]
     static var shouldShowChart : Bool = false
     static var hideBarChart : Bool = true
+    static var latestTime: Int64 = 0
     
+    internal static func getTime(_ string: String? = nil){
+        if IGGlobal.latestTime == 0 {
+            IGGlobal.latestTime = IGGlobal.getCurrentMillis()
+        }
+        let currentTime = IGGlobal.getCurrentMillis()
+        if string != nil {
+            print("TTT || time \(string): \(currentTime - IGGlobal.latestTime)")
+        } else {
+            print("TTT || time: \(currentTime - IGGlobal.latestTime)")
+        }
+        IGGlobal.latestTime = currentTime
+    }
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -81,7 +95,20 @@ class IGGlobal {
         }
         return nil
     }
-    
+    internal static func checkRealmFileSize() {
+        if let realmPath = Realm.Configuration.defaultConfiguration.fileURL?.relativePath {
+            do {
+                let attributes = try FileManager.default.attributesOfItem(atPath:realmPath)
+                if let fileSize = attributes[FileAttributeKey.size] as? Double {
+                    
+                    print("REALM SIZE IN BYTE :",fileSize)
+                }
+            }
+            catch (let error) {
+                print("FileManager Error: \(error)")
+            }
+        }
+    }
     /*
      * check file exist in path or no. also if 'fileSize' is set to the input of the method,
      * size of file that exist in path and 'fileSize' which is set, will be compared.
