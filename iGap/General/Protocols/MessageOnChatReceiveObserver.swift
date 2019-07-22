@@ -14,8 +14,6 @@ protocol MessageOnChatReceiveObserver {
     func onMessageRecieveInChatPage(roomId: Int64, message: IGPRoomMessage, roomType: IGPRoom.IGPType)
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage)
     func onMessageUpdateStatus(messageId: Int64)
-    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64, updatePosition: Int?)
+    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64)
     func onMessageDelete(roomId: Int64, messageId: Int64)
-    
-    func getEditPosition(messageId: Int64) -> Int?
 }

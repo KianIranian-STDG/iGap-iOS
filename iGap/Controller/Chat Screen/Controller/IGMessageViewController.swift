@@ -6012,27 +6012,22 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
-    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64, updatePosition: Int?) {
-        if updatePosition == nil {return}
+    func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             /* this messageId updated so after get this message from realm it has latest update */
             if let newMessage = IGRoomMessage.getMessageWithId(messageId: messageId) {
-                self.updateMessageArray(cellPosition: updatePosition!, message: newMessage)
-                self.updateItem(cellPosition: updatePosition!)
+                if let position = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
+                    self.updateMessageArray(cellPosition: position, message: newMessage)
+                    self.updateItem(cellPosition: position)
+                }
             }
         }
     }
     
     func onMessageDelete(roomId: Int64, messageId: Int64) {
-        removeItem(cellPosition: IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId))
-    }
-    
-    /**
-     * compute and set oldMessage into the "onMessageEdit" callback method for find position of collection
-     * and messages array not worked, so i have to fetch position with this method
-     */
-    func getEditPosition(messageId: Int64) -> Int? {
-        return IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId)
+        DispatchQueue.main.async {
+            self.removeItem(cellPosition: IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId))
+        }
     }
     
     /*********************************************************************************/

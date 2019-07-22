@@ -795,14 +795,13 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 let predicate = NSPredicate(format: "id = %lld AND roomId = %lld",messageID, roomID)
                 if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
-                    let updatePosition = IGMessageViewController.messageOnChatReceiveObserver?.getEditPosition(messageId: messageID)
                     try! IGDatabaseManager.shared.realm.write {
                         messageInDb.isEdited = true
                         messageInDb.message = message
                         messageInDb.type = IGRoomMessageType.unknown.fromIGP(messageType)
                         messageInDb.messageVersion = messageVersion
                     }
-                    IGMessageViewController.messageOnChatReceiveObserver?.onMessageEdit(messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion, updatePosition: updatePosition)
+                    IGMessageViewController.messageOnChatReceiveObserver?.onMessageEdit(messageId: messageID, roomId: roomID, message: message, messageType: messageType, messageVersion: messageVersion)
                 }
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)
