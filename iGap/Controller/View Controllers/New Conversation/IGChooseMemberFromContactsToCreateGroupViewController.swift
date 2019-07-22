@@ -215,7 +215,9 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                         return user.registredUser
                     })
                     var tmp = selectedUsersToCreateGroup
-                    tmp.append(self.baseUser!)
+                    if !(self.baseUser == nil) {
+                        tmp.append(self.baseUser!)
+                    }
                     createGroup.selectedUsersToCreateGroup = tmp
                     createGroup.mode = self.mode
                     createGroup.roomId = self.roomID
