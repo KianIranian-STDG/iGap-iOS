@@ -232,8 +232,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                           SortDescriptor(keyPath: "id", ascending: false)]
     let sortPropertiesForMedia = [SortDescriptor(keyPath: "creationTime", ascending: true),
                                   SortDescriptor(keyPath: "id", ascending: true)]
-    var messages: [IGRoomMessage]? = []
-    static var messageIdsStatic: [Int64] = []
+    private var messages: [IGRoomMessage]? = []
+    static var messageIdsStatic: [Int64:[Int64]] = [:]
     var messagesWithMedia = try! Realm().objects(IGRoomMessage.self)
     
     var messagesWithForwardedMedia = try! Realm().objects(IGRoomMessage.self)
@@ -517,7 +517,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
 //            self.view.layoutIfNeeded()
             
         }
-        IGMessageViewController.messageIdsStatic = []
+        IGMessageViewController.messageIdsStatic[(self.room?.id)!] = []
         txtFloatingDate.font = UIFont.igFont(ofSize: 15)
         
         removeButtonsUnderline(buttons: [inputBarRecordButton, btnScrollToBottom, inputBarSendButton, inputBarMoneyTransferButton, btnCancelReplyOrForward, btnDeleteSelectedAttachment, btnClosePin, btnAttachment])
@@ -6003,7 +6003,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onMessageUpdateStatus(messageId: Int64) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let indexOfMessage = IGMessageViewController.messageIdsStatic.firstIndex(of: messageId) {
+            if let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
                 if let message = IGRoomMessage.getMessageWithId(messageId: messageId) {
                     self.updateMessageArray(cellPosition: indexOfMessage, message: message)
                     self.updateItem(cellPosition: indexOfMessage)
@@ -6024,7 +6024,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     func onMessageDelete(roomId: Int64, messageId: Int64) {
-        removeItem(cellPosition: IGMessageViewController.messageIdsStatic.firstIndex(of: messageId))
+        removeItem(cellPosition: IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId))
     }
     
     /**
@@ -6032,7 +6032,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
      * and messages array not worked, so i have to fetch position with this method
      */
     func getEditPosition(messageId: Int64) -> Int? {
-        return IGMessageViewController.messageIdsStatic.firstIndex(of: messageId)
+        return IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId)
     }
     
     /*********************************************************************************/
@@ -6152,19 +6152,23 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         if direction == .up {
             for message in messages {
                 self.messages!.append(message)
-                IGMessageViewController.messageIdsStatic.append(message.id)
+                IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.append(message.id)
             }
         } else {
             for message in messages {
                 self.messages!.insert(message, at: 0)
-                IGMessageViewController.messageIdsStatic.insert(message.id, at: 0)
+                IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.insert(message.id, at: 0)
             }
         }
     }
     
     private func appendAtSpecificPosition(_ message: IGRoomMessage, cellPosition: Int){
+        if self.messages!.count <= cellPosition  {
+            return
+        }
+        
         self.messages!.insert(message, at: cellPosition)
-        IGMessageViewController.messageIdsStatic.insert(message.id, at: cellPosition)
+        IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.insert(message.id, at: cellPosition)
         
         self.collectionView?.performBatchUpdates({
             self.collectionView?.insertItems(at: [IndexPath(row: cellPosition, section: 0)])
@@ -6172,8 +6176,8 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     private func removeMessageArray(messageId: Int64){
-        if let index = IGMessageViewController.messageIdsStatic.firstIndex(of: messageId) {
-            IGMessageViewController.messageIdsStatic.remove(at: index)
+        if let index = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
+            IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.remove(at: index)
         }
     }
     
@@ -6183,7 +6187,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         self.messages?.remove(at: cellPosition!)
-        IGMessageViewController.messageIdsStatic.remove(at: cellPosition!)
+        IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.remove(at: cellPosition!)
     }
     
     private func updateMessageArray(cellPosition: Int, message: IGRoomMessage){
@@ -6192,7 +6196,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         self.messages![cellPosition] = message
-        IGMessageViewController.messageIdsStatic[cellPosition] = message.id
+        IGMessageViewController.messageIdsStatic[(self.room?.id)!]![cellPosition] = message.id
     }
     
     private func makeTimeItem(date: Date) -> IGRoomMessage {
