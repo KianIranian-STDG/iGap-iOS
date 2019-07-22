@@ -755,8 +755,23 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if messageLoader == nil {
             messageLoader = IGMessageLoader(room: self.room!)
         }
+        let hasUnread = messageLoader.hasUnread()
+        let hasSaveState = messageLoader.hasSavedState()
+        if hasUnread || hasSaveState {
+            self.collectionView.fadeOut(0)
+        }
+        
         messageLoader.getMessages { (messages, direction) in
             self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
+            if hasUnread {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self.collectionView.fadeIn(0.1)
+                }
+            } else if hasSaveState {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self.collectionView.fadeIn(0.1)
+                }
+            }
         }
     }
     
@@ -6073,11 +6088,13 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             }
         } else { // Down Direction
             if self.messageLoader.isFirstLoadDown() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count)
-                    let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
-                    self.collectionView.setContentOffset(bottomOffset, animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
+                        self.collectionView.setContentOffset(bottomOffset, animated: false)
+                    }
                     self.messageLoader.setFirstLoadDown(firstLoadDown : false)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                 }
