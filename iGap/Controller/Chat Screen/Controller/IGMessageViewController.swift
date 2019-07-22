@@ -1592,6 +1592,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if self.room!.isInvalidated {
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
         inputTextView.setContentOffset(.zero, animated: true)
         inputTextView.scrollRangeToVisible(NSMakeRange(0, 0))
         
