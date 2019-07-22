@@ -235,7 +235,11 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         UIView.animate(withDuration: 0.25) { () -> Void in
             self.setNeedsStatusBarAppearanceUpdate()
         }
-        updateCurrentPhotosInformation()
+        do {
+            try updateCurrentPhotosInformation()
+        } catch let error {
+            print(error)
+        }
     }
     
     private func setupOverlayView() {
@@ -259,7 +263,7 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
         }
     }
     
-    private func updateCurrentPhotosInformation() {
+    private func updateCurrentPhotosInformation() throws {
         if let currentPhoto = currentPhoto {
             overlayView.populateWithPhoto(currentPhoto)
         }
@@ -305,13 +309,19 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
      - parameter animated: Whether to animate the transition to the new photo.
      */
     open func changeToPhoto(_ photo: INSPhotoViewable, animated: Bool, direction: UIPageViewController.NavigationDirection = .forward) {
-        if !dataSource.containsPhoto(photo) {
-            return
+        DispatchQueue.main.async {
+            do {
+                if !self.dataSource.containsPhoto(photo) {
+                    return
+                }
+                
+                let photoViewController = self.initializePhotoViewControllerForPhoto(photo)
+                self.pageViewController.setViewControllers([photoViewController], direction: direction, animated: animated, completion: nil)
+                try self.updateCurrentPhotosInformation()
+            } catch let error {
+                print(error)
+            }
         }
-
-        let photoViewController = initializePhotoViewControllerForPhoto(photo)
-        pageViewController.setViewControllers([photoViewController], direction: direction, animated: animated, completion: nil)
-        updateCurrentPhotosInformation()
     }
     
     // MARK: - Gesture Recognizers
@@ -438,7 +448,11 @@ open class INSPhotosViewController: UIViewController, UIPageViewControllerDataSo
     
     @objc open func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
-            updateCurrentPhotosInformation()
+            do {
+                try updateCurrentPhotosInformation()
+            } catch let error {
+                print(error)
+            }
             if let currentPhotoViewController = currentPhotoViewController {
                 navigateToPhotoHandler?(currentPhotoViewController.photo)
             }
