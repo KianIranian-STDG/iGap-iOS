@@ -25,9 +25,19 @@ import messages
 import webservice
 import KeychainSwift
 import SDWebImage
-
+struct itemRoom {
+    var lastMessage: String?
+    var roomName: String?
+    var unreadCount: String?
+    var avatar : UIImage? = nil
+    var type : IGPRoom.IGPType
+    var initilas: String?
+    var colorString : String
+}
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
-    
+
+    var itemRoomList = [itemRoom]()
+
     static var messageReceiveDelegat: MessageReceiveObserver!
     static var forwardStartObserver: ForwardStartObserver!
     static var visibleChat: [Int64 : Bool] = [:]
@@ -228,6 +238,23 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         do {
             let realm = try Realm()
             self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
+            for item in self.rooms! {
+                
+                switch item.type {
+                case .chat:
+                    if let avatar = item.chatRoom?.peer?.avatar {
+                        itemRoomList.append(itemRoom(lastMessage: item.lastMessage?.message, roomName: item.title, unreadCount: "\(item.unreadCount)".inLocalizedLanguage(), avatar: avatar, type: .chat, initilas: item.initilas, colorString: item.colorString))
+                    }
+                case .group:
+                    if let avatar = item.groupRoom?.avatar {
+                        itemRoomList.append(itemRoom(lastMessage: item.lastMessage?.message, roomName: item.title, unreadCount: "\(item.unreadCount)".inLocalizedLanguage(), avatar: avatar, type: .group, initilas: item.initilas, colorString: item.colorString))
+                    }
+                case .channel:
+                    if let avatar = item.channelRoom?.avatar {
+                        itemRoomList.append(itemRoom(lastMessage: item.lastMessage?.message, roomName: item.title, unreadCount: "\(item.unreadCount)".inLocalizedLanguage(), avatar: avatar, type: .channel, initilas: item.initilas, colorString: item.colorString))
+                    }
+                }
+            }
 
         } catch let error as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
@@ -508,7 +535,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
-        cell.setRoom(room: rooms![indexPath.row])
+        
+        cell.initView(item : itemRoomList[indexPath.row])
+//        cell.setRoom(room: rooms![indexPath.row])
         return cell
     }
     

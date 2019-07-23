@@ -87,9 +87,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4y4-Wf-kwI" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="5" y="14.5" width="50" height="50"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="nfT-Cp-sUj"/>
+                            <constraint firstAttribute="height" constant="50" id="tUU-NE-RIj"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="4y4-Wf-kwI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="1VA-se-6xM"/>
                     <constraint firstAttribute="trailing" secondItem="j5O-4W-jNd" secondAttribute="trailing" constant="20" id="89g-Mo-hfX"/>
                     <constraint firstItem="wkw-rV-l3F" firstAttribute="centerY" secondItem="pyp-q7-jR9" secondAttribute="centerY" id="FwV-WV-96P"/>
                     <constraint firstItem="ojI-a5-iIf" firstAttribute="leading" secondItem="cZr-RY-NKD" secondAttribute="trailing" constant="10" id="Jgi-u2-UJy"/>
@@ -100,6 +109,7 @@
                     <constraint firstItem="2b6-Og-2B6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="YGR-YU-lO1"/>
                     <constraint firstItem="cZr-RY-NKD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="66" id="ZQK-mk-PfS"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="leading" secondItem="wkw-rV-l3F" secondAttribute="trailing" constant="8" id="agQ-O5-Lhv"/>
+                    <constraint firstItem="4y4-Wf-kwI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cMz-4x-1fM"/>
                     <constraint firstItem="pyp-q7-jR9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="gtC-pN-UhD"/>
                     <constraint firstItem="cZr-RY-NKD" firstAttribute="top" secondItem="ojI-a5-iIf" secondAttribute="top" id="m9m-En-IE8"/>
                     <constraint firstItem="j5O-4W-jNd" firstAttribute="leading" secondItem="wtp-vX-p7f" secondAttribute="trailing" constant="20" id="o8r-jz-xT4"/>
@@ -108,6 +118,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imgAvatarRoom" destination="4y4-Wf-kwI" id="1Ra-aA-EdS"/>
                 <outlet property="imgMute" destination="pyp-q7-jR9" id="Zci-d3-xoW"/>
                 <outlet property="imgVerified" destination="wkw-rV-l3F" id="rsR-ME-PTZ"/>
                 <outlet property="lastMessageLabel" destination="wtp-vX-p7f" id="Gz8-NP-Vl3"/>

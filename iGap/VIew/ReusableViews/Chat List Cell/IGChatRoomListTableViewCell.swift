@@ -43,7 +43,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     @IBOutlet weak var roomTitleLabelLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgMute: UIImageView!
     @IBOutlet weak var imgVerified: UIImageView!
-    
+    @IBOutlet weak var imgAvatarRoom: IGAvatarView!
+
     var imgStatus: UIImageView!
  
     var avatarImage: IGAvatarView!
@@ -157,6 +158,39 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         
     }
     //MARK: Configure
+    func initView (item : itemRoom) {
+        nameLabel.text = item.roomName
+        imgAvatarRoom.initialLettersLabel!.text = item.initilas
+        
+        let color = UIColor.hexStringToUIColor(hex: item.colorString)
+        imgAvatarRoom.initialLettersView!.backgroundColor = color
+        
+//        switch room.type {
+//        case .chat:
+//            if let avatar = room.chatRoom?.peer?.avatar {
+//                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+//
+//            }
+//        case .group:
+//            if let avatar = room.groupRoom?.avatar {
+//                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+//            }
+//        case .channel:
+//            if let avatar = room.channelRoom?.avatar {
+//                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
+//            }
+//        }
+//
+//        if self.frame.size.width < 40 {
+//            self.initialLettersLabel!.font = UIFont.igFont(ofSize: 10.0)
+//        } else if self.frame.size.width < 60 {
+//            self.initialLettersLabel!.font = UIFont.igFont(ofSize: 14.0)
+//        } else {
+//            self.initialLettersLabel!.font = UIFont.igFont(ofSize: 17.0)
+//        }
+
+        
+    }
     func setRoom(room: IGRoom) {
         if room.isInvalidated {return}
         self.room = room
