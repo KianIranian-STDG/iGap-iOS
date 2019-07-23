@@ -915,7 +915,12 @@ extension UIImageView {
                 } else {
                     switch attachment.type {
                     case .image:
-                        self.image = nil
+                        // when user is sender thumbnail is not exist, so need to show main image even size is bigger than 1024 Kb
+                        if IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+                            self.sd_setImage(with: attachment.path(), completed: nil)
+                        } else {
+                            self.image = nil
+                        }
                         break
                     case .gif:
                         break

@@ -2525,10 +2525,11 @@ class IGFactory: NSObject {
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let newFile = IGFile(igpFile: igpFile, type: IGFile.FileType.sticker)
+                var newFile: IGFile!
                 
                 try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.add(newFile, update: true)
+                    newFile = IGFile.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpFile: igpFile, fileType: IGFile.FileType.sticker)
+                    IGDatabaseManager.shared.realm.add(newFile)
                 }
                 
                 completion(newFile)
@@ -2565,13 +2566,11 @@ class IGFactory: NSObject {
         //let task = getFactoryTask()
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let newFile = IGFile(igpFile: igpFile, type: file.type)
-                newFile.type = file.type
-                newFile.cacheID = file.cacheID
-                newFile.fileNameOnDisk = file.fileNameOnDisk
                 
                 try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.add(newFile, update: true)
+                    let newFile = IGFile.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpFile: igpFile, fileType: file.type)
+                    newFile.cacheID = file.cacheID
+                    newFile.fileNameOnDisk = file.fileNameOnDisk
                 }
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)

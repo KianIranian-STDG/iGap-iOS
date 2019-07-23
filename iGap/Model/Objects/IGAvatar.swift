@@ -50,7 +50,7 @@ class IGAvatar: Object{
             avatar = IGAvatar()
             avatar.id = igpAvatar.igpID
         }
-        avatar.file = IGFile.putOrUpdate(realm: realm, igpFile: igpAvatar.igpFile, messageType: .image)
+        avatar.file = IGFile.putOrUpdate(realm: realm, igpFile: igpAvatar.igpFile, fileType: .image)
         return avatar
     }
     

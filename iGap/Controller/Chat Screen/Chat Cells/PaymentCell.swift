@@ -67,6 +67,7 @@ class PaymentCell: IGMessageGeneralCollectionViewCell {
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+        self.cellMessage = message
         self.mainView.layer.cornerRadius = 12.0
         self.mainView.layer.masksToBounds = true
         self.mainView.backgroundColor = UIColor.dialogueBoxIncomming()

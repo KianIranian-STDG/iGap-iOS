@@ -286,7 +286,7 @@ public class IGFile: Object {
         self.name = cacheID
     }
     
-    static func putOrUpdate(realm: Realm, igpFile : IGPFile, messageType: IGRoomMessageType, enableCache: Bool = false) -> IGFile {
+    static func putOrUpdate(realm: Realm, igpFile : IGPFile, fileType: IGFile.FileType, enableCache: Bool = false) -> IGFile {
         
         if enableCache, let file = IGGlobal.importedFileDic[igpFile.igpCacheID], !file.isInvalidated {
             return file
@@ -307,7 +307,7 @@ public class IGFile: Object {
             }
         }
         
-        file.type = IGFile.FileType.convertToFileType(messageType: messageType)
+        file.type = fileType
         file.token = igpFile.igpToken
         file.publicUrl = igpFile.igpPublicURL
         file.name = igpFile.igpName

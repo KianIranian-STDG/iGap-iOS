@@ -119,6 +119,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+        
+        if room.isInvalidated || message.isInvalidated {return}
+        
         self.room = room
         self.realmRoomMessage = message
         self.isIncommingMessage = isIncommingMessage
