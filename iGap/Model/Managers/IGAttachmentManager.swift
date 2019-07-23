@@ -30,7 +30,7 @@ class IGAttachmentManager: NSObject {
         guard let attachment = realm.resolve(attachmentRef) else {
             return // attachment was deleted
         }
-        if let primaryKeyId = attachment.primaryKeyId {
+        if let primaryKeyId = attachment.cacheID {
             if attachment.status == .unknown {
                 if attachment.fileNameOnDisk == nil {
                     attachment.downloadUploadPercent = 0.0
@@ -41,7 +41,7 @@ class IGAttachmentManager: NSObject {
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
-                variablesCache.setObject(Variable(attachment), forKey: (attachment.primaryKeyId)! as NSString)
+                variablesCache.setObject(Variable(attachment), forKey: (attachment.cacheID)! as NSString)
             } else {
                 print ("found variablesCache \(primaryKeyId)")
             }
@@ -49,7 +49,7 @@ class IGAttachmentManager: NSObject {
     }
     
     func add(attachment: IGFile) {
-        if let primaryKeyId = attachment.primaryKeyId {
+        if let primaryKeyId = attachment.cacheID {
             if attachment.status == .unknown {
                 if attachment.fileNameOnDisk == nil {
                     attachment.downloadUploadPercent = 0.0
@@ -60,7 +60,7 @@ class IGAttachmentManager: NSObject {
                 }
             }
             if variablesCache.object(forKey: primaryKeyId as NSString) == nil {
-                variablesCache.setObject(Variable(attachment), forKey: (attachment.primaryKeyId)! as NSString)
+                variablesCache.setObject(Variable(attachment), forKey: (attachment.cacheID)! as NSString)
             } else {
                 print ("found variablesCache \(primaryKeyId)")
             }
@@ -73,7 +73,7 @@ class IGAttachmentManager: NSObject {
     }
     
     func setProgress(_ progress: Double, for attachment:IGFile) {
-        if let variableInCache = variablesCache.object(forKey: attachment.primaryKeyId! as NSString) {
+        if let variableInCache = variablesCache.object(forKey: attachment.cacheID! as NSString) {
             let attachment = variableInCache.value
             attachment.downloadUploadPercent = progress
             variableInCache.value = attachment
@@ -81,7 +81,7 @@ class IGAttachmentManager: NSObject {
     }
     
     func setStatus(_ status: IGFile.Status, for attachment:IGFile) {
-        if let variableInCache = variablesCache.object(forKey: attachment.primaryKeyId! as NSString) {
+        if let variableInCache = variablesCache.object(forKey: attachment.cacheID! as NSString) {
             let attachment = variableInCache.value
             attachment.status = status
             variableInCache.value = attachment

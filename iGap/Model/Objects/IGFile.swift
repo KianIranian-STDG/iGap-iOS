@@ -98,7 +98,7 @@ public class IGFile: Object {
     
     
     //properties
-    @objc dynamic var primaryKeyId:       String?   //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
+    //@objc dynamic var primaryKeyId:       String? //DEPRECATED   //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
     @objc dynamic var cacheID:            String?   //set by server
     @objc dynamic var token:              String?
     @objc dynamic var publicUrl:          String?
@@ -169,10 +169,6 @@ public class IGFile: Object {
         return ["cacheID"]
     }
     
-    override public static func primaryKey() -> String {
-        return "primaryKeyId"
-    }
-    
     override public static func ignoredProperties() -> [String] {
         return ["previewType", "type", "attachedImage", "data", "sha256Hash", "status", "playingStatus", "downloadUploadPercent", "fileTypeBasedOnNameExtention"]
     }
@@ -180,14 +176,14 @@ public class IGFile: Object {
     convenience init(name: String?) {
         self.init()
         self.name = name
-        self.primaryKeyId = IGGlobal.randomString(length: 64)
+        self.cacheID = IGGlobal.randomString(length: 64)
     }
     
     convenience init(path: URL) {
         self.init()
         self.fileNameOnDisk = path.lastPathComponent
         self.name = path.lastPathComponent
-        self.primaryKeyId = IGGlobal.randomString(length: 64)
+        self.cacheID = IGGlobal.randomString(length: 64)
     }
     
 //    convenience init(path: String, name: String, cacheID: String?, token: String = "") {
@@ -205,7 +201,6 @@ public class IGFile: Object {
         self.name = igpFile.igpName
         self.size = Int(igpFile.igpSize)
         self.cacheID = igpFile.igpCacheID
-        self.primaryKeyId = igpFile.igpCacheID
         self.previewType = .originalFile
         self.type = type
         
@@ -288,7 +283,6 @@ public class IGFile: Object {
         self.previewType = previewType
         self.type = .image
         self.cacheID = igpThumbnail.igpCacheID
-        self.primaryKeyId = igpThumbnail.igpCacheID
         self.name = cacheID
     }
     
@@ -303,7 +297,7 @@ public class IGFile: Object {
         
         if file == nil {
             file = IGFile()
-            file.primaryKeyId = igpFile.igpCacheID
+            file.cacheID = igpFile.igpCacheID
             if file.fileNameOnDisk == nil {
                 file.downloadUploadPercent = 0.0
                 file.status = .readyToDownload
@@ -347,7 +341,7 @@ public class IGFile: Object {
         var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
         if file == nil {
             file = IGFile()
-            file.primaryKeyId = igpThumbnail.igpCacheID
+            file.cacheID = igpThumbnail.igpCacheID
         }
         
         file.token = token

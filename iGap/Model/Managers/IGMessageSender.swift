@@ -70,8 +70,8 @@ class IGMessageSender {
         }
     }
     
-    func removeMessagesWithAttachmentTask(primaryKeyId: String){
-        if let task = getAttachemntTaskWithFilePrimaryKeyId(primaryKeyId: primaryKeyId) {
+    func removeMessagesWithAttachmentTask(cacheID: String){
+        if let task = getAttachemntTaskWithFilePrimaryKeyId(cacheID: cacheID) {
             if let index = messagesWithAttachmentArray.firstIndex(of: task) {
                 messagesWithAttachmentArray.remove(at: index)
             }
@@ -85,7 +85,7 @@ class IGMessageSender {
     func faileFileMessage(uploadTask: IGUploadTask) {
         DispatchQueue.main.async {
             IGUploadManager.sharedManager.cancelUpload(attachment: uploadTask.file, deleteMessage: false)
-            IGFactory.shared.updateMessageStatus(primaryKeyId: uploadTask.file.primaryKeyId!, status: .failed, hasAttachment: true)
+            IGFactory.shared.updateMessageStatus(primaryKeyId: uploadTask.file.cacheID!, status: .failed, hasAttachment: true)
         }
     }
     
@@ -93,7 +93,7 @@ class IGMessageSender {
         if primaryKeyId == nil {return}
         
         if hasAttachment {
-            removeMessagesWithAttachmentTask(primaryKeyId: primaryKeyId!) // do this for file
+            removeMessagesWithAttachmentTask(cacheID: primaryKeyId!) // do this for file
         } else {
             removeTaskFromPlainMessagesQueue(getPlainTaskWithMessagePrimaryKeyId(primaryKeyId: primaryKeyId!))
         }
@@ -140,9 +140,9 @@ class IGMessageSender {
         return nil
     }
     
-    private func getAttachemntTaskWithFilePrimaryKeyId(primaryKeyId: String) -> IGMessageSenderTask? {
+    private func getAttachemntTaskWithFilePrimaryKeyId(cacheID: String) -> IGMessageSenderTask? {
         for task in messagesWithAttachmentArray {
-            if task.message.attachment!.primaryKeyId! == primaryKeyId {
+            if task.message.attachment!.cacheID! == cacheID {
                 return task
             }
         }

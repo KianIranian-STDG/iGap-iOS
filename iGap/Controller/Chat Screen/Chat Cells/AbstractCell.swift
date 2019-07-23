@@ -935,13 +935,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if var attachment = finalRoomMessage.attachment , !(attachment.isInvalidated) {
             
-            if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+            if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 self.attachment = attachmentVariableInCache.value
             } else {
                 self.attachment = attachment.detach()
                 let attachmentRef = ThreadSafeReference(to: attachment)
                 IGAttachmentManager.sharedManager.add(attachmentRef: attachmentRef)
-                if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+                if let variable = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                     self.attachment = variable.value
                 } else {
                     self.attachment = attachment
@@ -949,7 +949,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             }
             
             /* Rx Start */
-            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 attachment = variableInCache.value
                 
                 if let disposable = IGGlobal.dispoasDic[self.realmRoomMessage.id] {

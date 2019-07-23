@@ -2547,7 +2547,7 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 
                 try! IGDatabaseManager.shared.realm.write {
-                    let predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId)
+                    let predicate = NSPredicate(format: "cacheID = %@", primaryKeyId)
                     if let file = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
                         file.fileNameOnDisk = nil
                     }
@@ -2567,7 +2567,7 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 let newFile = IGFile(igpFile: igpFile, type: file.type)
                 newFile.type = file.type
-                newFile.primaryKeyId = file.primaryKeyId
+                newFile.cacheID = file.cacheID
                 newFile.fileNameOnDisk = file.fileNameOnDisk
                 
                 try! IGDatabaseManager.shared.realm.write {

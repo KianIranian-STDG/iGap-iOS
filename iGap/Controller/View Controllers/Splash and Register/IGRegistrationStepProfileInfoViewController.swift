@@ -173,7 +173,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             let avatar = IGFile()
             avatar.attachedImage = pickedImage
             let randString = IGGlobal.randomString(length: 32)
-            avatar.primaryKeyId = randString
+            avatar.cacheID = randString
             avatar.name = randString
             
             IGUploadManager.sharedManager.upload(file: avatar, start: {

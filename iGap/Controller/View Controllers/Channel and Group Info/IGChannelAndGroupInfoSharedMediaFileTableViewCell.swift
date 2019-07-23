@@ -37,12 +37,12 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
     
     func setFileDetails(attachment: IGFile , message: IGRoomMessage) {
         
-        if let messageAttachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+        if let messageAttachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = messageAttachmentVariableInCache.value
         } else {
             self.attachment = attachment.detach()
             IGAttachmentManager.sharedManager.add(attachment: self.attachment!)
-            self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!)?.value
+            self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!)?.value
         }
         
         let fileImage = UIImage(named: "IG_Message_Cell_File_Generic")
@@ -62,7 +62,7 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
         }
         
         
-        if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+        if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = variableInCache.value
             variableInCache.asObservable().subscribe({ (event) in
                 DispatchQueue.main.async {

@@ -242,7 +242,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRe
                                             let avatar = IGFile()
                                             avatar.attachedImage = self.groupAvatarImage.image
                                             let randString = IGGlobal.randomString(length: 32)
-                                            avatar.primaryKeyId = randString
+                                            avatar.cacheID = randString
                                             avatar.name = randString
                                             
                                             IGUploadManager.sharedManager.upload(file: avatar, start: {

@@ -20,12 +20,12 @@ class IGImageView: GIFImageView {
     
     //FIXME: override was removed (check performance)
     func setThumbnaill(for attachment: IGFile) {
-        attachmentId = attachment.primaryKeyId
+        attachmentId = attachment.cacheID
         setOrFetchThumbnail(for: attachment)
     }
     
     func setOrFetchThumbnail(for attachment: IGFile) {
-        if attachment.primaryKeyId != self.attachmentId {
+        if attachment.cacheID != self.attachmentId {
             return
         }
         if let path = attachment.path() {
@@ -89,12 +89,12 @@ class IGImageView: GIFImageView {
     
     //FIXME: override was removed (check performance)
     func setImagee(avatar: IGAvatar) {
-        attachmentId = avatar.file?.primaryKeyId
+        attachmentId = avatar.file?.cacheID
         setOrFetchAvatar(avatar)
     }
     
     func setOrFetchAvatar(_ avatar: IGAvatar) {
-        if avatar.file?.primaryKeyId != self.attachmentId {
+        if avatar.file?.cacheID != self.attachmentId {
             return
         }
         if let smallThumbnail = avatar.file?.smallThumbnail {

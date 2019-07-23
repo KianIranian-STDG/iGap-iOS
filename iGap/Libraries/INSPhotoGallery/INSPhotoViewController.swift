@@ -232,7 +232,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
         
         if var attachment = photo.file {
             
-            if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+            if let attachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
 
             } else {
                 self.attachment = attachment.detach()
@@ -244,10 +244,10 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
 
             
             /* Rx Start */
-            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
                 attachment = variableInCache.value
 
-                let string : String! = self.photo.file?.primaryKeyId
+                let string : String! = self.photo.file?.cacheID
                 if let disposable = IGGlobal.dispoasDicString[string] {
                     IGGlobal.dispoasDicString.removeValue(forKey: string)
                     disposable.dispose()

@@ -5506,7 +5506,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         let delete = UIAlertAction(title: "BTN_DELETE".MessageViewlocalizedNew, style: .destructive, handler: { (action) in
             if let attachment = cellMessage.attachment {
-                IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.primaryKeyId, hasAttachment: true)
+                IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: attachment.cacheID, hasAttachment: true)
             } else {
                 IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: cellMessage.primaryKeyId)
             }
@@ -5573,11 +5573,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             return
         }
         
-        var attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.primaryKeyId!)
+        var attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.cacheID!)
         if attachmetVariableInCache == nil {
             let attachmentRef = ThreadSafeReference(to: finalMessage.attachment!)
             IGAttachmentManager.sharedManager.add(attachmentRef: attachmentRef)
-            attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.primaryKeyId!)
+            attachmetVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: finalMessage.attachment!.cacheID!)
         }
         
         let attachment = attachmetVariableInCache!.value

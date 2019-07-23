@@ -45,12 +45,12 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
     
     func setMediaPlayer(attachment: IGFile , message: IGRoomMessage) {
         
-        if let messageAttachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+        if let messageAttachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = messageAttachmentVariableInCache.value
         } else {
             self.attachment = attachment.detach()
             IGAttachmentManager.sharedManager.add(attachment: self.attachment!)
-            self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!)?.value
+            self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!)?.value
         }
         
         self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
@@ -80,7 +80,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
         playingSlider.maximumValue = Float(time)
         
         
-        if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.primaryKeyId!) {
+        if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
             self.attachment = variableInCache.value
             variableInCache.asObservable().subscribe({ (event) in
                 DispatchQueue.main.async {

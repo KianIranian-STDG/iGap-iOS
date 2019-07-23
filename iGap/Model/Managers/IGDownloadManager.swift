@@ -534,7 +534,6 @@ class IGDownloadTask {
         //`Realm` object and cannot be accessed form this thread
         self.file = IGFile()
         self.file.cacheID = file.cacheID
-        self.file.primaryKeyId = file.primaryKeyId
         self.file.token = file.token
         self.file.publicUrl = file.publicUrl
         self.file.size = file.size

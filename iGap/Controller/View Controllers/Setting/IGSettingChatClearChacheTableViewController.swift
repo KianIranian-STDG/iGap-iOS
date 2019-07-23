@@ -259,8 +259,8 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController, UIGe
         for file in try! Realm().objects(IGFile.self).filter(NSPredicate(format: "typeRaw = %d", fileType)) {
             if IGGlobal.isFileExist(path: file.path(), fileSize: file.size) {
                 IGGlobal.removeFile(path: file.path())
-                IGAttachmentManager.sharedManager.variablesCache.removeObject(forKey: file.primaryKeyId! as NSString)
-                IGFactory.shared.removeFileNameOnDisk(primaryKeyId: file.primaryKeyId!, status: .readyToDownload)
+                IGAttachmentManager.sharedManager.variablesCache.removeObject(forKey: file.cacheID! as NSString)
+                IGFactory.shared.removeFileNameOnDisk(primaryKeyId: file.cacheID!, status: .readyToDownload)
             }
         }
     }

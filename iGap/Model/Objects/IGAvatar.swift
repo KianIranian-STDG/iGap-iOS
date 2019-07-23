@@ -28,7 +28,7 @@ class IGAvatar: Object{
         self.id = igpAvatar.igpID
         
         // if file exist reuse it
-        let predicateAvatar = NSPredicate(format: "primaryKeyId = %@", igpAvatar.igpFile.igpCacheID)
+        let predicateAvatar = NSPredicate(format: "cacheID = %@", igpAvatar.igpFile.igpCacheID)
         let avatarFile = try! Realm().objects(IGFile.self).filter(predicateAvatar).first
         if avatarFile == nil {
             self.file = IGFile(igpFile: igpAvatar.igpFile, type: .image)

@@ -42,11 +42,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending image
     func sendSendingImage(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingImage, id: id)
     }
     func cancelSendingImage(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }
@@ -62,11 +62,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending video
     func sendSendingVideo(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingVideo, id: id)
     }
     func cancelSendingVideo(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }
@@ -74,11 +74,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending gif
     func sendSendingGif(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingGif, id: id)
     }
     func cancelSendingGif(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }
@@ -86,11 +86,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending audio
     func sendSendingAudio(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingAudio, id: id)
     }
     func cancelSendingAudio(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }
@@ -106,11 +106,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending voice
     func sendSendingVoice(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingVoice, id: id)
     }
     func cancelSendingVoice(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }
@@ -118,11 +118,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending document
     func sendSendingDocument(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingDocument, id: id)
     }
     func cancelSendingDocument(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }
@@ -130,11 +130,11 @@ class IGClientActionManager: NSObject {
     //MARK: - sending file
     func sendSendingFile(file: IGFile, for room: IGRoom) {
         let id = self.generateId()
-        actions[file.primaryKeyId!] = id
+        actions[file.cacheID!] = id
         room.setAction(.sendingFile, id: id)
     }
     func cancelSendingFile(file: IGFile, for room: IGRoom) {
-        if let id = actions[file.primaryKeyId!] {
+        if let id = actions[file.cacheID!] {
             room.setAction(.cancel, id: id)
         }
     }

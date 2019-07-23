@@ -43,17 +43,17 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
     
     func setMediaIndicator(message: IGRoomMessage) {
         if let msgAttachment = message.attachment {
-            if let messageAttachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: msgAttachment.primaryKeyId!) {
+            if let messageAttachmentVariableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: msgAttachment.cacheID!) {
                 self.attachment = messageAttachmentVariableInCache.value
             } else {
                 self.attachment = msgAttachment.detach()
                 //let attachmentRef = ThreadSafeReference(to: msgAttachment)
                 IGAttachmentManager.sharedManager.add(attachment: attachment!)
-                self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: msgAttachment.primaryKeyId!)?.value
+                self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: msgAttachment.cacheID!)?.value
             }
             
             
-            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: msgAttachment.primaryKeyId!) {
+            if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: msgAttachment.cacheID!) {
                 attachment = variableInCache.value
                 variableInCache.asObservable().subscribe({ (event) in
                     DispatchQueue.main.async {

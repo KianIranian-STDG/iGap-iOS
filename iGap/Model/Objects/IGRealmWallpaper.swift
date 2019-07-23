@@ -23,7 +23,7 @@ class IGRealmWallpaper: Object {
         self.init()
         
         for wallpaper in wallpapers {
-            let predicate = NSPredicate(format: "primaryKeyId ==[c] %@", wallpaper.igpFile.igpCacheID)
+            let predicate = NSPredicate(format: "cacheID ==[c] %@", wallpaper.igpFile.igpCacheID)
             if let file = try! Realm().objects(IGFile.self).filter(predicate).first {
                 self.file.append(file)
             } else {
