@@ -1564,7 +1564,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }).error({ (errorCode, waitTime) in
             switch errorCode {
             case .timeout:
-                self.getUserInfo()
+                // call "getUserInfo" in main thread for avoid from "Realm Accessed from incorrect thread"
+                DispatchQueue.main.async {
+                    self.getUserInfo()
+                }
             default:
                 break
             }

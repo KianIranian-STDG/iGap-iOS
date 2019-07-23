@@ -726,7 +726,7 @@ class IGFactory: NSObject {
                 var predicate: NSPredicate!
                 
                 if hasAttachment {
-                    predicate = NSPredicate(format: "attachment.primaryKeyId = %@", primaryKeyId)
+                    predicate = NSPredicate(format: "attachment.cacheID = %@", primaryKeyId)
                 } else {
                     predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId)
                 }
@@ -841,7 +841,7 @@ class IGFactory: NSObject {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
                 var predicate: NSPredicate!
                 if hasAttachment {
-                    predicate = NSPredicate(format: "attachment.primaryKeyId = %@", primaryKeyId!)
+                    predicate = NSPredicate(format: "attachment.cacheID = %@", primaryKeyId!)
                 } else {
                     predicate = NSPredicate(format: "primaryKeyId = %@", primaryKeyId!)
                 }
@@ -2569,7 +2569,7 @@ class IGFactory: NSObject {
                 
                 try! IGDatabaseManager.shared.realm.write {
                     let newFile = IGFile.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpFile: igpFile, fileType: file.type)
-                    newFile.cacheID = file.cacheID
+                    //newFile.cacheID = file.cacheID
                     newFile.fileNameOnDisk = file.fileNameOnDisk
                 }
                 IGFactory.shared.performInFactoryQueue {
