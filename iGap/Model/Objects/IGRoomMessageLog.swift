@@ -131,35 +131,35 @@ class IGRoomMessageLog: Object {
         var bodyString = ""
         switch (message.log?.type)! {
         case .userJoined:
-            bodyString = actorUsernameTitle + "MSG_JOINED_IGAP".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_JOINED_IGAP".localizedNew
         case .userDeleted:
-            bodyString = actorUsernameTitle + "MSG_DELETED_ACCOUNT".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_DELETED_ACCOUNT".localizedNew
         case .roomCreated:
             if message.authorRoom != nil {
                 bodyString = "MSG_CHANNEL_WAS_CREATED".localizedNew
             } else {
-                bodyString = actorUsernameTitle + "MSG_CREATED_ROOM".localizedNew
+                bodyString = actorUsernameTitle + " " + "MSG_CREATED_ROOM".localizedNew
             }
         case .memberAdded:
-            bodyString = actorUsernameTitle + "MSG_ADDED".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_ADDED".localizedNew
         case .memberKicked:
-            bodyString = actorUsernameTitle + "MSG_KICKED".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_KICKED".localizedNew
         case .memberLeft:
-            bodyString = actorUsernameTitle + "MSG_LEFT".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_LEFT".localizedNew
         case .roomConvertedToPublic:
             if message.authorRoom != nil {
                 bodyString = "MSG_IS_PUBLIC".localizedNew
             } else {
-                bodyString = actorUsernameTitle + "MSG_CHANGED_TO_PUBLIC".localizedNew
+                bodyString = actorUsernameTitle + " " + "MSG_CHANGED_TO_PUBLIC".localizedNew
             }
         case .roomConvertedToPrivate:
             if message.authorRoom != nil {
                 bodyString = "MSG_IS_PRIVATE".localizedNew
             } else {
-                bodyString = actorUsernameTitle + "MSG_CHANGED_TO_PRIVATE".localizedNew
+                bodyString = actorUsernameTitle + " " + "MSG_CHANGED_TO_PRIVATE".localizedNew
             }
         case .memberJoinedByInviteLink:
-            bodyString = actorUsernameTitle + "MSG_JOINED_VIA_LINK".localizedNew
+            bodyString = actorUsernameTitle + " " + "MSG_JOINED_VIA_LINK".localizedNew
         case .roomDeleted:
             bodyString = "MSG_ROOM_WAS_DELETED".localizedNew
         case .missedVoiceCall:
