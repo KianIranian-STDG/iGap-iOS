@@ -53,9 +53,6 @@ class IGChannelInfoEditDescriptionTableViewController: UITableViewController , U
             channelDescriptionTextView.isUserInteractionEnabled = false
             if room?.channelRoom?.roomDescription == "" {
                 channelDescriptionTextView.text = "PRODUCTS_NO_DETAILS".localizedNew
-                channelDescriptionTextView.textAlignment = placeholderLabel.localizedNewDirection
-                
-
             }
         }
         
