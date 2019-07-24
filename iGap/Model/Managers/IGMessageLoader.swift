@@ -886,9 +886,10 @@ class IGMessageLoader {
                     if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
                         try! IGDatabaseManager.shared.realm.write {
                             for message in roomHistoryResponse.igpMessage {
-                                IGDatabaseManager.shared.realm.add(IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomHistoryRequest.igpRoomID))
+                                IGDatabaseManager.shared.realm.add(IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomHistoryRequest.igpRoomID, options: IGStructMessageOption(isEnableCache: true)))
                             }
                         }
+                        IGGlobal.importedRoomMessageDic.removeAll()
                         
                         let startMessageId: Int64! = roomHistoryResponse.igpMessage.first?.igpMessageID
                         let endMessageId: Int64! = roomHistoryResponse.igpMessage.last?.igpMessageID
