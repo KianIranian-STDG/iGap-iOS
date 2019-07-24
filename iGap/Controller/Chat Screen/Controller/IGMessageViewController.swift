@@ -4854,6 +4854,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
 extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        if messages!.count <= indexPath.row { return CGSize(width: 0, height: 0) }
+        
         let message = messages![indexPath.row]
         let size = self.collectionView.layout.sizeCell(room: self.room!, for: message)
         let frame = size.bubbleSize
