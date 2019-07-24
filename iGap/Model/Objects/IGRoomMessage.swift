@@ -279,10 +279,14 @@ class IGRoomMessage: Object {
             return message
         }
         
+        /*
         var realmFinal: Realm! = realm
         if realmFinal == nil {
             realmFinal = try! Realm()
         }
+        */
+        
+        let realmFinal = IGDatabaseManager.shared.realm
         let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: options.isForward, isReply: options.isReply)
         let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
         //let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
