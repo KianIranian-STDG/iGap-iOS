@@ -578,9 +578,17 @@ class IGRequestManager {
                 print("\n______________________________\nRESPONSE ➤➤➤ Action ID: \(actionID)   || \(responseProtoMessage) \n------------------------------\n")
                 
                 let response = responseProtoMessage.igpResponse
-                //check if this is a `reponse` or a `push`
+                var correspondingRequestWrapper: IGRequestWrapper!
+                var resolvedRequest: IGRequestWrapper!
+                self.syncroniseQueue.sync {
+                    if let pendingRequest = pendingRequests[response.igpID] {
+                        correspondingRequestWrapper = pendingRequest
+                    } else {
+                        resolvedRequest = resolvedRequests[response.igpID]
+                    }
+                }
                 
-                if let correspondingRequestWrapper = pendingRequests[response.igpID] {
+                if correspondingRequestWrapper != nil {
                     if actionID == 0 { //-> failed
                         let errorProtoMessage = responseProtoMessage as! IGPErrorResponse
                         let errorData = IGErrorRequest.Handler.interpret(response: errorProtoMessage)
@@ -605,7 +613,7 @@ class IGRequestManager {
                         self.resolvedRequests[response.igpID] = correspondingRequestWrapper
                         self.pendingRequests[response.igpID] = nil
                     }
-                } else if resolvedRequests[response.igpID] != nil {
+                } else if resolvedRequest != nil {
                     print ("✦ \(NSDate.timeIntervalSinceReferenceDate) -----XXX Response is already resolved")
                 } else {
                     //this is a `pushed` message
