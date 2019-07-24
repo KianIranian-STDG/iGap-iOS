@@ -626,7 +626,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     }
                 }
                 
-            } catch let _ as NSError {
+            } catch _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR ISBOT ROOM:",String(describing: self))
             }
         }
@@ -635,7 +635,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let realm = try Realm()
             messagesWithMedia = realm.objects(IGRoomMessage.self).filter(messagesWithMediaPredicate).sorted(by: sortPropertiesForMedia)
 
-        } catch let _ as NSError {
+        } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH MEDIA:",String(describing: self))
         }
         
@@ -644,7 +644,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let realm = try Realm()
             messagesWithForwardedMedia = realm.objects(IGRoomMessage.self).filter(messagesWithForwardedMediaPredicate).sorted(by: sortPropertiesForMedia)
 
-        } catch let _ as NSError {
+        } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEW DID LOAD FOR MESSAGE WITH FORWARD MEDIA:",String(describing: self))
         }
 
@@ -1276,7 +1276,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         inputTextView.reloadInputViews()
                     }
 
-                } catch let _ as NSError {
+                } catch _ as NSError {
                     print("RLM EXEPTION ERR HAPPENDED IN MANAGE KEYBOARD:",String(describing: self))
                 }
             }
@@ -1375,7 +1375,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 let realm = try Realm()
                 return realm.objects(IGRoomMessage.self).filter(predicate).last
 
-            } catch let _ as NSError {
+            } catch _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN MY LAST MESSAGE:",String(describing: self))
             }
         }
@@ -1412,47 +1412,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.navigationController!.pushViewController(profile, animated: true)
     }
     
-    func updateObserver(){
-        /*
-        self.notificationToken?.invalidate()
-        self.notificationToken = messages?.observe { (changes: RealmCollectionChange) in
-            switch changes {
-            case .initial:
-                break
-            case .update(_, let deletions, let insertions, let modifications):
-                
-                for cellsPosition in modifications {
-                    if self.collectionView.indexPathsForVisibleItems.contains(IndexPath(row: 0, section: cellsPosition)) {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                        break
-                    }
-                }
-                
-                if insertions.count > 0 || deletions.count > 0 {
-                    
-                    if self.isEndOfScroll && self.collectionView.numberOfSections > 100 {
-                        self.resetGetHistoryValues()
-                        self.messages = self.findAllMessages()
-                    } else {
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    }
-                    
-                    self.manageKeyboard()
-                }
-                
-                break
-            case .error(let err):
-                fatalError("\(err)")
-                break
-            }
-        }
-        */
-    }
-    
     func findAllMessages(isHistory: Bool = false) -> Results<IGRoomMessage>!{
         
         if lastId == 0 {
@@ -1483,7 +1442,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     lastId = allMessages.toArray()[getMessageLimit].id
                 }
                 
-            } catch let _ as NSError {
+            } catch _ as NSError {
                 print("RLM EXEPTION ERR HAPPENDED IN findAllMessages:",String(describing: self))
             }
 
@@ -1513,7 +1472,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let realm = try Realm()
             tmpMessages = realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
 
-        } catch let _ as NSError {
+        } catch _ as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN findAllMessagesII:",String(describing: self))
         }
         DispatchQueue.main.async {
@@ -1604,7 +1563,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         notification(register: true)
-        updateObserver()
         inputTextViewHeightConstraint.constant = 34.0
     }
     
@@ -2042,34 +2000,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.setInputBarHeight()
         }
     }
-    
-    //MARK: - Scroll
-    func updateScrollPosition(forceToLastMessage: Bool, wasAddedMessagesNewer: Bool?, initialContentOffset: CGPoint?, initialContentSize: CGSize?, animated: Bool) {
-        //        if forceToBottom {
-        //            scrollToLastMessage(animated: animated)
-        //        } else {
-        //            let initalContentBottomPadding = (initialContentSize!.height + self.collectionView.contentInset.bottom) - (initialContentOffset!.y + self.collectionView.frame.height)
-        //
-        //            //100 is an arbitrary number can be anything that makes sense. 100, 150, ...
-        //            //we used this to see if user is near the bottom of scroll view and
-        //            //we should scrolll to bottom
-        //            if initalContentBottomPadding < 100 {
-        //                scrollToLastMessage(animated: animated)
-        //            } else {
-        //                if didMessagesAddedToBottom != nil {
-        //                    keepScrollPosition(didMessagesAddedToBottom: didMessagesAddedToBottom!, initialContentOffset: initialContentOffset!, initialContentSize: initialContentSize!, animated: animated)
-        //                }
-        //            }
-        //        }
-    }
-    
-    //    private func scrollToLastMessage(animated: Bool) {
-    //        if self.collectionView.numberOfItems(inSection: 0) > 0  {
-    ////            let indexPath = IndexPath(row: self.collectionView.numberOfItems(inSection: 0)-1, section: 0)
-    //            let indexPath = IndexPath(row: 0, section: self.collectionView.numberOfItems(inSection: 0)-1)
-    //            self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: animated)
-    //        }
-    //    }
     
     private func keepScrollPosition(didMessagesAddedToBottom: Bool, initialContentOffset: CGPoint, initialContentSize: CGSize, animated: Bool) {
         if didMessagesAddedToBottom {
@@ -2618,7 +2548,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 if #available(iOS 11.0, *) {
                     let window = UIApplication.shared.keyWindow
-                    let topPadding = window?.safeAreaInsets.top
                     let bottomPadding = window?.safeAreaInsets.bottom
                     
                     UIView.animate(withDuration: 0.3) {
@@ -2748,7 +2677,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         if #available(iOS 11.0, *) {
             let window = UIApplication.shared.keyWindow
-            let topPadding = window?.safeAreaInsets.top
             let bottomPadding = window?.safeAreaInsets.bottom
             
             UIView.animate(withDuration: 0.3) {
@@ -2936,23 +2864,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 message.roomId = roomU.id
                                                 let detachedMessage = message.detach()
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                                                let tmpMSG = self.messages![index]
                                                 message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
-                                                    
                                                     IGMessageSender.defaultSender.send(message: message, to: roomU)
                                                 }
                                             }
                                             
                                         }
-                                        
-                                    }
-                                    else {
+                                    } else {
                                         return
                                     }
                                     openChat(room: roomU)
-                                    
-                                    
                                     
                                 }
                                     //if dont have chat with contact
@@ -4325,19 +4247,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
 }
 
-////MARK: - UICollectionView
-//extension UICollectionView {
-//    func applyChangeset(_ changes: RealmChangeset) {
-//        performBatchUpdates({
-//            self.insertItems(at: changes.inserted.map { IndexPath(row: 0, section: $0) })
-//            self.deleteItems(at: changes.updated.map { IndexPath(row: 0, section: $0) })
-//            self.reloadItems(at: changes.deleted.map { IndexPath(row: 0, section: $0) })
-//        }, completion: { (completed) in
-//            
-//        })
-//    }
-//}
-
 
 //MARK: - IGMessageCollectionViewDataSource
 extension IGMessageViewController: IGMessageCollectionViewDataSource {
@@ -4817,10 +4726,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        var shouldShowFooter = true
-        
-
-        return CGSize(width: 0.001, height: 0.001)//CGSize.zero
+        return CGSize(width: 0.001, height: 0.001)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -4862,17 +4768,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: self.collectionView.frame.width, height: frame.height + size.additionalHeight + 2)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//
-//        if let message = messages?[section] {
-//            if message.type == .wallet {
-//                return UIEdgeInsets.init(top: 5, left: 0, bottom: 5, right: 0)
-//            }
-//        }
-//        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
-//    }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
@@ -5443,16 +5338,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         self.present(alertC, animated: true, completion: nil)
     }
+    
     func enableMultiSelect(State:Bool! , cellMessage : IGRoomMessage,isForward:Bool? = nil,isDelete:Bool?=nil,isShare:Bool?=nil) {
         IGGlobal.shouldMultiSelect = State
         self.selectedIndex.removeAll()
         self.selectedIndex.append(cellMessage.id)
-        let t = self.selectedIndex
-        let c = cellMessage
-
         self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete)
-        
     }
+    
     func showMultiShareModal() {
         self.MultiShareModalIsActive = true
         
@@ -5462,14 +5355,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             view.addSubview(blurEffectView)
             
-            
             MultiShareModal = IGMultiForwardModal.loadFromNib()
             MultiShareModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
             
             MultiShareModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MultiShareModal.frame.height)
-            
-            
-            
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
@@ -5477,29 +5366,22 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             MultiShareModal.addGestureRecognizer(swipeDown)
             self.view.addSubview(MultiShareModal!)
             self.view.bringSubviewToFront(MultiShareModal!)
-            
         }
+        
         if #available(iOS 11.0, *) {
             let window = UIApplication.shared.keyWindow
-            let topPadding = window?.safeAreaInsets.top
-            let bottomPadding = window?.safeAreaInsets.bottom
-            
             UIView.animate(withDuration: 0.3) {
                 let tmpY = ((self.view.frame.height) - (self.MultiShareModal.frame.height))
                 self.MultiShareModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.MultiShareModal.frame.height)
-                
             }
-        }
-        else {
-            
+        } else {
             UIView.animate(withDuration: 0.3) {
                 let tmpY = ((self.view.frame.height) - (self.MultiShareModal.frame.height))
-                
                 self.MultiShareModal!.frame = CGRect(x: 0, y: tmpY, width: self.view.frame.width, height: self.MultiShareModal.frame.height)
             }
         }
-        
     }
+    
     private func manageFailedMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
@@ -5527,14 +5409,11 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     }
     
     func goToPosition(cellMessage: IGRoomMessage){
-        var count = 0
-        for message in self.messages! {
-            if cellMessage.id == message.id {
-                let indexPath = IndexPath(row: 0, section: count)
-                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-                break
-            }
-            count+=1
+        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: cellMessage.id) {
+            let indexPath = IndexPath(row: indexOfMessge, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+        } else {
+            //TODO - load message from local or server if currently is not exist at view
         }
     }
     

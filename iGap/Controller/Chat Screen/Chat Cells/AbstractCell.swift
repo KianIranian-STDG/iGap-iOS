@@ -674,7 +674,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     @objc func onMultiForwardTap(_ gestureRecognizer: UITapGestureRecognizer) {
         self.delegate?.didTapOnMultiForward(cellMessage: realmRoomMessage!, cell: self)
-//        print("LALA LAND")
     }
 
     @objc func didTapOnAttachment(_ gestureRecognizer: UITapGestureRecognizer) {
