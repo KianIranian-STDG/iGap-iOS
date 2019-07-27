@@ -289,7 +289,7 @@ public class IGFile: Object {
     static func putOrUpdate(realm: Realm, igpFile : IGPFile, fileType: IGFile.FileType, enableCache: Bool = false) -> IGFile {
         
         if enableCache, let file = IGGlobal.importedFileDic[igpFile.igpCacheID], !file.isInvalidated {
-            return file
+            //return file
         }
         
         let predicate = NSPredicate(format: "cacheID = %@", igpFile.igpCacheID)

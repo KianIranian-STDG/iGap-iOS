@@ -872,6 +872,22 @@ class IGMessageLoader {
         return (realmRoomMessagesArray, hasMore, hasSpaceToGap)
     }
  
+    private func manageRewriteMessage(roomId: Int64, messages: [IGPRoomMessage]){
+        IGGlobal.importedRoomMessageDic.removeAll()
+        var rewriteMessageArray: [IGPRoomMessage] = []
+        try! IGDatabaseManager.shared.realm.write {
+            for message in messages {
+                let realmRoomMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomId, options: IGStructMessageOption(isEnableCache: true))
+                if realmRoomMessage == nil {
+                    rewriteMessageArray.append(message)
+                }
+            }
+        }
+        if rewriteMessageArray.count > 0 {
+            manageRewriteMessage(roomId: roomId, messages: rewriteMessageArray)
+        }
+    }
+    
     private func getMessageFromServer(roomId: Int64, messageIdGetHistory: Int64, reachMessageId: Int64, limit: Int32, direction: IGPClientGetRoomHistory.IGPDirection,
                                       onMessageReceive: @escaping ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void),
                                       success: @escaping ((_ roomId :Int64 , _ startMessageId: Int64, _ endMessageId: Int64, _ gapReached: Bool, _ jumpOverLocal: Bool, _ historyDirection: IGPClientGetRoomHistory.IGPDirection, _ onMessageReceive: ((_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection) -> Void)) -> Void),
@@ -884,12 +900,17 @@ class IGMessageLoader {
                 
                 if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
                     if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
+                        var rewriteMessageInfo: [IGPRoomMessage] = []
                         try! IGDatabaseManager.shared.realm.write {
                             for message in roomHistoryResponse.igpMessage {
-                                IGDatabaseManager.shared.realm.add(IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomHistoryRequest.igpRoomID, options: IGStructMessageOption(isEnableCache: true)))
+                                if let savedMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomHistoryRequest.igpRoomID, options: IGStructMessageOption(isEnableCache: true)) {
+                                    IGDatabaseManager.shared.realm.add(savedMessage)
+                                } else {
+                                    rewriteMessageInfo.append(message)
+                                }
                             }
                         }
-                        IGGlobal.importedRoomMessageDic.removeAll()
+                        self.manageRewriteMessage(roomId: roomId, messages: rewriteMessageInfo)
                         
                         let startMessageId: Int64! = roomHistoryResponse.igpMessage.first?.igpMessageID
                         let endMessageId: Int64! = roomHistoryResponse.igpMessage.last?.igpMessageID

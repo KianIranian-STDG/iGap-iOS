@@ -78,14 +78,14 @@ class IGHelperMessageResponse {
                     if lastMessage.id <= roomMessage.igpMessageID {
                         room?.lastMessage = realmRoomMessage
                         room?.isParticipant = true
-                        if let messageTime = realmRoomMessage.creationTime?.timeIntervalSinceReferenceDate {
+                        if let messageTime = realmRoomMessage?.creationTime?.timeIntervalSinceReferenceDate {
                             room?.sortimgTimestamp = messageTime
                         }
                     }
                 } else {
                     room?.lastMessage = realmRoomMessage
                     room?.isParticipant = true
-                    if let messageTime = realmRoomMessage.creationTime?.timeIntervalSinceReferenceDate {
+                    if let messageTime = realmRoomMessage?.creationTime?.timeIntervalSinceReferenceDate {
                         room?.sortimgTimestamp = messageTime
                     }
                 }

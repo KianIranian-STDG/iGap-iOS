@@ -45,6 +45,7 @@ class IGGlobal {
     static var pageIDChartUpdate: Int32 = 0
     static var languageFileName: String = "localizationsFa"
     static var importedRoomMessageDic: [Int64:IGRoomMessage] = [:]
+    static var rewriteRoomInfo: [IGPRoom] = []
     static var importedFileDic: [String:IGFile] = [:]
     static var shouldShowChart : Bool = false
     static var hideBarChart : Bool = true

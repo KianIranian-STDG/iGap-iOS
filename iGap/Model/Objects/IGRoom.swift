@@ -225,7 +225,9 @@ class IGRoom: Object {
         }
     }
     
-    class func putOrUpdate(realm: Realm, _ igpRoom: IGPRoom, enableCache: Bool = false) -> IGRoom {
+    class func putOrUpdate(realm: Realm = IGDatabaseManager.shared.realm, _ igpRoom: IGPRoom, enableCache: Bool = false) -> IGRoom {
+        // if for a room lastMessage or firstUnreadMessage or pinMessage are same
+        var duplicateMessage: IGRoomMessage?
         
         let predicate = NSPredicate(format: "id = %lld", igpRoom.igpID)
         var room: IGRoom! = realm.objects(IGRoom.self).filter(predicate).first
@@ -256,17 +258,21 @@ class IGRoom: Object {
                 setGap = true
             }
             
-            let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true))
-            if setGap {
-                message.previousMessageId = igpRoom.igpLastMessage.igpMessageID
-                message.futureMessageId = igpRoom.igpLastMessage.igpMessageID
+            if let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpLastMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true)) {
+                duplicateMessage = message
+                if setGap {
+                    message.previousMessageId = igpRoom.igpLastMessage.igpMessageID
+                    message.futureMessageId = igpRoom.igpLastMessage.igpMessageID
+                }
+                
+                if shouldFetchBefore {
+                    message.shouldFetchBefore = shouldFetchBefore
+                }
+                room.lastMessage = message
+                room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)!
+            } else {
+                IGGlobal.rewriteRoomInfo.append(igpRoom)
             }
-            
-            if shouldFetchBefore {
-                message.shouldFetchBefore = shouldFetchBefore
-            }
-            room.lastMessage = message
-            room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)!
         }
         
         room.pinId = igpRoom.igpPinID
@@ -274,9 +280,15 @@ class IGRoom: Object {
         room.isParticipant = igpRoom.igpIsParticipant
         
         if igpRoom.hasIgpFirstUnreadMessage {
-            let firstUnreadMessage = IGRoomMessage.putOrUpdate(igpMessage: igpRoom.igpFirstUnreadMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true))
-            firstUnreadMessage.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
-            room.firstUnreadMessage = firstUnreadMessage
+            if let firstUnreadMessage = IGRoomMessage.putOrUpdate(igpMessage: igpRoom.igpFirstUnreadMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true)) {
+                firstUnreadMessage.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
+                room.firstUnreadMessage = firstUnreadMessage
+            } else if duplicateMessage != nil {
+                duplicateMessage!.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
+                room.firstUnreadMessage = duplicateMessage
+            } else {
+                IGGlobal.rewriteRoomInfo.append(igpRoom)
+            }
         }
         
         if igpRoom.hasIgpDraft{
@@ -291,8 +303,15 @@ class IGRoom: Object {
         if igpRoom.hasIgpChannelRoomExtra {
             room.channelRoom = IGChannelRoom.putOrUpdate(realm: realm, igpChannelRoom: igpRoom.igpChannelRoomExtra, id: room.id)
         }
-        
-        room.pinMessage = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true))
+        if igpRoom.hasIgpPinnedMessage {
+            if let message = IGRoomMessage.putOrUpdate(realm: realm, igpMessage: igpRoom.igpPinnedMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true)) {
+                room.pinMessage = message
+            } else if duplicateMessage != nil {
+                room.pinMessage = duplicateMessage
+            } else {
+                IGGlobal.rewriteRoomInfo.append(igpRoom)
+            }
+        }
         
         return room
     }
