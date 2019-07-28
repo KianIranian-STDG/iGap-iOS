@@ -1339,31 +1339,22 @@ extension IGRecentsTableViewController {
     
     /***************** Send Rooms Status *****************/
     
-    func onMessageRecieveInRoomList(messages: [IGPRoomMessage]) {
+    func onMessageRecieveInRoomList(roomId: Int64, messages: [IGPRoomMessage]) {
         
         let realm = try! Realm()
         
         for message in messages {
-            var roomId: Int64 = 0
             var roomType: IGRoom.IGType = .chat
             var roomMessageStatus: IGPRoomMessageStatus = .delivered
             
-            if message.igpAuthor.hasIgpUser { // chat
-                
-                let predicate = NSPredicate(format: "chatRoom.peer.id = %lld", message.igpAuthor.igpUser.igpUserID)
-                if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
-                    roomId = roomInfo.id
-                }
-            } else { // group or channel
-                
-                let predicate = NSPredicate(format: "id = %lld", message.igpAuthor.igpRoom.igpRoomID)
-                if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
-                    roomId = roomInfo.id
-                    if roomInfo.groupRoom != nil {
-                        roomType = .group
-                    } else {
-                        roomType = .channel
-                    }
+            let predicate = NSPredicate(format: "id = %lld", roomId)
+            if let roomInfo = realm.objects(IGRoom.self).filter(predicate).first {
+                if roomInfo.chatRoom != nil {
+                    roomType = .chat
+                } else if roomInfo.groupRoom != nil {
+                    roomType = .group
+                } else {
+                    roomType = .channel
                 }
             }
             

@@ -11,5 +11,5 @@
 import IGProtoBuff
 
 protocol MessageReceiveObserver {
-    func onMessageRecieveInRoomList(messages: [IGPRoomMessage])
+    func onMessageRecieveInRoomList(roomId: Int64, messages: [IGPRoomMessage])
 }

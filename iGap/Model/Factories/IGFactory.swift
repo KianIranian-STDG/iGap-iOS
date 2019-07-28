@@ -413,7 +413,7 @@ class IGFactory: NSObject {
     func saveIgpMessagesToDatabase(_ igpMessages: [IGPRoomMessage], for roomId: Int64, updateLastMessage: Bool, isFromSharedMedia: Bool?, isFromSendMessage: Bool=false) {
         
         if IGRecentsTableViewController.messageReceiveDelegat != nil {
-            IGRecentsTableViewController.messageReceiveDelegat.onMessageRecieveInRoomList(messages: igpMessages)
+            IGRecentsTableViewController.messageReceiveDelegat.onMessageRecieveInRoomList(roomId: roomId, messages: igpMessages)
         }
         
         var userIDs = [Int64: String]()
