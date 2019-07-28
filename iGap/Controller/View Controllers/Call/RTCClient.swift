@@ -260,7 +260,7 @@ public class RTCClient: NSObject {
             return
         }
         peerConnection.close()
-        if let stream = peerConnection.localStreams.first {
+        if peerConnection.localStreams.count > 0, let stream = peerConnection.localStreams.first {
             peerConnection.remove(stream)
         }
         RTCClient.instanceValue = nil

@@ -346,15 +346,17 @@ class IGRoom: Object {
     }
     
     internal static func fetchUsername(room: IGRoom) -> String? {
-        if let chat = room.chatRoom {
-            return chat.peer?.username
-        } else if let group = room.groupRoom {
-            if let publicExtra = group.publicExtra {
-                return publicExtra.username
-            }
-        } else if let channel = room.channelRoom {
-            if let publicExtra = channel.publicExtra {
-                return publicExtra.username
+        if !room.isInvalidated {
+            if let chat = room.chatRoom {
+                return chat.peer?.username
+            } else if let group = room.groupRoom {
+                if let publicExtra = group.publicExtra {
+                    return publicExtra.username
+                }
+            } else if let channel = room.channelRoom {
+                if let publicExtra = channel.publicExtra {
+                    return publicExtra.username
+                }
             }
         }
         return nil
