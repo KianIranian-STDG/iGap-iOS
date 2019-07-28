@@ -6051,6 +6051,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     /******************************** Popular Methods ********************************/
     
     private func appendMessageArray(_ messages: [IGRoomMessage], _ direction: IGPClientGetRoomHistory.IGPDirection){
+        if IGMessageViewController.messageIdsStatic[(self.room?.id)!] == nil {
+            IGMessageViewController.messageIdsStatic[(self.room?.id)!] = []
+        }
+        
         if direction == .up {
             for message in messages {
                 self.messages!.append(message)
