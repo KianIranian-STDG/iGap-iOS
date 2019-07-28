@@ -517,15 +517,16 @@ class IGRequestManager {
                 }
                 
                 if shouldSendRequest {
-                    if let request = generateIGRequestObject() {
-                        pendingRequests[request.igpID] = requestWrapper
-                        requestWrapper.id = request.igpID
-                        _ = requestWrapper.message.igpRequest = request
-                        IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + timeoutSeconds , execute: {
-                            self.internalTimeOut(for: requestWrapper)
-                        })
-                        
+                    self.syncroniseQueue.async(flags: .barrier) {
+                        if let request = self.generateIGRequestObject() {
+                            self.pendingRequests[request.igpID] = requestWrapper
+                            requestWrapper.id = request.igpID
+                            _ = requestWrapper.message.igpRequest = request
+                            IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + self.timeoutSeconds , execute: {
+                                self.internalTimeOut(for: requestWrapper)
+                            })
+                        }
                     }
                 } else {
                     self.syncroniseQueue.async(flags: .barrier) {
