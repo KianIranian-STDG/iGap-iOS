@@ -740,4 +740,12 @@ extension IGRoom {
         }
         return nil
     }
+    
+    static func getTypeWithId(roomId: Int64) -> IGRoom.IGType? {
+        let predicate = NSPredicate(format: "id = %lld", roomId)
+        if let room = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
+            return room.type
+        }
+        return nil
+    }
 }

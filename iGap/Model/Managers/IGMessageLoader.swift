@@ -483,7 +483,7 @@ class IGMessageLoader {
                 
                 let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id >= %lld AND id <= %lld", roomId, startMessageId, endMessageId)
                 realmRoomMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sort)
-                //MessageLoader.sendMessageStatus(roomId, realmRoomMessages, chatType, ProtoGlobal.RoomMessageStatus.SEEN, getRealmChat());
+                IGHelperMessageStatus.shared.sendSeen(roomId: roomId, realmRoomMessages: realmRoomMessages.toArray())
                 
                 /**
                  * I do this for set addToView true
@@ -507,7 +507,6 @@ class IGMessageLoader {
                         self.gapMessageIdDown = 0
                         self.reachMessageIdDown = 0
                         self.bottomMore = true
-                        print("bottomMore is exist")
                     }
                     
                     let _ = self.gapDetection(results: realmRoomMessages, direction: direction)

@@ -333,6 +333,7 @@
 		FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656AF204AB18D00DB46F0 /* igap_ringing.mp3 */; };
 		FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */; };
 		FA58ADF022815BE5002A650E /* IGMessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA58ADEF22815BE5002A650E /* IGMessageLoader.swift */; };
+		FA5B41A522EDD67D001203D0 /* IGHelperMessageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */; };
 		FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */; };
 		FA5CFC4E21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5CFC4D21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift */; };
 		FA5E159D1E0FD76300EC19A1 /* IGAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E159C1E0FD76300EC19A1 /* IGAvatarView.swift */; };
@@ -1017,6 +1018,7 @@
 		FA5656AF204AB18D00DB46F0 /* igap_ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_ringing.mp3; sourceTree = "<group>"; };
 		FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_busy.mp3; sourceTree = "<group>"; };
 		FA58ADEF22815BE5002A650E /* IGMessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMessageLoader.swift; sourceTree = "<group>"; };
+		FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMessageStatus.swift; sourceTree = "<group>"; };
 		FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPromote.swift; sourceTree = "<group>"; };
 		FA5CFC4D21C7EA7500CC2B0D /* IGHelperDoctoriGap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGHelperDoctoriGap.swift; sourceTree = "<group>"; };
 		FA5E159C1E0FD76300EC19A1 /* IGAvatarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGAvatarView.swift; sourceTree = "<group>"; };
@@ -1963,6 +1965,7 @@
 				FA77E0FC2261E9D4008D6D25 /* IGHelperNearby.swift */,
 				FA6C2DE622673B21005654AC /* IGHelperAlert.swift */,
 				FA6F310E22B8A90500DB942E /* IGHelperTracker.swift */,
+				FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */,
 				FA87B94B22BFB46100200650 /* IGHelperMessageResponse.swift */,
 			);
 			path = Helpers;
@@ -3141,6 +3144,7 @@
 				FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */,
 				8EBF54FF22D9B60D00834E6A /* BeautifulBarChart.swift in Sources */,
 				93AA67C41E4F38260053380C /* IGChannelInfoAdminsAndModeratorsTableViewController.swift in Sources */,
+				FA5B41A522EDD67D001203D0 /* IGHelperMessageStatus.swift in Sources */,
 				FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */,
 				FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */,
 				93A3D3CE1E4087B000D2686F /* IGNewChannelBottomViewCollectionCell.swift in Sources */,

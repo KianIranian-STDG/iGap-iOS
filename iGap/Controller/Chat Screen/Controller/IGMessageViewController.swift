@@ -1712,10 +1712,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     //MARK - Send Seen Status
     private func setMessagesRead() {
+        //don't need send status for channel
+        if self.room?.type == .channel {return}
+        
+        let predicate = NSPredicate(format: "statusRaw != %d AND statusRaw != %d", IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
+        let sortProperties = [SortDescriptor(keyPath: "creationTime", ascending: false)]
+        let realmRoomMessages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
         if let room = self.room {
             IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
         }
-        self.messages!.forEach{
+        realmRoomMessages.forEach{
             if let authorHash = $0.authorHash {
                 if authorHash != self.currentLoggedInUserAuthorHash! {
                     self.sendSeenForMessage($0)
