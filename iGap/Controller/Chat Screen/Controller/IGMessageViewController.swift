@@ -1710,21 +1710,33 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         return nil
     }
     
+    var finalRoomType: IGRoom.IGType!
+    var finalRoomId: Int64!
     //MARK - Send Seen Status
     private func setMessagesRead() {
         //don't need send status for channel
         if self.room?.type == .channel {return}
         
-        let predicate = NSPredicate(format: "statusRaw != %d AND statusRaw != %d", IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
-        let sortProperties = [SortDescriptor(keyPath: "creationTime", ascending: false)]
-        let realmRoomMessages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
-        if let room = self.room {
-            IGFactory.shared.markAllMessagesAsRead(roomId: room.id)
-        }
-        realmRoomMessages.forEach{
-            if let authorHash = $0.authorHash {
-                if authorHash != self.currentLoggedInUserAuthorHash! {
-                    self.sendSeenForMessage($0)
+        if let roomId = self.room?.id {
+            finalRoomId = roomId
+            finalRoomType = self.room?.type
+            DispatchQueue.global(qos: .background).async {
+                let predicate = NSPredicate(format: "statusRaw != %d AND statusRaw != %d", IGRoomMessageStatus.seen.rawValue, IGRoomMessageStatus.listened.rawValue)
+                let sortProperties = [SortDescriptor(keyPath: "creationTime", ascending: false)]
+                let realmRoomMessages = try! Realm().objects(IGRoomMessage.self).filter(predicate).sorted(by: sortProperties)
+                IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
+                
+                let finalMessages = realmRoomMessages.toArray()
+                
+                if finalMessages.count == 0 {return}
+                let seenMessages = finalMessages.chunks(10)[0]
+                
+                seenMessages.forEach{
+                    if let authorHash = $0.authorHash {
+                        if authorHash != self.currentLoggedInUserAuthorHash! {
+                            self.sendSeenForMessage($0)
+                        }
+                    }
                 }
             }
         }
@@ -1734,10 +1746,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if message.authorHash == IGAppManager.sharedManager.authorHash() || message.status == .seen {
             return
         }
-        switch self.room!.type {
+        switch finalRoomType! {
         case .chat:
-            if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-                IGChatUpdateStatusRequest.Generator.generate(roomID: self.room!.id, messageID: message.id, status: .seen).success({ (responseProto) in
+            //if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
+                IGChatUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
                     switch responseProto {
                     case let response as IGPChatUpdateStatusResponse:
                         IGChatUpdateStatusRequest.Handler.interpret(response: response)
@@ -1747,10 +1759,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 }).error({ (errorCode, waitTime) in
                     
                 }).send()
-            }
+            //}
         case .group:
-            if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
-                IGGroupUpdateStatusRequest.Generator.generate(roomID: self.room!.id, messageID: message.id, status: .seen).success({ (responseProto) in
+            //if IGRecentsTableViewController.visibleChat[(room?.id)!]! {
+                IGGroupUpdateStatusRequest.Generator.generate(roomID: finalRoomId, messageID: message.id, status: .seen).success({ (responseProto) in
                     switch responseProto {
                     case let response as IGPGroupUpdateStatusResponse:
                         IGGroupUpdateStatusRequest.Handler.interpret(response: response)
@@ -1760,7 +1772,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 }).error({ (errorCode, waitTime) in
                     
                 }).send()
-            }
+            //}
             break
         case .channel:
             /*

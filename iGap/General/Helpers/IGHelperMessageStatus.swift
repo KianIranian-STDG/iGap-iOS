@@ -16,12 +16,14 @@ class IGHelperMessageStatus {
     static let shared = IGHelperMessageStatus()
     
     public func sendSeen(roomId: Int64, realmRoomMessages: [IGRoomMessage]) {
-        if let roomType = IGRoom.getTypeWithId(roomId: roomId) {
-            IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
-            realmRoomMessages.forEach{
-                if let authorHash = $0.authorHash {
-                    if authorHash != IGAppManager.sharedManager.authorHash() {
-                        self.sendSeenForMessage(roomId: roomId, roomType: roomType, $0)
+        DispatchQueue.main.async {
+            if let roomType = IGRoom.getTypeWithId(roomId: roomId) {
+                IGFactory.shared.markAllMessagesAsRead(roomId: roomId)
+                realmRoomMessages.forEach {
+                    if let authorHash = $0.authorHash {
+                        if authorHash != IGAppManager.sharedManager.authorHash() {
+                            self.sendSeenForMessage(roomId: roomId, roomType: roomType, $0)
+                        }
                     }
                 }
             }
@@ -34,7 +36,7 @@ class IGHelperMessageStatus {
         }
         switch roomType {
         case .chat:
-            if IGRecentsTableViewController.visibleChat[roomId]! {
+            //if IGRecentsTableViewController.visibleChat[roomId]! {
                 IGChatUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.id, status: .seen).success({ (responseProto) in
                     switch responseProto {
                     case let response as IGPChatUpdateStatusResponse:
@@ -45,9 +47,9 @@ class IGHelperMessageStatus {
                 }).error({ (errorCode, waitTime) in
                     
                 }).send()
-            }
+            //}
         case .group:
-            if IGRecentsTableViewController.visibleChat[roomId]! {
+            //if IGRecentsTableViewController.visibleChat[roomId]! {
                 IGGroupUpdateStatusRequest.Generator.generate(roomID: roomId, messageID: message.id, status: .seen).success({ (responseProto) in
                     switch responseProto {
                     case let response as IGPGroupUpdateStatusResponse:
@@ -58,7 +60,7 @@ class IGHelperMessageStatus {
                 }).error({ (errorCode, waitTime) in
                     
                 }).send()
-            }
+            //}
             break
         case .channel:
             /*
