@@ -5907,6 +5907,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     func onMessageUpdateStatus(messageId: Int64) {
+        if self.room == nil || self.room!.isInvalidated {
+            return
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             if let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
                 if let message = IGRoomMessage.getMessageWithId(messageId: messageId) {
