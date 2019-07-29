@@ -3649,7 +3649,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.appendMessageArray([message], .down)
         self.addChatItemToBottom(count: 1)
         self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
-        self.scrollManager()
+        self.scrollManager(force: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.sendMessageState(enable: false)
@@ -5967,7 +5967,12 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         if scrollToBottom && !self.messageLoader.allowAddToView() {
-            resetAndGetFromEnd()
+            // in this state (mabye all stats) when "scrollToBottom" is true, "realmRoomMessages" just has one item
+            if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
+                resetAndGetFromEnd()
+            } else {
+                return
+            }
         }
         
         if direction == .up { // Up direction
@@ -6024,7 +6029,11 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     self.addChatItemToBottom(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                     if scrollToBottom {
-                        self.scrollManager()
+                        if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
+                            self.scrollManager(force: true)
+                        } else {
+                            self.scrollManager()
+                        }
                     }
                 }
             }
@@ -6164,10 +6173,29 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     /**
      * send scroll to bottom if needed
      */
-    private func scrollManager(){
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.scrollToBottom()
+    private func scrollManager(force: Bool = false){
+        if force || isNearToBottom() {
+            DispatchQueue.main.async {
+                self.scrollToBottom()
+            }
         }
+    }
+    
+    /**
+     * if current state of collection is near to bottom (according to "IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT" param),
+     * so collection state is near to bottom
+     */
+    private func isNearToBottom() -> Bool {
+        let visibleCells = self.collectionView.indexPathsForVisibleItems.sorted(by:{
+            $0.section < $1.section || $0.row < $1.row
+        }).compactMap({
+            self.collectionView.cellForItem(at: $0)
+        })
+        
+        if visibleCells.count > 0, self.collectionView.indexPath(for: visibleCells[0])!.row > IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
+            return false
+        }
+        return true
     }
     
     //TODO - make delete method for find deleted item position and then detect that deleted item is upper than user position or is lower that from user, and finally remove item without move view because of remove item
