@@ -3692,11 +3692,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if self.messageLoader.allowAddToView() {
             scrollToBottom()
         } else {
-            self.messageLoader.resetMessagingValue()
-            self.messages?.removeAll()
-            self.collectionView.reloadData()
-            self.scrollToBottomContainerView.isHidden = true
-            startLoadMessage()
+            resetAndGetFromEnd()
         }
     }
     
@@ -5986,10 +5982,24 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
                 }
             } else {
+                // update first item into the view for manage avatar and message sender name
+                var updateMessageId: Int64 = 0
+                if self.room != nil && !self.room!.isInvalidated && self.room!.type == .group , let messageIds = IGMessageViewController.messageIdsStatic[(self.room?.id)!] {
+                    if messageIds.count > 0 {
+                        updateMessageId = messageIds[messageIds.count-1]
+                    }
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToTop(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
+                    if updateMessageId != 0 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                            if let pos = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: updateMessageId) {
+                                self.updateItem(cellPosition: pos)
+                            }
+                        }
+                    }
                 }
             }
         } else { // Down Direction
