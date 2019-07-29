@@ -5913,7 +5913,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let indexOfMessage = self.messages?.firstIndex(of: identity) {
+            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: identity) {
                 self.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: message, roomId: roomId))
                 self.updateItem(cellPosition: indexOfMessage)
             }
@@ -5926,7 +5926,11 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]!.firstIndex(of: messageId) {
+            let messages = IGMessageViewController.messageIdsStatic[(self.room?.id)!]
+            if messages == nil {
+                return
+            }
+            if let indexOfMessage = messages!.firstIndex(of: messageId) {
                 if let message = IGRoomMessage.getMessageWithId(messageId: messageId) {
                     self.updateMessageArray(cellPosition: indexOfMessage, message: message)
                     self.updateItem(cellPosition: indexOfMessage)
