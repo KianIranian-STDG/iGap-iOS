@@ -899,6 +899,8 @@ class IGMessageLoader {
                 
                 if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
                     if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
+                        IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true))
+                        /*
                         var rewriteMessageInfo: [IGPRoomMessage] = []
                         try! IGDatabaseManager.shared.realm.write {
                             for message in roomHistoryResponse.igpMessage {
@@ -910,6 +912,7 @@ class IGMessageLoader {
                             }
                         }
                         self.manageRewriteMessage(roomId: roomId, messages: rewriteMessageInfo)
+                        */
                         
                         let startMessageId: Int64! = roomHistoryResponse.igpMessage.first?.igpMessageID
                         let endMessageId: Int64! = roomHistoryResponse.igpMessage.last?.igpMessageID

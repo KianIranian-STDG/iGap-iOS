@@ -572,4 +572,45 @@ class IGRoomMessage: Object {
             IGDatabaseManager.shared.realm.delete(allMessages)
         }
     }
+    
+    /**
+     * for write a list of message, need to manage duplicate message for avoid from "duplicate primary key" crash.
+     * this method will be managed write same message into the realm, with make an array from duplicate message and
+     * retry this method for write from duplicate array message, and do this action until finish all messages.
+     */
+    internal static func managePutOrUpdate(roomId: Int64, messages: [IGPRoomMessage], options: IGStructMessageOption = IGStructMessageOption()){
+        
+        if messages.count == 0 {
+            return
+        }
+        
+        var duplicateMessageInfo: [IGPRoomMessage] = []
+        try! IGDatabaseManager.shared.realm.write {
+            for message in messages {
+                if let savedMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomId, options: options) {
+                    IGDatabaseManager.shared.realm.add(savedMessage)
+                } else {
+                    duplicateMessageInfo.append(message)
+                }
+            }
+        }
+        
+        manageRewriteMessage(roomId: roomId, messages: duplicateMessageInfo, options: options)
+    }
+    
+    private static func manageRewriteMessage(roomId: Int64, messages: [IGPRoomMessage], options: IGStructMessageOption = IGStructMessageOption()){
+        IGGlobal.importedRoomMessageDic.removeAll()
+        var rewriteMessageArray: [IGPRoomMessage] = []
+        try! IGDatabaseManager.shared.realm.write {
+            for message in messages {
+                let realmRoomMessage = IGRoomMessage.putOrUpdate(igpMessage: message, roomId: roomId, options: options)
+                if realmRoomMessage == nil {
+                    rewriteMessageArray.append(message)
+                }
+            }
+        }
+        if rewriteMessageArray.count > 0 {
+            manageRewriteMessage(roomId: roomId, messages: rewriteMessageArray, options: options)
+        }
+    }
 }
