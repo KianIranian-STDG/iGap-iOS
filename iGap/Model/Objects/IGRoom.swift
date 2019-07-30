@@ -270,7 +270,7 @@ class IGRoom: Object {
                 }
                 room.lastMessage = message
                 room.sortimgTimestamp = (message.creationTime?.timeIntervalSinceReferenceDate)!
-            } else {
+            } else if !IGGlobal.rewriteRoomInfo.contains(igpRoom) {
                 IGGlobal.rewriteRoomInfo.append(igpRoom)
             }
         }
@@ -286,7 +286,7 @@ class IGRoom: Object {
             } else if duplicateMessage != nil {
                 duplicateMessage!.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
                 room.firstUnreadMessage = duplicateMessage
-            } else {
+            } else if !IGGlobal.rewriteRoomInfo.contains(igpRoom) {
                 IGGlobal.rewriteRoomInfo.append(igpRoom)
             }
         }
@@ -308,7 +308,7 @@ class IGRoom: Object {
                 room.pinMessage = message
             } else if duplicateMessage != nil {
                 room.pinMessage = duplicateMessage
-            } else {
+            } else if !IGGlobal.rewriteRoomInfo.contains(igpRoom) {
                 IGGlobal.rewriteRoomInfo.append(igpRoom)
             }
         }
