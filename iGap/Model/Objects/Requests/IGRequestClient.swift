@@ -111,20 +111,7 @@ class IGClientGetRoomHistoryRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPClientGetRoomHistoryResponse, roomId: Int64) { //-> [IGRoomMessage]{
-            IGFactory.shared.saveIgpMessagesToDatabase(responseProtoMessage.igpMessage, for: roomId, updateLastMessage: false , isFromSharedMedia: false)
-            
-            //            var messages = [IGRoomMessage]()
-            //            for igpMessage in responseProtoMessage.igpMessage {
-            //                if !igpMessage.igpDeleted {
-            //                    let message = IGRoomMessage(igpMessage: igpMessage)
-            //                    messages.append(message)
-            //                }
-            //            }
-            //            return messages
-        }
-        
-        
+        class func interpret(response responseProtoMessage:IGPClientGetRoomHistoryResponse, roomId: Int64) {}
         override class func handlePush(responseProtoMessage: Message) {}
     }
 }
@@ -165,7 +152,6 @@ class IGClientSearchRoomHistoryRequest : IGRequest {
             let totalCount = responseProtoMessage.igpTotalCount
             let notDeletedCount = responseProtoMessage.igpNotDeletedCount
             let igpMessages = responseProtoMessage.igpResult
-            //IGFactory.shared.saveIgpMessagesToDatabase(igpMessages, for: roomId, updateLastMessage: false, isFromSharedMedia: true)
             return (totlaCount: totalCount , NotDeletedCount: notDeletedCount , messages: igpMessages)
             
         }

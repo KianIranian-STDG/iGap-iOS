@@ -812,7 +812,6 @@ class IGGroupPinMessageRequest : IGRequest {
     
     class Handler : IGRequest.Handler{
         class func interpret(response: IGPGroupPinMessageResponse) {
-            IGFactory.shared.saveIgpMessagesToDatabase([response.igpPinnedMessage], for: response.igpRoomID, updateLastMessage: false , isFromSharedMedia: false)
             IGFactory.shared.roomPinMessage(roomId: response.igpRoomID, messageId: response.igpPinnedMessage.igpMessageID)
         }
         

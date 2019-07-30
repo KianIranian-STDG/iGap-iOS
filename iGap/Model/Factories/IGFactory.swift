@@ -35,69 +35,6 @@ fileprivate class IGFactoryTask: NSObject {
         self.task = task
     }
     
-    //MARK: Tasks
-    convenience init(messageTask igpMessage: IGPRoomMessage, for roomId: Int64, shouldFetchBefore: Bool?) {
-        self.init()
-        let task = {
-            IGFactoryTask(dependencyUserTask: igpMessage.igpAuthor.igpUser.igpUserID, cacheID: igpMessage.igpAuthor.igpUser.igpCacheID).success({
-                IGFactoryTask(dependencyRoomTask: igpMessage.igpAuthor.igpRoom.igpRoomID, isParticipane: true).success({
-                    IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                        if let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId) {
-                            if shouldFetchBefore != nil {
-                                message.shouldFetchBefore = shouldFetchBefore!
-                            }
-                            
-                            //check if a message with same data exists in db
-                            let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", message.id, roomId)
-                            if let messageInDb = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
-                                message.primaryKeyId = messageInDb.primaryKeyId
-                                message.shouldFetchBefore = messageInDb.shouldFetchBefore
-                            }
-                            
-                            try! IGDatabaseManager.shared.realm.write {
-                                IGDatabaseManager.shared.realm.add(message, update: true)
-                            }
-                            IGFactory.shared.performInFactoryQueue {
-                                self.success!()
-                            }
-                        }
-                    }
-                }).error ({
-                    self.error!()
-                }).execute()
-            }).error ({
-                self.error!()
-            }).execute()
-        }
-        self.task = task
-    }
-    
-    convenience init(roomTask igpRoom: IGPRoom) {
-        self.init()
-        let task = {
-            IGFactoryTask(dependencyUserTask: igpRoom.igpChatRoomExtra.igpPeer.igpID, cacheID: igpRoom.igpChatRoomExtra.igpPeer.igpCacheID).success ({
-                IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                    let room = IGRoom(igpRoom: igpRoom)
-                    room.isParticipant = true
-                    try! IGDatabaseManager.shared.realm.write {
-                        IGDatabaseManager.shared.realm.add(room, update: true)
-                        /*
-                         if let roomInfo = IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room) {
-                         IGDatabaseManager.shared.realm.add(roomInfo, update: true)
-                         }
-                         */
-                    }
-                    IGFactory.shared.performInFactoryQueue {
-                        self.success!()
-                    }
-                }
-            }).error ({
-                self.error!()
-            }).execute()
-        }
-        self.task = task
-    }
-    
     //MARK: Dependencies
     convenience init(dependencyUserTask userID: Int64?, cacheID: String?) {
         self.init()
@@ -169,10 +106,9 @@ fileprivate class IGFactoryTask: NSObject {
                                 switch responseProto {
                                 case let response as IGPClientGetRoomResponse:
                                     let igpRoom = response.igpRoom
-                                    let room = IGRoom(igpRoom: igpRoom)
-                                    room.isParticipant = isParticipane
-                                    //room.sortimgTimestamp = Date().timeIntervalSinceReferenceDate // don't need update to current time. don't do this for avoid from send room to top of room list
                                     try! IGDatabaseManager.shared.realm.write {
+                                        let room = IGRoom.putOrUpdate(igpRoom)
+                                        room.isParticipant = isParticipane
                                         IGDatabaseManager.shared.realm.add(room, update: true)
                                     }
                                 default:
@@ -186,44 +122,6 @@ fileprivate class IGFactoryTask: NSObject {
                         }).error({ (errorCode, waitTime) in
                             self.error!()
                         }).send()
-                    }
-                }
-            } else {
-                self.success!()
-            }
-        }
-        self.task = task
-    }
-    
-    /* create room if new message recieved and room not exist */
-    convenience init(createRoomTask roomId: Int64?) {
-        self.init()
-        let task = {
-            if let id = roomId, id != 0 {
-                IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                    
-                    let predicate = NSPredicate(format: "id = %lld", id)
-                    if try! Realm().objects(IGRoom.self).filter(predicate).first == nil {
-                        IGClientGetRoomRequest.Generator.generate(roomId: id).success({ (responseProto) in
-                            IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                                if let clientGetRoomResponse = responseProto as? IGPClientGetRoomResponse {
-                                    let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
-                                    try! IGDatabaseManager.shared.realm.write {
-                                        IGDatabaseManager.shared.realm.add(room, update: true)
-                                    }
-                                }
-                                IGFactory.shared.performInFactoryQueue {
-                                    self.success!()
-                                }
-                            }
-                            
-                        }).error({ (errorCode, waitTime) in
-                            self.error!()
-                        }).send()
-                    } else {
-                        IGFactory.shared.performInFactoryQueue {
-                            self.success!()
-                        }
                     }
                 }
             } else {
@@ -406,166 +304,6 @@ class IGFactory: NSObject {
         }
         //self.doFactoryTask(task: task)
     }
-    
-    
-    //MARK: --------------------------------------------------------
-    //MARK: ▶︎▶︎ Messages
-    func saveIgpMessagesToDatabase(_ igpMessages: [IGPRoomMessage], for roomId: Int64, updateLastMessage: Bool, isFromSharedMedia: Bool?, isFromSendMessage: Bool=false) {
-        
-        if IGRecentsTableViewController.messageReceiveDelegat != nil {
-            IGRecentsTableViewController.messageReceiveDelegat.onMessageRecieveInRoomList(roomId: roomId, messages: igpMessages)
-        }
-        
-        var userIDs = [Int64: String]()
-        var roomIDs = Set<Int64>()
-        
-        for igpMessage in igpMessages {
-            if igpMessage.hasIgpAuthor {
-                if igpMessage.igpAuthor.hasIgpRoom {
-                    let igpAuthorRoom = igpMessage.igpAuthor.igpRoom.igpRoomID
-                    roomIDs.insert(igpAuthorRoom)
-                } else if igpMessage.igpAuthor.hasIgpUser {
-                    let igpAuthorUserId      = igpMessage.igpAuthor.igpUser.igpUserID
-                    let igpAuthorUserCacheId = igpMessage.igpAuthor.igpUser.igpCacheID
-                    userIDs[igpAuthorUserId] = igpAuthorUserCacheId
-                }
-            }
-            
-            
-            if igpMessage.hasIgpForwardFrom {
-                if igpMessage.igpForwardFrom.igpAuthor.hasIgpRoom {
-                    roomIDs.insert(igpMessage.igpForwardFrom.igpAuthor.igpRoom.igpRoomID)
-                } else if igpMessage.igpForwardFrom.igpAuthor.hasIgpUser {
-                    let igpAuthorUserId      = igpMessage.igpForwardFrom.igpAuthor.igpUser.igpUserID
-                    let igpAuthorUserCacheId = igpMessage.igpForwardFrom.igpAuthor.igpUser.igpCacheID
-                    userIDs[igpAuthorUserId] = igpAuthorUserCacheId
-                }
-            }
-        }
-        
-        //Step 0: create an array of tasks
-        var tasks = [IGFactoryTask]()
-        
-        //Step 1: create tasks for users
-        for userIDs in userIDs {
-            let task = IGFactoryTask(dependencyUserTask: userIDs.key, cacheID: userIDs.value)
-            tasks.append(task)
-        }
-        
-        //Step 2: create tasks for rooms
-        /*
-         for roomId in roomIDs {
-         let task = IGFactoryTask(dependencyRoomTask: roomId, isParticipane: false)
-         tasks.append(task)
-         }
-         */
-        
-        //Step 3: create room if this is a new conversation
-        let task = IGFactoryTask(createRoomTask: roomId)
-        tasks.append(task)
-        
-        //Step 4: create a task for all messages
-        let messagesTask = getFactoryTask()
-        factoryQueue.async {
-            IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                var shouldFetchBefore = true
-                if let igpMessage = igpMessages.first {
-                    var messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id = %lld", roomId, igpMessage.igpMessageID)
-                    if let _ = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).first {
-                        //message is already present
-                        //if not first message in db -> no need to fetch before
-                        //if is first message in db  -> fetch
-                        messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false", roomId)
-                        if let firstRoomMessageInDb = try! Realm().objects(IGRoomMessage.self).filter(messagePredicate).first {
-                            if firstRoomMessageInDb.id == igpMessage.igpMessageID {
-                                shouldFetchBefore = false
-                            }
-                        }
-                    }
-                    if isFromSharedMedia! {
-                        messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id = %lld AND isFromSharedMedia == false", roomId, igpMessage.igpPreviousMessageID)
-                        if let messageInDB = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).first {
-                            messageInDB.isFromSharedMedia = true
-                        }
-                    }
-                    
-                    if igpMessage.igpPreviousMessageID != 0 {
-                        messagePredicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id = %lld", roomId, igpMessage.igpPreviousMessageID)
-                        if let _ = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(messagePredicate).first {
-                            //message is already present -> no need to fetch before
-                            shouldFetchBefore = false
-                        }
-                    }
-                }
-                IGDatabaseManager.shared.realm.beginWrite()
-                for (index, igpMessage) in igpMessages.enumerated() {
-                    let message = IGRoomMessage.putOrUpdate(igpMessage: igpMessage, roomId: roomId)
-                    
-                    // Hint: don't need following code, because currently using from 'IGRoomMessage.putOrUpdate'
-                    /*
-                    let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", message.id, roomId)
-                    if let messageInDb = try! Realm().objects(IGRoomMessage.self).filter(predicate).first {
-                        message.primaryKeyId = messageInDb.primaryKeyId
-                        
-                        // update attachment type with server resposne. e.g. user send file message but get gif message in response, so we need update type
-                        // TODO - saeed - update all file params with server response
-                        if let attachment = message.attachment {
-                            attachment.type = IGFile.getFileType(messageType: message.type)
-                        }
-                    }
-                    */
-                    
-                    if isFromSendMessage {
-                        message?.shouldFetchBefore = (igpMessage.igpPreviousMessageID == 0 ? false : true );
-                    }
-                    else if shouldFetchBefore && ((index == 0 && igpMessages.count > 1) || (igpMessage.igpPreviousMessageID != 0)) {
-                        message?.shouldFetchBefore = true
-                    } else {
-                        message?.shouldFetchBefore = false
-                    }
-                    
-                    IGDatabaseManager.shared.realm.add(message!, update: true)
-                }
-                try! IGDatabaseManager.shared.realm.commitWrite()
-                
-                if isFromSendMessage {
-                    /*
-                    if IGMessageViewController.messageOnChatReceiveObserver != nil {
-                        IGMessageViewController.messageOnChatReceiveObserver.onMessageRecieveInChatPage(message: igpMessages[0])
-                    }
-                    */
-                }
-                
-                //check if should update last messages and unread count
-                var shouldUpdateLastMessage = false
-                let predicate = NSPredicate(format: "id = %lld", roomId)
-                if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                    if let lastMessage = igpMessages.last {
-                        if let lastMessageInDb = roomInDb.lastMessage {
-                            if lastMessage.igpMessageID > lastMessageInDb.id {
-                                shouldUpdateLastMessage = true
-                            }
-                        } else {
-                            shouldUpdateLastMessage = true
-                        }
-                    } else {
-                        shouldUpdateLastMessage = false
-                    }
-                }
-                if shouldUpdateLastMessage {
-                    self.updateRoomLastMessageIfPossible(roomID: roomId)
-                }
-                IGFactory.shared.performInFactoryQueue {
-                    self.setFactoryTaskSuccess(task: messagesTask)
-                }
-            }
-        }
-        if messagesTask != nil {
-            tasks.append(messagesTask!)
-        }
-        self.doFactoryTaskList(tasks: tasks)
-    }
-    
     
     func updateIgpMessagesToDatabase(_ igpMessage: IGPRoomMessage, primaryKeyId: String, roomId: Int64) {
         //let task = getFactoryTask()
@@ -2087,25 +1825,8 @@ class IGFactory: NSObject {
         
         factoryQueue.async {
             IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let room = IGRoom(igpRoom: igpRoom)
-                if isParticipant == nil {
-                    // should retain current state: if in db -> read from db else not participant
-                    let predicate = NSPredicate(format: "id = %lld", room.id)
-                    if let roomInDb = IGDatabaseManager.shared.realm.objects(IGRoom.self).filter(predicate).first {
-                        room.isParticipant = roomInDb.isParticipant
-                    } else {
-                        room.isParticipant = false
-                    }
-                } else {
-                    room.isParticipant = isParticipant!
-                }
                 try! IGDatabaseManager.shared.realm.write {
-                    IGDatabaseManager.shared.realm.add(room, update: true)
-                    /*
-                     if let roomInfo = IGHelperGetShareData.setRealmShareInfo(igpRoom: igpRoom, igRoom: room) {
-                     IGDatabaseManager.shared.realm.add(roomInfo, update: true)
-                     }
-                     */
+                    IGDatabaseManager.shared.realm.add(IGRoom.putOrUpdate(igpRoom), update: true)
                 }
                 IGFactory.shared.performInFactoryQueue {
                     //self.setFactoryTaskSuccess(task: task)
