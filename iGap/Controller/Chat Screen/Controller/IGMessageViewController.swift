@@ -4930,8 +4930,10 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                             saveDate.append(dateString)
                             if firstSetDate {
                                 firstSetDate = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    self.appendAtSpecificPosition(self.makeTimeItem(date: message.creationTime!), cellPosition: lastIndexPath.row + 1)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    if let messageTime = message.creationTime {
+                                        self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+                                    }
                                 }
                             } else {
                                 self.appendAtSpecificPosition(self.makeTimeItem(date: message.creationTime!), cellPosition: lastIndexPath.row + 1)
