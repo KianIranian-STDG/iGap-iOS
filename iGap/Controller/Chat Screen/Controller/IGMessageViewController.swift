@@ -2336,6 +2336,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         } else if channelPinGranted() {
             self.channelPin()
             return
+        } else {
+            self.pinnedMessageView.isHidden = true
+            IGFactory.shared.roomPinMessage(roomId: (self.room?.id)!)
         }
     }
     
