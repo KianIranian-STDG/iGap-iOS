@@ -94,7 +94,7 @@ class IGFileUploadRequest : IGRequest {
 //MARK: -
 class IGFileUploadStatusRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(token: String, identity: String = "") -> IGRequestWrapper {
+        class func generate(token: String, identity: Any) -> IGRequestWrapper {
             var uploadStatusRequestMessage = IGPFileUploadStatus()
             uploadStatusRequestMessage.igpToken = token
             return IGRequestWrapper(message: uploadStatusRequestMessage, actionID: 703, identity: identity)

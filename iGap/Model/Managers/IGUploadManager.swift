@@ -229,7 +229,7 @@ class IGUploadManager {
     
     //Step 4: Check for file state
     private func checkStatus(for task: IGUploadTask) {
-        IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task.file.cacheID!).successPowerful ({ (protoMessage, requestWrapper) in
+        IGFileUploadStatusRequest.Generator.generate(token: task.token!, identity: task).successPowerful ({ (protoMessage, requestWrapper) in
             switch protoMessage {
             case let fileUploadStatusResponse as IGPFileUploadStatusResponse:
                 let response = IGFileUploadStatusRequest.Handler.interpret(response: fileUploadStatusResponse)
@@ -238,6 +238,10 @@ class IGUploadManager {
                 let progress = response.progress
                 IGAttachmentManager.sharedManager.setProgress(response.progress / 100.0, for: task.file)
                 IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
+                
+                if let uploadInfo = requestWrapper.identity as? IGUploadTask {
+                    IGFile.updateFileToken(fileNameOnDisk: uploadInfo.file.fileNameOnDisk!, token: uploadInfo.token!)
+                }
                 /*
                 DispatchQueue.main.async {
                     if let progress = task.progressCallBack {

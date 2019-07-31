@@ -3362,11 +3362,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
         
         var filename : String!
-        var fileSize : Int!
         
         if imageUrl != nil {
             filename = imageUrl?.lastPathComponent
-            fileSize = Int(IGGlobal.getFileSize(path: imageUrl))
             
             if self.sendAsFile {
                 self.sendAsFile = false
@@ -3380,7 +3378,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         } else {
             filename = "IMAGE_" + IGGlobal.randomString(length: 16)
             let imageData = (originalImage).jpegData(compressionQuality: 1)!
-            fileSize = NSData(data: imageData).length
             
             if self.sendAsFile {
                 self.sendAsFile = false
@@ -3393,9 +3390,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         var scaledImage = originalImage
         let imgData = scaledImage.jpegData(compressionQuality: 0.7)
-        if imgData != nil {
-            fileSize = NSData(data: imgData!).length
-        }
         let fileNameOnDisk = randomString + filename
         
         if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
@@ -3403,7 +3397,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         let attachment = IGFile(name: filename)
-        attachment.size = fileSize
         attachment.attachedImage = scaledImage
         attachment.fileNameOnDisk = fileNameOnDisk
         attachment.height = Double((scaledImage.size.height))
@@ -5141,15 +5134,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         let alertC = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let copy = UIAlertAction(title: "COPY".MessageViewlocalizedNew, style: .default, handler: { (action) in
-            
-            let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
-            
-            if let cellCollection = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - 1, section: 0)) as? AbstractCell {
-                let message2 = self.messages![numberOfItems - 2]
-                let index1 = self.messages?.firstIndex(of: cellCollection.realmRoomMessage)
-                self.messages![index1!] = message2
-                self.collectionView.reloadItems(at: [IndexPath(row: numberOfItems - 1, section: 0)])
-            }
+            self.copyMessage(cellMessage)
         })
         
         var pinTitle = "PINN".MessageViewlocalizedNew

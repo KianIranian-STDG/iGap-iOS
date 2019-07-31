@@ -292,7 +292,7 @@ public class IGFile: Object {
             //return file
         }
         
-        let predicate = NSPredicate(format: "cacheID = %@", igpFile.igpCacheID)
+        let predicate = NSPredicate(format: "token = %@", igpFile.igpToken)
         var file: IGFile! = realm.objects(IGFile.self).filter(predicate).first
         
         if file == nil {
@@ -354,6 +354,17 @@ public class IGFile: Object {
         file.name = igpThumbnail.igpCacheID
         
         return file
+    }
+    
+    static func updateFileToken(fileNameOnDisk: String, token: String){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            let predicate = NSPredicate(format: "fileNameOnDisk = %@", fileNameOnDisk)
+            if let file = IGDatabaseManager.shared.realm.objects(IGFile.self).filter(predicate).first {
+                try! IGDatabaseManager.shared.realm.write {
+                    file.token = token
+                }
+            }
+        }
     }
     
     //detach from current realm

@@ -870,7 +870,18 @@ extension UIImageView {
                  */
                 let fileSizeKB = attachment.size/1024
                 
-                if fileSizeKB < 1024 && IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size) {
+                /* when fileNameOnDisk is added into the attachment just check file existance without check file size
+                 * because file size after upload is different with file size before upload
+                 * Hint: mabye change this kind of check for file existance change later
+                 */
+                var fileExist = false
+                if attachment.fileNameOnDisk != nil {
+                    fileExist = IGGlobal.isFileExist(path: attachment.path())
+                } else {
+                    fileExist = IGGlobal.isFileExist(path: attachment.path(), fileSize: attachment.size)
+                }
+                
+                if fileSizeKB < 1024 && fileExist {
                     self.sd_setImage(with: attachment.path(), completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     

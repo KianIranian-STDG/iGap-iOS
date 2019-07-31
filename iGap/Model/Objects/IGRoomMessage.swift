@@ -301,10 +301,7 @@ class IGRoomMessage: Object {
             message.primaryKeyId = primaryKeyId
         }
         
-        if !options.isForward && !options.isReply {
-            message.roomId = roomId
-        }
-        
+        message.roomId = roomId
         message.id = messageId
         message.message = igpMessage.igpMessage
         message.messageVersion = igpMessage.igpMessageVersion

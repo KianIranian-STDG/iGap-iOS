@@ -925,6 +925,7 @@
         "barcode.gift.confirm" : "Get Gift",
         "barcode.gift.cancel" : "Cancel",
         
-        "NO_CALL_HISTORY" : "Not exist call history!"
+        "NO_CALL_HISTORY" : "Not exist call history!",
+        "UNREAD_MESSAGE" : "unread message"
     }
 }

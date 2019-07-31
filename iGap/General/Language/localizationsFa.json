@@ -917,6 +917,7 @@
         "ANOTHER_ROOM" : "چت دیگر",
         "DESCRIPTION" : "توضیحات",
         "NO_DESCRIPTION" : "توضیحی ثبت نشده است",
-        "NO_CALL_HISTORY" : "تاریخچه تماس وجود ندارد!"
+        "NO_CALL_HISTORY" : "تاریخچه تماس وجود ندارد!",
+        "UNREAD_MESSAGE" : "پیام خوانده نشده"
     }
 }
