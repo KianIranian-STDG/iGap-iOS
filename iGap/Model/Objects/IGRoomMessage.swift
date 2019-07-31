@@ -273,9 +273,14 @@ class IGRoomMessage: Object {
     
     static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, options: IGStructMessageOption = IGStructMessageOption()) -> IGRoomMessage? {
         
+        var messageId: Int64 = igpMessage.igpMessageID
+        if options.isReply || options.isForward {
+            messageId = igpMessage.igpMessageID * -1
+        }
+        
         // read imported room message from cache for avoid from duplicate primaryKey
         // (IMPORTANT_HINT) : fill this value for put message from get room list and clear cache after do this work
-        if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[igpMessage.igpMessageID] { //, !message.isInvalidated {
+        if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
             return nil
         }
         
@@ -287,9 +292,8 @@ class IGRoomMessage: Object {
         */
         
         let realmFinal = IGDatabaseManager.shared.realm
-        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: igpMessage.igpMessageID, roomID: roomId, isForward: options.isForward, isReply: options.isReply)
-        let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", igpMessage.igpMessageID, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
-        //let predicate = NSPredicate(format: "id = %lld AND roomId = %lld", igpMessage.igpMessageID, roomId)
+        let primaryKeyId = IGRoomMessage.generatePrimaryKey(messageID: messageId, roomID: roomId, isForward: options.isForward, isReply: options.isReply)
+        let predicate = NSPredicate(format: "(id = %lld AND roomId = %lld) OR (primaryKeyId = %@)", messageId, roomId, primaryKeyId) // i checked primaryKeyId because sometimes was exist in realm
         var message: IGRoomMessage! = realmFinal.objects(IGRoomMessage.self).filter(predicate).first
         
         if message == nil {
@@ -301,7 +305,7 @@ class IGRoomMessage: Object {
             message.roomId = roomId
         }
         
-        message.id = igpMessage.igpMessageID
+        message.id = messageId
         message.message = igpMessage.igpMessage
         message.messageVersion = igpMessage.igpMessageVersion
         message.isDeleted = igpMessage.igpDeleted
@@ -358,10 +362,10 @@ class IGRoomMessage: Object {
             message.contact = IGRoomMessageContact.putOrUpdate(realm: realmFinal, igpRoomMessageContact: igpMessage.igpContact, for: message)
         }
         if igpMessage.hasIgpForwardFrom {
-            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: roomId, options: IGStructMessageOption(isForward: true, isEnableCache: true))
+            message.forwardedFrom = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpForwardFrom, roomId: -1, options: IGStructMessageOption(isForward: true, isEnableCache: true))
         }
         if igpMessage.hasIgpReplyTo {
-            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: roomId, options: IGStructMessageOption(isReply: true, isEnableCache: true))
+            message.repliedTo = IGRoomMessage.putOrUpdate(realm: realmFinal, igpMessage: igpMessage.igpReplyTo, roomId: -1, options: IGStructMessageOption(isReply: true, isEnableCache: true))
         }
         if igpMessage.hasIgpChannelExtra {
             message.channelExtra = IGRealmChannelExtra.putOrUpdate(realm: realmFinal, messageId: igpMessage.igpMessageID, igpChannelExtra: igpMessage.igpChannelExtra)
@@ -370,15 +374,15 @@ class IGRoomMessage: Object {
         message.additional = IGRealmAdditional.put(realm: realmFinal, message: igpMessage)
         
         // TODO - HINT: if is from share media do following code. following code not handled yet!
+        // ofcourse currently we don't update "IGRoomMessage" from share media so now don't need to update following param here
         /*
          message.previousMessageId = message.id
          message.futureMessageId = message.id
          */
         
-        // TODO - if isGap param is set do following code!
-        /*
-         message.previousMessageId = igpMessage.igpPreviousMessageID
-         */
+        if options.isGap {
+            message.previousMessageId = igpMessage.igpPreviousMessageID
+        }
         
         if options.isEnableCache {
             IGGlobal.importedRoomMessageDic[message.id] = message
