@@ -205,32 +205,32 @@ class IGHelperBot {
 
             switch structAdditional.actionType {
                 
-            case ButtonActionType.NONE.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.none.rawValue :
                 break
                 
-            case ButtonActionType.JOIN_LINK.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.joinLink.rawValue :
                 if let observer = IGMessageViewController.messageViewControllerObserver {
                     IGHelperJoin.getInstance(viewController: observer.onMessageViewControllerDetection()).requestToCheckInvitedLink(invitedLink: structAdditional.value)
                 }
                 break
                 
-            case ButtonActionType.BOT_ACTION.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.botAction.rawValue :
                 IGMessageViewController.additionalObserver.onAdditionalSendMessage(structAdditional: structAdditional)
                 break
                 
-            case ButtonActionType.USERNAME_LINK.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.usernameLink.rawValue :
                 if let observer = IGMessageViewController.messageViewControllerObserver {
                     IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: observer.onMessageViewControllerDetection(), username: structAdditional.value, joinToRoom: false)
                 }
                 break
                 
-            case ButtonActionType.WEB_LINK.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.webLink.rawValue :
                 if let observer = IGMessageViewController.messageViewControllerObserver {
                     IGHelperOpenLink.openLink(urlString: structAdditional.value, navigationController: observer.onNavigationControllerDetection(), forceOpenInApp: true)
                 }
                 break
                 
-            case ButtonActionType.WEBVIEW_LINK.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.webViewLink.rawValue :
                 IGMessageViewController.additionalObserver.onAdditionalLinkClick(structAdditional: structAdditional)
                 break
                 
@@ -252,25 +252,25 @@ class IGHelperBot {
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 break
                 
-            case ButtonActionType.STREAM_PLAY.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.streamPlay.rawValue :
                 break
                 
-            case ButtonActionType.PAY_BY_WALLET.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.payByWallet.rawValue :
                 break
                 
-            case ButtonActionType.PAY_DIRECT.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue :
                 IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
                 break
                 
-            case ButtonActionType.REQUEST_PHONE.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.requestPhone.rawValue :
                 IGMessageViewController.additionalObserver.onAdditionalRequestPhone(structAdditional: structAdditional)
                 break
                 
-            case ButtonActionType.REQUEST_LOCATION.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.requestLocation.rawValue :
                 IGMessageViewController.additionalObserver.onAdditionalRequestLocation(structAdditional: structAdditional)
                 break
                 
-            case ButtonActionType.SHOWA_ALERT.rawValue :
+            case IGPDiscoveryField.IGPButtonActionType.showAlert.rawValue :
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue :

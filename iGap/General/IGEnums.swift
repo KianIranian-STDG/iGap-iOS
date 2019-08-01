@@ -418,21 +418,6 @@ enum AdditionalType: Int32 {
     case WEBVIEW_SHOW = 9
 }
 
-enum ButtonActionType: Int {
-    case NONE = 0
-    case JOIN_LINK = 1
-    case BOT_ACTION = 2
-    case USERNAME_LINK = 3
-    case WEB_LINK = 4
-    case WEBVIEW_LINK = 5
-    case STREAM_PLAY = 6
-    case PAY_BY_WALLET = 7
-    case PAY_DIRECT = 8
-    case REQUEST_PHONE = 9
-    case REQUEST_LOCATION = 10
-    case SHOWA_ALERT = 11
-}
-
 enum StickerPageType: Int {
     case MAIN = 0 // for send sticker state in chat page
     case CATEGORY = 1 // category state for get categories from server and show latest list of sticker packages
