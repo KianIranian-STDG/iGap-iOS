@@ -2814,14 +2814,21 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                 message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
-                                                    IGMessageSender.defaultSender.send(message: message, to: roomU)
+                                                    IGGlobal.prgShow()
+                                                    IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                            IGGlobal.prgHide()
+                                                            self.openChat(room: roomU)
+                                                        }
+                                                    }, error: {
+                                                        IGGlobal.prgHide()
+                                                    })
                                                 }
                                             }
                                         }
                                     } else {
                                         return
                                     }
-                                    openChat(room: roomU)
                                     
                                 } else {
                                     IGGlobal.prgShow(self.view)
@@ -2845,14 +2852,20 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                                 let detachedMessage = message.detach()
                                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                                 message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                                                IGMessageSender.defaultSender.send(message: message, to: roomU)
+                                                                
+                                                                IGGlobal.prgShow()
+                                                                IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
+                                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                                        IGGlobal.prgHide()
+                                                                        self.openChat(room: roomU)
+                                                                    }
+                                                                }, error: {
+                                                                    IGGlobal.prgHide()
+                                                                })
                                                             }
                                                         }
                                                     }
-                                                    self.openChat(room: roomU)
-                                                    
-                                                }
-                                                else {
+                                                } else {
                                                     return
                                                 }
                                             }

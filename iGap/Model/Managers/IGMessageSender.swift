@@ -34,6 +34,15 @@ class IGMessageSender {
         }
     }
     
+    func sendSingleForward(message: IGRoomMessage, to room: IGRoom, success: @escaping (() -> Void), error: @escaping (() -> Void)) {
+        let task = IGMessageSenderTask(message: message, room: room)
+        if message.attachment != nil {
+            sendSingleFileForward(messageTask: task, success: success, error: error)
+        } else {
+            sendSingleTextForward(messageTask: task, success: success, error: error)
+        }
+    }
+    
     func sendSticker(message: IGRoomMessage, to room: IGRoom) {
         let task = IGMessageSenderTask(message: message, room: room)
         addTaskToPlainMessagesQueue(task)
@@ -257,6 +266,85 @@ class IGMessageSender {
         }
     }
     
+    /* send single forward message and return success state with clouser for open chat room */
+    private func sendSingleTextForward(messageTask: IGMessageSenderTask, success: @escaping (() -> Void), error: @escaping (() -> Void)) {
+        switch messageTask.room.type {
+        case .chat:
+            IGChatSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                DispatchQueue.main.async {
+                    if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                        IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
+                        if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
+                            //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                        } else {
+                            IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: chatSendMessageResponse.igpRoomMessage)
+                        }
+                        success()
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    error()
+                    self.faileMessage(primaryKeyId: messageTask.message.primaryKeyId!)
+                }
+            }).send()
+        case .group:
+            IGGroupSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                DispatchQueue.main.async {
+                    if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                        IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
+                        if !groupSendMessageResponse.igpResponse.igpID.isEmpty {
+                            //IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                        } else {
+                            IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: groupSendMessageResponse.igpRoomMessage)
+                        }
+                        success()
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    error()
+                    self.faileMessage(primaryKeyId: messageTask.message.primaryKeyId!)
+                }
+                
+            }).send()
+            break
+        case .channel:
+            IGChannelSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                DispatchQueue.main.async {
+                    if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                        IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
+                        if !channelSendMessageResponse.igpResponse.igpID.isEmpty {
+                            //IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                        } else {
+                            IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: channelSendMessageResponse.igpRoomMessage)
+                        }
+                        success()
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    error()
+                    self.faileMessage(primaryKeyId: messageTask.message.primaryKeyId!)
+                }
+            }).send()
+            break
+        }
+    }
+    
+    private func sendSingleFileForward(messageTask: IGMessageSenderTask, success: @escaping (() -> Void), error: @escaping (() -> Void)) {
+        if let nextMessageUploadTask = IGUploadManager.sharedManager.upload(file: messageTask.message.attachment!, start: {
+            self.fileUploadStarted(messageTask)
+        }, progress: { (progress) in
+        }, completion: { (uploadTask) in
+            self.fileUploadEnded(messageTask)
+            self.sendSingleTextForward(messageTask: messageTask, success: success, error: error)
+        }, failure: {
+            self.fileUploadEnded(messageTask)
+        }) {
+            messageTask.uploadTask = nextMessageUploadTask
+        }
+    }
     
     
     private func fileUploadStarted(_ task: IGMessageSenderTask) {
