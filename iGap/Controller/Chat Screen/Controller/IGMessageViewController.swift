@@ -5866,6 +5866,26 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
+    func onMessageFailStatus(identity: IGRoomMessage) {
+        if self.room == nil || self.room!.isInvalidated {
+            return
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let messages = IGMessageViewController.messageIdsStatic[(self.room?.id)!]
+            if messages == nil {
+                return
+            }
+            
+            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: identity) {
+                if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: identity.primaryKeyId!) {
+                    self.updateMessageArray(cellPosition: indexOfMessage, message: newMessage)
+                    self.updateItem(cellPosition: indexOfMessage)
+                }
+            }
+        }
+    }
+    
     func onMessageEdit(messageId: Int64, roomId: Int64, message: String, messageType: IGPRoomMessageType, messageVersion: Int64) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             /* this messageId updated so after get this message from realm it has latest update */

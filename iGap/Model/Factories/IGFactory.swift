@@ -484,6 +484,29 @@ class IGFactory: NSObject {
         //self.doFactoryTask(task: task)
     }
     
+    func updateMessageStatusToFail(message: IGRoomMessage) {
+        //let task = getFactoryTask()
+        factoryQueue.async {
+            IGDatabaseManager.shared.perfrmOnDatabaseThread {
+                
+                let predicate = NSPredicate(format: "primaryKeyId = %@", message.primaryKeyId!)
+                
+                if let messageUpdate = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
+                    try! IGDatabaseManager.shared.realm.write {
+                        messageUpdate.status = IGRoomMessageStatus.failed
+                    }
+                    
+                    IGMessageViewController.messageOnChatReceiveObserver?.onMessageFailStatus(identity: message)
+                }
+                
+                IGFactory.shared.performInFactoryQueue {
+                    //self.setFactoryTaskSuccess(task: task)
+                }
+            }
+        }
+        //self.doFactoryTask(task: task)
+    }
+    
     //for an already sent message (sent -> delivered -> seen)
     func updateMessageStatus(_ messageID: Int64, roomID: Int64, status: IGPRoomMessageStatus, statusVersion: Int64, updaterAuthorHash: String, response: IGPResponse) {
         
