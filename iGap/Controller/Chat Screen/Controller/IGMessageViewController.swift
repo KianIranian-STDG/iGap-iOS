@@ -2801,7 +2801,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                     //if selected any message to forward
                                     if self.selectedIndex.count > 0 {
                                         var countt:Double = 0
-                                        
+                                        let forwardCount = self.selectedIndex.count
+                                        var messageCount = 0
                                         for element in self.selectedIndex {
                                             
                                             countt += 0.5
@@ -2814,14 +2815,22 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                 message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
-                                                    IGGlobal.prgShow()
+                                                    if messageCount == 0 {
+                                                        IGGlobal.prgShow()
+                                                    }
                                                     IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                                            IGGlobal.prgHide()
-                                                            self.openChat(room: roomU)
+                                                            messageCount = messageCount + 1
+                                                            if messageCount == forwardCount {
+                                                                IGGlobal.prgHide()
+                                                                self.openChat(room: roomU)
+                                                            }
                                                         }
                                                     }, error: {
-                                                        IGGlobal.prgHide()
+                                                        messageCount = messageCount + 1
+                                                        if messageCount == forwardCount {
+                                                            IGGlobal.prgHide()
+                                                        }
                                                     })
                                                 }
                                             }
@@ -2841,6 +2850,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                 //if selected any message to forward
                                                 if self.selectedIndex.count > 0 {
                                                     var count:Double = 0
+                                                    let forwardCount = self.selectedIndex.count
+                                                    var messageCount = 0
                                                     for element in (self.selectedIndex) {
                                                         count = count + 0.5
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
@@ -2853,15 +2864,25 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                                                 message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                                 
-                                                                IGGlobal.prgShow()
-                                                                IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
-                                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                                                        IGGlobal.prgHide()
-                                                                        self.openChat(room: roomU)
+                                                                DispatchQueue.main.asyncAfter(deadline: .now() + count + 0.1) {
+                                                                    if messageCount == 0 {
+                                                                        IGGlobal.prgShow()
                                                                     }
-                                                                }, error: {
-                                                                    IGGlobal.prgHide()
-                                                                })
+                                                                    IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
+                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                                            messageCount = messageCount + 1
+                                                                            if messageCount == forwardCount {
+                                                                                IGGlobal.prgHide()
+                                                                                self.openChat(room: roomU)
+                                                                            }
+                                                                        }
+                                                                    }, error: {
+                                                                        messageCount = messageCount + 1
+                                                                        if messageCount == forwardCount {
+                                                                            IGGlobal.prgHide()
+                                                                        }
+                                                                    })
+                                                                }
                                                             }
                                                         }
                                                     }

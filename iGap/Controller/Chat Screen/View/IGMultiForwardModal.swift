@@ -204,23 +204,16 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
-        print(selectedIndex)
-        var tmpID = (FilteredMuliShareContacts[indexPath.item].id)
+        
+        let tmpID = (FilteredMuliShareContacts[indexPath.item].id)
         if selectedIndex.contains(tmpID) {
-//            let tmp = self.selectedIndex.filter(){$0 != indexPath.item}
             let index = self.selectedIndex.firstIndex(of: tmpID)!
             self.selectedIndex.remove(at: index)
             self.selectedNames.remove(at: index)
-
-
-        }
-        else {
+        } else {
             self.selectedIndex.append(tmpID)
             self.selectedNames.append(FilteredMuliShareContacts[indexPath.item].displayName)
-
         }
-        print("selectedIndex is:",selectedIndex)
 
         self.usersCollectionView.reloadItems(at: [indexPath])
         lblCount.text = String(self.selectedIndex.count).inPersianNumbers()
