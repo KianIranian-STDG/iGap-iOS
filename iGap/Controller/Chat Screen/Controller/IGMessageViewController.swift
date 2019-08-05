@@ -5338,6 +5338,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             } else {
                 IGMessageSender.defaultSender.deleteFailedMessage(primaryKeyId: cellMessage.primaryKeyId)
             }
+            
+            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: cellMessage) {
+                self.removeItem(cellPosition: indexOfMessage)
+            }
         })
         
         let cancel = UIAlertAction(title: "CANCEL_BTN".MessageViewlocalizedNew, style: .cancel, handler: nil)

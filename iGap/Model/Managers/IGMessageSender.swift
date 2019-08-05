@@ -166,23 +166,18 @@ class IGMessageSender {
             case .chat:
                 IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
                     DispatchQueue.main.async {
-                        if let task = self.plainMessagesArray.first {
-                            self.faileMessage(message: task.message)
-                            //IGFactory.shared.updateMessageStatusToFail(message: )
+                        if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                            IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
+
+                            if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
+                                //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                            } else {
+                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: chatSendMessageResponse.igpRoomMessage)
+                            }
+
+                            self.removeTaskFromPlainMessagesQueue(nextMessageTask)
+                            self.sendNextPlainRequest()
                         }
-                        
-//                        if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-//                            IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
-//
-//                            if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
-//                                //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-//                            } else {
-//                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: chatSendMessageResponse.igpRoomMessage)
-//                            }
-//
-//                            self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-//                            self.sendNextPlainRequest()
-//                        }
                     }
                     
                 }).error({ (errorCode, waitTime) in
