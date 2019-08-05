@@ -50,12 +50,20 @@ class IGMessageSender {
     
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
-        let message = makeCopyOfMessage(message: message)
-        if message.type == .sticker {
-            sendSticker(message: message, to: room)
-        } else {
-            send(message: message, to: room)
+        IGMessageViewController.messageOnChatReceiveObserver.onLocalMessageUpdateStatus(localMessage: message)
+        // Hint: use from following code at "onLocalMessageUpdateStatus" callback, because we need latest updated local message for find position after send message
+        /*
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            if let localMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: message.primaryKeyId!) {
+                let message = self.makeCopyOfMessage(message: localMessage)
+                if message.type == .sticker {
+                    self.sendSticker(message: message, to: room)
+                } else {
+                    self.send(message: message, to: room)
+                }
+            }
         }
+        */
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){
@@ -395,25 +403,6 @@ class IGMessageSender {
         default:
             break
         }
-    }
-
-    
-    private func makeCopyOfMessage(message: IGRoomMessage) -> IGRoomMessage{
-        let finalMessage = IGRoomMessage()
-        finalMessage.id = message.id
-        finalMessage.message = message.message
-        finalMessage.type = message.type
-        finalMessage.isDeleted = message.isDeleted
-        finalMessage.creationTime = message.creationTime
-        finalMessage.status = message.status
-        finalMessage.temporaryId = message.temporaryId
-        finalMessage.primaryKeyId = message.primaryKeyId
-        finalMessage.randomId = message.randomId
-        finalMessage.authorUser = message.authorUser
-        finalMessage.authorHash = message.authorHash
-        finalMessage.attachment = message.attachment
-        finalMessage.additional = message.additional
-        return finalMessage
     }
 }
 

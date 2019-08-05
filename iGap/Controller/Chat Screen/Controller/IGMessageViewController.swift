@@ -5870,21 +5870,32 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
-    func onMessageFailStatus(identity: IGRoomMessage) {
-        if self.room == nil || self.room!.isInvalidated {
+    func onLocalMessageUpdateStatus(localMessage: IGRoomMessage) {
+        if self.room == nil || self.room!.isInvalidated || localMessage.isInvalidated {
             return
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let messages = IGMessageViewController.messageIdsStatic[(self.room?.id)!]
             if messages == nil {
                 return
             }
             
-            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: identity) {
-                if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: identity.primaryKeyId!) {
+            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: localMessage) {
+                if let newMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: localMessage.primaryKeyId!) {
                     self.updateMessageArray(cellPosition: indexOfMessage, message: newMessage)
                     self.updateItem(cellPosition: indexOfMessage)
+                    
+                    if newMessage.status == IGRoomMessageStatus.sending {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            let message = IGRoomMessage.makeCopyOfMessage(message: newMessage)
+                            if message.type == .sticker {
+                                IGMessageSender.defaultSender.sendSticker(message: newMessage, to: self.room!)
+                            } else {
+                                IGMessageSender.defaultSender.send(message: newMessage, to: self.room!)
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -528,6 +528,24 @@ class IGRoomMessage: Object {
         return self
     }
     
+    internal static func makeCopyOfMessage(message: IGRoomMessage) -> IGRoomMessage {
+        let finalMessage = IGRoomMessage()
+        finalMessage.id = message.id
+        finalMessage.message = message.message
+        finalMessage.type = message.type
+        finalMessage.isDeleted = message.isDeleted
+        finalMessage.creationTime = message.creationTime
+        finalMessage.status = message.status
+        finalMessage.temporaryId = message.temporaryId
+        finalMessage.primaryKeyId = message.primaryKeyId
+        finalMessage.randomId = message.randomId
+        finalMessage.authorUser = message.authorUser
+        finalMessage.authorHash = message.authorHash
+        finalMessage.attachment = message.attachment
+        finalMessage.additional = message.additional
+        return finalMessage
+    }
+    
     /* use this method for delete channel messages for get messages from server again and update vote actions data */
     internal static func deleteAllChannelMessages(){
         DispatchQueue.main.async {

@@ -496,7 +496,7 @@ class IGFactory: NSObject {
                         messageUpdate.status = IGRoomMessageStatus.failed
                     }
                     
-                    IGMessageViewController.messageOnChatReceiveObserver?.onMessageFailStatus(identity: message)
+                    IGMessageViewController.messageOnChatReceiveObserver?.onLocalMessageUpdateStatus(localMessage: message)
                 }
                 
                 IGFactory.shared.performInFactoryQueue {
