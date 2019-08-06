@@ -159,7 +159,7 @@ class IGUserLoginRequest : IGRequest {
 
             IGAppManager.sharedManager.setWalletRegistered(enable: responseProtoMessage.igpWalletAgreementAccepted) //:check to call register wallet or not
             IGUploadManager.sharedManager.pauseAllUploads()
-            IGMessageSender.defaultSender.resendAllSendingMessage()
+            IGMessageSender.defaultSender.failSendingMessage()
             IGDashboardViewController.discoveryObserver?.onFetchFirstPage()
             if IGAppManager.sharedManager.walletRegistered() {
                 IGRequestWalletGetAccessToken.sendRequest()

@@ -2819,7 +2819,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                         IGGlobal.prgShow()
                                                     }
                                                     IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                                             messageCount = messageCount + 1
                                                             if messageCount == forwardCount {
                                                                 IGGlobal.prgHide()
@@ -2869,7 +2869,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                                                                         IGGlobal.prgShow()
                                                                     }
                                                                     IGMessageSender.defaultSender.sendSingleForward(message: message, to: roomU, success: {
-                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                                                             messageCount = messageCount + 1
                                                                             if messageCount == forwardCount {
                                                                                 IGGlobal.prgHide()

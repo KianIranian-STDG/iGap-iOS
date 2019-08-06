@@ -50,12 +50,12 @@ class IGMessageSender {
     
     func resend(message: IGRoomMessage, to room: IGRoom) {
         IGFactory.shared.updateMessageStatus(primaryKeyId: message.primaryKeyId!, status: .sending)
-        IGMessageViewController.messageOnChatReceiveObserver.onLocalMessageUpdateStatus(localMessage: message)
-        // Hint: use from following code at "onLocalMessageUpdateStatus" callback, because we need latest updated local message for find position after send message
-        /*
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+        if IGMessageViewController.messageOnChatReceiveObserver != nil {
+            IGMessageViewController.messageOnChatReceiveObserver.onLocalMessageUpdateStatus(localMessage: message)
+        } else {
+            // Hint: use from following code at "onLocalMessageUpdateStatus" callback, because we need latest updated local message for find position after send message
             if let localMessage = IGRoomMessage.getMessageWithPrimaryKeyId(primaryKeyId: message.primaryKeyId!) {
-                let message = self.makeCopyOfMessage(message: localMessage)
+                let message = IGRoomMessage.makeCopyOfMessage(message: localMessage)
                 if message.type == .sticker {
                     self.sendSticker(message: message, to: room)
                 } else {
@@ -63,7 +63,6 @@ class IGMessageSender {
                 }
             }
         }
-        */
     }
     
     func resendAllSendingMessage(roomId: Int64 = 0){
@@ -84,6 +83,13 @@ class IGMessageSender {
                     }
                 }
             }
+        }
+    }
+    
+    func failSendingMessage(){
+        let predicate = NSPredicate(format: "statusRaw = %d", IGRoomMessageStatus.sending.rawValue)
+        try! IGDatabaseManager.shared.realm.write {
+            IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).setValue(IGRoomMessageStatus.failed.rawValue, forKey: "statusRaw")
         }
     }
     

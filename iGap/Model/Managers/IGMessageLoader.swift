@@ -211,7 +211,7 @@ class IGMessageLoader {
             direction = .up
         }
         
-        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld", roomId, 0)
+        let predicate = NSPredicate(format: "roomId = %lld AND isDeleted == false AND id != %lld AND statusRaw != %d AND statusRaw != %d", roomId, 0, IGRoomMessageStatus.sending.rawValue, IGRoomMessageStatus.failed.rawValue)
         resultsUp = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesUp)
         
         var gapMessageId: Int64!
@@ -240,7 +240,7 @@ class IGMessageLoader {
         }
         
         if (results.count > 0) {
-            let methodResult = getLocalMessage(roomId: roomId, messageId: results.first!.id, gapMessageId: gapMessageId, duplicateMessage: true, direction: direction)
+            let methodResult = getLocalMessage(roomId: roomId, messageId: results.first!.id, gapMessageId: gapMessageId, duplicateMessage: true, direction: direction, firstLoad: true)
             messageInfos = methodResult.realmRoomMessages
             
             if (messageInfos.count > 0) {
@@ -792,7 +792,7 @@ class IGMessageLoader {
      * @return Object[] ==> [0] -> ArrayList<StructMessageInfo>, [1] -> boolean hasMore, [2] -> boolean hasGap
      */
     
-    private func getLocalMessage(roomId: Int64, messageId: Int64, gapMessageId: Int64, duplicateMessage: Bool, direction: IGPClientGetRoomHistory.IGPDirection) -> (realmRoomMessages: [IGRoomMessage], hasMore: Bool, hasSpaceToGap: Bool) {
+    private func getLocalMessage(roomId: Int64, messageId: Int64, gapMessageId: Int64, duplicateMessage: Bool, direction: IGPClientGetRoomHistory.IGPDirection, firstLoad: Bool = false) -> (realmRoomMessages: [IGRoomMessage], hasMore: Bool, hasSpaceToGap: Bool) {
         
         var hasMore = true
         var hasSpaceToGap = true // TODO - check usage of this variable. if is not need remove it
@@ -849,7 +849,14 @@ class IGMessageLoader {
             }
         }
 
-        var realmRoomMessagesArray = Array(realmRoomMessages)
+        var realmRoomMessagesArray: [IGRoomMessage] = []
+        if firstLoad {
+            let sortPropertiesFailed = [SortDescriptor(keyPath: "creationTime", ascending: false)]
+            let predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.failed.rawValue)
+            let locallyMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesFailed)
+            realmRoomMessagesArray.append(contentsOf: locallyMessages)
+        }
+        realmRoomMessagesArray.append(contentsOf: Array(realmRoomMessages))
         
         /**
          * manage subList
