@@ -850,12 +850,14 @@ class IGMessageLoader {
         }
 
         var realmRoomMessagesArray: [IGRoomMessage] = []
+        /*
         if firstLoad {
             let sortPropertiesFailed = [SortDescriptor(keyPath: "creationTime", ascending: false)]
             let predicate = NSPredicate(format: "roomId = %lld AND statusRaw = %d", roomId, IGRoomMessageStatus.failed.rawValue)
             let locallyMessages = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).sorted(by: sortPropertiesFailed)
             realmRoomMessagesArray.append(contentsOf: locallyMessages)
         }
+        */
         realmRoomMessagesArray.append(contentsOf: Array(realmRoomMessages))
         
         /**
