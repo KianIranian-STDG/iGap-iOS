@@ -262,6 +262,7 @@
 		FA09538D1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09537E1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift */; };
 		FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09537F1E1B97E20043ED3F /* SSRadioButton.swift */; };
 		FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0953801E1B97E20043ED3F /* SSRadioButtonController.swift */; };
+		FA0BA2A522FC001F0051DFEA /* IGHelperFabric.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0BA2A422FC001F0051DFEA /* IGHelperFabric.swift */; };
 		FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8001E5D7D4400556283 /* ActiveBuilder.swift */; };
 		FA0CC8081E5D7D4400556283 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8021E5D7D4400556283 /* ActiveLabel.swift */; };
 		FA0CC8091E5D7D4400556283 /* ActiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0CC8031E5D7D4400556283 /* ActiveType.swift */; };
@@ -940,6 +941,7 @@
 		FA09537E1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGAddNewContactTableViewCell.swift; sourceTree = "<group>"; };
 		FA09537F1E1B97E20043ED3F /* SSRadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSRadioButton.swift; sourceTree = "<group>"; };
 		FA0953801E1B97E20043ED3F /* SSRadioButtonController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSRadioButtonController.swift; sourceTree = "<group>"; };
+		FA0BA2A422FC001F0051DFEA /* IGHelperFabric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperFabric.swift; sourceTree = "<group>"; };
 		FA0CC8001E5D7D4400556283 /* ActiveBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveBuilder.swift; sourceTree = "<group>"; };
 		FA0CC8011E5D7D4400556283 /* ActiveLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveLabel.h; sourceTree = "<group>"; };
 		FA0CC8021E5D7D4400556283 /* ActiveLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
@@ -1948,6 +1950,7 @@
 		FA4CFD0521A046BA005FCBF2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				FA0BA2A422FC001F0051DFEA /* IGHelperFabric.swift */,
 				FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */,
 				FA5301DC2150D12B00A95C2C /* IGHelperChatOpener.swift */,
 				FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */,
@@ -3202,6 +3205,7 @@
 				93193F341E5813620039AC0C /* IGGroupMemberListInvitedLinkTableViewCell.swift in Sources */,
 				FA86D44821A95CB0007B80D7 /* IGHelperView.swift in Sources */,
 				FAE6062721EB39DB00F03FFC /* SwiftWebVCActivityChrome.swift in Sources */,
+				FA0BA2A522FC001F0051DFEA /* IGHelperFabric.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,

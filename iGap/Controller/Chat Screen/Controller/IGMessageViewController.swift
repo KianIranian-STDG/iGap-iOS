@@ -4928,6 +4928,8 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
     }
     
     private func setFloatingDate(){
+        if messages == nil {return}
+        
         let arrayOfVisibleItems = collectionView.indexPathsForVisibleItems.sorted()
         if let lastIndexPath = arrayOfVisibleItems.last {
             if latestIndexPath != lastIndexPath {
@@ -4973,7 +4975,9 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                                     }
                                 }
                             } else {
-                                self.appendAtSpecificPosition(self.makeTimeItem(date: message.creationTime!), cellPosition: lastIndexPath.row + 1)
+                                if let messageTime = message.creationTime {
+                                    self.appendAtSpecificPosition(self.makeTimeItem(date: messageTime), cellPosition: lastIndexPath.row + 1)
+                                }
                             }
                         }
                     }
@@ -5134,6 +5138,8 @@ extension IGMessageViewController: AVAudioRecorderDelegate {
 //MARK: - IGMessageGeneralCollectionViewCellDelegate
 extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func didTapAndHoldOnMessage(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell) {
+        
+        if cellMessage.isInvalidated {return}
         
         if cellMessage.status == IGRoomMessageStatus.sending {
             return
