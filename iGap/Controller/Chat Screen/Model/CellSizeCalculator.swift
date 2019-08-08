@@ -38,6 +38,10 @@ class CellSizeCalculator: NSObject {
     
     func mainBubbleCountainerSize(room: IGRoom, for message:IGRoomMessage) -> MessageCalculatedSize {
         
+        if message.isInvalidated || room.isInvalidated {
+            return (CGSize.zero, 0, 0)
+        }
+        
         let cacheKey = "\(String(describing: message.primaryKeyId))_\(message.messageVersion)" as NSString
         let cachedSize = cache.object(forKey: cacheKey)
         if cachedSize != nil {

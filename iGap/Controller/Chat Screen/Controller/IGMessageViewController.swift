@@ -4950,7 +4950,7 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                     previousMessage = (messages?[latestIndexPath.row + 1])!
                 }
                 
-                if let message = messages?[latestIndexPath.row] {
+                if let message = messages?[latestIndexPath.row], !message.isInvalidated {
                     let dayTimePeriodFormatter = DateFormatter()
                     dayTimePeriodFormatter.dateFormat = "MMMM dd"
                     dayTimePeriodFormatter.calendar = Calendar.current
