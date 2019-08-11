@@ -935,7 +935,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         case .chat:
             
             cell.typeImage.image = UIImage(named: "IG_Settings_Chats")
-            cell.checkImage.isHidden = true
+            if (self.rooms![indexPath.row].chatRoom?.peer!.isVerified)! {
+                cell.checkImage.isHidden = false
+
+            } else {
+                cell.checkImage.isHidden = true
+
+            }
         case .group:
             
             cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
@@ -945,8 +951,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             
             cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
-            cell.checkImage.isHidden = false
             
+            if (self.rooms![indexPath.row].channelRoom?.isVerified)! {
+                cell.checkImage.isHidden = false
+                
+            } else {
+                cell.checkImage.isHidden = true
+                
+            }
         }
         
         switch self.rooms![indexPath.row].mute {

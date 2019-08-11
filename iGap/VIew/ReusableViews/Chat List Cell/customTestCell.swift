@@ -83,6 +83,7 @@ class customTestCell: MGSwipeTableCell {
                 
             case .channel:
                 typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
+                
                 checkImage.isHidden = false
                 
             case .UNRECOGNIZED(_):
@@ -247,7 +248,7 @@ class customTestCell: MGSwipeTableCell {
         self.unreadCountLabel.text = nil
         self.lastMessageStateImage.image = nil
         self.lastMsgLabel.text = nil
-        self.checkImage.image = nil
+//        self.checkImage.image = nil
     }
     
     private func setLastMessage(for room: IGRoom) {

@@ -1026,11 +1026,9 @@ extension UIImageView {
 //                    }
                     
                     if FileManager.default.fileExists(atPath: path!.path) {
-                        print("FILE Yes AVAILABLE")
                        image = UIImage(contentsOfFile: path!.path)
 
                     } else {
-                        print("FILE NOT AVAILABLE")
                     }
                     
                     if image != nil {
