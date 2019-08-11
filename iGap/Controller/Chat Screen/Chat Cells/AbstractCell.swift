@@ -122,72 +122,49 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
-//        IGGlobal.getTime("BENJI-X3-1")
 
         if room.isInvalidated || message.isInvalidated {return}
-//        IGGlobal.getTime("BENJI-X3-2")
 
         self.room = room
-//        IGGlobal.getTime("BENJI-X3-3")
 
         self.realmRoomMessage = message
-//        IGGlobal.getTime("BENJI-X3-4")
         self.isIncommingMessage = isIncommingMessage
-//        IGGlobal.getTime("BENJI-X3-5")
 
         self.shouldShowAvatar = shouldShowAvatar
-//        IGGlobal.getTime("BENJI-X3-6")
 
         self.messageSizes = messageSizes
-//        IGGlobal.getTime("BENJI-X3-7")
 
         self.isPreviousMessageFromSameSender = isPreviousMessageFromSameSender
-//        IGGlobal.getTime("BENJI-X3-8")
 
         detectFinalMessage()
-//        IGGlobal.getTime("BENJI-X3-9")
 
         detectRtlAndBottomOffset()
-//        IGGlobal.getTime("BENJI-X3-10")
 
         manageCellBubble()
-//        IGGlobal.getTime("BENJI-X3-11")
 
         manageReceivedOrIncommingMessage()
-//        IGGlobal.getTime("BENJI-X3-12")
 
         manageReply()
-//        IGGlobal.getTime("BENJI-X3-13")
 
         manageForward()
-//        IGGlobal.getTime("BENJI-X3-14")
 
         manageEdit()
-//        IGGlobal.getTime("BENJI-X3-15")
 
         manageTextMessage()
-//        IGGlobal.getTime("BENJI-X3-16")
 
         manageViewPosition()
-//        IGGlobal.getTime("BENJI-X3-17")
 
         manageLink()
-//        IGGlobal.getTime("BENJI-X3-18")
 
         manageVoteActions()
-//        IGGlobal.getTime("BENJI-X3-19")
 
         manageGustureRecognizers()
-//        IGGlobal.getTime("BENJI-X3-20")
 
         manageAttachment()
-//        IGGlobal.getTime("BENJI-X3-21")
 
         manageAdditional()
-//        IGGlobal.getTime("BENJI-X3-22")
 
         showMultiSelect()
-//        IGGlobal.getTime("BENJI-X3-23")
         if finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
             makeAvatarPay()
         } else {
@@ -281,20 +258,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     private func manageTextMessage(){
-        IGGlobal.getTime("BENJI-X3-16-1")
 
         if finalRoomMessage.type == .sticker {
             return
         }
-        IGGlobal.getTime("BENJI-X3-16-2")
 
 
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
-            IGGlobal.getTime("BENJI-X3-16-3")
 
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
-            IGGlobal.getTime("BENJI-X3-16-4")
 
             if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
@@ -374,17 +347,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 
                 
             } else {
-                IGGlobal.getTime("BENJI-X3-16-5")
 
                 let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-                IGGlobal.getTime("BENJI-X3-16-7")
 
                 if messageText!.contains("**") {
                     txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
                 } else {
                     txtMessageAbs?.text = messageText!
                 }
-                IGGlobal.getTime("BENJI-X3-16-4")
 
 
                 }
@@ -419,7 +389,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         else {
             txtMessageAbs?.isHidden = true
         }
-        IGGlobal.getTime("BENJI-X3-16-9")
 
     }
     
