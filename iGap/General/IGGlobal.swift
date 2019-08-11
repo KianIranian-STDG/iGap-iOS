@@ -63,6 +63,9 @@ class IGGlobal {
         }
         IGGlobal.latestTime = currentTime
     }
+    internal static func getThread(_ string: String? = nil){
+        print("TTT || ", string ,Thread.current.isMainThread)
+    }
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -1017,27 +1020,58 @@ extension UIImageView {
         
         if file != nil {
             do {
-              
-                    var image: UIImage?
-                    let path = file.path()
-
-//                    if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-//                        image = UIImage(contentsOfFile: path!.path)
-//                    }
+                
+                var image: UIImage?
+                let path = file.path()
+                
+                //                    if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+                //                        image = UIImage(contentsOfFile: path!.path)
+                //                    }
+                if FileManager.default.fileExists(atPath: path!.path) {
                     
-                    if FileManager.default.fileExists(atPath: path!.path) {
-                       image = UIImage(contentsOfFile: path!.path)
-
-                    }
-                    
-                    if image != nil {
-                        self.image = image
-                    } else {
-                        if showMain {
-//                            setImage(avatar: avatar) // call this method again for load thumbnail before load main image
+                    DispatchQueue.global(qos:.userInteractive).async {
+                        image = UIImage(contentsOfFile: path!.path)
+                        DispatchQueue.main.async {
+                            
+                            if image != nil {
+                                self.image = image
+                            } else {
+                                if showMain {
+                                    //                            setImage(avatar: avatar) // call this method again for load thumbnail before load main image
+                                }
+                                DispatchQueue.main.async {
+                                    imagesMap[file.token!] = self
+                                    IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                                        DispatchQueue.main.async {
+                                            if let imageMain = imagesMap[attachment.token!] {
+                                                let path = attachment.path()
+                                                //                            imageMain.sd_setImage(with: path)
+                                                DispatchQueue.global().async { [weak self] in
+                                                    
+                                                    if let data = try? Data(contentsOf: path!) {
+                                                        if let image = UIImage(data: data) {
+                                                            DispatchQueue.main.async {
+                                                                
+                                                                imageMain.image = image
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }, failure: {
+                                        
+                                    })
+                                    
+                                }
+                            }
+                            
+                            
                         }
-                        throw NSError(domain: "asa", code: 1234, userInfo: nil)
                     }
+                    
+                    
+                }
                 
             } catch {
                 imagesMap[file.token!] = self
@@ -1045,18 +1079,18 @@ extension UIImageView {
                     DispatchQueue.main.async {
                         if let imageMain = imagesMap[attachment.token!] {
                             let path = attachment.path()
-//                            imageMain.sd_setImage(with: path)
+                            //                            imageMain.sd_setImage(with: path)
                             DispatchQueue.global().async { [weak self] in
-
-                            if let data = try? Data(contentsOf: path!) {
-                                if let image = UIImage(data: data) {
-                                    DispatchQueue.main.async {
-
-                                    imageMain.image = image
+                                
+                                if let data = try? Data(contentsOf: path!) {
+                                    if let image = UIImage(data: data) {
+                                        DispatchQueue.main.async {
+                                            
+                                            imageMain.image = image
+                                        }
                                     }
                                 }
                             }
-                        }
                         }
                     }
                 }, failure: {
@@ -1513,12 +1547,12 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
-
+        
         if self.count > 0, let first = self.removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first).prefix(3))) {
-
+            
             return true
         }
-
+        
         return false
     }
     
