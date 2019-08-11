@@ -21,7 +21,6 @@ class TextCell: AbstractCell {
     @IBOutlet weak var mainBubbleViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var txtMessage: ActiveLabel!
-    var imgAvatarPay : UIImageViewX!
     class func nib() -> UINib {
         return UINib(nibName: "TextCell", bundle: Bundle(for: self))
     }
@@ -32,14 +31,14 @@ class TextCell: AbstractCell {
     
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
+
         initializeView()
+
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
+
+      
         
-        if message.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
-            makeAvatarPay()
-        } else {
-            removeAvatarPay()
-        }
+
     }
     
     private func initializeView(){
@@ -55,40 +54,6 @@ class TextCell: AbstractCell {
         
         /******** constraint ********/
         txtMessageHeightConstraintAbs = txtMessageHeightConstraint
-    }
-    private func removeAvatarPay() {
-        if imgAvatarPay != nil {
-            imgAvatarPay.image = nil
-            imgAvatarPay.backgroundColor = .clear
-            imgAvatarPay.contentMode = .scaleAspectFit
-            imgAvatarPay.borderColor = .clear
-            imgAvatarPay.borderWidth = 0.0
-
-        }
-
-    }
-    private func makeAvatarPay(){
-        
-        if imgAvatarPay == nil {
-            imgAvatarPay = UIImageViewX()
-            self.contentView.addSubview(imgAvatarPay)
-            imgAvatarPay.image = UIImage(named: "debit-card")
-            imgAvatarPay.layer.cornerRadius = 25
-            imgAvatarPay.backgroundColor = .white
-            imgAvatarPay.layer.masksToBounds = true
-            imgAvatarPay.contentMode = .scaleAspectFit
-            imgAvatarPay.borderColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
-            imgAvatarPay.borderWidth = 2.0
-        }
-        
-        imgAvatarPay.snp.makeConstraints { (make) in
-            make.height.equalTo(50)
-            make.width.equalTo(50)
-            make.centerX.equalTo(mainBubbleViewAbs.snp.centerX)
-            make.top.equalTo(self.contentView.snp.top).offset(0)
-
-        }
-        
     }
 }
 

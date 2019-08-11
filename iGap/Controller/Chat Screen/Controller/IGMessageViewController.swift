@@ -3505,6 +3505,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let filename = myURL.lastPathComponent
             manageFile(fileData: data, filename: filename)
         }
+
+        
     }
     
     func manageVideo(mediaInfo: [String : Any]){

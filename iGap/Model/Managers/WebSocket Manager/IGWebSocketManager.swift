@@ -20,6 +20,7 @@ class IGWebSocketManager: NSObject {
     
     private let reachability = Reachability()!
     private let socket = WebSocket(url: URL(string: "wss://secure.igap.net/hybrid/")!)
+//    private let socket = WebSocket(url: URL(string: "ws://192.168.10.75:8739/")!)
     fileprivate var isConnectionSecured : Bool = false
     fileprivate var websocketSendQueue = DispatchQueue(label: "im.igap.ios.queue.ws.send")
     fileprivate var websocketReceiveQueue = DispatchQueue(label: "im.igap.ios.queue.ws.receive")

@@ -16,7 +16,8 @@ import MarkdownKit
 import IGProtoBuff
 
 class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelegate {
-    
+    var imgAvatarPay : UIImageViewX!
+
     var mainBubbleViewAbs: UIView!
     var forwardViewAbs: UIView!
     var replyViewAbs: UIView!
@@ -92,7 +93,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         if !(IGGlobal.shouldMultiSelect) {
 
         makeSwipeImage()
+            
         }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -119,31 +122,78 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
-        
+//        IGGlobal.getTime("BENJI-X3-1")
+
         if room.isInvalidated || message.isInvalidated {return}
-        
+//        IGGlobal.getTime("BENJI-X3-2")
+
         self.room = room
+//        IGGlobal.getTime("BENJI-X3-3")
+
         self.realmRoomMessage = message
+//        IGGlobal.getTime("BENJI-X3-4")
         self.isIncommingMessage = isIncommingMessage
+//        IGGlobal.getTime("BENJI-X3-5")
+
         self.shouldShowAvatar = shouldShowAvatar
+//        IGGlobal.getTime("BENJI-X3-6")
+
         self.messageSizes = messageSizes
+//        IGGlobal.getTime("BENJI-X3-7")
+
         self.isPreviousMessageFromSameSender = isPreviousMessageFromSameSender
-        
+//        IGGlobal.getTime("BENJI-X3-8")
+
         detectFinalMessage()
+//        IGGlobal.getTime("BENJI-X3-9")
+
         detectRtlAndBottomOffset()
+//        IGGlobal.getTime("BENJI-X3-10")
+
         manageCellBubble()
+//        IGGlobal.getTime("BENJI-X3-11")
+
         manageReceivedOrIncommingMessage()
+//        IGGlobal.getTime("BENJI-X3-12")
+
         manageReply()
+//        IGGlobal.getTime("BENJI-X3-13")
+
         manageForward()
+//        IGGlobal.getTime("BENJI-X3-14")
+
         manageEdit()
+//        IGGlobal.getTime("BENJI-X3-15")
+
         manageTextMessage()
+//        IGGlobal.getTime("BENJI-X3-16")
+
         manageViewPosition()
+//        IGGlobal.getTime("BENJI-X3-17")
+
         manageLink()
+//        IGGlobal.getTime("BENJI-X3-18")
+
         manageVoteActions()
+//        IGGlobal.getTime("BENJI-X3-19")
+
         manageGustureRecognizers()
+//        IGGlobal.getTime("BENJI-X3-20")
+
         manageAttachment()
+//        IGGlobal.getTime("BENJI-X3-21")
+
         manageAdditional()
+//        IGGlobal.getTime("BENJI-X3-22")
+
         showMultiSelect()
+//        IGGlobal.getTime("BENJI-X3-23")
+        if finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
+            makeAvatarPay()
+        } else {
+            removeAvatarPay()
+        }
+
     }
     /*
      ******************************************************************
@@ -170,10 +220,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     /* check message that should be rtl OR has bottom offset */
     private func detectRtlAndBottomOffset(){
-        
-        if let message = finalRoomMessage.message, message.isRTL() {
+
+        if let message = finalRoomMessage.message, String(message.prefix(3)).isRTL() {
             isRtl = true
             hasBottomOffset = true
+
         } else {
             isRtl = false
             if room.type == .channel {
@@ -181,6 +232,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             } else {
                 hasBottomOffset = false
             }
+
         }
     }
     
@@ -190,16 +242,55 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
      ******************************************************************
      */
     
-    private func manageTextMessage(){
+    private func removeAvatarPay() {
+        if imgAvatarPay != nil {
+            imgAvatarPay.image = nil
+            imgAvatarPay.backgroundColor = .clear
+            imgAvatarPay.contentMode = .scaleAspectFit
+            imgAvatarPay.borderColor = .clear
+            imgAvatarPay.borderWidth = 0.0
+            
+        }
         
+    }
+    private func makeAvatarPay(){
+        
+        if imgAvatarPay == nil {
+            imgAvatarPay = UIImageViewX()
+            self.contentView.addSubview(imgAvatarPay)
+            imgAvatarPay.image = UIImage(named: "debit-card")
+            imgAvatarPay.layer.cornerRadius = 25
+            imgAvatarPay.backgroundColor = .white
+            imgAvatarPay.layer.masksToBounds = true
+            imgAvatarPay.contentMode = .scaleAspectFit
+            imgAvatarPay.borderColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
+            imgAvatarPay.borderWidth = 2.0
+        }
+        
+        imgAvatarPay.snp.makeConstraints { (make) in
+            make.height.equalTo(50)
+            make.width.equalTo(50)
+            make.centerX.equalTo(mainBubbleViewAbs.snp.centerX)
+            make.top.equalTo(self.contentView.snp.top).offset(0)
+            
+        }
+
+        txtMessageAbs.snp.remakeConstraints{ (make) in
+                make.top.equalTo((imgAvatarPay?.snp.bottom)!).offset(5)
+        }
+    }
+    
+    private func manageTextMessage(){
+
         if finalRoomMessage.type == .sticker {
             return
         }
-        
+
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
-            
+
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
+
             if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
                 
@@ -289,8 +380,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 
                 
             } else {
+
                     let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+
+                if messageText!.contains("**") {
                     txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
+                } else {
+                    txtMessageAbs?.text = messageText!
+                }
 
                 }
             
@@ -311,12 +408,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 txtMessageAbs.textAlignment = NSTextAlignment.center
                 
             } else {
-                
+                IGGlobal.getTime("BENJI-X3-16-7")
+
                 if isRtl {
                     txtMessageAbs.textAlignment = NSTextAlignment.right
                 } else {
                     txtMessageAbs.textAlignment = NSTextAlignment.left
                 }
+                IGGlobal.getTime("BENJI-X3-16-8")
+
             }
         } else {
             txtMessageAbs?.isHidden = true
@@ -358,7 +458,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
-                        make.top.equalTo(mainBubbleViewAbs.snp.top).offset(40)
+                            make.top.equalTo(mainBubbleViewAbs.snp.top).offset(40)
+
                     }
                 }
             }
