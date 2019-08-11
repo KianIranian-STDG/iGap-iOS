@@ -3205,18 +3205,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     //Message Handler
                     for rm in emptyRoomArray {
                         for msg in self.selectedIndex {
-                            
                             if let index = self.messages!.firstIndex(where: { $0.id == msg }) {
                                 let message = IGRoomMessage(body: "")
                                 message.type = .text
                                 message.roomId = rm!.id
                                 message.forwardedFrom = self.messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                //                                    IGMessageSender.defaultSender.send(message: message, to: rm!)
                                 emptyMessageArray.append(message)
-                                
                             }
                         }
-                        
                     }
                     //Remove Duplicates From Rooms Array And MSG Array
                     var tmpEmptyMessageArray = [IGRoomMessage?]()
@@ -3248,12 +3244,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     for room in emptyRoomArray{
                         for msg in emptyMessageArray {
                             IGMessageSender.defaultSender.send(message: msg!, to: room!, sendRequest: false)
-                            self.addChatItem(realmRoomMessages: [msg!], direction: IGPClientGetRoomHistory.IGPDirection.down)
-
                         }
                     }
                     IGMessageSender.defaultSender.sendNextPlainRequest()
-
                 }
             }
             else {
@@ -3267,14 +3260,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
         roomVC.room = room
-        print("COUNT 1 is :",messageArray.count)
-
         roomVC.tmpMSGArray = messageArray
-        //        IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
-        
         self.navigationController!.pushViewController(roomVC, animated: true)
-        print("TEST SENDING")
     }
+    
     func hideMoneyTransactionModal() {
         
         self.MoneyTransactionModalIsActive = false
