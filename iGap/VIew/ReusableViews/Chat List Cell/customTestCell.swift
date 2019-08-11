@@ -14,14 +14,13 @@ import MarkdownKit
 import MGSwipeTableCell
 
 class customTestCell: MGSwipeTableCell {
+    var itemRoomListCell = [itemRoom]()
+
     var roomII : IGRoom? {
         didSet {
             guard let item = roomII else {return}
-            if let name = item.title {
-                nameLabel.text = name
-            }
+         
             if let lastmsg = item.lastMessage?.message {
-                lastMsgLabel.text = lastmsg
                 setLastMessage(for: item)
             }
             if let time = item.lastMessage?.creationTime!.convertToHumanReadable(onlyTimeIfToday: true) {
@@ -245,6 +244,24 @@ class customTestCell: MGSwipeTableCell {
 //        self.checkImage.image = nil
     }
     
+    func setRoomCell(room : itemRoom){
+        DispatchQueue.main.async {
+
+            self.avatarImage.image = room.avatar
+            if self.avatarImage.image == UIImage(named: "2") {
+                self.avatarImage.image = nil
+                self.avatarImage.backgroundColor = .clear
+            
+                let color = UIColor.hexStringToUIColor(hex: room.colorString!)
+                self.initialLabel.backgroundColor = color
+            }
+            self.nameLabel.text = room.roomName
+            self.unreadCountLabel.text = room.unreadCount
+            self.initialLabel.text = room.initilas
+            
+
+        }
+    }
     private func setLastMessage(for room: IGRoom) {
         DispatchQueue.main.async {
             self.lastMsgLabel.textAlignment = self.lastMsgLabel.localizedNewDirection

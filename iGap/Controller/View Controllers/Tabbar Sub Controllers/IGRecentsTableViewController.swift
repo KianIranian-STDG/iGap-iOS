@@ -446,135 +446,23 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
                 //                testLastMsgArray.append(tmpLbl.text!)
                 
-                itemRoomList.append(itemRoom(roomID: tmpRoomID, lastMessage: tmpLbl.text,lastMessageTime: tmpTime, roomName: tmpRoomName, unreadCount: tmpUnreadCount, avatar: testIMG.image ?? UIImage(named: "2")!, type: IGPRoom.IGPType(rawValue: item.typeRaw)!, initilas: tmpInitials, colorString: tmpHexString))
+                itemRoomList.append(itemRoom(roomID: (tmpRoomID), lastMessage: tmpLbl.text,lastMessageTime: tmpTime, roomName: tmpRoomName, unreadCount: tmpUnreadCount, avatar: testIMG.image ?? UIImage(named: "2")!, type: IGPRoom.IGPType(rawValue: item.typeRaw)!, initilas: tmpInitials, colorString: tmpHexString))
                 
             }
-        } else
-        {
-          
-            testIMG.image = nil
-            tmpLbl.text = nil
-            
-            switch from![newindex].type {
-            case .chat:
-                if let avatar = from![newindex].chatRoom?.peer?.avatar {
-                    testIMG.setImage(avatar: avatar)
-                }
-                tmpRoomID = from![newindex].chatRoom?.peer?.id
-            case .group:
-                if let avatar = from![newindex].groupRoom?.avatar {
-                    testIMG.setImage(avatar: avatar)
-                }
-                tmpRoomID = from![newindex].groupRoom?.id
-                
-            case .channel:
-                if let avatar = from![newindex].channelRoom?.avatar {
-                    testIMG.setImage(avatar: avatar)
-                }
-                tmpRoomID = from![newindex].channelRoom?.id
-            }
-            tmpInitials = from![newindex].initilas
-            tmpHexString = from![newindex].colorString
-            tmpUnreadCount = String(from![newindex].unreadCount)
-            tmpRoomName = from![newindex].title
-            //                testImageArray.append(testIMG.image ?? UIImage(named :"2")!)
-            
-            //                itemRoomList.append(itemRoom(avatar: testIMG.image ?? UIImage(named: "2")!))
-            if let draft = from![newindex].draft, (from![newindex].draft?.message != "" || from![newindex].draft?.replyTo != -1) {
-                
-                if let lastMessage = from![newindex].lastMessage {
-                    tmpTime = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
-                } else {
-                    tmpTime = ""
-                }
-                tmpLbl.text = "DRAFT".RecentTableViewlocalizedNew + " \(draft.message)"
-                
-            } else if let lastMessage = from![newindex].lastMessage {
-                if lastMessage.isDeleted {
-                    tmpLbl.text = "DELETED_MESSAGE".RecentTableViewlocalizedNew
-                    
-                }
-                tmpTime = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
-                
-                if let forwarded = lastMessage.forwardedFrom {
-                    if let user = forwarded.authorUser {
-                        tmpLbl.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(user.displayName)"
-                    } else if let title = forwarded.authorRoom?.title {
-                        tmpLbl.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(title)"
-                    } else {
-                        tmpLbl.text = "FORWARDED_MESSAGE".RecentTableViewlocalizedNew
-                    }
-                } else {
-                    switch lastMessage.type {
-                    case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
-                        tmpLbl.text = lastMessage.message
-                        if let message = lastMessage.message {
-                            let markdown = MarkdownParser()
-                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
-                            tmpLbl.attributedText = markdown.parse(message)
-                            tmpLbl.font = UIFont.igFont(ofSize: 14.0)
-                            tmpLbl.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-                        }
-                    case .image:
-                        tmpLbl.text = "IMAGES_MESSAGE".RecentTableViewlocalizedNew
-                    case .video:
-                        tmpLbl.text = "VIDEOS_MESSAGE".RecentTableViewlocalizedNew
-                    case .gif:
-                        tmpLbl.text = "GIFS_MESSAGE".RecentTableViewlocalizedNew
-                    case .audio:
-                        tmpLbl.text = "AUDIOS_MESSAGE".RecentTableViewlocalizedNew
-                    case .voice:
-                        tmpLbl.text = "VOICES_MESSAGE".RecentTableViewlocalizedNew
-                    case .file:
-                        tmpLbl.text = "FILES_MESSAGE".RecentTableViewlocalizedNew
-                    case .sticker:
-                        tmpLbl.text = "STICKERS_MESSAGE".RecentTableViewlocalizedNew
-                    case .wallet:
-                        if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                            tmpLbl.text = "WALLET_MESSAGE".RecentTableViewlocalizedNew
-                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                            tmpLbl.text = "PAYMENT_MESSAGE".RecentTableViewlocalizedNew
-                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                            tmpLbl.text = "CARD_TO_CARD_MESSAGE".RecentTableViewlocalizedNew
-                        }
-                    default:
-                        tmpLbl.text = "UNKNOWN_MESSAGE".RecentTableViewlocalizedNew
-                        break
-                    }
-                }
-                
-                if lastMessage.type == .log {
-                    tmpLbl.text = IGRoomMessageLog.textForLogMessage(lastMessage)
-                } else if lastMessage.type == .contact {
-                    tmpLbl.text = "CONTACT_MESSAGE".RecentTableViewlocalizedNew
-                } else if lastMessage.type == .location {
-                    tmpLbl.text = "LOCATION_MESSAGE".RecentTableViewlocalizedNew
-                }
-                
-                
-            } else {
-                tmpTime = ""
-                tmpLbl.text  = ""
-                
-            }
-            
-            
-                if newindex != lastindex {
-                    itemRoomList.remove(at: lastindex)
-                    itemRoomList.insert(itemRoom(roomID: tmpRoomID, lastMessage: tmpLbl.text,lastMessageTime: tmpTime, roomName: tmpRoomName, unreadCount: tmpUnreadCount, avatar: testIMG.image ?? UIImage(named: "2")!, type: IGPRoom.IGPType(rawValue: from![newindex].typeRaw)!, initilas: tmpInitials, colorString: tmpHexString), at: newindex)
-                    
-                } else {
-                    itemRoomList[lastindex].lastMessage = tmpLbl.text
-                    itemRoomList[lastindex].lastMessageTime = tmpTime
-                    itemRoomList[lastindex].unreadCount = tmpUnreadCount
-                }
-                
-            //                testLastMsgArray.append(tmpLbl.text!)
-            
-            //            itemRoomList.append(itemRoom(roomID: tmpRoomID, lastMessage: tmpLbl.text,lastMessageTime: tmpTime, roomName: tmpRoomName, unreadCount: tmpUnreadCount, avatar: testIMG.image ?? UIImage(named: "2")!, type: IGPRoom.IGPType(rawValue: item.typeRaw)!, initilas: tmpInitials, colorString: tmpHexString))
+            print("itemRoomList IS:",itemRoomList)
+            findItemInList(idToFind: 106684160459720255)
+        } else {
             
         }
         
+    }
+    func findItemInList(idToFind : Int64) {
+        
+//        IGGlobal.getTime("BENJI-I")
+        let filteredArray = itemRoomList.filter{$0.roomID! == idToFind}
+        print("FILTER IN ITEMROOMLIST",filteredArray.first ?? "Item not found")
+//        IGGlobal.getTime("BENJI-II")
+
     }
     
     @objc private func changeDirectionOfUI() {
@@ -885,18 +773,22 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         IGGlobal.getTime("BENJI0")
         
         let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
+        IGGlobal.getTime("BENJI1")
+
         ////1///
 
-        cell.setRoom(self.rooms![indexPath.row])
-
+//        cell.setRoom(self.rooms![indexPath.row])
+//        IGGlobal.getTime("BENJI2")
+//
         cell.roomII = self.rooms![indexPath.row]
-
+        IGGlobal.getTime("BENJI3")
+//
         if self.rooms![indexPath.row].pinId > 0 {
             cell.contentView.backgroundColor = UIColor.pinnedChats()
         } else {
             cell.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
-        
+
         if self.rooms![indexPath.row].pinId > 0 && !IGHelperPromote.isPromotedRoom(room: self.rooms![indexPath.row]) {
             cell.unreadCountLabel.isHidden = true
             cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
@@ -929,11 +821,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             }
         }
-        
+
         switch self.rooms![indexPath.row].type {
-            
+
         case .chat:
-            
+
             cell.typeImage.image = UIImage(named: "IG_Settings_Chats")
             if (self.rooms![indexPath.row].chatRoom?.peer!.isVerified)! {
                 cell.checkImage.isHidden = false
@@ -943,26 +835,26 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
             }
         case .group:
-            
+
             cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
             cell.checkImage.isHidden = true
-            
+
         case .channel:
-            
-            
+
+
             cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
-            
+
             if (self.rooms![indexPath.row].channelRoom?.isVerified)! {
                 cell.checkImage.isHidden = false
-                
+
             } else {
                 cell.checkImage.isHidden = true
-                
+
             }
         }
-        
+
         switch self.rooms![indexPath.row].mute {
-            
+
         case .unmute:
             cell.muteImage.isHidden = true
         case .mute:
@@ -972,7 +864,30 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             break
         }
         /////////
+        /////2////
+        IGGlobal.getTime("BENJI5")
+
+        cell.nameLabel.text = self.rooms![indexPath.row].title
+        switch self.rooms![indexPath.row].type {
+        case .chat:
+            if let avatar = self.rooms![indexPath.row].chatRoom?.peer?.avatar {
+                cell.avatarImage.setImage(avatar: avatar, showMain: false)
+            }
+        case .group:
+            if let avatar = self.rooms![indexPath.row].groupRoom?.avatar {
+                cell.avatarImage.setImage(avatar: avatar, showMain: false)
+            }
+            
+        case .channel:
+            if let avatar = self.rooms![indexPath.row].channelRoom?.avatar {
+                cell.avatarImage.setImage(avatar: avatar, showMain: false)
+                
+            }
+        }
+
         
+//        cell.setRoomCell(room: itemRoomList[indexPath.row])
+        //////
         
         IGGlobal.getTime("BENJI6")
         //end
