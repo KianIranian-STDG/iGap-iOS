@@ -127,11 +127,7 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             let dc = destinationCard
 
             IGGlobal.prgHide()
-            if let toUserId = requestWrapper.identity as? Int64, toUserId != 0 {
                 self.cardToCardUserId = toUserId
-            } else {
-                self.cardToCardUserId = 0
-            }
             
             if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
                 DispatchQueue.main.async {

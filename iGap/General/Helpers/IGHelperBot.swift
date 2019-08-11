@@ -356,8 +356,6 @@ class IGHelperBot {
                     let tmpCardNumber = finalData.cardNumber
                     
                     IGHelperFinancial.shared.sendCardToCardRequestWithAmount(toUserId: finalData.userId , amount: (tmpAmount), destinationCard: tmpCardNumber)
-                    
-
 
                 }
 
