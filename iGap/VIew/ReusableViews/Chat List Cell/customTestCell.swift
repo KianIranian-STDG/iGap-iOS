@@ -243,6 +243,11 @@ class customTestCell: MGSwipeTableCell {
         super.prepareForReuse()
         self.avatarImage.image = nil
         self.nameLabel.text = nil
+        self.stateImage.image = nil
+        self.unreadCountLabel.text = nil
+        self.lastMessageStateImage.image = nil
+        self.lastMsgLabel.text = nil
+        self.checkImage.image = nil
     }
     
     private func setLastMessage(for room: IGRoom) {
