@@ -198,14 +198,125 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
-            txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
-            let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-            txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
             
-            if isRtl {
-                txtMessageAbs.textAlignment = NSTextAlignment.right
+            txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
+            if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                
+                var messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                messageText = messageText?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                
+                
+                
+                
+                
+                let t = finalRoomMessage.additional?.data
+                let data = t!.data(using: .utf8)!
+                let tmpJsonB = IGHelperJson.parseAdditionalButton(data: t)
+                
+                let b = tmpJsonB![0][0].valueJson
+                let tmpJson = IGHelperJson.parseAdditionalCardToCardInChat(data: b)
+                print("tmpJson",tmpJson)
+                
+                let tt = tmpJson?.amount
+                
+                print(tt)
+                
+                let tmpAmount : Int! = tt
+                //
+                //
+                let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .bold)]
+                let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
+                let normalString = NSMutableAttributedString(string: "TTL_AMOUNT".MessageViewlocalizedNew + " " + String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".MessageViewlocalizedNew  + "\n_________________________\n", attributes:attrsRegular)
+                let attributedString = NSMutableAttributedString(string: "PRODUCTS_DETAILS".MessageViewlocalizedNew + " " + messageText!, attributes:  attrsRegular)
+                normalString.append(attributedString)
+                
+                txtMessageAbs.numberOfLines = 0
+                txtMessageAbs.lineBreakMode = NSLineBreakMode.byWordWrapping
+                
+                
+                txtMessageAbs.attributedText = normalString
+                
+                
+                
+                //                    let attributedText = NSMutableAttributedString(string: "Hello, I am\n\n", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17)])
+                //                    attributedText.append(NSAttributedString(string: " Attributed Text,", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17), NSAttributedString.Key.foregroundColor: UIColor.blue]))
+                //                    txtMessageAbs.attributedText = attributedText
+                
+                
+            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                
+                var messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                messageText = messageText?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                
+                
+                
+                
+                
+                let t = finalRoomMessage.additional?.data
+                let data = t!.data(using: .utf8)!
+                let tmpJsonB = IGHelperJson.parseAdditionalButton(data: t)
+                
+                let b = tmpJsonB![0][0].valueJson
+                let tmpJson = IGHelperJson.parseAdditionalCardToCardInChat(data: b)
+                print("tmpJson",tmpJson)
+                
+                let tt = tmpJson?.amount
+                
+                print(tt)
+                
+                let tmpAmount : Int! = tt
+                //
+                //
+                let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .bold)]
+                let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
+                let normalString = NSMutableAttributedString(string: String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".MessageViewlocalizedNew  + "\n", attributes:attrsRegular)
+                let attributedString = NSMutableAttributedString(string: messageText!, attributes:  attrsRegular)
+                normalString.append(attributedString)
+                
+                txtMessageAbs.numberOfLines = 0
+                txtMessageAbs.lineBreakMode = NSLineBreakMode.byWordWrapping
+                
+                
+                txtMessageAbs.attributedText = normalString
+                
+                
+                
+                //                    let attributedText = NSMutableAttributedString(string: "Hello, I am\n\n", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17)])
+                //                    attributedText.append(NSAttributedString(string: " Attributed Text,", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17), NSAttributedString.Key.foregroundColor: UIColor.blue]))
+                //                    txtMessageAbs.attributedText = attributedText
+                
+                
             } else {
-                txtMessageAbs.textAlignment = NSTextAlignment.left
+                    let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                    txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
+
+                }
+            
+            if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
+                DispatchQueue.main.async {
+                    self.txtMessageAbs.textAlignment = NSTextAlignment.center
+
+                    
+                }
+            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                
+                txtMessageAbs.textAlignment = NSTextAlignment.center
+                
+            }else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                
+                txtMessageAbs.textAlignment = NSTextAlignment.center
+                
+            } else {
+                
+                if isRtl {
+                    txtMessageAbs.textAlignment = NSTextAlignment.right
+                } else {
+                    txtMessageAbs.textAlignment = NSTextAlignment.left
+                }
             }
         } else {
             txtMessageAbs?.isHidden = true
@@ -247,6 +358,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
+                        make.top.equalTo(mainBubbleViewAbs.snp.top).offset(40)
                     }
                 }
             }
@@ -462,7 +574,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func manageCellBubble(){
       
         /************ Bubble View ************/
-        mainBubbleViewAbs.layer.cornerRadius = 18
+
         if finalRoomMessage.type == .sticker {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
@@ -470,8 +582,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
         
         /************ Bubble Size ************/
-        mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width
-        mainBubbleViewHeightAbs.constant = messageSizes.bubbleSize.height - 18
+            mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width
+            mainBubbleViewHeightAbs.constant = messageSizes.bubbleSize.height - 18
+
+
         
         /********* Bubble Direction *********/
         mainBubbleViewAbs.snp.makeConstraints { (make) in
@@ -508,9 +622,43 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
 
                 leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(250).constraint
             }
-            
+            if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
+                DispatchQueue.main.async {
+                    self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
+                    self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
+
+                    self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+                    
+                    
+                }
+            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
+                self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
+
+                self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+                
+                
+            }else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+                self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
+                self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
+                
+                self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+                
+                
+            } else {
+                self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
+                self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
+
+                self.mainBubbleViewAbs.layer.cornerRadius = 18
+                
+            }
             if leadingAbs != nil { leadingAbs?.activate() }
-            if trailingAbs != nil { trailingAbs?.activate() }
+            if trailingAbs != nil { trailingAbs?.activate()
+                
+            }
+
         }
         /************ Add multi Forward icon only in Rooms ************/
         if room.type == .channel {
@@ -1043,6 +1191,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 self.makeAdditionalView(additionalView: additionalView, removeView: false)
             }
         } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+            let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
+            
+            let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
+            IGHelperBot.createdViewDic[self.realmRoomMessage.id] = additionalView
+            self.makeAdditionalView(additionalView: additionalView)
+            
+        } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
             
             let additionalView = IGHelperBot.shared.makeBotView(additionalArrayMain: additionalStruct)
@@ -1643,6 +1798,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if self.additionalViewAbs == nil {
             self.additionalViewAbs = UIView()
+            let avatarPayViewAbs = UIView()
+
             self.additionalViewAbs.addSubview(additionalView)
             self.additionalViewAbs.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
             self.contentView.addSubview(self.additionalViewAbs)
@@ -1650,9 +1807,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             self.additionalViewAbs?.snp.makeConstraints { (make) in
                 make.leading.equalTo(self.mainBubbleViewAbs.snp.leading)
                 make.trailing.equalTo(self.mainBubbleViewAbs.snp.trailing)
-                make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(5)
+                make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(0)
                 make.height.equalTo(additionalView.frame.size.height)
             }
+      
+            
+       
             
             additionalView.snp.makeConstraints { (make) in
                 make.leading.equalTo(self.additionalViewAbs.snp.leading)
@@ -1660,6 +1820,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 make.top.equalTo(self.additionalViewAbs.snp.top)
                 make.bottom.equalTo(additionalViewAbs.snp.bottom)
             }
+            avatarPayViewAbs.backgroundColor = .red
         }
     }
     
@@ -1692,3 +1853,12 @@ extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
     }
 }
 
+extension String {
+    func withBoldText(text: String, font: UIFont? = nil) -> NSAttributedString {
+        let _font = font ?? UIFont.systemFont(ofSize: 14, weight: .regular)
+        let fullString = NSMutableAttributedString(string: self, attributes: [NSAttributedString.Key.font: _font])
+        let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: _font.pointSize)]
+        let range = (self as NSString).range(of: text)
+        fullString.addAttributes(boldFontAttribute, range: range)
+        return fullString
+    }}

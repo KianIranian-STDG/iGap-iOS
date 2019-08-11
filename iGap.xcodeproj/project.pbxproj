@@ -28,6 +28,8 @@
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
 		8E7EE0C922E354D500133485 /* MessageViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */; };
 		8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */; };
+		8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */; };
+		8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */; };
 		8E7FE7B722E74EC400E67914 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E7FE7B922E74EC400E67914 /* Localizable.strings */; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
 		8E8D8E19225CE39B00039191 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E18225CE39A00039191 /* strings.json */; };
@@ -696,6 +698,8 @@
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
 		8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsEn.json; sourceTree = "<group>"; };
+		8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellCardToCard.swift; sourceTree = "<group>"; };
+		8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCellCardToCard.xib; sourceTree = "<group>"; };
 		8E7FE7AC22E74E3400E67914 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		8E7FE7AD22E74E3400E67914 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		8E7FE7B322E74EAD00E67914 /* fa-IR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fa-IR"; path = "fa-IR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -2428,6 +2432,8 @@
 				FA7CD4A12295842E002918AD /* PaymentCell.xib */,
 				FAB623E9229526D3006DEA00 /* CardToCardCell.swift */,
 				FAB623EB229526D5006DEA00 /* CardToCardCell.xib */,
+				8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */,
+				8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */,
 			);
 			path = "Chat Cells";
 			sourceTree = "<group>";
@@ -2978,6 +2984,7 @@
 				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
+				8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */,
 				FAE6063F21EB3A0C00F03FFC /* es.lproj in Resources */,
 				FA99FF6922354031009035DF /* DashboardCell3.xib in Resources */,
 				8EBF552C22DCBAE900834E6A /* SliderTypeTwoCell.xib in Resources */,
@@ -3593,6 +3600,7 @@
 				8EBF54FA22D9B60D00834E6A /* CALayerExtension.swift in Sources */,
 				FA865C752078A32000B9D585 /* IGMap.swift in Sources */,
 				8E96A313225B6DCC007D8A77 /* SMHistoryDetailTableViewCell.swift in Sources */,
+				8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */,
 				8EE7FCAA22619B5900B6C2C3 /* IGWalletSettingInnerTableViewController.swift in Sources */,
 				FAAC57D31DE2CE9F00A28058 /* IGDownloadManager.swift in Sources */,
 				DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */,

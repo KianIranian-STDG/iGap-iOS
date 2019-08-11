@@ -121,6 +121,29 @@ class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {
             IGGlobal.prgHide()
         }).send()
     }
+    public func sendCardToCardRequestWithAmount(toUserId: Int64 = 0,amount:Int!,destinationCard: String?){
+        IGGlobal.prgShow()
+        IGMplGetCardToCardTokenWithAmount.Generator.generate(toUserId: toUserId , amount:(amount) , destinationCard: destinationCard).successPowerful({ (protoResponse, requestWrapper) in
+            let dc = destinationCard
+
+            IGGlobal.prgHide()
+            if let toUserId = requestWrapper.identity as? Int64, toUserId != 0 {
+                self.cardToCardUserId = toUserId
+            } else {
+                self.cardToCardUserId = 0
+            }
+            
+            if let mplGetCardToCardToken = protoResponse as? IGPMplGetCardToCardTokenResponse {
+                DispatchQueue.main.async {
+                    InitCardToCard().initCardToCard(Token: mplGetCardToCardToken.igpToken,
+                                                    MerchantVCArg: UIApplication.topViewController()!,
+                                                    callback: self, amount:(((amount))!) , destinationCard: destinationCard!)
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
+    }
     
     public func sendPayDirectRequest(inquery: Bool, amount: Int64 , toUserId: Int64 , invoiceNUmber: Int64 , description: String ){
         IGGlobal.prgShow()

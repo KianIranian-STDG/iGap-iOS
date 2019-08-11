@@ -46,6 +46,9 @@ class CellSizeCalculator: NSObject {
         let cachedSize = cache.object(forKey: cacheKey)
         if cachedSize != nil {
             return cachedSize as! MessageCalculatedSize
+//            let t = (bubbleSize: CGSize(width: 200, height: 200), messageAttachmentHeight: CGFloat(0), additionalHeight: CGFloat(200))
+//
+//            return t as MessageCalculatedSize
         }
 
         var finalSize = CGSize.zero
@@ -177,7 +180,13 @@ class CellSizeCalculator: NSObject {
             if text != nil && text != "" {
                 let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited, room: room)
                 finalSize.height += CellSizeLimit.ConstantSizes.Text.Height
-                finalSize.height += stringRect.height
+                if additionalData != nil {
+                    finalSize.height += stringRect.height + 110
+
+                } else {
+                    finalSize.height += stringRect.height
+
+                }
                 
                 var minimumSize = CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.Text
                 if additionalData != nil {
@@ -210,6 +219,9 @@ class CellSizeCalculator: NSObject {
     func getAdditional(roomMessage: IGRoomMessage) -> String? {
         if let additionalData = roomMessage.additional?.data, roomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue {
             return additionalData
+        }
+        if let additionalDataCard = roomMessage.additional?.data, roomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
+            return additionalDataCard
         }
         return nil
     }

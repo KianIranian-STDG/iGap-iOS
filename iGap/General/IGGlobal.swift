@@ -115,7 +115,14 @@ class IGGlobal {
      * size of file that exist in path and 'fileSize' which is set, will be compared.
      * finally if there are two equal values,the output is true otherwise the output will be false.
      */
-    
+    internal static func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: string,
+                                                         attributes: [NSAttributedString.Key.font: font])
+        let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: font.pointSize)]
+        let range = (string as NSString).range(of: boldString)
+        attributedString.addAttributes(boldFontAttribute, range: range)
+        return attributedString
+    }
     internal static func isFileExist(path: String?, fileSize: Int = -1) -> Bool {
         if path != nil && FileManager.default.fileExists(atPath: path!) {
             if fileSize == -1 || fileSize == FileManager.default.contents(atPath: path!)?.count {

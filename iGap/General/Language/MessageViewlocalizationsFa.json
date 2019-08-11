@@ -102,5 +102,7 @@
         "CONTACT_MESSAGE" : "پیام مخاطب",
         "LOCATION_MESSAGE" : "پیام موقعیت مکانی",
         "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",
+        "TTL_AMOUNT" : "مبلغ :",
+        "PRODUCTS_DETAILS" : "شرح پیام :",
         "REQUEST_CARD_TO_CARD" : "ارسال درخواست کارت به کارت"
 }

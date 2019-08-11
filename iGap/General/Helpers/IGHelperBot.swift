@@ -117,7 +117,7 @@ class IGHelperBot {
         let view = UIView()
         var img : UIImageView!
         let btn = UIButton()
-        
+
         buttonActionDic[btn] = additionalButton
         buttonViewDic[btn] = view
         if !(IGGlobal.shouldMultiSelect) {
@@ -170,8 +170,81 @@ class IGHelperBot {
         view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
         
         view.layer.masksToBounds = false
-        view.layer.cornerRadius = 18.0
+        view.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
 
+        return view
+    }
+    
+    
+    private func makeBotButtonCardToCard(parentView: UIView, additionalButton: IGStructAdditionalButton, isKeyboard: Bool) -> UIView {
+        let view = UIView()
+        var img : UIImageView!
+        let btn = UIButton()
+        let imgAvatarPay = UIImageViewX()
+
+        buttonActionDic[btn] = additionalButton
+        buttonViewDic[btn] = view
+        if !(IGGlobal.shouldMultiSelect) {
+            btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
+            
+        }
+        btn.titleLabel?.textAlignment = NSTextAlignment.center
+        view.addSubview(btn)
+        view.addSubview(imgAvatarPay)
+        imgAvatarPay.image = UIImage(named: "AppIcon")
+
+        
+        
+        if additionalButton.imageUrl != nil {
+            img = UIImageView()
+            img.sd_setImage(with: additionalButton.imageUrl!, completed: nil)
+            view.addSubview(img)
+            
+            img.snp.makeConstraints { (make) in
+                make.leading.equalTo(view.snp.leading).offset(IN_LAYOUT_SPACE)
+                make.centerY.equalTo(view.snp.centerY)
+                make.height.equalTo(IMAGE_SIZE)
+                make.width.equalTo(IMAGE_SIZE)
+            }
+        }
+        
+        btn.snp.makeConstraints { (make) in
+            if additionalButton.imageUrl != nil {
+                make.leading.equalTo(img.snp.trailing).offset(IN_LAYOUT_SPACE)
+            } else {
+                make.leading.equalTo(view.snp.leading).offset(IN_LAYOUT_SPACE)
+            }
+            make.trailing.equalTo(view.snp.trailing).offset(-IN_LAYOUT_SPACE)
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(IMAGE_SIZE)
+        }
+        imgAvatarPay.snp.makeConstraints { (make) in
+            make.height.equalTo(50)
+            make.width.greaterThanOrEqualTo(50)
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.top)
+            
+        }
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 17.0)
+        if additionalButton.actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue {
+            btn.setTitle("CARD_TO_CARD".localizedNew, for: UIControl.State.normal)
+        } else {
+            btn.setTitle(additionalButton.label, for: UIControl.State.normal)
+        }
+        btn.removeUnderline()
+        
+        /*
+         if isKeyboard {
+         view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.8)
+         } else {
+         view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.3)
+         }
+         */
+        view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
+        
+        view.layer.masksToBounds = false
+        view.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
+        
         return view
     }
     
@@ -274,9 +347,21 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue :
-                if let toUserId = Int64(structAdditional.value) {
-                    IGHelperFinancial.shared.sendCardToCardRequest(toUserId: toUserId)
+                let t = structAdditional
+
+                if let valueJson = structAdditional.valueJson, let finalData = IGHelperJson.parseAdditionalCardToCardInChat(data: valueJson) {
+
+                    let tmpAmount = finalData.amount
+                    
+                    let tmpCardNumber = finalData.cardNumber
+                    
+                    IGHelperFinancial.shared.sendCardToCardRequestWithAmount(toUserId: finalData.userId , amount: (tmpAmount), destinationCard: tmpCardNumber)
+                    
+
+
                 }
+
+            
                 break
                 
             default:

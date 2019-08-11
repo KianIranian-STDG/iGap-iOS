@@ -416,6 +416,7 @@ enum AdditionalType: Int32 {
     case KEYBOARD_TYPE = 7
     case FORM_BUILDER = 8
     case WEBVIEW_SHOW = 9
+    case CARD_TO_CARD_PAY = 12
 }
 
 enum StickerPageType: Int {

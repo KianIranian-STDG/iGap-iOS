@@ -11,7 +11,7 @@
 import SwiftyJSON
 
 class IGStructAdditionalButton {
-
+    
     var json : String!
     var actionType : Int!
     var label : String!
@@ -26,6 +26,20 @@ class IGStructAdditionalButton {
         self.imageUrl = json["imageUrl"].url
         self.value = json["value"].stringValue
         self.valueJson = json["value"].object
+    }
+}
+class IGStructAdditional {
+    
+    var json : String!
+    var amount : String!
+    var cardNumber : String!
+    var value : String!
+    
+    init(json: JSON) {
+        self.json = json.description
+        self.amount = json["amount"].stringValue
+        self.cardNumber = json["cardNumber"].stringValue
+        self.value = json["value"].stringValue
     }
 }
 
@@ -49,6 +63,18 @@ class IGStructAdditionalPayDirect {
     }
 }
 
+class IGStructAdditionalCardToCard {
+    
+    var cardNumber : String!
+    var userId : Int64!
+    var amount : Int!
+    
+    init(json: JSON) {
+        self.cardNumber = json["cardNumber"].stringValue
+        self.userId = json["userId"].int64Value
+        self.amount = json["amount"].intValue
+    }
+}
 
 class IGStructBillInfo {
     

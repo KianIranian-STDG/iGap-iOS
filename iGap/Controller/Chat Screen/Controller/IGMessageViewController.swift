@@ -1320,6 +1320,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
             return additionalData
         }
+        if roomMessage != nil && roomMessage!.authorUser?.id != IGAppManager.sharedManager.userID(),
+            let data = roomMessage?.additional?.data,
+            roomMessage?.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
+            let additionalData = IGHelperJson.parseAdditionalButton(data: data) {
+            return additionalData
+        }
         return nil
     }
     
@@ -2561,7 +2567,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 if MoneyTransactionModal == nil {
                     dismissBtn = UIButton()
-                    dismissBtn.backgroundColor = UIColor.clear
+
+                    dismissBtn.backgroundColor = UIColor.darkGray.withAlphaComponent(0.3)
                     self.view.insertSubview(dismissBtn, at: 2)
                     dismissBtn.addTarget(self, action: #selector(didtapOutSide), for: .touchUpInside)
                     
@@ -2832,8 +2839,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 
                 //
-                            let messageText = inputTextView.text.substring(offset: MAX_TEXT_LENGHT)
-                            let message = IGRoomMessage.makeCardToCardRequestWithAmount(message: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbers().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbers().onlyDigitChars()))
+                let messageText = CardToCardModal.inputTFOne.text!.substring(offset: MAX_TEXT_LENGHT)
+                            let message = IGRoomMessage.makeCardToCardRequestWithAmount(messageText: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbers().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbers().onlyDigitChars()))
                             let detachedMessage = message.detach()
                             IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                             IGMessageSender.defaultSender.send(message: message, to: self.room!)
@@ -3256,6 +3263,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
                 self.MoneyInputModal.removeFromSuperview()
                 self.MoneyInputModal = nil
+                if self.dismissBtn != nil {
+                    self.dismissBtn.removeFromSuperview()
+                }
             }
             MoneyInputModal.inputTF.endEditing(true)
         }
@@ -3265,6 +3275,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func hideCardToCardModal() {
         self.CardToCardModalIsActive = false
         if CardToCardModal != nil {
+            
             UIView.animate(withDuration: 0.3, animations: {
                 self.CardToCardModal.frame.origin.y = self.view.frame.height
                 
@@ -3274,9 +3285,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
                 if self.CardToCardModal != nil {
                     self.CardToCardModal.removeFromSuperview()
-                    self.CardToCardModal = nil
                     self.CardToCardModal.inputTFOne.endEditing(true)
                     self.CardToCardModal.inputTFTwo.endEditing(true)
+                    self.CardToCardModal = nil
+
+                    if self.dismissBtn != nil {
+                        self.dismissBtn.removeFromSuperview()
+                    }
 
                 }
             }
@@ -3298,6 +3313,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
                 self.MultiShareModal.removeFromSuperview()
                 self.MultiShareModal = nil
+                if self.dismissBtn != nil {
+                    self.dismissBtn.removeFromSuperview()
+                }
             }
             
         }
@@ -3328,6 +3346,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             hideMultiShareModal()
             self.view.endEditing(true)
             
+        }
+        if dismissBtn != nil {
+            dismissBtn.removeFromSuperview()
         }
     }
     /************************************************************************/
@@ -4517,7 +4538,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         if messageType == .text {
             let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
             
-            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+            var bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect && message.type != .log {

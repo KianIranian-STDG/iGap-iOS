@@ -149,6 +149,19 @@ class IGMplGetCardToCardToken : IGRequest {
     }
 }
 
+class IGMplGetCardToCardTokenWithAmount : IGRequest {
+    class Generator : IGRequest.Generator{
+        class func generate(toUserId: Int64 = 0,amount:Int?,destinationCard: String?) -> IGRequestWrapper {
+            return IGRequestWrapper(message: IGPMplGetCardToCardToken(), actionID: 9106, identity: "\(toUserId)")
+        }
+    }
+    
+    class Handler : IGRequest.Handler{
+        class func interpret(response reponseProtoMessage:IGPMplGetCardToCardTokenResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
 class IGBillInquiryMci : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(mobileNumber: Int64) -> IGRequestWrapper {

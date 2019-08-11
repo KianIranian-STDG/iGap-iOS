@@ -69,6 +69,7 @@
         "GLOBAL_FROM" : "From",
         "TTL_INVOICE_NUMBER" : "Invoice Number",
         "PRICE" : "Amount",
+        "TTL_AMOUNT" : "Price :",
         "TRACE_NUMBER" : "Trace Number",
         "WALLET_TRANSFER_MONEY" : "Wallet Money Transfer",
         "CURRENCY" : "Rial",
@@ -102,6 +103,7 @@
         "CONTACT_MESSAGE" : "Contact Message",
         "LOCATION_MESSAGE" : "Location Message",
         "NO_NETWORK" : "No network Connection",
+        "PRODUCTS_DETAILS" : "Description :",
         "REQUEST_CARD_TO_CARD" : "Send Card To Card Request"
 
     }

@@ -57,6 +57,7 @@ class IGHelperJson {
         
         return nil
     }
+
     
     internal static func getAdditionalButtonRowCount(data: String) -> Int {
         do {
@@ -73,6 +74,9 @@ class IGHelperJson {
     internal static func parseAdditionalPayDirect(data: Any) -> IGStructAdditionalPayDirect? {
         return IGStructAdditionalPayDirect(json: JSON(arrayLiteral: data)[0])
     }
+    internal static func parseAdditionalCardToCardInChat(data: Any) -> IGStructAdditionalCardToCard? {
+        return IGStructAdditionalCardToCard(json: JSON(arrayLiteral: data)[0])
+    }
     
     internal static func parseBillInfo(data: String) -> IGStructBillInfo? {
         do {
@@ -85,6 +89,33 @@ class IGHelperJson {
         }
         return nil
     }
+    internal static func parseAdditional(data: String?) -> [[IGStructAdditional]]? {
+        
+        if data == nil {return nil}
+        
+        do {
+            if let dataFromString = data!.data(using: .utf8, allowLossyConversion: false) {
+                let jsonArrayMain = try JSON(data: dataFromString)
+                
+                var arrayMain = [[IGStructAdditional]]()
+                for (_, jsonArray):(String, JSON) in jsonArrayMain {
+                    var subArray:[IGStructAdditional] = []
+                    for (_, subJson):(String, JSON) in jsonArray {
+                        let structAdt = IGStructAdditional(json: subJson)
+                        subArray.append(structAdt)
+                    }
+                    arrayMain.append(subArray)
+                }
+                
+                return arrayMain
+            }
+        } catch let error {
+            print(error)
+        }
+        
+        return nil
+    }
+
     
     /*************************************************************************/
     /******************************** Sticker ********************************/
