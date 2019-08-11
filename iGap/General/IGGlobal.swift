@@ -1026,7 +1026,6 @@ extension UIImageView {
                     if IGGlobal.isFileExist(path: path, fileSize: file.size) {
                         image = UIImage(contentsOfFile: path!.path)
                     }
-                    
                     if image != nil {
                         self.image = image
                     } else {
@@ -1042,16 +1041,19 @@ extension UIImageView {
                     DispatchQueue.main.async {
                         if let imageMain = imagesMap[attachment.token!] {
                             let path = attachment.path()
+                            imageMain.sd_setImage(with: path)
+
                             if let data = try? Data(contentsOf: path!) {
-                                if let image = UIImage(data: data) {
-                                    imageMain.image = image
-                                }
+//                                if let image = UIImage(data: data) {
+//                                    imageMain.image = image
+//                                }
                             }
                         }
                     }
                 }, failure: {
                     
                 })
+                
             }
         }
     }

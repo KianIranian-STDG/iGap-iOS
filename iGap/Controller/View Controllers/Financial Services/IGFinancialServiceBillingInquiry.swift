@@ -165,7 +165,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
     
     private func fetchPaymentToken(billId: String, payId: String){
         IGGlobal.prgShow(self.view)
-        IGMplGetBillToken.Generator.generate(billId: Int64(billId)!, payId: Int64(payId)!).success({ (protoResponse) in
+        IGMplGetBillToken.Generator.generate(billId: Int64(billId.inEnglishNumbers())!, payId: Int64(payId.inEnglishNumbers())!).success({ (protoResponse) in
             IGGlobal.prgHide()
             if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
@@ -280,7 +280,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
         
         if IGFinancialServiceBillingInquiry.isMobile {
             
-            guard let phoneNumber: String = edtPhoneNumber.text else {
+            guard let phoneNumber: String = edtPhoneNumber.text?.inEnglishNumbers() else {
                 return
             }
             
@@ -312,7 +312,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
             }).send()
         } else {
             
-            guard let phoneNumber: String = edtPhoneNumber.text else {
+            guard let phoneNumber: String = edtPhoneNumber.text?.inEnglishNumbers() else {
                 return
             }
             
@@ -322,7 +322,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
             }
             
             
-            guard let provisionCode: String = edtProvisionCode.text else {
+            guard let provisionCode: String = edtProvisionCode.text?.inEnglishNumbers() else {
                 return
             }
             
@@ -332,7 +332,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
             }
             
             IGGlobal.prgShow(self.view)
-            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode)!, telephoneNumber: Int64(phoneNumber)!).success({ (protoResponse) in
+            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode.inEnglishNumbers())!, telephoneNumber: Int64(phoneNumber.inEnglishNumbers())!).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let billInquiryMciResponse = protoResponse as? IGPBillInquiryTelecomResponse {
                     self.manageInquiryTelecom(lastTerm: billInquiryMciResponse.igpLastTerm, midTerm: billInquiryMciResponse.igpMidTerm)
@@ -356,11 +356,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerD
     }
     
     @IBAction func btnPayment(_ sender: UIButton) {
-        fetchPaymentToken(billId: billingId, payId: paymentCode)
+        fetchPaymentToken(billId: billingId.inEnglishNumbers(), payId: paymentCode.inEnglishNumbers())
     }
     
     @IBAction func btnPaymentMid(_ sender: UIButton) {
-        fetchPaymentToken(billId: billingIdMid, payId: paymentCodeMid)
+        fetchPaymentToken(billId: billingIdMid.inEnglishNumbers(), payId: paymentCodeMid.inEnglishNumbers())
     }
     
     /*********************************************************/

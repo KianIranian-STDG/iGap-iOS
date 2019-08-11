@@ -238,7 +238,7 @@ class IGFinancialServiceBill: BaseViewController, UIGestureRecognizerDelegate, U
         }
         
         IGGlobal.prgShow(self.view)
-        IGMplGetBillToken.Generator.generate(billId: Int64(billId)!, payId: Int64(payId)!).success({ (protoResponse) in
+        IGMplGetBillToken.Generator.generate(billId: Int64(billId.inEnglishNumbers())!, payId: Int64(payId.inEnglishNumbers())!).success({ (protoResponse) in
             IGGlobal.prgHide()
             if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
                 if mplGetBillTokenResponse.igpStatus == 0 { //success

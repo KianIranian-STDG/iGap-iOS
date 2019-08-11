@@ -72,6 +72,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     //MARK: Initializers
     override func awakeFromNib() {
         super.awakeFromNib()
+
         lastMessageStatusContainerView.layer.cornerRadius = 9.0
         lastMessageStatusContainerView.layer.masksToBounds = true
         unreadCountLabel.font = UIFont.igFont(ofSize: 12)
@@ -83,7 +84,9 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
                                                selector: #selector(getUserAvatarAgain(_:)),
                                                name: NSNotification.Name(rawValue: kIGNoticationForPushUserExpire),
                                                object: nil)
+        
 
+        
     }
  
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -158,44 +161,17 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         
     }
     //MARK: Configure
-    func initView (item : itemRoom) {
-        nameLabel.text = item.roomName
-        imgAvatarRoom.initialLettersLabel!.text = item.initilas
-        
-        let color = UIColor.hexStringToUIColor(hex: item.colorString)
-        imgAvatarRoom.initialLettersView!.backgroundColor = color
-        
-//        switch room.type {
-//        case .chat:
-//            if let avatar = room.chatRoom?.peer?.avatar {
-//                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
-//
-//            }
-//        case .group:
-//            if let avatar = room.groupRoom?.avatar {
-//                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
-//            }
-//        case .channel:
-//            if let avatar = room.channelRoom?.avatar {
-//                self.avatarImageView!.setImage(avatar: avatar, showMain: showMainAvatar)
-//            }
-//        }
-//
-//        if self.frame.size.width < 40 {
-//            self.initialLettersLabel!.font = UIFont.igFont(ofSize: 10.0)
-//        } else if self.frame.size.width < 60 {
-//            self.initialLettersLabel!.font = UIFont.igFont(ofSize: 14.0)
-//        } else {
-//            self.initialLettersLabel!.font = UIFont.igFont(ofSize: 17.0)
-//        }
-
-        
-    }
+    
     func setRoom(room: IGRoom) {
+        ///
+        
+//
+        ///
         if room.isInvalidated {return}
         self.room = room
         makeAvatarImage().setRoom(room)
-        
+//        makeAvatarImage().setImage(UIImage(named: "2")!)
+        //        imgAvatarRoom.setImage(UIImage(named: "2")!)
         switch room.type {
         case .chat:
             roomTypeIndicatorImageView.image = nil
@@ -269,23 +245,7 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
         
         
         self.nameLabel.text = room.title
-// Commented this codes for avoid from crash after logout and login again
-//        if let roomVariable = IGRoomManager.shared.varible(for: room) {
-//            roomVariableFromRoomManagerCache = roomVariable
-//            roomVariableFromRoomManagerCache?.asObservable().subscribe({ (event) in
-//
-//                DispatchQueue.main.async {
-//                    if self.roomVariableFromRoomManagerCache?.value.id != room.id {
-//                        return
-//                    }
-//                    if self.roomVariableFromRoomManagerCache?.value.currenctActionsByUsers.count != 0 {
-//                        self.lastMessageLabel.text = self.roomVariableFromRoomManagerCache!.value.currentActionString() + " ..."
-//                    } else {
-//                        self.setLastMessage(for: room)
-//                    }
-//                }
-//            }).addDisposableTo(disposeBag)
-//        }
+
         
         setLastMessage(for: room)
         
@@ -376,7 +336,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     
     
     private func setLastMessage(for room: IGRoom) {
-        lastMessageLabel.textAlignment = lastMessageLabel.localizedNewDirection
+        DispatchQueue.main.async {
+            self.lastMessageLabel.textAlignment = self.lastMessageLabel.localizedNewDirection
 
         if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
             if let lastMessage = room.lastMessage {
@@ -448,6 +409,8 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             self.timeLabel.text = ""
             self.lastMessageLabel.text  = ""
         }
+        }
+
     }
     
     private func makeStatus(){

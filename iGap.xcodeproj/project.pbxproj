@@ -12,6 +12,8 @@
 		4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */; };
 		8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */; };
 		8E01BC832293F06F0001C757 /* IGCustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC822293F06F0001C757 /* IGCustomModal.swift */; };
+		8E0BAEC022EC047200479682 /* customTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEBF22EC047200479682 /* customTestCell.swift */; };
+		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
 		8E1F413422391A6F00910E30 /* FRHyperLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413222391A6F00910E30 /* FRHyperLabel.m */; };
 		8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413322391A6F00910E30 /* KPDropMenu.m */; };
 		8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413822391CEE00910E30 /* CheckInternet.swift */; };
@@ -681,6 +683,8 @@
 		4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPasswordViewController.swift; sourceTree = "<group>"; };
 		8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomAlertView.swift; sourceTree = "<group>"; };
 		8E01BC822293F06F0001C757 /* IGCustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomModal.swift; sourceTree = "<group>"; };
+		8E0BAEBF22EC047200479682 /* customTestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTestCell.swift; sourceTree = "<group>"; };
+		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
 		8E1F413022391A6F00910E30 /* KPDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPDropMenu.h; sourceTree = "<group>"; };
 		8E1F413122391A6F00910E30 /* FRHyperLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRHyperLabel.h; sourceTree = "<group>"; };
 		8E1F413222391A6F00910E30 /* FRHyperLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRHyperLabel.m; sourceTree = "<group>"; };
@@ -2024,9 +2028,11 @@
 			isa = PBXGroup;
 			children = (
 				FA5EC5D81E06728C006E2850 /* IGChatRoomListTableViewCell.swift */,
+				8E0BAEBF22EC047200479682 /* customTestCell.swift */,
 				FA5EC5D91E06728C006E2850 /* IGChatRoomListTableViewCell.xib */,
 				FAE11244204E9813009F402B /* IGCallListTableViewCell.swift */,
 				FAE11246204E982D009F402B /* IGCallListTableViewCell.xib */,
+				8E0BAEC122EC11C500479682 /* roomItem.swift */,
 			);
 			path = "Chat List Cell";
 			sourceTree = "<group>";
@@ -3230,6 +3236,7 @@
 				8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */,
 				8E96A327225C9182007D8A77 /* SMCardGradient.swift in Sources */,
 				8E96A312225B6DCC007D8A77 /* SMHistoryDetailTableViewController.swift in Sources */,
+				8E0BAEC022EC047200479682 /* customTestCell.swift in Sources */,
 				8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */,
 				8EC217992258BDF400105B5A /* SMSingleInputView.swift in Sources */,
 				FAEC476621F33149006C07A4 /* IGHelperJoin.swift in Sources */,
@@ -3514,6 +3521,7 @@
 				FA60ADD4200BA39B004EE151 /* IGReport.swift in Sources */,
 				FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */,
 				8E96A310225B6DCC007D8A77 /* SMHistoryTableViewCell.swift in Sources */,
+				8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */,
 				FA76598222902ACE006322A3 /* INSPhotosInteractionAnimator.swift in Sources */,
 				8EC217A02258C0ED00105B5A /* NSBundle+Language.m in Sources */,
 				FAEEB0C11E1BC04E00B6775F /* IGContactManager.swift in Sources */,

@@ -314,7 +314,7 @@ class IGFinancialServiceCharge: BaseViewController, UIGestureRecognizerDelegate,
     
     @IBAction func btnBuy(_ sender: UIButton) {
         
-        guard let phoneNumber: String = edtPhoneNubmer.text else {
+        guard let phoneNumber: String = edtPhoneNubmer.text?.inEnglishNumbers() else {
             return
         }
         

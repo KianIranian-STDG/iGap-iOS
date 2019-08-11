@@ -25,19 +25,26 @@ import messages
 import webservice
 import KeychainSwift
 import SDWebImage
+import MarkdownKit
+
 struct itemRoom {
-    var lastMessage: String?
-    var roomName: String?
-    var unreadCount: String?
-    var avatar : UIImage? = nil
-    var type : IGPRoom.IGPType
-    var initilas: String?
-    var colorString : String
+    var roomID: Int64? = nil
+    var lastMessage: String? = nil
+    var lastMessageTime: String? = nil
+    var roomName: String? = nil
+    var unreadCount: String? = nil
+    var avatar : UIImage? = UIImage(named: "2")
+    var type : IGPRoom.IGPType = .chat
+    var initilas: String? = nil
+    var colorString : String? = nil
 }
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
 
     var itemRoomList = [itemRoom]()
 
+    var testArray = [IGAvatarView]()
+    var testLastMsgArray = [String]()
+    var testImageArray = [UIImage]()
     static var messageReceiveDelegat: MessageReceiveObserver!
     static var forwardStartObserver: ForwardStartObserver!
     static var visibleChat: [Int64 : Bool] = [:]
@@ -53,7 +60,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     var allRoomsFetched = false // use this param for send contact after load all rooms
     static var needGetInfo: Bool = true
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
-    
+    var cellId = "cellId"
+
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.change(textFont: UIFont.igFont(ofSize: 15))
@@ -233,29 +241,145 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
+        self.tableView.register(customTestCell.self, forCellReuseIdentifier: cellId)
+
         
         let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         do {
             let realm = try Realm()
             self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
+           let tmpIGImageVIew = IGAvatarView()
+            
             for item in self.rooms! {
+                tmpIGImageVIew.setRoom(item)
+                let t = tmpIGImageVIew
+                testArray.append(t)
                 
+            }
+            var testIMG = UIImageView()
+            var tmpLbl = UILabel()
+            var tmpTime : String?
+            var tmpRoomID : Int64! = 0
+            var tmpRoomName : String?
+            var tmpInitials : String?
+            var tmpHexString : String?
+            var tmpUnreadCount : String?
+            
+            for item in self.rooms! {
+               testIMG.image = nil
+                tmpLbl.text = nil
+
                 switch item.type {
                 case .chat:
                     if let avatar = item.chatRoom?.peer?.avatar {
-                        itemRoomList.append(itemRoom(lastMessage: item.lastMessage?.message, roomName: item.title, unreadCount: "\(item.unreadCount)".inLocalizedLanguage(), avatar: avatar, type: .chat, initilas: item.initilas, colorString: item.colorString))
+                        testIMG.setImage(avatar: avatar)
                     }
+                    tmpRoomID = item.chatRoom?.peer?.id
                 case .group:
                     if let avatar = item.groupRoom?.avatar {
-                        itemRoomList.append(itemRoom(lastMessage: item.lastMessage?.message, roomName: item.title, unreadCount: "\(item.unreadCount)".inLocalizedLanguage(), avatar: avatar, type: .group, initilas: item.initilas, colorString: item.colorString))
+                        testIMG.setImage(avatar: avatar)
                     }
+                    tmpRoomID = item.groupRoom?.id
+
                 case .channel:
                     if let avatar = item.channelRoom?.avatar {
-                        itemRoomList.append(itemRoom(lastMessage: item.lastMessage?.message, roomName: item.title, unreadCount: "\(item.unreadCount)".inLocalizedLanguage(), avatar: avatar, type: .channel, initilas: item.initilas, colorString: item.colorString))
+                        testIMG.setImage(avatar: avatar)
                     }
+                    tmpRoomID = item.channelRoom?.id
                 }
-            }
+                tmpInitials = item.initilas
+                tmpHexString = item.colorString
+                tmpUnreadCount = String(item.unreadCount)
+                tmpRoomName = item.title
+//                testImageArray.append(testIMG.image ?? UIImage(named :"2")!)
 
+//                itemRoomList.append(itemRoom(avatar: testIMG.image ?? UIImage(named: "2")!))
+                if let draft = item.draft, (item.draft?.message != "" || item.draft?.replyTo != -1) {
+                
+                    if let lastMessage = item.lastMessage {
+                        tmpTime = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
+                    } else {
+                        tmpTime = ""
+                    }
+                    tmpLbl.text = "DRAFT".RecentTableViewlocalizedNew + " \(draft.message)"
+                    
+                } else if let lastMessage = item.lastMessage {
+                    if lastMessage.isDeleted {
+                        tmpLbl.text = "DELETED_MESSAGE".RecentTableViewlocalizedNew
+                        
+                    }
+                    tmpTime = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
+
+                    if let forwarded = lastMessage.forwardedFrom {
+                        if let user = forwarded.authorUser {
+                            tmpLbl.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(user.displayName)"
+                        } else if let title = forwarded.authorRoom?.title {
+                            tmpLbl.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(title)"
+                        } else {
+                            tmpLbl.text = "FORWARDED_MESSAGE".RecentTableViewlocalizedNew
+                        }
+                    } else {
+                        switch lastMessage.type {
+                        case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
+                            tmpLbl.text = lastMessage.message
+                            if let message = lastMessage.message {
+                                let markdown = MarkdownParser()
+                                markdown.enabledElements = MarkdownParser.EnabledElements.bold
+                                tmpLbl.attributedText = markdown.parse(message)
+                                tmpLbl.font = UIFont.igFont(ofSize: 14.0)
+                                tmpLbl.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+                            }
+                        case .image:
+                            tmpLbl.text = "IMAGES_MESSAGE".RecentTableViewlocalizedNew
+                        case .video:
+                            tmpLbl.text = "VIDEOS_MESSAGE".RecentTableViewlocalizedNew
+                        case .gif:
+                            tmpLbl.text = "GIFS_MESSAGE".RecentTableViewlocalizedNew
+                        case .audio:
+                            tmpLbl.text = "AUDIOS_MESSAGE".RecentTableViewlocalizedNew
+                        case .voice:
+                            tmpLbl.text = "VOICES_MESSAGE".RecentTableViewlocalizedNew
+                        case .file:
+                            tmpLbl.text = "FILES_MESSAGE".RecentTableViewlocalizedNew
+                        case .sticker:
+                            tmpLbl.text = "STICKERS_MESSAGE".RecentTableViewlocalizedNew
+                        case .wallet:
+                            if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+                                tmpLbl.text = "WALLET_MESSAGE".RecentTableViewlocalizedNew
+                            } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+                                tmpLbl.text = "PAYMENT_MESSAGE".RecentTableViewlocalizedNew
+                            } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+                                tmpLbl.text = "CARD_TO_CARD_MESSAGE".RecentTableViewlocalizedNew
+                            }
+                        default:
+                            tmpLbl.text = "UNKNOWN_MESSAGE".RecentTableViewlocalizedNew
+                            break
+                        }
+                    }
+                    
+                    if lastMessage.type == .log {
+                        tmpLbl.text = IGRoomMessageLog.textForLogMessage(lastMessage)
+                    } else if lastMessage.type == .contact {
+                        tmpLbl.text = "CONTACT_MESSAGE".RecentTableViewlocalizedNew
+                    } else if lastMessage.type == .location {
+                        tmpLbl.text = "LOCATION_MESSAGE".RecentTableViewlocalizedNew
+                    }
+                    
+                    
+                } else {
+                    tmpTime = ""
+                    tmpLbl.text  = ""
+                    
+                }
+//                testLastMsgArray.append(tmpLbl.text!)
+
+                itemRoomList.append(itemRoom(roomID: tmpRoomID, lastMessage: tmpLbl.text,lastMessageTime: tmpTime, roomName: tmpRoomName, unreadCount: tmpUnreadCount, avatar: testIMG.image ?? UIImage(named: "2")!, type: IGPRoom.IGPType(rawValue: item.typeRaw)!, initilas: tmpInitials, colorString: tmpHexString))
+
+            }
+ 
+            print(testImageArray.count)
+
+            
         } catch let error as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
@@ -285,7 +409,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if IGRecentsTableViewController.needGetInfo {
                 self.checkAppVersion()
                 self.deleteChannelMessages()
+                DispatchQueue.global(qos: .userInteractive).async {
                 self.fetchRoomList()
+                }
             }
         } else {
             NotificationCenter.default.addObserver(self,
@@ -313,6 +439,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
+        
+        
     }
     
     @objc private func changeDirectionOfUI() {
@@ -370,7 +498,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.checkPermission()
         self.addRoomChangeNotificationBlock()
         self.deleteChannelMessages()
+        DispatchQueue.global(qos: .userInteractive).async {
+
         self.fetchRoomList()
+        }
     }
     
     /* check app need update or is deprecated now and don't allow */
@@ -432,8 +563,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 // Query messages have changed, so apply them to the TableView
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                
                 self.tableView.endUpdates()
                 //                self.tableView.reloadData()
                 self.setTabbarBadge()
@@ -469,7 +602,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit, identity: "identity").successPowerful ({ (responseProtoMessage, requestWrapper) in
+        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: 60, identity: "identity").successPowerful ({ (responseProtoMessage, requestWrapper) in
             self.isLoadingMoreRooms = false
             DispatchQueue.main.async {
                 
@@ -480,6 +613,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
                         
                         newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
+//                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
                         newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
                         
                         if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
@@ -491,7 +625,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         if getRoomListResponse.igpRooms.count != 0 {
                             self.allRoomsFetched = false
                             self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 1) {
                                 self.fetchRoomList(offset: newOffset, limit: newLimit)
                             }
                         } else {
@@ -530,14 +664,197 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rooms!.count
+        return self.rooms!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
+        IGGlobal.getTime("BENJI1")
+
+        let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
+        IGGlobal.getTime("BENJI2")
         
-        cell.initView(item : itemRoomList[indexPath.row])
+        ////1///
+
+        cell.room = itemRoomList[indexPath.row]
+        
+        
+        /////////
+        //////2///////
+
+//          cell.avatarImage.image = testImageArray[indexPath.row]
+//        cell.nameLabel.text = rooms![indexPath.row].title
+//        cell.unreadCountLabel.text = String(rooms![indexPath.row].unreadCount)
+//        if String(rooms![indexPath.row].unreadCount) == "0" {
+//            cell.unreadCountLabel.isHidden = true
+//        } else {
+//            cell.unreadCountLabel.isHidden = false
+//        }
+//
+//        if self.rooms![indexPath.row].type == .channel {
+//            cell.checkImage.isHidden = false
+//            cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
+//        } else {
+//            if self.rooms![indexPath.row].type == .chat {
+//                cell.typeImage.image = UIImage(named: "IG_Settings_Chats")
+//
+//            } else {
+//                cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
+//
+//            }
+//            cell.checkImage.isHidden = true
+//        }
+//
+//
+
+        if self.rooms![indexPath.row].pinId > 0 && !IGHelperPromote.isPromotedRoom(room: self.rooms![indexPath.row]) {
+            cell.unreadCountLabel.isHidden = true
+            cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
+            cell.lastMessageStateImage.backgroundColor = UIColor.clear
+        } else {
+            if let lastMessage = self.rooms![indexPath.row].lastMessage {
+                switch lastMessage.status {
+                case .sending:
+                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Pending")
+                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
+                    break
+                case .sent:
+                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Sent")
+                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
+                    break
+                case .delivered:
+                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Delivered")
+                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
+                    break
+                case .seen:
+                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Seen")
+                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
+                    break
+                case .failed:
+                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Failed")
+                    cell.lastMessageStateImage.backgroundColor = UIColor.red
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        
+//        if self.rooms![indexPath.row].pinId > 0 {
+//            cell.contentView.backgroundColor = UIColor.pinnedChats()
+//        } else {
+//            cell.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+//        }
+//
+//        cell.initialLabel.text = rooms![indexPath.row].initilas
+//        let color = UIColor.hexStringToUIColor(hex: rooms![indexPath.row].colorString)
+//        cell.initialLabel.backgroundColor = color
+//        cell.timeLabel.text = String((rooms![indexPath.row].lastMessage!.creationTime?.convertToHumanReadable(onlyTimeIfToday: true))!)
+//        cell.lastMsgLabel.text = rooms![indexPath.row].lastMessage?.message
+///////////
+        
+        
+        IGGlobal.getTime("BENJI3")
+
+        return cell
+
+//        let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
+        
+        
+//        cell.initView(item : itemRoomList[indexPath.row])
+//        cell.nameLabel.text = itemRoomList[indexPath.row].roomName
+//        IGGlobal.getTime("BENJI2")
+//
 //        cell.setRoom(room: rooms![indexPath.row])
+//        cell.contentView.isOpaque = true
+//        cell.backgroundView?.isOpaque = true
+//        cell.imgAvatarRoom.setRoom(rooms![indexPath.row])
+        //cell.imgAvatarRoom.setImage(UIImage(named: "2")!)
+
+//        cell.nameLabel.text = rooms![indexPath.row].title
+//        cell.nameLabel.textAlignment = cell.nameLabel.localizedNewDirection
+//        cell.unreadCountLabel.text = String(rooms![indexPath.row].unreadCount)
+//        cell.timeLabel.text = String((rooms![indexPath.row].lastMessage!.creationTime?.convertToHumanReadable(onlyTimeIfToday: true))!)
+        //lastMessage
+        
+//        DispatchQueue.main.async {
+//            cell.lastMessageLabel.textAlignment = cell.lastMessageLabel.localizedNewDirection
+//
+//            if let draft = self.rooms![indexPath.row].draft, (self.rooms![indexPath.row].draft?.message != "" || self.rooms![indexPath.row].draft?.replyTo != -1) {
+//                if let lastMessage = self.rooms![indexPath.row].lastMessage {
+//                    cell.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
+//                } else {
+//                    cell.timeLabel.text = ""
+//                }
+//                cell.lastMessageLabel.text = "DRAFT".RecentTableViewlocalizedNew + " \(draft.message)"
+//            } else if let lastMessage = self.rooms![indexPath.row].lastMessage {
+//                if lastMessage.isDeleted {
+//                    cell.lastMessageLabel.text = "DELETED_MESSAGE".RecentTableViewlocalizedNew
+//                    return
+//                }
+//                cell.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
+//                if let forwarded = lastMessage.forwardedFrom {
+//                    if let user = forwarded.authorUser {
+//                        cell.lastMessageLabel.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(user.displayName)"
+//                    } else if let title = forwarded.authorRoom?.title {
+//                        cell.lastMessageLabel.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(title)"
+//                    } else {
+//                        cell.lastMessageLabel.text = "FORWARDED_MESSAGE".RecentTableViewlocalizedNew
+//                    }
+//                } else {
+//                    switch lastMessage.type {
+//                    case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
+//                        cell.lastMessageLabel.text = lastMessage.message
+//                        if let message = lastMessage.message {
+//                            let markdown = MarkdownParser()
+//                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
+//                            cell.lastMessageLabel.attributedText = markdown.parse(message)
+//                            cell.lastMessageLabel.font = UIFont.igFont(ofSize: 14.0)
+//                            cell.lastMessageLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+//                        }
+//                    case .image:
+//                        cell.lastMessageLabel.text = "IMAGES_MESSAGE".RecentTableViewlocalizedNew
+//                    case .video:
+//                        cell.lastMessageLabel.text = "VIDEOS_MESSAGE".RecentTableViewlocalizedNew
+//                    case .gif:
+//                        cell.lastMessageLabel.text = "GIFS_MESSAGE".RecentTableViewlocalizedNew
+//                    case .audio:
+//                        cell.lastMessageLabel.text = "AUDIOS_MESSAGE".RecentTableViewlocalizedNew
+//                    case .voice:
+//                        cell.lastMessageLabel.text = "VOICES_MESSAGE".RecentTableViewlocalizedNew
+//                    case .file:
+//                        cell.lastMessageLabel.text = "FILES_MESSAGE".RecentTableViewlocalizedNew
+//                    case .sticker:
+//                        cell.lastMessageLabel.text = "STICKERS_MESSAGE".RecentTableViewlocalizedNew
+//                    case .wallet:
+//                        if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+//                            cell.lastMessageLabel.text = "WALLET_MESSAGE".RecentTableViewlocalizedNew
+//                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+//                            cell.lastMessageLabel.text = "PAYMENT_MESSAGE".RecentTableViewlocalizedNew
+//                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+//                            cell.lastMessageLabel.text = "CARD_TO_CARD_MESSAGE".RecentTableViewlocalizedNew
+//                        }
+//                    default:
+//                        cell.lastMessageLabel.text = "UNKNOWN_MESSAGE".RecentTableViewlocalizedNew
+//                        break
+//                    }
+//                }
+//                if lastMessage.type == .log {
+//                    cell.lastMessageLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
+//                } else if lastMessage.type == .contact {
+//                    cell.lastMessageLabel.text = "CONTACT_MESSAGE".RecentTableViewlocalizedNew
+//                } else if lastMessage.type == .location {
+//                    cell.lastMessageLabel.text = "LOCATION_MESSAGE".RecentTableViewlocalizedNew
+//                }
+//            } else {
+//                cell.timeLabel.text = ""
+//                cell.lastMessageLabel.text  = ""
+//            }
+//        }
+        
+        
+        //end
+        IGGlobal.getTime("BENJI3")
+
         return cell
     }
     
@@ -813,10 +1130,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.performSegue(withIdentifier: "showRoomMessages", sender: self)
             })
         } else {
-            print("watcher segue")
-            IGGlobal.getTime("watcher segue")
             performSegue(withIdentifier: "showRoomMessages", sender: self)
-            print("watcher segue edn")
 
         }
     }
@@ -827,8 +1141,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             let destination = segue.destination as! IGMessageViewController
             destination.room = selectedRoomForSegue
             
-            print("watcher segue end")
-            IGGlobal.getTime("watcher segue end")
 
         } else if segue.identifier == "createANewGroup" {
             let destination = segue.destination as! IGNavigationController
