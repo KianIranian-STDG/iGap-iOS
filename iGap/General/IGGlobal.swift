@@ -664,7 +664,7 @@ extension Date {
         dateFormatter.dateFormat = "HH:mm"
         let hour = calendar.component(Calendar.Component.hour, from: self)
         let min = calendar.component(Calendar.Component.minute, from: self)
-        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))"
+        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))".inLocalizedLanguage()
     }
     
     func completeHumanReadableTime(showHour: Bool = false) -> String {
@@ -1017,36 +1017,43 @@ extension UIImageView {
         
         if file != nil {
             do {
-                if file.attachedImage != nil {
-                    self.image = file.attachedImage
-                } else {
-                    
+              
                     var image: UIImage?
                     let path = file.path()
-                    if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                        image = UIImage(contentsOfFile: path!.path)
+
+//                    if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+//                        image = UIImage(contentsOfFile: path!.path)
+//                    }
+                    
+                    if FileManager.default.fileExists(atPath: path!.path) {
+                        print("FILE Yes AVAILABLE")
+                       image = UIImage(contentsOfFile: path!.path)
+
+                    } else {
+                        print("FILE NOT AVAILABLE")
                     }
+                    
                     if image != nil {
                         self.image = image
                     } else {
                         if showMain {
-                            setImage(avatar: avatar) // call this method again for load thumbnail before load main image
+//                            setImage(avatar: avatar) // call this method again for load thumbnail before load main image
                         }
                         throw NSError(domain: "asa", code: 1234, userInfo: nil)
                     }
-                }
+                
             } catch {
                 imagesMap[file.token!] = self
                 IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
                     DispatchQueue.main.async {
                         if let imageMain = imagesMap[attachment.token!] {
                             let path = attachment.path()
-                            imageMain.sd_setImage(with: path)
+//                            imageMain.sd_setImage(with: path)
 
                             if let data = try? Data(contentsOf: path!) {
-//                                if let image = UIImage(data: data) {
-//                                    imageMain.image = image
-//                                }
+                                if let image = UIImage(data: data) {
+                                    imageMain.image = image
+                                }
                             }
                         }
                     }

@@ -255,7 +255,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         } catch let error as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
-        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
+//        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
@@ -882,19 +882,21 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        IGGlobal.getTime("BENJI1")
-
-        let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
-        IGGlobal.getTime("BENJI2")
+        IGGlobal.getTime("BENJI0")
         
+        let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
         ////1///
 
+        cell.setRoom(self.rooms![indexPath.row])
+
         cell.roomII = self.rooms![indexPath.row]
+
         if self.rooms![indexPath.row].pinId > 0 {
             cell.contentView.backgroundColor = UIColor.pinnedChats()
         } else {
             cell.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
+        
         if self.rooms![indexPath.row].pinId > 0 && !IGHelperPromote.isPromotedRoom(room: self.rooms![indexPath.row]) {
             cell.unreadCountLabel.isHidden = true
             cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
@@ -927,58 +929,50 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
             }
         }
-        if let time = self.rooms![indexPath.row].lastMessage?.creationTime!.convertToHumanReadable(onlyTimeIfToday: true) {
-            cell.timeLabel.text = time.inLocalizedLanguage()
+        
+        switch self.rooms![indexPath.row].type {
+            
+        case .chat:
+            
+            cell.typeImage.image = UIImage(named: "IG_Settings_Chats")
+            cell.checkImage.isHidden = true
+        case .group:
+            
+            cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
+            cell.checkImage.isHidden = true
+            
+        case .channel:
+            
+            
+            cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
+            cell.checkImage.isHidden = false
+            
         }
-                    let color = UIColor.hexStringToUIColor(hex: self.rooms![indexPath.row].colorString)
-                    cell.initialLabel.backgroundColor = color
         
-                    switch self.rooms![indexPath.row].type {
-        
-                    case .chat:
-                        if let urlAvatar = self.rooms![indexPath.row].chatRoom?.peer?.avatar?.file?.path() {
-                            cell.avatarImage.sd_setImage(with: urlAvatar)
-                        }
+        switch self.rooms![indexPath.row].mute {
+            
+        case .unmute:
+            cell.muteImage.isHidden = true
+        case .mute:
+            cell.muteImage.isHidden = false
 
-                        cell.typeImage.image = UIImage(named: "IG_Settings_Chats")
-                        cell.checkImage.isHidden = true
-                    case .group:
-                        if let urlAvatar = self.rooms![indexPath.row].groupRoom?.avatar?.file?.path() {
-                            cell.avatarImage.sd_setImage(with: urlAvatar)
-                        }
-
-                        cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
-                        cell.checkImage.isHidden = true
-        
-                    case .channel:
-                        if let urlAvatar = self.rooms![indexPath.row].channelRoom?.avatar?.file?.path() {
-                            cell.avatarImage.sd_setImage(with: urlAvatar)
-                        }
-                        cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
-                        cell.checkImage.isHidden = false
-        
-                    }
-
+        default:
+            break
+        }
         /////////
         
         
-        IGGlobal.getTime("BENJI3")
-
-        return cell
-
-        
+        IGGlobal.getTime("BENJI6")
         //end
-        IGGlobal.getTime("BENJI3")
-
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let cell: IGChatRoomListTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellIdentifer) as! IGChatRoomListTableViewCell
-        cell.setRoom(room: rooms![indexPath.row])
+        let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
+//        cell.setRoom(room: rooms![indexPath.row])
         
-        let room = cell.room!
-        
+        let room = rooms![indexPath.row]
         var muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
         if room.mute == IGRoom.IGRoomMute.mute {
             muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
@@ -1002,6 +996,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
             } else {
                 self.muteRoom(room: room)
+                
             }
 
         }
