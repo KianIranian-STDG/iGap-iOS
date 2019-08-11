@@ -770,10 +770,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        IGGlobal.getTime("BENJI0")
+//        IGGlobal.getTime("BENJI0")
         
         let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
-        IGGlobal.getTime("BENJI1")
+//        IGGlobal.getTime("BENJI1")
 
         ////1///
 
@@ -781,7 +781,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //        IGGlobal.getTime("BENJI2")
 //
         cell.roomII = self.rooms![indexPath.row]
-        IGGlobal.getTime("BENJI3")
+//        IGGlobal.getTime("BENJI3")
 //
         if self.rooms![indexPath.row].pinId > 0 {
             cell.contentView.backgroundColor = UIColor.pinnedChats()
@@ -865,7 +865,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         /////////
         /////2////
-        IGGlobal.getTime("BENJI5")
+//        IGGlobal.getTime("BENJI5")
 
         cell.nameLabel.text = self.rooms![indexPath.row].title
         switch self.rooms![indexPath.row].type {
@@ -889,7 +889,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //        cell.setRoomCell(room: itemRoomList[indexPath.row])
         //////
         
-        IGGlobal.getTime("BENJI6")
+//        IGGlobal.getTime("BENJI6")
         //end
         
         return cell

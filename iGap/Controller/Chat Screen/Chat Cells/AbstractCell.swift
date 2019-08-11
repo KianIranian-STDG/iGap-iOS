@@ -408,14 +408,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 txtMessageAbs.textAlignment = NSTextAlignment.center
                 
             } else {
-                IGGlobal.getTime("BENJI-X3-16-7")
+//                IGGlobal.getTime("BENJI-X3-16-7")
 
                 if isRtl {
                     txtMessageAbs.textAlignment = NSTextAlignment.right
                 } else {
                     txtMessageAbs.textAlignment = NSTextAlignment.left
                 }
-                IGGlobal.getTime("BENJI-X3-16-8")
+//                IGGlobal.getTime("BENJI-X3-16-8")
 
             }
         } else {

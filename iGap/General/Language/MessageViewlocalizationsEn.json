@@ -1,5 +1,6 @@
 {
     "en": {
+        
         "SELECTED" : "Selected",
         "MESSAGE" : "Message",
         "SEND_PHOTO" : "Send Photo",
@@ -105,6 +106,5 @@
         "NO_NETWORK" : "No network Connection",
         "PRODUCTS_DETAILS" : "Description :",
         "REQUEST_CARD_TO_CARD" : "Send Card To Card Request"
-
     }
 }

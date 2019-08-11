@@ -1,5 +1,6 @@
 {
     "fa": {
+        
         "DRAFT" : "پیش نویس : ",
         "DELETED_MESSAGE" : "پیام حذف شده",
         "FORWARDED_FROM" : "ارسال شده از : ",
@@ -18,7 +19,6 @@
         "CONTACT_MESSAGE" : "پیام مخاطب",
         "LOCATION_MESSAGE" : "پیام موقعیت مکانی",
         "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",
-
         
         "MUTE" : "بی صدا",
         "UN_MUTE" : "با صدا",

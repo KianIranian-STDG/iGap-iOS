@@ -1,5 +1,6 @@
 {
     "fa": {
+        
         "SELECTED" : "انتخاب شده",
         "MESSAGE" : "پیغام",
         "SEND_PHOTO" : "ارسال تصویر",
@@ -105,4 +106,5 @@
         "TTL_AMOUNT" : "مبلغ :",
         "PRODUCTS_DETAILS" : "شرح پیام :",
         "REQUEST_CARD_TO_CARD" : "ارسال درخواست کارت به کارت"
+}
 }
