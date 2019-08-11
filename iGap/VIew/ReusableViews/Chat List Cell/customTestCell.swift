@@ -201,27 +201,21 @@ class customTestCell: MGSwipeTableCell {
         if room.isInvalidated {
             return
         }
-        
-        self.avatarImage.image = nil
-        
+
         switch room.type {
         case .chat:
             if let avatar = room.chatRoom?.peer?.avatar {
                 self.avatarImage.setImage(avatar: avatar, showMain: showMainAvatar)
-                
             }
             
         case .group:
-            
             if let avatar = room.groupRoom?.avatar {
                 self.avatarImage.setImage(avatar: avatar, showMain: showMainAvatar)
             }
-            
         case .channel:
             if let avatar = room.channelRoom?.avatar {
                 self.avatarImage.setImage(avatar: avatar, showMain: showMainAvatar)
             }
-            
         }
         
     }

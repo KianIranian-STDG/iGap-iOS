@@ -1028,7 +1028,6 @@ extension UIImageView {
                     if FileManager.default.fileExists(atPath: path!.path) {
                        image = UIImage(contentsOfFile: path!.path)
 
-                    } else {
                     }
                     
                     if image != nil {
@@ -1047,12 +1046,17 @@ extension UIImageView {
                         if let imageMain = imagesMap[attachment.token!] {
                             let path = attachment.path()
 //                            imageMain.sd_setImage(with: path)
+                            DispatchQueue.global().async { [weak self] in
 
                             if let data = try? Data(contentsOf: path!) {
                                 if let image = UIImage(data: data) {
+                                    DispatchQueue.main.async {
+
                                     imageMain.image = image
+                                    }
                                 }
                             }
+                        }
                         }
                     }
                 }, failure: {
