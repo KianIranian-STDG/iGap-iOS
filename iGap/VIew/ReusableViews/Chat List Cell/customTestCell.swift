@@ -8,8 +8,37 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
+import IGProtoBuff
+import MarkdownKit
 
 class customTestCell: UITableViewCell {
+    var roomII : IGRoom? {
+        didSet {
+            guard let item = roomII else {return}
+            if let name = item.title {
+                nameLabel.text = name
+            }
+            if let lastmsg = item.lastMessage?.message {
+                lastMsgLabel.text = lastmsg
+                setLastMessage(for: item)
+            }
+
+            let unread = String(item.unreadCount)
+                if unread == "0" {
+                    unreadCountLabel.isHidden = true
+                } else {
+                    unreadCountLabel.isHidden = false
+                    unreadCountLabel.text = unread.inLocalizedLanguage()
+                }
+            
+            if let initial = item.initilas {
+                initialLabel.text = initial
+            }
+            
+        }
+    }
+    
     var room:itemRoom? {
         didSet {
             guard let item = room else {return}
@@ -176,6 +205,85 @@ class customTestCell: UITableViewCell {
         self.nameLabel.text = nil
     }
     
+    private func setLastMessage(for room: IGRoom) {
+        DispatchQueue.main.async {
+            self.lastMsgLabel.textAlignment = self.lastMsgLabel.localizedNewDirection
+            
+            if let draft = room.draft, (room.draft?.message != "" || room.draft?.replyTo != -1) {
+                if let lastMessage = room.lastMessage {
+                    self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
+                } else {
+                    self.timeLabel.text = ""
+                }
+                self.lastMsgLabel.text = "DRAFT".localizedNew + " \(draft.message)"
+            } else if let lastMessage = room.lastMessage {
+                if lastMessage.isDeleted {
+                    self.lastMsgLabel.text = "DELETED_MESSAGE".MessageViewlocalizedNew
+                    return
+                }
+                self.timeLabel.text = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
+                if let forwarded = lastMessage.forwardedFrom {
+                    if let user = forwarded.authorUser {
+                        self.lastMsgLabel.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(user.displayName)"
+                    } else if let title = forwarded.authorRoom?.title {
+                        self.lastMsgLabel.text = "FORWARDED_FROM".MessageViewlocalizedNew + " \(title)"
+                    } else {
+                        self.lastMsgLabel.text = "FORWARDED_MESSAGE".MessageViewlocalizedNew
+                    }
+                } else {
+                    switch lastMessage.type {
+                    case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
+                        self.lastMsgLabel.text = lastMessage.message
+                        if let message = lastMessage.message {
+//                            self.timeLabel.text = message
+                            
+                            let markdown = MarkdownParser()
+                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
+                            self.lastMsgLabel.attributedText = markdown.parse(message)
+                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
+                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+                        }
+                    case .image:
+                        self.lastMsgLabel.text = "IMAGES_MESSAGE".MessageViewlocalizedNew
+                    case .video:
+                        self.lastMsgLabel.text = "VIDEOS_MESSAGE".MessageViewlocalizedNew
+                    case .gif:
+                        self.lastMsgLabel.text = "GIFS_MESSAGE".MessageViewlocalizedNew
+                    case .audio:
+                        self.lastMsgLabel.text = "AUDIOS_MESSAGE".MessageViewlocalizedNew
+                    case .voice:
+                        self.lastMsgLabel.text = "VOICES_MESSAGE".MessageViewlocalizedNew
+                    case .file:
+                        self.lastMsgLabel.text = "FILES_MESSAGE".MessageViewlocalizedNew
+                    case .sticker:
+                        self.lastMsgLabel.text = "STICKERS_MESSAGE".MessageViewlocalizedNew
+                    case .wallet:
+                        if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
+                            self.lastMsgLabel.text = "WALLET_MESSAGE".MessageViewlocalizedNew
+                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
+                            self.lastMsgLabel.text = "PAYMENT_MESSAGE".MessageViewlocalizedNew
+                        } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
+                            self.lastMsgLabel.text = "CARD_TO_CARD_MESSAGE".MessageViewlocalizedNew
+                        }
+                    default:
+                        self.lastMsgLabel.text = "UNKNOWN_MESSAGE".MessageViewlocalizedNew
+                        break
+                    }
+                }
+                if lastMessage.type == .log {
+                    self.lastMsgLabel.text = IGRoomMessageLog.textForLogMessage(lastMessage)
+                } else if lastMessage.type == .contact {
+                    self.lastMsgLabel.text = "CONTACT_MESSAGE".MessageViewlocalizedNew
+                } else if lastMessage.type == .location {
+                    self.lastMsgLabel.text = "LOCATION_MESSAGE".MessageViewlocalizedNew
+                }
+            } else {
+                self.timeLabel.text = ""
+                self.lastMsgLabel.text  = ""
+            }
+        }
+        
+    }
     private func makeAvatar() {
         avatarImage.snp.makeConstraints { (make) in
             make.leading.equalTo(self.contentView.snp.leading).offset(12)

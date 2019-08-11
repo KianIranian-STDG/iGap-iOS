@@ -664,7 +664,7 @@ extension Date {
         dateFormatter.dateFormat = "HH:mm"
         let hour = calendar.component(Calendar.Component.hour, from: self)
         let min = calendar.component(Calendar.Component.minute, from: self)
-        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))".inLocalizedLanguage()
+        return "\(String(format: "%02d", hour)):\(String(format: "%02d", min))"
     }
     
     func completeHumanReadableTime(showHour: Bool = false) -> String {
