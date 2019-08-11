@@ -1644,7 +1644,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         if self.additionalViewAbs == nil {
             self.additionalViewAbs = UIView()
             self.additionalViewAbs.addSubview(additionalView)
-            self.additionalViewAbs.layer.cornerRadius = 10.0
+            self.additionalViewAbs.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
             self.contentView.addSubview(self.additionalViewAbs)
             
             self.additionalViewAbs?.snp.makeConstraints { (make) in

@@ -270,6 +270,14 @@ class IGRoomMessage: Object {
         message.additional = additional
         return message
     }
+    static func makeCardToCardRequestWithAmount(message: String,amount: String,cardNumber:String) -> IGRoomMessage {
+        let message = IGRoomMessage(body: message)
+        let additionalData = "[[{\"actionType\":\(IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue),\"label\":\"CARD_TO_CARD\",\"imageUrl\":\"\",\"value\":\(IGAppManager.sharedManager.userID()!),\"amount\":\(amount),\"cardNumber\":\(cardNumber)}]]"
+        let additional = IGRealmAdditional(additionalData: additionalData, additionalType: Int32(AdditionalType.UNDER_MESSAGE_BUTTON.rawValue))
+        message.additional = additional
+        return message
+    }
+    
     
     static func putOrUpdate(realm: Realm? = nil, igpMessage: IGPRoomMessage, roomId: Int64, options: IGStructMessageOption = IGStructMessageOption()) -> IGRoomMessage? {
         

@@ -119,10 +119,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
+    var CardToCardModal : SMTwoInputView!
     var MultiShareModal : IGMultiForwardModal!
     var MoneyTransactionModalIsActive = false
     var MoneyInputModalIsActive = false
     var MultiShareModalIsActive = false
+    var CardToCardModalIsActive = false
     var isBoth = false
     
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
@@ -883,6 +885,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 }
             }
         }
+        else if CardToCardModalIsActive {
+            if let CardInput = CardToCardModal {
+                window.addSubview(CardInput)
+                UIView.animate(withDuration: 0.3) {
+                    
+                    var frame = CardInput.frame
+                    frame.origin = CGPoint(x: frame.origin.x, y: window.frame.size.height - keyboardHeight - frame.size.height)
+                    CardInput.frame = frame
+                    
+                }
+            }
+        }
         else if MultiShareModalIsActive {
             if let MultiShare = MultiShareModal {
                 window.addSubview(MultiShare)
@@ -900,6 +914,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             if MoneyInputModal != nil {
                 
                 self.hideMoneyInputModal()
+            }
+            if CardToCardModal != nil {
+                
+                self.hideCardToCardModal()
             }
             if MultiShareModal != nil {
                 self.hideMultiShareModal()
@@ -921,6 +939,18 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 UIView.animate(withDuration: 0.3) {
                     if MoneyInput.frame.origin.y < self.view.frame.size.height {
                         MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
+                    }
+                }
+            }
+            
+            
+        }
+        else if CardToCardModalIsActive {
+            if let CardInput = CardToCardModal {
+                self.view.addSubview(CardInput)
+                UIView.animate(withDuration: 0.3) {
+                    if CardInput.frame.origin.y < self.view.frame.size.height {
+                        CardInput.frame = CGRect(x: 0, y: self.view.frame.height - CardInput.frame.height - 45, width: self.view.frame.width, height: CardInput.frame.height)
                     }
                 }
             }
@@ -1809,7 +1839,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if enable {
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
-            
+            self.hideCardToCardModal()
             if inputBarRecordButton.isHidden {
                 return
             }
@@ -1870,7 +1900,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         } else {
             self.hideMoneyTransactionModal()
             self.hideMoneyInputModal()
-            
+            self.hideCardToCardModal()
+
             UIView.transition(with: self.inputBarSendButton, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.inputBarSendButton.isHidden = true
                 self.inputBarMoneyTransferButton.isHidden = true
@@ -2355,23 +2386,23 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
         inputTextView.text = inputTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        if isCardToCardRequestEnable {
-            let messageText = inputTextView.text.substring(offset: MAX_TEXT_LENGHT)
-            let message = IGRoomMessage.makeCardToCardRequest(message: messageText)
-            let detachedMessage = message.detach()
-            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-            IGMessageSender.defaultSender.send(message: message, to: self.room!)
-            
-            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-            self.sendMessageState(enable: false)
-            self.isCardToCardRequestEnable = false
-            self.inputTextView.text = ""
-            self.currentAttachment = nil
-            self.selectedMessageToReply = nil
-            self.setInputBarHeight()
-            return
-        }
+//
+//        if isCardToCardRequestEnable {
+//            let messageText = inputTextView.text.substring(offset: MAX_TEXT_LENGHT)
+//            let message = IGRoomMessage.makeCardToCardRequestWithAmount(message: messageText)
+//            let detachedMessage = message.detach()
+//            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+//            IGMessageSender.defaultSender.send(message: message, to: self.room!)
+//
+//            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+//            self.sendMessageState(enable: false)
+//            self.isCardToCardRequestEnable = false
+//            self.inputTextView.text = ""
+//            self.currentAttachment = nil
+//            self.selectedMessageToReply = nil
+//            self.setInputBarHeight()
+//            return
+//        }
         
         if selectedMessageToEdit != nil {
             switch room!.type {
@@ -2509,7 +2540,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBAction func didTapOnMoneyTransactionsButton(_ sender: UIButton) {
         self.inputTextView.resignFirstResponder()
         self.hideMoneyInputModal()
-        
+        self.hideCardToCardModal()
+
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             
         }
@@ -2541,8 +2573,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     }
                     
                     MoneyTransactionModal = SMMoneyTransactionOptions.loadFromNib()
-                    MoneyTransactionModal.btnCard.addTarget(self, action: #selector(cardToCardTaped), for: .touchUpInside)
-                    MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTaped), for: .touchUpInside)
+                    MoneyTransactionModal.btnCard.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
+                    MoneyTransactionModal.btnCardToCardTransfer.addTarget(self, action: #selector(cardToCardTapped), for: .touchUpInside)
                     MoneyTransactionModal.btnWallet.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
                     MoneyTransactionModal.btnWalletTransfer.addTarget(self, action: #selector(walletTransferTapped), for: .touchUpInside)
                     MoneyTransactionModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MoneyTransactionModal.frame.height)
@@ -2671,6 +2703,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         self.hideMoneyTransactionModal()
         self.hideMoneyInputModal()
+        self.hideCardToCardModal()
+
         self.MoneyInputModalIsActive = true
         self.finishDefault(isPaygear: true, isCard: false)
         
@@ -2712,6 +2746,51 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         
     }
+    
+    @objc func cardToCardTapped() {
+        
+        self.hideMoneyTransactionModal()
+        self.hideMoneyInputModal()
+        
+        self.CardToCardModalIsActive = true
+        
+        if CardToCardModal == nil {
+            CardToCardModal = SMTwoInputView.loadFromNib()
+            CardToCardModal.confirmBtn.addTarget(self, action: #selector(confirmTapped), for: .touchUpInside)
+            
+            CardToCardModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: CardToCardModal.frame.height)
+            
+            
+            
+            CardToCardModal.confirmBtn.setTitle("REQUEST_CARD_TO_CARD".MessageViewlocalizedNew, for: .normal)
+            
+            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
+            swipeDown.direction = .down
+            
+            CardToCardModal.addGestureRecognizer(swipeDown)
+            self.view.addSubview(CardToCardModal!)
+            
+        }
+        else {
+            CardToCardModal.confirmBtn.setTitle("REQUEST_CARD_TO_CARD".MessageViewlocalizedNew, for: .normal)
+        }
+        
+        if #available(iOS 11.0, *) {
+            let window = UIApplication.shared.keyWindow
+            let bottomPadding = window?.safeAreaInsets.bottom
+            
+            UIView.animate(withDuration: 0.3) {
+                self.CardToCardModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.CardToCardModal.frame.height - 5 -  bottomPadding!, width: self.view.frame.width, height: self.CardToCardModal.frame.height)
+                
+            }
+        }
+        else {
+            UIView.animate(withDuration: 0.3) {
+                self.CardToCardModal!.frame = CGRect(x: 0, y: self.view.frame.height - self.CardToCardModal.frame.height - 5, width: self.view.frame.width, height: self.CardToCardModal.frame.height)
+            }
+        }
+        
+    }
     @objc func confirmTapped() {
         
         if MoneyInputModal != nil {
@@ -2721,7 +2800,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             else {
                 self.hideMoneyTransactionModal()
                 self.hideMoneyInputModal()
-                
+                self.hideCardToCardModal()
+
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
                 SMLoading.showLoadingPage(viewcontroller: self)
                 IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbers().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
@@ -2746,6 +2826,30 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
             }
         }
+        if CardToCardModal != nil {
+            if CardToCardModal.inputTFOne.text == "" ||  CardToCardModal.inputTFOne.text == nil || CardToCardModal.inputTFTwo.text == "" ||  CardToCardModal.inputTFTwo.text == nil || CardToCardModal.inputTFThree.text == "" ||  CardToCardModal.inputTFThree.text == nil {
+                IGHelperAlert.shared.showAlert(message: "FILL_AMOUNT".MessageViewlocalizedNew)
+            } else {
+                
+                //
+                            let messageText = inputTextView.text.substring(offset: MAX_TEXT_LENGHT)
+                            let message = IGRoomMessage.makeCardToCardRequestWithAmount(message: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbers().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbers().onlyDigitChars()))
+                            let detachedMessage = message.detach()
+                            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                            IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                
+                            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+                            self.sendMessageState(enable: false)
+                            self.isCardToCardRequestEnable = false
+                            self.inputTextView.text = ""
+                            self.currentAttachment = nil
+                            self.selectedMessageToReply = nil
+                            self.setInputBarHeight()
+                            self.hideCardToCardModal()
+            
+            }
+
+        }
     }
     
     @objc func didtapOutSide() {
@@ -2760,6 +2864,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 //            hideMoneyTransactionModal()
                 self.hideMoneyInputModal()
             }
+            if CardToCardModal != nil {
+                self.hideCardToCardModal()
+            }
             dismissBtn.removeFromSuperview()
             dismissBtn = nil
         }
@@ -2772,6 +2879,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
             hideMoneyTransactionModal()
             self.hideMoneyInputModal()
+            self.hideCardToCardModal()
+
             self.isCardToCardRequestEnable = true
             self.manageCardToCardInputBar()
             
@@ -3153,6 +3262,28 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         
     }
+    func hideCardToCardModal() {
+        self.CardToCardModalIsActive = false
+        if CardToCardModal != nil {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.CardToCardModal.frame.origin.y = self.view.frame.height
+                
+            }) { (true) in
+                
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
+                if self.CardToCardModal != nil {
+                    self.CardToCardModal.removeFromSuperview()
+                    self.CardToCardModal = nil
+                    self.CardToCardModal.inputTFOne.endEditing(true)
+                    self.CardToCardModal.inputTFTwo.endEditing(true)
+
+                }
+            }
+        }
+        
+        
+    }
     func hideMultiShareModal() {
         self.MultiShareModalIsActive = false
         
@@ -3183,6 +3314,12 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if MoneyInputModal != nil {
             
             hideMoneyInputModal()
+            self.view.endEditing(true)
+            
+        }
+        if CardToCardModal != nil {
+            
+            hideCardToCardModal()
             self.view.endEditing(true)
             
         }

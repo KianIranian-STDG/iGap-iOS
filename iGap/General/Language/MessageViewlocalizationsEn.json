@@ -83,7 +83,26 @@
         "SOURCE_BANK" : "Source Bank",
         "DEST_CARD" : "Destination Card",
         "DEST_BANK" : "Destination Bank",
-        "CLEAR_HISTORY_LOCAL" : "Clear Local History"
+        "CLEAR_HISTORY_LOCAL" : "Clear Local History",
+        "DRAFT" : "Draft : ",
+        "DELETED_MESSAGE" : "Deleted Message",
+        "FORWARDED_FROM" : "Forwarded from : ",
+        "FORWARDED_MESSAGE" : "Forwarded Message",
+        "IMAGES_MESSAGE" : "Image Message",
+        "VIDEOS_MESSAGE" :  "Video Message",
+        "GIFS_MESSAGE" : "Gif Message",
+        "AUDIOS_MESSAGE" : "Audio Message",
+        "VOICES_MESSAGE" : "Voice Message",
+        "FILES_MESSAGE" : "File Message",
+        "STICKERS_MESSAGE" : "Sticker Message",
+        "WALLET_MESSAGE" : "Wallet Message",
+        "PAYMENT_MESSAGE" : "Payment Message",
+        "CARD_TO_CARD_MESSAGE" : "Card to Card Message",
+        "UNKNOWN_MESSAGE" : "Unknown Message",
+        "CONTACT_MESSAGE" : "Contact Message",
+        "LOCATION_MESSAGE" : "Location Message",
+        "NO_NETWORK" : "No network Connection",
+        "REQUEST_CARD_TO_CARD" : "Send Card To Card Request"
 
     }
 }

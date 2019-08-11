@@ -20,6 +20,9 @@
 		8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */; };
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
+		8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */; };
+		8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */; };
+		8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -685,6 +688,9 @@
 		8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
+		8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMTwoInputView.xib; sourceTree = "<group>"; };
+		8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTwoInputView.swift; sourceTree = "<group>"; };
+		8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCardNumberTextField.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -1466,6 +1472,7 @@
 				8EEB1FF522C1F68B00EFD2ED /* GetGiftPopup.xib */,
 				8EC217962258BD9E00105B5A /* SMSingleInputView.xib */,
 				8ECCA1E922B7B1F000D3A734 /* SMSingleAmountInputView.xib */,
+				8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */,
 				8ECCA1E322B6585700D3A734 /* SMMoneyTransactionOptions.xib */,
 				8E96A32C225C96C3007D8A77 /* RecieptRow.xib */,
 				8E96A32D225C96C3007D8A77 /* RecieptView.xib */,
@@ -1564,6 +1571,7 @@
 				8E8D8E45225DBB9000039191 /* SMNavigationController.swift */,
 				8EC217982258BDF400105B5A /* SMSingleInputView.swift */,
 				8ECCA1E722B7B1E200D3A734 /* SMSingleAmountInputView.swift */,
+				8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */,
 				8ECCA1E522B6587E00D3A734 /* SMMoneyTransactionOptions.swift */,
 				8EC217A82259B90F00105B5A /* walletModalViewController.swift */,
 			);
@@ -1613,6 +1621,7 @@
 				8ECC1830222FDBD2006E43E8 /* imagViewX.swift */,
 				8ECC1836222FEAEA006E43E8 /* extitionGeneral.swift */,
 				8EEE896522AF6D0B0072383C /* customTextfield.swift */,
+				8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */,
 				8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */,
 				8ECCA1EB22B7CF7A00D3A734 /* customAmountTextField.swift */,
 			);
@@ -2966,6 +2975,7 @@
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
 				FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */,
+				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
 				FAE6063F21EB3A0C00F03FFC /* es.lproj in Resources */,
@@ -3224,6 +3234,7 @@
 				FA85066822670703002EEBF7 /* SMBarCodeScannerViewController.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
 				FA76598322902ACE006322A3 /* INSPhotosOverlayView.swift in Sources */,
+				8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */,
 				8ECC19B42236937D006E43E8 /* IGMessageAttachmentLocation.swift in Sources */,
 				FA0953511E1B97700043ED3F /* IGSettingChatClearChacheTableViewController.swift in Sources */,
 				FA764FAA21FC66ED0077E851 /* ForwardStartObserver.swift in Sources */,
@@ -3231,6 +3242,7 @@
 				FA85066B22670703002EEBF7 /* mainWalletViewController.swift in Sources */,
 				4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */,
 				FA09538C1E1B97E20043ED3F /* IGNewGroupBottomViewCollectionCell.swift in Sources */,
+				8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */,
 				FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */,
 				FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */,
 				FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */,

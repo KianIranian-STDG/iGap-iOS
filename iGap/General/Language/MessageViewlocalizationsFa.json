@@ -83,7 +83,24 @@
         "SOURCE_BANK" : "بانک مبدا",
         "DEST_CARD" : "کارت مقصد",
         "DEST_BANK" : "بانک مقصد",
-        "CLEAR_HISTORY_LOCAL" : "پاک کردن تاریخچه از گوشی"
-
-    }
+        "CLEAR_HISTORY_LOCAL" : "پاک کردن تاریخچه از گوشی",
+        "DRAFT" : "پیش نویس : ",
+        "DELETED_MESSAGE" : "پیام حذف شده",
+        "FORWARDED_FROM" : "ارسال شده از : ",
+        "FORWARDED_MESSAGE" : "پیام ارسال شده",
+        "IMAGES_MESSAGE" : "پیام تصویری",
+        "VIDEOS_MESSAGE" :  "پیام ویدیویی",
+        "GIFS_MESSAGE" : "پیام تصویر متحرگ",
+        "AUDIOS_MESSAGE" : "پیام صوتی",
+        "VOICES_MESSAGE" : "پیام ضبط شده",
+        "FILES_MESSAGE" : "پیام با محتوای فایل",
+        "STICKERS_MESSAGE" : "پیام استیکر",
+        "WALLET_MESSAGE" : "پیام کیف پول",
+        "PAYMENT_MESSAGE" : "پیام پرداخت",
+        "CARD_TO_CARD_MESSAGE" : "پیام کارت به کارت",
+        "UNKNOWN_MESSAGE" : "پیام ناشناس",
+        "CONTACT_MESSAGE" : "پیام مخاطب",
+        "LOCATION_MESSAGE" : "پیام موقعیت مکانی",
+        "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",
+        "REQUEST_CARD_TO_CARD" : "ارسال درخواست کارت به کارت"
 }
