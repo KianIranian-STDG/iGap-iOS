@@ -18,6 +18,7 @@ class customTestCell: MGSwipeTableCell {
 
     var roomII : IGRoom? {
         didSet {
+            
             guard let item = roomII else {return}
          
             if let lastmsg = item.lastMessage?.message {
@@ -31,15 +32,12 @@ class customTestCell: MGSwipeTableCell {
                 unreadCountLabel.isHidden = true
             } else {
                 unreadCountLabel.isHidden = false
-                unreadCountLabel.text = unread.inLocalizedLanguage()
+                unreadCountLabel.text = unread
             }
             self.initialLabel.text = item.initilas
             
             let color = UIColor.hexStringToUIColor(hex: item.colorString)
             self.initialLabel.backgroundColor = color
-            
-            
-            
             
         }
     }
