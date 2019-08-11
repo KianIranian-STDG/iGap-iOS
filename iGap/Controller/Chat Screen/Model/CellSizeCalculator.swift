@@ -45,7 +45,7 @@ class CellSizeCalculator: NSObject {
         let cacheKey = "\(String(describing: message.primaryKeyId))_\(message.messageVersion)" as NSString
         let cachedSize = cache.object(forKey: cacheKey)
         if cachedSize != nil {
-            return cachedSize as! MessageCalculatedSize
+//            return cachedSize as! MessageCalculatedSize
 //            let t = (bubbleSize: CGSize(width: 200, height: 200), messageAttachmentHeight: CGFloat(0), additionalHeight: CGFloat(200))
 //
 //            return t as MessageCalculatedSize

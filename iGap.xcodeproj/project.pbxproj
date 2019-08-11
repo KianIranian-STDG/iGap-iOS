@@ -124,6 +124,7 @@
 		8EC217C92259F59900105B5A /* SMIBAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C32259F59800105B5A /* SMIBAN.swift */; };
 		8EC217CA2259F59900105B5A /* SMMerchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC217C42259F59800105B5A /* SMMerchant.swift */; };
 		8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EC218082259FF3500105B5A /* Model.xcdatamodeld */; };
+		8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4C91B22F80B5F00108336 /* IGTextCell.swift */; };
 		8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ECC1827222F991F006E43E8 /* wallet.storyboard */; };
 		8ECC182A222FB862006E43E8 /* viewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC1829222FB862006E43E8 /* viewX.swift */; };
 		8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC182B222FB875006E43E8 /* buttonX.swift */; };
@@ -805,6 +806,7 @@
 		8EC217C32259F59800105B5A /* SMIBAN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMIBAN.swift; sourceTree = "<group>"; };
 		8EC217C42259F59800105B5A /* SMMerchant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMMerchant.swift; sourceTree = "<group>"; };
 		8EC218092259FF3500105B5A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		8EC4C91B22F80B5F00108336 /* IGTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTextCell.swift; sourceTree = "<group>"; };
 		8ECC1827222F991F006E43E8 /* wallet.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = wallet.storyboard; sourceTree = "<group>"; };
 		8ECC1829222FB862006E43E8 /* viewX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewX.swift; sourceTree = "<group>"; };
 		8ECC182B222FB875006E43E8 /* buttonX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonX.swift; sourceTree = "<group>"; };
@@ -2413,6 +2415,7 @@
 			children = (
 				FA97D44720174C2C0087BBD0 /* AbstractCell.swift */,
 				FAA3604B201614B600736F95 /* TextCell.swift */,
+				8EC4C91B22F80B5F00108336 /* IGTextCell.swift */,
 				FA97D443201708310087BBD0 /* TextCell.xib */,
 				FA8204362025C97300A795D5 /* ImageCell.swift */,
 				FA82043A2025C99300A795D5 /* ImageCell.xib */,
@@ -3461,6 +3464,7 @@
 				8EEE895922A3CF360072383C /* DropdownMenu.swift in Sources */,
 				FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */,
 				FAA30F671DAA6F790061B8C9 /* IGWebSocketManager.swift in Sources */,
+				8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */,
 				FA76598122902ACE006322A3 /* INSScalingImageView.swift in Sources */,
 				FA93EE2C2029DB1300DD1521 /* AudioCell.swift in Sources */,
 				FAA932F51DF45748002CC631 /* IGEnums.swift in Sources */,

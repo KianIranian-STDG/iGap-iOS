@@ -221,7 +221,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     /* check message that should be rtl OR has bottom offset */
     private func detectRtlAndBottomOffset(){
 
-        if let message = finalRoomMessage.message, String(message.prefix(3)).isRTL() {
+        if let message = finalRoomMessage.message, message.isRTL() {
             isRtl = true
             hasBottomOffset = true
 
@@ -310,9 +310,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 print("tmpJson",tmpJson)
                 
                 let tt = tmpJson?.amount
-                
-                print(tt)
-                
                 let tmpAmount : Int! = tt
                 //
                 //
@@ -327,12 +324,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 
                 
                 txtMessageAbs.attributedText = normalString
-                
-                
-                
-                //                    let attributedText = NSMutableAttributedString(string: "Hello, I am\n\n", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17)])
-                //                    attributedText.append(NSAttributedString(string: " Attributed Text,", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17), NSAttributedString.Key.foregroundColor: UIColor.blue]))
-                //                    txtMessageAbs.attributedText = attributedText
+
                 
                 
             } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
@@ -458,8 +450,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
                         make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
-                            make.top.equalTo(mainBubbleViewAbs.snp.top).offset(40)
 
+                        make.top.equalTo(mainBubbleViewAbs.snp.top).offset(5)
                     }
                 }
             }
