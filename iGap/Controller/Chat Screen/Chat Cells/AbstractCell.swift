@@ -281,22 +281,28 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     private func manageTextMessage(){
+        IGGlobal.getTime("BENJI-X3-16-1")
 
         if finalRoomMessage.type == .sticker {
             return
         }
+        IGGlobal.getTime("BENJI-X3-16-2")
+
 
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
+            IGGlobal.getTime("BENJI-X3-16-3")
 
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
+            IGGlobal.getTime("BENJI-X3-16-4")
 
             if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                
+
                 var messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+
                 messageText = messageText?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-                
+
                 
                 
                 
@@ -366,20 +372,20 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 
                 
                 
-                //                    let attributedText = NSMutableAttributedString(string: "Hello, I am\n\n", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17)])
-                //                    attributedText.append(NSAttributedString(string: " Attributed Text,", attributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 17), NSAttributedString.Key.foregroundColor: UIColor.blue]))
-                //                    txtMessageAbs.attributedText = attributedText
-                
                 
             } else {
+                IGGlobal.getTime("BENJI-X3-16-5")
 
-                    let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
+                IGGlobal.getTime("BENJI-X3-16-7")
 
                 if messageText!.contains("**") {
                     txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
                 } else {
                     txtMessageAbs?.text = messageText!
                 }
+                IGGlobal.getTime("BENJI-X3-16-4")
+
 
                 }
             
@@ -400,19 +406,21 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 txtMessageAbs.textAlignment = NSTextAlignment.center
                 
             } else {
-//                IGGlobal.getTime("BENJI-X3-16-7")
 
                 if isRtl {
                     txtMessageAbs.textAlignment = NSTextAlignment.right
                 } else {
                     txtMessageAbs.textAlignment = NSTextAlignment.left
                 }
-//                IGGlobal.getTime("BENJI-X3-16-8")
 
             }
-        } else {
+        }
+        
+        else {
             txtMessageAbs?.isHidden = true
         }
+        IGGlobal.getTime("BENJI-X3-16-9")
+
     }
     
     /*
@@ -781,23 +789,23 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             lable.URLColor = UIColor.iGapLink()
             lable.botColor = UIColor.iGapLink()
             lable.EmailColor = UIColor.iGapLink()
-            
+
             lable.handleURLTap { url in
                 self.delegate?.didTapOnURl(url: url)
             }
-            
+
             lable.handleEmailTap { email in
                 self.delegate?.didTapOnEmail(email: email.absoluteString)
             }
-            
+
             lable.handleBotTap {bot in
                 self.delegate?.didTapOnBotAction(action: bot)
             }
-            
+
             lable.handleMentionTap { mention in
                 self.delegate?.didTapOnMention(mentionText: mention )
             }
-            
+
             lable.handleHashtagTap { hashtag in
                 self.delegate?.didTapOnHashtag(hashtagText: hashtag)
             }
