@@ -445,8 +445,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             RightBarConstraints.constant = 38
             inputBarMoneyTransferButton.isHidden = true
-//            self.view.layoutIfNeeded()
-        }else {
+        } else {
             if isBotRoom(){
                 RightBarConstraints.constant = 38
                 inputBarMoneyTransferButton.isHidden = true
@@ -455,10 +454,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             else {
                 RightBarConstraints.constant = 70
                 inputBarMoneyTransferButton.isHidden = false
-                
             }
-//            self.view.layoutIfNeeded()
-            
         }
         tmpUserID  =  self.room?.chatRoom?.peer?.id
         
@@ -470,7 +466,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 UIView.transition(with: self.inputBarSendButton, duration: self.ANIMATE_TIME, options: .transitionFlipFromTop, animations: {
                     self.inputBarMoneyTransferButton.isHidden = true
                     self.RightBarConstraints.constant = 38
-//                    self.view.layoutIfNeeded()
                 }, completion: nil)
             }
             else {
@@ -481,34 +476,24 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     if isBotRoom(){
                         self.inputBarMoneyTransferButton.isHidden = true
                         self.RightBarConstraints.constant = 38
-//                        self.view.layoutIfNeeded()
-                        
                         self.isCardToCardRequestEnable = false
-                        
                     }
                     else {
                         self.inputBarMoneyTransferButton.isHidden = false
                         self.RightBarConstraints.constant = 70
-//                        self.view.layoutIfNeeded()
-                        
                         self.isCardToCardRequestEnable = true
                         self.manageCardToCardInputBar()
-                        
                     }
-                    
                 }
                 else {
                     if isBotRoom(){
                         self.inputBarMoneyTransferButton.isHidden = true
                         self.RightBarConstraints.constant = 38
-                        
                     }
                     else {
                         self.inputBarMoneyTransferButton.isHidden = false
                         self.RightBarConstraints.constant = 70
-                        
                     }
-//                    self.view.layoutIfNeeded()
                 }
             }
             
@@ -516,7 +501,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         default:
             self.inputBarMoneyTransferButton.isHidden = true
             self.RightBarConstraints.constant = 38
-//            self.view.layoutIfNeeded()
             
         }
         IGMessageViewController.messageIdsStatic[(self.room?.id)!] = []
@@ -750,7 +734,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
 
         startLoadMessage()
-
+        manageForward()
     }
     
     private func startLoadMessage(){
@@ -772,6 +756,21 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else if hasSaveState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.collectionView.fadeIn(0.1)
+                }
+            }
+        }
+    }
+    
+    private func manageForward(){
+        if tmpMSGArray.count > 0 {
+            for (index, message) in tmpMSGArray.enumerated() {
+                var delay: Double = 1
+                if index == 0 {
+                    delay = 1
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                    self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
                 }
             }
         }
