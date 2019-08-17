@@ -626,7 +626,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         
         isLoadingMoreRooms = true
-        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: 60, identity: "identity").successPowerful ({ (responseProtoMessage, requestWrapper) in
+        IGClientGetRoomListRequest.Generator.generate(offset: offset, limit: limit, identity: "identity").successPowerful ({ (responseProtoMessage, requestWrapper) in
             self.isLoadingMoreRooms = false
             DispatchQueue.main.async {
                 
@@ -636,6 +636,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
                     if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
                         
+                        let p = Int32(getRoomListRequest.igpPagination.igpLimit)
+                        print("Action ID : 601 P IS:",p)
                         newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
 //                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
                         newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
