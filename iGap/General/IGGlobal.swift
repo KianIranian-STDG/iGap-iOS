@@ -1072,32 +1072,36 @@ extension UIImageView {
                     }
                     
                     
-                }
-                
-            } catch {
-                imagesMap[file.token!] = self
-                IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                } else {
+
                     DispatchQueue.main.async {
-                        if let imageMain = imagesMap[attachment.token!] {
-                            let path = attachment.path()
-                            //                            imageMain.sd_setImage(with: path)
-                            DispatchQueue.global().async { [weak self] in
-                                
-                                if let data = try? Data(contentsOf: path!) {
-                                    if let image = UIImage(data: data) {
-                                        DispatchQueue.main.async {
-                                            
-                                            imageMain.image = image
+                        imagesMap[file.token!] = self
+                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                            DispatchQueue.main.async {
+                                if let imageMain = imagesMap[attachment.token!] {
+                                    let path = attachment.path()
+                                    //                            imageMain.sd_setImage(with: path)
+                                    DispatchQueue.global(qos:.userInteractive).async {
+                                        
+                                        if let data = try? Data(contentsOf: path!) {
+                                            if let image = UIImage(data: data) {
+                                                DispatchQueue.main.async {
+                                                    
+                                                    imageMain.image = image
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
+                        }, failure: {
+                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                        })
+                        
                     }
-                }, failure: {
-                    
-                })
+                }
                 
+            } catch {
             }
         }
     }

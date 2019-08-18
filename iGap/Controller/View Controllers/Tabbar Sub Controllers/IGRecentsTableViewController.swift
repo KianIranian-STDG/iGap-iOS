@@ -312,9 +312,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         
+
         
     }
-    
     private func deleteFromStructRoom(from : Results<IGRoom>? ,isUpdate : Bool = false , isDelete : Bool = true, isInsert : Bool = false,lastindex:Int = 0 , roomID : Int64 = 0) {
         let t = lastindex
         
@@ -446,11 +446,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
                 //                testLastMsgArray.append(tmpLbl.text!)
                 
-                itemRoomList.append(itemRoom(roomID: (tmpRoomID), lastMessage: tmpLbl.text,lastMessageTime: tmpTime, roomName: tmpRoomName, unreadCount: tmpUnreadCount, avatar: testIMG.image ?? UIImage(named: "2")!, type: IGPRoom.IGPType(rawValue: item.typeRaw)!, initilas: tmpInitials, colorString: tmpHexString))
-                
             }
-            print("itemRoomList IS:",itemRoomList)
-            findItemInList(idToFind: 106684160459720255)
         } else {
             
         }
@@ -585,12 +581,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                let i = insertions.map { IndexPath(row: $0, section: 0).row }
+                let d = deletions.map { IndexPath(row: $0, section: 0).row }
+                let m = modifications.map { IndexPath(row: $0, section: 0).row }
+
+                print("INSERTION",i)
+                print("DELETION",d)
+                print("MODIFICATION",m)
                 
-                let i = insertions.map { IndexPath(row: $0, section: 0) }
-                let d = deletions.map { IndexPath(row: $0, section: 0) }
-                let r = modifications.map { IndexPath(row: $0, section: 0) }
-                if i.count > 0 {
-                }
                 self.tableView.endUpdates()
                 //                self.tableView.reloadData()
                 self.setTabbarBadge()
