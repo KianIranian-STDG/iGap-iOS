@@ -1027,18 +1027,19 @@ extension UIImageView {
                 //                    if IGGlobal.isFileExist(path: path, fileSize: file.size) {
                 //                        image = UIImage(contentsOfFile: path!.path)
                 //                    }
-                if FileManager.default.fileExists(atPath: path!.path) {
-                    
+                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+
                     DispatchQueue.global(qos:.userInteractive).async {
                         image = UIImage(contentsOfFile: path!.path)
+
                         DispatchQueue.main.async {
                             
                             if image != nil {
                                 self.image = image
                             } else {
-                                if showMain {
-                                    //                            setImage(avatar: avatar) // call this method again for load thumbnail before load main image
-                                }
+//                                if showMain {
+//                                    self.setImage(avatar: avatar) // call this method again for load thumbnail before load main image
+//                                }
                                 DispatchQueue.main.async {
                                     imagesMap[file.token!] = self
                                     IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
@@ -1046,8 +1047,8 @@ extension UIImageView {
                                             if let imageMain = imagesMap[attachment.token!] {
                                                 let path = attachment.path()
                                                 //                            imageMain.sd_setImage(with: path)
-                                                DispatchQueue.global().async { [weak self] in
-                                                    
+                                                DispatchQueue.global(qos:.userInteractive).async {
+
                                                     if let data = try? Data(contentsOf: path!) {
                                                         if let image = UIImage(data: data) {
                                                             DispatchQueue.main.async {
@@ -1060,7 +1061,7 @@ extension UIImageView {
                                             }
                                         }
                                     }, failure: {
-                                        
+                                        print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
                                     })
                                     
                                 }
@@ -1548,8 +1549,7 @@ extension String {
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
         if self.count > 0 {
-            if String(self.prefix(20)).containsEmoji {
-                let first = (String(self.prefix(20)).removeEmoji()).trimmingCharacters(in: .whitespacesAndNewlines).first!
+            if String(self.prefix(20)).containsEmoji,let first = String(self.prefix(20)).removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first {
                 if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first).prefix(3))) {
                     return true
                 }
