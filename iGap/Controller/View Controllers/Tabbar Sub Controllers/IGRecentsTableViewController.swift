@@ -888,10 +888,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
-//        cell.setRoom(room: rooms![indexPath.row])
+
+    @available(iOS 11.0, *)
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        
+        
+        
+        let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         
         let room = rooms![indexPath.row]
         var muteTitle = "UN_MUTE".RecentTableViewlocalizedNew
@@ -900,7 +904,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         else {
             muteTitle = "MUTE".RecentTableViewlocalizedNew
-
+            
         }
         
         var pinTitle = "PINN".RecentTableViewlocalizedNew
@@ -908,7 +912,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             pinTitle = "UNPINN".RecentTableViewlocalizedNew
         }
         //MUTE
-        let btnMuteSwipeCell = UITableViewRowAction(style: .normal, title: muteTitle) { (rowAction, indexPath) in
+        let btnMuteSwipeCell = UIContextualAction(style: .normal, title: muteTitle) { (contextualAction, view, boolValue) in
+            boolValue(true) // pass true if you want the handler to allow the action
+            
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
@@ -919,12 +925,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.muteRoom(room: room)
                 
             }
-
         }
+        
+        
+        
         btnMuteSwipeCell.backgroundColor = UIColor.swipeGray()
-
-       //PIN
-        let btnPinSwipeCell = UITableViewRowAction(style: .normal, title: pinTitle) { (rowAction, indexPath) in
+        
+        //PIN
+        let btnPinSwipeCell = UIContextualAction(style: .normal, title: pinTitle) { (contextualAction, view, boolValue) in
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
@@ -937,10 +945,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
         }
         btnPinSwipeCell.backgroundColor = UIColor.swipeBlueGray()
-
+        
+        
         //MORE
-        let btnMoreSwipeCell = UITableViewRowAction(style: .normal, title: "MORE".RecentTableViewlocalizedNew) { (rowAction, indexPath) in
-
+        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: pinTitle) { (contextualAction, view, boolValue) in
+            
             let title = room.title != nil ? room.title! : "BTN_DELETE".RecentTableViewlocalizedNew
             let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
             let clear = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
@@ -1114,33 +1123,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
         }
         btnMoreSwipeCell.backgroundColor = UIColor.swipeDarkBlue()
-
         
-        let buttons = [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell]
         
-        cell.rightSwipeSettings.transition = MGSwipeTransition.border
-        cell.rightExpansion.buttonIndex = 0
-        cell.rightExpansion.fillOnTrigger = true
-        cell.rightExpansion.threshold = 1.5
         
-        cell.clipsToBounds = true
-        cell.swipeBackgroundColor = UIColor.clear
+        let config = UISwipeActionsConfiguration(actions: [btnMuteSwipeCell, btnPinSwipeCell, btnMoreSwipeCell])
         
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 82.0, bottom: 0, right: 0)
-        cell.layoutMargins = UIEdgeInsets.zero
-  
-                
-//        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction, indexPath) in
-//            //TODO: edit the row at indexPath here
-//        }
-//        editAction.backgroundColor = .blue
-//
-//        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (rowAction, indexPath) in
-//            //TODO: Delete the row at indexPath here
-//        }
-//        deleteAction.backgroundColor = .red
-//
-        return buttons
+        config.performsFirstActionWithFullSwipe = false
+        return config
+        
     }
     private func removeButtonsUnderline(buttons: [UIButton]){
         for btn in buttons {
