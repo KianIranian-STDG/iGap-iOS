@@ -892,9 +892,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        
-        
-        
         let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         
         let room = rooms![indexPath.row]
