@@ -458,10 +458,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     func findItemInList(idToFind : Int64) {
         
-//        IGGlobal.getTime("BENJI-I")
         let filteredArray = itemRoomList.filter{$0.roomID! == idToFind}
         print("FILTER IN ITEMROOMLIST",filteredArray.first ?? "Item not found")
-//        IGGlobal.getTime("BENJI-II")
 
     }
     
@@ -592,83 +590,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 let d = deletions.map { IndexPath(row: $0, section: 0) }
                 let r = modifications.map { IndexPath(row: $0, section: 0) }
                 if i.count > 0 {
-//                    for item in r {
-//                        switch self.rooms![item.row].type {
-//                        case .chat:
-//                            let id = self.rooms![item.row].chatRoom?.peer?.id
-//                            if let indexII = self.rooms!.firstIndex(where: { $0.chatRoom?.peer?.id == id }), let index = self.itemRoomList.firstIndex(where: { $0.roomID == id}) {
-//                                self.updateStructRoom(from: self.rooms, isUpdate: true, newindex: index, lastindex : indexII, roomID: id!)
-//                                let t = indexII
-//                            }
-//                        case .group:
-//                            let id = self.rooms![item.row].groupRoom?.id
-//                            if let indexII = self.rooms!.firstIndex(where: { $0.groupRoom?.id == id }) , let index = self.itemRoomList.firstIndex(where: { $0.roomID == id }) {
-//                                self.updateStructRoom(from: self.rooms, isUpdate: true, newindex: index, lastindex : indexII, roomID: id!)
-//
-//                            }
-//                        case .channel:
-//                            let id = self.rooms![item.row].channelRoom?.id
-//
-//                            if let indexII = self.rooms!.firstIndex(where: { $0.channelRoom?.id == id }) ,let index = self.itemRoomList.firstIndex(where: { $0.roomID == id }) {
-//
-//                                self.updateStructRoom(from: self.rooms, isUpdate: true, newindex: index, lastindex : indexII, roomID: id!)
-//
-//                            }
-//
-//                        }
-//                    }
                 }
-//                if d.count > 0 {
-//                    for item in d {
-//                        switch self.rooms![item.row].type {
-//                        case .chat:
-//                            let id = self.rooms![item.row].chatRoom?.peer?.id
-//                            if let index = self.itemRoomList.firstIndex(where: { $0.roomID == id}) {
-//                                self.deleteFromStructRoom(from: self.rooms, isUpdate: false, isDelete: true, isInsert: false, lastindex: index, roomID: id!)
-//                            }
-//                        case .group:
-//                            let id = self.rooms![item.row].groupRoom?.id
-//                            if let index = self.itemRoomList.firstIndex(where: { $0.roomID == id }) {
-//                                self.deleteFromStructRoom(from: self.rooms, isUpdate: false, isDelete: true, isInsert: false, lastindex: index, roomID: id!)
-//                            }
-//                        case .channel:
-//                            let id = self.rooms![item.row].channelRoom?.id
-//                            if let index = self.itemRoomList.firstIndex(where: { $0.roomID == id }) {
-//                                self.deleteFromStructRoom(from: self.rooms, isUpdate: false, isDelete: true, isInsert: false, lastindex: index, roomID: id!)
-//                            }
-//
-//                        }
-//                    }
-//                }
-//                if r.count > 0 {
-//                for item in r {
-//                    switch self.rooms![item.row].type {
-//                    case .chat:
-//                       let id = self.rooms![item.row].chatRoom?.peer?.id
-//                       if let indexII = self.rooms!.firstIndex(where: { $0.chatRoom?.peer?.id == id }), let index = self.itemRoomList.firstIndex(where: { $0.roomID == id}) {
-//                        let t = indexII
-//                        let h = index
-//
-//                        self.updateStructRoom(from: self.rooms, isUpdate: true, newindex: index, lastindex : indexII, roomID: id!)
-//                        }
-//                    case .group:
-//                        let id = self.rooms![item.row].groupRoom?.id
-//                        if let indexII = self.rooms!.firstIndex(where: { $0.groupRoom?.id == id }) , let index = self.itemRoomList.firstIndex(where: { $0.roomID == id }) {
-//                            self.updateStructRoom(from: self.rooms, isUpdate: true, newindex: index, lastindex : indexII, roomID: id!)
-//
-//                        }
-//                    case .channel:
-//                        let id = self.rooms![item.row].channelRoom?.id
-//
-//                        if let indexII = self.rooms!.firstIndex(where: { $0.channelRoom?.id == id }) ,let index = self.itemRoomList.firstIndex(where: { $0.roomID == id }) {
-//
-//                            self.updateStructRoom(from: self.rooms, isUpdate: true, newindex: index, lastindex : indexII, roomID: id!)
-//
-//                        }
-//                        
-//                    }
-//                }
-//                }
                 self.tableView.endUpdates()
                 //                self.tableView.reloadData()
                 self.setTabbarBadge()
@@ -775,116 +697,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
         cell.roomII = self.rooms![indexPath.row] //2-3ms lag
 
-        //
-        if self.rooms![indexPath.row].pinId > 0 {
-            cell.contentView.backgroundColor = UIColor.pinnedChats()
-        } else {
-            cell.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        }
-
-        if self.rooms![indexPath.row].pinId > 0 && !IGHelperPromote.isPromotedRoom(room: self.rooms![indexPath.row]) {
-            cell.unreadCountLabel.isHidden = true
-            cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
-            cell.lastMessageStateImage.backgroundColor = UIColor.clear
-        } else {
-            if let lastMessage = self.rooms![indexPath.row].lastMessage {
-                switch lastMessage.status {
-                case .sending:
-                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Pending")
-                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
-                    break
-                case .sent:
-                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Sent")
-                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
-                    break
-                case .delivered:
-                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Delivered")
-                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
-                    break
-                case .seen:
-                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Seen")
-                    cell.lastMessageStateImage.backgroundColor = UIColor.clear
-                    break
-                case .failed:
-                    cell.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Delivery_State_Failed")
-                    cell.lastMessageStateImage.backgroundColor = UIColor.red
-                    break
-                default:
-                    break
-                }
-            }
-        }
-
-        //0-3 ms lag
-
-        switch self.rooms![indexPath.row].type {
-
-        case .chat:
-
-            cell.typeImage.image = UIImage(named: "IG_Settings_Chats")
-            if (self.rooms![indexPath.row].chatRoom?.peer!.isVerified)! {
-                cell.checkImage.isHidden = false
-
-            } else {
-                cell.checkImage.isHidden = true
-
-            }
-        case .group:
-
-            cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
-            cell.checkImage.isHidden = true
-
-        case .channel:
-
-
-            cell.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
-
-            if (self.rooms![indexPath.row].channelRoom?.isVerified)! {
-                cell.checkImage.isHidden = false
-
-            } else {
-                cell.checkImage.isHidden = true
-
-            }
-        }
-        IGGlobal.getTime("BENJI5")
-
-        switch self.rooms![indexPath.row].mute {
-
-        case .unmute:
-            cell.muteImage.isHidden = true
-        case .mute:
-            cell.muteImage.isHidden = false
-
-        default:
-            break
-        }
-        /////////
-        /////2////
-        IGGlobal.getTime("BENJI6")
-
-        cell.nameLabel.text = self.rooms![indexPath.row].title
-        switch self.rooms![indexPath.row].type {
-        case .chat:
-            if let avatar = self.rooms![indexPath.row].chatRoom?.peer?.avatar {
-                cell.avatarImage.setImage(avatar: avatar, showMain: false)
-            }
-        case .group:
-            if let avatar = self.rooms![indexPath.row].groupRoom?.avatar {
-                cell.avatarImage.setImage(avatar: avatar, showMain: false)
-            }
-            
-        case .channel:
-            if let avatar = self.rooms![indexPath.row].channelRoom?.avatar {
-                cell.avatarImage.setImage(avatar: avatar, showMain: false)
-                
-            }
-        }
-
-
-        
-        // 0-4 ms lag
-        //end
+       
         
         return cell
     }

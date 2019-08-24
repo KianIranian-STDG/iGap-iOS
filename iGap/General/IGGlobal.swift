@@ -1528,7 +1528,7 @@ extension String {
     }
     
     
-    
+
     func inRialFormat()->String{
         
         let nf = NumberFormatter()
@@ -1547,10 +1547,13 @@ extension String {
     
     /* detect first character should be write RTL or LTR */
     func isRTL() -> Bool {
-        
-        if self.count > 0, let first = self.removeEmoji().trimmingCharacters(in: .whitespacesAndNewlines).first, IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first).prefix(3))) {
-            
-            return true
+        if self.count > 0 {
+            if String(self.prefix(20)).containsEmoji {
+                let first = (String(self.prefix(20)).removeEmoji()).trimmingCharacters(in: .whitespacesAndNewlines).first!
+                if IGGlobal.matches(for: "[\\u0591-\\u07FF]", in: String(String(first).prefix(3))) {
+                    return true
+                }
+            }
         }
         
         return false
@@ -1563,9 +1566,14 @@ extension String {
     }
     
     func removeEmoji() -> String {
-        return String(self.filter { !$0.isEmoji() })
+        
+        return String(self.filter {
+            !$0.isEmoji()
+        })
     }
-    
+    var containsEmoji: Bool {
+        return (unicodeScalars.contains { !$0.isEmoji })
+    }
     var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
@@ -1583,7 +1591,31 @@ extension Character {
             || Character(UnicodeScalar(UInt32(0x2100))!) <= self && self <= Character(UnicodeScalar(UInt32(0x26ff))!)
     }
 }
-
+extension UnicodeScalar {
+    /// Note: This method is part of Swift 5, so you can omit this.
+    /// See: https://developer.apple.com/documentation/swift/unicode/scalar
+    var isEmoji: Bool {
+        switch value {
+        case 0x1F600...0x1F64F, // Emoticons
+        0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+        0x1F680...0x1F6FF, // Transport and Map
+        0x1F1E6...0x1F1FF, // Regional country flags
+        0x2600...0x26FF, // Misc symbols
+        0x2700...0x27BF, // Dingbats
+        0xE0020...0xE007F, // Tags
+        0xFE00...0xFE0F, // Variation Selectors
+        0x1F900...0x1F9FF, // Supplemental Symbols and Pictographs
+        0x1F018...0x1F270, // Various asian characters
+        0x238C...0x2454, // Misc items
+        0x20D0...0x20FF: // Combining Diacritical Marks for Symbols
+            return true
+            
+        default: return false
+        }
+    }
+    
+    
+}
 extension Float {
     var cleanDecimal: String {
         return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
