@@ -241,7 +241,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
-        self.tableView.register(customTestCell.self, forCellReuseIdentifier: cellId)
+        self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
 
         
         let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
@@ -771,7 +771,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: customTestCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! customTestCell
+        let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
 
         cell.roomII = self.rooms![indexPath.row] //2-3ms lag
 
