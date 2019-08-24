@@ -27,21 +27,10 @@ import KeychainSwift
 import SDWebImage
 import MarkdownKit
 
-struct itemRoom {
-    var roomID: Int64? = nil
-    var lastMessage: String? = nil
-    var lastMessageTime: String? = nil
-    var roomName: String? = nil
-    var unreadCount: String? = nil
-    var avatar : UIImage? = UIImage(named: "2")
-    var type : IGPRoom.IGPType = .chat
-    var initilas: String? = nil
-    var colorString : String? = nil
-}
+
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
-
-    var itemRoomList = [itemRoom]()
-
+    
+    
     var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
     var testImageArray = [UIImage]()
@@ -61,12 +50,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     static var needGetInfo: Bool = true
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     var cellId = "cellId"
-
+    
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar.change(textFont: UIFont.igFont(ofSize: 15))
             (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-
+            
         }
     }
     private let disposeBag = DisposeBag()
@@ -149,11 +138,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                                     self.hud.hide(animated: true)
                                 }
                             }).send()
-
+                            
                         } catch let error as NSError {
                             print("RLM EXEPTION ERR HAPPENDED IN SET DEFAULT NAVIGATION ITEM :",String(describing: self))
                         }
-                      
+                        
                     }
                 })
                 
@@ -237,25 +226,24 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
-
+        
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
         searchBar.delegate = self
         self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
-
+        
         
         let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
         do {
             let realm = try Realm()
             self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
-            self.updateStructRoom(from: self.rooms)
-            print(testImageArray.count)
+            
             
             
         } catch let error as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
-//        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
+        //        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
         self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
@@ -269,7 +257,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
         }, onError: { (error) in
             
-        }, onCompleted: { 
+        }, onCompleted: {
             
         }, onDisposed: {
             
@@ -282,7 +270,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.checkAppVersion()
                 self.deleteChannelMessages()
                 DispatchQueue.global(qos: .userInteractive).async {
-                self.fetchRoomList()
+                    self.fetchRoomList()
                 }
             }
         } else {
@@ -306,157 +294,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                                                selector: #selector(self.changeDirectionOfUI),
                                                name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName),
                                                object: nil)
-
+        
         // use current line for enable support gif in SDWebImage library
         SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         
-
-        
-    }
-    private func deleteFromStructRoom(from : Results<IGRoom>? ,isUpdate : Bool = false , isDelete : Bool = true, isInsert : Bool = false,lastindex:Int = 0 , roomID : Int64 = 0) {
-        let t = lastindex
-        
-       let h = self.rooms!.count
-        
-        if isDelete {
-//            itemRoomList.remove(at: lastindex)
-        }
-        
-    }
-    private func updateStructRoom(from : Results<IGRoom>? ,isUpdate : Bool = false , isDelete : Bool = false, isInsert : Bool = false,newindex : Int = 0,lastindex:Int = 0 , roomID : Int64 = 0) {
-        var testIMG = UIImageView()
-        var tmpLbl = UILabel()
-        var tmpTime : String?
-        var tmpRoomID : Int64! = 0
-        var tmpRoomName : String?
-        var tmpInitials : String?
-        var tmpHexString : String?
-        var tmpUnreadCount : String?
         
         
-        if !isUpdate {
-            
-            for item in from! {
-                testIMG.image = nil
-                tmpLbl.text = nil
-                
-                switch item.type {
-                case .chat:
-                    if let avatar = item.chatRoom?.peer?.avatar {
-                        testIMG.setImage(avatar: avatar)
-                    }
-                    tmpRoomID = item.chatRoom?.peer?.id
-                case .group:
-                    if let avatar = item.groupRoom?.avatar {
-                        testIMG.setImage(avatar: avatar)
-                    }
-                    tmpRoomID = item.groupRoom?.id
-                    
-                case .channel:
-                    if let avatar = item.channelRoom?.avatar {
-                        testIMG.setImage(avatar: avatar)
-                    }
-                    tmpRoomID = item.channelRoom?.id
-                }
-                tmpInitials = item.initilas
-                tmpHexString = item.colorString
-                tmpUnreadCount = String(item.unreadCount)
-                tmpRoomName = item.title
-                //                testImageArray.append(testIMG.image ?? UIImage(named :"2")!)
-                
-                //                itemRoomList.append(itemRoom(avatar: testIMG.image ?? UIImage(named: "2")!))
-                if let draft = item.draft, (item.draft?.message != "" || item.draft?.replyTo != -1) {
-                    
-                    if let lastMessage = item.lastMessage {
-                        tmpTime = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
-                    } else {
-                        tmpTime = ""
-                    }
-                    tmpLbl.text = "DRAFT".RecentTableViewlocalizedNew + " \(draft.message)"
-                    
-                } else if let lastMessage = item.lastMessage {
-                    if lastMessage.isDeleted {
-                        tmpLbl.text = "DELETED_MESSAGE".RecentTableViewlocalizedNew
-                        
-                    }
-                    tmpTime = lastMessage.creationTime?.convertToHumanReadable(onlyTimeIfToday: true)
-                    
-                    if let forwarded = lastMessage.forwardedFrom {
-                        if let user = forwarded.authorUser {
-                            tmpLbl.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(user.displayName)"
-                        } else if let title = forwarded.authorRoom?.title {
-                            tmpLbl.text = "FORWARDED_FROM".RecentTableViewlocalizedNew + " \(title)"
-                        } else {
-                            tmpLbl.text = "FORWARDED_MESSAGE".RecentTableViewlocalizedNew
-                        }
-                    } else {
-                        switch lastMessage.type {
-                        case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
-                            tmpLbl.text = lastMessage.message
-                            if let message = lastMessage.message {
-                                let markdown = MarkdownParser()
-                                markdown.enabledElements = MarkdownParser.EnabledElements.bold
-                                tmpLbl.attributedText = markdown.parse(message)
-                                tmpLbl.font = UIFont.igFont(ofSize: 14.0)
-                                tmpLbl.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-                            }
-                        case .image:
-                            tmpLbl.text = "IMAGES_MESSAGE".RecentTableViewlocalizedNew
-                        case .video:
-                            tmpLbl.text = "VIDEOS_MESSAGE".RecentTableViewlocalizedNew
-                        case .gif:
-                            tmpLbl.text = "GIFS_MESSAGE".RecentTableViewlocalizedNew
-                        case .audio:
-                            tmpLbl.text = "AUDIOS_MESSAGE".RecentTableViewlocalizedNew
-                        case .voice:
-                            tmpLbl.text = "VOICES_MESSAGE".RecentTableViewlocalizedNew
-                        case .file:
-                            tmpLbl.text = "FILES_MESSAGE".RecentTableViewlocalizedNew
-                        case .sticker:
-                            tmpLbl.text = "STICKERS_MESSAGE".RecentTableViewlocalizedNew
-                        case .wallet:
-                            if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.moneyTransfer.rawValue {
-                                tmpLbl.text = "WALLET_MESSAGE".RecentTableViewlocalizedNew
-                            } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.payment.rawValue {
-                                tmpLbl.text = "PAYMENT_MESSAGE".RecentTableViewlocalizedNew
-                            } else if lastMessage.wallet?.type == IGPRoomMessageWallet.IGPType.cardToCard.rawValue {
-                                tmpLbl.text = "CARD_TO_CARD_MESSAGE".RecentTableViewlocalizedNew
-                            }
-                        default:
-                            tmpLbl.text = "UNKNOWN_MESSAGE".RecentTableViewlocalizedNew
-                            break
-                        }
-                    }
-                    
-                    if lastMessage.type == .log {
-                        tmpLbl.text = IGRoomMessageLog.textForLogMessage(lastMessage)
-                    } else if lastMessage.type == .contact {
-                        tmpLbl.text = "CONTACT_MESSAGE".RecentTableViewlocalizedNew
-                    } else if lastMessage.type == .location {
-                        tmpLbl.text = "LOCATION_MESSAGE".RecentTableViewlocalizedNew
-                    }
-                    
-                    
-                } else {
-                    tmpTime = ""
-                    tmpLbl.text  = ""
-                    
-                }
-                //                testLastMsgArray.append(tmpLbl.text!)
-                
-            }
-        } else {
-            
-        }
-        
-    }
-    func findItemInList(idToFind : Int64) {
-        
-        let filteredArray = itemRoomList.filter{$0.roomID! == idToFind}
-        print("FILTER IN ITEMROOMLIST",filteredArray.first ?? "Item not found")
-
     }
     
     @objc private func changeDirectionOfUI() {
@@ -472,19 +317,19 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-     
+        
         isfromPacket = false
-
+        
         searchBar.placeholder = "PLACE_HOLDER_SEARCH".RecentTableViewlocalizedNew
         if SMLangUtil.loadLanguage() == "fa" {
             searchBar.semanticContentAttribute = .forceRightToLeft
-
+            
         }
         else {
             searchBar.semanticContentAttribute = .forceLeftToRight
-
+            
         }
-
+        
         
         DispatchQueue.main.async {
             if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
@@ -515,8 +360,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.addRoomChangeNotificationBlock()
         self.deleteChannelMessages()
         DispatchQueue.global(qos: .userInteractive).async {
-
-        self.fetchRoomList()
+            
+            self.fetchRoomList()
         }
     }
     
@@ -527,7 +372,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 let alert = UIAlertController(title: "GAME_ALERT_TITLE".RecentTableViewlocalizedNew, message: "VERSION_DEPRICATED".RecentTableViewlocalizedNew, preferredStyle: .alert)
                 let update = UIAlertAction(title: "UPDATE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
-
+                    
                 })
                 alert.addAction(update)
                 self.present(alert, animated: true, completion: nil)
@@ -535,7 +380,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 let alert = UIAlertController(title: "UPDATE".RecentTableViewlocalizedNew, message: "VERSION_NEW".RecentTableViewlocalizedNew, preferredStyle: .alert)
                 let update = UIAlertAction(title: "UPDATE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
                     UIApplication.shared.open(self.iGapStoreLink!, options: [:], completionHandler: nil)
-
+                    
                 })
                 let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .destructive, handler: nil)
                 alert.addAction(update)
@@ -555,7 +400,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             
             /********** Microphon Permission **********/
             AVAudioSession.sharedInstance().requestRecordPermission { (granted) in
-
+                
                 /********** Receive Notification Permission **********/
                 if #available(iOS 10.0, *) {
                     // For iOS 10 display notification (sent via APNS)
@@ -581,13 +426,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                let i = insertions.map { IndexPath(row: $0, section: 0).row }
-                let d = deletions.map { IndexPath(row: $0, section: 0).row }
-                let m = modifications.map { IndexPath(row: $0, section: 0).row }
-
-                print("INSERTION",i)
-                print("DELETION",d)
-                print("MODIFICATION",m)
                 
                 self.tableView.endUpdates()
                 //                self.tableView.reloadData()
@@ -600,7 +438,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
         }
     }
-
+    
     /**
      * use this method for delete channel messages for get messages
      * from server again and update vote actions data
@@ -637,7 +475,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                         let p = Int32(getRoomListRequest.igpPagination.igpLimit)
                         print("Action ID : 601 P IS:",p)
                         newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
-//                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
+                        //                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
                         newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
                         
                         if getRoomListRequest.igpPagination.igpOffset == 0 { // is first page
@@ -657,11 +495,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                             self.numberOfRoomFetchedInLastRequest = IGClientGetRoomListRequest.Handler.interpret(response: getRoomListResponse, removeDeleted: true)
                             self.saveAndSendContacts()
                             /*
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                IGFactory.shared.removeDeletedRooms()
-                                IGFactory.shared.deleteShareInfo()
-                            }
-                            */
+                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                             IGFactory.shared.removeDeletedRooms()
+                             IGFactory.shared.deleteShareInfo()
+                             }
+                             */
                         }
                     }
                 }
@@ -690,20 +528,24 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.rooms!.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
-
-        cell.roomII = self.rooms![indexPath.row] //2-3ms lag
-
-       
         
+        if self.rooms![indexPath.row].unreadCount == 0 {
+            cell.showStateImage =  true
+        } else {
+            cell.showStateImage =  false
+        }
+        cell.roomII = self.rooms![indexPath.row]
         return cell
     }
-
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        
+        
         
         let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         
@@ -942,6 +784,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         return config
         
     }
+    
     private func removeButtonsUnderline(buttons: [UIButton]){
         for btn in buttons {
             btn.removeUnderline()
@@ -953,7 +796,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if selectedRoomForSegue == nil || selectedRoomForSegue!.isInvalidated {
             return
         }
-
+        
         if IGGlobal.isForwardEnable() {
             IGHelperAlert.shared.showForwardAlert(title: selectedRoomForSegue!.title!, isForbidden: selectedRoomForSegue!.isReadOnly, cancelForward: {
                 IGMessageViewController.selectedMessageToForwardToThisRoom = nil
@@ -962,17 +805,17 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             })
         } else {
             performSegue(withIdentifier: "showRoomMessages", sender: self)
-
+            
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showRoomMessages") {
-
+            
             let destination = segue.destination as! IGMessageViewController
             destination.room = selectedRoomForSegue
             
-
+            
         } else if segue.identifier == "createANewGroup" {
             let destination = segue.destination as! IGNavigationController
             let chooseContactTv =  destination.topViewController as! IGChooseMemberFromContactsToCreateGroupViewController
@@ -999,11 +842,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             } else {
                 self.tabBarController?.tabBar.items?[0].badgeValue = "\(unreadCount)"
             }
-
+            
         } catch let error as NSError {
             // handle error
             print("RLM EXEPTION ERR HAPPENDED IN SET TABBAR BADGE:",String(describing: self))
-
+            
         }
         
         if !AppDelegate.appIsInBackground {
@@ -1291,7 +1134,7 @@ extension IGRecentsTableViewController {
     func report(room: IGRoom){
         let roomId = room.id
         let roomType = room.type
-
+        
         var title = ""
         
         if roomType == .chat {
@@ -1645,7 +1488,7 @@ extension IGRecentsTableViewController: UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-
+        
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
         self.searchBar.hero.id = "searchBar"
