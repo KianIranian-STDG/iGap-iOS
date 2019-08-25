@@ -311,40 +311,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 
                 var messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
                 messageText = messageText?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-                
-                
-                
-                
-                
-                let t = finalRoomMessage.additional?.data
-                let data = t!.data(using: .utf8)!
-                let tmpJsonB = IGHelperJson.parseAdditionalButton(data: t)
-                
-                let b = tmpJsonB![0][0].valueJson
-                let tmpJson = IGHelperJson.parseAdditionalCardToCardInChat(data: b)
-                print("tmpJson",tmpJson)
-                
-                let tt = tmpJson?.amount
-                
-                print(tt)
-                
-                let tmpAmount : Int! = tt
-                //
-                //
-                let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .bold)]
-                let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
-                let normalString = NSMutableAttributedString(string: String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".MessageViewlocalizedNew  + "\n", attributes:attrsRegular)
-                let attributedString = NSMutableAttributedString(string: messageText!, attributes:  attrsRegular)
-                normalString.append(attributedString)
-                
                 txtMessageAbs.numberOfLines = 0
                 txtMessageAbs.lineBreakMode = NSLineBreakMode.byWordWrapping
-                
-                
-                txtMessageAbs.attributedText = normalString
-                
-                
-                
+                txtMessageAbs?.text = messageText!
+
                 
             } else {
 
@@ -644,7 +614,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func manageCellBubble(){
       
         /************ Bubble View ************/
-
+        mainBubbleViewAbs.layer.cornerRadius = 18.0
         if finalRoomMessage.type == .sticker {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
@@ -697,7 +667,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
                     self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
 
-                    self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+                    if (self.room.type == .chat) && (self.room.chatRoom?.peer!.isBot)! {
+                        self.mainBubbleViewAbs.layer.cornerRadius = 18.0
+                    } else {
+//                        self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+                        self.mainBubbleViewAbs.layer.cornerRadius = 18.0
+
+                    }
                     
                     
                 }
@@ -714,8 +690,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
                 self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
                 
-                self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
-                
+//                self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+                self.mainBubbleViewAbs.layer.cornerRadius = 18.0
+
                 
             } else {
                 self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
@@ -1258,7 +1235,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
             DispatchQueue.main.async {
-                self.makeAdditionalView(additionalView: additionalView, removeView: false)
+                self.makeAdditionalView(additionalView: additionalView, removeView: false,isBot: true)
             }
         } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
             let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
@@ -1863,7 +1840,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     
     
-    private func makeAdditionalView(additionalView: UIView, removeView: Bool = true){
+    private func makeAdditionalView(additionalView: UIView, removeView: Bool = true, isBot: Bool = false){
         removeAdditionalView()
         
         if self.additionalViewAbs == nil {
@@ -1871,13 +1848,20 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             let avatarPayViewAbs = UIView()
 
             self.additionalViewAbs.addSubview(additionalView)
-            self.additionalViewAbs.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
+            if isBot {
+                self.additionalViewAbs.layer.cornerRadius = 18.0
+
+            } else {
+//                self.additionalViewAbs.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
+                self.additionalViewAbs.layer.cornerRadius = 18.0
+
+            }
             self.contentView.addSubview(self.additionalViewAbs)
             
             self.additionalViewAbs?.snp.makeConstraints { (make) in
                 make.leading.equalTo(self.mainBubbleViewAbs.snp.leading)
                 make.trailing.equalTo(self.mainBubbleViewAbs.snp.trailing)
-                make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(0)
+                make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(5)
                 make.height.equalTo(additionalView.frame.size.height)
             }
       

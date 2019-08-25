@@ -170,7 +170,7 @@ class IGHelperBot {
         view.backgroundColor = UIColor.customKeyboardButton().withAlphaComponent(0.5)
         
         view.layer.masksToBounds = false
-        view.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
+        view.layer.cornerRadius = 18.0
 
         return view
     }
