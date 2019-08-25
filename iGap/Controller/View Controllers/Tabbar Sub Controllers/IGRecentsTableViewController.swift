@@ -600,7 +600,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         
         //MORE
-        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: moreTitle) { (contextualAction, view, boolValue) in
+        let btnMoreSwipeCell = UIContextualAction(style: .normal, title: "MORE".RecentTableViewlocalizedNew) { (contextualAction, view, boolValue) in
             
             let title = room.title != nil ? room.title! : "BTN_DELETE".RecentTableViewlocalizedNew
             let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
