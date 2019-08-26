@@ -83,13 +83,34 @@ class IGContactManager: NSObject {
     
     private func sendContactsToServer() {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.0) {
+            print(self.resultsChunk.count)
+            print(self.contactIndex)
             if self.resultsChunk.count == 0 || self.contactIndex >= self.resultsChunk.count{
                 self.getContactListFromServer()
                 return
             }
             
             var contactsStruct = [ContactsStruct]()
+            var contactsPhoneStruct = [String]()
             let result = self.resultsChunk[self.contactIndex]
+
+            if self.results.count > 0 {
+                for contact in self.results {
+                    for phone in contact.phoneNumbers {
+                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbers())
+                    }
+                }
+            }
+
+            let sortedPhonenumbers = contactsPhoneStruct.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
+            
+            print(sortedPhonenumbers.joined(separator: ","))
+            let tmpString = (sortedPhonenumbers.joined(separator: ","))
+            let md5Data = IGGlobal.MD5(string:tmpString)
+            
+            let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
+            let tmpmd5HexFromServer = (IGAppManager.sharedManager.md5Hex())
+
             
             let realm = try! Realm()
             try! realm.write {
@@ -102,17 +123,32 @@ class IGContactManager: NSObject {
                         structContact.firstName = contact.givenName
                         structContact.lastName = contact.familyName
                         contactsStruct.append(structContact)
+                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbers())
+                        
+                        
                     }
                 }
+                
             }
-            
-            self.sendContact(phoneContacts: contactsStruct)
-            self.contactIndex += 1
+
+            if (IGAppManager.sharedManager.md5Hex() == md5Hex) {
+            } else {
+                print(self.resultsChunk.count)
+                print(self.contactIndex)
+                if (self.contactIndex ) == (self.resultsChunk.count - 1) {
+                    self.sendContact(phoneContacts: contactsStruct, md5Hex: md5Hex)
+                    self.contactIndex += 1
+
+                } else {
+                    self.sendContact(phoneContacts: contactsStruct)
+                    self.contactIndex += 1
+                }
+            }
         }
     }
     
-    private func sendContact(phoneContacts : [ContactsStruct]){
-        IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts).success ({ (protoResponse) in
+    private func sendContact(phoneContacts : [ContactsStruct], md5Hex : String? = nil){
+        IGUserContactsImportRequest.Generator.generateStruct(contacts: phoneContacts , md5Hex : md5Hex).success ({ (protoResponse) in
             if let contactImportResponse = protoResponse as? IGPUserContactsImportResponse {
                 IGUserContactsImportRequest.Handler.interpret(response: contactImportResponse)
                 self.sendContactsToServer()

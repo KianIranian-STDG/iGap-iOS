@@ -42,6 +42,7 @@ class IGAppManager: NSObject {
     private var _nickname: String?
     private var _mapEnable: Bool = false
     private var _mplActive: Bool = false
+    private var _md5Hex: String?
     private var _walletRegistered: Bool = false
     private var _walletActive: Bool = false
 
@@ -327,6 +328,9 @@ class IGAppManager: NSObject {
     public func mplActive() -> Bool {
         return _mplActive
     }
+    public func md5Hex() -> String {
+        return _md5Hex!
+    }
     
     public func setWalletRegistered(enable: Bool) {
         _walletRegistered = enable
@@ -337,6 +341,9 @@ class IGAppManager: NSObject {
     
     public func setMplActive(enable: Bool) {
         _mplActive = enable
+    }
+    public func setMd5Hex(md5Hex: String) {
+        _md5Hex = md5Hex
     }
     
     public func walletActive() -> Bool {

@@ -153,6 +153,8 @@ class IGUserLoginRequest : IGRequest {
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
             IGApiSticker.shared.fetchMySticker()
+            IGAppManager.sharedManager.setMd5Hex(md5Hex: responseProtoMessage.igpContactHash)
+
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive) // show/Hide financial and wallet
             IGAppManager.sharedManager.setWalletActive(enable: responseProtoMessage.igpWalletActive) //:show/Hide Only Wallet
@@ -285,7 +287,7 @@ class IGUserProfileSetNicknameRequest : IGRequest {
 //MARK:
 class IGUserContactsImportRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(contacts: [IGContact], force: Bool = false) -> IGRequestWrapper {
+        class func generate(contacts: [IGContact], force: Bool = false,md5Hex: String? = nil) -> IGRequestWrapper {
             var contactsImportRequestMessage = IGPUserContactsImport()
             var igpContacts = Array<IGPUserContactsImport.IGPContact>()
             for contact in contacts {
@@ -306,7 +308,7 @@ class IGUserContactsImportRequest : IGRequest {
             return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106)
         }
         
-        class func generateStruct(contacts: [IGContactManager.ContactsStruct], force: Bool = false) -> IGRequestWrapper {
+        class func generateStruct(contacts: [IGContactManager.ContactsStruct], force: Bool = false, md5Hex: String? = nil) -> IGRequestWrapper {
             var contactsImportRequestMessage = IGPUserContactsImport()
             var igpContacts = Array<IGPUserContactsImport.IGPContact>()
             for contact in contacts {
@@ -323,6 +325,9 @@ class IGUserContactsImportRequest : IGRequest {
             }
             contactsImportRequestMessage.igpContacts = igpContacts
             contactsImportRequestMessage.igpForce = force
+            if let tstMD5 = md5Hex {
+                contactsImportRequestMessage.igpContactHash = tstMD5
+            }
             return IGRequestWrapper(message: contactsImportRequestMessage, actionID: 106)
         }
     }
