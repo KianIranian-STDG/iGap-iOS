@@ -373,14 +373,14 @@ class IGRoomListtCell: UITableViewCell {
                         
                     case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText:
                         self.lastMsgLabel.text = forwarded.message
-                        if let message = forwarded.message {
-                            
-                            let markdown = MarkdownParser()
-                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
-                            self.lastMsgLabel.attributedText = markdown.parse(message)
-                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
-                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-                        }
+//                        if let message = forwarded.message {
+//
+//                            let markdown = MarkdownParser()
+//                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
+//                            self.lastMsgLabel.attributedText = markdown.parse(message)
+//                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
+//                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+//                        }
                     case .image:
                         self.lastMsgLabel.text = "IMAGES_MESSAGE".MessageViewlocalizedNew
                     case .video:
@@ -412,14 +412,14 @@ class IGRoomListtCell: UITableViewCell {
                     switch lastMessage.type {
                     case .audioAndText, .gifAndText, .fileAndText, .imageAndText, .videoAndText, .text:
                         self.lastMsgLabel.text = lastMessage.message
-                        if let message = lastMessage.message {
-                            
-                            let markdown = MarkdownParser()
-                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
-                            self.lastMsgLabel.attributedText = markdown.parse(message)
-                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
-                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
-                        }
+//                        if let message = lastMessage.message {
+//
+//                            let markdown = MarkdownParser()
+//                            markdown.enabledElements = MarkdownParser.EnabledElements.bold
+//                            self.lastMsgLabel.attributedText = markdown.parse(message)
+//                            self.lastMsgLabel.font = UIFont.igFont(ofSize: 14.0)
+//                            self.lastMsgLabel.textColor = UIColor(red: 127.0/255.0, green: 127.0/255.0, blue: 127.0/255.0, alpha: 1.0)
+//                        }
                     case .image:
                         self.lastMsgLabel.text = "IMAGES_MESSAGE".MessageViewlocalizedNew
                     case .video:

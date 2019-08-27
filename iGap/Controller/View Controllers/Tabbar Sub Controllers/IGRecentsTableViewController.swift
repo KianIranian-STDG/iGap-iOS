@@ -544,7 +544,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        
+        print("INDEXPATH IS:",indexPath)
         
         
         let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
@@ -585,6 +585,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         //PIN
         let btnPinSwipeCell = UIContextualAction(style: .normal, title: pinTitle) { (contextualAction, view, boolValue) in
+            boolValue(true) // pass true if you want the handler to allow the action
+
             if self.connectionStatus == .waitingForNetwork || self.connectionStatus == .connecting {
                 let alert = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "NO_NETWORK".RecentTableViewlocalizedNew, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
@@ -601,7 +603,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         //MORE
         let btnMoreSwipeCell = UIContextualAction(style: .normal, title: "MORE".RecentTableViewlocalizedNew) { (contextualAction, view, boolValue) in
-            
+            boolValue(true) // pass true if you want the handler to allow the action
+
             let title = room.title != nil ? room.title! : "BTN_DELETE".RecentTableViewlocalizedNew
             let alertC = UIAlertController(title: title, message: "WHAT_DO_U_WANT".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
             let clear = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
@@ -1018,6 +1021,7 @@ extension IGRecentsTableViewController {
                     break
                 }
                 self.hud.hide(animated: true)
+
             }
         }).error({ (errorCode , waitTime) in
             DispatchQueue.main.async {
