@@ -442,15 +442,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("COUNT IS :",tmpMSGArray.count)
-        if tmpMSGArray.count > 0 {
-            for message in tmpMSGArray {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                IGMessageSender.defaultSender.send(message: message, to: self.room!)
-                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
-                }
-            }
-        }
+        
         lblSelectedMessages.font = UIFont.igFont(ofSize: 17,weight: .bold)
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             RightBarConstraints.constant = 38
@@ -771,17 +763,25 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
     }
     
-    private func manageForward(){
-        if tmpMSGArray.count > 0 {
-            for (index, message) in tmpMSGArray.enumerated() {
-                var delay: Double = 1
-                if index == 0 {
-                    delay = 1
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    IGMessageSender.defaultSender.send(message: message, to: self.room!)
-                    self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
-                }
+    private func manageForward(index: Int = 0){
+        
+        var delay: Double = 1.5
+        if index == 0 {
+            delay = 1.5
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            if self.tmpMSGArray.count > 0 && self.tmpMSGArray.count > index {
+                var indexOfMessage = index
+                let message = self.tmpMSGArray[indexOfMessage]
+                IGMessageSender.defaultSender.sendSingleForward(message: message, to: self.room!, success: {
+                    indexOfMessage = indexOfMessage + 1
+                    self.manageForward(index: indexOfMessage)
+                }, error: {
+                    indexOfMessage = indexOfMessage + 1
+                    self.manageForward(index: indexOfMessage)
+                })
+                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
             }
         }
     }
@@ -6204,7 +6204,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             if self.messageLoader.isFirstLoadDown() {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     self.appendMessageArray(realmRoomMessages, direction)
-                    self.addChatItemToBottom(count: realmRoomMessages.count)
+                    self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         let bottomOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.bounds.size.height)
                         self.collectionView.setContentOffset(bottomOffset, animated: false)
@@ -6215,7 +6215,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             } else {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     self.appendMessageArray(realmRoomMessages, direction)
-                    self.addChatItemToBottom(count: realmRoomMessages.count)
+                    self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                     if scrollToBottom {
                         if let authorHash = realmRoomMessages[0].authorHash, authorHash == IGAppManager.sharedManager.authorHash() {
@@ -6229,13 +6229,15 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
-    private func addChatItemToBottom(count: Int) {
+    private func addChatItemToBottom(count: Int, scrollToBottom: Bool = false) {
         let contentHeight = self.collectionView!.contentSize.height
         let offsetY = self.collectionView!.contentOffset.y
         let bottomOffset = contentHeight - offsetY
         
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
+        if !scrollToBottom {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+        }
         
         self.collectionView?.performBatchUpdates({
             var arrayIndex: [IndexPath] = []
@@ -6247,7 +6249,10 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             self.collectionView?.insertItems(at: arrayIndex)
         }, completion: { _ in
             self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
-            CATransaction.commit()
+            if !scrollToBottom {
+                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
+                CATransaction.commit()
+            }
         })
     }
     
