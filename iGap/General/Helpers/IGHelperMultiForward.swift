@@ -290,7 +290,7 @@ class IGHelperMultiForward {
                     tmpEmptyRoomArray0.append(emptyRoomArray[index])
                 }
             }
-            emptyRoomArray = tmpEmptyRoomArray0
+            //emptyRoomArray = tmpEmptyRoomArray0
             //Message Handler
             for rm in emptyRoomArray {
                 for msg in selectedIndex {
@@ -322,7 +322,7 @@ class IGHelperMultiForward {
                     tmpEmptyRoomArray.append(emptyRoomArray[index])
                 }
             }
-            emptyRoomArray = tmpEmptyRoomArray
+            //emptyRoomArray = tmpEmptyRoomArray
             emptyMessageArray = tmpEmptyMessageArray
             
             //We empty Forward from befor saving becoz it will crash the app if forwardFrom is not Nil
