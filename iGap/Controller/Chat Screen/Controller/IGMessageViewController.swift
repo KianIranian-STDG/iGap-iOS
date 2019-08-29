@@ -5776,7 +5776,6 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             
             self.collectionView?.insertItems(at: arrayIndex)
         }, completion: { _ in
-            self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
             if !scrollToBottom {
                 self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
                 CATransaction.commit()
