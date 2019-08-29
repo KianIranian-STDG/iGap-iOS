@@ -736,7 +736,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
 
         startLoadMessage()
-        manageForward()
     }
     
     private func startLoadMessage(){
@@ -751,24 +750,19 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         messageLoader.getMessages { (messages, direction) in
             self.addChatItem(realmRoomMessages: messages, direction: direction, scrollToBottom: false)
-            if hasUnread {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                    self.collectionView.fadeIn(0.1)
-                }
-            } else if hasSaveState {
+            if hasUnread || hasSaveState {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.collectionView.fadeIn(0.1)
                 }
             }
+            self.manageForward()
         }
     }
     
     private func manageForward(index: Int = 0){
-        
-        let delay: Double = 2.5
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            if self.tmpMSGArray.count > 0 && self.tmpMSGArray.count > index {
+        if self.tmpMSGArray.count > 0 && self.tmpMSGArray.count > index {
+            let delay: Double = 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
                 let message = self.tmpMSGArray[indexOfMessage]
                 IGMessageSender.defaultSender.sendSingleForward(message: message, to: self.room!, success: {
