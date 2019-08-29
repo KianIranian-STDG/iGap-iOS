@@ -270,13 +270,12 @@ class IGRoomMessage: Object {
         message.additional = additional
         return message
     }
+    
     static func makeCardToCardRequestWithAmount(messageText: String,amount: String,cardNumber:String) -> IGRoomMessage {
         let message = IGRoomMessage(body: messageText)
         let additionalData = "[[{\"actionType\":\(IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue),\"label\":\"CARD_TO_CARD\",\"imageUrl\":\"\",\"value\":{\"userId\":\(IGAppManager.sharedManager.userID()!),\"amount\":\(amount),\"cardNumber\":\(cardNumber)}}]]"
         let additional = IGRealmAdditional(additionalData: additionalData, additionalType: Int32(AdditionalType.CARD_TO_CARD_PAY.rawValue))
         message.additional = additional
-        let t = message
-        
         return message
     }
     
@@ -286,13 +285,18 @@ class IGRoomMessage: Object {
         var messageId: Int64 = igpMessage.igpMessageID
         if options.isReply || options.isForward {
             messageId = igpMessage.igpMessageID * -1
+        } else if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
+            return nil
         }
         
         // read imported room message from cache for avoid from duplicate primaryKey
         // (IMPORTANT_HINT) : fill this value for put message from get room list and clear cache after do this work
-        if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
-            return nil
-        }
+        
+        //Hint: don't use cache for forwarded or replied message for avoid from override multi forward message
+        //if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
+        //    print("FFF || Cache: \(messageId)")
+        //    return nil
+        //}
         
         /*
         var realmFinal: Realm! = realm
@@ -391,7 +395,7 @@ class IGRoomMessage: Object {
             message.previousMessageId = igpMessage.igpPreviousMessageID
         }
         
-        if options.isEnableCache {
+        if options.isEnableCache && (!options.isReply && !options.isForward) {
             IGGlobal.importedRoomMessageDic[message.id] = message
         }
         
