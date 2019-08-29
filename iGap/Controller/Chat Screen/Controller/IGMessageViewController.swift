@@ -120,7 +120,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var MoneyTransactionModal : SMMoneyTransactionOptions!
     var MoneyInputModal : SMSingleAmountInputView!
     var CardToCardModal : SMTwoInputView!
-    var MultiShareModal : IGMultiForwardModal!
+    var forwardModal : IGMultiForwardModal!
     var MoneyTransactionModalIsActive = false
     var MoneyInputModalIsActive = false
     var MultiShareModalIsActive = false
@@ -898,7 +898,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
         }
         else if MultiShareModalIsActive {
-            if let MultiShare = MultiShareModal {
+            if let MultiShare = forwardModal {
                 window.addSubview(MultiShare)
                 UIView.animate(withDuration: 0.3) {
                     
@@ -912,23 +912,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         else {
             if MoneyInputModal != nil {
-                
                 self.hideMoneyInputModal()
             }
+            
             if CardToCardModal != nil {
-                
                 self.hideCardToCardModal()
             }
-            if MultiShareModal != nil {
-                self.hideMultiShareModal()
-                
-                
-            }
             
+            if forwardModal != nil {
+                self.hideMultiShareModal()
+            }
         }
-        
-        
-        
         self.view.layoutIfNeeded()
     }
     
@@ -958,7 +952,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
         }
         else if MultiShareModalIsActive {
-            if let MultiShare = MultiShareModal {
+            if let MultiShare = forwardModal {
                 self.view.addSubview(MultiShare)
                 UIView.animate(withDuration: 0.3) {
                     if MultiShare.frame.origin.y < self.view.frame.size.height {
@@ -2809,17 +2803,15 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.hideMoneyTransactionModal()
                 self.hideMoneyInputModal()
                 self.hideCardToCardModal()
-
+                
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
                 SMLoading.showLoadingPage(viewcontroller: self)
                 IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbers().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
                     SMLoading.hideLoadingPage()
                     if let response = protoResponse as? IGPWalletPaymentInitResponse {
-                        
                         SMUserManager.publicKey = response.igpPublicKey
                         SMUserManager.payToken = response.igpToken
                         self.transferToWallet(pbKey: SMUserManager.publicKey, token: SMUserManager.payToken!)
-                        
                     }
                 }).error ({ (errorCode, waitTime) in
                     switch errorCode {
@@ -2831,102 +2823,69 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         break
                     }
                 }).send()
-                
             }
         }
+        
         if CardToCardModal != nil {
             if CardToCardModal.inputTFOne.text == "" ||  CardToCardModal.inputTFOne.text == nil || CardToCardModal.inputTFTwo.text == "" ||  CardToCardModal.inputTFTwo.text == nil || CardToCardModal.inputTFThree.text == "" ||  CardToCardModal.inputTFThree.text == nil {
                 IGHelperAlert.shared.showAlert(message: "FILL_AMOUNT".MessageViewlocalizedNew)
             } else {
                 
-                //
                 let messageText = CardToCardModal.inputTFOne.text!.substring(offset: MAX_TEXT_LENGHT)
-                            let message = IGRoomMessage.makeCardToCardRequestWithAmount(messageText: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbers().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbers().onlyDigitChars()))
-                            let detachedMessage = message.detach()
-                            IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
-                            IGMessageSender.defaultSender.send(message: message, to: self.room!)
-                            self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
-
+                let message = IGRoomMessage.makeCardToCardRequestWithAmount(messageText: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbers().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbers().onlyDigitChars()))
+                let detachedMessage = message.detach()
+                IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
+                IGMessageSender.defaultSender.send(message: message, to: self.room!)
+                self.addChatItem(realmRoomMessages: [message], direction: IGPClientGetRoomHistory.IGPDirection.down)
                 
-                            IGMessageViewController.selectedMessageToForwardToThisRoom = nil
-                            self.sendMessageState(enable: false)
-                            self.isCardToCardRequestEnable = false
-                            self.inputTextView.text = ""
-                            self.currentAttachment = nil
-                            self.selectedMessageToReply = nil
-                            self.setInputBarHeight()
-                            self.hideCardToCardModal()
-            
+                IGMessageViewController.selectedMessageToForwardToThisRoom = nil
+                self.sendMessageState(enable: false)
+                self.isCardToCardRequestEnable = false
+                self.inputTextView.text = ""
+                self.currentAttachment = nil
+                self.selectedMessageToReply = nil
+                self.setInputBarHeight()
+                self.hideCardToCardModal()
             }
-
         }
     }
     
     @objc func didtapOutSide() {
         if dismissBtn != nil {
             if MoneyTransactionModal != nil {
-                
                 hideMoneyTransactionModal()
-                //            self.hideMoneyInputModal()
             }
+            
             if MoneyInputModal != nil {
-                
-                //            hideMoneyTransactionModal()
                 self.hideMoneyInputModal()
             }
+            
             if CardToCardModal != nil {
                 self.hideCardToCardModal()
             }
+            
             dismissBtn.removeFromSuperview()
             dismissBtn = nil
         }
-        
-        
     }
+    
     @objc func cardToCardTaped() {
-        
         if MoneyTransactionModal != nil {
-            
             hideMoneyTransactionModal()
             self.hideMoneyInputModal()
             self.hideCardToCardModal()
 
             self.isCardToCardRequestEnable = true
             self.manageCardToCardInputBar()
-            
-        }        //go to process info
-        
-        
+        }
     }
     
     @objc func sendMultiForwardRequest() {
         diselect()
-        if MultiShareModal != nil {
-            
+        if forwardModal != nil {
             hideMultiShareModal()
-            //if selected any chat to forward
-            if MultiShareModal.selectedIndex.count > 0 {
-                switch MultiShareModal.selectedIndex.count {
-                case 1 :
-                    IGHelperMultiForward.handleMultiForward(count: 1, selectedIndex: self.selectedIndex ,messages: self.messages,MultiShareModal:MultiShareModal,viewController: self)
-                default :
-                    
-                    IGHelperMultiForward.handleMultiForward(count: 2, selectedIndex: self.selectedIndex, messages: self.messages, MultiShareModal: MultiShareModal, viewController: self)
-                }
-            }
-            else {
-                
-                return
-            }
+            IGHelperForward.handleMultiForward(selectedIndex: self.selectedIndex, messages: self.messages, forwardModal: forwardModal, viewController: self)
         }
-    }
-    
-    func openChat(room : IGRoom,messageArray : [IGRoomMessage] = []){
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-        roomVC.room = room
-        roomVC.tmpMSGArray = messageArray
-        self.navigationController!.pushViewController(roomVC, animated: true)
     }
     
     func hideMoneyTransactionModal() {
@@ -2996,24 +2955,24 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     func hideMultiShareModal() {
         self.MultiShareModalIsActive = false
         
-        if MultiShareModal != nil {
+        if forwardModal != nil {
             self.blurEffectView.removeFromSuperview()
             UIView.animate(withDuration: 0.3, animations: {
-                self.MultiShareModal.frame.origin.y = self.view.frame.height
+                self.forwardModal.frame.origin.y = self.view.frame.height
             }) { (true) in
             }
             
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Change `2.0` to the desired number of seconds.
-                self.MultiShareModal.removeFromSuperview()
-                self.MultiShareModal = nil
+                self.forwardModal.removeFromSuperview()
+                self.forwardModal = nil
                 if self.dismissBtn != nil {
                     self.dismissBtn.removeFromSuperview()
                 }
             }
             
         }
-        MultiShareModal.searchBar.endEditing(true)
+        forwardModal.searchBar.endEditing(true)
         
         
     }
@@ -3035,7 +2994,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.view.endEditing(true)
             
         }
-        if MultiShareModal != nil {
+        if forwardModal != nil {
             
             hideMultiShareModal()
             self.view.endEditing(true)
@@ -5171,35 +5130,34 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     func showMultiShareModal() {
         self.MultiShareModalIsActive = true
         
-        if MultiShareModal == nil {
+        if forwardModal == nil {
             blurEffectView = UIVisualEffectView(effect: blurEffect)
             blurEffectView.frame = view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             view.addSubview(blurEffectView)
             
-            MultiShareModal = IGMultiForwardModal.loadFromNib()
-            MultiShareModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
+            forwardModal = IGMultiForwardModal.loadFromNib()
+            forwardModal.btnSend.addTarget(self, action: #selector(sendMultiForwardRequest), for: .touchUpInside)
             
-            MultiShareModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: MultiShareModal.frame.height)
+            forwardModal!.frame = CGRect(x: 0, y: self.view.frame.height , width: self.view.frame.width, height: forwardModal.frame.height)
             
             let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(IGMessageViewController.handleGesture(gesture:)))
             swipeDown.direction = .down
             
-            MultiShareModal.addGestureRecognizer(swipeDown)
-            self.view.addSubview(MultiShareModal!)
-            self.view.bringSubviewToFront(MultiShareModal!)
+            forwardModal.addGestureRecognizer(swipeDown)
+            self.view.addSubview(forwardModal!)
+            self.view.bringSubviewToFront(forwardModal!)
         }
         
         if #available(iOS 11.0, *) {
-            let window = UIApplication.shared.keyWindow
             UIView.animate(withDuration: 0.3) {
-                let tmpY = ((self.view.frame.height) - (self.MultiShareModal.frame.height))
-                self.MultiShareModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.MultiShareModal.frame.height)
+                let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
+                self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
             }
         } else {
             UIView.animate(withDuration: 0.3) {
-                let tmpY = ((self.view.frame.height) - (self.MultiShareModal.frame.height))
-                self.MultiShareModal!.frame = CGRect(x: 0, y: tmpY, width: self.view.frame.width, height: self.MultiShareModal.frame.height)
+                let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
+                self.forwardModal!.frame = CGRect(x: 0, y: tmpY, width: self.view.frame.width, height: self.forwardModal.frame.height)
             }
         }
     }

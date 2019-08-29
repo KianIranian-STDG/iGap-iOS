@@ -434,3 +434,8 @@ enum ClearCache: Int {
     case DOCUMENTS = 5
     case STICKERS = 6
 }
+
+enum CheckItem: Int {
+    case CHECK = 0
+    case UNCHECK = 1
+}

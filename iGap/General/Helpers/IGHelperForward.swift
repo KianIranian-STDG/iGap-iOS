@@ -12,67 +12,20 @@ import UIKit
 import IGProtoBuff
 import RealmSwift
 
-class IGHelperMultiForward {
+class IGHelperForward {
     
-    /**
-     * open chat room with room id if exist in realm otherwise
-     * get info from server and then open chat
-     **/
     
-    internal static func openChatRoom(room: IGRoom, viewController: UIViewController){
-        if IGRoom.existRoomInLocal(roomId: room.id) != nil {
-            DispatchQueue.main.async {
-                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-                roomVC.room = room
-                roomVC.openChatFromLink = false
-                viewController.navigationController!.pushViewController(roomVC, animated: true)
-            }
-        } else {
-            IGClientSubscribeToRoomRequest.Generator.generate(roomId: room.id).success ({ (responseProtoMessage) in
-                DispatchQueue.main.async {
-                    let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
-                    roomVC.room = room
-                    roomVC.openChatFromLink = true
-                    viewController.navigationController!.pushViewController(roomVC, animated: true)
-                }
-            }).error({ (errorCode, waitTime) in
-                switch errorCode {
-                case .timeout:
-                    self.openChatRoom(room: room, viewController: viewController)
-                default:
-                    break
-                }
-            }).send()
-        }
-    }
-    internal static func handleMultiForward(count : Int,selectedIndex : [Int64] = [],messages: [IGRoomMessage]? = [],MultiShareModal: IGMultiForwardModal!,viewController: UIViewController) {
-        switch count {
+    internal static func handleMultiForward(selectedIndex: [Int64] = [], messages: [IGRoomMessage]? = [], forwardModal: IGMultiForwardModal!, viewController: UIViewController) {
+        switch selectedIndex.count {
         case 1 :
             
-            for id in MultiShareModal.selectedIndex {
+            for selectedItem in forwardModal.selectedItems {
                 
-                if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
-                    let tmpArray = MultiShareModal.FilteredMuliShareContacts
-                    //if was chat with user and not Group or Channel
-                    
-                    if tmpArray[index].typeRaw == 0 {
-                        //if has chat
-                        if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
-                            
-                            //if selected any message to forward
+                    if selectedItem.typeRaw == IGRoom.IGType.chat {
+                        if let roomU = IGRoom.existRoomInLocal(userId: selectedItem.id) {
                             if selectedIndex.count > 0 {
-                                var countt:Double = 0
-                                let forwardCount = selectedIndex.count
-                                var messageCount = 0
-                                //                                        self.openChat(room: roomU)
                                 var tmpMSGG : [IGRoomMessage] = []
-                                
                                 for element in selectedIndex {
-                                    
-                                    countt += 0.5
-                                    
                                     if let index = messages!.firstIndex(where: { $0.id == element }) {
                                         let message = IGRoomMessage(body: "")
                                         message.type = .text
@@ -80,19 +33,17 @@ class IGHelperMultiForward {
                                         let detachedMessage = message.detach()
                                         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                         message.forwardedFrom = messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                        
                                         tmpMSGG.append(message)
                                     }
                                 }
                                 openChat(room: roomU,messageArray: tmpMSGG, viewController: viewController)
-                                
                             } else {
                                 return
                             }
                             
                         } else {
                             IGGlobal.prgShow(viewController.view)
-                            IGChatGetRoomRequest.Generator.generate(peerId: tmpArray[index].id).success({ (protoResponse) in
+                            IGChatGetRoomRequest.Generator.generate(peerId: selectedItem.id).success({ (protoResponse) in
                                 DispatchQueue.main.async {
                                     IGGlobal.prgHide()
                                     if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
@@ -101,15 +52,10 @@ class IGHelperMultiForward {
                                         //if selected any message to forward
                                         if selectedIndex.count > 0 {
                                             var count:Double = 0
-                                            let forwardCount = selectedIndex.count
-                                            var messageCount = 0
-                                            //                                                    self.openChat(room: roomU)
                                             
                                             var tmpMSG : [IGRoomMessage] = []
                                             for element in (selectedIndex) {
                                                 count = count + 0.5
-                                                //DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
-                                                
                                                 if let index = messages!.firstIndex(where: { $0.id == element }) {
                                                     let message = IGRoomMessage(body: "")
                                                     message.type = .text
@@ -119,7 +65,6 @@ class IGHelperMultiForward {
                                                     message.forwardedFrom = messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                     tmpMSG.append(message)
                                                 }
-                                                //}
                                             }
                                             openChat(room: roomU,messageArray: tmpMSG, viewController: viewController)
                                             
@@ -140,7 +85,7 @@ class IGHelperMultiForward {
                         }
                         
                     } else {
-                        if let roomU = IGRoom.existRoomInLocal(roomId: tmpArray[index].id) {
+                        if let roomU = IGRoom.existRoomInLocal(roomId: selectedItem.id) {
                             
                             //if selected any message to forward
                             if selectedIndex.count > 0 {
@@ -158,9 +103,7 @@ class IGHelperMultiForward {
                                         let detachedMessage = message.detach()
                                         IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                                         message.forwardedFrom = messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
-                                        //DispatchQueue.main.asyncAfter(deadline: .now() + countt + 0.1) {
                                         tmpMSGGG.append(message)
-                                        //}
                                     }
                                     
                                 }
@@ -174,7 +117,7 @@ class IGHelperMultiForward {
                             //if dont have chat with contact
                         else {
                             IGGlobal.prgShow(viewController.view)
-                            IGClientGetRoomRequest.Generator.generate(roomId: tmpArray[index].id).success({ (protoResponse) in
+                            IGClientGetRoomRequest.Generator.generate(roomId: selectedItem.id).success({ (protoResponse) in
                                 DispatchQueue.main.async {
                                     IGGlobal.prgHide()
                                     if let clientGetRoomResponse = protoResponse as? IGPClientGetRoomResponse {
@@ -187,8 +130,6 @@ class IGHelperMultiForward {
                                             
                                             for element in (selectedIndex) {
                                                 count = count + 0.5
-                                                //DispatchQueue.main.asyncAfter(deadline: .now() + (count + 0.1)) {
-                                                
                                                 if let index = messages!.firstIndex(where: { $0.id == element }) {
                                                     let message = IGRoomMessage(body: "")
                                                     message.type = .text
@@ -198,8 +139,6 @@ class IGHelperMultiForward {
                                                     message.forwardedFrom = messages![index] // Hint: if use this line before "saveNewlyWriitenMessageToDatabase" app will be crashed
                                                     tmpMSGGGG.append(message)
                                                 }
-                                                
-                                                //}
                                             }
                                             self.openChat(room: roomU,messageArray: tmpMSGGGG, viewController: viewController)
                                             
@@ -221,9 +160,6 @@ class IGHelperMultiForward {
                         }
                         
                     }
-                    
-                }
-                
             }
             break
         default :
@@ -231,20 +167,13 @@ class IGHelperMultiForward {
             var emptyRoomArray = [IGRoom?]()
             emptyRoomArray.removeAll()
             emptyMessageArray.removeAll()
-            for id in MultiShareModal.selectedIndex {
-                if let index = MultiShareModal.FilteredMuliShareContacts.firstIndex(where: { $0.id == id }) {
-                    let tmpArray = MultiShareModal.FilteredMuliShareContacts
-                    //if has chat
-                    if tmpArray[index].typeRaw == 0 {
-                        if let roomU = IGRoom.existRoomInLocal(userId: tmpArray[index].id) {
-                            
+            for selectedItem in forwardModal.selectedItems {
+                    if selectedItem.typeRaw == IGRoom.IGType.chat {
+                        if let roomU = IGRoom.existRoomInLocal(userId: selectedItem.id) {
                             emptyRoomArray.append(roomU)
-                            
-                        }
-                            //if dont has chat
-                        else {
+                        } else {
                             IGGlobal.prgShow(viewController.view)
-                            IGChatGetRoomRequest.Generator.generate(peerId: tmpArray[index].id).success({ (protoResponse) in
+                            IGChatGetRoomRequest.Generator.generate(peerId: selectedItem.id).success({ (protoResponse) in
                                 DispatchQueue.main.async {
                                     IGGlobal.prgHide()
                                     if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse {
@@ -259,13 +188,13 @@ class IGHelperMultiForward {
                         }
                         
                     } else {
-                        if let roomU = IGRoom.existRoomInLocal(roomId: tmpArray[index].id) {
+                        if let roomU = IGRoom.existRoomInLocal(roomId: selectedItem.id) {
                             emptyRoomArray.append(roomU)
                             
                         } else { //if dont has chat
                             IGGlobal.prgShow(viewController.view)
                             
-                            IGClientGetRoomRequest.Generator.generate(roomId: tmpArray[index].id).success({ (protoResponse) in
+                            IGClientGetRoomRequest.Generator.generate(roomId: selectedItem.id).success({ (protoResponse) in
                                 DispatchQueue.main.async {
                                     switch protoResponse {
                                     case let clientGetRoomResponse as IGPClientGetRoomResponse:
@@ -279,14 +208,13 @@ class IGHelperMultiForward {
                             }).error ({ (errorCode, waitTime) in }).send()
                         }
                     }
-                }
             }
             
             var tmpEmptyRoomArray0 = [IGRoom?]()
             tmpEmptyRoomArray0.removeAll()
             
-            for element in MultiShareModal.selectedIndex{
-                if let index = emptyRoomArray.firstIndex(where: { $0!.chatRoom?.peer?.id == element }) {
+            for selectedItem in forwardModal.selectedItems {
+                if let index = emptyRoomArray.firstIndex(where: { $0!.chatRoom?.peer?.id == selectedItem.id }) {
                     tmpEmptyRoomArray0.append(emptyRoomArray[index])
                 }
             }
@@ -317,8 +245,8 @@ class IGHelperMultiForward {
                     tmpEmptyMessageArray.append(emptyMessageArray[index])
                 }
             }
-            for element in MultiShareModal.selectedIndex{
-                if let index = emptyRoomArray.firstIndex(where: { $0!.chatRoom?.peer?.id == element }) {
+            for selectedItem in forwardModal.selectedItems {
+                if let index = emptyRoomArray.firstIndex(where: { $0!.chatRoom?.peer?.id == selectedItem.id }) {
                     tmpEmptyRoomArray.append(emptyRoomArray[index])
                 }
             }
@@ -350,10 +278,7 @@ class IGHelperMultiForward {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
         roomVC.room = room
-        
         roomVC.tmpMSGArray = messageArray
-        //        IGFactory.shared.updateRoomLastMessageIfPossible(roomID: room.id)
-        
         viewController.navigationController!.pushViewController(roomVC, animated: true)
     }
 }
