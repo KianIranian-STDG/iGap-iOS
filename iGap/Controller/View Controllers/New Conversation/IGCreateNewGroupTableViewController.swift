@@ -18,6 +18,8 @@ class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRe
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var groupAvatarImage: UIImageView!
     @IBOutlet weak var groupNameTextField: UITextField!
+    
+    var groupAvatarAttachment: IGFile!
     var getRoomResponseID : Int64?
     var imagePicker = UIImagePickerController()
     let borderName = CALayer()
@@ -201,6 +203,35 @@ class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRe
         return headerHieght
     }
     
+    private func manageImage(imageInfo: [String : Any]){
+        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        var scaledImage = originalImage
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
+        let fileNameOnDisk = randomString + filename
+        
+        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: originalImage)
+        }
+        
+        self.groupAvatarAttachment = IGFile(name: filename)
+        self.groupAvatarAttachment.attachedImage = scaledImage
+        self.groupAvatarAttachment.fileNameOnDisk = fileNameOnDisk
+        self.groupAvatarAttachment.height = Double((scaledImage.size.height))
+        self.groupAvatarAttachment.width = Double((scaledImage.size.width))
+        self.groupAvatarAttachment.size = (imgData?.count)!
+        self.groupAvatarAttachment.data = imgData
+        self.groupAvatarAttachment.type = .image
+
+        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
+        FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
+        
+        DispatchQueue.main.async {
+            self.groupAvatarImage.image = scaledImage
+        }
+    }
+    
     func requestToCreateGroup() {
         self.view.endEditing(true)
         if let roomName = self.groupNameTextField.text {
@@ -239,13 +270,8 @@ class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRe
                                         }
                                         
                                         if self.groupAvatarImage.image != self.defualtImage {
-                                            let avatar = IGFile()
-                                            avatar.attachedImage = self.groupAvatarImage.image
-                                            let randString = IGGlobal.randomString(length: 32)
-                                            avatar.cacheID = randString
-                                            avatar.name = randString
                                             
-                                            IGUploadManager.sharedManager.upload(file: avatar, start: {
+                                            IGUploadManager.sharedManager.upload(file: self.groupAvatarAttachment, start: {
                                             }, progress: { (progress) in
                                                 
                                             }, completion: { (uploadTask) in
@@ -358,16 +384,11 @@ class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRe
 
 }
 extension IGCreateNewGroupTableViewController: UIImagePickerControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            roundUserImage(groupAvatarImage)
-            self.groupAvatarImage.image = pickedImage
-        }
         imagePicker.dismiss(animated: true, completion: {
+            self.roundUserImage(self.groupAvatarImage)
+            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
         })
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
