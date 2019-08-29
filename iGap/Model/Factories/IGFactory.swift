@@ -887,14 +887,14 @@ class IGFactory: NSObject {
     }
 
     func saveRegistredContactsUsers(_ igpRegistredUsers: [IGPRegisteredUser]) {
-        IGDatabaseManager.shared.perfrmOnDatabaseThread {
-            var delay = 0.0
-            var savedCount = 0
-            let registredUsersArray = igpRegistredUsers.chunks(15)
-            for registredUsers in registredUsersArray {
-                for userInfo in registredUsers {
-                    delay += 0.5
-                    DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+        var delay = 0.0
+        var savedCount = 0
+        let registredUsersArray = igpRegistredUsers.chunks(15)
+        for registredUsers in registredUsersArray {
+            for userInfo in registredUsers {
+                delay += 0.5
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    IGDatabaseManager.shared.perfrmOnDatabaseThread {
                         try! IGDatabaseManager.shared.realm.write {
                             let registeredUser = IGRegisteredUser.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpUser: userInfo)
                             registeredUser.isInContacts = true
