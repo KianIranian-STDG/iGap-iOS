@@ -223,52 +223,31 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     
     func showAvatar(avatar : IGAvatar) {
         
-            var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
-                return IGMediaUserAvatar(avatar: avatar)
-            }
+        var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
+            return IGMediaUserAvatar(avatar: avatar)
+        }
         
         avatarPhotos = photos
-      
+        
         if photos.count == 0 {
             return
         }
         let currentPhoto = photos[0]
-        let downloadViewFrame = self.view.bounds
         let galleryPreview = INSPhotosViewController(photos: photos, initialPhoto: currentPhoto, referenceView: userAvatarView)//, deleteView: deleteView, downloadView: downloadIndicatorMainView)
-
+        
         galleryPreview.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
             let currentIndex : Int! = photos.firstIndex{$0 === photo}
-            currentSize = self!.avatars[currentIndex].file?.size
-
+            if self!.avatars.count <= currentIndex {
+                currentSize = self!.avatars[currentIndex].file?.size
+            }
             return self?.userAvatarView
         }
         
-
         galleryPhotos = galleryPreview
         galleryPreview.deletePhotoHandler = { [weak self] photo in
             let currentIndex : Int! = photos.firstIndex{$0 === photo}
-
             self!.deleteAvatar(index: currentIndex)
-
         }
-
-        
-
-        
-        
-//
-//        let testView = UIView()
-//        testView.backgroundColor = .red
-//        testView.frame = CGRect(x: 10, y: 10, width: 100, height: 100)
-//        let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapp(recognizer:)))
-//        testView.isUserInteractionEnabled = true
-//
-//        testView.addGestureRecognizer(tap)
-//
-//        galleryPreview.overlayView.view().addSubview(testView)
-//
-//
-        
         
         present(galleryPreview, animated: true, completion: nil)
     }
@@ -283,17 +262,14 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
     }
     
-    @objc func updateCounting(){
-    }
+    @objc func updateCounting(){}
 
-    
-
-
-    func setThumbnailForAttachments() {
-    }
-
+    func setThumbnailForAttachments() {}
     
     func deleteAvatar(index: Int!) {
+        if self.avatars.count <= index {
+            return
+        }
         let avatar = self.avatars[index]
         IGUserAvatarDeleteRequest.Generator.generate(avatarID: avatar.id).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -527,9 +503,9 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             }
         })
         
-        let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
-            (alert: UIAlertAction!) -> Void in
-        })
+        //let deleteAction = UIAlertAction(title: "DELETE_MAIN_AVATAR".localizedNew, style: .destructive, handler: {
+        //    (alert: UIAlertAction!) -> Void in
+        //})
         
         let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -550,9 +526,10 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             (alert: UIAlertAction!) -> Void in
         })
         
-        if self.avatars.count > 0 {
-            optionMenu.addAction(deleteAction)
-        }
+        // Hint: remove avatar from INSPhotoGallery page
+        //if self.avatars.count > 0 {
+        //    optionMenu.addAction(deleteAction)
+        //}
         optionMenu.addAction(ChoosePhoto)
         optionMenu.addAction(cancelAction)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
@@ -568,50 +545,14 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
 
 extension IGSettingTableViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            self.userAvatarView.setImage(pickedImage)
-            
-            let avatar = IGFile()
-            avatar.attachedImage = pickedImage
-            let randString = IGGlobal.randomString(length: 32)
-            avatar.cacheID = randString
-            avatar.name = randString
-            
-            IGUploadManager.sharedManager.upload(file: avatar, start: {
-                
-            }, progress: { (progress) in
-                
-            }, completion: { (uploadTask) in
-                if let token = uploadTask.token {
-                    IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let avatarAddResponse as IGPUserAvatarAddResponse:
-                                IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        
-                    }).send()
-                }
-            }, failure: {
-                
-            })
-        }
         imagePicker.dismiss(animated: true, completion: {
+            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
         })
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
     
     func showLogoutActionSheet(){
         let logoutConfirmAlertView = UIAlertController(title: "MSG_PAGE_ACCOUNT_LOGOUT".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
@@ -644,7 +585,59 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         }
         present(logoutConfirmAlertView, animated: true, completion: nil)
     }
-    
+ 
+    private func manageImage(imageInfo: [String : Any]){
+        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        var scaledImage = originalImage
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
+        let fileNameOnDisk = randomString + filename
+        
+        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: originalImage)
+        }
+        
+        let attachment = IGFile(name: filename)
+        attachment.attachedImage = scaledImage
+        attachment.fileNameOnDisk = fileNameOnDisk
+        attachment.height = Double((scaledImage.size.height))
+        attachment.width = Double((scaledImage.size.width))
+        attachment.size = (imgData?.count)!
+        attachment.data = imgData
+        attachment.type = .image
+        
+        DispatchQueue.main.async {
+            self.userAvatarView.avatarImageView?.image = scaledImage
+            let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
+            FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
+        }
+        
+        IGGlobal.prgShow()
+        IGUploadManager.sharedManager.upload(file: attachment, start: {
+            
+        }, progress: { (progress) in
+            
+        }, completion: { (uploadTask) in
+            IGGlobal.prgHide()
+            if let token = uploadTask.token {
+                IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
+                    DispatchQueue.main.async {
+                        switch protoResponse {
+                        case let avatarAddResponse as IGPUserAvatarAddResponse:
+                            IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
+                        default:
+                            break
+                        }
+                    }
+                }).error({ (error, waitTime) in
+                    
+                }).send()
+            }
+        }, failure: {
+            IGGlobal.prgHide()
+        })
+    }
 }
 
 extension IGSettingTableViewController: UINavigationControllerDelegate {

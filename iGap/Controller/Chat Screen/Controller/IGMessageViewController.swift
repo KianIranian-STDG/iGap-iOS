@@ -765,10 +765,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     private func manageForward(index: Int = 0){
         
-        var delay: Double = 1.5
-        if index == 0 {
-            delay = 1.5
-        }
+        let delay: Double = 2.5
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
             if self.tmpMSGArray.count > 0 && self.tmpMSGArray.count > index {
