@@ -1648,6 +1648,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     
     override func viewWillDisappear(_ animated: Bool) {
+        currentRoomId = 0
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false
         unsetNotifications()
