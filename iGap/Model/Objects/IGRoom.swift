@@ -282,9 +282,11 @@ class IGRoom: Object {
         if igpRoom.hasIgpFirstUnreadMessage {
             if let firstUnreadMessage = IGRoomMessage.putOrUpdate(igpMessage: igpRoom.igpFirstUnreadMessage, roomId: igpRoom.igpID, options: IGStructMessageOption(isEnableCache: true)) {
                 firstUnreadMessage.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
+                firstUnreadMessage.previousMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
                 room.firstUnreadMessage = firstUnreadMessage
             } else if duplicateMessage != nil {
                 duplicateMessage!.futureMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
+                duplicateMessage!.previousMessageId = igpRoom.igpFirstUnreadMessage.igpMessageID
                 room.firstUnreadMessage = duplicateMessage
             } else if !IGGlobal.rewriteRoomInfo.contains(igpRoom) {
                 IGGlobal.rewriteRoomInfo.append(igpRoom)
