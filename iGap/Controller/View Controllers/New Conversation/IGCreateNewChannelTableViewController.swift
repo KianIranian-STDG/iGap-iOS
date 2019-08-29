@@ -18,6 +18,8 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     @IBOutlet weak var channelAvatarImage: UIImageView!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var channelnameTextField: UITextField!
+    
+    var channelAvatarAttachment: IGFile!
     var imagePicker = UIImagePickerController()
     let borderName = CALayer()
     let width = CGFloat(0.5)
@@ -65,6 +67,35 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         channelnameTextField.layer.masksToBounds = true
     }
     
+    private func manageImage(imageInfo: [String : Any]){
+        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        var scaledImage = originalImage
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
+        let fileNameOnDisk = randomString + filename
+        
+        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: originalImage)
+        }
+        
+        self.channelAvatarAttachment = IGFile(name: filename)
+        self.channelAvatarAttachment.attachedImage = scaledImage
+        self.channelAvatarAttachment.fileNameOnDisk = fileNameOnDisk
+        self.channelAvatarAttachment.height = Double((scaledImage.size.height))
+        self.channelAvatarAttachment.width = Double((scaledImage.size.width))
+        self.channelAvatarAttachment.size = (imgData?.count)!
+        self.channelAvatarAttachment.data = imgData
+        self.channelAvatarAttachment.type = .image
+        
+        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
+        FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
+        
+        DispatchQueue.main.async {
+            self.channelAvatarImage.image = scaledImage
+        }
+    }
+    
     func createChannel(){
         self.view.endEditing(true)
         if let roomName = self.channelnameTextField.text {
@@ -84,16 +115,10 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
                                     
                                     switch protoResponse {
                                     case let getRoomProtoResponse as IGPClientGetRoomResponse:
+                                        
                                         if self.channelAvatarImage.image != self.defaultImage {
-                                            let avatar = IGFile()
-                                            avatar.attachedImage = self.channelAvatarImage.image
-                                            let randString = IGGlobal.randomString(length: 32)
-                                            avatar.cacheID = randString
-                                            avatar.name = randString
-                                            IGUploadManager.sharedManager.upload(file: avatar, start: {
-                                                
+                                            IGUploadManager.sharedManager.upload(file: self.channelAvatarAttachment, start: {
                                             }, progress: { (progress) in
-                                                
                                             }, completion: { (uploadTask) in
                                                 if let token = uploadTask.token {
                                                     IGChannelAddAvatarRequest.Generator.generate(attachment: token , roomID: getRoomProtoResponse.igpRoom.igpID).success({ (protoResponse) in
@@ -207,7 +232,6 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Take a Photo")
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
                 self.imagePicker.allowsEditing = true
@@ -226,7 +250,6 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         })
         let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Choose Photo")
             self.imagePicker.delegate = self
             self.imagePicker.allowsEditing = true
             self.imagePicker.sourceType = .photoLibrary
@@ -243,7 +266,6 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
        
         let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
         })
         let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -268,7 +290,6 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
 
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
             optionMenu.addAction(cameraOption)} else {
-            print ("I don't have a camera.")
         }
         if let popoverController = optionMenu.popoverPresentationController {
             popoverController.sourceView = sender
@@ -301,18 +322,14 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     }
 }
 extension IGCreateNewChannelTableViewController: UIImagePickerControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            roundUserImage(channelAvatarImage)
-            self.channelAvatarImage.image = pickedImage
-        }
         imagePicker.dismiss(animated: true, completion: {
+            self.roundUserImage(self.channelAvatarImage)
+            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
         })
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
