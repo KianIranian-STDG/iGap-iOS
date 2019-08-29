@@ -525,6 +525,7 @@
 		FAAD3C2321EA220C00B1420A /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2021EA220C00B1420A /* FirebaseCore.framework */; };
 		FAAD3C2421EA220C00B1420A /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */; };
 		FAAD3C2621EA22FD00B1420A /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */; };
+		FAADEB78231177B3001AB022 /* IGHelperMultiForward.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADEB77231177B3001AB022 /* IGHelperMultiForward.swift */; };
 		FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAF82D5221A85200022D84C /* IGHelperFinancial.swift */; };
 		FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */; };
 		FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFD433208375AA003470B3 /* IGGeoRequest.swift */; };
@@ -1231,6 +1232,7 @@
 		FAAD3C2021EA220C00B1420A /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Carthage/Build/iOS/FirebaseCore.framework; sourceTree = "<group>"; };
 		FAAD3C2121EA220C00B1420A /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Carthage/Build/iOS/FirebaseInstanceID.framework; sourceTree = "<group>"; };
 		FAAD3C2521EA22FD00B1420A /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Carthage/Build/iOS/GoogleUtilities.framework; sourceTree = "<group>"; };
+		FAADEB77231177B3001AB022 /* IGHelperMultiForward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMultiForward.swift; sourceTree = "<group>"; };
 		FAAF82D5221A85200022D84C /* IGHelperFinancial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperFinancial.swift; sourceTree = "<group>"; };
 		FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMplRequest.swift; sourceTree = "<group>"; };
 		FAAFD433208375AA003470B3 /* IGGeoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGeoRequest.swift; sourceTree = "<group>"; };
@@ -1970,6 +1972,7 @@
 			isa = PBXGroup;
 			children = (
 				FA0BA2A422FC001F0051DFEA /* IGHelperFabric.swift */,
+				FAADEB77231177B3001AB022 /* IGHelperMultiForward.swift */,
 				FAD744FF21B940F800801D2E /* IGHelperGetShareData.swift */,
 				FA5301DC2150D12B00A95C2C /* IGHelperChatOpener.swift */,
 				FA4CFD0621A0490D005FCBF2 /* IGHelperPreferences.swift */,
@@ -3463,6 +3466,7 @@
 				8EBF54FC22D9B60D00834E6A /* BasicBarEntry.swift in Sources */,
 				8EEE895922A3CF360072383C /* DropdownMenu.swift in Sources */,
 				FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */,
+				FAADEB78231177B3001AB022 /* IGHelperMultiForward.swift in Sources */,
 				FAA30F671DAA6F790061B8C9 /* IGWebSocketManager.swift in Sources */,
 				8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */,
 				FA76598122902ACE006322A3 /* INSScalingImageView.swift in Sources */,
