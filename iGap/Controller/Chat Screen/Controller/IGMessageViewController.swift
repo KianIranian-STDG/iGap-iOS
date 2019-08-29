@@ -59,26 +59,21 @@ class IGHeader: UICollectionReusableView {
 }
 
 class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept,HandleBackNavigation {
+
+    var selectedMessages : [IGRoomMessage] = []
     
     func diselect() {
         IGGlobal.shouldMultiSelect = false
-        
         self.showMultiSelectUI(state: false)
-        
     }
     
-    
-    
-    var selectedMessages : [IGRoomMessage] = []
-    //    var shouldMultiSelect : Bool! = false
-    ///Handle reciept
     func close() {
-        
         self.dismiss(animated: true, completion: {
             self.tabBarController?.tabBar.isUserInteractionEnabled = true
             self.callCallBackApi(token: SMUserManager.payToken!)
         })
     }
+    
     func callCallBackApi(token : String) {
         let url: String! = SMUserManager.callBackUrl
         guard let serviceUrl = URL(string: url) else { return }
@@ -103,8 +98,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 } catch {
                     print(error)
                 }
-            }
-            }.resume()
+            }}.resume()
     }
     
     
@@ -182,7 +176,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     @IBOutlet weak var floatingDateView: UIView!
     @IBOutlet weak var txtFloatingDate: UILabel!
     var previousRect = CGRect.zero
-    var selectedIndex : [Int64] = []
     
     var webView: UIWebView!
     var webViewProgressbar: UIActivityIndicatorView!
@@ -243,7 +236,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     var logMessageCellIdentifer = IGMessageLogCollectionViewCell.cellReuseIdentifier()
     var room : IGRoom?
-    var tmpMSGArray : [IGRoomMessage] = []
+    var forwardedMessageArray : [IGRoomMessage] = []
     var privateRoom : IGRoom?
     var openChatFromLink: Bool = false // set true this param when user not joined to this room
     var customizeBackItem: Bool = false
@@ -422,8 +415,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             })
         }
         
-        if self.selectedIndex.count > 0 {
-            lblSelectedMessages.text = String(self.selectedIndex.count).inLocalizedLanguage() + " " + "SELECTED".MessageViewlocalizedNew
+        if self.selectedMessages.count > 0 {
+            lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + "SELECTED".MessageViewlocalizedNew
             inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
             inputBarDeleteButton.isEnabled = true
             
@@ -760,11 +753,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     private func manageForward(index: Int = 0){
-        if self.tmpMSGArray.count > 0 && self.tmpMSGArray.count > index {
+        if self.forwardedMessageArray.count > 0 && self.forwardedMessageArray.count > index {
             let delay: Double = 1
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 var indexOfMessage = index
-                let message = self.tmpMSGArray[indexOfMessage]
+                let message = self.forwardedMessageArray[indexOfMessage]
                 IGMessageSender.defaultSender.sendSingleForward(message: message, to: self.room!, success: {
                     indexOfMessage = indexOfMessage + 1
                     self.manageForward(index: indexOfMessage)
@@ -2884,7 +2877,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         diselect()
         if forwardModal != nil {
             hideMultiShareModal()
-            IGHelperForward.handleMultiForward(selectedIndex: self.selectedIndex, messages: self.messages, forwardModal: forwardModal, viewController: self)
+            IGHelperForward.handleForward(messages: self.selectedMessages, forwardModal: forwardModal, controller: self)
         }
     }
     
@@ -3008,16 +3001,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     /*********************** Delete Start ***********************/
     /************************************************************************/
     @IBAction func didTapOnDeleteButton(_ sender: UIButton) {
-        if self.selectedIndex.count > 0 {
-            for element in self.selectedIndex {
-                if let index = self.messages!.firstIndex(where: { $0.id == element }) {
-                    self.deleteMessage(self.messages![index],both:self.isBoth)
-                }
-            }
-        } else {
-            return
+        for message in self.selectedMessages {
+            self.deleteMessage(message , both:self.isBoth)
         }
     }
+    
     /************************************************************************/
     /*********************** Forward/MultiForward Start ***********************/
     /************************************************************************/
@@ -4193,38 +4181,29 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         if messageType == .text {
             let cell: TextCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextCell.cellReuseIdentifier(), for: indexPath) as! TextCell
             
-            var bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
+            let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
-            if IGGlobal.shouldMultiSelect && message.type != .log {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+            if IGGlobal.shouldMultiSelect {
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
             
             cell.delegate = self
-            
             return cell
             
         } else if messageType == .image ||  messageType == .imageAndText {
@@ -4233,31 +4212,24 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4265,33 +4237,26 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             let cell: VideoCell = collectionView.dequeueReusableCell(withReuseIdentifier: VideoCell.cellReuseIdentifier(), for: indexPath) as! VideoCell
             let bubbleSize = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
-            
+           
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+           
             cell.delegate = self
             return cell
             
@@ -4301,31 +4266,24 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4335,31 +4293,25 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
+                if selectedMessages.count > 0 {
                     
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4369,30 +4321,22 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
             cell.delegate = self
             return cell
@@ -4403,31 +4347,24 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4437,31 +4374,24 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4471,31 +4401,24 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4505,31 +4428,24 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             cell.setMessage(message, room: self.room!, isIncommingMessage: isIncommingMessage,shouldShowAvatar: shouldShowAvatar,messageSizes: bubbleSize,isPreviousMessageFromSameSender: isPreviousMessageFromSameSender,isNextMessageFromSameSender: isNextMessageFromSameSender)
             
             if IGGlobal.shouldMultiSelect {
-                if selectedIndex.count > 0 {
-                    
-                    if self.selectedIndex.contains(messages![indexPath.row].id) {
-                        
+                if selectedMessages.count > 0 {
+                    let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
+                    if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
-                    }
-                    else {
+                    } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
                             cell.btnCheckMark.setTitle("", for: .normal)
-                            
                         }, completion: nil)
-                        
                     }
-                }
-                else {
+                } else {
                     if cell.btnCheckMark != nil {
                         cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
-                
             }
+            
             cell.delegate = self
             return cell
             
@@ -4634,20 +4550,18 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         return 0.0
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tmpID = (messages![indexPath.row].id)
         
+        let message = messages![indexPath.row]
         if (IGGlobal.shouldMultiSelect) {
-            if selectedIndex.contains(tmpID) {
-                let index = self.selectedIndex.firstIndex(of: tmpID)!
-                self.selectedIndex.remove(at: index)
+            if let index = self.selectedMessages.firstIndex(where: { $0.id == message.id }) {
+                self.selectedMessages.remove(at: index)
             } else {
-                self.selectedIndex.append(tmpID)
+                self.selectedMessages.append(message)
             }
             
-            if self.selectedIndex.count > 0 {
-                lblSelectedMessages.text = String(self.selectedIndex.count).inLocalizedLanguage() + " " + "SELECTED".MessageViewlocalizedNew
+            if self.selectedMessages.count > 0 {
+                lblSelectedMessages.text = String(self.selectedMessages.count).inLocalizedLanguage() + " " + "SELECTED".MessageViewlocalizedNew
                 inputBarDeleteButton.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
                 inputBarDeleteButton.isEnabled = true
             } else {
@@ -4655,7 +4569,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
                 inputBarDeleteButton.setTitleColor(UIColor.iGapGray(), for: .normal)
                 inputBarDeleteButton.isEnabled = false
             }
-            
             self.collectionView.reloadItems(at: [indexPath])
             
         } else {
@@ -5120,10 +5033,10 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func enableMultiSelect(State:Bool! , cellMessage : IGRoomMessage,isForward:Bool? = nil,isDelete:Bool?=nil,isShare:Bool?=nil) {
+    func enableMultiSelect(State: Bool! ,cellMessage: IGRoomMessage ,isForward:Bool? = nil ,isDelete:Bool? = nil ,isShare:Bool? = nil) {
         IGGlobal.shouldMultiSelect = State
-        self.selectedIndex.removeAll()
-        self.selectedIndex.append(cellMessage.id)
+        self.selectedMessages.removeAll()
+        self.selectedMessages.append(cellMessage)
         self.showMultiSelectUI(state: State,isForward:isForward,isDelete:isDelete)
     }
     
@@ -5351,18 +5264,17 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let forwardMessage = cellMessage.forwardedFrom {
-            
             var usernameType : IGPClientSearchUsernameResponse.IGPResult.IGPType = .room
             if forwardMessage.authorUser != nil {
                 usernameType = .user
             }
-            
             IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: usernameType, user: forwardMessage.authorUser, room: forwardMessage.authorRoom)
         }
     }
+    
     func didTapOnMultiForward(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
-        self.selectedIndex.removeAll()
-        self.selectedIndex.append(cellMessage.id)
+        self.selectedMessages.removeAll()
+        self.selectedMessages.append(cellMessage)
         showMultiShareModal()
     }
     
