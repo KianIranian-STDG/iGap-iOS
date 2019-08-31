@@ -54,6 +54,15 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
             self.logLabel.text = IGRoomMessage.detectPinMessage(message: message)
         } else {
             self.logLabel.text = IGRoomMessageLog.textForLogMessage(message)
+            let current : String = SMLangUtil.loadLanguage()
+            if current == "fa" {
+                self.logLabel.textAlignment = .right
+            }
+            else {
+                self.logLabel.textAlignment = .left
+                
+            }
+
         }
         self.labelBackgrondView.layer.cornerRadius = 12.0
         self.labelBackgrondView.backgroundColor = UIColor.logBackground()

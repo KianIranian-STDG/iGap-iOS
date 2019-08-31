@@ -308,7 +308,13 @@ extension UICollectionView {
         self.backgroundView = nil
     }
 }
-
+extension Range where Bound == String.Index {
+    var nsRange:NSRange {
+        return NSRange(location: self.lowerBound.encodedOffset,
+                       length: self.upperBound.encodedOffset -
+                        self.lowerBound.encodedOffset)
+    }
+}
 extension UITableView {
     func setEmptyMessage(_ message: String) {
         let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
@@ -381,7 +387,16 @@ extension UIColor {
     class func forwardBoxOutgoign() -> UIColor {
         return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
     }
+    class func iGapDarkGreenColor() -> UIColor { // navigation bar color
+        return UIColor(red:65/255.0, green:177/255.0, blue:32/255.0, alpha:1.0)
+    }
+    class func iGapLightGreenColor() -> UIColor { // navigation bar color
+        return UIColor(red:185/255.0, green:226/255.0, blue:68/255.0, alpha:1.0)
+    }
     
+    class func iGapSubmitButtons() -> UIColor { // navigation bar color
+        return UIColor(red:87/255.0, green:186/255.0, blue:38/255.0, alpha:1.0)
+    }
     class func forwardBoxTitleIncomming() -> UIColor {
         return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
     }
@@ -756,6 +771,38 @@ extension UIPanGestureRecognizer {
         let xDirection = getDirectionBy(velocity: velocity.x, greater: PanGestureDirection.Right, lower: PanGestureDirection.Left)
         return xDirection.union(yDirection)
     }
+}
+
+extension UITapGestureRecognizer {
+    
+    func didTapAttributedTextInLabel(label: UILabel, inRange targetRange: NSRange) -> Bool {
+        // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage
+        let layoutManager = NSLayoutManager()
+        let textContainer = NSTextContainer(size: CGSize.zero)
+        let textStorage = NSTextStorage(attributedString: label.attributedText!)
+        
+        // Configure layoutManager and textStorage
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // Configure textContainer
+        textContainer.lineFragmentPadding = 0.0
+        textContainer.lineBreakMode = label.lineBreakMode
+        textContainer.maximumNumberOfLines = label.numberOfLines
+        let labelSize = label.bounds.size
+        textContainer.size = labelSize
+        
+        // Find the tapped character location and compare it to the specified range
+        let locationOfTouchInLabel = self.location(in: label)
+        let textBoundingBox = layoutManager.usedRect(for: textContainer)
+        
+        let textContainerOffset = CGPoint(x: (labelSize.width - textBoundingBox.size.width) * 0.5 - textBoundingBox.origin.x, y: (labelSize.height - textBoundingBox.size.height) * 0.5 - textBoundingBox.origin.y)
+        
+        let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - textContainerOffset.x, y: locationOfTouchInLabel.y - textContainerOffset.y)
+        let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        return NSLocationInRange(indexOfCharacter, targetRange)
+    }
+    
 }
 //MARK: -
 extension Data {

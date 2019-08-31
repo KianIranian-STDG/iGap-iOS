@@ -17,12 +17,13 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
 
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var lblHeader : UILabel!
+    @IBOutlet weak var btnForgetPass : UIButton!
     var hud = MBProgressHUD()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.passwordTextField.isSecureTextEntry = true
-        
+        initView()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "AUTH_VERIFYMOBILE".localizedNew)
         navigaitonItem.rightViewContainer?.addAction {
@@ -32,6 +33,12 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
+    }
+    func initView() {
+        btnForgetPass.setTitle("FORGET_PASSWORD".localizedNew, for: .normal)
+        
+        btnForgetPass.titleLabel?.font = UIFont.igFont(ofSize: 15)
+        btnForgetPass.layer.cornerRadius = 10
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -181,4 +188,11 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
         }).send()
     }
 
+    @IBAction func didTapOnBtnForgetPass(_ sender: Any) {
+        
+    }
+    
+    
+    
+    
 }

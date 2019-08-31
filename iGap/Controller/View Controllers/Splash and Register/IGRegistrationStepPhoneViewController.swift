@@ -17,6 +17,7 @@ import IGProtoBuff
 
 class IGRegistrationStepPhoneViewController: UIViewController {
 
+    var tapCount : Int! = 1
     @IBOutlet weak var countryBackgroundView: UIView!
     @IBOutlet weak var phoneNumberBackgroundView: UIView!
     @IBOutlet weak var countryCodeBackgroundView: UIView!
@@ -24,6 +25,11 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     @IBOutlet weak var termWebLink: UILabel!
     @IBOutlet weak var termLabel: UILabel!
     @IBOutlet weak var countryNameLabel: UILabel!
+    @IBOutlet weak var btnCheckmarkPrivacy: UIButton!
+    @IBOutlet weak var btnSubmit: UIButton!
+    
+    @IBOutlet weak var lblAceptPrivacy: FRHyperLabel!
+
     @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var btnLoginQrCode: UIButton!
     
@@ -68,21 +74,79 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         }
     }
 
+    
+    private func setPrivacyAgreementLabel() {
+        self.lblAceptPrivacy.text = "PRIVACY_AGREEMENT".localizedNew
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapLabel(tap:)))
+        self.lblAceptPrivacy.addGestureRecognizer(tap)
+        self.lblAceptPrivacy.isUserInteractionEnabled = true
+        let current : String = SMLangUtil.loadLanguage()
+        if current == "fa" {
+            guard let range = self.lblAceptPrivacy.text?.range(of: "قوانین و مقررات")?.nsRange else {
+                return
+            }
+            let myMutableString = NSMutableAttributedString(string: self.lblAceptPrivacy.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
+            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
+            
+            lblAceptPrivacy.attributedText = myMutableString
+            
+        }
+        else {
+            guard let range = self.lblAceptPrivacy.text?.range(of: "terms")?.nsRange else {
+                return
+            }
+            let myMutableString = NSMutableAttributedString(string: self.lblAceptPrivacy.text!, attributes: [NSAttributedString.Key.font :UIFont.igFont(ofSize: 17)])
+            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.iGapSubmitButtons(), range: range)
+            
+            lblAceptPrivacy.attributedText = myMutableString
+            
+        }
+    }
+    @objc func tapLabel(tap: UITapGestureRecognizer) {
+        //Step 3: Add link substrings
+        
+        let current : String = SMLangUtil.loadLanguage()
+        if current == "fa" {
+            guard let range = self.lblAceptPrivacy.text?.range(of: "قوانین و مقررات")?.nsRange else {
+                return
+            }
+            
+            if tap.didTapAttributedTextInLabel(label: self.lblAceptPrivacy, inRange: range) {
+                showTerms()
+            }
+            
+        }
+        else {
+            guard let range = self.lblAceptPrivacy.text?.range(of: "terms")?.nsRange else {
+                return
+            }
+            if tap.didTapAttributedTextInLabel(label: self.lblAceptPrivacy, inRange: range) {
+                showTerms()
+            }
+            
+        }
+        
+    }
     private func setDefaultNavigationItem() {
         let navItem = self.navigationItem as! IGNavigationItem
-        navItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localizedNew, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
-        navItem.rightViewContainer?.addAction {
-            self.didTapOnNext()
-        }
+        navItem.addModalViewItems(leftItemText: nil, rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_PHONENUMBER".localizedNew)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //newUIelemnts
+        btnSubmit.setTitle("BTN_SEND_CODE".localizedNew, for: .normal)
+        btnSubmit.titleLabel?.font = UIFont.igFont(ofSize: 15)
+        btnSubmit.layer.cornerRadius = 10
+        
+        //
+        
         lblHeader.text = "TTL_PICKNUM_WITH_COUNTRYCODE".localizedNew
         countryNameLabel.text = "CHOOSE_COUNTRY".localizedNew
         btnLoginQrCode.setTitle("LOGIN_USING_QR".localizedNew, for: .normal)
         btnLoginQrCode.titleLabel?.font = UIFont.igFont(ofSize: 15)
-        
+        setPrivacyAgreementLabel()
+
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
                 self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
@@ -101,6 +165,29 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         self.view.addGestureRecognizer(tapRecognizer)
     }
 
+    //actions
+    @IBAction func checkbtnCheckmarkClicked(_ sender: Any) {
+        tapCount += 1
+        if tapCount % 2 == 0 {
+            btnCheckmarkPrivacy.setTitle("", for: .normal)
+        }
+        else {
+            btnCheckmarkPrivacy.setTitle("", for: .normal)
+            
+        }
+    }
+    @IBAction func btnSubmitTap(_ sender: Any) {
+        if tapCount % 2 == 0 {
+            
+            didTapOnSubmit()
+            
+        }
+        else {
+            let message = "MSG_PRIVACY_AGREEMENT".localizedNew
+            IGHelperAlert.shared.showAlert(message: message)
+        }
+    }
+    
     
     @objc func didTapOnBackground() {
         self.phoneNumberField.resignFirstResponder()
@@ -127,23 +214,6 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         countryCodeBackgroundView.layer.masksToBounds = true
         countryCodeBackgroundView.layer.borderWidth = 1.0
         countryCodeBackgroundView.layer.borderColor = UIColor.organizationalColor().cgColor
-        
-        
-        let terms1 = NSMutableAttributedString(string: "BY_SIGNING_AGREEMENT".localizedNew,
-                                               attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor(red: 114/255.0, green: 114/255.0, blue: 114/255.0, alpha: 1.0)]))
-        let terms2 = NSAttributedString(string: "TERMS_OF_SERVICE".localizedNew,
-                                        attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
-        terms1.append(terms2)
-        termLabel.attributedText = terms1
-        let tapOnTerms = UITapGestureRecognizer(target: self, action: #selector(showTerms))
-        termLabel.addGestureRecognizer(tapOnTerms)
-        termLabel.isUserInteractionEnabled = true
-        
-        let termsWebLink = NSAttributedString(string: "SETTING_PS_TTL_PRIVACY".localizedNew, attributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): UIColor.organizationalColor()]))
-        termWebLink.attributedText = termsWebLink
-        let tapOnTermsWebLink = UITapGestureRecognizer(target: self, action: #selector(showTermsWebLink))
-        termWebLink.addGestureRecognizer(tapOnTermsWebLink)
-        termWebLink.isUserInteractionEnabled = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -166,7 +236,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
     
     
-    func didTapOnNext() {
+    func didTapOnSubmit() {
         if connectionStatus == .waitingForNetwork || connectionStatus == .connecting {
             let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
@@ -293,7 +363,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         performSegue(withIdentifier: "showCountryCell", sender: self) //presentConutries
     }
     
-    @objc func showTerms() {
+    func showTerms() {
         performSegue(withIdentifier: "presentTerms", sender: self)
     }
     

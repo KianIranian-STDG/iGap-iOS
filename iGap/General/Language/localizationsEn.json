@@ -10,7 +10,11 @@
         "ENTER_RECIEVER_CODE" : "Enter Reciever Code",
         "ENTER_CODE" : "Enter Code",
         "PAIED_TO_LBL" : "Paied To :",
-        
+        "BTN_SEND_CODE" : "Send Code",
+        "PRIVACY_AGREEMENT" : "Agree to the terms of service",
+        "MSG_PRIVACY_AGREEMENT" : "Registration is forbidden ,please accept the terms of use first!",
+        "WELCOME_TO_IGAP" : "Welcome To iGap",
+
         "history.sale.share" : "Share of Sales",
         
         

@@ -488,6 +488,7 @@
         "MSG_INVALID_PASS" : "رمز عبور اشتباه",
         "MSG_INTERNAL_SERVER_ERROR" : "خطای داخلی سرور",
         
+        "MSG_SECURITY_QUESTIONS" : "شما فراموشی رمز دوم را انتخاب نموده اید.برای ورود به نرم افزار لطفا به دو سوال زیر پاسخ دهید.پس از ورود رمز دوم شما غیر فعال میگردد و نیاز به فعال سازی مجدد خواهد داشت",
         "FORGET_PASSWORD" : "فراموشی رمز عبور",
         "MSG_FORGET_PASSWORD" : "مایل به استفاده از کدام یک از روش های زیر برای تغییر رمز عبور خود هستید؟",
         "RECOVERY_QUESTIONS" : "سوال های امنیتی",
@@ -1406,6 +1407,8 @@
         "MSG_INTERNAL_SERVER_ERROR" : "Internal server Error",
         "FORGET_PASSWORD" : "Forget Password",
         "MSG_FORGET_PASSWORD" : "Which option do you want to use to change your password?",
+        "MSG_SECURITY_QUESTIONS" : "You have selected Forget Password,in order to continue please answer to your scurity questions,after successfully login to app your two step verification will be disabled",
+
         "RECOVERY_QUESTIONS" : "Recovery Questions",
         "RECOVER_PASS" : "Recover Password",
         "TRANSFER_MONEY" : "Transfer Money",

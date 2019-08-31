@@ -98,7 +98,7 @@ public class IGFile: Object {
     
     
     //properties
-    //@objc dynamic var primaryKeyId:       String? //DEPRECATED   //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
+    @objc dynamic var primaryKeyId:       String?   //if incomming { primaryKeyId = cacheId } else { primaryKeyId = rand}
     @objc dynamic var cacheID:            String?   //set by server
     @objc dynamic var token:              String?
     @objc dynamic var publicUrl:          String?

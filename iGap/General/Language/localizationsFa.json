@@ -13,7 +13,11 @@
         "WALLET_PAY_LBL3" : "مبلغ قابل پرداخت(ریال) :",
         "WALLET_PAY_LBL1" : "مبلغ تخفیف(ریال) :",
         "WALLET_PAY_LBL0" : "مبلغ کل(ریال) :",
-        
+        "BTN_SEND_CODE" : "ارسال کد",
+        "PRIVACY_AGREEMENT" : "قوانین و مقررات را می پذیرم",
+        "MSG_PRIVACY_AGREEMENT" : "در صورت عدم تایید قوانین و مقررات امکان شروع فرایند ثبت نام وجود ندارد.",
+        "WELCOME_TO_IGAP" : "به آیگپ خوش آمدید",
+
         
         
         "NEW_MESSAGES" : "پیام جدید",

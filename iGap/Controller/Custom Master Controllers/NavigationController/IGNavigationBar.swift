@@ -16,8 +16,8 @@ class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
         super.awakeFromNib()
         self.tintColor = UIColor.white
         self.isTranslucent = false
-        self.barTintColor = UIColor.iGapBars()
-        self.layer.shadowColor = UIColor.darkGray.cgColor
+        self.barTintColor = UIColor.white
+        self.layer.shadowColor = UIColor.clear.cgColor
         self.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         self.layer.shadowRadius = 4.0
         self.layer.shadowOpacity = 0.35

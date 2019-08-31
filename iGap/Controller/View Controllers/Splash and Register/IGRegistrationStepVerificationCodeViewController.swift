@@ -15,8 +15,9 @@ import MBProgressHUD
 
 class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGestureRecognizerDelegate {
 
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var countdownTimer: IGCountdownTimer!
     @IBOutlet weak var codeTextField: UITextField!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var retrySendingCodeLabel: UILabel!
     var canRequestNewCode = false
     var phone : String?
@@ -35,6 +36,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initTimer()
         codeTextField.delegate = self
         
         delayTime = delayBeforeSendingAgaing
@@ -51,9 +53,18 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.codeTextField.becomeFirstResponder()
+//        self.codeTextField.becomeFirstResponder()
         setTitleText(verificationMethod: verificationMethod!)
         updateCountDown()
+    }
+    func initTimer() {
+        
+        countdownTimer.labelFont = UIFont.igFont(ofSize: 30)
+        countdownTimer.labelTextColor = UIColor.iGapSubmitButtons()
+        countdownTimer.timerFinishingText = "00"
+        countdownTimer.lineWidth = 4
+        countdownTimer.lineColor = UIColor.iGapSubmitButtons()
+        countdownTimer.start(beginingValue: 59, interval: 1)
     }
 
     private func setTitleText(verificationMethod: IGVerificationCodeSendMethod){
@@ -106,9 +117,9 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
             let remainingSeconds = self.delayBeforeSendingAgaing!%60
             let remainingMiuntes = self.delayBeforeSendingAgaing!/60
             if remainingSeconds < 10 {
-                retrySendingCodeLabel.text = "\(fixedText) \(remainingMiuntes):0\(remainingSeconds)".inLocalizedLanguage()
+                retrySendingCodeLabel.text = "\(fixedText)"
             } else {
-                retrySendingCodeLabel.text = "\(fixedText) \(remainingMiuntes):\(remainingSeconds)".inLocalizedLanguage()
+                retrySendingCodeLabel.text = "\(fixedText)"
             }
             self.perform(#selector(IGRegistrationStepVerificationCodeViewController.updateCountDown), with: nil, afterDelay: 1.0)
         } else {
@@ -148,8 +159,11 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
     }
     
     func getRegisterToken(preferenceMethod: IGPUserRegister.IGPPreferenceMethod?){
+        
         delayBeforeSendingAgaing = delayTime
         updateCountDown()
+        initTimer()
+
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
         let phoneSpaceLess = phone?.replacingOccurrences(of: " ", with: "")
@@ -322,7 +336,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
                     if self.isUserNew! {
                         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_REGISTRATION_NEW_USER)
                         self.hud.hide(animated: true)
-                        self.performSegue(withIdentifier: "showYourProfile", sender: self)
+                        self.performSegue(withIdentifier: "showWelcom", sender: self)
                     } else {
                         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_REGISTRATION_USER)
                         IGUserInfoRequest.Generator.generate(userID: IGAppManager.sharedManager.userID()!).success({ (protoResponse) in
