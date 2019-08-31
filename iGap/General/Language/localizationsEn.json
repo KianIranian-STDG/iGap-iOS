@@ -14,6 +14,9 @@
         "PRIVACY_AGREEMENT" : "Agree to the terms of service",
         "MSG_PRIVACY_AGREEMENT" : "Registration is forbidden ,please accept the terms of use first!",
         "WELCOME_TO_IGAP" : "Welcome To iGap",
+        "NOTIFICATION_SOUNDS" : "Notifications and Sounds",
+        "DATA_STORAGE" : "Data and Storage",
+        "CHAT_SETTINGS" : "Chat Settings",
 
         "history.sale.share" : "Share of Sales",
         

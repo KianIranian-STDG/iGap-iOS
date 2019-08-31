@@ -67,6 +67,9 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewWillAppear(_ animated: Bool) {
         IGDashboardViewController.discoveryObserver = self
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.navigationBar.isHidden = false
+
         initNavigationBar()
         collectionView.reloadData()
     }

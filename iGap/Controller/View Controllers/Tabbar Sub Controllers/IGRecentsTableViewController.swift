@@ -113,12 +113,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
  
             
-            IGGlobal.setLanguage()
+//            IGGlobal.setLanguage()
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
 
 
             if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                IGGlobal.setLanguage()
+//                IGGlobal.setLanguage()
 
                 if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
                     let centeredParagraphStyle = NSMutableParagraphStyle()
@@ -409,12 +409,12 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 }
                 
                 
-                IGGlobal.setLanguage()
+//                IGGlobal.setLanguage()
                 self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
                 
                 
                 if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                    IGGlobal.setLanguage()
+//                    IGGlobal.setLanguage()
                     
                     if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
                         let centeredParagraphStyle = NSMutableParagraphStyle()

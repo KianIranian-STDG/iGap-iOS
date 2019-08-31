@@ -39,7 +39,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
         
     }
     func initView() {
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
         
         lblHeader.text = IGStringsManager.RGP_MSG_SECURITYHEADER
         lblSecQOne.text = IGStringsManager.RGP_SECURITYQUESTION_ONE + "\n" + secQOne
@@ -75,7 +75,7 @@ class IGRegisttrationStepSecurityQuestions: UIViewController,UIGestureRecognizer
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
     }
     
     //actions

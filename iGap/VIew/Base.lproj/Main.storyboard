@@ -1210,13 +1210,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hI3-wW-ErK">
-                                                <rect key="frame" x="0.0" y="91" width="16" height="38"/>
+                                                <rect key="frame" x="0.0" y="91" width="38" height="38"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-z5-1z0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="16" height="38"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Ic-xrU">
-                                                                <rect key="frame" x="0.0" y="8" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Attachment"/>
                                                                 <connections>
                                                                     <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="dhv-wQ-8FF"/>
@@ -1271,11 +1271,11 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Ym-D0e">
-                                                                <rect key="frame" x="54" y="8" width="16" height="22"/>
+                                                                <rect key="frame" x="32" y="0.0" width="38" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Record"/>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
-                                                                <rect key="frame" x="70" y="8" width="0.0" height="22"/>
+                                                                <rect key="frame" x="70" y="0.0" width="0.0" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Send"/>
                                                                 <connections>
                                                                     <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="Xid-u6-pzI"/>
@@ -1302,7 +1302,7 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agE-XC-sCP" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                <rect key="frame" x="25" y="100" width="310" height="20"/>
+                                                <rect key="frame" x="47" y="100" width="288" height="20"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="i0G-sC-VLl"/>
@@ -1437,7 +1437,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
-                                        <rect key="frame" x="19" y="33.666666666666671" width="335" height="16.333333333333329"/>
+                                        <rect key="frame" x="19" y="28" width="335" height="22"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1915,7 +1915,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="SgF-KW-kA9">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="SgF-KW-kA9">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2088,12 +2088,51 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ljm-F7-5Wo">
+                                                    <rect key="frame" x="38" y="13" width="338" height="58"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfs-zJ-83G">
+                                                            <rect key="frame" x="0.0" y="5" width="49.666666666666664" height="48"/>
+                                                            <state key="normal" title=" "/>
+                                                            <connections>
+                                                                <action selector="didTapOnGoToCloud:" destination="z3s-7I-oQt" eventType="touchUpInside" id="JrY-3Y-iv9"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8A-Hl-Gai">
+                                                            <rect key="frame" x="141" y="4.6666666666666679" width="62.333333333333343" height="48.666666666666657"/>
+                                                            <state key="normal" title=" "/>
+                                                            <connections>
+                                                                <action selector="didTapOnGoToSettings:" destination="z3s-7I-oQt" eventType="touchUpInside" id="q1M-m3-ZSv"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zT-ur-cK8">
+                                                            <rect key="frame" x="300.33333333333331" y="5" width="37.666666666666686" height="48"/>
+                                                            <state key="normal" title=" "/>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="J8A-Hl-Gai" firstAttribute="top" secondItem="EQ9-KB-ujf" secondAttribute="top" id="3Iz-W0-99x"/>
+                                                <constraint firstItem="ljm-F7-5Wo" firstAttribute="bottom" secondItem="dN7-hd-Cmk" secondAttribute="bottom" id="5oz-US-ewN"/>
+                                                <constraint firstItem="J8A-Hl-Gai" firstAttribute="leading" secondItem="EQ9-KB-ujf" secondAttribute="leading" id="5uB-by-vBV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="dN7-hd-Cmk" secondAttribute="bottom" constant="2" id="Csa-A3-KHB"/>
+                                                <constraint firstItem="rfs-zJ-83G" firstAttribute="bottom" secondItem="O0g-YN-wJ7" secondAttribute="bottom" id="Hgt-Zz-o9l"/>
+                                                <constraint firstItem="8zT-ur-cK8" firstAttribute="top" secondItem="VXT-3C-7uf" secondAttribute="top" id="KDM-WV-osW"/>
+                                                <constraint firstItem="rfs-zJ-83G" firstAttribute="top" secondItem="O0g-YN-wJ7" secondAttribute="top" id="KpH-ud-GBx"/>
+                                                <constraint firstItem="ljm-F7-5Wo" firstAttribute="leading" secondItem="dN7-hd-Cmk" secondAttribute="leading" id="MAV-RP-FRV"/>
+                                                <constraint firstItem="ljm-F7-5Wo" firstAttribute="top" secondItem="dN7-hd-Cmk" secondAttribute="top" id="MEb-ZY-QWs"/>
                                                 <constraint firstItem="dN7-hd-Cmk" firstAttribute="top" secondItem="jiq-Hn-QNw" secondAttribute="topMargin" constant="2" id="NJO-XY-Ip3"/>
+                                                <constraint firstItem="J8A-Hl-Gai" firstAttribute="bottom" secondItem="EQ9-KB-ujf" secondAttribute="bottom" id="REx-S8-w74"/>
+                                                <constraint firstItem="8zT-ur-cK8" firstAttribute="trailing" secondItem="VXT-3C-7uf" secondAttribute="trailing" id="TuU-Uf-hft"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="dN7-hd-Cmk" secondAttribute="trailing" constant="18" id="UdK-0A-MPP"/>
+                                                <constraint firstItem="8zT-ur-cK8" firstAttribute="leading" secondItem="VXT-3C-7uf" secondAttribute="leading" id="UkO-iG-Qve"/>
+                                                <constraint firstItem="8zT-ur-cK8" firstAttribute="bottom" secondItem="VXT-3C-7uf" secondAttribute="bottom" id="Ukq-vM-xN6"/>
                                                 <constraint firstItem="dN7-hd-Cmk" firstAttribute="leading" secondItem="jiq-Hn-QNw" secondAttribute="leadingMargin" constant="18" id="VJn-xf-XL6"/>
+                                                <constraint firstItem="rfs-zJ-83G" firstAttribute="trailing" secondItem="O0g-YN-wJ7" secondAttribute="trailing" id="cBD-vg-Msa"/>
+                                                <constraint firstItem="rfs-zJ-83G" firstAttribute="leading" secondItem="O0g-YN-wJ7" secondAttribute="leading" id="fdS-Jb-Soe"/>
+                                                <constraint firstItem="J8A-Hl-Gai" firstAttribute="trailing" secondItem="EQ9-KB-ujf" secondAttribute="trailing" id="iCK-WW-lLy"/>
+                                                <constraint firstItem="ljm-F7-5Wo" firstAttribute="trailing" secondItem="dN7-hd-Cmk" secondAttribute="trailing" id="zal-op-qpS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -2660,6 +2699,7 @@
                         <outlet property="tfUserName" destination="QRS-UM-COt" id="UXl-GA-3ux"/>
                         <outlet property="userAvatarView" destination="bZo-xK-ego" id="mPA-KD-iDQ"/>
                         <outlet property="viewBackgroundImage" destination="xXc-X5-txr" id="r48-3u-9Cb"/>
+                        <segue destination="g6w-HL-WeX" kind="show" identifier="showSettings" id="cY3-sJ-crS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qW2-kK-2eA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2715,7 +2755,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jmi-py-TXW">
-                                    <rect key="frame" x="60" y="20" width="90" height="30"/>
+                                    <rect key="frame" x="60" y="17" width="93" height="36"/>
                                     <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
                                     <state key="normal" title="Invite Friends">
                                         <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3027,6 +3067,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i5b-6C-fLS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="8943.4782608695659" y="-865.76086956521749"/>
+        </scene>
+        <!--IGSettingStoryboard-->
+        <scene sceneID="K0B-wD-snd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="IGSettingStoryboard" id="g6w-HL-WeX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wam-Fr-8EX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2690" y="-863"/>
         </scene>
     </scenes>
     <resources>

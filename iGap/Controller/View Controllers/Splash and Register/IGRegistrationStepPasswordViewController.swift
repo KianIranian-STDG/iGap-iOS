@@ -55,7 +55,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
         self.passwordTextField.becomeFirstResponder()
         print(SMLangUtil.currentAppleLanguage())
 
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
 
         print(SMLangUtil.currentAppleLanguage())
 
@@ -86,7 +86,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                            
                             print(SMLangUtil.currentAppleLanguage())
                             
-                            IGGlobal.setLanguage()
+//                            IGGlobal.setLanguage()
                             
                             print(SMLangUtil.currentAppleLanguage())
 
@@ -95,12 +95,12 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                         } else {
                             print(SMLangUtil.currentAppleLanguage())
                             
-                            IGGlobal.setLanguage()
+//                            IGGlobal.setLanguage()
                             
                             print(SMLangUtil.currentAppleLanguage())
                             print(self.recoverTypeArray)
 
-                            IGGlobal.setLanguage()
+//                            IGGlobal.setLanguage()
 
                             self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS)
                             print(self.recoverTypeArray)
@@ -246,7 +246,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
         
         print(SMLangUtil.currentAppleLanguage())
         
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
         
         print(SMLangUtil.currentAppleLanguage())
 

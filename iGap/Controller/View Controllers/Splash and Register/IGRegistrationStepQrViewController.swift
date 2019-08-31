@@ -22,7 +22,7 @@ class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognize
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
 
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "LOGIN_USING_QR".localizedNew)
@@ -47,7 +47,7 @@ class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognize
                 
                 self.loginUser(token: token)
             }
-            IGGlobal.setLanguage()
+//            IGGlobal.setLanguage()
 
         }
         
@@ -67,7 +67,7 @@ class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognize
             }
             
         }
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
 
     }
     
@@ -76,7 +76,7 @@ class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognize
         lblHEader.text = "SHOW_AND_LOGIN_USING_QR".localizedNew
 
         getNewQrCode()
-        IGGlobal.setLanguage()
+//        IGGlobal.setLanguage()
 
     }
     
@@ -98,7 +98,7 @@ class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognize
                     break
                 }
             }
-            IGGlobal.setLanguage()
+//            IGGlobal.setLanguage()
 
         }).error( { (errorCode, waitTime) in
             switch errorCode {

@@ -28,7 +28,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     var isEditMode = false
     var tapCount = 0
     fileprivate let searchController = UISearchController(searchResultsController: nil)
-
+    private var goToSettings : Bool! = false
     @IBOutlet weak var stack0: UIStackView!
     @IBOutlet weak var stack1: UIStackView!
     @IBOutlet weak var stack3: UIStackView!
@@ -107,6 +107,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.navigationBar.isHidden = true
+        navigationControllerr.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationControllerr.navigationBar.isTranslucent = true
+
         IGRequestWalletGetAccessToken.sendRequest()
 
     }
@@ -138,12 +144,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 }
                 
                 
-                IGGlobal.setLanguage()
+//                IGGlobal.setLanguage()
                 self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
                 
                 
                 if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                    IGGlobal.setLanguage()
+//                    IGGlobal.setLanguage()
                     
                     if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
                         let centeredParagraphStyle = NSMutableParagraphStyle()
@@ -205,8 +211,16 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
-
-        navigationControllerr.navigationBar.isHidden = false
+        //MARK: - check if tab is changed or not if changed it will show the navbar ,if not it depends on the destination
+        if currentTabIndex == 4 {
+            if goToSettings {
+                navigationControllerr.navigationBar.isHidden = true
+            } else {
+                navigationControllerr.navigationBar.isHidden = false
+            }
+        } else {
+            navigationControllerr.navigationBar.isHidden = false
+        }
 
         
     }
@@ -393,8 +407,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         
     }
     @objc func handleTapSettings(recognizer:UITapGestureRecognizer) {
-        
-        self.performSegue(withIdentifier: "showSettings", sender: self)
         
         
     }
@@ -599,13 +611,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var offset = scrollView.contentOffset.y
-//        if(offset > -UIApplication.shared.statusBarFrame.height){
-//            colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
-//
-//
-//        }else{
-//            colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
-//        }
+
         if offset < 0 {
             scrollView.contentOffset.y = 0
 
@@ -614,6 +620,42 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
 
     }
+    //MARK: - Go To Setting Action Handler
+    @IBAction func didTapOnGoToSettings(_ sender: Any) {
+        goToSettings = true
+        self.performSegue(withIdentifier: "showSettings", sender: self)
+    }
+    //MARK: - Go To Cloud Action Handler
+    @IBAction func didTapOnGoToCloud(_ sender: Any) {
+        goToSettings = false
+
+        if let userId = IGAppManager.sharedManager.userID() {
+            IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                        let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                        //segue to created chat
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
+                                                        object: nil,
+                                                        userInfo: ["room": roomId])
+                        break
+                    default:
+                        break
+                    }
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    let alertC = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "UNSSUCCESS_OTP".localizedNew, preferredStyle: .alert)
+                    
+                    let cancel = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alertC.addAction(cancel)
+                    self.present(alertC, animated: true, completion: nil)
+                }
+            }).send()
+        }
+    }
+
     @IBAction func btnEditProfileTapped(_ sender: Any) {
         print(tapCount)
         tapCount += 1
