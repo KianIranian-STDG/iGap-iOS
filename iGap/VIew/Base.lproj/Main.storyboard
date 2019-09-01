@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="21o-NC-Yxl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1967" y="-2025"/>
+            <point key="canvasLocation" x="-887" y="-2675"/>
         </scene>
         <!--Message Attachment Location-->
         <scene sceneID="7xR-b8-gp0">
@@ -656,7 +656,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="center" searchBarStyle="minimal" placeholder="start your search with tap on view" id="VL4-ST-kOS">
+                        <searchBar key="tableHeaderView" contentMode="center" misplaced="YES" searchBarStyle="minimal" placeholder="start your search with tap on view" id="VL4-ST-kOS">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -705,7 +705,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3hZ-9r-pPP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1091" y="-2024"/>
+            <point key="canvasLocation" x="-1764" y="-2675"/>
         </scene>
         <!--IGSettingStoryboard-->
         <scene sceneID="R9h-NJ-HBs">
@@ -1690,7 +1690,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lET-3R-lG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="274" y="-2013"/>
+            <point key="canvasLocation" x="-2580" y="-2664"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DIf-Cp-KnE">
@@ -1709,7 +1709,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3OS-QX-0uN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-889" y="-2013"/>
+            <point key="canvasLocation" x="-3744" y="-2664"/>
         </scene>
         <!--Call-->
         <scene sceneID="koA-SO-dk7">
@@ -2137,13 +2137,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VG0-TK-cwp">
-                                                <rect key="frame" x="0.0" y="91" width="16" height="38"/>
+                                                <rect key="frame" x="0.0" y="91" width="38" height="38"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GWq-gj-0A1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="16" height="38"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggj-dl-pRf">
-                                                                <rect key="frame" x="0.0" y="8" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Attachment"/>
                                                                 <connections>
                                                                     <action selector="didTapOnAddAttachmentButton:" destination="Qnr-6r-juW" eventType="touchUpInside" id="v8V-Xt-PDF"/>
@@ -2198,11 +2198,11 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aru-gk-EiE">
-                                                                <rect key="frame" x="54" y="8" width="16" height="22"/>
+                                                                <rect key="frame" x="32" y="0.0" width="38" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Record"/>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uc3-Pp-j23">
-                                                                <rect key="frame" x="70" y="8" width="0.0" height="22"/>
+                                                                <rect key="frame" x="70" y="0.0" width="0.0" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Send"/>
                                                                 <connections>
                                                                     <action selector="didTapOnSendButton:" destination="Qnr-6r-juW" eventType="touchUpInside" id="a1G-Be-78I"/>
@@ -2229,7 +2229,7 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2dj-Y4-jXM" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                <rect key="frame" x="25" y="100" width="216" height="20"/>
+                                                <rect key="frame" x="47" y="100" width="194" height="20"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="WuU-QQ-7ez"/>

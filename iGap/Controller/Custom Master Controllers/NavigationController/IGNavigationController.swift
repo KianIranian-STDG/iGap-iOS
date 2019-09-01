@@ -10,18 +10,23 @@
 
 import UIKit
 import SnapKit
+var isActive = true
+var searchBarRecent = UISearchBar()
 
-class IGNavigationController: UINavigationController, UINavigationBarDelegate {
+
+class IGNavigationController: UINavigationController, UINavigationBarDelegate,UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
-//        configNavigationBar()
-
+        self.hideKeyboardWhenTappedAround()
+        searchBarRecent.endEditing(true)
+        
+        configNavigationBar()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        searchBarRecent.endEditing(true)
         
     }
     override func viewDidLayoutSubviews() {
@@ -33,6 +38,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+            addSearchBar(state: "True")
             return super.popViewController(animated: animated)
 
         }
@@ -69,8 +75,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
     }()
     lazy var searchViewNavBar = { () -> UIView in
         let view = UIView()
-        view.isUserInteractionEnabled = true
-        
+        view.isUserInteractionEnabled = false
         
         view.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner,.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
         
@@ -78,6 +83,12 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         return view
     }()
 
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.hideKeyboardWhenTappedAround()
+        searchBarRecent.endEditing(true)
+        
+    }
     
     func changeGradientImage() {
         // 1 status bar
@@ -97,25 +108,97 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         
         searchViewNavBar.backgroundColor = .red
         self.navigationBar.insertSubview(colorViewNavBar, at: 1)
+        if isActive {
+            addSearchBar(state: "True")
+            isActive = false
+        }
+
     }
 
-    public func addSearchBar(state : Bool) {
-        if state {
-            self.colorViewNavBar.addSubview(searchViewNavBar)
-            searchViewNavBar.snp.makeConstraints { (make) in
-                make.width.equalTo(self.navigationBar.frame.size.width - 100)
-                make.height.equalTo(self.navigationBar.frame.size.height / 2)
+
+    public func addSearchBar(state : String) {
+        
+        if state == "True" {
+            searchBarRecent.barStyle = .default
+            searchBarRecent.isTranslucent = false
+            searchBarRecent.barTintColor = UIColor.clear
+            searchBarRecent.backgroundImage = UIImage()
+            searchBarRecent.delegate = self
+            searchBarRecent.change(textFont: UIFont.igFont(ofSize: 15))
+            let textFieldInsideUISearchBar = searchBarRecent.value(forKey: "searchField") as? UITextField
+            
+            let textFieldInsideUISearchBarLabel = textFieldInsideUISearchBar!.value(forKey: "placeholderLabel") as? UILabel
+            textFieldInsideUISearchBarLabel?.font = UIFont.igFont(ofSize: 15)
+            
+            print(searchBarRecent.frame.size.height)
+            self.navigationBar.addSubview(searchBarRecent)
+            searchBarRecent.snp.makeConstraints { (make) in
+                make.width.equalTo(self.navigationBar.frame.size.width - 100 )
+                make.height.equalTo(20)
                 make.centerX.equalTo(self.navigationBar.snp.centerX)
                 make.centerY.equalTo(self.navigationBar.snp.bottom)
             }
+            
+            for subView in searchBarRecent.subviews  {
+                for subsubView in subView.subviews  {
+                    if let textField = subsubView as? UITextField {
+                        var bounds: CGRect
+                        textField.attributedPlaceholder =  NSAttributedString(string:NSLocalizedString("PLACE_HOLDER_SEARCH".localizedNew, comment:""),attributes:[NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)])
+                        
+                        bounds = textField.frame
+                        bounds.size.height = 10 //(set height whatever you want)
+                        textField.bounds = bounds
+                        textField.textAlignment = .center
+                        textField.font = UIFont.igFont(ofSize: 15)
+                        if SMLangUtil.loadLanguage() == "fa" {
+                            textField.semanticContentAttribute = .forceRightToLeft
+                        }
+                        else {
+                            textField.semanticContentAttribute = .forceLeftToRight
+                            
+                        }
+                        textField.borderStyle = UITextField.BorderStyle.roundedRect
+                        textField.backgroundColor = UIColor.clear
+                        textField.font = UIFont.systemFont(ofSize: 10)
+                    }
+                }
+            }
+            
+            
+            let image = self.getImageWithColor(color: UIColor.white, size: CGSize(width: 20, height: 20))
+            searchBarRecent.setSearchFieldBackgroundImage(image, for: .normal)
+            
+        }
+        else if state == "False" {
+            searchBarRecent.removeFromSuperview()
         }
         else {
             
-            self.searchViewNavBar.removeFromSuperview()
         }
         
     }
+    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 5.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        path.fill()
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
     
+    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
+        // handling code
+        print("TAPPED ON VIEW")
+    }
+    
+    func addsearchBarToSearchView(state: Bool) {
+        if state {
+        }
+    }
+    
+
     func configNavigationBar() {
         navigationBar.barStyle = .default
         navigationBar.shadowImage = UIImage()

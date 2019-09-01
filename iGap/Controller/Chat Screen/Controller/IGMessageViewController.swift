@@ -1563,6 +1563,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.addSearchBar(state: "False")
+
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
         setupNotifications()
@@ -1633,6 +1636,17 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        let numberOfPages = self.navigationController!.viewControllers.count
+        if numberOfPages == 1 {
+            navigationControllerr.addSearchBar(state: "True")
+        }
+        else {
+            navigationControllerr.addSearchBar(state: "False")
+        }
+
         currentRoomId = 0
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false

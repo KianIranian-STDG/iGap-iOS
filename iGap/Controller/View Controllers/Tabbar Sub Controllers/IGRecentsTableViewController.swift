@@ -51,13 +51,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     var cellId = "cellId"
     
-    @IBOutlet weak var searchBar: UISearchBar! {
-        didSet {
-            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
-            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-            
-        }
-    }
+//    @IBOutlet weak var searchBar: UISearchBar! {
+//        didSet {
+//            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
+//            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+//
+//        }
+//    }
     private let disposeBag = DisposeBag()
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
@@ -229,7 +229,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
-        searchBar.delegate = self
+//        searchBar.delegate = self
         self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
         
         
@@ -320,16 +320,16 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         isfromPacket = false
         
-        searchBar.placeholder = "PLACE_HOLDER_SEARCH".RecentTableViewlocalizedNew
-        if SMLangUtil.loadLanguage() == "fa" {
-            searchBar.semanticContentAttribute = .forceRightToLeft
-            
-        }
-        else {
-            searchBar.semanticContentAttribute = .forceLeftToRight
-            
-        }
-        
+////        searchBar.placeholder = "PLACE_HOLDER_SEARCH".RecentTableViewlocalizedNew
+//        if SMLangUtil.loadLanguage() == "fa" {
+////            searchBar.semanticContentAttribute = .forceRightToLeft
+//
+//        }
+//        else {
+////            searchBar.semanticContentAttribute = .forceLeftToRight
+//
+//        }
+
         
         DispatchQueue.main.async {
             if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
@@ -841,9 +841,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             let rooms = realm.objects(IGRoom.self).filter("isParticipant = 1 AND muteRoom = %d", IGRoom.IGRoomMute.unmute.rawValue)
             unreadCount = rooms.sum(ofProperty: "unreadCount")
             if unreadCount == 0 {
-                self.tabBarController?.tabBar.items?[0].badgeValue = nil
+                self.tabBarController?.tabBar.items?[2].badgeValue = nil
             } else {
-                self.tabBarController?.tabBar.items?[0].badgeValue = "\(unreadCount)"
+                self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
             }
             
         } catch let error as NSError {
@@ -1495,7 +1495,7 @@ extension IGRecentsTableViewController: UISearchBarDelegate{
         
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
-        self.searchBar.hero.id = "searchBar"
+//        self.searchBar.hero.id = "searchBar"
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .fade
         self.hero.replaceViewController(with: lookAndFind)

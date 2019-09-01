@@ -13,62 +13,136 @@ import UIKit
 class IGTabBarController: UITabBarController {
     
     enum CurrentTab {
+        case Contact
+        case Call
         case Recent
         case Dashboard
-        case Call
+        case Profile
+
     }
     
     internal static var currentTabStatic: CurrentTab = .Recent
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.barTintColor = UIColor.iGapBars()
+
+        initView()
+        
+    }
+    private func initView() {
+        
+        UITabBar.appearance().backgroundImage = UIImage.colorForNavBar(color: .white)
+        UITabBar.appearance().shadowImage = UIImage.colorForNavBar(color: .clear)
+        self.tabBar.barTintColor = UIColor.white
+        self.tabBar.layer.cornerRadius = 10
+        setTabBarItems()
+        self.selectedIndex = 2
+        let view = UIView()
+        view.backgroundColor = .white
+        view.frame = self.tabBar.bounds
+        view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        self.tabBar.insertSubview(view, at: 0)
+        let navigationControllerr = self.navigationController as! IGNavigationController
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        selectedItemTitleMustbeBold()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        selectedItemTitleMustbeBold()
+        for item in tabBar.items!{
+            if #available(iOS 10.0, *) {
+                item.badgeColor = UIColor.unreadLable()
+            }
+        }
+
     }
     
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print(item)
-        print(UIView.appearance().semanticContentAttribute.rawValue)
-        print(UITableView.appearance().semanticContentAttribute.rawValue)
-        print(UICollectionView.appearance().semanticContentAttribute.rawValue)
-
-        if (tabBar.selectedItem?.tag)! == 1 {
-            
-            print(UIView.appearance().semanticContentAttribute.rawValue)
-            print(UITableView.appearance().semanticContentAttribute.rawValue)
-            print(UICollectionView.appearance().semanticContentAttribute.rawValue)
-
-        }
-        selectedItemTitleMustbeBold()
-    }
-    
-    func selectedItemTitleMustbeBold(){
+        print("ITEMSELECTED", item.tag)
         
         for item in tabBar.items!{
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()
             }
-            if tabBar.selectedItem == item {
-                setCurrentTab(tag: (tabBar.selectedItem?.tag)!)
-                let selectedTitleFont = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.bold)
-                item.setTitleTextAttributes([NSAttributedString.Key.font: selectedTitleFont], for: UIControl.State.normal)
-            } else {
-                let normalTitleFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.medium)
-                item.setTitleTextAttributes([NSAttributedString.Key.font: normalTitleFont], for: UIControl.State.normal)
-            }
-            if #available(iOS 10.0, *) {
-                self.tabBar.unselectedItemTintColor = UIColor.tabbarUnselectedColor()
-            }
         }
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        
+        switch item.tag {
+        case 0:
+            navigationControllerr.addSearchBar(state: "False")
+            
+            break
+        case 1:
+            navigationControllerr.addSearchBar(state: "False")
+            
+            break
+        case 2:
+            navigationControllerr.addSearchBar(state: "True")
+            
+            break
+        case 3:
+            navigationControllerr.addSearchBar(state: "False")
+            
+            break
+        case 4:
+            navigationControllerr.addSearchBar(state: "False")
+            
+            break
+        default:
+            break
+        }
+        
+        //        selectedItemTitleMustbeBold()
     }
+    
+    func setTabBarItems() {
+        let myTabBarItem1 = (self.tabBar.items?[0])! as UITabBarItem
+        myTabBarItem1.image = UIImage(named: "IG-TabBar-PhoneBook")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem1.selectedImage = UIImage(named: "IG-TabBar-PhoneBook-Selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem1.title = ""
+        myTabBarItem1.tag = 0
+        myTabBarItem1.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+        
+        let myTabBarItem2 = (self.tabBar.items?[1])! as UITabBarItem
+        myTabBarItem2.image = UIImage(named: "IG-TabBar-Call")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem2.selectedImage = UIImage(named: "IG-TabBar-Call-Selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem2.title = ""
+        myTabBarItem2.tag = 1
+        myTabBarItem2.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+        
+        let myTabBarItem3 = (self.tabBar.items?[2])! as UITabBarItem
+        myTabBarItem3.image = UIImage(named: "IG-TabBar-Recent")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem3.selectedImage = UIImage(named: "IG-TabBar-Recent-Selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem3.title = ""
+        myTabBarItem3.tag = 2
+        
+        myTabBarItem3.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+        let myTabBarItem4 = (self.tabBar.items?[3])! as UITabBarItem
+        myTabBarItem4.image = UIImage(named: "IG-TabBar-Dashboard")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem4.selectedImage = UIImage(named: "IG-TabBar-Dashboard-Selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem4.title = ""
+        myTabBarItem4.tag = 3
+        
+        myTabBarItem4.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+        let myTabBarItem5 = (self.tabBar.items?[4])! as UITabBarItem
+        myTabBarItem5.image = UIImage(named: "IG-TabBar-Profile")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem5.selectedImage = UIImage(named: "IG-TabBar-Profile-Selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem5.title = ""
+        myTabBarItem5.tag = 4
+        
+        myTabBarItem5.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
+    }
+
+
     
     private func setCurrentTab(tag: Int){
         switch tag {
