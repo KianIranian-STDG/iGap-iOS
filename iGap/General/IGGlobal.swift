@@ -70,6 +70,26 @@ class IGGlobal {
     internal static func getThread(_ string: String? = nil){
         print("TTT || ", string ,Thread.current.isMainThread)
     }
+    /////SET LANGUAGE//////
+    
+    internal static func setLanguage() {
+        if  lastLang == Language.persian.rawValue  {
+            SMLangUtil.changeLanguage(newLang: "fa")
+            Language.language = Language.persian
+            SMLangUtil.changeLanguage(newLang: "fa")
+        } else if lastLang == Language.arabic.rawValue {
+            SMLangUtil.changeLanguage(newLang: "fa")
+            Language.language = Language.arabic
+            SMLangUtil.changeLanguage(newLang: "fa")
+
+        } else {
+            SMLangUtil.changeLanguage(newLang: "en")
+            Language.language = Language.english
+            SMLangUtil.changeLanguage(newLang: "en")
+
+        }
+        
+    }
     /**********************************************/
     /****************** Progress ******************/
     private static var progressHUD = MBProgressHUD()
@@ -1409,7 +1429,7 @@ extension UIFont {
 }
 extension UILabel {
     var localizedNewDirection: NSTextAlignment {
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+        if lastLang == "en" {
             return NSTextAlignment.left
         }
         else{
@@ -1482,9 +1502,7 @@ extension String {
         return ext
     }
     
-    var localized: String {
-        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
-    }
+
     var localizedNew: String {
         if SMLangUtil.loadLanguage() == "fa" {
             IGGlobal.languageFileName = "localizationsFa"

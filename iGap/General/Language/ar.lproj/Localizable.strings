@@ -1,3 +1,4 @@
+
 /*
  * This is the source code of iGap for iOS
  * It is licensed under GNU AGPL v3.0
@@ -42,3 +43,16 @@
 "SIGNALING_OFFER_VIDEO_CALLINGSIGNALING_OFFER_VIDEO_CALLING" = "Incoming video call from %1$@";
 "SIGNALING_OFFER_SCREEN_SHARING" = "Screen sharing request from %1$@";
 "SIGNALING_OFFER_SECRET_CHAT" = "Secret chat request from %1$@";
+/// MARK : - Global Strings
+"GLOBAL_OK" = "تایید";
+"GLOBAL_CANCEL" = "لغو";
+"EMAIL" = "پست الکترونیکی";
+"SECURITY_QUESTIONS" = "سوال امنیتی";
+
+/// MARK : - Register Process
+"RGP_MSG_SECURITY_TWO_STEP_VERIFICATION" = "به منظور بازیابی حساب کاربری خود به سوالات امنیتی زیر جواب دهید.پس از پاسخ دادن موفق رمز دوم حساب کاربری شما غیر فعال می گردد";
+"RGP_SECURITY_QUESTION_ONE" = "سوال امنیتی اول : ";
+"RGP_SECURITY_QUESTION_TWO" = "سوال امنیتی دوم : ";
+"RGP_MSG_ANSWERS_WAS_WRONG" = "پاسخ های شما صحیح نمی باشند";
+"RGP_MSG_ANSWERS_WAS_EMPTY" = "لطفا تمامی فیلد ها را پر نمایید";
+

@@ -20,6 +20,9 @@
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "6gF-Wg-Os3"; */
 "6gF-Wg-Os3.title" = "Title";
 
+/* Class = "UILabel"; text = "Pinned message test text"; ObjectID = "74a-X4-sCN"; */
+"74a-X4-sCN.text" = "Pinned message test text";
+
 /* Class = "UISegmentedControl"; 7Tw-wt-vgJ.segmentTitles[0] = "Standard"; ObjectID = "7Tw-wt-vgJ"; */
 "7Tw-wt-vgJ.segmentTitles[0]" = "Standard";
 
@@ -53,11 +56,20 @@
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "B2M-WZ-eh7"; */
 "B2M-WZ-eh7.normalTitle" = "";
 
+/* Class = "UILabel"; text = "00:00"; ObjectID = "CB0-uh-Dy4"; */
+"CB0-uh-Dy4.text" = "00:00";
+
+/* Class = "UILabel"; text = "pinned message"; ObjectID = "CZy-cn-O1j"; */
+"CZy-cn-O1j.text" = "pinned message";
+
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "Dgh-FS-H7F"; */
 "Dgh-FS-H7F.normalTitle" = "";
 
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "E0t-it-I0J"; */
 "E0t-it-I0J.normalTitle" = "";
+
+/* Class = "UIButton"; normalTitle = ""; ObjectID = "Ekh-7q-61H"; */
+"Ekh-7q-61H.normalTitle" = "";
 
 /* Class = "UILabel"; text = "Locating..."; ObjectID = "GOW-He-PNQ"; */
 "GOW-He-PNQ.text" = "Locating...";
@@ -74,6 +86,9 @@
 /* Class = "UILabel"; text = "---"; ObjectID = "Ji1-mZ-OdQ"; */
 "Ji1-mZ-OdQ.text" = "---";
 
+/* Class = "UIButton"; normalTitle = "X"; ObjectID = "KIH-pZ-gaA"; */
+"KIH-pZ-gaA.normalTitle" = "X";
+
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "KUD-6Z-icK"; */
 "KUD-6Z-icK.title" = "Title";
 
@@ -88,6 +103,12 @@
 
 /* Class = "UITextField"; placeholder = "Please enter your reason..."; ObjectID = "Nem-UB-8Cx"; */
 "Nem-UB-8Cx.placeholder" = "Please enter your reason...";
+
+/* Class = "UIButton"; normalTitle = "JOIN"; ObjectID = "ONe-LK-oRM"; */
+"ONe-LK-oRM.normalTitle" = "JOIN";
+
+/* Class = "UILabel"; text = "< Slide to cancel"; ObjectID = "ORo-iV-qcE"; */
+"ORo-iV-qcE.text" = "< Slide to cancel";
 
 /* Class = "UILabel"; text = "Pinned message test text"; ObjectID = "OfO-SB-YDv"; */
 "OfO-SB-YDv.text" = "Pinned message test text";
@@ -104,11 +125,23 @@
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "Vdk-oB-E9O"; */
 "Vdk-oB-E9O.normalTitle" = "";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "VuT-7X-SPW"; */
+"VuT-7X-SPW.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = ""; ObjectID = "WFs-Df-8S4"; */
+"WFs-Df-8S4.normalTitle" = "";
+
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "WV3-zu-yPC"; */
 "WV3-zu-yPC.normalTitle" = "";
 
 /* Class = "UILabel"; text = "referral code"; ObjectID = "WrO-DW-2Mr"; */
 "WrO-DW-2Mr.text" = "referral code";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "Xmj-79-IC7"; */
+"Xmj-79-IC7.title" = "Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "YkF-IV-W6I"; */
+"YkF-IV-W6I.text" = "Label";
 
 /* Class = "UITableViewSection"; headerTitle = "Report Description"; ObjectID = "ZFU-FT-tMn"; */
 "ZFU-FT-tMn.headerTitle" = "Report Description";
@@ -116,11 +149,17 @@
 /* Class = "UILabel"; text = "April"; ObjectID = "ZX6-EK-xk9"; */
 "ZX6-EK-xk9.text" = "April";
 
+/* Class = "UILabel"; text = "989 Mb"; ObjectID = "Zfg-b6-hc4"; */
+"Zfg-b6-hc4.text" = "989 Mb";
+
 /* Class = "UILabel"; text = "989 Mb"; ObjectID = "ajG-7M-bRf"; */
 "ajG-7M-bRf.text" = "989 Mb";
 
 /* Class = "UINavigationItem"; title = "Call"; ObjectID = "ata-Zx-iH3"; */
 "ata-Zx-iH3.title" = "Call";
+
+/* Class = "UIButton"; normalTitle = "X"; ObjectID = "bjy-wj-q5k"; */
+"bjy-wj-q5k.normalTitle" = "X";
 
 /* Class = "UINavigationItem"; title = "Map"; ObjectID = "cMV-mk-Mj0"; */
 "cMV-mk-Mj0.title" = "Map";
@@ -128,17 +167,26 @@
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "cOE-9I-nlw"; */
 "cOE-9I-nlw.normalTitle" = "";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "cx8-BB-mMH"; */
+"cx8-BB-mMH.text" = "Label";
+
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "czR-fN-gJW"; */
 "czR-fN-gJW.title" = "Title";
 
 /* Class = "UIButton"; normalTitle = "Show History"; ObjectID = "d36-id-siA"; */
 "d36-id-siA.normalTitle" = "Show History";
 
+/* Class = "UILabel"; text = "Selected"; ObjectID = "dJe-6X-RvD"; */
+"dJe-6X-RvD.text" = "Selected";
+
 /* Class = "UILabel"; text = "Selected"; ObjectID = "dzM-Ei-pSv"; */
 "dzM-Ei-pSv.text" = "Selected";
 
 /* Class = "UITextField"; placeholder = "Your Status"; ObjectID = "e0D-HW-VKn"; */
 "e0D-HW-VKn.placeholder" = "Your Status";
+
+/* Class = "UIButton"; normalTitle = ""; ObjectID = "eCx-1B-ECh"; */
+"eCx-1B-ECh.normalTitle" = "";
 
 /* Class = "UILabel"; text = "REMOVE"; ObjectID = "efT-CA-J3p"; */
 "efT-CA-J3p.text" = "REMOVE";
@@ -157,6 +205,12 @@
 
 /* Class = "UIButton"; normalTitle = "X"; ObjectID = "grH-pt-p4x"; */
 "grH-pt-p4x.normalTitle" = "X";
+
+/* Class = "UILabel"; text = ""; ObjectID = "hY8-8a-I65"; */
+"hY8-8a-I65.text" = "";
+
+/* Class = "UIButton"; normalTitle = "X"; ObjectID = "ho8-yu-m9o"; */
+"ho8-yu-m9o.normalTitle" = "X";
 
 /* Class = "UIButton"; normalTitle = ""; ObjectID = "jXn-uZ-OLO"; */
 "jXn-uZ-OLO.normalTitle" = "";
@@ -202,6 +256,9 @@
 
 /* Class = "UILabel"; text = "Call On Hold"; ObjectID = "vYi-p7-mDU"; */
 "vYi-p7-mDU.text" = "Call On Hold";
+
+/* Class = "UILabel"; text = "floating date"; ObjectID = "wNn-cl-6Sc"; */
+"wNn-cl-6Sc.text" = "floating date";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "yRi-nN-wYI"; */
 "yRi-nN-wYI.title" = "Title";

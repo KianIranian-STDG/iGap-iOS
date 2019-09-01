@@ -307,6 +307,18 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
         self.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
+    func goToSpash(mainRoot: Bool = false) {
+        UIApplication.shared.unregisterForRemoteNotifications()
+        
+        if mainRoot {
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle:nil).instantiateInitialViewController()
+        }
+        
+//        IGAppManager.sharedManager.clearDataOnLogout()
+        let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
+        self.window?.rootViewController?.present(vc, animated: true, completion: nil)
+    }
     
     func showRegistrationSetpProfileInfo() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)

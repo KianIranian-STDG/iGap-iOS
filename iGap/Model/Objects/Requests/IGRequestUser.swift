@@ -1105,8 +1105,10 @@ class IGUserTwoStepVerificationRecoverPasswordByAnswersRequest : IGRequest {
         
     }
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage: IGPUserTwoStepVerificationRecoverPasswordByAnswersResponse) {
+        class func interpret(response responseProtoMessage: IGPUserTwoStepVerificationRecoverPasswordByAnswersResponse) -> String{
             //TODO: Complete Me
+            return responseProtoMessage.igpToken
+
         }
     }
 }

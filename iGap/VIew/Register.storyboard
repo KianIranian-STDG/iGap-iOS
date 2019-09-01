@@ -678,7 +678,6 @@ Please wait 0:59</string>
                                 </state>
                                 <connections>
                                     <action selector="didTapOnBtnForgetPass:" destination="q28-Oy-Ddt" eventType="touchUpInside" id="d3V-e4-fCV"/>
-                                    <segue destination="0h4-zj-D8X" kind="show" id="gjf-g3-FaP"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1102,7 +1101,7 @@ Please wait 0:59</string>
         <!--2-Step Verification-->
         <scene sceneID="SNH-0n-lPi">
             <objects>
-                <viewController storyboardIdentifier="IGRegistrationSecurityQuestions" id="0h4-zj-D8X" customClass="IGRegistrationStepPasswordViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IGRegistrationSecurityQuestions" id="0h4-zj-D8X" customClass="IGRegisttrationStepSecurityQuestions" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IJr-wj-rNI"/>
                         <viewControllerLayoutGuide type="bottom" id="gAT-uT-SNr"/>
@@ -1117,7 +1116,7 @@ Please wait 0:59</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFZ-bt-RVj">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFZ-bt-RVj">
                                 <rect key="frame" x="45" y="210" width="285" height="27"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
@@ -1130,13 +1129,13 @@ Please wait 0:59</string>
                                     <constraint firstAttribute="height" constant="1" id="79r-UI-IOm"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgW-cf-tdd">
-                                <rect key="frame" x="45" y="179" width="285" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgW-cf-tdd">
+                                <rect key="frame" x="45" y="158" width="285" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Lo-K9-lAT">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Lo-K9-lAT">
                                 <rect key="frame" x="45" y="287" width="285" height="27"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
@@ -1149,8 +1148,8 @@ Please wait 0:59</string>
                                     <constraint firstAttribute="height" constant="1" id="K2o-Sa-MiR"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o35-pb-gSK">
-                                <rect key="frame" x="45" y="256" width="285" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o35-pb-gSK">
+                                <rect key="frame" x="45" y="245" width="285" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1167,7 +1166,7 @@ Please wait 0:59</string>
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="didTapOnBtnForgetPass:" destination="0h4-zj-D8X" eventType="touchUpInside" id="9bN-hE-ToD"/>
+                                    <action selector="didTapOnSubmit:" destination="0h4-zj-D8X" eventType="touchUpInside" id="2YX-8m-3RW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1203,14 +1202,17 @@ Please wait 0:59</string>
                     </view>
                     <navigationItem key="navigationItem" title="2-Step Verification" id="aoC-Qu-BDF" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
-                        <outlet property="btnForgetPass" destination="agP-cl-NkO" id="66W-9V-Z2J"/>
-                        <outlet property="lblHeader" destination="aBz-8O-PQW" id="ax0-F1-3fY"/>
-                        <outlet property="passwordTextField" destination="JFZ-bt-RVj" id="E7O-gN-bxG"/>
+                        <outlet property="btnSubmit" destination="agP-cl-NkO" id="upO-BI-ziY"/>
+                        <outlet property="lblHeader" destination="aBz-8O-PQW" id="sPq-qm-N4V"/>
+                        <outlet property="lblSecQOne" destination="dgW-cf-tdd" id="ekK-yM-vrb"/>
+                        <outlet property="lblSecQTwo" destination="o35-pb-gSK" id="lyI-iJ-bhD"/>
+                        <outlet property="tfSecQOne" destination="JFZ-bt-RVj" id="pR6-Wc-jTH"/>
+                        <outlet property="tfSecQTwo" destination="7Lo-K9-lAT" id="OKW-qM-K0R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zIP-Mk-YFZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1161" y="2872"/>
+            <point key="canvasLocation" x="1160.8" y="2871.8140929535234"/>
         </scene>
     </scenes>
     <resources>

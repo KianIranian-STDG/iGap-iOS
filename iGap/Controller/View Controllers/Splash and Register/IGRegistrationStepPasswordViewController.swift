@@ -1,3 +1,4 @@
+
 /*
  * This is the source code of iGap for iOS
  * It is licensed under GNU AGPL v3.0
@@ -14,18 +15,25 @@ import SwiftProtobuf
 import MBProgressHUD
 
 class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRecognizerDelegate {
-
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var lblHeader : UILabel!
     @IBOutlet weak var btnForgetPass : UIButton!
     var hud = MBProgressHUD()
-
+    var secQOne : String!  = ""
+    var secQTwo : String!  = ""
+    var secQAnswerOne : String!  = ""
+    var secQAnswerTwo : String!  = ""
+    var recoverTypeArray : [String]! = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(SMLangUtil.currentAppleLanguage())
+        
         self.passwordTextField.isSecureTextEntry = true
         initView()
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "AUTH_VERIFYMOBILE".localizedNew)
+        navigaitonItem.addNavigationViewItems(rightItemText: "NEXT_BTN", title: "AUTH_VERIFYMOBILE".localizedNew)
         navigaitonItem.rightViewContainer?.addAction {
             self.nextStep()
         }
@@ -40,12 +48,17 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
         btnForgetPass.titleLabel?.font = UIFont.igFont(ofSize: 15)
         btnForgetPass.layer.cornerRadius = 10
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lblHeader.text = "twoStepVerfi_HEADER".localizedNew
         self.passwordTextField.becomeFirstResponder()
-        
+        print(SMLangUtil.currentAppleLanguage())
+
+        IGGlobal.setLanguage()
+
+        print(SMLangUtil.currentAppleLanguage())
+
         IGUserTwoStepVerificationGetPasswordDetailRequest.Generator.generate().success({ (responseProto) in
             DispatchQueue.main.async {
                 switch responseProto {
@@ -54,16 +67,57 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                     if let hint = interpretedResponse.hint {
                         self.passwordTextField.placeholder = hint
                     }
+                    if let SecQNumberOne = interpretedResponse.question1 {
+                        self.secQOne = SecQNumberOne
+                    }
+                    if let SecQNumberTwo = interpretedResponse.question2 {
+                        self.secQTwo = SecQNumberTwo
+                    }
+                    if let SecQAnswerNumberOne = interpretedResponse.answer1 {
+                        self.secQAnswerOne = SecQAnswerNumberOne
+                    }
+                    if let SecQAnswerNumberTwo = interpretedResponse.answer2 {
+                        self.secQAnswerTwo = SecQAnswerNumberTwo
+                    }
+                    
+                    if let hasValidEmail = interpretedResponse.hasVerifiedEmailAddress {
+                        self.recoverTypeArray.removeAll()
+                        if hasValidEmail {
+                           
+                            print(SMLangUtil.currentAppleLanguage())
+                            
+                            IGGlobal.setLanguage()
+                            
+                            print(SMLangUtil.currentAppleLanguage())
+
+                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_EMAIL)
+                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS)
+                        } else {
+                            print(SMLangUtil.currentAppleLanguage())
+                            
+                            IGGlobal.setLanguage()
+                            
+                            print(SMLangUtil.currentAppleLanguage())
+                            print(self.recoverTypeArray)
+
+                            IGGlobal.setLanguage()
+
+                            self.recoverTypeArray.append(IGStringsManager.GLOBAL_SECURITY_QUESTIONS)
+                            print(self.recoverTypeArray)
+
+                        }
+                    }
+                    
                 default:
                     break
                 }
             }
         }).error { (errorCode, waitTime) in
             
-        }.send()
+            }.send()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -79,7 +133,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
             }
             return
         }
-
+        
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
         
@@ -91,7 +145,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                         let interpretedResponse = IGUserTwoStepVerificationVerifyPasswordRequest.Handler.interpret(response: verifyPasswordReponse)
                         IGAppManager.sharedManager.save(token: interpretedResponse)
                         self.loginUser(token: interpretedResponse)
-
+                        
                     default:
                         break
                     }
@@ -103,7 +157,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                 case .userTwoStepVerificationVerifyPasswordBadPayload :
                     errorTitle = "Error"
                     errorBody = "Invalid payload"
-                break
+                    break
                 case .userTwoStepVerificationVerifyPasswordInternalServerError :
                     errorTitle = "Error"
                     errorBody = "Inernal server error. Try agian later and if problem persists contact iGap support."
@@ -111,7 +165,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                 case .userTwoStepVerificationVerifyPasswordMaxTryLock :
                     errorTitle = ""
                     errorBody = "Too many failed password verification attempt."
-                break
+                    break
                 case .userTwoStepVerificationVerifyPasswordInvalidPassword :
                     errorTitle = "Invalid Code"
                     errorBody = "The password you entered is not valid. Verify the password and try again."
@@ -135,11 +189,11 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                     self.hud.hide(animated: true)
                     self.present(alert, animated: true, completion: nil)
                 }
-
+                
             }).send()
         }
     }
-
+    
     fileprivate func loginUser(token: String) {
         IGUserLoginRequest.Generator.generate(token: token).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -147,7 +201,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                 case _ as IGPUserLoginResponse:
                     IGUserLoginRequest.Handler.intrepret(response: (protoResponse as? IGPUserLoginResponse)!)
                     IGAppManager.sharedManager.isUserLoggedIn.value = true
-
+                    
                     IGUserInfoRequest.Generator.generate(userID: IGAppManager.sharedManager.userID()!).success({ (protoResponse) in
                         DispatchQueue.main.async {
                             switch protoResponse {
@@ -172,7 +226,7 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
                             self.present(alertVC, animated: true, completion: nil)
                         }
                     }).send()
-
+                    
                 default:
                     break
                 }
@@ -187,12 +241,63 @@ class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRec
             }
         }).send()
     }
-
+    
     @IBAction func didTapOnBtnForgetPass(_ sender: Any) {
         
+        print(SMLangUtil.currentAppleLanguage())
+        
+        IGGlobal.setLanguage()
+        
+        print(SMLangUtil.currentAppleLanguage())
+
+        let alert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        
+        let cancel = UIAlertAction(title: IGStringsManager.GLOBAL_CANCEL, style: .default, handler: nil)
+        let email = UIAlertAction(title: IGStringsManager.GLOBAL_EMAIL, style: .default, handler: { _ in
+            
+        })
+        let secQ = UIAlertAction(title: IGStringsManager.GLOBAL_SECURITY_QUESTIONS, style: .default, handler: { _ in
+            let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
+            let secQVC = storyboard.instantiateViewController(withIdentifier: "IGRegistrationSecurityQuestions") as! IGRegisttrationStepSecurityQuestions
+            secQVC.secQOne = self.secQOne
+            secQVC.secQTwo = self.secQTwo
+            secQVC.secQAnswerOne = self.secQAnswerOne
+            secQVC.secQAnswerTwo = self.secQAnswerOne
+            self.navigationController!.pushViewController(secQVC, animated: true)
+            
+        })
+        
+        
+        
+        switch recoverTypeArray.count {
+        case 1 :
+            alert.addAction(secQ)
+            alert.addAction(cancel)
+            
+            break
+        case 2 :
+            alert.addAction(email)
+            alert.addAction(secQ)
+            alert.addAction(cancel)
+            
+            break
+        default:
+            break
+        }
+        
+        
+        present(alert, animated: true, completion: nil)
     }
     
     
     
     
+    
+    
 }
+
+
