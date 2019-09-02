@@ -73,23 +73,23 @@ class IGTabBarController: UITabBarController {
         
         switch item.tag {
         case 0:
-//            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.addSearchBar(state: "False")
             
             break
         case 1:
-//            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.addSearchBar(state: "False")
             
             break
         case 2:
-//            navigationControllerr.addSearchBar(state: "True")
+            navigationControllerr.addSearchBar(state: "True")
             
             break
         case 3:
-//            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.addSearchBar(state: "False")
             
             break
         case 4:
-//            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.addSearchBar(state: "False")
             
             break
         default:

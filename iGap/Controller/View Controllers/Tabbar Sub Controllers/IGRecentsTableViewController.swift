@@ -30,7 +30,9 @@ import MarkdownKit
 
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
-    
+    lazy var searchBar = UISearchBar(frame: CGRect.zero)
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
     var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
     var testImageArray = [UIImage]()
@@ -90,6 +92,15 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func setDefaultNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
+        //Setup Search Controller
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.searchBar.placeholder = "Search"
+        self.searchController.searchBar.barStyle = .black
+        self.searchController.searchBar.delegate = self
+        self.definesPresentationContext = true
+        
+        navigationItem.searchController = searchController
+
         let _ : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
         
@@ -1488,17 +1499,56 @@ extension IGRecentsTableViewController {
     }
 }
 
-extension IGRecentsTableViewController: UISearchBarDelegate{
+//MARK: SEARCH BAR DELEGATE
+extension IGRecentsTableViewController: UISearchBarDelegate
+{
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
+    {
+        //Show Cancel
+        searchBar.setShowsCancelButton(true, animated: true)
+        searchBar.tintColor = .white
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        //Filter function
+    }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
         (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
         
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
-//        self.searchBar.hero.id = "searchBar"
+        //        self.searchBar.hero.id = "searchBar"
         self.navigationController?.hero.isEnabled = true
         self.navigationController?.hero.navigationAnimationType = .fade
         self.hero.replaceViewController(with: lookAndFind)
         return true
     }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        //Hide Cancel
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+        
+
+        
+        //Filter function
+//        self.filterFunction(searchText: term)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
+        //Hide Cancel
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = String()
+        searchBar.resignFirstResponder()
+        
+        //Filter function
+//        self.filterFunction(searchText: searchBar.text)
+    }
 }
+
+
+
