@@ -869,6 +869,11 @@
         "EXPLORE_HINT" : "نام فروشگاه، شناسه کاربری، محصول...",
         "SEARCHING" : "در حال جستجو ...",
         "SEARCH_PLACEHOLDER" : "جست و جو نمایید",
+        "NEW" : "جدید",
+        "HEY_JOIN_IGAP" : "\nwww.iGap.netسلام . از طریق لینک زیر میتونی تو آی‌گپ عضو بشی، منتظرتیم",
+        "FAQ" : "پرسش های متداول",
+        "SETTING_NEARBY" : "اطراف من",
+        "CREDITS" : "اعتبار",
 
         "SEARCH_NORESULT" : "نتیجه ای یافت نشد.",
         "SEARCH_NEARBY" : "اطراف من",

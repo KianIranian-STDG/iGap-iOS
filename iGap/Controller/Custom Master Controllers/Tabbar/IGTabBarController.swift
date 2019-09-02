@@ -76,30 +76,42 @@ class IGTabBarController: UITabBarController {
         case 0:
             navigationControllerr.navigationBar.isHidden = false
 //            navigationControllerr.addSearchBar(state: "False")
-            
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.searchController = nil
+
             currentTabIndex = 0
             break
         case 1:
             navigationControllerr.navigationBar.isHidden = false
 //            navigationControllerr.addSearchBar(state: "False")
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.searchController = nil
+
             currentTabIndex = 1
             
             break
         case 2:
             navigationControllerr.navigationBar.isHidden = false
 //            navigationControllerr.addSearchBar(state: "True")
+
             currentTabIndex = 2
             
             break
         case 3:
             navigationControllerr.navigationBar.isHidden = false
 //            navigationControllerr.addSearchBar(state: "False")
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.searchController = nil
+
             currentTabIndex = 3
             
             break
         case 4:
             navigationControllerr.navigationBar.isHidden = true
 //            navigationControllerr.addSearchBar(state: "False")
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.searchController = nil
+
             currentTabIndex = 4
             
             break

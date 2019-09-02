@@ -25,6 +25,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         //        self.navigationController?.navigationBar.sendSubviewToBack(view)
         return view
     }()
+    var isEditMode = false
+    var tapCount = 1
+    @IBOutlet weak var stack0: UIStackView!
+    @IBOutlet weak var stack1: UIStackView!
+    @IBOutlet weak var stack3: UIStackView!
     @IBOutlet weak var btnName: UIButton!
     @IBOutlet weak var lblTel: UILabel!
     @IBOutlet weak var lblBio: UILabel!
@@ -44,6 +49,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblMoneyAmount: UILabel!
     @IBOutlet weak var lblScoreAmount: UILabel!
+    @IBOutlet weak var btnEditProfile : UIButton!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblBioInner: UILabel!
     
     
     var userInDb : IGRegisteredUser!
@@ -73,7 +82,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
+
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -87,7 +96,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     func initView() {
         colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
         colorView.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: colorView).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: colorView.frame.size.width/2, bottom: 0, right: colorView.frame.size.width/2), resizingMode: .stretch))
-        btnCamera.setBackgroundImage(UIImage(named: "IG_Settings_Camera"), for: .normal)
+        btnCamera.setBackgroundImage(UIImage(named: "ig_add_image_icon"), for: .normal)
         
         
         self.view.insertSubview(colorView, at: 0)
@@ -98,14 +107,22 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         requestToGetAvatarList()
         getScore()
         USERinDB()
+        let tapCloud = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapCloud(recognizer:)))
+        stack0.addGestureRecognizer(tapCloud)
+        
+        let tapSettings = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapSettings(recognizer:)))
+        stack1.addGestureRecognizer(tapSettings)
+        
+        let tapNew = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapNew(recognizer:)))
+        stack3.addGestureRecognizer(tapNew)
+        
     }
     func initChangeLang() {
-        if SMLangUtil.loadLanguage() == "fa" {
-            lblChoosenLanguage.text = "SETTING_CHL_PERSIAN".localizedNew
-        }
-        else {
-            lblChoosenLanguage.text = "SETTING_CHL_ENGLISH".localizedNew
-        }
+        
+        lblName.text = "NAME".localizedNew
+        lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew
+        lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        
         btnName.setTitle("NAME".localizedNew, for: .normal)
         lblCloud.text = "MY_CLOUD".localizedNew
         lblSetting.text = "SETTING_VIEW".localizedNew
@@ -117,7 +134,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
         lblQR.text = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
         lblNearby.text = "SETTING_NEARBY".localizedNew
-        lblLanguage.text = "SETTING_PAGE_CHANGE_LANGUAGE".localizedNew
         lblFaq.text = "FAQ".localizedNew
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             lblVersion.text = "SETTING_PAGE_FOOTER_VERSION".localizedNew + " \(version)".inLocalizedLanguage()
@@ -145,6 +161,20 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 showAvatar( avatar: userAvatar)
             }
         }
+    }
+    @objc func handleTapCloud(recognizer:UITapGestureRecognizer) {
+        
+        
+    }
+    @objc func handleTapSettings(recognizer:UITapGestureRecognizer) {
+        
+        self.performSegue(withIdentifier: "showSettings", sender: self)
+        
+        
+    }
+    @objc func handleTapNew(recognizer:UITapGestureRecognizer) {
+        
+        
     }
     
     var insDelete : INSPhotosOverlayView!
@@ -334,6 +364,135 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
         }
     }
+    @IBAction func btnEditProfileTapped(_ sender: Any) {
+        tapCount += 1
+        print(tapCount)
+        if tapCount % 2 == 0 {
+            isEditMode = true
+            self.tableView.beginUpdates()
+            self.btnCamera.isHidden = false
+            self.tableView.endUpdates()
+        }
+        else {
+            isEditMode = false
+            self.tableView.beginUpdates()
+            self.btnCamera.isHidden = true
+            self.tableView.endUpdates()
+        }
+        
+    }
+    @IBAction func btnCameraPickTapped(_ sender: Any) {
+    }
+    @IBAction func btnScoreTapped(_ sender: Any) {
+        let score = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        self.navigationController!.pushViewController(score, animated: true)
+    }
+    @IBAction func btnCreditTapped(_ sender: Any) {
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            switch indexPath.row {
+                
+            case 0 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 84
+                }
+            case 1 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 74
+                }
+                
+            case 2 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 44
+                }
+                
+                
+            case 3 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 44
+                }
+                
+            case 4 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 44
+                }
+                
+                
+            case 5 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 44
+                }
+                
+                
+            case 6 :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 44
+                }
+                
+            case 7 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
+                
+                
+            case 8 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
+                
+                
+            case 9 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
+                
+                
+                
+            default :
+                if isEditMode {
+                    return 0
+                }
+                else {
+                    return 0
+                }
+                
+            }
+        }
+        else {
+            return 0
+        }
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -341,7 +500,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 8
+        return 10
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -380,7 +539,14 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 if let url = NSURL(string: stringUrl){
                     UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                 }
+            case 7 :
                 break
+            case 8 :
+                break
+            case 9 :
+                break
+                
+                
                 
             default:
                 break

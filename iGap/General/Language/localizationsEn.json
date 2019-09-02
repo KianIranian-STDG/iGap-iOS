@@ -917,7 +917,13 @@
         "GLOBAL_PERCENT" : "Percent",
         "PU_BALLOON" : "Plans",
         "PU_MERCHANTS" : "Stores",
+        "CREDITS" : "Credit",
+        "FAQ" : "FAQ",
         "Token_Error" : "App needed to refresh your authentication detail, please try again.",
+        "HEY_JOIN_IGAP" : "Hey Join iGap and start new connection with friends and family for free, no matter what device they are on!\niGap Limitless Connection\nwww.iGap.net",
+        "NEW" : "New",
+        "SETTING_NEARBY" : "Nearby",
+
         "FORWARD_PERMISSION" : "Sorry, you are not allowed to send any messages to this chat!",
         "FORWARD_QUESTION" : "Do you want to forward message to this room ?",
         "FORWARD_CANCEL" : "Cancel Forward",

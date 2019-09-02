@@ -179,7 +179,9 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
         
         if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
             self.discovery = discovery.igpDiscoveries
-            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
         
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
