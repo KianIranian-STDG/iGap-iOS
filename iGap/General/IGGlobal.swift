@@ -1447,7 +1447,7 @@ extension UIFont {
     }
     
     class func iGapFonticon(ofSize fontSize: CGFloat) -> UIFont {
-        return UIFont(name: "igap", size: fontSize)!
+        return UIFont(name: "iGap_fontico", size: fontSize)!
     }
     //    func bold() -> UIFont {
     //        return withTraits(traits: .traitBold)

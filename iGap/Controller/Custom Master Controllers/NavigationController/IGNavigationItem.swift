@@ -301,10 +301,10 @@ class IGNavigationItem: UINavigationItem {
         
         
         let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-        let settingButtonImageView = UIImageView(frame: settingViewFrame)
-        
-        settingButtonImageView.image = UIImage(named: "IG_NavBar_EditMode")
-        leftViewContainer!.addSubview(settingButtonImageView)
+        let btnEdit = UIButton(frame: settingViewFrame)
+        btnEdit.setTitle("", for: .normal)
+        btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        leftViewContainer!.addSubview(btnEdit)
     }
     
     private func addComopseButton() {
@@ -323,8 +323,12 @@ class IGNavigationItem: UINavigationItem {
         let _ : String = SMLangUtil.loadLanguage()
         
         
-        composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
-        rightViewContainer!.addSubview(composeButtonImageView)
+        let btnAdd = UIButton(frame: composeButtonFrame)
+
+        btnAdd.setTitle("", for: .normal)
+        btnAdd.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+
+        rightViewContainer!.addSubview(btnAdd)
     }
     
     
@@ -450,34 +454,58 @@ class IGNavigationItem: UINavigationItem {
             return
         }
         
+
         if IGTabBarController.currentTabStatic == .Recent || AppDelegate.isFirstEnterToApp || IGTabBarController.currentTabStatic == .Contact  {
             AppDelegate.isFirstEnterToApp = false
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
-            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 67, height: 20))
-            logoImageView.image = UIImage(named: "IG_Nav_Bar_Logo")
-            logoImageView.contentMode = .scaleAspectFit
-            titleView.addSubview(logoImageView)
+            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
+            let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+            if lastLang == "fa" {
+                btnLogo.setTitle("", for: .normal)
+                btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
+
+            } else if lastLang == "en" {
+                btnLogo.setTitle("", for: .normal)
+
+            }
+            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
+
+            titleView.addSubview(btnLogo)
             
             self.titleView = titleView
         }
         else if IGTabBarController.currentTabStatic == .Contact  {
             
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
-            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 67, height: 20))
-            logoImageView.image = UIImage(named: "IG_Nav_Bar_Logo")
-            logoImageView.contentMode = .scaleAspectFit
-            titleView.addSubview(logoImageView)
+            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
+            let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+            if lastLang == "fa" {
+                btnLogo.setTitle("", for: .normal)
+                btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
+                
+            } else if lastLang == "en" {
+                btnLogo.setTitle("", for: .normal)
+                
+            }
+            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
             
+            titleView.addSubview(btnLogo)
+
             self.titleView = titleView
             
         } else {
             //Hint: call top code block again, because we want show iGap logo for all tabs
-            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
-            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 8, width: 67, height: 23))
-            logoImageView.image = UIImage(named: "IG_Nav_Bar_Logo")
-            logoImageView.contentMode = .scaleAspectFit
-            titleView.addSubview(logoImageView)
+            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
+            let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+            if lastLang == "fa" {
+                btnLogo.setTitle("", for: .normal)
+                btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
+                
+            } else if lastLang == "en" {
+                btnLogo.setTitle("", for: .normal)
+                
+            }
+            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
             
+            titleView.addSubview(btnLogo)
             self.titleView = titleView
             
             /*
