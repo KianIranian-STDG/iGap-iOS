@@ -11,11 +11,14 @@
 import UIKit
 import SnapKit
 var isActive = true
-var searchBarRecent = UISearchBar()
+var viewSearchBarRecent = UIView()
+var btnSearchBarRecent = UIButton()
 
+var searchbarRecentWidth = CGFloat()
 
 class IGNavigationController: UINavigationController, UINavigationBarDelegate,UISearchBarDelegate {
-    
+    var searchBarRecent = UISearchBar()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
@@ -37,10 +40,21 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
     override func popViewController(animated: Bool) -> UIViewController? {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
-            addSearchBar(state: "True")
-            return super.popViewController(animated: animated)
-
+            if currentTabIndex == 4 {
+                
+                
+                self.navigationBar.isHidden = true
+                return super.popViewController(animated: animated)
+                
+            }
+            else {
+                self.navigationBar.isHidden = false
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+//                addSearchBar(state: "True")
+                return super.popViewController(animated: animated)
+                
+            }
         }
             
         else {
@@ -57,8 +71,6 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    let orangeGradient = [UIColor(rgb: 0xB9E244), UIColor(rgb: 0x41B120)]
-    let orangeGradientLocation = [0.0, 1.0]
     
     lazy var colorView = { () -> UIView in
         let view = UIView()
@@ -70,7 +82,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
     lazy var colorViewNavBar = { () -> UIView in
         let view = UIView()
         view.isUserInteractionEnabled = false
-        view.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
+//        view.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
         return view
     }()
     lazy var searchViewNavBar = { () -> UIView in
@@ -108,8 +120,9 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
         
         searchViewNavBar.backgroundColor = .red
         self.navigationBar.insertSubview(colorViewNavBar, at: 1)
+
         if isActive {
-            addSearchBar(state: "True")
+//            addSearchBar(state: "True")
             isActive = false
         }
 
@@ -117,69 +130,105 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
 
 
     public func addSearchBar(state : String) {
-        
         if state == "True" {
             searchBarRecent.barStyle = .default
             searchBarRecent.isTranslucent = false
             searchBarRecent.barTintColor = UIColor.clear
             searchBarRecent.backgroundImage = UIImage()
             searchBarRecent.delegate = self
-            searchBarRecent.change(textFont: UIFont.igFont(ofSize: 15))
-            let textFieldInsideUISearchBar = searchBarRecent.value(forKey: "searchField") as? UITextField
+            searchbarRecentWidth = self.navigationBar.frame.size.width - 200
             
-            let textFieldInsideUISearchBarLabel = textFieldInsideUISearchBar!.value(forKey: "placeholderLabel") as? UILabel
-            textFieldInsideUISearchBarLabel?.font = UIFont.igFont(ofSize: 15)
-            
-            print(searchBarRecent.frame.size.height)
             self.navigationBar.addSubview(searchBarRecent)
             searchBarRecent.snp.makeConstraints { (make) in
-                make.width.equalTo(self.navigationBar.frame.size.width - 100 )
-                make.height.equalTo(20)
+                
+                make.left.equalTo(self.navigationBar.snp.left).offset((self.navigationBar.bounds.width)/4)
+                make.right.equalTo(self.navigationBar.snp.right).offset(((self.navigationBar.bounds.width)/4) * -1)
+                make.height.equalTo(50)
                 make.centerX.equalTo(self.navigationBar.snp.centerX)
                 make.centerY.equalTo(self.navigationBar.snp.bottom)
             }
             
-            for subView in searchBarRecent.subviews  {
-                for subsubView in subView.subviews  {
-                    if let textField = subsubView as? UITextField {
-                        var bounds: CGRect
-                        textField.attributedPlaceholder =  NSAttributedString(string:NSLocalizedString("PLACE_HOLDER_SEARCH".localizedNew, comment:""),attributes:[NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)])
-                        
-                        bounds = textField.frame
-                        bounds.size.height = 10 //(set height whatever you want)
-                        textField.bounds = bounds
-                        textField.textAlignment = .center
-                        textField.font = UIFont.igFont(ofSize: 15)
-                        if SMLangUtil.loadLanguage() == "fa" {
-                            textField.semanticContentAttribute = .forceRightToLeft
-                        }
-                        else {
-                            textField.semanticContentAttribute = .forceLeftToRight
-                            
-                        }
-                        textField.borderStyle = UITextField.BorderStyle.roundedRect
-                        textField.backgroundColor = UIColor.clear
-                        textField.font = UIFont.systemFont(ofSize: 10)
-                    }
+            if let textfield = searchBarRecent.value(forKey: "searchField") as? UITextField {
+                textfield.textColor = UIColor.black
+                textfield.font = UIFont.igFont(ofSize: 15)
+                if SMLangUtil.loadLanguage() == "fa" {
+                    textfield.semanticContentAttribute = .forceRightToLeft
+                }
+                else {
+                    textfield.semanticContentAttribute = .forceLeftToRight
+                    
                 }
             }
-            
-            
-            let image = self.getImageWithColor(color: UIColor.white, size: CGSize(width: 20, height: 20))
+            let image = self.getImageWithColor(color: UIColor.white, size: CGSize(width: 20, height: 30))
             searchBarRecent.setSearchFieldBackgroundImage(image, for: .normal)
             
         }
         else if state == "False" {
             searchBarRecent.removeFromSuperview()
+            searchBarRecent.layoutIfNeeded()
+            self.view.layoutIfNeeded()
         }
         else {
             
         }
         
     }
+    
+    public func minimizeSearchBar(state: Bool) {
+        var newWidth:CGFloat = self.navigationBar.frame.size.width - 150
+        var oldWidth:CGFloat = searchBarRecent.frame.width
+        var totalChangeWidth:CGFloat = newWidth - oldWidth
+        
+        if state {
+            
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: [], animations: {
+                
+                self.searchBarRecent.snp.updateConstraints { (make) in
+                    make.left.equalTo(self.navigationBar.snp.left).offset((self.navigationBar.bounds.width)/5)
+                    make.right.equalTo(self.navigationBar.snp.right).offset(((self.navigationBar.bounds.width)/5) * -1)
+                    make.height.equalTo(50)
+                    make.centerX.equalTo(self.navigationBar.snp.centerX)
+                    make.centerY.equalTo(self.navigationBar.snp.bottom)
+                }
+                
+            }, completion: { (finished: Bool) in
+                self.searchBarRecent.placeholder = "PLACE_HOLDER_SEARCH".localizedNew
+            })
+            
+        }
+        else {
+            
+            UIView.animate(withDuration: 1.0, delay: 0.0, options: [], animations: {
+                
+                self.searchBarRecent.snp.updateConstraints { (make) in
+                    make.left.equalTo(self.navigationBar.snp.left).offset((self.navigationBar.bounds.width)/4)
+                    make.right.equalTo(self.navigationBar.snp.right).offset(((self.navigationBar.bounds.width)/4) * -1)
+                    make.height.equalTo(50)
+                    make.centerX.equalTo(self.navigationBar.snp.centerX)
+                    make.centerY.equalTo(self.navigationBar.snp.bottom)
+                }
+                
+            }, completion: { (finished: Bool) in
+                self.searchBarRecent.placeholder = ""
+            })
+            
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        minimizeSearchBar(state: false)
+        
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("ENDED")
+        minimizeSearchBar(state: false)
+        
+    }
+    
+    
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 5.0)
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 50.0)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
         path.fill()

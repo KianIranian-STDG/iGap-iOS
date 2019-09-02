@@ -48,6 +48,8 @@
 "GLOBAL_CANCEL" = "لغو";
 "EMAIL" = "پست الکترونیکی";
 "SECURITY_QUESTIONS" = "سوال امنیتی";
+"SEARCH_PLACEHOLDER" = "جست و جو نمایید";
+
 
 /// MARK : - Register Process
 "RGP_MSG_SECURITY_TWO_STEP_VERIFICATION" = "به منظور بازیابی حساب کاربری خود به سوالات امنیتی زیر جواب دهید.پس از پاسخ دادن موفق رمز دوم حساب کاربری شما غیر فعال می گردد";

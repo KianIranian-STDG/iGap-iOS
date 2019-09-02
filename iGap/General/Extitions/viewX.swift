@@ -119,3 +119,26 @@ extension UIView {
         }
     }
 }
+extension CAGradientLayer {
+    
+    func roundCorners(corners:CACornerMask, radius: CGFloat) {
+        self.cornerRadius = radius
+        if #available(iOS 11.0, *) {
+            self.maskedCorners = corners
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}
+
+extension UIImageView {
+    
+    func roundCornersImageView(corners:CACornerMask, radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        if #available(iOS 11.0, *) {
+            self.layer.maskedCorners = corners
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}

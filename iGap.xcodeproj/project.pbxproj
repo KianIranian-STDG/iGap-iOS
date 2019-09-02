@@ -30,6 +30,8 @@
 		8E5FBC9D231BD6AB0069D4F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
 		8E5FBCA3231BD7440069D4F2 /* IGLocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */; };
 		8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */; };
+		8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */; };
+		8E5FBCA9231D08870069D4F2 /* IGNavigationBarX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -713,6 +715,8 @@
 		8E5FBCA1231BD6CD0069D4F2 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGLocalizationManager.swift; sourceTree = "<group>"; };
 		8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStringManager.swift; sourceTree = "<group>"; };
+		8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileTableViewController.swift; sourceTree = "<group>"; };
+		8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNavigationBarX.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -1770,6 +1774,7 @@
 				FA82523F21DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift */,
 				FA0953141E1B97700043ED3F /* iGPhoneNumberPageViewController.swift */,
 				FA0953151E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift */,
+				8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */,
 				FA0953161E1B97700043ED3F /* iGSetEmailTableViewController.swift */,
 				8EE1BFC72281604D001A2867 /* IGSetUserNickNameTableViewController.swift */,
 				FA0953181E1B97700043ED3F /* IGSettingAboutTableViewController.swift */,
@@ -2501,6 +2506,7 @@
 			children = (
 				FAD530611E0BD80800FE6C54 /* IGNavigationController.swift */,
 				FAD530601E0BD80800FE6C54 /* IGNavigationBar.swift */,
+				8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */,
 				FAD530641E0BDE2A00FE6C54 /* IGNavigationItem.swift */,
 				8EFD2EBD228BC9140069B433 /* IGMNavigationController.swift */,
 			);
@@ -3540,6 +3546,7 @@
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
 				FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */,
+				8E5FBCA9231D08870069D4F2 /* IGNavigationBarX.swift in Sources */,
 				8EBF551322DC4B3200834E6A /* FavouriteDashboardCell1.swift in Sources */,
 				FA4BD8A31DF2A53400CCB239 /* IGMusicViewController.swift in Sources */,
 				FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */,
@@ -3601,6 +3608,7 @@
 				FA97D44820174C2C0087BBD0 /* AbstractCell.swift in Sources */,
 				FAA9DFBE1F4B23390076A22F /* IGTwoStepVerification.swift in Sources */,
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
+				8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */,
 				FAD580861DDC49A200A242DE /* IGMessageViewController.swift in Sources */,
 				93AA67CE1E4F407E0053380C /* IGChannelInfoMemberListTableViewCell.swift in Sources */,
 				FA50A8D21DD35EFD00C6D2EA /* IGSplashScreenViewController.swift in Sources */,

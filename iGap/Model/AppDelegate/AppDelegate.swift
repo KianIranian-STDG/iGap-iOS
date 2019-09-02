@@ -128,6 +128,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         isActive = true
+        lastLang = SMLangUtil.loadLanguage()
         if SMLangUtil.loadLanguage() == "fa" {
             IGGlobal.languageFileName = "localizationsFa"
         } else {

@@ -868,6 +868,8 @@
         "POD_ERROR_MESSAGE" : "لطفا عنوان، شهر، آدرس کامل را بطور صحیح وارد نمایید.",
         "EXPLORE_HINT" : "نام فروشگاه، شناسه کاربری، محصول...",
         "SEARCHING" : "در حال جستجو ...",
+        "SEARCH_PLACEHOLDER" : "جست و جو نمایید",
+
         "SEARCH_NORESULT" : "نتیجه ای یافت نشد.",
         "SEARCH_NEARBY" : "اطراف من",
         "CONTACT_FIND_FRIENDS" : "دوستان خود را پیدا کنید",

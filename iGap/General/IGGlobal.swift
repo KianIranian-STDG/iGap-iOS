@@ -25,6 +25,7 @@ import typealias CommonCrypto.CC_LONG
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
+let kIGChnageLanguageNotificationName = "im.igap.ios.change.language"
 let kIGGoDissmissLangFANotificationName = "im.igap.ios.dismiss.langFA"
 let kIGGoDissmissLangENNotificationName = "im.igap.ios.dismiss.langEN"
 let kIGGoDissmissLangARNotificationName = "im.igap.ios.dismiss.langAR"
@@ -35,6 +36,10 @@ let kIGNoticationDismissWalletPay = "im.igap.ios.dismiss.wallet.pay"
 let IGNotificationStatusBarTapped         = Notification(name: Notification.Name(rawValue: "im.igap.statusbarTapped"))
 let IGNotificationPushLoginToken          = Notification(name: Notification.Name(rawValue: "im.igap.ios.user.push.token"))
 let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name(rawValue: "im.igap.ios.user.push.two.step"))
+
+
+let orangeGradient = [UIColor(rgb: 0xB9E244), UIColor(rgb: 0x41B120)]
+let orangeGradientLocation = [0.0, 1.0]
 
 
 class IGGlobal {
@@ -281,6 +286,17 @@ class IGGlobal {
         }
         
         return true
+    }
+    
+    public func gradientImage(withColours colours: [UIColor], location: [Double], view: UIView) -> UIImage {
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+        gradient.locations = location as [NSNumber]
+        gradient.cornerRadius = view.layer.cornerRadius
+        return UIImage.image(from: gradient) ?? UIImage()
     }
     
     public class func fetchUIScreen() -> CGRect {
@@ -1426,7 +1442,9 @@ extension UIFont {
     class func iGapFonticoNew(ofSize fontSize: CGFloat) -> UIFont {
         return UIFont(name: "iGap-fontico", size: fontSize)!
     }
-    
+    class func iGapFonticoC(ofSize fontSize: CGFloat) -> UIFont {
+        return UIFont(name: "iGap-FonticoC", size: fontSize)!
+    }
     //    func bold() -> UIFont {
     //        return withTraits(traits: .traitBold)
     //    }
@@ -1445,6 +1463,71 @@ extension UIFont {
     //        return UIFont(descriptor: descriptor, size: 0)
     //    }
 }
+extension UISearchBar {
+    
+    func getTextField() -> UITextField? { return value(forKey: "searchField") as? UITextField }
+    func setText(color: UIColor) { if let textField = getTextField() { textField.textColor = color } }
+    func setPlaceholderText(color: UIColor) { getTextField()?.setPlaceholderText(color: color) }
+    func setClearButton(color: UIColor) { getTextField()?.setClearButton(color: color) }
+    
+    func setTextField(color: UIColor) {
+        guard let textField = getTextField() else { return }
+        switch searchBarStyle {
+        case .minimal:
+            textField.layer.backgroundColor = color.cgColor
+            textField.layer.cornerRadius = 6
+        case .prominent, .default: textField.backgroundColor = color
+        @unknown default: break
+        }
+    }
+    
+    func setSearchImage(color: UIColor) {
+        guard let imageView = getTextField()?.leftView as? UIImageView else { return }
+        imageView.tintColor = color
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+    }
+}
+
+extension UITextField {
+    
+    private class ClearButtonImage {
+        static private var _image: UIImage?
+        static private var semaphore = DispatchSemaphore(value: 1)
+        static func getImage(closure: @escaping (UIImage?)->()) {
+            DispatchQueue.global(qos: .userInteractive).async {
+                semaphore.wait()
+                DispatchQueue.main.async {
+                    if let image = _image { closure(image); semaphore.signal(); return }
+                    guard let window = UIApplication.shared.windows.first else { semaphore.signal(); return }
+                    let searchBar = UISearchBar(frame: CGRect(x: 0, y: -200, width: UIScreen.main.bounds.width, height: 44))
+                    window.rootViewController?.view.addSubview(searchBar)
+                    searchBar.text = "txt"
+                    searchBar.layoutIfNeeded()
+                    _image = searchBar.getTextField()?.getClearButton()?.image(for: .normal)
+                    closure(_image)
+                    searchBar.removeFromSuperview()
+                    semaphore.signal()
+                }
+            }
+        }
+    }
+    
+    func setClearButton(color: UIColor) {
+        ClearButtonImage.getImage { [weak self] image in
+            guard   let image = image,
+                let button = self?.getClearButton() else { return }
+            button.imageView?.tintColor = color
+            button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
+    
+    func setPlaceholderText(color: UIColor) {
+        attributedPlaceholder = NSAttributedString(string: placeholder != nil ? placeholder! : "", attributes: [.foregroundColor: color])
+    }
+    
+    func getClearButton() -> UIButton? { return value(forKey: "clearButton") as? UIButton }
+}
+
 extension UILabel {
     var localizedNewDirection: NSTextAlignment {
         if lastLang == "en" {

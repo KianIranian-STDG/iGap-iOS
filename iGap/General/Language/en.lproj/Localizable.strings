@@ -47,6 +47,7 @@
 "GLOBAL_CANCEL" = "Cancel";
 "EMAIL" = "Email";
 "SECURITY_QUESTIONS" = "Security Questions";
+"SEARCH_PLACEHOLDER" = "Search";
 
 
 /// MARK : - Register Process

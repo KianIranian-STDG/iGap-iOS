@@ -867,6 +867,8 @@
         "POD_ERROR_MESSAGE" : " Please select carefully your subject, city & full address",
         "EXPLORE_HINT" : "Merchant name, Username, Product...",
         "SEARCHING" : "Searching ...",
+        "SEARCH_PLACEHOLDER" : "Search",
+
         "SEARCH_NORESULT" : " No results found",
         "SEARCH_NEARBY" : "Around Me",
         "CONTACT_FIND_FRIENDS" : "Find your friends",

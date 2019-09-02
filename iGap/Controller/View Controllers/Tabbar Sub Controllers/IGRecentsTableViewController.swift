@@ -93,13 +93,58 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
         //Setup Search Controller
-        self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.searchBar.placeholder = "Search"
-        self.searchController.searchBar.barStyle = .black
-        self.searchController.searchBar.delegate = self
-        self.definesPresentationContext = true
+        // Convert CAGradientLayer to UIImage
+        let gradient = CAGradientLayer()
+        let sizeLength = UIScreen.main.bounds.size.height * 2
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
         
-        navigationItem.searchController = searchController
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+        gradient.locations = orangeGradientLocation as [NSNumber]
+
+        
+        
+        if #available(iOS 11.0, *) {
+
+            if let navigationBar = self.navigationController?.navigationBar {
+                navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
+            }
+ 
+            
+            IGGlobal.setLanguage()
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
+
+
+            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+                IGGlobal.setLanguage()
+
+                if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
+                    let centeredParagraphStyle = NSMutableParagraphStyle()
+                    centeredParagraphStyle.alignment = .center
+
+                    let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
+                    textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
+                    textField.textAlignment = .center
+                }
+
+                let imageV = textField.leftView as! UIImageView
+                imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                imageV.tintColor = UIColor.white
+
+                if let backgroundview = textField.subviews.first {
+                    backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                    backgroundview.layer.cornerRadius = 10;
+                    backgroundview.clipsToBounds = true;
+                    
+                }
+            }
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = true
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
 
         let _ : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
@@ -233,6 +278,17 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
     }
     
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -79,7 +79,7 @@ class IGNavigationItem: UINavigationItem {
         self.returnToCall?.backgroundColor = UIColor.returnToCall()
         self.returnToCall?.layer.cornerRadius = 15
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
+        label.font = UIFont.systemFont(ofSize: 15.0, weight: UIFont.Weight.semibold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
         label.text = "RETURN_TO_CALL".localizedNew
@@ -115,14 +115,14 @@ class IGNavigationItem: UINavigationItem {
         self.titleView = centerViewContainer
         
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        label.font = UIFont.igFont(ofSize: 15.0,weight: .bold)
         label.textAlignment = .center
         label.textColor = UIColor.iGapBarsInfo()
         label.text = text
         self.titleView?.addSubview(label)
         label.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.centerViewContainer!.snp.centerX)
-            make.centerY.equalTo(self.centerViewContainer!.snp.centerY)
+            make.centerY.equalTo(self.centerViewContainer!.snp.centerY).offset(-5)
         }
         
         let activityIndicatorView = UIActivityIndicatorView(style: .white)
@@ -382,7 +382,7 @@ class IGNavigationItem: UINavigationItem {
         if IGTabBarController.currentTabStatic == .Recent || AppDelegate.isFirstEnterToApp {
             AppDelegate.isFirstEnterToApp = false
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
-            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 8, width: 67, height: 23))
+            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 67, height: 20))
             logoImageView.image = UIImage(named: "IG_Nav_Bar_Logo")
             logoImageView.contentMode = .scaleAspectFit
             titleView.addSubview(logoImageView)

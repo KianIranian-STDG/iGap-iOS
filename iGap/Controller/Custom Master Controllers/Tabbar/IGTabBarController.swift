@@ -9,6 +9,7 @@
  */
 
 import UIKit
+var currentTabIndex : Int!
 
 class IGTabBarController: UITabBarController {
     
@@ -73,23 +74,33 @@ class IGTabBarController: UITabBarController {
         
         switch item.tag {
         case 0:
-            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.navigationBar.isHidden = false
+//            navigationControllerr.addSearchBar(state: "False")
             
+            currentTabIndex = 0
             break
         case 1:
-            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.navigationBar.isHidden = false
+//            navigationControllerr.addSearchBar(state: "False")
+            currentTabIndex = 1
             
             break
         case 2:
-            navigationControllerr.addSearchBar(state: "True")
+            navigationControllerr.navigationBar.isHidden = false
+//            navigationControllerr.addSearchBar(state: "True")
+            currentTabIndex = 2
             
             break
         case 3:
-            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.navigationBar.isHidden = false
+//            navigationControllerr.addSearchBar(state: "False")
+            currentTabIndex = 3
             
             break
         case 4:
-            navigationControllerr.addSearchBar(state: "False")
+            navigationControllerr.navigationBar.isHidden = true
+//            navigationControllerr.addSearchBar(state: "False")
+            currentTabIndex = 4
             
             break
         default:

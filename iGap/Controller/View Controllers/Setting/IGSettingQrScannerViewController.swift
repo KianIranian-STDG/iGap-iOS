@@ -28,7 +28,11 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
         makeView()
         loadScanner()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_QRCODE_SCANNER".localizedNew)
