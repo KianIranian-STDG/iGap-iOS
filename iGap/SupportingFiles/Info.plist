@@ -83,6 +83,7 @@ This is the option to choose a photo from your gallery and send it to someone el
 		<string>IRANSans_Medium.ttf</string>
 		<string>IRANSans_UltraLight.ttf</string>
 		<string>IRANSans.ttf</string>
+		<string>igap.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

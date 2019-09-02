@@ -275,14 +275,22 @@ class IGNavigationItem: UINavigationItem {
         leftViewContainer!.addSubview(label)
     }
     
-    //MARK: - Chat List
-    func setChatListsNavigationItems() {
+    //MARK: - Phone Book
+    func setPhoneBookNavigationItems() {
+        addiGapLogo()
         addSettingButton()
         addComopseButton()
-        addiGapLogo()
+        
     }
-    
     private func addSettingButton() {
+        if leftViewContainer?.subviews.count != nil {
+            if leftViewContainer!.subviews.count > 0 {
+                
+                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                
+            }
+            
+        }
         let leftViewFrame = CGRect(x:0, y:0, width: 50, height:40)
         leftViewContainer = IGTappableView(frame: leftViewFrame)
         leftViewContainer!.backgroundColor = UIColor.clear
@@ -295,44 +303,21 @@ class IGNavigationItem: UINavigationItem {
         let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
         let settingButtonImageView = UIImageView(frame: settingViewFrame)
         
-        settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
+        settingButtonImageView.image = UIImage(named: "IG_NavBar_EditMode")
         leftViewContainer!.addSubview(settingButtonImageView)
-        
-        
-        /*
-         switch current {
-         case "fa" :
-         let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
-         let settingButtonImageView = UIImageView(frame: settingViewFrame)
-         
-         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
-         leftViewContainer!.addSubview(settingButtonImageView)
-         
-         
-         case "en" :
-         let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-         let settingButtonImageView = UIImageView(frame: settingViewFrame)
-         
-         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
-         leftViewContainer!.addSubview(settingButtonImageView)
-         
-         
-         case "ar" :
-         let settingViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
-         let settingButtonImageView = UIImageView(frame: settingViewFrame)
-         
-         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
-         leftViewContainer!.addSubview(settingButtonImageView)
-         
-         
-         default :
-         break
-         }
-         */
-        
     }
     
     private func addComopseButton() {
+        
+        if rightViewContainer?.subviews.count != nil {
+            
+            if rightViewContainer!.subviews.count > 0 {
+                
+                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                
+            }
+            
+        }
         let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
         let _ : String = SMLangUtil.loadLanguage()
@@ -340,32 +325,118 @@ class IGNavigationItem: UINavigationItem {
         
         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
         rightViewContainer!.addSubview(composeButtonImageView)
-        /*
-         switch current {
-         case "fa" :
-         let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-         
-         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
-         rightViewContainer!.addSubview(composeButtonImageView)
-         
-         
-         case "en" :
-         
-         
-         case "ar" :
-         let composeButtonFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
-         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-         
-         composeButtonImageView.image = UIImage(named: "IG_Nav_Bar_Menu")
-         rightViewContainer!.addSubview(composeButtonImageView)
-         
-         
-         default :
-         break
-         }
-         */
     }
+    
+    
+    //MARK: - Call List
+    func setCallListNavigationItems() {
+        addiGapLogo()
+        addPlusButton()
+        addMoreSettingsButton()
+        
+    }
+    private func addMoreSettingsButton() {
+        if leftViewContainer?.subviews.count != nil {
+            
+            if leftViewContainer!.subviews.count > 0 {
+                
+                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                
+            }
+            
+        }
+        let callListViewFrame =  CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let callListButtonImageView = UIImageView(frame: callListViewFrame)
+        
+        callListButtonImageView.image = UIImage(named: "IG_NavBar_More")
+        callListButtonImageView.removeFromSuperview()
+        leftViewContainer!.addSubview(callListButtonImageView)
+        
+        
+    }
+    
+    private func addPlusButton() {
+        
+        
+        if rightViewContainer?.subviews.count != nil {
+            if rightViewContainer!.subviews.count > 0 {
+                
+                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                
+            }
+            
+        }
+        let callListViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let callListButtonImageView = UIImageView(frame: callListViewFrame)
+        
+        callListButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
+        callListButtonImageView.removeFromSuperview()
+        
+        rightViewContainer!.addSubview(callListButtonImageView)
+        
+    }
+    
+    //MARK: - Discovery
+    
+    func setDiscoveriesNavigationItems() {
+        addFavoriteButton()
+        addScoreButton()
+        addiGapLogo()
+    }
+    
+    
+    private func addFavoriteButton() {
+        if leftViewContainer?.subviews.count != nil {
+            
+            if leftViewContainer!.subviews.count > 0 {
+                
+                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                
+            }
+            
+        }
+        let settingViewFrame =  CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let settingButtonImageView = UIImageView(frame: settingViewFrame)
+        
+        settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Flag")
+        settingButtonImageView.removeFromSuperview()
+        leftViewContainer!.addSubview(settingButtonImageView)
+        
+        
+    }
+    
+    
+    private func addScoreButton() {
+        
+        
+        if rightViewContainer?.subviews.count != nil {
+            if rightViewContainer!.subviews.count > 0 {
+                
+                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+                
+            }
+            
+        }
+        let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let composeButtonImageView = UIImageView(frame: composeButtonFrame)
+        
+        composeButtonImageView.image = UIImage(named: "IG_NavBar_Score")
+        composeButtonImageView.removeFromSuperview()
+        
+        rightViewContainer!.addSubview(composeButtonImageView)
+        
+    }
+    //MARK: - Chat List
+    func setChatListsNavigationItems() {
+        addSettingButton()
+        addComopseButton()
+        addiGapLogo()
+    }
+    private func removeSettingButton() {
+        
+    }
+    
+    
     
     
     func addiGapLogo() {
@@ -379,7 +450,7 @@ class IGNavigationItem: UINavigationItem {
             return
         }
         
-        if IGTabBarController.currentTabStatic == .Recent || AppDelegate.isFirstEnterToApp {
+        if IGTabBarController.currentTabStatic == .Recent || AppDelegate.isFirstEnterToApp || IGTabBarController.currentTabStatic == .Contact  {
             AppDelegate.isFirstEnterToApp = false
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
             let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 67, height: 20))
@@ -388,6 +459,17 @@ class IGNavigationItem: UINavigationItem {
             titleView.addSubview(logoImageView)
             
             self.titleView = titleView
+        }
+        else if IGTabBarController.currentTabStatic == .Contact  {
+            
+            let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
+            let logoImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 67, height: 20))
+            logoImageView.image = UIImage(named: "IG_Nav_Bar_Logo")
+            logoImageView.contentMode = .scaleAspectFit
+            titleView.addSubview(logoImageView)
+            
+            self.titleView = titleView
+            
         } else {
             //Hint: call top code block again, because we want show iGap logo for all tabs
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 67, height: 40))
@@ -437,7 +519,6 @@ class IGNavigationItem: UINavigationItem {
              */
         }
     }
-    
     //MARK: - Messages View
     func setNavigationBarForRoom(_ room: IGRoom) {
         if  IGGlobal.shouldMultiSelect {

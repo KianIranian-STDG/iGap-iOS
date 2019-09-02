@@ -32,6 +32,7 @@
 		8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */; };
 		8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */; };
 		8E5FBCA9231D08870069D4F2 /* IGNavigationBarX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */; };
+		8E5FBCAF231D58720069D4F2 /* igap.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBCAE231D58720069D4F2 /* igap.ttf */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -83,7 +84,6 @@
 		8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */; };
 		8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */; };
 		8EBB45602274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */; };
-		8EBF54EC22D9AF9100834E6A /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EBF54EB22D9AF9100834E6A /* iGap_fontico.ttf */; };
 		8EBF54F822D9B60D00834E6A /* BeautifulBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */; };
 		8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EE22D9B60B00834E6A /* DataEntry.swift */; };
 		8EBF54FA22D9B60D00834E6A /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */; };
@@ -717,6 +717,7 @@
 		8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStringManager.swift; sourceTree = "<group>"; };
 		8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileTableViewController.swift; sourceTree = "<group>"; };
 		8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNavigationBarX.swift; sourceTree = "<group>"; };
+		8E5FBCAE231D58720069D4F2 /* igap.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = igap.ttf; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -770,7 +771,6 @@
 		8EB887A22282A5F50069DDE3 /* IGMediaUserAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMediaUserAvatar.swift; sourceTree = "<group>"; };
 		8EBB455C2270202A00A52D88 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		8EBB455F2274632200A52D88 /* IGRegisterChooseLanguageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisterChooseLanguageTableViewController.swift; sourceTree = "<group>"; };
-		8EBF54EB22D9AF9100834E6A /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
 		8EBF54ED22D9B60B00834E6A /* BeautifulBarChartPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChartPresenter.swift; sourceTree = "<group>"; };
 		8EBF54EE22D9B60B00834E6A /* DataEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntry.swift; sourceTree = "<group>"; };
 		8EBF54EF22D9B60B00834E6A /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
@@ -2133,7 +2133,7 @@
 		FA6A22741F41CAFB0063DF07 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				8EBF54EB22D9AF9100834E6A /* iGap_fontico.ttf */,
+				8E5FBCAE231D58720069D4F2 /* igap.ttf */,
 				FA6A22751F41CB0B0063DF07 /* iGap-Fontico.ttf */,
 				FA3306351F445A570096031A /* IRANSans.ttf */,
 				FA3306371F445AE80096031A /* IRANSans_Bold.ttf */,
@@ -2986,6 +2986,7 @@
 				FA712AE2225DC9C200FD78AA /* DashboardCell7.xib in Resources */,
 				8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */,
 				FAD580951DDC5C4E00A242DE /* IGMessageCollectionViewCell.xib in Resources */,
+				8E5FBCAF231D58720069D4F2 /* igap.ttf in Resources */,
 				FA76598522902ACE006322A3 /* INSPhotoGallery.bundle in Resources */,
 				FA9F73582127E589004418E5 /* EPContactCell.xib in Resources */,
 				FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */,
@@ -3052,7 +3053,6 @@
 				8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */,
 				8E94B7472237E61D005F6868 /* webServiceKey.txt in Resources */,
 				FA8F8A69208602AB00AF03CB /* IGMapNearbyDistanceCell.xib in Resources */,
-				8EBF54EC22D9AF9100834E6A /* iGap_fontico.ttf in Resources */,
 				8EEB1FF622C1F68B00EFD2ED /* GetGiftPopup.xib in Resources */,
 				FA5656BE204AB18F00DB46F0 /* igap_signaling.mp3 in Resources */,
 				FA786D58206A575300608A2D /* profile.storyboard in Resources */,
