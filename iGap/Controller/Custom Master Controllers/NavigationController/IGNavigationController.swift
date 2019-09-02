@@ -38,7 +38,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
-            addSearchBar(state: "True")
+//            addSearchBar(state: "True")
             return super.popViewController(animated: animated)
 
         }
@@ -99,7 +99,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
  
         // 2.5
         navigationBar.addSubview(colorView)
-        
+
         //2.6
         colorViewNavBar.frame = CGRect(x: 0, y: 0, width: navigationBar.frame.width, height: navigationBar.frame.height)
         
@@ -109,7 +109,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
         searchViewNavBar.backgroundColor = .red
         self.navigationBar.insertSubview(colorViewNavBar, at: 1)
         if isActive {
-            addSearchBar(state: "True")
+//            addSearchBar(state: "True")
             isActive = false
         }
 

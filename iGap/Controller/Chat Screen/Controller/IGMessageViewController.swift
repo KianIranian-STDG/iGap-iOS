@@ -1564,7 +1564,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.addSearchBar(state: "False")
+//        navigationControllerr.addSearchBar(state: "False")
 
         self.currentRoomId = self.room?.id
         CellSizeLimit.updateValues(roomId: (self.room?.id)!)
@@ -1641,10 +1641,10 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let navigationControllerr = self.navigationController as! IGNavigationController
         let numberOfPages = self.navigationController!.viewControllers.count
         if numberOfPages == 1 {
-            navigationControllerr.addSearchBar(state: "True")
+//            navigationControllerr.addSearchBar(state: "True")
         }
         else {
-            navigationControllerr.addSearchBar(state: "False")
+//            navigationControllerr.addSearchBar(state: "False")
         }
 
         currentRoomId = 0

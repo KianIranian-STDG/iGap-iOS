@@ -403,6 +403,9 @@ extension UIColor {
     class func forwardBoxIncomming() -> UIColor {
         return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
     }
+    class func tabbarBGColor() -> UIColor {
+        return UIColor(red: 234/255.0, green: 234/255.0, blue: 237/255.0, alpha: 0.9)
+    }
     
     class func forwardBoxOutgoign() -> UIColor {
         return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
