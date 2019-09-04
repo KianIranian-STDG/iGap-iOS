@@ -341,7 +341,9 @@ extension UICollectionView {
     }
     
     func restore() {
-        self.backgroundView = nil
+        DispatchQueue.main.async {
+            self.backgroundView = nil
+        }
     }
 }
 extension Range where Bound == String.Index {
@@ -432,7 +434,13 @@ extension UIColor {
     class func iGapLightGreenColor() -> UIColor { // navigation bar color
         return UIColor(red:185/255.0, green:226/255.0, blue:68/255.0, alpha:1.0)
     }
-    
+    class func iGapDarkYellow() -> UIColor {
+        return UIColor(red: 209/255.0, green: 179/255.0, blue: 31/255.0, alpha: 0.9)
+    }
+    class func iGapPurple() -> UIColor {
+        return UIColor(red: 167/255.0, green: 70/255.0, blue: 141/255.0, alpha: 0.9)
+    }
+
     class func iGapSubmitButtons() -> UIColor { // navigation bar color
         return UIColor(red:87/255.0, green:186/255.0, blue:38/255.0, alpha:1.0)
     }
@@ -1400,6 +1408,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 //MARK: -
+
 extension UIFont {
     
     enum FontWeight {

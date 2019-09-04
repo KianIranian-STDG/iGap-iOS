@@ -59,7 +59,7 @@ class IGRegisteredUser: Object {
     @objc dynamic var firstName:          String                      = ""
     @objc dynamic var lastName:           String                      = ""
     @objc dynamic var displayName:        String                      = ""
-    @objc dynamic var email:              String?
+    @objc dynamic var email:              String?                     = ""
     @objc dynamic var bio:                String?
     @objc dynamic var initials:           String                      = ""
     @objc dynamic var color:              String                      = ""
@@ -131,7 +131,7 @@ class IGRegisteredUser: Object {
         self.displayName = igpUser.igpDisplayName
         self.initials = igpUser.igpInitials
         self.color = igpUser.igpColor
-        
+
         switch igpUser.igpStatus {
         case .longTimeAgo:
             self.lastSeenStatus = .longTimeAgo

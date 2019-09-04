@@ -26,11 +26,14 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         return view
     }()
     var isEditMode = false
-    var tapCount = 1
+    var tapCount = 0
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
     @IBOutlet weak var stack0: UIStackView!
     @IBOutlet weak var stack1: UIStackView!
     @IBOutlet weak var stack3: UIStackView!
     @IBOutlet weak var btnName: UIButton!
+    @IBOutlet weak var btnUsername: UIButton!
     @IBOutlet weak var lblTel: UILabel!
     @IBOutlet weak var lblBio: UILabel!
     @IBOutlet weak var viewBackgroundImage: UIView!
@@ -53,7 +56,18 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblBioInner: UILabel!
-    
+    @IBOutlet weak var lblEmailInner: UILabel!
+    @IBOutlet weak var lblGenderInner: UILabel!
+    @IBOutlet weak var lblMenGender: UILabel!
+    @IBOutlet weak var lblWomenGender: UILabel!
+    @IBOutlet weak var lblBioTop: EFAutoScrollLabel!
+    @IBOutlet weak var btnMenGender: UIButton!
+    @IBOutlet weak var btnWomenGender: UIButton!
+    @IBOutlet weak var tfName: UITextField!
+    @IBOutlet weak var tfUserName: UITextField!
+    @IBOutlet weak var tfEmail: UITextField!
+    @IBOutlet weak var tfBio: UITextField!
+
     
     var userInDb : IGRegisteredUser!
     var imagePicker = UIImagePickerController()
@@ -70,43 +84,185 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     var isPoped = false
     let disposeBag = DisposeBag()
+    var userCards: [SMCard]?
+
     @IBOutlet weak var userAvatarView: IGAvatarView!
     
     @IBOutlet weak var btnCamera: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        initView()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        self.tableView.alwaysBounceVertical = false
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.navigationBar.isHidden = true
+        navigationControllerr.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationControllerr.navigationBar.isTranslucent = true
 
+        initView()
+        initServices()
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        navigationItem.removeNavButtons()
+
+    }
+    override func viewWillAppear(_ animated: Bool)  {
+        super.viewWillAppear(animated)
+        IGRequestWalletGetAccessToken.sendRequest()
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        USERinDB()
+        textManagment()
+        self.tableView.alwaysBounceVertical = false
+        
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        if navigationItem.searchController == nil {
+            let gradient = CAGradientLayer()
+            let sizeLength = UIScreen.main.bounds.size.height * 2
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+            
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+            gradient.locations = orangeGradientLocation as [NSNumber]
+            
+            
+            
+            if #available(iOS 11.0, *) {
+                
+                if let navigationBar = self.navigationController?.navigationBar {
+                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
+                }
+                
+                
+                IGGlobal.setLanguage()
+                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
+                
+                
+                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+                    IGGlobal.setLanguage()
+                    
+                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
+                        let centeredParagraphStyle = NSMutableParagraphStyle()
+                        centeredParagraphStyle.alignment = .center
+                        
+                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
+                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
+                        textField.textAlignment = .center
+                    }
+                    
+                    let imageV = textField.leftView as! UIImageView
+                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                    imageV.tintColor = UIColor.white
+                    
+                    if let backgroundview = textField.subviews.first {
+                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                        backgroundview.layer.cornerRadius = 10;
+                        backgroundview.clipsToBounds = true;
+                        
+                    }
+                }
+                if navigationItem.searchController == nil {
+                    navigationItem.searchController = searchController
+                    navigationItem.hidesSearchBarWhenScrolling = true
+                }
+            } else {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+            
+        }
+        
+        navigationItem.removeNavButtons()
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.navigationBar.isHidden = true
+        navigationControllerr.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+
+        ////
+        //
+        //        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        //        navigationControllerr.navigationBar.shadowImage = UIImage()
+        //        navigationControllerr.navigationBar.isTranslucent = true
+        //        //  Converted to Swift 5 by Swiftify v5.0.30657 - https://objectivec2swift.com/
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
+        
+        
+        
+        
+        
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+
+        navigationControllerr.navigationBar.isHidden = false
+
         
-        
-        //        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    func initServices() {
+        getUserEmail()
+        self.finishDefault(isPaygear: true, isCard: false)
+
+    }
+    func finishDefault(isPaygear: Bool? ,isCard : Bool?) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        SMCard.getAllCardsFromServer({ cards in
+            if cards != nil{
+                if (cards as? [SMCard]) != nil{
+                    if (cards as! [SMCard]).count > 0 {
+                        //                        self.walletView.dismissPresentedCardView(animated: true)
+                        //                        self.walletHeaderView.alpha = 1.0
+                        self.userCards = SMCard.getAllCardsFromDB()
+                        if let cards = self.userCards {
+                            var tmpSum : Int64! = 0
+                            for card in cards {
+                                if card.balance != nil {
+                                    let tmpBalance = card.balance!
+                                    tmpSum =  tmpSum + tmpBalance
+                                }
+                            }
+                            self.lblMoneyAmount.text = String(tmpSum).inRialFormat().inLocalizedLanguage()
+
+                        }
+
+                    }
+                }
+            }
+            needToUpdate = true
+        }, onFailed: {err in
+            //            SMLoading.showToast(viewcontroller: self, text: "serverDown".localized)
+        })
+    }
+
     func initView() {
+
+        btnMenGender.setTitle("", for: .normal)
+        btnMenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnWomenGender.setTitle("", for: .normal)
+        btnWomenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
         colorView.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: colorView).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: colorView.frame.size.width/2, bottom: 0, right: colorView.frame.size.width/2), resizingMode: .stretch))
         btnCamera.setBackgroundImage(UIImage(named: "ig_add_image_icon"), for: .normal)
         
         
-        self.view.insertSubview(colorView, at: 0)
+        self.view.insertSubview(colorView, at: 1)
         
         viewBackgroundImage.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMinXMaxYCorner], radius: 10)
         viewBackgroundImage.clipsToBounds = true
         initChangeLang()
         requestToGetAvatarList()
         getScore()
-        USERinDB()
         let tapCloud = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapCloud(recognizer:)))
         stack0.addGestureRecognizer(tapCloud)
         
@@ -115,6 +271,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         
         let tapNew = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapNew(recognizer:)))
         stack3.addGestureRecognizer(tapNew)
+        
+        
         
     }
     func initChangeLang() {
@@ -129,7 +287,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         lblNew.text = "NEW".localizedNew
         lblCredit.text = "CREDITS".localizedNew
         lblScore.text = "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localizedNew
-        lblMoneyAmount.text = "1254790".inRialFormat().inLocalizedLanguage() + "CURRENCY".localizedNew
+//        lblMoneyAmount.text = "1254790".inRialFormat().inLocalizedLanguage() + "CURRENCY".localizedNew
         lblScoreAmount.text = "..."
         lblInviteF.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
         lblQR.text = "SETTING_PAGE_QRCODE_SCANNER".localizedNew
@@ -138,22 +296,90 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             lblVersion.text = "SETTING_PAGE_FOOTER_VERSION".localizedNew + " \(version)".inLocalizedLanguage()
         }
-        
-        
+        lblEmailInner.text = "SETTING_PS_TV_EMAIL".localizedNew
+        lblMenGender.text = "MEN_GENDER".localizedNew
+        lblWomenGender.text = "WOMEN_GENDER".localizedNew
+        lblGenderInner.text = "GENDER".localizedNew
+
+    }
+    func textManagment() {
+        lblBioTop.text = (userInDb.bio)
+        btnName.setTitle((userInDb.displayName), for: .normal)
+        btnName.titleLabel?.font = UIFont.igFont(ofSize: 14)
+        btnUsername.setTitle((userInDb.displayName), for: .normal)
+        btnUsername.titleLabel?.font = UIFont.igFont(ofSize: 14)
+        lblTel.text = String(userInDb.phone).inLocalizedLanguage()
+
+        tfEmail.text = (userInDb.email)
+        tfName.text = (userInDb.displayName)
+        tfUserName.text = (userInDb.username)
+        tfBio.text = (userInDb.bio)
+        lblBioTop.font = UIFont.igFont(ofSize: 10)
+        lblBioTop.labelSpacing = 30                       // Distance between start and end labels
+        lblBioTop.pauseInterval = 2.0                     // Seconds of pause before scrolling starts again
+        lblBioTop.scrollSpeed = 30                        // Pixels per second
+        if lastLang == "en" {
+            lblBioTop.textAlignment = .left
+        }
+        else{
+            lblBioTop.textAlignment = .right
+        }
+        lblBioTop.fadeLength = 12                         // Length of the left and right edge fade, 0 to disable
+        lblBioTop.scrollDirection = EFAutoScrollDirection.left
+        if lastLang == "en" {
+            lblBioTop.scrollDirection = EFAutoScrollDirection.left
+        }
+        else{
+            lblBioTop.scrollDirection = EFAutoScrollDirection.right
+        }
+
+
+    }
+    
+    func getUserEmail() {
+        DispatchQueue.global(qos: .userInteractive).async {
+
+        IGUserProfileGetEmailRequest.Generator.generate().success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let getUserEmailResponse as IGPUserProfileGetEmailResponse:
+                    let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
+                    DispatchQueue.main.async {
+                        self.tfEmail.text = userEmail
+                    }
+                default:
+                    break
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
+            
+        }).send()
+            
+        }
     }
     func USERinDB() {
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
+        if userAvatarView.avatarImageView?.image == nil {
         userAvatarView.setUser(userInDb, showMainAvatar: true)
-        btnName.setTitle(userInDb.displayName, for: .normal)
-        btnName.titleLabel?.font = UIFont.igFont(ofSize: 14)
-        lblTel.text = String(userInDb.phone).inLocalizedLanguage()
-        lblBio.text = (userInDb.bio)
+        }
         user = userInDb
         userAvatarView.avatarImageView?.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
         userAvatarView.avatarImageView?.addGestureRecognizer(tap)
+        
     }
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
@@ -267,12 +493,14 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     
     func requestToGetAvatarList() {
+        DispatchQueue.global(qos: .userInteractive).async {
         if let currentUserId = IGAppManager.sharedManager.userID() {
             IGUserAvatarGetListRequest.Generator.generate(userId: currentUserId).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let UserAvatarGetListoResponse as IGPUserAvatarGetListResponse:
                         let responseAvatars =   IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
+                        
                         self.avatars = responseAvatars
                         sizesArray.removeAll()
                         
@@ -301,15 +529,29 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 
             }).send()
         }
+            
+        }
+
     }
     private func getScore(){
+        DispatchQueue.global(qos: .userInteractive).async {
+
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
                 DispatchQueue.main.async {
                     self.lblScoreAmount.text = String(describing: response.igpScore).inRialFormat().inLocalizedLanguage()
                 }
             }
-        }).error({ (errorCode, waitTime) in }).send()
+        }).error({ (errorCode, waitTime) in
+            
+            switch errorCode {
+            case .timeout :
+                    self.getScore()
+            default:
+                break
+            }
+        }).send()
+        }
     }
     func gradientImage(withColours colours: [UIColor], location: [Double], view: UIView) -> UIImage {
         let gradient = CAGradientLayer()
@@ -356,28 +598,51 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
     }
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        if(offset > -UIApplication.shared.statusBarFrame.height){
-            colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
-            
-        }else{
-            colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
+        var offset = scrollView.contentOffset.y
+//        if(offset > -UIApplication.shared.statusBarFrame.height){
+//            colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
+//
+//
+//        }else{
+//            colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
+//        }
+        if offset < 0 {
+            scrollView.contentOffset.y = 0
+
+        } else {
+
         }
+
     }
     @IBAction func btnEditProfileTapped(_ sender: Any) {
-        tapCount += 1
         print(tapCount)
+        tapCount += 1
+
         if tapCount % 2 == 0 {
-            isEditMode = true
-            self.tableView.beginUpdates()
-            self.btnCamera.isHidden = false
-            self.tableView.endUpdates()
-        }
-        else {
             isEditMode = false
+            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.btnEditProfile.setTitle("", for: .normal)
+
+            })
+            
+            btnEditProfile.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+            
             self.tableView.beginUpdates()
             self.btnCamera.isHidden = true
             self.tableView.endUpdates()
+
+        }
+        else {
+            
+            isEditMode = true
+            btnEditProfile.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.btnEditProfile.setTitle("", for: .normal)
+            })
+            self.tableView.beginUpdates()
+            self.btnCamera.isHidden = false
+            self.tableView.endUpdates()
+
         }
         
     }
@@ -388,6 +653,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         self.navigationController!.pushViewController(score, animated: true)
     }
     @IBAction func btnCreditTapped(_ sender: Any) {
+        let scoreHistory = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+        self.navigationController!.pushViewController(scoreHistory, animated:true)
+
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
@@ -477,6 +745,22 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                     return 0
                 }
                 
+            case 10 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
+                
+            case 11 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
+                
                 
                 
             default :
@@ -500,7 +784,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 12
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -540,19 +824,34 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                     UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                 }
             case 7 :
+
                 break
             case 8 :
                 break
             case 9 :
                 break
                 
+            case 10 :
+                break
                 
+            case 11 :
+                break
+                
+
                 
             default:
                 break
             }
             
         }
+        
+        
+    }
+    //MARK : - ACTIONS
+    
+    @IBAction func btnMaleGendedidTapOnMaleGender(_ sender: Any) {
+    }
+    @IBAction func didTapOnFemaleGender(_ sender: Any) {
     }
     /*
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -609,4 +908,70 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
      }
      */
     
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
+    
 }
+
+//MARK: SEARCH BAR DELEGATE
+extension IGProfileTableViewController: UISearchBarDelegate
+{
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
+    {
+        //Show Cancel
+        searchBar.setShowsCancelButton(true, animated: true)
+        searchBar.tintColor = .white
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        //Filter function
+    }
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
+        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
+        
+        let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
+        lookAndFind.hero.isEnabled = true
+        //        self.searchBar.hero.id = "searchBar"
+        self.navigationController?.hero.isEnabled = true
+        self.navigationController?.hero.navigationAnimationType = .fade
+        self.hero.replaceViewController(with: lookAndFind)
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        //Hide Cancel
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+        
+        
+        
+        //Filter function
+        //        self.filterFunction(searchText: term)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
+    {
+        //Hide Cancel
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = String()
+        searchBar.resignFirstResponder()
+        
+        //Filter function
+        //        self.filterFunction(searchText: searchBar.text)
+    }
+}
+
+
+

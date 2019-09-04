@@ -138,12 +138,14 @@ class IGNavigationItem: UINavigationItem {
     
     
     //MARK: - Navigation VCs
-    func addNavigationViewItems(rightItemText: String?, title: String?, width: CGFloat = 150) {
+    func addNavigationViewItems(rightItemText: String?, title: String?, width: CGFloat = 150,view: String? = nil) {
         if title != nil {
             addTitleLabel(title: title!, width: width)
         }
-        if rightItemText != nil {
-            addModalViewRightItem(title: rightItemText!)
+        if rightItemText != nil && view == "MAIN_SCORE" { //if is from ScorePage_Setting
+            addModalViewRightItem(title: rightItemText!,iGapFont : true)
+        } else {
+            addModalViewRightItem(title: rightItemText ?? "",iGapFont : false)
         }
         addNavigationBackItem()
     }
@@ -156,11 +158,9 @@ class IGNavigationItem: UINavigationItem {
         let backArrowImageView = UIImageView(frame: CGRect(x: 5, y: 10, width: 25, height: 25))
         if IGGlobal.shouldMultiSelect {
             backArrowImageView.image = UIImage(named: "ig_cross_icon")
-            
         }
         else {
             backArrowImageView.image = UIImage(named: "IG_Nav_Bar_BackButton")
-            
         }
         backViewContainer?.addSubview(backArrowImageView)
         let backBarButton = UIBarButtonItem(customView: backViewContainer!)
@@ -244,7 +244,7 @@ class IGNavigationItem: UINavigationItem {
         if iGapFont {
             labelFrame = CGRect(x: xPosition, y: 0, width: 50, height:40)
             label = UILabel(frame: labelFrame)
-            label.font = UIFont.iGapFontico(ofSize: fontSize)
+            label.font = UIFont.iGapFonticon(ofSize: fontSize)
         } else {
             labelFrame = CGRect(x: -50, y: 0, width: 100, height:40)
             label = UILabel(frame: labelFrame)
@@ -274,7 +274,18 @@ class IGNavigationItem: UINavigationItem {
         label.textColor = UIColor.iGapBarsInfo()
         leftViewContainer!.addSubview(label)
     }
-    
+    //MARK: - ProfilePage
+    func removeNavButtons() {
+        addiGapLogo()
+        
+        if leftViewContainer!.subviews.count > 0 {
+            leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+        }
+        if rightViewContainer!.subviews.count > 0 {
+            rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+        }
+
+    }
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
         addiGapLogo()
@@ -666,7 +677,7 @@ class IGNavigationItem: UINavigationItem {
             let callViewLabel = UILabel()
             callViewLabel.textColor = UIColor.iGapBarsInfo()
             callViewLabel.textAlignment = .center
-            callViewLabel.font = UIFont.iGapFontico(ofSize: 18.0)
+            callViewLabel.font = UIFont.iGapFonticon(ofSize: 18.0)
             callViewLabel.text = ""
             callView.addSubview(callViewLabel)
             callViewLabel.snp.makeConstraints { (make) in

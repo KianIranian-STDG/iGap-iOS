@@ -37,6 +37,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
         
         changeGradientImage()
     }
+    
     override func popViewController(animated: Bool) -> UIViewController? {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {

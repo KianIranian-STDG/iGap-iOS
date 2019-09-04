@@ -60,7 +60,35 @@ class IGHelperAlert {
             alert.show(animated: true)
         }
     }
-    
+    func showAlertInputField(view: UIViewController? = nil, message: String? = nil,title: String? = nil, success: Bool = true, done: (() -> Void)? = nil) {
+
+        DispatchQueue.main.async {
+            
+            let iconFontSize: CGFloat = 32
+            
+            var alertView = view
+            if alertView == nil {
+                alertView = UIApplication.topViewController()
+            }
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addTextField()
+            
+            if message != nil {
+                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+                let messageAttrString = NSMutableAttributedString(string: message!, attributes: messageFont)
+                alert.setValue(messageAttrString, forKey: "attributedMessage")
+            }
+            
+            let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+                done?()
+            })
+            
+            alert.addAction(okAction)
+            alertView!.present(alert, animated: true, completion: nil)
+        }
+        
+    }
     func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil){
         DispatchQueue.main.async {
             
@@ -83,7 +111,7 @@ class IGHelperAlert {
                 attributedString = NSAttributedString(
                     string: "",
                     attributes: [
-                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapGreen()
+                        NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapGreen()
                     ]
                 )
             } else {
@@ -92,7 +120,7 @@ class IGHelperAlert {
                 attributedString = NSAttributedString(
                     string: "",
                     attributes: [
-                        NSAttributedString.Key.font : UIFont.iGapFontico(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapRed()
+                        NSAttributedString.Key.font : UIFont.iGapFonticon(ofSize: iconFontSize), NSAttributedString.Key.foregroundColor : UIColor.iGapRed()
                     ]
                 )
             }

@@ -21,5 +21,8 @@
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
+#import "MBCircularProgressBarLayer.h"
+#import "MBCircularProgressBarView.h"
+
 
 #endif /* iGap_Bridging_Header_h */

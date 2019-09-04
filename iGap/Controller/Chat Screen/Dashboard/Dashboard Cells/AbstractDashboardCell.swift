@@ -228,7 +228,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     func showCheckMark(imageView: IGImageView?) {
         btnCheckMark = UIButton()
         btnCheckMark.setTitle("", for: .normal)
-        btnCheckMark.titleLabel?.font = UIFont.iGapFontico(ofSize: 25)
+        btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         btnCheckMark.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         
         btnCheckMark.layer.cornerRadius = IGDashboardViewController.itemCorner

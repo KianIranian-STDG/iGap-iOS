@@ -19,7 +19,8 @@ enum AppStoryboard : String {
     case CreateRoom = "CreateRoom"
     case Register = "Register"
     case Setting = "IGSettingStoryboard"
-    
+    case Wallet = "wallet"
+
     var instance : UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
     }

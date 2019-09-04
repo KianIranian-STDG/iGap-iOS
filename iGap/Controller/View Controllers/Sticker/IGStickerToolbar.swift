@@ -88,7 +88,7 @@ class IGStickerToolbar: UIGestureRecognizer {
         
         if imageName != nil {
             btn.setTitle(imageName, for: UIControl.State.normal)
-            btn.titleLabel?.font = UIFont.iGapFontico(ofSize: 20)
+            btn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
             btn.setTitleColor(UIColor.messageText(), for: .normal)
             btn.removeUnderline()
         } else {

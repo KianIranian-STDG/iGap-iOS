@@ -33,6 +33,7 @@
 		8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */; };
 		8E5FBCA9231D08870069D4F2 /* IGNavigationBarX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */; };
 		8E5FBCB1231D5A650069D4F2 /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBCB0231D5A650069D4F2 /* iGap_fontico.ttf */; };
+		8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -78,6 +79,16 @@
 		8E96A32E225C96C3007D8A77 /* RecieptRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32C225C96C3007D8A77 /* RecieptRow.xib */; };
 		8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32D225C96C3007D8A77 /* RecieptView.xib */; };
 		8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */; };
+		8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DD231F9E1D0099C4EF /* MBCircularProgressBarView.m */; };
+		8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */; };
+		8EA8F3E9231F9E450099C4EF /* UICircularProgressRingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E6231F9E440099C4EF /* UICircularProgressRingDelegate.swift */; };
+		8EA8F3EA231F9E450099C4EF /* UICircularRingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E5231F9E440099C4EF /* UICircularRingStyle.swift */; };
+		8EA8F3EB231F9E450099C4EF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E3231F9E430099C4EF /* Extensions.swift */; };
+		8EA8F3EC231F9E450099C4EF /* UICircularRingLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E1231F9E430099C4EF /* UICircularRingLayer.swift */; };
+		8EA8F3ED231F9E450099C4EF /* UICircularRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E8231F9E450099C4EF /* UICircularRing.swift */; };
+		8EA8F3EE231F9E450099C4EF /* UICircularProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E2231F9E430099C4EF /* UICircularProgressRing.swift */; };
+		8EA8F3EF231F9E450099C4EF /* UICircularTimerRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3E7231F9E450099C4EF /* UICircularTimerRing.swift */; };
+		8EA8F3F2231F9F280099C4EF /* UICircularRingValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3F1231F9F280099C4EF /* UICircularRingValueFormatter.swift */; };
 		8EACC7B022621A1F00F32DC3 /* maincore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7AF22621A1F00F32DC3 /* maincore.framework */; };
 		8EACC7B222621A3100F32DC3 /* webservice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EACC7B122621A3100F32DC3 /* webservice.framework */; };
 		8EACC7B422621ACA00F32DC3 /* localizations.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EACC7B322621ACA00F32DC3 /* localizations.json */; };
@@ -717,6 +728,7 @@
 		8E5FBCA6231CE6DC0069D4F2 /* IGProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileTableViewController.swift; sourceTree = "<group>"; };
 		8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNavigationBarX.swift; sourceTree = "<group>"; };
 		8E5FBCB0231D5A650069D4F2 /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
+		8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFAutoScrollLabel.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -764,6 +776,19 @@
 		8E96A32C225C96C3007D8A77 /* RecieptRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecieptRow.xib; sourceTree = "<group>"; };
 		8E96A32D225C96C3007D8A77 /* RecieptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecieptView.xib; sourceTree = "<group>"; };
 		8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSavedCardsAlertViewController.swift; sourceTree = "<group>"; };
+		8EA8F3DA231F9E1C0099C4EF /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
+		8EA8F3DB231F9E1C0099C4EF /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
+		8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
+		8EA8F3DD231F9E1D0099C4EF /* MBCircularProgressBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBCircularProgressBarView.m; sourceTree = "<group>"; };
+		8EA8F3E1231F9E430099C4EF /* UICircularRingLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularRingLayer.swift; sourceTree = "<group>"; };
+		8EA8F3E2231F9E430099C4EF /* UICircularProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularProgressRing.swift; sourceTree = "<group>"; };
+		8EA8F3E3231F9E430099C4EF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8EA8F3E4231F9E440099C4EF /* UICircularProgressRing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UICircularProgressRing.h; sourceTree = "<group>"; };
+		8EA8F3E5231F9E440099C4EF /* UICircularRingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularRingStyle.swift; sourceTree = "<group>"; };
+		8EA8F3E6231F9E440099C4EF /* UICircularProgressRingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularProgressRingDelegate.swift; sourceTree = "<group>"; };
+		8EA8F3E7231F9E450099C4EF /* UICircularTimerRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularTimerRing.swift; sourceTree = "<group>"; };
+		8EA8F3E8231F9E450099C4EF /* UICircularRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularRing.swift; sourceTree = "<group>"; };
+		8EA8F3F1231F9F280099C4EF /* UICircularRingValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICircularRingValueFormatter.swift; sourceTree = "<group>"; };
 		8EACC7AF22621A1F00F32DC3 /* maincore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = maincore.framework; path = Carthage/Build/iOS/maincore.framework; sourceTree = "<group>"; };
 		8EACC7B122621A3100F32DC3 /* webservice.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = webservice.framework; path = Carthage/Build/iOS/webservice.framework; sourceTree = "<group>"; };
 		8EACC7B322621ACA00F32DC3 /* localizations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localizations.json; sourceTree = "<group>"; };
@@ -1514,6 +1539,33 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		8EA8F3E0231F9E230099C4EF /* CircularProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				8EA8F3DA231F9E1C0099C4EF /* MBCircularProgressBarLayer.h */,
+				8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */,
+				8EA8F3DB231F9E1C0099C4EF /* MBCircularProgressBarView.h */,
+				8EA8F3DD231F9E1D0099C4EF /* MBCircularProgressBarView.m */,
+			);
+			path = CircularProgressBar;
+			sourceTree = "<group>";
+		};
+		8EA8F3F0231F9E4F0099C4EF /* UICircular */ = {
+			isa = PBXGroup;
+			children = (
+				8EA8F3E3231F9E430099C4EF /* Extensions.swift */,
+				8EA8F3E4231F9E440099C4EF /* UICircularProgressRing.h */,
+				8EA8F3E2231F9E430099C4EF /* UICircularProgressRing.swift */,
+				8EA8F3E6231F9E440099C4EF /* UICircularProgressRingDelegate.swift */,
+				8EA8F3E8231F9E450099C4EF /* UICircularRing.swift */,
+				8EA8F3E1231F9E430099C4EF /* UICircularRingLayer.swift */,
+				8EA8F3E5231F9E440099C4EF /* UICircularRingStyle.swift */,
+				8EA8F3E7231F9E450099C4EF /* UICircularTimerRing.swift */,
+				8EA8F3F1231F9F280099C4EF /* UICircularRingValueFormatter.swift */,
+			);
+			path = UICircular;
+			sourceTree = "<group>";
+		};
 		8EBB455E2270203200A52D88 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -1632,6 +1684,7 @@
 				8E96A306225B4393007D8A77 /* mainRequest.swift */,
 				8E96A30A225B4637007D8A77 /* Utils.swift */,
 				8E96A315225B74E2007D8A77 /* IGExtensions.swift */,
+				8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2513,6 +2566,8 @@
 		FAD5807E1DDC402600A242DE /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8EA8F3F0231F9E4F0099C4EF /* UICircular */,
+				8EA8F3E0231F9E230099C4EF /* CircularProgressBar */,
 				FA6F311122B8BC2400DB942E /* GoogleAnalytics */,
 				FA76597322902AB3006322A3 /* INSPhotoGallery */,
 				FAE6062021EB39CE00F03FFC /* Browser */,
@@ -2940,6 +2995,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 				en,
 				ar,
@@ -3189,6 +3245,7 @@
 				93193F2E1E5812830039AC0C /* IGGroupInfoEditTypeTableViewController.swift in Sources */,
 				FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */,
 				FA8DD02121A401F200BBB1B3 /* IGLookAndFindStruct.swift in Sources */,
+				8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */,
 				FAE6BAB2207B537B00E54ECE /* MKHipsterTileOverlay.swift in Sources */,
 				8EBF54FF22D9B60D00834E6A /* BeautifulBarChart.swift in Sources */,
 				93AA67C41E4F38260053380C /* IGChannelInfoAdminsAndModeratorsTableViewController.swift in Sources */,
@@ -3198,6 +3255,7 @@
 				93A3D3CE1E4087B000D2686F /* IGNewChannelBottomViewCollectionCell.swift in Sources */,
 				FAC1330522C098D000817044 /* IGStructMessageOption.swift in Sources */,
 				FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */,
+				8EA8F3EF231F9E450099C4EF /* UICircularTimerRing.swift in Sources */,
 				8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */,
 				FA09535A1E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift in Sources */,
 				FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */,
@@ -3222,11 +3280,13 @@
 				8EBF552322DCA95C00834E6A /* ProfileModel.swift in Sources */,
 				FA9F735A2127E589004418E5 /* EPContactsPicker.swift in Sources */,
 				8ECC1841222FFED2006E43E8 /* BaseRootTableViewController.swift in Sources */,
+				8EA8F3EB231F9E450099C4EF /* Extensions.swift in Sources */,
 				FAD530621E0BD80800FE6C54 /* IGNavigationBar.swift in Sources */,
 				FA7F373820860B160024F8BF /* IGRealmiGapMap.swift in Sources */,
 				8EBF552022DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift in Sources */,
 				FA85066422670703002EEBF7 /* addNewCardTableViewController.swift in Sources */,
 				8ECCA1E622B6587E00D3A734 /* SMMoneyTransactionOptions.swift in Sources */,
+				8EA8F3E9231F9E450099C4EF /* UICircularProgressRingDelegate.swift in Sources */,
 				8ECC182C222FB875006E43E8 /* buttonX.swift in Sources */,
 				8EC217C52259F59900105B5A /* SMBank.swift in Sources */,
 				FAD959071F48D4EF00FBD306 /* IGSettingQrScannerViewController.swift in Sources */,
@@ -3350,6 +3410,7 @@
 				FA0953661E1B97700043ED3F /* IGSettingPrivacy&SecurityEnterPasscodeLockViewController.swift in Sources */,
 				93C299941E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift in Sources */,
 				FA03C1A220429DB5008812E3 /* AVCaptureState.swift in Sources */,
+				8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */,
 				8E96A316225B74E2007D8A77 /* IGExtensions.swift in Sources */,
 				FA42EF091E5C224F00CF8A32 /* Animator.swift in Sources */,
 				FAD580971DDC61DD00A242DE /* IGMessageCollectionView.swift in Sources */,
@@ -3429,6 +3490,7 @@
 				FAAF82D6221A85200022D84C /* IGHelperFinancial.swift in Sources */,
 				FA5EC5E11E069A1E006E2850 /* IGTextAttachment.swift in Sources */,
 				FA7E9BD422631D7900FB861D /* SelectCountryObserver.swift in Sources */,
+				8EA8F3EA231F9E450099C4EF /* UICircularRingStyle.swift in Sources */,
 				FAD959051F48AD8600FBD306 /* MTBBarcodeScanner.m in Sources */,
 				8EC217A92259B90F00105B5A /* walletModalViewController.swift in Sources */,
 				FA42EF081E5C224F00CF8A32 /* AnimatedFrame.swift in Sources */,
@@ -3496,11 +3558,13 @@
 				FA8D056D20739C96007861E7 /* IGSettingAddContactViewController.swift in Sources */,
 				8EEB1FF422C1F48400EFD2ED /* SMGetGift.swift in Sources */,
 				FAACE76D20F22F1200DDEBCB /* IGFinancialServiceBillingInquiry.swift in Sources */,
+				8EA8F3EE231F9E450099C4EF /* UICircularProgressRing.swift in Sources */,
 				FA8204382025C97300A795D5 /* ImageCell.swift in Sources */,
 				8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */,
 				FA27F74020BD77ED00EC6A97 /* api.key in Sources */,
 				FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
+				8EA8F3ED231F9E450099C4EF /* UICircularRing.swift in Sources */,
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,
@@ -3517,6 +3581,7 @@
 				8EC217CA2259F59900105B5A /* SMMerchant.swift in Sources */,
 				FA09534E1E1B97700043ED3F /* IGSettingChatCatchContactAndGroupsTableViewCell.swift in Sources */,
 				93A3D3CC1E40831E00D2686F /* IGChooseMemberToCreateChannelTableViewCell.swift in Sources */,
+				8EA8F3EC231F9E450099C4EF /* UICircularRingLayer.swift in Sources */,
 				FA927E0820286FAD00DF7145 /* ContactCell.swift in Sources */,
 				FA0953861E1B97E20043ED3F /* IGContactTableViewCell.swift in Sources */,
 				8EBF550222D9B60D00834E6A /* ArrayExtension.swift in Sources */,
@@ -3606,6 +3671,7 @@
 				FA09534B1E1B97700043ED3F /* IGSettingAccountPhoneNumberTableViewController.swift in Sources */,
 				8E5FBCA7231CE6DC0069D4F2 /* IGProfileTableViewController.swift in Sources */,
 				FAD580861DDC49A200A242DE /* IGMessageViewController.swift in Sources */,
+				8EA8F3F2231F9F280099C4EF /* UICircularRingValueFormatter.swift in Sources */,
 				93AA67CE1E4F407E0053380C /* IGChannelInfoMemberListTableViewCell.swift in Sources */,
 				FA50A8D21DD35EFD00C6D2EA /* IGSplashScreenViewController.swift in Sources */,
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
@@ -3626,6 +3692,7 @@
 				FA99FF6822354031009035DF /* DashboardCell3.swift in Sources */,
 				FA927E0C20288A7E00DF7145 /* FileCell.swift in Sources */,
 				93321E7C1E5C12A3004D4454 /* IGForwardContactsTableViewCell.swift in Sources */,
+				8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */,
 				FA0CC8121E5DD99400556283 /* Thread.swift in Sources */,
 				8E96A31D225C902B007D8A77 /* SMRecieptRowView.swift in Sources */,
 				FA50A8CD1DD35EFD00C6D2EA /* IGRegistrationStepPhoneViewController.swift in Sources */,

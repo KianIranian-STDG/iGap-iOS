@@ -151,6 +151,116 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let _ : String = SMLangUtil.loadLanguage()
         self.hideKeyboardWhenTappedAround()
         
+    }
+    
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        isfromPacket = false
+        
+        IGRecentsTableViewController.forwardStartObserver = self
+        IGRecentsTableViewController.messageReceiveDelegat = self
+//        searchBar.delegate = self
+        self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
+        
+        
+        let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
+        do {
+            let realm = try Realm()
+            self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
+            
+            
+            
+        } catch let error as NSError {
+            print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
+        }
+        //        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
+        self.tableView.tableFooterView = UIView()
+        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        self.tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        
+        
+        setDefaultNavigationItem()
+        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
+            DispatchQueue.main.async {
+                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
+            }
+        }, onError: { (error) in
+            
+        }, onCompleted: {
+            
+        }, onDisposed: {
+            
+        }).disposed(by: disposeBag)
+        
+        self.addRoomChangeNotificationBlock()
+        
+        if IGAppManager.sharedManager.isUserLoggiedIn() {
+            if IGRecentsTableViewController.needGetInfo {
+                self.checkAppVersion()
+                self.deleteChannelMessages()
+                DispatchQueue.global(qos: .userInteractive).async {
+                    self.fetchRoomList()
+                }
+            }
+        } else {
+            NotificationCenter.default.addObserver(self,
+                                                   selector: #selector(self.userDidLogin),
+                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                                                   object: nil)
+        }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(segueToChatNotificationReceived(_:)),
+                                               name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
+                                               object: nil)
+        
+        /* detect contact change */
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addressBookDidChange(_:)),
+                                               name: NSNotification.Name.CNContactStoreDidChange,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.changeDirectionOfUI),
+                                               name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName),
+                                               object: nil)
+        
+        // use current line for enable support gif in SDWebImage library
+        SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
+        
+        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
+        
+        
+        
+    }
+    
+    @objc private func changeDirectionOfUI() {
+        let _ : String = SMLangUtil.loadLanguage()
+    }
+    
+    @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
+        if !IGContactManager.syncedPhoneBookContact {
+            IGContactManager.syncedPhoneBookContact = true
+            IGContactManager.sharedManager.manageContact()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+       navigationItem.setChatListsNavigationItems()
         navigationItem.rightViewContainer?.addAction {
             
             if IGTabBarController.currentTabStatic == .Call {
@@ -278,115 +388,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.performSegue(withIdentifier: "showSettings", sender: self)
             }
         }
-    }
-    
-    func image(fromLayer layer: CALayer) -> UIImage {
-        UIGraphicsBeginImageContext(layer.frame.size)
-        
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return outputImage!
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        isfromPacket = false
-        
-        IGRecentsTableViewController.forwardStartObserver = self
-        IGRecentsTableViewController.messageReceiveDelegat = self
-//        searchBar.delegate = self
-        self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
-        
-        
-        let sortProperties = [SortDescriptor(keyPath: "priority", ascending: false), SortDescriptor(keyPath: "pinId", ascending: false), SortDescriptor(keyPath: "sortimgTimestamp", ascending: false)]
-        do {
-            let realm = try Realm()
-            self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
-            
-            
-            
-        } catch let error as NSError {
-            print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
-        }
-        //        self.tableView.register(IGChatRoomListTableViewCell.nib(), forCellReuseIdentifier: IGChatRoomListTableViewCell.cellReuseIdentifier())
-        self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        
-        
-        setDefaultNavigationItem()
-        IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
-            DispatchQueue.main.async {
-                self.updateNavigationBarBasedOnNetworkStatus(connectionStatus)
-            }
-        }, onError: { (error) in
-            
-        }, onCompleted: {
-            
-        }, onDisposed: {
-            
-        }).disposed(by: disposeBag)
-        
-        self.addRoomChangeNotificationBlock()
-        
-        if IGAppManager.sharedManager.isUserLoggiedIn() {
-            if IGRecentsTableViewController.needGetInfo {
-                self.checkAppVersion()
-                self.deleteChannelMessages()
-                DispatchQueue.global(qos: .userInteractive).async {
-                    self.fetchRoomList()
-                }
-            }
-        } else {
-            NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.userDidLogin),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
-        }
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(segueToChatNotificationReceived(_:)),
-                                               name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                               object: nil)
-        
-        /* detect contact change */
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(addressBookDidChange(_:)),
-                                               name: NSNotification.Name.CNContactStoreDidChange,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.changeDirectionOfUI),
-                                               name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName),
-                                               object: nil)
-        
-        // use current line for enable support gif in SDWebImage library
-        SDWebImageCodersManager.sharedInstance().addCoder(SDWebImageGIFCoder.shared())
-        
-        IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
-        
-        
-        
-    }
-    
-    @objc private func changeDirectionOfUI() {
-        let _ : String = SMLangUtil.loadLanguage()
-    }
-    
-    @objc func addressBookDidChange(_ notification: UITapGestureRecognizer) {
-        if !IGContactManager.syncedPhoneBookContact {
-            IGContactManager.syncedPhoneBookContact = true
-            IGContactManager.sharedManager.manageContact()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
 
         if navigationItem.searchController == nil {
             let gradient = CAGradientLayer()

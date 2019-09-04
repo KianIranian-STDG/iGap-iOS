@@ -67,15 +67,25 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     
     override func viewWillAppear(_ animated: Bool) {
         IGDashboardViewController.discoveryObserver = self
+        initNavigationBar()
         collectionView.reloadData()
     }
     
     private func initNavigationBar(){
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "")
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        navigationItem.setDiscoveriesNavigationItems()
+        self.hideKeyboardWhenTappedAround()
+        
+        navigationItem.rightViewContainer?.addAction
+            {
+                
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            navigationItem.leftViewContainer?.addAction {
+            }
+        }
+        
+
     }
     
     private func registerCellsNib(){
@@ -228,7 +238,10 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     /* if user is login show collectionView, otherwise show btnRefresh */
     private func manageShowDiscovery(){
         if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
-            self.collectionView!.isHidden = false
+            DispatchQueue.main.async {
+                self.collectionView!.isHidden = false
+
+            }
             self.btnRefresh!.isHidden = true
             if IGGlobal.shouldShowChart {
                 if pollList.count == 0 {

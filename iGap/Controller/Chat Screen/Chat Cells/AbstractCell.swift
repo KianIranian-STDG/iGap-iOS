@@ -1358,7 +1358,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             btnCheckMark = UIButton()
             btnCheckMark.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
             btnCheckMark.titleLabel!.textAlignment = .center
-            btnCheckMark.titleLabel?.font = UIFont.iGapFontico(ofSize: 17.0)
+            btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 17.0)
             btnCheckMark.setTitle("", for: .normal)
             btnCheckMark.isUserInteractionEnabled = true
             
@@ -1558,7 +1558,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeStatus(){
         if txtStatusAbs == nil {
             txtStatusAbs = UILabel()
-            txtStatusAbs.font = UIFont.iGapFontico(ofSize: 11)
+            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 11)
             mainBubbleViewAbs.addSubview(txtStatusAbs)
             
             txtStatusAbs.snp.makeConstraints { (make) in
@@ -1634,7 +1634,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeViewCount(){
         if txtSeenCountAbs == nil {
             txtSeenCountAbs = UILabel()
-            txtSeenCountAbs.font = UIFont.iGapFontico(ofSize:11.0)
+            txtSeenCountAbs.font = UIFont.iGapFonticon(ofSize:11.0)
             txtSeenCountAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtSeenCountAbs)
             
@@ -1652,12 +1652,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if txtVoteUpAbs == nil {
             txtVoteUpAbs = UILabel()
-            txtVoteUpAbs.font = UIFont.iGapFontico(ofSize: 11.0)
+            txtVoteUpAbs.font = UIFont.iGapFonticon(ofSize: 11.0)
             txtVoteUpAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteUpAbs)
             
             txtVoteDownAbs = UILabel()
-            txtVoteDownAbs.font = UIFont.iGapFontico(ofSize: 11.0)
+            txtVoteDownAbs.font = UIFont.iGapFonticon(ofSize: 11.0)
             txtVoteDownAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteDownAbs)
         }

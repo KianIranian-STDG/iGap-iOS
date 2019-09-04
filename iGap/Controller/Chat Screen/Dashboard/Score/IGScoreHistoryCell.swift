@@ -20,6 +20,7 @@ class IGScoreHistoryCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        txtScoreIcon.font = UIFont.iGapFonticon(ofSize: 20)
     }
     
     public func initView(activity: IGPIVandActivity){
@@ -31,10 +32,10 @@ class IGScoreHistoryCell: UICollectionViewCell {
             txtScoreIcon.text = ""
             txtScoreIcon.textColor = UIColor.iGapGray()
         } else if activity.igpScore > 0 { // score up
-            txtScoreIcon.text = ""
+            txtScoreIcon.text = ""
             txtScoreIcon.textColor = UIColor.iGapGreen()
         } else if activity.igpScore < 0 { // score down
-            txtScoreIcon.text = ""
+            txtScoreIcon.text = ""
             txtScoreIcon.textColor = UIColor.iGapRed()
         }
     }

@@ -20,7 +20,7 @@
         
         "NEW_MESSAGES" : "New Messages",
         "WHICH_TYPE_OF" : "Which type of conversation would you like to initiate?",
-        "MY_CLOUD" : "My Cloud",
+        "MY_CLOUD" : "Cloud",
         "NEXT_BTN" : "Next",
         "REFERRAL" : "Referral : ",
         "YOUR_SCORE" : "Your Score",
@@ -619,7 +619,7 @@
         "SETTING_PS_TV_A1" : "Answer 1 :",
         "SETTING_PS_TV_A2" : "Answer 2 :",
         "SETTING_PS_TV_HINT" : "Hint :",
-        "SETTING_PS_TV_EMAIL" : "Email :",
+        "SETTING_PS_TV_EMAIL" : "Email",
         "SETTING_PS_TV_FOOTER_HINT" : "Please make sure to add a valid Email Address ,because it is the only way to retrieve your forgotten password :",
         "SETTING_CC_CLEAR_DATA" : "Clear Data",
         "SETTING_ABOUT_CYRRENT_VERSION" : "Current Version",
@@ -908,7 +908,14 @@
         "GLOBAL_CREAT" : "Creat",
         "PRICE" : "Amount",
         "TRACE_NUMBER" : "Trace Number",
-        
+        "GENDER" : "Gender",
+        "MEN_GENDER" : "Male",
+        "WOMEN_GENDER" : "Female",
+        "SETTING_PAGE_ACCOUNT_GIFT_PAGE" : "Gifts",
+        "YOUR_SCORE" : "Your Score",
+        "YOUR_RANK" : "Your Rank",
+        "SCORE_HISTORY" : "Score History",
+
         "GLOBAL_UNLIMITED" : "unlimited",
         "GLOBAL_CAPTION" : "subject",
         "GLOBAL_WARNING" : "Error",

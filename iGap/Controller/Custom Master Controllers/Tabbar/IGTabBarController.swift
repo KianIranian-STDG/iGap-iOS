@@ -86,6 +86,8 @@ class IGTabBarController: UITabBarController {
 //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
+            navigationControllerr.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.isTranslucent = false
 
             currentTabIndex = 1
             
@@ -93,6 +95,8 @@ class IGTabBarController: UITabBarController {
         case 2:
             navigationControllerr.navigationBar.isHidden = false
 //            navigationControllerr.addSearchBar(state: "True")
+            navigationControllerr.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.isTranslucent = false
 
             currentTabIndex = 2
             
@@ -102,6 +106,8 @@ class IGTabBarController: UITabBarController {
 //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
+            navigationControllerr.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.isTranslucent = false
 
             currentTabIndex = 3
             
@@ -111,6 +117,9 @@ class IGTabBarController: UITabBarController {
 //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
+            navigationControllerr.navigationBar.shadowImage = UIImage()
+            navigationControllerr.navigationBar.isTranslucent = true
+            self.navigationController?.navigationBar.shadowImage = UIImage()
 
             currentTabIndex = 4
             

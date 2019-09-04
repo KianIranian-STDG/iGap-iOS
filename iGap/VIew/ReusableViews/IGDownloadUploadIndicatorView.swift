@@ -106,7 +106,7 @@ class IGDownloadUploadIndicatorView: UIView {
         sizeLabel?.alpha = 1.0
         downlaodUploadProgressPathWidth = 5.0
         downloadUploadPercentageLabel?.textColor = UIColor.white
-        downloadUploadPercentageLabel?.font = UIFont.iGapFontico(ofSize: 20)
+        downloadUploadPercentageLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         
         self.addDownloadButtonIfNeeded() //In case of reuse
         self.downloadButton?.setImage(UIImage(named:indicatorImage), for: .normal)
@@ -355,7 +355,7 @@ class IGDownloadUploadIndicatorView: UIView {
             downloadUploadView!.layer.addSublayer(downloadUploadProgressLayer)
             
             downloadUploadPercentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            downloadUploadPercentageLabel?.font = UIFont.iGapFontico(ofSize: 20)
+            downloadUploadPercentageLabel?.font = UIFont.iGapFonticon(ofSize: 20)
             downloadUploadPercentageLabel?.numberOfLines = 0
             downloadUploadPercentageLabel?.textAlignment = .center
             

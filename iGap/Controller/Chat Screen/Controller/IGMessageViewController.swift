@@ -1218,7 +1218,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         btnChangeKeyboard = UIButton()
         btnChangeKeyboard.isHidden = false
         btnChangeKeyboard.addTarget(self, action: #selector(onKeyboardChangeClick), for: .touchUpInside)
-        btnChangeKeyboard.titleLabel?.font = UIFont.iGapFontico(ofSize: 18.0)
+        btnChangeKeyboard.titleLabel?.font = UIFont.iGapFonticon(ofSize: 18.0)
         btnChangeKeyboard.setTitleColor(UIColor.iGapColor(), for: UIControl.State.normal)
         btnChangeKeyboard.backgroundColor = inputBarLeftView.backgroundColor
         btnChangeKeyboard.layer.masksToBounds = false
