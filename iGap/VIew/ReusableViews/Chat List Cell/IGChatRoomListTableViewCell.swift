@@ -163,19 +163,13 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
     //MARK: Configure
     
     func setRoom(room: IGRoom) {
-        ///
         
-//
-        ///
         if room.isInvalidated {return}
         self.room = room
         makeAvatarImage().setRoom(room)
-//        makeAvatarImage().setImage(UIImage(named: "2")!)
-        //        imgAvatarRoom.setImage(UIImage(named: "2")!)
         switch room.type {
         case .chat:
             roomTypeIndicatorImageView.image = nil
-//            roomTitleLabelLeftConstraint.constant = 66
                 widthImageIndicatorConstrait.constant = 0
             if let user = room.chatRoom?.peer {
                 if user.isVerified {
@@ -187,14 +181,12 @@ class IGChatRoomListTableViewCell: MGSwipeTableCell {
             
         case .group:
             roomTypeIndicatorImageView.image = UIImage(named: "IG_Chat_List_Type_Group")
-//            roomTitleLabelLeftConstraint.constant = 90
             widthImageIndicatorConstrait.constant = 16
 
             verifyHidden(isHidden: true, mute: room.mute)
             
         case .channel:
             roomTypeIndicatorImageView.image = UIImage(named: "IG_Chat_List_Type_Channel")
-//            roomTitleLabelLeftConstraint.constant = 90
             widthImageIndicatorConstrait.constant = 16
 
             if (room.channelRoom?.isVerified)! {
