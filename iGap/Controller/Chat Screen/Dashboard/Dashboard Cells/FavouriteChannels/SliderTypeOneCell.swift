@@ -109,7 +109,7 @@ extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImageCVCell", for: indexPath) as! slideImageCVCell
         let slide = slides[indexPath.item]
         let url = URL(string: slide.imageURL!)
-        cell.imageView.sd_setImage(with: url, completed: nil)
+        cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named :"1"), completed: nil)
         let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
         cell.imageView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         return cell
