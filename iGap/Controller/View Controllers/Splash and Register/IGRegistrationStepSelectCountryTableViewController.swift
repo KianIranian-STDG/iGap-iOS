@@ -49,16 +49,7 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         listOfCountries = IGCountry.getSortedListOfCountriesWithPhone()
         self.createDataSetForTableview(countries: listOfCountries)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-      
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    // MARK: - Table view data source
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return dictionaryOfSectionedCountries.keys.count
     }
@@ -79,15 +70,6 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         return sortedListOfKeys[section]
     }
     
-//    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return sortedListOfKeys //Side Section title
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int
-//    {
-//        return index
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let countriesInThisSection = dictionaryOfSectionedCountries[sortedListOfKeys[indexPath.section]]
         let country = countriesInThisSection?[indexPath.row]
@@ -97,7 +79,6 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
             DispatchQueue.main.async {
                 switch responseProto {
                 case let countryInfoReponse as IGPInfoCountryResponse:
-//                    let requestMessage = countryInfoReponse as! IGPInfoCountry.Builder
                     let countryInfo = IGCountryInfo(responseProtoMessage: countryInfoReponse)
                     countryInfo.countryISO = isoCode
                     self.delegate?.didSelectCountry(country: countryInfo)
@@ -117,13 +98,6 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         }.send()
     }
     
-    
-    //MARK - IBActions
-    @IBAction func didTapOnCloseBarButtonItem(_ sender: UIBarButtonItem) {
-        
-    }
-    
-    //MARK - Private methods
     fileprivate func createDataSetForTableview(countries:Array<IGCountry>) {
         dictionaryOfSectionedCountries = Dictionary<String, [IGCountry]>()
         sortedListOfKeys = Array<String>()
@@ -139,17 +113,14 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         sortedListOfKeys = keys.sorted(by: { $0 < $1 })
     }
 
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print(#function)
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.createDataSetForTableview(countries: self.listOfCountries)
         self.tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(#function)
-        
         if (searchText == ""){
-            self.searchBarTextDidEndEditing(searchBar)
+            self.searchBarCancelButtonClicked(searchBar)
             return
         }
         
@@ -163,30 +134,3 @@ class IGRegistrationStepSelectCountryTableViewController: UIViewController, UITa
         self.tableView.reloadData()
     }
 }
-
-//extension IGRegistrationStepSelectCountryTableViewController : UISearchBarDelegate {
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        print(#function)
-//        self.createDataSetForTableview(countries: self.listOfCountries)
-//        self.tableView.reloadData()
-//    }
-//
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        print(#function)
-//
-//        if (searchText == ""){
-//            self.searchBarTextDidEndEditing(searchBar)
-//            return
-//        }
-//
-//        var listOfCountriesAfterSearch = Array<IGCountry>()
-//        for country in listOfCountries {
-//            if (country.localizedName.lowercased().contains(searchText.lowercased())) {
-//                listOfCountriesAfterSearch.append(country)
-//            }
-//        }
-//        self.createDataSetForTableview(countries: listOfCountriesAfterSearch)
-//        self.tableView.reloadData()
-//    }
-//}
-
