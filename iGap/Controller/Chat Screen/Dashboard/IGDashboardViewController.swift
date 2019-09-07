@@ -239,7 +239,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     }
     
     /* if user is login show collectionView, otherwise show btnRefresh */
-    private func manageShowDiscovery(){
+    private func manageShowDiscovery() {
         if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
             DispatchQueue.main.async {
                 self.collectionView!.isHidden = false
