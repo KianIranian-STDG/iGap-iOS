@@ -170,7 +170,7 @@ class IGNavigationItem: UINavigationItem {
         backViewContainer?.addAction {
             IGGlobal.shouldShowChart = false
             self.backViewContainer?.isUserInteractionEnabled = false
-            guard let numberOfPages = self.navigationController?.viewControllers.count else { return }
+            let numberOfPages = self.navigationController?.viewControllers.count
             if IGGlobal.shouldMultiSelect {
                 self.delegate?.diselect()
                 

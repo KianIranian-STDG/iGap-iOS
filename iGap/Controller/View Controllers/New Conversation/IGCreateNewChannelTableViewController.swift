@@ -36,10 +36,12 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         channelAvatarImage.addGestureRecognizer(tap)
         channelAvatarImage.isUserInteractionEnabled = true
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: "CANCEL_BTN".localizedNew, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
-        navigationItem.leftViewContainer?.addAction {
-            self.navigationController?.popToRootViewController(animated: true)
-        }
+        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
+
+//        navigationItem.addModalViewItems(leftItemText: "CANCEL_BTN".localizedNew, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
+//        navigationItem.leftViewContainer?.addAction {
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }
         navigationItem.rightViewContainer?.addAction {
             if self.channelnameTextField.text?.isEmpty == true {
                 let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "MSG_WRITE_YOUR_CHANNEL_NAME".localizedNew, preferredStyle: UIAlertController.Style.alert)
@@ -55,6 +57,12 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        
+        navigationControllerr.navigationBar.isHidden = false
+        let navigationItem = self.navigationItem as! IGNavigationItem
+//        navigationItem.searchController = nil
+
         descriptionTextField.placeholder = "PRODUCTS_DETAILS".localizedNew
         channelnameTextField.placeholder = "CHANNEL_NAME".localizedNew
     }

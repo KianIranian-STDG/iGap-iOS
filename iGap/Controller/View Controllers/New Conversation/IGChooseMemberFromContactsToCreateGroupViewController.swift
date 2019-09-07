@@ -110,51 +110,76 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let current : String = SMLangUtil.loadLanguage()
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        
+        navigationControllerr.navigationBar.isHidden = false
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.searchController = nil
 
     }
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.navigationController = self.navigationController as? IGNavigationController
+
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let current : String = SMLangUtil.loadLanguage()
         switch current {
         case "fa" :
             if mode == "Admin" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
+//                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_ADMIN".localizedNew)
+
             }
             if mode == "Moderator" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
+//                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MODERATOR".localizedNew)
+
             }
             if mode == "CreateGroup" {
                 
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
+//                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
+
             }
             if mode == "Members" {
-                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
+//                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
+
             }
             if mode == "ConvertChatToGroup" {
-                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
+//                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
+
             }
 
         case "en" :
             if mode == "Admin" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
+                //                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_ADMIN".localizedNew)
+                
             }
             if mode == "Moderator" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText:  "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
+                //                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MODERATOR".localizedNew)
+                
             }
             if mode == "CreateGroup" {
                 
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew, title: "NEW_GROUP".localizedNew)
+                //                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
+                
             }
             if mode == "Members" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "Add Member")
+                //                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
+                
             }
             if mode == "ConvertChatToGroup" {
-                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "GLOBAL_CREAT".localizedNew , title: "ADD_MEMBER_TO".localizedNew)
+                //                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
+                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
+                
             }
 
         case "ar" :
@@ -397,22 +422,22 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
 }
 
 extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int)-> String? {
-        tableView.headerView(forSection: section)?.backgroundColor = UIColor.red
-        if !self.sections[section].users.isEmpty {
-            return self.collation.sectionTitles[section]
-        } else {
-            return ""
-        }
-    }
-    
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.collation.sectionIndexTitles
-    }
-    
-    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        return self.collation.section(forSectionIndexTitle: index)
-    }
+//    func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int)-> String? {
+//        tableView.headerView(forSection: section)?.backgroundColor = UIColor.red
+//        if !self.sections[section].users.isEmpty {
+//            return self.collation.sectionTitles[section]
+//        } else {
+//            return ""
+//        }
+//    }
+//
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        return self.collation.sectionIndexTitles
+//    }
+//
+//    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+//        return self.collation.section(forSectionIndexTitle: index)
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing == true{

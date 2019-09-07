@@ -13,11 +13,14 @@ import Contacts
 import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
+import SnapKit
 
 
 class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResultsUpdating , UIGestureRecognizerDelegate, IGCallFromContactListObserver {
-    
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var viewHeader: UIView!
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
+//    @IBOutlet weak var searchBar: UISearchBar!
     
     var contacts = try! Realm().objects(IGRegisteredUser.self).filter("isInContacts == 1")
     var contactSections: [Section]?
@@ -48,28 +51,212 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.delegate = self
+//        searchBar.delegate = self
         IGCreateNewChatTableViewController.callDelegate = self
         self.tableView.sectionIndexBackgroundColor = UIColor.clear
         setNavigationItem()
         sections = fillContacts()
+        creatHeader()
+        
     }
 
+    func creatHeader() {
+        let viewChannel = UIView()
+        let viewGroup = UIView()
+        viewChannel.backgroundColor = .clear
+        viewGroup.backgroundColor = .clear
+        viewHeader.addSubview(viewChannel)
+        viewHeader.addSubview(viewGroup)
+        viewChannel.snp.makeConstraints { (make) in
+            make.top.equalTo(viewHeader.snp.top).offset(20)
+            make.leading.equalTo(viewHeader.snp.leading).offset(20)
+            make.trailing.equalTo(viewHeader.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+        }
+        viewGroup.snp.makeConstraints { (make) in
+            make.top.equalTo(viewChannel.snp.bottom)
+            make.leading.equalTo(viewHeader.snp.leading).offset(20)
+            make.trailing.equalTo(viewHeader.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+        }
+        let lblChannel = UILabel()
+        let lblGroup = UILabel()
+        let btnChannel = UIButton()
+        let btnGroup = UIButton()
+        viewChannel.addSubview(lblChannel)
+        viewGroup.addSubview(lblGroup)
+        viewChannel.addSubview(btnChannel)
+        viewGroup.addSubview(btnGroup)
+        btnChannel.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        btnGroup.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        btnChannel.setTitleColor(.black, for: .normal)
+        btnGroup.setTitleColor(.black, for: .normal)
+        btnChannel.setTitle("", for: .normal)
+        btnGroup.setTitle("", for: .normal)
+        
+        lblChannel.font = UIFont.igFont(ofSize: 15)
+        lblGroup.font = UIFont.igFont(ofSize: 15)
+
+        lblChannel.textColor = .black
+        lblGroup.textColor = .black
+        
+        lblChannel.text = "NEW_CHANNEL".localizedNew
+        lblGroup.text = "NEW_GROUP".localizedNew
+        lblChannel.textAlignment = lblChannel.localizedNewDirection
+        lblGroup.textAlignment = lblGroup.localizedNewDirection
+        //MARK:- add buttons and labels
+        btnChannel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(viewChannel.snp.trailing)
+            make.leading.equalTo(btnChannel.snp.leading).offset(15)
+            make.height.equalTo(30)
+            make.width.equalTo(30)
+        }
+        btnGroup.snp.makeConstraints { (make) in
+            make.trailing.equalTo(viewGroup.snp.trailing)
+            make.leading.equalTo(btnGroup.snp.leading).offset(15)
+            make.height.equalTo(30)
+            make.width.equalTo(30)
+        }
+        lblChannel.snp.makeConstraints { (make) in
+            make.trailing.equalTo(btnChannel.snp.leading).offset(-15)
+            make.leading.equalTo(viewChannel.snp.leading).offset(15)
+            make.height.equalTo(30)
+        }
+        lblGroup.snp.makeConstraints { (make) in
+            make.trailing.equalTo(btnGroup.snp.leading).offset(-15)
+            make.leading.equalTo(viewGroup.snp.leading).offset(15)
+            make.height.equalTo(30)
+        }
+        //MARK:- tap initilizer
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnNewGroup))
+        viewGroup.addGestureRecognizer(tap)
+        viewGroup.isUserInteractionEnabled = true
+        
+        let tapII = UITapGestureRecognizer(target: self, action: #selector(didTapOnNewChannel))
+        viewChannel.addGestureRecognizer(tapII)
+        viewChannel.isUserInteractionEnabled = true
+
+
+
+
+    }
+    @objc func didTapOnNewGroup() {
+        let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+        createGroup.mode = "CreateGroup"
+        self.navigationController!.pushViewController(createGroup, animated: true)
+
+    }
+    @objc func didTapOnNewChannel() {
+        let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+        self.navigationController!.pushViewController(createChannel, animated: true)
+
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+
+        navigationControllerr.navigationBar.isHidden = true
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.searchController = nil
+
+    }
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
+        
+        if navigationItem.searchController == nil {
+            let gradient = CAGradientLayer()
+            let sizeLength = UIScreen.main.bounds.size.height * 2
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+            
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+            gradient.locations = orangeGradientLocation as [NSNumber]
+            
+            
+            
+            if #available(iOS 11.0, *) {
+                
+                if let navigationBar = self.navigationController?.navigationBar {
+                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
+                }
+                
+                
+                //                IGGlobal.setLanguage()
+                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
+                
+                
+                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+                    //                    IGGlobal.setLanguage()
+                    
+                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
+                        let centeredParagraphStyle = NSMutableParagraphStyle()
+                        centeredParagraphStyle.alignment = .center
+                        
+                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
+                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
+                        textField.textAlignment = .center
+                    }
+                    
+                    let imageV = textField.leftView as! UIImageView
+                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                    imageV.tintColor = UIColor.white
+                    
+                    if let backgroundview = textField.subviews.first {
+                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                        backgroundview.layer.cornerRadius = 10;
+                        backgroundview.clipsToBounds = true;
+                        
+                    }
+                }
+                if navigationItem.searchController == nil {
+                    navigationItem.searchController = searchController
+                    navigationItem.hidesSearchBarWhenScrolling = true
+                }
+            } else {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
         var title = "NEW_CONVERSATION".localizedNew
         if forceCall {
             title = "NEW_CALL".localizedNew
         }
-        navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: nil, title: title)
+        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: title)
+        
+        // navigationItem.setChatListsNavigationItems()
+        navigationItem.rightViewContainer?.addAction {
+            let navigationItem = self.navigationItem as! IGNavigationItem
+            navigationItem.searchController = nil
+
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.leftViewContainer?.addAction {
-            self.navigationController?.popToRootViewController(animated: true)
-        }
+        
     }
-    
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
     func fillContacts(filterContact: Bool = false , searchText : String = "") -> [IGCreateNewChatTableViewController.Section] {
         if self.contactSections != nil && !filterContact {
             return self.contactSections!
@@ -118,6 +305,9 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             return self.sections[section].users.count
         }
     }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let contactsCell = tableView.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! IGContactTableViewCell
@@ -144,7 +334,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return self.collation.section(forSectionIndexTitle: index)
     }
-    
+
     func call(user: IGRegisteredUser) {
         self.navigationController?.popToRootViewController(animated: true)
         DispatchQueue.main.async {
@@ -189,17 +379,5 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
             }).send()
         }
     }
-}
 
-extension IGCreateNewChatTableViewController : UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.view.endEditing(true)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        sections = fillContacts(filterContact: true, searchText: searchText)
-        self.tableView.reloadData()
-    }
 }
-

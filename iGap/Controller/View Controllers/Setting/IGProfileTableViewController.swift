@@ -27,7 +27,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }()
     var isEditMode = false
     var tapCount = 0
-    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
     private var goToSettings : Bool! = false
     @IBOutlet weak var stack0: UIStackView!
     @IBOutlet weak var stack1: UIStackView!
@@ -112,8 +112,14 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         navigationControllerr.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage()
         navigationControllerr.navigationBar.isTranslucent = true
-
         IGRequestWalletGetAccessToken.sendRequest()
+        //Hint:- Check if request was not successfull call services again
+        if lblMoneyAmount.text == "..." {
+            self.finishDefault(isPaygear: true, isCard: false)
+        }
+        if lblScoreAmount.text == "..." {
+            getScore()
+        }
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -124,62 +130,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         self.tableView.alwaysBounceVertical = false
         
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        if navigationItem.searchController == nil {
-            let gradient = CAGradientLayer()
-            let sizeLength = UIScreen.main.bounds.size.height * 2
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-            
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-            gradient.locations = orangeGradientLocation as [NSNumber]
-            
-            
-            
-            if #available(iOS 11.0, *) {
-                
-                if let navigationBar = self.navigationController?.navigationBar {
-                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
-                }
-                
-                
-//                IGGlobal.setLanguage()
-                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
-                
-                
-                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-//                    IGGlobal.setLanguage()
-                    
-                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
-                        let centeredParagraphStyle = NSMutableParagraphStyle()
-                        centeredParagraphStyle.alignment = .center
-                        
-                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
-                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
-                        textField.textAlignment = .center
-                    }
-                    
-                    let imageV = textField.leftView as! UIImageView
-                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                    imageV.tintColor = UIColor.white
-                    
-                    if let backgroundview = textField.subviews.first {
-                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-                        backgroundview.layer.cornerRadius = 10;
-                        backgroundview.clipsToBounds = true;
-                        
-                    }
-                }
-                if navigationItem.searchController == nil {
-                    navigationItem.searchController = searchController
-                    navigationItem.hidesSearchBarWhenScrolling = true
-                }
-            } else {
-                tableView.tableHeaderView = searchController.searchBar
-            }
-            
-        }
+       
+        
         
         navigationItem.removeNavButtons()
         let navigationControllerr = self.navigationController as! IGNavigationController
@@ -211,7 +163,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
-        //MARK: - check if tab is changed or not if changed it will show the navbar ,if not it depends on the destination
+        //Hint: - check if tab is changed or not if changed it will show the navbar ,if not it depends on the destination
         if currentTabIndex == 4 {
             
             if goToSettings {
@@ -228,10 +180,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     func initServices() {
         getUserEmail()
         self.finishDefault(isPaygear: true, isCard: false)
+        getScore()
+
 
     }
     func finishDefault(isPaygear: Bool? ,isCard : Bool?) {
-        SMLoading.showLoadingPage(viewcontroller: self)
+//        SMLoading.showLoadingPage(viewcontroller: self)
         SMCard.getAllCardsFromServer({ cards in
             if cards != nil{
                 if (cards as? [SMCard]) != nil{
@@ -277,7 +231,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         viewBackgroundImage.clipsToBounds = true
         initChangeLang()
         requestToGetAvatarList()
-        getScore()
         let tapCloud = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapCloud(recognizer:)))
         stack0.addGestureRecognizer(tapCloud)
         
@@ -621,12 +574,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
 
     }
-    //MARK: - Go To Setting Action Handler
+    //Hint: - Go To Setting Action Handler
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
         goToSettings = true
         self.performSegue(withIdentifier: "showSettings", sender: self)
     }
-    //MARK: - Go To Cloud Action Handler
+    //Hint: - Go To Cloud Action Handler
     @IBAction func didTapOnGoToCloud(_ sender: Any) {
         goToSettings = false
 
@@ -656,7 +609,13 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             }).send()
         }
     }
+    //Hint :- Go to Creat New chat/Group/Channel
+    @IBAction func didTapOnGoToCreatNewCGC(_ sender: Any) {
+        goToSettings = false
+        let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+        self.navigationController!.pushViewController(createChat, animated: true)
 
+    }
     @IBAction func btnEditProfileTapped(_ sender: Any) {
         print(tapCount)
         tapCount += 1

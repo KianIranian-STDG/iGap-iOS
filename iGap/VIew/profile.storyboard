@@ -1343,7 +1343,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJa-J9-FcO" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="56" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="56" y="11" width="296" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="BLP-dV-UdG"/>
                                                     </constraints>
@@ -1367,6 +1367,7 @@
                                                 <constraint firstItem="igV-FX-6Mq" firstAttribute="top" secondItem="FJa-J9-FcO" secondAttribute="bottom" constant="3" id="IRT-BM-W9r"/>
                                                 <constraint firstItem="icm-X7-WCY" firstAttribute="centerY" secondItem="tJG-tL-zui" secondAttribute="centerY" id="Liq-nR-587"/>
                                                 <constraint firstItem="igV-FX-6Mq" firstAttribute="leading" secondItem="icm-X7-WCY" secondAttribute="trailing" constant="8" id="jPz-9o-Blm"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="FJa-J9-FcO" secondAttribute="trailing" constant="8" id="pFC-2q-seC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

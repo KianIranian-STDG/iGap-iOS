@@ -31,6 +31,7 @@ class IGContactTableViewCell: UITableViewCell {
             self.btnCall.removeUnderline()
         }
         contactNameLable.text = user.displayName
+        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
         userAvatarView.setUser(user)
         self.userRegister = user
     }

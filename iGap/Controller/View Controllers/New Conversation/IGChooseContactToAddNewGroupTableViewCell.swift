@@ -24,9 +24,11 @@ class IGChooseContactToAddNewGroupTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contactNameLabel.textAlignment = contactNameLabel.localizedNewDirection
     }
     
     func updateUI() {
+        
         contactNameLabel.text = user.registredUser.displayName
         userAvatarView.setUser(user.registredUser)
     }
