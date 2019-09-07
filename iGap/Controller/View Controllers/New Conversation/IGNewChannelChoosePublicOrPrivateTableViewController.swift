@@ -22,6 +22,12 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     @IBOutlet weak var privateChannelCell: UITableViewCell!
     @IBOutlet weak var publicChannelCell: UITableViewCell!
     @IBOutlet weak var channelNameEntryCell: UITableViewCell!
+    @IBOutlet weak var lblPrivateChannel: UILabel!
+    @IBOutlet weak var lblChannelLink: UILabel!
+    @IBOutlet weak var lblPrivateChannelDesc: UILabel!
+    @IBOutlet weak var lblPublicChannel: UILabel!
+    @IBOutlet weak var lblPublicChannelDesc: UILabel!
+    @IBOutlet weak var lblFooter: UILabel!
     var invitedLink: String?
     var igpRoom : IGPRoom!
     var hud = MBProgressHUD()
@@ -51,7 +57,30 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         
         privateChannelCell.selectionStyle = UITableViewCell.SelectionStyle.none
         publicChannelCell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
+        initView()
         setNavigation()
+    }
+    private func initView() {
+        lblPublicChannel.text = "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_TITLE".localizedNew
+        lblPrivateChannel.text = "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_TITLE".localizedNew
+        lblPublicChannelDesc.text = "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_DESC".localizedNew
+        lblPrivateChannelDesc.text = "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC".localizedNew
+        lblChannelLink.text = "NEW_CHANNEL_LINK".localizedNew
+
+        
+        lblPublicChannel.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        lblChannelLink.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        lblPrivateChannel.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        lblPublicChannelDesc.font = UIFont.igFont(ofSize: 13)
+        lblPrivateChannelDesc.font = UIFont.igFont(ofSize: 13)
+        lblFooter.font = UIFont.igFont(ofSize: 12)
+        lblFooter.textAlignment = lblFooter.localizedNewDirection
+        lblPrivateChannel.textAlignment = lblPrivateChannel.localizedNewDirection
+        lblPublicChannel.textAlignment = lblPublicChannel.localizedNewDirection
+        lblPrivateChannelDesc.textAlignment = lblPrivateChannelDesc.localizedNewDirection
+        lblPublicChannelDesc.textAlignment = lblPublicChannelDesc.localizedNewDirection
+        lblChannelLink.textAlignment = lblChannelLink.localizedNewDirection
     }
     
     private func setNavigation(){
@@ -209,6 +238,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             channelLinkTextField.leftView = channelDefualtName
             channelLinkTextField.leftViewMode = UITextField.ViewMode.always
             channelLinkTextField.placeholder = "yourlink"
+            lblFooter.text = "MSG_CHANNEL_SHARE_FOOTER".localizedNew
+
             channelLinkTextField.delegate = self
         }
         if radioButtonController?.selectedButton() == privateChannel {
@@ -216,6 +247,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
             channelLinkTextField.text = invitedLink
             channelLinkTextField.textColor = UIColor.black
             channelLinkTextField.isUserInteractionEnabled = false
+            lblFooter.text = "MSG_CHANNEL_SHARE_JOIN".localizedNew
+
             channelLinkTextField.delegate = self
             tableView.reloadData()
         }
@@ -235,7 +268,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         case 0:
             numberOfRows = 2
         case 1:
-            numberOfRows = 1
+            numberOfRows = 2
         default:
             break
         }
@@ -246,33 +279,7 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
         didSelectButton(radioButtonController?.selectedButton())
     }
 
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        var footerText : String = ""
-        if section == 1 {
-            if radioButtonController?.selectedButton() == publicChannelButton {
-                footerText = "MSG_CHANNEL_SHARE_FOOTER".localizedNew
-            } else {
-                footerText = "MSG_CHANNEL_SHARE_JOIN".localizedNew
-            }
-        }
-        return footerText
-    }
-    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        let containerView = view as! UITableViewHeaderFooterView
-        if section == 1 {
-            if radioButtonController?.selectedButton() == publicChannelButton {
-                containerView.textLabel!.text = "MSG_CHANNEL_SHARE_FOOTER".localizedNew
-            } else {
-                containerView.textLabel!.text = "MSG_CHANNEL_SHARE_JOIN".localizedNew
-            }
-        }
-        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-    }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
-    }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var headerText : String = ""

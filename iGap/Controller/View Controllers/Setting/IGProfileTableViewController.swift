@@ -461,6 +461,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     func requestToGetAvatarList() {
         DispatchQueue.global(qos: .userInteractive).async {
         if let currentUserId = IGAppManager.sharedManager.userID() {
+            
             IGUserAvatarGetListRequest.Generator.generate(userId: currentUserId).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {

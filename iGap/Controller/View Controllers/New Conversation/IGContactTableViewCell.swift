@@ -35,7 +35,10 @@ class IGContactTableViewCell: UITableViewCell {
         userAvatarView.setUser(user)
         self.userRegister = user
     }
-    
+    override func prepareForReuse() {
+        contactNameLable.text = nil
+        userAvatarView.avatarImageView?.image = nil
+    }
     @IBAction func btnCall(_ sender: UIButton) {
         
         if IGCall.callPageIsEnable {

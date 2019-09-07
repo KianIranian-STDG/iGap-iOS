@@ -13,15 +13,17 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGCreateNewChannelTableViewController: BaseTableViewController {
+class IGCreateNewChannelTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var channelAvatarImage: UIImageView!
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var channelnameTextField: UITextField!
-    
+    @IBOutlet weak var lblFooter: UILabel!
+
     var channelAvatarAttachment: IGFile!
     var imagePicker = UIImagePickerController()
     let borderName = CALayer()
+    let borderDesc = CALayer()
     let width = CGFloat(0.5)
     var invitedLink : String?
     var igpRoom : IGPRoom!
@@ -35,32 +37,39 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
         channelAvatarImage.addGestureRecognizer(tap)
         channelAvatarImage.isUserInteractionEnabled = true
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
-
+        initNavigationBar()
+        lblFooter.text = "MSG_NEW_CHANNEL_FOOTER".localizedNew
+        lblFooter.textAlignment = lblFooter.localizedNewDirection
+        lblFooter.font = UIFont.igFont(ofSize: 13)
 //        navigationItem.addModalViewItems(leftItemText: "CANCEL_BTN".localizedNew, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
 //        navigationItem.leftViewContainer?.addAction {
 //            self.navigationController?.popToRootViewController(animated: true)
 //        }
+    }
+    private func initNavigationBar() {
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        
         navigationItem.rightViewContainer?.addAction {
             if self.channelnameTextField.text?.isEmpty == true {
                 let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "MSG_WRITE_YOUR_CHANNEL_NAME".localizedNew, preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: UIAlertAction.Style.default, handler: nil))
                 alert.view.tintColor = UIColor.organizationalColor()
                 self.present(alert, animated: true, completion: nil)
-
             }else{
                 self.createChannel()
             }
-            
         }
+        
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
         
         navigationControllerr.navigationBar.isHidden = false
-        let navigationItem = self.navigationItem as! IGNavigationItem
 //        navigationItem.searchController = nil
 
         descriptionTextField.placeholder = "PRODUCTS_DETAILS".localizedNew
@@ -71,8 +80,15 @@ class IGCreateNewChannelTableViewController: BaseTableViewController {
         borderName.borderColor = greenColor.cgColor
         borderName.frame = CGRect(x: 0, y: channelnameTextField.frame.size.height - width, width:  channelnameTextField.frame.size.width, height: channelnameTextField.frame.size.height)
         borderName.borderWidth = width
+
+        borderDesc.borderColor = greenColor.cgColor
+        borderDesc.frame = CGRect(x: 0, y: descriptionTextField.frame.size.height - width, width:  descriptionTextField.frame.size.width, height: descriptionTextField.frame.size.height)
+        borderDesc.borderWidth = width
+
         channelnameTextField.layer.addSublayer(borderName)
         channelnameTextField.layer.masksToBounds = true
+        descriptionTextField.layer.addSublayer(borderDesc)
+        descriptionTextField.layer.masksToBounds = true
     }
     
     private func manageImage(imageInfo: [String : Any]){
