@@ -103,18 +103,18 @@ class IGGlobal {
     
     internal static func setLanguage() {
         if  lastLang == Language.persian.rawValue  {
-            SMLangUtil.changeLanguage(newLang: "fa")
+            SMLangUtil.changeLanguage(newLang: .Persian)
             Language.language = Language.persian
-            SMLangUtil.changeLanguage(newLang: "fa")
+            SMLangUtil.changeLanguage(newLang: .Persian)
         } else if lastLang == Language.arabic.rawValue {
-            SMLangUtil.changeLanguage(newLang: "fa")
+            SMLangUtil.changeLanguage(newLang: .Persian)
             Language.language = Language.arabic
-            SMLangUtil.changeLanguage(newLang: "fa")
+            SMLangUtil.changeLanguage(newLang: .Persian)
 
         } else {
-            SMLangUtil.changeLanguage(newLang: "en")
+            SMLangUtil.changeLanguage(newLang: .English)
             Language.language = Language.english
-            SMLangUtil.changeLanguage(newLang: "en")
+            SMLangUtil.changeLanguage(newLang: .English)
 
         }
         
