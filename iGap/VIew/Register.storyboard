@@ -814,7 +814,7 @@ Please wait 0:59</string>
         <!--Navigation Controller-->
         <scene sceneID="pa0-6K-x0f">
             <objects>
-                <navigationController id="K16-2D-YCI" sceneMemberID="viewController">
+                <navigationController id="K16-2D-YCI" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rCp-0u-Fal" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
