@@ -395,7 +395,15 @@
         "TTL_WHO_CAN_CALL" : "Who can call me?",
         
         
+        "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_TITLE" : "Public Channel",
+        "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_TITLE" : "Private Channel",
+        "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_DESC" : "Users can join your channel using either invitation link or by searching username of your channel",
+        "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC" : "users can join your channel only by being added by admin(s)",
+        "NEW_CHANNEL_LINK" : "Channel Link",
+
         
+        
+        "MSG_NEW_CHANNEL_FOOTER" : "You can add decription for your channel here",
         "MSG_CHANNEL_SHARE_FOOTER" : "People can share this link whith others and find your channel using iGap search.",
         "MSG_CHANNEL_SHARE_JOIN" : "People can join your channel by following this link.you can change the link at any time.",
         "MSG_CHANGE_USERNAME_AFTER" : "You can not change your username because you've recently changed it. you have to wait for  ",
