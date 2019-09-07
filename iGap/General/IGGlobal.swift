@@ -60,17 +60,41 @@ class IGGlobal {
     static var hideBarChart : Bool = true
     static var latestTime: Int64 = 0
     
-    internal static func getTime(_ string: String? = nil){
-        if IGGlobal.latestTime == 0 {
-            IGGlobal.latestTime = IGGlobal.getCurrentMillis()
+    static var timeDic: [Int:Time] = [:]
+    struct Time {
+        var lastMillis: Int64 = 0
+        var total: Int = 0
+        var count: Int = 0
+    }
+    internal static func getTime(group: Int = 0, _ string: String = "", start: Bool = false) {
+        
+        if start {
+            if IGGlobal.timeDic[group] == nil {
+                IGGlobal.timeDic[group] = Time()
+            }
+            IGGlobal.timeDic[group]!.lastMillis = IGGlobal.getCurrentMillis()
+            return
         }
+        
+        if IGGlobal.timeDic[group] == nil {
+            IGGlobal.timeDic[group] = Time()
+            IGGlobal.timeDic[group]!.lastMillis = IGGlobal.getCurrentMillis()
+        }
+        
         let currentTime = IGGlobal.getCurrentMillis()
-        if string != nil {
-            print("TTT || time \(string): \(currentTime - IGGlobal.latestTime)")
+        let differenceTime = currentTime - IGGlobal.timeDic[group]!.lastMillis
+        if string.isEmpty {
+            print("TTT || group: \(group)  **  time: \(differenceTime)")
         } else {
-            print("TTT || time: \(currentTime - IGGlobal.latestTime)")
+            print("TTT || group: \(group)  **  key \(String(describing: string))  **  time: \(differenceTime)")
         }
-        IGGlobal.latestTime = currentTime
+        
+        IGGlobal.timeDic[group]!.count = IGGlobal.timeDic[group]!.count + 1
+        IGGlobal.timeDic[group]!.total = IGGlobal.timeDic[group]!.total + Int(differenceTime)
+        let average = IGGlobal.timeDic[group]!.total / IGGlobal.timeDic[group]!.count
+        print("TTT || AVgroup: \(group)  **  average: \(average)")
+        
+        IGGlobal.timeDic[group]?.lastMillis = currentTime
     }
     internal static func getThread(_ string: String? = nil){
         print("TTT || ", string ,Thread.current.isMainThread)

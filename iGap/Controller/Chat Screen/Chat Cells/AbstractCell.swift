@@ -16,6 +16,7 @@ import MarkdownKit
 import IGProtoBuff
 
 class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelegate {
+    
     var imgAvatarPay : UIImageViewX!
 
     var mainBubbleViewAbs: UIView!
@@ -91,28 +92,22 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     override init(frame: CGRect) {
         super.init(frame: frame)
         if !(IGGlobal.shouldMultiSelect) {
-
-        makeSwipeImage()
-            
+            makeSwipeImage()
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         if !(IGGlobal.shouldMultiSelect) {
-
-        makeSwipeImage()
+            makeSwipeImage()
         }
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if !(IGGlobal.shouldMultiSelect) {
-
-        swipePositionManager()
+            swipePositionManager()
         }
-    
     }
     
     override func prepareForReuse() {
@@ -122,55 +117,35 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
-
         if room.isInvalidated || message.isInvalidated {return}
 
         self.room = room
-
         self.realmRoomMessage = message
         self.isIncommingMessage = isIncommingMessage
-
         self.shouldShowAvatar = shouldShowAvatar
-
         self.messageSizes = messageSizes
-
         self.isPreviousMessageFromSameSender = isPreviousMessageFromSameSender
 
         detectFinalMessage()
-
         detectRtlAndBottomOffset()
-
         manageCellBubble()
-
         manageReceivedOrIncommingMessage()
-
         manageReply()
-
         manageForward()
-
         manageEdit()
-
         manageTextMessage()
-
         manageViewPosition()
-
         manageLink()
-
         manageVoteActions()
-
         manageGustureRecognizers()
-
         manageAttachment()
-
         manageAdditional()
-
         showMultiSelect()
         if finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue {
             makeAvatarPay()
         } else {
             removeAvatarPay()
         }
-
     }
     /*
      ******************************************************************
@@ -271,28 +246,17 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
 
             if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-
                 var messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-
                 messageText = messageText?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-
-                
-                
-                
                 
                 let t = finalRoomMessage.additional?.data
-                let data = t!.data(using: .utf8)!
                 let tmpJsonB = IGHelperJson.parseAdditionalButton(data: t)
                 
                 let b = tmpJsonB![0][0].valueJson
-                let tmpJson = IGHelperJson.parseAdditionalCardToCardInChat(data: b)
-                print("tmpJson",tmpJson)
+                let tmpJson = IGHelperJson.parseAdditionalCardToCardInChat(data: b!)
                 
                 let tt = tmpJson?.amount
                 let tmpAmount : Int! = tt
-                //
-                //
-                let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .bold)]
                 let attrsRegular = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 14 , weight: .regular)]
                 let normalString = NSMutableAttributedString(string: "TTL_AMOUNT".MessageViewlocalizedNew + " " + String(tmpAmount).inRialFormat().inLocalizedLanguage() + "CURRENCY".MessageViewlocalizedNew  + "\n_________________________\n", attributes:attrsRegular)
                 let attributedString = NSMutableAttributedString(string: "PRODUCTS_DETAILS".MessageViewlocalizedNew + " " + messageText!, attributes:  attrsRegular)
@@ -300,11 +264,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 
                 txtMessageAbs.numberOfLines = 0
                 txtMessageAbs.lineBreakMode = NSLineBreakMode.byWordWrapping
-                
-                
                 txtMessageAbs.attributedText = normalString
-
-                
                 
             } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
@@ -314,52 +274,37 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 txtMessageAbs.numberOfLines = 0
                 txtMessageAbs.lineBreakMode = NSLineBreakMode.byWordWrapping
                 txtMessageAbs?.text = messageText!
-
-                
             } else {
-
                 let messageText = finalRoomMessage.message?.replacingOccurrences(of: "⁣", with: "") // replace with invisible character if exist
-
                 if messageText!.contains("**") {
                     txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
                 } else {
                     txtMessageAbs?.text = messageText!
                 }
-
-
-                }
+            }
             
-            if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
+            if IGHelperBot.createdViewDic[realmRoomMessage.id] != nil {
                 DispatchQueue.main.async {
                     self.txtMessageAbs.textAlignment = NSTextAlignment.center
-
-                    
                 }
             } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                
                 txtMessageAbs.textAlignment = NSTextAlignment.center
                 
-            }else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                
                 txtMessageAbs.textAlignment = NSTextAlignment.center
                 
             } else {
-
                 if isRtl {
                     txtMessageAbs.textAlignment = NSTextAlignment.right
                 } else {
                     txtMessageAbs.textAlignment = NSTextAlignment.left
                 }
-
             }
-        }
-        
-        else {
+        } else {
             txtMessageAbs?.isHidden = true
         }
-
     }
     
     /*
@@ -662,7 +607,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
 
                 leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(250).constraint
             }
-            if let additionalView = IGHelperBot.createdViewDic[realmRoomMessage.id] {
+            if IGHelperBot.createdViewDic[realmRoomMessage.id] != nil {
                 DispatchQueue.main.async {
                     self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
                     self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
@@ -670,49 +615,38 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     if (self.room.type == .chat) && (self.room.chatRoom?.peer!.isBot)! {
                         self.mainBubbleViewAbs.layer.cornerRadius = 18.0
                     } else {
-//                        self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
                         self.mainBubbleViewAbs.layer.cornerRadius = 18.0
-
                     }
-                    
-                    
                 }
             } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
                 self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
                 self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
-
                 self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
                 
-                
-            }else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
+            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
                 self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
                 self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
-                
-//                self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
                 self.mainBubbleViewAbs.layer.cornerRadius = 18.0
-
                 
             } else {
                 self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
                 self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
-
                 self.mainBubbleViewAbs.layer.cornerRadius = 18
-                
             }
-            if leadingAbs != nil { leadingAbs?.activate() }
-            if trailingAbs != nil { trailingAbs?.activate()
-                
+            
+            if leadingAbs != nil {
+                leadingAbs?.activate()
             }
-
+            if trailingAbs != nil {
+                trailingAbs?.activate()
+            }
         }
         /************ Add multi Forward icon only in Rooms ************/
         if room.type == .channel {
-                    makeMultiForwardIconInRooms()
-
+            makeMultiForwardIconInRooms()
         }
-
     }
     
     /*
@@ -1850,11 +1784,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             self.additionalViewAbs.addSubview(additionalView)
             if isBot {
                 self.additionalViewAbs.layer.cornerRadius = 18.0
-
             } else {
-//                self.additionalViewAbs.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMaxYCorner], radius: 10)
                 self.additionalViewAbs.layer.cornerRadius = 18.0
-
             }
             self.contentView.addSubview(self.additionalViewAbs)
             
@@ -1864,9 +1795,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 make.top.equalTo(self.mainBubbleViewAbs.snp.bottom).offset(5)
                 make.height.equalTo(additionalView.frame.size.height)
             }
-      
-            
-       
             
             additionalView.snp.makeConstraints { (make) in
                 make.leading.equalTo(self.additionalViewAbs.snp.leading)
