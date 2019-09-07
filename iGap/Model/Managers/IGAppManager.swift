@@ -45,6 +45,7 @@ class IGAppManager: NSObject {
     private var _md5Hex: String?
     private var _walletRegistered: Bool = false
     private var _walletActive: Bool = false
+    private var _AccessToken: String!
 
     public let LOAD_ROOM_LIMIT = 15
     
@@ -301,6 +302,14 @@ class IGAppManager: NSObject {
         return _loginToken
     }
     
+    public func getAccessToken() -> String? {
+        if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+            return session.accessToken
+        } else {
+            return nil
+        }
+    }
+    
     public func username() -> String? {
         return _username
     }
@@ -352,6 +361,16 @@ class IGAppManager: NSObject {
     
     public func setWalletActive(enable: Bool) {
         _walletActive = enable
+    }
+    
+    public func setAccessToken(accessToken: String) {
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                if let session = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+                    session.accessToken = accessToken
+                }
+            }
+        }
     }
     
     public func login() {

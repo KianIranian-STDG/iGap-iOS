@@ -46,7 +46,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltE-dm-5rf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2661" y="-2755"/>
+            <point key="canvasLocation" x="2724" y="-2755"/>
         </scene>
         <!--Favourite Channels Dashboard Inner Table View Controller-->
         <scene sceneID="qft-Wm-ptn">

@@ -20,6 +20,7 @@ class IGSessionInfo: Object {
     @objc dynamic  var nickname:   String?
     @objc dynamic  var authorHash: String?
     @objc dynamic  var representer: String?
+    @objc dynamic  var accessToken: String?
     
     override static func primaryKey() -> String {
         return "id"

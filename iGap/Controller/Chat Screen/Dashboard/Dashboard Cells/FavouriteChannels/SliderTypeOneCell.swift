@@ -31,8 +31,8 @@ class SliderTypeOneCell: UITableViewCell {
     var galleryScale : String = "8:5"
     var playbackTime : Int = 2000
     var imageUrl : [String] = []
-    @IBOutlet weak var btnPRV: UIButton?
-    @IBOutlet weak var btnNXT: UIButton?
+    @IBOutlet weak var btnPRV: UIButton!
+    @IBOutlet weak var btnNXT: UIButton!
     @IBOutlet weak var pictureImageView: IGImageView?
     var images : [UIImage?] = []
     var tmpIIimages : [UIImage?] = []
@@ -151,7 +151,7 @@ class SliderTypeOneCell: UITableViewCell {
 //        print(images.count)
         if SMLangUtil.loadLanguage() == "fa" {
 
-            if (photoCount < images.count - 1){
+            if (photoCount < images.count - 1) {
                 photoCount = photoCount + 1
             } else{
                 photoCount = 0

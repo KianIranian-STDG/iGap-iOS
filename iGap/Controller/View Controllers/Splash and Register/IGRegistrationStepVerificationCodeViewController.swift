@@ -261,7 +261,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGe
                         self.hud.hide(animated: false)
                         self.performSegue(withIdentifier:"twoStepPassword", sender: nil);
                     }
-                }else{
+                } else {
                     var errorTitle = ""
                     var errorBody = ""
                     switch errorCode {

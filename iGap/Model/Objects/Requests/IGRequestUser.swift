@@ -147,7 +147,7 @@ class IGUserLoginRequest : IGRequest {
         }
     }
     
-    class Handler : IGRequest.Handler{
+    class Handler : IGRequest.Handler {
         
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
@@ -158,6 +158,8 @@ class IGUserLoginRequest : IGRequest {
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive) // show/Hide financial and wallet
             IGAppManager.sharedManager.setWalletActive(enable: responseProtoMessage.igpWalletActive) //:show/Hide Only Wallet
+            
+            IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)
 
             IGAppManager.sharedManager.setWalletRegistered(enable: responseProtoMessage.igpWalletAgreementAccepted) //:check to call register wallet or not
             IGUploadManager.sharedManager.pauseAllUploads()

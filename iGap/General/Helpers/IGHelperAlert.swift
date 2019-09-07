@@ -16,7 +16,7 @@ class IGHelperAlert {
     
     static let shared = IGHelperAlert()
     
-    func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil, done: (() -> Void)? = nil){
+    func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil, done: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             var alertView = view
             if alertView == nil {

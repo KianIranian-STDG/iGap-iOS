@@ -54,13 +54,15 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
 
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.bounds.width
         let collectionViewHeight = collectionView.bounds.height
         return CGSize(width: collectionViewWidth/4.5 , height: collectionViewWidth/4.5)
     }
     
-    public func initView(){
+    public func initView() {
+        
         CategoriesCounter += 1
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -100,7 +102,6 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             tmpimageArray.removeAll()
         }
         for i in categoriesDataArray {
-            
             
             tmptitleArray.append(i.titleFa)
             let tmpImg = UIImageView()

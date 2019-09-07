@@ -55,4 +55,8 @@
 "RGP_SECURITY_QUESTION_TWO" = "سوال امنیتی دوم : ";
 "RGP_MSG_ANSWERS_WAS_WRONG" = "پاسخ های شما صحیح نمی باشند";
 "RGP_MSG_ANSWERS_WAS_EMPTY" = "لطفا تمامی فیلد ها را پر نمایید";
+/// MARK: - favourite Channel Strings
+"Error" = "خطا";
+"Check_Your_Internet_Connection" = "انتصال اینترنت خود را بررسی کنید";
+"URL_Is_Not_Valid" = "ادرس درخواستی صحیح نمی باشد.";
 

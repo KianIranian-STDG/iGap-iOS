@@ -7,22 +7,25 @@
 //
 
 import UIKit
+import Alamofire
 import SwiftyJSON
 import MBProgressHUD
 
 class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
 
-    var sectionArrays : [String?] = []
-    var galleryLoopTimeArray : [Int] = []
-    var galleryImageUrlArray : [[String]] = [[]]
-    var galleryChannelsDataArray : [[channels]] = [[]]
-    var galleryCategoriesDataArray : [categories] = []
-    var sectionTitleArrays : [String] = []
-    var sectionTitleEnArrays : [String] = []
-    var galleryScaleArray : [String] = []
-    var FirstSliderImageArray : [UIImage?] = []
-    var SecondSliderImageArray : [UIImage?] = []
+    var sectionArrays = [String?]()
+    var galleryLoopTimeArray = [Int]()
+    var galleryImageUrlArray = [[String]]()
+    var galleryChannelsDataArray = [[channels]]()
+    var galleryCategoriesDataArray = [[categories]]()
+    var sectionTitleArrays = [String]()
+    var sectionTitleEnArrays = [String]()
+    var galleryScaleArray = [String]()
+    var FirstSliderImageArray = [UIImage?]()
+    var SecondSliderImageArray = [UIImage?]()
     var hud = MBProgressHUD()
+    private let urlFavouriteChannel = "https://api.igap.net/services/v1.0/channel"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,113 +33,142 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
         tableView?.register(SliderTypeTwoCell.nib, forCellReuseIdentifier: SliderTypeTwoCell.identifier)
         tableView?.register(SliderTypeThreeCell.nib, forCellReuseIdentifier: SliderTypeThreeCell.identifier)
 
+        getData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(self.refreshOnCall(_:)), name: (NSNotification.Name(rawValue: SMConstants.refreshTableView)), object: nil)
 
-        getData()
+        
     }
     
     @objc func refreshOnCall(_ nofication: Notification)  {
         self.tableView.reloadData()
     }
 
-    
+    private func getHeaders() -> HTTPHeaders {
+        let authorization = "Bearer " + IGAppManager.sharedManager.getAccessToken()!
+        let headers: HTTPHeaders = ["Authorization": authorization]
+        return headers
+    }
 
     func getData() {
-        guard let data = IGGlobal.dataFromFile("ServerData") else {
-            return
-        }
+//        guard let data = IGGlobal.dataFromFile("ServerData") else {
+//            return
+//        }
         
         if galleryImageUrlArray.count > 0 {
             galleryImageUrlArray.removeAll()
         }
         
-        //swiftyJSON
-        if let json = try? JSON(data: data) {
-            for elemnt in json["data"].arrayValue {
-                let tmpType = (elemnt["type"]).description
-                sectionArrays.append(tmpType)
-
-                let tmpInfo = (elemnt["info"])
-                let tmpFATitle = (tmpInfo["title"])
-                let tmpENTitle = (tmpInfo["titleEn"])
-                sectionTitleArrays.append(tmpFATitle.description)
-                sectionTitleEnArrays.append(tmpENTitle.description)
-                if tmpInfo["scale"].exists() {
-                    galleryScaleArray.append(tmpInfo["scale"].description)
-                }
-                else {
-                    galleryScaleArray.append("")
-                }
-                if tmpInfo["playback_time"].exists() {
-                    galleryLoopTimeArray.append((tmpInfo["playback_time"].intValue)/1000)
-                }
-                else {
-                    galleryLoopTimeArray.append(1)
-                }
-                if (elemnt["slides"]).exists() {
-    
-                    var tmpImgUrlArray : [String] = []
-                    if tmpImgUrlArray.count > 0 {
-                    tmpImgUrlArray.removeAll()
-                    }
-                    for elemnt in (elemnt["slides"]).arrayValue {
-                        let tmpIMGurl = (elemnt["image_url"]).description
-                        tmpImgUrlArray.append(tmpIMGurl)
-                    }
-                    galleryImageUrlArray.append(tmpImgUrlArray)
-                }
-                else {
-                    galleryImageUrlArray.append([])
-                }
-                if (elemnt["categories"]).exists() {
-                    var tmpCategories :[categories] = []
-                    if tmpCategories.count > 0 {
-                        tmpCategories.removeAll()
-                    }
-                    for elemnt in (elemnt["categories"]).arrayValue {
-                        let tmpIconUrl = (elemnt["icon"]).description
-                        let tmpTitleEn = (elemnt["titleEn"]).description
-                        let tmpTitleFa = (elemnt["title"]).description
-                        let tmpId = (elemnt["id"]).description
-                        let t = categories(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
-                        galleryCategoriesDataArray.append(t)
-                    }
-                    
-                    
-                } else {
-                    
-                }
-                if (elemnt["channels"]).exists() {
-                    var tmpChannels :[channels] = []
-                    if tmpChannels.count > 0 {
-                        tmpChannels.removeAll()
-                    }
-                    for elemnt in (elemnt["channels"]).arrayValue {
-                        let tmpIconUrl = (elemnt["icon"]).description
-                        let tmpTitleEn = (elemnt["titleEn"]).description
-                        let tmpTitleFa = (elemnt["title"]).description
-                        let tmpId = (elemnt["id"]).description
-                        let t = channels(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
-                        tmpChannels.append(t)
-                    }
-                    galleryChannelsDataArray.append(tmpChannels)
-
-
-                } else {
-                    
-                }
-
+        debugPrint("=========Request Url=========")
+        debugPrint(urlFavouriteChannel)
+        debugPrint("=========Request Headers=========")
+        debugPrint(getHeaders())
+        
+        Alamofire.request(urlFavouriteChannel, method: .get, headers: getHeaders()).responseJSON { response in
+            
+            debugPrint("=========Response Headers=========")
+            debugPrint(response.response ?? "no headers")
+            debugPrint("=========Response Body=========")
+            debugPrint(response.result.value ?? "NO RESPONSE BODY")
+            
+            switch response.result {
+            case .success(let value):
                 
+                let json = JSON(value)
+                print(json["data"].arrayValue)
+                for elemnt in json["data"].arrayValue {
+                    let tmpType = elemnt["type"].description
+                    self.sectionArrays.append(tmpType)
+                    
+                    let tmpInfo = elemnt["info"]
+                    let tmpFATitle = tmpInfo["title"]
+                    let tmpENTitle = tmpInfo["title_en"]
+                    self.sectionTitleArrays.append(tmpFATitle.description)
+                    self.sectionTitleEnArrays.append(tmpENTitle.description)
+                    if tmpInfo["scale"].exists() {
+                        self.galleryScaleArray.append(tmpInfo["scale"].description)
+                    }
+                    else {
+                        self.galleryScaleArray.append("")
+                    }
+                    if tmpInfo["playback_time"].exists() {
+                        self.galleryLoopTimeArray.append((tmpInfo["playback_time"].intValue)/1000)
+                    }
+                    else {
+                        self.galleryLoopTimeArray.append(1)
+                    }
+                    if (elemnt["slides"]).exists() {
+                        
+                        var tmpImgUrlArray : [String] = []
+                        if tmpImgUrlArray.count > 0 {
+                            tmpImgUrlArray.removeAll()
+                        }
+                        for elemnt in (elemnt["slides"]).arrayValue {
+                            let tmpIMGurl = (elemnt["image_url"]).description
+                            tmpImgUrlArray.append(tmpIMGurl)
+                        }
+                        self.galleryImageUrlArray.append(tmpImgUrlArray)
+                    }
+                    else {
+                        self.galleryImageUrlArray.append([])
+                    }
+                    
+                    if (elemnt["categories"]).exists() {
+                        var tmpCategories = [categories]()
+                        if tmpCategories.count > 0 {
+                            tmpCategories.removeAll()
+                        }
+                        for elemnt in (elemnt["categories"]).arrayValue {
+                            let tmpIconUrl = (elemnt["icon"]).description
+                            let tmpTitleEn = (elemnt["titleEn"]).description
+                            let tmpTitleFa = (elemnt["title"]).description
+                            let tmpId = (elemnt["id"]).description
+                            let t = categories(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
+                            tmpCategories.append(t)
+                        }
+                        self.galleryCategoriesDataArray.append(tmpCategories)
+                        
+                    } else {
+                        self.galleryCategoriesDataArray.append([])
+                    }
+                    
+                    if (elemnt["channels"]).exists() {
+                        var tmpChannels = [channels]()
+                        if tmpChannels.count > 0 {
+                            tmpChannels.removeAll()
+                        }
+                        for elemnt in (elemnt["channels"]).arrayValue {
+                            let tmpIconUrl = elemnt["icon"].description
+                            let tmpTitleEn = (elemnt["title_en"]).description
+                            let tmpTitleFa = (elemnt["title"]).description
+                            let tmpId = (elemnt["id"]).description
+                            let t = channels(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
+                            tmpChannels.append(t)
+                        }
+                        self.galleryChannelsDataArray.append(tmpChannels)
+                        
+                    } else {
+                        self.galleryChannelsDataArray.append([])
+                    }
+                }
+                
+                self.tableView.reloadWithAnimation()
+                
+            case .failure(let error):
+                if error._code == NSURLErrorTimedOut {
+                    IGHelperAlert.shared.showAlert(title: "Error".localized, message: "Check_Your_Internet_Connection".localized)
+                } else if error._code == NSURLErrorUnsupportedURL || error._code == NSURLErrorBadURL {
+                    IGHelperAlert.shared.showAlert(title: "Error".localized, message: "URL_Is_Not_Valid".localized)
+                } else {
+                    IGHelperAlert.shared.showAlert(title: "Error".localized, message: "Check_Your_Internet_Connection".localized)
+                }
+                print(error.localizedDescription)
             }
+            
         }
-        
-        ///end
-        
-//        print("------")
-
     }
 
     
@@ -161,11 +193,18 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
 
             cell.imageUrl = galleryImageUrlArray[indexPath.section]
             
+            if galleryImageUrlArray[indexPath.section].count <= 1 {
+                cell.btnNXT.isHidden = true
+                cell.btnPRV.isHidden = true
+            } else {
+                cell.btnNXT.isHidden = false
+                cell.btnPRV.isHidden = false
+            }
+            
             cell.initView(scale: "1:1", loopTime: galleryLoopTimeArray[indexPath.section], imageUrlll: galleryImageUrlArray[indexPath.section])
 
             return cell
 
-            break
         case "channelFeaturedCategory" :
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeTwoCell", for: indexPath as IndexPath) as! SliderTypeTwoCell
 //            cell.textLabel!.text = "\(sectionArrays[indexPath.section])"
@@ -178,27 +217,40 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
 
             return cell
 
-            break
         case "channelNormalCategory" :
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
 
-            cell.categoriesDataArray = galleryCategoriesDataArray
+            cell.categoriesDataArray = galleryCategoriesDataArray[indexPath.section]
             cell.isInnenr = false
             cell.initView()
 
             return cell
 
-            break
         default :
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeOneCell", for: indexPath as IndexPath) as! SliderTypeOneCell
             cell.textLabel!.text = "\(sectionArrays[indexPath.section])"
             cell.backgroundColor = .red
             return cell
-            
-
-            break
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch sectionArrays[indexPath.section] {
+        case "advertisement" :
+            return UITableView.automaticDimension
+            
+        case "channelFeaturedCategory" :
+            return UITableView.automaticDimension
+            
+        case "channelNormalCategory" :
+            let numberOfRows = ceilf(Float(galleryCategoriesDataArray[indexPath.section].count) / 4)
+            return ((tableView.bounds.width/4.5) + 10) * CGFloat(numberOfRows)
+            
+        default :
+            return UITableView.automaticDimension
+        }
+    }
 
 }
+
+
