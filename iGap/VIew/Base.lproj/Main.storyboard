@@ -30,8 +30,8 @@
         <scene sceneID="ODs-K8-pfP">
             <objects>
                 <tableViewController storyboardIdentifier="IGFavouriteChannelsDashboardTableViewController" id="EB0-dn-qNc" customClass="IGFavouriteChannelsDashboardTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="97A-nG-VEs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="97A-nG-VEs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -39,7 +39,9 @@
                             <outlet property="delegate" destination="EB0-dn-qNc" id="fcA-Tx-XZ7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Lb1-yX-DhH" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <navigationItem key="navigationItem" id="Lb1-yX-DhH" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="backBarButtonItem" title=" " id="34d-LH-f7d"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="2Jd-b2-By7" kind="show" id="1Xy-jt-N2m"/>
                     </connections>
@@ -52,8 +54,8 @@
         <scene sceneID="qft-Wm-ptn">
             <objects>
                 <tableViewController storyboardIdentifier="IGFavouriteChannelsDashboardInnerTableViewController" id="2Jd-b2-By7" customClass="IGFavouriteChannelsDashboardInnerTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GUh-0G-FbA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GUh-0G-FbA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -61,6 +63,9 @@
                             <outlet property="delegate" destination="2Jd-b2-By7" id="hlw-ET-Tew"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="6sJ-X2-Dy0" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Y1Y-p1-dNL"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9pE-AD-Qwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -132,7 +137,9 @@
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-12"/>
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Title" id="AW9-xw-fuX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <navigationItem key="navigationItem" title="Title" id="AW9-xw-fuX" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="backBarButtonItem" title=" " id="XLY-Wt-B8G"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnRefresh" destination="Vdk-oB-E9O" id="0cr-OH-cOG"/>
                         <outlet property="collectionView" destination="Wfm-GU-ejX" id="QwU-vu-hH9"/>

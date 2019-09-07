@@ -18,13 +18,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="399.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9dQ-L8-5mR">
-                        <rect key="frame" x="8" y="4" width="304" height="393"/>
+                    <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9dQ-L8-5mR">
+                        <rect key="frame" x="8" y="12" width="304" height="385"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="393" id="tP7-Mz-lQz"/>
+                            <constraint firstAttribute="height" constant="385" id="tP7-Mz-lQz"/>
                         </constraints>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Uea-cG-bGq">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="Uea-cG-bGq">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -39,7 +39,7 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="9dQ-L8-5mR" secondAttribute="bottom" constant="5.5" id="BA2-NH-Y1h"/>
                     <constraint firstAttribute="trailing" secondItem="9dQ-L8-5mR" secondAttribute="trailing" constant="8" id="Woi-vc-tvJ"/>
-                    <constraint firstItem="9dQ-L8-5mR" firstAttribute="top" secondItem="qxS-yh-4VK" secondAttribute="top" constant="4" id="X75-MF-HI9"/>
+                    <constraint firstItem="9dQ-L8-5mR" firstAttribute="top" secondItem="qxS-yh-4VK" secondAttribute="top" constant="12" id="X75-MF-HI9"/>
                     <constraint firstItem="9dQ-L8-5mR" firstAttribute="leading" secondItem="qxS-yh-4VK" secondAttribute="leading" constant="8" id="vqO-8s-yQ7"/>
                 </constraints>
             </tableViewCellContentView>

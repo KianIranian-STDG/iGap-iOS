@@ -223,6 +223,14 @@
 		93C299941E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C299931E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift */; };
 		93CE90811EC4B93F002BFEC1 /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CE90801EC4B93F002BFEC1 /* NVActivityIndicatorView.framework */; };
 		93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E181E31E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift */; };
+		940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E6D231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift */; };
+		940F9E70231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940F9E6E231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib */; };
+		940F9E73231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E71231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift */; };
+		940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */; };
+		940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */; };
+		940F9E7A231BC17400C26D50 /* IGStructFavouriteChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */; };
+		949E835A231D421400B6799E /* MoaDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E8359231D421400B6799E /* MoaDistrib.swift */; };
+		949E835C231D422800B6799E /* AukDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E835B231D422800B6799E /* AukDistrib.swift */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
 		FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19F20429D46008812E3 /* RTCClient.swift */; };
@@ -929,6 +937,14 @@
 		93C299931E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift; sourceTree = "<group>"; };
 		93CE90801EC4B93F002BFEC1 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NVActivityIndicatorView.framework; path = Carthage/Build/iOS/NVActivityIndicatorView.framework; sourceTree = "<group>"; };
 		93E181E31E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift; sourceTree = "<group>"; };
+		940F9E6D231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelSlideTVCell.swift; sourceTree = "<group>"; };
+		940F9E6E231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGFavouriteChannelSlideTVCell.xib; sourceTree = "<group>"; };
+		940F9E71231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFavouriteChannelCVCell.swift; sourceTree = "<group>"; };
+		940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGFavouriteChannelCVCell.xib; sourceTree = "<group>"; };
+		940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiFavouriteChannels.swift; sourceTree = "<group>"; };
+		940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructFavouriteChannels.swift; sourceTree = "<group>"; };
+		949E8359231D421400B6799E /* MoaDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoaDistrib.swift; sourceTree = "<group>"; };
+		949E835B231D422800B6799E /* AukDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AukDistrib.swift; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -1598,11 +1614,12 @@
 		8EBF551622DC4B4E00834E6A /* FavouriteChannels */ = {
 			isa = PBXGroup;
 			children = (
+				949E8358231D41F200B6799E /* Image Slide Show */,
 				8EBF552922DCAA9500834E6A /* ServerData.json */,
 				8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */,
 				8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */,
-				8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */,
 				8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */,
+				8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */,
 				8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */,
 				8EBF553322DCC9F700834E6A /* SliderTypeThreeCell.swift */,
 				8EBF553522DCCA0600834E6A /* SliderTypeThreeCell.xib */,
@@ -1612,6 +1629,10 @@
 				8EBF552222DCA95C00834E6A /* ProfileViewModel.swift */,
 				8EBF552F22DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift */,
 				8EBF553022DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.xib */,
+				940F9E6D231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift */,
+				940F9E6E231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib */,
+				940F9E71231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift */,
+				940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */,
 			);
 			path = FavouriteChannels;
 			sourceTree = "<group>";
@@ -1772,6 +1793,15 @@
 				93E181E31E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift */,
 			);
 			path = "Channel and Group Info";
+			sourceTree = "<group>";
+		};
+		949E8358231D41F200B6799E /* Image Slide Show */ = {
+			isa = PBXGroup;
+			children = (
+				949E8359231D421400B6799E /* MoaDistrib.swift */,
+				949E835B231D422800B6799E /* AukDistrib.swift */,
+			);
+			path = "Image Slide Show";
 			sourceTree = "<group>";
 		};
 		FA03C19A20429437008812E3 /* Call */ = {
@@ -2333,6 +2363,7 @@
 			isa = PBXGroup;
 			children = (
 				FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */,
+				940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -2662,6 +2693,7 @@
 				FA4CBBD222894BCC00264A7C /* IGStructClientGetRoomHistoryIdentity.swift */,
 				FAC1330422C098D000817044 /* IGStructMessageOption.swift */,
 				FAA4E85A23124B110091199B /* IGForwardStruct.swift */,
+				940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -3059,11 +3091,13 @@
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,
 				8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */,
+				940F9E70231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib in Resources */,
 				8EBF553622DCCA0600834E6A /* SliderTypeThreeCell.xib in Resources */,
 				8ECC1828222F991F006E43E8 /* wallet.storyboard in Resources */,
 				FAD57EE21E191DB000FC17D9 /* IGMessageLogCollectionViewCell.xib in Resources */,
 				FA0953071E1B87E40043ED3F /* IGSettingStoryboard.storyboard in Resources */,
 				FAE6064121EB3A0C00F03FFC /* fr.lproj in Resources */,
+				940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */,
 				8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */,
 				FA99FF6122352109009035DF /* DashboardCell1.xib in Resources */,
 				FA5EC5DB1E06728C006E2850 /* IGChatRoomListTableViewCell.xib in Resources */,
@@ -3268,6 +3302,8 @@
 				FAEA75D91DDAFFA200C387F1 /* IGRoomMessageLocation.swift in Sources */,
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
+				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
+				949E835A231D421400B6799E /* MoaDistrib.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
@@ -3359,6 +3395,7 @@
 				FAA9DFBA1F4B1CC90076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewController.swift in Sources */,
 				FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */,
 				FA0953471E1B97700043ED3F /* IGPrivacyAndSecurityWhoCanSeeTableViewController.swift in Sources */,
+				940F9E73231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift in Sources */,
 				8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */,
 				FA41C6F01DC9DFD600598383 /* IGGlobal.swift in Sources */,
 				FAEC476A21F3360A006C07A4 /* MessageViewControllerObserver.swift in Sources */,
@@ -3435,6 +3472,7 @@
 				FAD7451721B9447B00801D2E /* IGShareInfo.swift in Sources */,
 				FA09538D1E1B97E20043ED3F /* IGAddNewContactTableViewCell.swift in Sources */,
 				8EBF95E3225884EB00A1F7E4 /* SMUserManager.swift in Sources */,
+				940F9E7A231BC17400C26D50 /* IGStructFavouriteChannels.swift in Sources */,
 				FA50FE4A21EF40120043239D /* IGRealmAdditional.swift in Sources */,
 				8E96A307225B4393007D8A77 /* mainRequest.swift in Sources */,
 				FA42EF0C1E5C224F00CF8A32 /* GIFImageView.swift in Sources */,
@@ -3465,6 +3503,7 @@
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
+				949E835C231D422800B6799E /* AukDistrib.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
@@ -3655,6 +3694,7 @@
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
 				FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */,
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
+				940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,
 				8EBF95E02258811500A1F7E4 /* IGConstants.swift in Sources */,
 				FA11E28A1DE8A8A900A2F87C /* IGAttachmentManager.swift in Sources */,

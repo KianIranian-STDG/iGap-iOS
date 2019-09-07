@@ -63,7 +63,7 @@ class IGHelperJoin {
     }
     
     
-    func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
+    private func joinRoombyInvitedLink(room:IGPRoom, invitedToken: String) {
         IGGlobal.prgShow(viewController.view)
         IGClientJoinByInviteLinkRequest.Generator.generate(invitedToken: invitedToken).success({ (protoResponse) in
             DispatchQueue.main.async {

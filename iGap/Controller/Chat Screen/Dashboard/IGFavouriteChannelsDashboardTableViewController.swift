@@ -11,41 +11,42 @@ import Alamofire
 import SwiftyJSON
 import MBProgressHUD
 
-class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
-
-    var sectionArrays = [String?]()
-    var galleryLoopTimeArray = [Int]()
-    var galleryImageUrlArray = [[String]]()
-    var galleryChannelsDataArray = [[channels]]()
-    var galleryCategoriesDataArray = [[categories]]()
-    var sectionTitleArrays = [String]()
-    var sectionTitleEnArrays = [String]()
-    var galleryScaleArray = [String]()
-    var FirstSliderImageArray = [UIImage?]()
-    var SecondSliderImageArray = [UIImage?]()
-    var hud = MBProgressHUD()
-    private let urlFavouriteChannel = "https://api.igap.net/services/v1.0/channel"
+class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+    
+    var items = [FavouriteChannelHomeItem]()
+    
+    let slideTVCellReuseIdentifier = "IGFavouriteChannelSlideTVCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView?.register(IGFavouriteChannelSlideTVCell.nib(), forCellReuseIdentifier: slideTVCellReuseIdentifier)
         tableView?.register(SliderTypeOneCell.nib, forCellReuseIdentifier: SliderTypeOneCell.identifier)
         tableView?.register(SliderTypeTwoCell.nib, forCellReuseIdentifier: SliderTypeTwoCell.identifier)
         tableView?.register(SliderTypeThreeCell.nib, forCellReuseIdentifier: SliderTypeThreeCell.identifier)
 
         getData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshOnCall(_:)), name: (NSNotification.Name(rawValue: SMConstants.refreshTableView)), object: nil)
-
         
+        initNavigationBar()
     }
     
-    @objc func refreshOnCall(_ nofication: Notification)  {
-        self.tableView.reloadData()
+    func initNavigationBar() {
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_ACCOUNT_INTERESTING_CHANNELS".localizedNew)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshOnCall(_:)), name: (NSNotification.Name(rawValue: SMConstants.refreshTableView)), object: nil)
+//
+//    }
+    
+//    @objc func refreshOnCall(_ nofication: Notification)  {
+//        self.tableView.reloadData()
+//    }
 
     private func getHeaders() -> HTTPHeaders {
         let authorization = "Bearer " + IGAppManager.sharedManager.getAccessToken()!
@@ -54,200 +55,116 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController {
     }
 
     func getData() {
+        
+        IGApiFavouriteChannels.shared.homeItems { (isSuccess, items) in
+            if isSuccess {
+                self.items = items
+                self.tableView.reloadWithAnimation()
+            }
+        }
+        
 //        guard let data = IGGlobal.dataFromFile("ServerData") else {
 //            return
 //        }
         
-        if galleryImageUrlArray.count > 0 {
-            galleryImageUrlArray.removeAll()
-        }
+//        debugPrint("=========Request Url=========")
+//        debugPrint("https://api.igap.net/services/v1.0/channel")
+//        debugPrint("=========Request Headers=========")
+//        debugPrint(getHeaders())
+//
+//        Alamofire.request("https://api.igap.net/services/v1.0/channel", method: .get, headers: getHeaders()).responseJSON { response in
+//
+//            debugPrint("=========Response Headers=========")
+//            debugPrint(response.response ?? "no headers")
+//            debugPrint("=========Response Body=========")
+//            debugPrint(response.result.value ?? "NO RESPONSE BODY")
+//
+//            switch response.result {
+//            case .success(let value):
         
-        debugPrint("=========Request Url=========")
-        debugPrint(urlFavouriteChannel)
-        debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders())
-        
-        Alamofire.request(urlFavouriteChannel, method: .get, headers: getHeaders()).responseJSON { response in
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.result.value ?? "NO RESPONSE BODY")
-            
-            switch response.result {
-            case .success(let value):
-                
-                let json = JSON(value)
-                print(json["data"].arrayValue)
-                for elemnt in json["data"].arrayValue {
-                    let tmpType = elemnt["type"].description
-                    self.sectionArrays.append(tmpType)
-                    
-                    let tmpInfo = elemnt["info"]
-                    let tmpFATitle = tmpInfo["title"]
-                    let tmpENTitle = tmpInfo["title_en"]
-                    self.sectionTitleArrays.append(tmpFATitle.description)
-                    self.sectionTitleEnArrays.append(tmpENTitle.description)
-                    if tmpInfo["scale"].exists() {
-                        self.galleryScaleArray.append(tmpInfo["scale"].description)
-                    }
-                    else {
-                        self.galleryScaleArray.append("")
-                    }
-                    if tmpInfo["playback_time"].exists() {
-                        self.galleryLoopTimeArray.append((tmpInfo["playback_time"].intValue)/1000)
-                    }
-                    else {
-                        self.galleryLoopTimeArray.append(1)
-                    }
-                    if (elemnt["slides"]).exists() {
-                        
-                        var tmpImgUrlArray : [String] = []
-                        if tmpImgUrlArray.count > 0 {
-                            tmpImgUrlArray.removeAll()
-                        }
-                        for elemnt in (elemnt["slides"]).arrayValue {
-                            let tmpIMGurl = (elemnt["image_url"]).description
-                            tmpImgUrlArray.append(tmpIMGurl)
-                        }
-                        self.galleryImageUrlArray.append(tmpImgUrlArray)
-                    }
-                    else {
-                        self.galleryImageUrlArray.append([])
-                    }
-                    
-                    if (elemnt["categories"]).exists() {
-                        var tmpCategories = [categories]()
-                        if tmpCategories.count > 0 {
-                            tmpCategories.removeAll()
-                        }
-                        for elemnt in (elemnt["categories"]).arrayValue {
-                            let tmpIconUrl = (elemnt["icon"]).description
-                            let tmpTitleEn = (elemnt["titleEn"]).description
-                            let tmpTitleFa = (elemnt["title"]).description
-                            let tmpId = (elemnt["id"]).description
-                            let t = categories(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
-                            tmpCategories.append(t)
-                        }
-                        self.galleryCategoriesDataArray.append(tmpCategories)
-                        
-                    } else {
-                        self.galleryCategoriesDataArray.append([])
-                    }
-                    
-                    if (elemnt["channels"]).exists() {
-                        var tmpChannels = [channels]()
-                        if tmpChannels.count > 0 {
-                            tmpChannels.removeAll()
-                        }
-                        for elemnt in (elemnt["channels"]).arrayValue {
-                            let tmpIconUrl = elemnt["icon"].description
-                            let tmpTitleEn = (elemnt["title_en"]).description
-                            let tmpTitleFa = (elemnt["title"]).description
-                            let tmpId = (elemnt["id"]).description
-                            let t = channels(titleEn: tmpTitleEn, titleFa: tmpTitleFa, id: tmpId, iconUrl: tmpIconUrl)
-                            tmpChannels.append(t)
-                        }
-                        self.galleryChannelsDataArray.append(tmpChannels)
-                        
-                    } else {
-                        self.galleryChannelsDataArray.append([])
-                    }
-                }
-                
-                self.tableView.reloadWithAnimation()
-                
-            case .failure(let error):
-                if error._code == NSURLErrorTimedOut {
-                    IGHelperAlert.shared.showAlert(title: "Error".localized, message: "Check_Your_Internet_Connection".localized)
-                } else if error._code == NSURLErrorUnsupportedURL || error._code == NSURLErrorBadURL {
-                    IGHelperAlert.shared.showAlert(title: "Error".localized, message: "URL_Is_Not_Valid".localized)
-                } else {
-                    IGHelperAlert.shared.showAlert(title: "Error".localized, message: "Check_Your_Internet_Connection".localized)
-                }
-                print(error.localizedDescription)
-            }
-            
-        }
+//                let json = JSON(value)
+//
+//                print(json["data"].arrayValue)
+//            }
+//
+//        }
     }
 
     
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return sectionArrays.count
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        return items.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch sectionArrays[indexPath.section] {
-        case "advertisement" :
+        
+        let item = items[indexPath.row]
+        
+        switch item.type {
+        case .ad:
+            
+//            let cell = tableView.dequeueReusableCell(withIdentifier: slideTVCellReuseIdentifier, for: indexPath) as! IGFavouriteChannelSlideTVCell
+//            cell.collectionView.tag = indexPath.section
+//            cell.slideImages = galleryImageUrlArray[indexPath.row]
+//            cell.slidesCount = galleryImageUrlArray[indexPath.row].count
+//            cell.scale = galleryScaleArrayFloat[indexPath.section]
+//            cell.slideshowInterval = TimeInterval(galleryLoopTimeArray[indexPath.section])
+//            cell.registerCells()
+//            return cell
+            
+            
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeOneCell", for: indexPath as IndexPath) as! SliderTypeOneCell
-//            print("\(galleryScaleArray[indexPath.section])")
-            cell.galleryScale = "\(galleryScaleArray[indexPath.section])"
+//            cell.galleryScale = item.info?.scale ?? "8:5"
+//
+//            if item.slides?.count ?? 0 <= 1 {
+//                cell.btnNXT.isHidden = true
+//                cell.btnPRV.isHidden = true
+//            } else {
+//                cell.btnNXT.isHidden = false
+//                cell.btnPRV.isHidden = false
+//            }
 
-            cell.imageUrl = galleryImageUrlArray[indexPath.section]
-            
-            if galleryImageUrlArray[indexPath.section].count <= 1 {
-                cell.btnNXT.isHidden = true
-                cell.btnPRV.isHidden = true
-            } else {
-                cell.btnNXT.isHidden = false
-                cell.btnPRV.isHidden = false
-            }
-            
-            cell.initView(scale: "1:1", loopTime: galleryLoopTimeArray[indexPath.section], imageUrlll: galleryImageUrlArray[indexPath.section])
+            cell.initView(scale: item.info?.scale ?? "8:5", loopTime: item.info?.playbackTime ?? 1000, imageUrl: item.slides?.map({ $0.imageURL }) as! [String])
 
             return cell
 
-        case "channelFeaturedCategory" :
+        case .featuredCategory:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeTwoCell", for: indexPath as IndexPath) as! SliderTypeTwoCell
 //            cell.textLabel!.text = "\(sectionArrays[indexPath.section])"
 
-            cell.lblTitle.text = "\(sectionTitleArrays[indexPath.section])"
-            cell.channelsDataArray = galleryChannelsDataArray[indexPath.section]
-            cell.collectionCounts = sectionArrays.filter({$0 == "channelFeaturedCategory"}).count // 3
+            cell.lblTitle.text = item.info?.title
+            cell.collectionCounts = self.items.filter({$0.type == .featuredCategory}).count
+            cell.channelItem = item
 
             cell.initView()
 
             return cell
 
-        case "channelNormalCategory" :
+        case .normalCategory:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
-
-            cell.categoriesDataArray = galleryCategoriesDataArray[indexPath.section]
             cell.isInnenr = false
+            cell.categoryItem = item
             cell.initView()
 
-            return cell
-
-        default :
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeOneCell", for: indexPath as IndexPath) as! SliderTypeOneCell
-            cell.textLabel!.text = "\(sectionArrays[indexPath.section])"
-            cell.backgroundColor = .red
             return cell
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch sectionArrays[indexPath.section] {
-        case "advertisement" :
+        
+        let item = items[indexPath.row]
+        
+        switch item.type {
+        case .ad:
             return UITableView.automaticDimension
             
-        case "channelFeaturedCategory" :
+        case .featuredCategory:
             return UITableView.automaticDimension
             
-        case "channelNormalCategory" :
-            let numberOfRows = ceilf(Float(galleryCategoriesDataArray[indexPath.section].count) / 4)
-            return ((tableView.bounds.width/4.5) + 10) * CGFloat(numberOfRows)
-            
-        default :
-            return UITableView.automaticDimension
+        case .normalCategory:
+            let numberOfRows = ceilf(Float(item.categories?.count ?? 0) / 4)
+            return ((tableView.bounds.width/4.5) + 20) * CGFloat(numberOfRows)
         }
     }
 

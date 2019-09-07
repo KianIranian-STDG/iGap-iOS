@@ -652,6 +652,8 @@
         "SETTING_PAGE_ACCOUNT_NIKNAME" : "لقب",
         "SETTING_PAGE_ACCOUNT_IGAP_CLUB" : "باشگاه آیگپ",
         "SETTING_PAGE_ACCOUNT_SCORE_PAGE" : "امتیاز",
+        "SETTING_PAGE_ACCOUNT_INTERESTING_CHANNELS" : "کانالهای جذاب",
+        
         
         "SETTING_PAGE_ACCOUNT_PHONENUMBER" : "شماره تماس",
         "SETTING_PAGE_ACCOUNT_USERNAME" : "نام کاربری",

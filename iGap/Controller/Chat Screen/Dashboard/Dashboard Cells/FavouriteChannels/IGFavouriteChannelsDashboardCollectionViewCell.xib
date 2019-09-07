@@ -18,22 +18,32 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IGFavouriteChannelsDashboardCollectionViewCell" id="gTV-IL-0wX" customClass="IGFavouriteChannelsDashboardCollectionViewCell" customModule="iGap" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+            <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qcx-7r-YRi">
-                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="2" translatesAutoresizingMaskIntoConstraints="NO" id="fUV-JI-YC3">
-                                <rect key="frame" x="0.0" y="0.0" width="90" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBl-AL-0O7">
+                                <rect key="frame" x="0.0" y="70" width="90" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="XNX-IY-73g"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fUV-JI-YC3">
+                                <rect key="frame" x="16" y="6" width="58" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fUV-JI-YC3" secondAttribute="height" multiplier="1:1" id="Fx6-Fr-EDY"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="cx0-n1-VWW">
-                                <rect key="frame" x="0.0" y="60" width="90" height="30"/>
+                                <rect key="frame" x="4" y="70" width="82" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="5yo-5j-cM1"/>
+                                    <constraint firstAttribute="height" constant="26" id="5yo-5j-cM1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="10"/>
                                 <nil key="textColor"/>
@@ -42,13 +52,16 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="cx0-n1-VWW" secondAttribute="bottom" id="7NB-3r-6bd"/>
-                            <constraint firstItem="cx0-n1-VWW" firstAttribute="leading" secondItem="Qcx-7r-YRi" secondAttribute="leading" id="C0y-EF-fM5"/>
-                            <constraint firstAttribute="trailing" secondItem="fUV-JI-YC3" secondAttribute="trailing" id="TlD-YN-tkU"/>
-                            <constraint firstItem="cx0-n1-VWW" firstAttribute="top" secondItem="fUV-JI-YC3" secondAttribute="bottom" id="mhU-6K-tee"/>
-                            <constraint firstItem="fUV-JI-YC3" firstAttribute="leading" secondItem="Qcx-7r-YRi" secondAttribute="leading" id="pNH-C0-E2B"/>
-                            <constraint firstItem="fUV-JI-YC3" firstAttribute="top" secondItem="Qcx-7r-YRi" secondAttribute="top" id="vEE-2I-pQh"/>
-                            <constraint firstAttribute="trailing" secondItem="cx0-n1-VWW" secondAttribute="trailing" id="vhL-97-xOa"/>
+                            <constraint firstItem="gBl-AL-0O7" firstAttribute="top" secondItem="fUV-JI-YC3" secondAttribute="bottom" constant="6" id="3we-Cp-OLy"/>
+                            <constraint firstItem="fUV-JI-YC3" firstAttribute="centerX" secondItem="Qcx-7r-YRi" secondAttribute="centerX" id="6WZ-zf-BR5"/>
+                            <constraint firstAttribute="bottom" secondItem="cx0-n1-VWW" secondAttribute="bottom" constant="4" id="7NB-3r-6bd"/>
+                            <constraint firstItem="cx0-n1-VWW" firstAttribute="leading" secondItem="Qcx-7r-YRi" secondAttribute="leading" constant="4" id="C0y-EF-fM5"/>
+                            <constraint firstAttribute="trailing" secondItem="gBl-AL-0O7" secondAttribute="trailing" id="CrF-Ah-xsj"/>
+                            <constraint firstItem="gBl-AL-0O7" firstAttribute="leading" secondItem="Qcx-7r-YRi" secondAttribute="leading" id="Yuu-oR-6Ag"/>
+                            <constraint firstAttribute="bottom" secondItem="gBl-AL-0O7" secondAttribute="bottom" id="lKz-mo-fDg"/>
+                            <constraint firstItem="cx0-n1-VWW" firstAttribute="top" secondItem="fUV-JI-YC3" secondAttribute="bottom" constant="6" id="mhU-6K-tee"/>
+                            <constraint firstItem="fUV-JI-YC3" firstAttribute="top" secondItem="Qcx-7r-YRi" secondAttribute="top" constant="6" id="vEE-2I-pQh"/>
+                            <constraint firstAttribute="trailing" secondItem="cx0-n1-VWW" secondAttribute="trailing" constant="4" id="vhL-97-xOa"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -68,7 +81,4 @@
             <point key="canvasLocation" x="86.956521739130437" y="65.625"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="2" width="1080" height="1080"/>
-    </resources>
 </document>

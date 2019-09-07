@@ -30,15 +30,12 @@
                         <rect key="frame" x="8" y="4" width="304" height="131"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSN-Jd-dUE">
-                                <rect key="frame" x="0.0" y="29" width="304" height="102"/>
+                                <rect key="frame" x="0.0" y="28" width="304" height="103"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="K8t-SX-Med">
-                                        <rect key="frame" x="46" y="-1" width="258" height="103"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="258" height="103"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="103" id="xUa-pd-pb3"/>
-                                        </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lTR-de-ca8">
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="lTR-de-ca8">
                                             <size key="itemSize" width="100" height="100"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -50,7 +47,7 @@
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYB-Qo-o4x">
-                                        <rect key="frame" x="0.0" y="0.0" width="46" height="102"/>
+                                        <rect key="frame" x="258" y="0.0" width="46" height="103"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="hPY-Tf-KCi"/>
                                         </constraints>
@@ -63,14 +60,15 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="K8t-SX-Med" secondAttribute="trailing" id="1tp-IT-bpq"/>
                                     <constraint firstAttribute="bottom" secondItem="iYB-Qo-o4x" secondAttribute="bottom" id="2aV-Hc-aW3"/>
                                     <constraint firstAttribute="bottom" secondItem="K8t-SX-Med" secondAttribute="bottom" id="2bg-m9-tsO"/>
-                                    <constraint firstAttribute="height" constant="102" id="LFY-cL-uhq"/>
-                                    <constraint firstItem="iYB-Qo-o4x" firstAttribute="leading" secondItem="bSN-Jd-dUE" secondAttribute="leading" id="P8e-MX-hym"/>
-                                    <constraint firstItem="K8t-SX-Med" firstAttribute="leading" secondItem="iYB-Qo-o4x" secondAttribute="trailing" id="dZR-dS-r4Y"/>
+                                    <constraint firstAttribute="height" constant="103" id="LFY-cL-uhq"/>
+                                    <constraint firstItem="K8t-SX-Med" firstAttribute="leading" secondItem="bSN-Jd-dUE" secondAttribute="leading" id="Y3U-ym-9hh"/>
+                                    <constraint firstItem="iYB-Qo-o4x" firstAttribute="leading" secondItem="K8t-SX-Med" secondAttribute="trailing" id="fLW-kN-CFU"/>
+                                    <constraint firstItem="K8t-SX-Med" firstAttribute="top" secondItem="bSN-Jd-dUE" secondAttribute="top" id="s6h-8w-kjY"/>
+                                    <constraint firstAttribute="trailing" secondItem="iYB-Qo-o4x" secondAttribute="trailing" id="wk2-vd-iyG"/>
                                     <constraint firstItem="iYB-Qo-o4x" firstAttribute="top" secondItem="bSN-Jd-dUE" secondAttribute="top" id="yBs-O1-E84"/>
                                 </constraints>
                             </view>

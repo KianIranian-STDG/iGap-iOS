@@ -10,37 +10,20 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-struct channels {
-    var titleEn: String
-    var titleFa: String
-    var id: String
-    var iconUrl : String
-}
-struct categories {
-    var titleEn: String
-    var titleFa: String
-    var id: String
-    var iconUrl : String
-}
-
-class SliderTypeOneCell: UITableViewCell {
+class SliderTypeOneCell: UITableViewCell, UIScrollViewDelegate {
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    var timer = Timer()
-    var photoCount:Int = 0
-    var galleryScale : String = "8:5"
-    var playbackTime : Int = 2000
-    var imageUrl : [String] = []
-    @IBOutlet weak var btnPRV: UIButton!
-    @IBOutlet weak var btnNXT: UIButton!
-    @IBOutlet weak var pictureImageView: IGImageView?
-    var images : [UIImage?] = []
-    var tmpIIimages : [UIImage?] = []
-
-    var channels: [channels] = []
-
+    @IBOutlet weak var scrollView: UIScrollView!
+//    @IBOutlet weak var btnPRV: UIButton!
+//    @IBOutlet weak var btnNXT: UIButton!
+//    @IBOutlet weak var pictureImageView: IGImageView!
     
-    static var nib:UINib {
+    var photoCount: Int = 0
+    var playbackTime : Int = 2000
+//    var images : [UIImage?] = []
+    var dispatchGroup: DispatchGroup!
+    
+    static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
     
@@ -48,13 +31,18 @@ class SliderTypeOneCell: UITableViewCell {
         return String(describing: self)
     }
     
-
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        scrollView.delegate = self
+        scrollView.layer.cornerRadius = 14
+        
+        scrollView.auk.settings.contentMode = .scaleAspectFill
+        scrollView.auk.settings.placeholderImage = UIImage(named: "1")
+        scrollView.auk.settings.preloadRemoteImagesAround = 1
     }
     
-    private func computeHeight(scale: String) -> CGFloat{
+    private func computeHeight(scale: String) -> CGFloat {
         let split = scale.split(separator: ":")
         let heightScale = NumberFormatter().number(from: split[1].description)
         let widthScale = NumberFormatter().number(from: split[0].description)
@@ -62,135 +50,137 @@ class SliderTypeOneCell: UITableViewCell {
         let height: CGFloat = IGGlobal.fetchUIScreen().width * scale
         return height
     }
-    func btnConfig() {
-        btnNXT?.roundCorners(corners: [.layerMinXMinYCorner,.layerMinXMaxYCorner], radius: 15.0)
-        btnPRV?.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMaxXMinYCorner], radius: 15.0)
-    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
     }
-    public func initView(images: [UIImage] = [] , scale : String , loopTime : Int, imageUrlll : [String]){
-        heightConstraint.constant = computeHeight(scale: galleryScale)
-        
-        pictureImageView?.layer.cornerRadius = 15
-        pictureImageView?.clipsToBounds = true
-        pictureImageView?.contentMode = .scaleAspectFill
-        pictureImageView?.backgroundColor = UIColor.lightGray
-        
-        sliderImages(imageUrlll : imageUrlll,loopTime: loopTime)
-        btnConfig()
-        
-    }
-    public func initViewInner(scale : String , loopTime : Int, imageUrl : [String]){
+    
+    public func initView(images: [UIImage] = [] ,scale : String , loopTime : Int, imageUrl : [String]){
         heightConstraint.constant = computeHeight(scale: scale)
         
-        pictureImageView?.layer.cornerRadius = 15
-        pictureImageView?.clipsToBounds = true
-        pictureImageView?.contentMode = .scaleAspectFill
-        pictureImageView?.backgroundColor = UIColor.lightGray
-        
-        sliderImages(imageUrlll : imageUrl,loopTime: loopTime)
-        btnConfig()
-        
-    }
-    func sliderImages(imageUrlll : [String],loopTime: Int) {
-
-        var tmpImages : [UIImage?] = []
-        if tmpImages.count > 0 {
-            tmpImages.removeAll()
-        }
-
-        
-        for item in imageUrlll {
-            let tmpImg = UIImageView()
-            let url = NSURL(string: item)!
-//            print(url as URL)
-            tmpImg.sd_setImage(with: url as URL?, completed: nil)
-            if tmpImg.image == nil {
-                tmpImages.append((UIImage(named: "1")))
-            } else {
-                tmpImages.append((tmpImg.image))
+        if scrollView.auk.images.count == 0 {
+            for url in imageUrl {
+                scrollView.auk.show(url: url)
             }
+            self.playbackTime = loopTime
+            scrollView.auk.startAutoScroll(delaySeconds: Double(loopTime / 1000))
         }
-        
-
-        
-//        print(tmpImages)
-        self.images = tmpImages
-        scheduledTimerWithTimeInterval(loopTime: loopTime)
-
-//        self.pictureImageView!.image = UIImage(named : "1")
-
     }
-    
-    
-    func scheduledTimerWithTimeInterval(loopTime : Int = 5){
-        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
-        if !(timer.isValid) {
-            timer = Timer.scheduledTimer(timeInterval: TimeInterval(loopTime), target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+    public func initViewInner(scale : String , loopTime : Int, slides : [FavouriteChannelsAddSlide]){
+        heightConstraint.constant = computeHeight(scale: scale)
+        
+        heightConstraint.constant = computeHeight(scale: scale)
+        
+        if scrollView.auk.images.count == 0 {
+            for url in slides.map({ $0.imageURL }) as! [String] {
+                scrollView.auk.show(url: url)
+            }
+            self.playbackTime = loopTime
+            scrollView.auk.startAutoScroll(delaySeconds: Double(loopTime / 1000))
         }
     }
     
-    @objc func updateCounting(){
-        onTransition()
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        scrollView.auk.startAutoScroll(delaySeconds: Double(playbackTime / 1000))
     }
-    func onTransition() {
-        if (photoCount < images.count - 1){
-            photoCount = photoCount  + 1
-        } else{
-            photoCount = 0
-        }
-//        print("-=-=-=-==-=-=-=-")
-        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
-            self.pictureImageView!.image = self.images[self.photoCount]
-        }, completion: nil)
-    }
+    
+//    func sliderImages(imageUrl: [String], loopTime: Int) {
+//
+//        var tmpImages : [UIImage?] = []
+//        if tmpImages.count > 0 {
+//            tmpImages.removeAll()
+//        }
+//
+//        dispatchGroup = DispatchGroup()
+//
+//        for item in imageUrl {
+//            let tmpImg = UIImageView()
+//            let url = URL(string: item)!
+//            dispatchGroup.enter()
+//            tmpImg.sd_setImage(with: url) { (image, error, cacheType, url) in
+//                if tmpImg.image == nil {
+//                    tmpImages.append((UIImage(named: "1")))
+//                } else {
+//                    tmpImages.append((tmpImg.image))
+//                }
+//                self.dispatchGroup.leave()
+//            }
+//        }
+//
+//        dispatchGroup.notify(queue: .main) {
+//            self.images = tmpImages
+//            self.scheduledTimerWithTimeInterval(loopTime: loopTime / 1000)
+//        }
+//    }
+    
+//    func scheduledTimerWithTimeInterval(loopTime : Int = 5){
+//        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+//        if !(timer.isValid) {
+//            self.updateCounting()
+//            timer = Timer.scheduledTimer(timeInterval: TimeInterval(loopTime), target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+//        }
+//    }
+//
+//    @objc func updateCounting(){
+//        onTransition()
+//    }
+    
+//    func onTransition() {
+//        if (photoCount < images.count - 1){
+//            photoCount = photoCount  + 1
+//        } else{
+//            photoCount = 0
+//        }
+////        print("-=-=-=-==-=-=-=-")
+//        UIView.transition(with: pictureImageView!, duration: 1.0, options: .transitionCrossDissolve, animations: {
+//            self.pictureImageView!.image = self.images[self.photoCount]
+//        }, completion: nil)
+//    }
 
-    @IBAction func btnPRVtaped(_ sender: Any) {
-//        print(images.count)
-        if SMLangUtil.loadLanguage() == "fa" {
-
-            if (photoCount < images.count - 1) {
-                photoCount = photoCount + 1
-            } else{
-                photoCount = 0
-            }
-        } else {
-
-            if (photoCount == 0){
-                photoCount = 0
-            } else{
-                photoCount = photoCount - 1
-            }
-        }
-        
-        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
-            self.pictureImageView!.image = self.images[self.photoCount]
-        }, completion: nil)
-
-    }
-    @IBAction func btnNXTtaped(_ sender: Any) {
-
-        
-        if SMLangUtil.loadLanguage() == "fa" {
-
-            if (photoCount == 0){
-                photoCount = 0
-            } else{
-                photoCount = photoCount - 1
-            }
-        } else {
-
-            if (photoCount < images.count - 1){
-                photoCount = photoCount + 1
-            } else{
-                photoCount = 0
-            }
-        }
-        
-        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
-            self.pictureImageView!.image = self.images[self.photoCount]
-        }, completion: nil)
-    }
+//    @IBAction func btnPRVtaped(_ sender: Any) {
+////        print(images.count)
+//        if SMLangUtil.loadLanguage() == "fa" {
+//
+//            if (photoCount < images.count - 1) {
+//                photoCount = photoCount + 1
+//            } else{
+//                photoCount = 0
+//            }
+//        } else {
+//
+//            if (photoCount == 0){
+//                photoCount = 0
+//            } else{
+//                photoCount = photoCount - 1
+//            }
+//        }
+//
+//        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
+//            self.pictureImageView!.image = self.images[self.photoCount]
+//        }, completion: nil)
+//
+//    }
+//    @IBAction func btnNXTtaped(_ sender: Any) {
+//
+//
+//        if SMLangUtil.loadLanguage() == "fa" {
+//
+//            if (photoCount == 0){
+//                photoCount = 0
+//            } else{
+//                photoCount = photoCount - 1
+//            }
+//        } else {
+//
+//            if (photoCount < images.count - 1){
+//                photoCount = photoCount + 1
+//            } else{
+//                photoCount = 0
+//            }
+//        }
+//
+//        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
+//            self.pictureImageView!.image = self.images[self.photoCount]
+//        }, completion: nil)
+//    }
 }
