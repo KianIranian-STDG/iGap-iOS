@@ -89,11 +89,16 @@ public class SwiftWebVC: UIViewController {
     }
     
     public convenience init(urlString: String, sharingEnabled: Bool = true) {
-        var urlString = urlString
-        if !urlString.hasPrefix("https://") && !urlString.hasPrefix("http://") {
-            urlString = "https://"+urlString
+        var urlStr = urlString
+        if !urlStr.hasPrefix("https://") && !urlStr.hasPrefix("http://") {
+            urlStr = "https://" + urlStr
         }
-        self.init(pageURL: URL(string: urlString)!, sharingEnabled: sharingEnabled)
+        
+        guard let url = urlStr.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) else {
+            self.init(pageURL: URL(string: urlStr)!, sharingEnabled: sharingEnabled)
+            return
+        }
+        self.init(pageURL: URL(string: url)!, sharingEnabled: sharingEnabled)
     }
     
     public convenience init(pageURL: URL, sharingEnabled: Bool = true) {

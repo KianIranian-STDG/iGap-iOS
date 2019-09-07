@@ -31,7 +31,6 @@ class AbstractDashboardCell: UICollectionViewCell {
     var numberOfChecked : Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
-        counter = 0
         CategoriesCounter = 0
     }
     
@@ -133,10 +132,9 @@ class AbstractDashboardCell: UICollectionViewCell {
     /**********************************************************************/
     /************************* Gesture Recognizer *************************/
     
-    private func manageGesture(){
+    private func manageGesture() {
         let tap1 = UITapGestureRecognizer(target: self, action: #selector(didTapImage1(_:)))
         img1Abs?.addGestureRecognizer(tap1)
-        
         img1Abs?.isUserInteractionEnabled = true
         
         let tap2 = UITapGestureRecognizer(target: self, action: #selector(didTapImage2(_:)))
@@ -147,9 +145,9 @@ class AbstractDashboardCell: UICollectionViewCell {
         img3Abs?.addGestureRecognizer(tap3)
         img3Abs?.isUserInteractionEnabled = true
     }
+    
     //Tap on First - second and third cell
     @objc func didTapImage1(_ gestureRecognizer: UITapGestureRecognizer){
-        
         if IGGlobal.shouldShowChart {
             if self.dashboardAbsPoll.count > 0 {
                 actionManagerPoll(pollInfo: self.dashboardAbsPoll![0],item : 0)
@@ -388,9 +386,8 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
             
         case .webViewLink:
+            
             if !(agreementSlug == "") {
-    
-                
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
@@ -495,15 +492,16 @@ class AbstractDashboardCell: UICollectionViewCell {
                     return
                 }
             } else {
+                
+                // uncomment these
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+//                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+//                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
             
-//            let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-//            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-//
         //Pull actions
         case .poll:
             if !(agreementSlug == "") {
@@ -542,8 +540,6 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
             
         case .topupMenu:
-
-            
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {

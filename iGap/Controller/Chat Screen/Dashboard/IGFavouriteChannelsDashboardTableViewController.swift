@@ -24,7 +24,10 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
         tableView?.register(SliderTypeOneCell.nib, forCellReuseIdentifier: SliderTypeOneCell.identifier)
         tableView?.register(SliderTypeTwoCell.nib, forCellReuseIdentifier: SliderTypeTwoCell.identifier)
         tableView?.register(SliderTypeThreeCell.nib, forCellReuseIdentifier: SliderTypeThreeCell.identifier)
-
+        
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        tableView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        
         getData()
         
         initNavigationBar()
@@ -36,22 +39,6 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-    }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshOnCall(_:)), name: (NSNotification.Name(rawValue: SMConstants.refreshTableView)), object: nil)
-//
-//    }
-    
-//    @objc func refreshOnCall(_ nofication: Notification)  {
-//        self.tableView.reloadData()
-//    }
-
-    private func getHeaders() -> HTTPHeaders {
-        let authorization = "Bearer " + IGAppManager.sharedManager.getAccessToken()!
-        let headers: HTTPHeaders = ["Authorization": authorization]
-        return headers
     }
 
     func getData() {
@@ -96,59 +83,44 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var cell: UITableViewCell!
         let item = items[indexPath.row]
-        
+        print(IGGlobal.getTime("Hossein_0"))
         switch item.type {
         case .ad:
             
-//            let cell = tableView.dequeueReusableCell(withIdentifier: slideTVCellReuseIdentifier, for: indexPath) as! IGFavouriteChannelSlideTVCell
-//            cell.collectionView.tag = indexPath.section
-//            cell.slideImages = galleryImageUrlArray[indexPath.row]
-//            cell.slidesCount = galleryImageUrlArray[indexPath.row].count
-//            cell.scale = galleryScaleArrayFloat[indexPath.section]
-//            cell.slideshowInterval = TimeInterval(galleryLoopTimeArray[indexPath.section])
-//            cell.registerCells()
-//            return cell
+            let adCell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeOneCell", for: indexPath as IndexPath) as! SliderTypeOneCell
             
+            adCell.slides = (item.slides)!
+            adCell.initView(scale: item.info?.scale ?? "8:5", loopTime: item.info?.playbackTime ?? 1000)
             
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeOneCell", for: indexPath as IndexPath) as! SliderTypeOneCell
-//            cell.galleryScale = item.info?.scale ?? "8:5"
-//
-//            if item.slides?.count ?? 0 <= 1 {
-//                cell.btnNXT.isHidden = true
-//                cell.btnPRV.isHidden = true
-//            } else {
-//                cell.btnNXT.isHidden = false
-//                cell.btnPRV.isHidden = false
-//            }
-
-            cell.initView(scale: item.info?.scale ?? "8:5", loopTime: item.info?.playbackTime ?? 1000, imageUrl: item.slides?.map({ $0.imageURL }) as! [String])
-
-            return cell
+            cell = adCell
 
         case .featuredCategory:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeTwoCell", for: indexPath as IndexPath) as! SliderTypeTwoCell
-//            cell.textLabel!.text = "\(sectionArrays[indexPath.section])"
+            let featuredCategoryCell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeTwoCell", for: indexPath as IndexPath) as! SliderTypeTwoCell
 
-            cell.lblTitle.text = item.info?.title
-            cell.collectionCounts = self.items.filter({$0.type == .featuredCategory}).count
-            cell.channelItem = item
+            featuredCategoryCell.lblTitle.text = item.info?.title
+//            cell.collectionCounts = self.items.filter({$0.type == .featuredCategory}).count
+            featuredCategoryCell.channelItem = item
 
-            cell.initView()
-
-            return cell
+            featuredCategoryCell.initView()
+            
+            cell = featuredCategoryCell
 
         case .normalCategory:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
-            cell.isInnenr = false
-            cell.categoryItem = item
-            cell.initView()
-
-            return cell
+            let normalCategoryCell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeThreeCell", for: indexPath as IndexPath) as! SliderTypeThreeCell
+            
+            normalCategoryCell.isInnenr = false
+            normalCategoryCell.categoryItem = item
+            normalCategoryCell.initView()
+            
+            cell = normalCategoryCell
         }
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -164,10 +136,8 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
             
         case .normalCategory:
             let numberOfRows = ceilf(Float(item.categories?.count ?? 0) / 4)
-            return ((tableView.bounds.width/4.5) + 20) * CGFloat(numberOfRows)
+            return ((tableView.bounds.width/4.5) + 30) * CGFloat(numberOfRows)
         }
     }
 
 }
-
-

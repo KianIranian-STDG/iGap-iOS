@@ -188,7 +188,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
     //end
     
     
-    private func getDiscoveryList(){
+    private func getDiscoveryList() {
         
         if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
             self.discovery = discovery.igpDiscoveries
@@ -382,12 +382,6 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 cell.initView()
                 return cell
             }
-            
-            
-            
-            
-            
-            
         }
         else {
             
@@ -420,7 +414,6 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
                 cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
                 return cell
-                
             }
             else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
@@ -434,14 +427,7 @@ class IGDashboardViewController: UIViewController, UICollectionViewDelegateFlowL
                 cell.initView()
                 return cell
             }
-            
-            
-            
-            
-            
-            
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -64,7 +64,11 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
             let url = URL(string: category.icon ?? "")
             cell.imgBG.sd_setImage(with: url, completed: nil)
         }
+        
         cell.contentView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        cell.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         
         return cell
     }
@@ -104,13 +108,6 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
         self.collectionView.register(UINib.init(nibName: "IGFavouriteChannelsDashboardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IGFavouriteChannelsDashboardCollectionViewCell")
         
         self.collectionView.backgroundColor = .clear
-//        self.getData()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            if CategoriesCounter <= 3 {
-//                self.collectionView.reloadData()
-//            }
-//        }
     }
     
     public func initViewInner() {
@@ -119,60 +116,5 @@ class SliderTypeThreeCell: UITableViewCell,UICollectionViewDelegate, UICollectio
         self.collectionView.delegate = self
         self.collectionView.register(UINib.init(nibName: "IGFavouriteChannelsDashboardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IGFavouriteChannelsDashboardCollectionViewCell")
         self.collectionView.backgroundColor = .clear
-//        getDataInner()
     }
-    
-    
-//    private func getData() {
-//        var tmptitleArray : [String] = []
-//        var tmpimageArray : [UIImage] = []
-//        if tmptitleArray.count > 0 {
-//            tmptitleArray.removeAll()
-//        }
-//        if tmpimageArray.count > 0 {
-//            tmpimageArray.removeAll()
-//        }
-//        for category in categoryItem.categories ?? [] {
-//
-//            tmptitleArray.append(category.title!)
-//            let tmpImg = UIImageView()
-//            let url = URL(string: category.icon ?? "")
-//            tmpImg.sd_setImage(with: url as URL?, completed: nil)
-//            if tmpImg.image == nil {
-//                tmpimageArray.append((UIImage(named : "1")!))
-//            }
-//            else {
-//                tmpimageArray.append((tmpImg.image!))
-//            }
-//
-//            imageArray = tmpimageArray
-//
-//            titleArray = tmptitleArray
-//
-//        }
-//    }
-    
-//    private func getDataInner() {
-//        var tmpimageArray : [UIImage] = []
-//
-//        if tmpimageArray.count > 0 {
-//            tmpimageArray.removeAll()
-//        }
-//        if channelsListObj != nil {
-//            for channel in channelsListObj! {
-//
-//                let tmpImg = UIImageView()
-//                let url = URL(string: channel.icon ?? "")!
-//                tmpImg.sd_setImage(with: url as URL?, completed: nil)
-//                if tmpImg.image == nil {
-//                    tmpimageArray.append((UIImage(named : "1")!))
-//                }
-//                else {
-//                    tmpimageArray.append((tmpImg.image!))
-//                }
-//                imageArray = tmpimageArray
-//                self.collectionView.reloadData()
-//            }
-//        }
-//    }
 }

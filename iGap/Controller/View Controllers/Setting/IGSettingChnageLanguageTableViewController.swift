@@ -52,7 +52,7 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
         switch indexPath.row {
         case 0 :
             if lastLang != "fa" {
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
                 UITableView.appearance().semanticContentAttribute = .forceRightToLeft
                 resetApp()
             }
@@ -60,7 +60,7 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
             
         case 1:
             if lastLang != "en" {
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English.rawValue)
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.English)
                 UITableView.appearance().semanticContentAttribute = .forceLeftToRight
                 resetApp()
             }
@@ -68,7 +68,7 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
             
         case 2:
             if lastLang != "ar" {
-                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian.rawValue)
+                SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
                 resetApp()
             }
             break

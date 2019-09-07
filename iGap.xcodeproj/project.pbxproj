@@ -229,8 +229,8 @@
 		940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */; };
 		940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */; };
 		940F9E7A231BC17400C26D50 /* IGStructFavouriteChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */; };
-		949E835A231D421400B6799E /* MoaDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E8359231D421400B6799E /* MoaDistrib.swift */; };
-		949E835C231D422800B6799E /* AukDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E835B231D422800B6799E /* AukDistrib.swift */; };
+		949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E835D231EA6A500B6799E /* slideImageCVCell.swift */; };
+		949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949E835E231EA6A500B6799E /* slideImageCVCell.xib */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
 		FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19F20429D46008812E3 /* RTCClient.swift */; };
@@ -943,8 +943,8 @@
 		940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGFavouriteChannelCVCell.xib; sourceTree = "<group>"; };
 		940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiFavouriteChannels.swift; sourceTree = "<group>"; };
 		940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructFavouriteChannels.swift; sourceTree = "<group>"; };
-		949E8359231D421400B6799E /* MoaDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoaDistrib.swift; sourceTree = "<group>"; };
-		949E835B231D422800B6799E /* AukDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AukDistrib.swift; sourceTree = "<group>"; };
+		949E835D231EA6A500B6799E /* slideImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideImageCVCell.swift; sourceTree = "<group>"; };
+		949E835E231EA6A500B6799E /* slideImageCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = slideImageCVCell.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -1614,11 +1614,12 @@
 		8EBF551622DC4B4E00834E6A /* FavouriteChannels */ = {
 			isa = PBXGroup;
 			children = (
-				949E8358231D41F200B6799E /* Image Slide Show */,
 				8EBF552922DCAA9500834E6A /* ServerData.json */,
 				8ED97D7722E2F7B300A0EB1F /* ServerDataInner.json */,
 				8EBF552622DCA9B000834E6A /* SliderTypeOneCell.swift */,
 				8EBF552522DCA9B000834E6A /* SliderTypeOneCell.xib */,
+				949E835D231EA6A500B6799E /* slideImageCVCell.swift */,
+				949E835E231EA6A500B6799E /* slideImageCVCell.xib */,
 				8EBF552D22DCBAFD00834E6A /* SliderTypeTwoCell.swift */,
 				8EBF552B22DCBAE900834E6A /* SliderTypeTwoCell.xib */,
 				8EBF553322DCC9F700834E6A /* SliderTypeThreeCell.swift */,
@@ -1793,15 +1794,6 @@
 				93E181E31E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift */,
 			);
 			path = "Channel and Group Info";
-			sourceTree = "<group>";
-		};
-		949E8358231D41F200B6799E /* Image Slide Show */ = {
-			isa = PBXGroup;
-			children = (
-				949E8359231D421400B6799E /* MoaDistrib.swift */,
-				949E835B231D422800B6799E /* AukDistrib.swift */,
-			);
-			path = "Image Slide Show";
 			sourceTree = "<group>";
 		};
 		FA03C19A20429437008812E3 /* Call */ = {
@@ -3154,6 +3146,7 @@
 				FAE1698F20E746DC008FE881 /* GoogleService-Info.plist in Resources */,
 				FAE6064021EB3A0C00F03FFC /* es-ES.lproj in Resources */,
 				FAE6063B21EB3A0C00F03FFC /* pt.lproj in Resources */,
+				949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */,
 				FAE6064421EB3A0C00F03FFC /* da.lproj in Resources */,
 				8E8D8E19225CE39B00039191 /* strings.json in Resources */,
 				FAF796051DAA392F0030509B /* Assets.xcassets in Resources */,
@@ -3303,7 +3296,6 @@
 				FA99FF6022352109009035DF /* DashboardCellUnknown.swift in Sources */,
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
-				949E835A231D421400B6799E /* MoaDistrib.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
@@ -3503,7 +3495,6 @@
 				FA86D44A21A96955007B80D7 /* IGHelperPopular.swift in Sources */,
 				FA248C98226AEBE800A72EA7 /* IGScoreHistoryViewController.swift in Sources */,
 				93AA67C81E4F38A20053380C /* IGChannelInfoAdminsListTableViewController.swift in Sources */,
-				949E835C231D422800B6799E /* AukDistrib.swift in Sources */,
 				FA96A8182053FC3D004369C7 /* IGLookAndFindCell.swift in Sources */,
 				FA6C2DE722673B21005654AC /* IGHelperAlert.swift in Sources */,
 				8EC2180A2259FF3500105B5A /* Model.xcdatamodeld in Sources */,
@@ -3690,6 +3681,7 @@
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,
 				8ECC183D222FEF9B006E43E8 /* IGHelperBankModel.swift in Sources */,
+				949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */,
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
 				FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */,

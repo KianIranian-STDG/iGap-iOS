@@ -10,18 +10,20 @@ import UIKit
 import SnapKit
 import SDWebImage
 
-class SliderTypeOneCell: UITableViewCell, UIScrollViewDelegate {
+class SliderTypeOneCell: UITableViewCell {
 
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var scrollView: UIScrollView!
-//    @IBOutlet weak var btnPRV: UIButton!
-//    @IBOutlet weak var btnNXT: UIButton!
-//    @IBOutlet weak var pictureImageView: IGImageView!
+//    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var sliderCollectionView: UICollectionView!
+    @IBOutlet weak var pageView: UIPageControl!
+    @IBOutlet weak var backPageView: UIView!
     
-    var photoCount: Int = 0
+    var slides: [FavouriteChannelsAddSlide]!
     var playbackTime : Int = 2000
-//    var images : [UIImage?] = []
     var dispatchGroup: DispatchGroup!
+    
+    var timer: Timer!
+    var counter = 0
     
     static var nib: UINib {
         return UINib(nibName: identifier, bundle: nil)
@@ -34,12 +36,14 @@ class SliderTypeOneCell: UITableViewCell, UIScrollViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        scrollView.delegate = self
-        scrollView.layer.cornerRadius = 14
+        sliderCollectionView.register(slideImageCVCell.nib, forCellWithReuseIdentifier: slideImageCVCell.identifier)
         
-        scrollView.auk.settings.contentMode = .scaleAspectFill
-        scrollView.auk.settings.placeholderImage = UIImage(named: "1")
-        scrollView.auk.settings.preloadRemoteImagesAround = 1
+        sliderCollectionView.delegate = self
+        sliderCollectionView.dataSource = self
+        
+        sliderCollectionView.layer.cornerRadius = 14
+        
+        backPageView.layer.cornerRadius = 8
     }
     
     private func computeHeight(scale: String) -> CGFloat {
@@ -53,134 +57,146 @@ class SliderTypeOneCell: UITableViewCell, UIScrollViewDelegate {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        slides.removeAll()
     }
     
-    public func initView(images: [UIImage] = [] ,scale : String , loopTime : Int, imageUrl : [String]){
+    public func initView(scale: String, loopTime: Int) {
         heightConstraint.constant = computeHeight(scale: scale)
         
-        if scrollView.auk.images.count == 0 {
-            for url in imageUrl {
-                scrollView.auk.show(url: url)
+        pageView.numberOfPages = slides.count
+        pageView.currentPage = 0
+        
+        pageView.hidesForSinglePage = true
+        backPageView.isHidden = pageView.isHidden
+        
+        self.playbackTime = loopTime
+        
+        DispatchQueue.main.async {
+            if self.timer == nil {
+                self.timer = Timer.scheduledTimer(timeInterval: TimeInterval(loopTime / 1000), target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
             }
-            self.playbackTime = loopTime
-            scrollView.auk.startAutoScroll(delaySeconds: Double(loopTime / 1000))
+        }
+        
+        sliderCollectionView.reloadData()
+    }
+    
+    @objc func changeImage() {
+        if counter < slides.count {
+            let index = IndexPath.init(item: counter, section: 0)
+            self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            pageView.currentPage = counter
+            counter += 1
+            
+        } else {
+            counter = 0
+            let index = IndexPath.init(item: counter, section: 0)
+            self.sliderCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
+            pageView.currentPage = counter
+            counter = 1
         }
     }
-    public func initViewInner(scale : String , loopTime : Int, slides : [FavouriteChannelsAddSlide]){
-        heightConstraint.constant = computeHeight(scale: scale)
-        
-        heightConstraint.constant = computeHeight(scale: scale)
-        
-        if scrollView.auk.images.count == 0 {
-            for url in slides.map({ $0.imageURL }) as! [String] {
-                scrollView.auk.show(url: url)
+    
+}
+
+extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return slides.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImageCVCell", for: indexPath) as! slideImageCVCell
+        let slide = slides[indexPath.item]
+        let url = URL(string: slide.imageURL!)
+        cell.imageView.sd_setImage(with: url, completed: nil)
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        cell.imageView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let pageIndex = scrollView.auk.currentPageIndex else { return }
+        guard let selectedSlide = self.slides?[indexPath.item] else { return }
+        switch selectedSlide.actionType {
+        case 3:
+            IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: selectedSlide.actionLink)
+            break
+            
+        case 4:
+            if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
+                for ignoreLink in IGHelperOpenLink.ignoreLinks {
+                    if selectedSlide.actionLink.contains(ignoreLink) {
+                        UIApplication.shared.open(URL(string: selectedSlide.actionLink)!, options: [:], completionHandler: nil)
+                        return
+                    }
+                }
+                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: selectedSlide.actionLink), animated: true)
+            } else {
+                UIApplication.shared.open(URL(string: selectedSlide.actionLink)!, options: [:], completionHandler: nil)
             }
-            self.playbackTime = loopTime
-            scrollView.auk.startAutoScroll(delaySeconds: Double(loopTime / 1000))
+            break
+            
+        case 5:
+            let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+            iGapBrowser.url = selectedSlide.actionLink
+            iGapBrowser.htmlString = nil
+            UIApplication.topViewController()!.navigationController?.pushViewController(iGapBrowser, animated: true)
+            break
+            
+        case 12:
+            let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            dashboard.categoryId = selectedSlide.actionLink
+            UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
+            break
+            
+        default:
+            break
         }
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        self.pageView.currentPage = indexPath.item
+//    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        timer.invalidate()
+        timer = nil
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        scrollView.auk.startAutoScroll(delaySeconds: Double(playbackTime / 1000))
+        self.timer = Timer.scheduledTimer(timeInterval: TimeInterval(playbackTime / 1000), target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
     }
     
-//    func sliderImages(imageUrl: [String], loopTime: Int) {
-//
-//        var tmpImages : [UIImage?] = []
-//        if tmpImages.count > 0 {
-//            tmpImages.removeAll()
-//        }
-//
-//        dispatchGroup = DispatchGroup()
-//
-//        for item in imageUrl {
-//            let tmpImg = UIImageView()
-//            let url = URL(string: item)!
-//            dispatchGroup.enter()
-//            tmpImg.sd_setImage(with: url) { (image, error, cacheType, url) in
-//                if tmpImg.image == nil {
-//                    tmpImages.append((UIImage(named: "1")))
-//                } else {
-//                    tmpImages.append((tmpImg.image))
-//                }
-//                self.dispatchGroup.leave()
-//            }
-//        }
-//
-//        dispatchGroup.notify(queue: .main) {
-//            self.images = tmpImages
-//            self.scheduledTimerWithTimeInterval(loopTime: loopTime / 1000)
-//        }
-//    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        pageView.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        counter = pageView.currentPage
+    }
     
-//    func scheduledTimerWithTimeInterval(loopTime : Int = 5){
-//        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
-//        if !(timer.isValid) {
-//            self.updateCounting()
-//            timer = Timer.scheduledTimer(timeInterval: TimeInterval(loopTime), target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
-//        }
-//    }
-//
-//    @objc func updateCounting(){
-//        onTransition()
-//    }
-    
-//    func onTransition() {
-//        if (photoCount < images.count - 1){
-//            photoCount = photoCount  + 1
-//        } else{
-//            photoCount = 0
-//        }
-////        print("-=-=-=-==-=-=-=-")
-//        UIView.transition(with: pictureImageView!, duration: 1.0, options: .transitionCrossDissolve, animations: {
-//            self.pictureImageView!.image = self.images[self.photoCount]
-//        }, completion: nil)
-//    }
-
-//    @IBAction func btnPRVtaped(_ sender: Any) {
-////        print(images.count)
-//        if SMLangUtil.loadLanguage() == "fa" {
-//
-//            if (photoCount < images.count - 1) {
-//                photoCount = photoCount + 1
-//            } else{
-//                photoCount = 0
-//            }
-//        } else {
-//
-//            if (photoCount == 0){
-//                photoCount = 0
-//            } else{
-//                photoCount = photoCount - 1
-//            }
-//        }
-//
-//        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
-//            self.pictureImageView!.image = self.images[self.photoCount]
-//        }, completion: nil)
-//
-//    }
-//    @IBAction func btnNXTtaped(_ sender: Any) {
-//
-//
-//        if SMLangUtil.loadLanguage() == "fa" {
-//
-//            if (photoCount == 0){
-//                photoCount = 0
-//            } else{
-//                photoCount = photoCount - 1
-//            }
-//        } else {
-//
-//            if (photoCount < images.count - 1){
-//                photoCount = photoCount + 1
-//            } else{
-//                photoCount = 0
-//            }
-//        }
-//
-//        UIView.transition(with: pictureImageView!, duration: 2.0, options: .transitionCrossDissolve, animations: {
-//            self.pictureImageView!.image = self.images[self.photoCount]
-//        }, completion: nil)
-//    }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageView.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        counter = pageView.currentPage
+    }
 }
+
+extension SliderTypeOneCell: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = sliderCollectionView.frame.size
+        return CGSize(width: size.width, height: size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+}
+

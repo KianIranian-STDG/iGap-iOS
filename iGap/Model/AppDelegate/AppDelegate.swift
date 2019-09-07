@@ -25,7 +25,7 @@ import CallKit
 
 
 @UIApplicationMain
-class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate , PKPushRegistryDelegate,CXProviderDelegate {
+class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate , PKPushRegistryDelegate, CXProviderDelegate {
  
     var timer = Timer()
 

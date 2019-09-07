@@ -22,13 +22,13 @@ class SMLangUtil: NSObject {
     static var lang = SMLanguage.English.rawValue
 	
     
-    static func changeLanguage(newLang:String) {
-        UserDefaults.standard.setValue(newLang, forKey: "selectedLanguage")
+    static func changeLanguage(newLang: SMLanguage) {
+        UserDefaults.standard.setValue(newLang.rawValue, forKey: "selectedLanguage")
         UserDefaults.standard.synchronize()
-        MCLocalization.sharedInstance().language = newLang
-        lastLang = newLang
+        MCLocalization.sharedInstance().language = newLang.rawValue
+        lastLang = newLang.rawValue
         Bundle.setLanguage("en")
-        lang = "en"
+        lang = newLang.rawValue
     }
     
     

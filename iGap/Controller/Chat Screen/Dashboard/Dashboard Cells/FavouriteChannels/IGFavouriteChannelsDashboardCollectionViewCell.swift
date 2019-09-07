@@ -14,9 +14,12 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lbl : UILabel!
     
     var isInner: Bool = false
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+//        self.semanticContentAttribute = .forceLeftToRight
+        
         // Initialization code
         self.backgroundColor = .white
         self.layer.cornerRadius = 14.0

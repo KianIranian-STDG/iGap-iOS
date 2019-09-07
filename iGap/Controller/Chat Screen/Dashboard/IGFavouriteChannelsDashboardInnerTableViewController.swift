@@ -22,6 +22,9 @@ class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewControlle
         tableView?.register(SliderTypeOneCell.nib, forCellReuseIdentifier: SliderTypeOneCell.identifier)
         tableView?.register(SliderTypeThreeCell.nib, forCellReuseIdentifier: SliderTypeThreeCell.identifier)
         
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        tableView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        
         getData(page: 1)
     }
     
@@ -71,17 +74,8 @@ class IGFavouriteChannelsDashboardInnerTableViewController: UITableViewControlle
             case 0 :
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SliderTypeOneCell", for: indexPath as IndexPath) as! SliderTypeOneCell
                 let advertisment = self.categoryInfo.info?.advertisement
-//                cell.galleryScale = advertisment?.scale ?? "8:5"
-                
-//                if advertisment?.slides?.count ?? 0 <= 1 {
-//                    cell.btnNXT.isHidden = true
-//                    cell.btnPRV.isHidden = true
-//                } else {
-//                    cell.btnNXT.isHidden = false
-//                    cell.btnPRV.isHidden = false
-//                }
-                
-                cell.initViewInner(scale: advertisment?.scale ?? "1:1", loopTime: (advertisment?.playbackTime ?? 2000), slides : (advertisment?.slides)!)
+                cell.slides = (advertisment?.slides)!
+                cell.initView(scale: advertisment?.scale ?? "1:1", loopTime: (advertisment?.playbackTime ?? 2000))
                 return cell
                 
             case 1 :
