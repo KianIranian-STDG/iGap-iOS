@@ -314,7 +314,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             let blockListCell  = tableView.dequeueReusableCell(withIdentifier: "BlockListCell", for: indexPath) as! IGSettingContactsBlockListTableViewCell
             if SMLangUtil.loadLanguage() == "fa" {
 
-                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbers()+" " + "CONTACTS".localizedNew
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbersNew()+" " + "CONTACTS".localizedNew
                 cell = blockListCell
             }
             else if SMLangUtil.loadLanguage() == "en" {
@@ -324,7 +324,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             }
             else {
 
-                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbers()+" " + "CONTACTS".localizedNew
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inPersianNumbersNew()+" " + "CONTACTS".localizedNew
                 cell = blockListCell
             }
 

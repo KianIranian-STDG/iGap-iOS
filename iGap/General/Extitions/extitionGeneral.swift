@@ -15,6 +15,9 @@ typealias SimpleCallBack = () -> ()
 typealias FailedCallBack = (Any) -> ()
 typealias MoreActionCallBack = (Any?, Bool? ) -> ()
 
+var numberFormatter = {
+    return NumberFormatter()
+}()
 
 
 extension UIColor {
@@ -135,8 +138,18 @@ extension String {
             return newText + " ..."
         }
     }
-    
    
+    func inPersianNumbersNew() -> String {
+        numberFormatter.locale = Locale(identifier: "fa")
+        guard let final = numberFormatter.number(from: self) else { return self.inPersianNumbers() }
+        return numberFormatter.string(from: final) ?? self.inPersianNumbers()
+    }
+    
+    func inEnglishNumbersNew() -> String {
+        numberFormatter.locale = Locale(identifier: "EN")
+        guard let final = numberFormatter.number(from: self) else { return self.inEnglishNumbers() }
+        return numberFormatter.string(from: final) ?? self.inEnglishNumbers()
+    }
     
     
     func inPersianNumbers()->String{
@@ -173,7 +186,7 @@ extension String {
     }
     
     
-    func inEnglishNumbers()->String{
+    func inEnglishNumbers() -> String{
         
         var outStr = self
         

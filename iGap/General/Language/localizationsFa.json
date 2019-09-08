@@ -215,9 +215,13 @@
         
         
         
-        
-        
-        
+        "TRANSACTIONS_HISTORY_CARD_TO_CARD" : "کارت به کارت",
+        "TRANSACTIONS_HISTORY_BILL" : "قبض و جریمه",
+        "TRANSACTIONS_HISTORY_ُTOPUP" : "شارژ موبایل",
+        "TRANSACTIONS_HISTORY_NONE" : "همه",
+        "TRANSACTIONS_HISTORY_ُSALES" : "پرداخت اینترنتی",
+        "TRANSACTIONS_HISTORY_UNRECOGNIZED" : "نامشخص",
+        "TRANSACTIONS_HISTORY_ORDER_ID" : "شناسه پرداخت",
         
         
         

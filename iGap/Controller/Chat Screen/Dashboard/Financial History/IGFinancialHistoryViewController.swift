@@ -17,17 +17,23 @@ class IGFinancialHistoryViewController: BaseViewController {
     @IBOutlet weak var transactionsTableView: UITableView!
     
     var transactions = [IGPMplTransaction]()
+    var transactionTypes: [IGPMplTransaction.IGPType]!
+    var selectedType = IGPMplTransaction.IGPType.none
+    var selectedIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        transactionTypes = IGPMplTransaction.IGPType.allCases
 
         self.setupVC()
         
-        self.getData(type: .none, offset: 0, limit: 15)
-        
-        for transactionType in IGPMplTransaction.IGPType.AllCases() {
-            print(transactionType)
-        }
+        self.getData(type: selectedType, offset: 0, limit: 15)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let firstIndex = IndexPath(item: 0, section: 0)
+        self.transactionTypesCollectionView.scrollToItem(at: firstIndex, at: .centeredHorizontally, animated: false)
     }
     
     private func setupVC() {
@@ -41,6 +47,7 @@ class IGFinancialHistoryViewController: BaseViewController {
         // transform
         self.transactionTypesCollectionView.semanticContentAttribute = self.semantic
         self.transactionsTableView.semanticContentAttribute = self.semantic
+        self.transactionTypesCollectionView.transform = self.transform
         
         self.transactionTypesCollectionView.dataSource = self
         self.transactionTypesCollectionView.delegate = self
@@ -56,8 +63,9 @@ class IGFinancialHistoryViewController: BaseViewController {
                 case let response as IGPMplTransactionListResponse:
 //                    self.numberOfRoomFetchedInLastRequest
 //                    let x = IGMplTransactionList.Handler.interpret(response: response)
-                    self.transactions.append(contentsOf: response.igpTransaction)
-                    print(self.transactions)
+                    for _ in 1...30 {
+                        self.transactions.append(contentsOf: response.igpTransaction)
+                    }
                     self.transactionsTableView.reloadWithAnimation()
                 default:
                     break;
@@ -65,29 +73,105 @@ class IGFinancialHistoryViewController: BaseViewController {
             }
         }).error({ (errorCode, waitTime) in }).send()
     }
-
 }
 
 extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return transactionTypes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TransactionTypeCVCell", for: indexPath)
         let label = cell.viewWithTag(110) as! UILabel
-        label.text = "شارژ موبایل"
-//        cell.transform = self.transfotm
+        
+        switch transactionTypes[indexPath.item] {
+        case .none:
+            label.text = "TRANSACTIONS_HISTORY_NONE".localizedNew
+            break
+        case .bill:
+            label.text = "TRANSACTIONS_HISTORY_BILL".localizedNew
+            break
+        case .topup:
+            label.text = "TRANSACTIONS_HISTORY_ُTOPUP".localizedNew
+            break
+        case .sales:
+            label.text = "TRANSACTIONS_HISTORY_ُSALES".localizedNew
+            break
+        case .cardToCard:
+            label.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localizedNew
+            break
+        default:
+            break
+        }
+        
         cell.layer.cornerRadius = 12
+        cell.transform = self.transform
+        
+        if indexPath.item == selectedIndex {
+            cell.backgroundColor = UIColor.iGapGreen()
+            label.textColor = UIColor.white
+        } else {
+            cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+            label.textColor = UIColor.iGapDarkGray()
+        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let size: CGSize = "شارژ موبایل".size(withAttributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 13)])
+        var typeStr = ""
+        
+        switch transactionTypes[indexPath.item] {
+        case .none:
+            typeStr = "TRANSACTIONS_HISTORY_NONE".localizedNew
+            break
+        case .bill:
+            typeStr = "TRANSACTIONS_HISTORY_BILL".localizedNew
+            break
+        case .topup:
+            typeStr = "TRANSACTIONS_HISTORY_ُTOPUP".localizedNew
+            break
+        case .sales:
+            typeStr = "TRANSACTIONS_HISTORY_ُSALES".localizedNew
+            break
+        case .cardToCard:
+            typeStr = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localizedNew
+            break
+        default:
+            break
+        }
+        
+        let size: CGSize = typeStr.size(withAttributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 13)])
         return CGSize(width: size.width + 32.0, height: collectionView.bounds.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        let label = cell.viewWithTag(110) as! UILabel
+        cell.backgroundColor = UIColor.iGapGreen()
+        label.textColor = UIColor.white
+        
+        selectedIndex = indexPath.item
+        
+        if selectedType != transactionTypes[indexPath.item] {
+            
+            self.transactions.removeAll()
+            selectedType = transactionTypes[indexPath.item]
+            self.transactionsTableView.reloadData()
+            self.getData(type: selectedType, offset: 0, limit: 15)
+            
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        let label = cell.viewWithTag(110) as! UILabel
+        cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+        label.textColor = UIColor.iGapDarkGray()
     }
 }
 
@@ -99,24 +183,44 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: IGTransactionsTVCell.identifier, for: indexPath) as? IGTransactionsTVCell {
-//            switch transactions[indexPath.row].igpType {
-//            case .none:
-//                <#code#>
-//            case .bill:
-//                cell.titleLbl.text = "".localizedNew
-//                break
-//            case .topup:
-//                <#code#>
-//            case .sales:
-//                <#code#>
-//            case .cardToCard:
-//                <#code#>
-//            case .UNRECOGNIZED(_):
-//                <#code#>
-//            @unknown default:
-//                <#code#>
-//            }
-//            cell.titleLbl.text = transactions[indexPath.row].igpType
+            
+            let transaction = transactions[indexPath.row]
+            
+            switch transaction.igpType {
+            case .none:
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_NONE".localizedNew
+                break
+            case .bill:
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_BILL".localizedNew
+                break
+            case .topup:
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُTOPUP".localizedNew
+                break
+            case .sales:
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_ُSALES".localizedNew
+                break
+            case .cardToCard:
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_CARD_TO_CARD".localizedNew
+                break
+            case .UNRECOGNIZED(_):
+                cell.titleLbl.text = "TRANSACTIONS_HISTORY_UNRECOGNIZED".localizedNew
+                break
+            }
+            
+            cell.tokenLbl.text = "TRANSACTIONS_HISTORY_ORDER_ID".localizedNew + ": " + "\(transaction.igpOrderID)".inLocalizedLanguage()
+            
+            let payTimeSecond = Double(transaction.igpPayTime)
+            var dateComps: (Int?, Int?, Int?, Int?, Int?)!
+            
+            if self.isAppEnglish {
+                dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinute(payTimeSecond)
+            } else {
+                dateComps = SMDateUtil.toPersianYearMonthDayHoureMinute(payTimeSecond)
+            }
+            
+            cell.dateLbl.text = "\(dateComps.0 ?? 0)/\(dateComps.1 ?? 0)/\(dateComps.2 ?? 0)".inLocalizedLanguage()
+            cell.timeLbl.text = "\(dateComps.3 ?? 0):\(dateComps.4 ?? 0)".inLocalizedLanguage()
+            
             return cell
             
         } else {
@@ -130,7 +234,7 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
         }
         if indexPath.row == transactions.count - 2 {  //number of item count
             
-            self.getData(type: .none, offset: Int32(transactions.count), limit: 15)
+            self.getData(type: selectedType, offset: Int32(transactions.count), limit: 15)
         }
     }
     

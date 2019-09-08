@@ -2243,6 +2243,7 @@
 				8E8D8E18225CE39A00039191 /* strings.json */,
 				8EACC7B322621ACA00F32DC3 /* localizations.json */,
 				8EBF550E22DB581300834E6A /* localizationsFa.json */,
+				8EBF551022DB582700834E6A /* localizationsEn.json */,
 				8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */,
 				8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */,
 				8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */,

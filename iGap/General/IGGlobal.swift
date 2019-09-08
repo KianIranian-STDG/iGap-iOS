@@ -1730,7 +1730,7 @@ extension String {
     
     
 
-    func inRialFormat()->String{
+    func inRialFormat() -> String {
         
         let nf = NumberFormatter()
         

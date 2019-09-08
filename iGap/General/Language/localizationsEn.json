@@ -219,11 +219,13 @@
         
         
         
-        
-        
-        
-        
-        
+        "TRANSACTIONS_HISTORY_CARD_TO_CARD" : "Card to Card",
+        "TRANSACTIONS_HISTORY_BILL" : "Bill",
+        "TRANSACTIONS_HISTORY_ُTOPUP" : "Topup",
+        "TRANSACTIONS_HISTORY_NONE" : "All",
+        "TRANSACTIONS_HISTORY_ُSALES" : "Sales",
+        "TRANSACTIONS_HISTORY_UNRECOGNIZED" : "Unrecognized",
+        "TRANSACTIONS_HISTORY_ORDER_ID" : "Order ID",
         
         
         

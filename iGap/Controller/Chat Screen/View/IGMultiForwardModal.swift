@@ -210,7 +210,7 @@ class IGMultiForwardModal: UIView, UITextFieldDelegate,UICollectionViewDelegate,
         }
         
         self.usersCollectionView.reloadItems(at: [indexPath])
-        lblCount.text = String(self.selectedItems.count).inPersianNumbers()
+        lblCount.text = String(self.selectedItems.count).inPersianNumbersNew()
         if selectedItems.count > 0 {
             let shareToText  = "SHARE_TO".localizedNew
             let attrs = [NSAttributedString.Key.font : UIFont.igFont(ofSize: 18 , weight: .bold)]

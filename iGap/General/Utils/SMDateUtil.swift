@@ -190,26 +190,30 @@ import Foundation
         return sdfTime.string(from: date);
     }
     
-    static func toPersianYearMonthDay(_ value: Double) -> (Int?, Int?, Int?) {
-        return toPersianYearMonthDay(Date(timeIntervalSince1970: value/1000.0))
+    static func toPersianYearMonthDayHoureMinute(_ value: Double) -> (Int?, Int?, Int?, Int?, Int?) {
+        return toPersianYearMonthDayHoureMinute(Date(timeIntervalSince1970: value))
     }
-    static func toPersianYearMonthDay(_ date: Date) -> (Int?, Int?, Int?) {
+    static func toPersianYearMonthDayHoureMinute(_ date: Date) -> (Int?, Int?, Int?, Int?, Int?) {
         let calendar = Calendar(identifier: Calendar.Identifier.persian)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let day = (calendar as NSCalendar?)?.component(.day, from: date)
-        return (year, month, day)
+        let houre = (calendar as NSCalendar?)?.component(.hour, from: date)
+        let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
+        return (year, month, day, houre, minute)
     }
     
-    static func toGregorianYearMonthDay(_ value: Double) -> (Int?, Int?, Int?) {
-        return toPersianYearMonthDay(Date(timeIntervalSince1970: value/1000.0))
+    static func toGregorianYearMonthDayHoureMinute(_ value: Double) -> (Int?, Int?, Int?, Int?, Int?) {
+        return toGregorianYearMonthDayHoureMinute(Date(timeIntervalSince1970: value))
     }
-    static func toGregorianYearMonthDay(_ date: Date) -> (Int?, Int?, Int?) {
+    static func toGregorianYearMonthDayHoureMinute(_ date: Date) -> (Int?, Int?, Int?, Int?, Int?) {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let day = (calendar as NSCalendar?)?.component(.day, from: date)
-        return (year, month, day)
+        let houre = (calendar as NSCalendar?)?.component(.hour, from: date)
+        let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
+        return (year, month, day, houre, minute)
     }
     
     static func toHourMinute(_ date: Date) -> (Int?, Int?) {

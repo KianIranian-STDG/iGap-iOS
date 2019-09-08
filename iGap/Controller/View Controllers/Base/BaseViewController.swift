@@ -18,7 +18,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    var transfotm: CGAffineTransform {
+    var transform: CGAffineTransform {
         get {
             return isAppEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
         }

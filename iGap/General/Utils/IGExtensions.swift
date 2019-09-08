@@ -38,14 +38,6 @@ extension Date {
         return convertedDate
     }
     
-    func localizedDateByComponent() -> ((Int?, Int?, Int?)) {
-        
-        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            return  SMDateUtil.toGregorianYearMonthDay(self)
-        }
-        return  SMDateUtil.toPersianYearMonthDay(self)
-    }
-    
     static func toDate(_ year: Int, month: Int, day: Int, hour: Int? = nil, minute: Int? = nil) -> Date? {
         
         if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
@@ -115,9 +107,9 @@ extension String {
     
     func inLocalizedLanguage()->String{
         if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
-            return self.inEnglishNumbers()
+            return self.inEnglishNumbersNew()
         } else {
-            return self.inPersianNumbers()
+            return self.inPersianNumbersNew()
         }
     }
     
