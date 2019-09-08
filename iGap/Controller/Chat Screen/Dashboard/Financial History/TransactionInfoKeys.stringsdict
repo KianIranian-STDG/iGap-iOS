@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TransactionInfoKeys</key>
+	<dict>
+		<key>CARD_TO_CARD</key>
+		<array>
+			<string>BANK</string>
+			<string>CARD_OWNER</string>
+			<string>DESTINATION_BANK</string>
+			<string>DESTINATION_CARD</string>
+			<string>SOURCE_CARD</string>
+			<string>AMOUNT</string>
+			<string>MPL_TRANSACTION_ORDER_ID</string>
+			<string>MPL_TRANSACTION_RRN</string>
+			<string>MPL_TRANSACTION_TRACE_NO</string>
+		</array>
+		<key>TOPUP</key>
+		<array>
+			<string>MERCHANT_NAME</string>
+			<string>CARD_NUMBER</string>
+			<string>MPL_TERMINAL_NO</string>
+			<string>MPL_TRANSACTION_TRACE_NO</string>
+			<string>AMOUNT</string>
+			<string>MOBILE_NUMBER</string>
+			<string>MPL_TRANSACTION_ORDER_ID</string>
+			<string>MPL_TRANSACTION_RRN</string>
+		</array>
+		<key>SALES</key>
+		<array>
+			<string>MERCHANT_NAME</string>
+			<string>CARD_NUMBER</string>
+			<string>MPL_TERMINAL_NO</string>
+			<string>MPL_TRANSACTION_TRACE_NO</string>
+			<string>AMOUNT</string>
+			<string>MPL_TRANSACTION_ORDER_ID</string>
+			<string>MPL_TRANSACTION_RRN</string>
+		</array>
+		<key>BILL</key>
+		<array>
+			<string>BILLING_ID</string>
+			<string>BILL_TYPE</string>
+			<string>CARD_NUMBER</string>
+			<string>MERCHANT_NAME</string>
+			<string>PAY_ID</string>
+			<string>AMOUNT</string>
+			<string>MPL_TRANSACTION_ORDER_ID</string>
+			<string>MPL_TRANSACTION_RRN</string>
+			<string>MPL_TERMINAL_NO</string>
+			<string>MPL_TRANSACTION_TRACE_NO</string>
+		</array>
+	</dict>
+</dict>
+</plist>

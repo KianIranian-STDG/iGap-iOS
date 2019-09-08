@@ -138,14 +138,13 @@ class IGNavigationItem: UINavigationItem {
     
     
     //MARK: - Navigation VCs
-    func addNavigationViewItems(rightItemText: String?, title: String?, width: CGFloat = 150,view: String? = nil) {
+    func addNavigationViewItems(rightItemText: String?, title: String?, width: CGFloat = 150, iGapFont: Bool = false) {
         if title != nil {
             addTitleLabel(title: title!, width: width)
         }
-        if rightItemText != nil && view == "MAIN_SCORE" { //if is from ScorePage_Setting
-            addModalViewRightItem(title: rightItemText!,iGapFont : true)
-        } else {
-            addModalViewRightItem(title: rightItemText ?? "",iGapFont : false)
+        if rightItemText != nil {
+            addModalViewRightItem(title: rightItemText!, iGapFont: iGapFont)
+>>>>>>> c97b78ea... financial history main page and transaction detail page finished
         }
         addNavigationBackItem()
     }

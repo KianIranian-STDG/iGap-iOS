@@ -76,6 +76,7 @@ It has access to record your voice, you want to record your voice and send it to
 This is the option to choose a photo from your gallery and send it to someone else.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>iGap_fontico.ttf</string>
 		<string>iGap-Fontico.ttf</string>
 		<string>iGap-fontico.ttf</string>
 		<string>IRANSans_Bold.ttf</string>

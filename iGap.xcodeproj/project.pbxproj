@@ -236,6 +236,12 @@
 		943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */; };
 		949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E835D231EA6A500B6799E /* slideImageCVCell.swift */; };
 		949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949E835E231EA6A500B6799E /* slideImageCVCell.xib */; };
+		94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */; };
+		94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */; };
+		94E74DC82323A500001AB47C /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC72323A4F9001AB47C /* iGap_fontico.ttf */; };
+		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
+		94E74DCC2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */; };
+		94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
 		FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19F20429D46008812E3 /* RTCClient.swift */; };
@@ -955,6 +961,12 @@
 		943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGTransactionsTVCell.xib; sourceTree = "<group>"; };
 		949E835D231EA6A500B6799E /* slideImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideImageCVCell.swift; sourceTree = "<group>"; };
 		949E835E231EA6A500B6799E /* slideImageCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = slideImageCVCell.xib; sourceTree = "<group>"; };
+		94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FinancialHistory.storyboard; sourceTree = "<group>"; };
+		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
+		94E74DC72323A4F9001AB47C /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
+		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
+		94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsEn.json; sourceTree = "<group>"; };
+		94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsFa.json; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -1812,6 +1824,8 @@
 				943495BB231FB217009854FE /* IGFinancialHistoryViewController.swift */,
 				943495BD231FBADC009854FE /* IGTransactionsTVCell.swift */,
 				943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */,
+				94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */,
+				94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */,
 			);
 			path = "Financial History";
 			sourceTree = "<group>";
@@ -2252,6 +2266,9 @@
 				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */,
 				8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */,
+                8E7FE7B922E74EC400E67914 /* Localizable.strings */,
+                94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */,
+                94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -2822,6 +2839,7 @@
 				8ECC1827222F991F006E43E8 /* wallet.storyboard */,
 				FA786D59206A746700608A2D /* CreateRoom.storyboard */,
 				FA936905207364E100A0D86A /* Register.storyboard */,
+				94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -3080,6 +3098,7 @@
 				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
+				94E74DC82323A500001AB47C /* iGap_fontico.ttf in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				8EBF550F22DB581300834E6A /* localizationsFa.json in Resources */,
@@ -3106,6 +3125,7 @@
 				8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */,
 				FAE6064321EB3A0C00F03FFC /* zh-Hans.lproj in Resources */,
 				FA927E0620284DC100DF7145 /* GifCell.xib in Resources */,
+				94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */,
 				8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */,
 				8EBF551122DB582700834E6A /* localizationsEn.json in Resources */,
 				8EBF551522DC4B4600834E6A /* FavouriteDashboardCell1.xib in Resources */,
@@ -3145,6 +3165,7 @@
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
+				94E74DCC2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json in Resources */,
 				FAE6063A21EB3A0C00F03FFC /* vi.lproj in Resources */,
 				FA927E02202841C900DF7145 /* VideoCell.xib in Resources */,
 				FA4BD8A41DF2A53400CCB239 /* IGMusicViewController.xib in Resources */,
@@ -3165,6 +3186,8 @@
 				FA936906207364E100A0D86A /* Register.storyboard in Resources */,
 				FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */,
 				FA97D444201716270087BBD0 /* TextCell.xib in Resources */,
+				94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */,
+				94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */,
 				FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */,
 				FAE6063C21EB3A0C00F03FFC /* de.lproj in Resources */,
 				8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */,
@@ -3584,6 +3607,7 @@
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
 				FAB623EA229526D3006DEA00 /* CardToCardCell.swift in Sources */,
 				8EC217C82259F59900105B5A /* SMHistory.swift in Sources */,
+				94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */,
 				93AA67BC1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift in Sources */,
 				4F9F3E6A1EBA0D91008E05C1 /* IGPushResponse.swift in Sources */,
 				FADE97B31DF2DBF100FF714A /* IGMusicPlayer.swift in Sources */,

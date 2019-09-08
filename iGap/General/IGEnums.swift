@@ -19,6 +19,7 @@ enum AppStoryboard : String {
     case CreateRoom = "CreateRoom"
     case Register = "Register"
     case Setting = "IGSettingStoryboard"
+    case FinancialHistory = "FinancialHistory"
     case Wallet = "wallet"
 
     var instance : UIStoryboard {

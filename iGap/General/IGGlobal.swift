@@ -1484,6 +1484,11 @@ extension UIFont {
     class func iGapFontico(ofSize fontSize: CGFloat) -> UIFont {
         return UIFont(name: "iGap-Fontico", size: fontSize)!
     }
+    
+    class func iGapFonticon(ofSize fontSize: CGFloat) -> UIFont {
+        return UIFont(name: "iGap_fontico", size: fontSize)!
+    }
+    
     class func iGapFonticoNew(ofSize fontSize: CGFloat) -> UIFont {
         return UIFont(name: "iGap-fontico", size: fontSize)!
     }
@@ -1694,6 +1699,21 @@ extension String {
         
         return MCLocalization.string(forKey: self)
     }
+    
+    var FinancialHistoryLocalization: String {
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "FinancialHistoryLocalizationsFa"
+        } else {
+            IGGlobal.languageFileName = "FinancialHistoryLocalizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+        
+        return MCLocalization.string(forKey: self)
+    }
+    
     func substring(offset: Int) -> String{
         if self.count < offset {
             return self
@@ -1734,7 +1754,12 @@ extension String {
         
         let nf = NumberFormatter()
         
-        nf.locale = Locale(identifier: "fa")
+        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+            nf.locale = Locale(identifier: "en")
+        } else {
+            nf.locale = Locale(identifier: "fa")
+        }
+        
         nf.numberStyle = .decimal
         nf.allowsFloats = false
         nf.maximumFractionDigits = 0

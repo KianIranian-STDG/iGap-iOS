@@ -14,7 +14,7 @@ import SwiftProtobuf
 //import SwiftProtobuf
 
 //TODO: rename this to IGRequestTask
-class IGRequestWrapper :NSObject {
+class IGRequestWrapper: NSObject {
     
     
     var id       = ""

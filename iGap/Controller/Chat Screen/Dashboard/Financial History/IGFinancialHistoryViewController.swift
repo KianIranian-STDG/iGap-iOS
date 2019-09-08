@@ -20,6 +20,7 @@ class IGFinancialHistoryViewController: BaseViewController {
     var transactionTypes: [IGPMplTransaction.IGPType]!
     var selectedType = IGPMplTransaction.IGPType.none
     var selectedIndex: Int = 0
+    var bottomSpinner = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,13 +37,21 @@ class IGFinancialHistoryViewController: BaseViewController {
         self.transactionTypesCollectionView.scrollToItem(at: firstIndex, at: .centeredHorizontally, animated: false)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let firstIndex = IndexPath(item: 0, section: 0)
+        transactionTypesCollectionView.selectItem(at: firstIndex, animated: false, scrollPosition: [])
+    }
+    
+    // MARK: - Personal Functions
     private func setupVC() {
         
         self.transactionsTableView.register(IGTransactionsTVCell.nib, forCellReuseIdentifier: IGTransactionsTVCell.identifier)
         
         self.transactionTypesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         
-        self.initNavigationBar(title: "FINANCIAL_TRANSACTIONS_HISTORY".localizedNew)
+        self.initNavigationBar(title: "FINANCIAL_TRANSACTIONS_HISTORY".localizedNew) {}
+        
+        self.setupSpinner()
         
         // transform
         self.transactionTypesCollectionView.semanticContentAttribute = self.semantic
@@ -56,25 +65,46 @@ class IGFinancialHistoryViewController: BaseViewController {
         self.transactionsTableView.delegate = self
     }
     
+    /// add activity indicator for showing spinner at bottom of tableview for pagination loading
+    private func setupSpinner() {
+        bottomSpinner = UIActivityIndicatorView(style: .gray)
+        bottomSpinner.stopAnimating()
+        bottomSpinner.hidesWhenStopped = true
+        bottomSpinner.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 60)
+        transactionsTableView.tableFooterView = bottomSpinner
+    }
+    
     private func getData(type: IGPMplTransaction.IGPType, offset: Int32, limit: Int32) {
-        IGMplTransactionList.Generator.generate(type: type, offset: offset, limit: limit).success ({ (responseProtoMessage) in
+        bottomSpinner.startAnimating()
+        IGMplTransactionList.Generator.generate(type: type, offset: offset, limit: limit, requestIdentity: "\(type)").success ({ (responseProtoMessage) in
             DispatchQueue.main.async {
-                switch responseProtoMessage {
-                case let response as IGPMplTransactionListResponse:
+                self.bottomSpinner.stopAnimating()
+            }
+            if type == self.selectedType {
+                DispatchQueue.main.async {
+                    switch responseProtoMessage {
+                    case let response as IGPMplTransactionListResponse:
 //                    self.numberOfRoomFetchedInLastRequest
 //                    let x = IGMplTransactionList.Handler.interpret(response: response)
-                    for _ in 1...30 {
-                        self.transactions.append(contentsOf: response.igpTransaction)
+                        if response.igpTransaction.count > 0 {
+                            self.transactions.append(contentsOf: response.igpTransaction)
+                            if self.transactions.count < 14 {
+                                self.transactionsTableView.reloadWithAnimation()
+                            } else {
+                                self.transactionsTableView.reloadData()
+                            }
+                        }
+                        
+                    default:
+                        break;
                     }
-                    self.transactionsTableView.reloadWithAnimation()
-                default:
-                    break;
                 }
             }
         }).error({ (errorCode, waitTime) in }).send()
     }
 }
 
+/// MARK: - collectionView delegate and datasource
 extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -168,13 +198,27 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        IGRequestManager.sharedManager.cancelRequest(identity: "\(transactionTypes[indexPath.item])")
+        
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
         cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
         label.textColor = UIColor.iGapDarkGray()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let label = cell.viewWithTag(110) as! UILabel
+        if indexPath.item == selectedIndex {
+            cell.backgroundColor = UIColor.iGapGreen()
+            label.textColor = UIColor.white
+        } else {
+            cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+            label.textColor = UIColor.iGapDarkGray()
+        }
+    }
 }
 
+/// MARK: - tableView delegate and datasource
 extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -210,12 +254,12 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
             cell.tokenLbl.text = "TRANSACTIONS_HISTORY_ORDER_ID".localizedNew + ": " + "\(transaction.igpOrderID)".inLocalizedLanguage()
             
             let payTimeSecond = Double(transaction.igpPayTime)
-            var dateComps: (Int?, Int?, Int?, Int?, Int?)!
+            var dateComps: (Int?, Int?, Int?, Int?, Int?, String?)!
             
             if self.isAppEnglish {
-                dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinute(payTimeSecond)
+                dateComps = SMDateUtil.toGregorianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
             } else {
-                dateComps = SMDateUtil.toPersianYearMonthDayHoureMinute(payTimeSecond)
+                dateComps = SMDateUtil.toPersianYearMonthDayHoureMinuteWeekDay(payTimeSecond)
             }
             
             cell.dateLbl.text = "\(dateComps.0 ?? 0)/\(dateComps.1 ?? 0)/\(dateComps.2 ?? 0)".inLocalizedLanguage()
@@ -228,14 +272,19 @@ extension IGFinancialHistoryViewController: UITableViewDataSource, UITableViewDe
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if transactions.count < 14 {
             return
         }
-        if indexPath.row == transactions.count - 2 {  //number of item count
-            
+        if indexPath.row == transactions.count - 1 {  //number of item count
             self.getData(type: selectedType, offset: Int32(transactions.count), limit: 15)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let financialHistoryDetail = IGFinancialHistoryDetailViewController.instantiateFromAppStroryboard(appStoryboard: .FinancialHistory)
+        financialHistoryDetail.transactionToken = transactions[indexPath.row].igpToken
+        self.navigationController!.pushViewController(financialHistoryDetail, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

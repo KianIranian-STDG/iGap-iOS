@@ -85,7 +85,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         edtPhoneNubmer.delegate = self
         
-        initNavigationBar(title: "SETTING_FS_TOP_UP".localizedNew)
+        initNavigationBar(title: "SETTING_FS_TOP_UP".localizedNew) {}
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
         ButtonViewActivate(button: btnOperator ,isEnable: false)
     }

@@ -822,8 +822,8 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
             
         case .financialHistory:
-            let scoreHistory = IGFinancialHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
+            let financialHistory = IGFinancialHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .FinancialHistory)
+            UIApplication.topViewController()!.navigationController!.pushViewController(financialHistory, animated:true)
             break
             
         default:

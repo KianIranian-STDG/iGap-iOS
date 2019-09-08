@@ -14,7 +14,7 @@ protocol HandleReciept {
 }
 
 
-class SMRecieptView: UIView{
+class SMRecieptView: UIView {
     
     var delegate : HandleReciept?
     var finishDelegate : HandleDefaultCard?

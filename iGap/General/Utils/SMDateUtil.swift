@@ -28,6 +28,8 @@ import Foundation
         "مهر", "آبان", "آذر",
         "دی", "بهمن", "اسفند"
     ]
+    static let Weeks_eng: [String] = [
+        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     static let months_eng: [String] = [
         "January", "February", "March", "April", "May", "June", "July", "August",
         "September", "October", "November", "December"]
@@ -76,7 +78,10 @@ import Foundation
     static func toPersianDayOfWeek(_ date: Date) -> String {
         let calendar = Calendar(identifier: Calendar.Identifier.persian)
         return weeks[((calendar as NSCalendar?)?.component(NSCalendar.Unit.weekday, from: date))! - 1]
-        
+    }
+    static func toGerigorianDayOfWeek(_ date: Date) -> String {
+        let calendar = Calendar(identifier: Calendar.Identifier.persian)
+        return Weeks_eng[((calendar as NSCalendar?)?.component(NSCalendar.Unit.weekday, from: date))! - 1]
     }
     
     /**
@@ -190,30 +195,32 @@ import Foundation
         return sdfTime.string(from: date);
     }
     
-    static func toPersianYearMonthDayHoureMinute(_ value: Double) -> (Int?, Int?, Int?, Int?, Int?) {
-        return toPersianYearMonthDayHoureMinute(Date(timeIntervalSince1970: value))
+    static func toPersianYearMonthDayHoureMinuteWeekDay(_ value: Double) -> (Int?, Int?, Int?, Int?, Int?, String?) {
+        return toPersianYearMonthDayHoureMinuteWeekDay(Date(timeIntervalSince1970: value))
     }
-    static func toPersianYearMonthDayHoureMinute(_ date: Date) -> (Int?, Int?, Int?, Int?, Int?) {
+    static func toPersianYearMonthDayHoureMinuteWeekDay(_ date: Date) -> (Int?, Int?, Int?, Int?, Int?, String?) {
         let calendar = Calendar(identifier: Calendar.Identifier.persian)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let day = (calendar as NSCalendar?)?.component(.day, from: date)
         let houre = (calendar as NSCalendar?)?.component(.hour, from: date)
         let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
-        return (year, month, day, houre, minute)
+        let weekDay = toPersianDayOfWeek(date)
+        return (year, month, day, houre, minute, weekDay)
     }
     
-    static func toGregorianYearMonthDayHoureMinute(_ value: Double) -> (Int?, Int?, Int?, Int?, Int?) {
-        return toGregorianYearMonthDayHoureMinute(Date(timeIntervalSince1970: value))
+    static func toGregorianYearMonthDayHoureMinuteWeekDay(_ value: Double) -> (Int?, Int?, Int?, Int?, Int?, String?) {
+        return toGregorianYearMonthDayHoureMinuteWeekDay(Date(timeIntervalSince1970: value))
     }
-    static func toGregorianYearMonthDayHoureMinute(_ date: Date) -> (Int?, Int?, Int?, Int?, Int?) {
+    static func toGregorianYearMonthDayHoureMinuteWeekDay(_ date: Date) -> (Int?, Int?, Int?, Int?, Int?, String?) {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let year = (calendar as NSCalendar?)?.component(.year, from: date)
         let month = (calendar as NSCalendar?)?.component(.month, from: date)
         let day = (calendar as NSCalendar?)?.component(.day, from: date)
         let houre = (calendar as NSCalendar?)?.component(.hour, from: date)
         let minute = (calendar as NSCalendar?)?.component(.minute, from: date)
-        return (year, month, day, houre, minute)
+        let weekDay = toGerigorianDayOfWeek(date)
+        return (year, month, day, houre, minute, weekDay)
     }
     
     static func toHourMinute(_ date: Date) -> (Int?, Int?) {

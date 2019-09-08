@@ -36,12 +36,14 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.hideKeyboardWhenTappedAround()
     }
     
-    func initNavigationBar(title: String, rightItemText: String? = nil) {
+    func initNavigationBar(title: String, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title)
+        navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title, iGapFont: iGapFont)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+        navigationItem.rightViewContainer?.addAction(rightAction)
     }
     
 }

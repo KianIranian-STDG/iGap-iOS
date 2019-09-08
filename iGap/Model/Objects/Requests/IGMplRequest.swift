@@ -151,7 +151,7 @@ class IGMplGetCardToCardToken : IGRequest {
 
 class IGMplTransactionList: IGRequest {
     class Generator : IGRequest.Generator {
-        class func generate(type: IGPMplTransaction.IGPType, offset: Int32, limit: Int32) -> IGRequestWrapper {
+        class func generate(type: IGPMplTransaction.IGPType, offset: Int32, limit: Int32, requestIdentity: String) -> IGRequestWrapper {
             var transactionListRequestMessage = IGPMplTransactionList()
             
             transactionListRequestMessage.igpType = type
@@ -162,7 +162,7 @@ class IGMplTransactionList: IGRequest {
             pagination.igpOffset = offset
             
             transactionListRequestMessage.igpPagination = pagination
-            return IGRequestWrapper(message: transactionListRequestMessage, actionID: 9109)
+            return IGRequestWrapper(message: transactionListRequestMessage, actionID: 9109, identity: requestIdentity)
         }
     }
     
@@ -172,6 +172,22 @@ class IGMplTransactionList: IGRequest {
     }
 }
 
+class IGMplTransactionInfo: IGRequest {
+    class Generator : IGRequest.Generator {
+        class func generate(transactionToken: String) -> IGRequestWrapper {
+            var transactionInfoRequestMessage = IGPMplTransactionInfo()
+            
+            transactionInfoRequestMessage.igpToken = transactionToken
+            
+            return IGRequestWrapper(message: transactionInfoRequestMessage, actionID: 9110)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response reponseProtoMessage: IGPMplTransactionInfoResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
 
 class IGMplGetCardToCardTokenWithAmount : IGRequest {
     class Generator : IGRequest.Generator{
