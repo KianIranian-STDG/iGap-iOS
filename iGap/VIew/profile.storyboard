@@ -2996,7 +2996,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbW-sc-0uG" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="56" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="56" y="11" width="296" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="I1q-pd-0KF"/>
                                                     </constraints>
@@ -3014,6 +3014,7 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hbW-sc-0uG" secondAttribute="trailing" constant="8" id="85g-L5-AMe"/>
                                                 <constraint firstItem="IYm-KX-1tf" firstAttribute="leading" secondItem="XE7-ZX-Bb0" secondAttribute="leading" constant="8" id="Cna-iL-py5"/>
                                                 <constraint firstAttribute="topMargin" secondItem="hbW-sc-0uG" secondAttribute="top" id="HWb-Ca-5yB"/>
                                                 <constraint firstItem="KxI-Cr-9qU" firstAttribute="leading" secondItem="hbW-sc-0uG" secondAttribute="leading" id="b9i-9Y-bQb"/>

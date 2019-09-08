@@ -268,7 +268,6 @@
                         <segue destination="wV1-C8-lGm" kind="show" identifier="GoToNotificationSettingsPage" id="Y7n-VU-DeD"/>
                         <segue destination="8bp-QU-7Rl" kind="show" identifier="GoToPrivacyAndPolicySettingsPage" id="orS-hJ-c6S"/>
                         <segue destination="SG7-Xd-yHx" kind="show" identifier="GoToAboutSettingPage" id="9i6-oe-1kc"/>
-                        <segue destination="pK1-Ur-fmN" kind="show" identifier="ShowQRScanner" id="Tyl-LL-fbR"/>
                         <segue destination="8JF-JT-dWR" kind="show" identifier="showLookAndFind" id="RiM-er-8dZ"/>
                         <segue destination="Wf4-F2-vtp" kind="show" identifier="showFinancialServiceBill" id="eoi-Sr-zDQ"/>
                         <segue destination="88X-eq-4dU" kind="show" identifier="showFinancialServiceCharge" id="YGD-gK-RgW"/>
@@ -279,28 +278,6 @@
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="-7189" y="-1974"/>
-        </scene>
-        <!--QR Reader-->
-        <scene sceneID="IAQ-Rf-Ktb">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eNG-Qu-3ZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="IGSettingQrScannerViewController" id="pK1-Ur-fmN" customClass="IGSettingQrScannerViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sgj-r3-Gnc"/>
-                        <viewControllerLayoutGuide type="bottom" id="tNZ-Hp-wqs"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="mCQ-Pp-4Mu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="QR Reader" id="Ny8-2Y-kdl" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
-                    <connections>
-                        <outlet property="mainView" destination="mCQ-Pp-4Mu" id="wa2-vV-UWB"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="-2072" y="5928"/>
         </scene>
         <!--Chat-->
         <scene sceneID="VtG-1S-1bE">

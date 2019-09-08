@@ -15,6 +15,7 @@ import RxSwift
 import Gifu
 import NVActivityIndicatorView
 import MapKit
+import MBProgressHUD
 
 
 class IGProfileTableViewController: UITableViewController,CLLocationManagerDelegate {
@@ -27,6 +28,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }()
     var isEditMode = false
     var tapCount = 0
+    var hud = MBProgressHUD()
 
     private var goToSettings : Bool! = false
     @IBOutlet weak var stack0: UIStackView!
@@ -124,7 +126,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(segueToChatNotificationReceived(_:)),
+                                               name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoomAtProfile),
+                                               object: nil)
+
         USERinDB()
         textManagment()
         self.tableView.alwaysBounceVertical = false
@@ -819,8 +825,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 var stringUrl = ""
                 if SMLangUtil.loadLanguage() == "fa" {
                     stringUrl = "https://blog.igap.net/fa"
-                }
-                else {
+                } else {
                     stringUrl = "https://blog.igap.net"
                 }
                 if let url = NSURL(string: stringUrl){
@@ -923,6 +928,43 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         return outputImage!
     }
     
+    @objc func segueToChatNotificationReceived(_ aNotification: Notification) {
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.navigationBar.isHidden = true
+
+        if let roomId = aNotification.userInfo?["room"] as? Int64 {
+            let predicate = NSPredicate(format: "id = %lld", roomId)
+            
+            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.hud.mode = .indeterminate
+            IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    self.hud.hide(animated: true)
+                    switch protoResponse {
+                    case let clientGetRoomResponse as IGPClientGetRoomResponse:
+                        IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": roomId])
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    switch errorCode {
+                    case .timeout:
+                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    default:
+                        break
+                    }
+                    self.hud.hide(animated: true)
+                }
+            }).send()
+            
+        }
+    }
 }
 
 //MARK: SEARCH BAR DELEGATE

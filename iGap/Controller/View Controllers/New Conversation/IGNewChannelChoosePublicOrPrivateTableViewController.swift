@@ -14,7 +14,8 @@ import IGProtoBuff
 import MBProgressHUD
 
 class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewController ,UITextFieldDelegate,SSRadioButtonControllerDelegate , UIGestureRecognizerDelegate {
-    
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
     @IBOutlet weak var publicChannelButton: SSRadioButton!
     @IBOutlet weak var privateChannel: SSRadioButton!
     @IBOutlet weak var channelLinkTextField: UITextField!
@@ -85,7 +86,8 @@ class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewControl
     
     private func setNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
+
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

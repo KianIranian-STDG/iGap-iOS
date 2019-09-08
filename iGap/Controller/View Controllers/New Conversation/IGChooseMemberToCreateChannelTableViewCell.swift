@@ -23,6 +23,7 @@ class IGChooseMemberToCreateChannelTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contactNameLabel.textAlignment = contactNameLabel.localizedNewDirection
     }
     
     func updateUI() {

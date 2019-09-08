@@ -30,6 +30,7 @@ let kIGGoDissmissLangFANotificationName = "im.igap.ios.dismiss.langFA"
 let kIGGoDissmissLangENNotificationName = "im.igap.ios.dismiss.langEN"
 let kIGGoDissmissLangARNotificationName = "im.igap.ios.dismiss.langAR"
 let kIGNotificationNameDidCreateARoom = "im.igap.ios.room.created"
+let kIGNotificationNameDidCreateARoomAtProfile = "im.igap.ios.room.created.from.profile"
 let kIGNoticationForPushUserExpire = "im.igap.ios.user.expire"
 let kIGNoticationDismissWalletPay = "im.igap.ios.dismiss.wallet.pay"
 
@@ -249,6 +250,17 @@ class IGGlobal {
         }
         
         return Int64(FileManager.default.contents(atPath: (path)!)!.count)
+    }
+   internal static func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
     }
     /******************** File ********************/
     /**********************************************/

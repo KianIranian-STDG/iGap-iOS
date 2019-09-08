@@ -115,6 +115,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         navigationControllerr.navigationBar.isHidden = false
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.searchController = nil
+        
 
     }
     
@@ -509,6 +510,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
             }
         }
     }
+    
 }
 
 //MARK:- UITableViewDataSource

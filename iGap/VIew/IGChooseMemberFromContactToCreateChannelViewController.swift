@@ -14,14 +14,15 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController , UISearchResultsUpdating , UIGestureRecognizerDelegate {
+class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController , UISearchResultsUpdating , UIGestureRecognizerDelegate , UIScrollViewDelegate {
 
     @IBOutlet weak var selectedContactsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var contactViewBottomConstraizt: NSLayoutConstraint!
     @IBOutlet weak var contactViewHeightConstraint: NSLayoutConstraint!
-    
+    fileprivate let searchController = UISearchController(searchResultsController: nil)
+
     class User: NSObject {
         let registredUser: IGRegisteredUser
         @objc let name: String
@@ -85,8 +86,73 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        
+        navigationControllerr.navigationBar.isHidden = false
+        let navigationItem = self.navigationItem as! IGNavigationItem
+//        navigationItem.searchController = nil
+        
+        if navigationItem.searchController == nil {
+            let gradient = CAGradientLayer()
+            let sizeLength = UIScreen.main.bounds.size.height * 2
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+            
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+            gradient.locations = orangeGradientLocation as [NSNumber]
+            
+            
+            
+            if #available(iOS 11.0, *) {
+                
+                if let navigationBar = self.navigationController?.navigationBar {
+                    navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+                }
+                
+                
+                //                IGGlobal.setLanguage()
+                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
+                
+                
+                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+                    //                    IGGlobal.setLanguage()
+                    
+                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
+                        let centeredParagraphStyle = NSMutableParagraphStyle()
+                        centeredParagraphStyle.alignment = .center
+                        
+                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
+                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
+                        textField.textAlignment = .center
+                    }
+                    
+                    let imageV = textField.leftView as! UIImageView
+                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                    imageV.tintColor = UIColor.white
+                    
+                    if let backgroundview = textField.subviews.first {
+                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                        backgroundview.layer.cornerRadius = 10;
+                        backgroundview.clipsToBounds = true;
+                        
+                    }
+                }
+                if navigationItem.searchController == nil {
+                    navigationItem.searchController = searchController
+                    navigationItem.hidesSearchBarWhenScrolling = true
+                }
+            } else {
+            }
+            
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
         collectionView.dataSource = self
@@ -108,79 +174,34 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
         
         
         if mode == "Admin" {
-            navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "ADD_ADMIN".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_ADMIN".localizedNew)
         }
         if mode == "Moderator" {
-            navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew , title: "ADD_MODERATOR".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MODERATOR".localizedNew)
+
         }
         if mode == "CreateChannel" {
-            navigationItem.addModalViewItems(leftItemText: "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "NEW_CHANNEL".localizedNew)
+            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "NEW_CHANNEL".localizedNew)
+
         }
         if mode == "Members" {
-            navigationItem.addModalViewItems(leftItemText:  "ADD_BTN".localizedNew, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "ADD_MEMBER".localizedNew)
-        }
-        navigationItem.leftViewContainer?.addAction {
-            let current : String = SMLangUtil.loadLanguage()
-            switch current {
-            case "fa" :
-                // if self.selectedUsers.count > 0 {
-                if self.mode == "CreateChannel" {
-                    self.requestToCreateChannel()
-                } else if self.mode == "Admin" {
-                    self.requestToAddAdminInChannel()
-                } else if self.mode == "Moderator" {
-                    self.requestToAddModeratorInChannel()
-                } else if self.mode == "Members" {
-                    self.requestToAddmember()
-                }
+            navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
 
-            case "en" :
-                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                    
-                }else{
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popToRootViewController(animated: true)
-                    }
-                }
-            default :
-                break
-            }
         }
+
         navigationItem.rightViewContainer?.addAction {
-            let current : String = SMLangUtil.loadLanguage()
-            switch current {
-            case "fa" :
-                if self.mode == "Admin"  || self.mode == "Moderator" || self.mode == "Members" {
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                    
-                }else{
-                    if self.navigationController is IGNavigationController {
-                        self.navigationController?.popToRootViewController(animated: true)
-                    }
-                }
-            case "en" :
-      
-                
-                
-                // if self.selectedUsers.count > 0 {
-                if self.mode == "CreateChannel" {
-                    self.requestToCreateChannel()
-                } else if self.mode == "Admin" {
-                    self.requestToAddAdminInChannel()
-                } else if self.mode == "Moderator" {
-                    self.requestToAddModeratorInChannel()
-                } else if self.mode == "Members" {
-                    self.requestToAddmember()
-                }
-                
-            default :
-                break
+           
+            if self.mode == "CreateChannel" {
+                self.requestToCreateChannel()
+            } else if self.mode == "Admin" {
+                self.requestToAddAdminInChannel()
+            } else if self.mode == "Moderator" {
+                self.requestToAddModeratorInChannel()
+            } else if self.mode == "Members" {
+                self.requestToAddmember()
             }
+
+            
         }
         
     }
@@ -247,8 +268,10 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
     private func openChannel(){
         if self.navigationController is IGNavigationController {
             self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.navigationBar.isHidden = true
+
         }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),object: nil,userInfo: ["room": self.igpRoom.igpID])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoomAtProfile),object: nil,userInfo: ["room": self.igpRoom.igpID])
     }
     
     func requestToAddAdminInChannel() {
@@ -427,23 +450,9 @@ extension IGChooseMemberFromContactToCreateChannelViewController : UITableViewDa
 
 //MARK:- UITableViewDelegate
 extension IGChooseMemberFromContactToCreateChannelViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int)-> String? {
-        tableView.headerView(forSection: section)?.backgroundColor = UIColor.red
-        if !self.sections[section].users.isEmpty {
-            return self.collation.sectionTitles[section]
-        }else{
-            return ""
-        }
-    }
+
     
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.collation.sectionIndexTitles
-    }
-    
-    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        return self.collation.section(forSectionIndexTitle: index)
-    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
             if tableView.isEditing == true{
@@ -509,7 +518,9 @@ extension IGChooseMemberFromContactToCreateChannelViewController : UITableViewDe
             }
         }
     }
+    
 }
+//MARK: - SCrollView Delegates
 
 //MARK: - UICollectionViewDataSource
 extension IGChooseMemberFromContactToCreateChannelViewController : UICollectionViewDataSource {

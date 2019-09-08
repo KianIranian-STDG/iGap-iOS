@@ -461,24 +461,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
-            
-        case .favoriteChannel:
-            
-            if !(agreementSlug == "") {
-                if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
-                    
-                } else {
-                    let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-                    return
-                }
-            } else {
-                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-                return
-            }
-            
+
         case .page:
             
             if !(agreementSlug == "") {

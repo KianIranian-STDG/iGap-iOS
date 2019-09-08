@@ -81,14 +81,44 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 IGAppManager.connectionStatusStatic = .connected
                 break
             case .iGap:
+                
                 connectionStatus = .iGap
                 IGAppManager.connectionStatusStatic = .iGap
-                self.setDefaultNavigationItem()
+                switch  IGTabBarController.currentTabStatic {
+                case .Recent:
+                    self.setDefaultNavigationItem()
+                default:
+                    self.setLastNavigationItem()
+                }
+
+
                 break
             }
         }
     }
-    
+    private func setLastNavigationItem() {
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        self.hideKeyboardWhenTappedAround()
+        if IGTabBarController.currentTabStatic == .Dashboard {
+            navigationItem.setDiscoveriesNavigationItems()
+            
+        } else if IGTabBarController.currentTabStatic == .Call {
+            navigationItem.setCallListNavigationItems()
+            
+        } else if IGTabBarController.currentTabStatic == .Contact {
+            navigationItem.addiGapLogo()
+
+        } else if IGTabBarController.currentTabStatic == .Profile {
+            navigationItem.addiGapLogo()
+            let navigationControllerr = self.navigationController as! IGNavigationController
+            navigationControllerr.navigationBar.isHidden = true
+
+
+        }else {
+            navigationItem.addiGapLogo()
+        }
+
+    }
     private func setDefaultNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
@@ -109,7 +139,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         if #available(iOS 11.0, *) {
 
             if let navigationBar = self.navigationController?.navigationBar {
-                navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
+                navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
             }
  
             
@@ -153,17 +183,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
     }
     
-    func image(fromLayer layer: CALayer) -> UIImage {
-        UIGraphicsBeginImageContext(layer.frame.size)
-        
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return outputImage!
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -405,7 +425,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if #available(iOS 11.0, *) {
                 
                 if let navigationBar = self.navigationController?.navigationBar {
-                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
+                    navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
                 }
                 
                 
