@@ -817,10 +817,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             case 4 :
                 manageOpenMap()
             case 5 :
-                self.tableView.deselectRow(at: indexPath, animated: true)
-                performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
-                break
-            case 6 :
+//                self.tableView.deselectRow(at: indexPath, animated: true)
+//                performSegue(withIdentifier: "showChangeLanguagePage", sender: self)
+//                break
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 var stringUrl = ""
                 if SMLangUtil.loadLanguage() == "fa" {
@@ -831,6 +830,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 if let url = NSURL(string: stringUrl){
                     UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                 }
+
+                break
+            case 6 :
+                break
+
             case 7 :
 
                 break

@@ -144,7 +144,6 @@ class IGNavigationItem: UINavigationItem {
         }
         if rightItemText != nil {
             addModalViewRightItem(title: rightItemText!, iGapFont: iGapFont)
->>>>>>> c97b78ea... financial history main page and transaction detail page finished
         }
         addNavigationBackItem()
     }
@@ -248,7 +247,6 @@ class IGNavigationItem: UINavigationItem {
             labelFrame = CGRect(x: -50, y: 0, width: 100, height:40)
             label = UILabel(frame: labelFrame)
             label.font = UIFont.igFont(ofSize: 15.0, weight: .bold)
-            
         }
         label.textAlignment = .right
         label.text = title
@@ -677,7 +675,7 @@ class IGNavigationItem: UINavigationItem {
             callViewLabel.textColor = UIColor.iGapBarsInfo()
             callViewLabel.textAlignment = .center
             callViewLabel.font = UIFont.iGapFonticon(ofSize: 18.0)
-            callViewLabel.text = ""
+            callViewLabel.text = ""
             callView.addSubview(callViewLabel)
             callViewLabel.snp.makeConstraints { (make) in
                 make.centerX.equalTo(callView.snp.centerX)

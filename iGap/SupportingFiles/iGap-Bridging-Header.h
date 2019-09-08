@@ -21,6 +21,7 @@
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
+#import "TGPControls.h"
 #import "MBCircularProgressBarLayer.h"
 #import "MBCircularProgressBarView.h"
 

@@ -92,7 +92,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         lblChatSettings.text = "CHAT_SETTINGS".localizedNew
         lblLogOut.text = "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew
         
-        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -17,6 +17,7 @@ import IGProtoBuff
 class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDelegate{
 
     @IBOutlet var mainView: UIView!
+    var QRHolder:UIImageView!
     var previewView: UIView!
     var scanner: MTBBarcodeScanner?
     var scannerPageType: BarcodeScanner = .Verify
@@ -43,13 +44,27 @@ class IGSettingQrScannerViewController: UIViewController , UIGestureRecognizerDe
     
     private func makeView(){
         previewView = UIView(frame: mainView.bounds)
+        QRHolder = UIImageView()
         mainView.addSubview(previewView)
+        mainView.addSubview(QRHolder)
         previewView.snp.makeConstraints { (make) in
             make.top.equalTo(mainView.snp.top)
             make.bottom.equalTo(mainView.snp.bottom)
             make.left.equalTo(mainView.snp.left)
             make.right.equalTo(mainView.snp.right)
         }
+        QRHolder.snp.makeConstraints { (make) in
+            make.center.equalTo(mainView.snp.center)
+            make.height.equalTo(215)
+            make.width.equalTo(215)
+        }
+        if SMLangUtil.loadLanguage() == "fa" {
+            QRHolder.image = UIImage(named: "scan_Holder_FA")
+        }
+        else {
+            QRHolder.image = UIImage(named: "scan_Holder_EN")
+        }
+
         scanner = MTBBarcodeScanner(previewView: previewView)
     }
     

@@ -22,7 +22,7 @@ class IGRoomListtCell: UITableViewCell {
     var width : Int = 0
     var nameLabel :UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 14,weight: .bold)
+        label.font = UIFont.igFont(ofSize: 13,weight: .bold)
         label.textColor = .black
         label.textAlignment = label.localizedNewDirection
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class IGRoomListtCell: UITableViewCell {
     }()
     var lastMsgLabel  :UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 15,weight: .light)
+        label.font = UIFont.igFont(ofSize: 14,weight: .light)
         label.textColor = .black
         label.textAlignment = label.localizedNewDirection
         label.text = label.text?.inLocalizedLanguage()
@@ -78,7 +78,22 @@ class IGRoomListtCell: UITableViewCell {
         img.clipsToBounds = true
         return img
     }()
-    var typeImage = UIImageView()
+    var bgImage :UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFill // image will never be strecthed vertially or horizontally
+        img.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
+        if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
+            img.image = UIImage(named:"bgCellPin")
+        }
+        else{
+            let tmpImg = UIImage(named:"bgCellPin")
+            img.image = UIImage(cgImage: (tmpImg?.cgImage)! ,scale: 1.0 , orientation: .upMirrored)
+
+        }
+
+        return img
+    }()
+    var typeImage = UILabel()
     var checkImage = UIImageView()
     var muteImage = UIImageView()
     var stateImage = UIImageView()
@@ -133,14 +148,21 @@ class IGRoomListtCell: UITableViewCell {
             
             //
             if item.pinId > 0 {
-                self.contentView.backgroundColor = UIColor.pinnedChats()
+//                self.contentView.backgroundColor = UIColor.pinnedChats()
+                self.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+
+                bgImage.isHidden = false
             } else {
                 self.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                bgImage.isHidden = true
+                
+
             }
             
             if item.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: item) {
                 self.unreadCountLabel.isHidden = true
-                self.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
+                
+//                self.lastMessageStateImage.image = UIImage(named: "IG_Chat_List_Pin")
                 self.lastMessageStateImage.backgroundColor = UIColor.clear
             } else {
                 if let lastMessage = item.lastMessage {
@@ -175,7 +197,6 @@ class IGRoomListtCell: UITableViewCell {
                 
             case .chat:
                 
-                self.typeImage.image = UIImage(named: "IG_Settings_Chats")
                 self.typeImage.isHidden = true
                 
                 if (item.chatRoom?.peer!.isVerified)! {
@@ -187,15 +208,17 @@ class IGRoomListtCell: UITableViewCell {
                 }
             case .group:
                 self.typeImage.isHidden = false
-                self.typeImage.image = UIImage(named: "IG_Chat_List_Type_Group")
+                self.typeImage.text = ""
+                self.typeImage.font = UIFont.iGapFonticon(ofSize: 15)
                 self.checkImage.isHidden = true
                 
             case .channel:
                 
                 self.typeImage.isHidden = false
                 
-                self.typeImage.image = UIImage(named: "IG_Chat_List_Type_Channel")
-                
+                self.typeImage.text = ""
+                self.typeImage.font = UIFont.iGapFonticon(ofSize: 15)
+
                 if (item.channelRoom?.isVerified)! {
                     self.checkImage.isHidden = false
                     
@@ -296,6 +319,7 @@ class IGRoomListtCell: UITableViewCell {
         checkImage.image = UIImage(named:"IG_Verify")
         muteImage.image = UIImage(named: "IG_Chat_List_Mute")
         
+        self.contentView.addSubview(bgImage)
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(timeLabel)
         self.contentView.addSubview(lastMsgLabel)
@@ -317,6 +341,7 @@ class IGRoomListtCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        makeBGImage()
         makeInitialLabel()
         makeAvatar()
         makeTypeImage()
@@ -530,6 +555,14 @@ class IGRoomListtCell: UITableViewCell {
         
         
     }
+    private func makeBGImage() {
+        bgImage.snp.makeConstraints { (make) in
+            make.leading.equalTo(self.contentView.snp.leading).offset(3)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-3)
+            make.top.equalTo(self.contentView.snp.top).offset(3)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-3)
+        }
+    }
     private func makeInitialLabel() {
         initialLabel.snp.makeConstraints { (make) in
             make.leading.equalTo(self.contentView.snp.leading).offset(12)
@@ -542,8 +575,8 @@ class IGRoomListtCell: UITableViewCell {
     private func makeTypeImage() {
         typeImage.snp.makeConstraints { (make) in
             make.leading.equalTo(self.avatarImage.snp.trailing).offset(2)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
             make.top.equalTo(self.avatarImage.snp.top)
         }
         
@@ -551,16 +584,16 @@ class IGRoomListtCell: UITableViewCell {
     private func makestateImage() {
         stateImage.snp.makeConstraints { (make) in
             make.leading.equalTo(self.avatarImage.snp.trailing).offset(2)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
             make.top.equalTo(self.avatarImage.snp.top)
         }
     }
     private func makelastMessageStateImage() {
         lastMessageStateImage.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
             make.bottom.equalTo(self.avatarImage.snp.bottom)
         }
     }
@@ -570,25 +603,25 @@ class IGRoomListtCell: UITableViewCell {
         timeLabel.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
             make.width.equalTo(50)
-            make.top.equalTo(self.avatarImage.snp.top)
+            make.top.equalTo(self.avatarImage.snp.top).offset(10)
         }
         
     }
     private func makeCheckImage() {
         checkImage.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.muteImage.snp.leading).offset(-5)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
-            make.top.equalTo(self.avatarImage.snp.top)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
+            make.top.equalTo(self.avatarImage.snp.top).offset(10)
         }
         
     }
     private func makeMuteImage() {
         muteImage.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.timeLabel.snp.leading).offset(-5)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
-            make.top.equalTo(self.avatarImage.snp.top)
+            make.width.equalTo(15)
+            make.height.equalTo(15)
+            make.top.equalTo(self.avatarImage.snp.top).offset(10)
         }
         
     }

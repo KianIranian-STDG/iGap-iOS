@@ -469,7 +469,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
 
                 } else {
-                    let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    let dashboard = IGDashboardViewControllerInner.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
@@ -477,8 +477,9 @@ class AbstractDashboardCell: UICollectionViewCell {
             } else {
                 
                 // uncomment these
-                let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                let dashboard = IGDashboardViewControllerInner.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
+               
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
 //                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
 //                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)

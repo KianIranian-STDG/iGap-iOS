@@ -161,7 +161,7 @@ import SnapKit
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         
-        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localizedNew,view: "MAIN_SCORE")
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PAGE_ACCOUNT_SCORE_PAGE".localizedNew,iGapFont :true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self

@@ -13,9 +13,9 @@ import IGProtoBuff
 import MapKit
 
 
-class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, DiscoveryObserver {
+class IGDashboardViewControllerInner: BaseViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, DiscoveryObserver {
     
-    var isInner: Bool! = false
+    
     static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
@@ -27,7 +27,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     static var discoveryObserver: DiscoveryObserver!
     static var needGetFirstPage = true
     private var pollResponse: IGPClientGetPollResponse!
-
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
@@ -36,7 +36,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
-
         registerCellsNib()
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -66,30 +65,17 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        IGDashboardViewController.discoveryObserver = self
+        IGDashboardViewControllerInner.discoveryObserver = self
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
+        self.initNavigationBar(title: nil) {}
+        self.hideKeyboardWhenTappedAround()
 
-
-        if isInner! {
-            self.initNavigationBar(title: nil, rightItemText: nil) {
-            }
-        } else {
-            let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-            navigationItem.setDiscoveriesNavigationItems()
-            self.hideKeyboardWhenTappedAround()
-
-        }
         collectionView.reloadData()
     }
-    
-    private func initNavigationBar(){
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        navigationItem.setDiscoveriesNavigationItems()
-        self.hideKeyboardWhenTappedAround()
-        
 
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     private func registerCellsNib(){
@@ -146,13 +132,13 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 
                 
                 var tmpPollList = response.igpPolls[self.pollList.count-1]
-
+                
                 tmpPollList.igpModel = IGPDiscovery.IGPDiscoveryModel(rawValue: 7)!
                 tmpPollList.igpScale = "8:4"
                 tmpPollList.igpPollfields[0].igpImageurl = ""
                 tmpPollList.igpPollfields[0].igpID = 99999999
                 tmpPollList.igpPollfields[0].igpLabel = "نمودار"
-
+                
                 for elemnt in self.pollList {
                     for elemnt in elemnt.igpPollfields {
                         if elemnt.igpClickable == true {
@@ -165,7 +151,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 }
                 
                 self.pollList.append(tmpPollList)
-
+                
                 
                 
                 DispatchQueue.main.async {
@@ -209,7 +195,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 
                 /* just save first page info */
                 if let request = requestWrapper.message as? IGPClientGetDiscovery, request.igpPageID == 0 {
-                    IGDashboardViewController.needGetFirstPage = false
+                    IGDashboardViewControllerInner.needGetFirstPage = false
                     IGFactory.shared.addDiscoveryPageInfo(discoveryList: self.discovery)
                 }
                 
@@ -244,7 +230,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
             DispatchQueue.main.async {
                 self.collectionView!.isHidden = false
-
+                
             }
             self.btnRefresh!.isHidden = true
             if IGGlobal.shouldShowChart {
@@ -272,7 +258,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     /************************* callbacks *************************/
     
     func onFetchFirstPage() {
-        if IGDashboardViewController.needGetFirstPage && pageId == 0 {
+        if IGDashboardViewControllerInner.needGetFirstPage && pageId == 0 {
             getDiscoveryList()
         }
     }
@@ -331,14 +317,14 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
                 cell.item = indexPath.item
                 cell.dashboardIGPPoll = self.pollResponse
-
+                
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
             } else if item.igpModel == .model3 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
                 cell.item = indexPath.item
                 cell.dashboardIGPPoll = self.pollResponse
-
+                
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 return cell
             } else if item.igpModel == .model4 {
@@ -346,7 +332,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 cell.initViewPoll(dashboard: pollList[indexPath.section].igpPollfields)
                 cell.item = indexPath.item
                 cell.dashboardIGPPoll = self.pollResponse
-
+                
                 return cell
             } else if item.igpModel == .model5 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5

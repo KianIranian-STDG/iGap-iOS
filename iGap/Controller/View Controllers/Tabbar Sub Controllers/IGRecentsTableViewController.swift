@@ -119,9 +119,142 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
 
     }
-    private func setDefaultNavigationItem() {
+    private func navItemInit() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()
+
+        navigationItem.rightViewContainer?.addAction {
+            
+            if IGTabBarController.currentTabStatic == .Call {
+                
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+                
+                let newChat = UIAlertAction(title: "NEW_CALL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                    let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                    createChat.forceCall = true
+                    self.navigationController!.pushViewController(createChat, animated: true)
+                })
+                
+                let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                    if IGAppManager.sharedManager.userID() != nil {
+                        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                        hud.mode = .indeterminate
+                        
+                        let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
+                        do {
+                            let realm = try Realm()
+                            guard let clearId = realm.objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
+                                return
+                            }
+                            
+                            IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
+                                DispatchQueue.main.async {
+                                    if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
+                                        IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
+                                        hud.hide(animated: true)
+                                    }
+                                }
+                            }).error({ (errorCode, waitTime) in
+                                DispatchQueue.main.async {
+                                    switch errorCode {
+                                    case .timeout:
+                                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                                        alert.addAction(okAction)
+                                        self.present(alert, animated: true, completion: nil)
+                                    default:
+                                        break
+                                    }
+                                    self.hud.hide(animated: true)
+                                }
+                            }).send()
+                            
+                        } catch let error as NSError {
+                            print("RLM EXEPTION ERR HAPPENDED IN SET DEFAULT NAVIGATION ITEM :",String(describing: self))
+                        }
+                        
+                    }
+                })
+                
+                let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: nil)
+                
+                alertController.addAction(newChat)
+                alertController.addAction(clearCallLog)
+                alertController.addAction(cancel)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+            
+            let alertController = UIAlertController(title: "NEW_MESSAGES".RecentTableViewlocalizedNew, message: "WHICH_TYPE_OF".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
+            let myCloud = UIAlertAction(title: "MY_CLOUD".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                if let userId = IGAppManager.sharedManager.userID() {
+                    let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    hud.mode = .indeterminate
+                    IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let chatGetRoomResponse as IGPChatGetRoomResponse:
+                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
+                                //segue to created chat
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
+                                                                object: nil,
+                                                                userInfo: ["room": roomId])
+                                hud.hide(animated: true)
+                                break
+                            default:
+                                break
+                            }
+                        }
+                    }).error({ (errorCode, waitTime) in
+                        DispatchQueue.main.async {
+                            hud.hide(animated: true)
+                            let alertC = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                            
+                            let cancel = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                            alertC.addAction(cancel)
+                            self.present(alertC, animated: true, completion: nil)
+                        }
+                    }).send()
+                }
+            })
+            let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                self.navigationController!.pushViewController(createChat, animated: true)
+            })
+            let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                createGroup.mode = "CreateGroup"
+                self.navigationController!.pushViewController(createGroup, animated: true)
+            })
+            let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+                let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
+                self.navigationController!.pushViewController(createChannel, animated: true)
+            })
+            
+            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+                
+            })
+            
+            alertController.addAction(myCloud)
+            alertController.addAction(newChat)
+            alertController.addAction(newGroup)
+            alertController.addAction(newChannel)
+            alertController.addAction(cancel)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            navigationItem.leftViewContainer?.addAction {
+                self.performSegue(withIdentifier: "showSettings", sender: self)
+            }
+        }
+
+    }
+    private func setDefaultNavigationItem() {
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        navItemInit()
         //Setup Search Controller
         // Convert CAGradientLayer to UIImage
         let gradient = CAGradientLayer()
@@ -281,133 +414,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         super.viewWillAppear(animated)
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
        navigationItem.setChatListsNavigationItems()
-        navigationItem.rightViewContainer?.addAction {
-            
-            if IGTabBarController.currentTabStatic == .Call {
-                
-                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-                
-                let newChat = UIAlertAction(title: "NEW_CALL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                    let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                    createChat.forceCall = true
-                    self.navigationController!.pushViewController(createChat, animated: true)
-                })
-                
-                let clearCallLog = UIAlertAction(title: "CLEAR_HISTORY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                    if IGAppManager.sharedManager.userID() != nil {
-                        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                        hud.mode = .indeterminate
-                        
-                        let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
-                        do {
-                            let realm = try Realm()
-                            guard let clearId = realm.objects(IGRealmCallLog.self).sorted(by: sortProperties).first?.id else {
-                                return
-                            }
-                            
-                            IGSignalingClearLogRequest.Generator.generate(clearId: clearId).success({ (protoResponse) in
-                                DispatchQueue.main.async {
-                                    if let clearLogResponse = protoResponse as? IGPSignalingClearLogResponse {
-                                        IGSignalingClearLogRequest.Handler.interpret(response: clearLogResponse)
-                                        hud.hide(animated: true)
-                                    }
-                                }
-                            }).error({ (errorCode, waitTime) in
-                                DispatchQueue.main.async {
-                                    switch errorCode {
-                                    case .timeout:
-                                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-                                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                                        alert.addAction(okAction)
-                                        self.present(alert, animated: true, completion: nil)
-                                    default:
-                                        break
-                                    }
-                                    self.hud.hide(animated: true)
-                                }
-                            }).send()
-                            
-                        } catch let error as NSError {
-                            print("RLM EXEPTION ERR HAPPENDED IN SET DEFAULT NAVIGATION ITEM :",String(describing: self))
-                        }
-                        
-                    }
-                })
-                
-                let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: nil)
-                
-                alertController.addAction(newChat)
-                alertController.addAction(clearCallLog)
-                alertController.addAction(cancel)
-                
-                self.present(alertController, animated: true, completion: nil)
-                return
-            }
-            
-            let alertController = UIAlertController(title: "NEW_MESSAGES".RecentTableViewlocalizedNew, message: "WHICH_TYPE_OF".RecentTableViewlocalizedNew, preferredStyle: IGGlobal.detectAlertStyle())
-            let myCloud = UIAlertAction(title: "MY_CLOUD".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                if let userId = IGAppManager.sharedManager.userID() {
-                    let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    hud.mode = .indeterminate
-                    IGChatGetRoomRequest.Generator.generate(peerId: userId).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let chatGetRoomResponse as IGPChatGetRoomResponse:
-                                let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
-                                //segue to created chat
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoom),
-                                                                object: nil,
-                                                                userInfo: ["room": roomId])
-                                hud.hide(animated: true)
-                                break
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (errorCode, waitTime) in
-                        DispatchQueue.main.async {
-                            hud.hide(animated: true)
-                            let alertC = UIAlertController(title: "GLOBAL_WARNING".RecentTableViewlocalizedNew, message: "UNSSUCCESS_OTP".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                            
-                            let cancel = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
-                            alertC.addAction(cancel)
-                            self.present(alertC, animated: true, completion: nil)
-                        }
-                    }).send()
-                }
-            })
-            let newChat = UIAlertAction(title: "NEW_C_C".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                self.navigationController!.pushViewController(createChat, animated: true)
-            })
-            let newGroup = UIAlertAction(title: "NEW_GROUP".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                createGroup.mode = "CreateGroup"
-                self.navigationController!.pushViewController(createGroup, animated: true)
-            })
-            let newChannel = UIAlertAction(title: "NEW_CHANNEL".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
-                let createChannel = IGCreateNewChannelTableViewController.instantiateFromAppStroryboard(appStoryboard: .CreateRoom)
-                self.navigationController!.pushViewController(createChannel, animated: true)
-            })
-            
-            let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
-                
-            })
-            
-            alertController.addAction(myCloud)
-            alertController.addAction(newChat)
-            alertController.addAction(newGroup)
-            alertController.addAction(newChannel)
-            alertController.addAction(cancel)
-            
-            self.present(alertController, animated: true, completion: nil)
-            
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            navigationItem.leftViewContainer?.addAction {
-                self.performSegue(withIdentifier: "showSettings", sender: self)
-            }
-        }
 
         if navigationItem.searchController == nil {
             let gradient = CAGradientLayer()

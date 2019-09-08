@@ -18,12 +18,14 @@
         <array key="iGap-Fontico.ttf">
             <string>iGap-Fontico</string>
         </array>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
     </customFonts>
     <scenes>
         <!-- -->
         <scene sceneID="IKW-62-iYR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MIf-Eq-o5F" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Eq2-7x-bid" customClass="IGSettingTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="MIQ-ot-d4y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
@@ -45,14 +47,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="TFL-Py-Fpy">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="TFL-Py-Fpy">
                                                     <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="TFL-Py-Fpy" secondAttribute="height" multiplier="1:1" id="aGm-8Y-nIU"/>
                                                         <constraint firstAttribute="height" constant="32" id="as5-Cf-z9z"/>
                                                         <constraint firstAttribute="width" constant="32" id="l8v-8z-Otp"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -79,14 +81,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="YW8-Wp-9Io">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="YW8-Wp-9Io">
                                                     <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="1Ew-kK-7jq"/>
                                                         <constraint firstAttribute="height" constant="32" id="MZT-hG-Z4B"/>
                                                         <constraint firstAttribute="width" secondItem="YW8-Wp-9Io" secondAttribute="height" multiplier="1:1" id="cP9-CB-hjz"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -113,14 +115,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="FHN-2y-dJh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="FHN-2y-dJh">
                                                     <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="FHN-2y-dJh" secondAttribute="height" multiplier="1:1" id="QpN-KG-Bh9"/>
                                                         <constraint firstAttribute="height" constant="32" id="Wmc-AI-uv4"/>
                                                         <constraint firstAttribute="width" constant="32" id="b8d-B1-HHN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -147,14 +149,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="QxL-g4-cur">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="QxL-g4-cur">
                                                     <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="QxL-g4-cur" secondAttribute="height" multiplier="1:1" id="Tmj-GN-KdU"/>
                                                         <constraint firstAttribute="height" constant="32" id="kFj-hO-1pO"/>
                                                         <constraint firstAttribute="width" constant="32" id="vzg-Tt-mFN"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -185,14 +187,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="5JI-mf-ay1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="5JI-mf-ay1">
                                                     <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="IQj-d2-nbS"/>
                                                         <constraint firstAttribute="width" secondItem="5JI-mf-ay1" secondAttribute="height" multiplier="1:1" id="ca2-qi-oAY"/>
                                                         <constraint firstAttribute="height" constant="32" id="nrq-oW-loK"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -219,15 +221,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="thi-fP-tMa">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="thi-fP-tMa">
                                                     <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="Eqj-2Q-zmk"/>
                                                         <constraint firstAttribute="width" constant="32" id="roX-bC-dX1"/>
                                                         <constraint firstAttribute="width" secondItem="thi-fP-tMa" secondAttribute="height" multiplier="1:1" id="s0q-IG-UZ8"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
+                                                    <color key="textColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -276,13 +278,13 @@
                         <segue destination="iaS-vF-4lC" kind="show" identifier="showChangeLanguagePage" id="al1-qZ-omw"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MIf-Eq-o5F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7189" y="-1974"/>
+            <point key="canvasLocation" x="-7347" y="-2115"/>
         </scene>
         <!--Chat-->
         <scene sceneID="VtG-1S-1bE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Pg-d2-kkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ChatSettingPage" id="XjN-BE-UWx" customClass="IGSettingChatTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Nh1-HV-jGc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -729,13 +731,13 @@
                         <segue destination="mXh-UK-Zh4" kind="show" identifier="GoToAutoDownloadTypePage" id="w1u-mG-MVm"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Pg-d2-kkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2070" y="-2626"/>
         </scene>
         <!--Account-->
         <scene sceneID="3T0-9N-JrU">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jtn-sD-xsl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="IGSettingsDataAndStorageTableViewController" id="Qmz-7y-sB5" customClass="IGSettingsDataAndStorageTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="oky-bO-AsH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -976,13 +978,13 @@
                         <segue destination="B2g-D2-9mB" kind="show" identifier="goToStorageUsage" id="OAF-gs-V2z"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jtn-sD-xsl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8384.0579710144939" y="-1149.4565217391305"/>
         </scene>
         <!--Phone Number-->
         <scene sceneID="eJ7-OL-hHB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sc1-gi-SEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="PhoneNumberPage" id="ED3-8t-O4c" customClass="IGSettingAccountPhoneNumberTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="14" sectionFooterHeight="14" id="ByH-7c-c3H">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1053,14 +1055,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                     </tableView>
                     <navigationItem key="navigationItem" title="Phone Number" id="RJ1-HX-AGx" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sc1-gi-SEe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-9462"/>
         </scene>
         <!--Nickname-->
         <scene sceneID="MOP-Ud-2Gx">
             <objects>
-                <exit id="AH0-07-j4P" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h2R-yp-gEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SetNickNamePage" id="jD2-iB-drb" customClass="IGSetUserNickNameTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ccR-bx-9TY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1107,13 +1108,14 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="AH0-07-j4P" kind="unwind" identifier="GoToAccountMainList" unwindAction="goBackToAccountMainTableWithSeque:" id="O22-bf-EgI"/>
                     </connections>
                 </tableViewController>
+                <exit id="AH0-07-j4P" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h2R-yp-gEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-8641"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="s8j-Fe-kHW">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="436-Xo-ziA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="IGNavigationControllerSetting" automaticallyAdjustsScrollViewInsets="NO" id="wXB-PK-Gpp" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="OSe-3s-2pe" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
@@ -1134,13 +1136,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="Eq2-7x-bid" kind="relationship" relationship="rootViewController" id="aax-po-Zjq"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="436-Xo-ziA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8200" y="-2033"/>
         </scene>
         <!--Contacts-->
         <scene sceneID="vbS-PU-0cd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qje-kG-XnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SettingContactsPage" id="A2I-f1-J8f" customClass="IGSettingContactsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="z7f-EZ-BHf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1287,13 +1289,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="4PP-Um-oWS" kind="show" identifier="GoToAddNewContactPage" id="RZS-cp-iN0"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qje-kG-XnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2070" y="-1745"/>
         </scene>
         <!--Email-->
         <scene sceneID="yjw-Rc-NvN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cft-Cp-xPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="EmailPage" id="hx5-fM-n4d" customClass="IGSetEmailTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Z8I-Re-247">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1338,13 +1340,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <outlet property="emailTextField" destination="1oT-HC-5ef" id="L8P-5y-Zdu"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cft-Cp-xPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1109" y="-11389"/>
         </scene>
         <!--Delete Account-->
         <scene sceneID="A10-g2-oVb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AGT-Nq-yx3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="lgZ-X7-0PR" customClass="IGDeleteAccountTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="j9B-dU-O3n">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1463,13 +1465,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="tZ9-pY-kCg" kind="show" identifier="GoToConfirmDeletePage" id="wRl-hF-8vQ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AGT-Nq-yx3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1110.144927536232" y="-10410.326086956522"/>
         </scene>
         <!--Why didi yoy delete-->
         <scene sceneID="CaC-G6-g7u">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mKT-LC-C6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="DeleteAccountReasonPage" id="t8N-46-w0T" customClass="IGDeleteAccountReasonViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8xn-jQ-vGX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1586,13 +1588,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <outlet property="tickImageView" destination="MiJ-9b-bBs" id="qrf-QL-Gti"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mKT-LC-C6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1668" y="-10410"/>
         </scene>
         <!--Notifications-->
         <scene sceneID="tWd-1n-SXQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uzz-UO-Who" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="NotificationSettingPage" id="wV1-C8-lGm" customClass="IGSettingsNotificationsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZQU-iL-YHS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1941,14 +1943,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <outlet property="switchPrivateChats" destination="i3W-XJ-a0U" id="e3D-cd-s4O"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uzz-UO-Who" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-7742" y="-1148"/>
         </scene>
         <!--Block List-->
         <scene sceneID="PrX-rx-xcn">
             <objects>
-                <exit id="Kb7-D8-C5j" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qfs-xd-fv2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ContactsBlockListPage" id="n3k-5y-AbQ" customClass="IGSettingContactBlockListTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="TWD-6V-Sk2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -1991,13 +1992,14 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="JJ8-7B-58a" kind="show" identifier="GoToChooseContactAddToBlockListPage" id="Lxo-9D-u4o"/>
                     </connections>
                 </tableViewController>
+                <exit id="Kb7-D8-C5j" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qfs-xd-fv2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-849"/>
         </scene>
         <!--Username-->
         <scene sceneID="XNR-nm-tRQ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="E39-C7-kUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="UsernamePage" id="sqJ-uJ-w6J" customClass="IGSettingAccountUsernameTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yUz-bN-7a8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2068,13 +2070,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <outlet property="usernameTextField" destination="1zV-sw-vZg" id="y3J-f5-Hoe"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E39-C7-kUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1113.0434782608697" y="-12346.467391304348"/>
         </scene>
         <!--About-->
         <scene sceneID="jOB-eE-obT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mEF-GZ-9JW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="AboutPage" id="SG7-Xd-yHx" customClass="IGSettingAboutTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Tvx-Xa-vud">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2190,13 +2192,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="0xs-Rr-XRH" kind="show" identifier="GoToWebPage" id="G9D-8C-RpQ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mEF-GZ-9JW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2070" y="4652"/>
         </scene>
         <!--Title-->
         <scene sceneID="VHU-oh-5DZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J8b-Ub-J7s" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="0xs-Rr-XRH" customClass="IGSettingAboutWebViewViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Mg-xN-EQ1"/>
@@ -2224,13 +2226,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <outlet property="igapWebview" destination="GBk-eb-tmJ" id="P2c-Kv-ASj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J8b-Ub-J7s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1110.144927536232" y="4651.630434782609"/>
         </scene>
         <!--Chat Wallpaper-->
         <scene sceneID="vfl-f4-dml">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Chm-oD-83g" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ChatWallpaperPage" id="Gli-ib-fs1" customClass="IGSettingChatWallpaperTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="etq-uR-UNs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2345,13 +2347,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="T6W-mr-8UK" kind="show" identifier="showWallpaperPreview" id="e7m-kJ-iOe"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Chm-oD-83g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9935" y="44"/>
         </scene>
         <!--Wallpaper Library-->
         <scene sceneID="LWy-Q5-kIL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vb6-Pv-tzJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <collectionViewController storyboardIdentifier="SettingChatWallpaperLibraryPage" id="2pF-nl-rg1" customClass="IGSettingChatWallpaperLibraryCollectionViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Q3d-yl-QMN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2397,13 +2399,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="T6W-mr-8UK" kind="show" identifier="showWallpaperPreview" id="Fo6-Eu-Qdg"/>
                     </connections>
                 </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vb6-Pv-tzJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9161" y="-385"/>
         </scene>
         <!--Title-->
         <scene sceneID="IWS-5v-Hdr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TIq-Bc-y6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="T6W-mr-8UK" customClass="IGWallpaperPreview" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E6A-i5-IIb"/>
@@ -2476,13 +2478,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <outlet property="imgWallpaper" destination="haf-uh-VPE" id="DAJ-id-GJV"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TIq-Bc-y6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9161" y="408"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="j3M-Gp-lUX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c0G-mb-H5E" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pzb-P4-7EB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aIu-5G-5O3">
@@ -2495,13 +2497,13 @@ To proceed, confirm that your new number can recieve SMS or calls and tap Next t
                         <segue destination="t8N-46-w0T" kind="relationship" relationship="rootViewController" id="jjF-fb-fFg"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c0G-mb-H5E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="755" y="-10410"/>
         </scene>
         <!--Delete Account-->
         <scene sceneID="AoC-7d-xCN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="37g-ih-svA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="tZ9-pY-kCg" customClass="IGDeleteAccountConfirmationTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2yU-yV-LXm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -2593,13 +2595,13 @@ Please wait 0:59</string>
                         <segue destination="Pzb-P4-7EB" kind="presentation" identifier="GoToDeleteReasenPage" id="NP2-P7-NFj"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="37g-ih-svA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-193" y="-10410"/>
         </scene>
         <!--Privacy&Security-->
         <scene sceneID="etU-GM-Rtq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M28-im-AxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="Privacy&amp;SecurityPage" id="8bp-QU-7Rl" customClass="IGSettingPrivacy_SecurityTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ne7-vp-Ce6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3050,13 +3052,13 @@ Please wait 0:59</string>
                         <segue destination="Qm6-cQ-Z6P" kind="show" identifier="GoToSelfDestructionTimePage" id="aW9-Od-bKL"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M28-im-AxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-7107" y="-1149"/>
         </scene>
         <!--Privacy And Security Who Can See Table View Controller-->
         <scene sceneID="p3f-ow-BSh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zJG-SN-MXw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="WhoCanSeePrivacySettings" id="MJO-BG-mPa" customClass="IGPrivacyAndSecurityWhoCanSeeTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="N8P-Qq-mVw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3143,13 +3145,13 @@ Please wait 0:59</string>
                         <outlet property="lblNone" destination="dun-1t-NOt" id="Bzl-lN-Byd"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zJG-SN-MXw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="877"/>
         </scene>
         <!--Font Size-->
         <scene sceneID="oiF-6Y-9HY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kw5-A5-0Lu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="FontSizeSettingPage" id="9tl-aE-ZZH" customClass="IGSettingChatFontSizeTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rsj-ok-fzQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3287,13 +3289,13 @@ Please wait 0:59</string>
                         <outlet property="mediumFontSizeCell" destination="AQQ-zj-xk9" id="T1J-W0-6Om"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kw5-A5-0Lu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-2627"/>
         </scene>
         <!--Title-->
         <scene sceneID="Fm5-Qg-DPu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pi3-bi-8Xk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGLookAndFind" id="8JF-JT-dWR" customClass="IGLookAndFind" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rjq-D2-lH0"/>
@@ -3417,13 +3419,13 @@ Please wait 0:59</string>
                         <outlet property="tableView" destination="dAN-g6-2av" id="zmP-69-FM1"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pi3-bi-8Xk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2071" y="-3357"/>
         </scene>
         <!--Stickers-->
         <scene sceneID="rRu-uV-ZXV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EhR-7x-NuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="StickerSettingPage" id="YHL-C2-Fjh" customClass="IGSettingChatStickersTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="7tH-kU-Vv4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3496,13 +3498,13 @@ Please wait 0:59</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="Stickers" id="g6n-zD-rIW"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EhR-7x-NuS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-3690"/>
         </scene>
         <!--Cache Settings-->
         <scene sceneID="3YI-8E-Y9j">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wil-IM-lYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SettingChatCatchMediaPage" id="L3D-sg-e2P" customClass="IGSettingChatCatchTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="18" id="I1e-23-Dx5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3595,13 +3597,13 @@ Please wait 0:59</string>
                         <segue destination="Qm6-cQ-Z6P" kind="show" identifier="GoToKeepMediaAfterTimePage" id="o6g-Hn-0qg"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wil-IM-lYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1109" y="-6712"/>
         </scene>
         <!--Title-->
         <scene sceneID="9Yr-Z3-iHj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tf1-Dg-Jb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SettingChatClearCachePage" id="lsw-XY-dQB" customClass="IGSettingChatClearChacheTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rYd-3D-bhx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3875,13 +3877,13 @@ Please wait 0:59</string>
                         <outlet property="txtVoices" destination="Yg0-ax-IGa" id="3bc-xP-rKL"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tf1-Dg-Jb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8384" y="428"/>
         </scene>
         <!--Images-->
         <scene sceneID="UMo-Ob-TKV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="V4a-p1-uF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SettingChatWhenDownloadData" id="mXh-UK-Zh4" customClass="IGSettingChatWhenDownloadDataTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="au8-HW-uS2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -3990,13 +3992,13 @@ Please wait 0:59</string>
                         <outlet property="wiFiCell" destination="OlU-od-m9B" id="X2n-f3-9Ey"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4a-p1-uF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-5592"/>
         </scene>
         <!--Title-->
         <scene sceneID="Z7W-zH-TMr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xFF-G9-kLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="4PP-Um-oWS" customClass="IGSettingAddContactViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nQb-tz-VF6"/>
@@ -4084,13 +4086,13 @@ Please wait 0:59</string>
                         <outlet property="txtCountryCode" destination="bVc-JZ-nLF" id="waS-9y-eGj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFF-G9-kLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1110" y="-1745"/>
         </scene>
         <!--Title-->
         <scene sceneID="C8P-hZ-F33">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p3u-Jl-JOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceBill" id="Wf4-F2-vtp" customClass="IGFinancialServiceBill" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xLN-Zk-O0r"/>
@@ -4183,13 +4185,13 @@ Please wait 0:59</string>
                         <segue destination="rr4-z8-z4B" kind="show" identifier="showFinancialServiceBillQrScanner" id="LW0-Zd-oYm"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p3u-Jl-JOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="74" y="-2032"/>
         </scene>
         <!--Title-->
         <scene sceneID="uTi-or-xUs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="emI-5g-Cqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceCharge" id="88X-eq-4dU" customClass="IGFinancialServiceCharge" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PaT-9s-FLZ"/>
@@ -4310,13 +4312,13 @@ Please wait 0:59</string>
                         <outlet property="txtOperatorTransport" destination="RWZ-ks-WND" id="rbN-eW-ByK"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="emI-5g-Cqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1929" y="-2032"/>
         </scene>
         <!--Title-->
         <scene sceneID="azB-kj-MeV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Z9-GC-2xo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceBillingInquiry" id="1JG-1a-Nfs" customClass="IGFinancialServiceBillingInquiry" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eir-Mh-N1z"/>
@@ -4574,13 +4576,13 @@ Please wait 0:59</string>
                         <outlet property="viewTwo" destination="3s3-SX-H4A" id="Udi-5T-Ly7"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Z9-GC-2xo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2934.7826086956525" y="-2032.3369565217392"/>
         </scene>
         <!--Title-->
         <scene sceneID="3QP-Bp-31k">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1lq-iC-u1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="IGFinancialServiceBillQrScanner" id="rr4-z8-z4B" customClass="IGFinancialServiceBillQrScanner" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Y1-BX-usT"/>
@@ -4596,13 +4598,13 @@ Please wait 0:59</string>
                         <outlet property="mainView" destination="aEc-gJ-7cc" id="9Nt-6S-Zpv"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1lq-iC-u1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1014" y="-2032"/>
         </scene>
         <!--Choose Contact-->
         <scene sceneID="RKK-s5-XqH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KNt-H7-vXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="JJ8-7B-58a" customClass="IGSettingChooseContactToAddToBlockListTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hav-Fc-qkv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -4671,13 +4673,13 @@ Please wait 0:59</string>
                         <outlet property="searchBar" destination="zhY-1X-BST" id="tEs-l7-ShY"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KNt-H7-vXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-194" y="-849"/>
         </scene>
         <!--Passcode Lock-->
         <scene sceneID="qBU-ZF-IaX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JS7-Ic-SxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="PassCodeLockPage" id="g1O-yT-jBQ" customClass="IGSettingPrivacy_SecurityPasscodeLockTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="uR1-Jl-kEc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -4780,14 +4782,13 @@ Please wait 0:59</string>
                         <segue destination="Ret-FZ-Wcd" kind="presentation" identifier="EnterPassCode" id="jPw-Ao-xkL"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JS7-Ic-SxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1112" y="-42"/>
         </scene>
         <!--Setting Privacy Security Enter Passcode Lock View Controller-->
         <scene sceneID="0JV-dq-WGE">
             <objects>
-                <exit id="HKv-Sj-Lu2" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qAV-6F-oIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="DRY-wE-xdr" customClass="IGSettingPrivacy_SecurityEnterPasscodeLockViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fLS-4W-OmK"/>
@@ -4831,6 +4832,8 @@ Please wait 0:59</string>
                         <segue destination="HKv-Sj-Lu2" kind="unwind" identifier="BackToPasscodeTable" unwindAction="goBackToPasscodeTableViewWithSeque:" id="zlF-GD-WiH"/>
                     </connections>
                 </viewController>
+                <exit id="HKv-Sj-Lu2" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qAV-6F-oIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="JEM-cO-wwm">
                     <rect key="frame" x="0.0" y="0.0" width="178" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -4889,7 +4892,6 @@ Please wait 0:59</string>
         <!--Setting Have Checkmark Onthe Left Table View Controller-->
         <scene sceneID="GMv-NF-2LS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="euG-RC-ceH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="CheckmarkOntheLeftTable" id="Qm6-cQ-Z6P" customClass="IGSettingHaveCheckmarkOntheLeftTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="8H8-mc-aK4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -4928,13 +4930,13 @@ Please wait 0:59</string>
                     </tableView>
                     <navigationItem key="navigationItem" id="5zq-db-vdn" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="euG-RC-ceH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-481" y="-7875"/>
         </scene>
         <!--Two-Step Verification-->
         <scene sceneID="biX-8F-mLv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pfY-oF-0Ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="TwoStepVerification" id="9eV-Nt-fL9" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="pHq-qN-k4b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5219,13 +5221,13 @@ Please wait 0:59</string>
                         <outlet property="verifyTextField" destination="10l-hL-QPb" id="1J3-bV-rgG"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pfY-oF-0Ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1109" y="2630"/>
         </scene>
         <!--Title-->
         <scene sceneID="lwA-aF-yb3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c8L-p3-yXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="qoW-8k-MDJ" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="LBq-iZ-1VG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5322,13 +5324,13 @@ Please wait 0:59</string>
                         <segue destination="JSY-jT-wBL" kind="show" identifier="showRecoverByEmail" id="d0D-WQ-6qE"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c8L-p3-yXJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1110.144927536232" y="1711.9565217391305"/>
         </scene>
         <!--Title-->
         <scene sceneID="djX-qg-wbc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vwd-nx-v4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="TNV-dk-IID" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationOptionsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="XzK-R2-sAv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5499,13 +5501,13 @@ kay*****@gm**.com</string>
                         <segue destination="JSY-jT-wBL" kind="show" identifier="showVerifyEmail" id="dSi-gY-esg"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vwd-nx-v4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-193" y="1712"/>
         </scene>
         <!--Title-->
         <scene sceneID="Ro7-hd-Xls">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ePO-uK-mZL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="5kN-n2-RIm" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationChangePasswordTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="PEt-M8-haa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5590,13 +5592,13 @@ kay*****@gm**.com</string>
                         <outlet property="verifyTextField" destination="MHu-5N-7RM" id="Ppq-1R-1yw"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ePO-uK-mZL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="609" y="2630"/>
         </scene>
         <!--Title-->
         <scene sceneID="BeS-C2-OsZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QVA-l3-NQw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="G8e-m5-ssO" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationChangeSecurityQuestionsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="9ZC-vo-QfF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5745,13 +5747,13 @@ kay*****@gm**.com</string>
                         <outlet property="question2TextField" destination="8sD-P7-8no" id="5MH-1i-ngh"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QVA-l3-NQw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="666" y="3521"/>
         </scene>
         <!--Title-->
         <scene sceneID="PEA-c2-GRD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ob-LG-Gu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="aGC-yT-V7s" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationChangeHintTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="OeP-Ey-aGD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5804,13 +5806,13 @@ kay*****@gm**.com</string>
                         <outlet property="txtHint" destination="gwm-3m-03g" id="8Nf-y1-MZL"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Ob-LG-Gu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="638" y="1712"/>
         </scene>
         <!--Title-->
         <scene sceneID="47J-9l-Fs8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5NS-U0-X6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="PJP-v7-7rn" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationChangeEmailTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rsP-P0-Kgt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5863,13 +5865,13 @@ kay*****@gm**.com</string>
                         <outlet property="lbl" destination="PWz-GU-4yw" id="y0Z-XR-YAu"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5NS-U0-X6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="666" y="876"/>
         </scene>
         <!--Active Sessions-->
         <scene sceneID="w0V-bw-xCa">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="weM-4c-1e7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ActiveSessionsPage" id="me2-vx-MVn" customClass="IGSettingPrivacyAndSecurityActiveSessionsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="4zT-8x-Sgu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -5988,13 +5990,13 @@ kay*****@gm**.com</string>
                         <segue destination="aOT-7I-qTY" kind="show" identifier="GoToActiveSessionDetailsPage" id="Pm1-ff-faL"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="weM-4c-1e7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1109" y="3683"/>
         </scene>
         <!--Session Details-->
         <scene sceneID="Yf2-fL-m4O">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Jc-Uw-0Md" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="SessionDetailsPage" id="aOT-7I-qTY" customClass="IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="EgL-QX-Pae">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -6177,13 +6179,13 @@ kay*****@gm**.com</string>
                         <outlet property="selectedSessionImageview" destination="yQ8-us-6IK" id="K12-ej-TXV"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Jc-Uw-0Md" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-193" y="3682"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="alY-0a-Xw0">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2tc-Ga-DFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ret-FZ-Wcd" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="vFT-gZ-wEf" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
@@ -6195,13 +6197,13 @@ kay*****@gm**.com</string>
                         <segue destination="DRY-wE-xdr" kind="relationship" relationship="rootViewController" id="MoL-gX-CBV"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2tc-Ga-DFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-164" y="-42"/>
         </scene>
         <!--Title-->
         <scene sceneID="FjT-kG-Vxw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZCz-dw-PTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="JSY-jT-wBL" customClass="IGSettingPrivacyAndSecurityTwoStepVerificationVerifyUnconfirmedEmail" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="6jZ-7w-9hU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -6273,13 +6275,13 @@ kay*****@gm**.com</string>
                         <outlet property="edtVerifyCode" destination="vOl-km-Xti" id="G7A-AP-iug"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZCz-dw-PTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1477" y="1712"/>
         </scene>
         <!--Username-->
         <scene sceneID="0md-Zg-S19">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1nb-xc-Oe5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="BioPage" id="1Js-K1-ALI" customClass="IGSettingAccountBioTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="4or-kY-Uh6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -6330,13 +6332,13 @@ kay*****@gm**.com</string>
                         <outlet property="txtBioHint" destination="8VE-SM-Ncp" id="Yv4-M7-EtU"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1nb-xc-Oe5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1113.0434782608697" y="-13053.260869565218"/>
         </scene>
         <!--Setting Chnage Language Table View Controller-->
         <scene sceneID="iv4-hP-fn7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JnA-u6-Dno" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="ChnageLangSetting" id="iaS-vF-4lC" customClass="IGSettingChnageLanguageTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Na4-C2-JPG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -6444,24 +6446,24 @@ kay*****@gm**.com</string>
                         <outlet property="lblPersianLang" destination="VrM-1L-aK2" id="5gj-Zh-jPJ"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JnA-u6-Dno" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9680" y="-1149"/>
         </scene>
         <!-- -->
         <scene sceneID="hQk-WB-RGX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kW2-ac-qDS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="K2b-mq-Mem" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="9Wt-oy-hGT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="OvA-po-FMk">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="OvA-po-FMk">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="194"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nik-Ug-mT4" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="137.66666666666666" y="47" width="100" height="100"/>
+                                    <rect key="frame" x="137.66666666666666" y="129" width="100" height="100"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="O53-wx-peA"/>
@@ -6470,13 +6472,13 @@ kay*****@gm**.com</string>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29d-Jn-0mk" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="144.33333333333334" y="155" width="86.333333333333343" height="20.333333333333343"/>
+                                    <rect key="frame" x="144.33333333333334" y="237" width="86.333333333333343" height="20.333333333333314"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3C-9W-a33">
-                                    <rect key="frame" x="213.66666666666666" y="121" width="24" height="26"/>
+                                    <rect key="frame" x="213.66666666666666" y="203" width="24" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="24" id="1OA-OQ-j4e"/>
                                         <constraint firstAttribute="height" constant="26" id="aDH-ID-id4"/>
@@ -7022,507 +7024,13 @@ kay*****@gm**.com</string>
                         <outlet property="versionLabel" destination="4de-MB-usi" id="UJk-LX-bWj"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kW2-ac-qDS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3801" y="-2856"/>
-        </scene>
-        <!-- -->
-        <scene sceneID="Y2i-cz-bkK">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aM2-Af-20I" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="LNm-C1-Amg" customClass="IGSettingTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="wqB-Ew-fjc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="" id="lWb-Hu-M8v">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="3ci-Hq-LvE">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ci-Hq-LvE" id="DbY-vK-mNd">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification &amp; Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyc-RR-cnj" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="158" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="6RS-nl-fLF">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="FCD-d0-38H"/>
-                                                        <constraint firstAttribute="height" constant="32" id="Zpf-LL-Vqw"/>
-                                                        <constraint firstAttribute="width" secondItem="6RS-nl-fLF" secondAttribute="height" multiplier="1:1" id="rfp-kj-Qbf"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="6RS-nl-fLF" firstAttribute="centerY" secondItem="DbY-vK-mNd" secondAttribute="centerY" id="Vdb-b5-sTc"/>
-                                                <constraint firstItem="6RS-nl-fLF" firstAttribute="leading" secondItem="DbY-vK-mNd" secondAttribute="leading" constant="14" id="XBW-gN-VMX"/>
-                                                <constraint firstItem="iyc-RR-cnj" firstAttribute="centerY" secondItem="DbY-vK-mNd" secondAttribute="centerY" id="aRI-Sw-UXT"/>
-                                                <constraint firstItem="iyc-RR-cnj" firstAttribute="leading" secondItem="6RS-nl-fLF" secondAttribute="trailing" constant="14" id="gG7-tl-Vaz"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="ntR-Da-E4U">
-                                        <rect key="frame" x="0.0" y="82" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ntR-Da-E4U" id="pCV-8L-TDe">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy &amp; Security" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpa-mq-Mae" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="140" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="mMs-ap-r6X">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="mMs-ap-r6X" secondAttribute="height" multiplier="1:1" id="3Am-Ad-hwy"/>
-                                                        <constraint firstAttribute="height" constant="32" id="JXv-cP-Qm3"/>
-                                                        <constraint firstAttribute="width" constant="32" id="cTa-6P-ktD"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="mMs-ap-r6X" firstAttribute="centerY" secondItem="pCV-8L-TDe" secondAttribute="centerY" id="9Lu-LG-KxC"/>
-                                                <constraint firstItem="Qpa-mq-Mae" firstAttribute="centerY" secondItem="pCV-8L-TDe" secondAttribute="centerY" id="Cvh-in-oLb"/>
-                                                <constraint firstItem="Qpa-mq-Mae" firstAttribute="leading" secondItem="mMs-ap-r6X" secondAttribute="trailing" constant="14" id="Ddb-1c-POP"/>
-                                                <constraint firstItem="mMs-ap-r6X" firstAttribute="leading" secondItem="pCV-8L-TDe" secondAttribute="leading" constant="14" id="Rfs-yt-1yS"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="sIQ-oW-evI">
-                                        <rect key="frame" x="0.0" y="129" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sIQ-oW-evI" id="O9v-6o-rHS">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data &amp; Storage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucn-To-CXe" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="117" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="XHs-RZ-L4M">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="GdB-Ba-gtq"/>
-                                                        <constraint firstAttribute="height" constant="32" id="ToJ-ng-0uy"/>
-                                                        <constraint firstAttribute="width" secondItem="XHs-RZ-L4M" secondAttribute="height" multiplier="1:1" id="gVz-00-LBK"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="XHs-RZ-L4M" firstAttribute="centerY" secondItem="O9v-6o-rHS" secondAttribute="centerY" id="2MA-3M-uRQ"/>
-                                                <constraint firstItem="XHs-RZ-L4M" firstAttribute="leading" secondItem="O9v-6o-rHS" secondAttribute="leading" constant="14" id="eIN-F0-9aw"/>
-                                                <constraint firstItem="ucn-To-CXe" firstAttribute="leading" secondItem="XHs-RZ-L4M" secondAttribute="trailing" constant="14" id="lg8-nd-xlZ"/>
-                                                <constraint firstItem="ucn-To-CXe" firstAttribute="centerY" secondItem="O9v-6o-rHS" secondAttribute="centerY" id="wAn-gY-Oa4"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="32l-KU-bzs">
-                                        <rect key="frame" x="0.0" y="176" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="32l-KU-bzs" id="9fj-7x-oDb">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jo5-K1-AqX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="104" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="q2Q-r6-Mj2">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="q2Q-r6-Mj2" secondAttribute="height" multiplier="1:1" id="1SZ-I9-Xcy"/>
-                                                        <constraint firstAttribute="width" constant="32" id="Aaa-db-ez0"/>
-                                                        <constraint firstAttribute="height" constant="32" id="kdV-w8-JSX"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="q2Q-r6-Mj2" firstAttribute="leading" secondItem="9fj-7x-oDb" secondAttribute="leading" constant="14" id="Fp6-VG-62l"/>
-                                                <constraint firstItem="Jo5-K1-AqX" firstAttribute="centerY" secondItem="9fj-7x-oDb" secondAttribute="centerY" id="LgD-Zh-qeJ"/>
-                                                <constraint firstItem="q2Q-r6-Mj2" firstAttribute="centerY" secondItem="9fj-7x-oDb" secondAttribute="centerY" id="QUC-C1-2va"/>
-                                                <constraint firstItem="Jo5-K1-AqX" firstAttribute="leading" secondItem="q2Q-r6-Mj2" secondAttribute="trailing" constant="14" id="QgN-f6-Hr4"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="" id="2Vz-v7-xg8">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="sMx-FU-gys">
-                                        <rect key="frame" x="0.0" y="259" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sMx-FU-gys" id="18f-gO-svr">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Aj-2C-lSv" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="140" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="pCi-pD-msN">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="8w6-SL-kJv"/>
-                                                        <constraint firstAttribute="width" constant="32" id="AaC-9x-bBv"/>
-                                                        <constraint firstAttribute="width" secondItem="pCi-pD-msN" secondAttribute="height" multiplier="1:1" id="xVC-HB-QFg"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="3Aj-2C-lSv" firstAttribute="leading" secondItem="pCi-pD-msN" secondAttribute="trailing" constant="14" id="KLr-lf-RSE"/>
-                                                <constraint firstItem="pCi-pD-msN" firstAttribute="leading" secondItem="18f-gO-svr" secondAttribute="leading" constant="14" id="VVg-Qu-uUx"/>
-                                                <constraint firstItem="3Aj-2C-lSv" firstAttribute="centerY" secondItem="18f-gO-svr" secondAttribute="centerY" id="vGN-iA-gHi"/>
-                                                <constraint firstItem="pCi-pD-msN" firstAttribute="centerY" secondItem="18f-gO-svr" secondAttribute="centerY" id="vre-jT-zah"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="nwA-Ox-r6r">
-                                        <rect key="frame" x="0.0" y="306" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nwA-Ox-r6r" id="49a-pE-gf6">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDs-TZ-wsh" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="61" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="s58-Ws-gR1">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="9RV-RN-3YK"/>
-                                                        <constraint firstAttribute="width" secondItem="s58-Ws-gR1" secondAttribute="height" multiplier="1:1" id="Eyj-rC-3um"/>
-                                                        <constraint firstAttribute="height" constant="32" id="fF5-hw-4Pg"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="s58-Ws-gR1" firstAttribute="leading" secondItem="49a-pE-gf6" secondAttribute="leading" constant="14" id="9hG-QM-6Ph"/>
-                                                <constraint firstItem="s58-Ws-gR1" firstAttribute="centerY" secondItem="49a-pE-gf6" secondAttribute="centerY" id="MIW-YS-c7W"/>
-                                                <constraint firstItem="VDs-TZ-wsh" firstAttribute="centerY" secondItem="49a-pE-gf6" secondAttribute="centerY" id="gdI-At-ZhR"/>
-                                                <constraint firstItem="VDs-TZ-wsh" firstAttribute="leading" secondItem="s58-Ws-gR1" secondAttribute="trailing" constant="14" id="hP7-fW-468"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="LNm-C1-Amg" id="Yey-eY-ukM"/>
-                            <outlet property="delegate" destination="LNm-C1-Amg" id="sAR-DR-tuy"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title=" " id="Qrb-zL-tqt" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
-                        <barButtonItem key="rightBarButtonItem" id="t6L-d0-8Zr">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="900"/>
-                    <connections>
-                        <outlet property="lblChangeLang" destination="3Aj-2C-lSv" id="oNc-uZ-lZx"/>
-                        <outlet property="lblChatSettings" destination="Jo5-K1-AqX" id="UYI-R1-DAf"/>
-                        <outlet property="lblDataStorage" destination="ucn-To-CXe" id="BRU-J5-GjJ"/>
-                        <outlet property="lblLogOut" destination="VDs-TZ-wsh" id="hQv-UF-WDY"/>
-                        <outlet property="lblNotificationSounds" destination="iyc-RR-cnj" id="UoW-de-zT4"/>
-                        <outlet property="lblPrivacyPolicy" destination="Qpa-mq-Mae" id="xsd-XG-th5"/>
-                    </connections>
-                </tableViewController>
-            </objects>
-            <point key="canvasLocation" x="-7189" y="-1974"/>
-        </scene>
-        <!-- -->
-        <scene sceneID="gu1-Te-yBW">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="52J-D0-rOT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="l5w-OF-5rn" customClass="IGSettingTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="uVW-I7-k1d">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="" id="8zO-rg-Q0A">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="2Vd-hH-SOF">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Vd-hH-SOF" id="4wD-b9-GIW">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification &amp; Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5UF-aB-jRo" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="158" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="mSQ-yi-cqu">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="YT0-YU-aS8"/>
-                                                        <constraint firstAttribute="width" secondItem="mSQ-yi-cqu" secondAttribute="height" multiplier="1:1" id="fGJ-Yq-HLo"/>
-                                                        <constraint firstAttribute="height" constant="32" id="kEp-wC-am6"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="5UF-aB-jRo" firstAttribute="centerY" secondItem="4wD-b9-GIW" secondAttribute="centerY" id="6sG-qt-eev"/>
-                                                <constraint firstItem="5UF-aB-jRo" firstAttribute="leading" secondItem="mSQ-yi-cqu" secondAttribute="trailing" constant="14" id="DOi-kl-0au"/>
-                                                <constraint firstItem="mSQ-yi-cqu" firstAttribute="centerY" secondItem="4wD-b9-GIW" secondAttribute="centerY" id="hl4-ao-Jzu"/>
-                                                <constraint firstItem="mSQ-yi-cqu" firstAttribute="leading" secondItem="4wD-b9-GIW" secondAttribute="leading" constant="14" id="twx-iA-ApI"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="P3B-JM-ZbG">
-                                        <rect key="frame" x="0.0" y="82" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P3B-JM-ZbG" id="Idx-G0-Vpc">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy &amp; Security" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lf1-LE-e5j" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="140" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="UEf-rF-NMV">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="A2i-bg-6SH"/>
-                                                        <constraint firstAttribute="width" secondItem="UEf-rF-NMV" secondAttribute="height" multiplier="1:1" id="S4m-pf-6PI"/>
-                                                        <constraint firstAttribute="height" constant="32" id="bt9-g5-kcV"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="UEf-rF-NMV" firstAttribute="centerY" secondItem="Idx-G0-Vpc" secondAttribute="centerY" id="cWc-wt-s1m"/>
-                                                <constraint firstItem="UEf-rF-NMV" firstAttribute="leading" secondItem="Idx-G0-Vpc" secondAttribute="leading" constant="14" id="hII-5B-ZmX"/>
-                                                <constraint firstItem="lf1-LE-e5j" firstAttribute="leading" secondItem="UEf-rF-NMV" secondAttribute="trailing" constant="14" id="k0d-SR-h69"/>
-                                                <constraint firstItem="lf1-LE-e5j" firstAttribute="centerY" secondItem="Idx-G0-Vpc" secondAttribute="centerY" id="sW4-Zn-m0A"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="Ska-Ak-S9W">
-                                        <rect key="frame" x="0.0" y="129" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ska-Ak-S9W" id="e2o-S4-EDk">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data &amp; Storage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUz-To-7MY" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="117" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="6wn-jO-rSP">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="9vD-NI-AtT"/>
-                                                        <constraint firstAttribute="height" constant="32" id="K6Q-ax-9iu"/>
-                                                        <constraint firstAttribute="width" secondItem="6wn-jO-rSP" secondAttribute="height" multiplier="1:1" id="d1j-iP-JkW"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="6wn-jO-rSP" firstAttribute="leading" secondItem="e2o-S4-EDk" secondAttribute="leading" constant="14" id="53i-3k-Ro7"/>
-                                                <constraint firstItem="YUz-To-7MY" firstAttribute="centerY" secondItem="e2o-S4-EDk" secondAttribute="centerY" id="5vR-w4-Dgt"/>
-                                                <constraint firstItem="YUz-To-7MY" firstAttribute="leading" secondItem="6wn-jO-rSP" secondAttribute="trailing" constant="14" id="G9F-Iv-5cl"/>
-                                                <constraint firstItem="6wn-jO-rSP" firstAttribute="centerY" secondItem="e2o-S4-EDk" secondAttribute="centerY" id="dCB-QM-jcH"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="UlW-sO-TuE">
-                                        <rect key="frame" x="0.0" y="176" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UlW-sO-TuE" id="xPn-fb-Tsn">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyH-F3-XTP" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="104" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="j6a-Jc-iy0">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="bAR-GK-QcV"/>
-                                                        <constraint firstAttribute="width" constant="32" id="j5J-D4-go8"/>
-                                                        <constraint firstAttribute="width" secondItem="j6a-Jc-iy0" secondAttribute="height" multiplier="1:1" id="u35-qN-m8z"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="vyH-F3-XTP" firstAttribute="leading" secondItem="j6a-Jc-iy0" secondAttribute="trailing" constant="14" id="DYI-VA-W2F"/>
-                                                <constraint firstItem="vyH-F3-XTP" firstAttribute="centerY" secondItem="xPn-fb-Tsn" secondAttribute="centerY" id="QwN-wi-F3J"/>
-                                                <constraint firstItem="j6a-Jc-iy0" firstAttribute="leading" secondItem="xPn-fb-Tsn" secondAttribute="leading" constant="14" id="fdg-rn-9Bq"/>
-                                                <constraint firstItem="j6a-Jc-iy0" firstAttribute="centerY" secondItem="xPn-fb-Tsn" secondAttribute="centerY" id="ice-Dv-sIB"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="" id="DO7-Ii-JbM">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="R9v-7n-AeE">
-                                        <rect key="frame" x="0.0" y="259" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R9v-7n-AeE" id="Mjc-bW-OUr">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NeG-8P-Mqs" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="140" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="x5W-Xz-Mi7">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="x5W-Xz-Mi7" secondAttribute="height" multiplier="1:1" id="E4B-I5-sLt"/>
-                                                        <constraint firstAttribute="width" constant="32" id="aZz-66-WA6"/>
-                                                        <constraint firstAttribute="height" constant="32" id="upQ-eG-SGL"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="x5W-Xz-Mi7" firstAttribute="leading" secondItem="Mjc-bW-OUr" secondAttribute="leading" constant="14" id="8WT-69-vzy"/>
-                                                <constraint firstItem="NeG-8P-Mqs" firstAttribute="centerY" secondItem="Mjc-bW-OUr" secondAttribute="centerY" id="BNh-GT-EJG"/>
-                                                <constraint firstItem="x5W-Xz-Mi7" firstAttribute="centerY" secondItem="Mjc-bW-OUr" secondAttribute="centerY" id="ark-wY-nld"/>
-                                                <constraint firstItem="NeG-8P-Mqs" firstAttribute="leading" secondItem="x5W-Xz-Mi7" secondAttribute="trailing" constant="14" id="u6V-j9-G4T"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="47" id="1bh-c4-47n">
-                                        <rect key="frame" x="0.0" y="306" width="375" height="47"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1bh-c4-47n" id="IlR-3M-Bjd">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="46.666666666666664"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdE-8q-mb1" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="60" y="13" width="61" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="7IQ-kC-duH">
-                                                    <rect key="frame" x="14" y="7.3333333333333321" width="32" height="31.999999999999996"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="7IQ-kC-duH" secondAttribute="height" multiplier="1:1" id="JFt-6g-96e"/>
-                                                        <constraint firstAttribute="height" constant="32" id="ecc-mI-JlT"/>
-                                                        <constraint firstAttribute="width" constant="32" id="jRE-eQ-UpJ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="kdE-8q-mb1" firstAttribute="leading" secondItem="7IQ-kC-duH" secondAttribute="trailing" constant="14" id="1xq-uh-Umd"/>
-                                                <constraint firstItem="7IQ-kC-duH" firstAttribute="centerY" secondItem="IlR-3M-Bjd" secondAttribute="centerY" id="Dbb-iV-kbo"/>
-                                                <constraint firstItem="7IQ-kC-duH" firstAttribute="leading" secondItem="IlR-3M-Bjd" secondAttribute="leading" constant="14" id="iR7-GL-7Ba"/>
-                                                <constraint firstItem="kdE-8q-mb1" firstAttribute="centerY" secondItem="IlR-3M-Bjd" secondAttribute="centerY" id="jZa-hx-8rc"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="l5w-OF-5rn" id="n9W-BP-iQq"/>
-                            <outlet property="delegate" destination="l5w-OF-5rn" id="rk0-TP-zjQ"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title=" " id="lFe-d6-Qf9" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
-                        <barButtonItem key="rightBarButtonItem" id="oO4-HX-fiS">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="900"/>
-                    <connections>
-                        <outlet property="lblChangeLang" destination="NeG-8P-Mqs" id="VR5-cn-J2z"/>
-                        <outlet property="lblChatSettings" destination="vyH-F3-XTP" id="3xp-kp-YBs"/>
-                        <outlet property="lblDataStorage" destination="YUz-To-7MY" id="bgH-hQ-zra"/>
-                        <outlet property="lblLogOut" destination="kdE-8q-mb1" id="TRz-q6-gc9"/>
-                        <outlet property="lblNotificationSounds" destination="5UF-aB-jRo" id="ngR-bG-LYG"/>
-                        <outlet property="lblPrivacyPolicy" destination="lf1-LE-e5j" id="ovm-xv-LTy"/>
-                    </connections>
-                </tableViewController>
-            </objects>
-            <point key="canvasLocation" x="-7189" y="-1974"/>
         </scene>
         <!--Account-->
         <scene sceneID="SSx-eR-eQb">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sK5-93-B9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="B2g-D2-9mB" customClass="IGSettingsDataAndStorageUsageTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="BYx-BX-NVY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -7599,13 +7107,13 @@ kay*****@gm**.com</string>
                         <segue destination="lsw-XY-dQB" kind="show" identifier="showCacheSetting" id="KjF-Gz-Tx9"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sK5-93-B9F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-8384" y="-384"/>
         </scene>
         <!--Notifications-->
         <scene sceneID="haj-xc-ayM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NJ1-SM-w4j" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="mWX-TF-pjE" customClass="IGSettingsAppearanceTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="0Rv-rG-HAX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -7849,6 +7357,7 @@ kay*****@gm**.com</string>
                         <segue destination="Gli-ib-fs1" kind="show" identifier="showWallpaperOptionPage" id="gBn-cR-odp"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NJ1-SM-w4j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9033.3333333333339" y="-1149.4565217391305"/>
         </scene>
@@ -20899,10 +20408,10 @@ Afg
     <inferredMetricsTieBreakers>
         <segue reference="dSi-gY-esg"/>
         <segue reference="xVq-sY-eU1"/>
-        <segue reference="nab-MW-bto"/>
-        <segue reference="o6g-Hn-0qg"/>
+        <segue reference="kTR-Le-LDZ"/>
+        <segue reference="aW9-Od-bKL"/>
         <segue reference="e7m-kJ-iOe"/>
         <segue reference="gBn-cR-odp"/>
-        <segue reference="cgv-mr-LNt"/>
+        <segue reference="Xgh-zk-lrg"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1268,9 +1268,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgh-FS-H7F">
-                                                                <rect key="frame" x="0.0" y="1.6666666666666288" width="30" height="35"/>
-                                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="19"/>
-                                                                <state key="normal" title="">
+                                                                <rect key="frame" x="0.0" y="3.6666666666666288" width="30" height="31"/>
+                                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="19"/>
+                                                                <state key="normal" title="">
                                                                     <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
@@ -1318,13 +1318,13 @@
                                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-Dt-CKY">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-Dt-CKY">
                                                 <rect key="frame" x="303" y="97.666666666666629" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="4tD-M0-oUJ"/>
                                                     <constraint firstAttribute="height" constant="25" id="eFZ-Ix-aLS"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -3074,7 +3074,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="WN9-pc-EA2">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="WN9-pc-EA2">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3234,7 +3234,7 @@
         <image name="igap_share_icon-1" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k9M-cr-cw2"/>
+        <segue reference="jRj-hY-oEr"/>
         <segue reference="R4P-x7-LEg"/>
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>

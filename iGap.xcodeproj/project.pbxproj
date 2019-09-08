@@ -27,6 +27,14 @@
 		8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */; };
 		8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */; };
 		8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */; };
+		8E599D6D232515BC00D75376 /* IGDashboardViewControllerInner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D6C232515BC00D75376 /* IGDashboardViewControllerInner.swift */; };
+		8E599D6F2325316100D75376 /* IGSettingsNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D6E2325316100D75376 /* IGSettingsNotificationsTableViewController.swift */; };
+		8E599D722325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D702325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift */; };
+		8E599D732325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D712325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift */; };
+		8E599D752325323D00D75376 /* IGSettingsAppearanceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D742325323D00D75376 /* IGSettingsAppearanceTableViewController.swift */; };
+		8E599D7A2325331C00D75376 /* TGPDiscreteSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D772325331B00D75376 /* TGPDiscreteSlider.swift */; };
+		8E599D7B2325331C00D75376 /* TGPControlsTicksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D782325331B00D75376 /* TGPControlsTicksProtocol.swift */; };
+		8E599D7C2325331C00D75376 /* TGPCamelLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D792325331C00D75376 /* TGPCamelLabels.swift */; };
 		8E5FBC09231534BA0069D4F2 /* IGCountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */; };
 		8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */; };
 		8E5FBC9D231BD6AB0069D4F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
@@ -737,6 +745,15 @@
 		8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMTwoInputView.xib; sourceTree = "<group>"; };
 		8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTwoInputView.swift; sourceTree = "<group>"; };
 		8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCardNumberTextField.swift; sourceTree = "<group>"; };
+		8E599D6C232515BC00D75376 /* IGDashboardViewControllerInner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDashboardViewControllerInner.swift; sourceTree = "<group>"; };
+		8E599D6E2325316100D75376 /* IGSettingsNotificationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsNotificationsTableViewController.swift; sourceTree = "<group>"; };
+		8E599D702325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsDataAndStorageUsageTableViewController.swift; sourceTree = "<group>"; };
+		8E599D712325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsDataAndStorageTableViewController.swift; sourceTree = "<group>"; };
+		8E599D742325323D00D75376 /* IGSettingsAppearanceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGSettingsAppearanceTableViewController.swift; sourceTree = "<group>"; };
+		8E599D762325331B00D75376 /* TGPControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGPControls.h; sourceTree = "<group>"; };
+		8E599D772325331B00D75376 /* TGPDiscreteSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGPDiscreteSlider.swift; sourceTree = "<group>"; };
+		8E599D782325331B00D75376 /* TGPControlsTicksProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGPControlsTicksProtocol.swift; sourceTree = "<group>"; };
+		8E599D792325331C00D75376 /* TGPCamelLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGPCamelLabels.swift; sourceTree = "<group>"; };
 		8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCountDownTimer.swift; sourceTree = "<group>"; };
 		8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisttrationStepSecurityQuestions.swift; sourceTree = "<group>"; };
 		8E5FBC9B231BD6A40069D4F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -1525,6 +1542,25 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
+		8E599D6B23250F1900D75376 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				94E74DC72323A4F9001AB47C /* iGap_fontico.ttf */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		8E599D7D2325332300D75376 /* TGPSlider */ = {
+			isa = PBXGroup;
+			children = (
+				8E599D792325331C00D75376 /* TGPCamelLabels.swift */,
+				8E599D762325331B00D75376 /* TGPControls.h */,
+				8E599D782325331B00D75376 /* TGPControlsTicksProtocol.swift */,
+				8E599D772325331B00D75376 /* TGPDiscreteSlider.swift */,
+			);
+			path = TGPSlider;
+			sourceTree = "<group>";
+		};
 		8E8D8E22225DB4B000039191 /* WithDraw */ = {
 			isa = PBXGroup;
 			children = (
@@ -1872,6 +1908,10 @@
 		FA0953081E1B88660043ED3F /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				8E599D742325323D00D75376 /* IGSettingsAppearanceTableViewController.swift */,
+				8E599D712325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift */,
+				8E599D702325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift */,
+				8E599D6E2325316100D75376 /* IGSettingsNotificationsTableViewController.swift */,
 				FAA9DFAE1F4B1B330076A22F /* TwoStep Verification */,
 				FA09530E1E1B97700043ED3F /* IGAccountViewController.swift */,
 				FA09530F1E1B97700043ED3F /* IGActiveSessionObject.swift */,
@@ -2257,7 +2297,6 @@
 				8E8D8E18225CE39A00039191 /* strings.json */,
 				8EACC7B322621ACA00F32DC3 /* localizations.json */,
 				8EBF550E22DB581300834E6A /* localizationsFa.json */,
-				8EBF551022DB582700834E6A /* localizationsEn.json */,
 				8E7EE0C822E354D500133485 /* MessageViewlocalizationsFa.json */,
 				8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */,
 				8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */,
@@ -2266,9 +2305,8 @@
 				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */,
 				8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */,
-                8E7FE7B922E74EC400E67914 /* Localizable.strings */,
-                94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */,
-                94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */,
+				94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */,
+				94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */,
 			);
 			path = Language;
 			sourceTree = "<group>";
@@ -2502,6 +2540,7 @@
 				FA8A49E1226AEB6F00544B06 /* Score */,
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
+				8E599D6C232515BC00D75376 /* IGDashboardViewControllerInner.swift */,
 				8EBF551F22DCA8EF00834E6A /* IGFavouriteChannelsDashboardTableViewController.swift */,
 				8ED97D7522E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift */,
 				FA6C2DE82267413A005654AC /* IGScoreViewController.swift */,
@@ -2629,6 +2668,7 @@
 		FAD5807E1DDC402600A242DE /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8E599D7D2325332300D75376 /* TGPSlider */,
 				8EA8F3F0231F9E4F0099C4EF /* UICircular */,
 				8EA8F3E0231F9E230099C4EF /* CircularProgressBar */,
 				FA6F311122B8BC2400DB942E /* GoogleAnalytics */,
@@ -2798,6 +2838,7 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
+				8E599D6B23250F1900D75376 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3328,11 +3369,13 @@
 				FA5B41A522EDD67D001203D0 /* IGHelperMessageStatus.swift in Sources */,
 				FA1DE8FC220ADD8300C465E5 /* StickerObserver.swift in Sources */,
 				FA73EC9521ECDDA50059EE8A /* IGHelperBot.swift in Sources */,
+				8E599D6F2325316100D75376 /* IGSettingsNotificationsTableViewController.swift in Sources */,
 				93A3D3CE1E4087B000D2686F /* IGNewChannelBottomViewCollectionCell.swift in Sources */,
 				FAC1330522C098D000817044 /* IGStructMessageOption.swift in Sources */,
 				FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */,
 				8EA8F3EF231F9E450099C4EF /* UICircularTimerRing.swift in Sources */,
 				8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */,
+				8E599D722325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift in Sources */,
 				FA09535A1E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift in Sources */,
 				FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */,
 				93AA67BA1E4F03290053380C /* IGChannelInfoTableViewController.swift in Sources */,
@@ -3481,6 +3524,7 @@
 				FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */,
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
 				8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */,
+				8E599D732325322000D75376 /* IGSettingsDataAndStorageTableViewController.swift in Sources */,
 				FAE6062921EB39DB00F03FFC /* SwiftModalWebVC.swift in Sources */,
 				93AA67C01E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift in Sources */,
 				FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */,
@@ -3602,6 +3646,7 @@
 				FA63BAA51DD70DD0000B60AD /* IGRequest.swift in Sources */,
 				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,
+				8E599D6D232515BC00D75376 /* IGDashboardViewControllerInner.swift in Sources */,
 				93A3D3CA1E407E5200D2686F /* IGChooseMemberFromContactToCreateChannelViewController.swift in Sources */,
 				8EE7FC95225DDEB800B6C2C3 /* SMConfirmAlertViewController.swift in Sources */,
 				FA63BAAF1DD70F21000B60AD /* IGRequestChannel.swift in Sources */,
@@ -3658,6 +3703,7 @@
 				FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */,
 				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
+				8E599D752325323D00D75376 /* IGSettingsAppearanceTableViewController.swift in Sources */,
 				FA63BAA91DD70E77000B60AD /* IGRequestInfo.swift in Sources */,
 				8ECCA1F322B8F6DF00D3A734 /* ForwardCell.swift in Sources */,
 				8EC217CA2259F59900105B5A /* SMMerchant.swift in Sources */,
@@ -3729,6 +3775,7 @@
 				FA930D9B1E5B178F00069EE1 /* WebSocket.swift in Sources */,
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
 				FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */,
+				8E599D7B2325331C00D75376 /* TGPControlsTicksProtocol.swift in Sources */,
 				FA930D9A1E5B178F00069EE1 /* SSLSecurity.swift in Sources */,
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,
@@ -3761,6 +3808,7 @@
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
 				FA76598822902ACE006322A3 /* UIVIew+INSPhotoViewer.swift in Sources */,
 				8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */,
+				8E599D7A2325331C00D75376 /* TGPDiscreteSlider.swift in Sources */,
 				93193F3C1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift in Sources */,
 				FA09538B1E1B97E20043ED3F /* IGNewChannelChoosePublicOrPrivateTableViewController.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
@@ -3770,6 +3818,7 @@
 				FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */,
 				FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */,
 				8EFD2EBE228BC9140069B433 /* IGMNavigationController.swift in Sources */,
+				8E599D7C2325331C00D75376 /* TGPCamelLabels.swift in Sources */,
 				8E96A326225C9182007D8A77 /* SMGradientButton.swift in Sources */,
 				FA09536D1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionsTableViewController.swift in Sources */,
 				8EEE895A22A3CF360072383C /* DropdownItem.swift in Sources */,
