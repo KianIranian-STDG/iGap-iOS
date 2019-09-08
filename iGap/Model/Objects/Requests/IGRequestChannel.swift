@@ -664,9 +664,9 @@ class IGChannelUpdateSignatureRequest : IGRequest {
 class IGChannelGetMessagesStatsRequest: IGRequest {
     
     class func sendRequest(roomId: Int64 , messageIdList: [Int64]){
-        IGChannelGetMessagesStatsRequest.Generator.generate(roomId: roomId, messageIdList: messageIdList).success({ (protoResponse) in
-            if let response = protoResponse as? IGPChannelGetMessagesStatsResponse {
-                IGRealmChannelExtra.updateStatus(igpChannelMessageStats: response.igpStats)
+        IGChannelGetMessagesStatsRequest.Generator.generate(roomId: roomId, messageIdList: messageIdList).successPowerful({ (protoResponse, requestWrapper) in
+            if let response = protoResponse as? IGPChannelGetMessagesStatsResponse, let roomId = requestWrapper.identity as? Int64 {
+                IGRealmChannelExtra.updateStatus(roomId: roomId, igpChannelMessageStats: response.igpStats)
             }
         }).error ({ (errorCode, waitTime) in
             switch errorCode {
@@ -683,7 +683,7 @@ class IGChannelGetMessagesStatsRequest: IGRequest {
             var request = IGPChannelGetMessagesStats()
             request.igpRoomID = roomId
             request.igpMessageID = messageIdList
-            return IGRequestWrapper(message: request, actionID: 423)
+            return IGRequestWrapper(message: request, actionID: 423, identity: roomId)
         }
     }
     class Handler: IGRequest.Handler {
