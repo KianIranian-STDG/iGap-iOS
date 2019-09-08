@@ -75,24 +75,20 @@ class IGRealmChannelExtra: Object {
         }
     }
     
-    internal static func updateStatus(igpChannelMessageStats: [IGPChannelGetMessagesStatsResponse.IGPStats]){
-        DispatchQueue.main.async {
-            IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                try! IGDatabaseManager.shared.realm.write {
-                    for state in igpChannelMessageStats {
-                        let predicate = NSPredicate(format: "messageId == %lld", state.igpMessageID)
-                        if let channelExtra = IGDatabaseManager.shared.realm.objects(IGRealmChannelExtra.self).filter(predicate).first {
-                            channelExtra.viewsLabel = state.igpViewsLabel
-                            channelExtra.thumbsUpLabel = state.igpThumbsUpLabel
-                            channelExtra.thumbsDownLabel = state.igpThumbsDownLabel
-                        }
+    internal static func updateStatus(roomId: Int64, igpChannelMessageStats: [IGPChannelGetMessagesStatsResponse.IGPStats]){
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            try! IGDatabaseManager.shared.realm.write {
+                for state in igpChannelMessageStats {
+                    let predicate = NSPredicate(format: "messageId == %lld", state.igpMessageID)
+                    if let channelExtra = IGDatabaseManager.shared.realm.objects(IGRealmChannelExtra.self).filter(predicate).first {
+                        channelExtra.viewsLabel = state.igpViewsLabel
+                        channelExtra.thumbsUpLabel = state.igpThumbsUpLabel
+                        channelExtra.thumbsDownLabel = state.igpThumbsDownLabel
                     }
                 }
-                
-                for state in igpChannelMessageStats {
-                    IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdateStatus(messageId: state.igpMessageID)
-                }
             }
+
+            IGMessageViewController.messageOnChatReceiveObserver?.onChannelGetMessageState(roomId: roomId)
         }
     }
 }

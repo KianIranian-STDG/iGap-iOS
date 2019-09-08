@@ -5639,6 +5639,14 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         }
     }
     
+    func onChannelGetMessageState(roomId: Int64){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if self.room!.id == roomId {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     func onLocalMessageUpdateStatus(localMessage: IGRoomMessage) {
         if self.room == nil || self.room!.isInvalidated || localMessage.isInvalidated {
             return
