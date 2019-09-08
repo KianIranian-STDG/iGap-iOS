@@ -13,7 +13,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
 
-class IGRegistrationStepQrViewController: BaseViewController, UIGestureRecognizerDelegate {
+class IGRegistrationStepQrViewController: BaseViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var lblHEader : UILabel!

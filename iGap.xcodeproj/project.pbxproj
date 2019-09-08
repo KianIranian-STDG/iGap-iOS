@@ -231,6 +231,9 @@
 		940F9E74231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */; };
 		940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */; };
 		940F9E7A231BC17400C26D50 /* IGStructFavouriteChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */; };
+		943495BC231FB217009854FE /* IGFinancialHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943495BB231FB217009854FE /* IGFinancialHistoryViewController.swift */; };
+		943495BF231FBADC009854FE /* IGTransactionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943495BD231FBADC009854FE /* IGTransactionsTVCell.swift */; };
+		943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */; };
 		949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E835D231EA6A500B6799E /* slideImageCVCell.swift */; };
 		949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949E835E231EA6A500B6799E /* slideImageCVCell.xib */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
@@ -947,6 +950,9 @@
 		940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGFavouriteChannelCVCell.xib; sourceTree = "<group>"; };
 		940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiFavouriteChannels.swift; sourceTree = "<group>"; };
 		940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructFavouriteChannels.swift; sourceTree = "<group>"; };
+		943495BB231FB217009854FE /* IGFinancialHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryViewController.swift; sourceTree = "<group>"; };
+		943495BD231FBADC009854FE /* IGTransactionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTransactionsTVCell.swift; sourceTree = "<group>"; };
+		943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGTransactionsTVCell.xib; sourceTree = "<group>"; };
 		949E835D231EA6A500B6799E /* slideImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideImageCVCell.swift; sourceTree = "<group>"; };
 		949E835E231EA6A500B6799E /* slideImageCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = slideImageCVCell.xib; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
@@ -1800,6 +1806,16 @@
 			path = "Channel and Group Info";
 			sourceTree = "<group>";
 		};
+		943495BA231FB1DC009854FE /* Financial History */ = {
+			isa = PBXGroup;
+			children = (
+				943495BB231FB217009854FE /* IGFinancialHistoryViewController.swift */,
+				943495BD231FBADC009854FE /* IGTransactionsTVCell.swift */,
+				943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */,
+			);
+			path = "Financial History";
+			sourceTree = "<group>";
+		};
 		FA03C19A20429437008812E3 /* Call */ = {
 			isa = PBXGroup;
 			children = (
@@ -2464,6 +2480,7 @@
 		FA99FF5B22351C63009035DF /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				943495BA231FB1DC009854FE /* Financial History */,
 				FA8A49E1226AEB6F00544B06 /* Score */,
 				FA99FF5A22351A50009035DF /* Dashboard Cells */,
 				FA99FF5C22351CA9009035DF /* IGDashboardViewController.swift */,
@@ -3080,6 +3097,7 @@
 				FA80F5A0204ABC5900F0EE74 /* tone.mp3 in Resources */,
 				FA5656B9204AB18F00DB46F0 /* igap_noresponse.mp3 in Resources */,
 				8ECCA1E422B6585700D3A734 /* SMMoneyTransactionOptions.xib in Resources */,
+				943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */,
 				8ECCA1F422B8F6DF00D3A734 /* multiForwardShareUsers.xib in Resources */,
 				8ED97D7822E2F7B300A0EB1F /* ServerDataInner.json in Resources */,
 				937455F91E63021E007694CE /* IGForwardMessageAudioAndVoiceAttachment.xib in Resources */,
@@ -3588,6 +3606,7 @@
 				FAEA75DB1DDB012800C387F1 /* IGRoomMessageLog.swift in Sources */,
 				FAA30F671DAA6F790061B8C9 /* IGWebSocketManager.swift in Sources */,
 				8EC4C91C22F80B5F00108336 /* IGTextCell.swift in Sources */,
+				943495BF231FBADC009854FE /* IGTransactionsTVCell.swift in Sources */,
 				FA76598122902ACE006322A3 /* INSScalingImageView.swift in Sources */,
 				FA93EE2C2029DB1300DD1521 /* AudioCell.swift in Sources */,
 				FAA932F51DF45748002CC631 /* IGEnums.swift in Sources */,
@@ -3603,6 +3622,7 @@
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
 				8EA8F3ED231F9E450099C4EF /* UICircularRing.swift in Sources */,
 				FA0953561E1B97700043ED3F /* IGSettingChatTableViewController.swift in Sources */,
+				943495BC231FB217009854FE /* IGFinancialHistoryViewController.swift in Sources */,
 				FAD5808F1DDC5C1900A242DE /* IGMessageGeneralCollectionViewCell.swift in Sources */,
 				FAE07EFE220599F500BE3593 /* IGStickerViewController.swift in Sources */,
 				FA9EE5B9221EC05500BA7735 /* IGRoomMessageWallet.swift in Sources */,

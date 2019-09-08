@@ -104,7 +104,7 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         }
     }
     
-    func initNavigationBar(title: String){
+    func initNavigationBar(title: String) {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
         navigationItem.navigationController = self.navigationController as? IGNavigationController

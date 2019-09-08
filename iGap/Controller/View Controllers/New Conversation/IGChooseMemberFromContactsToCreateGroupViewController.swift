@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController , UIGestureRecognizerDelegate {
+class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController {
     
     @IBOutlet weak var selectedContactsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!

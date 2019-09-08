@@ -10,16 +10,38 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    var isAppEnglish: Bool {
+        get {
+            return SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        }
+    }
+    
+    var transfotm: CGAffineTransform {
+        get {
+            return isAppEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        }
+    }
+    
+    var semantic: UISemanticContentAttribute {
+        get {
+            return isAppEnglish ? .forceLeftToRight : .forceRightToLeft
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.hideKeyboardWhenTappedAround()
-        let _ : String = SMLangUtil.loadLanguage()
     }
     
-    public func setDirectionManually(direction: UISemanticContentAttribute)  {
-        UIView.appearance().semanticContentAttribute = direction
+    func initNavigationBar(title: String, rightItemText: String? = nil) {
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
+    
 }

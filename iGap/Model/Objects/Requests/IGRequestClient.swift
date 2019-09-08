@@ -31,7 +31,7 @@ class IGClientConditionRequest : IGRequest {
 
 
 class IGClientGetRoomListRequest : IGRequest {
-    class Generator : IGRequest.Generator{
+    class Generator : IGRequest.Generator {
         class func generate(offset: Int32, limit: Int32, identity: String = "") -> IGRequestWrapper {
             var clientGetRoomListRequestMessage = IGPClientGetRoomList()
             var pagination = IGPPagination()

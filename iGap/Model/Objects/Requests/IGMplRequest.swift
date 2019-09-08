@@ -149,6 +149,30 @@ class IGMplGetCardToCardToken : IGRequest {
     }
 }
 
+class IGMplTransactionList: IGRequest {
+    class Generator : IGRequest.Generator {
+        class func generate(type: IGPMplTransaction.IGPType, offset: Int32, limit: Int32) -> IGRequestWrapper {
+            var transactionListRequestMessage = IGPMplTransactionList()
+            
+            transactionListRequestMessage.igpType = type
+            
+            // pagination
+            var pagination = IGPPagination()
+            pagination.igpLimit = limit
+            pagination.igpOffset = offset
+            
+            transactionListRequestMessage.igpPagination = pagination
+            return IGRequestWrapper(message: transactionListRequestMessage, actionID: 9109)
+        }
+    }
+    
+    class Handler: IGRequest.Handler {
+        class func interpret(response reponseProtoMessage: IGPMplTransactionListResponse) {}
+        override class func handlePush(responseProtoMessage: Message) {}
+    }
+}
+
+
 class IGMplGetCardToCardTokenWithAmount : IGRequest {
     class Generator : IGRequest.Generator{
         class func generate(toUserId: Int64 = 0,amount:Int?,destinationCard: String?) -> IGRequestWrapper {

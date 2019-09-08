@@ -16,7 +16,7 @@ protocol AlertClouser {
     func onActionClick(title: String)
 }
 
-class IGFinancialServiceCharge: BaseViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, MerchantResultObserver, TopupMerchantResultObserver {
+class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, MerchantResultObserver, TopupMerchantResultObserver {
 
     @IBOutlet weak var edtPhoneNubmer: UITextField!
     @IBOutlet weak var txtOperatorTransport: UILabel!
@@ -85,7 +85,7 @@ class IGFinancialServiceCharge: BaseViewController, UIGestureRecognizerDelegate,
         
         edtPhoneNubmer.delegate = self
         
-        initNavigationBar()
+        initNavigationBar(title: "SETTING_FS_TOP_UP".localizedNew)
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
         ButtonViewActivate(button: btnOperator ,isEnable: false)
     }
@@ -103,13 +103,6 @@ class IGFinancialServiceCharge: BaseViewController, UIGestureRecognizerDelegate,
         self.btnOperator.setTitle("CHOOSE_OPERATOR".localizedNew, for: UIControl.State.normal)
         self.btnChargeType.setTitle("CHOOSE_CHARGE_TYPE".localizedNew, for: UIControl.State.normal)
 
-    }
-    func initNavigationBar(){
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_FS_TOP_UP".localizedNew)
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
     }
     
     private func manageButtonsView(buttons: [UIButton]){

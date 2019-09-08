@@ -14,8 +14,8 @@ import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
 
-class IGRegistrationStepPasswordViewController: BaseViewController, UIGestureRecognizerDelegate {
-    
+class IGRegistrationStepPasswordViewController: BaseViewController {
+
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var lblHeader : UILabel!
     @IBOutlet weak var btnForgetPass : UIButton!

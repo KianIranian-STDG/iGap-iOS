@@ -20,7 +20,7 @@ enum CommentState {
     case NONE
 }
 
-class IGMap: BaseViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate {
+class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var btnCurrentLocation: UIButton!

@@ -14,7 +14,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController , UISearchResultsUpdating , UIGestureRecognizerDelegate , UIScrollViewDelegate {
+class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController , UISearchResultsUpdating {
 
     @IBOutlet weak var selectedContactsView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!

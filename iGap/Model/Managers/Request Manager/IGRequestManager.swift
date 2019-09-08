@@ -417,6 +417,10 @@ let protoClassesLookupTable: [Int: (proto: ResponseMessage.Type, reponseHandler:
             IGMplGetCardToCardToken.Handler.self           as IGRequest.Handler.Type),
     39108: (IGPMplSetCardToCardResultResponse.self         as ResponseMessage.Type,
             IGMplSetCardToCardResult.Handler.self          as IGRequest.Handler.Type),
+    39109: (IGPMplTransactionListResponse.self              as ResponseMessage.Type,
+            IGMplTransactionList.Handler.self              as IGRequest.Handler.Type),
+//    39110: (IGPMplSetCardToCardResultResponse.self         as ResponseMessage.Type,
+//            IGMplSetCardToCardResult.Handler.self          as IGRequest.Handler.Type),
     
     //BillInquiry 92xx
     39200: (IGPBillInquiryMciResponse.self                 as ResponseMessage.Type,

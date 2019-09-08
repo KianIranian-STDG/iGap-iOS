@@ -13,7 +13,12 @@ import RealmSwift
 import IGProtoBuff
 import SnapKit
 
-class IGScoreViewController: BaseViewController, UIGestureRecognizerDelegate {
+
+    class IGScoreViewController: BaseViewController {
+
+    @IBOutlet weak var imgAvatar: IGAvatarView!
+    @IBOutlet weak var txtDisplayName: UILabel!
+    @IBOutlet weak var txtReferralCode: UILabel!
     @IBOutlet weak var progreccCIrcularRank : UICircularProgressRing!
     
     @IBOutlet weak var progreccCIrcular : UICircularProgressRing!

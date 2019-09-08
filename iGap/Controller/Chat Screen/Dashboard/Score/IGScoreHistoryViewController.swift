@@ -11,7 +11,7 @@
 import UIKit
 import IGProtoBuff
 
-class IGScoreHistoryViewController: BaseViewController, UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
+class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIScrollViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnScan: UIButton!
@@ -43,7 +43,7 @@ class IGScoreHistoryViewController: BaseViewController, UIGestureRecognizerDeleg
         self.navigationController!.pushViewController(scanner, animated:true)
     }
     
-    func initNavigationBar(){
+    func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SCORE_HISTORY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController

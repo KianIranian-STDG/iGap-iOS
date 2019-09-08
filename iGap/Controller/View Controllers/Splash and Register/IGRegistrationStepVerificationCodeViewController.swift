@@ -13,7 +13,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import MBProgressHUD
 
-class IGRegistrationStepVerificationCodeViewController: BaseViewController, UIGestureRecognizerDelegate {
+class IGRegistrationStepVerificationCodeViewController: BaseViewController {
 
     @IBOutlet weak var countdownTimer: IGCountdownTimer!
     @IBOutlet weak var codeTextField: UITextField!

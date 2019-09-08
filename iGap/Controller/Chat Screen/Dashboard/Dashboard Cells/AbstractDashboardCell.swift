@@ -321,7 +321,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     
    
     
-    private func actionManager(discoveryInfo: IGPDiscoveryField){
+    private func actionManager(discoveryInfo: IGPDiscoveryField) {
         IGGlobal.shouldShowChart = false
         IGClientSetDiscoveryItemClickRequest.sendRequest(itemId: discoveryInfo.igpID)
         
@@ -777,8 +777,6 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
         case .walletMenu:
             
-            
-            
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
                     carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
@@ -821,8 +819,12 @@ class AbstractDashboardCell: UICollectionViewCell {
                     
                     break
                 }
-                
             }
+            
+        case .financialHistory:
+            let scoreHistory = IGFinancialHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            UIApplication.topViewController()!.navigationController!.pushViewController(scoreHistory, animated:true)
+            break
             
         default:
             return

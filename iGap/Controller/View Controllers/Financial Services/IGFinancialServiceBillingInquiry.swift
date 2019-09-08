@@ -13,7 +13,7 @@ import IGProtoBuff
 import PecPayment
 import SnapKit
 
-class IGFinancialServiceBillingInquiry: BaseViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, BillMerchantResultObserver {
+class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate, BillMerchantResultObserver {
 
     @IBOutlet weak var edtPhoneNumber: UITextField!
     @IBOutlet weak var edtProvisionCode: UITextField!
