@@ -358,7 +358,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nmj-UQ-Voe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6582" y="-862"/>
+            <point key="canvasLocation" x="6562" y="-516"/>
         </scene>
         <!--Title-->
         <scene sceneID="ZzW-v0-TKu">
@@ -1324,7 +1324,7 @@
                                                     <constraint firstAttribute="width" constant="25" id="4tD-M0-oUJ"/>
                                                     <constraint firstAttribute="height" constant="25" id="eFZ-Ix-aLS"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>

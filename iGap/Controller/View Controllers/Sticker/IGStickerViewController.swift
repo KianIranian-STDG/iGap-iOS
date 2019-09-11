@@ -60,7 +60,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         
         initNavigationBar()
         
-        self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.view.backgroundColor = UIColor.sticker()
         
         if stickerPageType == StickerPageType.MAIN {
@@ -69,7 +69,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         } else if self.stickerPageType == StickerPageType.CATEGORY {
             fetchStickerList()
         } else if stickerPageType == StickerPageType.PREVIEW {
-            self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+            self.collectionView!.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
             numberOfItemsPerRow = 3.0 as CGFloat
             fetchStickerPreview(groupId: stickerGroupId!)
         }

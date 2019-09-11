@@ -51,7 +51,7 @@ class IGStickerToolbar: UIGestureRecognizer {
         for (index, realmSticker) in self.stickerTabs.enumerated() {
             makeTabIcon(parent: scrollView, index: index, realmSticker: realmSticker)
         }
-        makeTabIcon(parent: scrollView, index: STICKER_ADD, imageName: "")
+        makeTabIcon(parent: scrollView, index: STICKER_ADD, imageName: "")
         //makeTabIcon(parent: scrollView, index: STICKER_SETTING, imageName: "")
         
         child.snp.makeConstraints { (make) in

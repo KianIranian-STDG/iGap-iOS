@@ -1986,14 +1986,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             self.txtSticker.isHidden = true
             
             if self.isStickerKeyboard {
-                self.txtSticker.text = ""
+                self.txtSticker.text = ""
                 if #available(iOS 10.0, *) {
                     DispatchQueue.main.async {
                         self.openStickerView()
                     }
                 }
             } else {
-                self.txtSticker.text = ""
+                self.txtSticker.text = ""
                 if self.inputTextView.inputAccessoryView != nil {
                     UIView.transition(with: self.inputTextView.inputAccessoryView!, duration: 0.5, options: .transitionFlipFromBottom, animations: {
                         self.inputTextView.inputAccessoryView!.isHidden = true
@@ -2024,7 +2024,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func disableStickerView(delay: Double, openKeyboard: Bool = false){
         isStickerKeyboard = false
         DispatchQueue.main.asyncAfter(deadline: .now() + delay){
-            self.txtSticker.text = ""
+            self.txtSticker.text = ""
             self.inputTextView.inputAccessoryView = nil
             self.inputTextView.inputView = nil
             self.inputTextView.reloadInputViews()

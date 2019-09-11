@@ -16,7 +16,13 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.barTintColor = UIColor.iGapBars()
+        let view = UIView()
+        view.backgroundColor = UIColor.iGapBars()
+        view.frame = self.tabBar.bounds
+        view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
+        view.layer.borderWidth = 1
+        view.layer.borderColor =  UIColor.tabbarBGColor().cgColor
+        self.tabBar.insertSubview(view, at: 0)
         initNavigationBar()
     }
     

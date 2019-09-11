@@ -55,7 +55,7 @@ class IGMNavigationController: UINavigationController {
         navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         
-        navigationBar.tintColor = UIColor.white
+        navigationBar.tintColor = UIColor.iGapBars()
         navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
