@@ -86,6 +86,17 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
         } else {
             UITableView.appearance().semanticContentAttribute = .forceLeftToRight
         }
-        UIApplication.shared.windows[0].rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        var window : UIWindow!
+        currentTabIndex = 2
+        let apDelegate = UIApplication.shared.delegate as! AppDelegate
+        if let appWindow = apDelegate.window {
+            window = appWindow
+        } else {
+            window = UIWindow(frame: UIScreen.main.bounds)
+        }
+        window.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        window.makeKeyAndVisible() //make window visible
+        
+//        UIApplication.shared.windows[0].rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
     }
 }
