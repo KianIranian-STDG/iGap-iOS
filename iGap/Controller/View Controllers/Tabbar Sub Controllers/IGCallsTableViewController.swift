@@ -110,8 +110,9 @@ class IGCallsTableViewController: BaseTableViewController {
     private func addCollectionFilterView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
-        self.transactionTypesCollectionView.showsHorizontalScrollIndicator = false
         self.transactionTypesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.transactionTypesCollectionView.showsHorizontalScrollIndicator = false
+
         self.transactionTypesCollectionView.register(CallTypesCVCell.nib, forCellWithReuseIdentifier: CallTypesCVCell.identifier)
         self.headerView.addSubview(self.transactionTypesCollectionView)
         
@@ -174,11 +175,6 @@ class IGCallsTableViewController: BaseTableViewController {
         }
     }
     func resetColorOfButtons() {
-        self.btnAll.backgroundColor = UIColor.iGapGray().withAlphaComponent(0.2)
-        self.btnMissed.backgroundColor = UIColor.iGapGray().withAlphaComponent(0.2)
-        self.btnIncomming.backgroundColor = UIColor.iGapGray().withAlphaComponent(0.2)
-        self.btnCanceled.backgroundColor = UIColor.iGapGray().withAlphaComponent(0.2)
-        self.btnOutGoing.backgroundColor = UIColor.iGapGray().withAlphaComponent(0.2)
     }
     @objc func btnAllTaped(sender: UIButton!) {
     }
@@ -454,8 +450,7 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         switch callTypes[indexPath.item] {
         case .all:
             print("|||||TAPPED btnAll|||||")
-            resetColorOfButtons()
-            self.btnAll.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .all
             
             updateObserver(mode: currentMode)
@@ -463,32 +458,28 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
             break
         case .canceled:
             print("|||||TAPPED btnCanceled|||||")
-            resetColorOfButtons()
-            self.btnCanceled.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .canceled
             updateObserver(mode: currentMode)
             self.tableView.reloadWithAnimation()
             break
         case .incoming:
             print("|||||TAPPED btnIncomming|||||")
-            resetColorOfButtons()
-            self.btnIncomming.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .incoming
             updateObserver(mode: currentMode)
             self.tableView.reloadWithAnimation()
             break
         case .missed:
             print("|||||TAPPED btnMissed|||||")
-            resetColorOfButtons()
-            self.btnMissed.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .missed
             updateObserver(mode: currentMode)
             self.tableView.reloadWithAnimation()
             break
         case .outgoing:
             print("|||||TAPPED btnOutgoing|||||")
-            resetColorOfButtons()
-            self.btnOutGoing.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .outgoing
             updateObserver(mode: currentMode)
             self.tableView.reloadWithAnimation()
@@ -498,8 +489,15 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         }
 
     }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        IGRequestManager.sharedManager.cancelRequest(identity: "\(callTypes[indexPath.item])")
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        let label = cell.viewWithTag(110) as! UILabel
+        cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+        label.textColor = UIColor.iGapDarkGray()
+    }
     
-
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
@@ -510,4 +508,5 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
             label.textColor = UIColor.iGapDarkGray()
         }
     }
+
 }
