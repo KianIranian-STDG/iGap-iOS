@@ -80,8 +80,7 @@ class IGRoomListtCell: UITableViewCell {
     }()
     var bgImage :UIImageView = {
         let img = UIImageView()
-        img.contentMode = .scaleAspectFill // image will never be strecthed vertially or horizontally
-        img.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
+        img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
         if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
             img.image = UIImage(named:"bgCellPin")
         }
@@ -91,6 +90,7 @@ class IGRoomListtCell: UITableViewCell {
 
         }
 
+        
         return img
     }()
     var typeImage = UILabel()
@@ -557,11 +557,13 @@ class IGRoomListtCell: UITableViewCell {
     }
     private func makeBGImage() {
         bgImage.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(3)
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-3)
-            make.top.equalTo(self.contentView.snp.top).offset(3)
-            make.bottom.equalTo(self.contentView.snp.bottom).offset(-3)
+            make.leading.equalTo(self.contentView.snp.leading).offset(5)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
+            make.top.equalTo(self.contentView.snp.top).offset(5)
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
         }
+        bgImage.contentMode = .scaleToFill // image will never be strecthed vertially or horizontally
+
     }
     private func makeInitialLabel() {
         initialLabel.snp.makeConstraints { (make) in

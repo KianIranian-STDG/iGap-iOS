@@ -68,7 +68,7 @@ class IGCallListTableViewCell: UITableViewCell {
         switch callLog.status {
             
         case 0: //MISSED
-            callStateView.text = ""
+            callStateView.text = ""
             callState.text = "MISSED_CALL".localizedNew
             
             callStateView.textColor = UIColor.callStatusColor(status: 0)
@@ -76,7 +76,7 @@ class IGCallListTableViewCell: UITableViewCell {
             break
             
         case 1: //CANCELED
-            callStateView.text = ""
+            callStateView.text = ""
             callState.text = "UNANSWERED_CALL".localizedNew
             
             callStateView.textColor = UIColor.callStatusColor(status: 1)
@@ -84,7 +84,7 @@ class IGCallListTableViewCell: UITableViewCell {
             break
             
         case 2: //INCOMING
-            callStateView.text = ""
+            callStateView.text = ""
             callState.text = convertDurationToHour(duration: callLog.duration).inLocalizedLanguage()
             
             callStateView.textColor = UIColor.callStatusColor(status: 2)
@@ -92,7 +92,7 @@ class IGCallListTableViewCell: UITableViewCell {
             break
             
         case 3: //OUTGOING
-            callStateView.text = ""
+            callStateView.text = ""
             callState.text = convertDurationToHour(duration: callLog.duration).inLocalizedLanguage()
             
             callStateView.textColor = UIColor.callStatusColor(status: 3)
@@ -104,7 +104,7 @@ class IGCallListTableViewCell: UITableViewCell {
         }
         
         if callLog.signalingOfferType == IGPSignalingOffer.IGPType.videoCalling.rawValue {
-            callStateView.text = ""
+            callStateView.text = ""
         }
     }
     

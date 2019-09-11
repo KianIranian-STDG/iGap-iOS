@@ -410,6 +410,14 @@
         "TTL_ADDING_ME_TO_CHANNELS" : "افزودن من به کانال ها",
         "TTL_WHO_CAN_CALL" : "چه کسی بتواند با من تماس بگیرد؟ ",
         
+        "FILTER_INCOMMING_CALL" : "ورودی",
+        "FILTER_MISSED_CALL" : "ازدست رفته",
+        "FILTER_ALL_CALL" : "همه",
+        "FILTER_CANCELED_CALL" : "رد شده",
+        "FILTER_OUTGOING_CALL" : "خروجی",
+        "CALL_LISTT_EMPTY" : "تاریخچه تماس های شما خالی می باشد.",
+
+        
         "MSG_CHANGE_USERNAME_AFTER" : "عدم امکان آپیدیت نام کاربری به علت اینکه اخیرا نام کاربری خود را تغییر داده اید. زمان انتظار ",
         "MSG_UPDATE_USERNAME_FORBIDDEN" : "عدم امکان آپدیت نام کاربری",
         "MSG_TAKEN_USERNAME" : "نام کاربری قبلا ثبت شده است",

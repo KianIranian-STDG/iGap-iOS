@@ -405,6 +405,16 @@
 
         
         
+        "FILTER_INCOMMING_CALL" : "Incomming",
+        "FILTER_MISSED_CALL" : "Missed",
+        "FILTER_ALL_CALL" : "All",
+        "FILTER_CANCELED_CALL" : "Canceled",
+        "FILTER_OUTGOING_CALL" : "Outgoing",
+        "CALL_LISTT_EMPTY" : " Your Call List History is empty",
+
+        
+        
+        
         "MSG_NEW_CHANNEL_FOOTER" : "You can add decription for your channel here",
         "MSG_CHANNEL_SHARE_FOOTER" : "People can share this link whith others and find your channel using iGap search.",
         "MSG_CHANNEL_SHARE_JOIN" : "People can join your channel by following this link.you can change the link at any time.",

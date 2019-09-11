@@ -335,7 +335,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         return self.collation.section(forSectionIndexTitle: index)
     }
 
-    func call(user: IGRegisteredUser) {
+    func call(user: IGRegisteredUser,mode:String) {
         self.navigationController?.popToRootViewController(animated: true)
         DispatchQueue.main.async {
             (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.id, isIncommmingCall: false)

@@ -358,7 +358,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nmj-UQ-Voe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6562" y="-516"/>
+            <point key="canvasLocation" x="6581" y="-866"/>
         </scene>
         <!--Title-->
         <scene sceneID="ZzW-v0-TKu">
@@ -1217,14 +1217,17 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hI3-wW-ErK">
-                                                <rect key="frame" x="0.0" y="91" width="38" height="38"/>
+                                                <rect key="frame" x="0.0" y="91" width="30" height="38"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kfV-z5-1z0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Ic-xrU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                                                <state key="normal" image="IG_Chat_Screen_Attachment"/>
+                                                                <rect key="frame" x="0.0" y="3" width="30" height="32"/>
+                                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
+                                                                <state key="normal" title="">
+                                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
                                                                 <connections>
                                                                     <action selector="didTapOnAddAttachmentButton:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="dhv-wQ-8FF"/>
                                                                 </connections>
@@ -1309,7 +1312,7 @@
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agE-XC-sCP" customClass="GrowingTextView" customModule="GrowingTextView">
-                                                <rect key="frame" x="47" y="100" width="288" height="20"/>
+                                                <rect key="frame" x="39" y="100" width="296" height="20"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="i0G-sC-VLl"/>
@@ -3211,7 +3214,6 @@
     </scenes>
     <resources>
         <image name="IG_Blur_Call" width="640" height="1136"/>
-        <image name="IG_Chat_Screen_Attachment" width="38" height="38"/>
         <image name="IG_Chat_Screen_Record" width="38" height="38"/>
         <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
         <image name="IG_Chat_Screen_Send" width="38" height="38"/>
@@ -3234,7 +3236,7 @@
         <image name="igap_share_icon-1" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jRj-hY-oEr"/>
+        <segue reference="k9M-cr-cw2"/>
         <segue reference="R4P-x7-LEg"/>
         <segue reference="QJB-pO-R8A"/>
     </inferredMetricsTieBreakers>

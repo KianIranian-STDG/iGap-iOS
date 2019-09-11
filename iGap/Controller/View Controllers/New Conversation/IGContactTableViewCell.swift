@@ -16,10 +16,15 @@ class IGContactTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userAvatarView: IGAvatarView!
     @IBOutlet weak var contactNameLable: UILabel!
+    @IBOutlet weak var contactPhoneNumber: UILabel!
     @IBOutlet weak var btnCall: UIButton!
-    
+    @IBOutlet weak var btnVideoCall: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
+        contactPhoneNumber.textAlignment = contactNameLable.localizedNewDirection
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -31,7 +36,8 @@ class IGContactTableViewCell: UITableViewCell {
             self.btnCall.removeUnderline()
         }
         contactNameLable.text = user.displayName
-        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
+        contactPhoneNumber.text = String(user.phone)
+        
         userAvatarView.setUser(user)
         self.userRegister = user
     }
@@ -46,7 +52,17 @@ class IGContactTableViewCell: UITableViewCell {
         }
         
         if let delegate = IGCreateNewChatTableViewController.callDelegate {
-            delegate.call(user: userRegister)
+            delegate.call(user: userRegister,mode:"voiceCall")
+        }
+    }
+    @IBAction func btnVideoCall(_ sender: UIButton) {
+        
+        if IGCall.callPageIsEnable {
+            return
+        }
+        
+        if let delegate = IGContactListTableViewController.callDelegate {
+            delegate.call(user: userRegister,mode:"videoCall")
         }
     }
 }

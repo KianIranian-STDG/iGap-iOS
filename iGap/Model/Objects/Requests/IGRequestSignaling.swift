@@ -256,12 +256,13 @@ class IGSignalingSessionHoldRequest : IGRequest {
 
 class IGSignalingGetLogRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(offset: Int32, limit: Int32) -> IGRequestWrapper {
+        class func generate(offset: Int32, limit: Int32, mode : IGPSignalingGetLog.IGPFilter) -> IGRequestWrapper {
             var signalingGetLog = IGPSignalingGetLog()
             var pagination = IGPPagination()
             pagination.igpLimit = limit
             pagination.igpOffset = offset
             signalingGetLog.igpPagination = pagination
+            signalingGetLog.igpFilter = mode
             return IGRequestWrapper(message: signalingGetLog, actionID: 907)
         }
     }

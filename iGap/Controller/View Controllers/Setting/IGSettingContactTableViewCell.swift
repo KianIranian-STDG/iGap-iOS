@@ -36,7 +36,7 @@ class IGSettingContactTableViewCell: MGSwipeTableCell {
         }
         
         if let delegate = IGSettingContactsTableViewController.callDelegate {
-            delegate.call(user: registeredUser)
+            delegate.call(user: registeredUser,mode:"voiceCall")
         }
         
     }

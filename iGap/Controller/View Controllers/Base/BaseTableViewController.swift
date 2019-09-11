@@ -13,14 +13,31 @@ import maincore
 
 class BaseTableViewController: UITableViewController {
     
+    var isAppEnglish: Bool {
+        get {
+            return SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        }
+    }
+    
+    var transform: CGAffineTransform {
+        get {
+            return isAppEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        }
+    }
+    
+    var semantic: UISemanticContentAttribute {
+        get {
+            return isAppEnglish ? .forceLeftToRight : .forceRightToLeft
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let _ : String = SMLangUtil.loadLanguage()
+        
         self.hideKeyboardWhenTappedAround()
-//        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
-//        MCLocalization.sharedInstance().language = current
-        print(IGTabBarController.currentTabStatic)
     }
+
+
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {
         UIView.appearance().semanticContentAttribute = direction

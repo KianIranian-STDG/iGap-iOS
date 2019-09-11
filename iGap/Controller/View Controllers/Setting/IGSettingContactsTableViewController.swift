@@ -181,13 +181,15 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
         return self.contactSections!
     }
     
-    func call(user: IGRegisteredUser) {
+    func call(user: IGRegisteredUser,mode:String) {
         self.dismiss(animated: false, completion: {
             DispatchQueue.main.async {
                 (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.id, isIncommmingCall: false)
             }
         })
     }
+    
+
     
     private func deleteContactAlert(phone: Int64){
         let alert = UIAlertController(title: "TTL_DELETE_CONTACT".localizedNew, message: "MSG_ARE_U_SURE_TO_DELETE".localizedNew, preferredStyle: .alert)

@@ -247,7 +247,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             navigationItem.leftViewContainer?.addAction {
-                self.performSegue(withIdentifier: "showSettings", sender: self)
+
             }
         }
 
@@ -983,7 +983,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 78.0
+        return 80.0
     }
     
     //MARK: - Tabbar badge

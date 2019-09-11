@@ -17,15 +17,27 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         let view = UIView()
-        view.backgroundColor = UIColor.iGapBars()
         view.frame = self.tabBar.bounds
+
+        view.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: self.tabBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: self.tabBar.frame.size.width/2, bottom: 0, right: self.tabBar.frame.size.width/2), resizingMode: .stretch))
+        
+
         view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
         view.layer.borderWidth = 1
         view.layer.borderColor =  UIColor.tabbarBGColor().cgColor
         self.tabBar.insertSubview(view, at: 0)
         initNavigationBar()
     }
-    
+    func gradientImage(withColours colours: [UIColor], location: [Double], view: UIView) -> UIImage {
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+        gradient.locations = location as [NSNumber]
+        gradient.cornerRadius = view.layer.cornerRadius
+        return UIImage.image(from: gradient) ?? UIImage()
+    }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "STICKER_CATEGORY".localizedNew, width: 200)

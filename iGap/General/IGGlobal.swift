@@ -1514,6 +1514,7 @@ extension UIFont {
     //        return UIFont(descriptor: descriptor, size: 0)
     //    }
 }
+
 extension UISearchBar {
     
     func getTextField() -> UITextField? { return value(forKey: "searchField") as? UITextField }

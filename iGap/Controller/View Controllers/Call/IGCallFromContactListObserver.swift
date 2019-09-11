@@ -9,6 +9,6 @@
  */
 
 protocol IGCallFromContactListObserver {
-    func call(user: IGRegisteredUser)
+    func call(user: IGRegisteredUser,mode:String)
 }
 

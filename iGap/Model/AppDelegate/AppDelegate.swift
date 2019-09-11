@@ -331,7 +331,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         })
     }
     
-    func showCallPage(userId: Int64 ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, showAlert: Bool = true){
+    func showCallPage(userId: Int64 ,userName: String? = nil, isIncommmingCall: Bool = true, sdp: String? = nil, type:IGPSignalingOffer.IGPType = .voiceCalling, mode:String? = nil, showAlert: Bool = true){
         
         if isIncommmingCall || !showAlert {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -351,6 +351,18 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             currentController!.present(callPage, animated: true, completion: nil)
             
         } else {
+            if mode != nil {
+                if mode == "voiceCall" {
+                    self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
+                    
+                }
+                else if mode == "videoCall"{
+                    self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.videoCalling, showAlert: false)
+                    
+                }
+                
+            }
+            else {
             let callAlert = UIAlertController(title: nil, message: " ", preferredStyle: IGGlobal.detectAlertStyle())
             let voiceCall = UIAlertAction(title: "VOICE_CALL".localizedNew, style: .default, handler: { (action) in
                 self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
@@ -367,7 +379,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             self.window?.rootViewController?.present(callAlert, animated: true, completion: nil)
         }
     }
-    
+    }
     func showCallQualityPage(rateId: Int64){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let callQualityPage = storyboard.instantiateViewController(withIdentifier: "IGCallQualityShowing") as! IGCallQuality

@@ -6,11 +6,21 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="IRANSans.ttf">
             <string>IRANSans</string>
+        </array>
+        <array key="IRANSans_Bold.ttf">
+            <string>IRANSans-Bold</string>
+        </array>
+        <array key="iGap-Fontico.ttf">
+            <string>icomoon</string>
+        </array>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
         </array>
     </customFonts>
     <scenes>
@@ -234,7 +244,6 @@
         <!--Navigation Controller-->
         <scene sceneID="XyQ-j9-2mR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z1m-Ay-sUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GYW-ZY-19s" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="70Q-6w-x7Y" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
@@ -246,6 +255,7 @@
                         <segue destination="vSZ-HE-b7i" kind="relationship" relationship="rootViewController" id="m7F-jD-stj"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z1m-Ay-sUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2166" y="-1345"/>
         </scene>
@@ -447,6 +457,1095 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqY-7W-3jE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4000.8000000000002" y="-1345.2773613193403"/>
+        </scene>
+        <!--New Chat-->
+        <scene sceneID="ha5-up-cST">
+            <objects>
+                <tableViewController storyboardIdentifier="IGContactListTableViewController" id="054-tv-ipR" customClass="IGContactListTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wmc-iZ-YHW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="i0J-p6-769">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="145"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6dN-wK-mr5">
+                                    <rect key="frame" x="60" y="17" width="106" height="36"/>
+                                    <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
+                                    <state key="normal" title="New Group Call">
+                                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uX2-Lz-BvJ">
+                                    <rect key="frame" x="20" y="20" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="5wO-XO-TfC"/>
+                                        <constraint firstAttribute="width" constant="30" id="k6J-jV-gHh"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="29"/>
+                                    <state key="normal" title="">
+                                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arS-gI-IWo">
+                                    <rect key="frame" x="60" y="57" width="87" height="36"/>
+                                    <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
+                                    <state key="normal" title="New Contact">
+                                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6m-JV-OQU">
+                                    <rect key="frame" x="20" y="60" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="spV-6o-kj9"/>
+                                        <constraint firstAttribute="width" constant="30" id="tcz-WQ-8mh"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="29"/>
+                                    <state key="normal" title="">
+                                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WvU-xN-zrJ">
+                                    <rect key="frame" x="5" y="144" width="365" height="1"/>
+                                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.42216930650000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="xJ3-xn-a6N"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91y-kR-bAs">
+                                    <rect key="frame" x="60" y="97" width="85" height="36"/>
+                                    <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="15"/>
+                                    <state key="normal" title="Dial Number">
+                                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="Baq-ae-5eD" kind="show" id="R19-th-1Gu"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdg-zk-pkz">
+                                    <rect key="frame" x="20" y="100" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="30" id="X1h-6Z-Ijb"/>
+                                        <constraint firstAttribute="height" constant="30" id="zPa-re-vJb"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="29"/>
+                                    <state key="normal" title="">
+                                        <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="p6m-JV-OQU" firstAttribute="top" secondItem="uX2-Lz-BvJ" secondAttribute="bottom" constant="10" id="5Ui-xx-DBh"/>
+                                <constraint firstItem="arS-gI-IWo" firstAttribute="centerY" secondItem="p6m-JV-OQU" secondAttribute="centerY" id="KnC-fW-qm7"/>
+                                <constraint firstItem="91y-kR-bAs" firstAttribute="leading" secondItem="bdg-zk-pkz" secondAttribute="trailing" constant="10" id="MAg-g4-8nz"/>
+                                <constraint firstItem="91y-kR-bAs" firstAttribute="centerY" secondItem="bdg-zk-pkz" secondAttribute="centerY" id="NUd-Wu-Bth"/>
+                                <constraint firstItem="6dN-wK-mr5" firstAttribute="centerY" secondItem="uX2-Lz-BvJ" secondAttribute="centerY" id="PH3-vV-12o"/>
+                                <constraint firstItem="arS-gI-IWo" firstAttribute="leading" secondItem="p6m-JV-OQU" secondAttribute="trailing" constant="10" id="Zb7-e8-89K"/>
+                                <constraint firstItem="WvU-xN-zrJ" firstAttribute="leading" secondItem="i0J-p6-769" secondAttribute="leading" constant="5" id="bZb-Wj-pxf"/>
+                                <constraint firstItem="bdg-zk-pkz" firstAttribute="top" secondItem="p6m-JV-OQU" secondAttribute="bottom" constant="10" id="df0-zI-mnL"/>
+                                <constraint firstItem="uX2-Lz-BvJ" firstAttribute="leading" secondItem="i0J-p6-769" secondAttribute="leading" constant="20" id="ixe-12-iJB"/>
+                                <constraint firstAttribute="trailing" secondItem="WvU-xN-zrJ" secondAttribute="trailing" constant="5" id="jOT-9l-CRb"/>
+                                <constraint firstItem="p6m-JV-OQU" firstAttribute="leading" secondItem="i0J-p6-769" secondAttribute="leading" constant="20" id="kco-r5-pJJ"/>
+                                <constraint firstItem="6dN-wK-mr5" firstAttribute="leading" secondItem="uX2-Lz-BvJ" secondAttribute="trailing" constant="10" id="leE-Vy-XRw"/>
+                                <constraint firstItem="bdg-zk-pkz" firstAttribute="leading" secondItem="i0J-p6-769" secondAttribute="leading" constant="20" id="ppZ-Jr-Npg"/>
+                                <constraint firstItem="uX2-Lz-BvJ" firstAttribute="top" secondItem="i0J-p6-769" secondAttribute="top" constant="20" id="t52-dm-QgZ"/>
+                                <constraint firstAttribute="bottom" secondItem="WvU-xN-zrJ" secondAttribute="bottom" id="vEe-kP-aYQ"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactsCell" rowHeight="80" id="zr2-se-faI" customClass="IGContactTableViewCell" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="173" width="375" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zr2-se-faI" id="eaS-RM-Cgk">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="6jA-tk-4va">
+                                            <rect key="frame" x="75" y="19.5" width="180" height="41"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JC3-0d-r0m" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m55-Fc-8X1" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="20.5" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAa-pT-eza" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="15" y="15" width="50" height="50"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="hcT-Se-Cot"/>
+                                                <constraint firstAttribute="height" constant="50" id="uRv-Go-fjW"/>
+                                            </constraints>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAd-JW-532">
+                                            <rect key="frame" x="315" y="20" width="50" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="QbS-cD-oGT"/>
+                                                <constraint firstAttribute="width" constant="50" id="ybw-aS-Fy2"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnCall:" destination="zr2-se-faI" eventType="touchUpInside" id="KfK-eq-h1E"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ji0-WR-VjA">
+                                            <rect key="frame" x="265" y="20" width="50" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="MSY-CV-nvK"/>
+                                                <constraint firstAttribute="height" constant="40" id="n35-ku-1sY"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnVideoCall:" destination="zr2-se-faI" eventType="touchUpInside" id="Kzw-hV-WHW"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="Ji0-WR-VjA" firstAttribute="centerY" secondItem="eaS-RM-Cgk" secondAttribute="centerY" id="2bN-BD-B9f"/>
+                                        <constraint firstItem="6jA-tk-4va" firstAttribute="centerY" secondItem="eaS-RM-Cgk" secondAttribute="centerY" id="Dbc-HZ-wb9"/>
+                                        <constraint firstItem="Ji0-WR-VjA" firstAttribute="leading" secondItem="6jA-tk-4va" secondAttribute="trailing" constant="10" id="I8s-Hl-CXA"/>
+                                        <constraint firstItem="lAa-pT-eza" firstAttribute="leading" secondItem="eaS-RM-Cgk" secondAttribute="leading" constant="15" id="JKo-Pi-aqO"/>
+                                        <constraint firstItem="lAa-pT-eza" firstAttribute="centerY" secondItem="eaS-RM-Cgk" secondAttribute="centerY" id="KDK-NA-gVr"/>
+                                        <constraint firstItem="nAd-JW-532" firstAttribute="centerY" secondItem="eaS-RM-Cgk" secondAttribute="centerY" id="Q22-Nh-3NZ"/>
+                                        <constraint firstItem="nAd-JW-532" firstAttribute="leading" secondItem="Ji0-WR-VjA" secondAttribute="trailing" id="dFP-Xp-GEJ"/>
+                                        <constraint firstItem="6jA-tk-4va" firstAttribute="leading" secondItem="lAa-pT-eza" secondAttribute="trailing" constant="10" id="whX-GL-chJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="nAd-JW-532" secondAttribute="trailing" constant="10" id="xOZ-yi-6C3"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="btnCall" destination="nAd-JW-532" id="M46-nQ-rzQ"/>
+                                    <outlet property="btnVideoCall" destination="Ji0-WR-VjA" id="qQc-EE-SZT"/>
+                                    <outlet property="contactNameLable" destination="JC3-0d-r0m" id="UMu-pW-kHb"/>
+                                    <outlet property="contactPhoneNumber" destination="m55-Fc-8X1" id="H57-W9-CoN"/>
+                                    <outlet property="userAvatarView" destination="lAa-pT-eza" id="oAH-d8-ByD"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="054-tv-ipR" id="IAv-Sd-g9r"/>
+                            <outlet property="delegate" destination="054-tv-ipR" id="Aff-hc-exc"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="New Chat" id="dsj-76-4md" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="QcE-Zz-tHL">
+                            <color key="tintColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qqi-h1-Bdg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3056.8000000000002" y="-3581.5592203898054"/>
+        </scene>
+        <!--Dial Number-->
+        <scene sceneID="Dj9-gd-R0c">
+            <objects>
+                <viewController id="Baq-ae-5eD" customClass="IGDialNumberPadViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LqT-Rd-zaG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hUL-3P-aqi">
+                                <rect key="frame" x="56" y="569" width="263" height="42"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvQ-Vg-Ssn" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="121.5" height="42"/>
+                                        <color key="backgroundColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="WyN-oL-3UJ" kind="show" id="TmV-aK-Egh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ja5-kC-dO6" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                        <rect key="frame" x="141.5" y="0.0" width="121.5" height="42"/>
+                                        <color key="backgroundColor" red="0.76862745099999996" green="0.035294117649999998" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                        <state key="normal" title="">
+                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sgp-ZV-X0f">
+                                <rect key="frame" x="56" y="114" width="263" height="320"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kQt-UF-3q8">
+                                        <rect key="frame" x="0.0" y="0.0" width="263" height="65"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fR-Y0-fgi" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="1cr-bh-OYI"/>
+                                                    <constraint firstAttribute="width" secondItem="7fR-Y0-fgi" secondAttribute="height" multiplier="1:1" id="Y0h-zi-4gP"/>
+                                                    <constraint firstAttribute="width" constant="65" id="cne-7Z-jDx"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="1">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnOne:" destination="Baq-ae-5eD" eventType="touchUpInside" id="dQN-ai-zSN"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oe4-5z-Mdv" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="99" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="oe4-5z-Mdv" secondAttribute="height" multiplier="1:1" id="DgU-de-r2a"/>
+                                                    <constraint firstAttribute="width" constant="65" id="J6y-I2-EPO"/>
+                                                    <constraint firstAttribute="height" constant="65" id="efL-NP-D0M"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="2">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnTwo:" destination="Baq-ae-5eD" eventType="touchUpInside" id="xuq-DB-Zxl"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26i-eD-gHQ" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="198" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="26i-eD-gHQ" secondAttribute="height" multiplier="1:1" id="Q8q-tb-sfw"/>
+                                                    <constraint firstAttribute="height" constant="65" id="QOL-Lq-Wnx"/>
+                                                    <constraint firstAttribute="width" constant="65" id="mKM-tC-DRH"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="3">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnThree:" destination="Baq-ae-5eD" eventType="touchUpInside" id="EbL-4d-MLN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="26i-eD-gHQ" firstAttribute="width" secondItem="26i-eD-gHQ" secondAttribute="height" multiplier="1:1" id="6dn-nx-wlN"/>
+                                            <constraint firstItem="oe4-5z-Mdv" firstAttribute="width" secondItem="oe4-5z-Mdv" secondAttribute="height" multiplier="1:1" id="Ha7-tt-2X7"/>
+                                            <constraint firstItem="26i-eD-gHQ" firstAttribute="width" secondItem="26i-eD-gHQ" secondAttribute="height" multiplier="1:1" id="ReP-P4-OmH"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iJV-1j-Pn9">
+                                        <rect key="frame" x="0.0" y="85" width="263" height="65"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OG-Qz-lgu" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="5OG-Qz-lgu" secondAttribute="height" multiplier="1:1" id="bp4-yu-sYM"/>
+                                                    <constraint firstAttribute="width" constant="65" id="csh-22-ALR"/>
+                                                    <constraint firstAttribute="height" constant="65" id="oaT-Dt-uZh"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="4">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnFour:" destination="Baq-ae-5eD" eventType="touchUpInside" id="Wkp-Va-EMX"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRN-l9-gpd" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="99" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="JPX-Fw-VH7"/>
+                                                    <constraint firstAttribute="width" secondItem="TRN-l9-gpd" secondAttribute="height" multiplier="1:1" id="cAa-IC-WSn"/>
+                                                    <constraint firstAttribute="width" constant="65" id="r0X-ey-Qky"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="5">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnFive:" destination="Baq-ae-5eD" eventType="touchUpInside" id="5bt-wi-YqB"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Xy-Rx-hix" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="198" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="65" id="0mg-Xs-LSD"/>
+                                                    <constraint firstAttribute="height" constant="65" id="WwN-0E-Ofu"/>
+                                                    <constraint firstAttribute="width" secondItem="5Xy-Rx-hix" secondAttribute="height" multiplier="1:1" id="w2E-kR-GtE"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="6">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnSix:" destination="Baq-ae-5eD" eventType="touchUpInside" id="8HO-UJ-MRR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="5Xy-Rx-hix" firstAttribute="width" secondItem="5Xy-Rx-hix" secondAttribute="height" multiplier="1:1" id="QrE-nP-jPN"/>
+                                            <constraint firstItem="TRN-l9-gpd" firstAttribute="width" secondItem="TRN-l9-gpd" secondAttribute="height" multiplier="1:1" id="nxb-HX-1bO"/>
+                                            <constraint firstItem="5Xy-Rx-hix" firstAttribute="width" secondItem="5Xy-Rx-hix" secondAttribute="height" multiplier="1:1" id="zvo-Xl-1yE"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="t9B-6A-wYG">
+                                        <rect key="frame" x="0.0" y="170" width="263" height="65"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QT7-Jh-Lhi" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="65" id="0f7-d1-skQ"/>
+                                                    <constraint firstAttribute="width" secondItem="QT7-Jh-Lhi" secondAttribute="height" multiplier="1:1" id="fXG-Yn-odj"/>
+                                                    <constraint firstAttribute="height" constant="65" id="lOw-Zd-j5a"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="7">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnSeven:" destination="Baq-ae-5eD" eventType="touchUpInside" id="ebq-Os-2eZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3c-GO-dx0" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="99" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="Fp1-Th-Xd6"/>
+                                                    <constraint firstAttribute="width" constant="65" id="iDO-9H-9mK"/>
+                                                    <constraint firstAttribute="width" secondItem="o3c-GO-dx0" secondAttribute="height" multiplier="1:1" id="mqA-g6-Iz9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="8">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnEight:" destination="Baq-ae-5eD" eventType="touchUpInside" id="YI1-g0-cyP"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mI-Ke-ial" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="198" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="KJU-2W-l0i"/>
+                                                    <constraint firstAttribute="width" constant="65" id="Qqz-Ai-aNH"/>
+                                                    <constraint firstAttribute="width" secondItem="0mI-Ke-ial" secondAttribute="height" multiplier="1:1" id="jhf-ee-BVu"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="9">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnNine:" destination="Baq-ae-5eD" eventType="touchUpInside" id="rme-y5-Ky0"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="0mI-Ke-ial" firstAttribute="width" secondItem="0mI-Ke-ial" secondAttribute="height" multiplier="1:1" id="YU9-Mt-jVi"/>
+                                            <constraint firstItem="0mI-Ke-ial" firstAttribute="width" secondItem="0mI-Ke-ial" secondAttribute="height" multiplier="1:1" id="k1A-KI-KzJ"/>
+                                            <constraint firstItem="o3c-GO-dx0" firstAttribute="width" secondItem="o3c-GO-dx0" secondAttribute="height" multiplier="1:1" id="m0N-1Q-Xak"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="957-g3-6AJ">
+                                        <rect key="frame" x="0.0" y="255" width="263" height="65"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZe-JQ-2pg" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="e5l-GG-uiX"/>
+                                                    <constraint firstAttribute="width" constant="65" id="nFo-c8-smk"/>
+                                                    <constraint firstAttribute="width" secondItem="WZe-JQ-2pg" secondAttribute="height" multiplier="1:1" id="wET-SB-xaO"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="*">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnStar:" destination="Baq-ae-5eD" eventType="touchUpInside" id="OCi-Ku-CM6"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ai-ho-bES" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="99" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="65" id="P0Q-gE-XFI"/>
+                                                    <constraint firstAttribute="height" constant="65" id="SCb-cV-qrS"/>
+                                                    <constraint firstAttribute="width" secondItem="9ai-ho-bES" secondAttribute="height" multiplier="1:1" id="x7H-2e-FDR"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="20"/>
+                                                <state key="normal" title="0">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnZero:" destination="Baq-ae-5eD" eventType="touchUpInside" id="gGH-0n-YBe"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qa-fh-ovR" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="198" y="0.0" width="65" height="65"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="1Qa-fh-ovR" secondAttribute="height" multiplier="1:1" id="duy-X2-elm"/>
+                                                    <constraint firstAttribute="height" constant="65" id="tK1-pH-YSu"/>
+                                                    <constraint firstAttribute="width" constant="65" id="wTT-f9-eGP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="32"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="0.50334439210000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapOnDelete:" destination="Baq-ae-5eD" eventType="touchUpInside" id="2aj-wR-fgT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="9ai-ho-bES" firstAttribute="width" secondItem="9ai-ho-bES" secondAttribute="height" multiplier="1:1" id="5zD-Di-aKa"/>
+                                            <constraint firstItem="1Qa-fh-ovR" firstAttribute="width" secondItem="1Qa-fh-ovR" secondAttribute="height" multiplier="1:1" id="TZI-Q1-dFc"/>
+                                            <constraint firstItem="1Qa-fh-ovR" firstAttribute="width" secondItem="1Qa-fh-ovR" secondAttribute="height" multiplier="1:1" id="dVI-EC-t2Q"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbl-ux-Bd4">
+                                <rect key="frame" x="56" y="519" width="263" height="40"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="25"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hUL-3P-aqi" firstAttribute="leading" secondItem="Shd-AC-Yio" secondAttribute="leading" constant="56" id="8gk-FC-mBs"/>
+                            <constraint firstItem="sgp-ZV-X0f" firstAttribute="leading" secondItem="hUL-3P-aqi" secondAttribute="leading" id="92L-Ji-qCj"/>
+                            <constraint firstItem="sgp-ZV-X0f" firstAttribute="top" secondItem="Shd-AC-Yio" secondAttribute="top" constant="50" id="9UJ-4J-xLp"/>
+                            <constraint firstItem="Shd-AC-Yio" firstAttribute="trailing" secondItem="hUL-3P-aqi" secondAttribute="trailing" constant="56" id="B6L-2A-6KI"/>
+                            <constraint firstItem="wbl-ux-Bd4" firstAttribute="trailing" secondItem="hUL-3P-aqi" secondAttribute="trailing" id="Gmk-DZ-eNQ"/>
+                            <constraint firstItem="wbl-ux-Bd4" firstAttribute="leading" secondItem="hUL-3P-aqi" secondAttribute="leading" id="SS9-Id-zyp"/>
+                            <constraint firstItem="Shd-AC-Yio" firstAttribute="bottom" secondItem="hUL-3P-aqi" secondAttribute="bottom" constant="56" id="ZYe-2Y-cuy"/>
+                            <constraint firstItem="hUL-3P-aqi" firstAttribute="top" secondItem="wbl-ux-Bd4" secondAttribute="bottom" constant="10" id="gfJ-2L-hlj"/>
+                            <constraint firstItem="sgp-ZV-X0f" firstAttribute="trailing" secondItem="hUL-3P-aqi" secondAttribute="trailing" id="mYQ-dT-Kas"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Shd-AC-Yio"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Dial Number" id="rlL-9J-sJM" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="iDr-Ls-TUU"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="numberDelete" destination="1Qa-fh-ovR" id="pa0-wU-2e4"/>
+                        <outlet property="numberEight" destination="o3c-GO-dx0" id="Sxo-sO-xgv"/>
+                        <outlet property="numberFive" destination="TRN-l9-gpd" id="8B0-pw-73e"/>
+                        <outlet property="numberFour" destination="5OG-Qz-lgu" id="JGa-Yu-3dO"/>
+                        <outlet property="numberNine" destination="0mI-Ke-ial" id="lij-7e-tjX"/>
+                        <outlet property="numberOne" destination="7fR-Y0-fgi" id="jWs-MU-iYT"/>
+                        <outlet property="numberSeven" destination="QT7-Jh-Lhi" id="SlN-Bg-zHx"/>
+                        <outlet property="numberSix" destination="5Xy-Rx-hix" id="jrB-h8-hGM"/>
+                        <outlet property="numberStar" destination="WZe-JQ-2pg" id="tkg-97-iV0"/>
+                        <outlet property="numberThree" destination="26i-eD-gHQ" id="m5l-zb-c1v"/>
+                        <outlet property="numberTwo" destination="oe4-5z-Mdv" id="M5X-2n-xWk"/>
+                        <outlet property="numberZero" destination="9ai-ho-bES" id="rFe-l7-CkD"/>
+                        <outlet property="tfInputNumbers" destination="wbl-ux-Bd4" id="kFF-V1-cqR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pm1-4T-OTR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3853.5999999999999" y="-3582.4587706146931"/>
+        </scene>
+        <!--Call Page View Controller-->
+        <scene sceneID="kui-XS-cNE">
+            <objects>
+                <viewController id="WyN-oL-3UJ" customClass="IGCallPageViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k00-NH-ktA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xpx-Wc-8nd">
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qIN-kv-2dQ" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="37.5" y="114" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="OjF-Tc-EJK"/>
+                                    <constraint firstAttribute="width" constant="300" id="OqR-IG-Y0U"/>
+                                    <constraint firstAttribute="width" secondItem="qIN-kv-2dQ" secondAttribute="height" multiplier="1:1" id="VOi-5w-9QD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eVG-oo-esy" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="112.5" y="189" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ECC-YI-pE1"/>
+                                    <constraint firstAttribute="width" constant="150" id="k4V-ix-WGn"/>
+                                    <constraint firstAttribute="width" secondItem="eVG-oo-esy" secondAttribute="height" multiplier="1:1" id="tJd-4z-THq"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="pulseDelay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Zra-iU-ypk">
+                                <rect key="frame" x="37.5" y="114" width="300" height="300"/>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="80"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wVl-os-von">
+                                <rect key="frame" x="100" y="565" width="175" height="97"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZcK-H7-NnL">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oof-Kn-Ier" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="175" height="42"/>
+                                                <color key="backgroundColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5gm-cI-92D">
+                                        <rect key="frame" x="0.0" y="52" width="175" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4y-jW-RLs">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="8UK-T1-9Pa"/>
+                                                    <constraint firstAttribute="height" constant="45" id="FIj-oa-Wdf"/>
+                                                    <constraint firstAttribute="width" secondItem="D4y-jW-RLs" secondAttribute="height" multiplier="1:1" id="YH0-y6-edF"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoL-it-mNl">
+                                                <rect key="frame" x="65" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="HoL-it-mNl" secondAttribute="height" multiplier="1:1" id="Hfj-ht-WMW"/>
+                                                    <constraint firstAttribute="width" constant="45" id="LXk-5T-hve"/>
+                                                    <constraint firstAttribute="height" constant="45" id="ZBl-14-k9e"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzx-h7-DZN">
+                                                <rect key="frame" x="130" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="P1K-jJ-e1F"/>
+                                                    <constraint firstAttribute="width" secondItem="Fzx-h7-DZN" secondAttribute="height" multiplier="1:1" id="bjn-4v-pgC"/>
+                                                    <constraint firstAttribute="width" constant="45" id="bq2-tT-sqL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="HoL-it-mNl" firstAttribute="width" secondItem="HoL-it-mNl" secondAttribute="height" multiplier="1:1" id="C6Q-JX-bmW"/>
+                                            <constraint firstItem="Fzx-h7-DZN" firstAttribute="width" secondItem="Fzx-h7-DZN" secondAttribute="height" multiplier="1:1" id="h7C-hf-aL6"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dialing . . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgO-vr-7Bb">
+                                <rect key="frame" x="100" y="528" width="175" height="27"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adolf Benji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drN-VA-WEk">
+                                <rect key="frame" x="100" y="491" width="175" height="27"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fw0-Wr-PK6">
+                                <rect key="frame" x="285" y="563.5" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="3zQ-lQ-DZN"/>
+                                    <constraint firstAttribute="width" secondItem="fw0-Wr-PK6" secondAttribute="height" multiplier="1:1" id="FXq-p6-1yI"/>
+                                    <constraint firstAttribute="width" constant="45" id="yeF-zt-rT0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ny-hB-oag">
+                                <rect key="frame" x="45" y="563.5" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="5Y0-Jz-yqr"/>
+                                    <constraint firstAttribute="width" secondItem="3ny-hB-oag" secondAttribute="height" multiplier="1:1" id="CHH-Ny-X3J"/>
+                                    <constraint firstAttribute="height" constant="45" id="SA6-8t-Fpt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3ny-hB-oag" firstAttribute="centerY" secondItem="Oof-Kn-Ier" secondAttribute="centerY" id="0CE-nr-6q7"/>
+                            <constraint firstItem="wVl-os-von" firstAttribute="centerX" secondItem="k00-NH-ktA" secondAttribute="centerX" id="1IT-or-PiL"/>
+                            <constraint firstItem="fw0-Wr-PK6" firstAttribute="centerY" secondItem="Oof-Kn-Ier" secondAttribute="centerY" id="2Fq-cD-VJW"/>
+                            <constraint firstItem="eVG-oo-esy" firstAttribute="centerY" secondItem="qIN-kv-2dQ" secondAttribute="centerY" id="6Df-7o-M3d"/>
+                            <constraint firstItem="owF-80-llN" firstAttribute="bottom" secondItem="wVl-os-von" secondAttribute="bottom" constant="5" id="6Dp-Ov-ngQ"/>
+                            <constraint firstItem="ZgO-vr-7Bb" firstAttribute="trailing" secondItem="wVl-os-von" secondAttribute="trailing" id="8rr-CS-Y96"/>
+                            <constraint firstItem="eVG-oo-esy" firstAttribute="width" secondItem="eVG-oo-esy" secondAttribute="height" multiplier="1:1" id="Cpj-5R-4MJ"/>
+                            <constraint firstItem="xpx-Wc-8nd" firstAttribute="trailing" secondItem="k00-NH-ktA" secondAttribute="trailingMargin" id="EmW-v2-iXZ"/>
+                            <constraint firstItem="eVG-oo-esy" firstAttribute="centerX" secondItem="qIN-kv-2dQ" secondAttribute="centerX" id="GBG-vh-i8N"/>
+                            <constraint firstItem="xpx-Wc-8nd" firstAttribute="top" secondItem="k00-NH-ktA" secondAttribute="topMargin" id="KnK-iQ-axq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="xpx-Wc-8nd" secondAttribute="bottom" id="LJp-2F-4Ck"/>
+                            <constraint firstItem="Zra-iU-ypk" firstAttribute="height" secondItem="qIN-kv-2dQ" secondAttribute="height" id="NGX-n0-mn3"/>
+                            <constraint firstItem="Zra-iU-ypk" firstAttribute="width" secondItem="qIN-kv-2dQ" secondAttribute="width" id="QwV-kD-N8j"/>
+                            <constraint firstItem="wVl-os-von" firstAttribute="top" secondItem="ZgO-vr-7Bb" secondAttribute="bottom" constant="10" id="UCY-0T-Qun"/>
+                            <constraint firstItem="qIN-kv-2dQ" firstAttribute="centerX" secondItem="k00-NH-ktA" secondAttribute="centerX" id="gKe-aT-uKG"/>
+                            <constraint firstItem="drN-VA-WEk" firstAttribute="leading" secondItem="ZgO-vr-7Bb" secondAttribute="leading" id="gbH-2n-ObV"/>
+                            <constraint firstItem="ZgO-vr-7Bb" firstAttribute="top" secondItem="drN-VA-WEk" secondAttribute="bottom" constant="10" id="li4-n3-sFr"/>
+                            <constraint firstItem="ZgO-vr-7Bb" firstAttribute="leading" secondItem="wVl-os-von" secondAttribute="leading" id="mMk-AY-EbH"/>
+                            <constraint firstItem="xpx-Wc-8nd" firstAttribute="leading" secondItem="k00-NH-ktA" secondAttribute="leadingMargin" id="our-Pi-hZf"/>
+                            <constraint firstItem="fw0-Wr-PK6" firstAttribute="width" secondItem="fw0-Wr-PK6" secondAttribute="height" multiplier="1:1" id="qBt-3f-y0e"/>
+                            <constraint firstItem="fw0-Wr-PK6" firstAttribute="leading" secondItem="wVl-os-von" secondAttribute="trailing" constant="10" id="rHn-Bp-sFC"/>
+                            <constraint firstItem="Zra-iU-ypk" firstAttribute="centerY" secondItem="qIN-kv-2dQ" secondAttribute="centerY" id="t53-PR-m8W"/>
+                            <constraint firstItem="wVl-os-von" firstAttribute="leading" secondItem="3ny-hB-oag" secondAttribute="trailing" constant="10" id="tXO-jq-cGP"/>
+                            <constraint firstItem="drN-VA-WEk" firstAttribute="trailing" secondItem="ZgO-vr-7Bb" secondAttribute="trailing" id="tde-QE-dhm"/>
+                            <constraint firstItem="Zra-iU-ypk" firstAttribute="centerX" secondItem="qIN-kv-2dQ" secondAttribute="centerX" id="uQV-XZ-abO"/>
+                            <constraint firstItem="qIN-kv-2dQ" firstAttribute="top" secondItem="owF-80-llN" secondAttribute="top" constant="50" id="yfR-NX-iMz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="owF-80-llN"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qHN-iL-1d1" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="2Bz-pb-bpP"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imgAvatarView" destination="qIN-kv-2dQ" id="RL3-YD-Tba"/>
+                        <outlet property="imgUser" destination="eVG-oo-esy" id="ACQ-gW-aL6"/>
+                        <outlet property="lblContacticon" destination="Zra-iU-ypk" id="VYP-qi-1sH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V0g-to-ZKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4622" y="-3582"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ELy-ZC-00M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fnQ-eU-H3g" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a87-dy-NhO" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="054-tv-ipR" kind="relationship" relationship="rootViewController" id="AWK-wd-J2a"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mbr-Hi-FRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2167" y="-3580"/>
+        </scene>
+        <!--Call Page View Controller-->
+        <scene sceneID="lXp-eS-TMQ">
+            <objects>
+                <viewController id="Yfw-2b-bil" customClass="IGCallPageViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="23F-NE-Kpm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FBz-bG-BSf">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qqN-ha-D3Z" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="37.5" y="70" width="300" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="6g4-PD-Ksz"/>
+                                    <constraint firstAttribute="width" constant="300" id="cXp-h9-xyh"/>
+                                    <constraint firstAttribute="width" secondItem="qqN-ha-D3Z" secondAttribute="height" multiplier="1:1" id="pbG-DN-wZO"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1RT-jj-f8t" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="112.5" y="145" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="ajb-sw-m5W"/>
+                                    <constraint firstAttribute="height" constant="150" id="djU-Pw-7Dl"/>
+                                    <constraint firstAttribute="width" secondItem="1RT-jj-f8t" secondAttribute="height" multiplier="1:1" id="xzC-5I-712"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="pulseDelay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="nzB-eo-V3w">
+                                <rect key="frame" x="37.5" y="70" width="300" height="300"/>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="80"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ge7-83-Qbp">
+                                <rect key="frame" x="100" y="565" width="175" height="97"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="v6U-qq-xG5">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nId-6x-4sB" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="42"/>
+                                                <color key="backgroundColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjW-0B-Cfw" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="97.5" y="0.0" width="77.5" height="42"/>
+                                                <color key="backgroundColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="o8g-ha-d2O">
+                                        <rect key="frame" x="0.0" y="52" width="175" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C5Q-wP-fWB">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="C5Q-wP-fWB" secondAttribute="height" multiplier="1:1" id="AwJ-xn-4CU"/>
+                                                    <constraint firstAttribute="width" constant="45" id="cfX-9W-GtP"/>
+                                                    <constraint firstAttribute="height" constant="45" id="ePR-IG-r0y"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGJ-H7-Zf9">
+                                                <rect key="frame" x="65" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="XGJ-H7-Zf9" secondAttribute="height" multiplier="1:1" id="DKx-yk-KZR"/>
+                                                    <constraint firstAttribute="height" constant="45" id="HwJ-4v-M39"/>
+                                                    <constraint firstAttribute="width" constant="45" id="gMe-UH-IVf"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goB-Fr-XHW">
+                                                <rect key="frame" x="130" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="goB-Fr-XHW" secondAttribute="height" multiplier="1:1" id="BWb-nz-r2B"/>
+                                                    <constraint firstAttribute="width" constant="45" id="bcD-bE-2Ar"/>
+                                                    <constraint firstAttribute="height" constant="45" id="eeY-zz-hCH"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="goB-Fr-XHW" firstAttribute="width" secondItem="goB-Fr-XHW" secondAttribute="height" multiplier="1:1" id="Z0U-er-4vW"/>
+                                            <constraint firstItem="XGJ-H7-Zf9" firstAttribute="width" secondItem="XGJ-H7-Zf9" secondAttribute="height" multiplier="1:1" id="bre-Ru-GXV"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dialing . . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgu-pf-Saf">
+                                <rect key="frame" x="100" y="528" width="175" height="27"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adolf Benji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Z-af-30K">
+                                <rect key="frame" x="100" y="491" width="175" height="27"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ij5-TT-g6j">
+                                <rect key="frame" x="285" y="563.5" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ij5-TT-g6j" secondAttribute="height" multiplier="1:1" id="Aeg-m5-jsX"/>
+                                    <constraint firstAttribute="width" constant="45" id="MQi-7k-CgX"/>
+                                    <constraint firstAttribute="height" constant="45" id="xjo-6Z-fJd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11h-vD-kYd">
+                                <rect key="frame" x="45" y="563.5" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="LeU-vO-mwq"/>
+                                    <constraint firstAttribute="height" constant="45" id="c45-nh-JaH"/>
+                                    <constraint firstAttribute="width" secondItem="11h-vD-kYd" secondAttribute="height" multiplier="1:1" id="jkf-Sq-BYg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1RT-jj-f8t" firstAttribute="width" secondItem="1RT-jj-f8t" secondAttribute="height" multiplier="1:1" id="0n1-1c-t4m"/>
+                            <constraint firstItem="nzB-eo-V3w" firstAttribute="centerX" secondItem="qqN-ha-D3Z" secondAttribute="centerX" id="1Jh-mZ-xYy"/>
+                            <constraint firstItem="ge7-83-Qbp" firstAttribute="top" secondItem="qgu-pf-Saf" secondAttribute="bottom" constant="10" id="3oJ-An-OsB"/>
+                            <constraint firstItem="FBz-bG-BSf" firstAttribute="leading" secondItem="23F-NE-Kpm" secondAttribute="leadingMargin" id="4eT-Lb-lsY"/>
+                            <constraint firstItem="ge7-83-Qbp" firstAttribute="leading" secondItem="11h-vD-kYd" secondAttribute="trailing" constant="10" id="65o-GF-aLS"/>
+                            <constraint firstItem="ij5-TT-g6j" firstAttribute="leading" secondItem="ge7-83-Qbp" secondAttribute="trailing" constant="10" id="86U-V7-Esi"/>
+                            <constraint firstItem="qgu-pf-Saf" firstAttribute="trailing" secondItem="ge7-83-Qbp" secondAttribute="trailing" id="8sW-ny-n6v"/>
+                            <constraint firstItem="qgu-pf-Saf" firstAttribute="leading" secondItem="ge7-83-Qbp" secondAttribute="leading" id="AyJ-zi-F6g"/>
+                            <constraint firstItem="dzC-f9-eaV" firstAttribute="bottom" secondItem="ge7-83-Qbp" secondAttribute="bottom" constant="5" id="DRs-fA-hzf"/>
+                            <constraint firstItem="qqN-ha-D3Z" firstAttribute="centerX" secondItem="23F-NE-Kpm" secondAttribute="centerX" id="EMZ-3Y-KAw"/>
+                            <constraint firstItem="ge7-83-Qbp" firstAttribute="centerX" secondItem="23F-NE-Kpm" secondAttribute="centerX" id="JvA-L9-25f"/>
+                            <constraint firstItem="FBz-bG-BSf" firstAttribute="trailing" secondItem="23F-NE-Kpm" secondAttribute="trailingMargin" id="Lyk-om-9VN"/>
+                            <constraint firstItem="nzB-eo-V3w" firstAttribute="height" secondItem="qqN-ha-D3Z" secondAttribute="height" id="RKL-Qy-oSj"/>
+                            <constraint firstItem="ij5-TT-g6j" firstAttribute="width" secondItem="ij5-TT-g6j" secondAttribute="height" multiplier="1:1" id="TGq-gs-CJJ"/>
+                            <constraint firstItem="nzB-eo-V3w" firstAttribute="centerY" secondItem="qqN-ha-D3Z" secondAttribute="centerY" id="Tlu-m0-sik"/>
+                            <constraint firstItem="b2Z-af-30K" firstAttribute="trailing" secondItem="qgu-pf-Saf" secondAttribute="trailing" id="UC6-zv-faG"/>
+                            <constraint firstItem="nzB-eo-V3w" firstAttribute="width" secondItem="qqN-ha-D3Z" secondAttribute="width" id="Ung-YC-gUD"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="FBz-bG-BSf" secondAttribute="bottom" id="dR0-hh-8fo"/>
+                            <constraint firstItem="b2Z-af-30K" firstAttribute="leading" secondItem="qgu-pf-Saf" secondAttribute="leading" id="gJV-zz-x5g"/>
+                            <constraint firstItem="qqN-ha-D3Z" firstAttribute="top" secondItem="dzC-f9-eaV" secondAttribute="top" constant="50" id="kKt-MR-lpe"/>
+                            <constraint firstItem="1RT-jj-f8t" firstAttribute="centerY" secondItem="qqN-ha-D3Z" secondAttribute="centerY" id="kpt-wD-lkc"/>
+                            <constraint firstItem="11h-vD-kYd" firstAttribute="centerY" secondItem="nId-6x-4sB" secondAttribute="centerY" id="le0-Ne-q4S"/>
+                            <constraint firstItem="qgu-pf-Saf" firstAttribute="top" secondItem="b2Z-af-30K" secondAttribute="bottom" constant="10" id="rAN-6N-Ywi"/>
+                            <constraint firstItem="FBz-bG-BSf" firstAttribute="top" secondItem="23F-NE-Kpm" secondAttribute="topMargin" id="s1O-AR-YvB"/>
+                            <constraint firstItem="ij5-TT-g6j" firstAttribute="centerY" secondItem="nId-6x-4sB" secondAttribute="centerY" id="wR7-tu-9vT"/>
+                            <constraint firstItem="1RT-jj-f8t" firstAttribute="centerX" secondItem="qqN-ha-D3Z" secondAttribute="centerX" id="zdC-C7-Uq2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dzC-f9-eaV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xxA-YC-C8c" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="1TL-ZZ-ntn"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imgAvatarView" destination="qqN-ha-D3Z" id="EQQ-mp-N3V"/>
+                        <outlet property="imgUser" destination="1RT-jj-f8t" id="E7P-5c-uxS"/>
+                        <outlet property="lblContacticon" destination="nzB-eo-V3w" id="fxH-DK-KoA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CIl-eq-kNP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4622" y="-3582"/>
         </scene>
     </scenes>
     <resources>

@@ -54,6 +54,7 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
             if lastLang != "fa" {
                 SMLangUtil.changeLanguage(newLang: SMLangUtil.SMLanguage.Persian)
                 UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+                
                 resetApp()
             }
             break

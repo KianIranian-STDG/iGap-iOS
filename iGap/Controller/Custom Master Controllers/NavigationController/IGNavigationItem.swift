@@ -312,7 +312,7 @@ class IGNavigationItem: UINavigationItem {
         let btnEdit = UIButton(frame: settingViewFrame)
         btnEdit.setTitle("", for: .normal)
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        leftViewContainer!.addSubview(btnEdit)
+//        leftViewContainer!.addSubview(btnEdit)
     }
     
     private func addComopseButton() {

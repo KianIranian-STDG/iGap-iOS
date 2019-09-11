@@ -752,10 +752,10 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     private func getLatestCallLog(){
-        IGSignalingGetLogRequest.Generator.generate(offset: Int32(0), limit: 1).success { (responseProtoMessage) in
+        IGSignalingGetLogRequest.Generator.generate(offset: Int32(0), limit: 1, mode: .all).success { (responseProtoMessage) in
             
             if let logResponse = responseProtoMessage as? IGPSignalingGetLogResponse {
-               let _ = IGSignalingGetLogRequest.Handler.interpret(response: logResponse)
+                let _ = IGSignalingGetLogRequest.Handler.interpret(response: logResponse)
             }
             
             }.error({ (errorCode, waitTime) in

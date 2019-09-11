@@ -12,8 +12,8 @@
         <array key="IRANSans.ttf">
             <string>IRANSans</string>
         </array>
-        <array key="iGap-Fontico.ttf">
-            <string>iGap-Fontico</string>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
         </array>
     </customFonts>
     <objects>
@@ -67,7 +67,7 @@
                             <constraint firstAttribute="width" constant="25" id="hdl-Gl-b3b"/>
                             <constraint firstAttribute="height" constant="25" id="li0-Mu-Sel"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
