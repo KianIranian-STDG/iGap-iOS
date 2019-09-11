@@ -238,13 +238,8 @@ class IGRoomListtCell: UITableViewCell {
                 self.muteImage.isHidden = false
                 unreadCountLabel.backgroundColor = UIColor.darkGray
                 
-                
-            default:
-                break
             }
             
-            /////////
-            /////2////
             
             self.nameLabel.text = item.title
             
@@ -275,7 +270,7 @@ class IGRoomListtCell: UITableViewCell {
             switch item.type {
                 
             case .chat:
-                nameLabel.snp.remakeConstraints { (make) in
+                nameLabel.snp.updateConstraints { (make) in
                     make.leading.equalTo(self.typeImage.snp.trailing).offset(-20)
                 }
                 self.lastMessageStateImage.isHidden = false
@@ -283,7 +278,7 @@ class IGRoomListtCell: UITableViewCell {
                 break
                 
             case .group:
-                nameLabel.snp.remakeConstraints { (make) in
+                nameLabel.snp.updateConstraints { (make) in
                     make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
                 }
                 self.lastMessageStateImage.isHidden = false
@@ -291,17 +286,15 @@ class IGRoomListtCell: UITableViewCell {
                 break
                 
             case .channel:
-                nameLabel.snp.remakeConstraints { (make) in
+                nameLabel.snp.updateConstraints { (make) in
                     make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
                 }
                 self.lastMessageStateImage.isHidden = true
                 
                 break
-                
-                
             }
             
-            if let lastmsg = item.lastMessage?.message {
+            if (item.lastMessage?.message) != nil {
                 setLastMessage(for: item)
             }
             
