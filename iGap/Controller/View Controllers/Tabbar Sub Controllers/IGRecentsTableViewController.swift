@@ -505,7 +505,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         self.tableView.isUserInteractionEnabled = true
         //self.notificationToken?.stop()
     }

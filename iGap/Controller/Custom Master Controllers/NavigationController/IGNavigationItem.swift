@@ -328,11 +328,10 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 35, height: 21)
         
         
         let btnAdd = UIButton(frame: composeButtonFrame)
-
         btnAdd.setTitle("", for: .normal)
         btnAdd.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
 
@@ -357,9 +356,9 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let callListViewFrame =  CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let callListViewFrame =  CGRect(x: 10, y: 7.5, width: 35, height: 21)
         let btnMoreSettings = UIButton(frame: callListViewFrame)
-        
+
         btnMoreSettings.setTitle("", for: .normal)
         btnMoreSettings.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         leftViewContainer!.addSubview(btnMoreSettings)
@@ -469,7 +468,6 @@ class IGNavigationItem: UINavigationItem {
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
             if lastLang == "fa" {
                 btnLogo.setTitle("", for: .normal)
-                btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
 
             } else if lastLang == "en" {
                 btnLogo.setTitle("", for: .normal)
