@@ -10,7 +10,7 @@
 
 import UIKit
 import SnapKit
-var currentTabIndex : Int!
+var currentTabIndex : Int! = 2
 
 class IGTabBarController: UITabBarController {
     

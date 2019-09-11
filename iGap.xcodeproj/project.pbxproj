@@ -39,6 +39,7 @@
 		8E599D812328C59600D75376 /* UICollectionViewCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D802328C59600D75376 /* UICollectionViewCustom.swift */; };
 		8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D822328D13900D75376 /* CallTypesCVCell.swift */; };
 		8E599D852328D13900D75376 /* CallTypesCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E599D832328D13900D75376 /* CallTypesCVCell.xib */; };
+		8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E599D862329014100D75376 /* IGDialNumberPadViewController.swift */; };
 		8E5FBC09231534BA0069D4F2 /* IGCountDownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */; };
 		8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */; };
 		8E5FBC9D231BD6AB0069D4F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */; };
@@ -761,6 +762,7 @@
 		8E599D802328C59600D75376 /* UICollectionViewCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCustom.swift; sourceTree = "<group>"; };
 		8E599D822328D13900D75376 /* CallTypesCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallTypesCVCell.swift; sourceTree = "<group>"; };
 		8E599D832328D13900D75376 /* CallTypesCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CallTypesCVCell.xib; sourceTree = "<group>"; };
+		8E599D862329014100D75376 /* IGDialNumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGDialNumberPadViewController.swift; sourceTree = "<group>"; };
 		8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCountDownTimer.swift; sourceTree = "<group>"; };
 		8E5FBC0A23154D080069D4F2 /* IGRegisttrationStepSecurityQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRegisttrationStepSecurityQuestions.swift; sourceTree = "<group>"; };
 		8E5FBC9B231BD6A40069D4F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -1566,6 +1568,14 @@
 			path = TGPSlider;
 			sourceTree = "<group>";
 		};
+		8E599D882329017700D75376 /* DialPad */ = {
+			isa = PBXGroup;
+			children = (
+				8E599D862329014100D75376 /* IGDialNumberPadViewController.swift */,
+			);
+			path = DialPad;
+			sourceTree = "<group>";
+		};
 		8E8D8E22225DB4B000039191 /* WithDraw */ = {
 			isa = PBXGroup;
 			children = (
@@ -1906,6 +1916,7 @@
 				FA50A8C61DD35EFD00C6D2EA /* Splash and Register */,
 				FA68A20F1DD9B0CD003A6651 /* Tabbar Sub Controllers */,
 				8EBB455E2270203200A52D88 /* Base */,
+				8E599D882329017700D75376 /* DialPad */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -3826,6 +3837,7 @@
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */,
 				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
+				8E599D872329014100D75376 /* IGDialNumberPadViewController.swift in Sources */,
 				93321E7E1E5C12B7004D4454 /* IGForwardChatsTableViewCell.swift in Sources */,
 				FA11E28D1DE99BF400A2F87C /* IGFactory.swift in Sources */,
 				FA68A2111DD9B0E9003A6651 /* IGRecentsTableViewController.swift in Sources */,

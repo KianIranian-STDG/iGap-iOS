@@ -84,8 +84,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
                 connectionStatus = .iGap
                 IGAppManager.connectionStatusStatic = .iGap
-                switch  IGTabBarController.currentTabStatic {
-                case .Recent:
+                switch  currentTabIndex {
+                case 2:
                     self.setDefaultNavigationItem()
                 default:
                     self.setLastNavigationItem()
@@ -100,22 +100,22 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         self.hideKeyboardWhenTappedAround()
         
-        if IGTabBarController.currentTabStatic == .Dashboard {
+        if currentTabIndex == 3 { // Discovery Tab
             navigationItem.setDiscoveriesNavigationItems()
             
-        } else if IGTabBarController.currentTabStatic == .Call {
+        } else if currentTabIndex == 0 { // Phone Book Tab
             navigationItem.setCallListNavigationItems()
             
-        } else if IGTabBarController.currentTabStatic == .Contact {
+        } else if currentTabIndex == 1 { // Call List Tab
             navigationItem.addiGapLogo()
 
-        } else if IGTabBarController.currentTabStatic == .Profile {
+        } else if currentTabIndex == 4 { // Profile Tab
             navigationItem.addiGapLogo()
             let navigationControllerr = self.navigationController as! IGNavigationController
             navigationControllerr.navigationBar.isHidden = true
 
 
-        } else if IGTabBarController.currentTabStatic == .Recent {
+        } else if currentTabIndex == 2 { // Recent Tab
             navigationItem.setChatListsNavigationItems()
 
             

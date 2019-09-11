@@ -47,9 +47,6 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        callTypes = IGPSignalingGetLog.IGPFilter.allCases
-
-        addCollectionFilterView()
 
         let sortProperties = [SortDescriptor(keyPath: "offerTime", ascending: false)]
         callLogList = try! Realm().objects(IGRealmCallLog.self).sorted(by: sortProperties)
@@ -92,9 +89,12 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+//        selectedIndex = 0
         initNavigationBar()
+        callTypes = IGPSignalingGetLog.IGPFilter.allCases
         
+        addCollectionFilterView()
+
         self.tableView.isUserInteractionEnabled = true
     }
     override func viewDidLayoutSubviews() {
@@ -132,6 +132,7 @@ class IGCallsTableViewController: BaseTableViewController {
 
         
     }
+    
     
     //observer Update
     func updateObserver(mode : IGPSignalingGetLog.IGPFilter) {
@@ -178,6 +179,8 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //Hint :- restore call list to its first state on disapreance of viewcontroller
+
         self.tableView.isUserInteractionEnabled = true
     }
     
@@ -428,14 +431,17 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let LastIndexPath = IndexPath(row: selectedIndex, section: 0)
+
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        guard let LastCell = collectionView.cellForItem(at: LastIndexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
         cell.backgroundColor = UIColor.iGapGreen()
-        label.textColor = UIColor.white
-        
+        label.textColor = UIColor.iGapDarkGray()
+        LastCell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+
         selectedIndex = indexPath.item
-        
+
         switch callTypes[indexPath.item] {
         case .all:
             print("|||||TAPPED btnAll|||||")
@@ -491,7 +497,7 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
             cell.backgroundColor = UIColor.iGapGreen()
-            label.textColor = UIColor.white
+            label.textColor = UIColor.iGapDarkGray()
         } else {
             cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
             label.textColor = UIColor.iGapDarkGray()

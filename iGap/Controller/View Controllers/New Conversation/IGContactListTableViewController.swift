@@ -51,42 +51,35 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.addSearchBar(state: "True")
         
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.addSearchBar(state: "False")
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         IGContactListTableViewController.callDelegate = self
         self.tableView.sectionIndexBackgroundColor = UIColor.clear
-        //        self.navigati.addSearchBar(state: "True")
         self.tableView.contentInset.top = 15.0
         
-        setNavigationItem()
+        initNavigationBar()
         sections = fillContacts()
     }
-    
-    private func setNavigationItem(){
+    private func initNavigationBar() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        
         var title = "NEW_CONVERSATION".localizedNew
         if forceCall {
             title = "NEW_CALL".localizedNew
         }
-        navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: nil, title: title)
+
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.leftViewContainer?.addAction {
-            self.navigationController?.popToRootViewController(animated: true)
-        }
     }
+
+
     
     //    private func initNavigationBar(){
     //        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem

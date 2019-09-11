@@ -270,24 +270,33 @@ class IGRoomListtCell: UITableViewCell {
             switch item.type {
                 
             case .chat:
-                nameLabel.snp.updateConstraints { (make) in
+                nameLabel.snp.remakeConstraints { (make) in
                     make.leading.equalTo(self.typeImage.snp.trailing).offset(-20)
+                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
+                    make.top.equalTo(self.avatarImage.snp.top)
+
                 }
                 self.lastMessageStateImage.isHidden = false
                 
                 break
                 
             case .group:
-                nameLabel.snp.updateConstraints { (make) in
+                nameLabel.snp.remakeConstraints { (make) in
                     make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
+                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
+                    make.top.equalTo(self.avatarImage.snp.top)
+
                 }
                 self.lastMessageStateImage.isHidden = false
                 
                 break
                 
             case .channel:
-                nameLabel.snp.updateConstraints { (make) in
+                nameLabel.snp.remakeConstraints { (make) in
                     make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
+                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
+                    make.top.equalTo(self.avatarImage.snp.top)
+
                 }
                 self.lastMessageStateImage.isHidden = true
                 
