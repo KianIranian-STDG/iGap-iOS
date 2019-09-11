@@ -166,6 +166,8 @@ class IGNavigationItem: UINavigationItem {
         self.title = ""
         
         backViewContainer?.addAction {
+            isDashboardInner = false
+
             IGGlobal.shouldShowChart = false
             self.backViewContainer?.isUserInteractionEnabled = false
             let numberOfPages = self.navigationController?.viewControllers.count

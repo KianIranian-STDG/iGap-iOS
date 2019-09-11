@@ -52,7 +52,7 @@ class IGFavouriteChannelSlideTVCell: UITableViewCell {
     
     @objc func slideshowTick(_ timer: Timer) {
         var page = collectionView.frame.size.width > 0 ? Int(collectionView.contentOffset.x / collectionView.frame.size.width) : 0
-        print("~~~~~~", collectionView.tag, page)
+
         if page == slidesCount {
             page = 0
             setScrollViewPage(page, animated: false)

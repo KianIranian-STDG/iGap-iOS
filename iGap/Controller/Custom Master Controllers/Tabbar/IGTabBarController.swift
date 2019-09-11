@@ -42,7 +42,7 @@ class IGTabBarController: UITabBarController {
         let view = UIView()
         let viewBottom = UIView()
         view.backgroundColor = UIColor.tabbarBGColor()
-        view.backgroundColor = UIColor.white
+        viewBottom.backgroundColor = UIColor.white
         view.frame = self.tabBar.bounds
         viewBottom.frame = self.tabBar.bounds
         view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
@@ -50,9 +50,8 @@ class IGTabBarController: UITabBarController {
         view.layer.borderColor =  UIColor.tabbarBGColor().cgColor
 
         self.tabBar.insertSubview(viewBottom, at: 0)
-        self.tabBar.insertSubview(view, at: 0)
+        self.tabBar.insertSubview(view, at: 1)
 
-        let navigationControllerr = self.navigationController as! IGNavigationController
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -52,31 +52,6 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
             }
         }
         
-//        guard let data = IGGlobal.dataFromFile("ServerData") else {
-//            return
-//        }
-        
-//        debugPrint("=========Request Url=========")
-//        debugPrint("https://api.igap.net/services/v1.0/channel")
-//        debugPrint("=========Request Headers=========")
-//        debugPrint(getHeaders())
-//
-//        Alamofire.request("https://api.igap.net/services/v1.0/channel", method: .get, headers: getHeaders()).responseJSON { response in
-//
-//            debugPrint("=========Response Headers=========")
-//            debugPrint(response.response ?? "no headers")
-//            debugPrint("=========Response Body=========")
-//            debugPrint(response.result.value ?? "NO RESPONSE BODY")
-//
-//            switch response.result {
-//            case .success(let value):
-        
-//                let json = JSON(value)
-//
-//                print(json["data"].arrayValue)
-//            }
-//
-//        }
     }
 
     
@@ -97,7 +72,6 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
         
         var cell: UITableViewCell!
         let item = items[indexPath.row]
-        print(IGGlobal.getTime("Hossein_0"))
         switch item.type {
         case .ad:
             

@@ -12,10 +12,10 @@ import UIKit
 import IGProtoBuff
 import MapKit
 
+var isDashboardInner: Bool! = false
 
 class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, DiscoveryObserver {
     
-    var isInner: Bool! = false
     static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
@@ -71,7 +71,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         navigationControllerr.navigationBar.isHidden = false
 
 
-        if isInner! {
+        if isDashboardInner! {
             self.initNavigationBar(title: nil, rightItemText: nil) {
             }
         } else {
