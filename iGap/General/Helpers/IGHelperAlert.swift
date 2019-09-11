@@ -89,7 +89,9 @@ class IGHelperAlert {
         }
         
     }
-    func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil){
+    
+    func showSuccessAlert(view: UIViewController? = nil, message: String? = nil, success: Bool = true, done: (() -> Void)? = nil) {
+
         DispatchQueue.main.async {
             
             let iconFontSize: CGFloat = 32

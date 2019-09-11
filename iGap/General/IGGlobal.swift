@@ -440,7 +440,7 @@ extension UIColor {
     
     //iGap Theme
     class func iGapMainColor() -> UIColor {
-        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+        return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 1)
     }
     
     class func iGapBars() -> UIColor { // navigation bar color
@@ -589,7 +589,7 @@ extension UIColor {
     }
     
     class func failedColor() -> UIColor {
-        return UIColor(red:224/255.0, green:83/255.0, blue:83/255.0, alpha:1.0)
+        return #colorLiteral(red: 0.8392156863, green: 0.1882352941, blue: 0.1921568627, alpha: 1)
     }
     
     class func seenColor() -> UIColor {

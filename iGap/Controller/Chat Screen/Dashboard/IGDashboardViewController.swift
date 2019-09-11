@@ -88,8 +88,10 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         navigationItem.setDiscoveriesNavigationItems()
         self.hideKeyboardWhenTappedAround()
         
+    }
 
-
+    override func viewDidAppear(_ animated: Bool) {
+        IGPaymentView.sharedInstance.show(on: UIApplication.shared.keyWindow!)
     }
     
     private func registerCellsNib(){
@@ -131,8 +133,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     //pollReq
     
     private func getPollRequest(){
-        
-        
         
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
             return

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IGPaymentView" customModule="iGap" customModuleProvider="target">
+            <connections>
+                <outlet property="acceptBtn" destination="mNB-MW-ALp" id="Tyg-Sx-XOB"/>
+                <outlet property="cancelBtn" destination="V3y-gF-yoI" id="lDc-pp-6s2"/>
+                <outlet property="containerView" destination="iN0-l3-epB" id="sJT-0Y-lRm"/>
+                <outlet property="contentView" destination="EkC-gx-pKa" id="YT5-Yz-Oay"/>
+                <outlet property="costSV" destination="z6I-MB-kxc" id="Vun-si-opO"/>
+                <outlet property="descriptionSV" destination="efw-1h-UuH" id="LQz-r0-EQ5"/>
+                <outlet property="mainSV" destination="WOo-ru-wH1" id="fJ9-aD-tTd"/>
+                <outlet property="statusSV" destination="TRZ-hw-Ipg" id="KEo-gb-XUb"/>
+                <outlet property="titleLbl" destination="so1-6m-SG9" id="m4U-gz-p6t"/>
+                <outlet property="topIconView" destination="d0q-4n-rQs" id="PSB-RC-Uou"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="422" height="369"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EkC-gx-pKa">
+                    <rect key="frame" x="0.0" y="35.5" width="422" height="333.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ همراه اول" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="so1-6m-SG9">
+                            <rect key="frame" x="173.5" y="35" width="75.5" height="20.5"/>
+                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WOo-ru-wH1">
+                            <rect key="frame" x="8" y="63.5" width="406" height="196"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eq-gS-PKS">
+                                    <rect key="frame" x="0.0" y="0.0" width="406" height="1"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="SXA-kW-qKD"/>
+                                    </constraints>
+                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="efw-1h-UuH">
+                                    <rect key="frame" x="59.5" y="9" width="287.5" height="54"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ همراه اول" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bea-9V-DbW">
+                                            <rect key="frame" x="97" y="0.0" width="93" height="25.5"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ ۱۰۰۰۰ ریالی همراه اول همراه با ۹ درصد ارزش افزوده" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfL-kv-0jn">
+                                            <rect key="frame" x="0.0" y="33.5" width="287.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="z6I-MB-kxc">
+                                    <rect key="frame" x="175" y="71" width="56" height="54"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="قیمت" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a7r-lx-oKN">
+                                            <rect key="frame" x="9.5" y="0.0" width="37" height="25.5"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="۱۰،۹۰۰ ریال" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scj-eq-K7e">
+                                            <rect key="frame" x="0.0" y="33.5" width="56" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozo-to-K0l">
+                                    <rect key="frame" x="0.0" y="133" width="406" height="1"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="Wih-xa-fbS"/>
+                                    </constraints>
+                                </view>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TRZ-hw-Ipg">
+                                    <rect key="frame" x="115.5" y="142" width="175.5" height="54"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="پرداخت توسط شما لغو شد." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ujf-ge-0m2">
+                                            <rect key="frame" x="0.0" y="0.0" width="175.5" height="25.5"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شماره تراکنش: ۰" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZQ-b0-9hh">
+                                            <rect key="frame" x="45" y="33.5" width="85" height="20.5"/>
+                                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="0eq-gS-PKS" firstAttribute="leading" secondItem="WOo-ru-wH1" secondAttribute="leading" id="Q9n-Zi-fNu"/>
+                                <constraint firstItem="ozo-to-K0l" firstAttribute="leading" secondItem="WOo-ru-wH1" secondAttribute="leading" id="hED-OF-cv2"/>
+                                <constraint firstAttribute="trailing" secondItem="ozo-to-K0l" secondAttribute="trailing" id="ijq-q8-TzL"/>
+                                <constraint firstAttribute="trailing" secondItem="0eq-gS-PKS" secondAttribute="trailing" id="pSL-AN-zRo"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MQU-TH-kvx">
+                            <rect key="frame" x="8" y="279.5" width="406" height="38"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNB-MW-ALp">
+                                    <rect key="frame" x="0.0" y="0.0" width="199" height="38"/>
+                                    <color key="backgroundColor" red="0.61568627450980395" green="0.7803921568627451" blue="0.33725490196078434" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                    <state key="normal" title="پرداخت">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-gF-yoI">
+                                    <rect key="frame" x="207" y="0.0" width="199" height="38"/>
+                                    <color key="backgroundColor" red="0.80480569599999996" green="0.20542374250000001" blue="0.15306156870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="BUo-HM-OOO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                    <state key="normal" title="انصراف">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="mNB-MW-ALp" firstAttribute="height" secondItem="V3y-gF-yoI" secondAttribute="height" id="eNY-rk-Oee"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="MQU-TH-kvx" firstAttribute="leading" secondItem="EkC-gx-pKa" secondAttribute="leading" constant="8" id="4L6-87-gfG"/>
+                        <constraint firstItem="WOo-ru-wH1" firstAttribute="top" secondItem="so1-6m-SG9" secondAttribute="bottom" constant="8" id="DWb-Tz-Pd0"/>
+                        <constraint firstItem="so1-6m-SG9" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="JQa-Vx-XCu"/>
+                        <constraint firstAttribute="bottom" secondItem="MQU-TH-kvx" secondAttribute="bottom" constant="16" id="gC2-Cn-Zbx"/>
+                        <constraint firstItem="MQU-TH-kvx" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="lPn-aY-JfT"/>
+                        <constraint firstItem="WOo-ru-wH1" firstAttribute="leading" secondItem="EkC-gx-pKa" secondAttribute="leading" constant="8" id="ljK-9C-G61"/>
+                        <constraint firstItem="MQU-TH-kvx" firstAttribute="top" secondItem="WOo-ru-wH1" secondAttribute="bottom" constant="20" id="sCl-4A-Gte"/>
+                        <constraint firstItem="WOo-ru-wH1" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="xfK-KZ-Stp"/>
+                        <constraint firstItem="so1-6m-SG9" firstAttribute="top" secondItem="EkC-gx-pKa" secondAttribute="top" constant="35" id="z9c-Sd-0WO"/>
+                        <constraint firstAttribute="trailing" secondItem="WOo-ru-wH1" secondAttribute="trailing" constant="8" id="zCZ-u0-ZIy"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-4n-rQs">
+                    <rect key="frame" x="181" y="5.5" width="60" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwX-8f-cMK">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="An9-iJ-Lp7"/>
+                        <constraint firstAttribute="width" secondItem="d0q-4n-rQs" secondAttribute="height" multiplier="1:1" id="Vpv-x8-mLd"/>
+                        <constraint firstItem="pwX-8f-cMK" firstAttribute="top" secondItem="d0q-4n-rQs" secondAttribute="top" id="Y7O-fj-EcD"/>
+                        <constraint firstItem="pwX-8f-cMK" firstAttribute="leading" secondItem="d0q-4n-rQs" secondAttribute="leading" id="cxH-UX-MGQ"/>
+                        <constraint firstAttribute="bottom" secondItem="pwX-8f-cMK" secondAttribute="bottom" id="lcc-Zp-pZs"/>
+                        <constraint firstAttribute="trailing" secondItem="pwX-8f-cMK" secondAttribute="trailing" id="we6-8p-2Wv"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="d0q-4n-rQs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Euy-11-nIj"/>
+                <constraint firstItem="EkC-gx-pKa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="KUd-G3-kD7"/>
+                <constraint firstItem="EkC-gx-pKa" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Mhf-ne-9uG"/>
+                <constraint firstAttribute="bottom" secondItem="EkC-gx-pKa" secondAttribute="bottom" id="dZL-dr-wNR"/>
+                <constraint firstItem="EkC-gx-pKa" firstAttribute="top" secondItem="d0q-4n-rQs" secondAttribute="bottom" constant="-30" id="nDy-qV-6fI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="165" y="-94.542253521126767"/>
+        </view>
+    </objects>
+</document>

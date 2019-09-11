@@ -258,6 +258,10 @@
 		943495BC231FB217009854FE /* IGFinancialHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943495BB231FB217009854FE /* IGFinancialHistoryViewController.swift */; };
 		943495BF231FBADC009854FE /* IGTransactionsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943495BD231FBADC009854FE /* IGTransactionsTVCell.swift */; };
 		943495C0231FBADC009854FE /* IGTransactionsTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */; };
+		945B127223251E9200DBF2DA /* IGPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945B127123251E9200DBF2DA /* IGPaymentView.swift */; };
+		945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945B127323251F8D00DBF2DA /* IGPaymentView.xib */; };
+		94909E1E2328B1CD000D04A6 /* IGApiPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94909E1D2328B1CD000D04A6 /* IGApiPayment.swift */; };
+		94909E202328BE6C000D04A6 /* IGApiTopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */; };
 		949E835F231EA6A500B6799E /* slideImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E835D231EA6A500B6799E /* slideImageCVCell.swift */; };
 		949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949E835E231EA6A500B6799E /* slideImageCVCell.xib */; };
 		94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */; };
@@ -1009,6 +1013,10 @@
 		943495BB231FB217009854FE /* IGFinancialHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryViewController.swift; sourceTree = "<group>"; };
 		943495BD231FBADC009854FE /* IGTransactionsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGTransactionsTVCell.swift; sourceTree = "<group>"; };
 		943495BE231FBADC009854FE /* IGTransactionsTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGTransactionsTVCell.xib; sourceTree = "<group>"; };
+		945B127123251E9200DBF2DA /* IGPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGPaymentView.swift; sourceTree = "<group>"; };
+		945B127323251F8D00DBF2DA /* IGPaymentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IGPaymentView.xib; sourceTree = "<group>"; };
+		94909E1D2328B1CD000D04A6 /* IGApiPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiPayment.swift; sourceTree = "<group>"; };
+		94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiTopup.swift; sourceTree = "<group>"; };
 		949E835D231EA6A500B6799E /* slideImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideImageCVCell.swift; sourceTree = "<group>"; };
 		949E835E231EA6A500B6799E /* slideImageCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = slideImageCVCell.xib; sourceTree = "<group>"; };
 		94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FinancialHistory.storyboard; sourceTree = "<group>"; };
@@ -2488,6 +2496,8 @@
 			children = (
 				FAB4366E22096F3C0073EEE1 /* IGApiSticker.swift */,
 				940F9E77231BBED700C26D50 /* IGApiFavouriteChannels.swift */,
+				94909E1D2328B1CD000D04A6 /* IGApiPayment.swift */,
+				94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -2982,6 +2992,8 @@
 				FAF7960D1DAA39660030509B /* AppDelegate */,
 				8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */,
 				8E01BC822293F06F0001C757 /* IGCustomModal.swift */,
+				945B127123251E9200DBF2DA /* IGPaymentView.swift */,
+				945B127323251F8D00DBF2DA /* IGPaymentView.xib */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3196,6 +3208,7 @@
 			files = (
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
 				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
+				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
@@ -3587,6 +3600,7 @@
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
 				FA842A3A225CA96A00E500A4 /* DashboardCell1.swift in Sources */,
+				94909E202328BE6C000D04A6 /* IGApiTopup.swift in Sources */,
 				FA7BC82A21F76BC200D357D9 /* IGRealmClientCondition.swift in Sources */,
 				FA7F3736208605F00024F8BF /* IGMapNearbyDistanceTableViewController.swift in Sources */,
 				8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */,
@@ -3611,6 +3625,7 @@
 				8E5FBC09231534BA0069D4F2 /* IGCountDownTimer.swift in Sources */,
 				8EEE896122ACD6E50072383C /* IGRegistrationStepPrivacyPolicyViewController.swift in Sources */,
 				FA2A506720ECABD9002C5322 /* IGFinancialServiceCharge.swift in Sources */,
+				945B127223251E9200DBF2DA /* IGPaymentView.swift in Sources */,
 				FAB2C2DF1DF7F6E8001F30B5 /* IGSessionInfo.swift in Sources */,
 				931585151E6D567000F4C04B /* IGUserPrivacy.swift in Sources */,
 				FA0953831E1B97E20043ED3F /* IGChooseMemberFromContactsToCreateGroup.swift in Sources */,
@@ -3815,6 +3830,7 @@
 				FA60ADD4200BA39B004EE151 /* IGReport.swift in Sources */,
 				FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */,
 				8E96A310225B6DCC007D8A77 /* SMHistoryTableViewCell.swift in Sources */,
+				94909E1E2328B1CD000D04A6 /* IGApiPayment.swift in Sources */,
 				8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */,
 				FA76598222902ACE006322A3 /* INSPhotosInteractionAnimator.swift in Sources */,
 				8EC217A02258C0ED00105B5A /* NSBundle+Language.m in Sources */,

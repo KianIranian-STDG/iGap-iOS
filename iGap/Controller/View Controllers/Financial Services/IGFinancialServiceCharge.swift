@@ -322,30 +322,38 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         }
         
         IGGlobal.prgShow(self.view)
-        IGMplGetTopupToken.Generator.generate(number: Int64(phoneNumber)!, amount: chargeAmount, type: operatorChargeType).success({ (protoResponse) in
-            IGGlobal.prgHide()
-            if let getTokenResponse = protoResponse as? IGPMplGetTopupTokenResponse {
-                if getTokenResponse.igpStatus == 0 { //success
-                    self.registerTopup(token: getTokenResponse.igpToken)
-                } else {
-                    self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: getTokenResponse.igpMessage)
-                }
-            }
-        }).error ({ (errorCode, waitTime) in
-            IGGlobal.prgHide()
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
+        
+        if self.operatorType == IGOperator.mci {
             
-        }).send()
+            
+            
+        } else {
+            IGMplGetTopupToken.Generator.generate(number: Int64(phoneNumber)!, amount: chargeAmount, type: operatorChargeType).success({ (protoResponse) in
+                IGGlobal.prgHide()
+                if let getTokenResponse = protoResponse as? IGPMplGetTopupTokenResponse {
+                    if getTokenResponse.igpStatus == 0 { //success
+                        self.registerTopup(token: getTokenResponse.igpToken)
+                    } else {
+                        self.showErrorAlertView(title: "GLOBAL_WARNING".localizedNew, message: getTokenResponse.igpMessage)
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                IGGlobal.prgHide()
+                switch errorCode {
+                case .timeout:
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                default:
+                    break
+                }
+                
+            }).send()
+        }
+        
     }
     
     
