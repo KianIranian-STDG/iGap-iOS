@@ -9,6 +9,7 @@
  */
 
 import UIKit
+import SnapKit
 var currentTabIndex : Int!
 
 class IGTabBarController: UITabBarController {
@@ -32,19 +33,25 @@ class IGTabBarController: UITabBarController {
     }
     private func initView() {
         
-        UITabBar.appearance().backgroundImage = UIImage.colorForNavBar(color: .white)
+        UITabBar.appearance().backgroundImage = UIImage.colorForNavBar(color: UIColor.tabbarBGColor())
         UITabBar.appearance().shadowImage = UIImage.colorForNavBar(color: .clear)
         self.tabBar.barTintColor = UIColor.white
         self.tabBar.layer.cornerRadius = 10
         setTabBarItems()
         self.selectedIndex = 2
         let view = UIView()
+        let viewBottom = UIView()
         view.backgroundColor = UIColor.tabbarBGColor()
+        view.backgroundColor = UIColor.white
         view.frame = self.tabBar.bounds
+        viewBottom.frame = self.tabBar.bounds
         view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
         view.layer.borderWidth = 1
         view.layer.borderColor =  UIColor.tabbarBGColor().cgColor
+
+        self.tabBar.insertSubview(viewBottom, at: 0)
         self.tabBar.insertSubview(view, at: 0)
+
         let navigationControllerr = self.navigationController as! IGNavigationController
     }
     

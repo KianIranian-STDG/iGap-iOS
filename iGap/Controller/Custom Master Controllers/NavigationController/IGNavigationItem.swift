@@ -327,8 +327,6 @@ class IGNavigationItem: UINavigationItem {
             
         }
         let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
-        let composeButtonImageView = UIImageView(frame: composeButtonFrame)
-        let _ : String = SMLangUtil.loadLanguage()
         
         
         let btnAdd = UIButton(frame: composeButtonFrame)
@@ -343,7 +341,7 @@ class IGNavigationItem: UINavigationItem {
     //MARK: - Call List
     func setCallListNavigationItems() {
         addiGapLogo()
-        addPlusButton()
+        addComopseButton()
         addMoreSettingsButton()
         
     }
@@ -358,11 +356,11 @@ class IGNavigationItem: UINavigationItem {
             
         }
         let callListViewFrame =  CGRect(x: 10, y: 7.5, width: 21, height: 21)
-        let callListButtonImageView = UIImageView(frame: callListViewFrame)
+        let btnMoreSettings = UIButton(frame: callListViewFrame)
         
-        callListButtonImageView.image = UIImage(named: "IG_NavBar_More")
-        callListButtonImageView.removeFromSuperview()
-        leftViewContainer!.addSubview(callListButtonImageView)
+        btnMoreSettings.setTitle("", for: .normal)
+        btnMoreSettings.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        leftViewContainer!.addSubview(btnMoreSettings)
         
         
     }

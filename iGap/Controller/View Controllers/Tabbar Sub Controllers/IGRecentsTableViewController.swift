@@ -99,6 +99,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func setLastNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         self.hideKeyboardWhenTappedAround()
+        
         if IGTabBarController.currentTabStatic == .Dashboard {
             navigationItem.setDiscoveriesNavigationItems()
             
@@ -114,6 +115,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             navigationControllerr.navigationBar.isHidden = true
 
 
+        } else if IGTabBarController.currentTabStatic == .Recent {
+            navigationItem.setChatListsNavigationItems()
+
+            
         }else {
             navigationItem.addiGapLogo()
         }

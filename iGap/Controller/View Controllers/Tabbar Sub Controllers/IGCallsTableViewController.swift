@@ -174,19 +174,8 @@ class IGCallsTableViewController: BaseTableViewController {
             }
         }
     }
-    func resetColorOfButtons() {
-    }
-    @objc func btnAllTaped(sender: UIButton!) {
-    }
-    @objc func btnMissedTaped(sender: UIButton!) {
-    }
-    @objc func btnCanceledTaped(sender: UIButton!) {
-    }
+
     
-    @objc func btnIncommingTaped(sender: UIButton!) {
-    }
-    @objc func btnOutgoingTaped(sender: UIButton!) {
-    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.isUserInteractionEnabled = true

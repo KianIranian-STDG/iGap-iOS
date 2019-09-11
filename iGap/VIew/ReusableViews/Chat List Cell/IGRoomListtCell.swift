@@ -639,7 +639,7 @@ class IGRoomListtCell: UITableViewCell {
         
         
         unreadCountLabel.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
+            make.trailing.equalTo(self.contentView.snp.trailing).offset(-10)
             make.bottom.equalTo(self.avatarImage.snp.bottom)
             make.width.equalTo(20)
             make.height.equalTo(15)

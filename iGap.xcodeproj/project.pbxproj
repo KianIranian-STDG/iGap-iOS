@@ -250,7 +250,6 @@
 		949E8360231EA6A500B6799E /* slideImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 949E835E231EA6A500B6799E /* slideImageCVCell.xib */; };
 		94E74DC323238F8F001AB47C /* FinancialHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */; };
 		94E74DC523239727001AB47C /* IGFinancialHistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */; };
-		94E74DC82323A500001AB47C /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC72323A4F9001AB47C /* iGap_fontico.ttf */; };
 		94E74DCA2323C798001AB47C /* TransactionInfoKeys.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */; };
 		94E74DCC2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */; };
 		94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */; };
@@ -988,7 +987,6 @@
 		949E835E231EA6A500B6799E /* slideImageCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = slideImageCVCell.xib; sourceTree = "<group>"; };
 		94E74DC223238F8F001AB47C /* FinancialHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FinancialHistory.storyboard; sourceTree = "<group>"; };
 		94E74DC423239727001AB47C /* IGFinancialHistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGFinancialHistoryDetailViewController.swift; sourceTree = "<group>"; };
-		94E74DC72323A4F9001AB47C /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
 		94E74DC92323C798001AB47C /* TransactionInfoKeys.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = TransactionInfoKeys.stringsdict; sourceTree = "<group>"; };
 		94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsEn.json; sourceTree = "<group>"; };
 		94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsFa.json; sourceTree = "<group>"; };
@@ -1553,7 +1551,6 @@
 		8E599D6B23250F1900D75376 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				94E74DC72323A4F9001AB47C /* iGap_fontico.ttf */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -3151,7 +3148,6 @@
 				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
-				94E74DC82323A500001AB47C /* iGap_fontico.ttf in Resources */,
 				FA99FF6522353401009035DF /* DashboardCell2.xib in Resources */,
 				FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */,
 				8EBF550F22DB581300834E6A /* localizationsFa.json in Resources */,
