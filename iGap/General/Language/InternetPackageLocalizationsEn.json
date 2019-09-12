@@ -1,0 +1,13 @@
+{
+    "en": {
+        "BUY_INTERNET_PACKAGE" : "Buy Internet Package",
+        "PLACE_HOLDER_MOBILE_NUM" : "09*********",
+        "INTERNET_PACKAGE_TYPE" : "Package type",
+        
+        "CHOOSE_TIME" : "Choose Time",
+        "CHOOSE_VOLUME" : "Choose Volume",
+        "CHOOSE_PACKAGE" : "Choose Package",
+        "BTN_PAY" : "Pay",
+    }
+}
+

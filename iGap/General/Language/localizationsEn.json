@@ -22,6 +22,9 @@
         "history.sale.share" : "Share of Sales",
         
         
+        "MCI_CHARGE" : "",
+        
+        
         "NEW_MESSAGES" : "New Messages",
         "WHICH_TYPE_OF" : "Which type of conversation would you like to initiate?",
         "MY_CLOUD" : "Cloud",

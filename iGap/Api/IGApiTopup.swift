@@ -10,8 +10,9 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
-class IGApiTopup {
+class IGApiTopup: IGApiBase {
     
     enum Endpoint {
         case purchase
@@ -28,39 +29,50 @@ class IGApiTopup {
         }
     }
     
-    static let shared = IGApiPayment()
+    static let shared = IGApiTopup()
     private static let topupBaseUrl = "https://api.igap.net/services/v1.0/mci/topup"
     
-    private func getHeaders() -> HTTPHeaders {
-        let authorization = "Bearer " + IGAppManager.sharedManager.getAccessToken()!
-        let headers: HTTPHeaders = ["Authorization": authorization]
-        return headers
-    }
-    
-    func orderChech(telNum: String, cost: Int, completion: @escaping ((_ success: Bool, _ items: [FavouriteChannelHomeItem]) -> Void) ) {
+    func orderChech(telNum: String, cost: Int64, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["tel_num" : telNum, "cost" : cost]
 
         debugPrint("=========Request Url=========")
         debugPrint(Endpoint.purchase.url)
         debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders())
+        debugPrint(getHeaders)
         debugPrint("=========Request Parameters=========")
         debugPrint(parameters)
-
-        Alamofire.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders()).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
-
+        
+        Alamofire.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+            
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")
             debugPrint("=========Response Body=========")
             debugPrint(response.result.value ?? "NO RESPONSE BODY")
-
-            guard let items = response.result.value?.data else {
-                completion(false, [])
-                print("error", response.error ?? "")
-                return
+            
+            
+            switch response.result {
+                
+            case .success(let value):
+                let json = JSON(value)
+                guard let token = json["token"].string else {
+                    guard let message = json["message"].string else {
+                        IGHelperAlert.shared.showErrorAlert()
+                        completion(false, nil)
+                        return
+                    }
+                    IGHelperAlert.shared.showAlert(title: "GLOBAL_WARNING".localizedNew, message: message)
+                    completion(false, nil)
+                    return
+                }
+                completion(true, token)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+                IGHelperAlert.shared.showErrorAlert()
             }
-            completion(true, items)
         }
     }
 }
+
+

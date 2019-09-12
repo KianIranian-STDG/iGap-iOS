@@ -10,7 +10,6 @@
 
 import UIKit
 import Alamofire
-import SwiftyJSON
 import MBProgressHUD
 
 class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UIGestureRecognizerDelegate {
@@ -51,8 +50,8 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
                 self.tableView.reloadWithAnimation()
             }
         }
-        
     }
+        
 
     
     // MARK: - Table view data source
@@ -72,6 +71,7 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
         
         var cell: UITableViewCell!
         let item = items[indexPath.row]
+
         switch item.type {
         case .ad:
             

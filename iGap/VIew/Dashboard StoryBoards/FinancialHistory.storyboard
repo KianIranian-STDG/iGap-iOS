@@ -210,13 +210,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="110" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="اپلیکیشن آی گپ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTW-ma-FZ1">
-                                                    <rect key="frame" x="189" y="0.0" width="96" height="30"/>
+                                                    <rect key="frame" x="200" y="0.0" width="96" height="30"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                                     <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9N-TZ-FgG">
-                                                    <rect key="frame" x="105" y="14.5" width="80" height="1"/>
+                                                    <rect key="frame" x="105" y="14.5" width="91" height="1"/>
                                                     <color key="backgroundColor" white="0.93000000000000005" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="80f-hF-DmK"/>
@@ -256,6 +256,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="cth-yC-7xI" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="headerSV" destination="SSB-Pr-5jO" id="Xqu-oD-uJX"/>
                         <outlet property="payDateLbl" destination="nMy-6i-gw7" id="cr0-lu-OQz"/>
                         <outlet property="payTimeLbl" destination="3I4-Tm-1La" id="HWl-yi-9B9"/>
                         <outlet property="statusIconLbl" destination="cez-Sv-D7p" id="AQd-J8-QLH"/>

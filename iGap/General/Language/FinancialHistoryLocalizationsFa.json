@@ -22,5 +22,7 @@
         
         "SUCCESSFULL_PAYMENT" : "پرداخت موفق",
         "UNSUCCESSFULL_PAYMENT" : "پرداخت ناموفق",
+        
+        "INFORMATION_NOT_FOUND" : "اطلاعات موجود نمی باشد!",
     }
 }

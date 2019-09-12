@@ -1,0 +1,12 @@
+{
+    "fa": {
+        "BUY_INTERNET_PACKAGE" : "خرید بسته اینترنتی",
+        "PLACE_HOLDER_MOBILE_NUM" : "۰۹*********",
+        "INTERNET_PACKAGE_TYPE" : "نوع بسته",
+        
+        "CHOOSE_TIME" : "انتخاب زمان",
+        "CHOOSE_VOLUME" : "انتخاب حجم",
+        "CHOOSE_PACKAGE" : "انتخاب بسته",
+        "BTN_PAY" : "خرید",
+    }
+}

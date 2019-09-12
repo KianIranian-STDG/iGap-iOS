@@ -18,18 +18,27 @@ class IGPaymentView: UIView {
     @IBOutlet var containerView: UIView!
     @IBOutlet var contentView: UIView!
     @IBOutlet var topIconView: UIView!
-    @IBOutlet var titleLbl: UILabel!
     @IBOutlet var mainSV: UIStackView!
     @IBOutlet var descriptionSV: UIStackView!
     @IBOutlet var costSV: UIStackView!
     @IBOutlet var statusSV: UIStackView!
     @IBOutlet var acceptBtn: UIButton!
     @IBOutlet var cancelBtn: UIButton!
+    // LAbels
+    @IBOutlet var titleLbl: UILabel!
+    @IBOutlet var subTitleLbl: UILabel!
+    @IBOutlet var descriptionLbl: UILabel!
+    @IBOutlet var amountDescriptionLbl: UILabel!
+    @IBOutlet var amountLbl: UILabel!
+    @IBOutlet var statusDescriptionLbl: UILabel!
+    @IBOutlet var statusCodeLbl: UILabel!
     
     var parentView: UIView!
     /// define a variable to store initial touch position on pan gesture
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     var payToken: String!
+    var title: String!
+    var paymentData: IGStructPayment!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +58,7 @@ class IGPaymentView: UIView {
         
         setupInitialUI()
         
-        addPanGesture()
+//        addPanGesture()
     }
     
     private func setupInitialUI() {
@@ -73,6 +82,16 @@ class IGPaymentView: UIView {
             self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height - self.contentView.bounds.height, width: parentView.frame.width, height: self.contentView.bounds.height)
         }
         parentView.bringSubviewToFront(self)
+        
+        self.titleLbl.text = title
+        if let apiTitle = paymentData.info?.product?.title {
+            self.subTitleLbl.text = apiTitle
+        }
+        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
+        if let price = paymentData.info?.price {
+            self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
+        }
+        self.statusSV.isHidden = true
     }
     
     func addPanGesture() {
@@ -124,6 +143,16 @@ class IGPaymentView: UIView {
         }) { (_) in
             self.removeFromSuperview()
         }
+    }
+    
+    // MARK: - Actions
+    @IBAction func cancelTapped(_ sender: UIButton) {
+        hideView()
+    }
+    
+    @IBAction func payTapped(_ sender: UIButton) {
+        guard let urlStr = paymentData.redirectUrl, let url = URL(string: urlStr) else { return }
+        UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey(rawValue: "Authorization") : "Bearer " + IGAppManager.sharedManager.getAccessToken()!], completionHandler: nil)
     }
 }
 

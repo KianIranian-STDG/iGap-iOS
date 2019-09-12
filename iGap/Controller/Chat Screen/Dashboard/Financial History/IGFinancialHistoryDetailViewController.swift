@@ -18,6 +18,7 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
     @IBOutlet weak var payTimeLbl: UILabel!
     @IBOutlet weak var payDateLbl: UILabel!
     @IBOutlet weak var transactionInfoTableView: UITableView!
+    @IBOutlet weak var headerSV: UIStackView!
     
     var TransactionInfoKeys: Dictionary<String, Array<String>>!
     var igpTransaction: IGPMplTransaction!
@@ -32,8 +33,22 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
         super.viewDidLoad()
         
         self.transactionInfoTableView.semanticContentAttribute = self.semantic
-
+        
+        transactionInfoTableView.dataSource = self
+        transactionInfoTableView.delegate = self
+        
+        readTransactionInfoKeysDictionary()
+        
+        self.payTimeLbl.text = "_"
+        self.payDateLbl.text = "_"
+        self.statusLbl.text = "_"
+        headerSV.isHidden = true
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         initNavigationBar(title: "PAYMENT_HISTORY".FinancialHistoryLocalization, rightItemText: "", iGapFont: true) {
+            IGGlobal.prgShow()
             UIGraphicsBeginImageContextWithOptions(self.view.frame.size,true,0.0)
             self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
             let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -44,26 +59,20 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
             activityViewController.excludedActivityTypes = [UIActivity.ActivityType.mail]
             activityViewController.modalPresentationStyle = .overCurrentContext
             self.present(activityViewController, animated: true, completion: {
-                
+                IGGlobal.prgHide()
             })
         }
-        
-        transactionInfoTableView.dataSource = self
-        transactionInfoTableView.delegate = self
-        
-        readTransactionInfoKeysDictionary()
-        
-        self.payTimeLbl.text = "_"
-        self.payDateLbl.text = "_"
-        self.statusLbl.text = "_"
     }
     
     private func getData() {
+        SMLoading.showLoadingPage(viewcontroller: self)
         IGMplTransactionInfo.Generator.generate(transactionToken: self.transactionToken).success ({ (responseProtoMessage) in
+            SMLoading.hideLoadingPage()
             DispatchQueue.main.async {
                 switch responseProtoMessage {
                 case let response as IGPMplTransactionInfoResponse:
                     if response.igpStatus == 0 {
+                        self.headerSV.isHidden = false
                         self.statusIconLbl.textColor = UIColor.iGapGreen()
                         self.statusIconLbl.text = ""
                         self.statusLbl.textColor = UIColor.iGapGreen()
@@ -72,17 +81,39 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
                         
                     } else {
                         // false status
-                        self.statusIconLbl.textColor = UIColor.iGapRed()
-                        self.statusIconLbl.text = ""
-                        self.statusLbl.textColor = UIColor.iGapRed()
-                        self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+                        let label = UILabel()
+                        label.font = UIFont.igFont(ofSize: 15, weight: .bold)
+                        label.text = "INFORMATION_NOT_FOUND".FinancialHistoryLocalization
+                        label.numberOfLines = 0
+                        label.textAlignment = .center
+                        self.view.addSubview(label)
+                        label.snp.makeConstraints { (make) in
+                            make.leading.equalTo(self.view.snp.leading).offset(8)
+                            make.trailing.equalTo(self.view.snp.leading).offset(-8)
+                            make.centerX.equalTo(self.view.snp.centerX)
+                            make.centerY.equalTo(self.view.snp.centerY)
+                        }
+//                        self.statusIconLbl.textColor = UIColor.iGapRed()
+//                        self.statusIconLbl.text = ""
+//                        self.statusLbl.textColor = UIColor.iGapRed()
+//                        self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
                     }
                     
                 default:
                     break;
                 }
+                
             }
-        }).error({ (errorCode, waitTime) in }).send()
+        }).error({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                DispatchQueue.main.async {
+                    IGHelperAlert.shared.showAlert(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew)
+                }
+            default:
+                break
+            }
+        }).send()
     }
     
     private func setupTransactionInfo(info: IGPMplTransaction) {
@@ -151,6 +182,7 @@ extension IGFinancialHistoryDetailViewController: UITableViewDataSource, UITable
         return 36
     }
 }
+
 
 class TransactionInfoTVCell: UITableViewCell {
     @IBOutlet weak var keyLbl: UILabel!
@@ -259,7 +291,7 @@ class TransactionInfoTVCell: UITableViewCell {
         } else if keyValue == "MERCHANT_NAME" {
             self.valueLbl.text = bill.igpMerchantName.inLocalizedLanguage()
         } else if keyValue == "PAY_ID" {
-            self.valueLbl.text = bill.igpPayID.inRialFormat()
+            self.valueLbl.text = bill.igpPayID.inLocalizedLanguage()
         } else if keyValue == "AMOUNT" {
             self.valueLbl.text = "\(bill.igpAmount)".inRialFormat()
         } else if keyValue == "MPL_TRANSACTION_ORDER_ID" {

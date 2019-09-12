@@ -142,7 +142,7 @@ class IGGlobal {
         }
     }
     
-    internal static func prgHide(){
+    internal static func prgHide() {
         DispatchQueue.main.async {
             IGGlobal.progressHUD.hide(animated: true)
         }
@@ -1708,6 +1708,20 @@ extension String {
             IGGlobal.languageFileName = "FinancialHistoryLocalizationsFa"
         } else {
             IGGlobal.languageFileName = "FinancialHistoryLocalizationsEn"
+        }
+        let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
+        
+        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
+        MCLocalization.sharedInstance().language = SMLangUtil.loadLanguage()
+        
+        return MCLocalization.string(forKey: self)
+    }
+    
+    var InternetPackageLocalization: String {
+        if SMLangUtil.loadLanguage() == "fa" {
+            IGGlobal.languageFileName = "InternetPackageLocalizationsFa"
+        } else {
+            IGGlobal.languageFileName = "InternetPackageLocalizationsEn"
         }
         let stringPath : String! = Bundle.main.path(forResource: IGGlobal.languageFileName, ofType: "json")
         

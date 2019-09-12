@@ -11,7 +11,7 @@
 import Foundation
 import Alamofire
 
-public class IGApiFavouriteChannels {
+class IGApiFavouriteChannels: IGApiBase {
     enum Endpoint {
         case homePage
         case categoryInfo(id: String, page: Int)
@@ -33,20 +33,14 @@ public class IGApiFavouriteChannels {
     static let shared = IGApiFavouriteChannels()
     private static let beeptunesBaseUrl = "https://api.igap.net/services/v1.0/channel"
     
-    private func getHeaders() -> HTTPHeaders {
-        let authorization = "Bearer " + IGAppManager.sharedManager.getAccessToken()!
-        let headers: HTTPHeaders = ["Authorization": authorization]
-        return headers
-    }
-    
     func homeItems(completion: @escaping ((_ success: Bool, _ items: [FavouriteChannelHomeItem]) -> Void) ) {
         
         debugPrint("=========Request Url=========")
         debugPrint(Endpoint.homePage.url)
         debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders())
+        debugPrint(self.getHeaders)
         
-        Alamofire.request(Endpoint.homePage.url, headers: getHeaders()).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
+        Alamofire.request(Endpoint.homePage.url, headers: self.getHeaders).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")
@@ -67,9 +61,9 @@ public class IGApiFavouriteChannels {
         debugPrint("=========Request Url=========")
         debugPrint(Endpoint.homePage.url)
         debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders())
+        debugPrint(self.getHeaders)
         
-        Alamofire.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: getHeaders()).responseCategoryInfo { response in
+        Alamofire.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeaders).responseCategoryInfo { response in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")
@@ -87,22 +81,6 @@ public class IGApiFavouriteChannels {
 }
 
 extension DataRequest {
-    fileprivate func decodableResponseSerializer<T: Decodable>() -> DataResponseSerializer<T> {
-        return DataResponseSerializer { _, response, data, error in
-            guard error == nil else { return .failure(error!) }
-            
-            guard let data = data else {
-                return .failure(AFError.responseSerializationFailed(reason: .inputDataNil))
-            }
-            
-            return Result { try JSONDecoder().decode(T.self, from: data) }
-        }
-    }
-    
-    @discardableResult
-    fileprivate func responseDecodable<T: Decodable>(queue: DispatchQueue? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: decodableResponseSerializer(), completionHandler: completionHandler)
-    }
     
     @discardableResult
     func responseFavouriteChannelsArray<T: Decodable>(type: T.Type, queue: DispatchQueue? = nil, completionHandler: @escaping (DataResponse<FavouriteChannelsArray<T>>) -> Void) -> Self {

@@ -72,7 +72,8 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
          
          "0920":IGOperator.rightel,
          "0921":IGOperator.rightel,
-         "0922":IGOperator.rightel]
+         "0922":IGOperator.rightel
+    ]
     
     var operatorType: IGOperator!
     var operatorTypeBackup: IGOperator!
@@ -125,7 +126,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         }
     }
     
-    private func setOperator(){
+    private func setOperator() {
         
         if operatorType == nil {
             btnOperator.setTitle(operatorNotDetect, for: UIControl.State.normal)
@@ -325,7 +326,31 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         if self.operatorType == IGOperator.mci {
             
-            
+            IGApiTopup.shared.orderChech(telNum: phoneNumber, cost: chargeAmount) { (success, token) in
+                
+                if success {
+                    guard let token = token else { return }
+                    print("Success: " + token)
+                    IGApiPayment.shared.orderChech(token: token, completion: { (success, payment) in
+                        IGGlobal.prgHide()
+                        if success {
+                            guard let paymentData = payment else {
+                                IGHelperAlert.shared.showErrorAlert()
+                                return
+                            }
+                            let paymentView = IGPaymentView.sharedInstance
+                            paymentView.payToken = token
+                            paymentView.paymentData = paymentData
+                            paymentView.title = "MCI_CHARGE".localizedNew
+                            paymentView.show(on: UIApplication.shared.keyWindow!)
+                        }
+                    })
+                    
+                } else {
+                    IGGlobal.prgHide()
+                    IGHelperAlert.shared.showErrorAlert()
+                }
+            }
             
         } else {
             IGMplGetTopupToken.Generator.generate(number: Int64(phoneNumber)!, amount: chargeAmount, type: operatorChargeType).success({ (protoResponse) in

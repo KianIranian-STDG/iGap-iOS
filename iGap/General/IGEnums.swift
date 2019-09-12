@@ -22,7 +22,8 @@ enum AppStoryboard : String {
     case PhoneBook = "PhoneBook"
     case FinancialHistory = "FinancialHistory"
     case Wallet = "wallet"
-
+    case InternetPackage = "InternetPackage"
+    
     var instance : UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
     }

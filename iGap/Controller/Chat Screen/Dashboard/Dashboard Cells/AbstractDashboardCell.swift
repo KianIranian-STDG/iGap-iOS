@@ -537,8 +537,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                     return
                 }
             } else {
-                let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
-                let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGFinancialServiceCharge") as! IGFinancialServiceCharge
+                let messagesVc = IGFinancialServiceCharge.instantiateFromAppStroryboard(appStoryboard: .Setting)
                 UIApplication.topViewController()!.navigationController!.pushViewController(messagesVc, animated:true)
                 return
             }
@@ -825,6 +824,11 @@ class AbstractDashboardCell: UICollectionViewCell {
             
         case .financialHistory:
             let financialHistory = IGFinancialHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .FinancialHistory)
+            UIApplication.topViewController()!.navigationController!.pushViewController(financialHistory, animated:true)
+            break
+            
+        case .internetPackageMenu:
+            let financialHistory = IGInternetPackageViewController.instantiateFromAppStroryboard(appStoryboard: .InternetPackage)
             UIApplication.topViewController()!.navigationController!.pushViewController(financialHistory, animated:true)
             break
             

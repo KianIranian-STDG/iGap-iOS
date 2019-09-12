@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="IRANSans.ttf">
+            <string>IRANSans</string>
+        </array>
+        <array key="IRANSans_Bold.ttf">
+            <string>IRANSans-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Title-->
+        <scene sceneID="8bz-CK-mSg">
+            <objects>
+                <viewController storyboardIdentifier="IGInternetPackageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KWN-e1-KUy" customClass="IGInternetPackageViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VvH-I0-Qjb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mobile Number, 09xxxxxxxxx" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sa0-Kb-Kcz">
+                                <rect key="frame" x="36" y="64" width="342" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="YLg-2u-0Ln"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeu-Ek-xBu">
+                                <rect key="frame" x="36" y="124" width="103" height="27"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sy-sW-ZsC">
+                                <rect key="frame" x="36" y="219" width="342" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="OZv-fu-8CE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <state key="normal" title="Choose Package">
+                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRi-Ga-fxX">
+                                <rect key="frame" x="36" y="337" width="342" height="40"/>
+                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eyq-1Z-Ls0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
+                                <state key="normal" title="Pay">
+                                    <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-Iu-LZa">
+                                <rect key="frame" x="36" y="171" width="342" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="eVh-V7-hAv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <state key="normal" title="Choose Time">
+                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7sy-sW-ZsC" firstAttribute="top" secondItem="gSR-Iu-LZa" secondAttribute="bottom" constant="8" id="2dl-ja-PhJ"/>
+                            <constraint firstItem="sa0-Kb-Kcz" firstAttribute="leading" secondItem="VvH-I0-Qjb" secondAttribute="leadingMargin" constant="16" id="3IE-ks-jm8"/>
+                            <constraint firstItem="aeu-Ek-xBu" firstAttribute="leading" secondItem="sa0-Kb-Kcz" secondAttribute="leading" id="BnV-U8-DNT"/>
+                            <constraint firstItem="FRi-Ga-fxX" firstAttribute="top" secondItem="7sy-sW-ZsC" secondAttribute="bottom" constant="78" id="JdQ-DR-Ir0"/>
+                            <constraint firstItem="FRi-Ga-fxX" firstAttribute="trailing" secondItem="sa0-Kb-Kcz" secondAttribute="trailing" id="Njx-34-bdn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sa0-Kb-Kcz" secondAttribute="trailing" constant="16" id="Tl6-lF-NK7"/>
+                            <constraint firstItem="7sy-sW-ZsC" firstAttribute="trailing" secondItem="sa0-Kb-Kcz" secondAttribute="trailing" id="Tp7-p8-ELa"/>
+                            <constraint firstItem="gSR-Iu-LZa" firstAttribute="leading" secondItem="sa0-Kb-Kcz" secondAttribute="leading" id="W6g-xD-e2y"/>
+                            <constraint firstItem="gSR-Iu-LZa" firstAttribute="trailing" secondItem="sa0-Kb-Kcz" secondAttribute="trailing" id="cmN-JY-sUx"/>
+                            <constraint firstItem="aeu-Ek-xBu" firstAttribute="top" secondItem="sa0-Kb-Kcz" secondAttribute="bottom" constant="20" id="dt6-hT-Dfx"/>
+                            <constraint firstItem="7sy-sW-ZsC" firstAttribute="leading" secondItem="gSR-Iu-LZa" secondAttribute="leading" id="nPw-kZ-OYx"/>
+                            <constraint firstItem="gSR-Iu-LZa" firstAttribute="top" secondItem="aeu-Ek-xBu" secondAttribute="bottom" constant="20" id="sDV-Wf-DUH"/>
+                            <constraint firstItem="FRi-Ga-fxX" firstAttribute="leading" secondItem="sa0-Kb-Kcz" secondAttribute="leading" id="xbs-E8-9di"/>
+                            <constraint firstItem="sa0-Kb-Kcz" firstAttribute="top" secondItem="ICT-Ds-fs0" secondAttribute="top" constant="20" id="zSl-pe-7V9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ICT-Ds-fs0"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="vxh-U5-OgK" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                    <connections>
+                        <outlet property="btnBuy" destination="FRi-Ga-fxX" id="h1m-PN-Ppz"/>
+                        <outlet property="edtPhoneNubmer" destination="sa0-Kb-Kcz" id="WtI-5p-EMv"/>
+                        <outlet property="packageTypeLbl" destination="aeu-Ek-xBu" id="eVS-Jh-GFE"/>
+                        <outlet property="selectPackageBtn" destination="7sy-sW-ZsC" id="DQh-ww-5Hz"/>
+                        <outlet property="selectTimeOrVolumeBtn" destination="gSR-Iu-LZa" id="Vx1-Qh-JRo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MXv-XZ-y6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="238" y="143"/>
+        </scene>
+    </scenes>
+</document>

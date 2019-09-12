@@ -22,5 +22,7 @@
         
         "SUCCESSFULL_PAYMENT" : "Successful Payment",
         "UNSUCCESSFULL_PAYMENT" : "Unsuccessful Payment",
+        
+        "INFORMATION_NOT_FOUND" : "No information availlable!",
     }
 }
