@@ -21,6 +21,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var contactViewBottomConstraizt: NSLayoutConstraint!
     @IBOutlet weak var contactViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var addMemberTitle: UILabel!
     var baseUser: IGRegisteredUser?
 
     class User: NSObject {
@@ -95,7 +96,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tmp = baseUser
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
         collectionView.dataSource = self
@@ -105,18 +105,16 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         self.contactsTableView.sectionIndexBackgroundColor = UIColor.clear
         self.selectedContactsView.addSubview(collectionView)
         self.contactViewBottomConstraizt.constant = -self.contactViewHeightConstraint.constant
-        
+        self.addMemberTitle.text = "ADD_MEMBER".localizedNew
         setNavigationItem()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
-        
         navigationControllerr.navigationBar.isHidden = false
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.searchController = nil
-        
-
     }
     
     private func setNavigationItem(){
@@ -129,58 +127,44 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         switch current {
         case "fa" :
             if mode == "Admin" {
-//                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_ADMIN".localizedNew)
-
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localizedNew, iGapFont: true)
             }
+            
             if mode == "Moderator" {
-//                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MODERATOR".localizedNew)
-
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MODERATOR".localizedNew, iGapFont: true)
             }
+            
             if mode == "CreateGroup" {
-                
-//                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
-
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_GROUP".localizedNew, iGapFont: true)
             }
+            
             if mode == "Members" {
-//                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
-
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER".localizedNew, iGapFont: true)
             }
+            
             if mode == "ConvertChatToGroup" {
-//                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
-
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
             }
 
         case "en" :
             if mode == "Admin" {
-                //                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_ADMIN".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_ADMIN".localizedNew)
-                
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_ADMIN".localizedNew, iGapFont: true)
             }
+            
             if mode == "Moderator" {
-                //                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew , title: "ADD_MODERATOR".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MODERATOR".localizedNew)
-                
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MODERATOR".localizedNew, iGapFont: true)
             }
+            
             if mode == "CreateGroup" {
-                
-                //                navigationItem.addModalViewItems(leftItemText: "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
-                
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "NEW_GROUP".localizedNew, iGapFont: true)
             }
+            
             if mode == "Members" {
-                //                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER".localizedNew)
-                
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER".localizedNew, iGapFont: true)
             }
+            
             if mode == "ConvertChatToGroup" {
-                //                navigationItem.addModalViewItems(leftItemText:  "GLOBAL_CLOSE".localizedNew, rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
-                navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_MEMBER_TO".localizedNew)
-                
+                navigationItem.addNavigationViewItems(rightItemText: "", rightItemFontSize: 30, title: "ADD_MEMBER_TO".localizedNew, iGapFont: true)
             }
 
         case "ar" :
@@ -263,7 +247,9 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
                         return user.registredUser
                     })
                     var tmp = selectedUsersToCreateGroup
-                    tmp.append(self.baseUser!)
+                    if self.baseUser != nil {
+                        tmp.append(self.baseUser!)
+                    }
                     createGroup.selectedUsersToCreateGroup = tmp
 
                     createGroup.mode = self.mode

@@ -138,12 +138,12 @@ class IGNavigationItem: UINavigationItem {
     
     
     //MARK: - Navigation VCs
-    func addNavigationViewItems(rightItemText: String?, title: String?, width: CGFloat = 150, iGapFont: Bool = false) {
+    func addNavigationViewItems(rightItemText: String?, rightItemFontSize: CGFloat = 20, title: String?, width: CGFloat = 150, iGapFont: Bool = false) {
         if title != nil {
             addTitleLabel(title: title!, width: width)
         }
         if rightItemText != nil {
-            addModalViewRightItem(title: rightItemText!, iGapFont: iGapFont)
+            addModalViewRightItem(title: rightItemText!, iGapFont: iGapFont, fontSize: rightItemFontSize)
         }
         addNavigationBackItem()
     }

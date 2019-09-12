@@ -1244,10 +1244,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZc-pC-Edb">
-                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mBA-yq-vhb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                         <color key="backgroundColor" red="0.93333333330000001" green="0.93725490199999995" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="msV-xi-WyQ">
                                             <size key="itemSize" width="67" height="67"/>
@@ -1257,7 +1257,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="cD6-Ke-ODd" customClass="IGNewGroupBottomViewCollectionCell" customModule="iGap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="1.5" width="67" height="67"/>
+                                                <rect key="frame" x="0.0" y="16.5" width="67" height="67"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
@@ -1318,7 +1318,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="14p-h8-Gf1"/>
+                                    <constraint firstAttribute="height" constant="100" id="14p-h8-Gf1"/>
                                     <constraint firstItem="mBA-yq-vhb" firstAttribute="top" secondItem="wZc-pC-Edb" secondAttribute="top" id="3ec-Of-KZb"/>
                                     <constraint firstItem="mBA-yq-vhb" firstAttribute="leading" secondItem="wZc-pC-Edb" secondAttribute="leading" id="WQp-mg-UFH"/>
                                     <constraint firstItem="mBA-yq-vhb" firstAttribute="width" secondItem="wZc-pC-Edb" secondAttribute="width" id="aUB-7H-zVy"/>
@@ -1326,7 +1326,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0g2-g4-CGm">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                                <rect key="frame" x="0.0" y="104" width="375" height="463"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="50" id="yNy-dP-UOE" customClass="IGChooseContactToAddNewGroupTableViewCell" customModule="iGap" customModuleProvider="target">
@@ -1382,21 +1382,55 @@
                                     <outlet property="delegate" destination="eZI-bz-A5f" id="VOD-z2-Vcc"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-oF-HfH">
+                                <rect key="frame" x="0.0" y="64" width="375" height="40"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNU-e9-dQX">
+                                        <rect key="frame" x="10" y="39.5" width="355" height="0.5"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="PbQ-7A-MhP"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Member" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIV-mz-heR">
+                                        <rect key="frame" x="14" y="19" width="99" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="5Aw-xD-RGO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="lNU-e9-dQX" secondAttribute="bottom" id="3DB-Rn-JwF"/>
+                                    <constraint firstItem="lNU-e9-dQX" firstAttribute="leading" secondItem="EGf-oF-HfH" secondAttribute="leading" constant="10" id="DiZ-9E-lFN"/>
+                                    <constraint firstAttribute="trailing" secondItem="lNU-e9-dQX" secondAttribute="trailing" constant="10" id="N2j-C6-qBY"/>
+                                    <constraint firstItem="cIV-mz-heR" firstAttribute="leading" secondItem="EGf-oF-HfH" secondAttribute="leading" constant="14" id="p3j-IL-6HY"/>
+                                    <constraint firstAttribute="height" constant="40" id="qis-CG-5W8"/>
+                                    <constraint firstAttribute="bottom" secondItem="cIV-mz-heR" secondAttribute="bottom" id="vXC-Va-cNS"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wZc-pC-Edb" firstAttribute="centerX" secondItem="Lqa-OD-Nci" secondAttribute="centerX" id="7ZS-Pb-LbX"/>
-                            <constraint firstAttribute="trailing" secondItem="0g2-g4-CGm" secondAttribute="trailing" id="7hJ-tc-34J"/>
                             <constraint firstItem="wZc-pC-Edb" firstAttribute="width" secondItem="Lqa-OD-Nci" secondAttribute="width" id="Gds-aj-Yo5"/>
-                            <constraint firstItem="0g2-g4-CGm" firstAttribute="top" secondItem="Lqa-OD-Nci" secondAttribute="top" id="Srh-GX-nIb"/>
+                            <constraint firstItem="wZc-pC-Edb" firstAttribute="top" secondItem="0g2-g4-CGm" secondAttribute="bottom" id="NGV-Bw-Qrm"/>
                             <constraint firstAttribute="bottom" secondItem="wZc-pC-Edb" secondAttribute="bottom" id="bN8-QK-zNB"/>
-                            <constraint firstItem="wZc-pC-Edb" firstAttribute="top" secondItem="0g2-g4-CGm" secondAttribute="bottom" id="gwh-fF-OER"/>
-                            <constraint firstItem="0g2-g4-CGm" firstAttribute="leading" secondItem="Lqa-OD-Nci" secondAttribute="leading" id="shF-5X-gB1"/>
+                            <constraint firstItem="0g2-g4-CGm" firstAttribute="trailing" secondItem="amt-DR-Ddt" secondAttribute="trailing" id="bT3-TX-gsd"/>
+                            <constraint firstItem="EGf-oF-HfH" firstAttribute="top" secondItem="7ox-gI-E78" secondAttribute="bottom" id="hlt-Y2-l4B"/>
+                            <constraint firstItem="0g2-g4-CGm" firstAttribute="top" secondItem="EGf-oF-HfH" secondAttribute="bottom" id="rw5-jc-Wvd"/>
+                            <constraint firstItem="amt-DR-Ddt" firstAttribute="trailing" secondItem="EGf-oF-HfH" secondAttribute="trailing" id="tK0-X0-ybN"/>
+                            <constraint firstItem="0g2-g4-CGm" firstAttribute="leading" secondItem="amt-DR-Ddt" secondAttribute="leading" id="up9-LB-DgX"/>
+                            <constraint firstItem="EGf-oF-HfH" firstAttribute="leading" secondItem="amt-DR-Ddt" secondAttribute="leading" id="yN5-Ka-X1Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="amt-DR-Ddt"/>
                     </view>
                     <navigationItem key="navigationItem" id="PFu-Er-LY0" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
+                        <outlet property="addMemberTitle" destination="cIV-mz-heR" id="ZmZ-nf-1Uh"/>
                         <outlet property="collectionView" destination="mBA-yq-vhb" id="zag-E8-0bH"/>
                         <outlet property="contactViewBottomConstraizt" destination="bN8-QK-zNB" id="BEt-v2-16n"/>
                         <outlet property="contactViewHeightConstraint" destination="14p-h8-Gf1" id="C4Y-Lj-R63"/>
@@ -1406,7 +1440,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fil-S8-uup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7926" y="-8260"/>
+            <point key="canvasLocation" x="7925.6000000000004" y="-8261.0194902548737"/>
         </scene>
         <!--Group Info Member List Table View Controller-->
         <scene sceneID="uGc-I8-qOg">
