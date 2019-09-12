@@ -1550,13 +1550,6 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
-		8E599D6B23250F1900D75376 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		8E599D7D2325332300D75376 /* TGPSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -2858,7 +2851,6 @@
 				FAD744F121B940D400801D2E /* Share */,
 				FAF795EB1DAA330C0030509B /* Products */,
 				FAF985881E2E10EC00B26940 /* Frameworks */,
-				8E599D6B23250F1900D75376 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
