@@ -752,7 +752,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.collectionView.fadeIn(0.1)
                 }
             }
-            self.manageForward()
+            if manageForward {
+                self.manageForward()
+            }
         }
     }
     
@@ -5612,8 +5614,12 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     }
     
     func onMessageUpdate(roomId: Int64, message: IGPRoomMessage, identity: IGRoomMessage) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if let roomMessage = self.messages, let indexOfMessage = roomMessage.firstIndex(of: identity) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if let roomMessage = self.messages {
+                var indexOfMessage = 0
+                if let index = roomMessage.firstIndex(of: identity) {
+                    indexOfMessage = index
+                }
                 self.updateMessageArray(cellPosition: indexOfMessage, message: IGRoomMessage(igpMessage: message, roomId: roomId))
                 self.updateItem(cellPosition: indexOfMessage)
             }
@@ -5625,7 +5631,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
             return
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             let messages = IGMessageViewController.messageIdsStatic[(self.room?.id)!]
             if messages == nil {
                 return
@@ -5737,7 +5743,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                         updateMessageId = messageIds[messageIds.count-1]
                     }
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToTop(count: realmRoomMessages.count)
                     self.messageLoader.setWaitingHistoryUpLocal(isWaiting: false)
@@ -5763,7 +5769,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
                 }
             } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
                     self.appendMessageArray(realmRoomMessages, direction)
                     self.addChatItemToBottom(count: realmRoomMessages.count, scrollToBottom: scrollToBottom)
                     self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
