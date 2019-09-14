@@ -333,7 +333,7 @@ class IGNavigationItem: UINavigationItem {
         let btnAdd = UIButton(frame: composeButtonFrame)
         btnAdd.setTitle("", for: .normal)
         btnAdd.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-
+        btnAdd.isUserInteractionEnabled = false
         rightViewContainer!.addSubview(btnAdd)
     }
     
@@ -360,6 +360,8 @@ class IGNavigationItem: UINavigationItem {
 
         btnMoreSettings.setTitle("", for: .normal)
         btnMoreSettings.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnMoreSettings.isUserInteractionEnabled = false
+
         leftViewContainer!.addSubview(btnMoreSettings)
         
         

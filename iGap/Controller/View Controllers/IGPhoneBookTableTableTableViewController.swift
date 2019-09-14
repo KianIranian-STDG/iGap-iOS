@@ -63,6 +63,15 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         super.viewWillAppear(animated)
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setPhoneBookNavigationItems()
+        navigationItem.rightViewContainer?.addAction
+            {
+
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            navigationItem.leftViewContainer?.addAction {
+
+            }
+        }
 
 
     }
