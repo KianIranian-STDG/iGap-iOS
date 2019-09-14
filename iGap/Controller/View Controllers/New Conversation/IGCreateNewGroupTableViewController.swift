@@ -28,7 +28,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
     var hud = MBProgressHUD()
-    var defualtImage = UIImage(named: "IG_Camera")
+    var defualtImage = UIImage(named: "IG_Camera_Image")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,7 +131,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         
         let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.defualtImage = UIImage(named: "IG_Camera")
+            self.defualtImage = UIImage(named: "IG_Camera_Image")
             self.groupAvatarImage.image = self.defualtImage
         })
 
@@ -142,7 +142,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         }
         
         optionMenu.addAction(cancelAction)
-        self.defualtImage = UIImage(named: "IG_Camera")
+        self.defualtImage = UIImage(named: "IG_Camera_Image")
         if groupAvatarImage.image != self.defualtImage {
             optionMenu.addAction(removeAction)
         }
