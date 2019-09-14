@@ -66,6 +66,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         navigationItem.rightViewContainer?.addAction
             {
 
+                self.goToAddContactsPage()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             navigationItem.leftViewContainer?.addAction {
@@ -73,6 +74,12 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             }
         }
 
+
+    }
+    private func goToAddContactsPage() {
+        
+        let vc = IGSettingAddContactViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+        self.navigationController!.pushViewController(vc, animated:true)
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -92,7 +99,10 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         self.headerView.addSubview(lblIcon)
         self.headerView.addSubview(lblText)
         self.headerView.addSubview(btn)
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnBtn))
+        btn.isUserInteractionEnabled = true
+        btn.addGestureRecognizer(tap)
+
         bottomBorder.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.headerView.snp.bottom)
             make.height.equalTo(1)
@@ -119,6 +129,15 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
 
 
+    }
+
+    @objc
+    func didTapOnBtn(sender:UITapGestureRecognizer) {
+        inviteAContact()
+    }
+    private func inviteAContact() {
+        let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
+        self.navigationController!.pushViewController(vc, animated: true)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)

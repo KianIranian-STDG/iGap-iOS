@@ -119,7 +119,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             navigationItem.setDiscoveriesNavigationItems()
             
         } else if currentTabIndex == 0 { // Phone Book Tab
-            navigationItem.setCallListNavigationItems()
+            navigationItem.setPhoneBookNavigationItems()
             
         } else if currentTabIndex == 1 { // Call List Tab
             navigationItem.addiGapLogo()

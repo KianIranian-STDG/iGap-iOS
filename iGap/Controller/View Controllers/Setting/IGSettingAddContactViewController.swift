@@ -12,7 +12,7 @@ import UIKit
 import AKMaskField
 import IGProtoBuff
 
-class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDelegate, IGRegistrationStepSelectCountryTableViewControllerDelegate {
+class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepSelectCountryTableViewControllerDelegate {
 
     @IBOutlet weak var edtFirstName: UITextField!
     @IBOutlet weak var edtLastName: UITextField!
@@ -33,22 +33,20 @@ class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDe
         
         makeView()
         btnChooseCountry.setTitle("CHOOSE_COUNTRY".localizedNew, for: .normal)
+        btnChooseCountry.layer.borderColor = UIColor.darkGray.cgColor
+        btnChooseCountry.layer.borderWidth = 1.0
+        btnChooseCountry.layer.cornerRadius = 15.0
         btnChooseCountry.titleLabel?.font = UIFont.igFont(ofSize: 20)
-
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "+", title: "ADD_BTN".localizedNew)
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.rightViewContainer?.addAction {
-            self.addContact()
-        }
+        navInit()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         edtFirstName.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
         edtLastName.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
+        edtFirstName.font = UIFont.igFont(ofSize: 15.0)
+        edtLastName.font = UIFont.igFont(ofSize: 15.0)
         let current : String = SMLangUtil.loadLanguage()
+        
         switch current {
         case "fa" :
 
@@ -65,6 +63,11 @@ class IGSettingAddContactViewController: UIViewController, UIGestureRecognizerDe
             break
         }
         
+    }
+    private func navInit() {
+        self.initNavigationBar(title: "ADD_BTN".localizedNew, rightItemText: "", iGapFont: true) {
+            self.addContact()
+        }
     }
     
     private func makeView(){

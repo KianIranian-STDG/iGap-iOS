@@ -19,6 +19,7 @@ enum AppStoryboard : String {
     case CreateRoom = "CreateRoom"
     case Register = "Register"
     case Setting = "IGSettingStoryboard"
+    case PhoneBook = "PhoneBook"
     case FinancialHistory = "FinancialHistory"
     case Wallet = "wallet"
 
@@ -30,6 +31,7 @@ enum AppStoryboard : String {
         let storyboardID = (viewControllerClass as UIViewController.Type).storyboardID
         return instance.instantiateViewController(withIdentifier: storyboardID) as! T
     }
+    
     
     func initialViewController() -> UIViewController? {
         return instance.instantiateInitialViewController()

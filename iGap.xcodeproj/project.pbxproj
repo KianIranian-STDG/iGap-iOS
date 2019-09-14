@@ -18,6 +18,10 @@
 		8E18653B2324B8DA00D8BCA9 /* IGChooseMemberFromContactToCreateChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18653A2324B8DA00D8BCA9 /* IGChooseMemberFromContactToCreateChannelTableViewController.swift */; };
 		8E1CD96F232CB5E7008D8758 /* customSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD96E232CB5E7008D8758 /* customSearchController.swift */; };
 		8E1CD971232CB628008D8758 /* customSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD970232CB628008D8758 /* customSearchBar.swift */; };
+		8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */; };
+		8E1CD976232D0665008D8758 /* IGUserContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD975232D0665008D8758 /* IGUserContactsTableViewController.swift */; };
+		8E1CD978232D06B0008D8758 /* IGUserContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD977232D06B0008D8758 /* IGUserContactsTableViewCell.swift */; };
+		8E1CD97A232D0ED1008D8758 /* testVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD979232D0ED1008D8758 /* testVCViewController.swift */; };
 		8E1F413422391A6F00910E30 /* FRHyperLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413222391A6F00910E30 /* FRHyperLabel.m */; };
 		8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413322391A6F00910E30 /* KPDropMenu.m */; };
 		8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413822391CEE00910E30 /* CheckInternet.swift */; };
@@ -743,6 +747,10 @@
 		8E18653A2324B8DA00D8BCA9 /* IGChooseMemberFromContactToCreateChannelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGChooseMemberFromContactToCreateChannelTableViewController.swift; sourceTree = "<group>"; };
 		8E1CD96E232CB5E7008D8758 /* customSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSearchController.swift; sourceTree = "<group>"; };
 		8E1CD970232CB628008D8758 /* customSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSearchBar.swift; sourceTree = "<group>"; };
+		8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhoneBook.storyboard; sourceTree = "<group>"; };
+		8E1CD975232D0665008D8758 /* IGUserContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewController.swift; sourceTree = "<group>"; };
+		8E1CD977232D06B0008D8758 /* IGUserContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGUserContactsTableViewCell.swift; sourceTree = "<group>"; };
+		8E1CD979232D0ED1008D8758 /* testVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testVCViewController.swift; sourceTree = "<group>"; };
 		8E1F413022391A6F00910E30 /* KPDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPDropMenu.h; sourceTree = "<group>"; };
 		8E1F413122391A6F00910E30 /* FRHyperLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRHyperLabel.h; sourceTree = "<group>"; };
 		8E1F413222391A6F00910E30 /* FRHyperLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRHyperLabel.m; sourceTree = "<group>"; };
@@ -1547,6 +1555,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E1CD974232D063D008D8758 /* PhoneBook */ = {
+			isa = PBXGroup;
+			children = (
+				8E1CD975232D0665008D8758 /* IGUserContactsTableViewController.swift */,
+				8E1CD977232D06B0008D8758 /* IGUserContactsTableViewCell.swift */,
+			);
+			path = PhoneBook;
+			sourceTree = "<group>";
+		};
 		8E1F413622391A7400910E30 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -1905,6 +1922,7 @@
 		FA087B2C1DC4A27200E139FA /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E1CD974232D063D008D8758 /* PhoneBook */,
 				8EC2179A2258BE0600105B5A /* wallet */,
 				FAE07EFA2205999E00BE3593 /* Sticker */,
 				FA03C19A20429437008812E3 /* Call */,
@@ -2130,6 +2148,7 @@
 				FA42EF041E5C224F00CF8A32 /* UIImageView.swift */,
 				8E1CD96E232CB5E7008D8758 /* customSearchController.swift */,
 				8E1CD970232CB628008D8758 /* customSearchBar.swift */,
+				8E1CD979232D0ED1008D8758 /* testVCViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2900,6 +2919,7 @@
 				FAF796031DAA392F0030509B /* Main.storyboard */,
 				FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */,
 				FAA51753206A254200471EA0 /* profile.storyboard */,
+				8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */,
 				8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */,
 				8ECC1827222F991F006E43E8 /* wallet.storyboard */,
 				FA786D59206A746700608A2D /* CreateRoom.storyboard */,
@@ -3227,6 +3247,7 @@
 				FAE6063E21EB3A0C00F03FFC /* zh-Hant.lproj in Resources */,
 				FAFDB3B6204EBCCA0022D183 /* IGCallListTableViewCell.xib in Resources */,
 				FA99FF6D2235413B009035DF /* DashboardCell4.xib in Resources */,
+				8E1CD973232CF79A008D8758 /* PhoneBook.storyboard in Resources */,
 				8ECCA1EA22B7B1F000D3A734 /* SMSingleAmountInputView.xib in Resources */,
 				8EBF550722D9B84900834E6A /* DashboardCell8.xib in Resources */,
 				8EE7FCA0225DF67200B6C2C3 /* LNNumberpad.xib in Resources */,
@@ -3512,6 +3533,7 @@
 				FAD94C701E0136D0006D8D91 /* IGMedia.swift in Sources */,
 				FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */,
 				FA11E2881DE8A86C00A2F87C /* IGCacheManager.swift in Sources */,
+				8E1CD978232D06B0008D8758 /* IGUserContactsTableViewCell.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
@@ -3558,6 +3580,7 @@
 				FA63BAA71DD70E1A000B60AD /* IGRequestUser.swift in Sources */,
 				FA0953661E1B97700043ED3F /* IGSettingPrivacy&SecurityEnterPasscodeLockViewController.swift in Sources */,
 				93C299941E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift in Sources */,
+				8E1CD976232D0665008D8758 /* IGUserContactsTableViewController.swift in Sources */,
 				FA03C1A220429DB5008812E3 /* AVCaptureState.swift in Sources */,
 				8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */,
 				8E96A316225B74E2007D8A77 /* IGExtensions.swift in Sources */,
@@ -3670,6 +3693,7 @@
 				FA03C19C2042945D008812E3 /* IGCall.swift in Sources */,
 				FAE07F042205A8B000BE3593 /* IGStickerSectionHeader.swift in Sources */,
 				FA0953521E1B97700043ED3F /* IGSettingChatFontSizeTableViewController.swift in Sources */,
+				8E1CD97A232D0ED1008D8758 /* testVCViewController.swift in Sources */,
 				FA63BAA51DD70DD0000B60AD /* IGRequest.swift in Sources */,
 				8EBF54F922D9B60D00834E6A /* DataEntry.swift in Sources */,
 				FA9F73562127E589004418E5 /* EPConstants.swift in Sources */,
