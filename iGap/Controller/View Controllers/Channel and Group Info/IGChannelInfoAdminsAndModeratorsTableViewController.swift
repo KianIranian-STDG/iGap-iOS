@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 
 
-class IGChannelInfoAdminsAndModeratorsTableViewController: BaseTableViewController , UIGestureRecognizerDelegate{
+class IGChannelInfoAdminsAndModeratorsTableViewController: BaseTableViewController{
 
     
     @IBOutlet weak var adminsCell: UITableViewCell!

@@ -166,18 +166,17 @@ class IGNavigationItem: UINavigationItem {
         self.title = ""
         
         backViewContainer?.addAction {
-            isDashboardInner = false
 
             IGGlobal.shouldShowChart = false
             self.backViewContainer?.isUserInteractionEnabled = false
             let numberOfPages = self.navigationController?.viewControllers.count
             if IGGlobal.shouldMultiSelect {
                 self.delegate?.diselect()
-                
             }
             else {
                 if numberOfPages == 2  {
                     IGGlobal.shouldMultiSelect = false
+                    isDashboardInner = false
                     currentPageName = ""
                     _ = self.navigationController?.popViewController(animated: true)
                 } else {
@@ -473,7 +472,7 @@ class IGNavigationItem: UINavigationItem {
                 btnLogo.setTitle("", for: .normal)
 
             }
-            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
+            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
             titleView.addSubview(btnLogo)
             
@@ -485,14 +484,13 @@ class IGNavigationItem: UINavigationItem {
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
             if lastLang == "fa" {
                 btnLogo.setTitle("", for: .normal)
-                btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
-                
+
             } else if lastLang == "en" {
                 btnLogo.setTitle("", for: .normal)
                 
             }
-            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
-            
+            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
+
             titleView.addSubview(btnLogo)
 
             self.titleView = titleView
@@ -503,14 +501,13 @@ class IGNavigationItem: UINavigationItem {
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
             if lastLang == "fa" {
                 btnLogo.setTitle("", for: .normal)
-                btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
-                
+
             } else if lastLang == "en" {
                 btnLogo.setTitle("", for: .normal)
                 
             }
-            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 80)
-            
+            btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
+
             titleView.addSubview(btnLogo)
             self.titleView = titleView
             

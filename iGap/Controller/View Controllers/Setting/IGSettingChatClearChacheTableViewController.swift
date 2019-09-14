@@ -11,7 +11,7 @@
 import UIKit
 import RealmSwift
 
-class IGSettingChatClearChacheTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGSettingChatClearChacheTableViewController: BaseTableViewController {
     @IBOutlet weak var lblStickers: UILabel!
     @IBOutlet weak var lblDocuments: IGLabel!
     @IBOutlet weak var lblVoices: IGLabel!

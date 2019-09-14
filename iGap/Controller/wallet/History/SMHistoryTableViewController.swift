@@ -10,7 +10,7 @@ import UIKit
 import models
 import webservice
 
-class SMHistoryTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class SMHistoryTableViewController: BaseTableViewController {
     var isInStandardHistoPage = false
 	@IBOutlet var indicator: UIActivityIndicatorView!
 	var rowData : [PAY_obj_history]?

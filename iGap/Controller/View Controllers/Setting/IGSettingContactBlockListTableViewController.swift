@@ -14,7 +14,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGSettingContactBlockListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     
     var chooseBlockContactFromPrivacyandSecurityPage:Bool = false
     var blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter("isBlocked == 1")

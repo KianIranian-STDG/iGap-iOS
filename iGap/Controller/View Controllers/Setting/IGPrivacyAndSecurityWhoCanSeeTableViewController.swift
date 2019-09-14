@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController {
     
     @IBOutlet weak var lblEveryOne: IGLabel!
     @IBOutlet weak var lblMyContacts: IGLabel!

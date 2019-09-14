@@ -13,7 +13,7 @@ import IGProtoBuff
 import SwiftProtobuf
 import RealmSwift
 
-class IGMapNearbyDistanceTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGMapNearbyDistanceTableViewController: BaseTableViewController {
     
     var cellIdentifer = IGMapNearbyDistanceCell.cellReuseIdentifier()
     var nearbyDistanceList: Results<IGRealmMapNearbyDistance>!

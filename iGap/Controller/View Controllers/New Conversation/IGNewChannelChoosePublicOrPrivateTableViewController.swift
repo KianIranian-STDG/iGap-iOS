@@ -13,7 +13,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewController ,UITextFieldDelegate,SSRadioButtonControllerDelegate , UIGestureRecognizerDelegate {
+class IGNewChannelChoosePublicOrPrivateTableViewController: BaseTableViewController ,UITextFieldDelegate,SSRadioButtonControllerDelegate {
     fileprivate let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet weak var publicChannelButton: SSRadioButton!

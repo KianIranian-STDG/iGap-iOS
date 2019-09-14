@@ -13,7 +13,7 @@ import SwiftProtobuf
 import IGProtoBuff
 import MBProgressHUD
 
-class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController: BaseTableViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var verifyTextField: UITextField!

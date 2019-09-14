@@ -403,6 +403,13 @@
         "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC" : "users can join your channel only by being added by admin(s)",
         "NEW_CHANNEL_LINK" : "Channel Link",
 
+        "TEXT_SIZE" : "Text Size",
+        "COLOR_THEME" : "Color Theme",
+        "ENABLE_ANIMATIONS" : "Enable Animations",
+        "DARK_THEME" : "Dark",
+        "LIGHT_THEME" : "Light",
+        "CHAT_BG" : "Chat background",
+
         
         
         "FILTER_INCOMMING_CALL" : "Incomming",

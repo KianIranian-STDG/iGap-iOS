@@ -12,7 +12,7 @@ import UIKit
 import RealmSwift
 import IGProtoBuff
 
-class IGAccountViewController: BaseTableViewController , UINavigationControllerDelegate , UIGestureRecognizerDelegate  {
+class IGAccountViewController: BaseTableViewController , UINavigationControllerDelegate  {
     
     @IBOutlet weak var emailIndicator: UIActivityIndicatorView!
     @IBOutlet weak var phoneNumberEntryLabel: UILabel!

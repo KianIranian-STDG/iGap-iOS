@@ -10,7 +10,7 @@
 
 import UIKit
 import RealmSwift
-class IGSettingAboutTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGSettingAboutTableViewController: BaseTableViewController {
     
     var index : Int?
     var appstoreWebView : Bool = false

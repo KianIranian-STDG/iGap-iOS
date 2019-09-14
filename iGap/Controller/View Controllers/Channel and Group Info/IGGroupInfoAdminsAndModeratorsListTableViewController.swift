@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGGroupInfoAdminsAndModeratorsListTableViewController: BaseTableViewController {
 
 
     @IBOutlet weak var adminsCell: UITableViewCell!

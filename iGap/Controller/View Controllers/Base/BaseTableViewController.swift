@@ -11,7 +11,7 @@
 import UIKit
 import maincore
 
-class BaseTableViewController: UITableViewController {
+class BaseTableViewController: UITableViewController,UIGestureRecognizerDelegate {
     
     var isAppEnglish: Bool {
         get {
@@ -41,6 +41,15 @@ class BaseTableViewController: UITableViewController {
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {
         UIView.appearance().semanticContentAttribute = direction
+    }
+    func initNavigationBar(title: String? = nil, rightItemText: String? = nil, iGapFont: Bool = false, rightAction: @escaping () -> ()) {
+        let navigationItem = self.navigationItem as! IGNavigationItem
+        navigationItem.addNavigationViewItems(rightItemText: rightItemText, title: title, iGapFont: iGapFont)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
+        
+        navigationItem.rightViewContainer?.addAction(rightAction)
     }
     
 }

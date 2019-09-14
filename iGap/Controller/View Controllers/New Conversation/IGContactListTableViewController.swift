@@ -79,26 +79,6 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
         navigationController.interactivePopGestureRecognizer?.delegate = self
     }
 
-
-    
-    //    private func initNavigationBar(){
-    //        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-    //        navigationItem.setCallListNavigationItems()
-    //        self.hideKeyboardWhenTappedAround()
-    //
-    //        navigationItem.rightViewContainer?.addAction
-    //            {
-    //                self.goToContactListPage()
-    //        }
-    //        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-    //            navigationItem.leftViewContainer?.addAction {
-    //                if !(self.callLogList!.count == 0) {
-    //
-    //                    self.showClearHistoryActionSheet()
-    //                }
-    //            }
-    //        }
-    //    }
     
     func fillContacts(filterContact: Bool = false , searchText : String = "") -> [IGContactListTableViewController.Section] {
         if self.contactSections != nil && !filterContact {

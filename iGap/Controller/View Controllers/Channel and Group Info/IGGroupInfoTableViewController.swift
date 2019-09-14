@@ -20,7 +20,7 @@ import MBProgressHUD
 ///import INSPhotoGallery
 import NVActivityIndicatorView
 
-class IGGroupInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
+class IGGroupInfoTableViewController: BaseTableViewController , NVActivityIndicatorViewable {
 
     @IBOutlet weak var groupNameLabelTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var groupDescriptionLabelTrailingConstraint: NSLayoutConstraint!

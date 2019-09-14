@@ -12,7 +12,7 @@ import UIKit
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewController: BaseTableViewController {
     
     @IBOutlet weak var lblTerminate: IGLabel!
     var selectedSession: IGSession?

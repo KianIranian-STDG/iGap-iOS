@@ -20,7 +20,7 @@ import MBProgressHUD
 ///import INSPhotoGallery
 import NVActivityIndicatorView
 
-class IGChannelInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
+class IGChannelInfoTableViewController: BaseTableViewController , NVActivityIndicatorViewable {
 
     
     @IBOutlet weak var channelSignMessageCell: UITableViewCell!

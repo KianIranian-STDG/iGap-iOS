@@ -119,7 +119,6 @@ class IGCallsTableViewController: BaseTableViewController {
         self.transactionTypesCollectionView?.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.headerView.snp.centerY)
             make.height.equalTo(40)
-            make.width.equalTo(((UIScreen.main.bounds.width) + (UIScreen.main.bounds.width)/4))
             make.leading.equalTo(self.headerView.snp.leading).offset(10)
             make.trailing.equalTo(self.headerView.snp.trailing).offset(-10)
         }

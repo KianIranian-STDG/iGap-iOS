@@ -268,39 +268,39 @@ class IGRoomListtCell: UITableViewCell {
                 self.unreadCountLabel.isHidden = false
             }
             
-            nameLabel.snp.removeConstraints()
+//            nameLabel.snp.removeConstraints()
             
             switch item.type {
                 
             case .chat:
-                nameLabel.snp.makeConstraints { (make) in
-                    make.leading.equalTo(self.typeImage.snp.trailing).offset(-20)
-                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-                    make.top.equalTo(self.avatarImage.snp.top)
-
-                }
+//                nameLabel.snp.remakeConstraints { (make) in
+//                    make.leading.equalTo(self.typeImage.snp.trailing).offset(-20)
+//                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
+//                    make.top.equalTo(self.avatarImage.snp.top)
+//
+//                }
                 self.lastMessageStateImage.isHidden = false
                 
                 break
                 
             case .group:
-                nameLabel.snp.makeConstraints { (make) in
-                    make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
-                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-                    make.top.equalTo(self.avatarImage.snp.top)
-
-                }
+//                nameLabel.snp.makeConstraints { (make) in
+//                    make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
+//                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
+//                    make.top.equalTo(self.avatarImage.snp.top)
+//
+//                }
                 self.lastMessageStateImage.isHidden = false
                 
                 break
                 
             case .channel:
-                nameLabel.snp.makeConstraints { (make) in
-                    make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
-                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
-                    make.top.equalTo(self.avatarImage.snp.top)
-
-                }
+//                nameLabel.snp.makeConstraints { (make) in
+//                    make.leading.equalTo(self.typeImage.snp.trailing).offset(10)
+//                    make.trailing.equalTo(self.checkImage.snp.leading).offset(-10)
+//                    make.top.equalTo(self.avatarImage.snp.top)
+//
+//                }
                 self.lastMessageStateImage.isHidden = true
                 
                 break

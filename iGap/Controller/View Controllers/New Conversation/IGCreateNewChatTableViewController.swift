@@ -16,7 +16,7 @@ import MBProgressHUD
 import SnapKit
 
 
-class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResultsUpdating , UIGestureRecognizerDelegate, IGCallFromContactListObserver {
+class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResultsUpdating, IGCallFromContactListObserver {
     @IBOutlet weak var viewHeader: UIView!
     fileprivate let searchController = UISearchController(searchResultsController: nil)
 

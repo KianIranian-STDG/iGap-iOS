@@ -20,7 +20,7 @@ protocol IGUrlClickDelegate {
     func didTapOnRoomLink(link: String)
 }
 
-class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableViewController, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, IGUrlClickDelegate {
+class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableViewController, UIDocumentInteractionControllerDelegate, IGUrlClickDelegate {
     
     var sharedMedia = [IGRoomMessage]()
     var room: IGRoom?

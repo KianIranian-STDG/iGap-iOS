@@ -12,7 +12,7 @@ import UIKit
 import IGProtoBuff
 import MBProgressHUD
 
-class IGCreateNewGroupTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGCreateNewGroupTableViewController: BaseTableViewController {
 
     @IBOutlet weak var groupNameCell: UITableViewCell!
     @IBOutlet weak var descriptionTextField: UITextField!

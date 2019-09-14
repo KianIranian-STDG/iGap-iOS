@@ -13,7 +13,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
 
     @IBOutlet weak var lblBlockedUserTitle: UILabel!
     @IBOutlet weak var lblProfilePhotoTitle: UILabel!

@@ -16,7 +16,7 @@ import MBProgressHUD
 import NVActivityIndicatorView
 ///import INSPhotoGallery
 
-class IGRegistredUserInfoTableViewController: BaseTableViewController , UIGestureRecognizerDelegate , NVActivityIndicatorViewable {
+class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivityIndicatorViewable {
 
     var user: IGRegisteredUser?
     var previousRoomId: Int64?

@@ -13,7 +13,7 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 
-class IGCreateNewChannelTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGCreateNewChannelTableViewController: BaseTableViewController {
 
     @IBOutlet weak var channelAvatarImage: UIImageView!
     @IBOutlet weak var descriptionTextField: UITextField!

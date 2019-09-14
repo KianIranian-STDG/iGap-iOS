@@ -81,9 +81,12 @@ class IGTabBarController: UITabBarController {
         switch item.tag {
         case 0:
             navigationControllerr.navigationBar.isHidden = false
-//            navigationControllerr.addSearchBar(state: "False")
+            //            navigationControllerr.addSearchBar(state: "True")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
+
+            navigationControllerr.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.isTranslucent = false
 
             currentTabIndex = 0
             break

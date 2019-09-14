@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 
 
-class IGChannelInfoEditTypeTableViewController: BaseTableViewController ,UITextFieldDelegate , UIGestureRecognizerDelegate {
+class IGChannelInfoEditTypeTableViewController: BaseTableViewController ,UITextFieldDelegate {
 
     @IBOutlet weak var publicChannelCell: UITableViewCell!
     @IBOutlet weak var privateChannelCell: UITableViewCell!

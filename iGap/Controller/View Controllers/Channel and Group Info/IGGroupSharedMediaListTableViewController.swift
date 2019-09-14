@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupSharedMediaListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGGroupSharedMediaListTableViewController: BaseTableViewController {
 
     @IBOutlet weak var sizeOfSharedVideos: UILabel!
     @IBOutlet weak var sizeOfSharedImage: UILabel!

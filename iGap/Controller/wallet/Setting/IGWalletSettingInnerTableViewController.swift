@@ -11,7 +11,7 @@
 import UIKit
 import webservice
 
-class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
+class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextFieldDelegate {
 
     var isOTP = false
     var isFirstTime = false

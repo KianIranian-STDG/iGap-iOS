@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupInfoEditTypeTableViewController: BaseTableViewController , UITextFieldDelegate , UIGestureRecognizerDelegate {
+class IGGroupInfoEditTypeTableViewController: BaseTableViewController , UITextFieldDelegate {
     
     @IBOutlet weak var groupPublicCell: UITableViewCell!
     @IBOutlet weak var groupLinkTextField: UITextField!

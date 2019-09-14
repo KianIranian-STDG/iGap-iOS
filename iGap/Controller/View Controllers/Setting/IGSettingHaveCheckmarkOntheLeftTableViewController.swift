@@ -13,7 +13,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewController {
     
     var mode = ""
     var modeT = ""

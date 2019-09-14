@@ -11,7 +11,7 @@
 import UIKit
 import RealmSwift
 
-class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavigationControllerDelegate, UIGestureRecognizerDelegate{
+class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavigationControllerDelegate{
     
     var imagePicker = UIImagePickerController()
     var isColorPage    : Bool!

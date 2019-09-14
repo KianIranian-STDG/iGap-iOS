@@ -13,7 +13,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , UITextFieldDelegate , UIGestureRecognizerDelegate {
+class IGDeleteAccountConfirmationTableViewController: BaseTableViewController , UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!

@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGGroupEditDescriptionTableViewController: BaseTableViewController , UIGestureRecognizerDelegate  {
+class IGGroupEditDescriptionTableViewController: BaseTableViewController  {
     
     @IBOutlet weak var groupDescriptionTextView: UITextView!
     

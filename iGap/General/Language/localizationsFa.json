@@ -417,6 +417,13 @@
         "FILTER_OUTGOING_CALL" : "خروجی",
         "CALL_LISTT_EMPTY" : "تاریخچه تماس های شما خالی می باشد.",
 
+        "TEXT_SIZE" : "اندازه متن",
+        "COLOR_THEME" : "قالب رنگی",
+        "ENABLE_ANIMATIONS" : "فعال سازی انیمیشن ها",
+        "DARK_THEME" : "تیره",
+        "LIGHT_THEME" : "روشن",
+        "CHAT_BG" : "پس زمینه گفت و گو",
+
         
         "MSG_CHANGE_USERNAME_AFTER" : "عدم امکان آپیدیت نام کاربری به علت اینکه اخیرا نام کاربری خود را تغییر داده اید. زمان انتظار ",
         "MSG_UPDATE_USERNAME_FORBIDDEN" : "عدم امکان آپدیت نام کاربری",

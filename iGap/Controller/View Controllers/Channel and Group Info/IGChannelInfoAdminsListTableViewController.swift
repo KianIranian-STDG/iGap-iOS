@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGChannelInfoAdminsListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate {
+class IGChannelInfoAdminsListTableViewController: BaseTableViewController {
 
     var room : IGRoom?
     var mode : String?

@@ -15,7 +15,7 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGGroupInfoAdminListTableViewController: BaseTableViewController , UIGestureRecognizerDelegate{
+class IGGroupInfoAdminListTableViewController: BaseTableViewController{
 
     var room : IGRoom?
     var mode : String?

@@ -10,7 +10,7 @@
 
 import UIKit
 
-class IGWalletSettingTableViewController: BaseTableViewController, UIGestureRecognizerDelegate {
+class IGWalletSettingTableViewController: BaseTableViewController {
     @IBOutlet weak var lblChangePassCode : UILabel!
     @IBOutlet weak var lblRessetPassCode : UILabel!
     

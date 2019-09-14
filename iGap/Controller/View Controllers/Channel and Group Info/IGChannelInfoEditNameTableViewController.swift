@@ -14,7 +14,7 @@ import RealmSwift
 import MBProgressHUD
 import IGProtoBuff
 
-class IGChannelInfoEditNameTableViewController: BaseTableViewController , UITextFieldDelegate, UIGestureRecognizerDelegate {
+class IGChannelInfoEditNameTableViewController: BaseTableViewController , UITextFieldDelegate {
     
     
     @IBOutlet weak var channelNameTextField: UITextField!
