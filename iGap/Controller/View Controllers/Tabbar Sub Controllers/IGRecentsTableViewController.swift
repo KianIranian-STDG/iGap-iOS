@@ -411,6 +411,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         super.viewWillAppear(animated)
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
        navigationItem.setChatListsNavigationItems()
+        navItemInit()
+
 
         if navigationItem.searchController == nil {
             let gradient = CAGradientLayer()
