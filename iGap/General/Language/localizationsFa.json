@@ -175,7 +175,7 @@
         "REJECTED" : "رد شده",
         "TOO_LONG" : "انتظار بیش از حد",
         "FAILED" : "رد شده",
-        "UNAVAILABLE" : "هدم دسترسی",
+        "UNAVAILABLE" : "عدم دسترسی",
         "INCOMMING_CALL" : "تماس ورودی",
         "RINGING" : "در حال زنگ خوردن",
         "DIALING" : "در حال گرفتن شماره",

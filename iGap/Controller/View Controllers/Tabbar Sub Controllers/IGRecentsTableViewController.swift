@@ -1609,7 +1609,7 @@ extension IGRecentsTableViewController {
             imageV.image = nil
             
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.6)
                 backgroundview.layer.cornerRadius = 10;
                 backgroundview.clipsToBounds = true;
                 

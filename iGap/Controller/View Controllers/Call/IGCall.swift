@@ -17,11 +17,15 @@ import WebRTC
 import CallKit
 
 class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCallObserver, RTCEAGLVideoViewDelegate, CallHoldObserver, CallManagerDelegate {
+    var pulseLayers = [CAShapeLayer]()
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var imgAvatar: UIImageView!
+    @IBOutlet weak var imgAvatarInner: UIImageViewX!
+    @IBOutlet weak var imgAvatarView: UIImageViewX!
     @IBOutlet weak var viewTransparent: UIView!
     @IBOutlet weak var txtiGap: UILabel!
+    @IBOutlet weak var lblIcon: UILabel!
     @IBOutlet weak var txtCallerName: UILabel!
     @IBOutlet weak var txtCallState: UILabel!
     @IBOutlet weak var txtCallTime: UILabel!
@@ -82,7 +86,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
+//        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -96,6 +100,15 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     }
     
     override func viewDidLoad() {
+        
+        let gradient = CAGradientLayer()
+        gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 3.0)
+        let whiteColor = UIColor.white
+        gradient.colors = [whiteColor.withAlphaComponent(0.3).cgColor, whiteColor.withAlphaComponent(1.0).cgColor, whiteColor.withAlphaComponent(1.0).cgColor]
+        gradient.locations = [NSNumber(value: 0.0),NSNumber(value: 0.2),NSNumber(value: 1.0)]
+        gradient.frame = viewTransparent.bounds
+        viewTransparent.layer.mask = gradient
         let realm = try! Realm()
         let predicate = NSPredicate(format: "id = %lld", userId)
         guard let userRegisteredInfo = realm.objects(IGRegisteredUser.self).filter(predicate).first else {
@@ -132,14 +145,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         localCameraViewCustomize()
         buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
-        buttonViewCustomize(button: btnCancel, color: UIColor.red, imgName: "IG_Nav_Bar_Plus")
-        buttonViewCustomize(button: btnMute, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "IG_Tabbar_Call_On")
-        buttonViewCustomize(button: btnChat, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        buttonViewCustomize(button: btnSpeaker, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
-        buttonViewCustomize(button: btnSwitchCamera, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 0.2), imgName: "")
         setCallMode(callType: callType, userInfo: userRegisteredInfo)
         manageView(stateAnswer: isIncommingCall)
-        
+        txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
         holdView.layer.cornerRadius = 10
         txtCallerName.text = userRegisteredInfo.displayName
         txtCallState.text = "Communicating..."
@@ -168,8 +176,56 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                 IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_VIDEO_CALL_CONNECTING)
             }
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.createPulse()
+        }
+
+    }
+    //ANIMATIONS
+    func createPulse() {
+        for _ in 0...2 {
+            let circularPath = UIBezierPath(arcCenter: .zero, radius: UIScreen.main.bounds.size.width/2.0, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+            let pulseLayer = CAShapeLayer()
+            pulseLayer.path = circularPath.cgPath
+            pulseLayer.lineWidth = 1.0
+            pulseLayer.fillColor = UIColor.clear.cgColor
+            pulseLayer.lineCap = CAShapeLayerLineCap.round
+            pulseLayer.position = CGPoint(x: lblIcon.frame.size.width/2.0, y: lblIcon.frame.size.width/2.0)
+            imgAvatarView.layer.addSublayer(pulseLayer)
+            pulseLayers.append(pulseLayer)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.animatePulse(index: 0)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.animatePulse(index: 1)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.animatePulse(index: 2)
+                }
+            }
+        }
     }
     
+    func animatePulse(index: Int) {
+        pulseLayers[index].strokeColor = UIColor.black.cgColor
+        
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.duration = 2.0
+        scaleAnimation.fromValue = 0.0
+        scaleAnimation.toValue = 0.9
+        scaleAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        scaleAnimation.repeatCount = .greatestFiniteMagnitude
+        pulseLayers[index].add(scaleAnimation, forKey: "scale")
+        
+        let opacityAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.opacity))
+        opacityAnimation.duration = 2.0
+        opacityAnimation.fromValue = 0.9
+        opacityAnimation.toValue = 0.0
+        opacityAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        opacityAnimation.repeatCount = .greatestFiniteMagnitude
+        pulseLayers[index].add(opacityAnimation, forKey: "opacity")
+        
+    }
+    //end
     /************************************************/
     /************** User Actions Start **************/
     
@@ -369,7 +425,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             remoteCameraView.isHidden = false
             //localCameraView.isHidden = false
             //imgAvatar.isHidden = true
-            btnSwitchCamera.isEnabled = true
+//            btnSwitchCamera.isEnabled = true
             txtiGap.text = "VIDEO_CALL".localizedNew
             IGCallAudioManager.sharedInstance.setSpeaker(button: btnSpeaker)
             
@@ -386,9 +442,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             remoteCameraView.isHidden = true
             localCameraView.isHidden = true
             imgAvatar.isHidden = false
-            btnSwitchCamera.isEnabled = false
+//            btnSwitchCamera.isEnabled = false
             txtiGap.text = "VOICE_CALL".localizedNew
-            btnSwitchCamera.setTitle("", for: UIControl.State.normal)
+//            btnSwitchCamera.setTitle("", for: UIControl.State.normal)
         }
         
         if let avatar = userInfo.avatar {
@@ -401,14 +457,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             btnMute.isHidden = true
             btnSpeaker.isHidden = true
             btnChat.isHidden = true
-            btnSwitchCamera.isHidden = true
+//            btnSwitchCamera.isHidden = true
             txtCallTime.isHidden = true
 
         } else {
             btnMute.isHidden = false
             btnSpeaker.isHidden = false
             btnChat.isHidden = false
-            btnSwitchCamera.isHidden = false
+//            btnSwitchCamera.isHidden = false
             txtCallTime.isHidden = false
             btnAnswer.isHidden = true
             txtCallTime.isHidden = true
@@ -427,12 +483,12 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             btnMute.isEnabled = true
             btnSpeaker.isEnabled = true
             btnChat.isEnabled = true
-            btnSwitchCamera.isEnabled = true
+//            btnSwitchCamera.isEnabled = true
         } else {
             btnMute.isEnabled = false
             btnSpeaker.isEnabled = false
             btnChat.isEnabled = false
-            btnSwitchCamera.isEnabled = false
+//            btnSwitchCamera.isEnabled = false
         }
     }
     
@@ -441,11 +497,6 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         bottomViewsIsHidden = !bottomViewsIsHidden
         
-        animateView(view: btnChat, isHidden: bottomViewsIsHidden)
-        animateView(view: btnMute, isHidden: bottomViewsIsHidden)
-        animateView(view: btnCancel, isHidden: bottomViewsIsHidden)
-        animateView(view: btnSpeaker, isHidden: bottomViewsIsHidden)
-        animateView(view: btnSwitchCamera, isHidden: bottomViewsIsHidden)
         animateView(view: txtPowerediGap, isHidden: bottomViewsIsHidden)
     }
     
@@ -703,8 +754,8 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     @objc func updateTimerLabel() {
         recordedTime += 1
-        let minute = String(format: "%02d", Int(recordedTime/60))
-        let seconds = String(format: "%02d", Int(recordedTime%60))
+        let minute = String(format: "%02d", Int(recordedTime/60)).inLocalizedLanguage()
+        let seconds = String(format: "%02d", Int(recordedTime%60)).inLocalizedLanguage()
         self.txtCallTime.text = minute + ":" + seconds
     }
     
@@ -806,6 +857,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             do {
                 if originalFile.attachedImage != nil {
                     imgAvatar.image = originalFile.attachedImage
+                    imgAvatarInner.image = originalFile.attachedImage
                 } else {
                     var image: UIImage?
                     let path = originalFile.path()
@@ -815,12 +867,14 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     
                     if image != nil {
                         self.imgAvatar.image = image
+                        self.imgAvatarInner.image = image
                         /*
                         if callType == .voiceCalling {
                             self.viewTransparent.isHidden = false
                         }
                         */
                     } else {
+                        lblIcon.isHidden = false
                         throw NSError(domain: "asa", code: 1234, userInfo: nil)
                     }
                 }
@@ -836,6 +890,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                                 }
                                 */
                                 self.imgAvatar.image = image
+                                self.imgAvatarInner.image = image
                             }
                         }
                     }

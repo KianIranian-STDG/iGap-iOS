@@ -784,85 +784,61 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-QA-fx6" customClass="RTCCameraPreviewView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ier-dX-LyB">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <color key="backgroundColor" red="0.26510139579999997" green="0.56691289420000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2M-WZ-eh7">
-                                <rect key="frame" x="117" y="516" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.67135959199999995" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Bke-6e-5xA">
+                                <rect key="frame" x="57" y="75" width="300" height="300"/>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="80"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S5Q-zR-v9g" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="57" y="75" width="300" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="Nb7-Pt-qNC"/>
-                                    <constraint firstAttribute="width" constant="70" id="xUf-aH-UDx"/>
+                                    <constraint firstAttribute="height" constant="300" id="KsZ-w2-Cen"/>
+                                    <constraint firstAttribute="width" constant="300" id="kDl-aM-mFW"/>
+                                    <constraint firstAttribute="width" secondItem="S5Q-zR-v9g" secondAttribute="height" multiplier="1:1" id="r1T-r9-3vT"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="30"/>
-                                <state key="normal" title=""/>
-                                <connections>
-                                    <action selector="btnAnswer:" destination="2ww-xn-MCr" eventType="touchUpInside" id="0Oh-hI-UWX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6D-Vd-Lv8">
-                                <rect key="frame" x="227" y="516" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bCf-Ln-qMh" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="132" y="150" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="OUe-z5-TDP"/>
-                                    <constraint firstAttribute="width" constant="70" id="vhW-HV-Ze2"/>
+                                    <constraint firstAttribute="width" constant="150" id="Nu2-V0-KHb"/>
+                                    <constraint firstAttribute="width" secondItem="bCf-Ln-qMh" secondAttribute="height" multiplier="1:1" id="Z9W-FE-wwU"/>
+                                    <constraint firstAttribute="height" constant="150" id="qDC-AB-TMw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="30"/>
-                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnCancel:" destination="2ww-xn-MCr" eventType="touchUpInside" id="j6B-J2-RUi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIr-0Q-6G0">
-                                <rect key="frame" x="52" y="640" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.67135959199999995" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="UDm-c6-IfG"/>
-                                    <constraint firstAttribute="width" constant="70" id="c2s-lq-pMK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="30"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnMute:" destination="2ww-xn-MCr" eventType="touchUpInside" id="Obg-qQ-jep"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVS-4z-ILw">
-                                <rect key="frame" x="132" y="640" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.67135959199999995" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="qm4-Df-FHs"/>
-                                    <constraint firstAttribute="width" constant="70" id="rdx-2c-6u0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="30"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnChat:" destination="2ww-xn-MCr" eventType="touchUpInside" id="lAH-uj-P9s"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOE-9I-nlw">
-                                <rect key="frame" x="212" y="640" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.67135959199999995" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="jn0-bp-7N9"/>
-                                    <constraint firstAttribute="height" constant="70" id="sad-qp-mN3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="30"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnSpeaker:" destination="2ww-xn-MCr" eventType="touchUpInside" id="3jN-1z-XsZ"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGap Voice Call" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFu-Of-z9o">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="pulseDelay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGap Voice Call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFu-Of-z9o">
                                 <rect key="frame" x="30" y="30" width="364" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="0Nb-0w-iFs"/>
@@ -873,67 +849,6 @@
                                 <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caller Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u14-h2-GtB">
-                                <rect key="frame" x="30" y="65" width="364" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Y1a-Jl-Ugi"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Communicating..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1s0-8u-bJd">
-                                <rect key="frame" x="30" y="100" width="364" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="yuN-vf-Tf7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qi-La-Dbk">
-                                <rect key="frame" x="30" y="135" width="364" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="UaX-dg-SF5"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By iGap" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Z1-yk-cb3">
-                                <rect key="frame" x="132" y="601" width="150" height="25"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="E3y-ke-Xhf"/>
-                                    <constraint firstAttribute="width" constant="150" id="xmP-RM-0YO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="0.0" height="1"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WV3-zu-yPC">
-                                <rect key="frame" x="292" y="640" width="70" height="70"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="dOE-8v-dkp"/>
-                                    <constraint firstAttribute="width" constant="70" id="z80-wb-6At"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="30"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnSwitchCamera:" destination="2ww-xn-MCr" eventType="touchUpInside" id="uQP-1o-x9c"/>
-                                </connections>
-                            </button>
                             <view hidden="YES" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bw1-Ar-egN">
                                 <rect key="frame" x="132" y="350.66666666666669" width="150" height="35"/>
                                 <subviews>
@@ -957,73 +872,190 @@
                                     <constraint firstAttribute="width" constant="150" id="k6X-Kn-OjS"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=". . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-iX-P27">
+                                <rect key="frame" x="194.66666666666666" y="557.33333333333337" width="25" height="26.666666666666629"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1p-d4-xse">
+                                <rect key="frame" x="197.33333333333334" y="520.66666666666663" width="19.333333333333343" height="26.666666666666629"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qi-La-Dbk">
+                                <rect key="frame" x="30" y="589" width="364" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="UaX-dg-SF5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                <color key="textColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hxe-Hf-iUI">
+                                <rect key="frame" x="119.66666666666669" y="629" width="175" height="97"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Jsf-5e-Zba">
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N5m-r6-Spk" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="77.333333333333329" height="42"/>
+                                                <color key="backgroundColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btnCancel:" destination="2ww-xn-MCr" eventType="touchUpInside" id="ieg-gy-AHn"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qn-9G-Fvv" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                                <rect key="frame" x="97.333333333333314" y="0.0" width="77.666666666666686" height="42"/>
+                                                <color key="backgroundColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="27"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="7"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btnAnswer:" destination="2ww-xn-MCr" eventType="touchUpInside" id="QMo-mj-KgO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ty1-DZ-vsp">
+                                        <rect key="frame" x="0.0" y="52" width="175" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvp-Se-6Uk">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="dvp-Se-6Uk" secondAttribute="height" multiplier="1:1" id="qjY-rR-toL"/>
+                                                    <constraint firstAttribute="width" constant="45" id="u0i-Bs-sx4"/>
+                                                    <constraint firstAttribute="height" constant="45" id="wLL-pW-va4"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnChat:" destination="2ww-xn-MCr" eventType="touchDragInside" id="MhY-gN-VgU"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3F-hE-Gyu">
+                                                <rect key="frame" x="64.999999999999986" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="ZGU-7d-Ka1"/>
+                                                    <constraint firstAttribute="height" constant="45" id="djO-Ff-9LI"/>
+                                                    <constraint firstAttribute="width" secondItem="V3F-hE-Gyu" secondAttribute="height" multiplier="1:1" id="eTC-u7-Jds"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnMute:" destination="2ww-xn-MCr" eventType="touchUpInside" id="vE9-ZY-EmX"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKh-RG-oDf">
+                                                <rect key="frame" x="130" y="0.0" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="KKh-RG-oDf" secondAttribute="height" multiplier="1:1" id="AKa-JW-RAu"/>
+                                                    <constraint firstAttribute="height" constant="45" id="HGL-Ln-cCW"/>
+                                                    <constraint firstAttribute="width" constant="45" id="KwP-i9-Bdw"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
+                                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnSpeaker:" destination="2ww-xn-MCr" eventType="touchUpInside" id="cM9-yM-qst"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="V3F-hE-Gyu" firstAttribute="width" secondItem="V3F-hE-Gyu" secondAttribute="height" multiplier="1:1" id="9Et-hO-FH3"/>
+                                            <constraint firstItem="KKh-RG-oDf" firstAttribute="width" secondItem="KKh-RG-oDf" secondAttribute="height" multiplier="1:1" id="FNy-kt-Rst"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="bCf-Ln-qMh" firstAttribute="width" secondItem="bCf-Ln-qMh" secondAttribute="height" multiplier="1:1" id="0Qa-ki-3vN"/>
                             <constraint firstItem="9Qi-La-Dbk" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="0b1-Gr-kTi"/>
-                            <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="HVS-4z-ILw" secondAttribute="bottom" constant="26" id="1ed-q9-8LX"/>
-                            <constraint firstItem="32k-QA-fx6" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leading" id="3ci-yD-mDv"/>
-                            <constraint firstItem="9Z1-yk-cb3" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="3ft-PA-jlt"/>
-                            <constraint firstItem="1s0-8u-bJd" firstAttribute="top" secondItem="u14-h2-GtB" secondAttribute="bottom" constant="5" id="60N-gT-svn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1s0-8u-bJd" secondAttribute="trailing" id="7mc-bK-x9A"/>
-                            <constraint firstItem="u14-h2-GtB" firstAttribute="top" secondItem="fFu-Of-z9o" secondAttribute="bottom" constant="5" id="8xa-VI-dxd"/>
-                            <constraint firstItem="HVS-4z-ILw" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="-40" id="99F-Bh-KqL"/>
-                            <constraint firstItem="u6D-Vd-Lv8" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="55" id="B4c-pU-7FQ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="u14-h2-GtB" secondAttribute="trailing" id="BY6-pT-m4s"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="9Z1-yk-cb3" secondAttribute="bottom" constant="110" id="BkP-vF-KGk"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="B2M-WZ-eh7" secondAttribute="bottom" constant="150" id="CtP-ak-LiN"/>
-                            <constraint firstAttribute="trailing" secondItem="32k-QA-fx6" secondAttribute="trailing" id="GEZ-n6-8UF"/>
-                            <constraint firstItem="1s0-8u-bJd" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="HXp-fz-cX2"/>
+                            <constraint firstItem="Ier-dX-LyB" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="top" id="7pj-4J-oBk"/>
+                            <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="Ier-dX-LyB" secondAttribute="bottom" id="EMZ-HE-YK8"/>
+                            <constraint firstItem="bCf-Ln-qMh" firstAttribute="centerY" secondItem="S5Q-zR-v9g" secondAttribute="centerY" id="HBQ-vu-ooG"/>
+                            <constraint firstItem="bCf-Ln-qMh" firstAttribute="centerX" secondItem="S5Q-zR-v9g" secondAttribute="centerX" id="Hqt-Jf-dEq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Hxe-Hf-iUI" secondAttribute="bottom" constant="10" id="Jua-W6-zQ6"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="top" secondItem="PG3-bZ-M6c" secondAttribute="bottom" constant="10" id="LEQ-Og-dAZ"/>
-                            <constraint firstItem="WV3-zu-yPC" firstAttribute="leading" secondItem="cOE-9I-nlw" secondAttribute="trailing" constant="10" id="Lvd-TS-LqT"/>
                             <constraint firstItem="Bw1-Ar-egN" firstAttribute="centerY" secondItem="yza-sH-gpU" secondAttribute="centerY" id="N9w-Jx-CWy"/>
                             <constraint firstItem="qkh-A9-QLp" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="topMargin" constant="-20" id="NRt-sc-aUT"/>
-                            <constraint firstItem="B2M-WZ-eh7" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="-55" id="VOD-nZ-IQ5"/>
-                            <constraint firstItem="u14-h2-GtB" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="Ww9-Gd-O8a"/>
+                            <constraint firstItem="1vE-iX-P27" firstAttribute="top" secondItem="t1p-d4-xse" secondAttribute="bottom" constant="10" id="NkV-9d-PNc"/>
+                            <constraint firstItem="Bke-6e-5xA" firstAttribute="width" secondItem="S5Q-zR-v9g" secondAttribute="width" id="Qn2-4y-OaY"/>
+                            <constraint firstItem="Bke-6e-5xA" firstAttribute="centerY" secondItem="S5Q-zR-v9g" secondAttribute="centerY" id="Ue8-NX-8Mx"/>
                             <constraint firstItem="qkh-A9-QLp" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="-16" id="XOR-i1-722"/>
-                            <constraint firstAttribute="bottom" secondItem="32k-QA-fx6" secondAttribute="bottom" id="XzX-38-GhG"/>
-                            <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="cOE-9I-nlw" secondAttribute="bottom" constant="26" id="Y6w-ss-3h1"/>
-                            <constraint firstItem="lP5-6W-aPE" firstAttribute="top" secondItem="uIr-0Q-6G0" secondAttribute="bottom" constant="26" id="YMA-9r-FOf"/>
+                            <constraint firstItem="Bke-6e-5xA" firstAttribute="centerX" secondItem="S5Q-zR-v9g" secondAttribute="centerX" id="Ykq-9g-S7P"/>
+                            <constraint firstItem="t1p-d4-xse" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="ZTF-Y0-b1d"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9Qi-La-Dbk" secondAttribute="trailing" id="ZbY-wX-tYy"/>
+                            <constraint firstItem="Hxe-Hf-iUI" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="ZfZ-iR-4o6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fFu-Of-z9o" secondAttribute="trailing" id="aG7-bg-vtf"/>
-                            <constraint firstItem="9Qi-La-Dbk" firstAttribute="top" secondItem="1s0-8u-bJd" secondAttribute="bottom" constant="5" id="aTZ-w5-zsb"/>
-                            <constraint firstItem="HVS-4z-ILw" firstAttribute="leading" secondItem="uIr-0Q-6G0" secondAttribute="trailing" constant="10" id="bRx-dQ-ehT"/>
-                            <constraint firstItem="cOE-9I-nlw" firstAttribute="centerX" secondItem="32k-QA-fx6" secondAttribute="centerX" constant="40" id="dWp-78-7YW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qkh-A9-QLp" secondAttribute="trailing" constant="-16" id="eGw-JU-NMk"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="u6D-Vd-Lv8" secondAttribute="bottom" constant="150" id="iKP-L4-TzT"/>
+                            <constraint firstItem="bCf-Ln-qMh" firstAttribute="width" secondItem="bCf-Ln-qMh" secondAttribute="height" multiplier="1:1" id="gLI-Ba-khW"/>
+                            <constraint firstItem="Ier-dX-LyB" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leading" id="hNd-Tb-AHv"/>
                             <constraint firstAttribute="bottomMargin" secondItem="qkh-A9-QLp" secondAttribute="bottom" id="k2v-Ti-rwB"/>
-                            <constraint firstItem="32k-QA-fx6" firstAttribute="top" secondItem="yza-sH-gpU" secondAttribute="top" id="n93-rt-U0h"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="WV3-zu-yPC" secondAttribute="bottom" constant="26" id="s0J-n2-wiX"/>
+                            <constraint firstItem="Bke-6e-5xA" firstAttribute="height" secondItem="S5Q-zR-v9g" secondAttribute="height" id="lGk-iG-won"/>
+                            <constraint firstItem="S5Q-zR-v9g" firstAttribute="width" secondItem="S5Q-zR-v9g" secondAttribute="height" multiplier="1:1" id="pQ7-fq-ir5"/>
+                            <constraint firstItem="Hxe-Hf-iUI" firstAttribute="top" secondItem="9Qi-La-Dbk" secondAttribute="bottom" constant="10" id="qZP-70-mli"/>
+                            <constraint firstItem="S5Q-zR-v9g" firstAttribute="top" secondItem="fFu-Of-z9o" secondAttribute="bottom" constant="15" id="t7i-4u-Q5X"/>
+                            <constraint firstItem="bCf-Ln-qMh" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="tuL-3m-Atf"/>
                             <constraint firstItem="Bw1-Ar-egN" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="vLA-Z0-AZ1"/>
+                            <constraint firstItem="1vE-iX-P27" firstAttribute="centerX" secondItem="yza-sH-gpU" secondAttribute="centerX" id="vgV-pq-vhE"/>
+                            <constraint firstItem="9Qi-La-Dbk" firstAttribute="top" secondItem="1vE-iX-P27" secondAttribute="bottom" constant="5" id="vxg-h6-Qpc"/>
                             <constraint firstItem="fFu-Of-z9o" firstAttribute="leading" secondItem="yza-sH-gpU" secondAttribute="leadingMargin" constant="10" id="wCh-GH-vkS"/>
+                            <constraint firstAttribute="trailing" secondItem="Ier-dX-LyB" secondAttribute="trailing" id="xgq-HZ-GlU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gkI-S8-jAz"/>
                     <connections>
-                        <outlet property="btnAnswer" destination="B2M-WZ-eh7" id="RE5-9d-MzS"/>
-                        <outlet property="btnCancel" destination="u6D-Vd-Lv8" id="Z8D-Kh-1ZH"/>
-                        <outlet property="btnChat" destination="HVS-4z-ILw" id="huh-D2-MSq"/>
-                        <outlet property="btnMute" destination="uIr-0Q-6G0" id="3Rb-pT-RD4"/>
-                        <outlet property="btnSpeaker" destination="cOE-9I-nlw" id="YZu-as-T5j"/>
-                        <outlet property="btnSwitchCamera" destination="WV3-zu-yPC" id="A4a-IG-oFY"/>
+                        <outlet property="btnAnswer" destination="5Qn-9G-Fvv" id="4dg-J0-tYY"/>
+                        <outlet property="btnCancel" destination="N5m-r6-Spk" id="DU0-Nf-qB2"/>
+                        <outlet property="btnChat" destination="dvp-Se-6Uk" id="oMF-h4-7kt"/>
+                        <outlet property="btnMute" destination="V3F-hE-Gyu" id="suo-HD-U1U"/>
+                        <outlet property="btnSpeaker" destination="KKh-RG-oDf" id="ZpM-8d-nDd"/>
                         <outlet property="holdView" destination="Bw1-Ar-egN" id="t9t-9G-k6S"/>
                         <outlet property="imgAvatar" destination="qkh-A9-QLp" id="9FM-Es-iFn"/>
+                        <outlet property="imgAvatarInner" destination="bCf-Ln-qMh" id="jYk-UM-519"/>
+                        <outlet property="imgAvatarView" destination="S5Q-zR-v9g" id="dnZ-aA-2YH"/>
+                        <outlet property="lblIcon" destination="Bke-6e-5xA" id="9C1-KU-yoG"/>
                         <outlet property="localCameraView" destination="mvO-Hc-A9H" id="AwU-cA-z4l"/>
                         <outlet property="mainView" destination="yza-sH-gpU" id="Z59-BN-T1F"/>
                         <outlet property="remoteCameraView" destination="2kJ-5f-LV9" id="HE2-yF-LeK"/>
-                        <outlet property="txtCallState" destination="1s0-8u-bJd" id="27z-gf-jyJ"/>
+                        <outlet property="txtCallState" destination="1vE-iX-P27" id="kG2-E9-a5w"/>
                         <outlet property="txtCallTime" destination="9Qi-La-Dbk" id="Rtk-Bb-YRx"/>
-                        <outlet property="txtCallerName" destination="u14-h2-GtB" id="kD5-66-yjs"/>
+                        <outlet property="txtCallerName" destination="t1p-d4-xse" id="sh0-Xs-W7Z"/>
                         <outlet property="txtHold" destination="vYi-p7-mDU" id="qdL-jq-m8E"/>
-                        <outlet property="txtPowerediGap" destination="9Z1-yk-cb3" id="U0F-Y9-cGm"/>
                         <outlet property="txtiGap" destination="fFu-Of-z9o" id="esE-h0-fzo"/>
-                        <outlet property="viewTransparent" destination="32k-QA-fx6" id="Cza-Ee-Yn3"/>
+                        <outlet property="viewTransparent" destination="Ier-dX-LyB" id="3ns-yV-Ong"/>
                         <segue destination="CFP-Hu-weJ" kind="presentation" identifier="showRoomMessages" id="QJB-pO-R8A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GDr-R3-fmZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3893.5999999999999" y="-3761.4692653673164"/>
+            <point key="canvasLocation" x="3892.753623188406" y="-3762.2282608695655"/>
         </scene>
         <!--Title-->
         <scene sceneID="i1D-ip-Yi3">

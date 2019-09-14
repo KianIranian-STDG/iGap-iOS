@@ -51,7 +51,7 @@ class IGContactTableViewCell: UITableViewCell {
             return
         }
         
-        if let delegate = IGCreateNewChatTableViewController.callDelegate {
+        if let delegate = IGPhoneBookTableViewController.callDelegate {
             delegate.call(user: userRegister,mode:"voiceCall")
         }
     }

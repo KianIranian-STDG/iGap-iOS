@@ -1353,16 +1353,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ge7-83-Qbp">
-                                <rect key="frame" x="100" y="560" width="175" height="102"/>
+                                <rect key="frame" x="100" y="565" width="175" height="97"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="v6U-qq-xG5">
-                                        <rect key="frame" x="0.0" y="0.0" width="175" height="47"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="42"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nId-6x-4sB" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="47"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="42"/>
                                                 <color key="backgroundColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="30"/>
-                                                <state key="normal" title="">
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
                                                     <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -1372,9 +1372,9 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjW-0B-Cfw" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                <rect key="frame" x="97.5" y="0.0" width="77.5" height="47"/>
+                                                <rect key="frame" x="97.5" y="0.0" width="77.5" height="42"/>
                                                 <color key="backgroundColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="27"/>
                                                 <state key="normal" title="">
                                                     <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -1387,7 +1387,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="o8g-ha-d2O">
-                                        <rect key="frame" x="0.0" y="57" width="175" height="45"/>
+                                        <rect key="frame" x="0.0" y="52" width="175" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C5Q-wP-fWB">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -1396,8 +1396,8 @@
                                                     <constraint firstAttribute="width" constant="45" id="cfX-9W-GtP"/>
                                                     <constraint firstAttribute="height" constant="45" id="ePR-IG-r0y"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
-                                                <state key="normal" title="">
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
@@ -1408,8 +1408,8 @@
                                                     <constraint firstAttribute="height" constant="45" id="HwJ-4v-M39"/>
                                                     <constraint firstAttribute="width" constant="45" id="gMe-UH-IVf"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
-                                                <state key="normal" title="">
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
@@ -1420,8 +1420,8 @@
                                                     <constraint firstAttribute="width" constant="45" id="bcD-bE-2Ar"/>
                                                     <constraint firstAttribute="height" constant="45" id="eeY-zz-hCH"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
-                                                <state key="normal" title="">
+                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                                <state key="normal" title="">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
@@ -1434,19 +1434,19 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dialing . . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgu-pf-Saf">
-                                <rect key="frame" x="100" y="523" width="175" height="27"/>
+                                <rect key="frame" x="100" y="528" width="175" height="27"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adolf Benji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Z-af-30K">
-                                <rect key="frame" x="100" y="486" width="175" height="27"/>
+                                <rect key="frame" x="100" y="491" width="175" height="27"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ij5-TT-g6j">
-                                <rect key="frame" x="285" y="561" width="45" height="45"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ij5-TT-g6j">
+                                <rect key="frame" x="285" y="563.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ij5-TT-g6j" secondAttribute="height" multiplier="1:1" id="Aeg-m5-jsX"/>
                                     <constraint firstAttribute="width" constant="45" id="MQi-7k-CgX"/>
@@ -1457,8 +1457,8 @@
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11h-vD-kYd">
-                                <rect key="frame" x="45" y="561" width="45" height="45"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11h-vD-kYd">
+                                <rect key="frame" x="45" y="563.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="LeU-vO-mwq"/>
                                     <constraint firstAttribute="height" constant="45" id="c45-nh-JaH"/>

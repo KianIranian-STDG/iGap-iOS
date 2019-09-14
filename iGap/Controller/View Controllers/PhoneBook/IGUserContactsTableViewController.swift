@@ -49,8 +49,6 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
             self?.tableView.reloadWithAnimation()
         }
 
-        // 5
-        print(contacts)
     }
 
     private func sendText(number: String!) {
@@ -100,7 +98,10 @@ class IGUserContactsTableViewController: BaseTableViewController,MFMessageCompos
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = userContacts[indexPath.row]
-        self.sendText(number: "\(contact.phoneNumbers.first?.value.stringValue ?? "")".trimmingCharacters(in: .whitespaces))
+        DispatchQueue.main.async {
+            self.sendText(number: "\(contact.phoneNumbers.first?.value.stringValue ?? "")".trimmingCharacters(in: .whitespaces))
+
+        }
     }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
