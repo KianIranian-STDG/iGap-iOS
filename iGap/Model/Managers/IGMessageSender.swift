@@ -15,22 +15,20 @@ import RealmSwift
 
 class IGMessageSender {
     static let defaultSender = IGMessageSender()
-    fileprivate var plainMessagesQueue: DispatchQueue
     fileprivate var messagesWithAttachmentQueue: DispatchQueue //should wait for download to complete
     fileprivate var plainMessagesArray = [IGMessageSenderTask]()
     fileprivate var messagesWithAttachmentArray = [IGMessageSenderTask]()
     
     private init() {
-        plainMessagesQueue = DispatchQueue(label: "im.igap.ios.queue.message.plain")
         messagesWithAttachmentQueue = DispatchQueue(label: "im.igap.ios.queue.message.attachment")
     }
     
-    func send(message: IGRoomMessage, to room: IGRoom, sendRequest: Bool = true) {
+    func send(message: IGRoomMessage, to room: IGRoom) {
         let task = IGMessageSenderTask(message: message, room: room)
         if message.attachment != nil {
-            addTaskToMessagesWithAttachmentQueue(task, sendRequest: sendRequest)
+            addTaskToMessagesWithAttachmentQueue(task)
         } else {
-            addTaskToPlainMessagesQueue(task, sendRequest: sendRequest)
+            addTaskToPlainMessagesQueue(task)
         }
     }
     
@@ -125,11 +123,8 @@ class IGMessageSender {
     }
     
     //MARK: Queue Handler
-    private func addTaskToPlainMessagesQueue(_ task: IGMessageSenderTask, sendRequest: Bool = true) {
-        plainMessagesArray.append(task)
-        if sendRequest {
-            sendNextPlainRequest()
-        }
+    private func addTaskToPlainMessagesQueue(_ task: IGMessageSenderTask) {
+        sendNextPlainRequest(task)
     }
     
     fileprivate func removeTaskFromPlainMessagesQueue(_ task: IGMessageSenderTask?) {
@@ -140,17 +135,16 @@ class IGMessageSender {
         }
     }
     
-    private func addTaskToMessagesWithAttachmentQueue(_ task: IGMessageSenderTask, sendRequest: Bool = true) {
+    private func addTaskToMessagesWithAttachmentQueue(_ task: IGMessageSenderTask) {
         messagesWithAttachmentArray.append(task)
-        if sendRequest {
         uploadAttahcmentForNextRequest()
-        }
     }
     
     private func moveMesageFromAttachmentedQueueToPlainQueue(_ task: IGMessageSenderTask) {
         if let index = messagesWithAttachmentArray.firstIndex(of: task) {
             messagesWithAttachmentArray.remove(at: index)
             addTaskToPlainMessagesQueue(task)
+            uploadAttahcmentForNextRequest()
         }
     }
     
@@ -174,91 +168,56 @@ class IGMessageSender {
     
     
     //MARK: Send Next
-    func sendNextPlainRequest() {
-        if let nextMessageTask = plainMessagesArray.first {
-            switch nextMessageTask.room.type {
-            case .chat:
-                IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
-                    DispatchQueue.main.async {
-                        if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-                            IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
-
-                            if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
-                                //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                            } else {
-                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: chatSendMessageResponse.igpRoomMessage)
-                            }
-
-                            self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                            self.sendNextPlainRequest()
-                        }
+    func sendNextPlainRequest(_ nextMessageTask: IGMessageSenderTask) {
+        switch nextMessageTask.room.type {
+        case .chat:
+            IGChatSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                    IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
+                    if chatSendMessageResponse.igpResponse.igpID.isEmpty {
+                        IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: chatSendMessageResponse.igpRoomMessage)
                     }
-                    
-                }).error({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        if let task = self.plainMessagesArray.first {
-                            self.faileMessage(message: task.message)
-                        }
-                        self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                        self.sendNextPlainRequest()
+                }
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                if let message = requestWrapper.message as? IGRoomMessage {
+                    self.faileMessage(message: message)
+                }
+            }).send()
+            break
+            
+        case .group:
+            IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                    IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
+                    if groupSendMessageResponse.igpResponse.igpID.isEmpty {
+                        IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: groupSendMessageResponse.igpRoomMessage)
                     }
-                    
-                }).send()
-            case .group:
-                IGGroupSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
-                    DispatchQueue.main.async {
-                        if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-                            IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
-                            if !groupSendMessageResponse.igpResponse.igpID.isEmpty {
-                                //IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                            } else {
-                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: groupSendMessageResponse.igpRoomMessage)
-                            }
-                        }
-                        self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                        self.sendNextPlainRequest()
+                }
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                if let message = requestWrapper.message as? IGRoomMessage {
+                    self.faileMessage(message: message)
+                }
+            }).send()
+            break
+            
+        case .channel:
+            IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                    IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
+                    if channelSendMessageResponse.igpResponse.igpID.isEmpty {
+                        IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: channelSendMessageResponse.igpRoomMessage)
                     }
-                }).error({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        if let task = self.plainMessagesArray.first {
-                            self.faileMessage(message: task.message)
-                        }
-                        self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                        self.sendNextPlainRequest()
-                    }
-                    
-                }).send()
-                break
-            case .channel:
-                IGChannelSendMessageRequest.Generator.generate(message: nextMessageTask.message, room: nextMessageTask.room, attachmentToken: nextMessageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
-                    DispatchQueue.main.async {
-                        if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-                            IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
-                            if !channelSendMessageResponse.igpResponse.igpID.isEmpty {
-                                //IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                            } else {
-                                IGFactory.shared.updateSendingMessageStatus(nextMessageTask.message, with: channelSendMessageResponse.igpRoomMessage)
-                            }
-                        }
-                        
-                        self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                        self.sendNextPlainRequest()
-                    }
-                }).error({ (errorCode, waitTime) in
-                    DispatchQueue.main.async {
-                        if let task = self.plainMessagesArray.first {
-                            self.faileMessage(message: task.message)
-                        }
-                        self.removeTaskFromPlainMessagesQueue(nextMessageTask)
-                        self.sendNextPlainRequest()
-                    }
-                }).send()
-                break
-            }
+                }
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                if let message = requestWrapper.message as? IGRoomMessage {
+                    self.faileMessage(message: message)
+                }
+            }).send()
+            break
         }
     }
     
-     func uploadAttahcmentForNextRequest() {
+    func uploadAttahcmentForNextRequest() {
         if let nextMessageToUpload = messagesWithAttachmentArray.first {
             if let nextMessageUploadTask = IGUploadManager.sharedManager.upload(file: nextMessageToUpload.message.attachment!, start: {
                 self.fileUploadStarted(nextMessageToUpload)
@@ -285,61 +244,53 @@ class IGMessageSender {
         switch messageTask.room.type {
         case .chat:
             IGChatSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
-                DispatchQueue.main.async {
-                    if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-                        IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
-                        if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
-                            //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                        } else {
-                            IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: chatSendMessageResponse.igpRoomMessage)
-                        }
-                        success()
+                if let chatSendMessageResponse = protoResponse as? IGPChatSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                    IGChatSendMessageRequest.Handler.interpret(response: chatSendMessageResponse, identity: oldMessage)
+                    if !chatSendMessageResponse.igpResponse.igpID.isEmpty {
+                        //IGFactory.shared.updateIgpMessagesToDatabase(chatSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
+                    } else {
+                        IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: chatSendMessageResponse.igpRoomMessage)
                     }
+                    success()
                 }
-            }).error({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    error()
-                    self.faileMessage(message: messageTask.message)
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                error()
+                if let message = requestWrapper.message as? IGRoomMessage {
+                    self.faileMessage(message: message)
                 }
-            }).send()
-        case .group:
-            IGGroupSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
-                DispatchQueue.main.async {
-                    if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-                        IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
-                        if !groupSendMessageResponse.igpResponse.igpID.isEmpty {
-                            //IGFactory.shared.updateIgpMessagesToDatabase(groupSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                        } else {
-                            IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: groupSendMessageResponse.igpRoomMessage)
-                        }
-                        success()
-                    }
-                }
-            }).error({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    error()
-                    self.faileMessage(message: messageTask.message)
-                }
-                
             }).send()
             break
+            
+        case .group:
+            IGGroupSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
+                if let groupSendMessageResponse = protoResponse as? IGPGroupSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                    IGGroupSendMessageRequest.Handler.interpret(response: groupSendMessageResponse, identity: oldMessage)
+                    if groupSendMessageResponse.igpResponse.igpID.isEmpty {
+                        IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: groupSendMessageResponse.igpRoomMessage)
+                    }
+                    success()
+                }
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                error()
+                if let message = requestWrapper.message as? IGRoomMessage {
+                    self.faileMessage(message: message)
+                }
+            }).send()
+            break
+            
         case .channel:
             IGChannelSendMessageRequest.Generator.generate(message: messageTask.message, room: messageTask.room, attachmentToken: messageTask.uploadTask?.token).successPowerful({ (protoResponse, requestWrapper) in
-                DispatchQueue.main.async {
-                    if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
-                        IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
-                        if !channelSendMessageResponse.igpResponse.igpID.isEmpty {
-                            //IGFactory.shared.updateIgpMessagesToDatabase(channelSendMessageResponse.igpRoomMessage, primaryKeyId: nextMessageTask.message.primaryKeyId!, roomId: nextMessageTask.room.id)
-                        } else {
-                            IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: channelSendMessageResponse.igpRoomMessage)
-                        }
-                        success()
+                if let channelSendMessageResponse = protoResponse as? IGPChannelSendMessageResponse, let oldMessage = requestWrapper.identity as? IGRoomMessage {
+                    IGChannelSendMessageRequest.Handler.interpret(response: channelSendMessageResponse, identity: oldMessage)
+                    if channelSendMessageResponse.igpResponse.igpID.isEmpty {
+                        IGFactory.shared.updateSendingMessageStatus(messageTask.message, with: channelSendMessageResponse.igpRoomMessage)
                     }
+                    success()
                 }
-            }).error({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    error()
-                    self.faileMessage(message: messageTask.message)
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                error()
+                if let message = requestWrapper.message as? IGRoomMessage {
+                    self.faileMessage(message: message)
                 }
             }).send()
             break
@@ -425,13 +376,3 @@ class IGMessageSenderTask: NSObject{
         super.init()
     }
 }
-
-
-
-
-
-
-
-
-
-

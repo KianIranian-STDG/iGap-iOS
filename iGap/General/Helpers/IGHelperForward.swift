@@ -103,11 +103,9 @@ class IGHelperForward {
             if room == nil {break}
             
             for forwardedMessage in messages {
-                IGMessageSender.defaultSender.send(message: makeSingleForwardMessage(room: room, forwardedMessage: forwardedMessage), to: room, sendRequest: false)
+                IGMessageSender.defaultSender.send(message: makeSingleForwardMessage(room: room, forwardedMessage: forwardedMessage), to: room)
             }
         }
-        
-        IGMessageSender.defaultSender.sendNextPlainRequest()
     }
     
     private static func makeForwardMessageArray(room: IGRoom, messages: [IGRoomMessage]) -> [IGRoomMessage]? {
