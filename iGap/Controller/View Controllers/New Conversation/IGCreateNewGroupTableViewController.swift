@@ -22,22 +22,37 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     var groupAvatarAttachment: IGFile!
     var getRoomResponseID : Int64?
     var imagePicker = UIImagePickerController()
-    let borderName = CALayer()
     let width = CGFloat(0.5)
     let greenColor = UIColor.organizationalColor()
     var mode : String?
     var roomId : Int64?
     var selectedUsersToCreateGroup = [IGRegisteredUser]()
     var hud = MBProgressHUD()
-    var defualtImage = UIImage(named: "IG_New_Group_Generic_Avatar")
+    var defualtImage = UIImage(named: "IG_Camera")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addBottomBorder()
+        initNavigationItem()
+        
+        addBottomBorder(textField: groupNameTextField)
+        addBottomBorder(textField: descriptionTextField)
         groupNameCell.selectionStyle = UITableViewCell.SelectionStyle.none
+        groupNameTextField.placeholder = "GROUPNAME".localizedNew
+        descriptionTextField.placeholder = "DESCRIPTION".localizedNew
+        
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(didTapOnChangeImage))
         groupAvatarImage.addGestureRecognizer(tap)
         groupAvatarImage.isUserInteractionEnabled = true
+        
+        roundUserImage(groupAvatarImage)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        groupNameTextField.becomeFirstResponder()
+    }
+    
+    private func initNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "NEXT_BTN".localizedNew, title: "NEW_GROUP".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -52,14 +67,10 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        groupNameTextField.becomeFirstResponder()
-    }
     @objc func didTapOnChangeImage() {
         choosePhotoActionSheet(sender : groupAvatarImage)
-        
     }
+    
     func roundUserImage(_ roundView:UIView){
         roundView.layer.borderWidth = 0
         roundView.layer.masksToBounds = true
@@ -69,27 +80,19 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         roundView.clipsToBounds = true
     }
 
-    func addBottomBorder(){
+    func addBottomBorder(textField: UITextField){
+        let borderName = CALayer()
         borderName.borderColor = greenColor.cgColor
-        borderName.frame = CGRect(x: 0, y: groupNameTextField.frame.size.height - width, width:groupNameTextField.frame.size.width, height: groupNameTextField.frame.size.height)
+        borderName.frame = CGRect(x: 0, y: textField.frame.size.height - width, width:textField.frame.size.width, height: textField.frame.size.height)
         borderName.borderWidth = width
-        groupNameTextField.layer.addSublayer(borderName)
-        groupNameTextField.layer.masksToBounds = true
+        textField.layer.addSublayer(borderName)
+        textField.layer.masksToBounds = true
     }
     
-    
-    @IBAction func createButtonClicked(_ sender: UIBarButtonItem) {
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     func choosePhotoActionSheet(sender : UIImageView){
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let cameraOption = UIAlertAction(title: "TAKE_A_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("TAKE_A_PHOTO".localizedNew)
             if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
                 self.imagePicker.delegate = self
                 self.imagePicker.allowsEditing = true
@@ -108,7 +111,6 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         })
         let ChoosePhoto = UIAlertAction(title: "CHOOSE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Choose Photo")
             self.imagePicker.delegate = self
             self.imagePicker.allowsEditing = true
             self.imagePicker.sourceType = .photoLibrary
@@ -125,22 +127,25 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         
         let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
         })
+        
         let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            self.defualtImage = UIImage(named: "IG_New_Group_Generic_Avatar")
+            self.defualtImage = UIImage(named: "IG_Camera")
             self.groupAvatarImage.image = self.defualtImage
         })
 
         optionMenu.addAction(ChoosePhoto)
         
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
+            optionMenu.addAction(cameraOption)} else {
+        }
+        
         optionMenu.addAction(cancelAction)
-        self.defualtImage = UIImage(named: "IG_New_Group_Generic_Avatar")
+        self.defualtImage = UIImage(named: "IG_Camera")
         if groupAvatarImage.image != self.defualtImage {
             optionMenu.addAction(removeAction)
         }
-        
         
         let alertActions = optionMenu.actions
         for action in alertActions {
@@ -149,11 +154,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
                 action.setValue(removeColor, forKey: "titleTextColor")
             }
         }
-        optionMenu.view.tintColor = UIColor.organizationalColor()
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
-            optionMenu.addAction(cameraOption)} else {
-            print ("I don't have a camera.")
-        }
+        
         if let popoverController = optionMenu.popoverPresentationController {
             popoverController.sourceView = sender
         }
@@ -161,11 +162,8 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
     }
 
     
-    // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -192,6 +190,7 @@ class IGCreateNewGroupTableViewController: BaseTableViewController {
         }
         return headerText
     }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var headerHieght : CGFloat = 0
         if section == 0 {
