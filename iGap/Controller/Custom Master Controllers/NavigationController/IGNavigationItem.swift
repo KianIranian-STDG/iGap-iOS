@@ -309,7 +309,7 @@ class IGNavigationItem: UINavigationItem {
         
         
         
-        let settingViewFrame = CGRect(x: 3, y: 6.5, width: 25, height:25)
+        let settingViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnEdit = UIButton(frame: settingViewFrame)
         btnEdit.setTitle("", for: .normal)
         btnEdit.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
@@ -327,7 +327,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 35, height: 21)
+        let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
         
         let btnAdd = UIButton(frame: composeButtonFrame)
@@ -355,7 +355,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let callListViewFrame =  CGRect(x: 10, y: 7.5, width: 35, height: 21)
+        let callListViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnMoreSettings = UIButton(frame: callListViewFrame)
 
         btnMoreSettings.setTitle("", for: .normal)
@@ -376,7 +376,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let callListViewFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let callListViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let callListButtonImageView = UIImageView(frame: callListViewFrame)
         
         callListButtonImageView.image = UIImage(named: "IG_Nav_Bar_Plus")
@@ -389,8 +389,11 @@ class IGNavigationItem: UINavigationItem {
     //MARK: - Discovery
     
     func setDiscoveriesNavigationItems() {
-        addFavoriteButton()
-        addScoreButton()
+        //Hint: - Uncomment these two lines if u want to show navbar item in discovery
+//        addFavoriteButton()
+//        addScoreButton()
+        //Hint: - remove this line if u want to show navbar item in discovery
+        removeNavButtons()
         addiGapLogo()
     }
     
@@ -405,7 +408,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let settingViewFrame =  CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let settingViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
         let settingButtonImageView = UIImageView(frame: settingViewFrame)
         
         settingButtonImageView.image = UIImage(named: "IG_Nav_Bar_Flag")
@@ -427,7 +430,7 @@ class IGNavigationItem: UINavigationItem {
             }
             
         }
-        let composeButtonFrame = CGRect(x: 10, y: 7.5, width: 21, height: 21)
+        let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let composeButtonImageView = UIImageView(frame: composeButtonFrame)
         
         composeButtonImageView.image = UIImage(named: "IG_NavBar_Score")
