@@ -77,6 +77,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
         lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
         lblText.font = UIFont.igFont(ofSize: 15)
+        lblText.textAlignment = lblText.localizedNewDirection
         bottomBorder.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
         self.headerView.addSubview(bottomBorder)
         self.headerView.addSubview(lblIcon)
@@ -98,8 +99,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         lblText.snp.makeConstraints { (make) in
             make.centerY.equalTo(self.headerView.snp.centerY)
             make.height.equalTo(45)
-            make.trailing.equalTo(self.headerView.snp.trailing).offset(-10)
-            make.leading.equalTo(lblIcon.snp.trailing).offset(-10)
+            make.right.equalTo(self.headerView.snp.right).offset(-55)
+            make.left.equalTo(self.headerView.snp.left).offset(55)
         }
         btn.snp.makeConstraints { (make) in
             make.top.equalTo(self.headerView.snp.top)

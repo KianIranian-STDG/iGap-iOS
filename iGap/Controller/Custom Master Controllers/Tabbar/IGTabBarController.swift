@@ -143,7 +143,7 @@ class IGTabBarController: UITabBarController {
     func setTabBarItems() {
         let myTabBarItem1 = (self.tabBar.items?[0])! as UITabBarItem
         myTabBarItem1.image = UIImage(named: "ig-Phone-Book-Off_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
-        myTabBarItem1.selectedImage = UIImage(named: "ig-Phone-Book-On_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        myTabBarItem1.selectedImage = UIImage(named: "ig-Phone-Book-on_25")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         myTabBarItem1.title = ""
         myTabBarItem1.tag = 0
         myTabBarItem1.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
