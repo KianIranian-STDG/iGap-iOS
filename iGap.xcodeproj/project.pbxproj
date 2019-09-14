@@ -16,6 +16,8 @@
 		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
 		8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */; };
 		8E18653B2324B8DA00D8BCA9 /* IGChooseMemberFromContactToCreateChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E18653A2324B8DA00D8BCA9 /* IGChooseMemberFromContactToCreateChannelTableViewController.swift */; };
+		8E1CD96F232CB5E7008D8758 /* customSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD96E232CB5E7008D8758 /* customSearchController.swift */; };
+		8E1CD971232CB628008D8758 /* customSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CD970232CB628008D8758 /* customSearchBar.swift */; };
 		8E1F413422391A6F00910E30 /* FRHyperLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413222391A6F00910E30 /* FRHyperLabel.m */; };
 		8E1F413522391A6F00910E30 /* KPDropMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413322391A6F00910E30 /* KPDropMenu.m */; };
 		8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1F413822391CEE00910E30 /* CheckInternet.swift */; };
@@ -739,6 +741,8 @@
 		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
 		8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelAndSettings.storyboard; sourceTree = "<group>"; };
 		8E18653A2324B8DA00D8BCA9 /* IGChooseMemberFromContactToCreateChannelTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGChooseMemberFromContactToCreateChannelTableViewController.swift; sourceTree = "<group>"; };
+		8E1CD96E232CB5E7008D8758 /* customSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSearchController.swift; sourceTree = "<group>"; };
+		8E1CD970232CB628008D8758 /* customSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSearchBar.swift; sourceTree = "<group>"; };
 		8E1F413022391A6F00910E30 /* KPDropMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPDropMenu.h; sourceTree = "<group>"; };
 		8E1F413122391A6F00910E30 /* FRHyperLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRHyperLabel.h; sourceTree = "<group>"; };
 		8E1F413222391A6F00910E30 /* FRHyperLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRHyperLabel.m; sourceTree = "<group>"; };
@@ -2124,6 +2128,8 @@
 				FA42EF021E5C224F00CF8A32 /* CGSize.swift */,
 				FA42EF031E5C224F00CF8A32 /* UIImage.swift */,
 				FA42EF041E5C224F00CF8A32 /* UIImageView.swift */,
+				8E1CD96E232CB5E7008D8758 /* customSearchController.swift */,
+				8E1CD970232CB628008D8758 /* customSearchBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3753,6 +3759,7 @@
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
+				8E1CD971232CB628008D8758 /* customSearchBar.swift in Sources */,
 				FA0CC8071E5D7D4400556283 /* ActiveBuilder.swift in Sources */,
 				FA42EF0E1E5C224F00CF8A32 /* CGSize.swift in Sources */,
 				8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */,
@@ -3853,6 +3860,7 @@
 				FA0CC8121E5DD99400556283 /* Thread.swift in Sources */,
 				8E96A31D225C902B007D8A77 /* SMRecieptRowView.swift in Sources */,
 				FA50A8CD1DD35EFD00C6D2EA /* IGRegistrationStepPhoneViewController.swift in Sources */,
+				8E1CD96F232CB5E7008D8758 /* customSearchController.swift in Sources */,
 				FAFDB3B4204EBC770022D183 /* IGCallListTableViewCell.swift in Sources */,
 				FAA9DFB01F4B1B330076A22F /* IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableViewController.swift in Sources */,
 				FA8F224E1DD89AC5005A90D1 /* IGRoomMessage.swift in Sources */,

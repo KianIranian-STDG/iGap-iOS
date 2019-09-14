@@ -30,9 +30,24 @@ import MarkdownKit
 
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
-    lazy var searchBar = UISearchBar(frame: CGRect.zero)
-    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    var searchController : UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = ""
+        searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
 
+        return searchController
+
+    }()
+    var nameLabel :UILabel = {
+        let label = UILabel()
+        label.font = UIFont.igFont(ofSize: 13,weight: .bold)
+        label.textColor = .black
+        label.textAlignment = label.localizedNewDirection
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    
     var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
     var testImageArray = [UIImage]()
@@ -282,32 +297,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
  
             
 //            IGGlobal.setLanguage()
-            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
 
-            if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-//                IGGlobal.setLanguage()
-
-                if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
-                    let centeredParagraphStyle = NSMutableParagraphStyle()
-                    centeredParagraphStyle.alignment = .center
-
-                    let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
-                    textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
-                    textField.textAlignment = .center
-                }
-
-                let imageV = textField.leftView as! UIImageView
-                imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                imageV.tintColor = UIColor.white
-
-                if let backgroundview = textField.subviews.first {
-                    backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-                    backgroundview.layer.cornerRadius = 10;
-                    backgroundview.clipsToBounds = true;
-                    
-                }
-            }
             if navigationItem.searchController == nil {
             navigationItem.searchController = searchController
             navigationItem.hidesSearchBarWhenScrolling = true
@@ -326,7 +318,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
-        
+//        initialiseSearchBar()
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
 //        searchBar.delegate = self
@@ -444,29 +436,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
                 
                 
-                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-//                    IGGlobal.setLanguage()
-                    
-                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
-                        let centeredParagraphStyle = NSMutableParagraphStyle()
-                        centeredParagraphStyle.alignment = .center
-                        
-                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
-                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
-                        textField.textAlignment = .center
-                    }
-                    
-                    let imageV = textField.leftView as! UIImageView
-                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                    imageV.tintColor = UIColor.white
-                    
-                    if let backgroundview = textField.subviews.first {
-                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-                        backgroundview.layer.cornerRadius = 10;
-                        backgroundview.clipsToBounds = true;
-                        
-                    }
-                }
                 if navigationItem.searchController == nil {
                     navigationItem.searchController = searchController
                     navigationItem.hidesSearchBarWhenScrolling = true
@@ -1618,8 +1587,48 @@ extension IGRecentsTableViewController {
 extension IGRecentsTableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
+        let lastContentOffset = scrollView.contentOffset.y
+
+        print(lastContentOffset)
         if remaining < 100 {
             //self.loadMoreRooms()
+        }
+        if lastContentOffset <= 0 {
+            initialiseSearchBar(offset : lastContentOffset)
+        }
+        
+    }
+    private func initialiseSearchBar(offset : CGFloat) {
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .blue
+
+            let imageV = textField.leftView as! UIImageView
+            imageV.image = nil
+            
+            if let backgroundview = textField.subviews.first {
+                backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+                
+            }
+            
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+            }
+
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+            }
+            
         }
     }
 }
