@@ -250,7 +250,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var currentAttachment: IGFile?
     var selectedUserToSeeTheirInfo: IGRegisteredUser?
     var selectedChannelToSeeTheirInfo: IGChannelRoom?
-    var selectedGroupToSeeTheirInfo: IGGroupRoom?
     var hud = MBProgressHUD()
     let locationManager = CLLocationManager()
     
@@ -544,13 +543,16 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.navigationController!.pushViewController(profile, animated: true)
             }
             if self.room?.type == .group {
-                self.selectedGroupToSeeTheirInfo = self.room?.groupRoom
-                //self.performSegue(withIdentifier: "showGroupInfo", sender: self)
                 
-                let profile = IGGroupInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
-                profile.selectedGroup = self.selectedGroupToSeeTheirInfo
+                 let profile = IGGroupInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                 profile.selectedGroup = self.room?.groupRoom
+                 profile.room = self.room
+                 self.navigationController!.pushViewController(profile, animated: true)
+                /*
+                let profile = IGGroupProfile.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.room = self.room
                 self.navigationController!.pushViewController(profile, animated: true)
+                */
             }
             
         }
