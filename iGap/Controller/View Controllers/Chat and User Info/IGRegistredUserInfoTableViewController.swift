@@ -90,7 +90,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "CONTACT_INFO".localizedNew)
         
         if !isBotRoom() && IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
-            navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
+            navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
             navigaitonItem.rightViewContainer?.addAction {
                 DispatchQueue.main.async {
                     (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: (self.user?.id)!, isIncommmingCall: false)

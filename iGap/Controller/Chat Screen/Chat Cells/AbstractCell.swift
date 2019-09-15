@@ -459,27 +459,27 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         switch realmRoomMessage.status {
         case .sending:
-            txtStatusAbs.text = ""
+            txtStatusAbs.text = ""
             txtStatusAbs.textColor = UIColor.messageText()
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .sent:
-            txtStatusAbs.text = ""
+            txtStatusAbs.text = ""
             txtStatusAbs.textColor = UIColor.messageText()
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .delivered:
-            txtStatusAbs.text = ""
+            txtStatusAbs.text = ""
             txtStatusAbs.textColor = UIColor.messageText()
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .seen,.listened:
-            txtStatusAbs.text = ""
+            txtStatusAbs.text = ""
             txtStatusAbs.textColor = UIColor.seenColor()
             txtStatusAbs.backgroundColor = UIColor.clear
             break
         case .failed, .unknown:
-            txtStatusAbs.text = ""
+            txtStatusAbs.text = ""
             txtStatusAbs.textColor = UIColor.white
             txtStatusAbs.layer.masksToBounds = true
             txtStatusAbs.layer.cornerRadius = 7.5
