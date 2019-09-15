@@ -166,21 +166,20 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
 
     //actions
+    var isChecked : Bool! = false
     @IBAction func checkbtnCheckmarkClicked(_ sender: Any) {
-        tapCount += 1
-        if tapCount % 2 == 0 {
+        if isChecked {
             btnCheckmarkPrivacy.setTitle("", for: .normal)
         }
         else {
             btnCheckmarkPrivacy.setTitle("", for: .normal)
-            
         }
+        isChecked = !isChecked
+
     }
     @IBAction func btnSubmitTap(_ sender: Any) {
-        if tapCount % 2 == 0 {
-            
+        if isChecked {
             didTapOnSubmit()
-            
         }
         else {
             let message = "MSG_PRIVACY_AGREEMENT".localizedNew

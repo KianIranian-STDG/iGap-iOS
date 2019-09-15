@@ -172,7 +172,9 @@ class IGUserLoginRequest : IGRequest {
             else {
                 IGRequestWalletRegister.sendRequest()
             }
-            
+            if IGAppManager.sharedManager.userID() != nil {
+                IGUserInfoRequest.sendRequest(userId: IGAppManager.sharedManager.userID()!)
+            }
             getToken()
             
             if #available(iOS 10.0, *) {

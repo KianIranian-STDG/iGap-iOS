@@ -131,7 +131,7 @@ class IGRegisteredUser: Object {
         self.displayName = igpUser.igpDisplayName
         self.initials = igpUser.igpInitials
         self.color = igpUser.igpColor
-
+        self.bio = igpUser.igpBio
         switch igpUser.igpStatus {
         case .longTimeAgo:
             self.lastSeenStatus = .longTimeAgo
@@ -190,7 +190,8 @@ class IGRegisteredUser: Object {
         user.isMutual = igpUser.igpMutual
         user.isVerified = igpUser.igpVerified
         user.isBot = igpUser.igpBot
-        
+        user.bio = igpUser.igpBio
+
         if igpUser.hasIgpAvatar {
             user.avatar = IGAvatar.putOrUpdate(realm: realm, igpAvatar: igpUser.igpAvatar)
         }

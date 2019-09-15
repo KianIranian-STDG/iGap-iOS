@@ -26,9 +26,21 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         //        self.navigationController?.navigationBar.sendSubviewToBack(view)
         return view
     }()
+    
+    var canCallNextRequest : Bool! = false
+    var currentGender : IGPGender.RawValue = 0
+    var currentName : String = ""
+    var currentUserName : String = ""
+    var currentBio : String = ""
+    var currentEmail : String = ""
+    var currentReferral : String = ""
+
     var isEditMode = false
+    var shouldSave = false
     var tapCount = 0
     var hud = MBProgressHUD()
+    var isMaleChecked : Bool! = false
+    var isFMaleChecked : Bool! = false
 
     private var goToSettings : Bool! = false
     @IBOutlet weak var stack0: UIStackView!
@@ -70,6 +82,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfBio: UITextField!
 
+    var hasNameChanged: Bool! = false
+    var hasUserNameChanged: Bool! = false
+    var hasBioChanged: Bool! = false
+    var hasEmailChanged: Bool! = false
+    var hasGenderChanged: Bool! = false
+    var hasRefrralChanged: Bool! = false
     
     var userInDb : IGRegisteredUser!
     var imagePicker = UIImagePickerController()
@@ -272,6 +290,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
         lblEmailInner.text = "SETTING_PS_TV_EMAIL".localizedNew
         lblMenGender.text = "MEN_GENDER".localizedNew
+        lblMenGender.font = UIFont.igFont(ofSize: 15)
+        lblWomenGender.font = UIFont.igFont(ofSize: 15)
         lblWomenGender.text = "WOMEN_GENDER".localizedNew
         lblGenderInner.text = "GENDER".localizedNew
 
@@ -288,6 +308,39 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         tfName.text = (userInDb.displayName)
         tfUserName.text = (userInDb.username)
         tfBio.text = (userInDb.bio)
+        
+        let tmpGender = (userInDb.gender)
+        switch tmpGender {
+        case .unknown:
+            //uncheck Both buttons
+            currentGender = 0
+            btnWomenGender.setTitle("", for: .normal)
+            btnMenGender.setTitle("", for: .normal)
+
+            break
+        case .male:
+            //check male button - uncheck Fmale Button
+            currentGender = 1
+            isFMaleChecked = false
+            isMaleChecked = true
+
+            btnWomenGender.setTitle("", for: .normal)
+            btnMenGender.setTitle("", for: .normal)
+
+            break
+        case .female:
+            //UnCheck Male Button - Check Fmale Button
+            currentGender = 2
+            isFMaleChecked = true
+            isMaleChecked = false
+            btnMenGender.setTitle("", for: .normal)
+            btnWomenGender.setTitle("", for: .normal)
+
+            break
+        default:
+            break
+        }
+
         lblBioTop.font = UIFont.igFont(ofSize: 10)
         lblBioTop.labelSpacing = 30                       // Distance between start and end labels
         lblBioTop.pauseInterval = 2.0                     // Seconds of pause before scrolling starts again
@@ -627,8 +680,16 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         print(tapCount)
         tapCount += 1
 
+
+        //end editMode
         if tapCount % 2 == 0 {
             isEditMode = false
+            if shouldSave {
+                shouldSave = false
+                saveChanges(nameChnaged: hasNameChanged, userNameChnaged: hasUserNameChanged, bioChnaged: hasBioChanged, emailChanged: hasEmailChanged, referralChnaged: hasRefrralChanged, genderChanged: hasGenderChanged)
+            } else {
+                shouldSave = false
+            }
             UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 self.btnEditProfile.setTitle("", for: .normal)
 
@@ -641,9 +702,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             self.tableView.endUpdates()
 
         }
+            //gotTo EditMode
         else {
             
             isEditMode = true
+            shouldSave = false
             btnEditProfile.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
             UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 self.btnEditProfile.setTitle("", for: .normal)
@@ -654,6 +717,20 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 
         }
         
+    }
+    private func updateBtnEditStateView(hasChnagedValue: Bool! = false) {
+        if hasChnagedValue {
+            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.btnEditProfile.setTitle("", for: .normal)
+            })
+            shouldSave = true
+        } else {
+            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.btnEditProfile.setTitle("", for: .normal)
+            })
+            shouldSave = false
+
+        }
     }
     @IBAction func btnCameraPickTapped(_ sender: Any) {
     }
@@ -860,21 +937,213 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         
     }
     //MARK : - ACTIONS
-    
+
     @IBAction func btnMaleGendedidTapOnMaleGender(_ sender: Any) {
+        if isMaleChecked {
+        } else {
+            isFMaleChecked = false
+            btnWomenGender.setTitle("", for: .normal)
+            btnMenGender.setTitle("", for: .normal)
+
+        }
+        let tmpCurrentGender = 1
+        if currentGender != tmpCurrentGender {
+            currentGender = 1
+            hasGenderChanged = true
+            updateBtnEditStateView(hasChnagedValue: true)
+        } else {
+            hasGenderChanged = false
+            updateBtnEditStateView(hasChnagedValue: false)
+        }
+
     }
     @IBAction func didTapOnFemaleGender(_ sender: Any) {
+        if isFMaleChecked {
+        } else {
+            isMaleChecked = false
+            btnMenGender.setTitle("", for: .normal)
+            btnWomenGender.setTitle("", for: .normal)
+        }
+        let tmpCurrentGender = 2
+        if currentGender != tmpCurrentGender {
+            currentGender = 2
+            hasGenderChanged = true
+            updateBtnEditStateView(hasChnagedValue: true)
+        } else {
+            hasGenderChanged = false
+            updateBtnEditStateView(hasChnagedValue: false)
+        }
+
     }
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
     
+    private func saveChanges(nameChnaged: Bool! = false,userNameChnaged: Bool! = false, bioChnaged: Bool! = false, emailChanged : Bool! = false, referralChnaged : Bool! = false, genderChanged : Bool! = false) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        if nameChnaged {
+            sendNameRequest(current: currentName)
+        }
+        if userNameChnaged {
+            sendUserNameRequest(current: currentUserName)
+        }
+        if bioChnaged {
+                sendBioRequest(current: currentEmail)
+        }
+        if emailChanged {
+                sendEmailRequest(current: currentEmail)
+        }
+        if referralChnaged {
+                sendReferralRequest(current: currentReferral)
+        }
+        if genderChanged {
+                sendGenderRequest(current: currentGender)
+        }
+
+    }
+    //Mark : - Services Requests
+
+    //Hint: - send UserName Change Request
+    private func sendNameRequest(current: String!) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGUserProfileUpdateUsernameRequest.Generator.generate(username: current).success({ (protoResponse) in
+            SMLoading.hideLoadingPage()
+            self.canCallNextRequest = true
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                switch errorCode {
+                case .timeout:
+                    
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    self.canCallNextRequest = false
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    //Hint: - send Name Change Request
+    private func sendUserNameRequest(current: String!) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGUserProfileSetNicknameRequest.Generator.generate(nickname: current).success({ (protoResponse) in
+            SMLoading.hideLoadingPage()
+            self.canCallNextRequest = true
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    self.canCallNextRequest = false
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    //Hint: - send Bio Change Request
+    private func sendBioRequest(current: String!) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGUserProfileSetBioRequest.Generator.generate(bio: current).success({ (protoResponse) in
+            SMLoading.hideLoadingPage()
+            self.canCallNextRequest = true
+        }).error ({ (errorCode, waitTime) in
+            SMLoading.hideLoadingPage()
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    self.canCallNextRequest = false
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    //Hint: - send Email Change Request
+    private func sendEmailRequest(current: String!) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGUserProfileSetEmailRequest.Generator.generate(userEmail: current).success({ (protoResponse) in
+            SMLoading.hideLoadingPage()
+            self.canCallNextRequest = true
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    self.canCallNextRequest = false
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    //Hint: - send Referral Change Request
+    private func sendReferralRequest(current: String!) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGUserProfileSetRepresentativeRequest.Generator.generate(phone: current).success({ (protoResponse) in
+            SMLoading.hideLoadingPage()
+            self.canCallNextRequest = true
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    self.canCallNextRequest = false
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    //Hint: - send gender Change Request
+    private func sendGenderRequest(current: IGPGender.RawValue) {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        IGUserProfileSetGenderRequest.Generator.generate(gender: IGPGender(rawValue: current)!).success({ (protoResponse) in
+            SMLoading.hideLoadingPage()
+            DispatchQueue.main.async {
+                let userId = IGAppManager.sharedManager.userID()
+                let gender: IGPGender = IGPGender(rawValue: current)!
+                IGFactory.shared.updateProfileGender(userId!, igpGender: gender)
+            }
+            self.canCallNextRequest = true
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                SMLoading.hideLoadingPage()
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    self.canCallNextRequest = false
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    
+     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        return cell
+    }
+ 
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
