@@ -1293,7 +1293,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             btnCheckMark.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
             btnCheckMark.titleLabel!.textAlignment = .center
             btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 17.0)
-            btnCheckMark.setTitle("", for: .normal)
+            btnCheckMark.setTitle("", for: .normal)
             btnCheckMark.isUserInteractionEnabled = true
             
                 self.contentView.addSubview(btnCheckMark)

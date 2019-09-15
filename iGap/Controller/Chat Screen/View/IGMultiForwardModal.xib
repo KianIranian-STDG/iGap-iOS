@@ -13,8 +13,8 @@
         <array key="IRANSans.ttf">
             <string>IRANSans</string>
         </array>
-        <array key="iGap-Fontico.ttf">
-            <string>iGap-Fontico</string>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
         </array>
     </customFonts>
     <objects>
@@ -69,7 +69,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDO-Wd-BeP" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="64" width="375" height="32"/>
+                            <rect key="frame" x="0.0" y="57" width="375" height="39"/>
                             <color key="backgroundColor" red="0.94890445470809937" green="0.94900590181350708" blue="0.95298844575881958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                             <state key="normal" title="ارسال">
@@ -87,7 +87,7 @@
                     </constraints>
                 </stackView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmD-81-LyP">
-                    <rect key="frame" x="214" y="511" width="20.5" height="20.5"/>
+                    <rect key="frame" x="214" y="507.5" width="20.5" height="20.5"/>
                     <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20.5" id="184-7u-ot1"/>
@@ -110,8 +110,8 @@
                         <constraint firstAttribute="height" constant="44" id="aI9-3f-NiV"/>
                         <constraint firstAttribute="width" constant="32" id="zgO-6L-kQE"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="24"/>
-                    <state key="normal" title="">
+                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
+                    <state key="normal" title="">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>

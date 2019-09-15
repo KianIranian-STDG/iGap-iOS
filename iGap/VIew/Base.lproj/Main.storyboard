@@ -1269,8 +1269,8 @@
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXn-uZ-OLO">
                                                                 <rect key="frame" x="0.0" y="3" width="0.0" height="32"/>
-                                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
-                                                                <state key="normal" title="">
+                                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
+                                                                <state key="normal" title="">
                                                                     <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
@@ -1279,8 +1279,8 @@
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DA-hv-jGN">
                                                                 <rect key="frame" x="0.0" y="3" width="0.0" height="32"/>
-                                                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="17"/>
-                                                                <state key="normal" title="">
+                                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
+                                                                <state key="normal" title="">
                                                                     <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
@@ -1485,7 +1485,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
-                                        <rect key="frame" x="19" y="33.666666666666671" width="335" height="16.333333333333329"/>
+                                        <rect key="frame" x="19" y="28" width="335" height="22"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2068,14 +2068,17 @@
                                                     <rect key="frame" x="38" y="13" width="338" height="58"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O0g-YN-wJ7">
-                                                            <rect key="frame" x="0.0" y="5" width="49.666666666666664" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="49.666666666666664" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYO-LV-zmc">
-                                                                    <rect key="frame" x="7" y="0.0" width="36" height="24"/>
-                                                                    <state key="normal" image="ig_cloud_icon"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="46" height="29"/>
+                                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="40"/>
+                                                                    <state key="normal" title="">
+                                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cloud" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="3v7-ll-prB" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="24" width="49.666666666666664" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="29" width="49.666666666666664" height="29"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -2083,14 +2086,17 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EQ9-KB-ujf">
-                                                            <rect key="frame" x="141" y="4.6666666666666679" width="62.333333333333343" height="48.666666666666657"/>
+                                                            <rect key="frame" x="138.66666666666666" y="0.0" width="62.333333333333343" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sG-cm-E7r">
-                                                                    <rect key="frame" x="19.333333333333343" y="0.0" width="23.666666666666671" height="24.333333333333332"/>
-                                                                    <state key="normal" image="ig_setting_icon"/>
+                                                                    <rect key="frame" x="8.3333333333333428" y="0.0" width="46" height="29"/>
+                                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="40"/>
+                                                                    <state key="normal" title="">
+                                                                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setting" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="c0O-RU-C9T" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="24.333333333333336" width="62.333333333333336" height="24.333333333333336"/>
+                                                                    <rect key="frame" x="0.0" y="29" width="62.333333333333336" height="29"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -2098,14 +2104,17 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VXT-3C-7uf">
-                                                            <rect key="frame" x="300.33333333333331" y="5" width="37.666666666666686" height="48"/>
+                                                            <rect key="frame" x="292" y="0.0" width="46" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woP-oI-ppG">
-                                                                    <rect key="frame" x="7" y="0.0" width="24" height="24"/>
-                                                                    <state key="normal" image="ig_new_icon"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="46" height="29"/>
+                                                                    <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="40"/>
+                                                                    <state key="normal" title="">
+                                                                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Zzy-j6-Aot" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="24" width="37.666666666666664" height="24"/>
+                                                                    <rect key="frame" x="4.3333333333333144" y="29" width="37.666666666666664" height="29"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -2118,21 +2127,21 @@
                                                     <rect key="frame" x="38" y="13" width="338" height="58"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfs-zJ-83G">
-                                                            <rect key="frame" x="0.0" y="5" width="49.666666666666664" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="49.666666666666664" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToCloud:" destination="z3s-7I-oQt" eventType="touchUpInside" id="JrY-3Y-iv9"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8A-Hl-Gai">
-                                                            <rect key="frame" x="141" y="4.6666666666666679" width="62.333333333333343" height="48.666666666666657"/>
+                                                            <rect key="frame" x="138.66666666666666" y="0.0" width="62.333333333333343" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToSettings:" destination="z3s-7I-oQt" eventType="touchUpInside" id="q1M-m3-ZSv"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zT-ur-cK8">
-                                                            <rect key="frame" x="300.33333333333331" y="5" width="37.666666666666686" height="48"/>
+                                                            <rect key="frame" x="292" y="0.0" width="46" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToCreatNewCGC:" destination="z3s-7I-oQt" eventType="touchUpInside" id="YDJ-I4-Kfx"/>
@@ -2566,7 +2575,7 @@
                                         <rect key="frame" x="0.0" y="713" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b6d-Ug-XTG" id="XcS-1H-9RW">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="fTi-m2-324" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -2600,7 +2609,7 @@
                                         <rect key="frame" x="0.0" y="757" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hVi-3H-4ow" id="ykh-Da-heS">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="BkK-RZ-fst" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
@@ -2612,70 +2621,69 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u5V-1S-WaU">
                                                     <rect key="frame" x="204" y="0.0" width="100" height="43.333333333333336"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="men" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAX-Ph-kQl">
-                                                            <rect key="frame" x="34" y="6.6666666666666679" width="66" height="30.000000000000004"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="oUm-7A-C7y"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10Z-rH-bXe">
-                                                            <rect key="frame" x="0.0" y="6.6666666666666679" width="30" height="30.000000000000004"/>
+                                                            <rect key="frame" x="70" y="6.6666666666666679" width="30" height="30.000000000000004"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="8I1-Mc-7AJ"/>
-                                                                <constraint firstAttribute="width" constant="30" id="hIl-R6-MBQ"/>
+                                                                <constraint firstAttribute="width" constant="30" id="DTa-by-2hu"/>
+                                                                <constraint firstAttribute="height" constant="30" id="cpo-AV-Yc7"/>
                                                             </constraints>
-                                                            <state key="normal" title="Button"/>
+                                                            <color key="tintColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <state key="normal" title="Button">
+                                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
                                                             <connections>
                                                                 <action selector="btnMaleGendedidTapOnMaleGender:" destination="z3s-7I-oQt" eventType="touchUpInside" id="bnI-Fk-bhI"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="men" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAX-Ph-kQl">
+                                                            <rect key="frame" x="0.0" y="11.666666666666666" width="65" height="20.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="yAX-Ph-kQl" firstAttribute="leading" secondItem="10Z-rH-bXe" secondAttribute="trailing" constant="4" id="9Vk-PY-od9"/>
-                                                        <constraint firstItem="10Z-rH-bXe" firstAttribute="leading" secondItem="u5V-1S-WaU" secondAttribute="leading" id="D5d-EW-dJL"/>
-                                                        <constraint firstAttribute="trailing" secondItem="yAX-Ph-kQl" secondAttribute="trailing" id="FcQ-Yw-qu3"/>
-                                                        <constraint firstItem="10Z-rH-bXe" firstAttribute="leading" secondItem="u5V-1S-WaU" secondAttribute="leading" id="NqY-D8-pbJ"/>
+                                                        <constraint firstItem="10Z-rH-bXe" firstAttribute="leading" secondItem="yAX-Ph-kQl" secondAttribute="trailing" constant="5" id="0WJ-ci-g3s"/>
+                                                        <constraint firstItem="yAX-Ph-kQl" firstAttribute="leading" secondItem="u5V-1S-WaU" secondAttribute="leading" id="MYh-Bf-YZy"/>
+                                                        <constraint firstItem="yAX-Ph-kQl" firstAttribute="centerY" secondItem="u5V-1S-WaU" secondAttribute="centerY" id="Wu3-XS-wmM"/>
+                                                        <constraint firstAttribute="trailing" secondItem="10Z-rH-bXe" secondAttribute="trailing" id="Z43-pt-pOF"/>
+                                                        <constraint firstItem="10Z-rH-bXe" firstAttribute="centerY" secondItem="u5V-1S-WaU" secondAttribute="centerY" id="Zsh-Sw-42N"/>
                                                         <constraint firstAttribute="width" constant="100" id="e62-GA-usQ"/>
-                                                        <constraint firstItem="10Z-rH-bXe" firstAttribute="centerY" secondItem="u5V-1S-WaU" secondAttribute="centerY" id="uaA-L8-jd0"/>
-                                                        <constraint firstItem="yAX-Ph-kQl" firstAttribute="centerY" secondItem="u5V-1S-WaU" secondAttribute="centerY" id="ygS-Je-YvI"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyU-4e-ogV">
                                                     <rect key="frame" x="304" y="0.0" width="100" height="43.333333333333336"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="women" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zt-3f-zE5">
-                                                            <rect key="frame" x="34" y="6.6666666666666679" width="66" height="30.000000000000004"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="bTk-uy-2A0"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmm-yA-W91">
-                                                            <rect key="frame" x="0.0" y="6.6666666666666679" width="30" height="30.000000000000004"/>
+                                                            <rect key="frame" x="70" y="6.6666666666666679" width="30" height="30.000000000000004"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="1O2-07-EXp"/>
-                                                                <constraint firstAttribute="width" constant="30" id="moa-6r-dry"/>
+                                                                <constraint firstAttribute="height" constant="30" id="ar1-Dm-B5W"/>
+                                                                <constraint firstAttribute="width" constant="30" id="tbF-q4-9Rj"/>
                                                             </constraints>
-                                                            <state key="normal" title="Button"/>
+                                                            <color key="tintColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <state key="normal" title="Button">
+                                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
                                                             <connections>
                                                                 <action selector="didTapOnFemaleGender:" destination="z3s-7I-oQt" eventType="touchUpInside" id="aHe-4S-XZv"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="women" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zt-3f-zE5">
+                                                            <rect key="frame" x="0.0" y="11.666666666666666" width="65" height="20.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="1zt-3f-zE5" firstAttribute="centerY" secondItem="wyU-4e-ogV" secondAttribute="centerY" id="2fo-J4-NeA"/>
                                                         <constraint firstAttribute="width" constant="100" id="5Wj-xn-TgL"/>
-                                                        <constraint firstItem="Fmm-yA-W91" firstAttribute="leading" secondItem="wyU-4e-ogV" secondAttribute="leading" id="Jog-9D-fok"/>
-                                                        <constraint firstItem="Fmm-yA-W91" firstAttribute="centerY" secondItem="wyU-4e-ogV" secondAttribute="centerY" id="cbN-uV-Hoe"/>
-                                                        <constraint firstItem="1zt-3f-zE5" firstAttribute="leading" secondItem="Fmm-yA-W91" secondAttribute="trailing" constant="4" id="fGM-I2-A7z"/>
-                                                        <constraint firstAttribute="trailing" secondItem="1zt-3f-zE5" secondAttribute="trailing" id="lqW-eq-Sec"/>
+                                                        <constraint firstItem="Fmm-yA-W91" firstAttribute="leading" secondItem="1zt-3f-zE5" secondAttribute="trailing" constant="5" id="8ak-CM-kdz"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Fmm-yA-W91" secondAttribute="trailing" id="Fnx-CF-ftt"/>
+                                                        <constraint firstItem="Fmm-yA-W91" firstAttribute="centerY" secondItem="wyU-4e-ogV" secondAttribute="centerY" id="Llz-rw-Vam"/>
+                                                        <constraint firstItem="1zt-3f-zE5" firstAttribute="centerY" secondItem="wyU-4e-ogV" secondAttribute="centerY" id="daw-W1-xpn"/>
+                                                        <constraint firstItem="1zt-3f-zE5" firstAttribute="leading" secondItem="wyU-4e-ogV" secondAttribute="leading" id="mwG-q5-W6X"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -3284,14 +3292,11 @@
         <image name="IG_Tabbar_Discovery" width="37" height="37"/>
         <image name="Location_Marker" width="40" height="40"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
-        <image name="ig_cloud_icon" width="36" height="24"/>
         <image name="ig_faq_icon" width="20.333333969116211" height="20.333333969116211"/>
         <image name="ig_invite_friends_icon" width="13.666666984558105" height="15"/>
         <image name="ig_nearby_icon" width="18" height="18"/>
-        <image name="ig_new_icon" width="24" height="24"/>
         <image name="ig_qr_code_scan_icon" width="17" height="17"/>
         <image name="ig_score_icon_settings" width="19.333333969116211" height="18.666666030883789"/>
-        <image name="ig_setting_icon" width="23.666666030883789" height="24.333333969116211"/>
         <image name="ig_wallet_icon_settings" width="16" height="16"/>
         <image name="ig_world-bg" width="366" height="156"/>
         <image name="igap_share_icon-1" width="22" height="22"/>

@@ -4213,16 +4213,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4240,16 +4240,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4267,16 +4267,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4294,16 +4294,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4318,20 +4318,19 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             
             if IGGlobal.shouldMultiSelect {
                 if selectedMessages.count > 0 {
-                    
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4349,16 +4348,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4375,16 +4374,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4402,16 +4401,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4429,16 +4428,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
@@ -4456,16 +4455,16 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     let selectedBefore = self.selectedMessages.filter{$0.id == messages![indexPath.row].id}.count > 0
                     if selectedBefore {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     } else {
                         UIView.transition(with: cell.btnCheckMark, duration: 0.2, options: .transitionCrossDissolve, animations: {
-                            cell.btnCheckMark.setTitle("", for: .normal)
+                            cell.btnCheckMark.setTitle("", for: .normal)
                         }, completion: nil)
                     }
                 } else {
                     if cell.btnCheckMark != nil {
-                        cell.btnCheckMark.setTitle("", for: .normal)
+                        cell.btnCheckMark.setTitle("", for: .normal)
                     }
                 }
             }
