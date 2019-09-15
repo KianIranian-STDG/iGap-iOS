@@ -312,6 +312,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private var firstSetDate = true
     private var messageLoader: IGMessageLoader!
     private var currentRoomId: Int64!
+    private var allowManageForward = true
     
     func onMessageViewControllerDetection() -> UIViewController {
         return self
@@ -737,7 +738,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
      * sometimes startLoadMessage call from another state so will be send forwarded message twice
      * currentlly for manage this state just should be manage forward from one state
      */
-    private func startLoadMessage(manageForward: Bool = true){
+    private func startLoadMessage(){
         if messageLoader == nil {
             messageLoader = IGMessageLoader(room: self.room!)
         }
@@ -754,7 +755,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                     self.collectionView.fadeIn(0.1)
                 }
             }
-            if manageForward {
+            if self.allowManageForward {
+                self.allowManageForward = false
                 self.manageForward()
             }
         }
@@ -5918,7 +5920,7 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
         self.messages?.removeAll()
         IGMessageViewController.messageIdsStatic.removeAll()
         self.collectionView.reloadData()
-        startLoadMessage(manageForward: false)
+        startLoadMessage()
     }
     
     /**
