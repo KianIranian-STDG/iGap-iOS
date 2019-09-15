@@ -1206,16 +1206,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             }
             
             makeViewCount()
-            let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
-            let icon = (attributedString.string as NSString).range(of: "")
+            let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
+            let icon = (attributedString.string as NSString).range(of: "")
             attributedString.setAttributes([NSAttributedString.Key.baselineOffset: -2], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             
             if let channel = messageVote.authorRoom?.channelRoom, channel.hasReaction {
                 makeVoteAction()
-                txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
+                txtVoteUpAbs.text = " \(messageVote.channelExtra?.thumbsUpLabel ?? "0")"
                 
-                let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")", attributes: nil)
+                let attributedVoteDown = NSMutableAttributedString(string: " \(messageVote.channelExtra?.thumbsDownLabel ?? "0")", attributes: nil)
                 let textVoteDown = (attributedVoteDown.string as NSString).range(of: "\(messageVote.channelExtra?.thumbsDownLabel ?? "0")")
                 attributedVoteDown.addAttributes([NSAttributedString.Key.baselineOffset: 3], range: textVoteDown)
                 txtVoteDownAbs.attributedText = attributedVoteDown
@@ -1492,7 +1492,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeStatus(){
         if txtStatusAbs == nil {
             txtStatusAbs = UILabel()
-            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 11)
+            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 13)
             mainBubbleViewAbs.addSubview(txtStatusAbs)
             
             txtStatusAbs.snp.makeConstraints { (make) in
@@ -1586,12 +1586,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if txtVoteUpAbs == nil {
             txtVoteUpAbs = UILabel()
-            txtVoteUpAbs.font = UIFont.iGapFonticon(ofSize: 11.0)
+            txtVoteUpAbs.font = UIFont.iGapFonticon(ofSize: 13.0)
             txtVoteUpAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteUpAbs)
             
             txtVoteDownAbs = UILabel()
-            txtVoteDownAbs.font = UIFont.iGapFonticon(ofSize: 11.0)
+            txtVoteDownAbs.font = UIFont.iGapFonticon(ofSize: 13.0)
             txtVoteDownAbs.textColor = UIColor.messageText()
             mainBubbleViewAbs.addSubview(txtVoteDownAbs)
         }
