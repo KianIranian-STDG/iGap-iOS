@@ -346,9 +346,9 @@ class IGRoomListtCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        makeAvatar()
         makeBGImage()
         makeInitialLabel()
-        makeAvatar()
         makeTypeImage()
         makeTimeLabel()
         makeCheckImage()
@@ -562,7 +562,7 @@ class IGRoomListtCell: UITableViewCell {
     }
     private func makeBGImage() {
         bgImage.snp.makeConstraints { (make) in
-            make.leading.equalTo(self.contentView.snp.leading).offset(5)
+            make.leading.equalTo(avatarImage.snp.centerX).offset(0)
             make.trailing.equalTo(self.contentView.snp.trailing).offset(-5)
             make.top.equalTo(self.contentView.snp.top).offset(5)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)

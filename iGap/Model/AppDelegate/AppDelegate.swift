@@ -370,7 +370,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
                 
             }
             else {
-            let callAlert = UIAlertController(title: nil, message: " ", preferredStyle: IGGlobal.detectAlertStyle())
+            let callAlert = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
             let voiceCall = UIAlertAction(title: "VOICE_CALL".localizedNew, style: .default, handler: { (action) in
                 self.showCallPage(userId: userId, isIncommmingCall: isIncommmingCall, sdp: sdp, type: IGPSignalingOffer.IGPType.voiceCalling, showAlert: false)
             })

@@ -448,7 +448,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         }
         
         if let avatar = userInfo.avatar {
+            lblIcon.isHidden = true
+
             setImageMain(avatar: avatar)
+        } else {
+            lblIcon.isHidden = false
         }
     }
     

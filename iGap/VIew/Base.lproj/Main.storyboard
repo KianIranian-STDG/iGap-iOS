@@ -788,12 +788,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Bke-6e-5xA">
-                                <rect key="frame" x="57" y="75" width="300" height="300"/>
-                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="80"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S5Q-zR-v9g" customClass="UIImageViewX" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="57" y="75" width="300" height="300"/>
                                 <constraints>
@@ -838,6 +832,12 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Bke-6e-5xA">
+                                <rect key="frame" x="57" y="75" width="300" height="300"/>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="80"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iGap Voice Call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFu-Of-z9o">
                                 <rect key="frame" x="30" y="30" width="364" height="30"/>
                                 <constraints>
@@ -873,13 +873,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=". . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-iX-P27">
-                                <rect key="frame" x="194.66666666666666" y="557.33333333333337" width="25" height="26.666666666666629"/>
+                                <rect key="frame" x="195.33333333333334" y="564" width="23.666666666666657" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1p-d4-xse">
-                                <rect key="frame" x="197.33333333333334" y="520.66666666666663" width="19.333333333333343" height="26.666666666666629"/>
+                                <rect key="frame" x="197.66666666666666" y="534" width="19" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -904,6 +904,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N5m-r6-Spk" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="77.333333333333329" height="42"/>
                                                 <color key="backgroundColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="42" id="5DG-mR-XYN"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                                                 <state key="normal" title="">
                                                     <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
