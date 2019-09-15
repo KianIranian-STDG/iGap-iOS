@@ -53,7 +53,6 @@ class IGRegisteredUser: Object {
     @objc dynamic var phone:              Int64                       = -1
     @objc dynamic var avatarCount:        Int32                       = 0
     @objc dynamic var selfRemove:         Int32                       = -1
-    @objc dynamic var genderRaw:          Int                         = IGGender.unknown.rawValue
     @objc dynamic var cacheID:            String                      = ""
     @objc dynamic var username:           String                      = ""
     @objc dynamic var firstName:          String                      = ""
@@ -83,17 +82,6 @@ class IGRegisteredUser: Object {
         }
         set {
             lastSeenStatusRaw = newValue.rawValue
-        }
-    }
-    var gender: IGGender {
-        get {
-            if let s = IGGender(rawValue: genderRaw) {
-                return s
-            }
-            return .male
-        }
-        set {
-            genderRaw = newValue.rawValue
         }
     }
     

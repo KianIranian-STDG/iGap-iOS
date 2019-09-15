@@ -13,14 +13,27 @@ import Foundation
 import IGProtoBuff
 
 class IGSessionInfo: Object {
-    @objc dynamic  private var id: Int     = 1
-    @objc dynamic  var loginToken: String?
-    @objc dynamic  var username:   String?
-    @objc dynamic  var userID:     Int64   = -1
-    @objc dynamic  var nickname:   String?
-    @objc dynamic  var authorHash: String?
+    @objc dynamic  private var id:  Int     = 1
+    @objc dynamic  var loginToken:  String?
+    @objc dynamic  var username:    String?
+    @objc dynamic  var userID:      Int64   = -1
+    @objc dynamic  var nickname:    String?
+    @objc dynamic  var authorHash:  String?
     @objc dynamic  var representer: String?
     @objc dynamic  var accessToken: String?
+    @objc dynamic  var genderRaw:   Int = IGGender.unknown.rawValue
+    
+    var gender: IGGender {
+        get {
+            if let s = IGGender(rawValue: genderRaw) {
+                return s
+            }
+            return .male
+        }
+        set {
+            genderRaw = newValue.rawValue
+        }
+    }
     
     override static func primaryKey() -> String {
         return "id"

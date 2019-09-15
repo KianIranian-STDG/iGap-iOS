@@ -1044,10 +1044,10 @@ class IGFactory: NSObject {
                 default:
                     gender = .male
                 }
-                let userPredicate = NSPredicate(format: "id = %lld", userId)
-                let userInDb = IGDatabaseManager.shared.realm.objects(IGRegisteredUser.self).filter(userPredicate).first
                 try! IGDatabaseManager.shared.realm.write {
-                    userInDb?.gender = gender
+                    if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+                        sessionInfo.gender = gender
+                    }
                 }
             }
         }).error ({

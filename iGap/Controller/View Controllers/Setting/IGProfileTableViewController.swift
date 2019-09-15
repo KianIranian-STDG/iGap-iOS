@@ -309,7 +309,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         tfUserName.text = (userInDb.username)
         tfBio.text = (userInDb.bio)
         
-        let tmpGender = (userInDb.gender)
+        var tmpGender: IGGender = .unknown
+        if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
+            tmpGender = sessionInfo.gender
+        }
         switch tmpGender {
         case .unknown:
             //uncheck Both buttons
