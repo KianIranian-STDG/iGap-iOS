@@ -313,35 +313,41 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
             tmpGender = sessionInfo.gender
         }
-        switch tmpGender {
-        case .unknown:
-            //uncheck Both buttons
-            currentGender = 0
-            btnWomenGender.setTitle("", for: .normal)
-            btnMenGender.setTitle("", for: .normal)
-
-            break
-        case .male:
-            //check male button - uncheck Fmale Button
-            currentGender = 1
-            isFMaleChecked = false
-            isMaleChecked = true
-
-            btnWomenGender.setTitle("", for: .normal)
-            btnMenGender.setTitle("", for: .normal)
-
-            break
-        case .female:
-            //UnCheck Male Button - Check Fmale Button
-            currentGender = 2
-            isFMaleChecked = true
-            isMaleChecked = false
-            btnMenGender.setTitle("", for: .normal)
-            btnWomenGender.setTitle("", for: .normal)
-
-            break
-        default:
-            break
+        //check if user didNot check also check the serverside
+        if tmpGender == .unknown {
+            
+        } else {
+            
+            switch tmpGender {
+            case .unknown:
+                //uncheck Both buttons
+                currentGender = 0
+                btnWomenGender.setTitle("", for: .normal)
+                btnMenGender.setTitle("", for: .normal)
+                
+                break
+            case .male:
+                //check male button - uncheck Fmale Button
+                currentGender = 1
+                isFMaleChecked = false
+                isMaleChecked = true
+                
+                btnWomenGender.setTitle("", for: .normal)
+                btnMenGender.setTitle("", for: .normal)
+                
+                break
+            case .female:
+                //UnCheck Male Button - Check Fmale Button
+                currentGender = 2
+                isFMaleChecked = true
+                isMaleChecked = false
+                btnMenGender.setTitle("", for: .normal)
+                btnWomenGender.setTitle("", for: .normal)
+                
+                break
+            default:
+                break
+            }
         }
 
         lblBioTop.font = UIFont.igFont(ofSize: 10)
@@ -368,33 +374,63 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     func getUserEmail() {
         DispatchQueue.global(qos: .userInteractive).async {
-
-        IGUserProfileGetEmailRequest.Generator.generate().success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let getUserEmailResponse as IGPUserProfileGetEmailResponse:
-                    let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
+            
+            IGUserProfileGetEmailRequest.Generator.generate().success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let getUserEmailResponse as IGPUserProfileGetEmailResponse:
+                        let userEmail = IGUserProfileGetEmailRequest.Handler.interpret(response: getUserEmailResponse)
+                        DispatchQueue.main.async {
+                            self.tfEmail.text = userEmail
+                        }
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                switch errorCode {
+                case .timeout:
                     DispatchQueue.main.async {
-                        self.tfEmail.text = userEmail
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
                     }
                 default:
                     break
                 }
-            }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
+                
+            }).send()
             
-        }).send()
+        }
+    }
+    
+    func getUserGender() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            
+            IGUserProfileGetGenderRequest.Generator.generate().success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let getUserGenderResponse as IGPUserProfileGetGenderResponse:
+                        let userEmail = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                switch errorCode {
+                case .timeout:
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_EMAIL".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                default:
+                    break
+                }
+                
+            }).send()
             
         }
     }

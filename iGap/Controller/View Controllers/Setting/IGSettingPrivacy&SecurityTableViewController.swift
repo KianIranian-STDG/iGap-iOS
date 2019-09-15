@@ -14,7 +14,7 @@ import MBProgressHUD
 import IGProtoBuff
 
 class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
-
+    
     @IBOutlet weak var lblBlockedUserTitle: UILabel!
     @IBOutlet weak var lblProfilePhotoTitle: UILabel!
     @IBOutlet weak var lblLastSeenTitle: UILabel!
@@ -24,7 +24,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     @IBOutlet weak var lblActiveSessionsTitle: UILabel!
     @IBOutlet weak var lblTwoStepTitle: UILabel!
     @IBOutlet weak var lblHint: UILabel!
-
+    
     @IBOutlet weak var AlloLoginSwitch: UISwitch!
     @IBOutlet weak var whoCanSeeProfilePhotoLabel: UILabel!
     @IBOutlet weak var whoCanAddingMeToChannelLabel: UILabel!
@@ -32,6 +32,15 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     @IBOutlet weak var whoCanSeeLastSeenLabel: UILabel!
     @IBOutlet weak var whoCanAddingToGroupLabel: UILabel!
     @IBOutlet weak var whoCanCallMe: UILabel!
+    @IBOutlet weak var lblIfAway : UILabel!
+    @IBOutlet weak var lblDeleteAllCloud : UILabel!
+    @IBOutlet weak var lblDeleteSyncedContacts : UILabel!
+    @IBOutlet weak var lblClearPayments : UILabel!
+    @IBOutlet weak var lblSyncContacts : UILabel!
+    @IBOutlet weak var lblSecretChatLink : UILabel!
+    @IBOutlet weak var selfDestructionLabel : UILabel!
+    @IBOutlet weak var lblPasscode : UILabel!
+    
     
     
     var selectedIndexPath : IndexPath!
@@ -47,9 +56,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     var channelInviteUserPrivacy: IGPrivacyLevel?
     var callPrivacy: IGPrivacyLevel?
     var twoStepVerification: IGTwoStepVerification?
+    var currentUser: IGRegisteredUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showAccountDetail()
         
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -62,8 +73,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         let predicate = NSPredicate(format: "isBlocked == 1")
         blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
-        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + "CONTACTS".localized
-        
+//        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + "CONTACTS".localized
+        numberOfBlockedContacts.isHidden = true
+        if currentUser.selfRemove == -1 {
+            getSelfRemove()
+        }
         self.notificationToken = blockedUsers.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
@@ -75,7 +89,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             case .error(let err):
                 // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(err)")
-                break                
+                break
             }
         }
         
@@ -99,13 +113,74 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         initChangeLang()
     }
     
+    
+    
+    func getSelfRemove() {
+        IGUserProfileGetSelfRemoveRequest.Generator.generate().success({ (protoResponse) in
+            switch protoResponse {
+            case let response as IGPUserProfileGetSelfRemoveResponse:
+                IGUserProfileGetSelfRemoveRequest.Handler.interpret(response: response)
+            default:
+                break
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "TIME_OUT_MSG_SELFD".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
+            
+        }).send()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-        numberOfBlockedContacts.text = "\(blockedUsers.count)" + "CONTACTS".localizedNew
-        
+//        numberOfBlockedContacts.text = "\(blockedUsers.count)" + "CONTACTS".localizedNew
         fetchBlockedContactsFromServer()
         showPrivacyInfo()
         initChangeLang()
+    }
+    
+    //MARK: Account details
+    func showAccountDetail(){
+        let currentUserId = IGAppManager.sharedManager.userID()
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "id = %lld", currentUserId!)
+        currentUser = realm.objects(IGRegisteredUser.self).filter(predicate).first!
+        self.updateUI()
+        notificationToken = currentUser.observe({ (changes: ObjectChange) in
+            switch changes {
+            case .change(_):
+                self.updateUI()
+            default:
+                break
+            }
+            
+        })
+    }
+    
+    func updateUI() {
+        print(self.currentUser.selfRemove)
+        
+        DispatchQueue.main.async {
+            print("self.currentUser.selfRemove",self.currentUser.selfRemove)
+            
+            if self.currentUser.selfRemove == -1 {
+                self.selfDestructionLabel.text = ""
+            } else if self.currentUser.selfRemove == 12 {
+                self.selfDestructionLabel.text = "1 " + "YEAR".localizedNew
+            } else if self.currentUser.selfRemove == 1 {
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + "MONTH".localizedNew
+            } else {
+                self.selfDestructionLabel.text = "\(self.currentUser.selfRemove)" + "MONTHS".localizedNew
+            }
+        }
     }
     func initChangeLang() {
         lblBlockedUserTitle.text = "SETTING_PS_BLOCKED_USERS".localizedNew
@@ -117,30 +192,17 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
         lblGroupsTitle.text = "SETTING_PS_GROUPS".localizedNew
-        tableView.beginUpdates()
-        
-        if let containerView = tableView.footerView(forSection: 0) {
-            containerView.textLabel!.text = "SETTING_PS_PRIVACY_HINT".localizedNew
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-            containerView.sizeToFit()
-        }
-        if let header = tableView.headerView(forSection: 0) {
-            header.textLabel!.text = "SETTING_PS_TTL_PRIVACY".localizedNew
-            header.textLabel?.font = UIFont.igFont(ofSize: 15)
-
-            header.sizeToFit()
-        }
-        if let headerT = tableView.headerView(forSection: 1) {
-            headerT.textLabel!.text = "SETTING_PS_TTL_SECURITY".localizedNew
-            headerT.textLabel?.font = UIFont.igFont(ofSize: 15)
-            headerT.sizeToFit()
-        }
-        
-        tableView.endUpdates()
         lblActiveSessionsTitle.text = "SETTING_PS_ACTIVE_SESSIONS".localizedNew
         lblTwoStepTitle.text = "SETTING_PS_TWO_STEP_VERFI".localizedNew
-
+        lblIfAway.text = "IF_AWAY_FOR".localizedNew
+        
+        lblDeleteAllCloud.text = "DELETE_ALL_CLOUD".localizedNew
+        lblDeleteSyncedContacts.text = "DELETE_SYNCED_CONTACTS".localizedNew
+        lblClearPayments.text = "CLEAR_PAYMENT_SHHIPPING".localizedNew
+        lblSyncContacts.text = "SYNCED_CONTACTS".localizedNew
+        lblSecretChatLink.text = "SECRET_CHAT_LINK_PREVIEW".localizedNew
+        lblPasscode.text = "PASSCODE_LOCK".localizedNew
+        
     }
     
     func showPrivacyInfo(){
@@ -417,7 +479,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -425,11 +487,17 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         case 0:
             return 6
         case 1:
-            return 2
+            return 3
+        case 2:
+            return 1
+        case 3:
+            return 5
         default:
             return 0
         }
     }
+    
+    
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -458,7 +526,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
                     alertWaiting()
                     return
                 }
-            } else if indexPath.row == 4 {
+            } else if indexPath.row == 5 {
                 if userPrivacy?.voiceCalling == nil {
                     alertWaiting()
                     return
@@ -509,30 +577,84 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             default:
                 break
             }
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == 0 {
-            return "SETTING_PS_PRIVACY_HINT".localizedNew
-
-        }
-        else {
-            return ""
-        }
-    }
-    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "SETTING_PS_PRIVACY_HINT".localizedNew
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        } else if indexPath.section == 2 {
+            self.tableView.isUserInteractionEnabled = false
+            performSegue(withIdentifier: "GoToSelfDestructionTimePage", sender: self)
+            
+        } else if indexPath.section == 3 {
+            
         }
         
     }
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
+    
+    
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let containerFooterView = view as! UITableViewHeaderFooterView
+        
+        switch section {
+        case 0 :
+            containerFooterView.textLabel!.text = "SETTING_PS_PRIVACY_HINT".localizedNew
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerFooterView.sizeToFit()
+        case 1 :
+            containerFooterView.textLabel!.text = "SETTING_PS_TTL_SECURITY".localizedNew
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerFooterView.sizeToFit()
+        case 2 :
+            containerFooterView.textLabel!.text = "SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT".localizedNew
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerFooterView.sizeToFit()
+        case 4 :
+            break
+            
+        default :
+            break
+            
+        }
+        
+        
     }
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let containerHeaderView = view as! UITableViewHeaderFooterView
+        
+        switch section {
+        case 0 :
+            containerHeaderView.textLabel!.text = "HEADER_SPRIVACY".localizedNew
+            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerHeaderView.sizeToFit()
+        case 1 :
+            containerHeaderView.textLabel!.text = "HEADER_SECURITY".localizedNew
+            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerHeaderView.sizeToFit()
+        case 2 :
+            containerHeaderView.textLabel!.text = "HEADER_SELF_DISTRUCT".localizedNew
+            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerHeaderView.sizeToFit()
+        case 3 :
+            containerHeaderView.textLabel!.text = "HEADER_SELF_ADVANCE".localizedNew
+            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerHeaderView.sizeToFit()
+        default :
+            break
+            
+        }
+    }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "HEADER_SPRIVACY".localizedNew
+        case 1:
+            return "HEADER_SECURITY".localizedNew
+        case 2:
+            return "HEADER_SELF_DISTRUCT".localizedNew
+        case 3:
+            return "HEADER_SELF_ADVANCE".localizedNew
+        default:
+            return ""
+        }
+    }
+    
+    
     private func alertWaiting(){
         let alert = UIAlertController(title: "Please Wait", message: "Please wait for detect your privacy info", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -541,7 +663,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     }
     
     @IBAction func goBackToPrivacyAndSecurityList(seque:UIStoryboardSegue){
-        numberOfBlockedContacts.text = "\(blockedUsers.count) ".inLocalizedLanguage() + "USERS".localizedNew
+//        numberOfBlockedContacts.text = "\(blockedUsers.count) ".inLocalizedLanguage() + "USERS".localizedNew
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -590,6 +712,12 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
             }
         } else if let destinationVC = segue.destination as? IGSettingPrivacyAndSecurityTwoStepVerificationVerifyPasswordTableViewController {
             destinationVC.twoStepVerification = twoStepVerification
+        }
+        else if let selfDestructionVC = segue.destination as? IGSettingHaveCheckmarkOntheLeftTableViewController {
+            selfDestructionVC.items = [1, 3, 6, 12]
+            selfDestructionVC.mode = "Self-Destruction"
+            selfDestructionVC.modeT = "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localizedNew
+            
         }
     }
     

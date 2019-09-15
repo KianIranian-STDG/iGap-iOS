@@ -976,6 +976,45 @@
         "barcode.gift.confirm" : "Get Gift",
         "barcode.gift.cancel" : "Cancel",
         
+        "MESSAGE_NOTIFICATIONS" : "Message Notifications",
+        "PRIVATE_CHATS" : "Private Chats",
+        "NOTIFI_GROUPS" : "Groups",
+        "NOTIFI_CHANNELS" : "Channels",
+        "VOICE_CALLS" : "Voice Calls",
+        "BADGE_COUNTER" : "Badge Counter",
+        "NOTIFI_ENABLED" : "Enabled",
+        "NOTIFI_COUNT_UNREAD_MESSAGE" : "Count Unread Messages",
+        "NOTIFI_INCLUDE_MUTED_CHATS" : "Include Muted Chats",
+        "IN_APP_NOTIFICATIONS" : "In-App Notifications",
+        "NOTIFI_IN_APP_SOUNDS" : "In-App Sounds ",
+        "NOTIFI_IN_APP_VIBRATE" : "In-App Vibrate ",
+        "NOTIFI_IN_APP_PREVIEW" : "In-App Preview ",
+        "EVENTS" : "Events",
+        "NOTIFI_NEW_CONTACTS" : "New Contacts ",
+        "RESET" : "Reset",
+        "NOTIFI_RESET" : "Reset All Notifications",
+        "NOTIFI_EVENTS_FOOTER" : "Get Notified when some one from your contacts joined iGap",
+
+        
+        "HEADER_SPRIVACY" : "Privacy",
+        "HEADER_SECURITY" : "Security",
+        "HEADER_SELF_DISTRUCT" : "Self Destruction",
+        "HEADER_SELF_ADVANCE" : "Advance",
+        "DELETE_ALL_CLOUD" : "Delete All Cloud Drafts",
+        "DELETE_SYNCED_CONTACTS" : "Delete Synced Contacts",
+        "CLEAR_PAYMENT_SHHIPPING" : "Clear Payment and Shipping Info",
+        "SYNCED_CONTACTS" : "Synced Contacts",
+        "SECRET_CHAT_LINK_PREVIEW" : "Link Preview",
+        "IF_AWAY_FOR" : "If Away For",
+        "PASSCODE_LOCK" : "Passcode Lock",
+        "HEADER_NETWORK_STORAGE_USAGE" : "Network and Storage Usage",
+        "HEADER_AUTOMATIC_DOWNLOAD" : "Automatic Media Download",
+        "HEADER_AUTO_PLAY" : "Auto-Play Media",
+        "HEADER_VOICECALLS" : "Voice Calls",
+        "HEADER_PROXYE" : "Proxy",
+
+        
+        
         "NO_CALL_HISTORY" : "Not exist call history!",
         "UNREAD_MESSAGE" : "unread message"
     }
