@@ -1206,8 +1206,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             }
             
             makeViewCount()
-            let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
-            let icon = (attributedString.string as NSString).range(of: "")
+            let attributedString = NSMutableAttributedString(string: " \(messageVote.channelExtra?.viewsLabel ?? "1")", attributes: nil)
+            let icon = (attributedString.string as NSString).range(of: "")
             attributedString.setAttributes([NSAttributedString.Key.baselineOffset: -2], range: icon)
             txtSeenCountAbs.attributedText = attributedString
             

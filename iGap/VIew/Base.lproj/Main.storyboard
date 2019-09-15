@@ -1320,8 +1320,11 @@
                                                                 <state key="normal" image="IG_Chat_Screen_Record"/>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
-                                                                <rect key="frame" x="70" y="0.0" width="0.0" height="38"/>
-                                                                <state key="normal" image="IG_Chat_Screen_Send"/>
+                                                                <rect key="frame" x="70" y="2" width="0.0" height="34"/>
+                                                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
+                                                                <state key="normal" title="">
+                                                                    <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
                                                                 <connections>
                                                                     <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchDown" id="Mco-1b-tMO"/>
                                                                 </connections>
@@ -1482,7 +1485,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
-                                        <rect key="frame" x="19" y="28" width="335" height="22"/>
+                                        <rect key="frame" x="19" y="33.666666666666671" width="335" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                         <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3275,7 +3278,6 @@
         <image name="IG_Blur_Call" width="640" height="1136"/>
         <image name="IG_Chat_Screen_Record" width="38" height="38"/>
         <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
-        <image name="IG_Chat_Screen_Send" width="38" height="38"/>
         <image name="IG_Splash_Cute_2" width="300" height="300"/>
         <image name="IG_Tabbar_Call" width="37" height="37"/>
         <image name="IG_Tabbar_Chat_Room" width="37" height="37"/>
