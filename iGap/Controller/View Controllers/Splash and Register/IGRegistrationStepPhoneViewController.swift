@@ -178,7 +178,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
 
     }
     @IBAction func btnSubmitTap(_ sender: Any) {
-        if isChecked {
+        if !isChecked {
             didTapOnSubmit()
         }
         else {

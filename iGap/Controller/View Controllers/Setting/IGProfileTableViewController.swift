@@ -225,7 +225,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                                     tmpSum =  tmpSum + tmpBalance
                                 }
                             }
-                            self.lblMoneyAmount.text = String(tmpSum).inRialFormat().inLocalizedLanguage()
+                            self.lblMoneyAmount.text = String(tmpSum).inRialFormat()
 
                         }
 
