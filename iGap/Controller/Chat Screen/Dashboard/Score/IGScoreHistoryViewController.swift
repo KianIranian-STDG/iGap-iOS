@@ -24,7 +24,7 @@ class IGScoreHistoryViewController: BaseViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.collectionView.semanticContentAttribute = self.semantic
         initNavigationBar()
         customizeView()
         manageShowActivties(isFirst: true)

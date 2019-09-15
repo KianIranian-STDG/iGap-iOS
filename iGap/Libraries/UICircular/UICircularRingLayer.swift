@@ -372,7 +372,7 @@ class UICircularRingLayer: CAShapeLayer {
         valueLabel.font = UIFont.igFont(ofSize: 20)
         valueLabel.textAlignment = .center
         valueLabel.textColor = ring.fontColor
-        valueLabel.text = valueFormatter?.string(for: value)?.inLocalizedLanguage().trimmingCharacters(in: .whitespaces).inRialFormat()
+        valueLabel.text = valueFormatter?.string(for: value)?.trimmingCharacters(in: .whitespaces).inRialFormat()
         ring.willDisplayLabel(label: valueLabel)
         valueLabel.sizeToFit()
 

@@ -51,7 +51,6 @@ import SnapKit
     
     func initCircularProgressBar(ranMax : CGFloat? = 0.0,scoreMax : CGFloat? = 0.0) {
         progreccCIrcular.maxValue = scoreMax!
-        //        progreccCIrcular.style = .dashed(pattern: [7.0, 7.0])
         progreccCIrcular.style = .bordered(width: 2.0, color: UIColor.clear)
         progreccCIrcular.innerRingColor = UIColor.iGapDarkYellow()
         progreccCIrcular.innerRingWidth = 7.0
@@ -64,10 +63,6 @@ import SnapKit
         progreccCIrcularRank.innerRingWidth = 7.0
         progreccCIrcularRank.outerRingColor = UIColor.iGapPurple()
         progreccCIrcularRank.outerRingWidth = 1.0
-        
-        
-        
-        
     }
     func addScoreListItems(array : [IGProtoBuff.IGPUserIVandGetScoreResponse.IGPIVandScore]? = nil) {
         let view = UIView()
@@ -91,24 +86,42 @@ import SnapKit
                 view.backgroundColor = .clear
                 view.addSubview(lbl)
                 view.addSubview(btnScore)
+                
 
+                if lastLang == "fa" {
+                    btnScore.snp.makeConstraints { (make) in
+                        make.leading.equalTo(view.snp.leading).offset(10)
+                        make.centerY.equalTo(view.snp.centerY)
+                        make.height.equalTo(30)
+                        make.width.equalTo(80)
+                    }
+                    lbl.snp.makeConstraints { (make) in
+                        make.trailing.equalTo(view.snp.trailing).offset(-10)
+                        make.leading.equalTo(btnScore.snp.trailing).offset(10)
+                        make.centerY.equalTo(view.snp.centerY)
+                    }
 
-                btnScore.snp.makeConstraints { (make) in
-                    make.trailing.equalTo(view.snp.trailing).offset(-10)
-                    make.centerY.equalTo(view.snp.centerY)
-                    make.height.equalTo(30)
-                    make.width.equalTo(80)
+                } else if lastLang == "en" {
+                    btnScore.snp.makeConstraints { (make) in
+                        make.trailing.equalTo(view.snp.trailing).offset(-10)
+                        make.centerY.equalTo(view.snp.centerY)
+                        make.height.equalTo(30)
+                        make.width.equalTo(80)
+                    }
+                    lbl.snp.makeConstraints { (make) in
+                        make.leading.equalTo(view.snp.leading).offset(10)
+                        make.trailing.equalTo(btnScore.snp.leading).offset(10)
+                        make.centerY.equalTo(view.snp.centerY)
+                    }
+
                 }
-                lbl.snp.makeConstraints { (make) in
-                    make.leading.equalTo(view.snp.leading).offset(10)
-                    make.trailing.equalTo(btnScore.snp.leading).offset(10)
-                    make.centerY.equalTo(view.snp.centerY)
-                }
+
                 btnScore.backgroundColor = UIColor.iGapBars()
                 btnScore.layer.cornerRadius = 10.0
-                btnScore.setTitle( String(array![count].igpScore) + " + " , for: .normal)
+                btnScore.setTitle( String(array![count].igpScore).inLocalizedLanguage() + " + " , for: .normal)
                 btnScore.titleLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
                 lbl.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                lbl.textAlignment = lbl.localizedNewDirection
                 if lastLang == "fa"  {
                     lbl.text = array![count].igpFaName
                 } else {
@@ -144,7 +157,6 @@ import SnapKit
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         //        self.progressBar.maxValue = 10000000
-        getScore()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -157,6 +169,8 @@ import SnapKit
         txtRankTitle.font = UIFont.igFont(ofSize: 20)
         //        txtScore.font = UIFont.igFont(ofSize: 25)
         btnSeeRecords.titleLabel?.font = UIFont.igFont(ofSize: 17)
+        getScore()
+
     }
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
@@ -173,6 +187,7 @@ import SnapKit
     }
     
     private func customizeView(){
+        btnSeeRecords.isHidden = true
         btnSeeRecords.layer.masksToBounds = true
         btnSeeRecords.layer.cornerRadius = 20
         btnSeeRecords.layer.shadowOffset = CGSize(width: 1, height: 1)

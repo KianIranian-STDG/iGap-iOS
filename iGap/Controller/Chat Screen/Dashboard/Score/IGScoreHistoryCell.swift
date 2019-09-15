@@ -21,6 +21,8 @@ class IGScoreHistoryCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         txtScoreIcon.font = UIFont.iGapFonticon(ofSize: 20)
+        txtScoreNumber.textAlignment = txtScoreNumber.localizedNewDirection
+        txtTitle.textAlignment = txtTitle.localizedNewDirection
     }
     
     public func initView(activity: IGPIVandActivity){

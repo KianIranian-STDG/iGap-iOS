@@ -114,25 +114,59 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func setLastNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         self.hideKeyboardWhenTappedAround()
-        
+
         if currentTabIndex == 3 { // Discovery Tab
-            navigationItem.setDiscoveriesNavigationItems()
+            let navigationControllerr = self.navigationController as! IGNavigationController
+            let numberOfPages = navigationControllerr.viewControllers.count
+            //Hint: - check if we are at the root of navigation or we are in Inner pages
+            if numberOfPages == 1 {
+                navigationItem.setDiscoveriesNavigationItems()
+            } else {
+                
+            }
             
         } else if currentTabIndex == 0 { // Phone Book Tab
-            navigationItem.setPhoneBookNavigationItems()
+            let navigationControllerr = self.navigationController as! IGNavigationController
+            let numberOfPages = navigationControllerr.viewControllers.count
+            //Hint: - check if we are at the root of navigation or we are in Inner pages
+            if numberOfPages == 1 {
+                navigationItem.setPhoneBookNavigationItems()
+            } else {
+                
+            }
             
         } else if currentTabIndex == 1 { // Call List Tab
-            navigationItem.addiGapLogo()
+            let navigationControllerr = self.navigationController as! IGNavigationController
+            let numberOfPages = navigationControllerr.viewControllers.count
+            //Hint: - check if we are at the root of navigation or we are in Inner pages
+            if numberOfPages == 1 {
+                navigationItem.addiGapLogo()
+            } else {
+                
+            }
 
         } else if currentTabIndex == 4 { // Profile Tab
-            navigationItem.addiGapLogo()
             let navigationControllerr = self.navigationController as! IGNavigationController
-            navigationControllerr.navigationBar.isHidden = true
+            let numberOfPages = navigationControllerr.viewControllers.count
+            //Hint: - check if we are at the root of navigation or we are in Inner pages
+            if numberOfPages == 1 {
+                navigationItem.addiGapLogo()
+                navigationControllerr.navigationBar.isHidden = true
+
+            } else {
+                
+            }
 
 
         } else if currentTabIndex == 2 { // Recent Tab
-            navigationItem.setChatListsNavigationItems()
-
+            let navigationControllerr = self.navigationController as! IGNavigationController
+            let numberOfPages = navigationControllerr.viewControllers.count
+            //Hint: - check if we are at the root of navigation or we are in Inner pages
+            if numberOfPages == 1 {
+                navigationItem.setChatListsNavigationItems()
+            } else {
+                
+            }
             
         }else {
             navigationItem.addiGapLogo()
