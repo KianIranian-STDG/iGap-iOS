@@ -356,37 +356,37 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             switch type {
             case .mention:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = mentionColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
             case .hashtag:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = hashtagColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
             case .url:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = URLColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
             case .email:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = EmailColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
             case .custom:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = customColor[type] ?? defaultCustomColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
             case .bot:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = botColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
             case .bold:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = boldColor
-                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: 14.3, weight: .bold)
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize, weight: .bold)
                 break
             }
             

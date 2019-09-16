@@ -1012,6 +1012,25 @@
         "HEADER_AUTO_PLAY" : "Auto-Play Media",
         "HEADER_VOICECALLS" : "Voice Calls",
         "HEADER_PROXYE" : "Proxy",
+        "SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER" : "If you dont use your account and be away for the selected amount of time, your account will be removed automatically",
+
+        
+        "STORAGE_USAGE" : "Storage Usage",
+        "DATA_USAGE" : "Data Usage",
+        "WHEN_USING_MOBILE_DATA" : "When Using Mobile Data",
+        "WHEN_CONNECTED_TO_WIFI" : "When Connected To Wi-Fi",
+        "RESET_AUTO_DOWNLOAD_SETTINGS" : "Reset Auto Download Settings",
+        "USE_LESS_DATA" : "Use Less Data",
+        "PROXY_SETTINGS" : "Proxy Settings",
+        "CLEAR_CACHE" : "Clear Cache",
+        "KEEP_MEDIA" : "Keep Media",
+        "TEXT_SIZE" : "Text Size",
+        "COLOR_THEME" : "Color Theme",
+        "ENABLE_ANIMATIONS" : "Enable Animations",
+        "DARK_THEME" : "Dark",
+        "LIGHT_THEME" : "Light",
+        "CHAT_BG" : "Chat background",
+        "CHAT_PREVIEW_SAMPLE" : "it's morning in Tehran 😍",
 
         
         

@@ -22,6 +22,7 @@ import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
 
+var fontDefaultSize: CGFloat = 15.0
 
 let kIGUserLoggedInNotificationName = "im.igap.ios.user.logged.in"
 let kIGGoBackToMainNotificationName = "im.igap.ios.backed.to.main"
@@ -100,6 +101,10 @@ class IGGlobal {
     internal static func getThread(_ string: String? = nil){
         print("TTT || ", string ,Thread.current.isMainThread)
     }
+    internal static func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+
     /////SET LANGUAGE//////
     
     internal static func setLanguage() {

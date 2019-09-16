@@ -128,6 +128,11 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         isActive = true
+        if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
+            fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
+        } else {
+            fontDefaultSize = 15.0
+        }
         lastLang = SMLangUtil.loadLanguage()
         if SMLangUtil.loadLanguage() == "fa" {
             IGGlobal.languageFileName = "localizationsFa"

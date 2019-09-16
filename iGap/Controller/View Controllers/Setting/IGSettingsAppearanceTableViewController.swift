@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class IGSettingsAppearanceTableViewController: BaseTableViewController {
     
     @IBOutlet weak var lblInAppBrowser : UILabel!
     @IBOutlet weak var lblEnableAnimation : UILabel!
@@ -20,20 +20,44 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
     @IBOutlet weak var oneTo10Slider: TGPDiscreteSlider!
     @IBOutlet weak var switchInAppBrowser: UISwitch!
 
+    @IBOutlet weak var lblMinA : UILabel!
+    @IBOutlet weak var lblMaxA : UILabel!
+    @IBOutlet weak var lblMessagePreview : UILabel!
+    @IBOutlet weak var messageStatusPreview : UILabel!
+    @IBOutlet weak var messageTimePreview : UILabel!
+    @IBOutlet weak var viewMessagePreview : UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.semanticContentAttribute = self.semantic
         // MARK: - Change Strings based On Language
         initChangeLang()
         // MARK: - Initialize Default NavigationBar
         initDefaultNav()
         // MARK: - Initialize View
         initView()
+        if IGGlobal.isKeyPresentInUserDefaults(key: "textMessagesFontSize")  {
+            fontDefaultSize = CGFloat(UserDefaults.standard.float(forKey: "textMessagesFontSize"))
+        } else {
+            fontDefaultSize = 15.0
+        }
+        oneTo10Slider.value = fontDefaultSize
 
+        changeMessagePreview(font: fontDefaultSize)
+
+        messageTimePreview.text = messageTimePreview.text?.inLocalizedLanguage()
+        lblMessagePreview.textAlignment =  messageTimePreview.localizedNewDirection
         
     }
+    
+    func changeMessagePreview(font : CGFloat!) {
+        lblMessagePreview.font = UIFont.igFont(ofSize: font)
+    }
+    
     func initChangeLang() {
         // MARK: - Section 0
         lblChatBG.text = "CHAT_BG".localizedNew
+        lblMessagePreview.text = "CHAT_PREVIEW_SAMPLE".localizedNew
         // MARK: - Section 1
         lblDarkTheme.text = "DARK_THEME".localizedNew
         lblLightTheme.text = "LIGHT_THEME".localizedNew
@@ -52,6 +76,18 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
         
     }
     func initView() {
+        if lastLang == "fa" {
+            lblMinA.font = UIFont.systemFont(ofSize: 20)
+            lblMaxA.font = UIFont.systemFont(ofSize: 12)
+            viewMessagePreview.layer.cornerRadius = 15.0
+            viewMessagePreview.roundCorners(corners: [.layerMinXMaxYCorner,.layerMaxXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
+
+        } else if lastLang == "en" {
+            lblMinA.font = UIFont.systemFont(ofSize: 12)
+            lblMaxA.font = UIFont.systemFont(ofSize: 20)
+            viewMessagePreview.roundCorners(corners: [.layerMinXMaxYCorner,.layerMinXMinYCorner,.layerMaxXMaxYCorner], radius: 15.0)
+        }
+        viewMessagePreview.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: false)
         oneTo10Slider.addTarget(self, action: #selector(IGSettingsAppearanceTableViewController.valueChanged(_:event:)), for: .valueChanged)
             if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
                     switchInAppBrowser.isOn = true
@@ -61,6 +97,9 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
     }
     @objc func valueChanged(_ sender: TGPDiscreteSlider, event:UIEvent) {
         print("valueChanged", Double(sender.value))
+        UserDefaults.standard.set(sender.value, forKey: "textMessagesFontSize")
+
+        changeMessagePreview(font: sender.value)
     }
     @IBAction func switchInAppBrowser(_ sender: Any) {
         IGHelperPreferences.shared.writeBoolean(key: IGHelperPreferences.keyInAppBrowser, state: switchInAppBrowser.isOn)
@@ -75,7 +114,7 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            return 3
         case 1:
             return 2
         case 2:
@@ -85,6 +124,8 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
         }
         
     }
+
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
@@ -126,6 +167,8 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
     }
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
+        case 0:
+            return 20
         default:
             return 0
         }
@@ -133,7 +176,7 @@ class IGSettingsAppearanceTableViewController: UITableViewController,UIGestureRe
     //MARK:-HEADER CONFIGS
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
-        
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
         switch section {
         case 0  :
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)

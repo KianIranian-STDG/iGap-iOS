@@ -23,7 +23,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     @IBOutlet weak var answer2TextField: UITextField!
     @IBOutlet weak var hintTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
-
+    
     @IBOutlet weak var lblPass: UILabel!
     @IBOutlet weak var lblVerify: UILabel!
     @IBOutlet weak var lblQ1: UILabel!
@@ -32,7 +32,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     @IBOutlet weak var lblA2: UILabel!
     @IBOutlet weak var lblHint: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
-
+    
     var oldPassword: String = ""
     var email: String = ""
     
@@ -42,7 +42,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_DONE".localizedNew, title: "SETTING_PS_TWO_STEP_VERFI".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PS_TWO_STEP_VERFI".localizedNew,iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         navigationItem.rightViewContainer?.addAction {
             self.setPassword()
@@ -68,31 +68,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         hintTextField.placeholder = "SETTING_PS_TV_REQUIRED_FIELD".localizedNew
         emailTextField.placeholder = "SETTING_PS_TV_RECOMMENDED_FIELD".localizedNew
     }
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "SETTING_PS_TV_FOOTER_HINT".localizedNew
-    }
-    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "SETTING_PS_TV_FOOTER_HINT".localizedNew
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-        }
-    }
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if section == 0 {
-            let containerView = view as! UITableViewHeaderFooterView
-            containerView.textLabel!.text = "SETTING_PS_TV_TTL".localizedNew
-            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-        }
-    }
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
-    }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
+    
     func setPassword(){
         
         if passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || verifyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || question1TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || answer1TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || question2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || answer2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" || hintTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
@@ -149,7 +125,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
                 case .userTwoStepVerificationSetPasswordFirstRecoveryQuestionIsInvalid :
                     self.alertController(title: "Error", message: "First Recovery Question Is Invalid")
                     break
-
+                    
                 case .userTwoStepVerificationSetPasswordAnswerOfTheFirstRecoveryQuestionIsInvalid :
                     self.alertController(title: "Error", message: "Answer Of The First Question Is Invalid")
                     break
@@ -180,5 +156,81 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let containerView = view as! UITableViewHeaderFooterView
+        
+        switch section {
+        case 0 :
+            containerView.textLabel!.text = "SETTING_PS_TV_TTL".localizedNew
+            containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+        case 1 :
+            break
+        default :
+            break
+        }
+        
+    }
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let containerFooterView = view as! UITableViewHeaderFooterView
+        
+        switch section {
+        case 0 :
+            containerFooterView.textLabel!.text = "SETTING_PS_TV_FOOTER HINT".localizedNew
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerFooterView.textLabel?.textAlignment = (containerFooterView.textLabel?.localizedNewDirection)!
+            
+            break
+        case 1 :
+            break
+        default :
+            break
+        }
+        
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0 :
+            return 60
+        case 1 :
+            return 10
+        default :
+            return 0
+        }
+    }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 0 :
+            return 60
+        case 1 :
+            return 50
+        default :
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0 :
+            return "SETTING_PS_TV_TTL".localizedNew
+        case 1 :
+            return ""
+        default :
+            return ""
+        }
+    }
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 0 :
+            return "SETTING_PS_TV_FOOTER HINT".localizedNew
+        case 1 :
+            return ""
+        default :
+            return ""
+        }
+    }
+    
 }
+
 

@@ -36,7 +36,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: mode)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: mode,iGapFont: true)
         navigationItem.rightViewContainer?.addAction {
             self.requestToSetPrivacyRule()
         }
@@ -62,7 +62,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             cell.accessoryType = .checkmark
             selectedIndexPath = nobodyIndexPath
         }
-
+        
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -90,22 +90,22 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
         
         //        MCLocalization.load(fromJSONFile: stringPath, defaultLanguage: SMLangUtil.loadLanguage())
         //        MCLocalization.sharedInstance().language = current
-//        switch current {
-//        case "fa" :
-//            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
-//
-//            
-//        case "en" :
-//            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
-//
-//        case "ar" :
-//            UIView.appearance().semanticContentAttribute = .forceRightToLeft
-//            //            self.loadViewIfNeeded()
-//            
-//        default :
-//            break
-//        }
-
+        //        switch current {
+        //        case "fa" :
+        //            UITableView.appearance().semanticContentAttribute = .forceRightToLeft
+        //
+        //
+        //        case "en" :
+        //            UITableView.appearance().semanticContentAttribute = .forceLeftToRight
+        //
+        //        case "ar" :
+        //            UIView.appearance().semanticContentAttribute = .forceRightToLeft
+        //            //            self.loadViewIfNeeded()
+        //
+        //        default :
+        //            break
+        //        }
+        
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return headerText
@@ -167,7 +167,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             DispatchQueue.main.async {
                 switch protoResponse {
                 case let userPrivacySetRuleResponse as IGPUserPrivacySetRuleResponse:
-                    IGUserPrivacySetRuleRequest.Handler.interpret(response: userPrivacySetRuleResponse)                    
+                    IGUserPrivacySetRuleRequest.Handler.interpret(response: userPrivacySetRuleResponse)
                     if self.navigationController is IGNavigationController {
                         _ = self.navigationController?.popViewController(animated: true)
                     }

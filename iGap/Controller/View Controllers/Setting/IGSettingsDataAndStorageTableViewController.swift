@@ -8,8 +8,8 @@
 
 import UIKit
 
-class IGSettingsDataAndStorageTableViewController: UITableViewController,UIGestureRecognizerDelegate {
-
+class IGSettingsDataAndStorageTableViewController: BaseTableViewController {
+    
     
     @IBOutlet weak var lblStorageUsage: UILabel!
     @IBOutlet weak var lblDataUsage: UILabel!
@@ -20,16 +20,16 @@ class IGSettingsDataAndStorageTableViewController: UITableViewController,UIGestu
     @IBOutlet weak var lblVideos: UILabel!
     @IBOutlet weak var lblUseLessData: UILabel!
     @IBOutlet weak var lblProxySettings: UILabel!
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // MARK: - Change Strings based On Language
         initChangeLang()
         // MARK: - Initialize Default NavigationBar
         initDefaultNav()
-
-
+        
+        
     }
     
     func initChangeLang() {
@@ -47,17 +47,17 @@ class IGSettingsDataAndStorageTableViewController: UITableViewController,UIGestu
         lblUseLessData.text = "USE_LESS_DATA".localizedNew
         // MARK: - Section 4
         lblProxySettings.text = "PROXY_SETTINGS".localizedNew
-
+        
     }
     func initDefaultNav() {
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "NOTIFICATION_SOUNDS".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "DATA_STORAGE".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-
+        
     }
-
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -67,7 +67,7 @@ class IGSettingsDataAndStorageTableViewController: UITableViewController,UIGestu
                 self.tableView.isUserInteractionEnabled = false
                 
                 performSegue(withIdentifier: "goToStorageUsage", sender: self)
-
+                
             }
             else {
                 
@@ -98,7 +98,7 @@ class IGSettingsDataAndStorageTableViewController: UITableViewController,UIGestu
             return 0
         }
     }
-  
+    
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerHeaderView = view as! UITableViewHeaderFooterView
@@ -135,60 +135,60 @@ class IGSettingsDataAndStorageTableViewController: UITableViewController,UIGestu
             return ""
         }
     }
-
+    
     /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
+     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+     
+     // Configure the cell...
+     
+     return cell
+     }
+     */
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

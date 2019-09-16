@@ -60,6 +60,8 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initChangeLang()
+        
         showAccountDetail()
         
         self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
@@ -73,7 +75,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         let predicate = NSPredicate(format: "isBlocked == 1")
         blockedUsers = try! Realm().objects(IGRegisteredUser.self).filter(predicate)
-//        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + "CONTACTS".localized
+        //        numberOfBlockedContacts.text = "\(blockedUsers.count)".inLocalizedLanguage() + "CONTACTS".localized
         numberOfBlockedContacts.isHidden = true
         if currentUser.selfRemove == -1 {
             getSelfRemove()
@@ -110,7 +112,6 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         showPrivacyInfo()
         requestToGetUserPrivacy()
-        initChangeLang()
     }
     
     
@@ -141,7 +142,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.isUserInteractionEnabled = true
-//        numberOfBlockedContacts.text = "\(blockedUsers.count)" + "CONTACTS".localizedNew
+        //        numberOfBlockedContacts.text = "\(blockedUsers.count)" + "CONTACTS".localizedNew
         fetchBlockedContactsFromServer()
         showPrivacyInfo()
         initChangeLang()
@@ -487,11 +488,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         case 0:
             return 6
         case 1:
-            return 3
+            return 2
         case 2:
             return 1
         case 3:
-            return 5
+            return 0
         default:
             return 0
         }
@@ -590,18 +591,11 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
         
         switch section {
-        case 0 :
-            containerFooterView.textLabel!.text = "SETTING_PS_PRIVACY_HINT".localizedNew
-            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerFooterView.sizeToFit()
-        case 1 :
-            containerFooterView.textLabel!.text = "SETTING_PS_TTL_SECURITY".localizedNew
-            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerFooterView.sizeToFit()
-        case 2 :
-            containerFooterView.textLabel!.text = "SETTING_PAGE_ACCOUNT_S_DESTRUCT_HINT".localizedNew
+        case 3 :
+            containerFooterView.textLabel!.text = "SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER".localizedNew
             containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerFooterView.sizeToFit()
         case 4 :
@@ -621,23 +615,22 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         case 0 :
             containerHeaderView.textLabel!.text = "HEADER_SPRIVACY".localizedNew
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerHeaderView.sizeToFit()
         case 1 :
             containerHeaderView.textLabel!.text = "HEADER_SECURITY".localizedNew
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerHeaderView.sizeToFit()
         case 2 :
             containerHeaderView.textLabel!.text = "HEADER_SELF_DISTRUCT".localizedNew
             containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerHeaderView.sizeToFit()
         case 3 :
-            containerHeaderView.textLabel!.text = "HEADER_SELF_ADVANCE".localizedNew
-            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
-            containerHeaderView.sizeToFit()
+            break
+//            containerHeaderView.textLabel!.text = "HEADER_SELF_ADVANCE".localizedNew
+//            containerHeaderView.textLabel?.font = UIFont.igFont(ofSize: 15)
         default :
             break
             
         }
+        containerHeaderView.textLabel?.textAlignment = containerHeaderView.textLabel!.localizedNewDirection
+        
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -648,11 +641,43 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         case 2:
             return "HEADER_SELF_DISTRUCT".localizedNew
         case 3:
-            return "HEADER_SELF_ADVANCE".localizedNew
+            return ""
+        //            return "HEADER_SELF_ADVANCE".localizedNew
         default:
             return ""
         }
     }
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return ""
+        case 1:
+            return ""
+        case 2:
+            return ""
+        case 3:
+            return "SETTING_PAGE_ACCOUNT_S_DESTRUCT_FOOTER".localizedNew
+        //            return "HEADER_SELF_ADVANCE".localizedNew
+        default:
+            return ""
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 10
+        case 1:
+            return 10
+        case 2:
+            return 10
+        case 3:
+            return 80
+        default:
+            return 10
+        }
+    }
+    
     
     
     private func alertWaiting(){
@@ -663,7 +688,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
     }
     
     @IBAction func goBackToPrivacyAndSecurityList(seque:UIStoryboardSegue){
-//        numberOfBlockedContacts.text = "\(blockedUsers.count) ".inLocalizedLanguage() + "USERS".localizedNew
+        //        numberOfBlockedContacts.text = "\(blockedUsers.count) ".inLocalizedLanguage() + "USERS".localizedNew
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

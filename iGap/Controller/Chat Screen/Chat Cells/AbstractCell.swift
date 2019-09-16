@@ -279,6 +279,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 if messageText!.contains("**") {
                     txtMessageAbs?.text = messageText?.replacingOccurrences(of: "**", with: "⁣") // replace '**' with invisible character
                 } else {
+                    txtMessageAbs.font = UIFont.igFont(ofSize: fontDefaultSize)
                     txtMessageAbs?.text = messageText!
                 }
             }
@@ -296,6 +297,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 txtMessageAbs.textAlignment = NSTextAlignment.center
                 
             } else {
+                
                 if isRtl {
                     txtMessageAbs.textAlignment = NSTextAlignment.right
                 } else {
@@ -662,7 +664,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         if txtMessage == nil {
             return
         }
-        
+        txtMessage?.font = UIFont.igFont(ofSize: fontDefaultSize)
         txtMessage?.customize {(lable) in
             lable.hashtagColor = UIColor.iGapLink()
             lable.mentionColor = UIColor.iGapLink()

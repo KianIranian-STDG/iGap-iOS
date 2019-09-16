@@ -33,7 +33,7 @@ class CellSizeCalculator: NSObject {
     }
     
     private static func computeSizeFont() -> UIFont {
-        return UIFont.igFont(ofSize: 15.0)
+        return UIFont.igFont(ofSize: fontDefaultSize)
     }
     
     func mainBubbleCountainerSize(room: IGRoom, for message:IGRoomMessage) -> MessageCalculatedSize {
