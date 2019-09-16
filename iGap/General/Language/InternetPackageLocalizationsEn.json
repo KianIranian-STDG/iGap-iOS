@@ -3,11 +3,23 @@
         "BUY_INTERNET_PACKAGE" : "Buy Internet Package",
         "PLACE_HOLDER_MOBILE_NUM" : "09*********",
         "INTERNET_PACKAGE_TYPE" : "Package type",
+        "TIME" : "Time",
+        "VOLUME" : "Volume",
         
         "CHOOSE_TIME" : "Choose Time",
         "CHOOSE_VOLUME" : "Choose Volume",
         "CHOOSE_PACKAGE" : "Choose Package",
         "BTN_PAY" : "Pay",
+        
+        "GB" : "GB",
+        "MB" : "MB",
+        
+        "MONTH" : "Month",
+        "WEEK" : "Week",
+        "DAY" : "Day",
+        "YEAR" : "Year",
+        
+        "BUY_INTERNET_PACKAGE_IS_ONLY_POSSIBLE_FOR_MCI_USERS" : "Buy intenrnet package is only possible for mci users"
     }
 }
 

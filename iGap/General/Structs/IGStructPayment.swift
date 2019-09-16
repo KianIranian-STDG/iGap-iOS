@@ -11,7 +11,7 @@ import Foundation
 struct IGStructPayment: Decodable {
     struct Info: Decodable {
         var product: Product?
-        var price: Float?
+        var price: Int?
         var vendor: String?
         var orderId: String?
         

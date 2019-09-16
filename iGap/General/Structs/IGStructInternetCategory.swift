@@ -10,9 +10,14 @@ import Foundation
 
 struct IGStructInternetCategory: Decodable {
     struct Category: Decodable {
-        var type: String?
+        var type: Type?
         var value: Int?
         var subType: String?
+        
+        enum `Type`: String, Decodable {
+            case traffic = "TRAFFIC"
+            case duration = "DURATION"
+        }
         
         enum CodingKeys: String, CodingKey {
             case type, value
@@ -24,15 +29,19 @@ struct IGStructInternetCategory: Decodable {
     var id: String?
 }
 
-struct IGStructInternetPackage: Decodable {
-    struct package: Decodable {
-        var type: String?
-        var cost: Int?
-        var description: String?
-        var traffic: String?
-        var duration: String?
-    }
 
-    var data: [package]?
+
+
+
+struct IGStructInternetPackageCategorized: Decodable {
+    var data: [IGStructInternetPackage]?
     var id: String?
+}
+
+struct IGStructInternetPackage: Decodable {
+    var type: String?
+    var cost: Int?
+    var description: String?
+    var traffic: String?
+    var duration: String?
 }

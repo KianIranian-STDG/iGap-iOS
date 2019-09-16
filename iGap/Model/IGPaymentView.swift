@@ -87,6 +87,9 @@ class IGPaymentView: UIView {
         if let apiTitle = paymentData.info?.product?.title {
             self.subTitleLbl.text = apiTitle
         }
+        if let description = paymentData.info?.product?.description {
+            self.descriptionLbl.text = description
+        }
         self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
         if let price = paymentData.info?.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()

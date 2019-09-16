@@ -28,7 +28,7 @@ struct FavouriteChannelHomeItem: Decodable {
         
         var scale: String?
         var scaleFloat: Float {
-            guard let parts = scale?.components(separatedBy: ":").compactMap({return Float($0)}) , parts.count == 2  else {return 1}
+            guard let parts = scale?.components(separatedBy: ":").compactMap({ return Float($0) }) , parts.count == 2  else {return 1}
             return parts[0] / parts[1]
         }
         
