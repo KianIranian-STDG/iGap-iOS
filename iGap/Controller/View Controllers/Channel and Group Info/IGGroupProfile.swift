@@ -77,6 +77,7 @@ class IGGroupProfile: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        manageViewState()
     }
     
     private func initNavigation(){
@@ -229,57 +230,6 @@ class IGGroupProfile: BaseTableViewController {
         }).send()
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0:
-                break
-            case 1:
-                break
-            case 2:
-                break
-            case 3:
-                break
-            default:
-                break
-            }
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        switch indexPath.row {
-        case 0:
-            return 44
-            
-        case 1:
-            return 65
-            
-        case 2:
-            return 65
-            
-        case 3:
-            return 255
-            
-        case 4:
-            return 44
-            
-        case 5:
-            return 44
-            
-        default:
-            return 44
-        }
-    }
-    
     func updateConnectionStatus(_ status: IGAppManager.ConnectionStatus) {
         
         switch status {
@@ -373,13 +323,22 @@ class IGGroupProfile: BaseTableViewController {
     
     func showGroupInfo() {
         if !(room!.isInvalidated) {
-            txtDescription.text = room?.groupRoom?.roomDescription ?? "NO_DESCRIPTION".localizedNew
+            if let description = room?.groupRoom?.roomDescription, !description.isEmpty{
+                txtDescription.text = description
+                txtDescription.textColor = UIColor.black
+            } else {
+                txtDescription.text = "NO_DESCRIPTION".localizedNew
+                txtDescription.textColor = UIColor.lightGray
+            }
+            
+            /*
             if let groupRoom = room {
-                //groupAvatarView.setRoom(groupRoom, showMainAvatar: true)
+                groupAvatarView.setRoom(groupRoom, showMainAvatar: true)
             }
             if let memberCount = room?.groupRoom?.participantCount {
-                //memberCountLabel.text = "\(memberCount)"
+                memberCountLabel.text = "\(memberCount)"
             }
+            */
             var groupLink: String? = ""
             if room?.groupRoom?.type == .privateRoom {
                 groupLink = room?.groupRoom?.privateExtra?.inviteLink
@@ -392,134 +351,6 @@ class IGGroupProfile: BaseTableViewController {
             txtGroupLinkValue.text = groupLink
         }
     }
-    
-    func showDeleteChannelActionSheet() {
-        var title : String!
-        var actionTitle: String!
-        if myRole == .owner {
-            title = "MSG_SURE_TO_DELETE_GROUP".localizedNew
-            actionTitle = "BTN_DELETE".localizedNew
-        }else{
-            title = "MSG_SURE_TO_LEAVE_GROUP".localizedNew
-            actionTitle = "LEAVE".localizedNew
-        }
-        let deleteConfirmAlertView = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
-        let deleteAction = UIAlertAction(title: actionTitle , style:.default , handler: {
-            (alert: UIAlertAction) -> Void in
-            if self.myRole == .owner {
-                if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                } else {
-                    
-                    self.deleteGroupRequest()
-                }
-            }else{
-                if self.connectionStatus == .connecting || self.connectionStatus == .waitingForNetwork {
-                    let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "NO_NETWORK".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }else {
-                    self.leftGroupRequest(room: self.room!)
-                }
-            }
-            
-        })
-        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style:.cancel , handler: {
-            (alert: UIAlertAction) -> Void in
-        })
-        deleteConfirmAlertView.addAction(deleteAction)
-        deleteConfirmAlertView.addAction(cancelAction)
-        let alertActions = deleteConfirmAlertView.actions
-        for action in alertActions {
-            if action.title == actionTitle{
-                let logoutColor = UIColor.red
-                action.setValue(logoutColor, forKey: "titleTextColor")
-            }
-        }
-        deleteConfirmAlertView.view.tintColor = UIColor.organizationalColor()
-        if let popoverController = deleteConfirmAlertView.popoverPresentationController {
-            popoverController.sourceView = self.tableView
-            popoverController.sourceRect = CGRect(x: self.tableView.frame.midX-self.tableView.frame.midX/2, y: self.tableView.frame.midX-self.tableView.frame.midX/2, width: self.tableView.frame.midX, height: self.tableView.frame.midY)
-            popoverController.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
-        }
-        present(deleteConfirmAlertView, animated: true, completion: nil)
-    }
-    
-    func showGroupLinkAlert() {
-        if selectedGroup != nil {
-            var groupLink: String? = ""
-            if room?.groupRoom?.type == .privateRoom {
-                groupLink = room?.groupRoom?.privateExtra?.inviteLink
-            }
-            if room?.groupRoom?.type == .publicRoom {
-                groupLink = room?.groupRoom?.publicExtra?.username
-            }
-            
-            let alert = UIAlertController(title: "GROUP_LINK".localizedNew, message: groupLink, preferredStyle: .alert)
-            
-            let copyAction = UIAlertAction(title: "COPY".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
-                UIPasteboard.general.string = groupLink
-            })
-            
-            let shareAction = UIAlertAction(title: "SHARE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
-                IGHelperPopular.shareText(message: IGHelperPopular.shareLinkPrefixGroup + "\n" + groupLink!, viewController: self)
-            })
-            
-            let changeAction = UIAlertAction(title: "CHNAGE".localizedNew, style: .default, handler: { (alert: UIAlertAction) -> Void in
-                if self.room?.groupRoom?.type == .publicRoom {
-                    self.performSegue(withIdentifier: "showGroupTypeSetting", sender: self)
-                }
-                else if self.room?.groupRoom?.type == .privateRoom {
-                    self.requestToRevolLink()
-                }
-            })
-            
-            let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
-            
-            alert.view.tintColor = UIColor.organizationalColor()
-            alert.addAction(copyAction)
-            alert.addAction(shareAction)
-            if myRole == .owner {
-                alert.addAction(changeAction)
-            }
-            alert.addAction(cancelAction)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    
-    func requestToRevolLink() {
-        IGGroupRevokLinkRequest.Generator.generate(roomID: (room?.id)!).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let groupRevokeLinkRequest as IGPGroupRevokeLinkResponse:
-                    let _ = IGGroupRevokLinkRequest.Handler.interpret(response: groupRevokeLinkRequest)
-                default:
-                    break
-                }
-            }
-            
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.hud.hide(animated: true)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
-            
-        }).send()
-    }
-    
     
     func requestToGetRoom() {
         if let groupRoom = room {
@@ -552,102 +383,99 @@ class IGGroupProfile: BaseTableViewController {
         }
     }
     
-    func leftGroupRequest(room: IGRoom) {
-        self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.hud.mode = .indeterminate
-        IGGroupLeftRequest.Generator.generate(room: room).success({ (protoResponse) in
-            DispatchQueue.main.async {
-                switch protoResponse {
-                case let groupLeft as IGPGroupLeftResponse:
-                    IGGroupLeftRequest.Handler.interpret(response: groupLeft)
-                    if self.navigationController is IGNavigationController {
-                        _ = self.navigationController?.popToRootViewController(animated: true)
-                    }
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).error({ (errorCode , waitTime) in
-            DispatchQueue.main.async {
-                switch errorCode {
-                case .timeout:
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                default:
-                    break
-                }
-                self.hud.hide(animated: true)
-            }
-        }).send()
-    }
-    
-    func deleteGroupRequest() {
-        if let groupRoom = room {
-            self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            self.hud.mode = .indeterminate
-            IGGroupDeleteRequest.Generator.generate(group: groupRoom).success({ (protoResponse) in
-                DispatchQueue.main.async {
-                    switch protoResponse {
-                    case let groupDeleteResponse as IGPGroupDeleteResponse:
-                        IGGroupDeleteRequest.Handler.interpret(response: groupDeleteResponse)
-                        if self.navigationController is IGNavigationController {
-                            _ = self.navigationController?.popToRootViewController(animated: true)
-                        }
-                        
-                    default:
-                        break
-                    }
-                    self.hud.hide(animated: true)
-                    
-                }
-            }).error ({ (errorCode, waitTime) in
-                DispatchQueue.main.async {
-                    self.hud.hide(animated: true)
-                    switch errorCode {
-                    case .timeout:
-                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    default:
-                        break
-                    }
-                }
-            }).send()
-        }
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGroupNameSetting" {
             let destination = segue.destination as! IGGroupInfoEditNameTableViewController
             destination.room = room
-        }
-        if  segue.identifier == "showDescribeGroupSetting" {
+        } else if segue.identifier == "showDescribeGroupSetting" {
             let destination = segue.destination as! IGGroupEditDescriptionTableViewController
             destination.room = room
-        }
-        
-        if segue.identifier ==  "showGroupTypeSetting" {
+        } else if segue.identifier ==  "showGroupTypeSetting" {
             let destination = segue.destination as! IGGroupInfoEditTypeTableViewController
             destination.room = room
-        }
-        if segue.identifier == "showGroupMemberSetting" {
+        } else if segue.identifier == "showGroupMemberSetting" {
             let destination = segue.destination as! IGGroupInfoMemberListTableViewController
             destination.room = room
-        }
-        if segue.identifier == "showGroupAdminsAnadModeratorsSetting" {
+        } else if segue.identifier == "showGroupAdminsAnadModeratorsSetting" {
             let destination = segue.destination as! IGGroupInfoAdminsAndModeratorsListTableViewController
             destination.room = room
-        }
-        if segue.identifier == "showGroupSharedMediaSetting" {
+        } else if segue.identifier == "showGroupSharedMediaSetting" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
             destination.room = room
+        } else if segue.identifier == "showContactToAddMember" {
+            let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+            destinationTv.mode = "Members"
+            destinationTv.room = room
+        }
+    }
+    
+    /****************************************************************************************************************/
+    /************************************************** Table View **************************************************/
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 2
+            
+        case 1:
+            return 1
+            
+        case 2:
+            return 2
+            
+        default:
+            return 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            break
+        case 1:
+            break
+        case 2:
+            if indexPath.row == 0 {
+                self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
+            } else if indexPath.row == 1 {
+                self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+            }
+            break
+        default:
+            break
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.section {
+        case 0:
+            if indexPath.row == 0 {
+                return 44
+            } else if indexPath.row == 1 {
+                return 65
+            }
+            
+        case 1:
+            return 255
+            
+        case 2:
+            if indexPath.row == 0 {
+                return 44
+            } else if indexPath.row == 1 {
+                return 44
+            }
+            
+        default:
+            return 0
         }
         
-        
+        return 0
     }
     
 }
