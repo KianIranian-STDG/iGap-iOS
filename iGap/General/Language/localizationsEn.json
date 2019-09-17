@@ -314,6 +314,10 @@
         "MSG_U_HAVE_REACHED_VOTE_LIMIT" : "You Have Reached Your Vote Limit",
         "MSG_VOTE_TO_SEE_CHART" : "Please Vote to see the BarChart !",
         
+        
+        "PAYMENT_ORDER_ID" : "Transaction ID",
+        
+        
         "CONNECTING" : "Connecting ...",
         "WAITING_NETWORK" : "Waiting for Network ...",
         "RETURN_TO_CALL" : "Return to call screen",
@@ -707,6 +711,8 @@
         "PHONE_NUMBER_WRONG" : "phone number is wrong!",
         "PAYMENT_ERROR_ACCURED" : "An error during payment process has accured",
         "BTN_PAY" : "Pay",
+        "BTN_CANCEL" : "Cancel",
+        "BTN_CLOSE" : "Close",
         "BTN_INQUERY" : "Inquiry",
         "BILLING_ID" : "Billing ID",
         "PAYMENT_CODE" : "Payment Code",

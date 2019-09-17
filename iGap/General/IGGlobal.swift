@@ -589,7 +589,7 @@ extension UIColor {
     }
     
     class func failedColor() -> UIColor {
-        return #colorLiteral(red: 0.8392156863, green: 0.1882352941, blue: 0.1921568627, alpha: 1)
+        return #colorLiteral(red: 0.9490196078, green: 0.1960784314, blue: 0.1882352941, alpha: 1)
     }
     
     class func seenColor() -> UIColor {

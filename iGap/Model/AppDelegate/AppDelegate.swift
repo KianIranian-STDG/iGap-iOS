@@ -169,7 +169,15 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         pushNotification(application)
         detectBackground()
         IGGlobal.checkRealmFileSize()
+        
+        ShortcutParser.shared.registerShortcuts()
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        DeepLinkManager.shared.handleShortcut(item: shortcutItem)
     }
 
     func realmConfig() {
@@ -242,7 +250,10 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     func applicationDidBecomeActive(_ application: UIApplication) {
         if !IGAppManager.sharedManager.isUserPreviouslyLoggedIn() {
             logoutAndShowRegisterViewController()
-        } 
+        } else {
+            // handle any deeplink
+            DeepLinkManager.shared.checkDeepLink()
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -288,6 +299,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
             application.applicationIconBadgeNumber = unreadCount
         }
+        
+        DeepLinkManager.shared.handleRemoteNotification(userInfo)
     }
     /******************* Notificaton End *******************/
     
@@ -481,26 +494,29 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        let host = urlComponents?.host ?? ""
+//        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+//        let host = urlComponents?.host ?? ""
+//        
+//        if host == "resolve" {
+//            let sb = UIStoryboard(name: "Main", bundle: .main)
+//            let secretVC = sb.instantiateViewController(withIdentifier: "messageViewController") as? IGMessageViewController
+//            let messageID : String?
+//            let RoomID : String?
+//            let _ : String?
+//            RoomID = urlComponents?.queryItems?.first?.value
+//            messageID = urlComponents?.queryItems?.last?.value
+//            let strAsNSString = messageID! as NSString
+//            _ = strAsNSString.longLongValue
+//            let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID!)
+//            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+//                secretVC!.room = room
+//                window?.rootViewController = secretVC
+//            }
+//        }
+        print(url)
+        return DeepLinkManager.shared.handleDeeplink(url: url)
         
-        if host == "resolve" {
-            let sb = UIStoryboard(name: "Main", bundle: .main)
-            let secretVC = sb.instantiateViewController(withIdentifier: "messageViewController") as? IGMessageViewController
-            let messageID : String?
-            let RoomID : String?
-            let _ : String?
-            RoomID = urlComponents?.queryItems?.first?.value
-            messageID = urlComponents?.queryItems?.last?.value
-            let strAsNSString = messageID! as NSString
-            _ = strAsNSString.longLongValue
-            let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID!)
-            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                secretVC!.room = room
-                window?.rootViewController = secretVC
-            }
-        }
-        return false
+//        return false
     }
     
     /******************************************************************************************************/

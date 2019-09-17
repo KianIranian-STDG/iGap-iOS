@@ -602,6 +602,11 @@
 		FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */; };
 		FAAFD434208375AA003470B3 /* IGGeoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFD433208375AA003470B3 /* IGGeoRequest.swift */; };
 		FAB09D9B1DB76F81001A27C4 /* IGRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */; };
+		FAB0B87C232F5664002E35AB /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B87B232F5664002E35AB /* DeepLinkManager.swift */; };
+		FAB0B87E232F5D59002E35AB /* DeepLinkNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B87D232F5D59002E35AB /* DeepLinkNavigator.swift */; };
+		FAB0B880232F64EC002E35AB /* ShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */; };
+		FAB0B882232F7120002E35AB /* DeepLinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B881232F7120002E35AB /* DeepLinkParser.swift */; };
+		FAB0B884232F7DC2002E35AB /* NotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0B883232F7DC2002E35AB /* NotificationParser.swift */; };
 		FAB0F9461FE956D1008F23EB /* Splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = FAB0F9451FE956D1008F23EB /* Splash.gif */; };
 		FAB1BF74220C34AA00BA980B /* StickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB1BF73220C341300BA980B /* StickerCell.xib */; };
 		FAB2BE662264BBA600E99C6E /* IGiGapBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */; };
@@ -1385,6 +1390,11 @@
 		FAAFB63D20F099F3004D8CCD /* IGMplRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMplRequest.swift; sourceTree = "<group>"; };
 		FAAFD433208375AA003470B3 /* IGGeoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGeoRequest.swift; sourceTree = "<group>"; };
 		FAB09D9A1DB76F81001A27C4 /* IGRequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IGRequestManager.swift; path = "Request Manager/IGRequestManager.swift"; sourceTree = "<group>"; };
+		FAB0B87B232F5664002E35AB /* DeepLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkManager.swift; sourceTree = "<group>"; };
+		FAB0B87D232F5D59002E35AB /* DeepLinkNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkNavigator.swift; sourceTree = "<group>"; };
+		FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutManager.swift; sourceTree = "<group>"; };
+		FAB0B881232F7120002E35AB /* DeepLinkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkParser.swift; sourceTree = "<group>"; };
+		FAB0B883232F7DC2002E35AB /* NotificationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationParser.swift; sourceTree = "<group>"; };
 		FAB0F9451FE956D1008F23EB /* Splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Splash.gif; sourceTree = "<group>"; };
 		FAB1BF73220C341300BA980B /* StickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickerCell.xib; sourceTree = "<group>"; };
 		FAB2BE652264BBA600E99C6E /* IGiGapBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGiGapBrowser.swift; sourceTree = "<group>"; };
@@ -3042,6 +3052,11 @@
 			isa = PBXGroup;
 			children = (
 				FAF7960E1DAA39660030509B /* AppDelegate.swift */,
+				FAB0B87B232F5664002E35AB /* DeepLinkManager.swift */,
+				FAB0B87D232F5D59002E35AB /* DeepLinkNavigator.swift */,
+				FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */,
+				FAB0B881232F7120002E35AB /* DeepLinkParser.swift */,
+				FAB0B883232F7DC2002E35AB /* NotificationParser.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -3497,6 +3512,7 @@
 				FA8F8A682086027100AF03CB /* IGMapNearbyDistanceCell.swift in Sources */,
 				93AA67BA1E4F03290053380C /* IGChannelInfoTableViewController.swift in Sources */,
 				FA50A8CF1DD35EFD00C6D2EA /* IGRegistrationStepSelectCountryTableViewController.swift in Sources */,
+				FAB0B87E232F5D59002E35AB /* DeepLinkNavigator.swift in Sources */,
 				8EE7FC9E225DF67200B6C2C3 /* NumberpadButton.swift in Sources */,
 				8EBF551822DC4D2600834E6A /* AbstractFavouriteDashboardCell.swift in Sources */,
 				FAA4E85B23124B110091199B /* IGForwardStruct.swift in Sources */,
@@ -3622,6 +3638,7 @@
 				FA7A2ED31DF5830F00164435 /* IGRegisteredUser.swift in Sources */,
 				93193F301E5812CA0039AC0C /* IGGroupInfoMemberListTableViewController.swift in Sources */,
 				8E96A30B225B4637007D8A77 /* Utils.swift in Sources */,
+				FAB0B880232F64EC002E35AB /* ShortcutManager.swift in Sources */,
 				FA0953681E1B97700043ED3F /* IGSettingPrivacy&SecurityTableViewController.swift in Sources */,
 				8EBF550022D9B60D00834E6A /* BeautifulBarEntry.swift in Sources */,
 				8EBF54FB22D9B60D00834E6A /* UIBezierPathExtension.swift in Sources */,
@@ -3653,6 +3670,7 @@
 				93AA67C01E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift in Sources */,
 				FA96A81A2053FC4F004369C7 /* IGLookAndFind.swift in Sources */,
 				FA63BAA71DD70E1A000B60AD /* IGRequestUser.swift in Sources */,
+				FAB0B882232F7120002E35AB /* DeepLinkParser.swift in Sources */,
 				FA0953661E1B97700043ED3F /* IGSettingPrivacy&SecurityEnterPasscodeLockViewController.swift in Sources */,
 				93C299941E77D5FD00EE37C4 /* IGChannelAndGroupInfoSharedAudioAndVoiceTableViewCell.swift in Sources */,
 				8E1CD976232D0665008D8758 /* IGUserContactsTableViewController.swift in Sources */,
@@ -3700,6 +3718,7 @@
 				932D1AB71E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift in Sources */,
 				FA9F73592127E589004418E5 /* EPContact.swift in Sources */,
 				8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */,
+				FAB0B87C232F5664002E35AB /* DeepLinkManager.swift in Sources */,
 				FA9D86A022796B44002F981A /* IGTabBarStickerController.swift in Sources */,
 				FA76598022902ACE006322A3 /* INSPhotoViewController.swift in Sources */,
 				93E181E41E77E7EE005C3593 /* IGChannelAndGroupInfoSharedMediaFileTableViewCell.swift in Sources */,
@@ -3832,6 +3851,7 @@
 				FA0953701E1B97700043ED3F /* IGSettingsChatStickersModalView.swift in Sources */,
 				FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */,
 				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
+				FAB0B884232F7DC2002E35AB /* NotificationParser.swift in Sources */,
 				FA5EC5DA1E06728C006E2850 /* IGChatRoomListTableViewCell.swift in Sources */,
 				8E599D752325323D00D75376 /* IGSettingsAppearanceTableViewController.swift in Sources */,
 				FA63BAA91DD70E77000B60AD /* IGRequestInfo.swift in Sources */,

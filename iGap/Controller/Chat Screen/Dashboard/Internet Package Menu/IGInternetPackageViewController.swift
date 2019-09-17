@@ -315,10 +315,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                                 return
                             }
                             let paymentView = IGPaymentView.sharedInstance
-                            paymentView.payToken = token
-                            paymentView.paymentData = paymentData
-                            paymentView.title = "BUY_INTERNET_PACKAGE".InternetPackageLocalization
-                            paymentView.show(on: UIApplication.shared.keyWindow!)
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)
                         }
                     })
                     

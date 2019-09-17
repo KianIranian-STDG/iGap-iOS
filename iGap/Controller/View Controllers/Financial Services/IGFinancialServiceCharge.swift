@@ -326,7 +326,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
         
         if self.operatorType == IGOperator.mci {
             
-            IGApiTopup.shared.orderChech(telNum: phoneNumber, cost: chargeAmount) { (success, token) in
+            IGApiTopup.shared.purchase(telNum: phoneNumber, cost: chargeAmount) { (success, token) in
                 
                 if success {
                     guard let token = token else { return }
@@ -339,16 +339,12 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
                                 return
                             }
                             let paymentView = IGPaymentView.sharedInstance
-                            paymentView.payToken = token
-                            paymentView.paymentData = paymentData
-                            paymentView.title = "MCI_CHARGE".localizedNew
-                            paymentView.show(on: UIApplication.shared.keyWindow!)
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: "MCI_CHARGE".localizedNew, payToken: token, payment: paymentData)
                         }
                     })
                     
                 } else {
                     IGGlobal.prgHide()
-                    IGHelperAlert.shared.showErrorAlert()
                 }
             }
             

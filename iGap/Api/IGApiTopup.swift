@@ -32,7 +32,7 @@ class IGApiTopup: IGApiBase {
     static let shared = IGApiTopup()
     private static let topupBaseUrl = "https://api.igap.net/services/v1.0/mci/topup"
     
-    func orderChech(telNum: String, cost: Int64, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
+    func purchase(telNum: String, cost: Int64, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["tel_num" : telNum, "cost" : cost]
 
@@ -70,6 +70,7 @@ class IGApiTopup: IGApiBase {
             case .failure(let error):
                 print(error.localizedDescription)
                 IGHelperAlert.shared.showErrorAlert()
+                completion(false, nil)
             }
         }
     }

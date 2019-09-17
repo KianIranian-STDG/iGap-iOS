@@ -10,6 +10,14 @@
 
 import Foundation
 
+enum PaymentStatus: String {
+    case canceledByUser = "CANCELED_BY_USER"
+    case failure = "FAILURE"
+    case moneyReversed = "MONEY_REVERSED"
+    case pending = "PENDING"
+    case success = "SUCCESS"
+}
+
 class IGPaymentView: UIView {
     /// Sigltone object
     static var sharedInstance = IGPaymentView()
@@ -18,6 +26,7 @@ class IGPaymentView: UIView {
     @IBOutlet var containerView: UIView!
     @IBOutlet var contentView: UIView!
     @IBOutlet var topIconView: UIView!
+    @IBOutlet var topIconLbl: UILabel!
     @IBOutlet var mainSV: UIStackView!
     @IBOutlet var descriptionSV: UIStackView!
     @IBOutlet var costSV: UIStackView!
@@ -33,12 +42,12 @@ class IGPaymentView: UIView {
     @IBOutlet var statusDescriptionLbl: UILabel!
     @IBOutlet var statusCodeLbl: UILabel!
     
-    var parentView: UIView!
+    private var parentView: UIView!
     /// define a variable to store initial touch position on pan gesture
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
     var payToken: String!
-    var title: String!
-    var paymentData: IGStructPayment!
+    private var title: String!
+    private var paymentData: IGStructPayment!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,9 +77,12 @@ class IGPaymentView: UIView {
         self.contentView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 12)
     }
     
-    /// show view modal
-    func show(on parentView: UIView) {
+    /// show payment view modal
+    func show(on parentView: UIView, title: String, payToken: String, payment: IGStructPayment) {
         self.parentView = parentView
+        self.title = title
+        self.payToken = payToken
+        self.paymentData = payment
         parentView.addSubview(self)
         parentView.addMaskView() {
             // on maske view hide
@@ -83,18 +95,97 @@ class IGPaymentView: UIView {
         }
         parentView.bringSubviewToFront(self)
         
+        self.topIconLbl.text = ""
+        self.topIconLbl.textColor = UIColor.darkText
+        
         self.titleLbl.text = title
-        if let apiTitle = paymentData.info?.product?.title {
+        if let apiTitle = payment.info?.product?.title {
             self.subTitleLbl.text = apiTitle
         }
-        if let description = paymentData.info?.product?.description {
+        if let description = payment.info?.product?.description {
             self.descriptionLbl.text = description
         }
         self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
-        if let price = paymentData.info?.price {
+        if let price = payment.info?.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
         self.statusSV.isHidden = true
+        self.acceptBtn.isHidden = false
+        self.cancelBtn.setTitle("BTN_CANCEL".localizedNew, for: .normal)
+    }
+    
+    /// show paymentview with payment result
+    func showPaymentResult(on parentView: UIView, paymentStatusData: IGStructPaymentStatus, message: String) {
+        self.parentView = parentView
+        self.title = paymentStatusData.info?.product?.title
+        self.payToken = nil
+//        self.paymentData = paymentData
+        parentView.addSubview(self)
+        parentView.addMaskView() {
+            // on maske view hide
+            self.hideView()
+        }
+        self.frame.size = CGSize(width: parentView.frame.width, height: contentView.bounds.height)
+        self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height , width: parentView.frame.width, height: self.frame.height)
+        UIView.animate(withDuration: 0.3) {
+            self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height - self.contentView.bounds.height, width: parentView.frame.width, height: self.contentView.bounds.height)
+        }
+        parentView.bringSubviewToFront(self)
+        
+        self.titleLbl.text = self.title
+        if let apiTitle = paymentStatusData.info?.product?.title {
+            self.subTitleLbl.text = apiTitle
+        }
+        if let description = paymentStatusData.info?.product?.description {
+            self.descriptionLbl.text = description
+        }
+        self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
+        if let price = paymentStatusData.info?.price {
+            self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
+        }
+        
+        guard let status = paymentStatusData.status else { return }
+        self.reloadPaymentResult(status: PaymentStatus(rawValue: status) ?? .failure, message: message, RRN: "\(paymentStatusData.info?.rrn ?? 0)")
+    }
+    
+    /// reload payment view on payment result
+    func reloadPaymentResult(status: PaymentStatus, message: String, RRN: String) {
+        
+        self.statusSV.isHidden = false
+        self.statusDescriptionLbl.text = message
+        self.statusCodeLbl.text = "PAYMENT_ORDER_ID".localizedNew + ": " + RRN.inLocalizedLanguage()
+        
+        self.acceptBtn.isHidden = true
+        self.cancelBtn.setTitle("BTN_CLOSE".localizedNew, for: .normal)
+        
+        switch status {
+            
+        case .canceledByUser:
+            self.topIconLbl.text = ""
+            self.topIconLbl.textColor = UIColor.iGapRed()
+            self.statusCodeLbl.isHidden = true
+            
+        case .failure:
+            self.topIconLbl.text = ""
+            self.topIconLbl.textColor = UIColor.iGapRed()
+            self.statusCodeLbl.isHidden = true
+            
+        case .moneyReversed:
+            self.topIconLbl.text = ""
+            self.topIconLbl.textColor = UIColor.iGapRed()
+            self.statusCodeLbl.isHidden = true
+            
+        case .pending:
+            self.topIconLbl.text = ""
+            self.topIconLbl.textColor = UIColor.iGapGreen()
+            self.statusCodeLbl.isHidden = false
+            
+        case .success:
+            self.topIconLbl.text = ""
+            self.topIconLbl.textColor = UIColor.iGapGreen()
+            self.statusCodeLbl.isHidden = false
+            
+        }
     }
     
     func addPanGesture() {
@@ -155,7 +246,7 @@ class IGPaymentView: UIView {
     
     @IBAction func payTapped(_ sender: UIButton) {
         guard let urlStr = paymentData.redirectUrl, let url = URL(string: urlStr) else { return }
-        UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey(rawValue: "Authorization") : "Bearer " + IGAppManager.sharedManager.getAccessToken()!], completionHandler: nil)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 

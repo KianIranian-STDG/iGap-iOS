@@ -106,6 +106,9 @@
         "MSG_VOTE_TO_SEE_CHART" : "برای مشاهده نتیجه نظرسنجی لطفا ابتدا رای خود را ثبت نمایید !",
         
         
+        "PAYMENT_ORDER_ID" : "شماره تراکنش",
+        
+        
         "TYPE" : "نوع",
         "ADD_ADMIN" : "افزودن مدیر",
         "ADD_MODERATOR" : "افزودن سردبیر",
@@ -612,6 +615,8 @@
         "PHONE_NUMBER_WRONG" : "شماره وارد شده اشتباه است",
         "PAYMENT_ERROR_ACCURED" : "مشکلی در زمان پرداخت بوجود آمد",
         "BTN_PAY" : "خرید",
+        "BTN_CANCEL" : "انصراف",
+        "BTN_CLOSE" : "بستن",
         "BTN_INQUERY" : "استعلام",
         "BILLING_ID" : "کد قبض",
         "PAYMENT_CODE" : "کد پرداخت",

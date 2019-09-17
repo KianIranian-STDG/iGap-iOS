@@ -11,7 +11,8 @@ import Alamofire
 
 class IGApiBase {
     lazy var getHeaders: HTTPHeaders = {
-        let authorization = "Bearer " + IGAppManager.sharedManager.getAccessToken()!
+        guard let token = IGAppManager.sharedManager.getAccessToken() else { return ["Authorization": ""] }
+        let authorization = "Bearer " + token
         let headers: HTTPHeaders = ["Authorization": authorization]
         return headers
     }()

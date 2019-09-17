@@ -93,7 +93,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
     }
     
     
-    static func openStickerCategories(){
+    static func openStickerCategories() {
         IGGlobal.prgShow()
         IGApiSticker.shared.stickerCategories { categories in
             IGGlobal.prgHide()

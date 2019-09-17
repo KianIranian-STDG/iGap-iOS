@@ -35,16 +35,17 @@
                 <outlet property="statusSV" destination="TRZ-hw-Ipg" id="KEo-gb-XUb"/>
                 <outlet property="subTitleLbl" destination="bea-9V-DbW" id="NEo-bi-zL6"/>
                 <outlet property="titleLbl" destination="so1-6m-SG9" id="m4U-gz-p6t"/>
+                <outlet property="topIconLbl" destination="pwX-8f-cMK" id="DIj-eA-rfY"/>
                 <outlet property="topIconView" destination="d0q-4n-rQs" id="PSB-RC-Uou"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="422" height="369"/>
+            <rect key="frame" x="0.0" y="0.0" width="422" height="400"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EkC-gx-pKa">
-                    <rect key="frame" x="0.0" y="33.5" width="422" height="335.5"/>
+                    <rect key="frame" x="0.0" y="44.5" width="422" height="355.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="شارژ همراه اول" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="so1-6m-SG9">
                             <rect key="frame" x="173.5" y="35" width="75.5" height="20.5"/>
@@ -144,7 +145,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3y-gF-yoI">
                                     <rect key="frame" x="207" y="0.0" width="199" height="38"/>
-                                    <color key="backgroundColor" red="0.80480569599999996" green="0.20542374250000001" blue="0.15306156870000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.94901960784313721" green="0.19607843137254902" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="BUo-HM-OOO"/>
                                     </constraints>
@@ -167,7 +168,7 @@
                         <constraint firstItem="MQU-TH-kvx" firstAttribute="leading" secondItem="EkC-gx-pKa" secondAttribute="leading" constant="8" id="4L6-87-gfG"/>
                         <constraint firstItem="WOo-ru-wH1" firstAttribute="top" secondItem="so1-6m-SG9" secondAttribute="bottom" constant="8" id="DWb-Tz-Pd0"/>
                         <constraint firstItem="so1-6m-SG9" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="JQa-Vx-XCu"/>
-                        <constraint firstAttribute="bottom" secondItem="MQU-TH-kvx" secondAttribute="bottom" constant="16" id="gC2-Cn-Zbx"/>
+                        <constraint firstAttribute="bottom" secondItem="MQU-TH-kvx" secondAttribute="bottom" constant="36" id="gC2-Cn-Zbx"/>
                         <constraint firstItem="MQU-TH-kvx" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="lPn-aY-JfT"/>
                         <constraint firstItem="WOo-ru-wH1" firstAttribute="leading" secondItem="EkC-gx-pKa" secondAttribute="leading" constant="8" id="ljK-9C-G61"/>
                         <constraint firstItem="MQU-TH-kvx" firstAttribute="top" secondItem="WOo-ru-wH1" secondAttribute="bottom" constant="20" id="sCl-4A-Gte"/>
@@ -177,11 +178,11 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-4n-rQs">
-                    <rect key="frame" x="181" y="3.5" width="60" height="60"/>
+                    <rect key="frame" x="181" y="14.5" width="60" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwX-8f-cMK">
                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
+                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

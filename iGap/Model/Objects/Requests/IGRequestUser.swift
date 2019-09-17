@@ -150,16 +150,16 @@ class IGUserLoginRequest : IGRequest {
     class Handler : IGRequest.Handler {
         
         class func intrepret(response responseProtoMessage: IGPUserLoginResponse) {
+            IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)
             AppDelegate.isUpdateAvailable = responseProtoMessage.igpUpdateAvailable
             AppDelegate.isDeprecatedClient = responseProtoMessage.igpDeprecatedClient
-            IGApiSticker.shared.fetchMySticker()
             IGAppManager.sharedManager.setMd5Hex(md5Hex: responseProtoMessage.igpContactHash)
 
             IGAppManager.sharedManager.setNetworkConnectionStatus(.iGap)
             IGAppManager.sharedManager.setMplActive(enable: responseProtoMessage.igpMplActive) // show/Hide financial and wallet
             IGAppManager.sharedManager.setWalletActive(enable: responseProtoMessage.igpWalletActive) //:show/Hide Only Wallet
             
-            IGAppManager.sharedManager.setAccessToken(accessToken: responseProtoMessage.igpAccessToken)
+            IGApiSticker.shared.fetchMySticker()
 
             IGAppManager.sharedManager.setWalletRegistered(enable: responseProtoMessage.igpWalletAgreementAccepted) //:check to call register wallet or not
             IGUploadManager.sharedManager.pauseAllUploads()

@@ -119,7 +119,6 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
     private func setupTransactionInfo(info: IGPMplTransaction) {
         self.igpTransaction = info
         self.transactionInfoTableView.reloadWithAnimation()
-        
         let payTimeSecond = Double(info.igpPayTime)
         var dateComps: (Int?, Int?, Int?, Int?, Int?, String?)!
         

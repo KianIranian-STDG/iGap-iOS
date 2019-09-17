@@ -429,8 +429,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_ROOM_PAGE)
         
-        
-        
     }
     
     @objc private func changeDirectionOfUI() {
