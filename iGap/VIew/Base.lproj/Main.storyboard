@@ -873,13 +873,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=". . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vE-iX-P27">
-                                <rect key="frame" x="194.66666666666666" y="557.33333333333337" width="25" height="26.666666666666629"/>
+                                <rect key="frame" x="195.33333333333334" y="564" width="23.666666666666657" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1p-d4-xse">
-                                <rect key="frame" x="197.33333333333334" y="520.66666666666663" width="19.333333333333343" height="26.666666666666629"/>
+                                <rect key="frame" x="197.66666666666666" y="534" width="19" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1325,6 +1325,9 @@
                                                                 <state key="normal" title="">
                                                                     <color key="titleColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="didTapOnSendButton:" destination="KJT-Hl-jm5" eventType="touchDown" id="Mco-1b-tMO"/>
+                                                                </connections>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agU-js-JDV">
                                                                 <rect key="frame" x="70" y="8" width="0.0" height="22"/>
@@ -2068,7 +2071,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="49.666666666666664" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYO-LV-zmc">
-                                                                    <rect key="frame" x="5" y="0.0" width="40" height="29"/>
+                                                                    <rect key="frame" x="2" y="0.0" width="46" height="29"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="40"/>
                                                                     <state key="normal" title="">
                                                                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2083,10 +2086,10 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EQ9-KB-ujf">
-                                                            <rect key="frame" x="140.33333333333334" y="0.0" width="62.333333333333343" height="58"/>
+                                                            <rect key="frame" x="138.66666666666666" y="0.0" width="62.333333333333343" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sG-cm-E7r">
-                                                                    <rect key="frame" x="11" y="0.0" width="40" height="29"/>
+                                                                    <rect key="frame" x="8.3333333333333428" y="0.0" width="46" height="29"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="40"/>
                                                                     <state key="normal" title="">
                                                                         <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2101,17 +2104,17 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VXT-3C-7uf">
-                                                            <rect key="frame" x="298" y="0.0" width="40" height="58"/>
+                                                            <rect key="frame" x="292" y="0.0" width="46" height="58"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woP-oI-ppG">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="29"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="46" height="29"/>
                                                                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="40"/>
                                                                     <state key="normal" title="">
                                                                         <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Zzy-j6-Aot" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="1.3333333333333144" y="29" width="37.666666666666664" height="29"/>
+                                                                    <rect key="frame" x="4.3333333333333144" y="29" width="37.666666666666664" height="29"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="black" pointSize="17"/>
                                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -2131,14 +2134,14 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8A-Hl-Gai">
-                                                            <rect key="frame" x="140.33333333333334" y="0.0" width="62.333333333333343" height="58"/>
+                                                            <rect key="frame" x="138.66666666666666" y="0.0" width="62.333333333333343" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToSettings:" destination="z3s-7I-oQt" eventType="touchUpInside" id="q1M-m3-ZSv"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zT-ur-cK8">
-                                                            <rect key="frame" x="298" y="0.0" width="40" height="58"/>
+                                                            <rect key="frame" x="292" y="0.0" width="46" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToCreatNewCGC:" destination="z3s-7I-oQt" eventType="touchUpInside" id="YDJ-I4-Kfx"/>
