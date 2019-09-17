@@ -375,13 +375,13 @@ class IGGroupSendMessageRequest : IGRequest {
                 sendMessageRequestMessage.igpAdditionalData = additional.data!
             }
             
-            return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 310, identity: message)
+            return IGRequestWrapper(message: sendMessageRequestMessage, actionID: 310, identity: IGStructMessageIdentity(roomMessage: message))
         }
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPGroupSendMessageResponse, identity: IGRoomMessage? = nil) {
-            IGHelperMessageResponse.shared.handleMessage(roomId: responseProtoMessage.igpRoomID, roomMessage: responseProtoMessage.igpRoomMessage, roomType: IGPRoom.IGPType.chat, sender: !responseProtoMessage.igpResponse.igpID.isEmpty, oldMessage: identity)
+        class func interpret(response responseProtoMessage:IGPGroupSendMessageResponse, identity: IGStructMessageIdentity? = nil) {
+            IGHelperMessageResponse.shared.handleMessage(roomId: responseProtoMessage.igpRoomID, roomMessage: responseProtoMessage.igpRoomMessage, roomType: IGPRoom.IGPType.chat, sender: !responseProtoMessage.igpResponse.igpID.isEmpty, structMessageIdentity: identity)
         }
         
         override class func handlePush(responseProtoMessage: Message) {
