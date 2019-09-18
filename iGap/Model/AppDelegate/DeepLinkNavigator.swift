@@ -21,8 +21,8 @@ class DeeplinkNavigator {
         case .messages(.details(id: let id)):
             displayAlert(title: "Messages Details \(id)")
         case .chatRoom(room: let room):
-            break
 //            displayAlert(title: "chat room id: \(room.id)")
+            break
         case .request(id: let id):
             displayAlert(title: "Request Details \(id)")
         case .payment(message: let message, status: let st, orderId: let id):
