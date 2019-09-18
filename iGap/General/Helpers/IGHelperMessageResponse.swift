@@ -15,7 +15,7 @@ class IGHelperMessageResponse {
     
     static let shared = IGHelperMessageResponse()
     
-    public func handleMessage(roomId: Int64, roomMessage: IGPRoomMessage, roomType: IGPRoom.IGPType, sender: Bool, oldMessage: IGRoomMessage?) {
+    public func handleMessage(roomId: Int64, roomMessage: IGPRoomMessage, roomType: IGPRoom.IGPType, sender: Bool, structMessageIdentity: IGStructMessageIdentity?) {
         let realm = try! Realm()
         try! realm.write {
             
@@ -43,9 +43,8 @@ class IGHelperMessageResponse {
                 }
             }
             
-            //TODO - do better action instead repeat method with delay
-            if (oldMessage != nil) {
-                IGRoomMessage.deleteMessage(primaryKeyId: oldMessage!.primaryKeyId!)
+            if let primaryKeyId = structMessageIdentity?.primaryKeyId {
+                IGRoomMessage.deleteMessage(primaryKeyId: primaryKeyId)
             }
             
             if (room == nil) {
@@ -96,7 +95,7 @@ class IGHelperMessageResponse {
             /**
              * invoke following callback when I'm the sender and the message has updated
              */
-            IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: oldMessage!)
+            IGMessageViewController.messageOnChatReceiveObserver?.onMessageUpdate(roomId: roomId, message: roomMessage, identity: structMessageIdentity!.roomMessage)
         } else {
             /**
              * invoke following callback when i'm not the sender, because i already done everything after sending message

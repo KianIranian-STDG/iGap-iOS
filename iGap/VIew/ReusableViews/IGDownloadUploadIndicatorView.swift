@@ -106,7 +106,7 @@ class IGDownloadUploadIndicatorView: UIView {
         sizeLabel?.alpha = 1.0
         downlaodUploadProgressPathWidth = 5.0
         downloadUploadPercentageLabel?.textColor = UIColor.white
-        downloadUploadPercentageLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        downloadUploadPercentageLabel?.font = UIFont.iGapFonticon(ofSize: 30)
         
         self.addDownloadButtonIfNeeded() //In case of reuse
         self.downloadButton?.setImage(UIImage(named:indicatorImage), for: .normal)
@@ -132,7 +132,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadUploadButtonBackgroundView = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.indicatorText = ""
+            self.indicatorText = ""
             break
         case .processingAfterDownload:
             break
@@ -169,7 +169,7 @@ class IGDownloadUploadIndicatorView: UIView {
             self.downloadUploadButtonBackgroundView = nil
             self.sizeLabel = nil
             self.isHidden = false
-            self.indicatorText = ""
+            self.indicatorText = ""
             break
         case .waitingForServerProcess:
             break

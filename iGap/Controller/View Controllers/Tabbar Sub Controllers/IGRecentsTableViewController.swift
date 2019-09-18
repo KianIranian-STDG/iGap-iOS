@@ -638,8 +638,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 if let getRoomListResponse = responseProtoMessage as? IGPClientGetRoomListResponse {
                     if let getRoomListRequest = requestWrapper.message as? IGPClientGetRoomList {
                         
-                        let p = Int32(getRoomListRequest.igpPagination.igpLimit)
-                        print("Action ID : 601 P IS:",p)
                         newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
                         //                        newOffset = Int32(getRoomListRequest.igpPagination.igpLimit)
                         newLimit = newOffset + Int32(IGAppManager.sharedManager.LOAD_ROOM_LIMIT)
@@ -710,7 +708,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        print("INDEXPATH IS:",indexPath)
         
         
         let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
@@ -1628,7 +1625,6 @@ extension IGRecentsTableViewController {
         let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
         let lastContentOffset = scrollView.contentOffset.y
 
-        print(lastContentOffset)
         if remaining < 100 {
             //self.loadMoreRooms()
         }

@@ -266,6 +266,7 @@
 		94E74DCC2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */; };
 		94E74DCE2323D137001AB47C /* FinancialHistoryLocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */; };
 		D619A845232DF8AA007AD9F8 /* IGGroupProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D619A844232DF8AA007AD9F8 /* IGGroupProfile.swift */; };
+		D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */; };
 		DF3EDEF64399AA713B2D0C2F /* IGRequestSignaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */; };
 		FA03C19C2042945D008812E3 /* IGCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19B2042945D008812E3 /* IGCall.swift */; };
 		FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA03C19F20429D46008812E3 /* RTCClient.swift */; };
@@ -1016,6 +1017,7 @@
 		94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsEn.json; sourceTree = "<group>"; };
 		94E74DCD2323D137001AB47C /* FinancialHistoryLocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FinancialHistoryLocalizationsFa.json; sourceTree = "<group>"; };
 		D619A844232DF8AA007AD9F8 /* IGGroupProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGGroupProfile.swift; sourceTree = "<group>"; };
+		D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGStructMessageIdentity.swift; sourceTree = "<group>"; };
 		DF3336180FA238BCCE8F3FB9 /* IGRequestSignaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRequestSignaling.swift; sourceTree = "<group>"; };
 		FA03C19B2042945D008812E3 /* IGCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCall.swift; sourceTree = "<group>"; };
 		FA03C19F20429D46008812E3 /* RTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCClient.swift; sourceTree = "<group>"; };
@@ -2822,6 +2824,7 @@
 				FAC1330422C098D000817044 /* IGStructMessageOption.swift */,
 				FAA4E85A23124B110091199B /* IGForwardStruct.swift */,
 				940F9E79231BC17400C26D50 /* IGStructFavouriteChannels.swift */,
+				D66129CF2330FF9700BFAE7E /* IGStructMessageIdentity.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -3524,6 +3527,7 @@
 				FA6B72A222369C4A005AC3D1 /* IGHelperGetMessageState.swift in Sources */,
 				FAE6062821EB39DB00F03FFC /* SwiftWebVCActivitySafari.swift in Sources */,
 				FA96EF4E1DEB0431009BE640 /* IGMessageSender.swift in Sources */,
+				D66129D02330FF9700BFAE7E /* IGStructMessageIdentity.swift in Sources */,
 				8ED97D7622E2F41900A0EB1F /* IGFavouriteChannelsDashboardInnerTableViewController.swift in Sources */,
 				FAA65CFB220AC0280006994A /* StickerCell.swift in Sources */,
 				8EBF550922D9B85400834E6A /* DahsboardCell8.swift in Sources */,

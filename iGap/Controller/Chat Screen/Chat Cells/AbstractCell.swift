@@ -1494,7 +1494,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeStatus(){
         if txtStatusAbs == nil {
             txtStatusAbs = UILabel()
-            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 13)
+            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 15)
             mainBubbleViewAbs.addSubview(txtStatusAbs)
             
             txtStatusAbs.snp.makeConstraints { (make) in
@@ -1825,6 +1825,7 @@ extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
         
         if let attachment = self.attachment {
             if attachment.status == .uploading {
+                IGMessageViewController.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
                 IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
             } else if attachment.status == .uploadFailed || attachment.status == .uploadPause {
                 if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
