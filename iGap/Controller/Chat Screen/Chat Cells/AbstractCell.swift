@@ -1492,7 +1492,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeStatus(){
         if txtStatusAbs == nil {
             txtStatusAbs = UILabel()
-            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 13)
+            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 15)
             mainBubbleViewAbs.addSubview(txtStatusAbs)
             
             txtStatusAbs.snp.makeConstraints { (make) in
