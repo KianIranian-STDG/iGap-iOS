@@ -12,7 +12,6 @@ import UIKit
 import IGProtoBuff
 import MBProgressHUD
 
-
 class AbstractDashboardCell: UICollectionViewCell {
 
     var btnCheckMark: UIButton!
@@ -830,6 +829,35 @@ class AbstractDashboardCell: UICollectionViewCell {
         case .internetPackageMenu:
             let financialHistory = IGInternetPackageViewController.instantiateFromAppStroryboard(appStoryboard: .InternetPackage)
             UIApplication.topViewController()!.navigationController!.pushViewController(financialHistory, animated:true)
+            break
+            
+        case .charity:
+//            valueType
+            guard let jsonValue = valueType.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, let price = jsonValue["price"] as? Int else {
+                IGHelperAlert.shared.showErrorAlert()
+                break
+            }
+            IGGlobal.prgShow()
+            IGApiCharity.shared.getHelpPaymentToken(charityId: id, amount: price) { (isSuccess, token) in
+                if isSuccess {
+                    guard let token = token else { IGGlobal.prgHide(); return }
+                    print("Success: " + token)
+                    IGApiPayment.shared.orderChech(token: token, completion: { (success, payment) in
+                        IGGlobal.prgHide()
+                        if success {
+                            guard let paymentData = payment else {
+                                IGHelperAlert.shared.showErrorAlert()
+                                return
+                            }
+                            let paymentView = IGPaymentView.sharedInstance
+                            paymentView.show(on: UIApplication.shared.keyWindow!, title: "CHARITY".localizedNew, payToken: token, payment: paymentData)
+                        }
+                    })
+                    
+                } else {
+                    IGGlobal.prgHide()
+                }
+            }
             break
             
         default:

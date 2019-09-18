@@ -130,6 +130,41 @@ class IGFinancialHistoryDetailViewController: BaseViewController {
         
         self.payDateLbl.text = "\(dateComps.5 ?? "")\n\(dateComps.0 ?? 0)/\(dateComps.1 ?? 0)/\(dateComps.2 ?? 0)".inLocalizedLanguage()
         self.payTimeLbl.text = "\(dateComps.3 ?? 0):\(dateComps.4 ?? 0)".inLocalizedLanguage()
+        switch info.igpType {
+            
+        case .none: break
+            
+        case .bill:
+            if info.igpBill.igpStatus != 0 {
+                self.statusIconLbl.textColor = UIColor.iGapRed()
+                self.statusIconLbl.text = ""
+                self.statusLbl.textColor = UIColor.iGapRed()
+                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+            }
+        case .topup:
+            if info.igpTopup.igpStatus != 0 {
+                self.statusIconLbl.textColor = UIColor.iGapRed()
+                self.statusIconLbl.text = ""
+                self.statusLbl.textColor = UIColor.iGapRed()
+                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+            }
+        case .sales:
+            if info.igpSales.igpStatus != 0 {
+                self.statusIconLbl.textColor = UIColor.iGapRed()
+                self.statusIconLbl.text = ""
+                self.statusLbl.textColor = UIColor.iGapRed()
+                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+            }
+        case .cardToCard:
+            if info.igpCardtocard.igpStatus != 0 {
+                self.statusIconLbl.textColor = UIColor.iGapRed()
+                self.statusIconLbl.text = ""
+                self.statusLbl.textColor = UIColor.iGapRed()
+                self.statusLbl.text = "UNSUCCESSFULL_PAYMENT".FinancialHistoryLocalization
+            }
+        case .UNRECOGNIZED(_): break
+            
+        }
     }
     
     func readTransactionInfoKeysDictionary() {

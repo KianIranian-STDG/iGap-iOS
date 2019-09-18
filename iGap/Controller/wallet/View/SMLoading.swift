@@ -129,6 +129,7 @@ class SMLoading {
             DispatchQueue.main.async {
                 if !(loadingViewPage?.isDescendant(of: viewcontroller.view))! {
                     viewcontroller.view.addSubview(loadingViewPage!)
+                    viewcontroller.view.bringSubviewToFront(loadingViewPage!)
                 }
             }
             

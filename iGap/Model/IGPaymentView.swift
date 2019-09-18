@@ -42,6 +42,7 @@ class IGPaymentView: UIView {
     @IBOutlet var statusDescriptionLbl: UILabel!
     @IBOutlet var statusCodeLbl: UILabel!
     
+    // MARK: - Variables
     private var parentView: UIView!
     /// define a variable to store initial touch position on pan gesture
     var initialTouchPoint: CGPoint = CGPoint(x: 0, y: 0)
@@ -49,6 +50,7 @@ class IGPaymentView: UIView {
     private var title: String!
     private var paymentData: IGStructPayment!
     
+    // MARK: - Init functions
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -77,6 +79,7 @@ class IGPaymentView: UIView {
         self.contentView.roundCorners(corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: 12)
     }
     
+    // MARK: - User functions
     /// show payment view modal
     func show(on parentView: UIView, title: String, payToken: String, payment: IGStructPayment) {
         self.parentView = parentView
@@ -112,6 +115,7 @@ class IGPaymentView: UIView {
         self.statusSV.isHidden = true
         self.acceptBtn.isHidden = false
         self.cancelBtn.setTitle("BTN_CANCEL".localizedNew, for: .normal)
+        self.cancelBtn.backgroundColor = UIColor.iGapRed()
     }
     
     /// show paymentview with payment result
@@ -164,26 +168,31 @@ class IGPaymentView: UIView {
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
+            self.cancelBtn.backgroundColor = UIColor.iGapRed()
             
         case .failure:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
+            self.cancelBtn.backgroundColor = UIColor.iGapRed()
             
         case .moneyReversed:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapRed()
             self.statusCodeLbl.isHidden = true
+            self.cancelBtn.backgroundColor = UIColor.iGapRed()
             
         case .pending:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapGreen()
             self.statusCodeLbl.isHidden = false
+            self.cancelBtn.backgroundColor = UIColor.iGapGreen()
             
         case .success:
             self.topIconLbl.text = ""
             self.topIconLbl.textColor = UIColor.iGapGreen()
             self.statusCodeLbl.isHidden = false
+            self.cancelBtn.backgroundColor = UIColor.iGapGreen()
             
         }
     }
@@ -229,8 +238,8 @@ class IGPaymentView: UIView {
         }
     }
     
+    /// hides the view
     func hideView() {
-        
         self.superview?.hideMaskView()
         UIView.animate(withDuration: 0.3, animations: {
             self.frame.origin.y += self.frame.height

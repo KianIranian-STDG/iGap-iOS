@@ -170,7 +170,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         detectBackground()
         IGGlobal.checkRealmFileSize()
         
-        ShortcutParser.shared.registerShortcuts()
+//        ShortcutParser.shared.registerShortcuts()
         
         return true
     }

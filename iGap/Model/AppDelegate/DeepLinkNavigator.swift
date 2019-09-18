@@ -10,7 +10,7 @@ import Foundation
 
 class DeeplinkNavigator {
     static let shared = DeeplinkNavigator()
-    private init() { }
+    private init() {}
     
     func proceedToDeeplink(_ type: DeeplinkType) {
         switch type {
@@ -21,30 +21,36 @@ class DeeplinkNavigator {
         case .messages(.details(id: let id)):
             displayAlert(title: "Messages Details \(id)")
         case .chatRoom(room: let room):
-            displayAlert(title: "chat room id: \(room.id)")
+            break
+//            displayAlert(title: "chat room id: \(room.id)")
         case .request(id: let id):
             displayAlert(title: "Request Details \(id)")
         case .payment(message: let message, status: let st, orderId: let id):
-            IGGlobal.prgShow(UIApplication.shared.keyWindow!)
-            let paymentView = IGPaymentView.sharedInstance
-            IGApiPayment.shared.orderStatus(orderId: id) { (isSuccess, paymentStatus) in
-                IGGlobal.prgHide()
-                if isSuccess {
-                    guard let paymentStatus = paymentStatus else {
-                        IGHelperAlert.shared.showErrorAlert()
-                        return
-                    }
-                    if paymentView.payToken != nil {
-                        paymentView.reloadPaymentResult(status: st, message: message, RRN: "\(paymentStatus.info?.rrn ?? 0)")
-                    } else {
-                        // get data
-                        paymentView.showPaymentResult(on: UIApplication.shared.keyWindow!, paymentStatusData: paymentStatus, message: message)
-                    }
-                    
+            self.showPaymentView(message: message, status: st, orderId: id)
+        }
+    }
+    
+    private func showPaymentView(message: String, status: PaymentStatus, orderId: String) {
+        let paymentView = IGPaymentView.sharedInstance
+        IGGlobal.prgShow(paymentView.contentView)
+        IGApiPayment.shared.orderStatus(orderId: orderId) { (isSuccess, paymentStatus) in
+            IGGlobal.prgHide()
+            if isSuccess {
+                guard let paymentStatus = paymentStatus else {
+                    IGHelperAlert.shared.showErrorAlert()
+                    return
                 }
+                if paymentView.payToken != nil {
+                    paymentView.reloadPaymentResult(status: status, message: message, RRN: "\(paymentStatus.info?.rrn ?? 0)")
+                } else {
+                    // get data
+                    paymentView.showPaymentResult(on: UIApplication.shared.keyWindow!, paymentStatusData: paymentStatus, message: message)
+                }
+                
+            } else {
+                paymentView.hideView()
+                IGHelperAlert.shared.showErrorAlert()
             }
-            
-            
         }
     }
     

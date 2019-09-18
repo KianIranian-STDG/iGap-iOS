@@ -367,6 +367,7 @@
 		FA35DA171DE0245600F171EE /* IGDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35DA161DE0245600F171EE /* IGDatabaseManager.swift */; };
 		FA39EAA320D7BF7B001CFF77 /* Protobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA39EAA220D7BF7A001CFF77 /* Protobuf.framework */; };
 		FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */; };
+		FA3C24B42332142D00848261 /* IGApiCharity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3C24B32332142D00848261 /* IGApiCharity.swift */; };
 		FA3C8E041E6D785800D94FBB /* IGClientActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3C8E031E6D785800D94FBB /* IGClientActionManager.swift */; };
 		FA3D947C1E6AA9580087D368 /* IGRoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D947B1E6AA9580087D368 /* IGRoomManager.swift */; };
 		FA401FA41E10F80500A50C5A /* IGLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA401FA31E10F80500A50C5A /* IGLabel.swift */; };
@@ -1139,6 +1140,7 @@
 		FA35DA161DE0245600F171EE /* IGDatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDatabaseManager.swift; sourceTree = "<group>"; };
 		FA39EAA220D7BF7A001CFF77 /* Protobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Protobuf.framework; sourceTree = "<group>"; };
 		FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IGProtoBuff.framework; path = Carthage/Build/iOS/IGProtoBuff.framework; sourceTree = "<group>"; };
+		FA3C24B32332142D00848261 /* IGApiCharity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGApiCharity.swift; sourceTree = "<group>"; };
 		FA3C8E031E6D785800D94FBB /* IGClientActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGClientActionManager.swift; sourceTree = "<group>"; };
 		FA3D947B1E6AA9580087D368 /* IGRoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRoomManager.swift; sourceTree = "<group>"; };
 		FA401FA31E10F80500A50C5A /* IGLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGLabel.swift; sourceTree = "<group>"; };
@@ -2545,6 +2547,7 @@
 				94909E1D2328B1CD000D04A6 /* IGApiPayment.swift */,
 				94909E1F2328BE6C000D04A6 /* IGApiTopup.swift */,
 				FA075DEA232A5E9C002E7AC7 /* IGApiInternetPackage.swift */,
+				FA3C24B32332142D00848261 /* IGApiCharity.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -3968,6 +3971,7 @@
 				8E599D7A2325331C00D75376 /* TGPDiscreteSlider.swift in Sources */,
 				93193F3C1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift in Sources */,
 				FA075DEB232A5E9C002E7AC7 /* IGApiInternetPackage.swift in Sources */,
+				FA3C24B42332142D00848261 /* IGApiCharity.swift in Sources */,
 				FA09538B1E1B97E20043ED3F /* IGNewChannelChoosePublicOrPrivateTableViewController.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */,
