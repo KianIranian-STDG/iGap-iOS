@@ -305,7 +305,11 @@ class IGMessageLoader {
                     oldMessageId = realmRoomMessage.id
                 }
             }
-            
+            /**
+             * at this state result count of message is zero so topMore is false, we need to set topMore to false for get second chuck from server
+             * (Hint: previously problem was avoid from get history for second chunk, because of topMore was true so we tried to get history just from local!!!)
+             */
+            self.topMore = false
             getOnlineMessage(oldMessageId: oldMessageId, direction: direction, onMessageReceive: onMessageReceive)
         }
         

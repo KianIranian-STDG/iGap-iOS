@@ -231,8 +231,8 @@ class IGMessageSender {
                     }
                 }
             }, failure: { 
-                //TODO: check what will happen if upload failes.
                 self.fileUploadEnded(nextMessageToUpload)
+                IGFactory.shared.updateMessageStatusToFail(message: nextMessageToUpload.message)
             }) {
                 nextMessageToUpload.uploadTask = nextMessageUploadTask
             }

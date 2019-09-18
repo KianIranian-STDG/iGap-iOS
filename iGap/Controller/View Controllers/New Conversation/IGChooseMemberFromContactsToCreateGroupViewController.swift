@@ -21,7 +21,7 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
     @IBOutlet weak var contactsTableView: UITableView!
     @IBOutlet weak var contactViewBottomConstraizt: NSLayoutConstraint!
     @IBOutlet weak var contactViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var addMemberTitle: UILabel!
+    
     var baseUser: IGRegisteredUser?
 
     class User: NSObject {
@@ -105,7 +105,6 @@ class IGChooseMemberFromContactsToCreateGroupViewController: BaseViewController 
         self.contactsTableView.sectionIndexBackgroundColor = UIColor.clear
         self.selectedContactsView.addSubview(collectionView)
         self.contactViewBottomConstraizt.constant = -self.contactViewHeightConstraint.constant
-        self.addMemberTitle.text = "ADD_MEMBER".localizedNew
         setNavigationItem()
     }
     

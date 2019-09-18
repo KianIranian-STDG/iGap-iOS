@@ -4607,27 +4607,6 @@ extension IGMessageViewController: UICollectionViewDelegateFlowLayout {
         
         setFloatingDate()
         
-        /*
-        if (scrollView.contentOffset.y < 0) { //reach top
-            self.messageLoader.loadMessage(direction: .up, onMessageReceive: { (messages, direction) in
-                self.addChatItem(realmRoomMessages: messages, direction: direction)
-            })
-            
-            /** if totalItemCount is lower than scrollEnd so (firstVisiblePosition < scrollEnd) is always true and we can't load DOWN,
-             * finally for solve this problem also check following state and load DOWN even totalItemCount is lower than scrollEnd count
-             */
-            //if (totalItemCount <= scrollEnd) {
-            //    loadMessage(DOWN);
-            //}
-        }
-        
-        if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach bottom
-            self.messageLoader.loadMessage(direction: .down, onMessageReceive: { (messages, direction) in
-                self.addChatItem(realmRoomMessages: messages, direction: direction)
-            })
-        }
-        */
-        
         //currently use inverse
         if (scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)) { //reach top
             if (!self.messageLoader.isFirstLoadUp() || self.messageLoader.isForceFirstLoadUp()) && !self.messageLoader.isWaitingHistoryUpLocal() {
