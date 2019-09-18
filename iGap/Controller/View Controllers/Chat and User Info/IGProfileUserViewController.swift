@@ -1,12 +1,10 @@
-/*
- * This is the source code of iGap for iOS
- * It is licensed under GNU AGPL v3.0
- * You should have received a copy of the license in this archive (see LICENSE).
- * Copyright © 2017 , iGap - www.iGap.net
- * iGap Messenger | Free, Fast and Secure instant messaging application
- * The idea of the Kianiranian STDG - www.kianiranian.com
- * All rights reserved.
- */
+//
+//  IGProfileUserViewController.swift
+//  iGap
+//
+//  Created by BenyaminMokhtarpour on 9/18/19.
+//  Copyright © 2019 Kianiranian STDG -www.kianiranian.com. All rights reserved.
+//
 
 import UIKit
 import Contacts
@@ -14,10 +12,16 @@ import RealmSwift
 import IGProtoBuff
 import MBProgressHUD
 import NVActivityIndicatorView
-///import INSPhotoGallery
 
-class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivityIndicatorViewable {
 
+class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
+
+    //MARK: -Variables
+    let headerViewMaxHeight: CGFloat = 144
+    let headerViewMinHeight: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
+    var originalTransform : CGAffineTransform!
+    private var lastContentOffset: CGFloat = 0
+    private var hasScaledDown: Bool = false
     var user: IGRegisteredUser?
     var previousRoomId: Int64?
     var room: IGRoom?
@@ -30,49 +34,104 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
+    var maxNavHeight : CGFloat = 144
+    //MARK: -Outlets
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarView: IGAvatarView!
-    @IBOutlet weak var blockContactLabel: UILabel!
+    @IBOutlet weak var viewBG: UIView!
+
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var viewBG: UIView!
-
-    
-    
-    @IBOutlet weak var lblName: UILabel!
-    @IBOutlet weak var lblPhone: UILabel!
-    @IBOutlet weak var lblUsername: UILabel!
-    @IBOutlet weak var lblBio: UILabel!
-    @IBOutlet weak var lblSend: UILabel!
-    @IBOutlet weak var lblBlock: UILabel!
-    @IBOutlet weak var lblConvert: UILabel!
-    @IBOutlet weak var lblDelete: UILabel!
-    @IBOutlet weak var lblClearCache: UILabel!
-    @IBOutlet weak var lblInchatSearch: UILabel!
-    @IBOutlet weak var lblSharedMedia: UILabel!
-    @IBOutlet weak var lblNotifications: UILabel!
-
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var heightConstraints: NSLayoutConstraint!
-    @IBOutlet weak var widthConstraints: NSLayoutConstraint!
+
+    //MARK: -ViewController Initialisers
     override func viewDidLoad() {
         super.viewDidLoad()
-        let gradient = CAGradientLayer()
+        maxNavHeight = self.heightConstraints.constant
+        originalTransform = self.avatarView.transform
+        tableView.contentInset = UIEdgeInsets(top: maxNavHeight, left: 0, bottom: 0, right: 0)
         
+        let navigaitonItem = self.navigationItem as! IGNavigationItem
+        navigaitonItem.setNavigationBarForProfileRoom(room!)
+        
+        navigaitonItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
+
+        initView()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        navigationControllerr.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationControllerr.interactivePopGestureRecognizer?.delegate = self
+
+        navigationControllerr.navigationBar.isTranslucent = true
+        //Hint:- Only hides the gradient background View
+        for view in navigationControllerr.navigationBar.subviews {
+            if view.tag == 10001 {
+                view.isHidden = true
+            }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let navigationControllerr = self.navigationController as! IGNavigationController
+        
+        navigationControllerr.navigationBar.backgroundColor = .clear
+        navigationControllerr.navigationBar.isTranslucent = false
+        //Hint:- Only shows the gradient background View
+        
+        for view in navigationControllerr.navigationBar.subviews {
+            if view.tag == 10001 {
+                view.isHidden = false
+                print("FOUND IT")
+            }
+        }
+    }
+    
+    
+    //MARK: -Development functions
+    
+    
+    //MARK: -Check if is For Bot
+    private func isBotRoom() -> Bool{
+        return (user?.isBot)!
+    }
+
+    private func initView() {
+        //MARK: -Avatar View Initialiser
+        initAvatarView()
+        //MARK: -GradientView Initialiser
+        initGradientView()
+        //MARK: -Labels initialisers
+        initLabels()
+    }
+    func initLabels() {
+
+    }
+    func initGradientView() {
+        let gradient = CAGradientLayer()
         gradient.frame = viewBG.frame
         gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
         gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
         gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
         gradient.locations = orangeGradientLocation as [NSNumber]
-
         viewBG.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-
-
+    }
+    
+    //MARK: -Avatar Sequence
+    func initAvatarView() {
         if user != nil {
             requestToGetAvatarList()
             self.avatarView.setUser(user!, showMainAvatar: true)
             self.displayNameLabel.text = user!.displayName
+            displayNameLabel.textColor = .white
+            timeLabel.textColor = .white
             if let phone = user?.phone {
                 if phone == 0 {
                     self.phoneNumberLabel.text = "HIDDEN".localizedNew
@@ -81,19 +140,40 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
                 }
             }
             self.usernameLabel.text = user!.username
-            if let bio = user!.bio {
-                self.bioLabel.text = bio
-            } else {
-                self.bioLabel.text = ""
+            switch user!.lastSeenStatus {
+            case .longTimeAgo:
+                self.timeLabel!.text = "A_LONG_TIME_AGO".localizedNew
+                break
+            case .lastMonth:
+                self.timeLabel!.text = "LAST_MONTH".localizedNew
+                break
+            case .lastWeek:
+                self.timeLabel!.text = "LAST_WEAK".localizedNew
+                break
+            case .online:
+                self.timeLabel!.text = "ONLINE".localizedNew
+                break
+            case .exactly:
+                self.timeLabel!.text = "\(user!.lastSeen!.humanReadableForLastSeen())".inLocalizedLanguage()
+                break
+            case .recently:
+                self.timeLabel!.text = "A_FEW_SEC_AGO".localizedNew
+                break
+            case .support:
+                self.timeLabel!.text = "IGAP_SUPPORT".localizedNew
+                break
+            case .serviceNotification:
+                self.timeLabel!.text = "SERVICE_NOTIFI".localizedNew
+                break
             }
         }
         if let selectedUser = user {
-        let blockedUserPredicate = NSPredicate(format: "id = %lld", selectedUser.id)
+            let blockedUserPredicate = NSPredicate(format: "id = %lld", selectedUser.id)
             if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
                 print(blockedUser.displayName)
-                   if blockedUser.isBlocked == true {
-                       blockContactLabel.text = "UNBLOCK".localizedNew
-                   }
+                if blockedUser.isBlocked == true {
+//                    blockContactLabel.text = "UNBLOCK".localizedNew
+                }
             }
         }
         avatarView.avatarImageView?.isUserInteractionEnabled = true
@@ -101,237 +181,11 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         avatarView.avatarImageView?.addGestureRecognizer(tap)
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-//        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "CONTACT_INFO".localizedNew)
         navigaitonItem.setNavigationBarForProfileRoom(room!)
-
-//        if !isBotRoom() && IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
-//            navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)
-//            navigaitonItem.rightViewContainer?.addAction {
-//                DispatchQueue.main.async {
-//                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: (self.user?.id)!, isIncommmingCall: false)
-//                }
-//            }
-//        }
-        
-        navigaitonItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        self.tableView.contentInset = UIEdgeInsets(top: (navigationController.navigationBar.frame.height) * -1,left: 0,bottom: 0,right: 0);
-
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        currentPageName = "iGap.IGRegistredUserInfoTableViewController"
-        self.tableView.isUserInteractionEnabled = true
-        lblName.text = "PLACE_HOLDER_L_NAME".localizedNew
-        blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
-        lblPhone.text = "POD_TELPHONE".localizedNew
-        lblUsername.text = "FIELD_USERNAME".localizedNew
-        lblBio.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
-        lblSend.text = "PU_SENDMSG".localizedNew
-        lblConvert.text = "CONVERT_CHAT_TO_GROUP".localizedNew
-        lblDelete.text = "DELETE_CHAT".localizedNew
-        lblClearCache.text = "CLEAR_HISTORY".localizedNew
-        lblInchatSearch.text = "IN_CHAT_SEARCH".localizedNew
-        lblNotifications.text = "NOTIFICATIONS".localizedNew
-        lblSharedMedia.text = "SHAREDMEDIA".localizedNew
-
-        let navigationControllerr = self.navigationController as! IGNavigationController
-//                navigationControllerr.navigationBar.isHidden = true
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationControllerr.navigationBar.backgroundColor = .clear
-        navigationControllerr.navigationBar.isTranslucent = true
-        //Hint:- Only hides the gradient background View
-
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = true
-                print("FOUND IT")
-            }
-        }
-
+        self.view.bringSubviewToFront(avatarView)
 
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-
-        navigationControllerr.navigationBar.backgroundColor = .clear
-        navigationControllerr.navigationBar.isTranslucent = false
-        //Hint:- Only shows the gradient background View
-
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = false
-                print("FOUND IT")
-            }
-        }
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-    }
-
-    private func isBotRoom() -> Bool{
-        return (user?.isBot)!
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
-    }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        default:
-            return 0
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 4
-        case 1:
-            if isCloud() { // hide block contact for mine profile
-                return 2
-            }
-            
-            if isBotRoom() {
-                return 1
-            }
-            
-            return 3
-        case 2:
-            if IGHelperPromote.isPromotedRoom(userId: (user?.id)!) {
-                return 0
-            }
-            return 1
-        case 3:
-            return 1
-        default:
-            return 0
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if isCloud() && indexPath.section == 1 { // hide block contact for mine profile
-            if indexPath.row == 1 {
-                return super.tableView(tableView, cellForRowAt: IndexPath(row: indexPath.row + 1, section: 1))
-            }
-            return super.tableView(tableView, cellForRowAt: indexPath)
-        }
-        return super.tableView(tableView, cellForRowAt: indexPath)
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            if (user?.isInContacts)! && indexPath.row == 0 {
-                let alert = UIAlertController(title: "BTN_EDITE_CONTACT".localizedNew, message: nil, preferredStyle: .alert)
-                
-                alert.addTextField { (textField) in
-                    textField.placeholder = "PLACE_HOLDER_F_NAME".localizedNew
-                    textField.text = String(describing: (self.user?.firstName)!)
-                }
-                
-                alert.addTextField { (textField) in
-                    textField.placeholder = "PLACE_HOLDER_L_NAME".localizedNew
-                    textField.text = String(describing: (self.user?.lastName)!)
-                }
-                
-                alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { [weak alert] (_) in
-                    let firstname = alert?.textFields![0]
-                    let lastname = alert?.textFields![1]
-                    
-                    if firstname?.text != nil && !(firstname?.text?.isEmpty)! {
-                        self.contactEdit(phone: (self.user?.phone)!, firstname: (firstname?.text)!, lastname: (lastname?.text)!)
-                    } else {
-                        let alert = UIAlertController(title: "BTN_HINT".localizedNew, message: "MSG_PLEASE_ENTER_F_NAME".localizedNew, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }))
-                
-                alert.addAction(UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .default, handler: nil))
-                
-                self.present(alert, animated: true, completion: nil)
-                
-            } else if indexPath.row == 3 {
-                if let bio = user?.bio {
-                    DispatchQueue.main.async {
-                        let alert = UIAlertController(title: "SETTING_PAGE_ACCOUNT_BIO".localizedNew, message: bio, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                }
-            }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                createChat()
-                break
-                
-            case 1:
-                
-                if isCloud() {
-                    self.tableView.isUserInteractionEnabled = false
-                    self.performSegue(withIdentifier: "showCreateGroupPage", sender: self)
-                    break
-                }
-                
-                if let selectedUser = user {
-                    if selectedUser.isBlocked == true {
-                        unblockedContact()
-                    } else if selectedUser.isBlocked == false {
-                        blockedContact()
-                    }
-                }
-                break
-                
-            case 2:
-                self.tableView.isUserInteractionEnabled = false
-                self.performSegue(withIdentifier: "showCreateGroupPage", sender: self)
-                break
-                
-            default:
-                break
-            }
-        } else if indexPath.section == 2 && indexPath.row == 0 {
-            showDeleteActionSheet()
-        } else if indexPath.section == 3 && indexPath.row == 0 {
-            showClearHistoryActionSheet()
-        }
-    }
-    
-    private func contactEdit(phone: Int64, firstname: String, lastname: String?){
-        IGGlobal.prgShow(self.view)
-        IGUserContactsEditRequest.Generator.generate(phone: phone, firstname: firstname, lastname: lastname).success({ (protoResponse) in
-            
-            if let contactEditResponse = protoResponse as? IGPUserContactsEditResponse {
-                IGUserContactsEditRequest.Handler.interpret(response: contactEditResponse)
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    self.displayNameLabel.text = contactEditResponse.igpFirstName + " " + contactEditResponse.igpLastName
-                }
-            }
-        }).error ({ (errorCode, waitTime) in
-            switch errorCode {
-            case .timeout:
-                DispatchQueue.main.async {
-                    IGGlobal.prgHide()
-                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            default:
-                break
-            }
-        }).send()
-    }
-    
+    //MARK: -Avatar List Request
     func requestToGetAvatarList() {
         if let currentUserId = user?.id {
             IGUserAvatarGetListRequest.Generator.generate(userId: currentUserId).success({ (protoResponse) in
@@ -341,11 +195,11 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
                         let responseAvatars = IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
                         self.avatars = responseAvatars
                         /*
-                        for avatar in self.avatars {
-                            let avatarView = IGImageView()
-                            avatarView.setImage(avatar: avatar)
-                        }
-                        */
+                         for avatar in self.avatars {
+                         let avatarView = IGImageView()
+                         avatarView.setImage(avatar: avatar)
+                         }
+                         */
                     default:
                         break
                     }
@@ -366,8 +220,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
             }).send()
         }
     }
-
-    
+    //MARK: - Avatar Tap Handler
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
             if let userAvatar = user?.avatar {
@@ -376,7 +229,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         }
     }
     
-
+    //MARK: - Show Avatar
     func showAvatar(avatar : IGAvatar) {
         var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
             return IGMedia(avatar: avatar)
@@ -404,66 +257,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         present(galleryPreview, animated: true, completion: nil)
         activityIndicatorView.startAnimating()
     }
-    
-    func scheduledTimerWithTimeInterval(){
-        // Scheduling timer to Call the function **Countdown** with the interval of 1 seconds
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
-    }
-    
-    @objc func updateCounting(){
-    }
-    
-    
-    
-    
-    func setThumbnailForAttachments() {
-        /*
-        if let attachment = self.userAvatar?.file {
-            self.currentPhoto.isHidden = false
-        }
-        */
-    }
-    
-    
-    func didTapOnTrashButton() {
-//        timer.invalidate()
-//        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
-//        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
-//            let thisAvatarId = self.avatars[index].id
-//            IGUserAvatarDeleteRequest.Generator.generate(avatarID: thisAvatarId).success({ (protoResponse) in
-//                DispatchQueue.main.async {
-//                    switch protoResponse {
-//                    case let userAvatarDeleteResponse as IGPUserAvatarDeleteResponse :
-//                        IGUserAvatarDeleteRequest.Handler.interpret(response: userAvatarDeleteResponse)
-//                        self.avatarPhotos?.remove(at: index)
-//                        self.scheduledTimerWithTimeInterval()
-//                    default:
-//                        break
-//                    }
-//                }
-//            }).error ({ (errorCode, waitTime) in
-//                self.timer.invalidate()
-//                self.scheduledTimerWithTimeInterval()
-//
-//                switch errorCode {
-//                case .timeout:
-//                    DispatchQueue.main.async {
-//                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-//                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                        alert.addAction(okAction)
-//                        self.present(alert, animated: true, completion: nil)
-//                    }
-//                default:
-//                    break
-//                }
-//
-//            }).send()
-//
-//        }
-    }
-
-    
-    
+    //MARK: - Creat Chat With User
     func createChat() {
         if let selectedUser = user {
             let hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
@@ -474,11 +268,11 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
                     case let chatGetRoomResponse as IGPChatGetRoomResponse:
                         let roomId = IGChatGetRoomRequest.Handler.interpret(response: chatGetRoomResponse)
                         
-                        //segue to created chat
+                        //HINT: -segue to created chat
                         if roomId == self.previousRoomId {
                             _ = self.navigationController?.popViewController(animated: true)
                         } else {
-                            //segue
+                            //HINT: -segue
                             IGClientGetRoomRequest.Generator.generate(roomId: roomId).success({ (protoResponse) in
                                 DispatchQueue.main.async {
                                     switch protoResponse {
@@ -527,7 +321,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         }
         
     }
-    
+    //MARK: - Block Current Contact
     func blockedContact() {
         if let selectedUser = user {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -538,7 +332,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
                     switch protoResponse {
                     case let blockedProtoResponse as IGPUserContactsBlockResponse:
                         let _ = IGUserContactsBlockRequest.Handler.interpret(response: blockedProtoResponse)
-                        self.blockContactLabel.text = "UNBLOCK".localizedNew
+//                        self.blockContactLabel.text = "UNBLOCK".localizedNew
                         self.hud.hide(animated: true)
                     default:
                         break
@@ -562,6 +356,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         }
     }
     
+    //MARK: - UnBlock Current Contact
     func unblockedContact() {
         if let selectedUser = user {
             self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -572,7 +367,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
                     switch protoResponse {
                     case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
                         _ = IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
-                        self.blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
+//                        self.blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
                         self.hud.hide(animated: true)
                     default:
                         break
@@ -595,6 +390,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         }
     }
     
+    //AMRK: - Show Delete Pop Over
     func showDeleteActionSheet() {
         let deleteChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: "BTN_DELETE".localizedNew, style:.default , handler: { (alert: UIAlertAction) -> Void in
@@ -623,6 +419,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         present(deleteChatConfirmAlertView, animated: true, completion: nil)
     }
     
+    //MARK: - Delete Chat with User
     func deleteChat(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
@@ -658,7 +455,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
             
         }).send()
     }
-    
+    //MARK: -Show Clear History Action Sheet
     func showClearHistoryActionSheet() {
         let clearChatConfirmAlertView = UIAlertController(title: "MSG_SURE_TO_DELETE_CHAT_HISTORY".localizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let deleteAction = UIAlertAction(title: "CLEAR_HISTORY".localizedNew, style:.default , handler: {
@@ -687,7 +484,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         }
         present(clearChatConfirmAlertView, animated: true, completion: nil)
     }
-    
+    //MARK: - Clear Chat Message History
     func clearChatMessageHistory(room: IGRoom) {
         self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         self.hud.mode = .indeterminate
@@ -723,14 +520,16 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
             
         }).send()
     }
-
+    
+    //MARK: - Detect if is Cloud
     func isCloud() -> Bool{
         if user != nil {
             return user?.id == IGAppManager.sharedManager.userID()
         }
         return false
     }
-
+    
+    //MARK: -Segue Prepare Handler
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
         destination.mode = "ConvertChatToGroup"
@@ -738,76 +537,169 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         let tmp = user
         destination.baseUser = user
     }
-    private var lastContentOffset: CGFloat = 0
-    private var hasScaledDown: Bool = false
+    var newHeaderViewHeight : CGFloat = 144
 
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        //Hint:- status bar default height * -1
-        let tmpOffset = (UIApplication.shared.statusBarFrame.height) * -1
-        let minHeight = (self.navigationController?.navigationBar.frame.size.height ?? 44) + (UIApplication.shared.statusBarFrame.height)
-        print(scrollView.contentOffset.y)
-        //Hint:- this line is responsible for checking if user was scrolling Up,then maximise height of viewBG
-        //and prevent user avatar image to scroll with scrollview
-        
-        // user scrolled Up
+    //MARK: -Scroll View Delegate and DataS ource
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y: CGFloat = maxNavHeight -  (scrollView.contentOffset.y + maxNavHeight)
+        let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
+        heightConstraints.constant = height
+//        let newHeaderViewHeight: CGFloat = heightConstraints.constant - y
 
-        if scrollView.contentOffset.y > minHeight {
-            //Hint:- the value is for adding to Height
-            let tmpDiff = (scrollView.contentOffset.y) - minHeight
-
-            viewBG.frame = CGRect(x: 0 , y: 0, width: self.view.frame.width, height: 127 + tmpDiff )
-        }
-        if scrollView.contentOffset.y >= 53 && scrollView.contentOffset.y <= 66 {
+        if (scrollView.contentOffset.y == -77) {
             if !hasScaledDown {
-                let scrollOffset = (scrollView.contentOffset.y)
-                let tmpDiff = (scrollOffset) - minHeight
-                print(tmpDiff)
-
-    //            avatarView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-
-                let originalTransform = avatarView.transform
-                let scaledTransform = originalTransform.scaledBy(x: 0.35, y: 0.35)
-                let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 70, y: -70)
-                UIView.animate(withDuration: 0.7, animations: {
+            // move up
+            let scaledTransform = originalTransform.scaledBy(x: 0.8, y: 0.8)
+            let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.avatarView.transform = scaledAndTranslatedTransform
+                self.hasScaledDown = true
+            })}
+        }
+        else {
+            if hasScaledDown {
+                // move up
+                let scaledTransform = originalTransform.scaledBy(x: 1.0, y: 1.0)
+                let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
+                UIView.animate(withDuration: 0.3, animations: {
                     self.avatarView.transform = scaledAndTranslatedTransform
-                    self.hasScaledDown = true
-                    self.avatarView.translatesAutoresizingMaskIntoConstraints = false
-                    if #available(iOS 11.0, *) {
-                        self.avatarView.removeConstraint(self.bottomConstraint)
-
-                        self.avatarView.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-                        self.avatarView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-                    } else {
-                        self.avatarView.rightAnchor.constraint(equalTo: self.view.layoutMarginsGuide.rightAnchor, constant: 0).isActive = true
-                        self.avatarView.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 10).isActive = true
-                    }
-
-                }, completion: {finished in
-                    
-                    UIView.animate(withDuration: 0.5, animations: {
-                        
-                        //UIView.animate(withDuration: 0.5, animations: {
-//                            let navigaitonItem = self.navigationItem as! IGNavigationItem
-//                            navigaitonItem.setNavigationBarForRoom(self.room!)
-//                        })
-//                        self.avatarView.isHidden = true
-                    })
-                }
-                )
-
-            }
+                    self.hasScaledDown = false
+                })}
             
         }
-        if scrollView.contentOffset.y >= 62 {
+        self.view.layoutIfNeeded()
+
+    }
+
+    
+
+    // MARK: -TableViewDelegates and Datasource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+
+        case 1:
+            return 2
+
+        case 2:
+            if IGHelperPromote.isPromotedRoom(userId: (user?.id)!) {
+                return 0
+            }
+            return 1
+
+        case 3:
+            if isCloud() { // hide block contact for mine profile
+                return 2
+            }
+            
+            if isBotRoom() {
+                return 1
+            }
+            
+            return 3
+        default:
+            return 4
         }
-
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // user scrolled Down
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCell", for: indexPath as IndexPath) as! IGProfileUserCell
+        let cellTwo = tableView.dequeueReusableCell(withIdentifier: "IGProfileUSerCellTypeTwo", for: indexPath as IndexPath) as! IGProfileUSerCellTypeTwo
+        switch indexPath.section {
+        case 0:
+            if let bio = user!.bio {
+                cell.initLabels(nameLblString: bio)
+            } else {
+                cell.initLabels(nameLblString: "")
+            }
 
-        if scrollView.contentOffset.y <= CGFloat(tmpOffset) {
-            scrollView.contentOffset.y = CGFloat(tmpOffset)
+            return cell
+
+        case 1:
+            switch indexPath.row {
+            case 0:
+                cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                return cellTwo
+                
+            case 1:
+                cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
+                return cell
+                
+            default:
+                return cell
+                
+            }
+
+        case 2:
+            cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+            return cell
+        case 3:
+            switch indexPath.row {
+                case 0 :
+                    cell.initLabels(nameLblString: "CLEAR_HISTORY".localizedNew)
+                    return cell
+
+                case 1 :
+                    cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                    return cell
+
+                case 2 :
+                    cell.initLabels(nameLblString: "BLLOCK_CONTACT".localizedNew,changeColor: true)
+                    return cell
+                default:
+                    return cell
+
+            }
+        default:
+            return cell
         }
 
     }
+    //MARK: -Header and Footer
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let containerFooterView = view as! UITableViewHeaderFooterView
+        containerFooterView.textLabel?.textAlignment = containerFooterView.textLabel!.localizedNewDirection
+        switch section {
+        case 0 :
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        case 1 :
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        case 2 :
+            containerFooterView.textLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        default :
+            break
+            
+        }
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        case 1:
+            return "NOTIFICATION_SOUNDS".localizedNew
+        case 2:
+            return "SHAREDMEDIA".localizedNew
+        default:
+            return ""
+        }
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 80
+        case 3:
+            return 10
+
+        default:
+            return 50
+        }
+    }
+
+    
 }

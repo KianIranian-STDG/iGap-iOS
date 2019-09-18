@@ -567,6 +567,17 @@ class IGNavigationItem: UINavigationItem {
             
         }
     }
+    func setNavigationBarForProfileRoom(_ room: IGRoom) {
+        if  IGGlobal.shouldMultiSelect {
+            addNavigationBackItem()
+        }
+        else {
+//            setRoomAvatar(room)
+//            setRoomInfo(room)
+            addNavigationBackItem()
+            
+        }
+    }
     
     func updateNavigationBarForRoom(_ room: IGRoom) {
         if IGGlobal.shouldMultiSelect {
@@ -623,7 +634,7 @@ class IGNavigationItem: UINavigationItem {
     private func initilizeNavigationBarForRoom(_ room: IGRoom) {}
     
     private func setRoomAvatar(_ room: IGRoom) {
-        let avatarViewFrame = CGRect(x: 0, y: 0, width: 40, height:40)
+        let avatarViewFrame = CGRect(x: 0, y: 0, width: 35, height:35)
         
         let avatarView = IGAvatarView(frame: avatarViewFrame)
         avatarView.setRoom(room, showMainAvatar: true)

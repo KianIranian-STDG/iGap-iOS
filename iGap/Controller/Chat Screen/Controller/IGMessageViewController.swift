@@ -1438,7 +1438,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     func openUserProfile(){
-        let profile = IGRegistredUserInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+        let profile = IGProfileUserViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
         profile.user = self.selectedUserToSeeTheirInfo
         profile.previousRoomId = self.room?.id
         profile.room = self.room

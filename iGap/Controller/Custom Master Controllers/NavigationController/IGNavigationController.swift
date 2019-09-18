@@ -114,7 +114,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
 
         //2.6
         colorViewNavBar.frame = CGRect(x: 0, y: 0, width: navigationBar.frame.width, height: navigationBar.frame.height)
-        
+        colorViewNavBar.tag = 10001
         //2.7
         colorViewNavBar.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: navigationBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: navigationBar.frame.size.width/2, bottom: 0, right: navigationBar.frame.size.width/2), resizingMode: .stretch))
         

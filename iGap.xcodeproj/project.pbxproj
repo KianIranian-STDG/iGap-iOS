@@ -30,6 +30,9 @@
 		8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */; };
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
+		8E4472A42331FE5100900244 /* IGProfileUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */; };
+		8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A523320D6000900244 /* IGProfileUserCell.swift */; };
+		8E4472A82332102600900244 /* IGProfileUSerCellTypeTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */; };
 		8E5495CF22F02BB1001D30E1 /* SMTwoInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */; };
 		8E5495D122F02BEF001D30E1 /* SMTwoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */; };
 		8E5495D322F03104001D30E1 /* customCardNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */; };
@@ -761,6 +764,9 @@
 		8E25A7C422674BB6004A5BC0 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
+		8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUserViewController.swift; sourceTree = "<group>"; };
+		8E4472A523320D6000900244 /* IGProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUserCell.swift; sourceTree = "<group>"; };
+		8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUSerCellTypeTwo.swift; sourceTree = "<group>"; };
 		8E5495CE22F02BB1001D30E1 /* SMTwoInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SMTwoInputView.xib; sourceTree = "<group>"; };
 		8E5495D022F02BEF001D30E1 /* SMTwoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTwoInputView.swift; sourceTree = "<group>"; };
 		8E5495D222F03104001D30E1 /* customCardNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customCardNumberTextField.swift; sourceTree = "<group>"; };
@@ -2413,6 +2419,9 @@
 			isa = PBXGroup;
 			children = (
 				FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */,
+				8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */,
+				8E4472A523320D6000900244 /* IGProfileUserCell.swift */,
+				8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */,
 				FA60ADD3200BA39B004EE151 /* IGReport.swift */,
 			);
 			path = "Chat and User Info";
@@ -3474,6 +3483,7 @@
 				FAE07F0222059CA400BE3593 /* IGStickerCell.swift in Sources */,
 				93193F321E5813030039AC0C /* IGGroupInfoMemberListTableViewCell.swift in Sources */,
 				FA0953401E1B97700043ED3F /* IGAccountViewController.swift in Sources */,
+				8E4472A42331FE5100900244 /* IGProfileUserViewController.swift in Sources */,
 				FAE11243204E96FA009F402B /* IGCallsTableViewController.swift in Sources */,
 				FA09536A1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionMoreDetailsTableViewCell.swift in Sources */,
 				8E1F413422391A6F00910E30 /* FRHyperLabel.m in Sources */,
@@ -3784,6 +3794,7 @@
 				FA7CD4A322958431002918AD /* PaymentCell.swift in Sources */,
 				FA82524021DCA34F00C85F8A /* IGDeleteAccountReasonViewController.swift in Sources */,
 				FA0CC80B1E5D7D4400556283 /* RegexParser.swift in Sources */,
+				8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */,
 				FA09538F1E1B97E20043ED3F /* SSRadioButtonController.swift in Sources */,
 				FA90B72A20B53EBC00043C89 /* MessageReceiveObserver.swift in Sources */,
 				9366D98C1E363C2500998BA3 /* IGSettingAboutWebViewViewController.swift in Sources */,
@@ -3834,6 +3845,7 @@
 				FA0953691E1B97700043ED3F /* IGSettingPrivacyAndScurityAutoLockAfterTableViewController.swift in Sources */,
 				FA85066622670703002EEBF7 /* chargeWalletTableViewController.swift in Sources */,
 				8E599D7B2325331C00D75376 /* TGPControlsTicksProtocol.swift in Sources */,
+				8E4472A82332102600900244 /* IGProfileUSerCellTypeTwo.swift in Sources */,
 				FA930D9A1E5B178F00069EE1 /* SSLSecurity.swift in Sources */,
 				FA9CE15B2068DF4F0056C866 /* IGSelectCountryCell.swift in Sources */,
 				FAAFB63E20F099F3004D8CCD /* IGMplRequest.swift in Sources */,

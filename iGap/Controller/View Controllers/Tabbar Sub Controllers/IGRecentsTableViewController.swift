@@ -348,7 +348,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
 
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        initialiseSearchBar()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
@@ -1630,11 +1633,11 @@ extension IGRecentsTableViewController {
             //self.loadMoreRooms()
         }
         if lastContentOffset <= 0 {
-            initialiseSearchBar(offset : lastContentOffset)
+            initialiseSearchBar()
         }
         
     }
-    private func initialiseSearchBar(offset : CGFloat) {
+    private func initialiseSearchBar() {
         
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .blue
@@ -1652,6 +1655,7 @@ extension IGRecentsTableViewController {
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
                 searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
             }
 
             if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {

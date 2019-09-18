@@ -42,6 +42,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     var isMaleChecked : Bool! = false
     var isFMaleChecked : Bool! = false
 
+    var tmpGender: IGGender = .unknown
+    var tmpEmail: String = ""
+
     private var goToSettings : Bool! = false
     @IBOutlet weak var stack0: UIStackView!
     @IBOutlet weak var stack1: UIStackView!
@@ -297,6 +300,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 
     }
     func textManagment() {
+
         lblBioTop.text = (userInDb.bio)
         btnName.setTitle((userInDb.displayName), for: .normal)
         btnName.titleLabel?.font = UIFont.igFont(ofSize: 14)
@@ -309,7 +313,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         tfUserName.text = (userInDb.username)
         tfBio.text = (userInDb.bio)
         
-        var tmpGender: IGGender = .unknown
         if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
             tmpGender = sessionInfo.gender
         }
@@ -618,6 +621,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }).send()
         }
     }
+    //
     func gradientImage(withColours colours: [UIColor], location: [Double], view: UIView) -> UIImage {
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
@@ -743,7 +747,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
             //gotTo EditMode
         else {
-            
+            USERinDB()
+            textManagment()
             isEditMode = true
             shouldSave = false
             btnEditProfile.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
@@ -1014,6 +1019,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
 
     }
+    @IBAction func emailTextFieldChanged(_ sender: UITextField) {
+    }
     
     private func saveChanges(nameChnaged: Bool! = false,userNameChnaged: Bool! = false, bioChnaged: Bool! = false, emailChanged : Bool! = false, referralChnaged : Bool! = false, genderChanged : Bool! = false) {
         SMLoading.showLoadingPage(viewcontroller: self)
@@ -1045,17 +1052,50 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         IGUserProfileUpdateUsernameRequest.Generator.generate(username: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
             self.canCallNextRequest = true
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let setUsernameProtoResponse as IGPUserProfileUpdateUsernameResponse:
+                    IGUserProfileUpdateUsernameRequest.Handler.interpret(response: setUsernameProtoResponse)
+         
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
                 switch errorCode {
                 case .timeout:
-                    
-                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-                    self.canCallNextRequest = false
+                    break
+                    
+                case .userProfileUpdateUsernameIsInvaild:
+                    let alert = UIAlertController(title: "Timeout", message: "Username is invalid", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .userProfileUpdateUsernameHasAlreadyBeenTaken:
+                    let alert = UIAlertController(title: "Timeout", message: "Username has already been taken by another user", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .userProfileUpdateLock:
+                    let time = waitTime
+                    let remainingMiuntes = time!/60
+                    let alert = UIAlertController(title: "Error", message: "You can not change your username because you've recently changed it. waiting for \(remainingMiuntes) minutes", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true,completion: nil)
+                    break
+                    
                 default:
                     break
                 }
@@ -1068,6 +1108,15 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         IGUserProfileSetNicknameRequest.Generator.generate(nickname: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
             self.canCallNextRequest = true
+            
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let setNicknameProtoResponse as IGPUserProfileSetNicknameResponse:
+                    IGUserProfileSetNicknameRequest.Handler.interpret(response: setNicknameProtoResponse)
+                default:
+                    break
+                }
+            }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 switch errorCode {
@@ -1089,6 +1138,15 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         IGUserProfileSetBioRequest.Generator.generate(bio: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
             self.canCallNextRequest = true
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let userProfileSetBioResponse as IGPUserProfileSetBioResponse:
+                    IGUserProfileSetBioRequest.Handler.interpret(response: userProfileSetBioResponse)
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
         }).error ({ (errorCode, waitTime) in
             SMLoading.hideLoadingPage()
             DispatchQueue.main.async {
@@ -1111,6 +1169,16 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         IGUserProfileSetEmailRequest.Generator.generate(userEmail: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
             self.canCallNextRequest = true
+            
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let setUserEmailProtoResponse as IGPUserProfileSetEmailResponse:
+                    IGUserProfileSetEmailRequest.Handler.interpret(response: setUserEmailProtoResponse)
+                    
+                default:
+                    break
+                }
+            }
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
@@ -1133,6 +1201,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         IGUserProfileSetRepresentativeRequest.Generator.generate(phone: current).success({ (protoResponse) in
             SMLoading.hideLoadingPage()
             self.canCallNextRequest = true
+            if let response = protoResponse as? IGPUserProfileSetRepresentativeResponse {
+                IGUserProfileSetRepresentativeRequest.Handler.interpret(response: response)
+            }
+
         }).error ({ (errorCode, waitTime) in
             DispatchQueue.main.async {
                 SMLoading.hideLoadingPage()
