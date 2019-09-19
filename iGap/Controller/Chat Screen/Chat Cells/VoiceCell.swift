@@ -180,7 +180,6 @@ class VoiceCell: AbstractCell {
         if self.attachment?.status != .ready {
             indicatorViewAbs.layer.cornerRadius = 16.0
             indicatorViewAbs.layer.masksToBounds = true
-            indicatorViewAbs.size = attachment.sizeToString()
             indicatorViewAbs.delegate = self
         }
         

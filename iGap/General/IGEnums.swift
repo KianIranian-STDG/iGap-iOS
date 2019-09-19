@@ -307,6 +307,11 @@ enum IGClientAction: Int {
     }
 }
 
+enum IGProgressType {
+    case download
+    case upload
+}
+
 enum IGDeleteReasen: Int {
     case other
     

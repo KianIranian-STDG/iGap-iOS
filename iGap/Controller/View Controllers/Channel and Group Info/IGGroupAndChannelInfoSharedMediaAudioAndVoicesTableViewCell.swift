@@ -99,7 +99,6 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
             setImage(file: attachment) //self.mediaCoverImageView.setThumbnail(for: attachment)
             
             if attachment.status != .ready {
-                self.indicatorView.size = attachment.sizeToString()
                 self.indicatorView.delegate = self
             }
             
@@ -120,7 +119,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
             
             switch attachment.type {
             case .audio, .voice:
-                self.indicatorView.setFileType(.downloadFile)
+                self.indicatorView.setFileType(.download)
                 self.indicatorView.setState(attachment.status)
                 if attachment.status == .downloading || attachment.status == .uploading {
                     self.indicatorView.setPercentage(attachment.downloadUploadPercent)

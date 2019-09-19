@@ -1103,10 +1103,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 if !(attachment.isInvalidated) {
                     imgMediaAbs.setThumbnail(for: attachment)
                     if attachment.status != .ready {
-                        indicatorViewAbs?.size = attachment.sizeToString()
                         indicatorViewAbs?.delegate = self
                     }
-                    indicatorViewAbs?.shouldShowSize = true
                     break
 
                 }
@@ -1145,9 +1143,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             }
             
             if self.isIncommingMessage || !fileExist {
-                indicatorViewAbs?.setFileType(.downloadFile)
+                indicatorViewAbs?.setFileType(.download)
             } else {
-                indicatorViewAbs?.setFileType(.uploadFile)
+                indicatorViewAbs?.setFileType(.upload)
             }
             indicatorViewAbs?.setState(attachment.status)
             if attachment.status == .downloading || attachment.status == .uploading {
@@ -1710,12 +1708,12 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             txtTimeVideoAbs = UILabel()
             txtTimeVideoAbs?.textColor = UIColor.white
-            txtTimeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.semibold)
+            txtTimeVideoAbs!.font = UIFont.igFont(ofSize: 10)
             viewInfoVideoAbs.addSubview(txtTimeVideoAbs)
             
             txtSizeVideoAbs = UILabel()
             txtSizeVideoAbs?.textColor = UIColor.white
-            txtSizeVideoAbs!.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.semibold)
+            txtSizeVideoAbs!.font = UIFont.igFont(ofSize: 10)
             viewInfoVideoAbs.addSubview(txtSizeVideoAbs)
         }
         

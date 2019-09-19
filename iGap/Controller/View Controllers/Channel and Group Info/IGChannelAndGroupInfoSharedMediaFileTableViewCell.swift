@@ -80,7 +80,6 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
             Progress(totalUnitCount: 100).completedUnitCount = 0
             
             if attachment.status != .ready {
-                self.indicatorView.size = attachment.sizeToString()
                 self.indicatorView.delegate = self
             }
             
@@ -99,7 +98,7 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
             
             switch attachment.type {
             case .file:
-                self.indicatorView.setFileType(.downloadFile)
+                self.indicatorView.setFileType(.download)
                 self.indicatorView.setState(attachment.status)
                 if attachment.status == .downloading || attachment.status == .uploading {
                     self.indicatorView.setPercentage(attachment.downloadUploadPercent)

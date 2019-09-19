@@ -196,6 +196,6 @@ class IGAttachmentManager: NSObject {
             time += "0\(secondTime)"
         }
         
-        return time
+        return time.inLocalizedLanguage()
     }
 }

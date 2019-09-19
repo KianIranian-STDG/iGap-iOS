@@ -105,9 +105,8 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
             ***/
 
             self.downloadIndicator.setPercentage(0.0)
-            self.downloadIndicator.setFileType(.downloadFile)
+            self.downloadIndicator.setFileType(.download)
             self.downloadIndicator.clipsToBounds = true
-            self.downloadIndicator.shouldShowSize = false
             self.downloadIndicator.setState(.downloading)
             
             IGDownloadManager.sharedManager.download(file: wallpaperFile!, previewType: .originalFile, completion: { (attachment) -> Void in
@@ -138,7 +137,7 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
     
     private func customIndicatorView(){
         downloadIndicator.layer.cornerRadius = 40
-        downloadIndicator.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        downloadIndicator.backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.6).cgColor
     }
     
 }
