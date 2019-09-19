@@ -91,7 +91,7 @@ class FileCell: AbstractCell {
         if txtFileName == nil {
             txtFileName = UILabel()
             txtFileName.textColor = UIColor.dialogueBoxInfo()
-            txtFileName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
+            txtFileName.font = UIFont.igFont(ofSize: 12)
             txtFileName.lineBreakMode = .byTruncatingMiddle
             txtFileName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtFileName)
@@ -100,7 +100,7 @@ class FileCell: AbstractCell {
         if txtFileSize == nil {
             txtFileSize = UILabel()
             txtFileSize.textColor = UIColor.dialogueBoxInfo()
-            txtFileSize.font = UIFont.systemFont(ofSize: 11.0, weight: UIFont.Weight.medium)
+            txtFileSize.font = UIFont.igFont(ofSize: 12)
             txtFileSize.numberOfLines = 0
             mainBubbleViewAbs.addSubview(txtFileSize)
         }
@@ -158,8 +158,6 @@ class FileCell: AbstractCell {
             indicatorViewAbs.layer.masksToBounds = true
             indicatorViewAbs.delegate = self
         }
-        
-        indicatorViewAbs.shouldShowSize = true
     }
 }
 

@@ -73,7 +73,6 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
                 self.sharedMediaImageView.setThumbnail(for: msgAttachment)
                 
                 if msgAttachment.status != .ready {
-                    self.mediaDownloadIndicator.size = msgAttachment.sizeToString()
                     self.mediaDownloadIndicator.delegate = self
                 }
             default:
@@ -94,7 +93,7 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
             
             switch attachment.type {
             case .video, .image:
-                self.mediaDownloadIndicator.setFileType(.downloadFile)
+                self.mediaDownloadIndicator.setFileType(.download)
                 self.mediaDownloadIndicator.setState(attachment.status)
                 if attachment.status == .downloading ||  attachment.status == .uploading {
                     self.mediaDownloadIndicator.setPercentage(attachment.downloadUploadPercent)

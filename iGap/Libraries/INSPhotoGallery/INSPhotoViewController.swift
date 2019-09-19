@@ -109,22 +109,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
         ViewWithDownloadIndicator.frame.size.width = 100
         ViewWithDownloadIndicator.frame.size.height = 100
 
-        if isAvatar {
-        if currentIndexOfImage == nil {
-            ViewWithDownloadIndicator.size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sizesArray[0]!)
-        }
-        else {
-            ViewWithDownloadIndicator.size = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: sizesArray[currentIndexOfImage] ?? 0)
-        }
-            self.ViewWithDownloadIndicator.shouldShowSize = true
-
-        }
-        else {
-           
-            self.ViewWithDownloadIndicator.shouldShowSize = false
-
-        }
-        self.ViewWithDownloadIndicator.setFileType(.downloadFile)
+        self.ViewWithDownloadIndicator.setFileType(.download)
         self.ViewWithDownloadIndicator.clipsToBounds = true
         self.ViewWithDownloadIndicator.setState(.readyToDownload)
         
@@ -170,7 +155,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
                     else {
                         self.scalingImageView.image = self.photo.thumbnailImage
                         
-                        ViewWithDownloadIndicator.setFileType(.downloadFile)
+                        ViewWithDownloadIndicator.setFileType(.download)
                         self.loadBtnDownload(state: true)
 
                     }
@@ -207,7 +192,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
                     else {
                         self.scalingImageView.image = self.photo.thumbnailImage
 
-                        ViewWithDownloadIndicator.setFileType(.downloadFile)
+                        ViewWithDownloadIndicator.setFileType(.download)
                         self.loadBtnDownload(state: true)
 
                     }
@@ -287,7 +272,7 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
             }
             
             if !fileExist {
-                ViewWithDownloadIndicator.setFileType(.downloadFile)
+                ViewWithDownloadIndicator.setFileType(.download)
             }
             ViewWithDownloadIndicator.setState(attachment.status)
             //if attachment.status == .downloading  {
