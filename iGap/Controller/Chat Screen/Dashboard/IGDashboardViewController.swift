@@ -90,9 +90,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        IGPaymentView.sharedInstance.show(on: UIApplication.shared.keyWindow!)
-    }
     
     private func registerCellsNib(){
         self.collectionView!.register(DashboardCellUnknown.nib(), forCellWithReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier())

@@ -69,7 +69,7 @@ class IGPaymentView: UIView {
         
         setupInitialUI()
         
-//        addPanGesture()
+        //        addPanGesture()
     }
     
     private func setupInitialUI() {
@@ -123,7 +123,7 @@ class IGPaymentView: UIView {
         self.parentView = parentView
         self.title = paymentStatusData.info?.product?.title
         self.payToken = nil
-//        self.paymentData = paymentData
+        //        self.paymentData = paymentData
         parentView.addSubview(self)
         parentView.addMaskView() {
             // on maske view hide
