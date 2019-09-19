@@ -398,13 +398,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91S-Or-W0m">
-                                                    <rect key="frame" x="16" y="12" width="45.5" height="20"/>
+                                                    <rect key="frame" x="16" y="8.5" width="45.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRo-2U-11P">
-                                                    <rect key="frame" x="71.5" y="12" width="287.5" height="20"/>
+                                                    <rect key="frame" x="71.5" y="8.5" width="287.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <color key="textColor" red="0.61953866479999997" green="0.61964780090000005" blue="0.61953175069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -431,7 +431,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECs-Te-zPT">
-                                                    <rect key="frame" x="16" y="12" width="45.5" height="20"/>
+                                                    <rect key="frame" x="16" y="8.5" width="45.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -464,6 +464,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="144" id="9DD-VO-i8e"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gY-ha-TLc">
+                                <rect key="frame" x="0.0" y="144" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ie-2U-n7l" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="260" y="94" width="100" height="100"/>
@@ -514,8 +518,12 @@
                             <constraint firstItem="euW-lP-Q7G" firstAttribute="top" secondItem="enP-0C-N1g" secondAttribute="top" id="YiJ-xb-VTc"/>
                             <constraint firstItem="og4-qC-38v" firstAttribute="top" secondItem="7Ra-z2-pm4" secondAttribute="bottom" constant="4" id="aB4-yG-alC"/>
                             <constraint firstItem="iwt-dn-46G" firstAttribute="trailing" secondItem="0ie-2U-n7l" secondAttribute="trailing" constant="15" id="cjd-cR-YZg"/>
+                            <constraint firstItem="iwt-dn-46G" firstAttribute="trailing" secondItem="2gY-ha-TLc" secondAttribute="trailing" id="int-AH-3CV"/>
                             <constraint firstItem="EiC-JQ-pge" firstAttribute="top" secondItem="og4-qC-38v" secondAttribute="bottom" constant="4" id="jZh-Np-sIz"/>
+                            <constraint firstItem="2gY-ha-TLc" firstAttribute="top" secondItem="7Ra-z2-pm4" secondAttribute="bottom" id="p1W-Iz-8d3"/>
+                            <constraint firstItem="2gY-ha-TLc" firstAttribute="bottom" secondItem="0ie-2U-n7l" secondAttribute="bottom" id="pyk-9h-o6Y"/>
                             <constraint firstItem="7Ra-z2-pm4" firstAttribute="top" secondItem="enP-0C-N1g" secondAttribute="top" id="urg-TI-927"/>
+                            <constraint firstItem="2gY-ha-TLc" firstAttribute="leading" secondItem="iwt-dn-46G" secondAttribute="leading" id="vaY-eK-LGw"/>
                             <constraint firstItem="0ie-2U-n7l" firstAttribute="leading" secondItem="atv-wh-4vz" secondAttribute="trailing" constant="8" id="yAm-jg-usD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iwt-dn-46G"/>

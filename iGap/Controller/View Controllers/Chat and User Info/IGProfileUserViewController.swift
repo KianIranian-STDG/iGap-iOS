@@ -67,7 +67,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationControllerr.interactivePopGestureRecognizer?.delegate = self
 
         navigationControllerr.navigationBar.isTranslucent = true
@@ -544,30 +544,17 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y: CGFloat = maxNavHeight -  (scrollView.contentOffset.y + maxNavHeight)
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
+        let range = height / headerViewMaxHeight
         heightConstraints.constant = height
+        heightConstraints.constant = height
+        let scaledTransform = originalTransform.scaledBy(x: max(0.7,range), y: max(0.7,range))
+        let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
+        UIView.animate(withDuration: 0.3, animations: {
+            self.avatarView.transform = scaledAndTranslatedTransform
+            self.hasScaledDown = true
+        })
 //        let newHeaderViewHeight: CGFloat = heightConstraints.constant - y
 
-        if (scrollView.contentOffset.y == -77) {
-            if !hasScaledDown {
-            // move up
-            let scaledTransform = originalTransform.scaledBy(x: 0.8, y: 0.8)
-            let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
-            UIView.animate(withDuration: 0.3, animations: {
-                self.avatarView.transform = scaledAndTranslatedTransform
-                self.hasScaledDown = true
-            })}
-        }
-        else {
-            if hasScaledDown {
-                // move up
-                let scaledTransform = originalTransform.scaledBy(x: 1.0, y: 1.0)
-                let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.avatarView.transform = scaledAndTranslatedTransform
-                    self.hasScaledDown = false
-                })}
-            
-        }
         self.view.layoutIfNeeded()
 
     }
@@ -693,7 +680,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 70
+            return 60
         case 3:
             return 10
 

@@ -23,6 +23,8 @@ class IGNavigationItem: UINavigationItem {
     var centerViewContainer: IGTappableView?
     var leftViewContainer:   IGTappableView?
     var backViewContainer:   IGTappableView?
+    var backViewContainer1:   IGTappableView?
+    var CallandVideoCallContainer:   IGTappableView?
     var callViewContainer:   IGTappableView?
     var returnToCall:        IGTappableView?
     var navigationController: IGNavigationController?
@@ -148,6 +150,71 @@ class IGNavigationItem: UINavigationItem {
         addNavigationBackItem()
     }
     
+    func addNavigationLeftButtonsProfileItem(_ room: IGRoom) {
+        if IGCall.callPageIsEnable {
+            return
+        }
+        
+        var userId: Int64 = 0
+        
+        if let id = room.chatRoom?.peer?.id {
+            userId = id
+        }
+
+
+
+        
+        //////
+        //self.hidesBackButton = true
+        let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
+        backViewContainer = IGTappableView(frame: backViewFrame)
+        let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
+        backViewContainer1 = IGTappableView(frame: backViewFrame1)
+        let callItemLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        callItemLabel.text = ""
+        callItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+        
+        backArrowLabel.text = ""
+        backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+        
+        callItemLabel.textColor = .white
+        backArrowLabel.textColor = .white
+        backViewContainer?.addSubview(callItemLabel)
+        backViewContainer1?.addSubview(backArrowLabel)
+        let backBarButton = UIBarButtonItem(customView: backViewContainer!)
+        let backBarButton1 = UIBarButtonItem(customView: backViewContainer1!)
+        self.leftBarButtonItems = [backBarButton1,backBarButton]
+        self.title = ""
+        //////
+        //Hint: - back Action Handler
+        backViewContainer1?.addAction {
+            
+            IGGlobal.shouldShowChart = false
+            self.backViewContainer?.isUserInteractionEnabled = false
+            let numberOfPages = self.navigationController?.viewControllers.count
+            if IGGlobal.shouldMultiSelect {
+                self.delegate?.diselect()
+            }
+            else {
+                if numberOfPages == 2  {
+                    IGGlobal.shouldMultiSelect = false
+                    isDashboardInner = false
+                    currentPageName = ""
+                    _ = self.navigationController?.popViewController(animated: true)
+                } else {
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+                
+            }
+        }
+        //Hint: - Call Action Handler
+        backViewContainer!.addAction {
+            DispatchQueue.main.async {
+                (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false)
+            }
+        }
+    }
     func addNavigationBackItem() {
         //self.hidesBackButton = true
         let backViewFrame = CGRect(x:0, y:0, width: 50, height:50)
@@ -568,15 +635,7 @@ class IGNavigationItem: UINavigationItem {
         }
     }
     func setNavigationBarForProfileRoom(_ room: IGRoom) {
-        if  IGGlobal.shouldMultiSelect {
-            addNavigationBackItem()
-        }
-        else {
-//            setRoomAvatar(room)
-//            setRoomInfo(room)
-            addNavigationBackItem()
-            
-        }
+            addNavigationLeftButtonsProfileItem(room)
     }
     
     func updateNavigationBarForRoom(_ room: IGRoom) {
@@ -772,6 +831,111 @@ class IGNavigationItem: UINavigationItem {
             self.centerViewSubLabel!.text = "\(channelRoom.participantCount)" + "MEMBER".localizedNew
         }
     }
+    
+    private func setProfileRoomInfo(_ room: IGRoom) {
+        
+        if IGCall.callPageIsEnable {
+            return
+        }
+        
+        var userId: Int64 = 0
+        
+        if let id = room.chatRoom?.peer?.id {
+            userId = id
+        }
+        
+        self.centerViewContainer?.subviews.forEach { $0.removeFromSuperview() }
+        self.centerViewContainer = IGTappableView()
+        let callView = IGTappableView()
+        
+        let titleContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 45))
+        
+        self.titleView = titleContainerView
+        titleContainerView.addSubview(self.centerViewContainer!)
+        titleContainerView.addSubview(callView)
+        
+        callView.snp.makeConstraints { (make) in
+            make.top.equalTo(titleContainerView.snp.top)
+            make.bottom.equalTo(titleContainerView.snp.bottom)
+            make.trailing.equalTo(titleContainerView.snp.trailing)
+            make.width.equalTo(50)
+        }
+        
+        self.centerViewContainer?.snp.makeConstraints { (make) in
+            make.top.equalTo(titleContainerView.snp.top)
+            make.bottom.equalTo(titleContainerView.snp.bottom)
+            make.leading.equalTo(titleContainerView.snp.leading)
+            make.trailing.equalTo(callView.snp.leading)
+        }
+        
+        if userId != 0 && userId != IGAppManager.sharedManager.userID() && !room.isReadOnly && !(room.chatRoom?.peer?.isBot)! { // check isReadOnly for iGapMessanger
+            let callViewLabel = UILabel()
+            callViewLabel.textColor = UIColor.iGapBarsInfo()
+            callViewLabel.textAlignment = .center
+            callViewLabel.font = UIFont.iGapFonticon(ofSize: 18.0)
+            callViewLabel.text = ""
+            callView.addSubview(callViewLabel)
+            callViewLabel.snp.makeConstraints { (make) in
+                make.centerX.equalTo(callView.snp.centerX)
+                make.centerY.equalTo(callView.snp.centerY)
+            }
+            
+            callView.addAction {
+                DispatchQueue.main.async {
+                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false)
+                }
+            }
+        }
+        
+        
+        let verifiedFrame = CGRect(x: 20, y: 5, width: 25, height: 25)
+        let imgVerified = UIImageView(frame: verifiedFrame)
+        imgVerified.image = UIImage(named:"IG_Verify")
+        
+        if room.mute == .mute {
+            let muteFrame = CGRect(x: 20, y: 5, width: 25, height: 25)
+            let imgMute = UIImageView(frame: muteFrame)
+            imgMute.image = UIImage(named:"IG_Chat_List_Mute")
+            
+            imgMute.image = imgMute.image!.withRenderingMode(.alwaysTemplate)
+            imgMute.tintColor = UIColor.iGapBarsInfo()
+            
+            self.centerViewContainer!.addSubview(imgMute)
+            imgMute.snp.makeConstraints { (make) in
+                make.top.equalTo(self.centerViewMainLabel!.snp.top).offset(3)
+                make.right.equalTo(self.centerViewMainLabel!.snp.right).offset(20)
+            }
+            
+            if isVerified(room: room) {
+                self.centerViewContainer!.addSubview(imgVerified)
+                imgVerified.snp.makeConstraints { (make) in
+                    make.width.equalTo(20)
+                    make.height.equalTo(20)
+                    make.top.equalTo(self.centerViewMainLabel!.snp.top).offset(3)
+                    make.right.equalTo(imgMute.snp.right).offset(25)
+                }
+            }
+        } else {
+            if isVerified(room: room) {
+                self.centerViewContainer!.addSubview(imgVerified)
+                imgVerified.snp.makeConstraints { (make) in
+                    make.width.equalTo(20)
+                    make.height.equalTo(20)
+                    make.top.equalTo(self.centerViewMainLabel!.snp.top).offset(3)
+                    make.right.equalTo(self.centerViewMainLabel!.snp.right).offset(25)
+                }
+            }
+        }
+        
+        if let peer = room.chatRoom?.peer {
+            if room.currenctActionsByUsers.first?.value.1 != .typing {
+            }
+        } else if let groupRoom = room.groupRoom {
+        } else if let channelRoom = room.channelRoom {
+        }
+    }
+    
+    
     
     private func isVerified(room: IGRoom) -> Bool {
         var verified = false

@@ -475,6 +475,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     //MARK: Room List actions
+    func scrollToFirstRow() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+
     @objc private func userDidLogin() {
         IGHelperGetShareData.manageShareDate()
         self.checkAppVersion()
@@ -932,6 +937,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        scrollToFirstRow()
+
         if (segue.identifier == "showRoomMessages") {
             
             let destination = segue.destination as! IGMessageViewController
