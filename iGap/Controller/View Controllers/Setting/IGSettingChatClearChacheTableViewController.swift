@@ -92,6 +92,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
         lblVoices.text = "VOICES".localizedNew
         lblAudios.text = "AUDIOS".localizedNew
         lblGifs.text = "GIFS".localizedNew
+        lblStickers.text = "STICKERS".localizedNew
         lblClearData.text = "SETTING_CC_CLEAR_DATA".localizedNew
     }
     
