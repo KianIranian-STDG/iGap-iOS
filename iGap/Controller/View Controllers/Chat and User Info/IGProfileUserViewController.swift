@@ -67,7 +67,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationControllerr.interactivePopGestureRecognizer?.delegate = self
 
         navigationControllerr.navigationBar.isTranslucent = true
@@ -83,6 +83,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let navigationControllerr = self.navigationController as! IGNavigationController
         
         navigationControllerr.navigationBar.backgroundColor = .clear
+        navigationControllerr.navigationBar.setBackgroundImage(nil, for: .default)
         navigationControllerr.navigationBar.isTranslucent = false
         //Hint:- Only shows the gradient background View
         
@@ -692,7 +693,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 80
+            return 70
         case 3:
             return 10
 

@@ -1652,7 +1652,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         else {
 //            navigationControllerr.addSearchBar(state: "False")
         }
-
         currentRoomId = 0
         currentPageName = ""
         IGGlobal.shouldMultiSelect = false
@@ -1664,7 +1663,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         }
         notificationToken?.invalidate()
         self.view.endEditing(true)
-        super.viewWillDisappear(animated)
         IGRecentsTableViewController.visibleChat[(room?.id)!] = false
         IGAppManager.sharedManager.currentMessagesNotificationToekn = nil
         self.sendCancelTyping()

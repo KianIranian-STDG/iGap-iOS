@@ -449,52 +449,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         navItemInit()
 
 
-        if navigationItem.searchController == nil {
-            let gradient = CAGradientLayer()
-            let sizeLength = UIScreen.main.bounds.size.height * 2
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-            
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-            gradient.locations = orangeGradientLocation as [NSNumber]
-            
-            
-            
-            if #available(iOS 11.0, *) {
-                
-                if let navigationBar = self.navigationController?.navigationBar {
-                    navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-                }
-                
-                
-//                IGGlobal.setLanguage()
-                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
-                
-                
-                if navigationItem.searchController == nil {
-                    navigationItem.searchController = searchController
-                    navigationItem.hidesSearchBarWhenScrolling = true
-                }
-            } else {
-                tableView.tableHeaderView = searchController.searchBar
-            }
-
-        }
+        
         isfromPacket = false
         
-////        searchBar.placeholder = "PLACE_HOLDER_SEARCH".RecentTableViewlocalizedNew
-//        if SMLangUtil.loadLanguage() == "fa" {
-////            searchBar.semanticContentAttribute = .forceRightToLeft
-//
-//        }
-//        else {
-////            searchBar.semanticContentAttribute = .forceLeftToRight
-//
-//        }
 
-        
         DispatchQueue.main.async {
             if let navigationItem = self.tabBarController?.navigationItem as? IGNavigationItem {
                 IGTabBarController.currentTabStatic = .Recent
@@ -1627,7 +1585,7 @@ extension IGRecentsTableViewController {
             //self.loadMoreRooms()
         }
         if lastContentOffset <= 0 {
-            initialiseSearchBar()
+//            initialiseSearchBar()
         }
         
     }
