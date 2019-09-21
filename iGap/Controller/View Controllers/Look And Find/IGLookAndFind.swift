@@ -32,20 +32,13 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for view:UIView in (searchBar?.subviews)!
-        {
-            for subView:UIView in (view.subviews)
-            {
-                if ( subView is UIButton )
-                {
-                    let cancelBut = subView as! UIButton
-                    cancelBut.backgroundColor = .clear
-                    cancelBut.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-                    cancelBut.titleLabel?.font = UIFont.igFont(ofSize: 16)
-                    //do stuff with cancelButton here
-                }
-            }
+        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+            searchBarCancelButton.tintColor = UIColor.black
         }
+
+        
         searchBar.delegate = self
         searchBar.hero.id = "searchBar"
         setNavigationItem()
