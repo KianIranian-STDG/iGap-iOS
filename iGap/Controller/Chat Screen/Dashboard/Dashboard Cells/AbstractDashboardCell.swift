@@ -466,7 +466,7 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
                 
 //                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
-                break
+//                break
                 
                 
                 
