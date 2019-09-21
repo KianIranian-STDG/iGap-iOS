@@ -435,7 +435,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         lblSelectedMessages.font = UIFont.igFont(ofSize: 17,weight: .bold)
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
             RightBarConstraints.constant = 38
@@ -1988,7 +1989,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func stickerViewState(enable: Bool) {
         
         isStickerKeyboard = enable
-        
+        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
             self.txtSticker.isHidden = true
             
