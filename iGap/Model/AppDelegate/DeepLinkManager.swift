@@ -16,7 +16,7 @@ enum DeeplinkType {
     case messages(Messages)
     case payment(message: String, status: PaymentStatus, orderId: String)
     case dashboard
-    case chatRoom(room: IGRoom)
+    case chatRoom(room: IGRoom, messageId: Int64?)
     case request(id: String)
 }
 

@@ -49,7 +49,6 @@ class IGHelperAlert {
         let alert = CustomAlertDirectPay(data: data)
         alert.show(animated: true)
     }
-
     
     func showAlert(data: IGStructAdditionalButton) {
         if let value = data.value, !value.isEmpty {

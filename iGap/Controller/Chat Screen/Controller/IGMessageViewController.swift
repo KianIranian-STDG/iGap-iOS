@@ -55,7 +55,6 @@ class IGHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
 }
 
 class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGestureRecognizerDelegate, UIDocumentInteractionControllerDelegate, CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CNContactPickerDelegate, EPPickerDelegate, UIDocumentPickerDelegate, AdditionalObserver, MessageViewControllerObserver, UIWebViewDelegate, StickerTapListener , UITextFieldDelegate,HandleReciept,HandleBackNavigation {

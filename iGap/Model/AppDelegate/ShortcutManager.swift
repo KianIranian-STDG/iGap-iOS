@@ -35,7 +35,7 @@ class ShortcutParser {
             guard let roomId = shortcut.userInfo?["roomId"] else {  return nil }
             let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", roomId as! CVarArg)
             if let room = try? Realm().objects(IGRoom.self).filter(predicate).first {
-                return .chatRoom(room: room)
+                return .chatRoom(room: room, messageId: nil)
             } else {
                 return nil
             }

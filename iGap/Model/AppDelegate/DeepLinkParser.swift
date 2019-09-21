@@ -28,10 +28,10 @@ class DeepLinkParser {
                 let RoomID = roomId
                 let messageID = pathComponents[1]
                 let strAsNSString = messageID as NSString
-                _ = strAsNSString.longLongValue
+                let messageIdInt64 = strAsNSString.longLongValue
                 let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID)
                 if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                    return DeeplinkType.chatRoom(room: room)
+                    return DeeplinkType.chatRoom(room: room, messageId: messageIdInt64)
                 }
             }
         case "dashboard":

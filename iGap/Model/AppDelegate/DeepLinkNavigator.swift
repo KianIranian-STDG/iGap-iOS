@@ -20,9 +20,14 @@ class DeeplinkNavigator {
             displayAlert(title: "Messages Root")
         case .messages(.details(id: let id)):
             displayAlert(title: "Messages Details \(id)")
-        case .chatRoom(room: let room):
+        case .chatRoom(room: let room, messageId: let messageID):
 //            displayAlert(title: "chat room id: \(room.id)")
+            UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: false)
+            let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            chatPage.room = room
+            UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
             break
+            
         case .request(id: let id):
             displayAlert(title: "Request Details \(id)")
         case .payment(message: let message, status: let st, orderId: let id):

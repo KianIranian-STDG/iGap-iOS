@@ -452,13 +452,13 @@ class AbstractDashboardCell: UICollectionViewCell {
                     
                 } else {
                     let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                    UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
                     return
                 }
+                
             } else {
                 let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-                IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
+                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
                 return
             }
 
@@ -827,8 +827,8 @@ class AbstractDashboardCell: UICollectionViewCell {
             break
             
         case .internetPackageMenu:
-            let financialHistory = IGInternetPackageViewController.instantiateFromAppStroryboard(appStoryboard: .InternetPackage)
-            UIApplication.topViewController()!.navigationController!.pushViewController(financialHistory, animated:true)
+            let internetPackage = IGInternetPackageViewController.instantiateFromAppStroryboard(appStoryboard: .InternetPackage)
+            UIApplication.topViewController()!.navigationController!.pushViewController(internetPackage, animated:true)
             break
             
         case .charity:
