@@ -99,7 +99,7 @@ class IGGlobal {
         IGGlobal.timeDic[group]?.lastMillis = currentTime
     }
     internal static func getThread(_ string: String? = nil){
-        print("TTT || ", string ,Thread.current.isMainThread)
+        print("TTT || ", string ?? "" ,Thread.current.isMainThread)
     }
     internal static func isKeyPresentInUserDefaults(key: String) -> Bool {
         return UserDefaults.standard.object(forKey: key) != nil
@@ -1025,6 +1025,7 @@ extension UIImageView {
                     } else {
                         self.image = UIImage(named:"IG_Message_Cell_File_Generic")
                     }
+                    self.image = UIImage(named:"IG_Message_Cell_File")
                     
                 } else {
                     self.image = UIImage(named:"IG_Message_Cell_File_Generic")

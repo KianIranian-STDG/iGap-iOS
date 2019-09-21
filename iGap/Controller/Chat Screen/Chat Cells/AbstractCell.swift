@@ -561,7 +561,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func manageCellBubble(){
       
         /************ Bubble View ************/
-        mainBubbleViewAbs.layer.cornerRadius = 18.0
+        mainBubbleViewAbs.layer.cornerRadius = 7.0
         if finalRoomMessage.type == .sticker || finalRoomMessage.type == .location {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
@@ -569,10 +569,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
         
         /************ Bubble Size ************/
-            mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width
-            mainBubbleViewHeightAbs.constant = messageSizes.bubbleSize.height - 18
-
-
+        mainBubbleViewWidthAbs.constant = messageSizes.bubbleSize.width
+        mainBubbleViewHeightAbs.constant = messageSizes.bubbleSize.height - 18
         
         /********* Bubble Direction *********/
         mainBubbleViewAbs.snp.makeConstraints { (make) in
@@ -590,14 +588,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(999).constraint
                 } else {
                     if IGGlobal.shouldMultiSelect {
-                        
                         leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(36).priority(999).constraint
-                        
-                    }
-                    else {
+                    } else {
                         leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(16).priority(999).constraint
-                        
-                    }                }
+                    }
+                }
                 trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(250).constraint
                 
             } else {
@@ -605,37 +600,16 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 if #available(iOS 11.0, *) {
                     mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                 }
-                    trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(999).constraint
-
+                trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(999).constraint
                 leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(250).constraint
             }
-            if IGHelperBot.createdViewDic[realmRoomMessage.id] != nil {
-                DispatchQueue.main.async {
-                    self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
-                    self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
-
-                    if (self.room.type == .chat) && (self.room.chatRoom?.peer!.isBot)! {
-                        self.mainBubbleViewAbs.layer.cornerRadius = 18.0
-                    } else {
-                        self.mainBubbleViewAbs.layer.cornerRadius = 18.0
-                    }
-                }
-            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
+            
+            if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
-                self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
                 self.mainBubbleViewAbs.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
                 
             } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
                 let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
-                self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
-                self.mainBubbleViewAbs.layer.cornerRadius = 18.0
-                
-            } else {
-                self.mainBubbleViewWidthAbs.constant = self.messageSizes.bubbleSize.width
-                self.mainBubbleViewHeightAbs.constant = self.messageSizes.bubbleSize.height - 18
-                self.mainBubbleViewAbs.layer.cornerRadius = 18
             }
             
             if leadingAbs != nil {
