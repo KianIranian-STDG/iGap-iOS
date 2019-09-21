@@ -2134,10 +2134,14 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 return
             } else if notification.name == UIResponder.keyboardWillHideNotification  {
                 //hidding keyboard
-                bottomConstraint = 0.0
+                bottomConstraint = 0.0 
             } else {
                 //showing keyboard
-                bottomConstraint = keyboardEndFrame.size.height
+                if UIDevice.current.hasNotch {
+                    bottomConstraint = keyboardEndFrame.size.height - 34
+                } else {
+                    bottomConstraint = keyboardEndFrame.size.height
+                }
             }
             
             UIView.animate(withDuration: animationDuration, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(animationCurveOption)), animations: {
