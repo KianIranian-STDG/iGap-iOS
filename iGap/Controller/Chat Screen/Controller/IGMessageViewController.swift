@@ -545,7 +545,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
             if self.room?.type == .group {
                 
-                 let profile = IGGroupInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                 let profile = IGProfileGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                  profile.selectedGroup = self.room?.groupRoom
                  profile.room = self.room
                  self.navigationController!.pushViewController(profile, animated: true)

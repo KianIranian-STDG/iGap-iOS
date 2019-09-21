@@ -34,7 +34,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
-
+        
+        
         return searchController
 
     }()
@@ -337,6 +338,10 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if navigationItem.searchController == nil {
             navigationItem.searchController = searchController
             navigationItem.hidesSearchBarWhenScrolling = true
+                
+                navigationItem.searchController!.searchBar.delegate = self
+
+                
             }
         } else {
             tableView.tableHeaderView = searchController.searchBar
@@ -358,7 +363,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 //        initialiseSearchBar()
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
-//        searchBar.delegate = self
         self.tableView.register(IGRoomListtCell.self, forCellReuseIdentifier: cellId)
         
         
@@ -1579,7 +1583,10 @@ extension IGRecentsTableViewController {
             break
         }
     }
-    
+    @objc
+    func didTapOnSearchBar(sender:UITapGestureRecognizer) {
+        print("taped")
+    }
 }
 
 
@@ -1670,8 +1677,12 @@ extension IGRecentsTableViewController: UISearchBarDelegate
     }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         IGGlobal.heroTabIndex = (self.tabBarController?.selectedIndex)!
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-        
+        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+            searchBarCancelButton.tintColor = UIColor.white
+        }
+
         let lookAndFind = UIStoryboard(name: "IGSettingStoryboard", bundle: nil).instantiateViewController(withIdentifier: "IGLookAndFind")
         lookAndFind.hero.isEnabled = true
         //        self.searchBar.hero.id = "searchBar"

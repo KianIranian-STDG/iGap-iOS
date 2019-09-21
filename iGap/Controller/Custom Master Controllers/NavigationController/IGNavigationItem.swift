@@ -151,69 +151,145 @@ class IGNavigationItem: UINavigationItem {
     }
     
     func addNavigationLeftButtonsProfileItem(_ room: IGRoom) {
-        if IGCall.callPageIsEnable {
-            return
-        }
-        
-        var userId: Int64 = 0
-        
-        if let id = room.chatRoom?.peer?.id {
-            userId = id
-        }
-
-
-
-        
-        //////
-        //self.hidesBackButton = true
-        let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
-        backViewContainer = IGTappableView(frame: backViewFrame)
-        let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
-        backViewContainer1 = IGTappableView(frame: backViewFrame1)
-        let callItemLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        callItemLabel.text = ""
-        callItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
-        
-        backArrowLabel.text = ""
-        backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
-        
-        callItemLabel.textColor = .white
-        backArrowLabel.textColor = .white
-        backViewContainer?.addSubview(callItemLabel)
-        backViewContainer1?.addSubview(backArrowLabel)
-        let backBarButton = UIBarButtonItem(customView: backViewContainer!)
-        let backBarButton1 = UIBarButtonItem(customView: backViewContainer1!)
-        self.leftBarButtonItems = [backBarButton1,backBarButton]
-        self.title = ""
-        //////
-        //Hint: - back Action Handler
-        backViewContainer1?.addAction {
+        switch room.type {
+        case .chat :
+            if IGCall.callPageIsEnable {
+                return
+            }
             
-            IGGlobal.shouldShowChart = false
-            self.backViewContainer?.isUserInteractionEnabled = false
-            let numberOfPages = self.navigationController?.viewControllers.count
-            if IGGlobal.shouldMultiSelect {
-                self.delegate?.diselect()
+            var userId: Int64 = 0
+            
+            if let id = room.chatRoom?.peer?.id {
+                userId = id
             }
-            else {
-                if numberOfPages == 2  {
-                    IGGlobal.shouldMultiSelect = false
-                    isDashboardInner = false
-                    currentPageName = ""
-                    _ = self.navigationController?.popViewController(animated: true)
-                } else {
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
+            //////
+            //self.hidesBackButton = true
+            let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
+            backViewContainer = IGTappableView(frame: backViewFrame)
+            let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
+            backViewContainer1 = IGTappableView(frame: backViewFrame1)
+            let callItemLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            callItemLabel.text = ""
+            callItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            
+            backArrowLabel.text = ""
+            backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            
+            callItemLabel.textColor = .white
+            backArrowLabel.textColor = .white
+            backViewContainer?.addSubview(callItemLabel)
+            backViewContainer1?.addSubview(backArrowLabel)
+            let backBarButton = UIBarButtonItem(customView: backViewContainer!)
+            let backBarButton1 = UIBarButtonItem(customView: backViewContainer1!)
+            self.leftBarButtonItems = [backBarButton1,backBarButton]
+            self.title = ""
+            //////
+            //Hint: - back Action Handler
+            backViewContainer1?.addAction {
                 
+                IGGlobal.shouldShowChart = false
+                self.backViewContainer?.isUserInteractionEnabled = false
+                let numberOfPages = self.navigationController?.viewControllers.count
+                if IGGlobal.shouldMultiSelect {
+                    self.delegate?.diselect()
+                }
+                else {
+                    if numberOfPages == 2  {
+                        IGGlobal.shouldMultiSelect = false
+                        isDashboardInner = false
+                        currentPageName = ""
+                        _ = self.navigationController?.popViewController(animated: true)
+                    } else {
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }
             }
-        }
-        //Hint: - Call Action Handler
-        backViewContainer!.addAction {
-            DispatchQueue.main.async {
-                (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false)
+            //Hint: - Call Action Handler
+            backViewContainer!.addAction {
+                DispatchQueue.main.async {
+                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: userId, isIncommmingCall: false)
+                }
             }
+        case .group :
+            if IGCall.callPageIsEnable {
+                return
+            }
+            
+            var groupId: Int64 = 0
+            var currentRole: IGGroupMember.IGRole = .member
+            if let myRole = room.groupRoom?.role {
+                currentRole = myRole
+            }
+
+            if let id = room.groupRoom?.id{
+                groupId = id
+            }
+            
+            
+            
+            
+            //////
+            //self.hidesBackButton = true
+            let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
+            backViewContainer = IGTappableView(frame: backViewFrame)
+            let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
+            backViewContainer1 = IGTappableView(frame: backViewFrame1)
+            let editItemLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            editItemLabel.text = ""
+            editItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            
+            backArrowLabel.text = ""
+            backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            if currentRole == .admin || currentRole == .owner {
+                editItemLabel.isHidden = false
+            } else {
+                editItemLabel.isHidden = true
+
+            }
+            editItemLabel.textColor = .white
+            backArrowLabel.textColor = .white
+            backViewContainer?.addSubview(editItemLabel)
+            backViewContainer1?.addSubview(backArrowLabel)
+            let backBarButton = UIBarButtonItem(customView: backViewContainer!)
+            let backBarButton1 = UIBarButtonItem(customView: backViewContainer1!)
+            self.leftBarButtonItems = [backBarButton1,backBarButton]
+            self.title = ""
+            //////
+            //Hint: - back Action Handler
+            backViewContainer1?.addAction {
+                
+                IGGlobal.shouldShowChart = false
+                self.backViewContainer?.isUserInteractionEnabled = false
+                let numberOfPages = self.navigationController?.viewControllers.count
+                if IGGlobal.shouldMultiSelect {
+                    self.delegate?.diselect()
+                }
+                else {
+                    if numberOfPages == 2  {
+                        IGGlobal.shouldMultiSelect = false
+                        isDashboardInner = false
+                        currentPageName = ""
+                        _ = self.navigationController?.popViewController(animated: true)
+                    } else {
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }
+            }
+            if currentRole == .admin || currentRole == .owner {
+                //Hint: - Edit Group Action Handler
+                backViewContainer!.addAction {
+                    
+                }
+
+            }
+        default:
+            break
         }
+
     }
     func addNavigationBackItem() {
         //self.hidesBackButton = true
@@ -221,13 +297,18 @@ class IGNavigationItem: UINavigationItem {
         backViewContainer = IGTappableView(frame: backViewFrame)
         backViewContainer!.backgroundColor = UIColor.clear
         let backArrowImageView = UIImageView(frame: CGRect(x: 5, y: 10, width: 25, height: 25))
+        let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        
+        backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+        backArrowLabel.textColor = .white
+
         if IGGlobal.shouldMultiSelect {
-            backArrowImageView.image = UIImage(named: "ig_cross_icon")
+            backArrowLabel.text = ""
         }
         else {
-            backArrowImageView.image = UIImage(named: "IG_Nav_Bar_BackButton")
+            backArrowLabel.text = ""
         }
-        backViewContainer?.addSubview(backArrowImageView)
+        backViewContainer?.addSubview(backArrowLabel)
         let backBarButton = UIBarButtonItem(customView: backViewContainer!)
         self.leftBarButtonItem = backBarButton
         self.title = ""

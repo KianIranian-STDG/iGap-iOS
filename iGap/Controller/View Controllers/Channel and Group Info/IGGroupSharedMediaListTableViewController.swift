@@ -53,7 +53,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
     
     private func initNavigation(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: "DONE_BTN".localizedNew, title: "SHAREDMEDIA".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SHAREDMEDIA".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
