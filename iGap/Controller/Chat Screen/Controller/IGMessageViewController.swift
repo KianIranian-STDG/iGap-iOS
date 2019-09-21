@@ -1608,6 +1608,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         
         if self.room!.isInvalidated {
             self.navigationController?.popViewController(animated: true)
