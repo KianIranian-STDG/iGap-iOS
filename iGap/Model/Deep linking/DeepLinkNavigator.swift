@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import IGProtoBuff
 
 class DeeplinkNavigator {
     static let shared = DeeplinkNavigator()
@@ -23,9 +24,36 @@ class DeeplinkNavigator {
         case .chatRoom(room: let room, messageId: let messageID):
 //            displayAlert(title: "chat room id: \(room.id)")
             UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: false)
-            let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-            chatPage.room = room
-            UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+            
+            guard let messageId = messageID else {
+                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                chatPage.room = room
+                UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+                break
+            }
+            IGGlobal.prgShow()
+            IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: room.id, firstMessageID: messageId, reachMessageId: 0, limit: 1, direction: .up, onMessageReceive: { (messages, direction) in
+                IGGlobal.prgHide()
+            }).successPowerful({ (responseProto, requestWrapper) in
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
+//                    let identity = requestWrapper.identity as! IGStructClientGetRoomHistoryIdentity
+//                    let reachMessageIdRequest: Int64! = identity.reachMessageId
+                    
+                    if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
+                        if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
+                            IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true))
+                        }
+                    }
+                    
+                    let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    chatPage.room = room
+                    chatPage.deepLinkMessageId = messageID
+                    UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+                }
+            }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
+                IGGlobal.prgHide()
+            }).send()
             break
             
         case .request(id: let id):

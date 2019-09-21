@@ -102,19 +102,20 @@ class IGPaymentView: UIView {
         self.topIconLbl.textColor = UIColor.darkText
         
         self.titleLbl.text = title
-        if let apiTitle = payment.info?.product?.title {
+        if let apiTitle = payment.info.product?.title {
             self.subTitleLbl.text = apiTitle
         }
-        if let description = payment.info?.product?.description {
+        if let description = payment.info.product?.description {
             self.descriptionLbl.text = description
         }
         self.amountDescriptionLbl.text = "PLACE_HOLDER_AMOUNT".localizedNew
-        if let price = payment.info?.price {
+        if let price = payment.info.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
         self.statusSV.isHidden = true
         self.acceptBtn.isHidden = false
         self.cancelBtn.setTitle("BTN_CANCEL".localizedNew, for: .normal)
+        self.acceptBtn.setTitle("PU_PAYMENT".localizedNew, for: .normal)
         self.cancelBtn.backgroundColor = UIColor.iGapRed()
     }
     

@@ -1950,6 +1950,18 @@
 			path = "Financial History";
 			sourceTree = "<group>";
 		};
+		FA0175B92336396C000B898E /* Deep linking */ = {
+			isa = PBXGroup;
+			children = (
+				FAB0B87B232F5664002E35AB /* DeepLinkManager.swift */,
+				FAB0B87D232F5D59002E35AB /* DeepLinkNavigator.swift */,
+				FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */,
+				FAB0B881232F7120002E35AB /* DeepLinkParser.swift */,
+				FAB0B883232F7DC2002E35AB /* NotificationParser.swift */,
+			);
+			path = "Deep linking";
+			sourceTree = "<group>";
+		};
 		FA03C19A20429437008812E3 /* Call */ = {
 			isa = PBXGroup;
 			children = (
@@ -3046,6 +3058,7 @@
 				FAA30F641DAA6ECA0061B8C9 /* Managers */,
 				FA7D021E1DB4DD9B009EE0CC /* Objects */,
 				FAF7960D1DAA39660030509B /* AppDelegate */,
+				FA0175B92336396C000B898E /* Deep linking */,
 				8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */,
 				8E01BC822293F06F0001C757 /* IGCustomModal.swift */,
 				945B127123251E9200DBF2DA /* IGPaymentView.swift */,
@@ -3058,11 +3071,6 @@
 			isa = PBXGroup;
 			children = (
 				FAF7960E1DAA39660030509B /* AppDelegate.swift */,
-				FAB0B87B232F5664002E35AB /* DeepLinkManager.swift */,
-				FAB0B87D232F5D59002E35AB /* DeepLinkNavigator.swift */,
-				FAB0B87F232F64EC002E35AB /* ShortcutManager.swift */,
-				FAB0B881232F7120002E35AB /* DeepLinkParser.swift */,
-				FAB0B883232F7DC2002E35AB /* NotificationParser.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";

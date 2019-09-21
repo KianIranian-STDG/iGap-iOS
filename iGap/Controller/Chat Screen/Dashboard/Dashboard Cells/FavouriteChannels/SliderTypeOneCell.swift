@@ -124,6 +124,7 @@ extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegat
             break
             
         case 4:
+            // check if user has choosen in app browser then open browser in app else open safari
             if IGHelperPreferences.shared.readBoolean(key: IGHelperPreferences.keyInAppBrowser) {
                 for ignoreLink in IGHelperOpenLink.ignoreLinks {
                     if selectedSlide.actionLink.contains(ignoreLink) {
@@ -138,6 +139,7 @@ extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegat
             break
             
         case 5:
+            // open url in app without showing it to user
             let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
             iGapBrowser.url = selectedSlide.actionLink
             iGapBrowser.htmlString = nil

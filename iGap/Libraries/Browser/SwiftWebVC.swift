@@ -121,6 +121,7 @@ public class SwiftWebVC: UIViewController {
     override public func loadView() {
         view = webView
         loadRequest(request)
+        webView.configuration.userContentController.add(self, name: "iosJsHandler")
     }
     
     override public func viewDidLoad() {
@@ -374,6 +375,26 @@ extension SwiftWebVC: WKNavigationDelegate {
                 UIApplication.shared.open(requestUrl, options: [:], completionHandler: nil)
 
             }
+        }
+    }
+}
+
+extension SwiftWebVC: WKScriptMessageHandler {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "iosJsHandler" {
+            IGGlobal.prgShow()
+            print(message.body)
+            IGApiPayment.shared.orderChech(token: message.body as! String, completion: { (success, payment) in
+                IGGlobal.prgHide()
+                if success {
+                    guard let paymentData = payment else {
+                        IGHelperAlert.shared.showErrorAlert()
+                        return
+                    }
+                    let paymentView = IGPaymentView.sharedInstance
+                    paymentView.show(on: UIApplication.shared.keyWindow!, title: self.navBarTitle.text ?? "", payToken: message.body as! String, payment: paymentData)
+                }
+            })
         }
     }
 }

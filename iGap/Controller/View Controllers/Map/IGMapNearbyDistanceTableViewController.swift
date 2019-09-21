@@ -129,7 +129,7 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
     
     func openChat(roomInfo: IGRoom){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
         roomVC.room = roomInfo
         self.navigationController!.pushViewController(roomVC, animated: true)
     }

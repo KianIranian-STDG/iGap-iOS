@@ -29,7 +29,7 @@ struct IGStructPayment: Decodable {
         }
     }
     
-    var info: Info?
+    var info: Info
     var redirectUrl: String?
     
     enum CodingKeys: String, CodingKey {

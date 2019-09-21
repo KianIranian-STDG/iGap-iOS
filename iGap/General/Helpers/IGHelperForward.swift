@@ -160,7 +160,7 @@ class IGHelperForward {
     
     private static func openChat(room: IGRoom, messageArray: [IGRoomMessage] = [], viewController: UIViewController){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
         roomVC.room = room
         roomVC.forwardedMessageArray = messageArray
         viewController.navigationController!.pushViewController(roomVC, animated: true)

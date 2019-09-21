@@ -328,7 +328,7 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     
     func openChat(){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
         roomVC.room = room
         self.navigationController!.pushViewController(roomVC, animated: true)
     }

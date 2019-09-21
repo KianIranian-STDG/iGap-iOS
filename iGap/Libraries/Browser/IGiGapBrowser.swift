@@ -41,9 +41,11 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             } else {
                 openWebView(url: self.url)
             }
+            webView.configuration.userContentController.add(self, name: "iosJsHandler")
         }
         else {
             openWebViewWithHTMLString(string: htmlString)
+            webView.configuration.userContentController.add(self, name: "iosJsHandler")
         }
     }
     
@@ -345,5 +347,25 @@ class IGiGapBrowser: UIViewController, UIGestureRecognizerDelegate {
             webViewProgressbar.startAnimating()
         }
         return true
+    }
+}
+
+extension IGiGapBrowser: WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "iosJsHandler" {
+            print(message.body)
+            IGGlobal.prgShow()
+            IGApiPayment.shared.orderChech(token: message.body as! String, completion: { (success, payment) in
+                IGGlobal.prgHide()
+                if success {
+                    guard let paymentData = payment else {
+                        IGHelperAlert.shared.showErrorAlert()
+                        return
+                    }
+                    let paymentView = IGPaymentView.sharedInstance
+                    paymentView.show(on: UIApplication.shared.keyWindow!, title: self.pageTitle, payToken: message.body as! String, payment: paymentData)
+                }
+            })
+        }
     }
 }

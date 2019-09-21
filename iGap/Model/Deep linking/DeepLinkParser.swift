@@ -21,18 +21,17 @@ class DeepLinkParser {
         var pathComponents = components.path.components(separatedBy: "/")
         // the first component is empty
         pathComponents.removeFirst()
-        
+        igap://resolve?domain=zoomit
         switch host {
         case "resolve":
-            if let roomId = pathComponents.first {
-                let RoomID = roomId
-                let messageID = pathComponents[1]
-                let strAsNSString = messageID as NSString
-                let messageIdInt64 = strAsNSString.longLongValue
-                let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID)
-                if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
-                    return DeeplinkType.chatRoom(room: room, messageId: messageIdInt64)
-                }
+            guard let queryItems = components.queryItems else { return nil }
+            let RoomID = self.getParameter(from: queryItems, param: "domain") ?? ""
+            let messageID = self.getParameter(from: queryItems, param: "messageId") ?? ""
+            let strAsNSString = messageID as NSString
+            let messageIdInt64 = strAsNSString.longLongValue
+            let predicate = NSPredicate(format: "channelRoom.publicExtra.username = %@", RoomID)
+            if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
+                return DeeplinkType.chatRoom(room: room, messageId: messageIdInt64)
             }
         case "dashboard":
             if let requestId = pathComponents.first {

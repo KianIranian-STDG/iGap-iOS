@@ -457,6 +457,19 @@ class AbstractDashboardCell: UICollectionViewCell {
                 }
                 
             } else {
+                
+//                let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
+//                iGapBrowser.url = ""
+//                iGapBrowser.htmlString = "<!DOCTYPE html><html>  <head><script>function hideText() {document.getElementById(\"demo\").style.display = \"none\";}function showText() {document.getElementById(\"demo\").style.display = \"block\";window.webkit.messageHandlers.iosJsHandler.postMessage(\"c53aa79e-c4eb-4755-a4f1-8653dc8eaaa0\");}</script></head><body><p id=\"demo\">Hello World.</p><input type=\"button\" onclick=\"showText()\" value=\"call payment trigger\"><input type=\"button\" onclick=\"hideText()\" value=\"Hide Text\"></body></html>"
+//                UIApplication.topViewController()!.navigationController?.pushViewController(iGapBrowser, animated: true)
+                
+                
+                
+//                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
+                break
+                
+                
+                
                 let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
                 return

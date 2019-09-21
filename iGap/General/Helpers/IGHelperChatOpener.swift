@@ -23,7 +23,7 @@ class IGHelperChatOpener {
         if IGRoom.existRoomInLocal(roomId: room.id) != nil {
             DispatchQueue.main.async {
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 roomVC.room = room
                 roomVC.openChatFromLink = false
                 viewController.navigationController!.pushViewController(roomVC, animated: true)
@@ -32,7 +32,7 @@ class IGHelperChatOpener {
             IGClientSubscribeToRoomRequest.Generator.generate(roomId: room.id).success ({ (responseProtoMessage) in
                 DispatchQueue.main.async {
                     let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                    let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                     roomVC.room = room
                     roomVC.openChatFromLink = true
                     viewController.navigationController!.pushViewController(roomVC, animated: true)
@@ -70,7 +70,7 @@ class IGHelperChatOpener {
      **/
     internal static func openRoom(room: IGRoom, viewController: UIViewController){
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+        let messagesVc = storyBoard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
         messagesVc.room = room
         UIApplication.topViewController()?.navigationController?.pushViewController(messagesVc, animated:false)
         UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)

@@ -287,7 +287,7 @@ class IGChannelAndGroupSharedMediaAudioAndLinkTableViewController: BaseTableView
             let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".localizedNew, style: .default, handler: { (action) in
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let chatPage = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 chatPage.room = room
                 self.navigationController!.pushViewController(chatPage, animated: true)
             })

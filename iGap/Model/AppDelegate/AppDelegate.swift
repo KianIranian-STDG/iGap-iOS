@@ -499,7 +499,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
 //        
 //        if host == "resolve" {
 //            let sb = UIStoryboard(name: "Main", bundle: .main)
-//            let secretVC = sb.instantiateViewController(withIdentifier: "messageViewController") as? IGMessageViewController
+//            let secretVC = sb.instantiateViewController(withIdentifier: "IGMessageViewController") as? IGMessageViewController
 //            let messageID : String?
 //            let RoomID : String?
 //            let _ : String?

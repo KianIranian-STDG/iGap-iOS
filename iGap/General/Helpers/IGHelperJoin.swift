@@ -115,7 +115,7 @@ class IGHelperJoin {
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             let openNow = UIAlertAction(title: "Open Now", style: .default, handler: { (action) in
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let chatPage = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 chatPage.room = room
                 self.viewController.navigationController!.pushViewController(chatPage, animated: true)
             })

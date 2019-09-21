@@ -123,6 +123,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
     var blurEffectView = UIVisualEffectView()
     
+    public var deepLinkMessageId: Int64?
     
     var dismissBtn : UIButton!
     @IBOutlet weak var pinnedMessageView: UIView!
@@ -283,8 +284,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var scrollToTopLimit:CGFloat = 20
     var messageSize = 0
     var page = 0
-    var firstId:Int64 = 0
-    var lastId:Int64 = 0
+    var firstId: Int64 = 0
+    var lastId: Int64 = 0
     
     var isEndOfScroll = false
     var lowerAllow = true
@@ -740,6 +741,9 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func startLoadMessage(){
         if messageLoader == nil {
             messageLoader = IGMessageLoader(room: self.room!)
+        }
+        if let messageId = deepLinkMessageId {
+            messageLoader.setDeepLinkMessageId(MessageId: messageId)
         }
         let hasUnread = messageLoader.hasUnread()
         let hasSaveState = messageLoader.hasSavedState()
@@ -5339,7 +5343,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
                                 IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                                 let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
                                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                                let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                                 roomVC.room = room
                                 self.navigationController!.pushViewController(roomVC, animated: true)
                             default:
@@ -5467,7 +5471,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
             let okAction = UIAlertAction(title: "GLOBAL_OK".MessageViewlocalizedNew, style: .default, handler: nil)
             let openNow = UIAlertAction(title: "OPEN_NOW".MessageViewlocalizedNew, style: .default, handler: { (action) in
                 let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let chatPage = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                let chatPage = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                 chatPage.room = room
                 self.navigationController!.pushViewController(chatPage, animated: true)
             })

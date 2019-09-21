@@ -111,6 +111,10 @@ class IGMessageLoader {
         return isShowLayoutUnreadMessage
     }
     
+    public func setDeepLinkMessageId(MessageId: Int64) {
+        self.savedScrollMessageId = MessageId
+    }
+    
     /*************************************************/
     /******************** Getters ********************/
     
