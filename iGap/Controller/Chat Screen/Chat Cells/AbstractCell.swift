@@ -562,7 +562,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
       
         /************ Bubble View ************/
         mainBubbleViewAbs.layer.cornerRadius = 18.0
-        if finalRoomMessage.type == .sticker {
+        if finalRoomMessage.type == .sticker || finalRoomMessage.type == .location {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
             mainBubbleViewAbs.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)

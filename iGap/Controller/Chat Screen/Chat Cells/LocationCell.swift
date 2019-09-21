@@ -83,6 +83,11 @@ class LocationCell: AbstractCell {
         
         if imgMediaAbs == nil {
             imgMediaAbs = IGImageView()
+            imgMediaAbs.layer.cornerRadius = 75
+            imgMediaAbs.layer.masksToBounds = true
+            imgMediaAbs.layer.borderWidth = 1
+            imgMediaAbs.layer.borderColor = UIColor.gray.cgColor
+            imgMediaAbs.contentMode = .scaleAspectFill
             mainBubbleViewAbs.addSubview(imgMediaAbs)
         }
     }

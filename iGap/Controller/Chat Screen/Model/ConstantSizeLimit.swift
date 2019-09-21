@@ -93,8 +93,8 @@ class CellSizeLimit: NSObject {
         }
         
         struct Location {
-            static let Width: CGFloat = 230.0
-            static let Height: CGFloat = 160.0
+            static let Width: CGFloat = 150.0
+            static let Height: CGFloat = 150.0
         }
         
         struct Contact {
