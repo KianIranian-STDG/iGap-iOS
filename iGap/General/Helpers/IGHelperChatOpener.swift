@@ -53,12 +53,13 @@ class IGHelperChatOpener {
     /**
      * open user profile
      **/
-    internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil, viewController: UIViewController){
+    internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil,roomType: String = "CHAT", viewController: UIViewController){
         let storyboard : UIStoryboard = UIStoryboard(name: "profile", bundle: nil)
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "IGProfileUserViewController") as! IGProfileUserViewController
         destinationVC.user = user
         destinationVC.previousRoomId = 0
         destinationVC.room = room
+        destinationVC.roomType = roomType
         viewController.navigationController!.pushViewController(destinationVC, animated: true)
         viewController.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -128,14 +129,14 @@ class IGHelperChatOpener {
      * open chat room if username is for room or bot otherwise open user profile
      * also if "isForwardEnable" is true directly open chat for send forward message
      **/
-    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?){
+    internal static func manageOpenChatOrProfile(viewController: UIViewController, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType, user: IGRegisteredUser?, room: IGRoom?,roomType: String? = "CHAT"){
         switch usernameType {
         case .user:
             if user == nil || (user?.isInvalidated)! {return}
             if (user!.isBot || IGGlobal.isForwardEnable()) {
                 IGHelperChatOpener.createChat(viewController: viewController, userId: (user?.id)!)
             } else {
-                IGHelperChatOpener.openUserProfile(user: user! , room: nil, viewController: viewController)
+                IGHelperChatOpener.openUserProfile(user: user! , room: nil,roomType: roomType!, viewController: viewController)
             }
             break
         case .room:

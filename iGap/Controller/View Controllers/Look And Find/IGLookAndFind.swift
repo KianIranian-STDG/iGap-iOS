@@ -338,7 +338,19 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
             dismiss(animated: true, completion: nil)
             
         } else {
-            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room)
+            var tmpType : String = "CHAT"
+            if searchResult.type == .bot || searchResult.type == .message {
+                tmpType = "CHAT"
+            } else if searchResult.type == .channel {
+                tmpType = "CHANNEL"
+            } else if  searchResult.type == .group {
+                tmpType = "GROUP"
+
+            } else {
+                tmpType = "CHAT"
+
+            }
+            IGHelperChatOpener.manageOpenChatOrProfile(viewController: self, usernameType: IGPClientSearchUsernameResponse.IGPResult.IGPType(rawValue: type)!, user: searchResult.user, room: room,roomType: tmpType)
         }
     }
     

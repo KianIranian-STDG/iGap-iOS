@@ -102,7 +102,7 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
 //        navigaitonItem.addNavigationViewItems(rightItemText: nil, title: "CONTACT_INFO".localizedNew)
-        navigaitonItem.setNavigationBarForProfileRoom(room!)
+//        navigaitonItem.setNavigationBarForProfileRoom(room!)
 
 //        if !isBotRoom() && IGAppManager.sharedManager.userID() != user?.id && !IGCall.callPageIsEnable && (room == nil || (!(room?.isReadOnly)!))  {
 //            navigaitonItem.addModalViewRightItem(title: "", iGapFont: true)

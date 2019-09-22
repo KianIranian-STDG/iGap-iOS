@@ -62,8 +62,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        channelNameLabelTitle.font = UIFont.igFont(ofSize: 17,weight: .bold)
-        channelUserCountLabel.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        channelNameLabelTitle.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        channelUserCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         channelNameLabelTitle.textColor = .white
         channelUserCountLabel.textColor = .white
 
@@ -75,8 +75,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         originalTransform = self.channelImage.transform
         tableView.contentInset = UIEdgeInsets(top: maxNavHeight, left: 0, bottom: 0, right: 0)
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(room!)
-        
+        navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role)
+
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -456,7 +456,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
         
         if let memberCount = room?.channelRoom?.participantCount {
-            channelUserCountLabel.text = "\(memberCount)".inLocalizedLanguage() + "MEMBER".localizedNew
+            channelUserCountLabel.text = "\(memberCount)".inLocalizedLanguage() + " " + "MEMBER".localizedNew
             channelUserCountLabel.textAlignment = channelUserCountLabel.localizedNewDirection
             
         }

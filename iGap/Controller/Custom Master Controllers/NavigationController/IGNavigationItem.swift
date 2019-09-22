@@ -150,8 +150,8 @@ class IGNavigationItem: UINavigationItem {
         addNavigationBackItem()
     }
     
-    func addNavigationLeftButtonsProfileItem(_ room: IGRoom) {
-        switch room.type {
+    func addNavigationLeftButtonsProfileItem(_ room: IGRoom.IGType,id : Int64? = nil, groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil) {
+        switch room {
         case .chat :
             if IGCall.callPageIsEnable {
                 return
@@ -159,7 +159,7 @@ class IGNavigationItem: UINavigationItem {
             
             var userId: Int64 = 0
             
-            if let id = room.chatRoom?.peer?.id {
+            if let id = id {
                 userId = id
             }
             //////
@@ -219,11 +219,11 @@ class IGNavigationItem: UINavigationItem {
             
             var groupId: Int64 = 0
             var currentRole: IGGroupMember.IGRole = .member
-            if let myRole = room.groupRoom?.role {
+            if let myRole = groupRole {
                 currentRole = myRole
             }
             
-            if let id = room.groupRoom?.id{
+            if let id = id{
                 groupId = id
             }
             
@@ -289,11 +289,11 @@ class IGNavigationItem: UINavigationItem {
         case .channel :
             var channelId: Int64 = 0
             var currentRole: IGChannelMember.IGRole = .member
-            if let myRole = room.channelRoom?.role {
+            if let myRole = channelRole {
                 currentRole = myRole
             }
             
-            if let id = room.channelRoom?.id{
+            if let id = id{
                 channelId = id
             }
             
@@ -786,8 +786,8 @@ class IGNavigationItem: UINavigationItem {
             
         }
     }
-    func setNavigationBarForProfileRoom(_ room: IGRoom) {
-            addNavigationLeftButtonsProfileItem(room)
+    func setNavigationBarForProfileRoom(_ room: IGRoom.IGType,id:Int64? = nil , groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil) {
+        addNavigationLeftButtonsProfileItem(room, id: id ,groupRole: groupRole ,channelRole: channelRole)
     }
     
     func updateNavigationBarForRoom(_ room: IGRoom) {

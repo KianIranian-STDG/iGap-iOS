@@ -27,6 +27,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     var user: IGRegisteredUser?
     var previousRoomId: Int64?
     var room: IGRoom?
+    var roomType: String? = "CHAT"
     var hud = MBProgressHUD()
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
@@ -56,8 +57,11 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         tableView.contentInset = UIEdgeInsets(top: maxNavHeight, left: 0, bottom: 0, right: 0)
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(room!)
         
+        var roomTypeFinal : IGRoom.IGType? = .chat
+        
+        navigaitonItem.setNavigationBarForProfileRoom(.chat, id: user?.id, groupRole: nil, channelRole: nil)
+
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
@@ -183,8 +187,6 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
         avatarView.avatarImageView?.addGestureRecognizer(tap)
         
-        let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(room!)
         self.view.bringSubviewToFront(avatarView)
 
     }
