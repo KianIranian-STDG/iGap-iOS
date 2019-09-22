@@ -62,6 +62,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        channelNameLabelTitle.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        channelUserCountLabel.font = UIFont.igFont(ofSize: 17,weight: .bold)
+        channelNameLabelTitle.textColor = .white
+        channelUserCountLabel.textColor = .white
+
         initGradientView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
@@ -425,6 +430,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
         
         channelNameLabelTitle.text = room?.title
+        channelNameLabelTitle.textAlignment = channelNameLabelTitle.localizedNewDirection
 //        channelNameLabel.text = room?.title
 //        ChannelDescriptionLabel.text = room?.channelRoom?.roomDescription
         if let channelRoom = room {
@@ -450,7 +456,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
         
         if let memberCount = room?.channelRoom?.participantCount {
-            channelUserCountLabel.text = "\(memberCount)"
+            channelUserCountLabel.text = "\(memberCount)".inLocalizedLanguage() + "MEMBER".localizedNew
+            channelUserCountLabel.textAlignment = channelUserCountLabel.localizedNewDirection
+            
         }
         
         if room?.channelRoom?.isSignature == true {
@@ -1479,7 +1487,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3 :
                     return 1
                 case 4 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }
@@ -1495,7 +1503,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3 :
                     return 1
                 case 4 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }

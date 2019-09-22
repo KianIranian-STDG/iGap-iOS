@@ -231,16 +231,17 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         if forceCall {
             title = "NEW_CALL".localizedNew
         }
-        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: title)
-        
-        // navigationItem.setChatListsNavigationItems()
-        navigationItem.rightViewContainer?.addAction {
-            let navigationItem = self.navigationItem as! IGNavigationItem
-            navigationItem.searchController = nil
-
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        
+        navigationItem.addNavigationBackItem()
+//        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: title)
+//
+//        // navigationItem.setChatListsNavigationItems()
+//        navigationItem.rightViewContainer?.addAction {
+//            let navigationItem = self.navigationItem as! IGNavigationItem
+//            navigationItem.searchController = nil
+//
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }
+//
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
