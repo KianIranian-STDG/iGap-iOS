@@ -101,7 +101,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 connectionStatus = .iGap
                 IGAppManager.connectionStatusStatic = .iGap
                 switch  currentTabIndex {
-                case 2:
+                case CurrentTab.Recent.rawValue:
                     self.setDefaultNavigationItem()
                 default:
                     self.setLastNavigationItem()
@@ -116,7 +116,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         self.hideKeyboardWhenTappedAround()
 
-        if currentTabIndex == 3 { // Discovery Tab
+        if currentTabIndex == CurrentTab.Dashboard.rawValue { // Discovery Tab
             let navigationControllerr = self.navigationController as! IGNavigationController
             let numberOfPages = navigationControllerr.viewControllers.count
             //Hint: - check if we are at the root of navigation or we are in Inner pages
@@ -126,7 +126,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
             }
             
-        } else if currentTabIndex == 0 { // Phone Book Tab
+        } else if currentTabIndex == CurrentTab.Contact.rawValue { // Phone Book Tab
             let navigationControllerr = self.navigationController as! IGNavigationController
             let numberOfPages = navigationControllerr.viewControllers.count
             //Hint: - check if we are at the root of navigation or we are in Inner pages
@@ -136,7 +136,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
             }
             
-        } else if currentTabIndex == 1 { // Call List Tab
+        } else if currentTabIndex == CurrentTab.Call.rawValue { // Call List Tab
             let navigationControllerr = self.navigationController as! IGNavigationController
             let numberOfPages = navigationControllerr.viewControllers.count
             //Hint: - check if we are at the root of navigation or we are in Inner pages
@@ -146,7 +146,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 
             }
 
-        } else if currentTabIndex == 4 { // Profile Tab
+        } else if currentTabIndex == CurrentTab.Profile.rawValue { // Profile Tab
             let navigationControllerr = self.navigationController as! IGNavigationController
             let numberOfPages = navigationControllerr.viewControllers.count
             //Hint: - check if we are at the root of navigation or we are in Inner pages
@@ -159,7 +159,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
 
 
-        } else if currentTabIndex == 2 { // Recent Tab
+        } else if currentTabIndex == CurrentTab.Recent.rawValue { // Recent Tab
             let navigationControllerr = self.navigationController as! IGNavigationController
             let numberOfPages = navigationControllerr.viewControllers.count
             //Hint: - check if we are at the root of navigation or we are in Inner pages

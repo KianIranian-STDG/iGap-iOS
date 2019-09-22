@@ -11,17 +11,16 @@
 import UIKit
 import SnapKit
 var currentTabIndex : Int! = 2
-
+enum CurrentTab : Int {
+    case Contact = 0
+    case Call
+    case Recent
+    case Dashboard
+    case Profile
+}
 class IGTabBarController: UITabBarController {
     
-    enum CurrentTab {
-        case Contact
-        case Call
-        case Recent
-        case Dashboard
-        case Profile
 
-    }
     
     internal static var currentTabStatic: CurrentTab = .Recent
     
@@ -88,7 +87,7 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
 
-            currentTabIndex = 0
+            currentTabIndex = CurrentTab.Contact.rawValue
             break
         case 1:
             navigationControllerr.navigationBar.isHidden = false
@@ -98,7 +97,7 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
 
-            currentTabIndex = 1
+            currentTabIndex = CurrentTab.Call.rawValue
             
             break
         case 2:
@@ -107,7 +106,7 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
 
-            currentTabIndex = 2
+            currentTabIndex = CurrentTab.Recent.rawValue
             
             break
         case 3:
@@ -118,7 +117,7 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
 
-            currentTabIndex = 3
+            currentTabIndex = CurrentTab.Dashboard.rawValue
             
             break
         case 4:
@@ -130,7 +129,7 @@ class IGTabBarController: UITabBarController {
             navigationControllerr.navigationBar.isTranslucent = true
             self.navigationController?.navigationBar.shadowImage = UIImage()
 
-            currentTabIndex = 4
+            currentTabIndex = CurrentTab.Profile.rawValue
             
             break
         default:

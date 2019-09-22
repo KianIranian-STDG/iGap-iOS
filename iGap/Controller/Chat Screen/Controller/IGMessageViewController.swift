@@ -539,7 +539,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 self.selectedChannelToSeeTheirInfo = self.room?.channelRoom
                 //self.performSegue(withIdentifier: "showChannelinfo", sender: self)
                 
-                let profile = IGChannelInfoTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                let profile = IGProfileChannelViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
                 profile.selectedChannel = self.selectedChannelToSeeTheirInfo
                 profile.room = self.room
                 self.navigationController!.pushViewController(profile, animated: true)

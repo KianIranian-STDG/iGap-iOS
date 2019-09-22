@@ -55,7 +55,7 @@ class IGHelperChatOpener {
      **/
     internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil, viewController: UIViewController){
         let storyboard : UIStoryboard = UIStoryboard(name: "profile", bundle: nil)
-        let destinationVC = storyboard.instantiateViewController(withIdentifier: "IGRegistredUserInfoTableViewController") as! IGRegistredUserInfoTableViewController
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "IGProfileUserViewController") as! IGProfileUserViewController
         destinationVC.user = user
         destinationVC.previousRoomId = 0
         destinationVC.room = room

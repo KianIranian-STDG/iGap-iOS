@@ -222,7 +222,7 @@ class IGNavigationItem: UINavigationItem {
             if let myRole = room.groupRoom?.role {
                 currentRole = myRole
             }
-
+            
             if let id = room.groupRoom?.id{
                 groupId = id
             }
@@ -247,7 +247,7 @@ class IGNavigationItem: UINavigationItem {
                 editItemLabel.isHidden = false
             } else {
                 editItemLabel.isHidden = true
-
+                
             }
             editItemLabel.textColor = .white
             backArrowLabel.textColor = .white
@@ -284,8 +284,79 @@ class IGNavigationItem: UINavigationItem {
                 backViewContainer!.addAction {
                     
                 }
-
+                
             }
+        case .channel :
+            var channelId: Int64 = 0
+            var currentRole: IGChannelMember.IGRole = .member
+            if let myRole = room.channelRoom?.role {
+                currentRole = myRole
+            }
+            
+            if let id = room.channelRoom?.id{
+                channelId = id
+            }
+            
+            
+            
+            
+            //////
+            //self.hidesBackButton = true
+            let backViewFrame = CGRect(x:0, y:50, width: 50, height:50)
+            backViewContainer = IGTappableView(frame: backViewFrame)
+            let backViewFrame1 = CGRect(x:0, y:0, width: 50, height:50)
+            backViewContainer1 = IGTappableView(frame: backViewFrame1)
+            let editItemLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            let backArrowLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            editItemLabel.text = ""
+            editItemLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            
+            backArrowLabel.text = ""
+            backArrowLabel.font = UIFont.iGapFonticon(ofSize: 25)
+            if currentRole == .admin || currentRole == .owner {
+                editItemLabel.isHidden = false
+            } else {
+                editItemLabel.isHidden = true
+                
+            }
+            editItemLabel.textColor = .white
+            backArrowLabel.textColor = .white
+            backViewContainer?.addSubview(editItemLabel)
+            backViewContainer1?.addSubview(backArrowLabel)
+            let backBarButton = UIBarButtonItem(customView: backViewContainer!)
+            let backBarButton1 = UIBarButtonItem(customView: backViewContainer1!)
+            self.leftBarButtonItems = [backBarButton1,backBarButton]
+            self.title = ""
+            //////
+            //Hint: - back Action Handler
+            backViewContainer1?.addAction {
+                
+                IGGlobal.shouldShowChart = false
+                self.backViewContainer?.isUserInteractionEnabled = false
+                let numberOfPages = self.navigationController?.viewControllers.count
+                if IGGlobal.shouldMultiSelect {
+                    self.delegate?.diselect()
+                }
+                else {
+                    if numberOfPages == 2  {
+                        IGGlobal.shouldMultiSelect = false
+                        isDashboardInner = false
+                        currentPageName = ""
+                        _ = self.navigationController?.popViewController(animated: true)
+                    } else {
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }
+            }
+            if currentRole == .admin || currentRole == .owner {
+                //Hint: - Edit Group Action Handler
+                backViewContainer!.addAction {
+                    
+                }
+                
+            }
+
         default:
             break
         }

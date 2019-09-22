@@ -372,7 +372,6 @@ extension DropdownMenu: UITableViewDataSource {
         let item = sections[indexPath.section].items[indexPath.row]
         let cell = UITableViewCell(style: .default, reuseIdentifier: "dropdownMenuCell")
         cell.textLabel?.textColor = textColor
-        cell.textLabel?.textAlignment = cell.textLabel!.localizedNewDirection
         if let image = item.image {
             cell.imageView?.image = image
         }

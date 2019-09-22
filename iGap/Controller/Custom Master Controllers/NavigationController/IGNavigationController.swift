@@ -40,7 +40,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
     override func popViewController(animated: Bool) -> UIViewController? {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {
-            if currentTabIndex == 4 {
+            if currentTabIndex == CurrentTab.Profile.rawValue {
                 
                 
                 self.navigationBar.isHidden = true

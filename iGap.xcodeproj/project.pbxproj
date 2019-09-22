@@ -105,6 +105,7 @@
 		8E96A32B225C920A007D8A77 /* SMReciept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96A32A225C920A007D8A77 /* SMReciept.swift */; };
 		8E96A32E225C96C3007D8A77 /* RecieptRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32C225C96C3007D8A77 /* RecieptRow.xib */; };
 		8E96A32F225C96C3007D8A77 /* RecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E96A32D225C96C3007D8A77 /* RecieptView.xib */; };
+		8E9B6FBB2337458D002C6431 /* IGProfileChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */; };
 		8E9F076922659E1400E4CD17 /* SMSavedCardsAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */; };
 		8EA8F3DE231F9E1D0099C4EF /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DD231F9E1D0099C4EF /* MBCircularProgressBarView.m */; };
 		8EA8F3DF231F9E1D0099C4EF /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA8F3DC231F9E1D0099C4EF /* MBCircularProgressBarLayer.m */; };
@@ -866,6 +867,7 @@
 		8E96A32A225C920A007D8A77 /* SMReciept.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMReciept.swift; sourceTree = "<group>"; };
 		8E96A32C225C96C3007D8A77 /* RecieptRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecieptRow.xib; sourceTree = "<group>"; };
 		8E96A32D225C96C3007D8A77 /* RecieptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecieptView.xib; sourceTree = "<group>"; };
+		8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileChannelViewController.swift; sourceTree = "<group>"; };
 		8E9F076822659E1400E4CD17 /* SMSavedCardsAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSavedCardsAlertViewController.swift; sourceTree = "<group>"; };
 		8EA8F3DA231F9E1C0099C4EF /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
 		8EA8F3DB231F9E1C0099C4EF /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBCircularProgressBarView.h; sourceTree = "<group>"; };
@@ -1904,6 +1906,7 @@
 			isa = PBXGroup;
 			children = (
 				93AA67B91E4F03290053380C /* IGChannelInfoTableViewController.swift */,
+				8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */,
 				93AA67BB1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift */,
 				93AA67BD1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift */,
 				93AA67BF1E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift */,
@@ -3731,6 +3734,7 @@
 				FA50A8D01DD35EFD00C6D2EA /* IGRegistrationStepTermsViewController.swift in Sources */,
 				FA9EE5B7221EB01100BA7735 /* ConstantSizeLimit.swift in Sources */,
 				932D1AB71E740B35000F0D97 /* IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell.swift in Sources */,
+				8E9B6FBB2337458D002C6431 /* IGProfileChannelViewController.swift in Sources */,
 				FA9F73592127E589004418E5 /* EPContact.swift in Sources */,
 				8E5FBCA5231BD9D70069D4F2 /* IGStringManager.swift in Sources */,
 				FAB0B87C232F5664002E35AB /* DeepLinkManager.swift in Sources */,

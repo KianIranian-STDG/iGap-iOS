@@ -191,7 +191,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
         //Hint: - check if tab is changed or not if changed it will show the navbar ,if not it depends on the destination
-        if currentTabIndex == 4 {
+        if currentTabIndex == CurrentTab.Profile.rawValue {
             
             if goToSettings {
                 navigationControllerr.navigationBar.isHidden = true

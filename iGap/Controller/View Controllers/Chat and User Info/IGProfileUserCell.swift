@@ -16,7 +16,6 @@ class IGProfileUserCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        defaultInitLabels()
     }
     func initLabels(nameLblString : String! = "",detailLblString : String! = "",changeColor : Bool! = false) {
         
@@ -25,7 +24,8 @@ class IGProfileUserCell: UITableViewCell {
         if changeColor {
             lblActionName.textColor = UIColor.iGapRed()
         }
-        
+        defaultInitLabels()
+
     }
     private func defaultInitLabels() {
         lblActionName.textAlignment = lblActionName.localizedNewDirection

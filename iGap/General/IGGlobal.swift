@@ -1589,7 +1589,12 @@ extension UITextField {
 extension UILabel {
     var localizedNewDirection: NSTextAlignment {
         if lastLang == "en" {
-            return NSTextAlignment.left
+            guard let txt = self.text else {return NSTextAlignment.left}
+            if (txt.isRTL()) {
+                return NSTextAlignment.right
+            } else {
+                return NSTextAlignment.left
+            }
         }
         else{
             return NSTextAlignment.right

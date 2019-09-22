@@ -87,7 +87,7 @@ class IGSettingChnageLanguageTableViewController: BaseTableViewController {
             UITableView.appearance().semanticContentAttribute = .forceLeftToRight
         }
         var window : UIWindow!
-        currentTabIndex = 2
+        currentTabIndex = CurrentTab.Recent.rawValue
         let apDelegate = UIApplication.shared.delegate as! AppDelegate
         if let appWindow = apDelegate.window {
             window = appWindow
