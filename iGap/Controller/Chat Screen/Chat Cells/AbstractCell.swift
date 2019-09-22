@@ -24,6 +24,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var replyViewAbs: UIView!
     var mediaContainerViewAbs: UIView?
     var messageViewAbs: UIView?
+    var forwardLineViewAbs: UIView!
     var replyLineViewAbs: UIView!
     var viewInfoVideoAbs: UIView!
     var viewSenderNameAbs: UIView!
@@ -82,6 +83,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var isReply = false
     
     let cornerRadius: CGFloat = 7.0
+    let bubbleSubviewOffset: CGFloat = 3
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -1330,31 +1332,54 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeForward(){
         if forwardViewAbs == nil {
             forwardViewAbs = UIView()
+            forwardViewAbs.layer.masksToBounds = true
+            forwardViewAbs.layer.cornerRadius = cornerRadius
             mainBubbleViewAbs.addSubview(forwardViewAbs!)
             
+            forwardLineViewAbs = UIView()
+            forwardLineViewAbs.backgroundColor = UIColor.chatForwardToIndicatorViewColor(isIncommingMessage: isIncommingMessage)
+            forwardViewAbs.addSubview(forwardLineViewAbs)
+            
             txtForwardAbs = UILabel()
+            txtForwardAbs.lineBreakMode = .byTruncatingMiddle
+            txtForwardAbs.textAlignment = NSTextAlignment.right
             forwardViewAbs?.addSubview(txtForwardAbs)
             
             forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
             txtForwardAbs.textColor = UIColor.chatForwardedFromUsernameLabelColor(isIncommingMessage: isIncommingMessage)
-            txtForwardAbs.font = UIFont.igFont(ofSize: 9.0)
+            txtForwardAbs.font = UIFont.igFont(ofSize: 12.0, weight: .bold)
             
             forwardViewAbs?.snp.makeConstraints { (make) in
-                make.top.equalTo(mainBubbleViewAbs.snp.top).priority(.required)
-                make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
+                make.top.equalTo(mainBubbleViewAbs.snp.top).offset(bubbleSubviewOffset).priority(.required)
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(bubbleSubviewOffset)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-bubbleSubviewOffset)
                 make.height.equalTo(30)
+            }
+            
+            forwardLineViewAbs.snp.makeConstraints { (make) in
+                make.trailing.equalTo(forwardViewAbs.snp.trailing).offset(-8)
+                make.top.equalTo(forwardViewAbs.snp.top).offset(4)
+                make.bottom.equalTo(forwardViewAbs.snp.bottom).offset(-4)
+                make.width.equalTo(3)
             }
             
             txtForwardAbs.snp.makeConstraints { (make) in
                 make.top.equalTo(forwardViewAbs.snp.top)
                 make.leading.equalTo(forwardViewAbs.snp.leading).offset(8)
-                make.trailing.equalTo(forwardViewAbs.snp.trailing).offset(-8)
+                make.trailing.equalTo(forwardLineViewAbs.snp.leading).offset(-8)
                 make.centerY.equalTo(forwardViewAbs.snp.centerY).priority(.required)
             }
-        } else {
+            //} else {
             /* set color always for avoid from reuse item color. for example: show incomming forward color for received forward color */
-            forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
+            //forwardViewAbs?.backgroundColor = UIColor.chatForwardedFromViewBackgroundColor(isIncommingMessage: isIncommingMessage)
+        }
+        
+        if #available(iOS 11.0, *) {
+            if isIncommingMessage {
+                forwardViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            } else {
+                forwardViewAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
         }
     }
     
@@ -1373,41 +1398,47 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         
         if replyViewAbs == nil {
             replyViewAbs = UIView()
+            replyViewAbs.layer.masksToBounds = true
+            replyViewAbs.layer.cornerRadius = cornerRadius
             mainBubbleViewAbs.addSubview(replyViewAbs)
             
             replyLineViewAbs = UIView()
             replyViewAbs.addSubview(replyLineViewAbs)
             
             txtReplyDisplayNameAbs = UILabel()
+            txtReplyDisplayNameAbs.lineBreakMode = .byTruncatingMiddle
+            txtReplyDisplayNameAbs.textAlignment = NSTextAlignment.right
             replyViewAbs.addSubview(txtReplyDisplayNameAbs)
             
             txtReplyMessageAbs = UILabel()
+            txtReplyMessageAbs.lineBreakMode = .byTruncatingMiddle
+            txtReplyMessageAbs.textAlignment = NSTextAlignment.right
             replyViewAbs.addSubview(txtReplyMessageAbs)
             
             replyViewAbs.snp.makeConstraints { (make) in
-                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
-                make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-                make.top.equalTo(mainBubbleViewAbs.snp.top)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-bubbleSubviewOffset)
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(bubbleSubviewOffset)
+                make.top.equalTo(mainBubbleViewAbs.snp.top).offset(bubbleSubviewOffset)
                 make.height.equalTo(54)
             }
             
             replyLineViewAbs.snp.makeConstraints { (make) in
-                make.leading.equalTo(replyViewAbs.snp.leading).offset(16)
+                make.trailing.equalTo(replyViewAbs.snp.trailing).offset(-8)
                 make.top.equalTo(replyViewAbs.snp.top).offset(10)
                 make.bottom.equalTo(replyViewAbs.snp.bottom).offset(-10)
                 make.width.equalTo(3)
             }
             
             txtReplyDisplayNameAbs.snp.makeConstraints { (make) in
-                make.trailing.equalTo(replyViewAbs.snp.trailing)
-                make.leading.equalTo(replyLineViewAbs.snp.trailing).offset(8)
+                make.leading.equalTo(replyViewAbs.snp.leading)
+                make.trailing.equalTo(replyLineViewAbs.snp.leading).offset(-8)
                 make.top.equalTo(replyLineViewAbs.snp.top)
                 make.height.equalTo(14)
             }
             
             txtReplyMessageAbs.snp.makeConstraints { (make) in
-                make.trailing.equalTo(replyViewAbs.snp.trailing)
-                make.leading.equalTo(replyLineViewAbs.snp.trailing).offset(8)
+                make.leading.equalTo(replyViewAbs.snp.leading)
+                make.trailing.equalTo(replyLineViewAbs.snp.leading).offset(-8)
                 make.bottom.equalTo(replyLineViewAbs.snp.bottom)
                 make.height.equalTo(17)
             }
@@ -1417,11 +1448,19 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             txtReplyDisplayNameAbs.textColor = UIColor.chatReplyToUsernameLabelTextColor(isIncommingMessage: isIncommingMessage)
             txtReplyMessageAbs.textColor = UIColor.chatReplyToMessageBodyLabelTextColor(isIncommingMessage: isIncommingMessage)
             
-            txtReplyDisplayNameAbs.font = UIFont.igFont(ofSize: 10.0)
+            txtReplyDisplayNameAbs.font = UIFont.igFont(ofSize: 12.0, weight: .bold)
             txtReplyMessageAbs.font = UIFont.igFont(ofSize: 13.0)
         } else {
             /* set color always for avoid from reuse item color. for example: show incomming reply color for received reply color */
             replyViewAbs?.backgroundColor = UIColor.chatReplyToBackgroundColor(isIncommingMessage: isIncommingMessage)
+        }
+        
+        if #available(iOS 11.0, *) {
+            if isIncommingMessage {
+                replyViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            } else {
+                replyViewAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
         }
     }
     
@@ -1468,14 +1507,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeStatus(){
         if txtStatusAbs == nil {
             txtStatusAbs = UILabel()
-            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 15)
+            txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 20)
             mainBubbleViewAbs.addSubview(txtStatusAbs)
             
             txtStatusAbs.snp.makeConstraints { (make) in
                 make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10)
                 make.centerY.equalTo(txtTimeAbs.snp.centerY).offset(-1)
-                make.height.equalTo(15)
-                make.width.equalTo(15)
+                make.height.equalTo(20)
+                make.width.equalTo(20)
             }
         }
     }
@@ -1641,23 +1680,20 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             makeVideoInfo()
         }
         
-        let spaceFromParent: CGFloat = 3
         imgMediaAbs.snp.makeConstraints { (make) in
 
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-spaceFromParent)
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(spaceFromParent)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-bubbleSubviewOffset)
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(bubbleSubviewOffset)
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.deactivate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.deactivate() }
             
             if isForward {
-                imgMediaTopAbs = make.top.equalTo(forwardViewAbs.snp.bottom).offset(spaceFromParent).constraint
-                imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                imgMediaTopAbs = make.top.equalTo(forwardViewAbs.snp.bottom).offset(bubbleSubviewOffset).constraint
             } else if isReply {
-                imgMediaTopAbs = make.top.equalTo(replyViewAbs.snp.bottom).offset(spaceFromParent).constraint
-                imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                imgMediaTopAbs = make.top.equalTo(replyViewAbs.snp.bottom).offset(bubbleSubviewOffset).constraint
             } else {
-                imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(spaceFromParent).constraint
+                imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(bubbleSubviewOffset).constraint
                 if #available(iOS 11.0, *) {
                     if isIncommingMessage {
                         imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
@@ -1666,7 +1702,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     }
                 }
             }
-            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight-spaceFromParent).constraint
+            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight-bubbleSubviewOffset).constraint
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }

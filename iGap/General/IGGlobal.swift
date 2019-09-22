@@ -452,7 +452,7 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return UIColor(red: 209/255.0, green: 221/255.0, blue: 138/255.0, alpha: 0.9)
+        return UIColor(red: 242/255.0, green: 255/255.0, blue: 235/255.0, alpha: 0.9)
     }
     
     class func dialogueBoxIncomming() -> UIColor {
@@ -460,14 +460,14 @@ extension UIColor {
     }
     
     class func forwardBoxIncomming() -> UIColor {
-        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
     }
     class func tabbarBGColor() -> UIColor {
         return UIColor(red: 234/255.0, green: 234/255.0, blue: 237/255.0, alpha: 0.9)
     }
     
     class func forwardBoxOutgoign() -> UIColor {
-        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
     }
     class func iGapDarkGreenColor() -> UIColor { // navigation bar color
         return UIColor(red:65/255.0, green:177/255.0, blue:32/255.0, alpha:1.0)
@@ -486,35 +486,35 @@ extension UIColor {
         return UIColor(red:87/255.0, green:186/255.0, blue:38/255.0, alpha:1.0)
     }
     class func forwardBoxTitleIncomming() -> UIColor {
-        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        return messageText()
     }
     
     class func forwardBoxTitleOutgoign() -> UIColor {
-        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        return messageText()
     }
     
     class func replyBoxIncomming() -> UIColor {
-        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
     }
     
     class func replyBoxOutgoing() -> UIColor {
-        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
     }
     
     class func replyBoxTitleIncomming() -> UIColor {
-        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        return messageText()
     }
     
     class func replyBoxTitleOutgoign() -> UIColor {
-        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        return messageText()
     }
     
     class func replyBoxMessageIncomming() -> UIColor {
-        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        return messageText()
     }
     
     class func replyBoxMessageOutgoign() -> UIColor {
-        return UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        return messageText()
     }
     
     class func messageText() -> UIColor {
@@ -593,7 +593,7 @@ extension UIColor {
     }
     
     class func seenColor() -> UIColor {
-        return UIColor(red:137/255.0, green:199/255.0, blue:66/255.0, alpha:1.0)
+        return UIColor(red:68/255.0, green:181/255.0, blue:31/255.0, alpha:1.0)
     }
     
     //MARK: MGSwipeTableCell
@@ -757,11 +757,18 @@ extension UIColor {
     }
     
     class func chatReplyToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
+        return UIColor(red: 251/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1.0)
+        /*
         if isIncommingMessage {
             return UIColor.replyBoxTitleIncomming()
         } else {
             return UIColor.replyBoxTitleOutgoign()
         }
+        */
+    }
+    
+    class func chatForwardToIndicatorViewColor(isIncommingMessage: Bool) -> UIColor {
+        return UIColor(red: 251/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1.0)
     }
     
     class func chatReplyToUsernameLabelTextColor(isIncommingMessage: Bool) -> UIColor {

@@ -2,7 +2,7 @@
     "en": {
         "DRAFT" : "Draft : ",
         "DELETED_MESSAGE" : "Deleted Message",
-        "FORWARDED_FROM" : "Forwarded from : ",
+        "FORWARDED_FROM" : "Forwarded from",
         "FORWARDED_MESSAGE" : "Forwarded Message",
         "IMAGES_MESSAGE" : "Image Message",
         "VIDEOS_MESSAGE" :  "Video Message",

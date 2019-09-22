@@ -83,7 +83,7 @@
         "GROUP_DOES_NOT_EXIST" : "Sorry,this group does not seem to exist.",
         "PLEASE_WRITE_UR_REPORT" : "Please write your report description",
         "REPORT_SUCCESS" : "Your report has been successfully submitted",
-        "FORWARDED_FROM" : "Forwarded from : ",
+        "FORWARDED_FROM" : "Forwarded from",
         "FORWARDED_MESSAGE" : "Forwarded Message",
         "REOLY_TO" : "Reply to : ",
         "CHANNEL_LINK" : "Channel Link :",
