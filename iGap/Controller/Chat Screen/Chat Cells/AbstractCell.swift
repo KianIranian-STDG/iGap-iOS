@@ -585,7 +585,11 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             if isIncommingMessage {
                 
                 if #available(iOS 11.0, *) {
-                    mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                    if isPreviousMessageFromSameSender {
+                        mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                    } else {
+                        mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                    }
                 }
                 
                 if shouldShowAvatar {
@@ -1264,8 +1268,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     private func makeMultiSelectButton() {
         removeMultySelect()
-
-
+        
         if btnCheckMark == nil {
             btnCheckMark = UIButton()
             btnCheckMark.setTitleColor(UIColor.iGapDarkGray(), for: .normal)
@@ -1273,10 +1276,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 17.0)
             btnCheckMark.setTitle("", for: .normal)
             btnCheckMark.isUserInteractionEnabled = true
-            
-                self.contentView.addSubview(btnCheckMark)
-            
+            self.contentView.addSubview(btnCheckMark)
         }
+        
         btnCheckMark.snp.makeConstraints{ (make) in
             make.leading.equalTo(self.contentView.snp.leading).offset(0)
             make.bottom.equalTo(self.contentView.snp.bottom).offset(-5)
@@ -1291,30 +1293,33 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         if viewSenderNameAbs == nil {
             viewSenderNameAbs = UIView()
             viewSenderNameAbs.backgroundColor = UIColor.chatBubbleBackground(isIncommingMessage: isIncommingMessage)
-            viewSenderNameAbs.layer.cornerRadius = 3.5
+            viewSenderNameAbs.layer.cornerRadius = cornerRadius
             if #available(iOS 11.0, *) {
-                viewSenderNameAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                viewSenderNameAbs.layer.maskedCorners = [.layerMaxXMinYCorner]
             }
             self.contentView.addSubview(viewSenderNameAbs)
 
             txtSenderNameAbs = UILabel()
+            txtSenderNameAbs.lineBreakMode = .byTruncatingMiddle
             txtSenderNameAbs.textColor = UIColor.messageText()
             txtSenderNameAbs.font = UIFont.igFont(ofSize: 8.0)
             self.contentView.addSubview(txtSenderNameAbs)
             
             txtSenderNameAbs.snp.makeConstraints { (make) in
                 make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
-                make.width.greaterThanOrEqualTo(5)
-                make.centerY.equalTo(viewSenderNameAbs.snp.centerY)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
+                make.top.equalTo(viewSenderNameAbs.snp.top)
                 make.height.equalTo(9)
             }
             
             viewSenderNameAbs.snp.makeConstraints{ (make) in
-                make.leading.equalTo(mainBubbleViewAbs.snp.leading)
-                make.trailing.equalTo(txtSenderNameAbs.snp.trailing).offset(8)
-                make.bottom.equalTo(mainBubbleViewAbs.snp.top).offset(-0.5)
+                make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(-0.490)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(0.490)
+                make.bottom.equalTo(mainBubbleViewAbs.snp.top)
                 make.height.equalTo(9.5)
             }
+            
+            self.contentView.bringSubviewToFront(mainBubbleViewAbs)
         }
     }
     
