@@ -20,6 +20,7 @@ import NVActivityIndicatorView
 class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource {
 
     //MARK: -Variables
+    var isVerified : Bool! = false
     var maxNavHeight : CGFloat = 144
     var avatarPhotos : [INSPhotoViewable]?
     var galleryPhotos: INSPhotosViewController?
@@ -60,6 +61,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     //MARK: -ViewController Initialisers
     override func viewDidLoad() {
         super.viewDidLoad()
+
         initGradientView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
@@ -75,14 +77,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
 
-        requestToGetRoom()
         requestToGetAvatarList()
         imagePicker.delegate = self
         signMessageIndexPath = IndexPath(row: 2, section: 1)
-        myRole = room?.channelRoom?.role
      
         tableView.tableFooterView = UIView()
-        showChannelInfo()
         
         let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
         room =  try! Realm().objects(IGRoom.self).filter(predicate).first!
@@ -100,6 +99,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        requestToGetRoom()
+
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -418,9 +419,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
         
         if (room?.channelRoom?.isVerified)! {
-//            imgVerified.isHidden = false
+            isVerified = true
         } else {
-//            imgVerified.isHidden = true
+            isVerified = false
         }
         
         channelNameLabelTitle.text = room?.title
@@ -433,19 +434,23 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             switch channelType {
             case .privateRoom:
 //                channelTypeLabel.text = "PRIVATE".localizedNew
-                if let link = room?.channelRoom?.privateExtra?.inviteLink {
-//                    channelLinkLabel.text = link
+                if let link = room?.channelRoom?.privateExtra?.inviteLink  {
+                    channelLink = link
                 }
             case .publicRoom:
 //                channelTypeLabel.text = "PUBLIC".localizedNew
                 if let username = room?.channelRoom?.publicExtra?.username {
-//                    channelLinkLabel.text = "iGap.net/" + username
+                    channelLink = "iGap.net/" + username
+
                 }
             }
+            myRole = room?.channelRoom?.role
+
+            self.tableView.reloadData()
         }
         
         if let memberCount = room?.channelRoom?.participantCount {
-//            numberOfMemberJoinedThisChannelLabel.text = "\(memberCount)"
+            channelUserCountLabel.text = "\(memberCount)"
         }
         
         if room?.channelRoom?.isSignature == true {
@@ -473,7 +478,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     default:
                         break
                     }
-                    
+                    self.showChannelInfo()
+
                 }
             }).error ({ (errorCode, waitTime) in
                 switch errorCode {
@@ -730,8 +736,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     return cell
                     
                 case 1:
-                    
-                    cell.initLabels(nameLblString: channelLink)
+                    if room?.channelRoom?.type == .privateRoom {
+                        cell.initLabels(nameLblString: "CHANNEL_LINK".localizedNew, detailLblString: channelLink, changeColor: false)
+
+                    } else {
+                        cell.initLabels(nameLblString: "FIELD_USERNAME".localizedNew, detailLblString: channelLink, changeColor: false)
+
+                    }
                     
                     return cell
                 case 2:
@@ -982,71 +993,238 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             }
         case .publicRoom?:
             
-            switch indexPath.section {
-            case 0:
-                
-                if let desc = room?.channelRoom?.roomDescription {
-                    cell.initLabels(nameLblString: desc)
-                } else {
-                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
-                }
-                
-                
-                
-                return cell
-                
-            case 1:
-                
-                cell.initLabels(nameLblString: channelLink)
-                
-                return cell
-            case 2:
-                switch indexPath.row {
+            switch myRole {
+            case .admin?:
+
+                switch indexPath.section {
                 case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
-                    return cellTwo
+                    
+                    if let desc = room?.channelRoom?.roomDescription {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
+                    return cell
                     
                 case 1:
-                    cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
+                    cell.initLabels(nameLblString: "FIELD_USERNAME".localizedNew, detailLblString: channelLink, changeColor: false)
+                    return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
+                        
+                    case 1:
+                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                     return cell
                     
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                    
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cell
+                    default:
+                        return cell
+                        
+                    }
                 default:
                     return cell
-                    
                 }
-            case 3:
-                cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
-                return cell
+            case .member?:
                 
-            case 4:
-                switch indexPath.row {
-                case 0 :
-                    cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                switch indexPath.section {
+                case 0:
+                    
+                    if let desc = room?.channelRoom?.roomDescription {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
                     return cell
                     
-                case 1 :
-                    cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                case 1:
+                    cell.initLabels(nameLblString: "FIELD_USERNAME".localizedNew, detailLblString: channelLink, changeColor: false)
                     return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
+                        
+                    default:
+                        return cell
+                        
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+     
                     
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cell
+                    default:
+                        return cell
+                        
+                    }
                 default:
                     return cell
-                    
                 }
+            case .moderator?:
                 
-            case 5:
-                switch indexPath.row {
-                case 0 :
-                    cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                switch indexPath.section {
+                case 0:
+                    
+                    if let desc = room?.channelRoom?.roomDescription {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
                     return cell
                     
-                case 1 :
-                    cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                case 1:
+                    cell.initLabels(nameLblString: "FIELD_USERNAME".localizedNew, detailLblString: channelLink, changeColor: false)
                     return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
+                        
+                    default:
+                        return cell
+                        
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+                    
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cell
+                    default:
+                        return cell
+                        
+                    }
                 default:
                     return cell
-                    
                 }
-            default:
+            case .owner?:
+                
+                switch indexPath.section {
+                case 0:
+                    
+                    if let desc = room?.channelRoom?.roomDescription {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
+                    return cell
+                    
+                case 1:
+                    cell.initLabels(nameLblString: "FIELD_USERNAME".localizedNew, detailLblString: channelLink, changeColor: false)
+                    return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
+                        
+                    case 1:
+                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                    
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cell
+                    default:
+                        return cell
+                        
+                    }
+                default:
+                    return cell
+                }
+            case .none:
+                cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
                 return cell
             }
         case .none:
@@ -1065,9 +1243,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 return cell
                 
             case 1:
-                
-                cell.initLabels(nameLblString: channelLink)
-                
+                cell.initLabels(nameLblString: "FIELD_USERNAME".localizedNew, detailLblString: channelLink, changeColor: false)
+
                 return cell
             case 2:
                 switch indexPath.row {
@@ -1147,7 +1324,26 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     
                 }
             case .publicRoom:
-                return 6
+
+                switch myRole {
+                case .admin?:
+                    return 6
+                    
+                    
+                case .member?:
+                    return 5
+                    
+                case .moderator?:
+                    return 5
+                    
+                case .owner?:
+                    return 6
+                    
+                case .none:
+                    return 5
+
+                }
+                
             }
         } else {
             return 5
@@ -1173,9 +1369,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3 :
                     return 1
                 case 4 :
-                    return 2
+                    return 1
                 case 5 :
-                    return 2
+                    return 1
                 default:
                     return 0
                 }
@@ -1191,9 +1387,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3 :
                     return 1
                 case 4 :
-                    return 2
+                    return 1
                 case 5 :
-                    return 2
+                    return 1
                 default:
                     return 0
                 }
@@ -1207,9 +1403,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 2:
                     return 1
                 case 3 :
-                    return 2
+                    return 1
                 case 4 :
-                    return 2
+                    return 1
                 default:
                     return 0
                 }
@@ -1223,9 +1419,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 2:
                     return 1
                 case 3 :
-                    return 2
+                    return 1
                 case 4 :
-                    return 2
+                    return 1
                 default:
                     return 0
                 }
@@ -1233,25 +1429,100 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             }
         case .publicRoom?:
             
-            switch section {
-            case 0:
-                return 1
-            case 1:
-                return 1
-            case 2:
-                return 2
-            case 3 :
-                return 1
-            case 4 :
-                return 2
-            case 5 :
-                return 2
-            default:
-                return 0
+
+            switch myRole {
+            case .admin?:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 2
+                case 3 :
+                    return 1
+                case 4 :
+                    return 1
+                case 5 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .owner?:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 2
+                case 3 :
+                    return 1
+                case 4 :
+                    return 1
+                case 5 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .member?:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .moderator?:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 2
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .none:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 2
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 1
+                default:
+                    return 0
+                }
+                
             }
+                
         case .none:
             return 0
+
         }
+
     }
     
     //MARK: -Header and Footer
@@ -1277,7 +1548,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     return "PRODUCTS_DETAILS".localizedNew
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "CHANNEL_INFO".localizedNew
                 case 2:
                     return "NOTIFICATION_SOUNDS".localizedNew
                 case 3:
@@ -1291,7 +1562,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     return "PRODUCTS_DETAILS".localizedNew
                 case 1:
-                    return "GROUP_LINK".localizedNew
+                    return "CHANNEL_INFO".localizedNew
                 case 2:
                     return "NOTIFICATION_SOUNDS".localizedNew
                 case 3:
@@ -1331,7 +1602,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             case 0:
                 return "PRODUCTS_DETAILS".localizedNew
             case 1:
-                return "GROUP_LINK".localizedNew
+                return "CHANNEL_INFO".localizedNew
             case 2:
                 return "NOTIFICATION_SOUNDS".localizedNew
             case 3:
@@ -1344,7 +1615,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             case 0:
                 return "PRODUCTS_DETAILS".localizedNew
             case 1:
-                return "GROUP_LINK".localizedNew
+                return "CHANNEL_INFO".localizedNew
             case 2:
                 return "NOTIFICATION_SOUNDS".localizedNew
             case 3:
