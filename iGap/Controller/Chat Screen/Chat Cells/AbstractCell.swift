@@ -44,7 +44,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var txtVoteDownAbs: UILabel!
     
     var imgFileAbs: UIImageView!
-    var imgVideoPlayAbs: UIImageView!
+    var txtVideoPlayAbs: UILabel!
     
     var txtMessageHeightConstraintAbs: NSLayoutConstraint!
     var mainBubbleViewWidthAbs: NSLayoutConstraint!
@@ -1772,28 +1772,29 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     private func makeVideoPlayView(){
-        if imgVideoPlayAbs == nil {
-            imgVideoPlayAbs = UIImageView()
-            imgVideoPlayAbs.image = UIImage(named: "IG_Music_Player_Play")
-            imgVideoPlayAbs.image = imgVideoPlayAbs.image!.withRenderingMode(.alwaysTemplate)
-            
-            imgVideoPlayAbs.tintColor = UIColor.white.withAlphaComponent(0.8)
-            imgVideoPlayAbs.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-            imgVideoPlayAbs.layer.cornerRadius = 10
-            imgMediaAbs.addSubview(imgVideoPlayAbs)
+        if txtVideoPlayAbs == nil {
+            txtVideoPlayAbs = UILabel()
+            txtVideoPlayAbs.font = UIFont.iGapFonticon(ofSize: 40)
+            txtVideoPlayAbs.textAlignment = NSTextAlignment.center
+            txtVideoPlayAbs.text = ""
+            txtVideoPlayAbs.textColor = UIColor.white
+            txtVideoPlayAbs.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            txtVideoPlayAbs.layer.masksToBounds = true
+            txtVideoPlayAbs.layer.cornerRadius = 27.5
+            imgMediaAbs.addSubview(txtVideoPlayAbs)
         }
         
-        imgVideoPlayAbs?.snp.makeConstraints { (make) in
-            make.width.equalTo(35)
-            make.height.equalTo(35)
+        txtVideoPlayAbs?.snp.makeConstraints { (make) in
+            make.width.equalTo(55)
+            make.height.equalTo(55)
             make.centerX.equalTo(imgMediaAbs.snp.centerX)
             make.centerY.equalTo(imgMediaAbs.snp.centerY)
         }
     }
     
     private func removeVideoPlayView(){
-        imgVideoPlayAbs?.removeFromSuperview()
-        imgVideoPlayAbs = nil
+        txtVideoPlayAbs?.removeFromSuperview()
+        txtVideoPlayAbs = nil
     }
     
     

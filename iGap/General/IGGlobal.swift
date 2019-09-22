@@ -1494,38 +1494,9 @@ extension UIFont {
         }
     }
     
-    class func iGapFontico(ofSize fontSize: CGFloat) -> UIFont {
-        return UIFont(name: "iGap-Fontico", size: fontSize)!
-    }
-    
     class func iGapFonticon(ofSize fontSize: CGFloat) -> UIFont {
         return UIFont(name: "iGap_fontico", size: fontSize)!
     }
-    
-    class func iGapFonticoNew(ofSize fontSize: CGFloat) -> UIFont {
-        return UIFont(name: "iGap-fontico", size: fontSize)!
-    }
-    class func iGapFonticoC(ofSize fontSize: CGFloat) -> UIFont {
-        return UIFont(name: "iGap-FonticoC", size: fontSize)!
-    }
-    
-    //    func bold() -> UIFont {
-    //        return withTraits(traits: .traitBold)
-    //    }
-    
-    //    func italic() -> UIFont {
-    //        return withTraits(traits: .traitItalic)
-    //    }
-    
-    //    func withTraits(traits:UIFontDescriptorSymbolicTraits...) -> UIFont {
-    //
-    //        if let result = CTFontCreateCopyWithSymbolicTraits(self as CTFont, 0, nil, .traitItalic, .traitItalic) {
-    //            return result as UIFont
-    //        }
-    //
-    //        let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits(traits))!
-    //        return UIFont(descriptor: descriptor, size: 0)
-    //    }
 }
 
 extension UISearchBar {
