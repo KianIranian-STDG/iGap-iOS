@@ -587,7 +587,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 }
                 
                 if shouldShowAvatar {
-                    leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(46).priority(999).constraint
+                    leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(66).priority(999).constraint
                 } else {
                     if IGGlobal.shouldMultiSelect {
                         leadingAbs = make.leading.equalTo(self.contentView.snp.leading).offset(36).priority(999).constraint
@@ -1444,15 +1444,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     private func makeAvatar(){
         if avatarViewAbs == nil {
-            let frame = CGRect(x:0 ,y:0 ,width:30 ,height:30)
+            let frame = CGRect(x:0 ,y:0 ,width:50 ,height:50)
             avatarViewAbs = IGAvatarView(frame: frame)
             self.contentView.addSubview(avatarViewAbs)
             
             avatarViewAbs.snp.makeConstraints { (make) in
                 make.leading.equalTo(self.contentView.snp.leading).offset(8)
                 make.top.equalTo(mainBubbleViewAbs.snp.top)
-                make.width.equalTo(30)
-                make.height.equalTo(30)
+                make.width.equalTo(50)
+                make.height.equalTo(50)
             }
         }
     }

@@ -72,7 +72,7 @@ class VoiceCell: AbstractCell {
         if txtVoiceRecorderName == nil {
             txtVoiceRecorderName = UILabel()
             txtVoiceRecorderName.textColor = UIColor.dialogueBoxInfo()
-            txtVoiceRecorderName.font = UIFont.systemFont(ofSize: 12.0, weight: UIFont.Weight.medium)
+            txtVoiceRecorderName.font = UIFont.igFont(ofSize: 13)
             txtVoiceRecorderName.lineBreakMode = .byTruncatingMiddle
             txtVoiceRecorderName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtVoiceRecorderName)
@@ -81,7 +81,7 @@ class VoiceCell: AbstractCell {
         if txtVoiceTime == nil {
             txtVoiceTime = UILabel()
             txtVoiceTime.textColor = UIColor.dialogueBoxInfo()
-            txtVoiceTime.font = UIFont.systemFont(ofSize: 10.0, weight: UIFont.Weight.regular)
+            txtVoiceTime.font = UIFont.igFont(ofSize: 13)
             txtVoiceTime.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtVoiceTime)
         }
@@ -103,9 +103,9 @@ class VoiceCell: AbstractCell {
             if imgFilePosition != nil { imgFilePosition.deactivate() }
             
             if isForward {
-                imgFilePosition = make.top.equalTo(forwardViewAbs.snp.bottom).offset(15.0).constraint
+                imgFilePosition = make.top.equalTo(forwardViewAbs.snp.bottom).offset(10.0).constraint
             } else if isReply {
-                imgFilePosition = make.top.equalTo(replyViewAbs.snp.bottom).offset(15.0).constraint
+                imgFilePosition = make.top.equalTo(replyViewAbs.snp.bottom).offset(10.0).constraint
             } else {
                 imgFilePosition = make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).constraint
             }
@@ -113,8 +113,8 @@ class VoiceCell: AbstractCell {
             if imgFilePosition != nil { imgFilePosition.activate() }
             
             make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
-            make.height.equalTo(36.0)
-            make.width.equalTo(36.0)
+            make.height.equalTo(60.0)
+            make.width.equalTo(60.0)
         }
         
         indicatorViewAbs.snp.makeConstraints { (make) in
