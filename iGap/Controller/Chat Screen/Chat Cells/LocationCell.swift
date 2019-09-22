@@ -62,7 +62,7 @@ class LocationCell: AbstractCell {
                 imgMediaAbs.image = image
             }
         } else {
-            self.imgMediaAbs.image = UIImage(named: "Location_Default")
+            self.imgMediaAbs.image = UIImage(named: "IG_Message_Cell_Location")
             /*
             IGDownloadManager.sharedManager.downloadLocation(latitude: latitude!, longitude: longitude!, locationObserver: { (locationPath) -> Void in
                 if let image = UIImage(contentsOfFile: locationPath) {

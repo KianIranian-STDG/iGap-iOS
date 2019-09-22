@@ -81,6 +81,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var isForward = false
     var isReply = false
     
+    let cornerRadius: CGFloat = 7.0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -561,7 +563,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func manageCellBubble(){
       
         /************ Bubble View ************/
-        mainBubbleViewAbs.layer.cornerRadius = 7.0
+        mainBubbleViewAbs.layer.cornerRadius = cornerRadius
         if finalRoomMessage.type == .sticker || finalRoomMessage.type == .location {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
@@ -1613,6 +1615,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         indicatorViewAbs = nil
         
         imgMediaAbs = IGImageView()
+        imgMediaAbs.layer.masksToBounds = true
+        imgMediaAbs.layer.cornerRadius = cornerRadius
         mainBubbleViewAbs.addSubview(imgMediaAbs)
         
         if messageType != .sticker {
@@ -1637,25 +1641,34 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             makeVideoInfo()
         }
         
+        let spaceFromParent: CGFloat = 3
         imgMediaAbs.snp.makeConstraints { (make) in
 
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing)
-            make.leading.equalTo(mainBubbleViewAbs.snp.leading)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-spaceFromParent)
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(spaceFromParent)
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.deactivate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.deactivate() }
             
             if isForward {
-                imgMediaTopAbs = make.top.equalTo(forwardViewAbs.snp.bottom).constraint
+                imgMediaTopAbs = make.top.equalTo(forwardViewAbs.snp.bottom).offset(spaceFromParent).constraint
             } else if isReply {
-                imgMediaTopAbs = make.top.equalTo(replyViewAbs.snp.bottom).constraint
+                imgMediaTopAbs = make.top.equalTo(replyViewAbs.snp.bottom).offset(spaceFromParent).constraint
             } else {
-                imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).constraint
+                imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(spaceFromParent).constraint
             }
-            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight).constraint
+            imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight-spaceFromParent).constraint
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }
+        }
+        
+        if #available(iOS 11.0, *) {
+            if isIncommingMessage {
+                imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+            } else {
+                imgMediaAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            }
         }
     }
     
