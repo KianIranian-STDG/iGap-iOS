@@ -15,6 +15,9 @@
         <array key="IRANSans_Bold.ttf">
             <string>IRANSans-Bold</string>
         </array>
+        <array key="IRANSans_Medium.ttf">
+            <string>IRANSans-Medium</string>
+        </array>
         <array key="SFUIText.ttf">
             <string>.SFUIText</string>
         </array>
@@ -1358,7 +1361,7 @@
                                                     <constraint firstAttribute="height" constant="20" id="i0G-sC-VLl"/>
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
+                                                <fontDescription key="fontDescription" name="IRANSans-Medium" family="IRANSans" pointSize="13"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-Dt-CKY">

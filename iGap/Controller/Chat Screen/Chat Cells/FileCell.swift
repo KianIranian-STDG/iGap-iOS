@@ -91,7 +91,7 @@ class FileCell: AbstractCell {
         if txtFileName == nil {
             txtFileName = UILabel()
             txtFileName.textColor = UIColor.dialogueBoxInfo()
-            txtFileName.font = UIFont.igFont(ofSize: 12)
+            txtFileName.font = UIFont.igFont(ofSize: 14)
             txtFileName.lineBreakMode = .byTruncatingMiddle
             txtFileName.numberOfLines = 1
             mainBubbleViewAbs.addSubview(txtFileName)
@@ -100,7 +100,7 @@ class FileCell: AbstractCell {
         if txtFileSize == nil {
             txtFileSize = UILabel()
             txtFileSize.textColor = UIColor.dialogueBoxInfo()
-            txtFileSize.font = UIFont.igFont(ofSize: 12)
+            txtFileSize.font = UIFont.igFont(ofSize: 14)
             txtFileSize.numberOfLines = 0
             mainBubbleViewAbs.addSubview(txtFileSize)
         }
@@ -122,8 +122,8 @@ class FileCell: AbstractCell {
             if fileTop != nil { fileTop.activate() }
             
             make.leading.equalTo(mainBubbleView.snp.leading).offset(8.0)
-            make.width.equalTo(30.0)
-            make.height.equalTo(34.0)
+            make.width.equalTo(55.5)
+            make.height.equalTo(62.9)
         }
         
         indicatorViewAbs.snp.makeConstraints { (make) in
@@ -136,13 +136,13 @@ class FileCell: AbstractCell {
         txtFileName.snp.makeConstraints { (make) in
             make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
             make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-10.0)
-            make.top.equalTo(imgFileAbs.snp.top)
+            make.top.equalTo(imgFileAbs.snp.top).offset(7)
         }
         
         txtFileSize.snp.makeConstraints { (make) in
             make.leading.equalTo(imgFileAbs.snp.trailing).offset(10.0)
             make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(10.0)
-            make.bottom.equalTo(imgFileAbs.snp.bottom)
+            make.bottom.equalTo(imgFileAbs.snp.bottom).offset(-7)
         }
     }
     

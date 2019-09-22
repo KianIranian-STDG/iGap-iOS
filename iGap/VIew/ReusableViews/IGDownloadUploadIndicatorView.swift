@@ -118,31 +118,30 @@ class IGDownloadUploadIndicatorView: UIView {
         if self.actionButton == nil {
             
             /** make circle background for action button **/
-            let downloadViewWidth: CGFloat = 60
-            let pathWidth: CGFloat = 5.0
-            let lineAndCircleSpace: CGFloat = 3.0
+            let downloadViewWidth: CGFloat = 55
+            let pathWidth: CGFloat = 4.5
+            let lineAndCircleSpace: CGFloat = 3.5
             let circlePath = UIBezierPath(arcCenter: CGPoint(x: downloadViewWidth / 2.0, y: downloadViewWidth / 2.0), radius: (downloadViewWidth - (pathWidth + lineAndCircleSpace)) / 2.0, startAngle: CGFloat(-(Double.pi / 2.0)), endAngle: CGFloat(Double.pi * 1.5), clockwise: true)
             
             backgroundView = CAShapeLayer()
             backgroundView.lineCap = convertToCAShapeLayerLineCap("round")
             backgroundView.path = circlePath.cgPath
             backgroundView.cornerRadius = 5
-            backgroundView.backgroundColor = UIColor.orange.withAlphaComponent(0.5).cgColor
             backgroundView.fillColor = UIColor.clear.cgColor
-            backgroundView.strokeColor = UIColor.dialogueBoxIncomming().cgColor
+            backgroundView.strokeColor = UIColor.white.cgColor
             backgroundView.lineWidth = pathWidth
             backgroundView.strokeEnd = 00.0
             backgroundView.presentation()?.strokeEnd = 00.0
             
             let backgroundProgress = UIView()
-            backgroundProgress.layer.cornerRadius = 30
+            backgroundProgress.layer.cornerRadius = downloadViewWidth/2
             backgroundProgress.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.addSubview(backgroundProgress)
             backgroundProgress.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.snp.centerX)
                 make.centerY.equalTo(self.snp.centerY)
-                make.height.equalTo(60)
-                make.width.equalTo(60)
+                make.height.equalTo(downloadViewWidth)
+                make.width.equalTo(downloadViewWidth)
             })
             backgroundProgress.layer.addSublayer(backgroundView)
             
@@ -156,8 +155,8 @@ class IGDownloadUploadIndicatorView: UIView {
             self.actionButton?.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(backgroundProgress.snp.centerX)
                 make.centerY.equalTo(backgroundProgress.snp.centerY)
-                make.height.equalTo(60)
-                make.width.equalTo(60)
+                make.height.equalTo(downloadViewWidth)
+                make.width.equalTo(downloadViewWidth)
             })
         }
     }

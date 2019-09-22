@@ -1025,7 +1025,7 @@ extension UIImageView {
                     } else {
                         self.image = UIImage(named:"IG_Message_Cell_File_Generic")
                     }
-                    self.image = UIImage(named:"IG_Message_Cell_File")
+                    //self.image = UIImage(named:"IG_Message_Cell_File")
                     
                 } else {
                     self.image = UIImage(named:"IG_Message_Cell_File_Generic")
