@@ -184,7 +184,7 @@ class IGTabBarController: UITabBarController {
 
 
     
-    private func setCurrentTab(tag: Int){
+    func setCurrentTab(tag: Int){
         switch tag {
             
         case 0:

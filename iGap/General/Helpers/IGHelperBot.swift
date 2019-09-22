@@ -186,7 +186,6 @@ class IGHelperBot {
         buttonViewDic[btn] = view
         if !(IGGlobal.shouldMultiSelect) {
             btn.addTarget(self, action: #selector(onBotButtonClick), for: .touchUpInside)
-            
         }
         btn.titleLabel?.textAlignment = NSTextAlignment.center
         view.addSubview(btn)
@@ -252,7 +251,6 @@ class IGHelperBot {
         sender.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             sender.isEnabled = true
-
         }
         IGMessageViewController.additionalObserver.onBotClick()
         if let structAdditional = buttonActionDic[sender] {
@@ -332,7 +330,29 @@ class IGHelperBot {
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue :
-                IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
+//                IGMessageViewController.additionalObserver.onAdditionalRequestPayDirect(structAdditional: structAdditional)
+                guard let jsonValue = structAdditional.valueJson as? String, let json = jsonValue.toJSON() as? [String:AnyObject], let token = json["token"] as? String else {
+                    IGHelperAlert.shared.showErrorAlert()
+                    break
+                }
+                IGGlobal.prgShow()
+                print("Success: " + token)
+                IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
+                    IGGlobal.prgHide()
+                    let paymentView = IGPaymentView.sharedInstance
+                    
+                    if success {
+                        guard let paymentData = payment else {
+                            IGHelperAlert.shared.showErrorAlert()
+                            return
+                        }
+                        
+                        paymentView.show(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localizedNew, payToken: token, payment: paymentData)
+                    } else {
+                        
+                        paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "DIRECT_PAY".localizedNew, message: errorMessage ?? "", payToken: token)
+                    }
+                })
                 break
                 
             case IGPDiscoveryField.IGPButtonActionType.requestPhone.rawValue :
@@ -356,11 +376,15 @@ class IGHelperBot {
                     let tmpCardNumber = finalData.cardNumber
                     
                     IGHelperFinancial.shared.sendCardToCardRequestWithAmount(toUserId: finalData.userId , amount: (tmpAmount), destinationCard: tmpCardNumber)
-
                 }
-
-            
                 break
+                
+//            case IGPDiscoveryField.IGPButtonActionType.payDirect.rawValue:
+//                guard let jsonValue = structAdditional.toJSON() as? [String:AnyObject], let id = jsonValue["charityId"] as? String, let price = jsonValue["price"] as? Int else {
+//                    IGHelperAlert.shared.showErrorAlert()
+//                    break
+//                }
+                
                 
             default:
                 break

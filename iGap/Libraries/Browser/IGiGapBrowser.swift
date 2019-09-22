@@ -355,15 +355,18 @@ extension IGiGapBrowser: WKScriptMessageHandler {
         if message.name == "iosJsHandler" {
             print(message.body)
             IGGlobal.prgShow()
-            IGApiPayment.shared.orderChech(token: message.body as! String, completion: { (success, payment) in
+            IGApiPayment.shared.orderCheck(token: message.body as! String, completion: { (success, payment, errorMessage) in
                 IGGlobal.prgHide()
+                let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
                         IGHelperAlert.shared.showErrorAlert()
                         return
                     }
-                    let paymentView = IGPaymentView.sharedInstance
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.pageTitle, payToken: message.body as! String, payment: paymentData)
+                } else {
+                    
+                    paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: self.pageTitle, message: errorMessage ?? "", payToken: message.body as! String)
                 }
             })
         }

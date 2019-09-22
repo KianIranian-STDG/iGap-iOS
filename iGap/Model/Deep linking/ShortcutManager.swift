@@ -15,7 +15,7 @@ class ShortcutParser {
     
     func registerShortcuts() {
         let dashboardIcon = UIApplicationShortcutIcon(templateImageName: "Location_Marker")
-        let dashboardShortcutItem = UIApplicationShortcutItem(type: ShortcutKey.dashboard.rawValue, localizedTitle: "dashboard", localizedSubtitle: nil, icon: dashboardIcon, userInfo: nil)
+        let dashboardShortcutItem = UIApplicationShortcutItem(type: ShortcutKey.discovery.rawValue, localizedTitle: "discovery", localizedSubtitle: nil, icon: dashboardIcon, userInfo: nil)
         let messageIcon = UIApplicationShortcutIcon(templateImageName: "Location_Marker")
         let messageShortcutItem = UIApplicationShortcutItem(type: ShortcutKey.messages.rawValue, localizedTitle: "Messages", localizedSubtitle: nil, icon: messageIcon, userInfo: nil)
         UIApplication.shared.shortcutItems = [dashboardShortcutItem, messageShortcutItem]
@@ -27,8 +27,8 @@ class ShortcutParser {
     
     func handleShortcut(_ shortcut: UIApplicationShortcutItem) -> DeeplinkType? {
         switch shortcut.type {
-        case ShortcutKey.dashboard.rawValue:
-            return .dashboard
+        case ShortcutKey.discovery.rawValue:
+            return .discovery(pathes: [])
         case ShortcutKey.messages.rawValue:
             return .messages(.root)
         case ShortcutKey.chatroom.rawValue:
@@ -47,7 +47,7 @@ class ShortcutParser {
 }
 
 enum ShortcutKey: String {
-    case dashboard = "msg.iGap.dashboard"
+    case discovery = "msg.iGap.discovery"
     case messages = "msg.iGap.messages"
     case chatroom = "msg.iGap.chatroom"
 }

@@ -384,15 +384,18 @@ extension SwiftWebVC: WKScriptMessageHandler {
         if message.name == "iosJsHandler" {
             IGGlobal.prgShow()
             print(message.body)
-            IGApiPayment.shared.orderChech(token: message.body as! String, completion: { (success, payment) in
+            IGApiPayment.shared.orderCheck(token: message.body as! String, completion: { (success, payment, errorMessage) in
                 IGGlobal.prgHide()
+                let paymentView = IGPaymentView.sharedInstance
                 if success {
                     guard let paymentData = payment else {
                         IGHelperAlert.shared.showErrorAlert()
                         return
                     }
-                    let paymentView = IGPaymentView.sharedInstance
                     paymentView.show(on: UIApplication.shared.keyWindow!, title: self.navBarTitle.text ?? "", payToken: message.body as! String, payment: paymentData)
+                } else {
+                    
+                    paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: self.navBarTitle.text ?? "", message: errorMessage ?? "", payToken: message.body as! String)
                 }
             })
         }

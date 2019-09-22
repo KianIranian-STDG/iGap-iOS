@@ -465,14 +465,14 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
                 
                 
-//                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
-//                break
+                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
+                break
                 
                 
                 
-                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
-                return
+//                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+//                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
+//                return
             }
 
         case .page:
@@ -855,15 +855,18 @@ class AbstractDashboardCell: UICollectionViewCell {
                 if isSuccess {
                     guard let token = token else { IGGlobal.prgHide(); return }
                     print("Success: " + token)
-                    IGApiPayment.shared.orderChech(token: token, completion: { (success, payment) in
+                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
                         IGGlobal.prgHide()
+                        let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
                                 IGHelperAlert.shared.showErrorAlert()
                                 return
                             }
-                            let paymentView = IGPaymentView.sharedInstance
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "CHARITY".localizedNew, payToken: token, payment: paymentData)
+                        } else {
+                            
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "CHARITY".localizedNew, message: errorMessage ?? "", payToken: token)
                         }
                     })
                     

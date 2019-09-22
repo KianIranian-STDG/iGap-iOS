@@ -33,14 +33,16 @@ class DeepLinkParser {
             if let room = try! Realm().objects(IGRoom.self).filter(predicate).first {
                 return DeeplinkType.chatRoom(room: room, messageId: messageIdInt64)
             }
-        case "dashboard":
-            if let requestId = pathComponents.first {
-                return DeeplinkType.request(id: requestId)
-            }
-        case "messages":
-            if let messageId = pathComponents.first {
-                return DeeplinkType.messages(.details(id: messageId))
-            }
+        case "discovery":
+            return DeeplinkType.discovery(pathes: pathComponents)
+//        case "dashboard":
+//            if let requestId = pathComponents.first {
+//                return DeeplinkType.request(id: requestId)
+//            }
+//        case "messages":
+//            if let messageId = pathComponents.first {
+//                return DeeplinkType.messages(.details(id: messageId))
+//            }
         case "payment-result":
             guard let queryItems = components.queryItems else { return nil }
             let message = self.getParameter(from: queryItems, param: "message") ?? ""

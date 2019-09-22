@@ -29,6 +29,7 @@
                 <outlet property="costSV" destination="z6I-MB-kxc" id="Vun-si-opO"/>
                 <outlet property="descriptionLbl" destination="CfL-kv-0jn" id="v8c-m8-ImJ"/>
                 <outlet property="descriptionSV" destination="efw-1h-UuH" id="LQz-r0-EQ5"/>
+                <outlet property="errorMessageLbl" destination="UWq-Mg-wK8" id="YvS-UP-aqa"/>
                 <outlet property="mainSV" destination="WOo-ru-wH1" id="fJ9-aD-tTd"/>
                 <outlet property="statusCodeLbl" destination="pZQ-b0-9hh" id="T9z-v3-ym7"/>
                 <outlet property="statusDescriptionLbl" destination="Ujf-ge-0m2" id="GAA-tQ-wJB"/>
@@ -162,13 +163,21 @@
                                 <constraint firstItem="mNB-MW-ALp" firstAttribute="height" secondItem="V3y-gF-yoI" secondAttribute="height" id="eNY-rk-Oee"/>
                             </constraints>
                         </stackView>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="توکن ارسالی نامعتبر است." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWq-Mg-wK8">
+                            <rect key="frame" x="123.5" y="243" width="175" height="27"/>
+                            <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="MQU-TH-kvx" firstAttribute="leading" secondItem="EkC-gx-pKa" secondAttribute="leading" constant="8" id="4L6-87-gfG"/>
                         <constraint firstItem="WOo-ru-wH1" firstAttribute="top" secondItem="so1-6m-SG9" secondAttribute="bottom" constant="8" id="DWb-Tz-Pd0"/>
+                        <constraint firstItem="MQU-TH-kvx" firstAttribute="top" secondItem="UWq-Mg-wK8" secondAttribute="bottom" constant="36" id="Gg3-hm-xBx"/>
                         <constraint firstItem="so1-6m-SG9" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="JQa-Vx-XCu"/>
                         <constraint firstAttribute="bottom" secondItem="MQU-TH-kvx" secondAttribute="bottom" constant="36" id="gC2-Cn-Zbx"/>
+                        <constraint firstItem="UWq-Mg-wK8" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="icQ-Y9-jvI"/>
                         <constraint firstItem="MQU-TH-kvx" firstAttribute="centerX" secondItem="EkC-gx-pKa" secondAttribute="centerX" id="lPn-aY-JfT"/>
                         <constraint firstItem="WOo-ru-wH1" firstAttribute="leading" secondItem="EkC-gx-pKa" secondAttribute="leading" constant="8" id="ljK-9C-G61"/>
                         <constraint firstItem="MQU-TH-kvx" firstAttribute="top" secondItem="WOo-ru-wH1" secondAttribute="bottom" constant="20" id="sCl-4A-Gte"/>

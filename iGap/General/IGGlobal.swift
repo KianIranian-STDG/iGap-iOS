@@ -1958,6 +1958,36 @@ extension UIApplication {
         
         return base
     }
+    /// returns very first tab bar controller on view hirarchy
+    static func topTabBarController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topTabBarController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            return tab
+        }
+        if let presented = base?.presentedViewController {
+            return topTabBarController(base: presented)
+        }
+        
+        return nil
+    }
+    
+    /// returns very first navigation controller on view hirarchy
+    static func topNavigationController(base: UIViewController? = UIApplication.shared.delegate?.window??.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return nav
+        }
+        if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return topNavigationController(base: selected)
+        }
+        if let presented = base?.presentedViewController {
+            return topNavigationController(base: presented)
+        }
+        
+        return nil
+    }
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.

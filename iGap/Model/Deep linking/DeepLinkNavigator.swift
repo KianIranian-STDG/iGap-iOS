@@ -15,8 +15,8 @@ class DeeplinkNavigator {
     
     func proceedToDeeplink(_ type: DeeplinkType) {
         switch type {
-        case .dashboard:
-            displayAlert(title: "Activity")
+//        case .dashboard:
+//            displayAlert(title: "Activity")
         case .messages(.root):
             displayAlert(title: "Messages Root")
         case .messages(.details(id: let id)):
@@ -56,10 +56,12 @@ class DeeplinkNavigator {
             }).send()
             break
             
-        case .request(id: let id):
-            displayAlert(title: "Request Details \(id)")
+//        case .request(id: let id):
+//            displayAlert(title: "Request Details \(id)")
         case .payment(message: let message, status: let st, orderId: let id):
             self.showPaymentView(message: message, status: st, orderId: id)
+        case .discovery(let pathes):
+            self.showDiscovery(pathes: pathes)
         }
     }
     
@@ -85,6 +87,17 @@ class DeeplinkNavigator {
                 IGHelperAlert.shared.showErrorAlert()
             }
         }
+    }
+    
+    private func showDiscovery(pathes: [String]) {
+        
+        guard let tabBar = UIApplication.topTabBarController() as? IGTabBarController else {
+            return
+        }
+//        tabBar.setCurrentTab(tag: )
+        print(UIApplication.topViewController()!)
+        print(UIApplication.topTabBarController()!)
+        print(UIApplication.topNavigationController()!)
     }
     
     private var alertController = UIAlertController()

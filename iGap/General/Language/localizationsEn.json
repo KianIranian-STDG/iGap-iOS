@@ -921,6 +921,8 @@
         "COUPON_SHARED" : " Shared a coupon",
         "SHARE_TO" : "Share To",
         "SELECT_CHATS" : "Select Chats",
+        "DIRECT_PAY" : "Direct pay",
+        
         "POST_SHARE" : " Shared this post",
         "PAGE_SHARE" : " Shared a page",
         "COUPON_SAVED" : "Saved a coupon",

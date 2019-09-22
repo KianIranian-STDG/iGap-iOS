@@ -307,15 +307,18 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
                 if success {
                     guard let token = token else { return }
                     print("Success: " + token)
-                    IGApiPayment.shared.orderChech(token: token, completion: { (success, payment) in
+                    IGApiPayment.shared.orderCheck(token: token, completion: { (success, payment, errorMessage) in
                         IGGlobal.prgHide()
+                        let paymentView = IGPaymentView.sharedInstance
                         if success {
                             guard let paymentData = payment else {
                                 IGHelperAlert.shared.showErrorAlert()
                                 return
                             }
-                            let paymentView = IGPaymentView.sharedInstance
                             paymentView.show(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, payToken: token, payment: paymentData)
+                        } else {
+                            
+                            paymentView.showOnErrorMessage(on: UIApplication.shared.keyWindow!, title: "BUY_INTERNET_PACKAGE".InternetPackageLocalization, message: errorMessage ?? "", payToken: token)
                         }
                     })
                     

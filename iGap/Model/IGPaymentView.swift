@@ -41,6 +41,7 @@ class IGPaymentView: UIView {
     @IBOutlet var amountLbl: UILabel!
     @IBOutlet var statusDescriptionLbl: UILabel!
     @IBOutlet var statusCodeLbl: UILabel!
+    @IBOutlet var errorMessageLbl: UILabel!
     
     // MARK: - Variables
     private var parentView: UIView!
@@ -82,6 +83,7 @@ class IGPaymentView: UIView {
     // MARK: - User functions
     /// show payment view modal
     func show(on parentView: UIView, title: String, payToken: String, payment: IGStructPayment) {
+        parentView.endEditing(true)
         self.parentView = parentView
         self.title = title
         self.payToken = payToken
@@ -112,15 +114,20 @@ class IGPaymentView: UIView {
         if let price = payment.info.price {
             self.amountLbl.text = "\(price)".onlyDigitChars().inRialFormat()
         }
+        
+        self.mainSV.isHidden = false
         self.statusSV.isHidden = true
         self.acceptBtn.isHidden = false
         self.cancelBtn.setTitle("BTN_CANCEL".localizedNew, for: .normal)
         self.acceptBtn.setTitle("PU_PAYMENT".localizedNew, for: .normal)
         self.cancelBtn.backgroundColor = UIColor.iGapRed()
+        
+        self.errorMessageLbl.isHidden = true
     }
     
     /// show paymentview with payment result
     func showPaymentResult(on parentView: UIView, paymentStatusData: IGStructPaymentStatus, message: String) {
+        parentView.endEditing(true)
         self.parentView = parentView
         self.title = paymentStatusData.info?.product?.title
         self.payToken = nil
@@ -155,11 +162,12 @@ class IGPaymentView: UIView {
     
     /// reload payment view on payment result
     func reloadPaymentResult(status: PaymentStatus, message: String, RRN: String) {
-        
+        self.mainSV.isHidden = false
         self.statusSV.isHidden = false
         self.statusDescriptionLbl.text = message
         self.statusCodeLbl.text = "PAYMENT_ORDER_ID".localizedNew + ": " + RRN.inLocalizedLanguage()
         
+        self.errorMessageLbl.isHidden = true
         self.acceptBtn.isHidden = true
         self.cancelBtn.setTitle("BTN_CLOSE".localizedNew, for: .normal)
         
@@ -196,6 +204,41 @@ class IGPaymentView: UIView {
             self.cancelBtn.backgroundColor = UIColor.iGapGreen()
             
         }
+    }
+    
+    /// show payment view modal with error
+    func showOnErrorMessage(on parentView: UIView, title: String, message: String, payToken: String) {
+        parentView.endEditing(true)
+        self.parentView = parentView
+        self.title = title
+        self.payToken = payToken
+        parentView.addSubview(self)
+        parentView.addMaskView() {
+            // on maske view hide
+            self.hideView()
+        }
+        self.frame.size = CGSize(width: parentView.frame.width, height: contentView.bounds.height)
+        self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height , width: parentView.frame.width, height: self.frame.height)
+        UIView.animate(withDuration: 0.3) {
+            self.frame = CGRect(x: parentView.frame.minX, y: parentView.frame.height - self.contentView.bounds.height, width: parentView.frame.width, height: self.contentView.bounds.height)
+        }
+        parentView.bringSubviewToFront(self)
+        
+        self.errorMessageLbl.isHidden = false
+        self.errorMessageLbl.text = message
+        
+        self.topIconLbl.text = ""
+        self.topIconLbl.textColor = UIColor.iGapYellow()
+        
+//        self.titleLbl.isHidden = true
+        self.titleLbl.text = title
+        
+        self.mainSV.isHidden = true
+        self.statusSV.isHidden = true
+        
+        self.acceptBtn.isHidden = true
+        self.cancelBtn.setTitle("BTN_CLOSE".localizedNew, for: .normal)
+        self.cancelBtn.backgroundColor = UIColor.iGapYellow()
     }
     
     func addPanGesture() {
