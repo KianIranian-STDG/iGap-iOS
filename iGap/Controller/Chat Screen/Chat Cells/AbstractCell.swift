@@ -1652,23 +1652,24 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             
             if isForward {
                 imgMediaTopAbs = make.top.equalTo(forwardViewAbs.snp.bottom).offset(spaceFromParent).constraint
+                imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             } else if isReply {
                 imgMediaTopAbs = make.top.equalTo(replyViewAbs.snp.bottom).offset(spaceFromParent).constraint
+                imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
             } else {
                 imgMediaTopAbs = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(spaceFromParent).constraint
+                if #available(iOS 11.0, *) {
+                    if isIncommingMessage {
+                        imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                    } else {
+                        imgMediaAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                    }
+                }
             }
             imgMediaHeightAbs = make.height.equalTo(messageSizes.messageAttachmentHeight-spaceFromParent).constraint
             
             if imgMediaTopAbs != nil { imgMediaTopAbs.activate() }
             if imgMediaHeightAbs != nil { imgMediaHeightAbs.activate() }
-        }
-        
-        if #available(iOS 11.0, *) {
-            if isIncommingMessage {
-                imgMediaAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
-            } else {
-                imgMediaAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-            }
         }
     }
     
