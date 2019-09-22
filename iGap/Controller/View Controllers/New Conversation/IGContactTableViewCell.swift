@@ -22,8 +22,6 @@ class IGContactTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        contactNameLable.textAlignment = contactNameLable.localizedNewDirection
-        contactPhoneNumber.textAlignment = contactPhoneNumber.localizedNewDirection
 
     }
     
@@ -37,7 +35,7 @@ class IGContactTableViewCell: UITableViewCell {
         }
         contactNameLable.text = user.displayName
         contactPhoneNumber.text = String(user.phone)
-        
+
         userAvatarView.setUser(user)
         self.userRegister = user
     }

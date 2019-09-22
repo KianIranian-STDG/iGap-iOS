@@ -659,7 +659,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         //        inputTextView.minHeight = 25.0 // almost 8 lines
         
         inputTextView.maxHeight = 166.0 // almost 8 lines
-        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
         inputTextView.layer.borderColor = UIColor.gray.cgColor
         inputTextView.layer.borderWidth = 0.4
         inputTextView.layer.cornerRadius = 17.0
@@ -879,7 +879,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         let userInfo = notification.userInfo!
         let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
         let window = UIApplication.shared.keyWindow!
-        
+        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
+
         if MoneyInputModalIsActive {
             if let MoneyInput = MoneyInputModal {
                 window.addSubview(MoneyInput)
@@ -938,6 +939,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             if let MoneyInput = MoneyInputModal {
                 self.view.addSubview(MoneyInput)
                 UIView.animate(withDuration: 0.3) {
+                    self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+
                     if MoneyInput.frame.origin.y < self.view.frame.size.height {
                         MoneyInput.frame = CGRect(x: 0, y: self.view.frame.height - MoneyInput.frame.height - 45, width: self.view.frame.width, height: MoneyInput.frame.height)
                     }
@@ -1917,6 +1920,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
             UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
                 self.txtSticker.isHidden = true
+                self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+
             }, completion: nil)
             
         } else {
@@ -1979,6 +1984,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         self.txtSticker.isHidden = true
                     } else {
                         self.txtSticker.isHidden = false
+                        self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
+
                         
                     }
                 }, completion: nil)
@@ -2373,6 +2380,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc func didTapOnInputTextView() {
+        inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+
         disableStickerView(delay: 0.0, openKeyboard: true)
     }
     
