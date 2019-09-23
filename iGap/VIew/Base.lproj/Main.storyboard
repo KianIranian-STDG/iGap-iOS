@@ -1813,8 +1813,10 @@
                                     <constraint firstAttribute="width" constant="55" id="IrE-ie-Uib"/>
                                     <constraint firstAttribute="height" constant="55" id="Y3T-qA-70J"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="26"/>
-                                <state key="normal" title=""/>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="btnCurrentLocation:" destination="hsi-ex-lNf" eventType="touchUpInside" id="HYn-HL-OKX"/>
                                 </connections>
@@ -3312,6 +3314,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="jRj-hY-oEr"/>
         <segue reference="R4P-x7-LEg"/>
-        <segue reference="QJB-pO-R8A"/>
+        <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

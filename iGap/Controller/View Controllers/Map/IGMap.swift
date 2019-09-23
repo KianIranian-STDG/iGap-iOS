@@ -120,12 +120,12 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
     
     func initNavigationBar(){
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PAGE_NEARBY".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_PAGE_NEARBY".localizedNew,iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-        navigationItem.addModalViewRightItem(title: "", iGapFont: true, fontSize: 25.0, xPosition: 5.0)
+//        navigationItem.addModalViewRightItem(title: "", iGapFont: true, fontSize: 25.0, xPosition: 5.0)
         navigationItem.rightViewContainer?.addAction {
             self.mapOptionsAlert()
         }
