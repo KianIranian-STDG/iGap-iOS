@@ -304,7 +304,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         lblBioTop.text = (userInDb.bio)
         btnName.setTitle((userInDb.displayName), for: .normal)
         btnName.titleLabel?.font = UIFont.igFont(ofSize: 14)
-        btnUsername.setTitle((userInDb.displayName), for: .normal)
+        btnUsername.setTitle((userInDb.username), for: .normal)
         btnUsername.titleLabel?.font = UIFont.igFont(ofSize: 14)
         lblTel.text = String(userInDb.phone).inLocalizedLanguage()
 
