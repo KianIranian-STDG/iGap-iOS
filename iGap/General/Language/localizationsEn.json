@@ -1036,6 +1036,7 @@
         "RESET_AUTO_DOWNLOAD_SETTINGS" : "Reset Auto Download Settings",
         "USE_LESS_DATA" : "Use Less Data",
         "PROXY_SETTINGS" : "Proxy Settings",
+        "FOOTER_KEEP_MEDIA" : "Alle The images and videoes that you did not have access in the period will be deleted.",
         "CLEAR_CACHE" : "Clear Cache",
         "KEEP_MEDIA" : "Keep Media",
         "TEXT_SIZE" : "Text Size",

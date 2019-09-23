@@ -362,12 +362,15 @@ class IGRoomListtCell: UITableViewCell {
     }
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.avatarImage.cancelImageDownloadTask()
+        self.avatarImage.sd_cancelCurrentAnimationImagesLoad()
         self.avatarImage.image = nil
         self.nameLabel.text = nil
         self.stateImage.image = nil
         self.unreadCountLabel.text = nil
         self.lastMessageStateImage.image = nil
         self.lastMsgLabel.text = nil
+        self.avatarImage.image = UIImage()
         showStateImage = nil
     }
     

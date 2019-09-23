@@ -699,7 +699,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 
                 if card.type == 1 && card.pan!.contains("پیگیر"){
                     
-                    lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
+                    lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
                     merchantBalance = (lblCurrency.text!).inEnglishNumbers()
 
                     if (lblCurrency.text)?.inEnglishNumbers() == "0" {
@@ -953,7 +953,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
         if let card = merchantCard {
             if card.type == 1 {
 //                amountLbl.isHidden = false
-                lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat().inLocalizedLanguage()
+                lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
                 let tmp = lblCurrency.text
                 if tmp?.inEnglishNumbers() == "0" {
                     btnCashout.isEnabled = false

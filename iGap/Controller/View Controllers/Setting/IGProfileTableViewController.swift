@@ -783,8 +783,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         self.navigationController!.pushViewController(score, animated: true)
     }
     @IBAction func btnCreditTapped(_ sender: Any) {
-        let scoreHistory = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
-        self.navigationController!.pushViewController(scoreHistory, animated:true)
+        goToSettings = false
+        let walletVC = packetTableViewController.instantiateFromAppStroryboard(appStoryboard: .Wallet)
+        self.navigationController!.pushViewController(walletVC, animated:true)
 
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

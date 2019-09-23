@@ -28,6 +28,9 @@
         <array key="iGap-Fontico.ttf">
             <string>iGap-Fontico</string>
         </array>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Main Wallet View Controller-->
@@ -69,10 +72,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
-                            <tableViewSection headerTitle="Section-1" id="GcZ-Dw-Lk4">
+                            <tableViewSection id="GcZ-Dw-Lk4">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="331" id="NRe-qC-Ovx">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="331"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="331"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NRe-qC-Ovx" id="vdL-b9-nZn">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="331"/>
@@ -156,8 +159,8 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="47" id="ZkK-I9-d1c"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="27"/>
-                                                            <state key="normal" title="">
+                                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
+                                                            <state key="normal" title="">
                                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
@@ -169,8 +172,8 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="47" id="bfH-zj-3fx"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="22"/>
-                                                            <state key="normal" title="">
+                                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
+                                                            <state key="normal" title="">
                                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <connections>
@@ -217,7 +220,7 @@
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="57" id="pUI-Tj-1hG">
-                                        <rect key="frame" x="0.0" y="359" width="414" height="57"/>
+                                        <rect key="frame" x="0.0" y="331" width="414" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pUI-Tj-1hG" id="Z2E-Rx-agd">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
@@ -267,7 +270,7 @@
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="267" id="X3u-7i-bWa">
-                                        <rect key="frame" x="0.0" y="416" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="388" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3u-7i-bWa" id="0U1-Us-kCU">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
@@ -352,14 +355,14 @@
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="1" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="57" id="JkA-Tb-TEg">
-                                        <rect key="frame" x="0.0" y="683" width="414" height="57"/>
+                                        <rect key="frame" x="0.0" y="655" width="414" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JkA-Tb-TEg" id="sAA-l5-jK5">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.666666666666664"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JkA-Tb-TEg" id="sAA-l5-jK5">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRq-bO-Udr" userLabel="titleView">
-                                                    <rect key="frame" x="20" y="5" width="374" height="47"/>
+                                                    <rect key="frame" x="20" y="5.3333333333333321" width="374" height="47"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3X-XI-gta">
                                                             <rect key="frame" x="327" y="0.0" width="47" height="47"/>
@@ -399,10 +402,10 @@
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="267" id="DBA-Dz-cCj">
-                                        <rect key="frame" x="0.0" y="740" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="712" width="414" height="267"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DBA-Dz-cCj" id="l1v-En-3cJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="266.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spE-Vn-DHB">
