@@ -12,6 +12,7 @@ import UIKit
 import Contacts
 import IGProtoBuff
 import RealmSwift
+import Contacts
 
 class IGContactManager: NSObject {
     
@@ -174,5 +175,30 @@ class IGContactManager: NSObject {
                 break
             }
         }).send()
+    }
+    private func saveContactToDevicePhoneBook(name: String , phoneNumber: [String] , emailAddress:  [NSString]? = nil ) {
+        let newContact = CNMutableContact()
+        newContact.givenName = name
+        var tmpPhoneNumberArray = [CNLabeledValue<CNPhoneNumber>]()
+        var tmpEmailArray = [CNLabeledValue<NSString>]()
+        for number in phoneNumber {
+            tmpPhoneNumberArray.append(CNLabeledValue(
+                label:CNLabelPhoneNumberiPhone,
+                value:CNPhoneNumber(stringValue:number)))
+        }
+        for email in emailAddress! {
+            tmpEmailArray.append(CNLabeledValue(label: CNLabelHome, value: email))
+        }
+
+        
+        newContact.phoneNumbers = tmpPhoneNumberArray
+        newContact.emailAddresses = tmpEmailArray
+        // Saving contact
+        let store = CNContactStore()
+        let saveRequest = CNSaveRequest()
+        saveRequest.add(newContact, toContainerWithIdentifier:nil)
+        try! store.execute(saveRequest)
+
+
     }
 }
