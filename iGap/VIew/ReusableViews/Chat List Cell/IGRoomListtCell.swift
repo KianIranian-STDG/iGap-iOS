@@ -232,7 +232,7 @@ class IGRoomListtCell: UITableViewCell {
                 
             case .unmute:
                 self.muteImage.isHidden = true
-                unreadCountLabel.backgroundColor = UIColor.red
+                unreadCountLabel.backgroundColor = UIColor.unreadLable()
                 
             case .mute:
                 self.muteImage.isHidden = false

@@ -973,8 +973,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             if unreadCount == 0 {
                 self.tabBarController?.tabBar.items?[2].badgeValue = nil
             } else {
-                self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)"
+                self.tabBarController?.tabBar.items?[2].badgeValue = "\(unreadCount)".inLocalizedLanguage()
             }
+            self.tabBarController?.tabBar.items?[2].setBadgeTextAttributes([
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)
+                ], for: .normal)
+
             
         } catch let error as NSError {
             // handle error

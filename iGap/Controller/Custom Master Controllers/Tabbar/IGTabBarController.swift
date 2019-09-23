@@ -58,12 +58,20 @@ class IGTabBarController: UITabBarController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+
         for item in tabBar.items!{
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()
+//                item.badgeValue = "2".inLocalizedLanguage()
+                item.badgeValue = item.badgeValue?.inLocalizedLanguage()
+                item.setBadgeTextAttributes([
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)
+                    ], for: .normal)
+
+                
             }
         }
-
     }
     
     
