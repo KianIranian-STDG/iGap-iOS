@@ -9,15 +9,14 @@
  */
 
 import UIKit
+import SnapKit
 
 class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
 
-    
-    
     @IBOutlet weak var logLabel: UILabel!
-    @IBOutlet weak var labelBackgrondView: UIView!
-    @IBOutlet weak var labelBackgroundViewWidth: NSLayoutConstraint!
-    
+    @IBOutlet weak var logLableWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var logBackgroundView: UIView!
+    @IBOutlet weak var logBackgroundWidthConstraint: NSLayoutConstraint!
     
     //MARK: - Class Methods
     class func nib() -> UINib {
@@ -34,22 +33,13 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         
         self.cellMessage = nil
         self.delegate = nil
-        
         self.contentView.transform = CGAffineTransform(scaleX: 1.0, y: -1.0)
     }
-    
-    deinit {
-        print (#function)
-    }
-
-    override func prepareForReuse() {
-        labelBackgroundViewWidth.constant = 15
-    }
-    
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         self.cellMessage = message
         self.logLabel.textColor = UIColor.white
+        self.logLabel.lineBreakMode = .byTruncatingMiddle
         if message.log?.type == .pinnedMessage {
             self.logLabel.text = IGRoomMessage.detectPinMessage(message: message)
         } else {
@@ -57,44 +47,61 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
             let current : String = SMLangUtil.loadLanguage()
             if current == "fa" {
                 self.logLabel.textAlignment = .right
-            }
-            else {
+            } else {
                 self.logLabel.textAlignment = .left
-                
             }
-
         }
-        self.labelBackgrondView.layer.cornerRadius = 12.0
-        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
+        self.logBackgroundView.layer.cornerRadius = 12.0
+        self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        manageWidth(IGRoomMessageLog.textForLogMessage(message))
     }
     
     func setUnreadMessage(_ message: IGRoomMessage){
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = message.message
-        self.labelBackgrondView.layer.cornerRadius = 12.0
-        self.labelBackgrondView.backgroundColor = UIColor.iGapMainColor()
-        self.labelBackgroundViewWidth.constant = 210
+        self.logBackgroundView.layer.cornerRadius = 12.0
+        self.logBackgroundView.backgroundColor = UIColor.iGapMainColor()
+        logLableWidthConstraint.constant = (message.message!.width(withConstrainedHeight: 25, font: UIFont.igFont(ofSize: 14, weight: .medium)))
+        logBackgroundWidthConstraint.constant = IGGlobal.fetchUIScreen().width - 30
     }
     
     func setUnknownMessage(){
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = "unknown message"
-        self.labelBackgrondView.layer.cornerRadius = 12.0
-        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
+        self.logBackgroundView.layer.cornerRadius = 12.0
+        self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        manageWidth("unknown message")
     }
     
     
     func setText(_ text: String) {
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = text
-        self.labelBackgrondView.layer.cornerRadius = 12.0
-        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
+        self.logBackgroundView.layer.cornerRadius = 12.0
+        self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        manageWidth(text)
     }
     
     func setTime(_ time: String) {
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = time
-        self.labelBackgrondView.layer.cornerRadius = 12.0
-        self.labelBackgrondView.backgroundColor = UIColor.logBackground()
+        self.logBackgroundView.layer.cornerRadius = 12.0
+        self.logBackgroundView.backgroundColor = UIColor.logBackground()
+        manageWidth(time)
+    }
+    
+    private func manageWidth(_ message: String?){
+        let maxSize: CGFloat = IGGlobal.fetchUIScreen().width - 40
+        var size: CGFloat!
+        
+        if message != nil {
+            size = (message?.width(withConstrainedHeight: 25, font: UIFont.igFont(ofSize: 15)))!
+        }
+        
+        if size > maxSize {
+            size = maxSize
+        }
+        logLableWidthConstraint.constant = size
+        logBackgroundWidthConstraint.constant = size + 20
     }
 }

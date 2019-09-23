@@ -103,7 +103,7 @@ class CellSizeLimit: NSObject {
         }
         
         struct Log {
-            static let Height: CGFloat = 30.0
+            static let Height: CGFloat = 45.0
         }
         
         struct MoneyTransfer {

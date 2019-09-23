@@ -1543,7 +1543,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         txtTimeAbs.snp.removeConstraints()
         txtTimeAbs.snp.makeConstraints{ (make) in
             if statusExist {
-                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-20)
+                make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-25)
             } else {
                 make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-2)
             }
@@ -1564,7 +1564,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func makeEdit(){
         if txtEditedAbs == nil {
             txtEditedAbs = UILabel()
-            txtEditedAbs.text = "edited"
+            txtEditedAbs.text = "EDITED".MessageViewlocalizedNew
             txtEditedAbs.font = UIFont.igFont(ofSize: 9.0)
             txtEditedAbs.textColor = UIColor.chatTimeTextColor()
             mainBubbleViewAbs.addSubview(txtEditedAbs)

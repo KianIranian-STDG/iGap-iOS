@@ -105,6 +105,7 @@
         "LOCATION_MESSAGE" : "Location Message",
         "NO_NETWORK" : "No network Connection",
         "PRODUCTS_DETAILS" : "Description :",
-        "REQUEST_CARD_TO_CARD" : "Send Card To Card Request"
+        "REQUEST_CARD_TO_CARD" : "Send Card To Card Request",
+        "EDITED" : "edited"
     }
 }

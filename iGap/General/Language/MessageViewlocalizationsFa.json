@@ -105,6 +105,7 @@
         "NO_NETWORK" : "خطا در برقراری اتصال به اینترنت",
         "TTL_AMOUNT" : "مبلغ :",
         "PRODUCTS_DETAILS" : "شرح پیام :",
-        "REQUEST_CARD_TO_CARD" : "ارسال درخواست کارت به کارت"
+        "REQUEST_CARD_TO_CARD" : "ارسال درخواست کارت به کارت",
+        "EDITED" : "ویرایش شده"
 }
 }
