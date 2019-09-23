@@ -106,6 +106,9 @@
         "TTL_AMOUNT" : "مبلغ :",
         "PRODUCTS_DETAILS" : "شرح پیام :",
         "REQUEST_CARD_TO_CARD" : "ارسال درخواست کارت به کارت",
-        "EDITED" : "ویرایش شده"
+        "EDITED" : "ویرایش شده",
+        "CALL" : "تماس",
+        "ADD_CONTACT" : "اضافه کردن مخاطب",
+        "CALL_QUESTION" : "با کدام شماره می خواهید تماس برقرار کنید؟"
 }
 }

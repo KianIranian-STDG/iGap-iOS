@@ -83,8 +83,6 @@ class IGContactManager: NSObject {
     
     private func sendContactsToServer() {
         DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1.0) {
-            print(self.resultsChunk.count)
-            print(self.contactIndex)
             if self.resultsChunk.count == 0 || self.contactIndex >= self.resultsChunk.count{
                 self.getContactListFromServer()
                 return
@@ -104,13 +102,9 @@ class IGContactManager: NSObject {
 
             let sortedPhonenumbers = contactsPhoneStruct.sorted {$0.localizedStandardCompare($1) == .orderedAscending}
             
-            print(sortedPhonenumbers.joined(separator: ","))
             let tmpString = (sortedPhonenumbers.joined(separator: ","))
             let md5Data = IGGlobal.MD5(string:tmpString)
-            
             let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
-            let tmpmd5HexFromServer = (IGAppManager.sharedManager.md5Hex())
-
             
             let realm = try! Realm()
             try! realm.write {
@@ -133,8 +127,6 @@ class IGContactManager: NSObject {
 
             if (IGAppManager.sharedManager.md5Hex() == md5Hex) {
             } else {
-                print(self.resultsChunk.count)
-                print(self.contactIndex)
                 if (self.contactIndex ) == (self.resultsChunk.count - 1) {
                     self.sendContact(phoneContacts: contactsStruct, md5Hex: md5Hex)
                     self.contactIndex += 1

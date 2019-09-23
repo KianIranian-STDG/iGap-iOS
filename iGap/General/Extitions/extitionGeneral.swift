@@ -422,3 +422,9 @@ extension String {
         
     }
 }
+
+extension RangeReplaceableCollection where Self: StringProtocol {
+    var digits: Self {
+        return filter({ $0.isNumber })
+    }
+}

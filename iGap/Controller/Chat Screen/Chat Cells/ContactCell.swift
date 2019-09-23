@@ -25,6 +25,8 @@ class ContactCell: AbstractCell {
     var avatarImageView: UIImageView?
     var phoneImageView: UIImageView?
     var emailImageView: UIImageView?
+    var btnAddContact: UIButton!
+    var btnCall: UIButton!
     
     class func nib() -> UINib {
         return UINib(nibName: "ContactCell", bundle: Bundle(for: self))
@@ -45,6 +47,7 @@ class ContactCell: AbstractCell {
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         makeContact()
         setContact()
+        manageContacgtGustureRecognizers()
     }
     
     private func initializeView(){
@@ -130,6 +133,20 @@ class ContactCell: AbstractCell {
             mainBubbleViewAbs.addSubview(phoneImageView!)
         }
         
+        if btnAddContact == nil {
+            btnAddContact = UIButton()
+            btnAddContact.setTitle("ADD_CONTACT".MessageViewlocalizedNew, for: UIControl.State.normal)
+            manageContactButtonView(btn: btnAddContact, color: UIColor.iGapBlue())
+            mainBubbleViewAbs.addSubview(btnAddContact)
+        }
+        
+        if btnCall == nil {
+            btnCall = UIButton()
+            btnCall.setTitle("CALL".MessageViewlocalizedNew, for: UIControl.State.normal)
+            manageContactButtonView(btn: btnCall, color: UIColor.gray)
+            mainBubbleViewAbs.addSubview(btnCall)
+        }
+        
         avatarImageView!.snp.makeConstraints { (make) in
             
             if contactTop != nil { contactTop.deactivate() }
@@ -165,6 +182,20 @@ class ContactCell: AbstractCell {
             make.top.equalTo(phonesLabel!.snp.top).offset(4.0)
             make.width.equalTo(8.0)
             make.height.equalTo(8.0)
+        }
+        
+        btnAddContact.snp.makeConstraints { (make) in
+            make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(5)
+            make.bottom.equalTo(mainBubbleViewAbs.snp.bottom).offset(-30)
+            make.height.equalTo(35)
+            make.width.equalTo(140)
+        }
+        
+        btnCall.snp.makeConstraints { (make) in
+            make.leading.equalTo(btnAddContact.snp.trailing).offset(5)
+            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-5)
+            make.top.equalTo(btnAddContact.snp.top)
+            make.bottom.equalTo(btnAddContact.snp.bottom)
         }
     }
     
@@ -206,6 +237,45 @@ class ContactCell: AbstractCell {
             emailImageView?.removeFromSuperview()
             emailImageView = nil
         }
+    }
+    
+    private func manageContactButtonView(btn: UIButton, color: UIColor){
+        btn.layer.masksToBounds = true
+        btn.layer.cornerRadius = 10
+        btn.layer.borderWidth = 1.5
+        btn.layer.borderColor = color.cgColor
+        btn.titleLabel?.font = UIFont.igFont(ofSize: 14, weight: .medium)
+        btn.setTitleColor(color, for: .normal)
+    }
+    
+    private func manageContacgtGustureRecognizers() {
+        let btnCallGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnCall(_:)))
+        btnCall?.addGestureRecognizer(btnCallGesture)
+        
+        let btnAddContactGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnAddContact(_:)))
+        btnAddContact?.addGestureRecognizer(btnAddContactGesture)
+    }
+    
+    @objc func didTapOnCall(_ gestureRecognizer: UITapGestureRecognizer) {
+        let option = UIAlertController(title: "CALL_QUESTION".MessageViewlocalizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        
+        for phone in finalRoomMessage.contact!.phones {
+            let action = UIAlertAction(title: phone.innerString, style: .default, handler: { (action) in
+                let tel: String! = "tel://\(action.title!.inEnglishNumbers().digits)"
+                if let url = URL(string: tel!) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            })
+            option.addAction(action)
+        }
+        
+        let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+        option.addAction(cancel)
+        UIApplication.topViewController()!.present(option, animated: true, completion: {})
+    }
+    
+    @objc func didTapOnAddContact(_ gestureRecognizer: UITapGestureRecognizer) {
+        //TODO - Add contact to the phone address book
     }
 }
 

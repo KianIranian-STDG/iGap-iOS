@@ -106,6 +106,9 @@
         "NO_NETWORK" : "No network Connection",
         "PRODUCTS_DETAILS" : "Description :",
         "REQUEST_CARD_TO_CARD" : "Send Card To Card Request",
-        "EDITED" : "edited"
+        "EDITED" : "edited",
+        "CALL" : "call",
+        "ADD_CONTACT" : "Add Contact",
+        "CALL_QUESTION" : "Which number do you want to call?"
     }
 }

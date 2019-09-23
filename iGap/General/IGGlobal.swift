@@ -443,6 +443,10 @@ extension UIColor {
         return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 1)
     }
     
+    class func iGapBlue() -> UIColor {
+        return UIColor(red: 30/255.0, green: 136/255.0, blue: 229/255.0, alpha: 1.0)
+    }
+    
     class func iGapBars() -> UIColor { // navigation bar color
         return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
     }
