@@ -61,8 +61,8 @@ class IGRoomListtCell: UITableViewCell {
     }()
     var initialLabel :UILabel = {
         let label = UILabel()
-        label.font = UIFont.igFont(ofSize: 15,weight: .bold)
-        label.textColor = .black
+        label.font = UIFont.igFont(ofSize: 16,weight: .bold)
+        label.textColor = .white
         label.textAlignment = NSTextAlignment.center
         label.text = label.text?.inLocalizedLanguage()
         label.layer.cornerRadius = 27

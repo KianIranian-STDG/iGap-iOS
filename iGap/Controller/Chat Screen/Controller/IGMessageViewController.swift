@@ -5083,13 +5083,28 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         if #available(iOS 11.0, *) {
             UIView.animate(withDuration: 0.3) {
-                let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
-                self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
+                if UIDevice.current.hasNotch {
+                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
+                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY - 44, width: self.view.frame.width, height: self.forwardModal.frame.height)
+
+                } else {
+                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
+                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
+
+                }
             }
         } else {
             UIView.animate(withDuration: 0.3) {
-                let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
-                self.forwardModal!.frame = CGRect(x: 0, y: tmpY, width: self.view.frame.width, height: self.forwardModal.frame.height)
+
+                if UIDevice.current.hasNotch {
+                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
+                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY - 44, width: self.view.frame.width, height: self.forwardModal.frame.height)
+                    
+                } else {
+                    let tmpY = ((self.view.frame.height) - (self.forwardModal.frame.height))
+                    self.forwardModal!.frame = CGRect(x: 0, y: tmpY , width: self.view.frame.width, height: self.forwardModal.frame.height)
+                    
+                }
             }
         }
     }

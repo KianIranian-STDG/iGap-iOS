@@ -79,12 +79,12 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
         if isSendLocation {
             title = "Send Location"
         }
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: title)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: title, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         if !isSendLocation {
-            navigationItem.addModalViewRightItem(title: "", iGapFont: true)
+//            navigationItem.addModalViewRightItem(title: "", iGapFont: true)
             navigationItem.rightViewContainer?.addAction {
                 self.shareLocation()
             }
@@ -114,10 +114,10 @@ class IGMessageAttachmentLocation: UIViewController , UIGestureRecognizerDelegat
     }
     
     func manageBottomView(){
-        bottomView.layer.shadowColor = UIColor.black.cgColor
-        bottomView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        bottomView.layer.shadowRadius = 5.0
-        bottomView.layer.shadowOpacity = 0.6
+//        bottomView.layer.shadowColor = UIColor.black.cgColor
+//        bottomView.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        bottomView.layer.shadowRadius = 5.0
+//        bottomView.layer.shadowOpacity = 0.6
     }
     
     private func initLocation() {

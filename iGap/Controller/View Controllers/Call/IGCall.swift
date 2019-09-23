@@ -144,7 +144,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         IGCall.allowEndCallKit = true
         
         localCameraViewCustomize()
-        buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
+//        buttonViewCustomize(button: btnAnswer, color: UIColor(red: 44.0/255.0, green: 170/255.0, blue: 163.0/255.0, alpha: 1.0), imgName: "IG_Tabbar_Call_On")
         setCallMode(callType: callType, userInfo: userRegisteredInfo)
         manageView(stateAnswer: isIncommingCall)
         txtCallerName.font = UIFont.igFont(ofSize: 23,weight: .bold)
@@ -179,6 +179,13 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.createPulse()
         }
+        btnSpeaker.setTitle("", for: .normal)
+        btnMute.setTitle("", for: .normal)
+        btnChat.setTitle("", for: .normal)
+        btnChat.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        btnMute.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        btnSpeaker.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+
 
     }
     //ANIMATIONS
@@ -423,6 +430,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
             }
             
             remoteCameraView.isHidden = false
+
             //localCameraView.isHidden = false
             //imgAvatar.isHidden = true
 //            btnSwitchCamera.isEnabled = true
@@ -501,7 +509,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         
         bottomViewsIsHidden = !bottomViewsIsHidden
         
-        animateView(view: txtPowerediGap, isHidden: bottomViewsIsHidden)
+//        animateView(view: txtPowerediGap, isHidden: bottomViewsIsHidden)
     }
     
     private func animateView(view: UIView, isHidden: Bool){
@@ -542,9 +550,9 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
     
     private func muteManager(){
         if isMuteEnable {
-            btnMute.setTitle("", for: UIControl.State.normal)
+            btnMute.setTitle("", for: UIControl.State.normal)
         } else {
-            btnMute.setTitle("", for: UIControl.State.normal)
+            btnMute.setTitle("", for: UIControl.State.normal)
         }
         
         for audioTrack in RTCClient.mediaStream.audioTracks {
@@ -558,6 +566,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
         self.remoteTrack = videoTrack
         if callIsConnected {
             addRemoteVideoTrack()
+            
         }
     }
     
@@ -604,6 +613,11 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                         if #available(iOS 10.0, *) {
                             do {
                                 try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), mode :AVAudioSession.Mode(rawValue: convertFromAVAudioSessionMode(AVAudioSession.Mode.videoChat)))
+                                self.lblIcon.isHidden = true
+                                self.imgAvatarInner.isHidden = true
+                                self.imgAvatarView.isHidden = true
+                                self.viewTransparent.isHidden = true
+
                             } catch {
                                 print("error AVAudioSessionModeVideoChat")
                             }
@@ -626,7 +640,7 @@ class IGCall: UIViewController, CallStateObserver, ReturnToCallObserver, VideoCa
                     try AVAudioSession.sharedInstance().setActive(true)
                     
                     // if is videoCalling && current btn title state is speaker enable && not paired bluetooth device THEN set current audio state to speaker
-                    if self.callType == .videoCalling && self.btnSpeaker.titleLabel?.text == "" && !IGCallAudioManager.sharedInstance.hasBluetoothDevice() {
+                    if self.callType == .videoCalling && self.btnSpeaker.titleLabel?.text == "" && !IGCallAudioManager.sharedInstance.hasBluetoothDevice() {
                         try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
                     }
                     IGCallAudioManager.sharedInstance.fetchAudioState(btnAudioState: self.btnSpeaker)
