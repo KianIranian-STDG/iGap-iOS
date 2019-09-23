@@ -105,6 +105,10 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         shouldShowHisto = false
+        btnHisto.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
+        btnQrCodeScan.titleLabel?.font = UIFont.iGapFonticon(ofSize: 27)
+        btnHisto.setTitle("", for: .normal)
+        btnQrCodeScan.setTitle("", for: .normal)
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
         callRefreshToken()

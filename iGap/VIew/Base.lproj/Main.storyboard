@@ -1321,7 +1321,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Ym-D0e">
-                                                                <rect key="frame" x="32" y="0.0" width="38" height="38"/>
+                                                                <rect key="frame" x="54" y="8" width="16" height="22"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Record"/>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
@@ -1946,7 +1946,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="SgF-KW-kA9">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="SgF-KW-kA9">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -1957,7 +1957,7 @@
                                             <rect key="frame" x="-5" y="-5" width="424" height="152"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-8q-m1X">
-                                            <rect key="frame" x="347" y="15" width="57" height="50"/>
+                                            <rect key="frame" x="347" y="30" width="57" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="57" id="gwc-6B-Wkh"/>
                                                 <constraint firstAttribute="width" secondItem="7sd-8q-m1X" secondAttribute="height" multiplier="57:50" id="jBB-8E-UN7"/>
@@ -1974,7 +1974,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="7sd-8q-m1X" firstAttribute="top" secondItem="xXc-X5-txr" secondAttribute="top" constant="15" id="O2j-7Y-aBI"/>
+                                        <constraint firstItem="7sd-8q-m1X" firstAttribute="top" secondItem="xXc-X5-txr" secondAttribute="top" constant="30" id="O2j-7Y-aBI"/>
                                         <constraint firstAttribute="height" constant="142" id="PRs-qC-MtH"/>
                                         <constraint firstAttribute="bottom" secondItem="x0z-Lg-qnh" secondAttribute="bottom" constant="-5" id="TFf-DN-hqw"/>
                                         <constraint firstAttribute="trailing" secondItem="7sd-8q-m1X" secondAttribute="trailing" constant="10" id="kJh-g0-xTt"/>
@@ -2249,14 +2249,14 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hV0-li-TCq">
-                                                            <rect key="frame" x="70.000000000000028" y="10.000000000000002" width="66.333333333333343" height="18.666666666666671"/>
+                                                            <rect key="frame" x="71.666666666666657" y="10" width="63" height="18"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ig_score_icon_settings" translatesAutoresizingMaskIntoConstraints="NO" id="lle-2X-U1h">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="19.333333333333332" height="18.666666666666668"/>
+                                                                    <rect key="frame" x="0.0" y="1" width="16" height="16"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nsw-1a-vF5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="24.333333333333314" y="0.33333333333333393" width="42" height="18"/>
+                                                                    <rect key="frame" x="21" y="0.0" width="42" height="18"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
