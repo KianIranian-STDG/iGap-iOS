@@ -21,7 +21,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     // MARK: - public properties
     open weak var delegate: ActiveLabelDelegate?
 
-    open var enabledTypes: [ActiveType] = [.mention, .hashtag, .url , .bot , .email, .bold, .custom(pattern: "")]
+    open var enabledTypes: [ActiveType] = [.mention, .hashtag, .url, .deepLink , .bot , .email, .bold, .custom(pattern: "")]
 
     open var urlMaximumLength: Int?
     
@@ -101,6 +101,10 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
         urlTapHandler = handler
     }
     
+    open func handleDeepLinkTap(_ handler: @escaping (URL) -> ()) {
+        deepLinkTapHandler = handler
+    }
+    
     open func handleEmailTap(_ handler: @escaping (URL) -> ()) {
         emailTapHandler = handler
     }
@@ -121,6 +125,8 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             mentionTapHandler = nil
         case .url:
             urlTapHandler = nil
+        case .deepLink:
+            deepLinkTapHandler = nil
         case .email:
             emailTapHandler = nil
         case .custom:
@@ -244,6 +250,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention(let userHandle): didTapMention(userHandle)
             case .hashtag(let hashtag): didTapHashtag(hashtag)
             case .url(let originalURL, _): didTapStringURL(originalURL)
+            case .deepLink(let originalURL): didTapStringDeepLink(originalURL)
             case .email(let originalEmail, _): didTapStringEmail(originalEmail)
             case .custom(let element): didTap(element, for: selectedElement.type)
             case .bot(let botCommand): didTapBot(botCommand)
@@ -276,6 +283,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     internal var hashtagTapHandler: ((String) -> ())?
     internal var botTapHandler: ((String) -> ())?
     internal var urlTapHandler: ((URL) -> ())?
+    internal var deepLinkTapHandler: ((URL) -> ())?
     internal var emailTapHandler: ((URL) -> ())?
     internal var customTapHandlers: [ActiveType : ((String) -> ())] = [:]
     
@@ -369,6 +377,11 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
                 break
                 
+            case .deepLink:
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = URLColor
+                attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
+                break
+                
             case .email:
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor)] = EmailColor
                 attributes[convertFromNSAttributedStringKey(NSAttributedString.Key.font)] = UIFont.igFont(ofSize: fontDefaultSize)
@@ -419,6 +432,16 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             textRange = NSRange(location: 0, length: textLength)
             activeElements[.url] = urlElements
         }
+        
+//        if enabledTypes.contains(.deepLink) {
+//            let tuple = ActiveBuilder.createURLElements(from: textString, range: textRange, maximumLenght: urlMaximumLength)
+//            let urlElements = tuple.0
+//            let finalText = tuple.1
+//            textString = finalText
+//            textLength = textString.utf16.count
+//            textRange = NSRange(location: 0, length: textLength)
+//            activeElements[.deepLink] = urlElements
+//        }
 
         for type in enabledTypes where type != .url {
             var filter: ((String) -> Bool)? = nil
@@ -467,6 +490,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention: selectedColor = mentionSelectedColor ?? mentionColor
             case .hashtag: selectedColor = hashtagSelectedColor ?? hashtagColor
             case .url: selectedColor = URLSelectedColor ?? URLColor
+            case .deepLink: selectedColor = URLSelectedColor ?? URLColor
             case .email: selectedColor = EmailSelectedColor ?? EmailColor
             case .custom:
                 let possibleSelectedColor = customSelectedColor[selectedElement.type] ?? customColor[selectedElement.type]
@@ -481,6 +505,7 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             case .mention: unselectedColor = mentionColor
             case .hashtag: unselectedColor = hashtagColor
             case .url: unselectedColor = URLColor
+            case .deepLink: unselectedColor = URLColor
             case .email: unselectedColor = EmailColor
             case .custom: unselectedColor = customColor[selectedElement.type] ?? defaultCustomColor
             case .bot: unselectedColor = botColor
@@ -585,6 +610,17 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             return
         }
         urlHandler(url)
+    }
+    
+    fileprivate func didTapStringDeepLink(_ stringURL: String) {
+        let finalUrl = stringURL.replacingOccurrences(of: "%E2%80%8C", with: "-")
+        let escapedString = finalUrl.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+        let finalUrl1 = escapedString?.replacingOccurrences(of: "%3A", with: ":")
+        guard let deepLinkHandler = deepLinkTapHandler, let url = URL(string: finalUrl1!) else {
+            delegate?.didSelect(stringURL, type: .deepLink)
+            return
+        }
+        deepLinkHandler(url)
     }
     
     fileprivate func didTapStringEmail(_ stringURL: String) {

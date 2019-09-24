@@ -10,27 +10,29 @@
 
 import UIKit
 import SnapKit
-var currentTabIndex : Int! = 2
-enum CurrentTab : Int {
+var currentTabIndex: Int! = 2
+
+enum TabBarTab : Int {
     case Contact = 0
-    case Call
-    case Recent
-    case Dashboard
-    case Profile
+    case Call = 1
+    case Recent = 2
+    case Dashboard = 3
+    case Profile = 4
 }
+
 class IGTabBarController: UITabBarController {
     
-
-    
-    internal static var currentTabStatic: CurrentTab = .Recent
+    internal static var currentTabStatic: TabBarTab = .Recent
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         initView()
-        
     }
+    
     private func initView() {
+        
+        self.delegate = self
         
         UITabBar.appearance().backgroundImage = UIImage.colorForNavBar(color: UIColor.tabbarBGColor())
         UITabBar.appearance().shadowImage = UIImage.colorForNavBar(color: .clear)
@@ -75,76 +77,83 @@ class IGTabBarController: UITabBarController {
     }
     
     
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("ITEMSELECTED", item.tag)
-        
-        for item in tabBar.items!{
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//        print("ITEMSELECTED", item.tag)
+//
+//        self.selectTabBar(tabBar: tabBar, didSelect: TabBarTab(rawValue: item.tag) ?? .Recent)
+//
+////        selectedItemTitleMustbeBold()
+//    }
+    
+    public func selectTabBar(tabBar: UITabBar, didSelect item: TabBarTab) {
+        for item in tabBar.items! {
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()
             }
         }
         let navigationControllerr = self.navigationController as! IGNavigationController
         
-        switch item.tag {
-        case 0:
+        switch item {
+        case .Contact:
             navigationControllerr.navigationBar.isHidden = false
             //            navigationControllerr.addSearchBar(state: "True")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
-
+            
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
-
-            currentTabIndex = CurrentTab.Contact.rawValue
+            
+            currentTabIndex = TabBarTab.Contact.rawValue
             break
-        case 1:
+        case .Call:
             navigationControllerr.navigationBar.isHidden = false
-//            navigationControllerr.addSearchBar(state: "False")
+            //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
-
-            currentTabIndex = CurrentTab.Call.rawValue
+            
+            currentTabIndex = TabBarTab.Call.rawValue
             
             break
-        case 2:
+        case .Recent:
             navigationControllerr.navigationBar.isHidden = false
-//            navigationControllerr.addSearchBar(state: "True")
+            //            navigationControllerr.addSearchBar(state: "True")
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
-
-            currentTabIndex = CurrentTab.Recent.rawValue
+            
+            currentTabIndex = TabBarTab.Recent.rawValue
             
             break
-        case 3:
+        case .Dashboard:
             navigationControllerr.navigationBar.isHidden = false
-//            navigationControllerr.addSearchBar(state: "False")
+            //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
             navigationControllerr.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.isTranslucent = false
-
-            currentTabIndex = CurrentTab.Dashboard.rawValue
+            
+            currentTabIndex = TabBarTab.Dashboard.rawValue
             
             break
-        case 4:
+        case .Profile:
             navigationControllerr.navigationBar.isHidden = true
-//            navigationControllerr.addSearchBar(state: "False")
+            //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
             navigationControllerr.navigationBar.shadowImage = UIImage()
             navigationControllerr.navigationBar.isTranslucent = true
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-
-            currentTabIndex = CurrentTab.Profile.rawValue
+//            self.navigationController?.navigationBar.shadowImage = UIImage()
+            
+//            navigationControllerr.navigationBar.barTintColor = UIColor.redColor()
+//            navigationControllerr.navigationBar.isTranslucent = false
+//            navigationBar.setBackgroundImage(UIImage(), for: .default)
+//            navigationBar.shadowImage = UIImage()
+            
+            currentTabIndex = TabBarTab.Profile.rawValue
             
             break
-        default:
-            break
         }
-        
-        //        selectedItemTitleMustbeBold()
     }
     
     func setTabBarItems() {
@@ -190,27 +199,31 @@ class IGTabBarController: UITabBarController {
         
     }
 
-
     
-    func setCurrentTab(tag: Int){
-        switch tag {
-            
-        case 0:
-            IGTabBarController.currentTabStatic = .Recent
-            return
-            
-        case 1:
-            IGTabBarController.currentTabStatic = .Dashboard
-            return
-            
-        case 2:
+    private func setCurrent(tab: TabBarTab) {
+        switch tab {
+        case .Contact:
+            IGTabBarController.currentTabStatic = .Contact
+            break
+        case .Call:
             IGTabBarController.currentTabStatic = .Call
-            return
-            
-        default:
+            break
+        case .Recent:
             IGTabBarController.currentTabStatic = .Recent
-            return
+            break
+        case .Dashboard:
+            IGTabBarController.currentTabStatic = .Dashboard
+            break
+        case .Profile:
+            IGTabBarController.currentTabStatic = .Profile
+            break
         }
+    }
+}
+
+extension IGTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        self.selectTabBar(tabBar: tabBar, didSelect: TabBarTab(rawValue: tabBarController.selectedIndex) ?? .Recent)
     }
 }
 

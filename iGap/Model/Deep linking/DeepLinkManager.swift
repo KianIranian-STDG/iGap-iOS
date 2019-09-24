@@ -16,8 +16,11 @@ enum DeeplinkType {
     case messages(Messages)
     case payment(message: String, status: PaymentStatus, orderId: String)
     case discovery(pathes: [String])
-//    case dashboard
-    case chatRoom(room: IGRoom, messageId: Int64?)
+    case contact
+    case profile
+    case call
+    case favouriteChannel(token: String?)
+    case chatRoom(username: String?, messageId: Int64?)
 //    case request(id: String)
 }
 
@@ -38,6 +41,13 @@ class DeepLinkManager {
         DeeplinkNavigator.shared.proceedToDeeplink(deeplinkType)
         // reset deeplink after handling
         self.deeplinkType = nil // (1)
+    }
+    
+    public func hasDeepLink() -> Bool {
+        guard deeplinkType != nil else {
+            return false
+        }
+        return true
     }
     
     @discardableResult

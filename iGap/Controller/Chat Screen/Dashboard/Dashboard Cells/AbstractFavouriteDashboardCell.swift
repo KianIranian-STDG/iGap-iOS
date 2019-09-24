@@ -195,7 +195,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
     }
     
     //Carpino Agrement
-    func carpinoAggrement(agrementSlug: String!,itemID: Int32!,url : String!) {
+    static func carpinoAggrement(agrementSlug: String!,itemID: Int32!,url : String!) {
         IGInfoPageRequest.Generator.generate(pageID: agrementSlug).success { (responseProto) in
             DispatchQueue.main.async {
                 switch responseProto {
@@ -321,9 +321,16 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         
     }
     
+    private func actionManager(discoveryInfo: IGPDiscoveryField) {
+        self.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isUserInteractionEnabled = true
+        }
+        
+        AbstractFavouriteDashboardCell.dashboardCellctionManager(discoveryInfo: discoveryInfo)
+    }
     
-    
-    private func actionManager(discoveryInfo: IGPDiscoveryField){
+    static func dashboardCellctionManager(discoveryInfo: IGPDiscoveryField) {
         IGGlobal.shouldShowChart = false
         IGClientSetDiscoveryItemClickRequest.sendRequest(itemId: discoveryInfo.igpID)
         
@@ -332,11 +339,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         let agreementSlug = discoveryInfo.igpAgreementSlug
         let agreementValue = discoveryInfo.igpAgreement
         
-        self.isUserInteractionEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isUserInteractionEnabled = true
-            
-        }
+        
         switch actionType {
         case .none:
             return
@@ -344,7 +347,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .joinLink:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: discoveryInfo.igpValue)
@@ -360,7 +363,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .usernameLink:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: discoveryInfo.igpValue, joinToRoom: false)
@@ -375,7 +378,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGHelperOpenLink.openLink(urlString: discoveryInfo.igpValue, navigationController: UIApplication.topViewController()!.navigationController!, forceOpenInApp: true)
@@ -389,7 +392,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .webViewLink:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let iGapBrowser = IGiGapBrowser.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -415,7 +418,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -434,7 +437,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .poll:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -456,7 +459,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGHelperFinancial.getInstance(viewController: UIApplication.topViewController()!).manageFinancialServiceChoose()
@@ -473,7 +476,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let storyBoard = UIStoryboard(name: "IGSettingStoryboard", bundle: nil)
@@ -491,7 +494,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGFinancialServiceBill.BillInfo = nil
@@ -516,7 +519,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGFinancialServiceBill.BillInfo = nil
@@ -541,7 +544,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGFinancialServiceBillingInquiry.isMobile = true
@@ -560,7 +563,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .phoneBillMenu:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGFinancialServiceBillingInquiry.isMobile = false
@@ -580,7 +583,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .nearbyMenu:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGDashboardViewController.discoveryObserver?.onNearbyClick()
@@ -594,7 +597,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     if let url = NSURL(string: "tel://\(discoveryInfo.igpValue)"), UIApplication.shared.canOpenURL(url as URL) {
@@ -615,7 +618,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     if #available(iOS 10.0, *) {
@@ -633,7 +636,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let scanner = IGScoreViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -650,7 +653,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .ivandqr:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let scanner = IGSettingQrScannerViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
@@ -668,7 +671,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     let scoreHistory = IGScoreHistoryViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
@@ -685,7 +688,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGUserIVandSetActivityRequest.sendRequest(plancode: discoveryInfo.igpValue)
@@ -700,7 +703,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGHelperFinancial.shared.sendCardToCardRequest()
@@ -714,7 +717,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
         case .payDirect:
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     IGHelperAlert.shared.showAlert(data: discoveryInfo.igpValue)
@@ -726,7 +729,7 @@ class AbstractFavouriteDashboardCell: UICollectionViewCell {
             
             if !(agreementSlug == "") {
                 if (agreementValue == false) && (IGGlobal.carpinoAgreement == false) {
-                    carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
+                    AbstractFavouriteDashboardCell.carpinoAggrement(agrementSlug: discoveryInfo.igpAgreementSlug ,itemID : discoveryInfo.igpID , url : discoveryInfo.igpValue)
                     
                 } else {
                     

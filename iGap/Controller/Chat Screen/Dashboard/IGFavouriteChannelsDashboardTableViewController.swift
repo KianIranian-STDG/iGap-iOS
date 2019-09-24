@@ -15,6 +15,7 @@ import MBProgressHUD
 class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
     var items = [FavouriteChannelHomeItem]()
+    var deepLinkToken: String?
     
     let slideTVCellReuseIdentifier = "IGFavouriteChannelSlideTVCell"
     

@@ -53,7 +53,7 @@ class IGHelperChatOpener {
     /**
      * open user profile
      **/
-    internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil,roomType: String = "CHAT", viewController: UIViewController){
+    internal static func openUserProfile(user: IGRegisteredUser , room: IGRoom? = nil, roomType: String = "CHAT", viewController: UIViewController){
         let storyboard : UIStoryboard = UIStoryboard(name: "profile", bundle: nil)
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "IGProfileUserViewController") as! IGProfileUserViewController
         destinationVC.user = user
@@ -77,14 +77,41 @@ class IGHelperChatOpener {
         UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    /**
+     * resolve username info and return room
+     **/
+    internal static func checkUsername(viewController: UIViewController, username: String, completed: @escaping ((IGRegisteredUser?, IGRoom?, IGPClientSearchUsernameResponse.IGPResult.IGPType) -> Void), error: @escaping (IGError, IGErrorWaitTime?) -> Void) {
+        IGGlobal.prgShow(viewController.view)
+        IGClientResolveUsernameRequest.fetchRoom(username: username, completed: { (protoResponse) in
+            DispatchQueue.main.async {
+                IGGlobal.prgHide()
+                
+                if let clientResolvedUsernameResponse = protoResponse as? IGPClientResolveUsernameResponse {
+                    let clientResponse = IGClientResolveUsernameRequest.Handler.interpret(response: clientResolvedUsernameResponse)
+                    
+                    var usernameType : IGPClientSearchUsernameResponse.IGPResult.IGPType = .room
+                    if clientResponse.clientResolveUsernametype == .user {
+                        usernameType = .user
+                    }
+                    
+                    completed(clientResponse.user, clientResponse.room, usernameType)
+                }
+            }
+        }) { (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                IGGlobal.prgHide()
+                error(errorCode, waitTime)
+            }
+        }
+    }
     
     
     /**
      * resolve username info and open chat or profile with received data
      **/
-    internal static func checkUsernameAndOpenRoom(viewController: UIViewController, username: String, joinToRoom: Bool = false){
+    internal static func checkUsernameAndOpenRoom(viewController: UIViewController, username: String, joinToRoom: Bool = false) {
         IGGlobal.prgShow(viewController.view)
-        IGClientResolveUsernameRequest.Generator.generate(username: username).success({ (protoResponse) in
+        IGClientResolveUsernameRequest.fetchRoom(username: username, completed: { (protoResponse) in
             DispatchQueue.main.async {
                 IGGlobal.prgHide()
                 
@@ -107,7 +134,7 @@ class IGHelperChatOpener {
                     }
                 }
             }
-        }).error ({ (errorCode, waitTime) in
+        }) { (errorCode, waitTime) in
             DispatchQueue.main.async {
                 IGGlobal.prgHide()
                 switch errorCode {
@@ -120,7 +147,7 @@ class IGHelperChatOpener {
                     break
                 }
             }
-        }).send()
+        }
     }
     
     
@@ -136,7 +163,7 @@ class IGHelperChatOpener {
             if (user!.isBot || IGGlobal.isForwardEnable()) {
                 IGHelperChatOpener.createChat(viewController: viewController, userId: (user?.id)!)
             } else {
-                IGHelperChatOpener.openUserProfile(user: user! , room: nil,roomType: roomType!, viewController: viewController)
+                IGHelperChatOpener.openUserProfile(user: user! , room: nil, roomType: roomType!, viewController: viewController)
             }
             break
         case .room:
@@ -147,7 +174,6 @@ class IGHelperChatOpener {
             break
         }
     }
-    
     
     
     /**

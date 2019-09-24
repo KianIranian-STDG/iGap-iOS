@@ -66,6 +66,8 @@ class IGCallsTableViewController: BaseTableViewController {
                                                    name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
                                                    object: nil)
         }
+        callTypes = IGPSignalingGetLog.IGPFilter.allCases
+        addCollectionFilterView()
     }
     
     private func initNavigationBar(){
@@ -91,7 +93,6 @@ class IGCallsTableViewController: BaseTableViewController {
         super.viewWillAppear(animated)
 //        selectedIndex = 0
         initNavigationBar()
-        callTypes = IGPSignalingGetLog.IGPFilter.allCases
         
         addCollectionFilterView()
 

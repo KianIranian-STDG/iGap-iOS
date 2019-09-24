@@ -180,5 +180,4 @@ class DashboardCell8: AbstractDashboardCell {
         view1Abs = view
         super.initViewPoll(dashboard: dashboard)
     }
-    
 }

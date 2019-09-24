@@ -134,7 +134,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         navigationControllerr.navigationBar.isHidden = true
         navigationControllerr.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.isTranslucent = true
+//        navigationControllerr.navigationBar.isTranslucent = true
+        
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
         if lblMoneyAmount.text == "..." {
@@ -143,8 +144,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if lblScoreAmount.text == "..." {
             getScore()
         }
-
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         NotificationCenter.default.addObserver(self,
@@ -191,7 +192,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
         //Hint: - check if tab is changed or not if changed it will show the navbar ,if not it depends on the destination
-        if currentTabIndex == CurrentTab.Profile.rawValue {
+        if currentTabIndex == TabBarTab.Profile.rawValue {
             
             if goToSettings {
                 navigationControllerr.navigationBar.isHidden = true

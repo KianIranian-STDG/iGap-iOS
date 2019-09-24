@@ -53,5 +53,4 @@ class DashboardCell7: AbstractDashboardCell {
         view3Abs = view3
         super.initViewPoll(dashboard: dashboard)
     }
-    
 }

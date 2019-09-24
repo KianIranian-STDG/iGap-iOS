@@ -39,6 +39,5 @@ class DashboardCellUnknown: UICollectionViewCell {
         view?.layer.shadowRadius = 3
         view?.layer.shadowColor = UIColor.gray.cgColor
         view?.layer.shadowOpacity = 1
-        
     }
 }

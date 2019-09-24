@@ -157,7 +157,6 @@ class AbstractDashboardCell: UICollectionViewCell {
             if self.dashboardAbs.count > 0 {
                 actionManager(discoveryInfo: self.dashboardAbs[0])
             }
-            
         }
     }
     
@@ -192,7 +191,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     }
     
     //Carpino Agrement
-    func carpinoAggrement(agrementSlug: String!,itemID: Int32!,url : String!) {
+    static func carpinoAggrement(agrementSlug: String!,itemID: Int32!,url : String!) {
         IGInfoPageRequest.Generator.generate(pageID: agrementSlug).success { (responseProto) in
             DispatchQueue.main.async {
                 switch responseProto {
@@ -240,10 +239,9 @@ class AbstractDashboardCell: UICollectionViewCell {
     }
     /**********************************************************************/
     /*************************** Action Manager ***************************/
-    private func actionManagerPoll(pollInfo: IGPPollField,item : Int!){
+    private func actionManagerPoll(pollInfo: IGPPollField, item : Int!) {
         
         IGGlobal.shouldShowChart = true
-        
         
         if pollInfo.igpClicked {
             IGHelperAlert.shared.showAlert(message: "MSG_U_HAVE_ALREADY_VOTED".localizedNew)
@@ -315,12 +313,18 @@ class AbstractDashboardCell: UICollectionViewCell {
             }
         }
         
-        
     }
     
-   
+    private func actionManager(discoveryInfo: IGPDiscoveryField, deepLinkDiscoveryIds: [String] = []) {
+        self.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isUserInteractionEnabled = true
+        }
+        
+        AbstractDashboardCell.dashboardCellActionManager(discoveryInfo: discoveryInfo, deepLinkDiscoveryIds: deepLinkDiscoveryIds)
+    }
     
-    private func actionManager(discoveryInfo: IGPDiscoveryField) {
+    static func dashboardCellActionManager(discoveryInfo: IGPDiscoveryField, deepLinkDiscoveryIds: [String] = []) {
         IGGlobal.shouldShowChart = false
         IGClientSetDiscoveryItemClickRequest.sendRequest(itemId: discoveryInfo.igpID)
         
@@ -330,11 +334,7 @@ class AbstractDashboardCell: UICollectionViewCell {
         let agreementValue = discoveryInfo.igpAgreement
         let actionData = discoveryInfo.igpParam
 
-        self.isUserInteractionEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isUserInteractionEnabled = true
-            
-        }
+        
         switch actionType {
         case .none:
             return
@@ -485,6 +485,9 @@ class AbstractDashboardCell: UICollectionViewCell {
                 } else {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
+                    if deepLinkDiscoveryIds.count > 0 {
+                        dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
+                    }
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
                 }
@@ -493,7 +496,9 @@ class AbstractDashboardCell: UICollectionViewCell {
                 // uncomment these
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
-               
+                if deepLinkDiscoveryIds.count > 0 {
+                    dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
+                }
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
 //                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
 //                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
@@ -510,6 +515,9 @@ class AbstractDashboardCell: UICollectionViewCell {
                     let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                     dashboard.pageId = Int32(discoveryInfo.igpValue)!
                     IGGlobal.shouldShowChart = true
+//                    if deepLinkDiscoveryIds.count > 0 {
+//                        dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
+//                    }
                     UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                     return
                 }
@@ -517,6 +525,9 @@ class AbstractDashboardCell: UICollectionViewCell {
                 let dashboard = IGDashboardViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
                 dashboard.pageId = Int32(discoveryInfo.igpValue)!
                 IGGlobal.shouldShowChart = true
+//                if deepLinkDiscoveryIds.count > 0 {
+//                    dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
+//                }
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }

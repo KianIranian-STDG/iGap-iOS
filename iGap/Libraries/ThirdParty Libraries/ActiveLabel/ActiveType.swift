@@ -12,6 +12,7 @@ enum ActiveElement {
     case mention(String)
     case hashtag(String)
     case url(original: String, trimmed: String)
+    case deepLink(String)
     case bot(String)
     case email(original: String, trimmed: String)
     case bold(String)
@@ -22,6 +23,7 @@ enum ActiveElement {
         case .mention: return mention(text)
         case .hashtag: return hashtag(text)
         case .url: return url(original: text, trimmed: text)
+        case .deepLink: return deepLink(text)
         case .bot: return bot(text)
         case .email: return email(original: text, trimmed: text)
         case .bold: return bold(text)
@@ -34,6 +36,7 @@ public enum ActiveType {
     case mention
     case hashtag
     case url
+    case deepLink
     case bot
     case email
     case bold
@@ -44,6 +47,7 @@ public enum ActiveType {
         case .mention: return RegexParser.mentionPattern
         case .hashtag: return RegexParser.hashtagPattern
         case .url: return RegexParser.urlPattern
+        case .deepLink: return RegexParser.deepLinkPattern
         case .bot: return RegexParser.botPattern
         case .email: return RegexParser.emailPattern
         case .bold: return RegexParser.boldPattern
@@ -58,9 +62,10 @@ extension ActiveType: Hashable, Equatable {
         case .mention: hasher.combine(-1)
         case .hashtag: hasher.combine(-2)
         case .url: hasher.combine(-3)
-        case .bot: hasher.combine(-4)
-        case .email:hasher.combine(-5)
-        case .bold: hasher.combine(-6)
+        case .deepLink: hasher.combine(-4)
+        case .bot: hasher.combine(-5)
+        case .email:hasher.combine(-6)
+        case .bold: hasher.combine(-7)
         case .custom(let regex): hasher.combine(regex)
             
         }
@@ -72,6 +77,7 @@ public func ==(lhs: ActiveType, rhs: ActiveType) -> Bool {
     case (.mention, .mention): return true
     case (.hashtag, .hashtag): return true
     case (.url, .url): return true
+    case (.deepLink, .deepLink): return true
     case (.bot, .bot): return true
     case (.email, .email): return true
     case (.bold, .bold): return true

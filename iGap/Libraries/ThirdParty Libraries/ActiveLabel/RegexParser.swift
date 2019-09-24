@@ -63,6 +63,8 @@ struct RegexParser {
         // resource path
     "(?:/(?:\\S{0,255}[^\\s.;,(\\[\\]{}<>\"\'])?)?"
     
+    static let deepLinkPattern = "(igap?://)([^:^/]*)(:\\d*)?(.*)?"
+    
     static let emailPattern = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
     
     //static let boldPattern = "[*][*][\\w\\W]*[*][*]"

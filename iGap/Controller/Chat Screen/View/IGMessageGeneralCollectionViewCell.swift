@@ -24,6 +24,7 @@ protocol IGMessageGeneralCollectionViewCellDelegate {
     func didTapOnMention(mentionText: String)
     func didTapOnEmail(email: String)
     func didTapOnURl(url: URL)
+    func didTapOnDeepLink(url: URL)
     func didTapOnRoomLink(link:String)
     func didTapOnBotAction(action:String)
 }

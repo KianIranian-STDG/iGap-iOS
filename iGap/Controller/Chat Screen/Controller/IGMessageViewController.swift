@@ -5341,6 +5341,12 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         
         IGHelperOpenLink.openLink(urlString: urlString, navigationController: self.navigationController!)
     }
+    
+    func didTapOnDeepLink(url: URL) {
+        DeepLinkManager.shared.handleDeeplink(url: url)
+        DeepLinkManager.shared.checkDeepLink()
+    }
+    
     func didTapOnRoomLink(link: String) {
         let strings = link.split(separator: "/")
         let token = strings[strings.count-1]

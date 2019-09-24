@@ -19,7 +19,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     static let itemCorner: CGFloat = 15
     let screenWidth = UIScreen.main.bounds.width
     public var pageId: Int32 = 0
-    private var discovery: [IGPDiscovery] = []
+    var discoveries: [IGPDiscovery] = []
     private var pollList: [IGPPoll] = []
     private var pollListInfoInner: [IGPPollField] = []
     private var refresher: UIRefreshControl!
@@ -27,11 +27,14 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     static var discoveryObserver: DiscoveryObserver!
     static var needGetFirstPage = true
     private var pollResponse: IGPClientGetPollResponse!
-
+    /// boolean value ehat shows if view controller is trying to get discovery items now
+    var isGettingDiscovery = false
+    
+    /// This variable is set only whene should perform deep link and holds discovery id's that should be opened
+    var deepLinkDiscoveryIds: [String]?
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var btnRefresh: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +62,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         else {
             getDiscoveryList()
-            
         }
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
@@ -69,7 +71,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         IGDashboardViewController.discoveryObserver = self
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.isHidden = false
-
 
         if isDashboardInner! {
             self.initNavigationBar(title: nil, rightItemText: nil) {
@@ -83,15 +84,20 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         collectionView.reloadData()
     }
     
-    private func initNavigationBar(){
+//    override func viewDidAppear(_ animated: Bool) {
+//        if deepLinkDiscoveryIds != nil, deepLinkDiscoveryIds!.count > 0 {
+//            self.collectionView.reloadData()
+//        }
+//    }
+    
+    private func initNavigationBar() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setDiscoveriesNavigationItems()
         self.hideKeyboardWhenTappedAround()
-        
     }
 
     
-    private func registerCellsNib(){
+    private func registerCellsNib() {
         self.collectionView!.register(DashboardCellUnknown.nib(), forCellWithReuseIdentifier: DashboardCellUnknown.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell1.nib(), forCellWithReuseIdentifier: DashboardCell1.cellReuseIdentifier())
         self.collectionView!.register(DashboardCell2.nib(), forCellWithReuseIdentifier: DashboardCell2.cellReuseIdentifier())
@@ -103,13 +109,12 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         self.collectionView!.register(DashboardCell8.nib(), forCellWithReuseIdentifier: DashboardCell8.cellReuseIdentifier())
     }
     
-    @objc private func loadData(){
+    @objc private func loadData() {
         if IGGlobal.shouldShowChart {
             getPollRequest()
         }
         else {
             getDiscoveryList()
-            
         }
         stopRefresher()
     }
@@ -129,7 +134,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     //pollReq
     
-    private func getPollRequest(){
+    private func getPollRequest() {
         
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
             return
@@ -140,7 +145,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             if let response = protoResponse as? IGPClientGetPollResponse {
                 self.pollResponse = response
                 self.pollList = response.igpPolls
-                
                 
                 var tmpPollList = response.igpPolls[self.pollList.count-1]
 
@@ -185,34 +189,56 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
     
     //end
     
-    
-    private func getDiscoveryList() {
+    func getDiscoveryList() {
+        
+        if isGettingDiscovery {
+            return
+        }
+        isGettingDiscovery = true
         
         if pageId == 0 ,let discovery = IGRealmDiscovery.getDiscoveryInfo() {
-            self.discovery = discovery.igpDiscoveries
+            self.discoveries = discovery.igpDiscoveries
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         }
         
+        if deepLinkDiscoveryIds != nil, deepLinkDiscoveryIds!.count > 0 {
+            IGGlobal.prgShow()
+        }
+        
         if !IGAppManager.sharedManager.isUserLoggiedIn() {
+            self.isGettingDiscovery = false
             return
         }
         
         IGClientGetDiscoveryRequest.Generator.generate(pageId: pageId).successPowerful({ (protoResponse, requestWrapper) in
             if let response = protoResponse as? IGPClientGetDiscoveryResponse {
-                self.discovery = response.igpDiscoveries
+                self.discoveries = response.igpDiscoveries
                 
+                self.isGettingDiscovery = false
                 
                 /* just save first page info */
                 if let request = requestWrapper.message as? IGPClientGetDiscovery, request.igpPageID == 0 {
                     IGDashboardViewController.needGetFirstPage = false
-                    IGFactory.shared.addDiscoveryPageInfo(discoveryList: self.discovery)
+                    IGFactory.shared.addDiscoveryPageInfo(discoveryList: self.discoveries)
                 }
                 
                 DispatchQueue.main.async {
                     let navigationItem = self.navigationItem as! IGNavigationItem
                     navigationItem.addNavigationViewItems(rightItemText: nil, title: response.igpTitle)
+                    
+                    if self.deepLinkDiscoveryIds != nil, self.deepLinkDiscoveryIds!.count > 0 {
+                        for discovery in self.discoveries {
+                            if let discoveryField = discovery.igpDiscoveryfields.filter({ return $0.igpID == Int32(self.deepLinkDiscoveryIds?.first ?? "0") }).first {
+                                self.deepLinkDiscoveryIds?.removeFirst()
+                                AbstractDashboardCell.dashboardCellActionManager(discoveryInfo: discoveryField, deepLinkDiscoveryIds: self.deepLinkDiscoveryIds ?? [])
+                                break
+                            }
+                        }
+                        IGGlobal.prgHide()
+                    }
+                    
                     self.collectionView.reloadData()
                 }
             }
@@ -241,7 +267,6 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         if IGAppManager.sharedManager.isUserLoggiedIn() || pageId == 0 {
             DispatchQueue.main.async {
                 self.collectionView!.isHidden = false
-
             }
             self.btnRefresh!.isHidden = true
             if IGGlobal.shouldShowChart {
@@ -252,7 +277,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
                 }
             }
             else {
-                if discovery.count == 0 {
+                if discoveries.count == 0 {
                     self.collectionView!.setEmptyMessage("PLEASE_WAIT_DATA_LOAD".localizedNew)
                 } else {
                     self.collectionView!.restore()
@@ -305,8 +330,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         else {
             manageShowDiscovery()
-            return discovery.count
-            
+            return discoveries.count
         }
     }
     
@@ -383,41 +407,55 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         else {
             
-            let item = discovery[indexPath.section]
+//            print(indexPath.row)
+            print(indexPath.section)
+            
+            let item = discoveries[indexPath.section]
             if item.igpModel == .model1 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell1.cellReuseIdentifier(), for: indexPath) as! DashboardCell1
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
+                
                 return cell
             } else if item.igpModel == .model2 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell2.cellReuseIdentifier(), for: indexPath) as! DashboardCell2
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
+                
                 return cell
             } else if item.igpModel == .model3 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell3.cellReuseIdentifier(), for: indexPath) as! DashboardCell3
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
                 return cell
             } else if item.igpModel == .model4 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell4.cellReuseIdentifier(), for: indexPath) as! DashboardCell4
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
                 return cell
             } else if item.igpModel == .model5 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell5.cellReuseIdentifier(), for: indexPath) as! DashboardCell5
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
                 return cell
             } else if item.igpModel == .model6 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell6.cellReuseIdentifier(), for: indexPath) as! DashboardCell6
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
                 return cell
             } else if item.igpModel == .model7 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell7.cellReuseIdentifier(), for: indexPath) as! DashboardCell7
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
                 return cell
             }
             else if item.igpModel == IGPDiscovery.IGPDiscoveryModel(rawValue: 7)! {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DashboardCell8.cellReuseIdentifier(), for: indexPath) as! DashboardCell8
-                cell.initView(dashboard: discovery[indexPath.section].igpDiscoveryfields)
+                let discoveryFields = item.igpDiscoveryfields
+                cell.initView(dashboard: discoveryFields)
                 return cell
-                
             }
                 
             else {
@@ -435,8 +473,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
             
         }
         else {
-            return CGSize(width: screenWidth, height: computeHeight(scale: discovery[indexPath.section].igpScale) + 8)
-            
+            return CGSize(width: screenWidth, height: computeHeight(scale: discoveries[indexPath.section].igpScale) + 8)
         }
     }
     

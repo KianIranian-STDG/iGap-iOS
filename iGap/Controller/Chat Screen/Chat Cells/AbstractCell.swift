@@ -657,6 +657,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             lable.handleURLTap { url in
                 self.delegate?.didTapOnURl(url: url)
             }
+            
+            lable.handleDeepLinkTap({ (deepLink) in
+                 self.delegate?.didTapOnDeepLink(url: deepLink)
+            })
 
             lable.handleEmailTap { email in
                 self.delegate?.didTapOnEmail(email: email.absoluteString)

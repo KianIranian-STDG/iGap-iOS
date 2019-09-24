@@ -155,7 +155,11 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
 
-        navigationControllerr.navigationBar.isHidden = true
+        if DeepLinkManager.shared.hasDeepLink() {
+            navigationControllerr.navigationBar.isHidden = false
+        } else {
+            navigationControllerr.navigationBar.isHidden = true
+        }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.searchController = nil
 

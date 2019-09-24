@@ -161,15 +161,25 @@ class IGClientSearchRoomHistoryRequest : IGRequest {
     }
 }
 class IGClientResolveUsernameRequest: IGRequest {
+    
+    class func fetchRoom(username: String, completed: @escaping (ResponseMessage) -> Void, error: @escaping (IGError, IGErrorWaitTime?) -> Void) {
+        IGClientResolveUsernameRequest.Generator.generate(username: username, identity: completed).successPowerful ({ (protoResponse, requestWrapper) in
+            
+            if let closure = requestWrapper.identity as? ((ResponseMessage) -> Void) {
+                closure(protoResponse)
+            }
+        }).error(error).send()
+    }
+    
     class Generator: IGRequest.Generator {
-        class func generate(username: String) -> IGRequestWrapper {
+        class func generate(username: String, identity: Any = "") -> IGRequestWrapper {
             var finalUsername = username
-            if username.starts(with: "@"){
+            if username.starts(with: "@") {
                 finalUsername = String(username.dropFirst())
             }
             var clientResolveUsernameRequestMessage = IGPClientResolveUsername()
             clientResolveUsernameRequestMessage.igpUsername = finalUsername
-            return IGRequestWrapper(message: clientResolveUsernameRequestMessage, actionID: 606)
+            return IGRequestWrapper(message: clientResolveUsernameRequestMessage, actionID: 606, identity: identity)
         }
     }
     class Handler: IGRequest.Handler {
@@ -188,6 +198,9 @@ class IGClientResolveUsernameRequest: IGRequest {
             }
             if responseProtoMessage.hasIgpUser {
                 igUser = IGRegisteredUser(igpUser: responseProtoMessage.igpUser)
+                try! IGDatabaseManager.shared.realm.write {
+                    _ = IGRegisteredUser.putOrUpdate(realm: IGDatabaseManager.shared.realm, igpUser: responseProtoMessage.igpUser)
+                }
             }
             if responseProtoMessage.hasIgpRoom {
                 igRoom = IGRoom(igpRoom: responseProtoMessage.igpRoom)

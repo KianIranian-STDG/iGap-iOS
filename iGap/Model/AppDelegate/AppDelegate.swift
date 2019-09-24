@@ -299,7 +299,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
             application.applicationIconBadgeNumber = unreadCount
         }
-        
+        print(userInfo)
         DeepLinkManager.shared.handleRemoteNotification(userInfo)
     }
     /******************* Notificaton End *******************/
