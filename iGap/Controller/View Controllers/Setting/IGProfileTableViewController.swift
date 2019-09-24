@@ -918,6 +918,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         return 12
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goToSettings = false
+
         if indexPath.section == 0 {
             
             var rowIndex = indexPath.row
@@ -937,6 +939,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 self.tableView.deselectRow(at: indexPath, animated: true)
                 performSegue(withIdentifier: "ShowQRScanner", sender: self)
             case 4 :
+                
                 manageOpenMap()
             case 5 :
 //                self.tableView.deselectRow(at: indexPath, animated: true)
