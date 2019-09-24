@@ -109,6 +109,7 @@
         "EDITED" : "edited",
         "CALL" : "call",
         "ADD_CONTACT" : "Add Contact",
-        "CALL_QUESTION" : "Which number do you want to call?"
+        "CALL_QUESTION" : "Which number do you want to call?",
+        "ADD_CONTACT_QUESATION" : "Do you want to add this number to your contacts?"
     }
 }

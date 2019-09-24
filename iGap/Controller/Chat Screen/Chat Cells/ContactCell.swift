@@ -256,15 +256,25 @@ class ContactCell: AbstractCell {
         btnAddContact?.addGestureRecognizer(btnAddContactGesture)
     }
     
+    private func startCall(number: String){
+        let tel: String! = "tel://\(number.inEnglishNumbers().digits)"
+        if let url = URL(string: tel!) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
     @objc func didTapOnCall(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        if finalRoomMessage.contact!.phones.count == 1 {
+            startCall(number: finalRoomMessage.contact!.phones.toArray().first!.innerString)
+            return
+        }
+        
         let option = UIAlertController(title: "CALL_QUESTION".MessageViewlocalizedNew, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
         for phone in finalRoomMessage.contact!.phones {
             let action = UIAlertAction(title: phone.innerString, style: .default, handler: { (action) in
-                let tel: String! = "tel://\(action.title!.inEnglishNumbers().digits)"
-                if let url = URL(string: tel!) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
+                self.startCall(number: action.title!)
             })
             option.addAction(action)
         }
@@ -275,7 +285,33 @@ class ContactCell: AbstractCell {
     }
     
     @objc func didTapOnAddContact(_ gestureRecognizer: UITapGestureRecognizer) {
-        //TODO - Add contact to the phone address book
+        
+        let option = UIAlertController(title: nil, message: "ADD_CONTACT_QUESATION".MessageViewlocalizedNew, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+            var phones: [String] = []
+            for phone in self.finalRoomMessage.contact!.phones {
+                phones.append(phone.innerString)
+            }
+            
+            var emails: [String] = []
+            for email in self.finalRoomMessage.contact!.emails {
+                emails.append(email.innerString)
+            }
+            
+            var displayName = self.finalRoomMessage.contact!.firstName
+            if let lastName = self.finalRoomMessage.contact!.lastName {
+                displayName = " " + lastName
+            }
+            
+            IGContactManager.sharedManager.saveContactToDevicePhoneBook(name: displayName!, phoneNumber: phones, emailAddress: emails as [NSString])
+        })
+        option.addAction(ok)
+        
+        let cancel = UIAlertAction(title: "GLOBAL_NO".localizedNew, style: .cancel, handler: nil)
+        option.addAction(cancel)
+        
+        UIApplication.topViewController()!.present(option, animated: true, completion: {})
     }
 }
 

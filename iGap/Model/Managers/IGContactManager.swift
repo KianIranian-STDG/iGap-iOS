@@ -176,20 +176,18 @@ class IGContactManager: NSObject {
             }
         }).send()
     }
-    private func saveContactToDevicePhoneBook(name: String , phoneNumber: [String] , emailAddress:  [NSString]? = nil ) {
+    
+    func saveContactToDevicePhoneBook(name: String , phoneNumber: [String] , emailAddress:  [NSString]? = nil ) {
         let newContact = CNMutableContact()
         newContact.givenName = name
         var tmpPhoneNumberArray = [CNLabeledValue<CNPhoneNumber>]()
         var tmpEmailArray = [CNLabeledValue<NSString>]()
         for number in phoneNumber {
-            tmpPhoneNumberArray.append(CNLabeledValue(
-                label:CNLabelPhoneNumberiPhone,
-                value:CNPhoneNumber(stringValue:number)))
+            tmpPhoneNumberArray.append(CNLabeledValue( label:CNLabelPhoneNumberiPhone, value:CNPhoneNumber(stringValue:number)))
         }
         for email in emailAddress! {
             tmpEmailArray.append(CNLabeledValue(label: CNLabelHome, value: email))
         }
-
         
         newContact.phoneNumbers = tmpPhoneNumberArray
         newContact.emailAddresses = tmpEmailArray
@@ -198,7 +196,5 @@ class IGContactManager: NSObject {
         let saveRequest = CNSaveRequest()
         saveRequest.add(newContact, toContainerWithIdentifier:nil)
         try! store.execute(saveRequest)
-
-
     }
 }
