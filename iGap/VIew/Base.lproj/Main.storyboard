@@ -1323,7 +1323,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aWE-Ym-D0e">
-                                                                <rect key="frame" x="54" y="8" width="16" height="22"/>
+                                                                <rect key="frame" x="32" y="0.0" width="38" height="38"/>
                                                                 <state key="normal" image="IG_Chat_Screen_Record"/>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfN-2p-VQo">
@@ -1782,8 +1782,8 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="AQo-B4-rgc"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="20"/>
-                                        <state key="normal" title="ok"/>
+                                        <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
+                                        <state key="normal" title=""/>
                                         <connections>
                                             <action selector="btnUpdateComment:" destination="hsi-ex-lNf" eventType="touchUpInside" id="jf5-5A-ebz"/>
                                         </connections>
@@ -1950,7 +1950,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="SgF-KW-kA9">
+                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="SgF-KW-kA9">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="203"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
@@ -2253,14 +2253,14 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hV0-li-TCq">
-                                                            <rect key="frame" x="71.666666666666657" y="10" width="63" height="18"/>
+                                                            <rect key="frame" x="70.000000000000028" y="10.000000000000002" width="66.333333333333343" height="18.666666666666671"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ig_score_icon_settings" translatesAutoresizingMaskIntoConstraints="NO" id="lle-2X-U1h">
-                                                                    <rect key="frame" x="0.0" y="1" width="16" height="16"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="19.333333333333332" height="18.666666666666668"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nsw-1a-vF5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                                    <rect key="frame" x="21" y="0.0" width="42" height="18"/>
+                                                                    <rect key="frame" x="24.333333333333314" y="0.33333333333333393" width="42" height="18"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -3316,6 +3316,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="jRj-hY-oEr"/>
         <segue reference="R4P-x7-LEg"/>
-        <segue reference="QJB-pO-R8A"/>
+        <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

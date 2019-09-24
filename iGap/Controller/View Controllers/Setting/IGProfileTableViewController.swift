@@ -920,6 +920,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         goToSettings = false
 
+        
         if indexPath.section == 0 {
             
             var rowIndex = indexPath.row

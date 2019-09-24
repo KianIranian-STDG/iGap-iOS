@@ -102,7 +102,8 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         //btnComment.removeUnderline()
         btnCurrentLocation.removeUnderline()
         edtComment.delegate = self
-        
+        edtComment.font = UIFont.igFont(ofSize: 15)
+        edtComment.textAlignment = edtComment.localizedNewDirection
         initNavigationBar()
         checkLocationPermission()
         initMapView()
@@ -243,10 +244,10 @@ class IGMap: BaseViewController, CLLocationManagerDelegate, UITextFieldDelegate 
         latestCommentState = commentState
         
         if commentState == .UPDATE {
-            btnComment.setTitle("", for: UIControl.State.normal)
+            btnComment.setTitle("", for: UIControl.State.normal)
             btnComment.setTitleColor(UIColor.iGapColor(), for: UIControl.State.normal)
         } else if commentState == .CLEAR {
-            btnComment.setTitle("", for: UIControl.State.normal)
+            btnComment.setTitle("", for: UIControl.State.normal)
             btnComment.setTitleColor(UIColor.red, for: UIControl.State.normal)
         } else if commentState == .NONE {
             btnComment.setTitle(" ", for: UIControl.State.normal)
