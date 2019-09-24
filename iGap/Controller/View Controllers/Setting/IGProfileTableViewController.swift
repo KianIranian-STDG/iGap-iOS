@@ -677,8 +677,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     //Hint: - Go To Setting Action Handler
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
-        goToSettings = true
-        self.performSegue(withIdentifier: "showSettings", sender: self)
+//        goToSettings = true
+//        self.performSegue(withIdentifier: "showSettings", sender: self)
+        goToSettings = false
+        let settingVC = IGSettingTableViewController.instantiateFromAppStroryboard(appStoryboard: .Setting)
+        self.navigationController!.pushViewController(settingVC, animated:true)
+
     }
     //Hint: - Go To Cloud Action Handler
     @IBAction func didTapOnGoToCloud(_ sender: Any) {

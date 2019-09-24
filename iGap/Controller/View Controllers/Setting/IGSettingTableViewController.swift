@@ -63,14 +63,14 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
         self.clearsSelectionOnViewWillAppear = true
         let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "SETTING_VIEW".localizedNew)
-        
+//        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "SETTING_VIEW".localizedNew)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_VIEW".localizedNew, iGapFont: true)
+        navigationItem.navigationController = self.navigationController as? IGNavigationController
+        let navigationController = self.navigationController as! IGNavigationController
+        navigationController.interactivePopGestureRecognizer?.delegate = self
+
         // navigationItem.setChatListsNavigationItems()
-        navigationItem.rightViewContainer?.addAction {
-            self.dismiss(animated: true, completion: {
-                
-            })
-        }
+
         
     }
     
