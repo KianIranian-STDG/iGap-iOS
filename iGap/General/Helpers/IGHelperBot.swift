@@ -84,8 +84,6 @@ class IGHelperBot {
                 make.right.equalTo(parent.snp.right)
                 make.bottom.equalTo(parent.snp.bottom)
             }
-            make.height.equalTo(rowHeight)
-            make.width.equalTo(rowWidth)
         }
 
         for (index, row) in additionalArrayMain.enumerated() {

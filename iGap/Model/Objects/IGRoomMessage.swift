@@ -285,7 +285,9 @@ class IGRoomMessage: Object {
         var messageId: Int64 = igpMessage.igpMessageID
         if options.isReply || options.isForward {
             messageId = igpMessage.igpMessageID * -1
-        } else if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
+        }
+        
+        if options.isEnableCache, let _ = IGGlobal.importedRoomMessageDic[messageId] { //, !message.isInvalidated {
             return nil
         }
         
