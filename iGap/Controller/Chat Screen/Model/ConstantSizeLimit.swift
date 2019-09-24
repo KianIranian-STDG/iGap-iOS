@@ -59,6 +59,7 @@ class CellSizeLimit: NSObject {
                     static let Additional: CGFloat = 200.0
                     static var Attachment: CGFloat = 80.0
                     static var Sticker:    CGFloat = 80.0
+                    static var editedRTL:  CGFloat = 120.0
                 }
                 struct Maximum {
                     static var Text:        CGFloat = 300.0

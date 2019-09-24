@@ -1577,7 +1577,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         txtEditedAbs.snp.makeConstraints { (make) in
             make.trailing.equalTo(txtTimeAbs.snp.leading).offset(-3)
             make.centerY.equalTo(txtTimeAbs.snp.centerY)
-            make.width.equalTo(30)
+            make.width.equalTo(50)
             make.height.equalTo(11)
         }
     }

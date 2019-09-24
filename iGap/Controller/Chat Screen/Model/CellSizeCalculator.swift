@@ -255,7 +255,19 @@ class CellSizeCalculator: NSObject {
             with: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: convertToOptionalNSAttributedStringKeyDictionary(getStringStyle()), context: nil)
         
-        if textWithTime.isRTL() || room.type == .channel {
+        if textWithTime.isRTL() {
+            
+            if isEdited {
+                /* if width of messge is lower than minimum size for edited message,
+                 * set minimum value for avoid from show a part of edited message at bubble
+                 * HINT: don't append '*' to 'textWithTime' field for manage rtl edited message, because there may be an extra line
+                 */
+                if stringRect.size.width < CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.editedRTL {
+                    stringRect.size.width = CellSizeLimit.ConstantSizes.Bubble.Width.Minimum.editedRTL
+                }
+            }
+            stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL_OR_VOTE)
+        } else if room.type == .channel {
             stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL_OR_VOTE)
         }
         

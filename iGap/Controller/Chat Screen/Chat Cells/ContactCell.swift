@@ -116,7 +116,7 @@ class ContactCell: AbstractCell {
         
         if nameLabel == nil {
             nameLabel = UILabel()
-            nameLabel!.font = UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)
+            nameLabel!.font = UIFont.igFont(ofSize: 14, weight: .medium)
             mainBubbleViewAbs.addSubview(nameLabel!)
         }
         
