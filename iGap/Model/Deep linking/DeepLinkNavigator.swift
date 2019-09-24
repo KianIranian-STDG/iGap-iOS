@@ -32,13 +32,19 @@ class DeeplinkNavigator {
             self.showDiscovery(pathes: pathes)
             
         case .contact:
-            self.selectTabBarIndex(tab: TabBarTab.Contact)
+            self.selectTabBarIndex(tab: TabBarTab.Contact) { (tabBar) in
+                
+            }
             
         case .profile:
-            self.selectTabBarIndex(tab: TabBarTab.Profile)
+            self.selectTabBarIndex(tab: TabBarTab.Profile) { (tabBar) in
+                
+            }
             
         case .call:
-            self.selectTabBarIndex(tab: TabBarTab.Call)
+            self.selectTabBarIndex(tab: TabBarTab.Call) { (tabBar) in
+                
+            }
             
         case .favouriteChannel(let token):
             self.redirectToFavouriteChannel(token: token)
@@ -46,16 +52,16 @@ class DeeplinkNavigator {
         }
     }
     
-    @discardableResult
-    private func selectTabBarIndex(tab: TabBarTab) -> UIViewController? {
-        UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: true)
-        guard let tabBarController = UIApplication.topTabBarController() as? IGTabBarController else {
-            return nil
+    private func selectTabBarIndex(tab: TabBarTab, completion: @escaping (IGTabBarController?) -> ()) {
+        UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: true) {
+            guard let tabBarController = UIApplication.topTabBarController() as? IGTabBarController else {
+                completion(nil)
+                return
+            }
+            tabBarController.selectedIndex = tab.rawValue
+            tabBarController.tabBarController(tabBarController, didSelect: tabBarController.selectedViewController!)
+            completion(tabBarController)
         }
-        tabBarController.selectedIndex = tab.rawValue
-        tabBarController.tabBarController(tabBarController, didSelect: tabBarController.selectedViewController!)
-        
-        return tabBarController.selectedViewController
     }
     
     private func showPaymentView(message: String, status: PaymentStatus, orderId: String) {
@@ -83,22 +89,24 @@ class DeeplinkNavigator {
     }
     
     private func showDiscovery(pathes: [String]) {
-        guard let selectedVC = self.selectTabBarIndex(tab: TabBarTab.Dashboard) as? IGDashboardViewController else {
-            return
-        }
-        if pathes.count != 0 {
-            selectedVC.deepLinkDiscoveryIds = pathes
-            selectedVC.getDiscoveryList()
+        self.selectTabBarIndex(tab: TabBarTab.Dashboard) { (tabBar) in
+            guard let selectedVC = tabBar?.selectedViewController as? IGDashboardViewController else {
+                return
+            }
+            if pathes.count != 0 {
+                selectedVC.deepLinkDiscoveryIds = pathes
+                selectedVC.getDiscoveryList()
+            }
         }
 //        tabBarController.selectTabBar(tabBar: tabBarController.tabBar, didSelect: TabBarTab.Dashboard)
     }
     
     private func redirectToFavouriteChannel(token: String?) {
-        self.selectTabBarIndex(tab: TabBarTab.Dashboard)
-        
-        let favouriteChannelDashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-        favouriteChannelDashboard.deepLinkToken = token
-        UIApplication.topViewController()!.navigationController!.pushViewController(favouriteChannelDashboard, animated: true)
+        self.selectTabBarIndex(tab: TabBarTab.Dashboard) { (tabBar) in
+            let favouriteChannelDashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            favouriteChannelDashboard.deepLinkToken = token
+            UIApplication.topViewController()!.navigationController!.pushViewController(favouriteChannelDashboard, animated: true)
+        }
     }
     
     private func redirectToChat(userName: String?, messageID: Int64?) {
@@ -106,7 +114,7 @@ class DeeplinkNavigator {
         guard let username = userName else {
             return
         }
-        UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: true)
+        UIApplication.topViewController()!.navigationController!.popToRootViewController(animated: false)
         
         IGHelperChatOpener.checkUsername(viewController: UIApplication.topViewController()!, username: username, completed: { (user, room, usernameType) in
             

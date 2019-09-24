@@ -144,6 +144,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if lblScoreAmount.text == "..." {
             getScore()
         }
+        
+        USERinDB()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -153,7 +155,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                                                name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoomAtProfile),
                                                object: nil)
 
-        USERinDB()
         textManagment()
         self.tableView.alwaysBounceVertical = false
         
@@ -179,10 +180,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
-        
-        
-        
-        
         
     }
     override func viewDidLayoutSubviews() {
@@ -443,7 +440,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         let predicate = NSPredicate(format: "id = %lld", IGAppManager.sharedManager.userID()!)
         userInDb = realm.objects(IGRegisteredUser.self).filter(predicate).first
         if userAvatarView.avatarImageView?.image == nil {
-        userAvatarView.setUser(userInDb, showMainAvatar: true)
+            userAvatarView.setUser(userInDb, showMainAvatar: true)
         }
         user = userInDb
         userAvatarView.avatarImageView?.isUserInteractionEnabled = true

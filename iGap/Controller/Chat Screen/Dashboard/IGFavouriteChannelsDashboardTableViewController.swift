@@ -49,6 +49,37 @@ class IGFavouriteChannelsDashboardTableViewController: UITableViewController, UI
             if isSuccess {
                 self.items = items
                 self.tableView.reloadWithAnimation()
+                for item in items {
+                    switch item.type {
+                    case .ad:
+                        for slide in item.slides ?? [] {
+                            if slide.id == self.deepLinkToken {
+                                SliderTypeOneCell.selectSlide(selectedSlide: slide)
+                                break
+                            }
+                        }
+                        break
+                    case .normalCategory:
+                        for category in item.categories ?? [] {
+                            if category.id == self.deepLinkToken {
+                                let dashboard = IGFavouriteChannelsDashboardInnerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                                dashboard.categoryId = category.id
+                                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
+                            }
+                        }
+                        
+                    case .featuredCategory:
+                        for channel in item.channels ?? [] {
+                            if channel.id == self.deepLinkToken {
+                                if channel.type == .Public {
+                                    IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: channel.slug)
+                                } else if channel.type == .Private {
+                                    IGHelperJoin.getInstance(viewController: UIApplication.topViewController()!).requestToCheckInvitedLink(invitedLink: channel.slug)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

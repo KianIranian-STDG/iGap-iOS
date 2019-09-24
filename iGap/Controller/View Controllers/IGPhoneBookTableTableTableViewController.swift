@@ -27,9 +27,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     var pageName : String! = "NEW_CALL"
     private var lastContentOffset: CGFloat = 0
     var navigationControll : IGNavigationController!
-    
-    //header
-    var headerView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 80.0))
 
     internal static var callDelegate: IGCallFromContactListObserver!
     
@@ -82,9 +79,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         self.navigationController!.pushViewController(vc, animated:true)
 
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
+    
+    private func makeHeaderView() -> UIView {
+        let headerView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 80.0))
         let bottomBorder = UIView()
         let lblIcon = UILabel()
         let lblText = UILabel()
@@ -95,40 +92,41 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         lblText.font = UIFont.igFont(ofSize: 15)
         lblText.textAlignment = lblText.localizedNewDirection
         bottomBorder.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
-        self.headerView.addSubview(bottomBorder)
-        self.headerView.addSubview(lblIcon)
-        self.headerView.addSubview(lblText)
-        self.headerView.addSubview(btn)
+        headerView.addSubview(bottomBorder)
+        headerView.addSubview(lblIcon)
+        headerView.addSubview(lblText)
+        headerView.addSubview(btn)
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnBtn))
         btn.isUserInteractionEnabled = true
         btn.addGestureRecognizer(tap)
-
+        
         bottomBorder.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.headerView.snp.bottom)
+            make.bottom.equalTo(headerView.snp.bottom)
             make.height.equalTo(1)
-            make.leading.equalTo(self.headerView.snp.leading).offset(10)
-            make.trailing.equalTo(self.headerView.snp.trailing).offset(-10)
+            make.leading.equalTo(headerView.snp.leading).offset(10)
+            make.trailing.equalTo(headerView.snp.trailing).offset(-10)
         }
         lblIcon.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.headerView.snp.centerY)
+            make.centerY.equalTo(headerView.snp.centerY)
             make.height.equalTo(45)
             make.width.equalTo(45)
-            make.leading.equalTo(self.headerView.snp.leading).offset(10)
+            make.leading.equalTo(headerView.snp.leading).offset(10)
         }
         lblText.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.headerView.snp.centerY)
+            make.centerY.equalTo(headerView.snp.centerY)
             make.height.equalTo(45)
-            make.right.equalTo(self.headerView.snp.right).offset(-55)
-            make.left.equalTo(self.headerView.snp.left).offset(55)
+            make.right.equalTo(headerView.snp.right).offset(-55)
+            make.left.equalTo(headerView.snp.left).offset(55)
         }
         btn.snp.makeConstraints { (make) in
-            make.top.equalTo(self.headerView.snp.top)
-            make.bottom.equalTo(self.headerView.snp.bottom)
-            make.left.equalTo(self.headerView.snp.left)
-            make.right.equalTo(self.headerView.snp.right)
+            make.top.equalTo(headerView.snp.top)
+            make.bottom.equalTo(headerView.snp.bottom)
+            make.left.equalTo(headerView.snp.left)
+            make.right.equalTo(headerView.snp.right)
         }
-
-
+        headerView.backgroundColor = UIColor.white
+        
+        return headerView
     }
 
     @objc
@@ -144,13 +142,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
     }
 
-
     
     //Mark:- TableView Delagates
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
-      
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -169,12 +165,10 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         return 80
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        headerView.backgroundColor = UIColor.white
-        return headerView
+        return makeHeaderView()
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 80
-        
     }
 
     
@@ -185,7 +179,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
     }
     
-
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {

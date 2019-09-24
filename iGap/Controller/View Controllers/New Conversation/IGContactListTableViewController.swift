@@ -140,7 +140,7 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
         return contactsCell
     }
     
-    override func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int)-> String {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int)-> String {
         if !self.sections[section].users.isEmpty {
             return self.collation.sectionTitles[section]
         }

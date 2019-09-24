@@ -97,27 +97,7 @@ class SliderTypeOneCell: UITableViewCell {
         }
     }
     
-}
-
-extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return slides.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImageCVCell", for: indexPath) as! slideImageCVCell
-        let slide = slides[indexPath.item]
-        let url = URL(string: slide.imageURL!)
-        cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named :"1"), completed: nil)
-        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
-        cell.imageView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let pageIndex = scrollView.auk.currentPageIndex else { return }
-        guard let selectedSlide = self.slides?[indexPath.item] else { return }
+    public static func selectSlide(selectedSlide: FavouriteChannelsAddSlide) {
         switch selectedSlide.actionType {
         case 3:
             IGHelperChatOpener.checkUsernameAndOpenRoom(viewController: UIApplication.topViewController()!, username: selectedSlide.actionLink)
@@ -155,6 +135,30 @@ extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegat
         default:
             break
         }
+    }
+    
+}
+
+extension SliderTypeOneCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return slides.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "slideImageCVCell", for: indexPath) as! slideImageCVCell
+        let slide = slides[indexPath.item]
+        let url = URL(string: slide.imageURL!)
+        cell.imageView.sd_setImage(with: url, placeholderImage: UIImage(named :"1"), completed: nil)
+        let isEnglish = SMLangUtil.loadLanguage() == SMLangUtil.SMLanguage.English.rawValue
+        cell.imageView.transform = isEnglish ? CGAffineTransform.identity : CGAffineTransform(scaleX: -1, y: 1)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let pageIndex = scrollView.auk.currentPageIndex else { return }
+        guard let selectedSlide = self.slides?[indexPath.item] else { return }
+        SliderTypeOneCell.selectSlide(selectedSlide: selectedSlide)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

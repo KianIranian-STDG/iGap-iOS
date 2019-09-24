@@ -184,67 +184,6 @@ extension UIImageView {
     }
 }
 
-//public extension UIImageView {
-//    func loadImage(fromURL url: String) {
-//        guard let imageURL = URL(string: url) else {
-//            return
-//        }
-//        
-//        let cache =  URLCache.shared
-//        let request = URLRequest(url: imageURL)
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            if let data = cache.cachedResponse(for: request)?.data, let image = UIImage(data: data) {
-//                DispatchQueue.main.async {
-//                    self.transition(toImage: image)
-//                }
-//            } else {
-//                
-////                APIManager.requestData(url: url, method: .post, headers: APIManager.authorizationHeader, completion: { (ApiResult<>) in
-////
-////                })
-//                debugPrint("================Request URL================")
-//                debugPrint(url)
-//                
-//                URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-//                    
-//                    guard error == nil else {
-//                        print(error?.localizedDescription)
-//                        return
-//                    }
-//                    
-////                    let responseJson = try? JSON(data: data ?? Data())
-//                    
-////                    debugPrint("================Response Header================")
-////                    debugPrint(response.)
-////                    debugPrint("================Response Status Code================")
-////                    debugPrint(response.statusCode)
-////                    debugPrint("================Response Body================")
-////                    debugPrint(responseJson ?? "NO RESPONSE BODY")
-//                    if let data = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300, let image = UIImage(data: data) {
-//                        let cachedData = CachedURLResponse(response: response, data: data)
-//                        cache.storeCachedResponse(cachedData, for: request)
-//                        DispatchQueue.main.async {
-//                            self.transition(toImage: image)
-//                        }
-//                    } else {
-//                        DispatchQueue.main.async {
-//                            self.transition(toImage: #imageLiteral(resourceName: "21212"))
-//                        }
-//                    }
-//                }).resume()
-//            }
-//        }
-//    }
-//    
-//    func transition(toImage image: UIImage?) {
-//        UIView.transition(with: self, duration: 0.3,
-//                          options: [.transitionCrossDissolve],
-//                          animations: {
-//                            self.image = image
-//        },completion: nil)
-//    }
-//}
-
 extension Thread {
     
     var threadName: String {
@@ -255,6 +194,48 @@ extension Thread {
         } else {
             let name = __dispatch_queue_get_label(nil)
             return String(cString: name, encoding: .utf8) ?? Thread.current.description
+        }
+    }
+}
+
+extension UINavigationController {
+    func pushViewController(viewController: UIViewController, animated: Bool, completion: @escaping () -> ()) {
+        
+        pushViewController(viewController, animated: animated)
+        
+        if let coordinator = transitionCoordinator, animated {
+            coordinator.animate(alongsideTransition: nil) { _ in
+                completion()
+            }
+        } else {
+            completion()
+        }
+    }
+    
+    func popViewController(viewController: UIViewController? = nil, animated: Bool, completion: @escaping () -> ()) {
+        if let viewController = viewController {
+            popToViewController(viewController, animated: animated)
+        } else {
+            popViewController(animated: animated)
+        }
+        
+        if let coordinator = transitionCoordinator, animated {
+            coordinator.animate(alongsideTransition: nil) { _ in
+                completion()
+            }
+        } else {
+            completion()
+        }
+    }
+    
+    func popToRootViewController(animated: Bool, completion: @escaping () -> ()) {
+        popToRootViewController(animated: animated)
+        if let coordinator = transitionCoordinator, animated {
+            coordinator.animate(alongsideTransition: nil) { _ in
+                completion()
+            }
+        } else {
+            completion()
         }
     }
 }

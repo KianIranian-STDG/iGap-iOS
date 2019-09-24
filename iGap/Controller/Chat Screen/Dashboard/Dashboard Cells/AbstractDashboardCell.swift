@@ -465,14 +465,14 @@ class AbstractDashboardCell: UICollectionViewCell {
                 
                 
                 
-                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
-                break
+//                UIApplication.topViewController()!.navigationController?.pushViewController(SwiftWebVC(urlString: "https://file.igap.net/try.html"), animated: true)
+//                break
                 
                 
                 
-//                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-//                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
-//                return
+                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated: true)
+                return
             }
 
         case .page:
@@ -500,8 +500,6 @@ class AbstractDashboardCell: UICollectionViewCell {
                     dashboard.deepLinkDiscoveryIds = deepLinkDiscoveryIds
                 }
                 UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
-//                let dashboard = IGFavouriteChannelsDashboardTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-//                UIApplication.topViewController()!.navigationController!.pushViewController(dashboard, animated:true)
                 return
             }
             
