@@ -285,7 +285,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                                         IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
                                         let room = IGRoom(igpRoom: clientGetRoomResponse.igpRoom)
                                         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let roomVC = storyboard.instantiateViewController(withIdentifier: "messageViewController") as! IGMessageViewController
+                                        let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
                                         roomVC.room = room
                                         self.navigationController!.pushViewController(roomVC, animated: true)
                                     default:
@@ -572,7 +572,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return 2
 
         case 1:
             return 2
@@ -598,20 +598,41 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        switch indexPath.section {
+        case 0 :
+            switch indexPath.row {
+            case 1 :
+                createChat()
+            default :
+                break
+            }
+        default :
+            break
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCell", for: indexPath as IndexPath) as! IGProfileUserCell
         let cellTwo = tableView.dequeueReusableCell(withIdentifier: "IGProfileUSerCellTypeTwo", for: indexPath as IndexPath) as! IGProfileUSerCellTypeTwo
         switch indexPath.section {
         case 0:
-            if let bio = user!.bio {
-                cell.initLabels(nameLblString: bio)
-            } else {
-                cell.initLabels(nameLblString: "")
-            }
+            switch indexPath.row {
+            case 0:
+                if let bio = user!.bio {
+                    cell.initLabels(nameLblString: bio)
+                } else {
+                    cell.initLabels(nameLblString: "")
+                }
+                
+                return cell
+            case 1:
 
-            return cell
+                cell.initLabels(nameLblString: "PU_SENDMSG".localizedNew, detailLblString: nil)
+                return cell
+
+            default :
+                return cell
+
+            }
 
         case 1:
             switch indexPath.row {
