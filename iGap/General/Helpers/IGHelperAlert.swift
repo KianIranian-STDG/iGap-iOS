@@ -189,6 +189,40 @@ class IGHelperAlert {
             alertView!.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func showDeleteAccountAlert(title: String, cancel: (() -> Void)? = nil, done: (() -> Void)? = nil){
+        DispatchQueue.main.async {
+            
+            let alertView = UIApplication.topViewController()
+            
+            var message: String!
+            message = "SURE_DELETE".localizedNew
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let titleFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15, weight: .bold)]
+            let titleAttrString = NSMutableAttributedString(string: title, attributes: titleFont)
+            alert.setValue(titleAttrString, forKey: "attributedTitle")
+            
+            if message != nil {
+                let messageFont = [NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)]
+                let messageAttrString = NSMutableAttributedString(string: message!, attributes: messageFont)
+                alert.setValue(messageAttrString, forKey: "attributedMessage")
+            }
+            
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { (action) in
+                    done?()
+                })
+                alert.addAction(okAction)
+            
+            let cancelAction = UIAlertAction(title: "BTN_CANCEL".localizedNew, style: .default, handler: { (action) in
+                cancel?()
+            })
+            alert.addAction(cancelAction)
+            
+            alertView!.present(alert, animated: true, completion: nil)
+        }
+    }
  
  
 }

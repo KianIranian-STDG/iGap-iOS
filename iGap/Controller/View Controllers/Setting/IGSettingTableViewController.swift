@@ -70,6 +70,10 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         navigationController.interactivePopGestureRecognizer?.delegate = self
 
         // navigationItem.setChatListsNavigationItems()
+        navigationItem.rightViewContainer?.addAction {
+
+            self.showMoreActionSheet()
+        }
 
         
     }
@@ -212,6 +216,44 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
             popoverController.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
         }
         present(logoutConfirmAlertView, animated: true, completion: nil)
+    }
+    //Delete Account alert controller
+    
+    private func showMoreActionSheet(){
+        let DeleteAccountAlertView = UIAlertController(title: nil , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew , style:.default , handler: {
+            (alert: UIAlertAction) -> Void in
+//                self.logoutProcess()//logout process
+                self.deleteAccountProcess()
+            
+        })
+        let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: {
+            (alert: UIAlertAction) -> Void in
+        })
+        DeleteAccountAlertView.addAction(logoutAction)
+        DeleteAccountAlertView.addAction(cancelAction)
+        let alertActions = DeleteAccountAlertView.actions
+        for action in alertActions {
+            if action.title == "SETTING_PAGE_ACCOUNT_D_ACCOUNT".localizedNew {
+                let logoutColor = UIColor.red
+                action.setValue(logoutColor, forKey: "titleTextColor")
+            }
+        }
+        DeleteAccountAlertView.view.tintColor = UIColor.organizationalColor()
+        if let popoverController = DeleteAccountAlertView.popoverPresentationController {
+            popoverController.sourceView = self.tableView
+            popoverController.sourceRect = CGRect(x: self.tableView.frame.midX-self.tableView.frame.midX/2, y: self.tableView.frame.midX-self.tableView.frame.midX/2, width: self.tableView.frame.midX, height: self.tableView.frame.midY)
+            popoverController.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
+        }
+        present(DeleteAccountAlertView, animated: true, completion: nil)
+    }
+    private func deleteAccountProcess() {
+        IGHelperAlert.shared.showDeleteAccountAlert(title: "TTL_ATTENTION".localizedNew, cancel: {
+            self.dismiss(animated: true, completion: nil)
+        }, done: {
+            self.dismiss(animated: true, completion: nil)
+            
+        })
     }
     private func logoutProcess() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
