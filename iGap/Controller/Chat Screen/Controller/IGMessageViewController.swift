@@ -1984,7 +1984,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                         self.txtSticker.isHidden = true
                     } else {
                         self.txtSticker.isHidden = false
-                        self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
+                        self.inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
 
                         
                     }

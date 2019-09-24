@@ -192,9 +192,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         let logoutConfirmAlertView = UIAlertController(title: "SURE_LOGOUT".localizedNew , message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         let logoutAction = UIAlertAction(title: "SETTING_PAGE_ACCOUNT_LOGOUT".localizedNew , style:.default , handler: {
             (alert: UIAlertAction) -> Void in
-            self.dismiss(animated: true, completion: {
-                self.logoutProcess()//logout process
-            })
+            self.logoutProcess()//logout process
+//            self.dismiss(animated: true, completion: nil )
             
         })
         let cancelAction = UIAlertAction(title: "CANCEL_BTN".localizedNew , style:.cancel , handler: {
