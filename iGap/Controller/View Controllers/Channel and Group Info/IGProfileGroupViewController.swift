@@ -69,6 +69,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             navigationController.interactivePopGestureRecognizer?.delegate = self
             
             initView()
+            self.displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
+            displayNameLabel.textColor = .white
+            memberCountLabel.textColor = .white
+
         }
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)

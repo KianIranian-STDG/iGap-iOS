@@ -13,6 +13,9 @@
         <array key="IRANSans.ttf">
             <string>IRANSans</string>
         </array>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Profile User View Controller-->
@@ -106,6 +109,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gY-ha-TLc">
                                 <rect key="frame" x="0.0" y="144" width="375" height="50"/>
                                 <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="yUm-gS-drt"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ie-2U-n7l" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                 <rect key="frame" x="260" y="94" width="100" height="100"/>
@@ -116,7 +122,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8R-lh-F3P">
-                                <rect key="frame" x="100" y="99" width="152" height="20.5"/>
+                                <rect key="frame" x="125" y="99" width="127" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -139,12 +145,39 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5y-xy-RVP" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="25" y="121.5" width="45" height="45"/>
+                                <color key="backgroundColor" red="0.61568627450000002" green="0.78039215689999997" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="hcJ-l5-YSE"/>
+                                    <constraint firstAttribute="width" constant="45" id="oea-cw-ng2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="popIn" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnStartChat:" destination="pnO-mj-wTT" eventType="touchUpInside" id="aJ5-t4-wSj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0ie-2U-n7l" firstAttribute="centerY" secondItem="7Ra-z2-pm4" secondAttribute="bottom" id="0Fl-ur-Ire"/>
                             <constraint firstItem="atv-wh-4vz" firstAttribute="top" secondItem="C8R-lh-F3P" secondAttribute="bottom" constant="4" id="3Pb-0P-Mf8"/>
-                            <constraint firstItem="C8R-lh-F3P" firstAttribute="leading" secondItem="iwt-dn-46G" secondAttribute="leading" constant="100" id="45I-Rc-JCI"/>
+                            <constraint firstItem="C8R-lh-F3P" firstAttribute="leading" secondItem="iwt-dn-46G" secondAttribute="leading" constant="125" id="45I-Rc-JCI"/>
                             <constraint firstAttribute="bottomMargin" secondItem="euW-lP-Q7G" secondAttribute="bottom" id="67Q-sA-XcQ"/>
                             <constraint firstItem="euW-lP-Q7G" firstAttribute="leading" secondItem="iwt-dn-46G" secondAttribute="leading" id="ABR-zo-L5F"/>
                             <constraint firstItem="iwt-dn-46G" firstAttribute="trailing" secondItem="7Ra-z2-pm4" secondAttribute="trailing" id="Dif-U5-1JZ"/>
@@ -161,6 +194,8 @@
                             <constraint firstItem="EiC-JQ-pge" firstAttribute="top" secondItem="og4-qC-38v" secondAttribute="bottom" constant="4" id="jZh-Np-sIz"/>
                             <constraint firstItem="2gY-ha-TLc" firstAttribute="top" secondItem="7Ra-z2-pm4" secondAttribute="bottom" id="p1W-Iz-8d3"/>
                             <constraint firstItem="2gY-ha-TLc" firstAttribute="bottom" secondItem="0ie-2U-n7l" secondAttribute="bottom" id="pyk-9h-o6Y"/>
+                            <constraint firstItem="c5y-xy-RVP" firstAttribute="centerY" secondItem="7Ra-z2-pm4" secondAttribute="bottom" id="sYV-fg-wli"/>
+                            <constraint firstItem="c5y-xy-RVP" firstAttribute="leading" secondItem="iwt-dn-46G" secondAttribute="leading" constant="25" id="srK-OP-LGY"/>
                             <constraint firstItem="7Ra-z2-pm4" firstAttribute="top" secondItem="enP-0C-N1g" secondAttribute="top" id="urg-TI-927"/>
                             <constraint firstItem="2gY-ha-TLc" firstAttribute="leading" secondItem="iwt-dn-46G" secondAttribute="leading" id="vaY-eK-LGw"/>
                             <constraint firstItem="0ie-2U-n7l" firstAttribute="leading" secondItem="atv-wh-4vz" secondAttribute="trailing" constant="8" id="yAm-jg-usD"/>
@@ -170,6 +205,8 @@
                     <navigationItem key="navigationItem" id="7sA-Sr-HeK" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="avatarView" destination="0ie-2U-n7l" id="Q8O-Xq-dfC"/>
+                        <outlet property="btnChatWith" destination="c5y-xy-RVP" id="hbd-BO-8V2"/>
+                        <outlet property="btnChatWithMiddleConstraint" destination="sYV-fg-wli" id="B9z-vq-T3o"/>
                         <outlet property="displayNameLabel" destination="C8R-lh-F3P" id="VGA-QO-jb6"/>
                         <outlet property="heightConstraints" destination="9DD-VO-i8e" id="tjC-b7-tLG"/>
                         <outlet property="phoneNumberLabel" destination="EiC-JQ-pge" id="hm7-gF-ajZ"/>
@@ -177,6 +214,8 @@
                         <outlet property="timeLabel" destination="atv-wh-4vz" id="w5i-IC-Ofj"/>
                         <outlet property="usernameLabel" destination="og4-qC-38v" id="TZK-jg-3BJ"/>
                         <outlet property="viewBG" destination="7Ra-z2-pm4" id="pBc-fc-FyZ"/>
+                        <segue destination="eZI-bz-A5f" kind="show" identifier="showCreateGroupPage" id="zht-up-rA1"/>
+                        <segue destination="grv-rH-Zr3" kind="show" identifier="showSharedMadiaPage" id="k5K-AS-4bs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5Z-Jx-IV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -746,21 +785,21 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="503"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="50" id="yNy-dP-UOE" customClass="IGChooseContactToAddNewGroupTableViewCell" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="80" id="yNy-dP-UOE" customClass="IGChooseContactToAddNewGroupTableViewCell" customModule="iGap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yNy-dP-UOE" id="tJG-tL-zui">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last seen recently" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igV-FX-6Mq" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="56" y="35" width="86" height="12"/>
+                                                    <rect key="frame" x="76" y="58" width="86" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJa-J9-FcO" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="56" y="11" width="296" height="21"/>
+                                                    <rect key="frame" x="76" y="11" width="276" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="BLP-dV-UdG"/>
                                                     </constraints>
@@ -769,19 +808,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icm-X7-WCY" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="5" width="40" height="40"/>
+                                                    <rect key="frame" x="8" y="10" width="60" height="60"/>
                                                     <color key="backgroundColor" white="0.24980964659999999" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="Ppo-el-2Te"/>
-                                                        <constraint firstAttribute="height" constant="40" id="mZE-Ua-hZy"/>
+                                                        <constraint firstAttribute="width" constant="60" id="Ppo-el-2Te"/>
+                                                        <constraint firstAttribute="height" constant="60" id="mZE-Ua-hZy"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="igV-FX-6Mq" firstAttribute="leading" secondItem="FJa-J9-FcO" secondAttribute="leading" id="1cy-Al-i0r"/>
                                                 <constraint firstItem="icm-X7-WCY" firstAttribute="leading" secondItem="tJG-tL-zui" secondAttribute="leading" constant="8" id="7wI-BA-NIp"/>
+                                                <constraint firstItem="igV-FX-6Mq" firstAttribute="bottom" secondItem="icm-X7-WCY" secondAttribute="bottom" id="AbH-1U-h5S"/>
                                                 <constraint firstAttribute="topMargin" secondItem="FJa-J9-FcO" secondAttribute="top" id="AvJ-os-exG"/>
-                                                <constraint firstItem="igV-FX-6Mq" firstAttribute="top" secondItem="FJa-J9-FcO" secondAttribute="bottom" constant="3" id="IRT-BM-W9r"/>
                                                 <constraint firstItem="icm-X7-WCY" firstAttribute="centerY" secondItem="tJG-tL-zui" secondAttribute="centerY" id="Liq-nR-587"/>
                                                 <constraint firstItem="igV-FX-6Mq" firstAttribute="leading" secondItem="icm-X7-WCY" secondAttribute="trailing" constant="8" id="jPz-9o-Blm"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="FJa-J9-FcO" secondAttribute="trailing" constant="8" id="pFC-2q-seC"/>
@@ -2108,7 +2147,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AkK-dw-0dE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3281" y="-6119"/>
+            <point key="canvasLocation" x="3284" y="-6270"/>
         </scene>
         <!--Channel Info Admins And Moderators Table View Controller-->
         <scene sceneID="7Dn-IA-FHc">
@@ -2590,15 +2629,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2h-CA-bSy">
+                                <rect key="frame" x="220.5" y="144" width="31.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3A-bT-jT0">
+                                <rect key="frame" x="220.5" y="168.5" width="31.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="7kU-cG-63g" firstAttribute="leading" secondItem="C1A-As-AMy" secondAttribute="leading" id="0Pt-ki-BRC"/>
+                            <constraint firstItem="A2h-CA-bSy" firstAttribute="top" secondItem="g0e-bi-dMH" secondAttribute="bottom" id="2tB-Np-89c"/>
                             <constraint firstItem="C1A-As-AMy" firstAttribute="trailing" secondItem="A4d-LF-1Fb" secondAttribute="trailing" id="38K-K5-1AV"/>
                             <constraint firstItem="7kU-cG-63g" firstAttribute="bottom" secondItem="cbZ-kb-XeE" secondAttribute="bottom" id="44c-hq-w7u"/>
+                            <constraint firstItem="cbZ-kb-XeE" firstAttribute="leading" secondItem="V3A-bT-jT0" secondAttribute="trailing" constant="8" id="4sB-nl-zpG"/>
                             <constraint firstItem="C1A-As-AMy" firstAttribute="trailing" secondItem="g0e-bi-dMH" secondAttribute="trailing" id="EWg-Q0-LbA"/>
+                            <constraint firstItem="cbZ-kb-XeE" firstAttribute="leading" secondItem="A2h-CA-bSy" secondAttribute="trailing" constant="8" id="Edf-gN-LLB"/>
                             <constraint firstItem="KpO-6N-qAL" firstAttribute="bottom" secondItem="g0e-bi-dMH" secondAttribute="bottom" id="JYh-D8-9vl"/>
                             <constraint firstItem="g0e-bi-dMH" firstAttribute="top" secondItem="SVJ-Ez-a9K" secondAttribute="top" id="Ja3-K7-gmy"/>
+                            <constraint firstItem="V3A-bT-jT0" firstAttribute="top" secondItem="A2h-CA-bSy" secondAttribute="bottom" constant="4" id="RUs-WO-mvY"/>
                             <constraint firstItem="7kU-cG-63g" firstAttribute="top" secondItem="g0e-bi-dMH" secondAttribute="bottom" id="Tfp-4T-TEB"/>
                             <constraint firstItem="A4d-LF-1Fb" firstAttribute="top" secondItem="SVJ-Ez-a9K" secondAttribute="top" id="Xhl-wn-AMQ"/>
                             <constraint firstItem="C1A-As-AMy" firstAttribute="trailing" secondItem="7kU-cG-63g" secondAttribute="trailing" id="ZID-mJ-l6v"/>
@@ -2841,8 +2896,8 @@
         <image name="IG_Verify" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d5a-Qk-dJn"/>
-        <segue reference="q09-lR-4pS"/>
-        <segue reference="SwS-lA-ucj"/>
+        <segue reference="QLJ-Ec-vz5"/>
+        <segue reference="k5K-AS-4bs"/>
+        <segue reference="zht-up-rA1"/>
     </inferredMetricsTieBreakers>
 </document>

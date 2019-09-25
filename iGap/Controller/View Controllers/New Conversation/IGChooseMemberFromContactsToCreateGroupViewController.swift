@@ -501,7 +501,7 @@ extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDel
 //MARK:- UITableViewDataSource
 extension IGChooseMemberFromContactsToCreateGroupViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 57.0
+        return 80.0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

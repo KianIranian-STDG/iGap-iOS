@@ -20,10 +20,12 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
 
     //MARK: -Variables
     let headerViewMaxHeight: CGFloat = 144
+    let secondHeaderHeight: CGFloat = 50
     let headerViewMinHeight: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
     var originalTransform : CGAffineTransform!
     private var lastContentOffset: CGFloat = 0
     private var hasScaledDown: Bool = false
+    private var isBlockedUser : Bool = false
     var user: IGRegisteredUser?
     var previousRoomId: Int64?
     var room: IGRoom?
@@ -42,12 +44,14 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarView: IGAvatarView!
     @IBOutlet weak var viewBG: UIView!
+    @IBOutlet weak var btnChatWith: UIButtonX!
 
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var heightConstraints: NSLayoutConstraint!
+    @IBOutlet weak var btnChatWithMiddleConstraint: NSLayoutConstraint!
 
     //MARK: -ViewController Initialisers
     override func viewDidLoad() {
@@ -83,6 +87,22 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                 view.isHidden = true
             }
         }
+        if let selectedUser = user {
+            let blockedUserPredicate = NSPredicate(format: "id = %lld", selectedUser.id)
+            if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
+                print(blockedUser.displayName)
+                if blockedUser.isBlocked == true {
+                    isBlockedUser = true
+                } else {
+                    isBlockedUser = false
+
+                }
+                
+            }
+        }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -103,7 +123,9 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     
     
     //MARK: -Development functions
-    
+    @IBAction func btnStartChat(_ sender: UIButton) {
+        self.createChat()
+    }
     
     //MARK: -Check if is For Bot
     private func isBotRoom() -> Bool{
@@ -137,6 +159,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             requestToGetAvatarList()
             self.avatarView.setUser(user!, showMainAvatar: true)
             self.displayNameLabel.text = user!.displayName
+            self.displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
             displayNameLabel.textColor = .white
             timeLabel.textColor = .white
             if let phone = user?.phone {
@@ -179,6 +202,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
                 print(blockedUser.displayName)
                 if blockedUser.isBlocked == true {
+                    isBlockedUser = true
 //                    blockContactLabel.text = "UNBLOCK".localizedNew
                 }
             }
@@ -189,6 +213,11 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         
         self.view.bringSubviewToFront(avatarView)
 
+        //popIn animate
+            self.avatarView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            UIView.animate(withDuration: 0.8, delay: 0.4, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowUserInteraction, animations: {
+                self.avatarView.transform = CGAffineTransform.identity
+            }, completion: nil)
     }
     //MARK: -Avatar List Request
     func requestToGetAvatarList() {
@@ -336,7 +365,12 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let blockedProtoResponse as IGPUserContactsBlockResponse:
+                       
                         let _ = IGUserContactsBlockRequest.Handler.interpret(response: blockedProtoResponse)
+                        self.isBlockedUser = true
+
+                        self.tableView.reloadData()
+
 //                        self.blockContactLabel.text = "UNBLOCK".localizedNew
                         self.hud.hide(animated: true)
                     default:
@@ -372,7 +406,8 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                     switch protoResponse {
                     case let unBlockedProtoResponse as IGPUserContactsUnblockResponse:
                         _ = IGUserContactsUnBlockRequest.Handler.interpret(response: unBlockedProtoResponse)
-//                        self.blockContactLabel.text = "BLLOCK_CONTACT".localizedNew
+                        self.isBlockedUser = false
+                        self.tableView.reloadData()
                         self.hud.hide(animated: true)
                     default:
                         break
@@ -536,11 +571,106 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     
     //MARK: -Segue Prepare Handler
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSharedMadiaPage" {
+            let destination = segue.destination as! IGGroupSharedMediaListTableViewController
+            destination.room = room
+        } else {
+
         let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
         destination.mode = "ConvertChatToGroup"
         destination.roomID = previousRoomId
         let tmp = user
         destination.baseUser = user
+        }
+    }
+    
+    func report(room: IGRoom){
+        let roomId = room.id
+        let roomType = room.type
+        
+        var title = ""
+        
+        if roomType == .chat {
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
+        } else {
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
+        }
+        
+        let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            
+                self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.abuse)
+        })
+        
+        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            
+                self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.spam)
+        })
+        
+        let fakeAccount = UIAlertAction(title: "FAKE_ACCOUNT".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            self.reportUser(userId: (room.chatRoom?.peer?.id)!, reason: IGPUserReport.IGPReason.fakeAccount)
+        })
+        
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+            
+        })
+        
+        alertC.addAction(abuse)
+        alertC.addAction(spam)
+        alertC.addAction(fakeAccount)
+        alertC.addAction(cancel)
+        
+        self.present(alertC, animated: true, completion: {
+            
+        })
+    }
+    
+    func reportUser(userId: Int64, reason: IGPUserReport.IGPReason) {
+        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
+        self.hud.mode = .indeterminate
+        IGUserReportRequest.Generator.generate(userId: userId, reason: reason).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case _ as IGPUserReportResponse:
+                    let alert = UIAlertController(title: "SUCCESS".RecentTableViewlocalizedNew, message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).error({ (errorCode , waitTime) in
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .userReportReportedBefore:
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "USER_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .userReportForbidden:
+                    let alert = UIAlertController(title: "Error", message: "User Report Forbidden", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).send()
     }
     var newHeaderViewHeight : CGFloat = 144
 
@@ -549,15 +679,25 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let y: CGFloat = maxNavHeight -  (scrollView.contentOffset.y + maxNavHeight)
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
         let range = height / headerViewMaxHeight
-        heightConstraints.constant = height
+
+        print(range)
+        print(range * 50)
+        let plusValue = 2.5
+        let btnChatWithRange = ((range * secondHeaderHeight) - secondHeaderHeight) * -1
+        let btnChatWithHeight = (self.btnChatWith.frame.size.height)/2 + 2.5
+        btnChatWithMiddleConstraint.constant = min(btnChatWithHeight,btnChatWithRange)
         heightConstraints.constant = height
         let scaledTransform = originalTransform.scaledBy(x: max(0.7,range), y: max(0.7,range))
         let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.avatarView.transform = scaledAndTranslatedTransform
             self.hasScaledDown = true
         })
+        //popIn animate
+
 //        let newHeaderViewHeight: CGFloat = heightConstraints.constant - y
+
 
         self.view.layoutIfNeeded()
 
@@ -567,12 +707,12 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
 
     // MARK: -TableViewDelegates and Datasource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 1
 
         case 1:
             return 2
@@ -584,7 +724,15 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             return 1
 
         case 3:
-            if isCloud() { // hide block contact for mine profile
+            if !isBotRoom() && !isCloud()  {
+                return 1
+
+            } else {
+                return 0
+            }
+
+        case 4:
+            if isCloud() { // hide block contact for mine profile and convert chat to group
                 return 2
             }
             
@@ -599,13 +747,32 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 0 :
+        case 2 :
+            self.performSegue(withIdentifier: "showSharedMadiaPage", sender: self)
+            break
+        case 3 :
+            self.performSegue(withIdentifier: "showCreateGroupPage", sender: self)
+            break
+        case 4 :
             switch indexPath.row {
+            case 0 :
+                showClearHistoryActionSheet()
             case 1 :
-                createChat()
-            default :
+                self.report(room: room!)
+            case 2 :
+
+                if let selectedUser = user {
+                    if selectedUser.isBlocked == true {
+                        unblockedContact()
+                    } else if selectedUser.isBlocked == false {
+                        blockedContact()
+                    }
+                }
+                break
+            default:
                 break
             }
+
         default :
             break
         }
@@ -620,20 +787,17 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                 if let bio = user!.bio {
                     cell.initLabels(nameLblString: bio)
                 } else {
-                    cell.initLabels(nameLblString: "")
+                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
                 }
                 
                 return cell
-            case 1:
-
-                cell.initLabels(nameLblString: "PU_SENDMSG".localizedNew, detailLblString: nil)
-                return cell
-
+       
             default :
                 return cell
 
             }
-
+            //Hint: -uncomment this line if the feauture was added
+            /*
         case 1:
             switch indexPath.row {
             case 0:
@@ -648,11 +812,36 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                 return cell
                 
             }
+            */
+        case 1:
+            switch indexPath.row {
+            case 0:
+                cell.initLabels(nameLblString: "AUTH_USERNAME".localizedNew , detailLblString: user!.username)
+                return cell
+                
+            case 1:
+                if let phone = user?.phone {
+                    if phone == 0 {
 
+                        cell.initLabels(nameLblString: "POD_TELPHONE".localizedNew , detailLblString: "HIDDEN".localizedNew)
+
+                    } else {
+                        cell.initLabels(nameLblString: "POD_TELPHONE".localizedNew , detailLblString : "\(phone)".inLocalizedLanguage())
+                    }
+                }
+                return cell
+                
+            default:
+                return cell
+                
+            }
         case 2:
             cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
             return cell
         case 3:
+            cell.initLabels(nameLblString: "CONVERT_CHAT_TO_GROUP".localizedNew)
+            return cell
+        case 4:
             switch indexPath.row {
                 case 0 :
                     cell.initLabels(nameLblString: "CLEAR_HISTORY".localizedNew)
@@ -663,7 +852,14 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                     return cell
 
                 case 2 :
-                    cell.initLabels(nameLblString: "BLLOCK_CONTACT".localizedNew,changeColor: true)
+                    
+
+                    if isBlockedUser {
+                            cell.initLabels(nameLblString: "UNBLOCK".localizedNew,changeColor: true)
+
+                        } else {
+                            cell.initLabels(nameLblString: "BLLOCK_CONTACT".localizedNew,changeColor: true)
+                        }
                     return cell
                 default:
                     return cell
@@ -694,8 +890,14 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         switch section {
         case 0:
             return "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        //Hint: -uncomment this line if the feauture was added
+            /*
         case 1:
             return "NOTIFICATION_SOUNDS".localizedNew
+            */
+        case 1:
+            return "CONTACT_INFO".localizedNew
+
         case 2:
             return "SHAREDMEDIA".localizedNew
         default:
@@ -705,13 +907,28 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 60
+            return 80
         case 3:
-            return 10
+            return 25
+        case 4:
+            return 25
 
         default:
             return 50
         }
+        
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 3:
+            return 30
+        case 4:
+            return 30
+
+        default:
+            return 0
+        }
+
     }
 
     
