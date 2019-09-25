@@ -29,5 +29,5 @@ github "andreamazz/AMPopTip" "4.0.1"
 github "evgenyneu/keychain-swift" "15.0.0"
 github "hkellaway/Gloss" "ba41e7c4a3b538d6f67eded6644d9c809fec07aa"
 github "kaishin/Gifu" "v3.2.0"
-github "ivanbruel/MarkdownKit" "1.5"
+github "ivanbruel/MarkdownKit" "bdd03bb07179b23a741fb83f9b1bbe325604a690"
 
