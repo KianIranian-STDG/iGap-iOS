@@ -488,7 +488,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             txtStatusAbs.text = ""
             txtStatusAbs.textColor = UIColor.white
             txtStatusAbs.layer.masksToBounds = true
-            txtStatusAbs.layer.cornerRadius = 7.5
+            txtStatusAbs.layer.cornerRadius = 10
             txtStatusAbs.backgroundColor = UIColor.failedColor()
             break
         }
@@ -565,7 +565,13 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     private func manageCellBubble(){
       
         /************ Bubble View ************/
+        let shadowOffset: CGFloat = 0.5
         mainBubbleViewAbs.layer.cornerRadius = cornerRadius
+        mainBubbleViewAbs.layer.shadowColor = UIColor.darkGray.cgColor
+        mainBubbleViewAbs.layer.shadowRadius = 0.1
+        mainBubbleViewAbs.layer.shadowOpacity = 0.2
+        mainBubbleViewAbs.layer.masksToBounds = false
+        
         if finalRoomMessage.type == .sticker || finalRoomMessage.type == .location {
             mainBubbleViewAbs.backgroundColor = UIColor.clear
         } else {
@@ -583,6 +589,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             if trailingAbs != nil { trailingAbs?.deactivate() }
             
             if isIncommingMessage {
+                mainBubbleViewAbs.layer.shadowOffset = CGSize(width: shadowOffset, height: shadowOffset)
                 
                 if #available(iOS 11.0, *) {
                     if isPreviousMessageFromSameSender {
@@ -604,6 +611,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 trailingAbs = make.trailing.equalTo(self.contentView.snp.trailing).offset(-16).priority(250).constraint
                 
             } else {
+                mainBubbleViewAbs.layer.shadowOffset = CGSize(width: -shadowOffset, height: shadowOffset)
                 
                 if #available(iOS 11.0, *) {
                     mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -1092,10 +1100,6 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                         indicatorViewAbs?.delegate = self
                     }
                     break
-
-                }
-                else {
-                    print("ATTACHMENT IN ABSTRACT CELL IS INVALIDATED")
                 }
             default:
                 break

@@ -456,7 +456,7 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return UIColor(red: 242/255.0, green: 255/255.0, blue: 235/255.0, alpha: 0.9)
+        return UIColor(red: 242/255.0, green: 255/255.0, blue: 235/255.0, alpha: 1)
     }
     
     class func dialogueBoxIncomming() -> UIColor {
@@ -690,7 +690,7 @@ extension UIColor {
     
     class func chatBubbleBackground(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return UIColor.dialogueBoxIncomming()
+            return  UIColor.white //UIColor.dialogueBoxIncomming()
         } else {
             return UIColor.dialogueBoxOutgoing()
         }
