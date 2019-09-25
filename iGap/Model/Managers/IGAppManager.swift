@@ -413,8 +413,13 @@ class IGAppManager: NSObject {
                 DispatchQueue.main.async {
                     // no token or no author hash
                     self.isTryingToLoginUser = false
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.showLoginFaieldAlert(title: "Login Failed" , message: "User info not exist")
+//                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//                    UIApplication.shared.unregisterForRemoteNotifications()
+//                    IGAppManager.sharedManager.clearDataOnLogout()
+//                    let registerVC = IGSplashScreenViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
+//                    UIApplication.topViewController()?.navigationController!.pushViewController(registerVC, animated:true)
+
+//                    appDelegate.showLoginFaieldAlert(title: "Login Failed" , message: "User info not exist")
                 }
             }
             

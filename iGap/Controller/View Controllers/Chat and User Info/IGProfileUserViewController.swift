@@ -572,7 +572,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            return 3
 
         case 1:
             return 2

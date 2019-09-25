@@ -559,7 +559,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
                 
                 self.tableView.endUpdates()
-                self.tableView.reloadData()
+//                self.tableView.reloadData()
                 self.setTabbarBadge()
                 break
             case .error(let err):
@@ -1156,6 +1156,7 @@ extension IGRecentsTableViewController {
                     break
                 }
                 self.hud.hide(animated: true)
+                self.tableView.reloadData()
 
             }
         }).error({ (errorCode , waitTime) in

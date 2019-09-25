@@ -255,8 +255,13 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         })
     }
     private func logoutProcess() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.logoutAndShowRegisterViewController()
+        UIApplication.shared.unregisterForRemoteNotifications()
+        IGAppManager.sharedManager.clearDataOnLogout()
+
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        appDelegate.logoutAndShowRegisterViewController()
+        let registerVC = IGSplashScreenViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
+        self.navigationController!.pushViewController(registerVC, animated:true)
         IGWebSocketManager.sharedManager.closeConnection()
 
     }
