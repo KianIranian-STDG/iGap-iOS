@@ -46,7 +46,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     @IBOutlet weak var viewBG: UIView!
     @IBOutlet weak var btnChatWith: UIButtonX!
 
-    @IBOutlet weak var displayNameLabel: UILabel!
+    @IBOutlet weak var displayNameLabel: EFAutoScrollLabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -161,6 +161,26 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             self.displayNameLabel.text = user!.displayName
             self.displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
             displayNameLabel.textColor = .white
+            displayNameLabel.font = UIFont.igFont(ofSize: 16)
+            displayNameLabel.labelSpacing = 30                       // Distance between start and end labels
+            displayNameLabel.pauseInterval = 0.5                     // Seconds of pause before scrolling starts again
+            displayNameLabel.scrollSpeed = 30                        // Pixels per second
+            if lastLang == "en" {
+                displayNameLabel.textAlignment = .right
+            }
+            else{
+                displayNameLabel.textAlignment = .right
+            }
+            displayNameLabel.fadeLength = 12                         // Length of the left and right edge fade, 0 to disable
+            displayNameLabel.scrollDirection = EFAutoScrollDirection.left
+            if lastLang == "en" {
+                displayNameLabel.scrollDirection = EFAutoScrollDirection.right
+            }
+            else{
+                displayNameLabel.scrollDirection = EFAutoScrollDirection.right
+            }
+
+            
             timeLabel.textColor = .white
             if let phone = user?.phone {
                 if phone == 0 {

@@ -135,7 +135,7 @@ public class EFAutoScrollLabel: UIView {
         }
         set {
             for lab in labels {
-                lab.font = UIFont.igFont(ofSize: 10)
+                lab.font = UIFont.igFont(ofSize: 15)
             }
             refreshLabels()
             invalidateIntrinsicContentSize()
