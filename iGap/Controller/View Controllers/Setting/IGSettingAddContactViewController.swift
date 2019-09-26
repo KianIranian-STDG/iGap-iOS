@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import AKMaskField
 import IGProtoBuff
 
 class IGSettingAddContactViewController: BaseViewController, IGRegistrationStepSelectCountryTableViewControllerDelegate {

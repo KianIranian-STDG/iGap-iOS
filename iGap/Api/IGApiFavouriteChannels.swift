@@ -34,20 +34,10 @@ class IGApiFavouriteChannels: IGApiBase {
     private static let beeptunesBaseUrl = "https://api.igap.net/services/v1.0/channel"
     
     func homeItems(completion: @escaping ((_ success: Bool, _ items: [FavouriteChannelHomeItem]) -> Void) ) {
-        
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.homePage.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
+    
         AF.request(Endpoint.homePage.url, headers: self.getHeaders).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.result.value ?? "NO RESPONSE BODY")
-            
-            guard let items = response.result.value?.data else {
+
+            guard let items = response.value?.data else {
                 completion(false, [])
                 print("error", response.error ?? "")
                 return
@@ -58,19 +48,9 @@ class IGApiFavouriteChannels: IGApiBase {
     
     func getCategoryInfo(for categoryId: String, page: Int, completion: @escaping ((_ success: Bool, _ categoryInfo: FavouriteChannelCategoryInfo?) -> Void) ) {
         
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.homePage.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
         AF.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeaders).responseCategoryInfo { response in
             
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.result.value ?? "NO RESPONSE BODY")
-            
-            guard let categoryInfo = response.result.value else {
+            guard let categoryInfo = response.value else {
                 completion(false, nil)
                 print("error", response.error ?? "")
                 return
@@ -83,12 +63,12 @@ class IGApiFavouriteChannels: IGApiBase {
 extension DataRequest {
     
     @discardableResult
-    func responseFavouriteChannelsArray<T: Decodable>(type: T.Type, queue: DispatchQueue? = nil, completionHandler: @escaping (DataResponse<FavouriteChannelsArray<T>>) -> Void) -> Self {
-        return responseDecodable(queue: queue, completionHandler: completionHandler)
+    func responseFavouriteChannelsArray<T: Decodable>(type: T.Type, queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<FavouriteChannelsArray<T>>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
     }
     
     @discardableResult
-    func responseCategoryInfo(queue: DispatchQueue? = nil, completionHandler: @escaping (DataResponse<FavouriteChannelCategoryInfo>) -> Void) -> Self {
-        return responseDecodable(queue: queue, completionHandler: completionHandler)
+    func responseCategoryInfo(queue: DispatchQueue? = nil, completionHandler: @escaping (Alamofire.AFDataResponse<FavouriteChannelCategoryInfo>) -> Void) -> Self {
+        return responseDecodable(completionHandler: completionHandler)
     }
 }

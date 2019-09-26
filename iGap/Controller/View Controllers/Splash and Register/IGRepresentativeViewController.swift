@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import AKMaskField
 import IGProtoBuff
 
 class IGRepresentativeViewController: BaseViewController, SelectCountryObserver {

@@ -40,18 +40,7 @@ class IGApiInternetPackage: IGApiBase {
     
     func getCategories(completion: @escaping ((_ success: Bool, _ token: [IGStructInternetCategory]?) -> Void) ) {
         
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.categories.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
         AF.request(Endpoint.categories.url, method: .get, headers: self.getHeaders).responseData { (response) in
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response?.allHeaderFields ?? "no headers")
-            debugPrint("=========Response Body=========")
-            let dataString = String(data: response.data ?? Data(), encoding: String.Encoding.utf8) ?? "Data could not be printed"
-            debugPrint(dataString)
             
             switch response.result {
                 
@@ -89,17 +78,7 @@ class IGApiInternetPackage: IGApiBase {
     
     func getPackages(completion: @escaping ((_ success: Bool, _ token: IGStructInternetPackageCategorized?) -> Void) ) {
         
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.categories.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(self.getHeaders)
-        
         AF.request(Endpoint.packages.url, method: .get, headers: self.getHeaders).responseData { (response) in
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response?.allHeaderFields ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.data ?? "NO RESPONSE BODY")
             
             switch response.result {
                 
@@ -135,20 +114,8 @@ class IGApiInternetPackage: IGApiBase {
     func purchase(telNum: String, type: String, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["tel_num" : telNum, "type" : type]
-        
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.purchase.url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders)
-        debugPrint("=========Request Parameters=========")
-        debugPrint(parameters)
-        
+       
         AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.result.value ?? "NO RESPONSE BODY")
             
             switch response.result {
                 

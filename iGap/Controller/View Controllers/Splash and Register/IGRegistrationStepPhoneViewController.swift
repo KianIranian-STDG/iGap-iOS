@@ -9,7 +9,6 @@
  */
 
 import UIKit
-import AKMaskField
 import SwiftProtobuf
 import MBProgressHUD
 import RxSwift

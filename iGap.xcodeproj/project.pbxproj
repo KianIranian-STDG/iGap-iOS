@@ -31,6 +31,14 @@
 		8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */; };
 		8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */; };
 		8E3FA9EF2333A10C0053816A /* IGProfileGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */; };
+		8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */; };
+		8E4177F4233CDABD00CEB3AF /* AKMaskFieldEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */; };
+		8E4177F5233CDABD00CEB3AF /* AKMaskField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */; };
+		8E4177F6233CDABD00CEB3AF /* AKMaskFieldBlockCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EE233CDABC00CEB3AF /* AKMaskFieldBlockCharacter.swift */; };
+		8E4177F7233CDABD00CEB3AF /* AKMaskFieldBrackets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177EF233CDABD00CEB3AF /* AKMaskFieldBrackets.swift */; };
+		8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177F0233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift */; };
+		8E4177F9233CDABD00CEB3AF /* AKMaskFieldStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177F1233CDABD00CEB3AF /* AKMaskFieldStatus.swift */; };
+		8E4177FA233CDABD00CEB3AF /* AKMaskFieldUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4177F2233CDABD00CEB3AF /* AKMaskFieldUtility.swift */; };
 		8E4472A42331FE5100900244 /* IGProfileUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */; };
 		8E4472A623320D6000900244 /* IGProfileUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A523320D6000900244 /* IGProfileUserCell.swift */; };
 		8E4472A82332102600900244 /* IGProfileUSerCellTypeTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */; };
@@ -68,6 +76,8 @@
 		8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */; };
 		8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */; };
 		8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */; };
+		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
+		8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
 		8E8D8E19225CE39B00039191 /* strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E18225CE39A00039191 /* strings.json */; };
 		8E8D8E2D225DB6A500039191 /* Fast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E8D8E2C225DB6A500039191 /* Fast.xib */; };
@@ -709,7 +719,6 @@
 		FAF796061DAA392F0030509B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796011DAA392F0030509B /* LaunchScreen.storyboard */; };
 		FAF796071DAA392F0030509B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF796031DAA392F0030509B /* Main.storyboard */; };
 		FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF7960E1DAA39660030509B /* AppDelegate.swift */; };
-		FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF985891E2E10EC00B26940 /* AKMaskField.framework */; };
 		FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858B1E2E10EC00B26940 /* CryptoSwift.framework */; };
 		FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858D1E2E10EC00B26940 /* GrowingTextView.framework */; };
 		FAF985A61E2E10EC00B26940 /* MBProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9858F1E2E10EC00B26940 /* MBProgressHUD.framework */; };
@@ -744,6 +753,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */,
 				FAA6C5DB2222BA800035D777 /* PecPayment.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -788,6 +798,14 @@
 		8E25A7C622674BC8004A5BC0 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8E2F8B3222B4A76A00DFD8CC /* customYearTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customYearTextfield.swift; sourceTree = "<group>"; };
 		8E3FA9EE2333A10C0053816A /* IGProfileGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileGroupViewController.swift; sourceTree = "<group>"; };
+		8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBlock.swift; sourceTree = "<group>"; };
+		8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldEvent.swift; sourceTree = "<group>"; };
+		8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskField.swift; sourceTree = "<group>"; };
+		8E4177EE233CDABC00CEB3AF /* AKMaskFieldBlockCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBlockCharacter.swift; sourceTree = "<group>"; };
+		8E4177EF233CDABD00CEB3AF /* AKMaskFieldBrackets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldBrackets.swift; sourceTree = "<group>"; };
+		8E4177F0233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldPatternCharacter.swift; sourceTree = "<group>"; };
+		8E4177F1233CDABD00CEB3AF /* AKMaskFieldStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldStatus.swift; sourceTree = "<group>"; };
+		8E4177F2233CDABD00CEB3AF /* AKMaskFieldUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMaskFieldUtility.swift; sourceTree = "<group>"; };
 		8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUserViewController.swift; sourceTree = "<group>"; };
 		8E4472A523320D6000900244 /* IGProfileUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUserCell.swift; sourceTree = "<group>"; };
 		8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUSerCellTypeTwo.swift; sourceTree = "<group>"; };
@@ -830,6 +848,7 @@
 		8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsEn.json; sourceTree = "<group>"; };
 		8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellCardToCard.swift; sourceTree = "<group>"; };
 		8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCellCardToCard.xib; sourceTree = "<group>"; };
+		8E871886233CEE18004A5E56 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
 		8E8D8E2C225DB6A500039191 /* Fast.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Fast.xib; sourceTree = "<group>"; };
@@ -1581,13 +1600,13 @@
 				FA865C7220789C2600B9D585 /* MapKit.framework in Frameworks */,
 				FA98F83A204D41AB0070424E /* Cosmos.framework in Frameworks */,
 				931DC8C91E388418008F04A9 /* CoreLocation.framework in Frameworks */,
-				FAF985A01E2E10EC00B26940 /* AKMaskField.framework in Frameworks */,
 				FAF985A21E2E10EC00B26940 /* CryptoSwift.framework in Frameworks */,
 				FAF985A41E2E10EC00B26940 /* GrowingTextView.framework in Frameworks */,
 				FA3B1C871E302CD500F194C4 /* IGProtoBuff.framework in Frameworks */,
 				FAF985A61E2E10EC00B26940 /* MBProgressHUD.framework in Frameworks */,
 				FAF985A71E2E10EC00B26940 /* MGSwipeTableCell.framework in Frameworks */,
 				FAC42C851E36267400F2CB5C /* Fabric.framework in Frameworks */,
+				8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */,
 				FAF985A81E2E10EC00B26940 /* pop.framework in Frameworks */,
 				FAF985AA1E2E10EC00B26940 /* Reachability.framework in Frameworks */,
 				FAF985AB1E2E10EC00B26940 /* Realm.framework in Frameworks */,
@@ -1627,6 +1646,21 @@
 				8E1F413322391A6F00910E30 /* KPDropMenu.m */,
 			);
 			path = Vendor;
+			sourceTree = "<group>";
+		};
+		8E4177EA233CDA7F00CEB3AF /* AKMaskField */ = {
+			isa = PBXGroup;
+			children = (
+				8E4177ED233CDABC00CEB3AF /* AKMaskField.swift */,
+				8E4177EB233CDABC00CEB3AF /* AKMaskFieldBlock.swift */,
+				8E4177EE233CDABC00CEB3AF /* AKMaskFieldBlockCharacter.swift */,
+				8E4177EF233CDABD00CEB3AF /* AKMaskFieldBrackets.swift */,
+				8E4177EC233CDABC00CEB3AF /* AKMaskFieldEvent.swift */,
+				8E4177F0233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift */,
+				8E4177F1233CDABD00CEB3AF /* AKMaskFieldStatus.swift */,
+				8E4177F2233CDABD00CEB3AF /* AKMaskFieldUtility.swift */,
+			);
+			path = AKMaskField;
 			sourceTree = "<group>";
 		};
 		8E599D7D2325332300D75376 /* TGPSlider */ = {
@@ -2810,6 +2844,7 @@
 		FAD5807E1DDC402600A242DE /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8E4177EA233CDA7F00CEB3AF /* AKMaskField */,
 				8E599D7D2325332300D75376 /* TGPSlider */,
 				8EA8F3F0231F9E4F0099C4EF /* UICircular */,
 				8EA8F3E0231F9E230099C4EF /* CircularProgressBar */,
@@ -3087,6 +3122,7 @@
 		FAF985881E2E10EC00B26940 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E871886233CEE18004A5E56 /* RxRelay.framework */,
 				FA6F312422B8C3D200DB942E /* libsqlite3.tbd */,
 				FA6F312222B8C37600DB942E /* libz.tbd */,
 				FA6F311E22B8C04100DB942E /* SystemConfiguration.framework */,
@@ -3436,7 +3472,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/AKMaskField.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/GrowingTextView.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/MBProgressHUD.framework",
@@ -3477,6 +3512,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/webservice.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/maincore.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AFNetworking.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
 			name = "[RS] Copy Carthage Frameworks";
 			outputPaths = (
@@ -3546,6 +3582,7 @@
 				FA0953611E1B97700043ED3F /* IGSettingContactsTableViewController.swift in Sources */,
 				940F9E78231BBED700C26D50 /* IGApiFavouriteChannels.swift in Sources */,
 				FA6F310F22B8A90500DB942E /* IGHelperTracker.swift in Sources */,
+				8E4177F3233CDABD00CEB3AF /* AKMaskFieldBlock.swift in Sources */,
 				8ECC1837222FEAEA006E43E8 /* extitionGeneral.swift in Sources */,
 				FAC34DB41E1A3F7E00BB9823 /* IGRealm.swift in Sources */,
 				FA42EF0A1E5C224F00CF8A32 /* FrameStore.swift in Sources */,
@@ -3593,6 +3630,7 @@
 				FA0BA2A522FC001F0051DFEA /* IGHelperFabric.swift in Sources */,
 				FA03C1A52042AD44008812E3 /* IGSignaling.swift in Sources */,
 				8E599D8A2329262500D75376 /* IGCallPageViewController.swift in Sources */,
+				8E4177F9233CDABD00CEB3AF /* AKMaskFieldStatus.swift in Sources */,
 				4F9386F81EAE335200397C3B /* IGChannelAndGroupSharedMediaImagesAndVideosCollectionViewController.swift in Sources */,
 				FAB91BBB22393F6000459595 /* IGRealmChannelExtra.swift in Sources */,
 				8E1F413922391CEE00910E30 /* CheckInternet.swift in Sources */,
@@ -3650,6 +3688,7 @@
 				FA11E2881DE8A86C00A2F87C /* IGCacheManager.swift in Sources */,
 				8E1CD978232D06B0008D8758 /* IGUserContactsTableViewCell.swift in Sources */,
 				8E2F8B3322B4A76A00DFD8CC /* customYearTextfield.swift in Sources */,
+				8E4177F8233CDABD00CEB3AF /* AKMaskFieldPatternCharacter.swift in Sources */,
 				8EBB455D2270202A00A52D88 /* BaseCollectionViewController.swift in Sources */,
 				8E599D842328D13900D75376 /* CallTypesCVCell.swift in Sources */,
 				FA09536E1E1B97700043ED3F /* IGSettingPrivacyAndSecurityActiveSessionTerminateAllSessionsTableViewCell.swift in Sources */,
@@ -3666,6 +3705,7 @@
 				8E96A30B225B4637007D8A77 /* Utils.swift in Sources */,
 				FAB0B880232F64EC002E35AB /* ShortcutManager.swift in Sources */,
 				FA0953681E1B97700043ED3F /* IGSettingPrivacy&SecurityTableViewController.swift in Sources */,
+				8E4177F7233CDABD00CEB3AF /* AKMaskFieldBrackets.swift in Sources */,
 				8EBF550022D9B60D00834E6A /* BeautifulBarEntry.swift in Sources */,
 				8EBF54FB22D9B60D00834E6A /* UIBezierPathExtension.swift in Sources */,
 				FA8F22561DD89C88005A90D1 /* IGChannelRoom.swift in Sources */,
@@ -3863,6 +3903,7 @@
 				8EA8F3EE231F9E450099C4EF /* UICircularProgressRing.swift in Sources */,
 				FA8204382025C97300A795D5 /* ImageCell.swift in Sources */,
 				8E25A7C522674BB6004A5BC0 /* BaseTableViewController.swift in Sources */,
+				8E4177FA233CDABD00CEB3AF /* AKMaskFieldUtility.swift in Sources */,
 				FA27F74020BD77ED00EC6A97 /* api.key in Sources */,
 				FAB4367522098C7D0073EEE1 /* IGRealmSticker.swift in Sources */,
 				FA927E002028416300DF7145 /* VideoCell.swift in Sources */,
@@ -3876,6 +3917,7 @@
 				8EEE896622AF6D0D0072383C /* customTextfield.swift in Sources */,
 				FA5E159F1E0FFFD800EC19A1 /* IGTappableView.swift in Sources */,
 				FA0953701E1B97700043ED3F /* IGSettingsChatStickersModalView.swift in Sources */,
+				8E4177F4233CDABD00CEB3AF /* AKMaskFieldEvent.swift in Sources */,
 				FA99FF5D22351CA9009035DF /* IGDashboardViewController.swift in Sources */,
 				FAB4366F22096F3C0073EEE1 /* IGApiSticker.swift in Sources */,
 				FAB0B884232F7DC2002E35AB /* NotificationParser.swift in Sources */,
@@ -3920,6 +3962,7 @@
 				FA85066F22670738002EEBF7 /* chashoutCardTableViewController.swift in Sources */,
 				8EE7FCA8226195E800B6C2C3 /* IGWalletSettingTableViewController.swift in Sources */,
 				FA60ADD4200BA39B004EE151 /* IGReport.swift in Sources */,
+				8E4177F5233CDABD00CEB3AF /* AKMaskField.swift in Sources */,
 				FA42EF101E5C224F00CF8A32 /* UIImageView.swift in Sources */,
 				8E96A310225B6DCC007D8A77 /* SMHistoryTableViewCell.swift in Sources */,
 				94909E1E2328B1CD000D04A6 /* IGApiPayment.swift in Sources */,
@@ -3991,6 +4034,7 @@
 				FA50A8D21DD35EFD00C6D2EA /* IGSplashScreenViewController.swift in Sources */,
 				FA4F47BA214D1DA500ABE7A0 /* IGWallpaperPreview.swift in Sources */,
 				FA76598822902ACE006322A3 /* UIVIew+INSPhotoViewer.swift in Sources */,
+				8E4177F6233CDABD00CEB3AF /* AKMaskFieldBlockCharacter.swift in Sources */,
 				8E25A7C722674BC8004A5BC0 /* BaseViewController.swift in Sources */,
 				8E599D7A2325331C00D75376 /* TGPDiscreteSlider.swift in Sources */,
 				93193F3C1E5815340039AC0C /* IGGroupSharedMediaListTableViewController.swift in Sources */,

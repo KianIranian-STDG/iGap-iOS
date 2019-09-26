@@ -32,21 +32,9 @@ class IGApiCharity: IGApiBase {
     func getHelpPaymentToken(charityId: String, amount: Int, completion: @escaping ((_ success: Bool, _ token: String?) -> Void) ) {
         
         let parameters: Parameters = ["amount" : amount]
-        
-        debugPrint("=========Request Url=========")
-        debugPrint(Endpoint.help(charityId: charityId).url)
-        debugPrint("=========Request Headers=========")
-        debugPrint(getHeaders)
-        debugPrint("=========Request Parameters=========")
-        debugPrint(parameters)
-        
+
         AF.request(Endpoint.help(charityId: charityId).url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
-            
-            debugPrint("=========Response Headers=========")
-            debugPrint(response.response ?? "no headers")
-            debugPrint("=========Response Body=========")
-            debugPrint(response.result.value ?? "NO RESPONSE BODY")
-            
+      
             switch response.result {
                 
             case .success(let value):
