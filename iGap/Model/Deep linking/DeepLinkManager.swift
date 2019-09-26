@@ -10,17 +10,17 @@ import Foundation
 
 enum DeeplinkType {
     enum Messages {
-        case root
-        case details(id: String)
+        case roomId(Id: Int64, messageId: Int64?)
+        case userName(username: String?, messageId: Int64?)
     }
-    case messages(Messages)
+//    case messages(Messages)
     case payment(message: String, status: PaymentStatus, orderId: String)
     case discovery(pathes: [String])
     case contact
     case profile
     case call
     case favouriteChannel(token: String?)
-    case chatRoom(username: String?, messageId: Int64?)
+    case chatRoom(Messages)
 //    case request(id: String)
 }
 

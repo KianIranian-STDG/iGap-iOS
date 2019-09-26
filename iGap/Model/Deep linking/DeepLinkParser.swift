@@ -29,12 +29,13 @@ class DeepLinkParser {
                 if let messageID = self.getParameter(from: queryItems, param: "messageId") {
                     let strAsNSString = messageID as NSString
                     let messageIdInt64 = strAsNSString.longLongValue
-                    return DeeplinkType.chatRoom(username: userName, messageId: messageIdInt64)
+                    
+                    return DeeplinkType.chatRoom(.userName(username: userName, messageId: messageIdInt64))
                 } else {
-                    return DeeplinkType.chatRoom(username: userName, messageId: nil)
+                    return DeeplinkType.chatRoom(.userName(username: userName, messageId: nil))
                 }
             } else {
-                return DeeplinkType.chatRoom(username: nil, messageId: nil)
+                return DeeplinkType.chatRoom(.userName(username: nil, messageId: nil))
             }
             
         case "discovery":
@@ -54,12 +55,13 @@ class DeepLinkParser {
                 if let messageID = pathComponents.last {
                     let strAsNSString = messageID as NSString
                     let messageIdInt64 = strAsNSString.longLongValue
-                    return DeeplinkType.chatRoom(username: userName, messageId: messageIdInt64)
+                    
+                    return DeeplinkType.chatRoom(.userName(username: userName, messageId: messageIdInt64))
                 } else {
-                    return DeeplinkType.chatRoom(username: userName, messageId: nil)
+                    return DeeplinkType.chatRoom(.userName(username: userName, messageId: nil))
                 }
             } else {
-                return DeeplinkType.chatRoom(username: nil, messageId: nil)
+                return DeeplinkType.chatRoom(.userName(username: nil, messageId: nil))
             }
             
         case "favoritechannel":

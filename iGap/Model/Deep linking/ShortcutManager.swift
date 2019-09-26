@@ -30,7 +30,7 @@ class ShortcutParser {
         case ShortcutKey.discovery.rawValue:
             return .discovery(pathes: [])
         case ShortcutKey.messages.rawValue:
-            return .messages(.root)
+            return nil
         case ShortcutKey.chatroom.rawValue:
             return nil
 //            guard let roomId = shortcut.userInfo?["roomId"] else {  return nil }
