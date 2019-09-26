@@ -34,36 +34,41 @@ class DeeplinkNavigator {
                     }
                 }).send()
             }
+            break
             
         case .chatRoom(.userName(username: let username, messageId: let messageID)):
             self.redirectToChat(userName: username, messageID: messageID)
+            break
             
 //        case .chatRoom(username: let username, messageId: let messageID):
 //            self.redirectToChat(userName: username, messageID: messageID)
             
         case .payment(message: let message, status: let st, orderId: let id):
             self.showPaymentView(message: message, status: st, orderId: id)
+            break
             
         case .discovery(let pathes):
             self.showDiscovery(pathes: pathes)
+            break
             
         case .contact:
             self.selectTabBarIndex(tab: TabBarTab.Contact) { (tabBar) in
-                
             }
+            break
             
         case .profile:
             self.selectTabBarIndex(tab: TabBarTab.Profile) { (tabBar) in
-                
             }
+            break
             
         case .call:
             self.selectTabBarIndex(tab: TabBarTab.Call) { (tabBar) in
-                
             }
+            break
             
         case .favouriteChannel(let token):
             self.redirectToFavouriteChannel(token: token)
+            break
             
         }
     }

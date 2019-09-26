@@ -2428,7 +2428,6 @@
 				8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */,
 				8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */,
 				8EBF551022DB582700834E6A /* localizationsEn.json */,
-				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8E5FBCA2231BD7440069D4F2 /* IGLocalizationManager.swift */,
 				8E5FBCA4231BD9D70069D4F2 /* IGStringManager.swift */,
 				94E74DCB2323CB88001AB47C /* FinancialHistoryLocalizationsEn.json */,
@@ -2996,6 +2995,7 @@
 		FAF795EC1DAA330C0030509B /* iGap */ = {
 			isa = PBXGroup;
 			children = (
+				8E5FBC9F231BD6AB0069D4F2 /* Localizable.strings */,
 				8EC217B82259DCFA00105B5A /* Entity */,
 				FA8FCBAD219C02C80028457F /* Api */,
 				FAD5807E1DDC402600A242DE /* Libraries */,
@@ -3248,7 +3248,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				Base,
 				en,
 				ar,

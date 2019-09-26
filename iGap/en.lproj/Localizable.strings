@@ -8,7 +8,7 @@
  * All rights reserved.
  */
 
-"MESSAGE_TEXT" = "%@: %@";
+"MESSAGE_TEXT" = "%1$@: %2$@";
 "MESSAGE_IMAGE" = "%1$@ sent you a photo";
 "MESSAGE_VIDEO" = "%1$@ sent you a video";
 "MESSAGE_AUDIO" = "%1$@ sent you a audio";
@@ -43,19 +43,17 @@
 "SIGNALING_OFFER_SCREEN_SHARING" = "Screen sharing request from %1$@";
 "SIGNALING_OFFER_SECRET_CHAT" = "Secret chat request from %1$@";
 /// MARK : - Global Strings
-"GLOBAL_OK" = "تایید";
-"GLOBAL_CANCEL" = "لغو";
-"EMAIL" = "پست الکترونیکی";
-"SECURITY_QUESTIONS" = "سوال امنیتی";
+"GLOBAL_OK" = "OK";
+"GLOBAL_CANCEL" = "Cancel";
+"EMAIL" = "Email";
+"SECURITY_QUESTIONS" = "Security Questions";
+"SEARCH_PLACEHOLDER" = "Search";
+
 
 /// MARK : - Register Process
-"RGP_MSG_SECURITY_TWO_STEP_VERIFICATION" = "به منظور بازیابی حساب کاربری خود به سوالات امنیتی زیر جواب دهید.پس از پاسخ دادن موفق رمز دوم حساب کاربری شما غیر فعال می گردد";
-"RGP_SECURITY_QUESTION_ONE" = "سوال امنیتی اول : ";
-"RGP_SECURITY_QUESTION_TWO" = "سوال امنیتی دوم : ";
-"RGP_MSG_ANSWERS_WAS_WRONG" = "پاسخ های شما صحیح نمی باشند";
-"RGP_MSG_ANSWERS_WAS_EMPTY" = "لطفا تمامی فیلد ها را پر نمایید";
-/// MARK: - favourite Channel Strings
-"Error" = "خطا";
-"Check_Your_Internet_Connection" = "انتصال اینترنت خود را بررسی کنید";
-"URL_Is_Not_Valid" = "ادرس درخواستی صحیح نمی باشد.";
+"RGP_MSG_SECURITY_TWO_STEP_VERIFICATION" = "In Order to retrieve your accountPlease Answer the following security questions,after answering correctly your two step verification password will be disabled and need to be activated again";
+"RGP_SECURITY_QUESTION_ONE" = "Security Question One : ";
+"RGP_SECURITY_QUESTION_TWO" = "Security Question Two : ";
+"RGP_MSG_ANSWERS_WAS_WRONG" = "Your Answers are incorrect";
+"RGP_MSG_ANSWERS_WAS_EMPTY" = "Please Fill in all the fields";
 

@@ -15,8 +15,8 @@ class NotificationParser {
     func handleNotification(_ userInfo: [AnyHashable : Any]) -> DeeplinkType? {
         
         if let deepLink = userInfo["deepLink"] as? String {
-            
             // handle notification deep link
+            
             
         } else if let roomID = userInfo["roomId"] as? String {
             let roomStrAsNSString = roomID as NSString

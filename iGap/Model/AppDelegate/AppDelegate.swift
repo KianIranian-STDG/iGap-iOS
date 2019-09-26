@@ -252,8 +252,20 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             logoutAndShowRegisterViewController()
         } else {
             // handle any deeplink
-            DeepLinkManager.shared.checkDeepLink()
+            
+            if IGAppManager.sharedManager.isUserLoggiedIn() {
+                self.checkDeepLink()
+            } else {
+                NotificationCenter.default.addObserver(self,
+                                                       selector: #selector(self.checkDeepLink),
+                                                       name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                                                       object: nil)
+            }
         }
+    }
+    
+    @objc private func checkDeepLink() {
+        DeepLinkManager.shared.checkDeepLink()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -291,6 +303,7 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print(deviceToken)
         voipRegistration()
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
@@ -299,8 +312,24 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
             application.applicationIconBadgeNumber = unreadCount
         }
+        
         print(userInfo)
-        DeepLinkManager.shared.handleRemoteNotification(userInfo)
+        
+        
+        switch UIApplication.shared.applicationState {
+        case .active:
+            //app is currently active, can update badges count here
+            break
+        case .inactive:
+            //app is transitioning from background to foreground (user taps notification), do what you need when user taps here
+            DeepLinkManager.shared.handleRemoteNotification(userInfo)
+            break
+        case .background:
+            //app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
+            break
+        default:
+            break
+        }
     }
     /******************* Notificaton End *******************/
     

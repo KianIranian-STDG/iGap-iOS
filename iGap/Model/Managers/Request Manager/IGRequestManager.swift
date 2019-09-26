@@ -449,7 +449,7 @@ class IGRequestManager {
     //MARK: Initilizers
     static let sharedManager = IGRequestManager()
     
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     private let timeoutSeconds: Double  = 15.0
     private var queuedRequests   = [String : IGRequestWrapper]()
     private var pendingRequests  = [String : IGRequestWrapper]()
