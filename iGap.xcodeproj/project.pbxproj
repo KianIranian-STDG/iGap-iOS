@@ -416,6 +416,7 @@
 		FA5656C2204AB18F00DB46F0 /* igap_disconnect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656AE204AB18D00DB46F0 /* igap_disconnect.mp3 */; };
 		FA5656C3204AB18F00DB46F0 /* igap_ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656AF204AB18D00DB46F0 /* igap_ringing.mp3 */; };
 		FA5656C6204AB18F00DB46F0 /* igap_busy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */; };
+		FA56A03B233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA56A03A233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift */; };
 		FA58ADF022815BE5002A650E /* IGMessageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA58ADEF22815BE5002A650E /* IGMessageLoader.swift */; };
 		FA5B41A522EDD67D001203D0 /* IGHelperMessageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */; };
 		FA5CFC4C21C7DC9600CC2B0D /* IGHelperPromote.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */; };
@@ -1195,6 +1196,7 @@
 		FA5656AE204AB18D00DB46F0 /* igap_disconnect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_disconnect.mp3; sourceTree = "<group>"; };
 		FA5656AF204AB18D00DB46F0 /* igap_ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_ringing.mp3; sourceTree = "<group>"; };
 		FA5656B2204AB18E00DB46F0 /* igap_busy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = igap_busy.mp3; sourceTree = "<group>"; };
+		FA56A03A233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileSharedMediaPageViewController.swift; sourceTree = "<group>"; };
 		FA58ADEF22815BE5002A650E /* IGMessageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGMessageLoader.swift; sourceTree = "<group>"; };
 		FA5B41A422EDD67D001203D0 /* IGHelperMessageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperMessageStatus.swift; sourceTree = "<group>"; };
 		FA5CFC4B21C7DC9600CC2B0D /* IGHelperPromote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGHelperPromote.swift; sourceTree = "<group>"; };
@@ -2020,6 +2022,7 @@
 				8EBB455E2270203200A52D88 /* Base */,
 				8E599D882329017700D75376 /* DialPad */,
 				8E599D8B2329EC5E00D75376 /* IGPhoneBookTableTableTableViewController.swift */,
+				FA56A03A233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -3600,6 +3603,7 @@
 				8EBF553422DCC9F700834E6A /* SliderTypeThreeCell.swift in Sources */,
 				93193F2A1E5811FF0039AC0C /* IGGroupInfoEditNameTableViewController.swift in Sources */,
 				FA6791DC1DE41239003CFA4F /* IGErrorRequest.swift in Sources */,
+				FA56A03B233BC0E8000A0BB5 /* IGProfileSharedMediaPageViewController.swift in Sources */,
 				8EBF552E22DCBAFD00834E6A /* SliderTypeTwoCell.swift in Sources */,
 				FA85066822670703002EEBF7 /* SMBarCodeScannerViewController.swift in Sources */,
 				FA09538E1E1B97E20043ED3F /* SSRadioButton.swift in Sources */,
