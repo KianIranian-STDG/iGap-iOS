@@ -16,7 +16,7 @@ protocol AlertClouser {
     func onActionClick(title: String)
 }
 
-class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, MerchantResultObserver, TopupMerchantResultObserver {
+class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate{//, MerchantResultObserver, TopupMerchantResultObserver {
 
     @IBOutlet weak var edtPhoneNubmer: UITextField!
     @IBOutlet weak var txtOperatorTransport: UILabel!
@@ -183,9 +183,9 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate, Merchan
     }
 
     private func registerTopup(token: String){
-        let initpayment = InitPayment()
-        initpayment.registerTopup(merchant: self)
-        initpayment.initTopupPayment(Token: token, MerchantVCArg: self, TSPEnabled: 0)
+//        let initpayment = InitPayment()
+//        initpayment.registerTopup(merchant: self)
+//        initpayment.initTopupPayment(Token: token, MerchantVCArg: self, TSPEnabled: 0)
     }
     
     /*********************************************************/

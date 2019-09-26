@@ -13,7 +13,7 @@ import IGProtoBuff
 //import PecPayment
 import SnapKit
 
-class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate, BillMerchantResultObserver {
+class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{//, BillMerchantResultObserver {
 
     @IBOutlet weak var edtPhoneNumber: UITextField!
     @IBOutlet weak var edtProvisionCode: UITextField!
@@ -192,9 +192,9 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate,
     }
     
     private func initBillPaymanet(token: String){
-        let initpayment = InitPayment()
-        initpayment.registerBill(merchant: self)
-        initpayment.initBillPayment(Token: token, MerchantVCArg: self, TSPEnabled: 0)
+//        let initpayment = InitPayment()
+//        initpayment.registerBill(merchant: self)
+//        initpayment.initBillPayment(Token: token, MerchantVCArg: self, TSPEnabled: 0)
     }
     
     private func manageInquiryMci(lastTerm: IGPBillInquiryMciResponse.IGPBillInfo, midTerm: IGPBillInquiryMciResponse.IGPBillInfo){
