@@ -40,7 +40,7 @@ class IGApiCharity: IGApiBase {
         debugPrint("=========Request Parameters=========")
         debugPrint(parameters)
         
-        Alamofire.request(Endpoint.help(charityId: charityId).url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+        AF.request(Endpoint.help(charityId: charityId).url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")

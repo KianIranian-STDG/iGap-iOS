@@ -10,7 +10,7 @@
 
 import UIKit
 import IGProtoBuff
-import PecPayment
+//import PecPayment
 
 protocol AlertClouser {
     func onActionClick(title: String)

@@ -10,7 +10,7 @@
 
 import UIKit
 import IGProtoBuff
-import PecPayment
+//import PecPayment
 import SnapKit
 
 class IGFinancialServiceBill: BaseViewController, UITextFieldDelegate , BillMerchantResultObserver {

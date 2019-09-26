@@ -45,7 +45,7 @@ class IGApiInternetPackage: IGApiBase {
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
         
-        Alamofire.request(Endpoint.categories.url, method: .get, headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.categories.url, method: .get, headers: self.getHeaders).responseData { (response) in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response?.allHeaderFields ?? "no headers")
@@ -94,7 +94,7 @@ class IGApiInternetPackage: IGApiBase {
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
         
-        Alamofire.request(Endpoint.packages.url, method: .get, headers: self.getHeaders).responseData { (response) in
+        AF.request(Endpoint.packages.url, method: .get, headers: self.getHeaders).responseData { (response) in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response?.allHeaderFields ?? "no headers")
@@ -143,7 +143,7 @@ class IGApiInternetPackage: IGApiBase {
         debugPrint("=========Request Parameters=========")
         debugPrint(parameters)
         
-        Alamofire.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")

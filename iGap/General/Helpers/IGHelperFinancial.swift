@@ -10,7 +10,7 @@
 
 import IGProtoBuff
 import RealmSwift
-import PecPayment
+//import PecPayment
 var cardToCardTapCount : Int!
 
 class IGHelperFinancial: NSObject, CardToCardResult,MerchantResultObserver {

@@ -43,12 +43,12 @@ class IGApiTopup: IGApiBase {
         debugPrint("=========Request Parameters=========")
         debugPrint(parameters)
         
-        Alamofire.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
+        AF.request(Endpoint.purchase.url, method: .post, parameters: parameters, headers: getHeaders).responseJSON { (response) in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")
             debugPrint("=========Response Body=========")
-            debugPrint(response.result.value ?? "NO RESPONSE BODY")
+            debugPrint(response.result ?? "NO RESPONSE BODY")
             
             
             switch response.result {

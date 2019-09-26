@@ -40,7 +40,7 @@ class IGApiFavouriteChannels: IGApiBase {
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
         
-        Alamofire.request(Endpoint.homePage.url, headers: self.getHeaders).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
+        AF.request(Endpoint.homePage.url, headers: self.getHeaders).responseFavouriteChannelsArray(type: FavouriteChannelHomeItem.self) { response in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")
@@ -63,7 +63,7 @@ class IGApiFavouriteChannels: IGApiBase {
         debugPrint("=========Request Headers=========")
         debugPrint(self.getHeaders)
         
-        Alamofire.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeaders).responseCategoryInfo { response in
+        AF.request(Endpoint.categoryInfo(id: categoryId, page: page).url, headers: self.getHeaders).responseCategoryInfo { response in
             
             debugPrint("=========Response Headers=========")
             debugPrint(response.response ?? "no headers")
