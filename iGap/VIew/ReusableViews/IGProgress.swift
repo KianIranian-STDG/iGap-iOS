@@ -11,13 +11,13 @@
 import UIKit
 import SnapKit
 
-protocol IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView)
+protocol IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress)
 }
 
-class IGDownloadUploadIndicatorView: UIView {
+class IGProgress: UIView {
 
-    var delegate: IGDownloadUploadIndicatorViewDelegate?
+    var delegate: IGProgressDelegate?
     
     public var backgroundView: CAShapeLayer!
     private var state: IGFile.Status = .readyToDownload
@@ -165,7 +165,7 @@ class IGDownloadUploadIndicatorView: UIView {
     }
 }
 
-extension IGDownloadUploadIndicatorView: CAAnimationDelegate {
+extension IGProgress: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if let strokeEnd = backgroundView.presentation()?.strokeEnd {
             if  strokeEnd >= CGFloat(1){

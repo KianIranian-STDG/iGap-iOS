@@ -22,7 +22,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
     @IBOutlet weak var playingSlider: UISlider!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var songNameLabel: UILabel!
-    @IBOutlet weak var indicatorView: IGDownloadUploadIndicatorView!
+    @IBOutlet weak var indicatorView: IGProgress!
     private var player = IGMusicPlayer.sharedPlayer
     private var playerWatcherIndex = 0
     var flag: Bool = false
@@ -139,9 +139,9 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
     }
 }
 
-extension IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: IGDownloadUploadIndicatorViewDelegate {
+extension IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: IGProgressDelegate {
     
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         if let attachment = self.attachment {
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
         }

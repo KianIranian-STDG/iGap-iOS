@@ -271,8 +271,8 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
 extension IGSettingTableViewController: UINavigationControllerDelegate {
     
 }
-extension IGSettingTableViewController: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+extension IGSettingTableViewController: IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         if let attachment = self.userAvatar?.file {
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
                 

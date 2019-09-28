@@ -54,7 +54,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var avatarViewAbs: IGAvatarView!
     var txtMessageAbs: ActiveLabel!
     var imgMediaAbs: IGImageView!
-    var indicatorViewAbs: IGDownloadUploadIndicatorView!
+    var indicatorViewAbs: IGProgress!
 
     var room: IGRoom!
     var realmRoomMessage: IGRoomMessage!
@@ -1672,7 +1672,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         mainBubbleViewAbs.addSubview(imgMediaAbs)
         
         if messageType != .sticker {
-            indicatorViewAbs = IGDownloadUploadIndicatorView()
+            indicatorViewAbs = IGProgress()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
             
             indicatorViewAbs?.snp.makeConstraints { (make) in
@@ -1856,8 +1856,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
  ******************************************************************
  */
 
-extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+extension AbstractCell: IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         
         if let attachment = self.attachment {
             if attachment.status == .uploading {

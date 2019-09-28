@@ -54,7 +54,7 @@ class VoiceCell: AbstractCell {
         }
         
         if indicatorViewAbs == nil {
-            indicatorViewAbs = IGDownloadUploadIndicatorView()
+            indicatorViewAbs = IGProgress()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
         }
         
