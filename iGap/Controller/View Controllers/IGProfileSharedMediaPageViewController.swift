@@ -34,7 +34,7 @@ class IGProfileSharedMediaPageViewController: UIPageViewController,UIPageViewCon
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let currentIndex : Int = subSharedMediaViewControllers.index(of:viewController) ?? 0
+        let currentIndex : Int = subSharedMediaViewControllers.firstIndex(of:viewController) ?? 0
         if currentIndex <= 0 {
             return nil
         }
@@ -42,8 +42,8 @@ class IGProfileSharedMediaPageViewController: UIPageViewController,UIPageViewCon
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let currentIndex : Int = subSharedMediaViewControllers.index(of:viewController) ?? 0
-        if currentIndex <= (subSharedMediaViewControllers.count -1) {
+        let currentIndex : Int = subSharedMediaViewControllers.firstIndex(of:viewController) ?? 0
+        if currentIndex <= (subSharedMediaViewControllers.count - 1) {
             return nil
         }
         return subSharedMediaViewControllers[currentIndex+1]

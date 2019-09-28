@@ -13,7 +13,7 @@ enum DeeplinkType {
         case roomId(Id: Int64, messageId: Int64?)
         case userName(username: String?, messageId: Int64?)
     }
-//    case messages(Messages)
+    
     case payment(message: String, status: PaymentStatus, orderId: String)
     case discovery(pathes: [String])
     case contact
@@ -21,7 +21,6 @@ enum DeeplinkType {
     case call
     case favouriteChannel(token: String?)
     case chatRoom(Messages)
-//    case request(id: String)
 }
 
 class DeepLinkManager {
@@ -37,7 +36,6 @@ class DeepLinkManager {
         guard let deeplinkType = deeplinkType else {
             return
         }
-        
         DeeplinkNavigator.shared.proceedToDeeplink(deeplinkType)
         // reset deeplink after handling
         self.deeplinkType = nil // (1)

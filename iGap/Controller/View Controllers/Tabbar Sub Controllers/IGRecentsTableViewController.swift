@@ -35,7 +35,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
         
-        
         return searchController
 
     }()
@@ -371,8 +370,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             let realm = try Realm()
             self.rooms = realm.objects(IGRoom.self).filter("isParticipant = 1").sorted(by: sortProperties)
             
-            
-            
         } catch let error as NSError {
             print("RLM EXEPTION ERR HAPPENDED IN VIEWDIDLOAD:",String(describing: self))
         }
@@ -660,7 +657,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         
         if self.rooms![indexPath.row].unreadCount == 0 {
             cell.showStateImage =  true
@@ -670,10 +667,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         cell.roomII = self.rooms![indexPath.row]
         return cell
     }
+    
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        
         
         let cell: IGRoomListtCell = self.tableView.dequeueReusableCell(withIdentifier: cellId) as! IGRoomListtCell
         

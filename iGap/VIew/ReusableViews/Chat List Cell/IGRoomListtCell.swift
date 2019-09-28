@@ -20,7 +20,7 @@ class IGRoomListtCell: UITableViewCell {
     var showStateImage : Bool!
     
     var width : Int = 0
-    var nameLabel :UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .bold)
         label.textColor = .black
@@ -28,7 +28,7 @@ class IGRoomListtCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var timeLabel :UILabel = {
+    var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 10,weight: .light)
         label.textColor = .black

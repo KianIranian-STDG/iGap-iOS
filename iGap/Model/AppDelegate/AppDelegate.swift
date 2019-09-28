@@ -172,6 +172,9 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         
 //        ShortcutParser.shared.registerShortcuts()
         
+//        let x : [AnyHashable: Any] = ["deepLink": "discovery/3/311"]
+//        DeepLinkManager.shared.handleRemoteNotification(x)
+        
         return true
     }
     
@@ -252,14 +255,13 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
             logoutAndShowRegisterViewController()
         } else {
             // handle any deeplink
-            
             if IGAppManager.sharedManager.isUserLoggiedIn() {
                 self.checkDeepLink()
             } else {
                 NotificationCenter.default.addObserver(self,
-                                                       selector: #selector(self.checkDeepLink),
-                                                       name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                       object: nil)
+                    selector: #selector(self.checkDeepLink),
+                    name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                    object: nil)
             }
         }
     }
@@ -303,33 +305,44 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print(deviceToken)
         voipRegistration()
     }
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("FCM Token: \(fcmToken)")
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         if let roomId = userInfo["roomId"] as? String {
             let unreadCount = IGRoom.updateUnreadCount(roomId: Int64(roomId)!)
             application.applicationIconBadgeNumber = unreadCount
         }
-        
         print(userInfo)
-        
-        
+
         switch UIApplication.shared.applicationState {
         case .active:
             //app is currently active, can update badges count here
             break
+            
         case .inactive:
             //app is transitioning from background to foreground (user taps notification), do what you need when user taps here
             DeepLinkManager.shared.handleRemoteNotification(userInfo)
             break
+            
         case .background:
             //app is in background, if content-available key of your notification is set to 1, poll to your backend to retrieve data and update your interface here
             break
+            
         default:
             break
         }
+        completionHandler(.newData)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+        
     }
     /******************* Notificaton End *******************/
     

@@ -173,39 +173,46 @@ class DeeplinkNavigator {
         guard let igRoom = room else {
             return
         }
-        IGGlobal.prgShow()
-        IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: igRoom.id, firstMessageID: messageId, reachMessageId: 0, limit: 1, direction: .up, onMessageReceive: { (messages, direction) in
-            DispatchQueue.main.async {
-                IGGlobal.prgHide()
-            }
-//            IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: .room, user: nil, room: room)
-            
-        }).successPowerful({ (responseProto, requestWrapper) in
-            DispatchQueue.main.async {
-                
-                IGGlobal.prgHide()
-                
-                if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
-                    if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
-                        IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true))
-                    }
+        
+        if IGRoomMessage.existMessage(messageId: messageId) {
+            let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+            chatPage.room = igRoom
+            chatPage.deepLinkMessageId = messageId
+            UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+            UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
+        } else {
+            IGGlobal.prgShow()
+            IGClientGetRoomHistoryRequest.Generator.generatePowerful(roomID: igRoom.id, firstMessageID: messageId, reachMessageId: 0, limit: 1, direction: .up, onMessageReceive: { (messages, direction) in
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
                 }
                 
-//               IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: usernameType, user: user, room: room)
+            }).successPowerful({ (responseProto, requestWrapper) in
+                DispatchQueue.main.async {
+                    
+                    IGGlobal.prgHide()
+                    
+                    if let roomHistoryRequest = requestWrapper.message as? IGPClientGetRoomHistory {
+                        if let roomHistoryResponse = responseProto as? IGPClientGetRoomHistoryResponse {
+                            IGRoomMessage.managePutOrUpdate(roomId: roomHistoryRequest.igpRoomID, messages: roomHistoryResponse.igpMessage, options: IGStructMessageOption(isEnableCache: true))
+                        }
+                    }
+                    
+//                   IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: usernameType, user: user, room: room)
+                    
+                    
+                    let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
+                    chatPage.room = room
+                    chatPage.deepLinkMessageId = messageId
+                    UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
+                    UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
+                }
+            }).error({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    IGGlobal.prgHide()
+                    IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: .room, user: nil, room: room)
+                }
                 
-                
-                let chatPage = IGMessageViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
-                chatPage.room = room
-                chatPage.deepLinkMessageId = messageId
-                UIApplication.topViewController()!.navigationController!.pushViewController(chatPage, animated: true)
-                UIApplication.topViewController()?.navigationController?.setNavigationBarHidden(false, animated: true)
-            }
-        }).error({ (errorCode, waitTime) in
-            DispatchQueue.main.async {
-                IGGlobal.prgHide()
-                IGHelperChatOpener.manageOpenChatOrProfile(viewController: UIApplication.topViewController()!, usernameType: .room, user: nil, room: room)
-            }
-            
 //            switch errorCode {
 //            case .timeout:
 //                let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
@@ -215,8 +222,10 @@ class DeeplinkNavigator {
 //            default:
 //                break
 //            }
-            
-        }).send()
+                
+            }).send()
+        }
+        
     }
     
     private var alertController = UIAlertController()
