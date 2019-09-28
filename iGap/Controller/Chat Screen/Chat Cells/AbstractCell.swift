@@ -1863,7 +1863,7 @@ extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
             if attachment.status == .uploading {
                 IGMessageViewController.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
                 IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
-            } else if attachment.status == .uploadFailed || attachment.status == .uploadPause {
+            } else if attachment.status == .uploadFailed {
                 if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
                     IGMessageSender.defaultSender.resend(message: self.finalRoomMessage, to: room)
                 }

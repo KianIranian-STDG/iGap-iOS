@@ -420,7 +420,7 @@ class IGHelperGetShareData {
         DispatchQueue.main.asyncAfter(deadline: .now() + sendMessageDelay) {
             let messageText = ""
             let message = IGRoomMessage(body: messageText)
-            attachment.status = .processingForUpload
+            attachment.status = .uploading
             message.attachment = attachment
             IGAttachmentManager.sharedManager.add(attachment: attachment)
             switch attachment.type {

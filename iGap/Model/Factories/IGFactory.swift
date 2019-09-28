@@ -1704,7 +1704,7 @@ class IGFactory: NSObject {
         }
     }
 
-    func removeFileNameOnDisk(primaryKeyId: String, status: IGFile.Status) {
+    func removeFileNameOnDisk(primaryKeyId: String) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
                 let predicate = NSPredicate(format: "cacheID = %@", primaryKeyId)

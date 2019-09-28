@@ -261,7 +261,7 @@ class IGSettingChatClearChacheTableViewController: BaseTableViewController {
             if IGGlobal.isFileExist(path: file.path(), fileSize: file.size) {
                 IGGlobal.removeFile(path: file.path())
                 IGAttachmentManager.sharedManager.variablesCache.removeObject(forKey: file.cacheID! as NSString)
-                IGFactory.shared.removeFileNameOnDisk(primaryKeyId: file.cacheID!, status: .readyToDownload)
+                IGFactory.shared.removeFileNameOnDisk(primaryKeyId: file.cacheID!)
             }
         }
     }
