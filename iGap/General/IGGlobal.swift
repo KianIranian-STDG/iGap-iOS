@@ -966,7 +966,7 @@ extension NSCache {
     }
 }
 
-var imagesMap = [String : UIImageView]()
+var imagesMap = Dictionary<String, UIImageView>()
 
 //MARK: -
 extension UIView {
@@ -1174,7 +1174,6 @@ extension UIImageView {
         var previewType : IGFile.PreviewType!
         
         if showMain {
-            
             file = avatar.file
             previewType = IGFile.PreviewType.originalFile
             
@@ -1190,46 +1189,37 @@ extension UIImageView {
         }
         
         if file != nil {
-            do {
+            let path = file.path()
+            
+            if IGGlobal.isFileExist(path: path, fileSize: file.size) {
+                DispatchQueue.global(qos:.userInteractive).async {
+                    self.sd_setImage(with: path, completed: nil)
+                }
+            } else {
                 
-                var image: UIImage?
-                let path = file.path()
-                
-                if IGGlobal.isFileExist(path: path, fileSize: file.size) {
-                    DispatchQueue.global(qos:.userInteractive).async {
-                        self.sd_setImage(with: path, completed: nil)
-                    }
-                    
-                } else {
-                    
-                    DispatchQueue.main.async {
-                        imagesMap[file.token!] = self
-                        IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
-                            DispatchQueue.main.async {
-                                if let imageMain = imagesMap[attachment.token!] {
-                                    let path = attachment.path()
-                                    //                            imageMain.sd_setImage(with: path)
-                                    DispatchQueue.global(qos:.userInteractive).async {
-                                        
-                                        if let data = try? Data(contentsOf: path!) {
-                                            if let image = UIImage(data: data) {
-                                                DispatchQueue.main.async {
-                                                    
-                                                    imageMain.image = image
-                                                }
+                DispatchQueue.main.async {
+                    imagesMap[file.token!] = self
+                    IGDownloadManager.sharedManager.download(file: file, previewType: previewType, completion: { (attachment) -> Void in
+                        DispatchQueue.main.async {
+                            if let imageMain = imagesMap[attachment.token!] {
+                                let path = attachment.path()
+                                //                            imageMain.sd_setImage(with: path)
+                                DispatchQueue.global(qos:.userInteractive).async {
+                                    if let data = try? Data(contentsOf: path!) {
+                                        if let image = UIImage(data: data) {
+                                            DispatchQueue.main.async {
+                                                imageMain.image = image
                                             }
                                         }
                                     }
                                 }
                             }
-                        }, failure: {
-                            print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
-                        })
-                        
-                    }
+                        }
+                    }, failure: {
+                        print("ERROR HAPPEND IN DOWNLOADNING AVATAR")
+                    })
+                    
                 }
-                
-            } catch {
             }
         }
     }

@@ -37,7 +37,7 @@ class IGRoomListtCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var lastMsgLabel  :UILabel = {
+    var lastMsgLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 14,weight: .light)
         label.textColor = .black
@@ -48,7 +48,7 @@ class IGRoomListtCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var unreadCountLabel :UILabel = {
+    var unreadCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 10,weight: .light)
         label.textColor = .white
@@ -59,7 +59,7 @@ class IGRoomListtCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var initialLabel :UILabel = {
+    var initialLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 16,weight: .bold)
         label.textColor = .white
@@ -70,7 +70,7 @@ class IGRoomListtCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var avatarImage :UIImageView = {
+    var avatarImage: UIImageView = {
         let img = UIImageView()
         img.contentMode = .scaleAspectFill // image will never be strecthed vertially or horizontally
         img.translatesAutoresizingMaskIntoConstraints = false // enable autolayout
@@ -78,7 +78,7 @@ class IGRoomListtCell: UITableViewCell {
         img.clipsToBounds = true
         return img
     }()
-    var bgImage :UIImageView = {
+    var bgImage: UIImageView = {
         let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = true // enable autolayout
         if SMLangUtil.lang == SMLangUtil.SMLanguage.English.rawValue {
@@ -106,15 +106,11 @@ class IGRoomListtCell: UITableViewCell {
         return img
     }()
     
-    var roomII : IGRoom? {
+    var roomII: IGRoom? {
         didSet {
-            
-            guard let item = roomII else {return}
-            
-            
+            guard let item = roomII else { return }
             
             if let time = item.lastMessage?.creationTime! {
-                
                 
                 DispatchQueue.global(qos: .userInteractive).async {
                     let t = time.convertToHumanReadable(onlyTimeIfToday: true)
@@ -123,28 +119,19 @@ class IGRoomListtCell: UITableViewCell {
                         self.timeLabel.text = t
                     }
                 }
-                
-                
             }
             
             let unread = String(item.unreadCount)
             if unread == "0" {
                 unreadCountLabel.isHidden = true
                 
-                
             } else {
                 unreadCountLabel.isHidden = false
                 unreadCountLabel.text = unread
-                
-                
             }
             self.initialLabel.text = item.initilas
             let color = UIColor.hexStringToUIColor(hex: item.colorString)
             self.initialLabel.backgroundColor = color
-            
-            
-            
-            
             
             //
             if item.pinId > 0 {
@@ -155,8 +142,6 @@ class IGRoomListtCell: UITableViewCell {
             } else {
                 self.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
                 bgImage.isHidden = true
-                
-
             }
             
             if item.pinId > 0 && !IGHelperPromote.isPromotedRoom(room: item) {
@@ -240,7 +225,6 @@ class IGRoomListtCell: UITableViewCell {
                 
             }
             
-            
             self.nameLabel.text = item.title
             
             switch item.type {
@@ -256,7 +240,6 @@ class IGRoomListtCell: UITableViewCell {
             case .channel:
                 if let avatar = item.channelRoom?.avatar {
                     self.avatarImage.setImage(avatar: avatar, showMain: false)
-                    
                 }
             }
             
@@ -360,6 +343,7 @@ class IGRoomListtCell: UITableViewCell {
         makelastMessageStateImage()
         
     }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.avatarImage.cancelImageDownloadTask()
@@ -372,6 +356,14 @@ class IGRoomListtCell: UITableViewCell {
         self.lastMsgLabel.text = nil
         self.avatarImage.image = UIImage()
         showStateImage = nil
+        
+        // remove imageview from download list on t on cell reuse
+        DispatchQueue.main.async {
+            let keys = (imagesMap as NSDictionary).allKeys(for: self.avatarImage) as! [String]
+            keys.forEach { (key) in
+                imagesMap.removeValue(forKey: key)
+            }
+        }
     }
     
     
