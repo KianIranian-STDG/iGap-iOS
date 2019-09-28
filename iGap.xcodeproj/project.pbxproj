@@ -69,6 +69,11 @@
 		8E5FBCA9231D08870069D4F2 /* IGNavigationBarX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */; };
 		8E5FBCB1231D5A650069D4F2 /* iGap_fontico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E5FBCB0231D5A650069D4F2 /* iGap_fontico.ttf */; };
 		8E5FBCB3231E43400069D4F2 /* EFAutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */; };
+		8E62FFC9233F7B8E006DD56B /* T1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFC8233F7B8E006DD56B /* T1ViewController.swift */; };
+		8E62FFCB233F7B9C006DD56B /* T2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFCA233F7B9C006DD56B /* T2ViewController.swift */; };
+		8E62FFCD233F7BA4006DD56B /* T3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFCC233F7BA4006DD56B /* T3ViewController.swift */; };
+		8E62FFCF233F82E0006DD56B /* sharedMediamanagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */; };
+		8E62FFD1233FA623006DD56B /* addMemberCellTypeTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -841,6 +846,11 @@
 		8E5FBCA8231D08870069D4F2 /* IGNavigationBarX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGNavigationBarX.swift; sourceTree = "<group>"; };
 		8E5FBCB0231D5A650069D4F2 /* iGap_fontico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iGap_fontico.ttf; sourceTree = "<group>"; };
 		8E5FBCB2231E43400069D4F2 /* EFAutoScrollLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFAutoScrollLabel.swift; sourceTree = "<group>"; };
+		8E62FFC8233F7B8E006DD56B /* T1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1ViewController.swift; sourceTree = "<group>"; };
+		8E62FFCA233F7B9C006DD56B /* T2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2ViewController.swift; sourceTree = "<group>"; };
+		8E62FFCC233F7BA4006DD56B /* T3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3ViewController.swift; sourceTree = "<group>"; };
+		8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharedMediamanagerViewController.swift; sourceTree = "<group>"; };
+		8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addMemberCellTypeTwoCell.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -1813,6 +1823,10 @@
 				940F9E6E231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.xib */,
 				940F9E71231B92DF00C26D50 /* IGFavouriteChannelCVCell.swift */,
 				940F9E72231B92DF00C26D50 /* IGFavouriteChannelCVCell.xib */,
+				8E62FFC8233F7B8E006DD56B /* T1ViewController.swift */,
+				8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */,
+				8E62FFCA233F7B9C006DD56B /* T2ViewController.swift */,
+				8E62FFCC233F7BA4006DD56B /* T3ViewController.swift */,
 			);
 			path = FavouriteChannels;
 			sourceTree = "<group>";
@@ -1950,6 +1964,7 @@
 				93AA67C11E4F37D10053380C /* IGChannelInfoMemberListTableViewController.swift */,
 				93AA67CB1E4F40260053380C /* IGChannelInfoMemberListInviteLinkTableViewCell.swift */,
 				93AA67CD1E4F407E0053380C /* IGChannelInfoMemberListTableViewCell.swift */,
+				8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */,
 				93AA67CF1E4F40C80053380C /* IGChannelInfoAdminsTableViewCell.swift */,
 				93AA67C31E4F38260053380C /* IGChannelInfoAdminsAndModeratorsTableViewController.swift */,
 				93AA67C51E4F38620053380C /* IGChannelInfoSharedMediaDetailTableViewController.swift */,
@@ -3564,6 +3579,7 @@
 				FAC1330522C098D000817044 /* IGStructMessageOption.swift in Sources */,
 				FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */,
 				8EA8F3EF231F9E450099C4EF /* UICircularTimerRing.swift in Sources */,
+				8E62FFCF233F82E0006DD56B /* sharedMediamanagerViewController.swift in Sources */,
 				8EB887A32282A5F50069DDE3 /* IGMediaUserAvatar.swift in Sources */,
 				8E599D722325322000D75376 /* IGSettingsDataAndStorageUsageTableViewController.swift in Sources */,
 				FA09535A1E1B97700043ED3F /* IGSettingChatWallpaperTableViewController.swift in Sources */,
@@ -3722,6 +3738,7 @@
 				8EEE895822A3CF360072383C /* SectionHeader.swift in Sources */,
 				FA09534D1E1B97700043ED3F /* IGSettingAddContactTableViewController.swift in Sources */,
 				FAF7960F1DAA39660030509B /* AppDelegate.swift in Sources */,
+				8E62FFCD233F7BA4006DD56B /* T3ViewController.swift in Sources */,
 				FA0953851E1B97E20043ED3F /* IGChooseMemberToCreateGroupBottomViewCollectionViewCell.swift in Sources */,
 				FA93EE282029A39000DD1521 /* VoiceCell.swift in Sources */,
 				FA842A3A225CA96A00E500A4 /* DashboardCell1.swift in Sources */,
@@ -3929,6 +3946,7 @@
 				8EA8F3EC231F9E450099C4EF /* UICircularRingLayer.swift in Sources */,
 				FA927E0820286FAD00DF7145 /* ContactCell.swift in Sources */,
 				FA0953861E1B97E20043ED3F /* IGContactTableViewCell.swift in Sources */,
+				8E62FFC9233F7B8E006DD56B /* T1ViewController.swift in Sources */,
 				8EBF550222D9B60D00834E6A /* ArrayExtension.swift in Sources */,
 				8E96A31E225C902B007D8A77 /* SMRecieptView.swift in Sources */,
 				FA6B602E201E0483008460CF /* CellSizeCalculator.swift in Sources */,
@@ -3984,6 +4002,7 @@
 				FA075DE5232A47B0002E7AC7 /* IGInternetPackageViewController.swift in Sources */,
 				FA8FCBB3219C1DAD0028457F /* IGApiStruct.swift in Sources */,
 				93AA67CC1E4F40260053380C /* IGChannelInfoMemberListInviteLinkTableViewCell.swift in Sources */,
+				8E62FFD1233FA623006DD56B /* addMemberCellTypeTwoCell.swift in Sources */,
 				FAC7555621D12D6D001AB608 /* CallManager.swift in Sources */,
 				8EC217BE2259E58B00105B5A /* SMCard.swift in Sources */,
 				FAC7554C21D0B589001AB608 /* CallHoldObserver.swift in Sources */,
@@ -4009,6 +4028,7 @@
 				FA63BA9B1DD6DF32000B60AD /* IGUploadManager.swift in Sources */,
 				FA0953531E1B97700043ED3F /* IGSettingChatStickerModalCollectionViewCell.swift in Sources */,
 				FA7E9BD2226305CA00FB861D /* IGRepresentativeViewController.swift in Sources */,
+				8E62FFCB233F7B9C006DD56B /* T2ViewController.swift in Sources */,
 				FA8F224C1DD89910005A90D1 /* IGRoom.swift in Sources */,
 				940F9E6F231B907D00C26D50 /* IGFavouriteChannelSlideTVCell.swift in Sources */,
 				FAC34DB61E1A651200BB9823 /* IGContactInMessageCellView.swift in Sources */,

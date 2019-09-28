@@ -53,9 +53,9 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
             self.attachment = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!)?.value
         }
         
-        self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
-        playingSlider.value = 0.0
-        durationTimeLabel.text = "\(playingSlider.value)".inLocalizedLanguage()
+//        self.playingSlider.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
+//        playingSlider.value = 0.0
+//        durationTimeLabel.text = "\(playingSlider.value)".inLocalizedLanguage()
         self.mediaSizeLabel.text = IGAttachmentManager.sharedManager.convertFileSize(sizeInByte: attachment.size).inLocalizedLanguage()
         
         if let creationtime = message.creationTime {
@@ -77,7 +77,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
         let remainingSeconds = timeInt%60
         let remainingMiuntes = timeInt/60
         durationTimeLabel.text = "\(remainingMiuntes):\(remainingSeconds)".inLocalizedLanguage()
-        playingSlider.maximumValue = Float(time)
+//        playingSlider.maximumValue = Float(time)
         
         
         if let variableInCache = IGAttachmentManager.sharedManager.getRxVariable(attachmentPrimaryKeyId: attachment.cacheID!) {
@@ -132,7 +132,7 @@ class IGGroupAndChannelInfoSharedMediaAudioAndVoicesTableViewCell: UITableViewCe
     
     func setImage(file: IGFile){
         if file.type == .voice {
-            mediaCoverImageView.image = UIImage(named: "IG_Music_Player_Mic")
+//            mediaCoverImageView.image = UIImage(named: "IG_Music_Player_Mic")
         } else if file.type == .audio {
             mediaCoverImageView.setThumbnail(for: file)
         }

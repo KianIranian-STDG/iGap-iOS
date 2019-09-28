@@ -27,7 +27,14 @@ class IGChannelAndGroupInfoSharedMediaImagesAndVideosCollectionViewCell: UIColle
         
     }
     
-    override func awakeFromNib() {}
+    override func awakeFromNib() {
+        
+        self.sharedMediaImageView.layer.cornerRadius = 15
+        self.videoSizeLabel.roundCorners(corners: [.layerMaxXMaxYCorner,.layerMinXMaxYCorner], radius: 15)
+        self.sharedMediaImageView.clipsToBounds = true
+        self.videoSizeLabel.layer.masksToBounds = true
+
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

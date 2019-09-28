@@ -17,19 +17,42 @@ class IGProfileUserCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func initLabels(nameLblString : String! = "",detailLblString : String! = "",changeColor : Bool! = false) {
+    func initLabels(nameLblString : String! = "",detailLblString : String! = "",changeColor : Bool! = false,shouldChangeDetailDirection : Bool! = false) {
         
         lblActionName.text = nameLblString
         lblActionDetail.text = detailLblString
         if changeColor {
-            lblActionName.textColor = UIColor.iGapRed()
+            if shouldChangeDetailDirection {
+                lblActionDetail.textColor = UIColor.iGapRed()
+            } else {
+                lblActionName.textColor = UIColor.iGapRed()
+            }
         }
-        defaultInitLabels()
+        if shouldChangeDetailDirection {
+            changedInitLabels()
+        } else {
+            defaultInitLabels()
+        }
 
     }
     private func defaultInitLabels() {
         lblActionName.textAlignment = lblActionName.localizedNewDirection
         lblActionDetail.textAlignment = lblActionDetail.localizedNewDirection
+        lblActionDetail.font = UIFont.igFont(ofSize: 15)
+        lblActionName.font = UIFont.igFont(ofSize: 15)
+
+    }
+    private func changedInitLabels() {
+        if  lastLang == Language.persian.rawValue  {
+            lblActionDetail.textAlignment = .left
+
+        } else if  lastLang == Language.english.rawValue  {
+            lblActionDetail.textAlignment = .right
+
+        } else {
+            
+        }
+        lblActionName.textAlignment = lblActionName.localizedNewDirection
         lblActionDetail.font = UIFont.igFont(ofSize: 15)
         lblActionName.font = UIFont.igFont(ofSize: 15)
 

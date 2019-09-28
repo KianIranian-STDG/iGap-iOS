@@ -362,6 +362,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewDidLoad() {
         super.viewDidLoad()
         isfromPacket = false
+        self.tableView.scrollsToTop = false
+
 //        initialiseSearchBar()
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
@@ -451,24 +453,45 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
        navigationItem.setChatListsNavigationItems()
         navItemInit()
-        let gradient = CAGradientLayer()
-        let sizeLength = UIScreen.main.bounds.size.height * 2
-        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-        
-        gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = orangeGradientLocation as [NSNumber]
+
+         let gradient = CAGradientLayer()
+                let sizeLength = UIScreen.main.bounds.size.height * 2
+                let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+                
+                gradient.frame = defaultNavigationBarFrame
+                gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+                gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+                gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+                gradient.locations = orangeGradientLocation as [NSNumber]
+
+                
+                
+                if #available(iOS 11.0, *) {
+
+                    if let navigationBar = self.navigationController?.navigationBar {
+                        navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+                        navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
 
 
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+                    }
+         
+                    
+        //            IGGlobal.setLanguage()
+                    self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
 
+                    if navigationItem.searchController == nil {
+                    navigationItem.searchController = searchController
+                    navigationItem.hidesSearchBarWhenScrolling = true
+                        
+                        navigationItem.searchController!.searchBar.delegate = self
 
-        }
-
+                        
+                    }
+                } else {
+                    tableView.tableHeaderView = searchController.searchBar
+                }
+                
 
         
         isfromPacket = false
@@ -1632,6 +1655,7 @@ extension IGRecentsTableViewController {
         if lastContentOffset <= 0 {
 //            initialiseSearchBar()
         }
+        print(scrollView.contentOffset.y)
         
     }
     private func initialiseSearchBar() {

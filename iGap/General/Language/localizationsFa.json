@@ -104,7 +104,8 @@
         "MSG_U_HAVE_ALREADY_VOTED" : "شما قبلا رای خود را ثبت کرده اید",
         "MSG_U_HAVE_REACHED_VOTE_LIMIT" : "شما به تعداد مجاز رای خود را ثبت کرده اید",
         "MSG_VOTE_TO_SEE_CHART" : "برای مشاهده نتیجه نظرسنجی لطفا ابتدا رای خود را ثبت نمایید !",
-        
+        "MANAGE_MEMBERS" : "مدیریت اعضا",
+
         
         "PAYMENT_ORDER_ID" : "شماره تراکنش",
         
@@ -333,7 +334,8 @@
         "LAST_SEEN_RECENTLY" : "همین حالا",
         "A_FEW_SEC_AGO" : "چند ثانیه قبل",
         "MINUTE" : "دقیقه",
-        
+        "ONLY_ADMIN_OWNER_CAN_SEE" : "فقط مدیران و صاحب کانال قادر به مشاهده این لیست می باشند",
+
         "PRICE" : "مبلغ",
         "TTL_DELETE_CONTACT" : "حذف مخاطب.",
         "TTL_MAP_STATUS" : "فعال سازی قابلیت اطراف من",

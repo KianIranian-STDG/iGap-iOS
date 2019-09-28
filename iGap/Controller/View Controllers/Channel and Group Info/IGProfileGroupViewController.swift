@@ -23,6 +23,18 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
 
     
         //MARK: -Variables
+        var adminsCount : String = "0"
+        var moderatprsCount : String = "0"
+        var adminsMembersCount : Results<IGChannelMember>!
+        var moderatorsMembersCount : Results<IGChannelMember>!
+        var adminsRole = IGChannelMember.IGRole.admin.rawValue
+        var moderatorRole = IGChannelMember.IGRole.moderator.rawValue
+        var predicateAdmins : NSPredicate!
+        var predicateModerators : NSPredicate!
+        var notificationTokenModerator: NotificationToken?
+        var notificationAdmin: NotificationToken?
+
+
         var isFistLaunch : Bool! = true
         var groupLink: String? = ""
         let headerViewMaxHeight: CGFloat = 144
@@ -89,6 +101,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     view.isHidden = true
                 }
             }
+            
         }
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
@@ -489,7 +502,38 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 
             }).send()
         }
-        
+        private func requestToGetAdminsAndModerators() {
+            predicateModerators = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.id)!)
+            moderatorsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateModerators!)
+            predicateAdmins = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.id)!)
+            adminsMembersCount =  try! Realm().objects(IGChannelMember.self).filter(predicateAdmins!)
+            self.notificationTokenModerator = moderatorsMembersCount.observe { (changes: RealmCollectionChange) in
+                switch changes {
+                case .initial:
+                    self.moderatprsCount = "\(Set(self.moderatorsMembersCount).count)"
+                    break
+                case .update(_, _, _, _):
+                    self.moderatprsCount = "\(Set(self.moderatorsMembersCount).count)"
+                    break
+                case .error(let err):
+                    fatalError("\(err)")
+                    break
+                }
+            }
+            self.notificationAdmin = adminsMembersCount.observe { (changes: RealmCollectionChange) in
+                switch changes {
+                case .initial:
+                    self.adminsCount = "\(Set(self.adminsMembersCount).count)"
+                    break
+                case .update(_, _, _, _):
+                    self.adminsCount = "\(Set(self.adminsMembersCount).count)"
+                    break
+                case .error(let err):
+                    fatalError("\(err)")
+                    break
+                }
+            }
+        }
         
         func requestToGetRoom() {
             if let groupRoom = room {

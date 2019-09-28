@@ -88,6 +88,7 @@
         "REOLY_TO" : "Reply to : ",
         "CHANNEL_LINK" : "Channel Link :",
         "SELECTED" : "Selected",
+        "MANAGE_MEMBERS" : "Manage Members",
         
         
         
@@ -410,6 +411,7 @@
         "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_DESC" : "Users can join your channel using either invitation link or by searching username of your channel",
         "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC" : "users can join your channel only by being added by admin(s)",
         "NEW_CHANNEL_LINK" : "Channel Link",
+        "ONLY_ADMIN_OWNER_CAN_SEE" : "Only admins and owner of the channel can see this list",
 
         "TEXT_SIZE" : "Text Size",
         "COLOR_THEME" : "Color Theme",

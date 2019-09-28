@@ -185,6 +185,7 @@ class IGGroupSharedMediaListTableViewController: BaseTableViewController {
                         for message in response.messages.reversed() {
                             let msg = IGRoomMessage(igpMessage: message, roomId: selectedRoom.id)
                             self.sharedMediaImageFile.append(msg)
+                            self.tableView.reloadData()
                         }
                         break
                     default:

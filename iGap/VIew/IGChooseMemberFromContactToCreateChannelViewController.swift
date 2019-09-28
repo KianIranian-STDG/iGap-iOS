@@ -94,61 +94,62 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
         let navigationItem = self.navigationItem as! IGNavigationItem
 //        navigationItem.searchController = nil
         
-        if navigationItem.searchController == nil {
-            let gradient = CAGradientLayer()
-            let sizeLength = UIScreen.main.bounds.size.height * 2
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-            
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-            gradient.locations = orangeGradientLocation as [NSNumber]
-            
-            
-            
-            if #available(iOS 11.0, *) {
-                
-                if let navigationBar = self.navigationController?.navigationBar {
-                    navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-                }
-                
-                
-                //                IGGlobal.setLanguage()
-                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
-                
-                
-                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                    //                    IGGlobal.setLanguage()
-                    
-                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
-                        let centeredParagraphStyle = NSMutableParagraphStyle()
-                        centeredParagraphStyle.alignment = .center
-                        
-                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
-                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
-                        textField.textAlignment = .center
-                    }
-                    
-                    let imageV = textField.leftView as! UIImageView
-                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
-                    imageV.tintColor = UIColor.white
-                    
-                    if let backgroundview = textField.subviews.first {
-                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-                        backgroundview.layer.cornerRadius = 10;
-                        backgroundview.clipsToBounds = true;
-                        
-                    }
-                }
-                if navigationItem.searchController == nil {
-                    navigationItem.searchController = searchController
-                    navigationItem.hidesSearchBarWhenScrolling = true
-                }
-            } else {
-            }
-            
-        }
+//        if navigationItem.searchController == nil {
+//            let gradient = CAGradientLayer()
+//            let sizeLength = UIScreen.main.bounds.size.height * 2
+//            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+//            
+//            gradient.frame = defaultNavigationBarFrame
+//            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+//            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+//            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+//            gradient.locations = orangeGradientLocation as [NSNumber]
+//            
+//            
+//            
+//            if #available(iOS 11.0, *) {
+//                
+//                if let navigationBar = self.navigationController?.navigationBar {
+//                    navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+////                    navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+//                }
+//                
+//                
+//                //                IGGlobal.setLanguage()
+//                self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
+//                
+//                
+//                if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+//                    //                    IGGlobal.setLanguage()
+//                    
+//                    if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
+//                        let centeredParagraphStyle = NSMutableParagraphStyle()
+//                        centeredParagraphStyle.alignment = .center
+//                        
+//                        let attributeDict = [NSAttributedString.Key.foregroundColor: UIColor.white , NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
+//                        textField.attributedPlaceholder = NSAttributedString(string: "SEARCH_PLACEHOLDER".localizedNew, attributes: attributeDict)
+//                        textField.textAlignment = .center
+//                    }
+//                    
+//                    let imageV = textField.leftView as! UIImageView
+//                    imageV.image = imageV.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+//                    imageV.tintColor = UIColor.white
+//                    
+//                    if let backgroundview = textField.subviews.first {
+//                        backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+//                        backgroundview.layer.cornerRadius = 10;
+//                        backgroundview.clipsToBounds = true;
+//                        
+//                    }
+//                }
+//                if navigationItem.searchController == nil {
+////                    navigationItem.searchController = searchController
+////                    navigationItem.hidesSearchBarWhenScrolling = true
+//                }
+//            } else {
+//            }
+//            
+//        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
