@@ -150,7 +150,9 @@ class IGRegisteredUser: Object {
         
         self.isVerified = igpUser.igpVerified
         self.isBot = igpUser.igpBot
-        self.isInContacts = IGRegisteredUser.fetchContactState(userId: igpUser.igpID)
+        let oldInfo = IGRegisteredUser.fetchOldInfo(userId: igpUser.igpID)
+        self.isInContacts = oldInfo.isInContact
+        self.isBlocked = oldInfo.isBlocked
     }
     
     static func putOrUpdate(realm: Realm, igpUser: IGPRegisteredUser) -> IGRegisteredUser {
@@ -231,16 +233,10 @@ class IGRegisteredUser: Object {
         return nil
     }
     
-    internal static func fetchContactState(userId: Int64) -> Bool {
+    internal static func fetchOldInfo(userId: Int64) -> (isInContact: Bool, isBlocked: Bool) {
         if let user = try! Realm().objects(IGRegisteredUser.self).filter(NSPredicate(format: "id = %lld", userId)).first {
-            return user.isInContacts
+            return (user.isInContacts, user.isBlocked)
         }
-        return false
+        return (false, false)
     }
 }
-
-
-/*
- public fileprivate(set) var igpAvatar:IGPAvatar!
- public fileprivate(set) var hasIgpAvatar:Bool = false
- */

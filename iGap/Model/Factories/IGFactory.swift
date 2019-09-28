@@ -972,18 +972,14 @@ class IGFactory: NSObject {
     }
 
     func updateBlockedUser(_ blockedUserId: Int64, blocked: Bool ) {
-        IGFactoryTask(dependencyUserTask: blockedUserId, cacheID: nil).success ({
-            IGDatabaseManager.shared.perfrmOnDatabaseThread {
-                let predicate = NSPredicate(format: "id = %lld", blockedUserId)
+        IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            let predicate = NSPredicate(format: "id = %lld", blockedUserId)
+            try! IGDatabaseManager.shared.realm.write {
                 if let userInDb = try! Realm().objects(IGRegisteredUser.self).filter(predicate).first {
-                    try! IGDatabaseManager.shared.realm.write {
-                        userInDb.isBlocked = blocked
-                    }
+                    userInDb.isBlocked = blocked
                 }
             }
-        }).error ({
-            //self.setFactoryTaskError(task: task)
-        }).execute()
+        }
     }
 
     func updateUserNickname(_ userId: Int64, nickname: String) {

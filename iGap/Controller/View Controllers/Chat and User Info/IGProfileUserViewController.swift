@@ -90,20 +90,15 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         if let selectedUser = user {
             let blockedUserPredicate = NSPredicate(format: "id = %lld", selectedUser.id)
             if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
-                print(blockedUser.displayName)
                 if blockedUser.isBlocked == true {
                     isBlockedUser = true
                 } else {
                     isBlockedUser = false
-
                 }
-                
             }
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
@@ -116,7 +111,6 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         for view in navigationControllerr.navigationBar.subviews {
             if view.tag == 10001 {
                 view.isHidden = false
-                print("FOUND IT")
             }
         }
     }
@@ -220,10 +214,8 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         if let selectedUser = user {
             let blockedUserPredicate = NSPredicate(format: "id = %lld", selectedUser.id)
             if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
-                print(blockedUser.displayName)
                 if blockedUser.isBlocked == true {
                     isBlockedUser = true
-//                    blockContactLabel.text = "UNBLOCK".localizedNew
                 }
             }
         }
@@ -700,9 +692,6 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
         let range = height / headerViewMaxHeight
 
-        print(range)
-        print(range * 50)
-        let plusValue = 2.5
         let btnChatWithRange = ((range * secondHeaderHeight) - secondHeaderHeight) * -1
         let btnChatWithHeight = (self.btnChatWith.frame.size.height)/2 + 2.5
         btnChatWithMiddleConstraint.constant = min(btnChatWithHeight,btnChatWithRange)
@@ -714,16 +703,9 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             self.avatarView.transform = scaledAndTranslatedTransform
             self.hasScaledDown = true
         })
-        //popIn animate
-
-//        let newHeaderViewHeight: CGFloat = heightConstraints.constant - y
-
 
         self.view.layoutIfNeeded()
-
     }
-
-    
 
     // MARK: -TableViewDelegates and Datasource
     func numberOfSections(in tableView: UITableView) -> Int {
