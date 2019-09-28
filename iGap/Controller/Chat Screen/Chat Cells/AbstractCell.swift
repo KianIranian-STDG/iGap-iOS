@@ -345,10 +345,8 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             } else {
                 txtMessageAbs.snp.remakeConstraints{ (make) in
                     if hasBottomOffset {
-                        make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).offset(CellSizeCalculator.RTL_OFFSET)
+                        make.top.equalTo(mainBubbleViewAbs.snp.top).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.centerY.equalTo(mainBubbleViewAbs.snp.centerY)
-
                         make.top.equalTo(mainBubbleViewAbs.snp.top).offset(5)
                     }
                 }
