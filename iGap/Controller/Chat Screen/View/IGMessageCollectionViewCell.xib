@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtr-ye-yHo">
-                        <rect key="frame" x="8" y="568" width="20" height="20"/>
+                        <rect key="frame" x="8" y="567.5" width="20" height="20"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="Hnr-Iq-Yhg"/>
@@ -70,7 +66,7 @@
                                 <rect key="frame" x="0.0" y="30" width="400" height="54"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8P-IO-6EH">
-                                        <rect key="frame" x="16" y="8" width="3" height="36"/>
+                                        <rect key="frame" x="16" y="8" width="3" height="35.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="3" id="XdF-Eo-nGG"/>
@@ -86,7 +82,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udh-gh-wH2" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="27" y="28" width="365" height="16"/>
+                                        <rect key="frame" x="27" y="27.5" width="365" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -112,7 +108,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QT5-IH-LnC" customClass="GIFImageView" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="128"/>
                                     </imageView>
-                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gth-j0-cvL" customClass="IGDownloadUploadIndicatorView" customModule="iGap" customModuleProvider="target">
+                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gth-j0-cvL" customClass="IGProgress" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="128"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -155,7 +151,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Xi-jk-wmY" customClass="IGImageView" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="160"/>
                                     </imageView>
-                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVy-K0-0yI" customClass="IGDownloadUploadIndicatorView" customModule="iGap" customModuleProvider="target">
+                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVy-K0-0yI" customClass="IGProgress" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="160"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -215,14 +211,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1tz-X6-eCz">
-                                        <rect key="frame" x="81" y="38" width="12" height="15"/>
+                                        <rect key="frame" x="81" y="37.5" width="12" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="15" id="iH5-5w-RUG"/>
                                             <constraint firstAttribute="width" constant="12" id="jmC-Z5-Mbi"/>
                                         </constraints>
                                         <state key="normal" image="IG_Message_Cell_Player_Voice_Play"/>
                                     </button>
-                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="v84-CB-btX" customClass="IGDownloadUploadIndicatorView" customModule="iGap" customModuleProvider="target">
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="v84-CB-btX" customClass="IGProgress" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="6" y="12" width="67" height="67"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -294,7 +290,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Message_Cell_State_Seen" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-H8-wsX">
-                                <rect key="frame" x="385" y="1119" width="10" height="10"/>
+                                <rect key="frame" x="385" y="1118.5" width="10" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="5Ke-iS-Sot"/>
                                     <constraint firstAttribute="width" constant="10" id="NVP-tU-JAG"/>

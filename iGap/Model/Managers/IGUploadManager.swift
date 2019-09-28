@@ -82,7 +82,7 @@ class IGUploadManager {
     
     private func addToQueue(task: IGUploadTask) {
         IGAttachmentManager.sharedManager.setProgress(0.0, for: task.file)
-        IGAttachmentManager.sharedManager.setStatus(.processingForUpload, for: task.file)
+        IGAttachmentManager.sharedManager.setStatus(.uploading, for: task.file)
         pendingUploads.append(task)
         startNextTaskIfPossible()
     }

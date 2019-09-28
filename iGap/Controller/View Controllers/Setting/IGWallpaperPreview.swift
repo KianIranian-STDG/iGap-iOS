@@ -17,7 +17,7 @@ class IGWallpaperPreview: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var imgWallpaper: UIImageView!
     @IBOutlet weak var btnSet: UIButton!
     @IBOutlet weak var btnCancel: UIButton!
-    @IBOutlet weak var downloadIndicator: IGDownloadUploadIndicatorView!
+    @IBOutlet weak var downloadIndicator: IGProgress!
 
     let disposeBag = DisposeBag()
     var wallpaperFile : IGFile?

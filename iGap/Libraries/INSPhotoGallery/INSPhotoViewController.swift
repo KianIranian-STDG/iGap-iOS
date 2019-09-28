@@ -75,8 +75,8 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
 
     }()
 
-    lazy private(set) var ViewWithDownloadIndicator: IGDownloadUploadIndicatorView = {
-        let ViewWithDownloadIndicator = IGDownloadUploadIndicatorView()
+    lazy private(set) var ViewWithDownloadIndicator: IGProgress = {
+        let ViewWithDownloadIndicator = IGProgress()
         ViewWithDownloadIndicator.setState(.readyToDownload)
         return ViewWithDownloadIndicator
     }()
@@ -473,8 +473,8 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
     }
 }
 
-extension INSPhotoViewController: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+extension INSPhotoViewController: IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         
         if let attachment = self.photo.file {
             if attachment.status == .ready || attachment.status == .readyToDownload{

@@ -21,15 +21,11 @@ public class IGFile: Object {
     enum Status {
         case unknown
         
-        case readyToDownload
+        case readyToDownload // also for 'downloadFailed' & 'downloadPause' use 'readyToDownload' enum
         case downloading
-        case downloadFailed
-        case downloadPause
         
-        case processingForUpload
-        case uploading
         case uploadFailed
-        case uploadPause
+        case uploading
         
         case ready
     }
@@ -457,7 +453,7 @@ public class IGFile: Object {
     }
     
     public func isInUploadLevels() -> Bool {
-        return self.status == .uploading || self.status == .uploadPause || self.status == .processingForUpload || self.status == .uploadFailed
+        return self.status == .uploading || self.status == .uploading || self.status == .uploadFailed
     }
     
     public static func getFileType(messageType: IGRoomMessageType) -> IGFile.FileType {

@@ -11,13 +11,13 @@
 import UIKit
 import SnapKit
 
-protocol IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView)
+protocol IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress)
 }
 
-class IGDownloadUploadIndicatorView: UIView {
+class IGProgress: UIView {
 
-    var delegate: IGDownloadUploadIndicatorViewDelegate?
+    var delegate: IGProgressDelegate?
     
     public var backgroundView: CAShapeLayer!
     private var state: IGFile.Status = .readyToDownload
@@ -41,7 +41,6 @@ class IGDownloadUploadIndicatorView: UIView {
     
     func configure() {
         setupView()
-        setState(.readyToDownload)
     }
     
     /**
@@ -65,9 +64,10 @@ class IGDownloadUploadIndicatorView: UIView {
     
     
     func setState(_ state:IGFile.Status) {
+        makeActionButton()
+        self.isHidden = false
         switch state {
-        case .readyToDownload, .downloadPause, .downloadFailed:
-            makeActionButton()
+        case .readyToDownload:
             setPercentage(0.0)
             break
             
@@ -75,11 +75,9 @@ class IGDownloadUploadIndicatorView: UIView {
             actionButton?.setTitle("", for: UIControl.State.normal)
             break
             
-        case .processingForUpload:
+        case .uploadFailed:
             setPercentage(0.0)
-            break
-            
-        case .uploadPause, .uploadFailed:
+            actionButton?.setTitle("", for: UIControl.State.normal)
             break
             
         case .ready:
@@ -118,10 +116,10 @@ class IGDownloadUploadIndicatorView: UIView {
         if self.actionButton == nil {
             
             /** make circle background for action button **/
-            let downloadViewWidth: CGFloat = 55
+            let viewWidth: CGFloat = 55
             let pathWidth: CGFloat = 4.5
             let lineAndCircleSpace: CGFloat = 3.5
-            let circlePath = UIBezierPath(arcCenter: CGPoint(x: downloadViewWidth / 2.0, y: downloadViewWidth / 2.0), radius: (downloadViewWidth - (pathWidth + lineAndCircleSpace)) / 2.0, startAngle: CGFloat(-(Double.pi / 2.0)), endAngle: CGFloat(Double.pi * 1.5), clockwise: true)
+            let circlePath = UIBezierPath(arcCenter: CGPoint(x: viewWidth / 2.0, y: viewWidth / 2.0), radius: (viewWidth - (pathWidth + lineAndCircleSpace)) / 2.0, startAngle: CGFloat(-(Double.pi / 2.0)), endAngle: CGFloat(Double.pi * 1.5), clockwise: true)
             
             backgroundView = CAShapeLayer()
             backgroundView.lineCap = convertToCAShapeLayerLineCap("round")
@@ -129,19 +127,20 @@ class IGDownloadUploadIndicatorView: UIView {
             backgroundView.cornerRadius = 5
             backgroundView.fillColor = UIColor.clear.cgColor
             backgroundView.strokeColor = UIColor.white.cgColor
+            backgroundView.backgroundColor = UIColor.orange.cgColor
             backgroundView.lineWidth = pathWidth
             backgroundView.strokeEnd = 00.0
             backgroundView.presentation()?.strokeEnd = 00.0
             
             let backgroundProgress = UIView()
-            backgroundProgress.layer.cornerRadius = downloadViewWidth/2
+            backgroundProgress.layer.cornerRadius = viewWidth/2
             backgroundProgress.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.addSubview(backgroundProgress)
             backgroundProgress.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(self.snp.centerX)
                 make.centerY.equalTo(self.snp.centerY)
-                make.height.equalTo(downloadViewWidth)
-                make.width.equalTo(downloadViewWidth)
+                make.height.equalTo(viewWidth)
+                make.width.equalTo(viewWidth)
             })
             backgroundProgress.layer.addSublayer(backgroundView)
             
@@ -155,8 +154,8 @@ class IGDownloadUploadIndicatorView: UIView {
             self.actionButton?.snp.makeConstraints({ (make) in
                 make.centerX.equalTo(backgroundProgress.snp.centerX)
                 make.centerY.equalTo(backgroundProgress.snp.centerY)
-                make.height.equalTo(downloadViewWidth)
-                make.width.equalTo(downloadViewWidth)
+                make.height.equalTo(viewWidth)
+                make.width.equalTo(viewWidth)
             })
         }
     }
@@ -166,7 +165,7 @@ class IGDownloadUploadIndicatorView: UIView {
     }
 }
 
-extension IGDownloadUploadIndicatorView: CAAnimationDelegate {
+extension IGProgress: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if let strokeEnd = backgroundView.presentation()?.strokeEnd {
             if  strokeEnd >= CGFloat(1){

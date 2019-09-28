@@ -54,7 +54,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     var avatarViewAbs: IGAvatarView!
     var txtMessageAbs: ActiveLabel!
     var imgMediaAbs: IGImageView!
-    var indicatorViewAbs: IGDownloadUploadIndicatorView!
+    var indicatorViewAbs: IGProgress!
 
     var room: IGRoom!
     var realmRoomMessage: IGRoomMessage!
@@ -1672,7 +1672,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         mainBubbleViewAbs.addSubview(imgMediaAbs)
         
         if messageType != .sticker {
-            indicatorViewAbs = IGDownloadUploadIndicatorView()
+            indicatorViewAbs = IGProgress()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
             
             indicatorViewAbs?.snp.makeConstraints { (make) in
@@ -1856,14 +1856,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
  ******************************************************************
  */
 
-extension AbstractCell: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+extension AbstractCell: IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         
         if let attachment = self.attachment {
             if attachment.status == .uploading {
                 IGMessageViewController.messageOnChatReceiveObserver.onMessageDelete(roomId: self.room.id, messageId: self.finalRoomMessage.id)
                 IGUploadManager.sharedManager.cancelUpload(attachment: attachment)
-            } else if attachment.status == .uploadFailed || attachment.status == .uploadPause {
+            } else if attachment.status == .uploadFailed {
                 if let room = try! Realm().objects(IGRoom.self).filter(NSPredicate(format: "id = %lld", self.realmRoomMessage.roomId)).first {
                     IGMessageSender.defaultSender.resend(message: self.finalRoomMessage, to: room)
                 }

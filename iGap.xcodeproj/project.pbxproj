@@ -641,7 +641,7 @@
 		FAC7555021D0CF7E001AB608 /* IGCallEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7554F21D0CF7E001AB608 /* IGCallEventListener.swift */; };
 		FAC7555621D12D6D001AB608 /* CallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7555521D12D6D001AB608 /* CallManager.swift */; };
 		FAD1D35C21B956BE0035FF25 /* IGProtoBuff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */; };
-		FAD2B5821DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2B5811DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift */; };
+		FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2B5811DFBF1ED007D6F87 /* IGProgress.swift */; };
 		FAD2BB0C1E0E993100761B11 /* IGDotActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2BB0B1E0E993100761B11 /* IGDotActivityIndicator.swift */; };
 		FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */; };
 		FAD530621E0BD80800FE6C54 /* IGNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD530601E0BD80800FE6C54 /* IGNavigationBar.swift */; };
@@ -1434,7 +1434,7 @@
 		FAC7554B21D0B589001AB608 /* CallHoldObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHoldObserver.swift; sourceTree = "<group>"; };
 		FAC7554F21D0CF7E001AB608 /* IGCallEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCallEventListener.swift; sourceTree = "<group>"; };
 		FAC7555521D12D6D001AB608 /* CallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallManager.swift; sourceTree = "<group>"; };
-		FAD2B5811DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDownloadUploadIndicatorView.swift; sourceTree = "<group>"; };
+		FAD2B5811DFBF1ED007D6F87 /* IGProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGProgress.swift; sourceTree = "<group>"; };
 		FAD2BB0B1E0E993100761B11 /* IGDotActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGDotActivityIndicator.swift; sourceTree = "<group>"; };
 		FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTabBarController.swift; sourceTree = "<group>"; };
 		FAD530601E0BD80800FE6C54 /* IGNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGNavigationBar.swift; sourceTree = "<group>"; };
@@ -2627,7 +2627,7 @@
 			isa = PBXGroup;
 			children = (
 				FA5EC5D61E067265006E2850 /* Chat List Cell */,
-				FAD2B5811DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift */,
+				FAD2B5811DFBF1ED007D6F87 /* IGProgress.swift */,
 				FA5EC5E01E069A1E006E2850 /* IGTextAttachment.swift */,
 				FAD2BB0B1E0E993100761B11 /* IGDotActivityIndicator.swift */,
 				8E5FBC08231534BA0069D4F2 /* IGCountDownTimer.swift */,
@@ -3248,6 +3248,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				Base,
 				en,
 				ar,
@@ -3894,7 +3895,7 @@
 				FA8F22541DD89C76005A90D1 /* IGGroupRoom.swift in Sources */,
 				FA7DE2732205BEC9008C8ECA /* IGStickerToolbar.swift in Sources */,
 				8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */,
-				FAD2B5821DFBF1ED007D6F87 /* IGDownloadUploadIndicatorView.swift in Sources */,
+				FAD2B5821DFBF1ED007D6F87 /* IGProgress.swift in Sources */,
 				93AA67C21E4F37D10053380C /* IGChannelInfoMemberListTableViewController.swift in Sources */,
 				FA03C1A020429D46008812E3 /* RTCClient.swift in Sources */,
 				FA7CD4A322958431002918AD /* PaymentCell.swift in Sources */,

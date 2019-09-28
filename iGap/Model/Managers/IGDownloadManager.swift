@@ -509,7 +509,7 @@ class IGDownloadManager {
         }
         
         IGAttachmentManager.sharedManager.setProgress(0.0, for: task.file)
-        IGAttachmentManager.sharedManager.setStatus(.downloadPause, for: task.file)
+        IGAttachmentManager.sharedManager.setStatus(.readyToDownload, for: task.file)
     }
 }
 

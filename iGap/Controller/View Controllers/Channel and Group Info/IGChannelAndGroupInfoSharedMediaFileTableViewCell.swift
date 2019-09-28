@@ -17,7 +17,7 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
     @IBOutlet weak var fileSizeLabel: UILabel!
     @IBOutlet weak var fileImageView: UIImageView!
     @IBOutlet weak var fileNameLabel: UILabel!
-    @IBOutlet weak var indicatorView: IGDownloadUploadIndicatorView!
+    @IBOutlet weak var indicatorView: IGProgress!
     
     var attachment: IGFile?
     let disposeBag = DisposeBag()
@@ -110,9 +110,9 @@ class IGChannelAndGroupInfoSharedMediaFileTableViewCell: UITableViewCell {
     }
 }
 
-extension IGChannelAndGroupInfoSharedMediaFileTableViewCell: IGDownloadUploadIndicatorViewDelegate {
+extension IGChannelAndGroupInfoSharedMediaFileTableViewCell: IGProgressDelegate {
     
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
         if let attachment = self.attachment {
             IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
         }

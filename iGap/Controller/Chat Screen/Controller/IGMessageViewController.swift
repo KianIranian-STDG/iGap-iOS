@@ -2483,7 +2483,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             let messageText = inputTextView.text.substring(offset: MAX_TEXT_ATTACHMENT_LENGHT)
             
             let message = IGRoomMessage(body: messageText)
-            currentAttachment?.status = .processingForUpload
+            currentAttachment?.status = .uploading
             message.attachment = currentAttachment?.detach()
             IGAttachmentManager.sharedManager.add(attachment: currentAttachment!)
             switch currentAttachment!.type {
