@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +21,7 @@
             <objects>
                 <navigationController storyboardIdentifier="IGSplashNavigationController" id="E7a-bn-JpQ" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="KuX-1z-agT" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -47,7 +45,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wE8-oH-3nl">
-                                <rect key="frame" x="16" y="420.5" width="344" height="30"/>
+                                <rect key="frame" x="16" y="400.5" width="344" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="8k6-Im-og7"/>
                                 </constraints>
@@ -59,10 +57,10 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGapVerticalLogo" translatesAutoresizingMaskIntoConstraints="NO" id="pqB-6I-D2j" customClass="GIFImageView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="102.5" y="30" width="170" height="78"/>
+                                <rect key="frame" x="102.5" y="10" width="170" height="78"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hA-3E-gNU">
-                                <rect key="frame" x="300" y="309" width="59" height="51"/>
+                                <rect key="frame" x="300" y="289" width="59" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="59" id="DzU-At-B7k"/>
                                     <constraint firstAttribute="height" constant="51" id="cIK-Rw-V8l"/>
@@ -76,7 +74,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your country and enter your phone number to continue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qem-NV-wBE" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="118" width="343" height="67"/>
+                                <rect key="frame" x="16" y="98" width="343" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="V5U-8E-noV"/>
                                 </constraints>
@@ -85,7 +83,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgV-GG-6X9">
-                                <rect key="frame" x="16" y="195" width="343" height="34"/>
+                                <rect key="frame" x="16" y="175" width="343" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="choose your country" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6J1-dB-ZvF" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="15" y="7" width="141" height="21"/>
@@ -111,12 +109,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YTh-zW-B7D">
-                                <rect key="frame" x="153" y="245" width="206" height="34"/>
+                                <rect key="frame" x="153" y="225" width="206" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x4h-AF-Kjf" customClass="AKMaskField" customModule="AKMaskField">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x4h-AF-Kjf" customClass="AKMaskField" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="8" y="0.0" width="190" height="34"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
@@ -131,7 +128,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loh-95-8LP">
-                                <rect key="frame" x="16" y="245" width="112" height="34"/>
+                                <rect key="frame" x="16" y="225" width="112" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFy-5R-fg5" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="112" height="34"/>
@@ -150,7 +147,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEj-bG-PB9">
-                                <rect key="frame" x="107.5" y="380.5" width="160" height="30"/>
+                                <rect key="frame" x="107.5" y="360.5" width="160" height="30"/>
                                 <color key="backgroundColor" red="0.3411764706" green="0.72941176470000002" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="CNC-VV-g3w"/>
@@ -166,7 +163,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="را می" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2E9-6f-GvA" customClass="FRHyperLabel">
-                                <rect key="frame" x="256" y="321" width="36" height="27"/>
+                                <rect key="frame" x="256" y="301" width="36" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="SoA-iP-9bE"/>
                                 </constraints>
@@ -215,7 +212,7 @@
                         <outlet property="lblAceptPrivacy" destination="2E9-6f-GvA" id="4fo-Y0-xpU"/>
                         <outlet property="lblHeader" destination="Qem-NV-wBE" id="sHZ-sb-2T7"/>
                         <outlet property="phoneNumberBackgroundView" destination="YTh-zW-B7D" id="7kw-HU-GBT"/>
-                        <outlet property="phoneNumberField" destination="x4h-AF-Kjf" id="Znv-37-vCh"/>
+                        <outlet property="phoneNumberField" destination="x4h-AF-Kjf" id="D1e-BL-BiB"/>
                         <segue destination="eNX-GX-Moe" kind="show" identifier="showRegistration" id="GVw-z1-TBD"/>
                         <segue destination="0xK-NS-IHY" kind="presentation" identifier="presentTerms" id="XQw-r2-vnz"/>
                         <segue destination="acB-bp-5lX" kind="show" identifier="showQRCode" id="Gty-Qg-iGJ"/>
@@ -239,7 +236,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-3K-GQ4" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="113" width="343" height="92"/>
+                                <rect key="frame" x="16" y="93" width="343" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="92" id="gbl-Ck-vfJ"/>
                                 </constraints>
@@ -250,10 +247,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGapVerticalLogo" translatesAutoresizingMaskIntoConstraints="NO" id="mPY-PG-ypd" customClass="GIFImageView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="102.5" y="30" width="170" height="78"/>
+                                <rect key="frame" x="102.5" y="10" width="170" height="78"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDP-dT-FFR" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="450" width="343" height="50"/>
+                                <rect key="frame" x="16" y="430" width="343" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="hLL-mi-cWW"/>
                                 </constraints>
@@ -264,23 +261,22 @@ Please wait 0:59</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="*****" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JqH-qg-B64">
-                                <rect key="frame" x="45" y="410" width="285" height="24"/>
+                                <rect key="frame" x="45" y="390" width="285" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="ZAF-eo-X52"/>
                                 </constraints>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QfF-F0-h85">
-                                <rect key="frame" x="45" y="434" width="285" height="1"/>
+                                <rect key="frame" x="45" y="414" width="285" height="1"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="d26-UT-Ovi"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Csv-XU-AJR" customClass="IGCountdownTimer" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="97.5" y="215" width="180" height="180"/>
+                                <rect key="frame" x="97.5" y="195" width="180" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="6Yj-44-f45"/>
@@ -333,11 +329,11 @@ Please wait 0:59</string>
                         <viewControllerLayoutGuide type="bottom" id="Ghz-sl-hWw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CQP-Je-NRv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5il-4C-kB4">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="591"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
@@ -373,13 +369,11 @@ Please wait 0:59</string>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nickname" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Umq-Z6-yYl">
                                     <rect key="frame" x="30" y="199" width="197" height="27"/>
-                                    <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nickname" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXH-VC-t7Y">
                                     <rect key="frame" x="30" y="230" width="197" height="27"/>
-                                    <nil key="textColor"/>
                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
@@ -488,7 +482,7 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please set your referral phone number here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqp-yK-FLw" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="28" width="343" height="67"/>
+                                <rect key="frame" x="16" y="8" width="343" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="UUW-rd-1Ul"/>
                                 </constraints>
@@ -497,7 +491,7 @@ Please wait 0:59</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bk-7Q-AqT">
-                                <rect key="frame" x="16" y="147" width="343" height="34"/>
+                                <rect key="frame" x="16" y="127" width="343" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Iran" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vah-Fh-7VV" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="6" width="343" height="22"/>
@@ -517,7 +511,7 @@ Please wait 0:59</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8f-FU-hT8">
-                                <rect key="frame" x="144" y="205.5" width="215" height="34"/>
+                                <rect key="frame" x="144" y="185.5" width="215" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mju-MA-pGa" customClass="AKMaskField" customModule="AKMaskField">
                                         <rect key="frame" x="4" y="0.0" width="207" height="34"/>
@@ -525,7 +519,6 @@ Please wait 0:59</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="9mu-4k-fqq"/>
                                         </constraints>
-                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
@@ -539,7 +532,7 @@ Please wait 0:59</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lwc-Uw-2c1">
-                                <rect key="frame" x="16" y="205.5" width="112" height="34"/>
+                                <rect key="frame" x="16" y="185.5" width="112" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+98" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMe-V5-XPc" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="112" height="34"/>
@@ -607,7 +600,7 @@ Please wait 0:59</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan this QR Code using your other device to log in iGap" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1f-mL-WYH" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="16" y="36" width="343" height="53.5"/>
+                                <rect key="frame" x="16" y="16" width="343" height="53.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -647,26 +640,25 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have enabled Two-Step verification, so your account is protected with an additional password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9D-IO-ozk" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="20" y="40" width="335" height="80"/>
+                                <rect key="frame" x="20" y="20" width="335" height="80"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZb-wY-XMy">
-                                <rect key="frame" x="45" y="210" width="285" height="27"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="45" y="190" width="285" height="27"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AaE-ix-ALY">
-                                <rect key="frame" x="45" y="245" width="285" height="1"/>
+                                <rect key="frame" x="45" y="225" width="285" height="1"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="sYs-Ni-RJj"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJ2-48-iYc">
-                                <rect key="frame" x="107.5" y="256" width="160" height="30"/>
+                                <rect key="frame" x="107.5" y="236" width="160" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="S9w-mw-BUk"/>
@@ -719,11 +711,11 @@ Please wait 0:59</string>
                         <viewControllerLayoutGuide type="bottom" id="YPx-h4-cch"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Lef-iD-9bm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kvv-la-BtZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="5Xc-2U-lCu">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -732,7 +724,7 @@ Please wait 0:59</string>
                                 </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Look" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="countryCell" id="txN-Mo-JYr" customClass="IGSelectCountryCell" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="txN-Mo-JYr" id="5fe-GP-kuf">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -800,7 +792,7 @@ Please wait 0:59</string>
             <objects>
                 <navigationController id="0xK-NS-IHY" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Ll-0q-6qP" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -816,7 +808,7 @@ Please wait 0:59</string>
             <objects>
                 <navigationController id="K16-2D-YCI" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rCp-0u-Fal" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -906,7 +898,7 @@ Please wait 0:59</string>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.94117647059999998" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IG_Start_App_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="0OM-dl-FGK" customClass="GIFImageView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="137.5" y="259.5" width="100" height="168"/>
+                                <rect key="frame" x="137.5" y="249.5" width="100" height="168"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="168" id="f12-wP-1gG"/>
                                     <constraint firstAttribute="width" constant="100" id="huW-wK-Nyl"/>
@@ -986,7 +978,7 @@ Please wait 0:59</string>
                                         <rect key="frame" x="0.0" y="55.5" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vmt-5n-opv" id="8Kp-am-YlM">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkN-em-FWE">
@@ -1014,7 +1006,7 @@ Please wait 0:59</string>
                                         <rect key="frame" x="0.0" y="99.5" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h7s-rs-pTN" id="n11-9z-J8X">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="En" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reA-S3-Nur">
@@ -1042,7 +1034,7 @@ Please wait 0:59</string>
                                         <rect key="frame" x="0.0" y="143.5" width="240" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oy8-o2-cPD" id="B9d-Lp-rg4">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ar" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xP-ZU-rr2">
@@ -1111,19 +1103,18 @@ Please wait 0:59</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have enabled Two-Step verification, so your account is protected with an additional password" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBz-8O-PQW" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="20" y="40" width="335" height="80"/>
+                                <rect key="frame" x="20" y="20" width="335" height="80"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFZ-bt-RVj">
-                                <rect key="frame" x="45" y="210" width="285" height="27"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="45" y="190" width="285" height="27"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mc8-m0-XXy">
-                                <rect key="frame" x="45" y="245" width="285" height="1"/>
+                                <rect key="frame" x="45" y="225" width="285" height="1"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="79r-UI-IOm"/>
@@ -1137,7 +1128,6 @@ Please wait 0:59</string>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Lo-K9-lAT">
                                 <rect key="frame" x="45" y="287" width="285" height="27"/>
-                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>

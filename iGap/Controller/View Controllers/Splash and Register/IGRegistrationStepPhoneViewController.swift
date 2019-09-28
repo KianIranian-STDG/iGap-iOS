@@ -17,6 +17,8 @@ import IGProtoBuff
 class IGRegistrationStepPhoneViewController: UIViewController {
 
     var tapCount : Int! = 1
+    var isChecked : Bool! = false
+
     @IBOutlet weak var countryBackgroundView: UIView!
     @IBOutlet weak var phoneNumberBackgroundView: UIView!
     @IBOutlet weak var countryCodeBackgroundView: UIView!
@@ -165,19 +167,19 @@ class IGRegistrationStepPhoneViewController: UIViewController {
     }
 
     //actions
-    var isChecked : Bool! = false
     @IBAction func checkbtnCheckmarkClicked(_ sender: Any) {
+        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         if isChecked {
-            btnCheckmarkPrivacy.setTitle("", for: .normal)
+            btnCheckmarkPrivacy.setTitle("", for: .normal)
         }
         else {
-            btnCheckmarkPrivacy.setTitle("", for: .normal)
+            btnCheckmarkPrivacy.setTitle("", for: .normal)
         }
         isChecked = !isChecked
 
     }
     @IBAction func btnSubmitTap(_ sender: Any) {
-        if !isChecked {
+        if isChecked {
             didTapOnSubmit()
         }
         else {
@@ -212,6 +214,31 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         countryCodeBackgroundView.layer.masksToBounds = true
         countryCodeBackgroundView.layer.borderWidth = 1.0
         countryCodeBackgroundView.layer.borderColor = UIColor.organizationalColor().cgColor
+        btnCheckmarkPrivacy.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnCheckmarkPrivacy.setTitle("", for: .normal)
+
+               let gradient = CAGradientLayer()
+               let sizeLength = UIScreen.main.bounds.size.height * 2
+               let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+               
+               gradient.frame = defaultNavigationBarFrame
+               gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+               gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+               gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+               gradient.locations = orangeGradientLocation as [NSNumber]
+
+               let navigationControllerr = self.navigationController as! IGNavigationController
+               
+
+                   if let navigationBar = self.navigationController?.navigationBar {
+                       navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+                       navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+
+
+                   }
+        
+
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -219,6 +246,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         if(IGRegistrationStepPhoneViewController.allowGetCountry){
             getUserCurrentLocation()
         }
+
     }
     
     override func didReceiveMemoryWarning() {

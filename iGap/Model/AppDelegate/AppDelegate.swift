@@ -374,6 +374,8 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
         IGAppManager.sharedManager.clearDataOnLogout()
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
+        vc.modalPresentationStyle = .fullScreen
+
         self.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
     func goToSpash(mainRoot: Bool = false) {
@@ -386,12 +388,15 @@ class AppDelegate: App_SocketService, UIApplicationDelegate, UNUserNotificationC
 //        IGAppManager.sharedManager.clearDataOnLogout()
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "IGSplashNavigationController")
+        vc.modalPresentationStyle = .fullScreen
         self.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
     
     func showRegistrationSetpProfileInfo() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Register", bundle: nil)
         let setNicknameVC = storyboard.instantiateViewController(withIdentifier: "RegistrationStepProfileInfo")
+        setNicknameVC.modalPresentationStyle = .fullScreen
+
         let navigationBar = UINavigationController(rootViewController: setNicknameVC)
         self.window?.rootViewController?.present(navigationBar, animated: true, completion: {
             self.isNeedToSetNickname = false

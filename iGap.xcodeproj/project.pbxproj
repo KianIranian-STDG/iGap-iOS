@@ -1526,7 +1526,6 @@
 		FAF796041DAA392F0030509B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAF796091DAA39460030509B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAF7960E1DAA39660030509B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAF985891E2E10EC00B26940 /* AKMaskField.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AKMaskField.framework; path = Carthage/Build/iOS/AKMaskField.framework; sourceTree = "<group>"; };
 		FAF9858A1E2E10EC00B26940 /* CameraViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CameraViewController.framework; path = Carthage/Build/iOS/CameraViewController.framework; sourceTree = "<group>"; };
 		FAF9858B1E2E10EC00B26940 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		FAF9858C1E2E10EC00B26940 /* Gifu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gifu.framework; path = Carthage/Build/iOS/Gifu.framework; sourceTree = "<group>"; };
@@ -3173,7 +3172,6 @@
 				FAC42C831E36267400F2CB5C /* Fabric.framework */,
 				FAC42C841E36267400F2CB5C /* Crashlytics.framework */,
 				FA3B1C861E302CD500F194C4 /* IGProtoBuff.framework */,
-				FAF985891E2E10EC00B26940 /* AKMaskField.framework */,
 				FAF9858A1E2E10EC00B26940 /* CameraViewController.framework */,
 				FAF9858B1E2E10EC00B26940 /* CryptoSwift.framework */,
 				FAF78EAC1E2EA77700C6F523 /* DBAttachmentPickerControllerLibrary.framework */,
