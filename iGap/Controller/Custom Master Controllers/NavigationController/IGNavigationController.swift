@@ -110,7 +110,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
         colorView.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: navigationBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: navigationBar.frame.size.width/2, bottom: 0, right: navigationBar.frame.size.width/2), resizingMode: .stretch))
  
         // 2.5
-        navigationBar.addSubview(colorView)
+//        navigationBar.addSubview(colorView)
 
         //2.6
         colorViewNavBar.frame = CGRect(x: 0, y: 0, width: navigationBar.frame.width, height: navigationBar.frame.height)
@@ -119,7 +119,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate,UI
         colorViewNavBar.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: navigationBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: navigationBar.frame.size.width/2, bottom: 0, right: navigationBar.frame.size.width/2), resizingMode: .stretch))
         
         searchViewNavBar.backgroundColor = .red
-        self.navigationBar.insertSubview(colorViewNavBar, at: 1)
+//        self.navigationBar.insertSubview(colorViewNavBar, at: 1)
 
         if isActive {
 //            addSearchBar(state: "True")

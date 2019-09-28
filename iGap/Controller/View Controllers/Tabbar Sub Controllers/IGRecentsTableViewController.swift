@@ -327,6 +327,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
             if let navigationBar = self.navigationController?.navigationBar {
                 navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+                navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+
+
             }
  
             
@@ -1608,7 +1611,7 @@ extension IGRecentsTableViewController {
     private func initialiseSearchBar() {
         
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = .blue
+            textField.backgroundColor = .clear
 
             let imageV = textField.leftView as! UIImageView
             imageV.image = nil
