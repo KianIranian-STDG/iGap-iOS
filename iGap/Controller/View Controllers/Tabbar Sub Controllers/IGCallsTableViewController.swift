@@ -39,7 +39,6 @@ class IGCallsTableViewController: BaseTableViewController {
     var btnIncomming : UIButton!
     var btnCanceled : UIButton!
     var btnOutGoing : UIButton!
-    var headerView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 50.0))
     var btnHolderView : UIView!
     var btnHolderScrollView : UIScrollView!
     
@@ -54,9 +53,9 @@ class IGCallsTableViewController: BaseTableViewController {
         
         self.tableView.register(IGCallListTableViewCell.nib(), forCellReuseIdentifier: IGCallListTableViewCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
         updateObserver(mode : currentMode)
         if IGAppManager.sharedManager.isUserLoggiedIn() {
             self.fetchCallLogList()
@@ -93,8 +92,6 @@ class IGCallsTableViewController: BaseTableViewController {
         super.viewWillAppear(animated)
 //        selectedIndex = 0
         initNavigationBar()
-        
-        addCollectionFilterView()
 
         self.tableView.isUserInteractionEnabled = true
     }
@@ -108,29 +105,32 @@ class IGCallsTableViewController: BaseTableViewController {
         transactionTypesCollectionView.selectItem(at: firstIndex, animated: false, scrollPosition: [])
     }
 
-    private func addCollectionFilterView() {
+    private func addCollectionFilterView() -> UIView {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = UICollectionView.ScrollDirection.horizontal
         self.transactionTypesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         self.transactionTypesCollectionView.showsHorizontalScrollIndicator = false
 
         self.transactionTypesCollectionView.register(CallTypesCVCell.nib, forCellWithReuseIdentifier: CallTypesCVCell.identifier)
-        self.headerView.addSubview(self.transactionTypesCollectionView)
+        headerView.addSubview(self.transactionTypesCollectionView)
         
         self.transactionTypesCollectionView?.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.headerView.snp.centerY)
+            make.centerY.equalTo(headerView.snp.centerY)
             make.height.equalTo(40)
-            make.leading.equalTo(self.headerView.snp.leading).offset(10)
-            make.trailing.equalTo(self.headerView.snp.trailing).offset(-10)
+            make.leading.equalTo(headerView.snp.leading).offset(0)
+            make.trailing.equalTo(headerView.snp.trailing).offset(0)
         }
-        self.self.transactionTypesCollectionView.backgroundColor = UIColor.white
+        self.self.transactionTypesCollectionView.backgroundColor = .clear
 
         self.transactionTypesCollectionView.transform = self.transform
         
         self.transactionTypesCollectionView.dataSource = self
         self.transactionTypesCollectionView.delegate = self
-
         
+        return headerView
     }
     
     
@@ -311,12 +311,10 @@ class IGCallsTableViewController: BaseTableViewController {
         return 78.0
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        headerView.backgroundColor = UIColor.white
-        return headerView
+        return addCollectionFilterView()
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
-        
     }
 }
 

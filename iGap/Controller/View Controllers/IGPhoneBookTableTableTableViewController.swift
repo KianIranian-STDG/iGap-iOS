@@ -54,9 +54,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         IGPhoneBookTableViewController.callDelegate = self
         let predicate = NSPredicate(format: "isInContacts = 1")
         contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
-    }
-    
-    override func viewDidLayoutSubviews() {
+        
         self.tableView.tableHeaderView = makeHeaderView()
     }
 
@@ -72,7 +70,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 
             }
         }
-
 
     }
     private func goToAddContactsPage() {
@@ -171,9 +168,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
 //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        return makeHeaderView()
 //    }
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 80
-    }
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 80
+//    }
 
     
     func call(user: IGRegisteredUser,mode: String) {
