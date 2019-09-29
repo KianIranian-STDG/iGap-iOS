@@ -17,7 +17,7 @@ import MGSwipeTableCell
 import MBProgressHUD
 import NVActivityIndicatorView
 
-class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource {
+class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource ,cellTypeTwoDelegate{
 
     //MARK: -Variables
     var adminsCount : String = "0"
@@ -151,8 +151,115 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         super.viewDidAppear(animated)
     }
     //MARK: -Development functions
-    @objc func toggle(_ sender :UISwitch) {
+    
+    func report(room: IGRoom){
+        let roomId = room.id
+        let roomType = room.type
+        
+        var title = ""
+        
+        if roomType == .chat {
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
+        } else {
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
+        }
+        
+        let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            
+            if roomType == .chat {
+            } else {
+                self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.abuse)
+            }
+        })
+        
+        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            
+            if roomType == .chat {
+            } else {
+                self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.spam)
+            }
+        })
+        
+        
+        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
+        })
+        
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
+        })
+        
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+            
+        })
+        
+        alertC.addAction(abuse)
+        alertC.addAction(spam)
+        if roomType == .chat {
+        } else {
+            alertC.addAction(violence)
+            alertC.addAction(pornography)
+        }
+        alertC.addAction(cancel)
+        
+        self.present(alertC, animated: true, completion: {
+            
+        })
+    }
+    
+    func reportRoom(roomId: Int64, reason: IGPClientRoomReport.IGPReason) {
+        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
+        self.hud.mode = .indeterminate
+        IGClientRoomReportRequest.Generator.generate(roomId: roomId, reason: reason).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case _ as IGPClientRoomReportResponse:
+                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).error({ (errorCode , waitTime) in
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .clientRoomReportReportedBefore:
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .clientRoomReportForbidden:
+                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).send()
+    }
+    
+    func didPressMuteSwitch() {
+         print("I have pressed a button")
         self.muteRoom(room: self.room!)
+
     }
     func muteRoom(room: IGRoom) {
         
@@ -172,7 +279,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 default:
                     break
                 }
-                self.tableView.reloadData()
+//                self.tableView.reloadData()
                 self.hud.hide(animated: true)
             }
         }).error({ (errorCode , waitTime) in
@@ -477,7 +584,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         } else {
             isVerified = false
         }
-        requestToGetAdminsAndModerators()
+        switch myRole {
+        case .admin , .owner :
+            requestToGetAdminsAndModerators()
+            
+        default :
+            break
+        }
 
         channelNameLabelTitle.text = room?.title
         channelNameLabelTitle.textAlignment = channelNameLabelTitle.localizedNewDirection
@@ -1017,11 +1130,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
-                        
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                        return cell
                         
                     default:
                         return cell
@@ -1031,22 +1146,22 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                     return cell
                     
+//                case 3:
+//                    switch indexPath.row {
+//                    case 0 :
+//                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+//                        return cell
+//
+//                    case 1 :
+//                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+//                        return cell
+//
+//                    default:
+//                        return cell
+//
+//                    }
+//
                 case 3:
-                    switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
-                        return cell
-                        
-                    case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
-                        return cell
-                        
-                    default:
-                        return cell
-                        
-                    }
-                    
-                case 4:
                     switch indexPath.row {
                     case 0 :
                         cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
@@ -1296,9 +1411,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                             cellTwo.lblActionDetail.isOn = false
 
                         }
-                        cellTwo.lblActionDetail.addTarget(self, action: #selector(toggle(_:)), for: .valueChanged)
-
-
                         return cellTwo
                         
                     default:
@@ -1623,13 +1735,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 0:
                     return 1
                 case 1:
-                    return 2
+                    return 1
                 case 2:
                     return 1
                 case 3 :
-                    return 1
-                case 4 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }
@@ -2203,33 +2313,16 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        //gotToAddMEmberPage
+                        report(room: self.room!)
                         break
                     case 1 :
-                        //gotToMemberListPage
-                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                        
-                        break
-                    default:
-                        break
-                        
-                    }
-                case 4:
-                    
-                    switch indexPath.row {
-                    case 0 :
-                        //ShowReportAlert
-                        break
-                    case 1 :
-                        //ShowLeaveAlert
                         showDeleteChannelActionSheet()
-                        
                         break
                     default:
                         break
                         
                     }
-                    
+    
                 default:
                     break
                 }
