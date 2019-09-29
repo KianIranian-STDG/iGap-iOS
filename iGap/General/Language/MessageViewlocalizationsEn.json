@@ -10,6 +10,7 @@
         "UNPIN_FOR_ME" : "Unpin for me",
         "PIN_ARE_U_SURE" : "Are you sure pin this message?",
         "PINN" : "Pin To Top",
+        "UNPINN" : "Unpin from Top",
         "TIME_OUT" : "can't connect to the server",
         "MSG_PLEASE_TRY_AGAIN" : "Please Try Again Later",
         "GLOBAL_OK" : "OK",
