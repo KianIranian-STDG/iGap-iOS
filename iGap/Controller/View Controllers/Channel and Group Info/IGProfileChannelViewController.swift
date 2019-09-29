@@ -1026,10 +1026,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
                         return cellTwo
                         
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                        return cell
-                        
                     default:
                         return cell
                         
@@ -1037,22 +1033,30 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3:
                     cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                     return cell
-                    
                 case 4:
                     switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        
+                    case 0:
+                        if let memberCount = room?.channelRoom?.participantCount {
+                            
+                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                        }
                         return cell
                         
-                    case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                    case 1:
+                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                        return cell
+                        
+                    case 2:
+                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     default:
                         return cell
                         
                     }
-                    
+                    return cell
+
                 case 5:
                     switch indexPath.row {
                     case 0 :
@@ -1066,6 +1070,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                         return cell
                         
                     }
+
                 default:
                     return cell
                 }
@@ -1202,18 +1207,27 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     
                 case 4:
                     switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        
+                    case 0:
+                        if let memberCount = room?.channelRoom?.participantCount {
+                            
+                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                        }
                         return cell
                         
-                    case 1 :
-                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                    case 1:
+                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                        return cell
+                        
+                    case 2:
+                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     default:
                         return cell
                         
                     }
+                    return cell
                     
                 case 5:
                     switch indexPath.row {
@@ -1447,13 +1461,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 1:
                     return 1
                 case 2:
-                    return 2
+                    return 1
                 case 3 :
                     return 1
                 case 4 :
-                    return 1
+                    return 3
                 case 5 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }
@@ -1465,13 +1479,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 1:
                     return 1
                 case 2:
-                    return 2
+                    return 1
                 case 3 :
                     return 1
                 case 4 :
-                    return 1
+                    return 3
                 case 5 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }
@@ -1606,18 +1620,71 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             }
         case .publicRoom?:
             
-            switch section {
-            case 0:
-                return "PRODUCTS_DETAILS".localizedNew
-            case 1:
-                return "CHANNEL_INFO".localizedNew
-            case 2:
-                return "NOTIFICATION_SOUNDS".localizedNew
-            case 3:
-                return "SHAREDMEDIA".localizedNew
-            default:
+            switch myRole {
+            case .admin?:
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "CHANNEL_INFO".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                case 4:
+                    return "ALLMEMBER".localizedNew
+                default:
+                    return ""
+                }
+            case .owner?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "CHANNEL_INFO".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                case 4:
+                    return "ALLMEMBER".localizedNew
+
+                default:
+                    return ""
+                }
+            case .member?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "CHANNEL_INFO".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
+            case .moderator?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 2:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
+            case .none :
                 return ""
+
+                
             }
+
         case .none:
             switch section {
             case 0:
@@ -1699,16 +1766,65 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             }
         case .publicRoom?:
             
-            switch section {
-            case 0:
-                return 60
-            case 4:
-                return 10
+            switch myRole {
+            case .admin?:
                 
-            case 5:
-                return 10
+                switch section {
+                case 0:
+                    return 80
+                case 4:
+                    return 10
+                    
+                case 5:
+                    return 10
+                    
+                default:
+                    return 50
+                }
+            case .owner?:
                 
-            default:
+                switch section {
+                case 0:
+                    return 80
+                case 4:
+                    return 10
+                    
+                case 5:
+                    return 10
+                    
+                default:
+                    return 50
+                }
+            case .member?:
+                
+                switch section {
+                case 0:
+                    return 80
+                case 3:
+                    return 10
+                    
+                case 4:
+                    return 10
+                    
+                default:
+                    return 50
+                }
+            case .moderator?:
+                
+                switch section {
+                case 0:
+                    return 60
+                case 3:
+                    return 10
+                    
+                case 4:
+                    return 10
+                    
+                default:
+                    return 50
+                }
+                
+            case .none:
                 return 50
             }
         case .none:
