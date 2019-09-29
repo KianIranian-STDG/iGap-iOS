@@ -375,6 +375,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         initialiseSearchBar()
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -468,6 +469,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height)
+
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
        navigationItem.setChatListsNavigationItems()
         navItemInit()
