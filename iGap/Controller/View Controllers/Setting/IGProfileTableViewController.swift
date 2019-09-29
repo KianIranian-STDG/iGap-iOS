@@ -605,7 +605,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in
             if let response = protoResponse as? IGPUserIVandGetScoreResponse {
                 DispatchQueue.main.async {
-                    self.lblScoreAmount.text = String(describing: response.igpScore).inRialFormat().inLocalizedLanguage()
+                    self.lblScoreAmount.text = String(describing: response.igpScore).inRialFormat()
                 }
             }
         }).error({ (errorCode, waitTime) in

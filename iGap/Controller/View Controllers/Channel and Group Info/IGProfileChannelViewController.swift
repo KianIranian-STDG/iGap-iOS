@@ -1039,16 +1039,16 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     case 0:
                         if let memberCount = room?.channelRoom?.participantCount {
                             
-                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+//                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
                         }
                         return cell
                         
                     case 1:
-                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+//                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     case 2:
-                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+//                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     default:
@@ -1211,16 +1211,16 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     case 0:
                         if let memberCount = room?.channelRoom?.participantCount {
                             
-                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+//                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
                         }
                         return cell
                         
                     case 1:
-                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+//                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     case 2:
-                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+//                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                         return cell
                         
                     default:
