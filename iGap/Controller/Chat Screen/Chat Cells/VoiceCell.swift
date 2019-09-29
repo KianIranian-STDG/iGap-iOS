@@ -17,12 +17,13 @@ class VoiceCell: AbstractCell {
     @IBOutlet weak var mainBubbleViewWidth: NSLayoutConstraint!
     @IBOutlet weak var mainBubbleViewHeight: NSLayoutConstraint!
     
-    var txtVoiceRecorderName: UILabel!
     var txtVoiceTime: UILabel!
-    var imgPlay: UIButton!
+    var btnPlay: UIButton!
     var sliderVoice: UISlider!
     
-    var imgFilePosition: Constraint!
+    var btnPlayPosition: Constraint!
+    
+    private var player = IGMusicPlayer.sharedPlayer
     
     class func nib() -> UINib {
         return UINib(nibName: "VoiceCell", bundle: Bundle(for: self))
@@ -38,6 +39,8 @@ class VoiceCell: AbstractCell {
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageVoiceViewPosition()
         setVoice()
+        voiceGustureRecognizers()
+        checkPlayerState()
     }
     
     private func initializeView(){
@@ -48,15 +51,6 @@ class VoiceCell: AbstractCell {
     }
     
     private func makeVoiceView(_ message: IGRoomMessage){
-        if imgFileAbs == nil {
-            imgFileAbs = UIImageView()
-            mainBubbleViewAbs.addSubview(imgFileAbs)
-        }
-        
-        if indicatorViewAbs == nil {
-            indicatorViewAbs = IGProgress()
-            mainBubbleViewAbs.addSubview(indicatorViewAbs)
-        }
         
         var finalMessage = message
         if let forward = message.forwardedFrom {
@@ -69,15 +63,6 @@ class VoiceCell: AbstractCell {
             indicatorViewAbs?.isHidden = false
         }
         
-        if txtVoiceRecorderName == nil {
-            txtVoiceRecorderName = UILabel()
-            txtVoiceRecorderName.textColor = UIColor.dialogueBoxInfo()
-            txtVoiceRecorderName.font = UIFont.igFont(ofSize: 13)
-            txtVoiceRecorderName.lineBreakMode = .byTruncatingMiddle
-            txtVoiceRecorderName.numberOfLines = 1
-            mainBubbleViewAbs.addSubview(txtVoiceRecorderName)
-        }
-        
         if txtVoiceTime == nil {
             txtVoiceTime = UILabel()
             txtVoiceTime.textColor = UIColor.dialogueBoxInfo()
@@ -86,78 +71,67 @@ class VoiceCell: AbstractCell {
             mainBubbleViewAbs.addSubview(txtVoiceTime)
         }
         
-        if imgPlay == nil {
-            imgPlay = UIButton()
-            mainBubbleViewAbs.addSubview(imgPlay)
+        if btnPlay == nil {
+            btnPlay = UIButton()
+            btnPlay.titleLabel?.font = UIFont.iGapFonticon(ofSize: 50)
+            btnPlay.setTitleColor(UIColor.iGapBlue(), for: UIControl.State.normal)
+            mainBubbleViewAbs.addSubview(btnPlay)
         }
         
         if sliderVoice == nil {
             sliderVoice = UISlider()
             mainBubbleViewAbs.addSubview(sliderVoice)
         }
+        
+        if indicatorViewAbs == nil {
+            indicatorViewAbs = IGProgress()
+            mainBubbleViewAbs.addSubview(indicatorViewAbs)
+        }
     }
     
     private func manageVoiceViewPosition(){
-        imgFileAbs.snp.makeConstraints { (make) in
+        btnPlay.snp.makeConstraints { (make) in
             
-            if imgFilePosition != nil { imgFilePosition.deactivate() }
+            if btnPlayPosition != nil { btnPlayPosition.deactivate() }
             
             if isForward {
-                imgFilePosition = make.top.equalTo(forwardViewAbs.snp.bottom).offset(10.0).constraint
+                btnPlayPosition = make.top.equalTo(forwardViewAbs.snp.bottom).offset(5.0).constraint
             } else if isReply {
-                imgFilePosition = make.top.equalTo(replyViewAbs.snp.bottom).offset(10.0).constraint
+                btnPlayPosition = make.top.equalTo(replyViewAbs.snp.bottom).offset(5.0).constraint
             } else {
-                imgFilePosition = make.centerY.equalTo(mainBubbleViewAbs.snp.centerY).constraint
+                btnPlayPosition = make.top.equalTo(mainBubbleViewAbs.snp.top).offset(5.0).constraint
             }
             
-            if imgFilePosition != nil { imgFilePosition.activate() }
+            if btnPlayPosition != nil { btnPlayPosition.activate() }
             
             make.leading.equalTo(mainBubbleViewAbs.snp.leading).offset(8)
-            make.height.equalTo(60.0)
-            make.width.equalTo(60.0)
+            make.height.equalTo(50.0)
+            make.width.equalTo(50.0)
         }
         
         indicatorViewAbs.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.leading)
-            make.trailing.equalTo(imgFileAbs.snp.trailing)
-            make.top.equalTo(imgFileAbs.snp.top)
-            make.bottom.equalTo(imgFileAbs.snp.bottom)
-        }
-        
-        txtVoiceRecorderName.snp.makeConstraints { (make) in
-            make.bottom.equalTo(imgPlay.snp.top).offset(-2.0)
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(8.0)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-8.0)
+            make.leading.equalTo(btnPlay.snp.leading)
+            make.trailing.equalTo(btnPlay.snp.trailing)
+            make.top.equalTo(btnPlay.snp.top)
+            make.bottom.equalTo(btnPlay.snp.bottom)
         }
         
         txtVoiceTime.snp.makeConstraints { (make) in
-            make.top.equalTo(imgPlay.snp.bottom).offset(2.0)
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(8.0)
-            make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-8.0)
-        }
-        
-        imgPlay.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgFileAbs.snp.trailing).offset(8.0)
-            make.centerY.equalTo(imgFileAbs.snp.centerY)
+            make.centerY.equalTo(txtTimeAbs.snp.centerY)
+            make.leading.equalTo(sliderVoice.snp.leading)
             make.height.equalTo(15.0)
-            make.width.equalTo(15.0)
         }
         
         sliderVoice.snp.makeConstraints { (make) in
-            make.leading.equalTo(imgPlay.snp.trailing).offset(4.0)
+            make.leading.equalTo(btnPlay.snp.trailing).offset(4.0)
             make.trailing.equalTo(mainBubbleViewAbs.snp.trailing).offset(-8.0)
-            make.centerY.equalTo(imgPlay.snp.centerY)
+            make.centerY.equalTo(btnPlay.snp.centerY)
         }
     }
     
     private func setVoice(){
         
         let attachment: IGFile! = finalRoomMessage.attachment
-        if finalRoomMessage.authorUser != nil {
-            txtVoiceRecorderName.text = "RECORDED_BY".MessageViewlocalizedNew + " \(finalRoomMessage.authorUser!.displayName)"
-        } else if finalRoomMessage.authorRoom != nil {
-            txtVoiceRecorderName.text = "RECORDED_VOICE".MessageViewlocalizedNew
-        }
         
         if isIncommingMessage {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .normal)
@@ -166,7 +140,7 @@ class VoiceCell: AbstractCell {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb"), for: .highlighted)
             sliderVoice.minimumTrackTintColor = UIColor.organizationalColor()
             sliderVoice.maximumTrackTintColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 1.0)
-            imgPlay.setImage(UIImage(named:"IG_Message_Cell_Player_Voice_Play"), for: .normal)
+            btnPlay.setTitle("", for: UIControl.State.normal)
         } else {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .normal)
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .focused)
@@ -174,20 +148,35 @@ class VoiceCell: AbstractCell {
             sliderVoice.setThumbImage(UIImage(named: "IG_Message_Cell_Player_Slider_Thumb_Outgoing"), for: .highlighted)
             sliderVoice.minimumTrackTintColor = UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)
             sliderVoice.maximumTrackTintColor = UIColor(red: 22.0/255.0, green: 91.0/255.0, blue: 88.0/255.0, alpha: 1.0)
-            imgPlay.setImage(UIImage(named:"IG_Message_Cell_Player_Voice_Play"), for: .normal)
+            btnPlay.setTitle("", for: UIControl.State.normal)
         }
         
         if self.attachment?.status != .ready {
-            indicatorViewAbs.layer.cornerRadius = 16.0
-            indicatorViewAbs.layer.masksToBounds = true
             indicatorViewAbs.delegate = self
         }
         
-        imgFileAbs.setThumbnail(for: attachment)
         sliderVoice.setValue(0.0, animated: false)
         let timeM = Int(attachment.duration / 60)
         let timeS = Int(attachment.duration.truncatingRemainder(dividingBy: 60.0))
         txtVoiceTime.text = "0:00 / \(timeM):\(timeS)".inLocalizedLanguage()
+    }
+    
+    
+    /****************************************************************************/
+    /******************************* Voice Player *******************************/
+    
+    /** check current voice state and if is playing update values to current state */
+    private func checkPlayerState(){
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlay, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!, justUpdate: true)
+    }
+    
+    private func voiceGustureRecognizers() {
+        let play = UITapGestureRecognizer(target: self, action: #selector(didTapOnPlay(_:)))
+        btnPlay?.addGestureRecognizer(play)
+    }
+    
+    @objc func didTapOnPlay(_ gestureRecognizer: UITapGestureRecognizer) {
+        IGPlayer.shared.startPlayer(btnPlayPause: btnPlay, slider: sliderVoice, timer: txtVoiceTime, attachment: self.finalRoomMessage.attachment!)
     }
 }
 
