@@ -48,26 +48,28 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-
+        
+        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         
         IGPhoneBookTableViewController.callDelegate = self
         let predicate = NSPredicate(format: "isInContacts = 1")
         contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.tableView.tableHeaderView = makeHeaderView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setPhoneBookNavigationItems()
-        navigationItem.rightViewContainer?.addAction
-            {
-
-                self.goToAddContactsPage()
+        navigationItem.rightViewContainer?.addAction {
+            self.goToAddContactsPage()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             navigationItem.leftViewContainer?.addAction {
-
+                
             }
         }
 
@@ -89,6 +91,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         lblIcon.text = ""
         lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
         lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
+        lblIcon.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblText.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblText.font = UIFont.igFont(ofSize: 15)
         lblText.textAlignment = lblText.localizedNewDirection
         bottomBorder.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
@@ -103,8 +107,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         bottomBorder.snp.makeConstraints { (make) in
             make.bottom.equalTo(headerView.snp.bottom)
             make.height.equalTo(1)
-            make.leading.equalTo(headerView.snp.leading).offset(10)
-            make.trailing.equalTo(headerView.snp.trailing).offset(-10)
+            make.leading.equalTo(headerView.snp.leading).offset(0)
+            make.trailing.equalTo(headerView.snp.trailing).offset(0)
         }
         lblIcon.snp.makeConstraints { (make) in
             make.centerY.equalTo(headerView.snp.centerY)
@@ -124,7 +128,7 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             make.left.equalTo(headerView.snp.left)
             make.right.equalTo(headerView.snp.right)
         }
-        headerView.backgroundColor = UIColor.white
+        headerView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         
         return headerView
     }
@@ -164,9 +168,9 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return makeHeaderView()
-    }
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return makeHeaderView()
+//    }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 80
     }

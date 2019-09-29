@@ -23,7 +23,7 @@ class IGRoomListtCell: UITableViewCell {
     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .bold)
-        label.textColor = .black
+        label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = label.localizedNewDirection
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,7 +31,7 @@ class IGRoomListtCell: UITableViewCell {
     var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 10,weight: .light)
-        label.textColor = .black
+        label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = NSTextAlignment.center
         label.text = label.text?.inLocalizedLanguage()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ class IGRoomListtCell: UITableViewCell {
     var lastMsgLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 14,weight: .light)
-        label.textColor = .black
+        label.textColor = UIColor(named: themeColor.TVCellTitleColor.rawValue)
         label.textAlignment = label.localizedNewDirection
         label.text = label.text?.inLocalizedLanguage()
         label.layer.cornerRadius = 8
@@ -135,12 +135,11 @@ class IGRoomListtCell: UITableViewCell {
             
             //
             if item.pinId > 0 {
-//                self.contentView.backgroundColor = UIColor.pinnedChats()
-                self.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-
+                self.contentView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
                 bgImage.isHidden = false
+                
             } else {
-                self.contentView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                self.contentView.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
                 bgImage.isHidden = true
             }
             
@@ -541,6 +540,7 @@ class IGRoomListtCell: UITableViewCell {
             }
         }
     }
+    
     private func makeAvatar() {
         avatarImage.snp.makeConstraints { (make) in
             make.leading.equalTo(self.contentView.snp.leading).offset(12)

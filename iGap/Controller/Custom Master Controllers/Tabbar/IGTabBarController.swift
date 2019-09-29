@@ -34,25 +34,16 @@ class IGTabBarController: UITabBarController {
         
         self.delegate = self
         
-        UITabBar.appearance().backgroundImage = UIImage.colorForNavBar(color: UIColor.tabbarBGColor())
-        UITabBar.appearance().shadowImage = UIImage.colorForNavBar(color: .clear)
-        self.tabBar.barTintColor = UIColor.white
-        self.tabBar.layer.cornerRadius = 10
+        self.tabBar.barTintColor = UIColor(named: themeColor.tabBarColor.rawValue)
+        self.tabBar.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        self.tabBar.layer.cornerRadius = abs(CGFloat(Int(12 * 100)) / 100)
+        self.tabBar.clipsToBounds = true
+        self.tabBar.layer.maskedCorners =  [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        self.view.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)
+        
         setTabBarItems()
         self.selectedIndex = 2
-        let view = UIView()
-        let viewBottom = UIView()
-        view.backgroundColor = UIColor.tabbarBGColor()
-        viewBottom.backgroundColor = UIColor.white
-        view.frame = self.tabBar.bounds
-        viewBottom.frame = self.tabBar.bounds
-        view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
-        view.layer.borderWidth = 1
-        view.layer.borderColor =  UIColor.tabbarBGColor().cgColor
-
-        self.tabBar.insertSubview(viewBottom, at: 0)
-        self.tabBar.insertSubview(view, at: 1)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +52,7 @@ class IGTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
 
-        for item in tabBar.items!{
+        for item in tabBar.items! {
             if #available(iOS 10.0, *) {
                 item.badgeColor = UIColor.unreadLable()
 //                item.badgeValue = "2".inLocalizedLanguage()
@@ -70,20 +61,9 @@ class IGTabBarController: UITabBarController {
                     NSAttributedString.Key.foregroundColor: UIColor.white,
                     NSAttributedString.Key.font: UIFont.igFont(ofSize: 15)
                     ], for: .normal)
-
-                
             }
         }
     }
-    
-    
-//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-//        print("ITEMSELECTED", item.tag)
-//
-//        self.selectTabBar(tabBar: tabBar, didSelect: TabBarTab(rawValue: item.tag) ?? .Recent)
-//
-////        selectedItemTitleMustbeBold()
-//    }
     
     public func selectTabBar(tabBar: UITabBar, didSelect item: TabBarTab) {
         for item in tabBar.items! {

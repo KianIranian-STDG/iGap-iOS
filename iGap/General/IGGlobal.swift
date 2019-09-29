@@ -467,7 +467,7 @@ extension UIColor {
         return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
     }
     class func tabbarBGColor() -> UIColor {
-        return UIColor(red: 234/255.0, green: 234/255.0, blue: 237/255.0, alpha: 0.9)
+        return UIColor(named: themeColor.tabBarColor.rawValue) ?? #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9294117647, alpha: 0.9)
     }
     
     class func forwardBoxOutgoign() -> UIColor {

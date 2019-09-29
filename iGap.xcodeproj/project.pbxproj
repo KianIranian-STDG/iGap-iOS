@@ -81,6 +81,8 @@
 		8E7EE0CB22E354ED00133485 /* MessageViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */; };
 		8E7F18F422F5679300A7A7DD /* TextCellCardToCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */; };
 		8E7F18F622F567B500A7A7DD /* TextCellCardToCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */; };
+		8E83CAA223408E8600A8CF65 /* ThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA123408E8600A8CF65 /* ThemeColors.swift */; };
+		8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */; };
 		8E871887233CEE19004A5E56 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; };
 		8E871888233CEE19004A5E56 /* RxRelay.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8E871886233CEE18004A5E56 /* RxRelay.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8E8D8E17225CCE6800039191 /* SMValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8D8E16225CCE6800039191 /* SMValidation.swift */; };
@@ -858,6 +860,8 @@
 		8E7EE0CA22E354ED00133485 /* MessageViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MessageViewlocalizationsEn.json; sourceTree = "<group>"; };
 		8E7F18F322F5679300A7A7DD /* TextCellCardToCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellCardToCard.swift; sourceTree = "<group>"; };
 		8E7F18F522F567B500A7A7DD /* TextCellCardToCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCellCardToCard.xib; sourceTree = "<group>"; };
+		8E83CAA123408E8600A8CF65 /* ThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColors.swift; sourceTree = "<group>"; };
+		8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGTransparentTabBar.swift; sourceTree = "<group>"; };
 		8E871886233CEE18004A5E56 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		8E8D8E16225CCE6800039191 /* SMValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMValidation.swift; sourceTree = "<group>"; };
 		8E8D8E18225CE39A00039191 /* strings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = strings.json; sourceTree = "<group>"; };
@@ -1690,6 +1694,14 @@
 				8E599D892329262500D75376 /* IGCallPageViewController.swift */,
 			);
 			path = DialPad;
+			sourceTree = "<group>";
+		};
+		8E83CAA023408E5200A8CF65 /* Theme Manager */ = {
+			isa = PBXGroup;
+			children = (
+				8E83CAA123408E8600A8CF65 /* ThemeColors.swift */,
+			);
+			path = "Theme Manager";
 			sourceTree = "<group>";
 		};
 		8E8D8E22225DB4B000039191 /* WithDraw */ = {
@@ -2839,6 +2851,7 @@
 			children = (
 				FAD5305D1E0BD7BA00FE6C54 /* IGTabBarController.swift */,
 				FA9D869F22796B44002F981A /* IGTabBarStickerController.swift */,
+				8E83CAA32340B81700A8CF65 /* IGTransparentTabBar.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -3112,6 +3125,7 @@
 		FAF7960C1DAA39660030509B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8E83CAA023408E5200A8CF65 /* Theme Manager */,
 				FA11E28B1DE99BE700A2F87C /* Factories */,
 				FAA30F641DAA6ECA0061B8C9 /* Managers */,
 				FA7D021E1DB4DD9B009EE0CC /* Objects */,
@@ -3577,6 +3591,7 @@
 				8E599D6F2325316100D75376 /* IGSettingsNotificationsTableViewController.swift in Sources */,
 				93A3D3CE1E4087B000D2686F /* IGNewChannelBottomViewCollectionCell.swift in Sources */,
 				FAC1330522C098D000817044 /* IGStructMessageOption.swift in Sources */,
+				8E83CAA42340B81700A8CF65 /* IGTransparentTabBar.swift in Sources */,
 				FA09534C1E1B97700043ED3F /* IGSettingAccountUsernameTableViewController.swift in Sources */,
 				8EA8F3EF231F9E450099C4EF /* UICircularTimerRing.swift in Sources */,
 				8E62FFCF233F82E0006DD56B /* sharedMediamanagerViewController.swift in Sources */,
@@ -3892,6 +3907,7 @@
 				D619A845232DF8AA007AD9F8 /* IGGroupProfile.swift in Sources */,
 				8E599D812328C59600D75376 /* UICollectionViewCustom.swift in Sources */,
 				FA99FF74223544B2009035DF /* DashboardCell6.swift in Sources */,
+				8E83CAA223408E8600A8CF65 /* ThemeColors.swift in Sources */,
 				FAD5305E1E0BD7BA00FE6C54 /* IGTabBarController.swift in Sources */,
 				FAD530651E0BDE2A00FE6C54 /* IGNavigationItem.swift in Sources */,
 				FA63BA9D1DD6E030000B60AD /* IGFile.swift in Sources */,

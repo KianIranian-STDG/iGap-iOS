@@ -54,7 +54,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
         initDetails()
         
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
         
         tableView.tableFooterView = UIView()
     }
@@ -107,7 +107,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
         
         gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+        gradient.colors = [#colorLiteral(red: 0.7254901961, green: 0.8862745098, blue: 0.2666666667, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1).cgColor]
         gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
         gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
         gradient.locations = orangeGradientLocation as [NSNumber]
