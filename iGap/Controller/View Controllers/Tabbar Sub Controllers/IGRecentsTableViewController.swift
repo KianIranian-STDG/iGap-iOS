@@ -31,9 +31,25 @@ import MarkdownKit
 class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObserver, UNUserNotificationCenterDelegate, ForwardStartObserver {
     
     var searchController : UISearchController = {
+        
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        let gradient = CAGradientLayer()
+        let sizeLength = UIScreen.main.bounds.size.height * 2
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+        
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+        gradient.locations = orangeGradientLocation as [NSNumber]
+
+        
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+     
         
         return searchController
 
@@ -338,12 +354,13 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
 
             if navigationItem.searchController == nil {
-            navigationItem.searchController = searchController
-            navigationItem.hidesSearchBarWhenScrolling = true
-                
-                navigationItem.searchController!.searchBar.delegate = self
+//            navigationItem.searchController = searchController
+//            navigationItem.hidesSearchBarWhenScrolling = true
+//
+//                navigationItem.searchController!.searchBar.delegate = self
 
-                
+                tableView.tableHeaderView = searchController.searchBar
+
             }
         } else {
             tableView.tableHeaderView = searchController.searchBar
@@ -363,7 +380,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         super.viewDidLoad()
         isfromPacket = false
         self.tableView.scrollsToTop = false
-
+        self.tableView.bounces = false
+        self.searchController.searchBar.delegate = self
 //        initialiseSearchBar()
         IGRecentsTableViewController.forwardStartObserver = self
         IGRecentsTableViewController.messageReceiveDelegat = self
@@ -481,12 +499,14 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
 
 
                     if navigationItem.searchController == nil {
-                    navigationItem.searchController = searchController
-                    navigationItem.hidesSearchBarWhenScrolling = true
-                        
-                        navigationItem.searchController!.searchBar.delegate = self
+//                    navigationItem.searchController = searchController
+//                    navigationItem.hidesSearchBarWhenScrolling = true
+//
+//                        navigationItem.searchController!.searchBar.delegate = self
+//
+//
+                        tableView.tableHeaderView = searchController.searchBar
 
-                        
                     }
                 } else {
                     tableView.tableHeaderView = searchController.searchBar
@@ -1658,6 +1678,7 @@ extension IGRecentsTableViewController {
         print(scrollView.contentOffset.y)
         
     }
+    
     private func initialiseSearchBar() {
         
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
