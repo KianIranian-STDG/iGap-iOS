@@ -383,7 +383,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         self.tableView.scrollsToTop = false
         self.tableView.bounces = false
         self.searchController.searchBar.delegate = self
-        self.tableView.contentOffset = CGPoint(x: 0, y: searchController.searchBar.frame.height)
+        self.tableView.contentOffset = CGPoint(x: 0, y: 70)
 
 //        initialiseSearchBar()
         IGRecentsTableViewController.forwardStartObserver = self

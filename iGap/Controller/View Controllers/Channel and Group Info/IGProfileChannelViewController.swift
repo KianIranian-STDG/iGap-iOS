@@ -1407,13 +1407,12 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
-                        if let isMute  = self.room?.mute {
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
                             cellTwo.lblActionDetail.isOn = true
-
                         } else {
                             cellTwo.lblActionDetail.isOn = false
-
                         }
+                        cellTwo.delegate = self
                         return cellTwo
                         
                     default:
@@ -2386,59 +2385,48 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
 
             }
         case .publicRoom?:
-            
-            switch indexPath.section {
-            case 0:
-                break
-            case 1:
-                break
-            case 2:
-                switch indexPath.row {
-                case 0 :
+            switch myRole {
+            case .member?:
+
+                switch indexPath.section {
+                case 0:
                     break
-                case 1 :
-                    //gotToNotificationSettings
+                case 1:
                     break
+                case 2:
+                        break
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+                    break
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        report(room: self.room!)
+                        break
+                    case 1 :
+                        showDeleteChannelActionSheet()
+                        break
+                    default:
+                        break
+                        
+                    }
                 default:
                     break
                 }
-            case 3:
-                //goToSharedMedia
-                self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                
+            case .moderator?:
                 break
-                
-            case 4:
-                switch indexPath.row {
-                case 0 :
-                    //gotToAddMEmberPage
-                    break
-                case 1 :
-                    //gotToMemberListPage
-                    self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-                    
-                    break
-                default:
-                    break
-                    
-                }
-            case 5:
-                
-                switch indexPath.row {
-                case 0 :
-                    //ShowReportAlert
-                    break
-                case 1 :
-                    //ShowLeaveAlert
-                    showDeleteChannelActionSheet()
-                    
-                    break
-                default:
-                    break
-                    
-                }
-            default:
+
+            case .admin?:
                 break
+
+            case .owner?:
+                break
+
+            case .none:
+                break
+
             }
         case .none:
             
