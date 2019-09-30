@@ -74,6 +74,7 @@
 		8E62FFCD233F7BA4006DD56B /* T3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFCC233F7BA4006DD56B /* T3ViewController.swift */; };
 		8E62FFCF233F82E0006DD56B /* sharedMediamanagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */; };
 		8E62FFD1233FA623006DD56B /* addMemberCellTypeTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */; };
+		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -852,6 +853,7 @@
 		8E62FFCC233F7BA4006DD56B /* T3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3ViewController.swift; sourceTree = "<group>"; };
 		8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharedMediamanagerViewController.swift; sourceTree = "<group>"; };
 		8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addMemberCellTypeTwoCell.swift; sourceTree = "<group>"; };
+		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -1968,6 +1970,7 @@
 			children = (
 				93AA67B91E4F03290053380C /* IGChannelInfoTableViewController.swift */,
 				8E9B6FBA2337458D002C6431 /* IGProfileChannelViewController.swift */,
+				8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift */,
 				93AA67BB1E4F35580053380C /* IGChannelInfoEditNameTableViewController.swift */,
 				93AA67BD1E4F35770053380C /* IGChannelInfoEditDescriptionTableViewController.swift */,
 				93AA67BF1E4F35CF0053380C /* IGChannelInfoEditTypeTableViewController.swift */,
@@ -4072,6 +4075,7 @@
 				FA075DEB232A5E9C002E7AC7 /* IGApiInternetPackage.swift in Sources */,
 				FA3C24B42332142D00848261 /* IGApiCharity.swift in Sources */,
 				FA09538B1E1B97E20043ED3F /* IGNewChannelChoosePublicOrPrivateTableViewController.swift in Sources */,
+				8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift in Sources */,
 				FA0953501E1B97700043ED3F /* IGSettingChatCatchTableViewController.swift in Sources */,
 				93193F3A1E5814E60039AC0C /* IGGroupAdminListTableViewCell.swift in Sources */,
 				8EBF553122DCBE8E00834E6A /* IGFavouriteChannelsDashboardCollectionViewCell.swift in Sources */,
