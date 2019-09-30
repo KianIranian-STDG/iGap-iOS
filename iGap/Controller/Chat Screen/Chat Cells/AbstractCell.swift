@@ -288,25 +288,10 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 }
             }
             
-            if IGHelperBot.createdViewDic[realmRoomMessage.id] != nil {
-                DispatchQueue.main.async {
-                    self.txtMessageAbs.textAlignment = NSTextAlignment.center
-                }
-            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.CARD_TO_CARD_PAY.rawValue,
-                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                txtMessageAbs.textAlignment = NSTextAlignment.center
-                
-            } else if let additionalData = finalRoomMessage.additional?.data, finalRoomMessage.additional?.dataType == AdditionalType.UNDER_MESSAGE_BUTTON.rawValue,
-                let additionalStruct = IGHelperJson.parseAdditionalButton(data: additionalData), (isIncommingMessage || (self.room.type == .chat && !(self.room.chatRoom?.peer!.isBot)! && additionalStruct[0][0].actionType == IGPDiscoveryField.IGPButtonActionType.cardToCard.rawValue)){
-                txtMessageAbs.textAlignment = NSTextAlignment.center
-                
+            if isRtl {
+                txtMessageAbs.textAlignment = NSTextAlignment.right
             } else {
-                
-                if isRtl {
-                    txtMessageAbs.textAlignment = NSTextAlignment.right
-                } else {
-                    txtMessageAbs.textAlignment = NSTextAlignment.left
-                }
+                txtMessageAbs.textAlignment = NSTextAlignment.left
             }
         } else {
             txtMessageAbs?.isHidden = true

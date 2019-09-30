@@ -35,6 +35,7 @@ class VoiceCell: AbstractCell {
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
         initializeView()
+        removeVoiceView()
         makeVoiceView(message)
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
         manageVoiceViewPosition()
@@ -86,6 +87,21 @@ class VoiceCell: AbstractCell {
         if indicatorViewAbs == nil {
             indicatorViewAbs = IGProgress()
             mainBubbleViewAbs.addSubview(indicatorViewAbs)
+        }
+    }
+    
+    private func removeVoiceView(){
+        if txtVoiceTime != nil {
+            txtVoiceTime.removeFromSuperview()
+            txtVoiceTime = nil
+        }
+        if btnPlay != nil {
+            btnPlay.removeFromSuperview()
+            btnPlay = nil
+        }
+        if sliderVoice != nil {
+            sliderVoice.removeFromSuperview()
+            sliderVoice = nil
         }
     }
     
