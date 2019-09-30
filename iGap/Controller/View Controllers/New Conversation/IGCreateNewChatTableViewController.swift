@@ -168,23 +168,22 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if navigationItem.searchController == nil {
-            let gradient = CAGradientLayer()
-            let sizeLength = UIScreen.main.bounds.size.height * 2
-            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-            
-            gradient.frame = defaultNavigationBarFrame
-            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-            gradient.locations = orangeGradientLocation as [NSNumber]
+//            let gradient = CAGradientLayer()
+//            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+//
+//            gradient.frame = defaultNavigationBarFrame
+//            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+//            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+//            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+//            gradient.locations = orangeGradientLocation as [NSNumber]
             
             
             
             if #available(iOS 11.0, *) {
                 
-                if let navigationBar = self.navigationController?.navigationBar {
-                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
-                }
+//                if let navigationBar = self.navigationController?.navigationBar {
+//                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
+//                }
                 
                 
                 //                IGGlobal.setLanguage()

@@ -101,33 +101,33 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         self.navigationController?.navigationBar.isHidden = false
         initChangeLanguage()
         self.tableView.isUserInteractionEnabled = true
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        let gradient = CAGradientLayer()
-        let sizeLength = UIScreen.main.bounds.size.height * 2
-        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-        
-        gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [#colorLiteral(red: 0.7254901961, green: 0.8862745098, blue: 0.2666666667, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1).cgColor]
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = orangeGradientLocation as [NSNumber]
-
-        
-        navigationControllerr.navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-        navigationControllerr.navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationControllerr.interactivePopGestureRecognizer?.delegate = self
-
-        navigationControllerr.navigationBar.isTranslucent = true
+//        let navigationControllerr = self.navigationController as! IGNavigationController
+//        let gradient = CAGradientLayer()
+//        let sizeLength = UIScreen.main.bounds.size.height * 2
+//        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
+//
+//        gradient.frame = defaultNavigationBarFrame
+//        gradient.colors = [#colorLiteral(red: 0.7254901961, green: 0.8862745098, blue: 0.2666666667, alpha: 1).cgColor, #colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1).cgColor]
+//        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
+//        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
+//        gradient.locations = orangeGradientLocation as [NSNumber]
+//
+//
+//        navigationControllerr.navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+//        navigationControllerr.navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+//
+//        navigationControllerr.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationControllerr.interactivePopGestureRecognizer?.delegate = self
+//
+//        navigationControllerr.navigationBar.isTranslucent = true
         //Hint:- Only hides the gradient background View
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = true
-            }
-        }
+//        for view in navigationControllerr.navigationBar.subviews {
+//            if view.tag == 10001 {
+//                view.isHidden = true
+//            }
+//        }
 
     }
     

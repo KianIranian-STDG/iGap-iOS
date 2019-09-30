@@ -245,8 +245,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         btnMenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         btnWomenGender.setTitle("", for: .normal)
         btnWomenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        colorView.frame = CGRect(x: 0, y: -UIApplication.shared.statusBarFrame.height, width: (self.navigationController?.navigationBar.frame.width)!, height: UIApplication.shared.statusBarFrame.height)
-        colorView.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: colorView).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: colorView.frame.size.width/2, bottom: 0, right: colorView.frame.size.width/2), resizingMode: .stretch))
+        
         btnCamera.setBackgroundImage(UIImage(named: "ig_add_image_icon"), for: .normal)
         
         
@@ -264,8 +263,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         
         let tapNew = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTapNew(recognizer:)))
         stack3.addGestureRecognizer(tapNew)
-        
-        
         
     }
     func initChangeLang() {
@@ -618,17 +615,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             }
         }).send()
         }
-    }
-    //
-    func gradientImage(withColours colours: [UIColor], location: [Double], view: UIView) -> UIImage {
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.colors = colours.map { $0.cgColor }
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = location as [NSNumber]
-        gradient.cornerRadius = view.layer.cornerRadius
-        return UIImage.image(from: gradient) ?? UIImage()
     }
     
     func manageOpenMap(){

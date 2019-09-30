@@ -40,7 +40,6 @@ let IGNotificationPushLoginToken          = Notification(name: Notification.Name
 let IGNotificationPushTwoStepVerification = Notification(name: Notification.Name(rawValue: "im.igap.ios.user.push.two.step"))
 
 
-let orangeGradient = [UIColor(rgb: 0xB9E244), UIColor(rgb: 0x41B120)]
 let orangeGradientLocation = [0.0, 1.0]
 
 

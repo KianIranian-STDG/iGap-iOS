@@ -13,8 +13,11 @@ enum themeColor: String {
     case tableViewBackground = "IGTableViewBackgroundColor"
     case tableViewCell = "IGTableViewCellColor"
     case recentTVCellColor = "IGRecentTVCellColor"
-    case labelColor = "IBLabelColor"
+    case labelColor = "IGLabelColor"
     case TVCellTitleColor = "IGTVCellTitleColor"
     case tabBarColor = "IGTabBarColor"
     case labelGrayColor = "IGLabelGrayColor"
+    case navigationFirstColor = "IGNavigationFirstColor"
+    case navigationSecondColor = "IGNavigationSecondColor"
+    case searchBarBackGroundColor = "IGSearchBarBackGroundColor"
 }

@@ -35,25 +35,54 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = ""
         searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+        
         let gradient = CAGradientLayer()
-        let sizeLength = UIScreen.main.bounds.size.height * 2
         let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
-        
-        gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = orangeGradientLocation as [NSNumber]
 
-        
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+//        gradient.locations = orangeGradientLocation as [NSNumber]
+
         
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-     
         
         return searchController
 
     }()
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                self.setSearchBarGradient()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
+    private func setSearchBarGradient() {
+        let gradient = CAGradientLayer()
+        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+        gradient.frame = defaultNavigationBarFrame
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+//        gradient.locations = orangeGradientLocation as [NSNumber]
+        
+        searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        
+        
+    }
+    
     var nameLabel :UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .bold)
@@ -62,7 +91,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
     
     var testArray = [IGAvatarView]()
     var testLastMsgArray = [String]()
@@ -84,13 +112,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     let iGapStoreLink = URL(string: "https://new.sibapp.com/applications/igap")
     var cellId = "cellId"
     
-//    @IBOutlet weak var searchBar: UISearchBar! {
-//        didSet {
-//            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
-//            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".RecentTableViewlocalizedNew, for: .normal)
-//
-//        }
-//    }
     private let disposeBag = DisposeBag()
     
     private func updateNavigationBarBasedOnNetworkStatus(_ status: IGAppManager.ConnectionStatus) {
@@ -325,39 +346,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
     private func setDefaultNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navItemInit()
-        //Setup Search Controller
-        // Convert CAGradientLayer to UIImage
-        let gradient = CAGradientLayer()
-        let sizeLength = UIScreen.main.bounds.size.height * 2
-        let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-        
-        gradient.frame = defaultNavigationBarFrame
-        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = orangeGradientLocation as [NSNumber]
-
-        
         
         if #available(iOS 11.0, *) {
-
-            if let navigationBar = self.navigationController?.navigationBar {
-                navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-                navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-
-
-            }
- 
-            
-//            IGGlobal.setLanguage()
             self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
-
             if navigationItem.searchController == nil {
-//            navigationItem.searchController = searchController
-//            navigationItem.hidesSearchBarWhenScrolling = true
-//
-//                navigationItem.searchController!.searchBar.delegate = self
 
                 tableView.tableHeaderView = searchController.searchBar
 
@@ -476,46 +469,17 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
        navigationItem.setChatListsNavigationItems()
         navItemInit()
 
-         let gradient = CAGradientLayer()
-                let sizeLength = UIScreen.main.bounds.size.height * 2
-                let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-                
-                gradient.frame = defaultNavigationBarFrame
-                gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-                gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-                gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-                gradient.locations = orangeGradientLocation as [NSNumber]
-
                 
                 
                 if #available(iOS 11.0, *) {
-
-                    if let navigationBar = self.navigationController?.navigationBar {
-                        navigationBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-                        navigationBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
-
-
-                    }
-         
-                    
-        //            IGGlobal.setLanguage()
                     self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
-
                     if navigationItem.searchController == nil {
-//                    navigationItem.searchController = searchController
-//                    navigationItem.hidesSearchBarWhenScrolling = true
-//
-//                        navigationItem.searchController!.searchBar.delegate = self
-//
-//
                         tableView.tableHeaderView = searchController.searchBar
-
                     }
                 } else {
                     tableView.tableHeaderView = searchController.searchBar
                 }
-                
 
         
         isfromPacket = false
@@ -1690,14 +1654,18 @@ extension IGRecentsTableViewController {
 
             let imageV = textField.leftView as! UIImageView
             imageV.image = nil
-            
             if let backgroundview = textField.subviews.first {
-                backgroundview.backgroundColor = UIColor.white.withAlphaComponent(0.6)
+                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                for view in backgroundview.subviews {
+                    if view is UIView {
+                        view.backgroundColor = .clear
+                    }
+                }
                 backgroundview.layer.cornerRadius = 10;
-                backgroundview.clipsToBounds = true;
+                backgroundview.clipsToBounds = true;                
                 
             }
-            
+
             if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
                 searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
                 searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)

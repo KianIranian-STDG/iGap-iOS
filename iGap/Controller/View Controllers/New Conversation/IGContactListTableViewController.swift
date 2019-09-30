@@ -202,53 +202,28 @@ class IGContactListTableViewController: UITableViewController, UISearchResultsUp
             }).send()
         }
     }
-    func onTopScrollAnimation() {
-        self.navigationControll = self.navigationController as! IGNavigationController
-        self.navigationControll.searchBarRecent.fadeIn(0.5, 1.0)
-        
-    }
-    func onBottomScrollAnimation() {
-        self.navigationControll = self.navigationController as! IGNavigationController
-        
-        self.navigationControll.searchBarRecent.fadeOut(0.5, 0.0)
-    }
 }
 
 extension IGContactListTableViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let remaining = scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y)
-        if remaining < 100 {
-            //self.loadMoreRooms()
-        }
-        if (self.lastContentOffset > scrollView.contentOffset.y) {
-            // move up
-            DispatchQueue.main.async() {
-                self.tableView.contentInset.top = 0.0
-                
-                self.onTopScrollAnimation()
-            }
-        }
-        else if (self.lastContentOffset < scrollView.contentOffset.y) && scrollView.contentOffset.y >= 0 && self.lastContentOffset >= 0  {
-            // move down
-            DispatchQueue.main.async() {
-                
-                self.onBottomScrollAnimation()
-            }
-        }
-        else if self.lastContentOffset == 0 {
-            DispatchQueue.main.async() {
-                self.tableView.contentInset.top = 15.0
-                
-                self.onTopScrollAnimation()
-            }
-        }
-        else {
-            DispatchQueue.main.async() {
-                
-                self.onTopScrollAnimation()
-            }
-        }
+//        if (self.lastContentOffset > scrollView.contentOffset.y) {
+//            // move up
+//            DispatchQueue.main.async() {
+//                self.tableView.contentInset.top = 0.0
+//            }
+//        }
+//        else if (self.lastContentOffset < scrollView.contentOffset.y) && scrollView.contentOffset.y >= 0 && self.lastContentOffset >= 0  {
+//            // move down
+//            DispatchQueue.main.async() {
+//            }
+//        }
+//        else if self.lastContentOffset == 0 {
+//            DispatchQueue.main.async() {
+//                self.tableView.contentInset.top = 15.0
+//            }
+//        }
         self.lastContentOffset = scrollView.contentOffset.y
         
     }

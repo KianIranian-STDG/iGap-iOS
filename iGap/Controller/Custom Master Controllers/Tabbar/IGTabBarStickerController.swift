@@ -19,7 +19,7 @@ class IGTabBarStickerController: UITabBarController, UIGestureRecognizerDelegate
         let view = UIView()
         view.frame = self.tabBar.bounds
 
-        view.backgroundColor = UIColor(patternImage: gradientImage(withColours: orangeGradient, location: orangeGradientLocation, view: self.tabBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: self.tabBar.frame.size.width/2, bottom: 0, right: self.tabBar.frame.size.width/2), resizingMode: .stretch))
+        view.backgroundColor = UIColor(patternImage: gradientImage(withColours: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], location: orangeGradientLocation, view: self.tabBar).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: self.tabBar.frame.size.width/2, bottom: 0, right: self.tabBar.frame.size.width/2), resizingMode: .stretch))
         
 
         view.roundCorners(corners: [.layerMaxXMinYCorner,.layerMinXMinYCorner], radius: 10)
