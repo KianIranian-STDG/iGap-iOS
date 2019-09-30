@@ -71,8 +71,17 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        //MARK: -GradientView Initialiser
-        initGradientView()
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                self.initGradientView()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,21 +107,23 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     
     
     //MARK: -Development functions
+    
     @IBAction func btnStartChat(_ sender: UIButton) {
         self.createChat()
     }
     
     //MARK: -Check if is For Bot
+    
     private func isBotRoom() -> Bool{
         return (user?.isBot)!
     }
 
     private func initView() {
-        //MARK: -Avatar View Initialiser
+        //Hint: - Avatar View Initialiser
         initAvatarView()
-        //MARK: -GradientView Initialiser
+        //Hint: - GradientView Initialiser
         initGradientView()
-        //MARK: -Labels initialisers
+        //Hint: - Labels initialisers
         initLabels()
     }
     

@@ -32,7 +32,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     var notificationAdmin: NotificationToken?
 
     var isVerified : Bool! = false
-    var maxNavHeight : CGFloat = 144
+    var maxNavHeight : CGFloat = 100
     var avatarPhotos : [INSPhotoViewable]?
     var galleryPhotos: INSPhotosViewController?
     var lastIndex: Array<Any>.Index?
@@ -76,7 +76,6 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         channelNameLabelTitle.font = UIFont.igFont(ofSize: 15,weight: .bold)
         channelUserCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         channelNameLabelTitle.textColor = .white
-        channelUserCountLabel.textColor = .white
 
         initGradientView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -84,7 +83,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
 
         maxNavHeight = self.heightConstraints.constant
         originalTransform = self.channelImage.transform
-        tableView.contentInset = UIEdgeInsets(top: maxNavHeight, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role)
 
@@ -117,6 +116,20 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         super.viewWillAppear(animated)
         
         requestToGetRoom()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                self.initGradientView()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     

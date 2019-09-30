@@ -20,7 +20,6 @@ import MBProgressHUD
 import NVActivityIndicatorView
 
 class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
-
     
     //MARK: -Variables
     var adminsCount : String = "0"
@@ -37,8 +36,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
 
     var isFistLaunch : Bool! = true
     var groupLink: String? = ""
-    let headerViewMaxHeight: CGFloat = 144
-    let headerViewMinHeight: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
+    let headerViewMaxHeight: CGFloat = 100
+    let headerViewMinHeight: CGFloat = 45
     var originalTransform : CGAffineTransform!
     private var lastContentOffset: CGFloat = 0
     private var hasScaledDown: Bool = false
@@ -56,7 +55,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     var avatars: [IGAvatar] = []
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
-    var maxNavHeight : CGFloat = 144
+    var maxNavHeight : CGFloat = 100
 
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -72,62 +71,46 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         groupFirstInitialiser()
         maxNavHeight = self.heightConstraints.constant
         originalTransform = self.avatarView.transform
-        tableView.contentInset = UIEdgeInsets(top: maxNavHeight, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: room?.groupRoom?.role, channelRole: nil)
 
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
         
         initView()
-        self.displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
+        
+        displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
         displayNameLabel.textColor = .white
-        memberCountLabel.textColor = .white
+        displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
+        memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationControllerr.interactivePopGestureRecognizer?.delegate = self
-        
-        navigationControllerr.navigationBar.isTranslucent = true
-        //Hint:- Only hides the gradient background View
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = true
-            }
-        }
-        
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        
-        navigationControllerr.navigationBar.backgroundColor = .clear
-        navigationControllerr.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationControllerr.navigationBar.isTranslucent = false
-        //Hint:- Only shows the gradient background View
-        
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = false
-                print("FOUND IT")
-            }
-        }
     }
     
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                self.initGradientView()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
 
     //MARK: -Development functions
     private func initView() {
-        //MARK: -Avatar View Initialiser
+        //Hint: -Avatar View Initialiser
         initAvatarView()
-        //MARK: -GradientView Initialiser
+        //Hint: -GradientView Initialiser
         initGradientView()
     }
 
@@ -145,8 +128,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         requestToGetAvatarList()
         myRole = room?.groupRoom?.role
         showGroupInfo()
-//            imagePicker.delegate = self
-//            self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+        
         tableView.tableFooterView = UIView()
         
         avatarView.avatarImageView?.isUserInteractionEnabled = true
@@ -247,7 +229,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             return IGMedia(avatar: avatar)
         }
         
-        if(photos.count==0){
+        if photos.count == 0 {
             return
         }
         avatarPhotos = photos
@@ -274,36 +256,36 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     
     
     func didTapOnTrashButton() {
-        //        timer.invalidate()
-        //        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
-        //        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
-        //            let thisAvatarId = self.avatars[index].id
-        //            IGGroupAvatarDeleteRequest.Generator.generate(avatarId: thisAvatarId, roomId: (room?.id)!).success({ (protoResponse) in
-        //                DispatchQueue.main.async {
-        //                    switch protoResponse {
-        //                    case let groupAvatarDeleteResponse as IGPGroupAvatarDeleteResponse :
-        //                        IGGroupAvatarDeleteRequest.Handler.interpret(response: groupAvatarDeleteResponse)
-        //                        self.avatarPhotos?.remove(at: index)
-        //                        self.avatars.remove(at: index)
-        //                    default:
-        //                        break
-        //                    }
-        //                }
-        //            }).error ({ (errorCode, waitTime) in
-        //                switch errorCode {
-        //                case .timeout:
-        //                    DispatchQueue.main.async {
-        //                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-        //                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        //                        alert.addAction(okAction)
-        //                        self.present(alert, animated: true, completion: nil)
-        //                    }
-        //                default:
-        //                    break
-        //                }
-        //
-        //            }).send()
-        //        }
+//        timer.invalidate()
+//        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
+//        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
+//            let thisAvatarId = self.avatars[index].id
+//            IGGroupAvatarDeleteRequest.Generator.generate(avatarId: thisAvatarId, roomId: (room?.id)!).success({ (protoResponse) in
+//                DispatchQueue.main.async {
+//                    switch protoResponse {
+//                    case let groupAvatarDeleteResponse as IGPGroupAvatarDeleteResponse :
+//                        IGGroupAvatarDeleteRequest.Handler.interpret(response: groupAvatarDeleteResponse)
+//                        self.avatarPhotos?.remove(at: index)
+//                        self.avatars.remove(at: index)
+//                    default:
+//                        break
+//                    }
+//                }
+//            }).error ({ (errorCode, waitTime) in
+//                switch errorCode {
+//                case .timeout:
+//                    DispatchQueue.main.async {
+//                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+//                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                        alert.addAction(okAction)
+//                        self.present(alert, animated: true, completion: nil)
+//                    }
+//                default:
+//                    break
+//                }
+//
+//            }).send()
+//        }
     }
     
     
@@ -356,7 +338,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 }
             }
             if let memberCount = room?.groupRoom?.participantCount {
-                memberCountLabel.text = "ALLMEMBER".localizedNew + ":" + "\(memberCount)"
+                memberCountLabel.text = "ALLMEMBER".localizedNew + ": " + "\(memberCount)"
             }
             if room?.groupRoom?.type == .privateRoom {
                 groupLink = room?.groupRoom?.privateExtra?.inviteLink
@@ -1337,7 +1319,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 
                 switch section {
                 case 0:
-                    return 60
+                    return 80
                 case 4:
                     return 10
                     
@@ -1351,7 +1333,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 
                 switch section {
                 case 0:
-                    return 60
+                    return 80
                 case 4:
                     return 10
                     
@@ -1365,7 +1347,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 
                 switch section {
                 case 0:
-                    return 60
+                    return 80
                 case 3:
                     return 10
                     
@@ -1379,7 +1361,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 
                 switch section {
                 case 0:
-                    return 60
+                    return 80
                 case 3:
                     return 10
                     
@@ -1395,7 +1377,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             
             switch section {
             case 0:
-                return 60
+                return 80
             case 4:
                 return 10
                 
@@ -1408,7 +1390,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         case .none:
             switch section {
             case 0:
-                return 60
+                return 80
             case 4:
                 return 10
                 
@@ -1709,55 +1691,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         }
     }
     
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        switch indexPath.section {
-//        case 0:
-//            switch indexPath.row {
-//            case 0 :
-//                if room?.groupRoom?.roomDescription == "" || room?.groupRoom?.roomDescription == nil {
-//                    return 0
-//                } else {
-//                    return 44
-//                }
-//            default :
-//                return 44
-//
-//            }
-//
-//        case 1:
-//
-//            switch indexPath.row {
-//            case 0 :
-//
-//                switch myRole! {
-//                case .admin:
-//                    return 44
-//                case .owner:
-//                    return 44
-//                case .member:
-//                    if room?.groupRoom?.type == .publicRoom {
-//                        return 0
-//                    } else {
-//                        return 44
-//                    }
-//                case .moderator:
-//                    return 0
-//                }
-//            default :
-//                return 44
-//
-//            }
-//        default:
-//            return 44
-//        }
-//    }
-
-
-
-
 }
+
+
+
 extension IGProfileGroupViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Local variable inserted by Swift 4.2 migrator.
