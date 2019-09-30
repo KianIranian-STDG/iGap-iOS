@@ -15,7 +15,6 @@ import IGProtoBuff
 import MBProgressHUD
 import NVActivityIndicatorView
 
-
 class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
 
     //MARK: -Variables
@@ -125,9 +124,8 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let gradient = CAGradientLayer()
         gradient.frame = viewBG.frame
         gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = orangeGradientLocation as [NSNumber]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         viewBG.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         
         btnChatWith.borderColor = UIColor(named: themeColor.tableViewBackground.rawValue)!
@@ -226,12 +224,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
                     case let UserAvatarGetListoResponse as IGPUserAvatarGetListResponse:
                         let responseAvatars = IGUserAvatarGetListRequest.Handler.interpret(response: UserAvatarGetListoResponse, userId: currentUserId)
                         self.avatars = responseAvatars
-                        /*
-                         for avatar in self.avatars {
-                         let avatarView = IGImageView()
-                         avatarView.setImage(avatar: avatar)
-                         }
-                         */
+                        
                     default:
                         break
                     }
@@ -572,18 +565,16 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         if segue.identifier == "showSharedMadiaPage" {
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
             destination.room = room
+            
         } else {
-
-        let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
-        destination.mode = "ConvertChatToGroup"
-        destination.roomID = previousRoomId
-        let tmp = user
-        destination.baseUser = user
+            let destination = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController
+            destination.mode = "ConvertChatToGroup"
+            destination.roomID = previousRoomId
+            destination.baseUser = user
         }
     }
     
     func report(room: IGRoom){
-        let roomId = room.id
         let roomType = room.type
         
         var title = ""
@@ -677,11 +668,9 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
         let range = height / headerViewMaxHeight
 
-        print(range)
-        print(range * 50)
-        let btnChatWithRange = ((range * headerViewMinHeight) - headerViewMinHeight) * -1
-        let btnChatWithHeight = (self.btnChatWith.frame.size.height)/2 + 2.5
-//        btnChatWithMiddleConstraint.constant = min(btnChatWithHeight,btnChatWithRange)
+//        let btnChatWithRange = ((range * headerViewMinHeight) - headerViewMinHeight) * -1
+//        let btnChatWithHeight = (self.btnChatWith.frame.size.height)/2 + 2.5
+//        btnChatWithMiddleConstraint.constant = min(btnChatWithHeight, btnChatWithRange)
         heightConstraints.constant = height
         let scaledTransform = originalTransform.scaledBy(x: max(0.7,range), y: max(0.7,range))
         let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)

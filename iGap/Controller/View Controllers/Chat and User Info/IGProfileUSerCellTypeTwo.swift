@@ -21,19 +21,21 @@ class IGProfileUSerCellTypeTwo: UITableViewCell {
         // Initialization code
         defaultInitLabels()
     }
+    
     func initLabels(nameLblString : String! = "") {
         
         lblActionName.text = nameLblString
     }
+    
     private func defaultInitLabels() {
         lblActionName.textAlignment = lblActionName.localizedNewDirection
         lblActionName.font = UIFont.igFont(ofSize: 15)
-
-        
     }
+    
     @IBAction func muteSwitchTapped(_ sender: UISwitch) {
         delegate?.didPressMuteSwitch()
     }
+    
     override func prepareForReuse() {
         lblActionName.text = nil
     }

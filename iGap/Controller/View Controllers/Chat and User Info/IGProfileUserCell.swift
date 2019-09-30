@@ -60,8 +60,8 @@ class IGProfileUserCell: UITableViewCell {
     override func prepareForReuse() {
         lblActionName.text = nil
         lblActionDetail.text = nil
-        lblActionDetail.textColor = .black
-        lblActionName.textColor = .black
+        lblActionDetail.textColor = UIColor(named: themeColor.labelColor.rawValue)
+        lblActionName.textColor = UIColor(named: themeColor.labelColor.rawValue)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

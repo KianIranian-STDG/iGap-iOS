@@ -1863,7 +1863,7 @@
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUj-7X-Tfs">
                                                     <rect key="frame" x="8" y="5" width="50" height="50"/>
-                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="WzP-7f-XHL"/>
                                                         <constraint firstAttribute="height" constant="50" id="wbf-dk-d2N"/>
@@ -2896,7 +2896,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="wmR-x6-jaY">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="IGProfileUserCell" id="gW1-MF-WWa" customClass="IGProfileUserCell" customModule="iGap" customModuleProvider="target">
@@ -2909,13 +2909,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EML-Re-XGD">
                                                     <rect key="frame" x="16" y="5" width="45.5" height="27.5"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6N1-1A-End">
                                                     <rect key="frame" x="71.5" y="5" width="287.5" height="27.5"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <color key="textColor" red="0.61953866479999997" green="0.61964780090000005" blue="0.61953175069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2946,7 +2946,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f91-fB-4Bj">
                                                     <rect key="frame" x="16" y="8.5" width="45.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="geA-n1-GpD">
@@ -2975,44 +2975,44 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kn0-wu-jsu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="144" id="zc7-Pf-LA7"/>
+                                    <constraint firstAttribute="height" constant="100" id="zc7-Pf-LA7"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8c-SR-Edq">
-                                <rect key="frame" x="0.0" y="144" width="375" height="50"/>
-                                <color key="backgroundColor" red="0.93709164860000005" green="0.93694382909999996" blue="0.95754462480000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="50"/>
+                                <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVb-6R-hFm" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="260" y="94" width="100" height="100"/>
+                                <rect key="frame" x="260" y="50" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="la9-np-a3m"/>
                                     <constraint firstAttribute="height" constant="100" id="mLy-nk-oJY"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loU-Jx-2vz">
-                                <rect key="frame" x="100" y="103" width="152" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loU-Jx-2vz">
+                                <rect key="frame" x="100" y="55" width="152" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofs-j1-gVt">
-                                <rect key="frame" x="220" y="123.5" width="32" height="20.5"/>
+                                <rect key="frame" x="220" y="79.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnz-AK-TRL">
-                                <rect key="frame" x="220" y="148" width="32" height="20.5"/>
+                                <rect key="frame" x="220" y="104" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CT-31-whu">
-                                <rect key="frame" x="220" y="172.5" width="32" height="20.5"/>
+                                <rect key="frame" x="220" y="128.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -3022,7 +3022,7 @@
                         <constraints>
                             <constraint firstItem="wmR-x6-jaY" firstAttribute="leading" secondItem="U7A-8c-unS" secondAttribute="leading" id="2H7-R4-Ziw"/>
                             <constraint firstItem="N8c-SR-Edq" firstAttribute="top" secondItem="kn0-wu-jsu" secondAttribute="bottom" id="46E-8Y-00C"/>
-                            <constraint firstItem="ofs-j1-gVt" firstAttribute="top" secondItem="loU-Jx-2vz" secondAttribute="bottom" id="5j4-Ij-kS6"/>
+                            <constraint firstItem="ofs-j1-gVt" firstAttribute="top" secondItem="loU-Jx-2vz" secondAttribute="bottom" constant="4" id="5j4-Ij-kS6"/>
                             <constraint firstItem="N8c-SR-Edq" firstAttribute="leading" secondItem="U7A-8c-unS" secondAttribute="leading" id="6AQ-V2-vQV"/>
                             <constraint firstItem="kn0-wu-jsu" firstAttribute="leading" secondItem="xMJ-CS-BC9" secondAttribute="leading" id="71U-fd-GEB"/>
                             <constraint firstItem="U7A-8c-unS" firstAttribute="trailing" secondItem="kn0-wu-jsu" secondAttribute="trailing" id="D2P-sD-MI9"/>
@@ -3040,7 +3040,7 @@
                             <constraint firstItem="NVb-6R-hFm" firstAttribute="leading" secondItem="ofs-j1-gVt" secondAttribute="trailing" constant="8" id="rHR-5k-7as"/>
                             <constraint firstItem="wmR-x6-jaY" firstAttribute="top" secondItem="xMJ-CS-BC9" secondAttribute="top" id="sYK-ly-FZb"/>
                             <constraint firstItem="kn0-wu-jsu" firstAttribute="top" secondItem="xMJ-CS-BC9" secondAttribute="top" id="smT-p4-IBr"/>
-                            <constraint firstItem="wmR-x6-jaY" firstAttribute="bottom" secondItem="U7A-8c-unS" secondAttribute="bottom" id="xre-BI-5WW"/>
+                            <constraint firstItem="wmR-x6-jaY" firstAttribute="bottom" secondItem="xMJ-CS-BC9" secondAttribute="bottom" id="xre-BI-5WW"/>
                             <constraint firstItem="NVb-6R-hFm" firstAttribute="leading" secondItem="loU-Jx-2vz" secondAttribute="trailing" constant="8" id="zXB-QK-Cet"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U7A-8c-unS"/>
@@ -3085,6 +3085,9 @@
         <namedColor name="IGLabelColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <namedColor name="IGNavigationFirstColor">
             <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -3094,7 +3097,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QLJ-Ec-vz5"/>
-        <segue reference="k5K-AS-4bs"/>
+        <segue reference="Nrj-27-Vlk"/>
         <segue reference="zht-up-rA1"/>
     </inferredMetricsTieBreakers>
 </document>

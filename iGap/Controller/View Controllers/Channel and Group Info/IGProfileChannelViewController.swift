@@ -40,8 +40,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     var timer = Timer()
     var isFistLaunch : Bool! = true
     var channelLink: String? = ""
-    let headerViewMaxHeight: CGFloat = 144
-    let headerViewMinHeight: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
+    let headerViewMaxHeight: CGFloat = 100
+    let headerViewMinHeight: CGFloat = 45
     var originalTransform : CGAffineTransform!
     private var lastContentOffset: CGFloat = 0
     private var hasScaledDown: Bool = false
@@ -115,41 +115,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         requestToGetRoom()
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationControllerr.interactivePopGestureRecognizer?.delegate = self
-        
-        navigationControllerr.navigationBar.isTranslucent = true
-        //Hint:- Only hides the gradient background View
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = true
-            }
-        }
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        
-        navigationControllerr.navigationBar.backgroundColor = .clear
-        navigationControllerr.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationControllerr.navigationBar.isTranslucent = false
-        //Hint:- Only shows the gradient background View
-        
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = false
-                print("FOUND IT")
-            }
-        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+    
     //MARK: -Development functions
     
     func report(room: IGRoom){
@@ -297,27 +267,28 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             }
         }).send()
     }
+    
     func initGradientView() {
         let gradient = CAGradientLayer()
         gradient.frame = viewBG.frame
-        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-        gradient.locations = orangeGradientLocation as [NSNumber]
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+        gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         viewBG.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
     }
-    @objc func handleTap(recognizer:UITapGestureRecognizer) {
+    
+    @objc func handleTap(recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
             if let userAvatar = room?.channelRoom?.avatar {
                 showAvatar( avatar: userAvatar)
             }
         }
     }
-    func showAvatar(avatar : IGAvatar) {
+    func showAvatar(avatar: IGAvatar) {
         var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMedia in
             return IGMedia(avatar: avatar)
         }
-        if(photos.count==0){
+        if photos.count == 0 {
             return
         }
         avatarPhotos = photos
@@ -339,12 +310,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         galleryPhotos = galleryPreview
         present(galleryPreview, animated: true, completion: nil)
         activityIndicatorView.startAnimating()
-        
     }
-    
-    func didTapOnTrashButton() {
-    }
-    
     
     func requestToGetAvatarList() {
         if let currentRoomID = room?.id {
@@ -884,15 +850,15 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         
     }
     
-    //    func calculateHeight(inString:String) -> CGFloat {
-    //
-    //        let messageString = inString
-    //        let attributes : [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 15.0)]
-    //        let attributedString : NSAttributedString = NSAttributedString(string: messageString, attributes: attributes)
-    //        let rect : CGRect = attributedString.boundingRect(with: CGSize(width: 222.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-    //        let requredSize:CGRect = rect
-    //        return requredSize.height
-    //    }
+//    func calculateHeight(inString:String) -> CGFloat {
+//
+//        let messageString = inString
+//        let attributes : [String : Any] = [NSFontAttributeName : UIFont.systemFont(ofSize: 15.0)]
+//        let attributedString : NSAttributedString = NSAttributedString(string: messageString, attributes: attributes)
+//        let rect : CGRect = attributedString.boundingRect(with: CGSize(width: 222.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+//        let requredSize:CGRect = rect
+//        return requredSize.height
+//    }
     
     
     // MARK: - Navigation
@@ -2559,6 +2525,7 @@ extension IGProfileChannelViewController: UIImagePickerControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
+
 
 extension IGProfileChannelViewController: UINavigationControllerDelegate {
     

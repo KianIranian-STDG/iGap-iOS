@@ -63,7 +63,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         
         self.clearsSelectionOnViewWillAppear = true
         let navigationItem = self.navigationItem as! IGNavigationItem
-//        navigationItem.addModalViewItems(leftItemText: nil, rightItemText: "GLOBAL_CLOSE".localizedNew, title: "SETTING_VIEW".localizedNew)
         navigationItem.addNavigationViewItems(rightItemText: "", title: "SETTING_VIEW".localizedNew, iGapFont: true)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -73,8 +72,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         navigationItem.rightViewContainer?.addAction {
             self.showMoreActionSheet()
         }
-
-        
     }
     
     
@@ -109,21 +106,6 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
-        
-//        let navigationControllerr = self.navigationController as! IGNavigationController
-        
-//        navigationControllerr.navigationBar.backgroundColor = .clear
-//        navigationControllerr.navigationBar.setBackgroundImage(nil, for: .default)
-//        navigationControllerr.navigationBar.isTranslucent = false
-        //Hint:- Only shows the gradient background View
-        
-//        for view in navigationControllerr.navigationBar.subviews {
-//            if view.tag == 10001 {
-//                view.isHidden = false
-//                print("FOUND IT")
-//            }
-//        }
-
     }
     
     
