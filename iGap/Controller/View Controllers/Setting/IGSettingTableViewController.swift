@@ -281,8 +281,10 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
     }
 }
 
-extension IGSettingTableViewController: IGDownloadUploadIndicatorViewDelegate {
-    func downloadUploadIndicatorDidTap(_ indicator: IGDownloadUploadIndicatorView) {
+extension IGSettingTableViewController: IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
+        if let attachment = self.userAvatar?.file {
+            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in
                 
             }, failure: {
                 
@@ -290,7 +292,6 @@ extension IGSettingTableViewController: IGDownloadUploadIndicatorViewDelegate {
         }
     }
 }
-
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
