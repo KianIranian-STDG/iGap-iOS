@@ -353,7 +353,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             
             let rowIndex = indexPath.row
             if rowIndex == 0 {
-                self.performSegue(withIdentifier: "showChannelInfoSetType", sender: self)
+//                self.performSegue(withIdentifier: "showChannelInfoSetType", sender: self)
             }
         }
 

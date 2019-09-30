@@ -16,6 +16,7 @@ enum AppStoryboard : String {
     
     case Main = "Main"
     case Profile = "profile"
+    case EditProfile = "EditProfileChannelAndGroup"
     case CreateRoom = "CreateRoom"
     case Register = "Register"
     case Setting = "IGSettingStoryboard"

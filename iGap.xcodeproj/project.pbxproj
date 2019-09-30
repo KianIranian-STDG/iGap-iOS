@@ -75,6 +75,7 @@
 		8E62FFCF233F82E0006DD56B /* sharedMediamanagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */; };
 		8E62FFD1233FA623006DD56B /* addMemberCellTypeTwoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */; };
 		8E6E83A12341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift */; };
+		8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */; };
 		8E76D3BB2261FFA400830F65 /* SMLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76D3BA2261FFA400830F65 /* SMLoading.swift */; };
 		8E7EE0C522E347D700133485 /* RecentTableViewlocalizationsFa.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */; };
 		8E7EE0C722E34C7600133485 /* RecentTableViewlocalizationsEn.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */; };
@@ -854,6 +855,7 @@
 		8E62FFCE233F82E0006DD56B /* sharedMediamanagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharedMediamanagerViewController.swift; sourceTree = "<group>"; };
 		8E62FFD0233FA623006DD56B /* addMemberCellTypeTwoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addMemberCellTypeTwoCell.swift; sourceTree = "<group>"; };
 		8E6E83A02341F75500392F27 /* IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.swift; sourceTree = "<group>"; };
+		8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditProfileChannelAndGroup.storyboard; sourceTree = "<group>"; };
 		8E76D3BA2261FFA400830F65 /* SMLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLoading.swift; sourceTree = "<group>"; };
 		8E7EE0C422E347D700133485 /* RecentTableViewlocalizationsFa.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsFa.json; sourceTree = "<group>"; };
 		8E7EE0C622E34C7600133485 /* RecentTableViewlocalizationsEn.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RecentTableViewlocalizationsEn.json; sourceTree = "<group>"; };
@@ -3083,6 +3085,7 @@
 				FAF796031DAA392F0030509B /* Main.storyboard */,
 				FA0953061E1B87E40043ED3F /* IGSettingStoryboard.storyboard */,
 				FAA51753206A254200471EA0 /* profile.storyboard */,
+				8E6E83A22342617400392F27 /* EditProfileChannelAndGroup.storyboard */,
 				8E1CD972232CF79A008D8758 /* PhoneBook.storyboard */,
 				8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */,
 				8ECC1827222F991F006E43E8 /* wallet.storyboard */,
@@ -3349,6 +3352,7 @@
 			files = (
 				8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */,
 				FAE6064221EB3A0C00F03FFC /* ja.lproj in Resources */,
+				8E6E83A32342617400392F27 /* EditProfileChannelAndGroup.storyboard in Resources */,
 				945B127423251F8D00DBF2DA /* IGPaymentView.xib in Resources */,
 				FABA60F0221804E400FFBB5A /* stickerPublicKey.txt in Resources */,
 				FA6F312722B8E7D600DB942E /* trackingId.txt in Resources */,
