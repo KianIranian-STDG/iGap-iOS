@@ -19,9 +19,9 @@ import NVActivityIndicatorView
 class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
 
     //MARK: -Variables
-    let headerViewMaxHeight: CGFloat = 144
-    let secondHeaderHeight: CGFloat = 50
-    let headerViewMinHeight: CGFloat = 44 + UIApplication.shared.statusBarFrame.height
+    let headerViewMaxHeight: CGFloat = 100
+//    let secondHeaderHeight: CGFloat = 30
+    let headerViewMinHeight: CGFloat = 45
     var originalTransform : CGAffineTransform!
     private var lastContentOffset: CGFloat = 0
     private var hasScaledDown: Bool = false
@@ -39,7 +39,7 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     var lastIndex: Array<Any>.Index?
     var currentAvatarId: Int64?
     var timer = Timer()
-    var maxNavHeight : CGFloat = 144
+    var maxNavHeight : CGFloat = 100
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarView: IGAvatarView!
@@ -58,12 +58,10 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         super.viewDidLoad()
         maxNavHeight = self.heightConstraints.constant
         originalTransform = self.avatarView.transform
-        tableView.contentInset = UIEdgeInsets(top: maxNavHeight, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
         
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        
-        var roomTypeFinal : IGRoom.IGType? = .chat
-        
+                
         navigaitonItem.setNavigationBarForProfileRoom(.chat, id: user?.id, groupRole: nil, channelRole: nil)
 
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
@@ -72,21 +70,15 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
 
         initView()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        //MARK: -GradientView Initialiser
+        initGradientView()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationControllerr.interactivePopGestureRecognizer?.delegate = self
 
-        navigationControllerr.navigationBar.isTranslucent = true
-        //Hint:- Only hides the gradient background View
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = true
-            }
-        }
         if let selectedUser = user {
             let blockedUserPredicate = NSPredicate(format: "id = %lld", selectedUser.id)
             if let blockedUser = try! Realm().objects(IGRegisteredUser.self).filter(blockedUserPredicate).first {
@@ -101,18 +93,8 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        
-        navigationControllerr.navigationBar.backgroundColor = .clear
-        navigationControllerr.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationControllerr.navigationBar.isTranslucent = false
-        //Hint:- Only shows the gradient background View
-        
-        for view in navigationControllerr.navigationBar.subviews {
-            if view.tag == 10001 {
-                view.isHidden = false
-            }
-        }
+//        let navigationControllerr = self.navigationController as! IGNavigationController
+//        navigationControllerr.navigationBar.isHidden = false
     }
     
     
@@ -134,17 +116,21 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         //MARK: -Labels initialisers
         initLabels()
     }
+    
     func initLabels() {
 
     }
+    
     func initGradientView() {
         let gradient = CAGradientLayer()
         gradient.frame = viewBG.frame
-        gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
+        gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
         gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
         gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
         gradient.locations = orangeGradientLocation as [NSNumber]
         viewBG.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+        
+        btnChatWith.borderColor = UIColor(named: themeColor.tableViewBackground.rawValue)!
     }
     
     //MARK: -Avatar Sequence
@@ -684,7 +670,6 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
             }
         }).send()
     }
-    var newHeaderViewHeight : CGFloat = 144
 
     //MARK: -Scroll View Delegate and DataS ource
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -692,9 +677,11 @@ class IGProfileUserViewController: BaseViewController,UITableViewDelegate,UITabl
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
         let range = height / headerViewMaxHeight
 
-        let btnChatWithRange = ((range * secondHeaderHeight) - secondHeaderHeight) * -1
+        print(range)
+        print(range * 50)
+        let btnChatWithRange = ((range * headerViewMinHeight) - headerViewMinHeight) * -1
         let btnChatWithHeight = (self.btnChatWith.frame.size.height)/2 + 2.5
-        btnChatWithMiddleConstraint.constant = min(btnChatWithHeight,btnChatWithRange)
+//        btnChatWithMiddleConstraint.constant = min(btnChatWithHeight,btnChatWithRange)
         heightConstraints.constant = height
         let scaledTransform = originalTransform.scaledBy(x: max(0.7,range), y: max(0.7,range))
         let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)

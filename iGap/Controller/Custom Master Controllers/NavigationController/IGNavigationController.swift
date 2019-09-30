@@ -40,29 +40,26 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         }
     }
     
-    override func popViewController(animated: Bool) -> UIViewController? {
-        let numberOfPages = super.viewControllers.count
-        if numberOfPages == 2  {
-            if currentTabIndex == TabBarTab.Profile.rawValue {
-                
-                self.navigationBar.isHidden = true
-                return super.popViewController(animated: animated)
-                
-            }
-            else {
-                self.navigationBar.isHidden = false
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
-//                addSearchBar(state: "True")
-                return super.popViewController(animated: animated)
-            }
-        }
-            
-        else {
-            return super.popViewController(animated: animated)
-        }
-
-    }
+//    override func popViewController(animated: Bool) -> UIViewController? {
+//        let numberOfPages = super.viewControllers.count
+//        if numberOfPages == 2  {
+//            if currentTabIndex == TabBarTab.Profile.rawValue {
+//                self.navigationBar.isHidden = true
+//                return super.popViewController(animated: animated)
+//            }
+//            else {
+//                self.navigationBar.isHidden = false
+//
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+////                addSearchBar(state: "True")
+//                return super.popViewController(animated: animated)
+//            }
+//        }
+//            
+//        else {
+//            return super.popViewController(animated: animated)
+//        }
+//    }
     
     override func popToRootViewController(animated: Bool) -> [UIViewController]? {
         return super.popToRootViewController(animated: animated)

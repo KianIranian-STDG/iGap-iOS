@@ -2127,25 +2127,25 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ljm-F7-5Wo">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ljm-F7-5Wo">
                                                     <rect key="frame" x="10" y="13" width="394" height="58"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfs-zJ-83G">
-                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="58"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="127.33333333333333" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToCloud:" destination="z3s-7I-oQt" eventType="touchUpInside" id="JrY-3Y-iv9"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8A-Hl-Gai">
-                                                            <rect key="frame" x="182" y="0.0" width="30" height="58"/>
+                                                            <rect key="frame" x="133.33333333333334" y="0.0" width="127.33333333333334" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToSettings:" destination="z3s-7I-oQt" eventType="touchUpInside" id="q1M-m3-ZSv"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zT-ur-cK8">
-                                                            <rect key="frame" x="364" y="0.0" width="30" height="58"/>
+                                                            <rect key="frame" x="266.66666666666669" y="0.0" width="127.33333333333331" height="58"/>
                                                             <state key="normal" title=" "/>
                                                             <connections>
                                                                 <action selector="didTapOnGoToCreatNewCGC:" destination="z3s-7I-oQt" eventType="touchUpInside" id="YDJ-I4-Kfx"/>

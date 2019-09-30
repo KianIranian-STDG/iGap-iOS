@@ -138,11 +138,9 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
         lblSharedMedia.text = "SHAREDMEDIA".localizedNew
 
         let navigationControllerr = self.navigationController as! IGNavigationController
-//                navigationControllerr.navigationBar.isHidden = true
         navigationControllerr.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.shadowImage = UIImage()
         navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationControllerr.navigationBar.backgroundColor = .clear
         navigationControllerr.navigationBar.isTranslucent = true
         //Hint:- Only hides the gradient background View
 

@@ -151,6 +151,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         self.navigationController!.pushViewController(createChannel, animated: true)
 
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let navigationControllerr = self.navigationController as! IGNavigationController
@@ -162,8 +163,8 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         }
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.searchController = nil
-
     }
+    
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         

@@ -117,12 +117,12 @@ class IGTabBarController: UITabBarController {
             
             break
         case .Profile:
-            navigationControllerr.navigationBar.isHidden = true
-            //            navigationControllerr.addSearchBar(state: "False")
+//            navigationControllerr.navigationBar.isHidden = true
+//            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
-            navigationControllerr.navigationBar.shadowImage = UIImage()
-            navigationControllerr.navigationBar.isTranslucent = true
+//            navigationControllerr.navigationBar.shadowImage = UIImage()
+//            navigationControllerr.navigationBar.isTranslucent = true
 //            self.navigationController?.navigationBar.shadowImage = UIImage()
             
 //            navigationControllerr.navigationBar.barTintColor = UIColor.redColor()

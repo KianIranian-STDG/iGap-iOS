@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 import IGProtoBuff
-///import INSPhotoGallery
 import RxRealm
 import RxSwift
 import Gifu
@@ -22,8 +21,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     lazy var colorView = { () -> UIView in
         let view = UIView()
         view.isUserInteractionEnabled = false
-        //        self.navigationController?.navigationBar.addSubview(view)
-        //        self.navigationController?.navigationBar.sendSubviewToBack(view)
         return view
     }()
     
@@ -115,26 +112,18 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.alwaysBounceVertical = false
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.isHidden = true
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        navigationControllerr.navigationBar.isTranslucent = true
-
+        
+//        self.tableView.alwaysBounceVertical = false
         initView()
         initServices()
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.removeNavButtons()
-
     }
+    
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.isHidden = true
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationControllerr.navigationBar.isTranslucent = true
+        
+        self.navigationController?.navigationBar.isHidden = true
         
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
@@ -154,27 +143,14 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                                                selector: #selector(segueToChatNotificationReceived(_:)),
                                                name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoomAtProfile),
                                                object: nil)
-
         textManagment()
         self.tableView.alwaysBounceVertical = false
         
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-       
-        
         
         navigationItem.removeNavButtons()
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.isHidden = true
-        navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-
-
-        ////
-        //
-        //        navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        //        navigationControllerr.navigationBar.shadowImage = UIImage()
-        //        navigationControllerr.navigationBar.isTranslucent = true
-        //        //  Converted to Swift 5 by Swiftify v5.0.30657 - https://objectivec2swift.com/
+        
+        //  Converted to Swift 5 by Swiftify v5.0.30657 - https://objectivec2swift.com/
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -182,33 +158,19 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
         
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        //Hint: - check if tab is changed or not if changed it will show the navbar ,if not it depends on the destination
-        if currentTabIndex == TabBarTab.Profile.rawValue {
-            
-            if goToSettings {
-                navigationControllerr.navigationBar.isHidden = true
-            } else {
-                navigationControllerr.navigationBar.isHidden = false
-            }
-        } else {
-            navigationControllerr.navigationBar.isHidden = false
-        }
-
         
+        self.navigationController?.navigationBar.isHidden = false
     }
+    
     func initServices() {
         getUserEmail()
         self.finishDefault(isPaygear: true, isCard: false)
         getScore()
-
-
     }
+    
     func finishDefault(isPaygear: Bool? ,isCard : Bool?) {
 //        SMLoading.showLoadingPage(viewcontroller: self)
         SMCard.getAllCardsFromServer({ cards in
@@ -342,8 +304,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 btnMenGender.setTitle("", for: .normal)
                 btnWomenGender.setTitle("", for: .normal)
                 
-                break
-            default:
                 break
             }
         }
@@ -1247,51 +1207,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
- 
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
@@ -1306,8 +1221,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     
     @objc func segueToChatNotificationReceived(_ aNotification: Notification) {
-        let navigationControllerr = self.navigationController as! IGNavigationController
-        navigationControllerr.navigationBar.isHidden = true
+//        let navigationControllerr = self.navigationController as! IGNavigationController
+//        navigationControllerr.navigationBar.isHidden = true
 
         if let roomId = aNotification.userInfo?["room"] as? Int64 {
             let predicate = NSPredicate(format: "id = %lld", roomId)
@@ -1391,7 +1306,7 @@ extension IGProfileTableViewController: UISearchBarDelegate
         searchBar.resignFirstResponder()
         
         //Filter function
-        //        self.filterFunction(searchText: searchBar.text)
+//        self.filterFunction(searchText: searchBar.text)
     }
 }
 

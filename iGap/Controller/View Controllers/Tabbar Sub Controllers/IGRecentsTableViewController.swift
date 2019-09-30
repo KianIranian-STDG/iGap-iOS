@@ -143,7 +143,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                     self.setLastNavigationItem()
                 }
 
-
                 break
             }
         }
@@ -188,12 +187,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
                 navigationItem.addiGapLogo()
-                navigationControllerr.navigationBar.isHidden = true
+//                navigationControllerr.navigationBar.isHidden = true
 
             } else {
                 
             }
-
 
         } else if currentTabIndex == TabBarTab.Recent.rawValue { // Recent Tab
             let navigationControllerr = self.navigationController as! IGNavigationController

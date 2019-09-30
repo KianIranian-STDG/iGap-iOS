@@ -91,7 +91,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
         let navigationControllerr = self.navigationController as! IGNavigationController
         
         navigationControllerr.navigationBar.isHidden = false
-        let navigationItem = self.navigationItem as! IGNavigationItem
+//        let navigationItem = self.navigationItem as! IGNavigationItem
 //        navigationItem.searchController = nil
         
 //        if navigationItem.searchController == nil {
@@ -169,10 +169,7 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
         
-   
-
-        
-        
+           
         
         if mode == "Admin" {
             navigationItem.addNavigationViewItems(rightItemText: "ADD_BTN".localizedNew, title: "ADD_ADMIN".localizedNew)
@@ -266,11 +263,10 @@ class IGChooseMemberFromContactToCreateChannelViewController: BaseViewController
 
     }
     
-    private func openChannel(){
+    private func openChannel() {
         if self.navigationController is IGNavigationController {
             self.navigationController?.popToRootViewController(animated: true)
-            self.navigationController?.navigationBar.isHidden = true
-
+//            self.navigationController?.navigationBar.isHidden = true
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGNotificationNameDidCreateARoomAtProfile),object: nil,userInfo: ["room": self.igpRoom.igpID])
     }
