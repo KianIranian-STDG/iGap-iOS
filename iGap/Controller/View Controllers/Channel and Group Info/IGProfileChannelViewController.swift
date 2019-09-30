@@ -1508,11 +1508,13 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
-                        
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                        return cell
                         
                     default:
                         return cell
@@ -1524,36 +1526,31 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     
                 case 4:
                     switch indexPath.row {
-                        
-                    case 0:
-                        if let memberCount = room?.channelRoom?.participantCount {
                             
-//                            cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
-                        }
-                        return cell
-                        
-                    case 1:
-//                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                        return cell
-                        
-                    case 2:
-//                        cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
-                        return cell
-                        
-                    default:
-                        return cell
+                        case 0:
+                            if let memberCount = room?.channelRoom?.participantCount {
+
+                                cell.initLabels(nameLblString: "ALLMEMBER".localizedNew,detailLblString: "\(memberCount)".inLocalizedLanguage(),changeColor : true,     shouldChangeDetailDirection: true)
+                            }
+                            return cell
+
+                        case 1:
+                                cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                return cell
+
+                        case 2:
+                                cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                return cell
+
+                        default:
+                            return cell
                         
                     }
-                    return cell
                     
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
-                        
-                    case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        cell.initLabels(nameLblString: "DELETE_CHANNEL".localizedNew,changeColor: true)
                         return cell
                     default:
                         return cell
@@ -1781,7 +1778,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 4 :
                     return 3
                 case 5 :
-                    return 2
+                    return 1
                 default:
                     return 0
                 }
@@ -1799,7 +1796,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 4 :
                     return 3
                 case 5 :
-                    return 2
+                    return 1
                 default:
                     return 0
                 }
@@ -2419,10 +2416,90 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 break
 
             case .admin?:
-                break
+                
+                switch indexPath.section {
+                case 0:
+                    break
+                case 1:
+                    break
+                case 2:
+                        break
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+                    break
+                    
+                case 4:
+                    //goToSharedMedia
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        break
+                    case 1 :
+                        break
+                    case 2 :
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        showDeleteChannelActionSheet()
+                        break
+                    default:
+                        break
+                        
+                    }
+                default:
+                    break
+                }
 
             case .owner?:
-                break
+                
+                switch indexPath.section {
+                case 0:
+                    break
+                case 1:
+                    break
+                case 2:
+                        break
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+                    break
+                    
+                case 4:
+                    //goToSharedMedia
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        break
+                    case 1 :
+                        break
+                    case 2 :
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        showDeleteChannelActionSheet()
+                        break
+                    default:
+                        break
+                        
+                    }
+                default:
+                    break
+                }
 
             case .none:
                 break
