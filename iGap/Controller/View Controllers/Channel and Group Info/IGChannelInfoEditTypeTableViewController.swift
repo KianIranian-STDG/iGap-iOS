@@ -365,23 +365,23 @@ class IGChannelInfoEditTypeTableViewController: BaseTableViewController ,UITextF
             }
         }
     }
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let containerView = view as! UITableViewHeaderFooterView
-        
-        if section == 1 {
-            containerView.textLabel!.text = "CHANNEL_LINK".localizedNew
-            
-        }
-        else {
-            containerView.textLabel!.text = "CHANNELTYPE".localizedNew
-            
-        }
-        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
-        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
-        return containerView
-        
-        
-    }
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+////        let containerView = view as! UITableViewHeaderFooterView
+////
+////        if section == 1 {
+////            containerView.textLabel!.text = "CHANNEL_LINK".localizedNew
+////
+////        }
+////        else {
+////            containerView.textLabel!.text = "CHANNELTYPE".localizedNew
+////
+////        }
+////        containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+////        containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+////        return containerView
+////
+////
+//    }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
         
