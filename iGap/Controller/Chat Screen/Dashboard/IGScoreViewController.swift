@@ -65,11 +65,6 @@ import SnapKit
         progreccCIrcularRank.outerRingWidth = 1.0
     }
     func addScoreListItems(array : [IGProtoBuff.IGPUserIVandGetScoreResponse.IGPIVandScore]? = nil) {
-        let view = UIView()
-        let lbl = UILabel()
-        let btnScore = UIButton()
-        self.view.addSubview(lbl)
-        self.view.addSubview(view)
         
         var space : CGFloat! = 0
         var count : Int! = 0
@@ -77,41 +72,47 @@ import SnapKit
         if array!.count > 0 {
             
             for item in array! {
-                view.snp.makeConstraints { (make) in
+                let holder = UIView()
+                let lbl = UILabel()
+                let holderHeight: Int! = 30
+                let btnScore = UIButton()
+                self.view.addSubview(holder)
+
+                holder.snp.makeConstraints { (make) in
                     make.leading.equalTo(txtScoreTitle.snp.leading)
                     make.trailing.equalTo(txtRankTitle.snp.trailing)
                     make.top.equalTo(txtScoreTitle.snp.bottom).offset(30 + space)
-                    make.height.equalTo(30)
+                    make.height.equalTo(holderHeight)
                 }
-                view.backgroundColor = .clear
-                view.addSubview(lbl)
-                view.addSubview(btnScore)
+                holder.backgroundColor = .clear
+                holder.addSubview(lbl)
+                holder.addSubview(btnScore)
                 
 
                 if lastLang == "fa" {
                     btnScore.snp.makeConstraints { (make) in
-                        make.leading.equalTo(view.snp.leading).offset(10)
-                        make.centerY.equalTo(view.snp.centerY)
+                        make.leading.equalTo(holder.snp.leading).offset(10)
+                        make.centerY.equalTo(holder.snp.centerY)
                         make.height.equalTo(30)
                         make.width.equalTo(80)
                     }
                     lbl.snp.makeConstraints { (make) in
-                        make.trailing.equalTo(view.snp.trailing).offset(-10)
+                        make.trailing.equalTo(holder.snp.trailing).offset(-10)
                         make.leading.equalTo(btnScore.snp.trailing).offset(10)
-                        make.centerY.equalTo(view.snp.centerY)
+                        make.centerY.equalTo(holder.snp.centerY)
                     }
 
                 } else if lastLang == "en" {
                     btnScore.snp.makeConstraints { (make) in
-                        make.trailing.equalTo(view.snp.trailing).offset(-10)
-                        make.centerY.equalTo(view.snp.centerY)
+                        make.trailing.equalTo(holder.snp.trailing).offset(-10)
+                        make.centerY.equalTo(holder.snp.centerY)
                         make.height.equalTo(30)
                         make.width.equalTo(80)
                     }
                     lbl.snp.makeConstraints { (make) in
-                        make.leading.equalTo(view.snp.leading).offset(10)
+                        make.leading.equalTo(holder.snp.leading).offset(10)
                         make.trailing.equalTo(btnScore.snp.leading).offset(10)
-                        make.centerY.equalTo(view.snp.centerY)
+                        make.centerY.equalTo(holder.snp.centerY)
                     }
 
                 }
@@ -128,7 +129,7 @@ import SnapKit
                     lbl.text = array![count].igpEnName
                 }
                 count += 1
-                space += 5 + (view.bounds.height)
+                space += (5 + (CGFloat(holderHeight)))
             }
 
         }
