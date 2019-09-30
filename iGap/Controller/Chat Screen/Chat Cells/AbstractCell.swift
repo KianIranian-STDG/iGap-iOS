@@ -316,7 +316,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     if hasBottomOffset {
                         make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.top.equalTo((forwardViewAbs?.snp.bottom)!).offset(10)
+                        make.top.equalTo((forwardViewAbs?.snp.bottom)!)
                     }
                 }
             } else if isReply {
@@ -324,7 +324,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     if hasBottomOffset {
                         make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.top.equalTo((replyViewAbs?.snp.bottom)!).offset(10)
+                        make.top.equalTo((replyViewAbs?.snp.bottom)!)
                     }
                 }
             } else {
@@ -332,7 +332,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                     if hasBottomOffset {
                         make.top.equalTo(mainBubbleViewAbs.snp.top).offset(CellSizeCalculator.RTL_OFFSET)
                     } else {
-                        make.top.equalTo(mainBubbleViewAbs.snp.top).offset(5)
+                        make.top.equalTo(mainBubbleViewAbs.snp.top).offset(8)
                     }
                 }
             }

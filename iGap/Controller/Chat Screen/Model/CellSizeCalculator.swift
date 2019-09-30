@@ -120,7 +120,7 @@ class CellSizeCalculator: NSObject {
             }
         
             if text != nil && text != "" {
-                let stringRect = CellSizeCalculator.bodyRect(text: text!, width: finalSize.width, isEdited: finalMessage.isEdited, room: room)
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, width: finalSize.width, isEdited: finalMessage.isEdited, extraHeight: needExtraHeight(room: room, message: message))
                 finalSize.height += stringRect.height
             }
             
@@ -133,7 +133,7 @@ class CellSizeCalculator: NSObject {
                 /* increase wallet description height if has data */
                 if let walletDescription = finalMessage.wallet?.moneyTrasfer?.walletDescription, !walletDescription.isEmpty {
                     let descriptionWidth = CellSizeLimit.ConstantSizes.MoneyTransfer.Width - 40 // '40' is margin from left & right for description label
-                    let walletDescriptionSize = CellSizeCalculator.bodyRect(text: walletDescription as NSString, width: descriptionWidth, isEdited: false, room: room)
+                    let walletDescriptionSize = CellSizeCalculator.bodyRect(text: walletDescription as NSString, width: descriptionWidth, isEdited: false, extraHeight: needExtraHeight(room: room, message: message))
                     finalSize.height += walletDescriptionSize.height
                     // Hint: use "messageAttachmentHeight" for description height in "MoneyTransferCell"
                     messageAttachmentHeight = walletDescriptionSize.height
@@ -146,7 +146,7 @@ class CellSizeCalculator: NSObject {
                 /* increase wallet description height if has data */
                 if let paymentDescription = finalMessage.wallet?.payment?.walletDescription, !paymentDescription.isEmpty {
                     let descriptionWidth = CellSizeLimit.ConstantSizes.Payment.Width - 40 // '40' is margin from left & right for description label
-                    let paymentDescriptionSize = CellSizeCalculator.bodyRect(text: paymentDescription as NSString, width: descriptionWidth, isEdited: false, room: room)
+                    let paymentDescriptionSize = CellSizeCalculator.bodyRect(text: paymentDescription as NSString, width: descriptionWidth, isEdited: false, extraHeight: needExtraHeight(room: room, message: message))
                     finalSize.height += paymentDescriptionSize.height
                     // Hint: use "messageAttachmentHeight" for description height in "PaymentCell"
                     messageAttachmentHeight = paymentDescriptionSize.height
@@ -178,7 +178,7 @@ class CellSizeCalculator: NSObject {
             
         } else if finalMessage.type == .text { // Text Message
             if text != nil && text != "" {
-                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited, room: room)
+                let stringRect = CellSizeCalculator.bodyRect(text: text!, isEdited: finalMessage.isEdited, extraHeight: needExtraHeight(room: room, message: message))
                 finalSize.height += CellSizeLimit.ConstantSizes.Text.Height
                 if additionalData != nil {
                     finalSize.height += stringRect.height + 110
@@ -232,8 +232,9 @@ class CellSizeCalculator: NSObject {
         return [convertFromNSAttributedStringKey(NSAttributedString.Key.font): computeSizeFont(), convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): paragraph]
     }
     
-    class func bodyRect(text: NSString, width:CGFloat=CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, isEdited: Bool, room: IGRoom) -> CGSize {
+    class func bodyRect(text: NSString, width:CGFloat=CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text, isEdited: Bool, extraHeight: Bool) -> CGSize {
         
+        let fakeMinusWidth: CGFloat = 20
         var maxWidth = width
         if maxWidth > CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text {
             maxWidth = CellSizeLimit.ConstantSizes.Bubble.Width.Maximum.Text
@@ -252,7 +253,7 @@ class CellSizeCalculator: NSObject {
         }
         
         var stringRect = textWithTime.boundingRect(
-            with: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude),
+            with: CGSize(width: maxWidth - fakeMinusWidth , height: CGFloat.greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: convertToOptionalNSAttributedStringKeyDictionary(getStringStyle()), context: nil)
         
         if textWithTime.isRTL() {
@@ -267,15 +268,23 @@ class CellSizeCalculator: NSObject {
                 }
             }
             stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL_OR_VOTE)
-        } else if room.type == .channel {
+        } else if extraHeight {
             stringRect.size.height = stringRect.height + CGFloat(EXTRA_HEIGHT_RTL_OR_VOTE)
         }
         
         // increase width size for avoid from break line at make view due to leading & trailing params
-        stringRect.size.width = stringRect.size.width + 6
+        stringRect.size.width = stringRect.size.width + fakeMinusWidth + 6
         stringRect.size.height = stringRect.size.height + 6
         
         return stringRect.size
+    }
+    
+    /**
+     * if room type is channel or if forwarded a message from channel should be
+     * set extra height at message for show view currectly after add vote items
+     */
+    private func needExtraHeight(room: IGRoom, message: IGRoomMessage) -> Bool {
+        return (room.type == .channel || (message.forwardedFrom?.channelExtra != nil))
     }
     
     func fetchMediaFrame(media: IGFile) -> CGSize {
