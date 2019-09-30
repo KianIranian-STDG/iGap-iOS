@@ -23,7 +23,7 @@ class IGFavouriteChannelsDashboardCollectionViewCell: UICollectionViewCell {
 //        self.semanticContentAttribute = .forceLeftToRight
         
         // Initialization code
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
         self.layer.cornerRadius = 14.0
 //        lbl.backgroundColor = .white
         self.contentView.layer.cornerRadius = 14.0

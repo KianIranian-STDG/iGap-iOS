@@ -123,7 +123,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     override func viewWillAppear(_ animated: Bool)  {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
+        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
+            navigationBar.setTransparentNavigationBar()
+        }
         
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
@@ -162,7 +165,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.navigationController?.navigationBar.isHidden = false
+//        self.navigationController?.navigationBar.isHidden = false
+        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
+            navigationBar.setGradientBackground(colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
+        }
     }
     
     func initServices() {
@@ -232,6 +238,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         lblName.text = "NAME".localizedNew
         lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew
         lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        lblBioInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         
         btnName.setTitle("NAME".localizedNew, for: .normal)
         lblCloud.text = "MY_CLOUD".localizedNew
@@ -1260,8 +1267,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 }
 
 //MARK: SEARCH BAR DELEGATE
-extension IGProfileTableViewController: UISearchBarDelegate
-{
+extension IGProfileTableViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
     {
         //Show Cancel

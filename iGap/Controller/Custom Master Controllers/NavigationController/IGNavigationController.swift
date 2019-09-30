@@ -27,7 +27,14 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
                 // appearance has changed
                 // Update your user interface based on the appearance
-                self.setNavigationGradient()
+                if let navBar = self.navigationBar as? IGNavigationBar {
+                    if navBar.isTransparent {
+                        navBar.setTransparentNavigationBar()
+                    } else {
+                        self.setNavigationGradient()
+                    }
+                }
+                
             }
         } else {
             // Fallback on earlier versions
@@ -40,26 +47,29 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         }
     }
     
-//    override func popViewController(animated: Bool) -> UIViewController? {
-//        let numberOfPages = super.viewControllers.count
-//        if numberOfPages == 2  {
-//            if currentTabIndex == TabBarTab.Profile.rawValue {
-//                self.navigationBar.isHidden = true
-//                return super.popViewController(animated: animated)
-//            }
-//            else {
+    
+    
+    override func popViewController(animated: Bool) -> UIViewController? {
+        let numberOfPages = super.viewControllers.count
+        if numberOfPages == 2  {
+            if currentTabIndex == TabBarTab.Profile.rawValue {
+                if let navigationBar = self.navigationBar as? IGNavigationBar {
+                    navigationBar.setTransparentNavigationBar()
+                }
+                return super.popViewController(animated: animated)
+            }
+            else {
 //                self.navigationBar.isHidden = false
-//
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
-////                addSearchBar(state: "True")
-//                return super.popViewController(animated: animated)
-//            }
-//        }
-//            
-//        else {
-//            return super.popViewController(animated: animated)
-//        }
-//    }
+
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: kIGGoBackToMainNotificationName), object: nil)
+                return super.popViewController(animated: animated)
+            }
+        }
+            
+        else {
+            return super.popViewController(animated: animated)
+        }
+    }
     
     override func popToRootViewController(animated: Bool) -> [UIViewController]? {
         return super.popToRootViewController(animated: animated)
@@ -77,7 +87,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
     func configNavigationBar() {
         navigationBar.barStyle = .default
         navigationBar.shadowImage = UIImage()
-        navigationBar.isTranslucent = false
+//        navigationBar.isTranslucent = false
         
 //        navigationBar.tintColor = UIColor.white
 //        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

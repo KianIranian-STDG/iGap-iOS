@@ -80,9 +80,6 @@ class IGTabBarController: UITabBarController {
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
             
-            navigationControllerr.navigationBar.isTranslucent = false
-            self.navigationController?.navigationBar.isTranslucent = false
-            
             currentTabIndex = TabBarTab.Contact.rawValue
             break
         case .Call:
@@ -90,8 +87,6 @@ class IGTabBarController: UITabBarController {
             //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
-            navigationControllerr.navigationBar.isTranslucent = false
-            self.navigationController?.navigationBar.isTranslucent = false
             
             currentTabIndex = TabBarTab.Call.rawValue
             
@@ -99,8 +94,6 @@ class IGTabBarController: UITabBarController {
         case .Recent:
             navigationControllerr.navigationBar.isHidden = false
             //            navigationControllerr.addSearchBar(state: "True")
-            navigationControllerr.navigationBar.isTranslucent = false
-            self.navigationController?.navigationBar.isTranslucent = false
             
             currentTabIndex = TabBarTab.Recent.rawValue
             
@@ -110,8 +103,6 @@ class IGTabBarController: UITabBarController {
             //            navigationControllerr.addSearchBar(state: "False")
             let navigationItem = self.navigationItem as! IGNavigationItem
             navigationItem.searchController = nil
-            navigationControllerr.navigationBar.isTranslucent = false
-            self.navigationController?.navigationBar.isTranslucent = false
             
             currentTabIndex = TabBarTab.Dashboard.rawValue
             

@@ -12,6 +12,8 @@ import UIKit
 
 class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
     
+    var isTransparent: Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 //        self.tintColor = UIColor.white
@@ -44,57 +46,18 @@ class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
     }
     
     func setGradientBackground(colors: [UIColor], startPoint: CAGradientLayer.Point = .topLeft, endPoint: CAGradientLayer.Point = .bottomLeft) {
+        self.isTransparent = false
         var updatedFrame = bounds
         updatedFrame.size.height += self.frame.origin.y
         let gradientLayer = CAGradientLayer(frame: updatedFrame, colors: colors, startPoint: startPoint, endPoint: endPoint)
+        self.isTranslucent = false
         setBackgroundImage(gradientLayer.createGradientImage(), for: UIBarMetrics.default)
     }
+    
+    func setTransparentNavigationBar() {
+        self.isTransparent = true
+        self.setBackgroundImage(UIImage(), for: .default)
+//        self.shadowImage = UIImage()
+        self.isTranslucent = true
+    }
 }
-
-//@IBDesignable
-//class IGGradientNavigationBar: UINavigationBar {
-//
-//    @IBInspectable var firstColor: UIColor = UIColor.clear {
-//        didSet {
-//            self.setNeedsLayout()
-//        }
-//    }
-//
-//    @IBInspectable var secondColor: UIColor? {
-//        didSet {
-//            self.setNeedsLayout()
-//        }
-//    }
-//
-//    // default start and end points indicates horizontal gradient
-//    @IBInspectable var startPoint: CGPoint = CGPoint(x: 0.5, y: 0) {
-//        didSet {
-//            self.setNeedsLayout()
-//        }
-//    }
-//    // default start and end points indicates horizontal gradient
-//    @IBInspectable var endPoint: CGPoint = CGPoint(x: 0.5, y: 1) {
-//        didSet {
-//            self.setNeedsLayout()
-//        }
-//    }
-//
-//    override class var layerClass: AnyClass {
-//        get {
-//            return CAGradientLayer.self
-//        }
-//    }
-//
-//    override func layoutSubviews() {
-//        let gradientLayer = self.layer as! CAGradientLayer
-//        if let second = secondColor {
-//            // if we have first and second color
-//            gradientLayer.colors = [firstColor.cgColor, second.cgColor]
-//        } else {
-//            // if we have just first color
-//            gradientLayer.colors = [firstColor.cgColor]
-//        }
-//        gradientLayer.startPoint = startPoint
-//        gradientLayer.endPoint = endPoint
-//    }
-//}
