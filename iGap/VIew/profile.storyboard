@@ -38,13 +38,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91S-Or-W0m">
-                                                    <rect key="frame" x="16" y="12" width="45.5" height="20"/>
+                                                    <rect key="frame" x="16" y="8.5" width="45.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRo-2U-11P">
-                                                    <rect key="frame" x="71.5" y="12" width="287.5" height="20"/>
+                                                    <rect key="frame" x="71.5" y="8.5" width="287.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <color key="textColor" red="0.61953866479999997" green="0.61964780090000005" blue="0.61953175069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECs-Te-zPT">
-                                                    <rect key="frame" x="16" y="12" width="45.5" height="20"/>
+                                                    <rect key="frame" x="16" y="8.5" width="45.5" height="27"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -121,23 +121,23 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqL-Km-jOV" customClass="EFAutoScrollLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="125" y="50" width="127" height="30.5"/>
+                                <rect key="frame" x="125" y="50" width="127" height="25.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atv-wh-4vz">
-                                <rect key="frame" x="220" y="84.5" width="32" height="15.5"/>
+                                <rect key="frame" x="220" y="79.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="og4-qC-38v">
-                                <rect key="frame" x="220" y="104" width="32" height="15.5"/>
+                                <rect key="frame" x="220" y="104" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiC-JQ-pge">
-                                <rect key="frame" x="220" y="123.5" width="32" height="15.5"/>
+                                <rect key="frame" x="220" y="128.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" name="IGLabelColor"/>
                                 <nil key="highlightedColor"/>
@@ -860,11 +860,10 @@
             </objects>
             <point key="canvasLocation" x="6062" y="-8684"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Edit Profile Channel And Group Table ViewC Ontroller Table View Controller-->
         <scene sceneID="U8X-pm-9UF">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7It-G5-CuG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tableViewController id="irR-R8-Gqf" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController" id="irR-R8-Gqf" customClass="IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1fE-wR-Uhn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1003,7 +1002,17 @@
                             <outlet property="delegate" destination="irR-R8-Gqf" id="SGc-fm-lM5"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="avatarRoom" destination="KaM-Nh-9C9" id="Oje-2r-mYg"/>
+                        <outlet property="lblChannelReaction" destination="cBs-xs-3dg" id="2FW-CK-yzx"/>
+                        <outlet property="lblSignMessage" destination="pxO-7u-JMP" id="Heh-rI-PNh"/>
+                        <outlet property="switchChannelReaction" destination="L5H-Ty-Wtv" id="daA-Us-QCc"/>
+                        <outlet property="switchSignMessage" destination="4fW-Sw-hI6" id="M4Y-qS-mOm"/>
+                        <outlet property="tfDescriptionOfRoom" destination="zvx-UH-4rj" id="ZHa-67-I4E"/>
+                        <outlet property="tfNameOfRoom" destination="pdF-D7-6U7" id="uue-vz-RBl"/>
+                    </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7It-G5-CuG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6895.1999999999998" y="-8685.6071964017992"/>
         </scene>
