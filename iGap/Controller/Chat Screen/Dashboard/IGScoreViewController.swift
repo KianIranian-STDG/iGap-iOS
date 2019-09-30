@@ -19,8 +19,10 @@ import SnapKit
     @IBOutlet weak var imgAvatar: IGAvatarView!
     @IBOutlet weak var txtDisplayName: UILabel!
     @IBOutlet weak var txtReferralCode: UILabel!
+    @IBOutlet weak var lblMaxRank: UILabel!
     @IBOutlet weak var progreccCIrcularRank : UICircularProgressRing!
-    
+    @IBOutlet weak var viewRankHolder: UIView!
+
     @IBOutlet weak var progreccCIrcular : UICircularProgressRing!
     @IBOutlet weak var txtScoreTitle: UILabel!
     
@@ -47,7 +49,17 @@ import SnapKit
         btnSeeRecords.setTitle("SETTING_PAGE_ACCOUNT_GIFT_PAGE".localizedNew, for: .normal)
         initCircularProgressBar()
     }
-    
+        private func addTotalPlaceLabel(text: Int32!) {
+            lblMaxRank.font = UIFont.igFont(ofSize: 10,weight: .bold)
+            lblMaxRank.textAlignment = .center
+            if lastLang == "fa" {
+                lblMaxRank.text = "OF".localizedNew + String(text).inRialFormat()
+
+            } else {
+                lblMaxRank.text = "OF".localizedNew + String(text).inRialFormat()
+
+            }
+        }
     
     func initCircularProgressBar(ranMax : CGFloat? = 0.0,scoreMax : CGFloat? = 0.0) {
         progreccCIrcular.maxValue = scoreMax!
@@ -209,10 +221,12 @@ import SnapKit
                     self.tmpRankTotal = (response.igpTotalRank)
                     self.tmpScoresList = (response.igpScores)
                     self.addScoreListItems(array : self.tmpScoresList)
-
                     self.initCircularProgressBar(ranMax: CGFloat(self.tmpRankTotal), scoreMax: CGFloat(self.tmpScore))
                     self.startAnimatingCircular(value: self.tmpScore)
                     self.startAnimatingCircularRank(value: self.tmpRank)
+                    self.addTotalPlaceLabel(text: self.tmpRankTotal)
+
+                    
                     
                 }
             }

@@ -3000,12 +3000,25 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="shouldShowValueText" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9j1-TH-b1i">
+                                                <rect key="frame" x="41" y="85" width="90" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Wxd-g9-A4B"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
+                                                <color key="textColor" name="IGLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="9j1-TH-b1i" firstAttribute="centerY" secondItem="mmT-nh-m3Z" secondAttribute="centerY" constant="20" id="BsE-a1-s1W"/>
                                             <constraint firstItem="KzE-QF-IBO" firstAttribute="bottom" secondItem="hmX-iT-v1X" secondAttribute="bottom" constant="-20" id="Jau-eA-rXq"/>
                                             <constraint firstItem="KzE-QF-IBO" firstAttribute="leading" secondItem="hmX-iT-v1X" secondAttribute="leading" constant="20" id="S3v-WY-bFO"/>
                                             <constraint firstItem="hmX-iT-v1X" firstAttribute="centerX" secondItem="mmT-nh-m3Z" secondAttribute="centerX" id="TAu-xh-aRn"/>
+                                            <constraint firstItem="9j1-TH-b1i" firstAttribute="centerX" secondItem="mmT-nh-m3Z" secondAttribute="centerX" id="WmU-aM-mAF"/>
+                                            <constraint firstItem="9j1-TH-b1i" firstAttribute="leading" secondItem="KzE-QF-IBO" secondAttribute="leading" constant="10" id="cma-qB-QUO"/>
+                                            <constraint firstItem="9j1-TH-b1i" firstAttribute="trailing" secondItem="KzE-QF-IBO" secondAttribute="trailing" constant="-10" id="ddH-By-oOU"/>
                                             <constraint firstItem="hmX-iT-v1X" firstAttribute="centerY" secondItem="mmT-nh-m3Z" secondAttribute="centerY" id="gH5-9d-i5j"/>
                                             <constraint firstItem="KzE-QF-IBO" firstAttribute="trailing" secondItem="hmX-iT-v1X" secondAttribute="trailing" constant="-20" id="ga4-US-bl6"/>
                                             <constraint firstItem="KzE-QF-IBO" firstAttribute="top" secondItem="hmX-iT-v1X" secondAttribute="top" constant="20" id="nEc-X5-iLe"/>
@@ -3062,10 +3075,12 @@
                     <navigationItem key="navigationItem" title="Title" id="nG2-39-HVq" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="btnSeeRecords" destination="HkF-e1-iUT" id="VSK-jQ-83v"/>
+                        <outlet property="lblMaxRank" destination="9j1-TH-b1i" id="MPK-Kh-JCJ"/>
                         <outlet property="progreccCIrcular" destination="CbZ-6U-e9k" id="dif-1B-D0p"/>
                         <outlet property="progreccCIrcularRank" destination="hmX-iT-v1X" id="FWO-gp-C2o"/>
                         <outlet property="txtRankTitle" destination="Mdd-fA-p7n" id="BBy-sl-5NU"/>
                         <outlet property="txtScoreTitle" destination="0bk-lH-8wO" id="FuZ-dd-QFN"/>
+                        <outlet property="viewRankHolder" destination="mmT-nh-m3Z" id="0V2-w7-4vH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i5b-6C-fLS" userLabel="First Responder" sceneMemberID="firstResponder"/>
