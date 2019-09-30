@@ -413,6 +413,9 @@
         "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_DESC" : "users can join your channel only by being added by admin(s)",
         "NEW_CHANNEL_LINK" : "Channel Link",
         "ONLY_ADMIN_OWNER_CAN_SEE" : "Only admins and owner of the channel can see this list",
+        "CHANNEL_SIGN_FOOTER" : "Add names of the admins to the messages they post",
+        "CHANNEL_REACTIONS_FOOTER" : "Add names of the admins to the messages they post",
+        "CHANNEL_TITLE" : "Edit Channel Info",
 
         "TEXT_SIZE" : "Text Size",
         "COLOR_THEME" : "Color Theme",

@@ -85,7 +85,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         originalTransform = self.channelImage.transform
         tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role)
+        navigaitonItem.setNavigationBarForProfileRoom(.channel, id: nil, groupRole: nil, channelRole: room?.channelRoom?.role,roomValue: self.room)
 
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
@@ -101,6 +101,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         let predicate = NSPredicate(format: "id = %lld", (room?.id)!)
         room =  try! Realm().objects(IGRoom.self).filter(predicate).first!
         self.notificationToken = room?.observe({ (objectChange) in
+            
             self.showChannelInfo()
         })
         
@@ -1058,11 +1059,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                         return cell
 
                     case 1:
-                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                        cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     case 2:
-                            cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     default:
@@ -1253,11 +1254,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                         return cell
 
                     case 1:
-                            cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     case 2:
-                            cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                            cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                             return cell
 
                     default:
@@ -1514,11 +1515,11 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                             return cell
 
                         case 1:
-                                cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(Set(self.adminsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: "ADMIN".localizedNew,detailLblString: "\(adminsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                                 return cell
 
                         case 2:
-                                cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(Set(self.moderatorsMembersCount).count)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
+                                cell.initLabels(nameLblString: "MODERATOR".localizedNew,detailLblString: "\(moderatprsCount)".inLocalizedLanguage(),changeColor : true, shouldChangeDetailDirection: true)
                                 return cell
 
                         default:

@@ -150,7 +150,7 @@ class IGNavigationItem: UINavigationItem {
         addNavigationBackItem()
     }
     
-    func addNavigationLeftButtonsProfileItem(_ room: IGRoom.IGType,id : Int64? = nil, groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil) {
+    func addNavigationLeftButtonsProfileItem(_ room: IGRoom.IGType,id : Int64? = nil, groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil,roomValue: IGRoom? = nil) {
         switch room {
         case .chat :
             if IGCall.callPageIsEnable {
@@ -352,7 +352,10 @@ class IGNavigationItem: UINavigationItem {
             if currentRole == .admin || currentRole == .owner {
                 //Hint: - Edit Group Action Handler
                 backViewContainer!.addAction {
-                    
+                    let editVC = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
+                    editVC.room = roomValue
+                    self.navigationController!.pushViewController(editVC, animated: true)
+
                 }
                 
             }
@@ -799,8 +802,8 @@ class IGNavigationItem: UINavigationItem {
             
         }
     }
-    func setNavigationBarForProfileRoom(_ room: IGRoom.IGType,id:Int64? = nil , groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil) {
-        addNavigationLeftButtonsProfileItem(room, id: id ,groupRole: groupRole ,channelRole: channelRole)
+    func setNavigationBarForProfileRoom(_ room: IGRoom.IGType,id:Int64? = nil , groupRole : IGGroupMember.IGRole? = nil , channelRole : IGChannelMember.IGRole? = nil,roomValue: IGRoom? = nil) {
+        addNavigationLeftButtonsProfileItem(room, id: id ,groupRole: groupRole ,channelRole: channelRole,roomValue:roomValue)
     }
     
     func updateNavigationBarForRoom(_ room: IGRoom) {

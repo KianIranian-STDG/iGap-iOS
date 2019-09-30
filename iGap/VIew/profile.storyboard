@@ -123,11 +123,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqL-Km-jOV" customClass="EFAutoScrollLabel" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="125" y="50" width="127" height="23.5"/>
+                                <rect key="frame" x="125" y="50" width="127" height="25.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="atv-wh-4vz">
-                                <rect key="frame" x="220" y="77.5" width="32" height="20.5"/>
+                                <rect key="frame" x="220" y="79.5" width="32" height="20.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -676,7 +676,7 @@
                         <outlet property="signMessageSwtich" destination="pe0-Eb-Mhh" id="Caa-0C-zqq"/>
                         <segue destination="TLa-iL-8nQ" kind="show" identifier="showChannelInfoSetName" id="MLP-96-YiC"/>
                         <segue destination="kC6-ZE-PDX" kind="show" identifier="showChannelInfoSetDescription" id="2lM-rF-k2C"/>
-                        <segue destination="KTB-jD-c4W" kind="show" identifier="showChannelInfoSetType" id="jgy-29-AcO"/>
+                        <segue destination="KTB-jD-c4W" kind="show" identifier="" id="jgy-29-AcO"/>
                         <segue destination="8jI-vu-wZV" kind="show" identifier="showAdminAndModarators" id="Fy8-xe-u1s"/>
                         <segue destination="grv-rH-Zr3" kind="show" identifier="showGroupSharedMediaSetting" id="xkS-cS-Kl8"/>
                     </connections>
@@ -866,15 +866,15 @@
         <scene sceneID="U8X-pm-9UF">
             <objects>
                 <tableViewController storyboardIdentifier="IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController" id="irR-R8-Gqf" customClass="IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1fE-wR-Uhn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="1fE-wR-Uhn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection id="kY3-eE-z0B">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="134" id="GGz-C9-WjI">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="134"/>
+                                        <rect key="frame" x="0.0" y="18" width="375" height="134"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GGz-C9-WjI" id="6ak-3l-Fym">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
@@ -888,35 +888,46 @@
                                                         <constraint firstAttribute="height" constant="70" id="cgN-Oi-GMi"/>
                                                     </constraints>
                                                 </view>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pdF-D7-6U7">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pdF-D7-6U7">
                                                     <rect key="frame" x="16" y="32" width="264" height="34"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zvx-UH-4rj">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zvx-UH-4rj">
                                                     <rect key="frame" x="16" y="68" width="264" height="34"/>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hr-cB-r0v">
+                                                    <rect key="frame" x="290" y="32" width="70" height="70"/>
+                                                    <connections>
+                                                        <action selector="btnChangeImageTapped:" destination="irR-R8-Gqf" eventType="touchUpInside" id="jOT-W0-0oB"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="1hr-cB-r0v" firstAttribute="leading" secondItem="KaM-Nh-9C9" secondAttribute="leading" id="7j0-qI-eiS"/>
                                                 <constraint firstItem="zvx-UH-4rj" firstAttribute="leading" secondItem="6ak-3l-Fym" secondAttribute="leadingMargin" id="9Pd-jJ-FSF"/>
+                                                <constraint firstItem="1hr-cB-r0v" firstAttribute="bottom" secondItem="KaM-Nh-9C9" secondAttribute="bottom" id="CB8-A2-0zD"/>
                                                 <constraint firstItem="KaM-Nh-9C9" firstAttribute="leading" secondItem="zvx-UH-4rj" secondAttribute="trailing" constant="10" id="CMo-6E-bPQ"/>
+                                                <constraint firstItem="1hr-cB-r0v" firstAttribute="top" secondItem="KaM-Nh-9C9" secondAttribute="top" id="F9U-7Q-lts"/>
                                                 <constraint firstItem="KaM-Nh-9C9" firstAttribute="centerY" secondItem="6ak-3l-Fym" secondAttribute="centerY" id="KDK-Fg-pDr"/>
                                                 <constraint firstItem="KaM-Nh-9C9" firstAttribute="leading" secondItem="pdF-D7-6U7" secondAttribute="trailing" constant="10" id="Lvp-TQ-HeQ"/>
                                                 <constraint firstItem="pdF-D7-6U7" firstAttribute="leading" secondItem="6ak-3l-Fym" secondAttribute="leadingMargin" id="MGf-zn-nIX"/>
+                                                <constraint firstItem="1hr-cB-r0v" firstAttribute="trailing" secondItem="KaM-Nh-9C9" secondAttribute="trailing" id="Nkw-jo-wga"/>
                                                 <constraint firstItem="pdF-D7-6U7" firstAttribute="top" secondItem="KaM-Nh-9C9" secondAttribute="top" id="aHw-zk-I8E"/>
                                                 <constraint firstAttribute="trailing" secondItem="KaM-Nh-9C9" secondAttribute="trailing" constant="15" id="h4A-NZ-asm"/>
                                                 <constraint firstItem="zvx-UH-4rj" firstAttribute="bottom" secondItem="KaM-Nh-9C9" secondAttribute="bottom" id="pSA-G2-Hci"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="UAA-Nd-UmC">
+                            <tableViewSection headerTitle="channel Type" id="UAA-Nd-UmC">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="52" id="Zsf-bH-TvU">
-                                        <rect key="frame" x="0.0" y="218" width="375" height="52"/>
+                                        <rect key="frame" x="0.0" y="208" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zsf-bH-TvU" id="h3d-u8-6p5">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
@@ -925,7 +936,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yM-lf-RB8">
                                                     <rect key="frame" x="16" y="15.5" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -935,13 +946,14 @@
                                                 <constraint firstItem="2yM-lf-RB8" firstAttribute="centerY" secondItem="h3d-u8-6p5" secondAttribute="centerY" id="hI0-6c-7VV"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="mPy-2g-Iln">
+                            <tableViewSection headerTitle="sign messages" id="mPy-2g-Iln">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="52" id="hn4-89-pcs">
-                                        <rect key="frame" x="0.0" y="326" width="375" height="52"/>
+                                        <rect key="frame" x="0.0" y="316" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hn4-89-pcs" id="WXh-fT-vnx">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
@@ -950,7 +962,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxO-7u-JMP">
                                                     <rect key="frame" x="16" y="15.5" width="280" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4fW-Sw-hI6">
@@ -965,13 +977,14 @@
                                                 <constraint firstItem="pxO-7u-JMP" firstAttribute="leading" secondItem="WXh-fT-vnx" secondAttribute="leadingMargin" id="g6T-8X-4qd"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="pvC-od-dcl">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="52" id="uq8-QU-xcJ">
-                                        <rect key="frame" x="0.0" y="434" width="375" height="52"/>
+                                        <rect key="frame" x="0.0" y="404" width="375" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uq8-QU-xcJ" id="Pg3-uv-bmb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
@@ -980,7 +993,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBs-xs-3dg">
                                                     <rect key="frame" x="16" y="15.5" width="280" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5H-Ty-Wtv">
@@ -995,6 +1008,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="L5H-Ty-Wtv" secondAttribute="trailing" constant="15" id="iHh-vB-4cI"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1004,14 +1018,17 @@
                             <outlet property="delegate" destination="irR-R8-Gqf" id="SGc-fm-lM5"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="H3O-Qd-qIs" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
                         <outlet property="avatarRoom" destination="KaM-Nh-9C9" id="Oje-2r-mYg"/>
                         <outlet property="lblChannelReaction" destination="cBs-xs-3dg" id="2FW-CK-yzx"/>
+                        <outlet property="lblChannelType" destination="2yM-lf-RB8" id="Q8V-NK-c76"/>
                         <outlet property="lblSignMessage" destination="pxO-7u-JMP" id="Heh-rI-PNh"/>
                         <outlet property="switchChannelReaction" destination="L5H-Ty-Wtv" id="daA-Us-QCc"/>
                         <outlet property="switchSignMessage" destination="4fW-Sw-hI6" id="M4Y-qS-mOm"/>
                         <outlet property="tfDescriptionOfRoom" destination="zvx-UH-4rj" id="ZHa-67-I4E"/>
                         <outlet property="tfNameOfRoom" destination="pdF-D7-6U7" id="uue-vz-RBl"/>
+                        <segue destination="KTB-jD-c4W" kind="show" identifier="showChannelInfoSetType" id="srK-dA-qaw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7It-G5-CuG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1865,7 +1882,7 @@
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUj-7X-Tfs">
                                                     <rect key="frame" x="8" y="5" width="50" height="50"/>
-                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="WzP-7f-XHL"/>
                                                         <constraint firstAttribute="height" constant="50" id="wbf-dk-d2N"/>
@@ -2128,7 +2145,7 @@
             <objects>
                 <tableViewController id="KTB-jD-c4W" customClass="IGChannelInfoEditTypeTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Xz7-bp-pgI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -3086,6 +3103,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QLJ-Ec-vz5"/>
+        <segue reference="srK-dA-qaw"/>
         <segue reference="Nrj-27-Vlk"/>
         <segue reference="zht-up-rA1"/>
     </inferredMetricsTieBreakers>
