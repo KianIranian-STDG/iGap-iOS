@@ -79,7 +79,6 @@ import SnapKit
     func addScoreListItems(array : [IGProtoBuff.IGPUserIVandGetScoreResponse.IGPIVandScore]? = nil) {
         
         var space : CGFloat! = 0
-        var count : Int! = 0
         
         if array!.count > 0 {
             
@@ -126,24 +125,27 @@ import SnapKit
                         make.trailing.equalTo(btnScore.snp.leading).offset(10)
                         make.centerY.equalTo(holder.snp.centerY)
                     }
-
                 }
 
-                btnScore.backgroundColor = UIColor.iGapBars()
+                if item.igpScore < 0 {
+                    btnScore.backgroundColor = UIColor.iGapRed()
+                    btnScore.setTitle( String(item.igpScore).inLocalizedLanguage(), for: .normal)
+                } else {
+                    btnScore.backgroundColor = UIColor.iGapBars()
+                    btnScore.setTitle( String(item.igpScore).inLocalizedLanguage() + " + " , for: .normal)
+                }
+                
                 btnScore.layer.cornerRadius = 10.0
-                btnScore.setTitle( String(array![count].igpScore).inLocalizedLanguage() + " + " , for: .normal)
                 btnScore.titleLabel?.font = UIFont.igFont(ofSize: 15,weight: .bold)
                 lbl.font = UIFont.igFont(ofSize: 14,weight: .bold)
                 lbl.textAlignment = lbl.localizedNewDirection
                 if lastLang == "fa"  {
-                    lbl.text = array![count].igpFaName
+                    lbl.text = item.igpFaName
                 } else {
-                    lbl.text = array![count].igpEnName
+                    lbl.text = item.igpEnName
                 }
-                count += 1
                 space += (5 + (CGFloat(holderHeight)))
             }
-
         }
         SMLoading.hideLoadingPage()
     }

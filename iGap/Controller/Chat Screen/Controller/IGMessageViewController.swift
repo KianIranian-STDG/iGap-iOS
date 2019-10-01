@@ -4185,25 +4185,6 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         
         let messageType = getMessageType(message: message)
         
-        if message.type != .log {
-            if messages!.indices.contains(indexPath.row + 1){
-                let previousMessage = messages![(indexPath.row + 1)]
-                if previousMessage.type != .log && message.authorHash == previousMessage.authorHash {
-                    isPreviousMessageFromSameSender = true
-                }
-            }
-            
-            //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
-            /*
-            if messages!.indices.contains(indexPath.row - 1){
-                let nextMessage = messages![(indexPath.row - 1)]
-                if message.authorHash == nextMessage.authorHash {
-                    isNextMessageFromSameSender = true
-                }
-            }
-            */
-        }
-        
         
         if self.room?.type == .channel { // isIncommingMessage means that show message left side
             isIncommingMessage = true
@@ -4213,9 +4194,29 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
         
         if room?.groupRoom != nil {
             shouldShowAvatar = true
-        }
-        if !isIncommingMessage {
-            shouldShowAvatar = false
+            
+            if isIncommingMessage {
+                if message.type != .log {
+                    if messages!.indices.contains(indexPath.row + 1){
+                        let previousMessage = messages![(indexPath.row + 1)]
+                        if previousMessage.type != .log && message.authorHash == previousMessage.authorHash {
+                            isPreviousMessageFromSameSender = true
+                        }
+                    }
+                    
+                    //Hint: comment following code because corrently we don't use from 'isNextMessageFromSameSender' variable
+                    /*
+                    if messages!.indices.contains(indexPath.row - 1){
+                        let nextMessage = messages![(indexPath.row - 1)]
+                        if message.authorHash == nextMessage.authorHash {
+                            isNextMessageFromSameSender = true
+                        }
+                    }
+                    */
+                }
+            } else {
+                shouldShowAvatar = false
+            }
         }
         
         
