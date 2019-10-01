@@ -59,10 +59,10 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
     func setUnreadMessage(_ message: IGRoomMessage){
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = message.message
-        self.logBackgroundView.layer.cornerRadius = 12.0
+        self.logBackgroundView.layer.cornerRadius = 0.0
         self.logBackgroundView.backgroundColor = UIColor.iGapMainColor()
         logLableWidthConstraint.constant = (message.message!.width(withConstrainedHeight: 25, font: UIFont.igFont(ofSize: 14, weight: .medium)))
-        logBackgroundWidthConstraint.constant = IGGlobal.fetchUIScreen().width - 30
+        logBackgroundWidthConstraint.constant = IGGlobal.fetchUIScreen().width + 10
     }
     
     func setUnknownMessage(){

@@ -17,19 +17,6 @@ import SnapKit
 
 class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContactListObserver {
 
-    var contacts : Results<IGRegisteredUser>!
-
-    var contactSections: [Section]?
-    let collation = UILocalizedIndexedCollation.current()
-    var resultSearchController = UISearchController()
-    var sections : [Section]!
-    var forceCall: Bool = false
-    var pageName : String! = "NEW_CALL"
-    private var lastContentOffset: CGFloat = 0
-    var navigationControll : IGNavigationController!
-
-    internal static var callDelegate: IGCallFromContactListObserver!
-    
     class User: NSObject {
         let registredUser: IGRegisteredUser
         @objc let name: String
@@ -46,15 +33,24 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             self.users.append(user)
         }
     }
+    
+    private var contacts : Results<IGRegisteredUser>!
+    private var resultSearchController = UISearchController()
+    private var forceCall: Bool = false
+    private var pageName : String! = "NEW_CALL"
+    private var lastContentOffset: CGFloat = 0
+    private var navigationControll : IGNavigationController!
+    private let collation = UILocalizedIndexedCollation.current()
+    internal static var callDelegate: IGCallFromContactListObserver!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         
         IGPhoneBookTableViewController.callDelegate = self
         let predicate = NSPredicate(format: "isInContacts = 1")
         contacts = try! Realm().objects(IGRegisteredUser.self).filter(predicate).sorted(byKeyPath: "displayName", ascending: true)
         
+        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.recentTVCellColor.rawValue)
         self.tableView.tableHeaderView = makeHeaderView()
     }
 
@@ -70,13 +66,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
                 
             }
         }
-
     }
+    
     private func goToAddContactsPage() {
-        
         let vc = IGSettingAddContactViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
         self.navigationController!.pushViewController(vc, animated:true)
-
     }
     
     private func makeHeaderView() -> UIView {
@@ -134,18 +128,14 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     func didTapOnBtn(sender:UITapGestureRecognizer) {
         inviteAContact()
     }
+    
     private func inviteAContact() {
         let vc = testVCViewController.instantiateFromAppStroryboard(appStoryboard: .PhoneBook)
         self.navigationController!.pushViewController(vc, animated: true)
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-    }
 
-    
+
     //Mark:- TableView Delagates
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -160,18 +150,10 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         
         return contactsCell
     }
-    
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return makeHeaderView()
-//    }
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 80
-//    }
-
     
     func call(user: IGRegisteredUser,mode: String) {
         self.navigationController?.popToRootViewController(animated: true)
@@ -180,21 +162,11 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         }
     }
     
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if resultSearchController.isActive == false {
-            
-            if forceCall {
-                //                let user = self.sections[indexPath.section].users[indexPath.row]
-                //                DispatchQueue.main.async {
-                //                    (UIApplication.shared.delegate as! AppDelegate).showCallPage(userId: user.registredUser.id, isIncommmingCall: false)
-                //                }
-                //                return
-            }
-            
             IGGlobal.prgShow(self.view)
-            let user = self.sections[indexPath.section].users[indexPath.row]
-            IGChatGetRoomRequest.Generator.generate(peerId: user.registredUser.id).success({ (protoResponse) in
+            let user = self.contacts[indexPath.row]
+            IGChatGetRoomRequest.Generator.generate(peerId: user.id).success({ (protoResponse) in
                 if let chatGetRoomResponse = protoResponse as? IGPChatGetRoomResponse{
                     DispatchQueue.main.async {
                         IGGlobal.prgHide()
@@ -214,7 +186,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             }).send()
         }
     }
-
 }
 
 
