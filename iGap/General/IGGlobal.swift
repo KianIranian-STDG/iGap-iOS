@@ -455,7 +455,7 @@ extension UIColor {
     }
     
     class func dialogueBoxOutgoing() -> UIColor {
-        return UIColor(red: 242/255.0, green: 255/255.0, blue: 235/255.0, alpha: 1)
+        return UIColor(named: themeColor.sendMessageBubleBGColor.rawValue) ?? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     class func dialogueBoxIncomming() -> UIColor {
@@ -521,7 +521,7 @@ extension UIColor {
     }
     
     class func messageText() -> UIColor {
-        return UIColor(red: 44/255.0, green: 54/255.0, blue: 63/255.0, alpha: 1.0)
+        return UIColor(named: themeColor.messageTextColor.rawValue) ?? #colorLiteral(red: 0.1725490196, green: 0.2117647059, blue: 0.2470588235, alpha: 1)
     }
     
     class func dialogueBoxInfo() -> UIColor { // filename, contact, ...
@@ -585,10 +585,10 @@ extension UIColor {
     }
     
     class func iGapGray() -> UIColor {
-        return UIColor(red: 104/255.0, green: 104/255.0, blue: 104/255.0, alpha: 0.9)
+        return #colorLiteral(red: 0.4078431373, green: 0.4078431373, blue: 0.4078431373, alpha: 0.9)
     }
     class func iGapDarkGray() -> UIColor {
-        return UIColor(red: 31/255.0, green: 33/255.0, blue: 36/255.0, alpha: 0.9)
+        return UIColor(named: themeColor.labelGrayColor.rawValue) ?? #colorLiteral(red: 0.1215686275, green: 0.1294117647, blue: 0.1411764706, alpha: 0.9)
     }
     
     class func failedColor() -> UIColor {
@@ -689,7 +689,7 @@ extension UIColor {
     
     class func chatBubbleBackground(isIncommingMessage: Bool) -> UIColor {
         if isIncommingMessage {
-            return  UIColor.white //UIColor.dialogueBoxIncomming()
+            return  UIColor(named: themeColor.receiveMessageBubleBGColor.rawValue) ?? .white
         } else {
             return UIColor.dialogueBoxOutgoing()
         }

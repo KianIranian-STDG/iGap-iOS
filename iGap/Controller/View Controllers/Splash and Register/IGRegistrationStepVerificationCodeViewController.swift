@@ -115,7 +115,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
         if self.delayBeforeSendingAgaing! > 0 {
             let fixedText = "DIDNT_RECIEVE_CODE_WAIT".localizedNew
             let remainingSeconds = self.delayBeforeSendingAgaing!%60
-            let remainingMiuntes = self.delayBeforeSendingAgaing!/60
+            let remainingMiuntes = self.delayBeforeSendingAgaing! / 60
             if remainingSeconds < 10 {
                 retrySendingCodeLabel.text = "\(fixedText)"
             } else {

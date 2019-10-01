@@ -19,7 +19,7 @@ import UIKit
 }
 
 public class IGCountdownTimer: UIView {
-    @IBInspectable public var lineWidth: CGFloat = 2.0
+    @IBInspectable public var lineWidth: CGFloat = 3.0
     @IBInspectable public var lineColor: UIColor = .iGapSubmitButtons()
     @IBInspectable public var trailLineColor: UIColor = UIColor.lightGray.withAlphaComponent(0.5)
     
@@ -82,6 +82,7 @@ public class IGCountdownTimer: UIView {
         
         layer.cornerRadius = frame.width / 2
         clipsToBounds = true
+        self.backgroundColor = UIColor(named: themeColor.splashBackgroundColor.rawValue)
     }
     
     required public init?(coder aDecoder: NSCoder) {

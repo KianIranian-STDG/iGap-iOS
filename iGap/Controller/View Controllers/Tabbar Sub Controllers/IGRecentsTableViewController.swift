@@ -208,6 +208,7 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         }
 
     }
+    
     private func navItemInit() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.setChatListsNavigationItems()

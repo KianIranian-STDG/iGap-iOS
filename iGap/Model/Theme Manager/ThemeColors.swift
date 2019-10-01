@@ -20,4 +20,11 @@ enum themeColor: String {
     case navigationFirstColor = "IGNavigationFirstColor"
     case navigationSecondColor = "IGNavigationSecondColor"
     case searchBarBackGroundColor = "IGSearchBarBackGroundColor"
+    case modalViewBackgroundColor = "IGModalViewBackgroundColor"
+    case textFieldBackGround = "IGTextFieldBackGround"
+    case textFieldPlaceHolderColor = "IGTextFieldPlaceHolderColor"
+    case sendMessageBubleBGColor = "IGSendMessageBubleBGColor"
+    case receiveMessageBubleBGColor = "IGReceiveMessageBubleBGColor"
+    case messageTextColor = "IGMessageTextColor"
+    case splashBackgroundColor = "IGSplashBackgroundColor"
 }

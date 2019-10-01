@@ -106,6 +106,7 @@ class IGSplashScreenViewController: UIViewController {
             
             let desciptionLabel = UILabel(frame: CGRect.zero)
             desciptionLabel.text = descriptions[i]
+            desciptionLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
             desciptionLabel.font = UIFont.igFont(ofSize: 17)
             desciptionLabel.textAlignment = .center
             desciptionLabel.numberOfLines = 0
@@ -148,6 +149,7 @@ class IGSplashScreenViewController: UIViewController {
             
             let desciptionLabel = UILabel(frame: CGRect.zero)
             desciptionLabel.text = descriptions[i]
+            desciptionLabel.textColor = UIColor(named: themeColor.labelColor.rawValue)
             desciptionLabel.font = UIFont.igFont(ofSize: 17)
             desciptionLabel.textAlignment = .center
             desciptionLabel.numberOfLines = 0

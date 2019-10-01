@@ -639,7 +639,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
 
-        let bgColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        let bgColor = UIColor(named: themeColor.modalViewBackgroundColor.rawValue)
         
         self.view.backgroundColor = bgColor
         self.view.superview?.backgroundColor = bgColor
@@ -647,7 +647,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         self.view.superview?.superview?.superview?.backgroundColor = bgColor
         self.view.superview?.superview?.superview?.superview?.backgroundColor = bgColor
         
-        let inputTextViewInitialHeight:CGFloat = 22.0 //initial without reply || forward || attachment || text
+        let inputTextViewInitialHeight: CGFloat = 22.0 //initial without reply || forward || attachment || text
         self.inputTextViewHeight = inputTextViewInitialHeight
         
         self.setInputBarHeight()
@@ -655,8 +655,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputTextView.delegate = self
         inputTextView.placeholder = "MESSAGE".MessageViewlocalizedNew
         
-        inputTextView.placeholderColor = UIColor(red: 173.0/255.0, green: 173.0/255.0, blue: 173.0/255.0, alpha: 1.0)
-        //        inputTextView.minHeight = 25.0 // almost 8 lines
+        inputTextView.placeholderColor = UIColor(named: themeColor.textFieldPlaceHolderColor.rawValue) ?? #colorLiteral(red: 0.6784313725, green: 0.6784313725, blue: 0.6784313725, alpha: 1)
+//        inputTextView.minHeight = 25.0 // almost 8 lines
         
         inputTextView.maxHeight = 166.0 // almost 8 lines
         inputTextView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 30)
@@ -674,11 +674,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputBarBackgroundView.layer.cornerRadius = 6.0//19.0
         inputBarBackgroundView.layer.masksToBounds = false
         inputBarBackgroundView.layer.shadowColor = UIColor.black.cgColor
-        inputBarBackgroundView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        inputBarBackgroundView.layer.shadowRadius = 4.0
+        inputBarBackgroundView.layer.shadowOffset = CGSize(width: 0, height: -4)
+        inputBarBackgroundView.layer.shadowRadius = 3.0
         inputBarBackgroundView.layer.shadowOpacity = 0.15
-        inputBarBackgroundView.layer.borderColor = UIColor(red: 209.0/255.0, green: 209.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
-        inputBarBackgroundView.layer.borderWidth  = 1.0
+        inputBarBackgroundView.layer.borderColor = UIColor(red: 209.0/255.0, green: 209.0/255.0, blue: 209.0/255.0, alpha: 0.4).cgColor
+        inputBarBackgroundView.layer.borderWidth = 1.0
         
         inputBarView.layer.cornerRadius = 0.0//19.0
         inputBarView.layer.masksToBounds = true
@@ -799,7 +799,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     }
     
     @objc @available(iOS 10.0, *)
-    private func openStickerView(){
+    private func openStickerView() {
         let viewController:UIViewController
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
         
@@ -3422,7 +3422,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if webViewProgressbar == nil {
             webViewProgressbar = UIActivityIndicatorView()
             webViewProgressbar.hidesWhenStopped = true
-            webViewProgressbar.color = UIColor.darkGray
+            webViewProgressbar.color = UIColor(named: themeColor.labelGrayColor.rawValue)
         }
         webView.addSubview(webViewProgressbar)
         
@@ -3917,7 +3917,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 let markdown = MarkdownParser()
                 markdown.enabledElements = MarkdownParser.EnabledElements.bold
                 self.inputBarOriginalMessageViewBodyTextLabel.attributedText = markdown.parse(textMessage!)
-                self.inputBarOriginalMessageViewBodyTextLabel.textColor = UIColor.darkGray
+                self.inputBarOriginalMessageViewBodyTextLabel.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
                 self.inputBarOriginalMessageViewBodyTextLabel.font = UIFont.igFont(ofSize: 11.0)
             }
             

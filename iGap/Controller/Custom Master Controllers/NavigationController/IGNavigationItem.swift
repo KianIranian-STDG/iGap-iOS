@@ -556,14 +556,11 @@ class IGNavigationItem: UINavigationItem {
         if rightViewContainer?.subviews.count != nil {
             
             if rightViewContainer!.subviews.count > 0 {
-                
                 rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                
             }
             
         }
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        
         
         let btnAdd = UIButton(frame: composeButtonFrame)
         btnAdd.setTitle("", for: .normal)
@@ -578,7 +575,6 @@ class IGNavigationItem: UINavigationItem {
         addiGapLogo()
         addComopseButton()
         addMoreSettingsButton()
-        
     }
     private func addMoreSettingsButton() {
         if leftViewContainer?.subviews.count != nil {

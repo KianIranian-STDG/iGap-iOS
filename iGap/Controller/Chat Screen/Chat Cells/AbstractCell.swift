@@ -121,7 +121,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     }
     
     override func setMessage(_ message: IGRoomMessage, room: IGRoom, isIncommingMessage: Bool, shouldShowAvatar: Bool, messageSizes: MessageCalculatedSize, isPreviousMessageFromSameSender: Bool, isNextMessageFromSameSender: Bool) {
-        if room.isInvalidated || message.isInvalidated {return}
+        if room.isInvalidated || message.isInvalidated { return }
 
         self.room = room
         self.realmRoomMessage = message
@@ -236,15 +236,15 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
     }
     
-    private func manageTextMessage(){
+    private func manageTextMessage() {
 
         if finalRoomMessage.type == .sticker {
             return
         }
 
-
         if finalRoomMessage.message != nil && finalRoomMessage.message != "" {
             txtMessageAbs?.isHidden = false
+            txtMessageAbs?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
 
             txtMessageHeightConstraintAbs?.constant = messageSizes.bubbleSize.height
 
@@ -545,7 +545,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
     }
     
-    private func manageCellBubble(){
+    private func manageCellBubble() {
       
         /************ Bubble View ************/
         let shadowOffset: CGFloat = 0.5
@@ -629,7 +629,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
      ************************** Link Manager **************************
      ******************************************************************
      */
-    private func manageLink(){
+    private func manageLink() {
         linkManager(txtMessage: txtMessageAbs)
     }
     

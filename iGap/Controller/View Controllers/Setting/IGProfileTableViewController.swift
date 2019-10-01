@@ -674,6 +674,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         self.navigationController!.pushViewController(createChat, animated: true)
 
     }
+    
     @IBAction func btnEditProfileTapped(_ sender: Any) {
         print(tapCount)
         tapCount += 1

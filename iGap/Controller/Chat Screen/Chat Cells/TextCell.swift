@@ -36,9 +36,6 @@ class TextCell: AbstractCell {
 
         super.setMessage(message, room: room, isIncommingMessage: isIncommingMessage, shouldShowAvatar: shouldShowAvatar, messageSizes: messageSizes, isPreviousMessageFromSameSender: isPreviousMessageFromSameSender, isNextMessageFromSameSender: isNextMessageFromSameSender)
 
-      
-        
-
     }
     
     private func initializeView(){
