@@ -15,7 +15,7 @@ typealias MessageCalculatedSize = (bubbleSize: CGSize, messageAttachmentHeight: 
 
 class CellSizeCalculator: NSObject {
     
-    var cache : NSCache<NSString, AnyObject>
+    private var cache : NSCache<NSString, AnyObject>
     private static let EXTRA_HEIGHT_RTL_OR_VOTE = 20
     public static let IMG_REPLY_DEFAULT_HEIGHT = 30
     internal static let RTL_OFFSET = -(EXTRA_HEIGHT_RTL_OR_VOTE - 7)
@@ -36,7 +36,12 @@ class CellSizeCalculator: NSObject {
         return UIFont.igFont(ofSize: fontDefaultSize)
     }
     
-    func mainBubbleCountainerSize(room: IGRoom, for message:IGRoomMessage) -> MessageCalculatedSize {
+    func clearBubbleSizeCache(){
+        cache.removeAllObjects()
+    }
+    
+    /** when "showAvatar" is true also should be show sender name */
+    func mainBubbleCountainerSize(room: IGRoom, for message:IGRoomMessage, showAvatar: Bool = false) -> MessageCalculatedSize {
         
         if message.isInvalidated || room.isInvalidated {
             return (CGSize.zero, 0, 0)
@@ -45,10 +50,7 @@ class CellSizeCalculator: NSObject {
         let cacheKey = "\(String(describing: message.primaryKeyId))_\(message.messageVersion)" as NSString
         let cachedSize = cache.object(forKey: cacheKey)
         if cachedSize != nil {
-//            return cachedSize as! MessageCalculatedSize
-//            let t = (bubbleSize: CGSize(width: 200, height: 200), messageAttachmentHeight: CGFloat(0), additionalHeight: CGFloat(200))
-//
-//            return t as MessageCalculatedSize
+            return cachedSize as! MessageCalculatedSize
         }
 
         var finalSize = CGSize.zero
