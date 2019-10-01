@@ -300,6 +300,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     var latestIndexPath: IndexPath!
     var isCardToCardRequestEnable = false
     var latestKeyboardAdditionalView: UIView!
+    var highlightMessageId: Int64 = 0
     
     private var cellSizeLimit: CellSizeLimit!
     
@@ -2410,7 +2411,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     @IBAction func didTapOnPinView(_ sender: UIButton) {
         if let pinMessage = room?.pinMessage {
-            goToPosition(cellMessage: pinMessage)
+            goToPosition(messageId: pinMessage.id)
         }
     }
     
@@ -4245,6 +4246,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
             
+            manageHighlightMode(cell: cell, messageId: message.id)
+            
             cell.delegate = self
             return cell
             
@@ -4271,6 +4274,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     }
                 }
             }
+            
+            manageHighlightMode(cell: cell, messageId: message.id)
             
             cell.delegate = self
             return cell
@@ -4299,6 +4304,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
            
+            manageHighlightMode(cell: cell, messageId: message.id)
+            
             cell.delegate = self
             return cell
             
@@ -4325,6 +4332,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     }
                 }
             }
+            
+            manageHighlightMode(cell: cell, messageId: message.id)
             
             cell.delegate = self
             return cell
@@ -4353,6 +4362,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
             
+            manageHighlightMode(cell: cell, messageId: message.id)
+            
             cell.delegate = self
             return cell
             
@@ -4379,6 +4390,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     }
                 }
             }
+            manageHighlightMode(cell: cell, messageId: message.id)
+            
             cell.delegate = self
             return cell
             
@@ -4405,6 +4418,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     }
                 }
             }
+            
+            manageHighlightMode(cell: cell, messageId: message.id)
             
             cell.delegate = self
             return cell
@@ -4433,6 +4448,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
             
+            manageHighlightMode(cell: cell, messageId: message.id)
+            
             cell.delegate = self
             return cell
             
@@ -4460,6 +4477,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                 }
             }
             
+            manageHighlightMode(cell: cell, messageId: message.id)
+            
             cell.delegate = self
             return cell
             
@@ -4486,6 +4505,8 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
                     }
                 }
             }
+            
+            manageHighlightMode(cell: cell, messageId: message.id)
             
             cell.delegate = self
             return cell
@@ -4568,6 +4589,22 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             reusableview = header
         }
         return reusableview
+    }
+    
+    private func manageHighlightMode(cell: UICollectionViewCell, messageId: Int64) {
+        if messageId == highlightMessageId {
+            highlightMessageId = 0
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                UIView.transition(with: cell, duration: 0.5, animations: {
+                    cell.backgroundColor = UIColor.iGapBlue().withAlphaComponent(0.3)
+                }, completion: { (completed) in
+                    UIView.animate(withDuration: 0.5, animations: {
+                        cell.backgroundColor = UIColor.clear
+                    }, completion: nil)
+                })
+            }
+        }
     }
 }
 
@@ -5141,15 +5178,26 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.present(alertC, animated: true, completion: nil)
     }
     
-    func goToPosition(cellMessage: IGRoomMessage){
-        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: cellMessage.id) {
+    func goToPosition(messageId: Int64){
+        self.highlightMessageId = messageId
+        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
             let indexPath = IndexPath(row: indexOfMessge, section: 0)
-            self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+            // if cell is not visible go to message position
+            if !self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
+            }
+            notifyPosition(messageId: self.highlightMessageId)
         } else {
             //TODO - load message from local or server if currently is not exist at view
         }
     }
     
+    func notifyPosition(messageId: Int64){
+        if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
+            let indexPath = IndexPath(row: indexOfMessge, section: 0)
+            self.collectionView.reloadItems(at: [indexPath])
+        }
+    }
     
     
     /******* overrided method for show file attachment (use from UIDocumentInteractionControllerDelegate) *******/
@@ -5294,7 +5342,7 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let replyMessage = cellMessage.repliedTo {
-            goToPosition(cellMessage: replyMessage)
+            goToPosition(messageId: replyMessage.id * -1)
         }
     }
     
