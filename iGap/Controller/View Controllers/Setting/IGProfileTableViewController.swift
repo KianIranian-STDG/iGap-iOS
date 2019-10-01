@@ -17,13 +17,15 @@ import MapKit
 import MBProgressHUD
 
 
-class IGProfileTableViewController: UITableViewController,CLLocationManagerDelegate {
+class IGProfileTableViewController: UITableViewController,CLLocationManagerDelegate,UITextFieldDelegate{
     lazy var colorView = { () -> UIView in
         let view = UIView()
         view.isUserInteractionEnabled = false
         return view
     }()
-    
+    @IBOutlet weak  var btnCountryCodeWidthConstraints: NSLayoutConstraint!
+    @IBOutlet weak  var tfRefferalWidthConstraints: NSLayoutConstraint!
+
     var canCallNextRequest : Bool! = false
     var currentGender : IGPGender.RawValue = 0
     var currentName : String = ""
@@ -31,6 +33,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     var currentBio : String = ""
     var currentEmail : String = ""
     var currentReferral : String = ""
+    internal static var allowGetCountry:Bool = true
+    var phone: String?
+    var selectedCountry : IGCountryInfo?
+    var registrationResponse : (username:String, userId:Int64, authorHash:String, verificationMethod: IGVerificationCodeSendMethod, resendDelay:Int32, codeDigitsCount:Int32, codeRegex:String, callMethodSupport:Bool)?
 
     var isEditMode = false
     var shouldSave = false
@@ -47,6 +53,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var stack1: UIStackView!
     @IBOutlet weak var stack3: UIStackView!
     @IBOutlet weak var btnName: UIButton!
+    @IBOutlet weak var btnCountryCode: UIButton!
     @IBOutlet weak var btnUsername: UIButton!
     @IBOutlet weak var lblTel: UILabel!
     @IBOutlet weak var lblBio: UILabel!
@@ -71,6 +78,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblBioInner: UILabel!
     @IBOutlet weak var lblEmailInner: UILabel!
+    @IBOutlet weak var lblReferralInner: UILabel!
     @IBOutlet weak var lblGenderInner: UILabel!
     @IBOutlet weak var lblMenGender: UILabel!
     @IBOutlet weak var lblWomenGender: UILabel!
@@ -81,6 +89,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var tfUserName: UITextField!
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfBio: UITextField!
+    @IBOutlet weak var tfReferral: AKMaskField!
 
     var hasNameChanged: Bool! = false
     var hasUserNameChanged: Bool! = false
@@ -112,12 +121,13 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
 //        self.tableView.alwaysBounceVertical = false
         initView()
         initServices()
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         navigationItem.removeNavButtons()
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool)  {
@@ -126,6 +136,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 //        self.navigationController?.navigationBar.isHidden = true
         if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
             navigationBar.setTransparentNavigationBar()
+            navigationBar.isHidden = true
+            navigationBar.backgroundColor = .clear
         }
         
         IGRequestWalletGetAccessToken.sendRequest()
@@ -155,13 +167,45 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         
         //  Converted to Swift 5 by Swiftify v5.0.30657 - https://objectivec2swift.com/
         if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
+//            tableView.contentInsetAdjustmentBehavior = .never
         } else {
-            automaticallyAdjustsScrollViewInsets = false
+//            automaticallyAdjustsScrollViewInsets = false
+        }
+        if(IGProfileTableViewController.allowGetCountry){
+            getUserCurrentLocation()
         }
         
     }
-
+    
+    func getUserCurrentLocation() {
+        IGInfoLocationRequest.Generator.generate().success({(protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let locationProtoResponse as IGPInfoLocationResponse:
+                   let country = IGCountryInfo(responseProtoMessage: locationProtoResponse)
+                   self.selectedCountry = country
+                    self.setSelectedCountry(self.selectedCountry!)
+                    
+                default:
+                    break
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.hud.hide(animated: true)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
+            
+        }).send()
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -209,9 +253,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 
     func initView() {
 
-        btnMenGender.setTitle("", for: .normal)
+        btnMenGender.setTitle("", for: .normal)
         btnMenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-        btnWomenGender.setTitle("", for: .normal)
+        btnWomenGender.setTitle("", for: .normal)
         btnWomenGender.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
         
         btnCamera.setBackgroundImage(UIImage(named: "ig_add_image_icon"), for: .normal)
@@ -238,8 +282,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         lblName.text = "NAME".localizedNew
         lblUserName.text = "SETTING_PAGE_ACCOUNT_USERNAME".localizedNew
         lblBioInner.text = "SETTING_PAGE_ACCOUNT_BIO".localizedNew
+        lblReferralInner.text = "SETTING_PAGE_ACCOUNT_REFERRAL".localizedNew
         lblBioInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
-        
+        lblReferralInner.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+
         btnName.setTitle("NAME".localizedNew, for: .normal)
         lblCloud.text = "MY_CLOUD".localizedNew
         lblSetting.text = "SETTING_VIEW".localizedNew
@@ -264,7 +310,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 
     }
     func textManagment() {
-
         lblBioTop.text = (userInDb.bio)
         btnName.setTitle((userInDb.displayName), for: .normal)
         btnName.titleLabel?.font = UIFont.igFont(ofSize: 14)
@@ -279,6 +324,16 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         
         if let sessionInfo = IGDatabaseManager.shared.realm.objects(IGSessionInfo.self).first {
             tmpGender = sessionInfo.gender
+            if let tmpReferralNumber = sessionInfo.representer {
+                self.tfReferral.isEnabled = false
+                tfReferral.text = tmpReferralNumber
+                self.btnCountryCodeWidthConstraints.constant = 0
+                self.tfRefferalWidthConstraints.constant = 200
+            } else {
+                self.tfReferral.isEnabled = true
+                self.getRepresenter()
+            }
+            
         }
         //check if user didNot check also check the serverside
         if tmpGender == .unknown {
@@ -289,8 +344,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             case .unknown:
                 //uncheck Both buttons
                 currentGender = 0
-                btnWomenGender.setTitle("", for: .normal)
-                btnMenGender.setTitle("", for: .normal)
+                btnWomenGender.setTitle("", for: .normal)
+                btnMenGender.setTitle("", for: .normal)
                 
                 break
             case .male:
@@ -299,8 +354,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 isFMaleChecked = false
                 isMaleChecked = true
                 
-                btnWomenGender.setTitle("", for: .normal)
-                btnMenGender.setTitle("", for: .normal)
+                btnWomenGender.setTitle("", for: .normal)
+                btnMenGender.setTitle("", for: .normal)
                 
                 break
             case .female:
@@ -308,8 +363,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 currentGender = 2
                 isFMaleChecked = true
                 isMaleChecked = false
-                btnMenGender.setTitle("", for: .normal)
-                btnWomenGender.setTitle("", for: .normal)
+                btnMenGender.setTitle("", for: .normal)
+                btnWomenGender.setTitle("", for: .normal)
                 
                 break
             }
@@ -337,6 +392,33 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 
     }
     
+    func getRepresenter(){
+        IGUserProfileGetRepresentativeRequest.Generator.generate().success({ (protoResponse) in
+            if let response = protoResponse as? IGPUserProfileGetRepresentativeResponse {
+                
+                if response.igpPhoneNumber.isEmpty {
+                    self.tfReferral.isEnabled = true
+                } else {
+                    self.tfReferral.isEnabled = false
+
+                }
+                IGUserProfileGetRepresentativeRequest.Handler.interpret(response: response)
+                
+                DispatchQueue.main.async {
+                    self.tfReferral.text = response.igpPhoneNumber
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            switch errorCode {
+            case .timeout:
+                self.getRepresenter()
+            default:
+                DispatchQueue.main.async {
+                }
+                break
+            }
+        }).send()
+    }
     func getUserEmail() {
         DispatchQueue.global(qos: .userInteractive).async {
             
@@ -377,7 +459,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 DispatchQueue.main.async {
                     switch protoResponse {
                     case let getUserGenderResponse as IGPUserProfileGetGenderResponse:
-                        let userEmail = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
+                        let userGender = IGUserProfileGetGenderRequest.Handler.interpret(response: getUserGenderResponse)
                     default:
                         break
                     }
@@ -629,6 +711,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 
     }
     //Hint: - Go To Setting Action Handler
+    @IBAction func didTapOnPickCountryCode(_ sender: Any) {
+
+        performSegue(withIdentifier: "showCountryCell", sender: self) //presentConutries
+    }
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
 //        goToSettings = true
 //        self.performSegue(withIdentifier: "showSettings", sender: self)
@@ -730,6 +816,26 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             })
             shouldSave = false
 
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCountryCell" {
+            let nav = segue.destination as! UINavigationController
+            let destination = nav.topViewController as! IGRegistrationStepSelectCountryTableViewController
+            destination.delegate = self
+        }
+    }
+    fileprivate func setSelectedCountry(_ country:IGCountryInfo) {
+        selectedCountry = country
+        btnCountryCode.setTitle("+"+String(Int((selectedCountry?.countryCode)!)), for: .normal)
+        if country.codePattern != nil && country.codePattern != "" {
+            tfReferral.setMask((selectedCountry?.codePatternMask)!, withMaskTemplate: selectedCountry?.codePatternTemplate)
+        } else {
+            //phoneNumberField.refreshMask()
+            
+            let codePatternMask = "{ddddddddddddddddddddddddd}"
+            let codePatternTemplate = "_________________________"
+            tfReferral.setMask(codePatternMask, withMaskTemplate: codePatternTemplate)
         }
     }
     @IBAction func btnCameraPickTapped(_ sender: Any) {
@@ -848,7 +954,15 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                     return 0
                 }
                 
+            case 12 :
+                if isEditMode {
+                    return 44
+                }
+                else {
+                    return 0
+                }
                 
+
                 
             default :
                 if isEditMode {
@@ -871,7 +985,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 12
+        return 13
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         goToSettings = false
@@ -947,8 +1061,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if isMaleChecked {
         } else {
             isFMaleChecked = false
-            btnWomenGender.setTitle("", for: .normal)
-            btnMenGender.setTitle("", for: .normal)
+            btnWomenGender.setTitle("", for: .normal)
+            btnMenGender.setTitle("", for: .normal)
 
         }
         let tmpCurrentGender = 1
@@ -966,8 +1080,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if isFMaleChecked {
         } else {
             isMaleChecked = false
-            btnMenGender.setTitle("", for: .normal)
-            btnWomenGender.setTitle("", for: .normal)
+            btnMenGender.setTitle("", for: .normal)
+            btnWomenGender.setTitle("", for: .normal)
         }
         let tmpCurrentGender = 2
         if currentGender != tmpCurrentGender {
@@ -1319,3 +1433,8 @@ extension IGProfileTableViewController: UISearchBarDelegate {
 
 
 
+extension IGProfileTableViewController : IGRegistrationStepSelectCountryTableViewControllerDelegate {
+    func didSelectCountry(country: IGCountryInfo) {
+        self.setSelectedCountry(country)
+    }
+}

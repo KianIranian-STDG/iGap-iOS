@@ -399,6 +399,14 @@ class IGNavigationItem: UINavigationItem {
                     IGGlobal.shouldMultiSelect = false
                     isDashboardInner = false
                     currentPageName = ""
+                    if currentTabIndex == 4 {// means profile page
+                        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
+                            navigationBar.setTransparentNavigationBar()
+                            navigationBar.isHidden = true
+                            navigationBar.backgroundColor = .clear
+                        }
+                    }
+                    
                     _ = self.navigationController?.popViewController(animated: true)
 //                    let gradient = CAGradientLayer()
 //                    let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)

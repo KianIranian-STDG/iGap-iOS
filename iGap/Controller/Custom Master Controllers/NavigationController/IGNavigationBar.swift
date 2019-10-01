@@ -55,9 +55,9 @@ class IGNavigationBar: UINavigationBar, UINavigationBarDelegate {
     }
     
     func setTransparentNavigationBar() {
-        self.isTransparent = true
+//        self.isTransparent = true
         self.setBackgroundImage(UIImage(), for: .default)
 //        self.shadowImage = UIImage()
-        self.isTranslucent = true
+//        self.isTranslucent = true
     }
 }
