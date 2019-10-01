@@ -123,7 +123,7 @@ class CellSizeLimit: NSObject {
         }
         
         struct Unread {
-            static let Height: CGFloat = 30.0
+            static let Height: CGFloat = 45.0
             static let Width: CGFloat = IGGlobal.fetchUIScreen().width
         }
         

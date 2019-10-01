@@ -4522,6 +4522,7 @@ extension IGMessageViewController: IGMessageCollectionViewDataSource {
             return cell
         } else if message.type == .unread {
             let cell: IGMessageLogCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: logMessageCellIdentifer, for: indexPath) as! IGMessageLogCollectionViewCell
+            let _ = CellSizeCalculator.sharedCalculator.mainBubbleCountainerSize(room: self.room!, for: message)
             cell.setUnreadMessage(message)
             return cell
         } else {
