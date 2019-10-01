@@ -20,10 +20,6 @@ class IGRealmChannelExtra: Object {
     @objc dynamic var thumbsUpLabel: String = "1"
     @objc dynamic var thumbsDownLabel: String = "1"
     
-    override static func primaryKey() -> String {
-        return "messageId"
-    }
-    
     //init from network response
     convenience init(messageId: Int64, igpChannelExtra: IGPRoomMessage.IGPChannelExtra) {
         self.init()
