@@ -989,7 +989,6 @@ extension packetTableViewController: DropdownMenuDelegate {
     func dropdownMenu(_ dropdownMenu: DropdownMenu, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         print(indexPath.row)
-        print("||||||||INDEX")
 
         switch indexPath.section {
         case 0 :
@@ -1049,7 +1048,6 @@ extension packetTableViewController: DropdownMenuDelegate {
         default :
             break
         }
-        print("||||||||INDEX2")
         print(merchantID)
         print("||||||||INDEX2")
 

@@ -138,6 +138,7 @@
         "IN_CHAT_SEARCH" : "جست و جوی درون گغت و گو",
         "GROUP_LINK_NOT_EMPTY" : "قسمت لینک گروه نباید خالی باشد",
         "NAME" : "نام",
+        "MSG_CHANGE_CHANNEL_USERNAME" : "ذخیره نام کاربری",
         "MSG_GROUP_DESC" : "لطفا برای گروه خود توضیحاتی وارد نمایید ...",
         "MSG_GROUP_CHANNEL" : "لطفا برای کانال خود توضیحاتی وارد نمایید ...",
         "MSG_PLEASE_CHOOSE_MEMBER" : "لطفا  کاربری را برای عضویت انتخاب نمایید.",

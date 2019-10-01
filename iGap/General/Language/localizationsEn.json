@@ -405,7 +405,8 @@
         "TTL_ADDING_ME_TO_GROULS" : "Adding me To Groups",
         "TTL_ADDING_ME_TO_CHANNELS" : "Adding me To Channels",
         "TTL_WHO_CAN_CALL" : "Who can call me?",
-        
+        "MSG_CHANGE_CHANNEL_USERNAME" : "Save Username Changes",
+
         
         "MSG_NEW_CHANNEL_PUBLIC_CHANNEL_TITLE" : "Public Channel",
         "MSG_NEW_CHANNEL_PRIVATE_CHANNEL_TITLE" : "Private Channel",

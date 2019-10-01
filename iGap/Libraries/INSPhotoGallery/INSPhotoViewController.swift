@@ -326,8 +326,6 @@ open class INSPhotoViewController: UIViewController, UIScrollViewDelegate  {
     }
 
     @objc func pressed(sender: UIButton!) {
-        print("|||||TAPPED|||||")
-
         
         loadFullSizeImage()
         

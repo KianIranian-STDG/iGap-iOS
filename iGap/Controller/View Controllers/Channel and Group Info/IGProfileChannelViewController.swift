@@ -577,19 +577,19 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
 //        channelNameLabel.text = room?.title
 //        ChannelDescriptionLabel.text = room?.channelRoom?.roomDescription
         if let channelRoom = room {
-            channelImage.setRoom(channelRoom, showMainAvatar: true)
+            channelImage.setRoom(channelRoom)
         }
         if let channelType = room?.channelRoom?.type {
             switch channelType {
             case .privateRoom:
 //                channelTypeLabel.text = "PRIVATE".localizedNew
                 if let link = room?.channelRoom?.privateExtra?.inviteLink  {
-                    channelLink = link
+                    channelLink =  link
                 }
             case .publicRoom:
 //                channelTypeLabel.text = "PUBLIC".localizedNew
                 if let username = room?.channelRoom?.publicExtra?.username {
-                    channelLink = "iGap.net/" + username
+                    channelLink = username
 
                 }
             }

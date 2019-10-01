@@ -16,7 +16,7 @@ class IGHelperAlert {
     
     static let shared = IGHelperAlert()
     
-    func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil, done: (() -> Void)? = nil) {
+    func showAlert(view: UIViewController? = nil, title: String? = nil, message: String? = nil, done: (() -> Void)? = nil, cancel: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             var alertView = view
             if alertView == nil {
@@ -41,6 +41,11 @@ class IGHelperAlert {
                 done?()
             })
             alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "BTN_CANCEL".localizedNew, style: .default, handler: { (action) in
+                cancel?()
+            })
+            alert.addAction(cancelAction)
+
             alertView!.present(alert, animated: true, completion: nil)
         }
     }

@@ -12,6 +12,8 @@ import IGProtoBuff
 class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTableViewController,UITextFieldDelegate {
 
     // MARK: - Variables
+    var dispatchGroup: DispatchGroup!
+
     var room : IGRoom?
     var imagePicker = UIImagePickerController()
     var avatars: [IGAvatar] = []
@@ -19,7 +21,12 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     var channelAvatarAttachment: IGFile!
     var tmpOldName : String = ""
     var tmpOldDesc : String = ""
-    
+    var channelLink: String? = ""
+    var tmpOldUserName: String? = ""
+    var convertToPublic = false
+    var signMessageSwitchStatus : Bool?
+    var reactionSwitchStatus = false
+
     // MARK: - Outlets
     @IBOutlet weak var lblSignMessage : UILabel!
     @IBOutlet weak var lblChannelReaction : UILabel!
@@ -27,6 +34,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     @IBOutlet weak var switchSignMessage : UISwitch!
     @IBOutlet weak var switchChannelReaction : UISwitch!
     
+    @IBOutlet weak var tfChannelLink : UITextField!
     @IBOutlet weak var tfNameOfRoom : UITextField!
     @IBOutlet weak var tfDescriptionOfRoom : UITextField!
     @IBOutlet weak var avatarRoom : IGAvatarView!
@@ -35,21 +43,137 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     // MARK: - ViewController initializers
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         tfDescriptionOfRoom.delegate = self
         tfNameOfRoom.delegate = self
+        tfChannelLink.delegate = self
         getData()
         //nav init
         imagePicker.delegate = self
 
-        self.initNavigationBar(title: "CHANNEL_TITLE".localizedNew) {}
+        self.initNavigationBar(title: "CHANNEL_TITLE".localizedNew,rightItemText: "", iGapFont: true) {
+
+            self.RequestSequence()
+        }
+        
         initView()
 
     }
     // MARK: - Development Funcs
+    func RequestSequence(){
+        
+        self.dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()   // <<---
+        if self.convertToPublic {
+            if self.tfChannelLink.text != self.tmpOldUserName {
+                self.changedChannelTypeToPublic()
+            } else {
+                self.dispatchGroup.leave()
+            }
+        } else {
+            self.changedChannelTypeToPrivate()
+        }
+
+        dispatchGroup.enter()   // <<---
+
+        if self.tfDescriptionOfRoom.text != self.tmpOldDesc {
+            self.changeChannelDescription()
+        } else {
+            self.dispatchGroup.leave()
+
+        }
+
+        dispatchGroup.enter()   // <<---
+
+        if self.tfNameOfRoom.text != self.tmpOldName {
+            self.changeChanellName()
+        } else {
+            self.dispatchGroup.leave()
+
+        }
+
+        dispatchGroup.enter()   // <<---
+        self.requestToUpdateChannelReaction(self.reactionSwitchStatus)
+
+
+        dispatchGroup.enter()   // <<---
+        self.requestToUpdateChannelSignature(self.signMessageSwitchStatus!)
+
+        dispatchGroup.notify(queue: .main) {
+            // whatever you want to do when both are done
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
+    func requestToUpdateChannelSignature(_ signatureSwitchStatus: Bool) {
+        if let channelRoom = room {
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGChannelUpdateSignatureRequest.Generator.generate(roomId: channelRoom.id, signatureStatus: signatureSwitchStatus).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let channelUpdateSignatureResponse as IGPChannelUpdateSignatureResponse:
+                        let _ = IGChannelUpdateSignatureRequest.Handler.interpret(response: channelUpdateSignatureResponse)
+                    default:
+                        break
+                    }
+                    SMLoading.hideLoadingPage()
+                    self.dispatchGroup.leave()
+
+
+                }
+            }).error ({ (errorCode, waitTime) in
+                DispatchQueue.main.async {
+                    switch errorCode {
+                    case .timeout:
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.dispatchGroup.leave()
+
+                        self.present(alert, animated: true, completion: nil)
+                    default:
+                        break
+                    }
+                    SMLoading.hideLoadingPage()
+                }
+                
+            }).send()
+        }
+    }
+    
+    func requestToUpdateChannelReaction(_ reactionSwitchStatus: Bool) {
+        if let channelRoom = room {
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGChannelUpdateReactionStatusRequest.sendRequest(roomId: channelRoom.id, reactionStatus: reactionSwitchStatus)
+            
+            self.dispatchGroup.leave()
+
+        }
+    }
     private func getData() {
         //Hint : -This func is responsible to get current data of room and has responsibility to check values for changes
         self.tmpOldDesc = (self.room?.channelRoom!.description)!
         self.tmpOldName = self.room!.title!
+        if room?.channelRoom?.type == .privateRoom {
+            channelLink = room?.channelRoom?.privateExtra?.inviteLink
+            channelLink = "iGap.net/" + channelLink!
+            self.convertToPublic = false
+            tfChannelLink.isEnabled = false
+            lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+
+        }
+        if room?.channelRoom?.type == .publicRoom {
+            channelLink = room?.channelRoom?.publicExtra?.username
+            channelLink = channelLink!
+            tfChannelLink.isEnabled = true
+            self.convertToPublic = true
+
+            lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+            tmpOldUserName = channelLink
+
+        }
+        tfChannelLink.text = channelLink
     }
     //Mark: - change channel Description
     func changeChannelDescription() {
@@ -65,7 +189,8 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                             self.tfDescriptionOfRoom.text = channelEditResponse.description
                             self.tmpOldDesc = channelEditResponse.description
                             SMLoading.hideLoadingPage()
-                            
+                            self.dispatchGroup.leave()
+
                         default:
                             break
                         }
@@ -78,6 +203,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                             let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                             alert.addAction(okAction)
                             SMLoading.hideLoadingPage()
+                            self.dispatchGroup.leave()
                             self.present(alert, animated: true, completion: nil)
                         }
                     default:
@@ -89,18 +215,58 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             }
         }
     }
-    //Mark: - change channel name
-    func changeChanellName() {
-        SMLoading.showLoadingPage(viewcontroller: self)
-        if let name = tfNameOfRoom.text {
-            IGChannelEditRequest.Generator.generate(roomId: (room?.id)!, channelName: name, description: room?.channelRoom?.roomDescription).success({ (protoResponse) in
+    //funcs to convert type of channel
+    func changedChannelTypeToPrivate() {
+        if room!.channelRoom!.type == .privateRoom {
+            self.dispatchGroup.leave()
+            return
+        }
+        if let roomID = room?.id {
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGChannelRemoveUsernameRequest.Generator.generate(roomID: roomID).success({ (protoResponse) in
                 DispatchQueue.main.async {
                     switch protoResponse {
-                    case let editChannelResponse as IGPChannelEditResponse:
-                        let channelName = IGChannelEditRequest.Handler.interpret(response: editChannelResponse)
-                        self.tfNameOfRoom.text = channelName.channelName
-                        self.tmpOldName = channelName.channelName
-                        SMLoading.hideLoadingPage()
+                    case let channelRemoveUsernameResponse as IGPChannelRemoveUsernameResponse:
+                        IGClientGetRoomRequest.Generator.generate(roomId: roomID).success({ (protoResponse) in
+                            DispatchQueue.main.async {
+                                switch protoResponse {
+                                case let clientGetRoomResponse as IGPClientGetRoomResponse:
+                                    IGClientGetRoomRequest.Handler.interpret(response: clientGetRoomResponse)
+                                    self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                                    self.convertToPublic = false
+                                    self.tableView.beginUpdates()
+                                    SMLoading.hideLoadingPage()
+                                    self.tableView.endUpdates()
+                                    self.dispatchGroup.leave()
+
+                                default:
+                                    break
+                                }
+                            }
+                        }).error ({ (errorCode, waitTime) in
+                            switch errorCode {
+                            case .timeout:
+                                DispatchQueue.main.async {
+                                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                                    alert.addAction(okAction)
+                                    SMLoading.hideLoadingPage()
+                                    self.dispatchGroup.leave()
+
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                            default:
+                                break
+                            }
+                            
+                        }).send()
+                        
+                        _ = IGChannelRemoveUsernameRequest.Handler.interpret(response: channelRemoveUsernameResponse)
+                        
+                        if self.navigationController is IGNavigationController {
+//                            _ = self.navigationController?.popViewController(animated: true)
+                        }
+
                     default:
                         break
                     }
@@ -113,6 +279,224 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
                         SMLoading.hideLoadingPage()
+                        self.dispatchGroup.leave()
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                default:
+                    break
+                }
+                
+            }).send()
+        }
+    }
+    
+    func changedChannelTypeToPublic(){
+        if room!.channelRoom!.type == .publicRoom && room?.channelRoom?.publicExtra?.username == tfChannelLink.text {
+//            _ = self.navigationController?.popViewController(animated: true)
+            dispatchGroup.leave()
+            return
+        }
+        
+        if let channelUserName = tfChannelLink.text {
+            if channelUserName == "" {
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "ERROR_FORM".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                alert.addAction(okAction)
+                SMLoading.hideLoadingPage()
+                dispatchGroup.leave()
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            if channelUserName.count < 5 {
+                let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_MINIMUM_LENGH".localizedNew, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                alert.addAction(okAction)
+                SMLoading.hideLoadingPage()
+                dispatchGroup.leave()
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            SMLoading.showLoadingPage(viewcontroller: self)
+            IGChannelUpdateUsernameRequest.Generator.generate(userName:channelUserName ,room: room!).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let channelUpdateUserName as IGPChannelUpdateUsernameResponse :
+                        IGChannelUpdateUsernameRequest.Handler.interpret(response: channelUpdateUserName)
+                        self.tableView.beginUpdates()
+                        self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                        self.tmpOldUserName = self.tfChannelLink.text
+                        self.tableView.endUpdates()
+
+                    default:
+                        break
+                    }
+                    SMLoading.hideLoadingPage()
+                    self.dispatchGroup.leave()
+                }
+            }).error ({ (errorCode, waitTime) in
+
+                if self.convertToPublic {
+                    self.tableView.beginUpdates()
+                    self.convertToPublic = true
+                    self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+                    self.tableView.endUpdates()
+                    self.dispatchGroup.leave()
+
+                } else {
+                    self.tableView.beginUpdates()
+                    self.convertToPublic = false
+                    self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+                    self.tableView.endUpdates()
+                    self.dispatchGroup.leave()
+
+                }
+                DispatchQueue.main.async {
+                    switch errorCode {
+                    case .timeout:
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    case .channelUpdateUsernameIsInvalid:
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_INVALID_USERNAME".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        break
+                        
+                    case .channelUpdateUsernameHasAlreadyBeenTakenByAnotherUser:
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_TAKEN_USERNAME".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        break
+                        
+                    case .channelUpdateUsernameMoreThanTheAllowedUsernmaeHaveBeenSelectedByYou:
+                        let alert = UIAlertController(title: "Error", message: "More than the allowed usernmae have been selected by you", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        break
+                        
+                    case .channelUpdateUsernameForbidden:
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_UPDATE_USERNAME_FORBIDDEN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                        break
+                        
+                    case .channelUpdateUsernameLock:
+                        let time = waitTime
+                        let remainingMiuntes = time!/60
+                        let alert = UIAlertController(title: "GLOBAL_WARNING".localizedNew, message: "MSG_CHANGE_USERNAME_AFTER".localizedNew + " \(remainingMiuntes)" + "MINUTE".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true,completion: nil)
+                        break
+                        
+                    default:
+                        break
+                    }
+                    
+                    SMLoading.hideLoadingPage()
+                }
+                
+            }).send()
+        }
+    }
+    @IBAction func edtTextChange(_ sender: UITextField) {
+        if let text = sender.text {
+            if text.count >= 5 {
+                checkUsername(username: sender.text!)
+            }
+        }
+    }
+    @IBAction func changedSignMessageSwitchValue(_ sender: Any) {
+        if switchSignMessage.isOn {
+            signMessageSwitchStatus = true
+        } else if switchSignMessage.isOn == false {
+            signMessageSwitchStatus = false
+        }
+//        requestToUpdateChannelSignature(signMessageSwitchStatus!)
+        
+    }
+    
+    @IBAction func switchChannelReaction(_ sender: UISwitch) {
+        if switchChannelReaction.isOn {
+            reactionSwitchStatus = true
+        }
+//        requestToUpdateChannelReaction(reactionSwitchStatus)
+    }
+    func checkUsername(username: String){
+        IGChannelCheckUsernameRequest.Generator.generate(roomId:room!.id ,username: username).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case let usernameResponse as IGPChannelCheckUsernameResponse :
+                    if usernameResponse.igpStatus == IGPChannelCheckUsernameResponse.IGPStatus.available {
+                        self.tfChannelLink.textColor = UIColor.black
+                        if self.room?.channelRoom?.type == .publicRoom {
+                            self.convertToPublic = true
+                        } else {
+                            self.convertToPublic = true
+                        }
+
+                    } else {
+                            self.tfChannelLink.textColor = UIColor.red
+                        if self.room?.channelRoom?.type == .publicRoom {
+                                self.convertToPublic = true
+                            } else {
+                                self.convertToPublic = true
+                            }
+                    }
+                    break
+                default:
+                    break
+                }
+            }
+        }).error ({ (errorCode, waitTime) in
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+            }
+        }).send()
+    }
+    
+    //Mark: - change channel name
+    func changeChanellName() {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        if let name = tfNameOfRoom.text {
+            IGChannelEditRequest.Generator.generate(roomId: (room?.id)!, channelName: name, description: room?.channelRoom?.roomDescription).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let editChannelResponse as IGPChannelEditResponse:
+                        let channelName = IGChannelEditRequest.Handler.interpret(response: editChannelResponse)
+                        self.tfNameOfRoom.text = channelName.channelName
+                        self.tmpOldName = channelName.channelName
+                        SMLoading.hideLoadingPage()
+                        self.dispatchGroup.leave()
+                    default:
+                        break
+                    }
+                }
+            }).error ({ (errorCode, waitTime) in
+                switch errorCode {
+                case .timeout:
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        SMLoading.hideLoadingPage()
+                        self.dispatchGroup.leave()
                         self.present(alert, animated: true, completion: nil)
                     }
                 default:
@@ -134,6 +518,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         lblChannelReaction.font = UIFont.igFont(ofSize: 15)
         tfNameOfRoom.font = UIFont.igFont(ofSize: 15)
         tfDescriptionOfRoom.font = UIFont.igFont(ofSize: 15)
+        tfChannelLink.font = UIFont.igFont(ofSize: 15)
         //Color
         lblSignMessage.textColor = .black
         lblChannelType.textColor = .black
@@ -147,7 +532,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
     func initLabels(room : IGRoom!) {
         lblChannelReaction.text = "CHANNELREACTION".localizedNew
         lblSignMessage.text = "CHANNELSIGNMESSAGES".localizedNew
-        lblChannelType.text = "CHANNELTYPE".localizedNew
         
         tfDescriptionOfRoom.text = room.channelRoom?.roomDescription
         tfNameOfRoom.text = room.title
@@ -155,14 +539,20 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         let signIsOn = room.channelRoom?.isSignature
         if signIsOn! {
             switchSignMessage.isOn = true
+            signMessageSwitchStatus = true
         } else {
             switchSignMessage.isOn = false
+            signMessageSwitchStatus = false
         }
        let reactinsOn = room.channelRoom?.hasReaction
         if reactinsOn! {
             switchChannelReaction.isOn = true
+            reactionSwitchStatus = true
+
         } else {
             switchChannelReaction.isOn = false
+            reactionSwitchStatus = false
+
         }
 
     }
@@ -205,6 +595,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         let removeAction = UIAlertAction(title: "DELETE_PHOTO".localizedNew, style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.avatarRoom.avatarImageView!.image = nil
+            self.deleteAvatar()
         })
 
         optionMenu.addAction(ChoosePhoto)
@@ -235,7 +626,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
      * this method will be deleted main(latest) avatar
      */
     func deleteAvatar(){
-        let avatar = self.avatars[0]
         IGChannelAvatarDeleteRequest.Generator.generate(avatarId: (self.room?.channelRoom?.avatar?.id)!, roomId: (room?.channelRoom?.id)!).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
@@ -320,11 +710,23 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
         
         let publicChannel = UIAlertAction(title: "PUBLIC".localizedNew, style: .default, handler: { (action) in
-
+//            self.changedChannelTypeToPublic()
+            self.tableView.beginUpdates()
+            self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
+            self.tfChannelLink.text = nil
+            self.tfChannelLink.isEnabled = true
+            self.convertToPublic = true
+            
+            self.tableView.endUpdates()
         })
         
         let privateChannel = UIAlertAction(title: "PRIVATE".localizedNew, style: .default, handler: { (action) in
-
+            self.tableView.beginUpdates()
+            self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PRIVATE".localizedNew
+            self.tfChannelLink.isEnabled = false
+            self.convertToPublic = false
+            
+            self.tableView.endUpdates()
         })
         
         let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
@@ -345,7 +747,12 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        switch section {
+        case 1 :
+            return 2
+        default :
+            return 1
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -354,9 +761,41 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             let rowIndex = indexPath.row
             if rowIndex == 0 {
 //                self.performSegue(withIdentifier: "showChannelInfoSetType", sender: self)
+                showAlertChangeChannelType()
             }
         }
 
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0 :
+            return 134
+        case 1 :
+
+            if self.convertToPublic == true {
+                switch indexPath.row {
+                case 0 :
+                    return 52
+                case 1 :
+                    return 52
+                default:
+                    return 52
+
+                }
+            } else {
+                switch indexPath.row {
+                case 0 :
+                    return 52
+                case 1 :
+                    return 0
+                default:
+                    return 52
+                    
+                }
+            }
+        default :
+            return 52
+        }
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -424,7 +863,7 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         case 0:
             return ""
         case 1:
-            return "CHANNELTYPE".localizedNew
+            return "CHANNEL_INFO".localizedNew
         case 2:
             return "CHANNELSIGNMESSAGES".localizedNew
         case 3:
@@ -485,13 +924,25 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
         //check value of textfield name for changes
         if textField == tfNameOfRoom {
             if textField.text != tmpOldName {
-                self.changeChanellName()
+//                self.changeChanellName()
             }
         }
         //check value of textfield description for changes
         if textField == tfDescriptionOfRoom {
             if textField.text != tmpOldDesc {
-                changeChannelDescription()
+//                changeChannelDescription()
+            }
+        }
+        if textField == tfChannelLink {
+            if room?.channelRoom?.type == .publicRoom || self.convertToPublic == true {
+                if textField.text != tmpOldUserName {
+//                    if textField.text!.count >= 5 {
+//                        self.checkUsername(username: textField.text!)
+//                    }
+                    
+                }
+            } else {
+
             }
         }
         

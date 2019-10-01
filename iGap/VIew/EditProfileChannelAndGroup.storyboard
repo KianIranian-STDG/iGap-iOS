@@ -99,12 +99,36 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="IGTableViewCellColor"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="52" id="rka-on-P6g">
+                                        <rect key="frame" x="0.0" y="260" width="414" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rka-on-P6g" id="0EO-q2-7jb">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aSw-Mt-INb">
+                                                    <rect key="frame" x="15" y="9" width="384" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="edtTextChange:" destination="w93-K3-VHb" eventType="editingChanged" id="MBC-hx-UDu"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="aSw-Mt-INb" secondAttribute="trailing" constant="15" id="cra-n1-rj8"/>
+                                                <constraint firstItem="aSw-Mt-INb" firstAttribute="leading" secondItem="0EO-q2-7jb" secondAttribute="leading" constant="15" id="dWd-sV-7O6"/>
+                                                <constraint firstItem="aSw-Mt-INb" firstAttribute="centerY" secondItem="0EO-q2-7jb" secondAttribute="centerY" id="wUZ-Mi-cND"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="IGTableViewCellColor"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="sign messages" id="dWZ-Wu-srd">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="52" id="RzK-Pv-4YF">
-                                        <rect key="frame" x="0.0" y="316" width="414" height="52"/>
+                                        <rect key="frame" x="0.0" y="368" width="414" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RzK-Pv-4YF" id="TMA-o3-NFf">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
@@ -118,6 +142,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MIk-rs-E8d">
                                                     <rect key="frame" x="350" y="10.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="changedSignMessageSwitchValue:" destination="w93-K3-VHb" eventType="valueChanged" id="z9r-Dt-TnA"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -135,7 +162,7 @@
                             <tableViewSection id="rOk-Z0-EN0">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="52" id="co6-Ad-0cr">
-                                        <rect key="frame" x="0.0" y="404" width="414" height="52"/>
+                                        <rect key="frame" x="0.0" y="456" width="414" height="52"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="co6-Ad-0cr" id="qXv-55-H4R">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
@@ -149,6 +176,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VqV-oT-WmR">
                                                     <rect key="frame" x="350" y="10.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchChannelReaction:" destination="w93-K3-VHb" eventType="valueChanged" id="zT4-hR-CuE"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -177,6 +207,7 @@
                         <outlet property="lblSignMessage" destination="vcT-kH-6Zb" id="Oe2-C6-T2A"/>
                         <outlet property="switchChannelReaction" destination="VqV-oT-WmR" id="GAl-wR-fSg"/>
                         <outlet property="switchSignMessage" destination="MIk-rs-E8d" id="65B-Bc-Afj"/>
+                        <outlet property="tfChannelLink" destination="aSw-Mt-INb" id="sGK-VE-eaa"/>
                         <outlet property="tfDescriptionOfRoom" destination="vGS-1r-QWI" id="tcH-sc-Ujf"/>
                         <outlet property="tfNameOfRoom" destination="4De-9F-ZeD" id="Cte-67-9ba"/>
                     </connections>
