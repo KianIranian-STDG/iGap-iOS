@@ -19,19 +19,20 @@ class CellSizeLimit: NSObject {
     private init(roomId: Int64 = -1) {
         
         let width = IGGlobal.fetchUIScreen().width
+        let extraSize : CGFloat = 80
         
-        let maximumTextWidth = ConstantSizes.Bubble.Width.Maximum.Text + 50
-        let maximumAttachmentWidth = ConstantSizes.Bubble.Width.Maximum.Attachment + 50
-        let maximumStickerWidth = ConstantSizes.Bubble.Width.Maximum.Sticker + 50
+        let maximumTextWidth = ConstantSizes.Bubble.Width.Maximum.Text + extraSize
+        let maximumAttachmentWidth = ConstantSizes.Bubble.Width.Maximum.Attachment + extraSize
+        let maximumStickerWidth = ConstantSizes.Bubble.Width.Maximum.Sticker + extraSize
         
         if maximumTextWidth >= width {
-            ConstantSizes.Bubble.Width.Maximum.Text = width - 50
+            ConstantSizes.Bubble.Width.Maximum.Text = width - extraSize
         }
         if maximumAttachmentWidth >= width {
-            ConstantSizes.Bubble.Width.Maximum.Attachment = width - 50
+            ConstantSizes.Bubble.Width.Maximum.Attachment = width - extraSize
         }
         if maximumStickerWidth >= width {
-            ConstantSizes.Bubble.Width.Maximum.Sticker = width - 50
+            ConstantSizes.Bubble.Width.Maximum.Sticker = width - extraSize
         }
         
         if let room = IGRoom.getRoomInfo(roomId: roomId), room.type == .channel {
