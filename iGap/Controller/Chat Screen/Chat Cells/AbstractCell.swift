@@ -575,10 +575,14 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 mainBubbleViewAbs.layer.shadowOffset = CGSize(width: shadowOffset, height: shadowOffset)
                 
                 if #available(iOS 11.0, *) {
-                    if isPreviousMessageFromSameSender {
-                        mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                    if room.type == .group {
+                        if isPreviousMessageFromSameSender {
+                            mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                        } else {
+                            mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                        }
                     } else {
-                        mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                        mainBubbleViewAbs.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
                     }
                 }
                 
