@@ -62,8 +62,10 @@ class ContactCell: AbstractCell {
     }
     
     private func setContact(){
-        
-        let contact: IGRoomMessageContact = finalRoomMessage.contact!
+        //TODO - fix "Realm access from incorrect thread" and use from following code instead fetch room message from realm again
+        //let contact: IGRoomMessageContact = finalRoomMessage.contact!
+        let predicate = NSPredicate(format: "id == %lld", finalRoomMessage.id)
+        let contact: IGRoomMessageContact = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first!.contact!
         
         if isIncommingMessage {
             if hasEmail() {

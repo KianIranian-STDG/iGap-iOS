@@ -3540,9 +3540,8 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         IGMessageSender.defaultSender.send(message: message, to: self.room!)
         
         self.appendMessageArray([message], .down)
-        self.addChatItemToBottom(count: 1)
+        self.addChatItemToBottom(count: 1, scrollToBottom: true)
         self.messageLoader.setWaitingHistoryDownLocal(isWaiting: false)
-        self.scrollManager(force: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.sendMessageState(enable: false)
