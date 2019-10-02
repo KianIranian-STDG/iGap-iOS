@@ -900,51 +900,68 @@
         <scene sceneID="uGc-I8-qOg">
             <objects>
                 <tableViewController id="ucf-sx-4wP" customClass="IGGroupInfoMemberListTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="fwj-lh-o51">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="76" sectionHeaderHeight="18" sectionFooterHeight="18" id="fwj-lh-o51">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ContactsCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupMemberCell" rowHeight="50" id="riF-Ub-qTp" customClass="IGGroupInfoMemberListTableViewCell" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="50"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ContactsCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupMemberCell" rowHeight="76" id="riF-Ub-qTp" customClass="IGGroupInfoMemberListTableViewCell" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="riF-Ub-qTp" id="qpw-4e-L9N">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last seen recently" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eU-N9-Aim" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="82" y="32" width="86" height="12"/>
+                                            <rect key="frame" x="102" y="52" width="86" height="12"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="0.41804766409999999" green="0.41804766409999999" blue="0.41804766409999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvz-sI-8gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="82" y="5" width="42" height="25"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvz-sI-8gp" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="102" y="5" width="154" height="45"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Admin)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghF-y1-331" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="132" y="5" width="61" height="25"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Admin)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="ghF-y1-331" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="264" y="5" width="68" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="68" id="fzM-F5-JgK"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7XC-JO-cjJ" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                            <rect key="frame" x="24" y="5" width="40" height="40"/>
+                                            <rect key="frame" x="24" y="5" width="60" height="60"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="TLE-tE-h1a"/>
-                                                <constraint firstAttribute="height" constant="40" id="hrU-0T-sLF"/>
+                                                <constraint firstAttribute="width" constant="60" id="TLE-tE-h1a"/>
+                                                <constraint firstAttribute="height" constant="60" id="hrU-0T-sLF"/>
                                             </constraints>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4O-rB-QT4">
+                                            <rect key="frame" x="337" y="8" width="30" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="iTm-pm-UtV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
+                                            <state key="normal" title="">
+                                                <color key="titleColor" name="IGLabelGrayColor"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="a4O-rB-QT4" secondAttribute="bottom" constant="8" id="7M5-AF-PRB"/>
+                                        <constraint firstItem="a4O-rB-QT4" firstAttribute="top" secondItem="qpw-4e-L9N" secondAttribute="top" constant="8" id="7mu-9c-ZVO"/>
+                                        <constraint firstItem="a4O-rB-QT4" firstAttribute="leading" secondItem="ghF-y1-331" secondAttribute="trailing" constant="5" id="A04-KK-mAx"/>
                                         <constraint firstItem="ghF-y1-331" firstAttribute="leading" secondItem="Kvz-sI-8gp" secondAttribute="trailing" constant="8" id="Icn-mk-wzX"/>
                                         <constraint firstItem="7XC-JO-cjJ" firstAttribute="leading" secondItem="qpw-4e-L9N" secondAttribute="leadingMargin" constant="8" id="Roy-QJ-fKl"/>
                                         <constraint firstItem="ghF-y1-331" firstAttribute="bottom" secondItem="Kvz-sI-8gp" secondAttribute="bottom" id="SbS-57-m6K"/>
                                         <constraint firstItem="3eU-N9-Aim" firstAttribute="top" secondItem="Kvz-sI-8gp" secondAttribute="bottom" constant="2" id="Tqj-tx-tdw"/>
                                         <constraint firstItem="Kvz-sI-8gp" firstAttribute="leading" secondItem="7XC-JO-cjJ" secondAttribute="trailing" constant="18" id="XKi-Ky-DCq"/>
+                                        <constraint firstAttribute="trailing" secondItem="a4O-rB-QT4" secondAttribute="trailing" constant="8" id="Z8h-Jc-CeI"/>
                                         <constraint firstItem="ghF-y1-331" firstAttribute="top" secondItem="Kvz-sI-8gp" secondAttribute="top" id="aTA-HK-jqX"/>
                                         <constraint firstItem="Kvz-sI-8gp" firstAttribute="top" secondItem="qpw-4e-L9N" secondAttribute="topMargin" constant="-6" id="eOY-rh-cdN"/>
                                         <constraint firstItem="7XC-JO-cjJ" firstAttribute="bottom" secondItem="Kvz-sI-8gp" secondAttribute="bottom" constant="15" id="n1V-pN-J99"/>
@@ -974,7 +991,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Etf-ut-GXg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3695" y="-9872"/>
+            <point key="canvasLocation" x="3693.5999999999999" y="-9872.1139430284857"/>
         </scene>
         <!--Group Info Admins And Moderators List Table View Controller-->
         <scene sceneID="mpT-VN-EKk">
@@ -2679,6 +2696,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Jxn-d8-4Lj">
                                                     <rect key="frame" x="310" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="muteSwitchTapped:" destination="cVd-aY-lz0" eventType="valueChanged" id="Ow6-Wc-xhY"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -3042,7 +3062,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="d5a-Qk-dJn"/>
-        <segue reference="k5K-AS-4bs"/>
-        <segue reference="zht-up-rA1"/>
+        <segue reference="q09-lR-4pS"/>
+        <segue reference="SwS-lA-ucj"/>
     </inferredMetricsTieBreakers>
 </document>

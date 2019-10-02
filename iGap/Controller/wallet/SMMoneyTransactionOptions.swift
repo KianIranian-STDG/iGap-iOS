@@ -34,6 +34,14 @@ class SMMoneyTransactionOptions: UIView {
 
         
     }
+    
+    private func initiconFonts() {
+        btnWallet.titleLabel?.font = UIFont.iGapFonticon(ofSize: 28)
+        btnCard.titleLabel?.font = UIFont.iGapFonticon(ofSize: 28)
+
+        btnWallet.setTitle("", for: .normal)
+        btnCard.setTitle("", for: .normal)
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch? = (touches.first)
         //location is relative to the current view

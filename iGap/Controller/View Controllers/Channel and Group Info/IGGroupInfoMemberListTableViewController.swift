@@ -40,11 +40,8 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.endUpdates()
+                self.tableView.reloadData()
+
                 break
             case .error(let err):
                 // An error occurred while opening the Realm file on the background worker thread

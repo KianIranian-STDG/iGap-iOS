@@ -20,8 +20,14 @@ class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        groupMemberNameLabel.textAlignment = groupMemberNameLabel.localizedNewDirection
     }
-
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.groupMemberAvatarView.avatarImageView?.image = nil
+        groupMemberNameLabel.text = nil
+        groupMemberRecentlyStatus.text = nil
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

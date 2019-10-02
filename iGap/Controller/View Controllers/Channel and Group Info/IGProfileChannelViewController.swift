@@ -2204,6 +2204,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch indexPath.row {
                     case 0 :
                         //ShowReportAlert
+                        report(room: self.room!)
+
                         break
                     case 1 :
                         //ShowLeaveAlert
@@ -2267,6 +2269,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                     switch indexPath.row {
                     case 0 :
                         //ShowReportAlert
+                        report(room: self.room!)
+
                         break
                     case 1 :
                         //ShowLeaveAlert

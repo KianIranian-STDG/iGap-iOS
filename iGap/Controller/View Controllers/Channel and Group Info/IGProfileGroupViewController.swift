@@ -19,7 +19,7 @@ import MGSwipeTableCell
 import MBProgressHUD
 import NVActivityIndicatorView
 
-class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate {
+class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,cellTypeTwoDelegate {
     
     //MARK: -Variables
     var adminsCount : String = "0"
@@ -107,6 +107,154 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     }
     
     //MARK: -Development functions
+    
+    func report(room: IGRoom){
+        let roomId = room.id
+        let roomType = room.type
+        
+        var title = ""
+        
+        if roomType == .chat {
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
+        } else {
+            title = "REPORT_REASON".RecentTableViewlocalizedNew
+        }
+        
+        let alertC = UIAlertController(title: title, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        let abuse = UIAlertAction(title: "ABUSE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            
+            if roomType == .chat {
+            } else {
+                self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.abuse)
+            }
+        })
+        
+        let spam = UIAlertAction(title: "SPAM".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            
+            if roomType == .chat {
+            } else {
+                self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.spam)
+            }
+        })
+        
+        
+        let violence = UIAlertAction(title: "VIOLENCE".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.violence)
+        })
+        
+        let pornography = UIAlertAction(title: "PORNOGRAPHY".RecentTableViewlocalizedNew, style: .default, handler: { (action) in
+            self.reportRoom(roomId: roomId, reason: IGPClientRoomReport.IGPReason.pornography)
+        })
+        
+        let cancel = UIAlertAction(title: "CANCEL_BTN".RecentTableViewlocalizedNew, style: .cancel, handler: { (action) in
+            
+        })
+        
+        alertC.addAction(abuse)
+        alertC.addAction(spam)
+        if roomType == .chat {
+        } else {
+            alertC.addAction(violence)
+            alertC.addAction(pornography)
+        }
+        alertC.addAction(cancel)
+        
+        self.present(alertC, animated: true, completion: {
+            
+        })
+    }
+    
+    func reportRoom(roomId: Int64, reason: IGPClientRoomReport.IGPReason) {
+        self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
+        self.hud.mode = .indeterminate
+        IGClientRoomReportRequest.Generator.generate(roomId: roomId, reason: reason).success({ (protoResponse) in
+            DispatchQueue.main.async {
+                switch protoResponse {
+                case _ as IGPClientRoomReportResponse:
+                    let alert = UIAlertController(title: "SUCCESS", message: "REPORT_SUBMITED".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).error({ (errorCode , waitTime) in
+            DispatchQueue.main.async {
+                switch errorCode {
+                case .timeout:
+                    let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .clientRoomReportReportedBefore:
+                    let alert = UIAlertController(title: "GLLOBAL_WARNING".RecentTableViewlocalizedNew, message: "ROOM_REPORTED_BEFOR".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                case .clientRoomReportForbidden:
+                    let alert = UIAlertController(title: "Error", message: "Room Report Fobidden", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    break
+                    
+                default:
+                    break
+                }
+                self.hud.hide(animated: true)
+            }
+        }).send()
+    }
+    
+    func didPressMuteSwitch() {
+         print("I have pressed a button")
+        self.muteRoom(room: self.room!)
+
+    }
+
+        func muteRoom(room: IGRoom) {
+            
+            let roomId = room.id
+            var roomMute = IGRoom.IGRoomMute.mute
+            if room.mute == IGRoom.IGRoomMute.mute {
+                roomMute = .unmute
+            }
+            
+            self.hud = MBProgressHUD.showAdded(to: self.view.superview!, animated: true)
+            self.hud.mode = .indeterminate
+            IGClientMuteRoomRequest.Generator.generate(roomId: roomId, roomMute: roomMute).success({ (protoResponse) in
+                DispatchQueue.main.async {
+                    switch protoResponse {
+                    case let muteRoomResponse as IGPClientMuteRoomResponse:
+                        IGClientMuteRoomRequest.Handler.interpret(response: muteRoomResponse)
+                    default:
+                        break
+                    }
+    //                self.tableView.reloadData()
+                    self.hud.hide(animated: true)
+                }
+            }).error({ (errorCode , waitTime) in
+                DispatchQueue.main.async {
+                    switch errorCode {
+                    case .timeout:
+                        let alert = UIAlertController(title: "TIME_OUT".RecentTableViewlocalizedNew, message: "MSG_PLEASE_TRY_AGAIN".RecentTableViewlocalizedNew, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "GLOBAL_OK".RecentTableViewlocalizedNew, style: .default, handler: nil)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    default:
+                        break
+                    }
+                    self.hud.hide(animated: true)
+                }
+            }).send()
+        }
+    
     private func initView() {
         //Hint: -Avatar View Initialiser
         initAvatarView()
@@ -687,15 +835,21 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     return cell
                     
                 case 1:
-                    switch indexPath.row {
-                    case 0:
-                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
-                        return cellTwo
-                        
-                    default:
-                        return cell
-                        
+                switch indexPath.row {
+                case 0:
+                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                    if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                        cellTwo.lblActionDetail.isOn = true
+                    } else {
+                        cellTwo.lblActionDetail.isOn = false
                     }
+                    cellTwo.delegate = self
+                    return cellTwo
+                    
+                default:
+                    return cell
+                    
+                }
                 case 2:
                     cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                     return cell
@@ -747,6 +901,12 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
                         
                     default:
@@ -776,6 +936,9 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                         
                     case 0 :
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
+                    case 1 :
                         cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
                         return cellTypeRed
                     default:
@@ -805,6 +968,12 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
                         
                     default:
@@ -834,6 +1003,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                         
                     case 0 :
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        
+                        return cellTypeRed
+                    case 1 :
                         cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
                         
                         return cellTypeRed
@@ -867,6 +1040,12 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
                         
                     default:
@@ -932,7 +1111,14 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
+                        
                     default:
                         return cell
                         
@@ -992,7 +1178,14 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
+                        
                     default:
                         return cell
                         
@@ -1052,7 +1245,14 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
+                        
                     default:
                         return cell
                         
@@ -1117,7 +1317,14 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        if ((room?.mute) == IGRoom.IGRoomMute.mute) {
+                            cellTwo.lblActionDetail.isOn = true
+                        } else {
+                            cellTwo.lblActionDetail.isOn = false
+                        }
+                        cellTwo.delegate = self
                         return cellTwo
+                        
                     default:
                         return cell
                         
@@ -1334,7 +1541,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 3 :
                     return 2
                 case 4 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }
@@ -1350,7 +1557,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 3 :
                     return 2
                 case 4 :
-                    return 1
+                    return 2
                 default:
                     return 0
                 }
@@ -1768,12 +1975,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     
                     switch indexPath.row {
                     case 0 :
-                        //ShowReportAlert
-                        break
-                    case 1 :
                         //ShowLeaveAlert
                         showDeleteChannelActionSheet()
-                        
                         break
                     default:
                         break
@@ -1823,9 +2026,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     
                     switch indexPath.row {
                     case 0 :
-                        //ShowReportAlert
-                        break
-                    case 1 :
                         //ShowLeaveAlert
                         showDeleteChannelActionSheet()
                         
@@ -1877,6 +2077,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //ShowReportAlert
+                        report(room: self.room!)
                         break
                     case 1 :
                         //ShowLeaveAlert
@@ -1931,6 +2132,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     switch indexPath.row {
                     case 0 :
                         //ShowReportAlert
+                        report(room: self.room!)
                         break
                     case 1 :
                         //ShowLeaveAlert
@@ -1947,59 +2149,282 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 
             }
         case .publicRoom?:
-            
-            switch indexPath.section {
-            case 0:
-                break
-            case 1:
-                break
-            case 2:
-                switch indexPath.row {
-                case 0 :
+            switch myRole {
+            case .admin? :
+
+                switch indexPath.section {
+                case 0:
                     break
-                case 1 :
-                    //gotToNotificationSettings
+                case 1:
                     break
+                case 2:
+                    switch indexPath.row {
+                    case 0 :
+                        break
+                    case 1 :
+                        //gotToNotificationSettings
+                        break
+                    default:
+                        break
+                    }
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+                    
+                    break
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToAddMEmberPage
+                        break
+                    case 1 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //ShowLeaveAlert
+                        showDeleteChannelActionSheet()
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
                 default:
                     break
                 }
-            case 3:
-                //goToSharedMedia
-                self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-                
-                break
-                
-            case 4:
-                switch indexPath.row {
-                case 0 :
-                    //gotToAddMEmberPage
+            case .owner? :
+
+                switch indexPath.section {
+                case 0:
                     break
-                case 1 :
-                    //gotToMemberListPage
-                    self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                case 1:
+                    break
+                case 2:
+                    switch indexPath.row {
+                    case 0 :
+                        break
+                    case 1 :
+                        //gotToNotificationSettings
+                        break
+                    default:
+                        break
+                    }
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
                     
                     break
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToAddMEmberPage
+                        break
+                    case 1 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //ShowLeaveAlert
+                        showDeleteChannelActionSheet()
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
                 default:
                     break
-                    
                 }
-            case 5:
-                
-                switch indexPath.row {
-                case 0 :
-                    //ShowReportAlert
+            case .moderator? :
+
+                switch indexPath.section {
+                case 0:
                     break
-                case 1 :
-                    //ShowLeaveAlert
-                    showDeleteChannelActionSheet()
+                case 1:
+                    break
+                case 2:
+                    switch indexPath.row {
+                    case 0 :
+                        break
+                    case 1 :
+                        //gotToNotificationSettings
+                        break
+                    default:
+                        break
+                    }
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
                     
                     break
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToAddMEmberPage
+                        break
+                    case 1 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //ShowReportAlert
+                        report(room: self.room!)
+
+                        break
+                    case 1 :
+                        //ShowLeaveAlert
+                        showDeleteChannelActionSheet()
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
                 default:
                     break
-                    
                 }
-            default:
-                break
+            case .member? :
+
+                switch indexPath.section {
+                case 0:
+                    break
+                case 1:
+                    break
+                case 2:
+                    switch indexPath.row {
+                    case 0 :
+                        break
+                    case 1 :
+                        //gotToNotificationSettings
+                        break
+                    default:
+                        break
+                    }
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+                    
+                    break
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToAddMEmberPage
+                        break
+                    case 1 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //ShowReportAlert
+                        report(room: self.room!)
+
+                        break
+                    case 1 :
+                        //ShowLeaveAlert
+                        showDeleteChannelActionSheet()
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                default:
+                    break
+                }
+            default :
+                
+                switch indexPath.section {
+                case 0:
+                    break
+                case 1:
+                    break
+                case 2:
+                    switch indexPath.row {
+                    case 0 :
+                        break
+                    case 1 :
+                        //gotToNotificationSettings
+                        break
+                    default:
+                        break
+                    }
+                case 3:
+                    //goToSharedMedia
+                    self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
+                    
+                    break
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        //gotToAddMEmberPage
+                        break
+                    case 1 :
+                        //gotToMemberListPage
+                        self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                case 5:
+                    
+                    switch indexPath.row {
+                    case 0 :
+                        //ShowReportAlert
+                        report(room: self.room!)
+
+                        break
+                    case 1 :
+                        //ShowLeaveAlert
+                        showDeleteChannelActionSheet()
+                        
+                        break
+                    default:
+                        break
+                        
+                    }
+                default:
+                    break
+                }
             }
         case .none:
             
