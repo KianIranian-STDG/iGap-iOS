@@ -734,8 +734,25 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputBarRecordButton.addGestureRecognizer(tapAndHoldOnRecord)
 
         startLoadMessage()
+        initiconFonts()
     }
-    
+    private func initiconFonts() {
+        btnAttachment.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        inputBarDeleteButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        inputBarForwardButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        inputBarRecordButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        inputBarSendButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+        inputBarShareButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
+
+        inputBarShareButton.setTitle("", for: .normal)
+        inputBarSendButton.setTitle("", for: .normal)
+        inputBarRecordButton.setTitle("", for: .normal)
+        inputBarMoneyTransferButton.setTitle("", for: .normal)
+        btnAttachment.setTitle("", for: .normal)
+        inputBarDeleteButton.setTitle("", for: .normal)
+        inputBarForwardButton.setTitle("", for: .normal)
+    }
     /* reason of "manageForward" bool
      * sometimes startLoadMessage call from another state so will be send forwarded message twice
      * currentlly for manage this state just should be manage forward from one state
@@ -1648,6 +1665,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         setMessagesRead()
         manageStickerPosition()
         IGHelperGetMessageState.shared.clearMessageViews()
+        initiconFonts()
     }
     
     

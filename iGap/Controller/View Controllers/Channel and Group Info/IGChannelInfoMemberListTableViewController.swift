@@ -33,9 +33,9 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
         myRole = room?.channelRoom?.role
         roomId = room?.id
         setNavigationItem()
-        fetchChannelMemberFromServer()
+//        fetchChannelMemberFromServer()
         
-        let predicate = NSPredicate(format: "roomID = %lld", (room?.id)!)
+        let predicate = NSPredicate(format: "roomID = %lld", (room?.channelRoom?.id)!)
         members =  try! Realm().objects(IGChannelMember.self).filter(predicate)
 
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
@@ -58,7 +58,11 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchChannelMemberFromServer()
 
+    }
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         if myRole == .admin || myRole == .owner {
@@ -350,7 +354,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                         let igmember = IGChannelMember(igpMember: member, roomId: self.roomId)
                         self.allMember.append(igmember)
                     }
-                    //self.tableView.reloadData()
+                    self.tableView.reloadData()
                     
                 default:
                     break
