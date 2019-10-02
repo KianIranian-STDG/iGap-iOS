@@ -83,7 +83,7 @@ class IGMessageLoader {
         self.firstUnreadMessage = firstUnreadMessage
     }
     
-    private func setSavedScrollMessageId(savedScrollMessageId: Int64) {
+    public func setSavedScrollMessageId(savedScrollMessageId: Int64) {
         self.savedScrollMessageId = savedScrollMessageId
     }
 
@@ -766,6 +766,8 @@ class IGMessageLoader {
         bottomMore = false
         isWaitingForHistoryUpOnline = false
         isWaitingForHistoryDownOnline = false
+        firstLoadDown = true
+        firstLoadUp = true
         gapMessageIdUp = 0
         gapMessageIdDown = 0
         reachMessageIdUp = 0

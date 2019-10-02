@@ -129,10 +129,10 @@ import SnapKit
 
                 if item.igpScore < 0 {
                     btnScore.backgroundColor = UIColor.iGapRed()
-                    btnScore.setTitle( String(item.igpScore).inLocalizedLanguage(), for: .normal)
+                    btnScore.setTitle(String(item.igpScore).inLocalizedLanguage(), for: .normal)
                 } else {
                     btnScore.backgroundColor = UIColor.iGapBars()
-                    btnScore.setTitle( String(item.igpScore).inLocalizedLanguage() + " + " , for: .normal)
+                    btnScore.setTitle("+" + String(item.igpScore).inLocalizedLanguage(), for: .normal)
                 }
                 
                 btnScore.layer.cornerRadius = 10.0

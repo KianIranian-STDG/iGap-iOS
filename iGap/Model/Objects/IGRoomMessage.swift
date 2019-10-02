@@ -584,6 +584,11 @@ class IGRoomMessage: Object {
         return true
     }
     
+    internal static func fetchForwardMessage(roomId: Int64, messageId: Int64) -> IGRoomMessage? {
+        let predicate = NSPredicate(format: "roomId == %lld AND forwardedFrom.id == %lld", roomId, messageId)
+        return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first
+    }
+    
     internal static func getMessageWithId(messageId: Int64) -> IGRoomMessage? {
         return IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(NSPredicate(format: "id == %lld", messageId)).first
     }

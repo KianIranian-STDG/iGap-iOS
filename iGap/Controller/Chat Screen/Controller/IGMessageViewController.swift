@@ -1756,7 +1756,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             for index in 1...IGMessageLoader.STORE_MESSAGE_POSITION_LIMIT {
                 var cell: IGRoomMessage!
                 if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - index, section: 0)) as? AbstractCell {
-                    cell = collectionCell.finalRoomMessage
+                    cell = collectionCell.realmRoomMessage
                 } else if let collectionCell = self.collectionView.cellForItem(at: IndexPath(row: numberOfItems - index, section: 0)) as? IGMessageGeneralCollectionViewCell {
                     cell = collectionCell.cellMessage
                 }
@@ -1778,7 +1778,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func fetchVisibleMessage(visibleCells: [UICollectionViewCell], index: Int) -> IGRoomMessage? {
         if visibleCells.count > 0 {
             if let visibleMessage = visibleCells[index] as? AbstractCell {
-                return visibleMessage.finalRoomMessage
+                return visibleMessage.realmRoomMessage
             } else if let visibleMessage = visibleCells[index] as? IGMessageGeneralCollectionViewCell {
                 return visibleMessage.cellMessage
             }
@@ -5362,7 +5362,36 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
     
     func didTapOnReply(cellMessage: IGRoomMessage, cell: IGMessageGeneralCollectionViewCell){
         if let replyMessage = cellMessage.repliedTo {
-            goToPosition(messageId: replyMessage.id * -1)
+           
+            var mainReplyId = replyMessage.id * -1
+            if let forwardedMessage = IGRoomMessage.fetchForwardMessage(roomId: self.room!.id, messageId: replyMessage.id) {
+                mainReplyId = forwardedMessage.id
+            }
+            let indexOfMessage = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: mainReplyId)
+            
+            if indexOfMessage != nil  {
+                goToPosition(messageId: mainReplyId)
+            } else {
+                self.highlightMessageId = mainReplyId
+                var delay: Double = 0.0
+                if !IGRoomMessage.existMessage(messageId: mainReplyId) {
+                    delay = 1.0
+                    let message = IGRoomMessage(value: replyMessage)
+                    message.id = mainReplyId
+                    message.primaryKeyId = message.primaryKeyId! + IGGlobal.randomString(length: 5)
+                    try! IGDatabaseManager.shared.realm.write {
+                        IGDatabaseManager.shared.realm.add(message)
+                    }
+                }
+                
+                self.clearCollectionView()
+                self.messageLoader.setSavedScrollMessageId(savedScrollMessageId: mainReplyId)
+                IGGlobal.prgShow()
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    IGGlobal.prgHide()
+                    self.startLoadMessage()
+                }
+            }
         }
     }
     
@@ -6002,12 +6031,16 @@ extension IGMessageViewController: MessageOnChatReceiveObserver {
     
     private func resetAndGetFromEnd(){
         self.scrollToBottomContainerView.isHidden = true
+        self.clearCollectionView()
+        self.startLoadMessage()
+    }
+    
+    private func clearCollectionView(){
         self.messageLoader.resetMessagingValue()
         self.messages?.removeAll()
         IGMessageViewController.messageIdsStatic.removeAll()
         self.collectionView.reloadData()
         self.collectionView.numberOfItems(inSection: 0) //<-- This code is no used, but it will let UICollectionView synchronize number of items, so it will not crash in following code.
-        self.startLoadMessage()
     }
     
     /**
