@@ -282,7 +282,10 @@ class IGNavigationItem: UINavigationItem {
             if currentRole == .admin || currentRole == .owner {
                 //Hint: - Edit Group Action Handler
                 backViewContainer!.addAction {
-                    
+                    let editVC = IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController.instantiateFromAppStroryboard(appStoryboard: .EditProfile)
+                    editVC.room = roomValue
+                    self.navigationController!.pushViewController(editVC, animated: true)
+
                 }
                 
             }

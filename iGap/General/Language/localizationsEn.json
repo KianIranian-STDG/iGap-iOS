@@ -3,6 +3,11 @@
         "paygearuser" : "Personal Account",
         "finance" : "Finance",
         "admin" : "Admin",
+        "SET_AS_ADMIN" : "Set As Admin",
+        "SET_AS_MODERATOR" : "Set As Moderator",
+        "REMOVE_MODERATOR" : "Remove Moderator Role",
+        "REMOVE_ADMIN" : "Remove Admin Role",
+
         "store" : "Store",
         "other" : "Other",
         "driver" : "Driver",
@@ -117,8 +122,6 @@
         "SHAREDMEDIA" : "Shared Media",
         "ADD_ADMIN" : "Add admin",
         "ADD_MODERATOR" : "Add Moderator",
-        "REMOVE_ADMIN" : "Remove admin",
-        "REMOVE_MODERATOR" : "Remove Moderator",
         "KICK_MEMBER" : "Kick Member",
         "ADMIN" : "Admin",
         "MODERATOR" : "Moderator",
@@ -417,6 +420,7 @@
         "CHANNEL_SIGN_FOOTER" : "Add names of the admins to the messages they post",
         "CHANNEL_REACTIONS_FOOTER" : "Add names of the admins to the messages they post",
         "CHANNEL_TITLE" : "Edit Channel Info",
+        "GROUP_TITLE" : "Edit Group Info",
 
         "TEXT_SIZE" : "Text Size",
         "COLOR_THEME" : "Color Theme",

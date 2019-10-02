@@ -924,12 +924,12 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Admin)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="ghF-y1-331" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="ghF-y1-331">
                                             <rect key="frame" x="264" y="5" width="68" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="68" id="fzM-F5-JgK"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -950,6 +950,9 @@
                                             <state key="normal" title="">
                                                 <color key="titleColor" name="IGLabelGrayColor"/>
                                             </state>
+                                            <connections>
+                                                <action selector="btnMoreTaped:" destination="riF-Ub-qTp" eventType="touchUpInside" id="QTZ-Op-f7X"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -970,6 +973,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="btnMore" destination="a4O-rB-QT4" id="C3z-oy-xEj"/>
                                     <outlet property="groupMemberAvatarView" destination="7XC-JO-cjJ" id="kDY-h4-klP"/>
                                     <outlet property="groupMemberNameLabel" destination="Kvz-sI-8gp" id="VdW-2o-uXd"/>
                                     <outlet property="groupMemberRecentlyStatus" destination="3eU-N9-Aim" id="e9w-fA-oB7"/>
@@ -991,7 +995,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Etf-ut-GXg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3693.5999999999999" y="-9872.1139430284857"/>
+            <point key="canvasLocation" x="3710" y="-9958"/>
         </scene>
         <!--Group Info Admins And Moderators List Table View Controller-->
         <scene sceneID="mpT-VN-EKk">
@@ -1109,7 +1113,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jf4-sq-V0Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2970" y="-9872"/>
+            <point key="canvasLocation" x="2969" y="-10047"/>
         </scene>
         <!--Group Info Admin List Table View Controller-->
         <scene sceneID="7dr-1j-aGB">

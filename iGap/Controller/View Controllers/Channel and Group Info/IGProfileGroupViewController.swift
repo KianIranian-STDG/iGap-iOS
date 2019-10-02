@@ -73,7 +73,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         originalTransform = self.avatarView.transform
         tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
         let navigaitonItem = self.navigationItem as! IGNavigationItem
-        navigaitonItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: room?.groupRoom?.role, channelRole: nil)
+        navigaitonItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: room?.groupRoom?.role, channelRole: nil,roomValue: self.room)
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         

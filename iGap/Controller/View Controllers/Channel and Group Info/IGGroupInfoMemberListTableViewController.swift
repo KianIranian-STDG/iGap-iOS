@@ -15,8 +15,10 @@ import MBProgressHUD
 import IGProtoBuff
 import MGSwipeTableCell
 
-class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
-
+class IGGroupInfoMemberListTableViewController: BaseTableViewController,cellWithMore  {
+    
+    
+    
     var allMember = [IGGroupMember]()
     var room : IGRoom?
     var hud = MBProgressHUD()
@@ -32,7 +34,7 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
         myRole = room?.groupRoom?.role
         roomId = room?.id
         let predicate = NSPredicate(format: "roomID = %lld", (room?.id)!)
-         members =  try! Realm().objects(IGGroupMember.self).filter(predicate)
+        members =  try! Realm().objects(IGGroupMember.self).filter(predicate)
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
@@ -40,6 +42,7 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
+//                self.tableView.reloadData()
                 self.tableView.reloadData()
 
                 break
@@ -62,15 +65,15 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
             self.performSegue(withIdentifier: "showContactToAddMember", sender: self)
         }
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         fetchGroupMemberFromServer()
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return members.count
     }
@@ -79,32 +82,11 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupMemberCell", for: indexPath) as! IGGroupInfoMemberListTableViewCell
         
         let member = members[indexPath.row]
-        cell.setUser(member)
-        
-        let swipeOption = detectSwipeOption(memberRole: member.role)
-        
-        if swipeOption.showOption {
-            let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-                self.detectSwipeAction(member: self.members[indexPath.row])
-                return true
-            })
-            
-            let buttons = [btnKick]
-            cell.rightButtons = buttons
-            removeButtonsUnderline(buttons: buttons)
-            
-            cell.rightSwipeSettings.transition = MGSwipeTransition.border
-            cell.rightExpansion.buttonIndex = 0
-            cell.rightExpansion.fillOnTrigger = true
-            cell.rightExpansion.threshold = 1.5
-            cell.clipsToBounds = true
-            cell.swipeBackgroundColor = UIColor.clear
-            
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            cell.layoutMargins = UIEdgeInsets.zero
-        }
-        
-        cell.layer.cornerRadius = 10
+        cell.setUser(member,myRole: myRole)
+        cell.btnMore.titleLabel!.font = UIFont.iGapFonticon(ofSize: 28)
+        cell.btnMore.setTitle("", for: .normal)
+
+        cell.delegate = self
         
         return cell
     }
@@ -135,7 +117,7 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
             }).send()
         }
     }
-
+    
     func openChat(room : IGRoom){
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let roomVC = storyboard.instantiateViewController(withIdentifier: "IGMessageViewController") as! IGMessageViewController
@@ -144,88 +126,190 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
         
         self.navigationController!.pushViewController(roomVC, animated: true)
     }
-    private func detectSwipeOption(memberRole: IGGroupMember.IGRole!) -> (showOption:Bool, kickTitle:String) {
-        var showOption = true
-        var kickTitle: String = ""
-        
-        switch myRole! {
-        case .owner:
-            if memberRole == .admin {
-                kickTitle = "REMOVE_ADMIN".localizedNew
-            } else if memberRole == .moderator {
-                kickTitle = "REMOVE_MODERATOR".localizedNew
-            } else if memberRole == .member {
-                kickTitle = "KICK_MEMBER".localizedNew
-            } else {
-                showOption = false
-            }
-            break
-            
-        case .admin:
-            if memberRole == .moderator {
-                kickTitle = "REMOVE_MODERATOR".localizedNew
-            } else if memberRole == .member {
-                kickTitle = "KICK_MEMBER".localizedNew
-            } else {
-                showOption = false
-            }
-            break
-            
-        case .moderator:
-            if memberRole == .member {
-                kickTitle = "KICK_MEMBER".localizedNew
-            } else {
-                showOption = false
-            }
-            break
-            
-        case .member:
-            showOption = false
-            break
-        }
-        
-        return (showOption, kickTitle)
-    }
     
-    private func detectSwipeAction(member: IGGroupMember) {
-        
-        switch myRole! {
-        case .owner:
-            if member.role == .admin {
-                kickAdmin(userId: member.userID)
-            } else if member.role == .moderator {
-                kickModerator(userId: member.userID)
-            } else if member.role == .member {
-                kickMember(userId: member.userID)
-            }
-            break
-            
-        case .admin:
-            if member.role == .moderator {
-                kickModerator(userId: member.userID)
-            } else if member.role == .member {
-                kickMember(userId: member.userID)
-            }
-            break
-            
-        case .moderator:
-            if member.role == .member {
-                kickMember(userId: member.userID)
-            }
-            break
-            
-        case .member:
-            //do nothing
-            break
-        }
-    }
+    
     
     private func removeButtonsUnderline(buttons: [UIButton]){
         for btn in buttons {
             btn.removeUnderline()
         }
     }
+    func didPressMoreButton(member: IGGroupMember) {
+        showAlertMoreOptions(member)
+    }
     
+    private func showAlertMoreOptions(_ member: IGGroupMember) {
+        print("tapped on more for user" , member.user?.displayName)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+        var titleOne = ""
+        var titleTwo = ""
+        var titleThree = ""
+        
+        
+        
+        let optionOne = UIAlertAction(title: "SET_AS_ADMIN".localizedNew, style: .default, handler: { (action) in
+            //            self.changedChannelTypeToPublic()
+            if self.room?.type == .channel {
+            } else {
+            }
+        })
+        let optionTwo = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
+            //            self.changedChannelTypeToPublic()
+            if self.room?.type == .channel {
+            } else {
+            }
+        })
+        let optionThree = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+            //            self.changedChannelTypeToPublic()
+            if self.room?.type == .channel {
+            } else {
+            }
+        })
+        if myRole == .owner {
+            if member.role == .admin {
+                let optionOne = UIAlertAction(title: "REMOVE_ADMIN".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionTwo = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+                
+                alertController.addAction(optionOne)
+                alertController.addAction(optionTwo)
+                alertController.addAction(cancel)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+                
+                
+            }
+            if member.role == .moderator {
+                let optionOne = UIAlertAction(title: "REMOVE_MODERATOR".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionTwo = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+                
+                alertController.addAction(optionOne)
+                alertController.addAction(optionTwo)
+                alertController.addAction(cancel)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+                
+                
+            }
+            if member.role == .member {
+                let optionOne = UIAlertAction(title: "SET_AS_ADMIN".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionTwo = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionThree = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+                
+                alertController.addAction(optionOne)
+                alertController.addAction(optionTwo)
+                alertController.addAction(optionThree)
+                alertController.addAction(cancel)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+                
+                
+            }
+        } else if myRole == .admin {
+            
+            if member.role == .moderator {
+                let optionOne = UIAlertAction(title: "REMOVE_MODERATOR".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionTwo = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+                
+                alertController.addAction(optionOne)
+                alertController.addAction(optionTwo)
+                alertController.addAction(cancel)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+                
+                
+            }
+            if member.role == .member {
+                let optionOne = UIAlertAction(title: "SET_AS_ADMIN".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionTwo = UIAlertAction(title: "SET_AS_MODERATOR".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                let optionThree = UIAlertAction(title: "KICK_MEMBER".localizedNew, style: .default, handler: { (action) in
+                    //            self.changedChannelTypeToPublic()
+                    if self.room?.type == .channel {
+                    } else {
+                    }
+                })
+                
+                let cancel = UIAlertAction(title: "CANCEL_BTN".localizedNew, style: .cancel, handler: nil)
+                
+                alertController.addAction(optionOne)
+                alertController.addAction(optionTwo)
+                alertController.addAction(optionThree)
+                alertController.addAction(cancel)
+                
+                self.present(alertController, animated: true, completion: nil)
+                return
+                
+                
+            }
+        }
+        
+    }
     func kickAlert(title: String, message: String, alertClouser: @escaping ((_ state :AlertState) -> Void)){
         let option = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .destructive, handler: { (action) in
@@ -241,31 +325,31 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
     }
     
     
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if tableView.isEditing == true {
-//            if let selectedMemberId = members[indexPath.row].user?.id {
-//                self.kickMember(memberUserId: selectedMemberId)
-//            }
-//        }
-//    }
-//
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-//        var defualtEditingStyle : UITableViewCellEditingStyle = .none
-//        if room?.groupRoom?.type == .privateRoom {
-//            if myRole == .admin || myRole == .moderator || myRole == .owner {
-//                defualtEditingStyle =  .delete
-//            } else {
-//                defualtEditingStyle =  .none
-//            }
-//        } else if room?.groupRoom?.type == .publicRoom {
-//            if myRole == .admin || myRole == .owner {
-//                defualtEditingStyle =  .delete
-//            } else {
-//                defualtEditingStyle =  .none
-//            }
-//        }
-//        return defualtEditingStyle
-//    }
+    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    //        if tableView.isEditing == true {
+    //            if let selectedMemberId = members[indexPath.row].user?.id {
+    //                self.kickMember(memberUserId: selectedMemberId)
+    //            }
+    //        }
+    //    }
+    //
+    //    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    //        var defualtEditingStyle : UITableViewCellEditingStyle = .none
+    //        if room?.groupRoom?.type == .privateRoom {
+    //            if myRole == .admin || myRole == .moderator || myRole == .owner {
+    //                defualtEditingStyle =  .delete
+    //            } else {
+    //                defualtEditingStyle =  .none
+    //            }
+    //        } else if room?.groupRoom?.type == .publicRoom {
+    //            if myRole == .admin || myRole == .owner {
+    //                defualtEditingStyle =  .delete
+    //            } else {
+    //                defualtEditingStyle =  .none
+    //            }
+    //        }
+    //        return defualtEditingStyle
+    //    }
     
     func kickAdmin(userId: Int64) {
         if let groupRoom = room {
@@ -400,7 +484,7 @@ class IGGroupInfoMemberListTableViewController: BaseTableViewController  {
         }).send()
         
     }    
-  
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showContactToAddMember" {
             let destinationTv = segue.destination as! IGChooseMemberFromContactsToCreateGroupViewController

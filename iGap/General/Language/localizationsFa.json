@@ -21,7 +21,11 @@
         "MUTE_NOTIFICATION_IN_PROFILE" : "بی صدا کردن اعلان",
         "DATA_STORAGE" : "داده ها و ذخیره سازی",
         "CHAT_SETTINGS" : "تنظیمات گفت و گو",
-        
+        "SET_AS_ADMIN" : "مدیر شود",
+        "SET_AS_MODERATOR" : "نویسنده شود",
+        "REMOVE_MODERATOR" : "حذف عنوان نویسنده",
+        "REMOVE_ADMIN" : "حذف عنوان مدیر",
+
         
         "MCI_CHARGE" : "شارژ همراه اول",
         
@@ -108,6 +112,7 @@
         "CHANNEL_SIGN_FOOTER" : "اسامی مدیران را به پیامهایی که ارسال کرده اید اضافه کنید",
         "CHANNEL_REACTIONS_FOOTER" : "نام مدیرها را به پیامهایی که ارسال می کنند اضافه کنید",
         "CHANNEL_TITLE" : "ویرایش اطلاعات کانال",
+        "GROUP_TITLE" : "ویرایش اطلاعات گروه",
 
         
         "PAYMENT_ORDER_ID" : "شماره تراکنش",

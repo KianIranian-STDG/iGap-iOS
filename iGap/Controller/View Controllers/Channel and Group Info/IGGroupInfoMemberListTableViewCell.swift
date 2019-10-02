@@ -11,16 +11,20 @@
 import UIKit
 import MGSwipeTableCell
 
-class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
+class IGGroupInfoMemberListTableViewCell: UITableViewCell {
+    weak var delegate : cellWithMore?
 
+    @IBOutlet weak var btnMore: UIButton!
     @IBOutlet weak var groupMemberRecentlyStatus: UILabel!
     @IBOutlet weak var groupMemberAvatarView: IGAvatarView!
     @IBOutlet weak var groupMemberRoleInGroupLabel: UILabel!
     @IBOutlet weak var groupMemberNameLabel: UILabel!
+    var user : IGGroupMember!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         groupMemberNameLabel.textAlignment = groupMemberNameLabel.localizedNewDirection
+        initiconFonts()
     }
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -33,28 +37,85 @@ class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
 
         // Configure the view for the selected state
     }
-    func setUser(_ member: IGGroupMember) {
+    
+    private func initiconFonts() {
+        groupMemberRoleInGroupLabel.font = UIFont.iGapFonticon(ofSize: 20)
+        self.btnMore.titleLabel!.font = UIFont.iGapFonticon(ofSize: 28)
+        self.btnMore.setTitle("", for: .normal)
+    }
+    func setUser(_ member: IGGroupMember,myRole: IGGroupMember.IGRole? = nil) {
         if member.isInvalidated {
             return
         }
+        user = member
+            if myRole == .owner {
+                if member.role == .owner {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .admin {
+                    self.btnMore.isHidden = false
+                }
+                if member.role == .moderator {
+                    self.btnMore.isHidden = false
+                }
+                if member.role == .member {
+                    self.btnMore.isHidden = false
+
+                }
+            } else if myRole == .admin {
+                if member.role == .owner {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .admin {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .moderator {
+                    self.btnMore.isHidden = false
+                }
+                if member.role == .member {
+                    self.btnMore.isHidden = false
+
+                }
+            } else if myRole == .moderator {
+                if member.role == .owner {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .admin {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .moderator {
+                    self.btnMore.isHidden = true
+                }
+                if member.role == .member {
+                    self.btnMore.isHidden = false
+
+                }
+            } else {
+                self.btnMore.isHidden = true
+
+            }
         
         if let memberUserDetail = member.user {
             groupMemberNameLabel.text = memberUserDetail.displayName
             groupMemberAvatarView.setUser(memberUserDetail)
             if member.role == .admin {
                 groupMemberRoleInGroupLabel.isHidden = false
-                groupMemberRoleInGroupLabel.text = "(Admin)"
+                groupMemberRoleInGroupLabel.text = ""
+
             }
             if member.role == .moderator {
                 groupMemberRoleInGroupLabel.isHidden = false
-                groupMemberRoleInGroupLabel.text = "(Moderator)"
+                groupMemberRoleInGroupLabel.text = ""
+
             }
             if member.role == .owner {
                 groupMemberRoleInGroupLabel.isHidden = false
-                groupMemberRoleInGroupLabel.text = "(Owner)"
+                groupMemberRoleInGroupLabel.text = ""
+                self.btnMore.isHidden = true
             }
             if member.role == .member {
                 groupMemberRoleInGroupLabel.isHidden = true
+
             }
             switch memberUserDetail.lastSeenStatus {
             case .exactly:
@@ -93,5 +154,13 @@ class IGGroupInfoMemberListTableViewCell: MGSwipeTableCell {
         }
     }
 
+  
+    @IBAction func btnMoreTaped(_ sender: UIButton) {
+        delegate?.didPressMoreButton(member: user)
+    }
+    
+}
 
+protocol cellWithMore : class {
+    func didPressMoreButton(member: IGGroupMember)
 }
