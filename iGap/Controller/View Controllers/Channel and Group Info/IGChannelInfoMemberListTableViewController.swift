@@ -18,12 +18,20 @@ import MGSwipeTableCell
 class IGChannelInfoMemberListTableViewController: UITableViewController , UIGestureRecognizerDelegate {
     
     var allMember = [IGChannelMember]()
+    
     var room : IGRoom?
     var hud = MBProgressHUD()
     var filterRole : IGRoomFilterRole = .all
     var members : Results<IGChannelMember>!
+    var admins : Results<IGChannelMember>!
+    var moderators : Results<IGChannelMember>!
+    var adminsRole = IGChannelMember.IGRole.admin.rawValue
+    var moderatorRole = IGChannelMember.IGRole.moderator.rawValue
+
     var mode : String? = "Members"
     var notificationToken: NotificationToken?
+    var notificationTokenModerator: NotificationToken?
+    var notificationTokenAdmin: NotificationToken?
     var myRole : IGChannelMember.IGRole?
     var roomId: Int64!
     
@@ -36,7 +44,12 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
 //        fetchChannelMemberFromServer()
         
         let predicate = NSPredicate(format: "roomID = %lld", (room?.channelRoom?.id)!)
+        let predicateModerators = NSPredicate(format: "roleRaw = %d AND roomID = %lld", moderatorRole , (room?.channelRoom?.id)!)
+        let predicateAdmins = NSPredicate(format: "roleRaw = %d AND roomID = %lld", adminsRole , (room?.channelRoom?.id)!)
+
         members =  try! Realm().objects(IGChannelMember.self).filter(predicate)
+        moderators =  try! Realm().objects(IGChannelMember.self).filter(predicateModerators)
+        admins =  try! Realm().objects(IGChannelMember.self).filter(predicateAdmins)
 
         self.notificationToken = members.observe { (changes: RealmCollectionChange) in
             switch changes {
@@ -45,11 +58,7 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                 break
             case .update(_, let deletions, let insertions, let modifications):
                 // Query messages have changed, so apply them to the TableView
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                self.tableView.endUpdates()
+                self.tableView.reloadData()
                 break
             case .error(let err):
                 // An error occurred while opening the Realm file on the background worker thread
@@ -57,7 +66,39 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
                 break
             }
         }
-    }
+            self.notificationTokenModerator = moderators.observe { (changes: RealmCollectionChange) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadData()
+                    break
+                case .update(_, let deletions, let insertions, let modifications):
+                    // Query messages have changed, so apply them to the TableView
+                    self.tableView.reloadData()
+                    break
+                case .error(let err):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(err)")
+                    break
+                }
+            }
+            self.notificationTokenAdmin = admins.observe { (changes: RealmCollectionChange) in
+                switch changes {
+                case .initial:
+                    self.tableView.reloadData()
+                    break
+                case .update(_, let deletions, let insertions, let modifications):
+                    // Query messages have changed, so apply them to the TableView
+                    self.tableView.reloadData()
+                    break
+                case .error(let err):
+                    // An error occurred while opening the Realm file on the background worker thread
+                    fatalError("\(err)")
+                    break
+                }
+            }
+        }
+        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchChannelMemberFromServer()
@@ -83,41 +124,112 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
+        switch mode {
+        case "Members" :
+            return members.count
+        case "Admins" :
+            return admins.count
+        case "Moderators" :
+            return moderators.count
+        default : return members.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! IGChannelInfoMemberListTableViewCell
         
-        let member = members[indexPath.row]
-        cell.setUser(member)
-        
-        let swipeOption = detectSwipeOption(memberRole: member.role)
-        
-        if swipeOption.showOption {
-            let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
-                self.detectSwipeAction(member: self.members[indexPath.row])
-                return true
-            })
+        if mode == "Members" {
+            let member = members[indexPath.row]
+            cell.setUser(member)
+            let swipeOption = detectSwipeOption(memberRole: member.role)
             
-            let buttons = [btnKick]
-            cell.rightButtons = buttons
-            removeButtonsUnderline(buttons: buttons)
+            if swipeOption.showOption {
+                let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+                    self.detectSwipeAction(member: self.members[indexPath.row])
+                    return true
+                })
+                
+                let buttons = [btnKick]
+                cell.rightButtons = buttons
+                removeButtonsUnderline(buttons: buttons)
+                
+                cell.rightSwipeSettings.transition = MGSwipeTransition.border
+                cell.rightExpansion.buttonIndex = 0
+                cell.rightExpansion.fillOnTrigger = true
+                cell.rightExpansion.threshold = 1.5
+                cell.clipsToBounds = true
+                cell.swipeBackgroundColor = UIColor.clear
+                
+                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                cell.layoutMargins = UIEdgeInsets.zero
+            }
             
-            cell.rightSwipeSettings.transition = MGSwipeTransition.border
-            cell.rightExpansion.buttonIndex = 0
-            cell.rightExpansion.fillOnTrigger = true
-            cell.rightExpansion.threshold = 1.5
-            cell.clipsToBounds = true
-            cell.swipeBackgroundColor = UIColor.clear
+            cell.layer.cornerRadius = 10
             
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            cell.layoutMargins = UIEdgeInsets.zero
+            return cell
+
+        } else if mode == "Admins" {
+            let member = admins[indexPath.row]
+            cell.setUser(member)
+            let swipeOption = detectSwipeOption(memberRole: member.role)
+            
+            if swipeOption.showOption {
+                let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+                    self.detectSwipeAction(member: self.admins[indexPath.row])
+                    return true
+                })
+                
+                let buttons = [btnKick]
+                cell.rightButtons = buttons
+                removeButtonsUnderline(buttons: buttons)
+                
+                cell.rightSwipeSettings.transition = MGSwipeTransition.border
+                cell.rightExpansion.buttonIndex = 0
+                cell.rightExpansion.fillOnTrigger = true
+                cell.rightExpansion.threshold = 1.5
+                cell.clipsToBounds = true
+                cell.swipeBackgroundColor = UIColor.clear
+                
+                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                cell.layoutMargins = UIEdgeInsets.zero
+            }
+            
+            cell.layer.cornerRadius = 10
+            
+            return cell
+
+            
+        } else {
+            let member = moderators[indexPath.row]
+            cell.setUser(member)
+            let swipeOption = detectSwipeOption(memberRole: member.role)
+            
+            if swipeOption.showOption {
+                let btnKick = MGSwipeButton(title: swipeOption.kickTitle, backgroundColor: UIColor.swipeGray(), callback: { (sender: MGSwipeTableCell!) -> Bool in
+                    self.detectSwipeAction(member: self.moderators[indexPath.row])
+                    return true
+                })
+                
+                let buttons = [btnKick]
+                cell.rightButtons = buttons
+                removeButtonsUnderline(buttons: buttons)
+                
+                cell.rightSwipeSettings.transition = MGSwipeTransition.border
+                cell.rightExpansion.buttonIndex = 0
+                cell.rightExpansion.fillOnTrigger = true
+                cell.rightExpansion.threshold = 1.5
+                cell.clipsToBounds = true
+                cell.swipeBackgroundColor = UIColor.clear
+                
+                cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                cell.layoutMargins = UIEdgeInsets.zero
+            }
+            
+            cell.layer.cornerRadius = 10
+            
+            return cell
+
         }
-        
-        cell.layer.cornerRadius = 10
-        
-        return cell
     }
     
     private func detectSwipeOption(memberRole: IGChannelMember.IGRole!) -> (showOption:Bool, kickTitle:String) {
@@ -344,6 +456,15 @@ class IGChannelInfoMemberListTableViewController: UITableViewController , UIGest
     
     func fetchChannelMemberFromServer() {
         IGGlobal.prgShow(self.view)
+        switch mode {
+        case "Members" :
+            filterRole = .all
+        case "Admins" :
+            filterRole = .admin
+        case "Moderators" :
+            filterRole = .moderator
+        default : filterRole = .all
+        }
         IGChannelGetMemberListRequest.Generator.generate(roomId: roomId, offset: Int32(self.allMember.count), limit: 40, filterRole: filterRole).success({ (protoResponse) in
             IGGlobal.prgHide()
             DispatchQueue.main.async {

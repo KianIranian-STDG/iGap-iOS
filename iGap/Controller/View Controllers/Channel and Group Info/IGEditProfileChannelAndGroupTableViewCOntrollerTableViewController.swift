@@ -95,10 +95,12 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
 
         dispatchGroup.enter()   // <<---
         self.requestToUpdateChannelReaction(self.reactionSwitchStatus)
+        self.dispatchGroup.leave()
 
 
         dispatchGroup.enter()   // <<---
         self.requestToUpdateChannelSignature(self.signMessageSwitchStatus!)
+        self.dispatchGroup.leave()
 
         dispatchGroup.notify(queue: .main) {
             // whatever you want to do when both are done
@@ -118,7 +120,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                         break
                     }
                     SMLoading.hideLoadingPage()
-                    self.dispatchGroup.leave()
 
 
                 }
@@ -129,7 +130,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                         let alert = UIAlertController(title: "TIME_OUT".localizedNew, message: "MSG_PLEASE_TRY_AGAIN".localizedNew, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: nil)
                         alert.addAction(okAction)
-                        self.dispatchGroup.leave()
 
                         self.present(alert, animated: true, completion: nil)
                     default:
@@ -147,7 +147,6 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
             SMLoading.showLoadingPage(viewcontroller: self)
             IGChannelUpdateReactionStatusRequest.sendRequest(roomId: channelRoom.id, reactionStatus: reactionSwitchStatus)
             
-            self.dispatchGroup.leave()
 
         }
     }
@@ -328,12 +327,12 @@ class IGEditProfileChannelAndGroupTableViewCOntrollerTableViewController: BaseTa
                         self.lblChannelType.text = "CHANNELTYPE".localizedNew + "  " + "PUBLIC".localizedNew
                         self.tmpOldUserName = self.tfChannelLink.text
                         self.tableView.endUpdates()
+                        self.dispatchGroup.leave()
 
                     default:
                         break
                     }
                     SMLoading.hideLoadingPage()
-                    self.dispatchGroup.leave()
                 }
             }).error ({ (errorCode, waitTime) in
 

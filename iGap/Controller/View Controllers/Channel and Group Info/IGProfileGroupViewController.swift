@@ -32,8 +32,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     var predicateModerators : NSPredicate!
     var notificationTokenModerator: NotificationToken?
     var notificationAdmin: NotificationToken?
-
-
+    
+    
     var isFistLaunch : Bool! = true
     var groupLink: String? = ""
     let headerViewMaxHeight: CGFloat = 100
@@ -56,7 +56,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     var deleteView: IGTappableView?
     var userAvatar: IGAvatar?
     var maxNavHeight : CGFloat = 100
-
+    
     //MARK: -Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var avatarView: IGAvatarView!
@@ -64,7 +64,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var memberCountLabel: UILabel!
     @IBOutlet weak var heightConstraints: NSLayoutConstraint!
-
+    
     //MARK: -ViewController Initialisers
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         tableView.contentInset = UIEdgeInsets(top: maxNavHeight + 10, left: 0, bottom: 0, right: 0)
         let navigaitonItem = self.navigationItem as! IGNavigationItem
         navigaitonItem.setNavigationBarForProfileRoom(.group, id: nil, groupRole: room?.groupRoom?.role, channelRole: nil)
-
+        
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         
         initView()
@@ -83,7 +83,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         displayNameLabel.textColor = .white
         displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,7 +94,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
+        
         if #available(iOS 13.0, *) {
             if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
                 // appearance has changed
@@ -105,7 +105,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             // Fallback on earlier versions
         }
     }
-
+    
     //MARK: -Development functions
     private func initView() {
         //Hint: -Avatar View Initialiser
@@ -113,7 +113,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         //Hint: -GradientView Initialiser
         initGradientView()
     }
-
+    
     func initGradientView() {
         let gradient = CAGradientLayer()
         gradient.frame = viewBG.frame
@@ -122,7 +122,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
         viewBG.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
     }
-
+    
     func groupFirstInitialiser() {
         requestToGetRoom()
         requestToGetAvatarList()
@@ -135,45 +135,45 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.handleTap(recognizer:)))
         avatarView.avatarImageView?.addGestureRecognizer(tap)
         
-//            cameraButton.removeUnderline()
+        //            cameraButton.removeUnderline()
         switch myRole! {
         case .admin:
-//                cameraButton.isHidden = false
-//                groupTypeCell.accessoryType = .none
-//                groupTypeLabelTrailingConstraint.constant = 10
+            //                cameraButton.isHidden = false
+            //                groupTypeCell.accessoryType = .none
+            //                groupTypeLabelTrailingConstraint.constant = 10
             break
         case .owner:
-//                leaveGroupLabel.text = "DELETE_GROUP".localizedNew
-//                cameraButton.isHidden = false
+            //                leaveGroupLabel.text = "DELETE_GROUP".localizedNew
+            //                cameraButton.isHidden = false
             break
         case .member:
-//                if room?.groupRoom?.type == .publicRoom {
-//                    groupAllMemberCell.isHidden = true
-//
-//                } else {
-//                    groupAllMemberCell.isHidden = false
-//                }
-//                adminsAndModeratorCell.isHidden = true
-//                groupLinkCell.isHidden = true
-//                groupNameCell.accessoryType = .none
-//                groupNameLabelTrailingConstraint.constant = 10
-//                groupTypeCell.accessoryType = .none
-//                groupTypeLabelTrailingConstraint.constant = 10
-//                cameraButton.isHidden = true
+            //                if room?.groupRoom?.type == .publicRoom {
+            //                    groupAllMemberCell.isHidden = true
+            //
+            //                } else {
+            //                    groupAllMemberCell.isHidden = false
+            //                }
+            //                adminsAndModeratorCell.isHidden = true
+            //                groupLinkCell.isHidden = true
+            //                groupNameCell.accessoryType = .none
+            //                groupNameLabelTrailingConstraint.constant = 10
+            //                groupTypeCell.accessoryType = .none
+            //                groupTypeLabelTrailingConstraint.constant = 10
+            //                cameraButton.isHidden = true
             break
         case .moderator:
-//                if room?.groupRoom?.type == .publicRoom {
-//                    groupAllMemberCell.isHidden = true
-//                    groupLinkCell.isHidden = true
-//                } else {
-//                    groupAllMemberCell.isHidden = false
-//                }
-//                adminsAndModeratorCell.isHidden = true
-//                groupNameCell.accessoryType = .none
-//                groupNameLabelTrailingConstraint.constant = 10
-//                groupTypeCell.accessoryType = .none
-//                groupTypeLabelTrailingConstraint.constant = 10
-//                cameraButton.isHidden = true
+            //                if room?.groupRoom?.type == .publicRoom {
+            //                    groupAllMemberCell.isHidden = true
+            //                    groupLinkCell.isHidden = true
+            //                } else {
+            //                    groupAllMemberCell.isHidden = false
+            //                }
+            //                adminsAndModeratorCell.isHidden = true
+            //                groupNameCell.accessoryType = .none
+            //                groupNameLabelTrailingConstraint.constant = 10
+            //                groupTypeCell.accessoryType = .none
+            //                groupTypeLabelTrailingConstraint.constant = 10
+            //                cameraButton.isHidden = true
             break
         }
         
@@ -192,7 +192,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         
         IGAppManager.sharedManager.connectionStatus.asObservable().subscribe(onNext: { (connectionStatus) in
             DispatchQueue.main.async {
-//                self.updateConnectionStatus(connectionStatus)
+                //                self.updateConnectionStatus(connectionStatus)
             }
         }, onError: { (error) in
             
@@ -201,7 +201,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         }, onDisposed: {
             
         }).disposed(by: disposeBag)
-
+        
     }
     func initAvatarView() {
         
@@ -209,7 +209,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     
     //MARK: -Actions
     
-
+    
     
     @objc func handleTap(recognizer:UITapGestureRecognizer) {
         if recognizer.state == .ended {
@@ -256,36 +256,36 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     
     
     func didTapOnTrashButton() {
-//        timer.invalidate()
-//        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
-//        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
-//            let thisAvatarId = self.avatars[index].id
-//            IGGroupAvatarDeleteRequest.Generator.generate(avatarId: thisAvatarId, roomId: (room?.id)!).success({ (protoResponse) in
-//                DispatchQueue.main.async {
-//                    switch protoResponse {
-//                    case let groupAvatarDeleteResponse as IGPGroupAvatarDeleteResponse :
-//                        IGGroupAvatarDeleteRequest.Handler.interpret(response: groupAvatarDeleteResponse)
-//                        self.avatarPhotos?.remove(at: index)
-//                        self.avatars.remove(at: index)
-//                    default:
-//                        break
-//                    }
-//                }
-//            }).error ({ (errorCode, waitTime) in
-//                switch errorCode {
-//                case .timeout:
-//                    DispatchQueue.main.async {
-//                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
-//                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                        alert.addAction(okAction)
-//                        self.present(alert, animated: true, completion: nil)
-//                    }
-//                default:
-//                    break
-//                }
-//
-//            }).send()
-//        }
+        //        timer.invalidate()
+        //        let thisPhoto = galleryPhotos?.accessCurrentPhotoDetail()
+        //        if let index =  self.avatarPhotos?.index(where: {$0 === thisPhoto}) {
+        //            let thisAvatarId = self.avatars[index].id
+        //            IGGroupAvatarDeleteRequest.Generator.generate(avatarId: thisAvatarId, roomId: (room?.id)!).success({ (protoResponse) in
+        //                DispatchQueue.main.async {
+        //                    switch protoResponse {
+        //                    case let groupAvatarDeleteResponse as IGPGroupAvatarDeleteResponse :
+        //                        IGGroupAvatarDeleteRequest.Handler.interpret(response: groupAvatarDeleteResponse)
+        //                        self.avatarPhotos?.remove(at: index)
+        //                        self.avatars.remove(at: index)
+        //                    default:
+        //                        break
+        //                    }
+        //                }
+        //            }).error ({ (errorCode, waitTime) in
+        //                switch errorCode {
+        //                case .timeout:
+        //                    DispatchQueue.main.async {
+        //                        let alert = UIAlertController(title: "Timeout", message: "Please try again later", preferredStyle: .alert)
+        //                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        //                        alert.addAction(okAction)
+        //                        self.present(alert, animated: true, completion: nil)
+        //                    }
+        //                default:
+        //                    break
+        //                }
+        //
+        //            }).send()
+        //        }
     }
     
     
@@ -323,17 +323,17 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         if !(room!.isInvalidated) {
             displayNameLabel.text = room?.title
             displayNameLabel.text = room?.title
-//                groupDescriptionLabel.text = room?.groupRoom?.roomDescription
+            //                groupDescriptionLabel.text = room?.groupRoom?.roomDescription
             if let groupRoom = room {
                 avatarView.setRoom(groupRoom, showMainAvatar: true)
             }
             if let groupType = room?.groupRoom?.type {
                 switch groupType {
                 case .privateRoom:
-//                        groupTypeLabel.text = "PRIVATE".localizedNew
+                    //                        groupTypeLabel.text = "PRIVATE".localizedNew
                     break
                 case .publicRoom:
-//                        groupTypeLabel.text = "PUBLIC".localizedNew
+                    //                        groupTypeLabel.text = "PUBLIC".localizedNew
                     break
                 }
             }
@@ -609,7 +609,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             }).send()
         }
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGroupNameSetting" {
             let destination = segue.destination as! IGGroupInfoEditNameTableViewController
@@ -619,7 +619,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             let destination = segue.destination as! IGGroupEditDescriptionTableViewController
             destination.room = room
         }
-
+        
         if segue.identifier ==  "showGroupTypeSetting" {
             let destination = segue.destination as! IGGroupInfoEditTypeTableViewController
             destination.room = room
@@ -636,10 +636,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             let destination = segue.destination as! IGGroupSharedMediaListTableViewController
             destination.room = room
         }
-
-
+        
+        
     }
-
+    
     //MARK: -Scroll View Delegate and DataSource
     var tapCount : Int = 0
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -647,7 +647,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         let y: CGFloat = maxNavHeight -  (scrollView.contentOffset.y + maxNavHeight)
         let height = min(max(y,headerViewMinHeight),headerViewMaxHeight)
         let range = height / headerViewMaxHeight
-            heightConstraints.constant = height
+        heightConstraints.constant = height
         let scaledTransform = originalTransform.scaledBy(x: max(0.7,range), y: max(0.7,range))
         let scaledAndTranslatedTransform = scaledTransform.translatedBy(x: 0, y: 0)
         UIView.animate(withDuration: 0.3, animations: {
@@ -663,8 +663,10 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCell", for: indexPath as IndexPath) as! IGProfileUserCell
         let cellTwo = tableView.dequeueReusableCell(withIdentifier: "IGProfileUSerCellTypeTwo", for: indexPath as IndexPath) as! IGProfileUSerCellTypeTwo
+        let cellTypeRed = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCellTypeRed", for: indexPath as IndexPath) as! IGProfileUserCellTypeRed
+        
         let groupType = room?.groupRoom?.type
-  
+        
         switch groupType {
         case .privateRoom?:
             
@@ -674,7 +676,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 switch indexPath.section {
                 case 0:
                     
-                    if let desc = room?.groupRoom?.roomDescription {
+                    if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
                         cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
@@ -685,29 +687,20 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     return cell
                     
                 case 1:
-                    
-                    cell.initLabels(nameLblString: groupLink)
-                    
-                    return cell
-                case 2:
                     switch indexPath.row {
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
                         return cellTwo
                         
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                        return cell
-                        
                     default:
                         return cell
                         
                     }
-                case 3:
+                case 2:
                     cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
                     return cell
                     
-                case 4:
+                case 3:
                     switch indexPath.row {
                     case 0 :
                         cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
@@ -722,17 +715,14 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                         
                     }
                     
-                case 5:
+                case 4:
                     switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
                         
-                    case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -743,7 +733,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 switch indexPath.section {
                 case 0:
                     
-                    if let desc = room?.groupRoom?.roomDescription {
+                    if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
                         cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
@@ -758,10 +748,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
                         return cellTwo
-                        
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                        return cell
                         
                     default:
                         return cell
@@ -788,26 +774,24 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     
                 case 4:
                     switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
                         
-                    case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
                     return cell
                 }
+                
             case .moderator:
                 
                 switch indexPath.section {
                 case 0:
                     
-                    if let desc = room?.groupRoom?.roomDescription {
+                    if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
                         cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
@@ -822,10 +806,6 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 0:
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
                         return cellTwo
-                        
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                        return cell
                         
                     default:
                         return cell
@@ -852,15 +832,13 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     
                 case 4:
                     switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
                         
-                    case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -870,7 +848,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 switch indexPath.section {
                 case 0:
                     
-                    if let desc = room?.groupRoom?.roomDescription {
+                    if let desc = room?.groupRoom?.roomDescription , desc != ""{
                         cell.initLabels(nameLblString: desc)
                     } else {
                         cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
@@ -891,10 +869,70 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                         cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
                         return cellTwo
                         
-                    case 1:
-                        cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
+                    default:
                         return cell
                         
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                    
+                case 5:
+                    switch indexPath.row {
+                        
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "DELETE_GROUP".localizedNew,changeColor: true)
+                        return cellTypeRed
+                    default:
+                        return cellTypeRed
+                        
+                    }
+                default:
+                    return cell
+                }
+            }
+        case .publicRoom?:
+            switch myRole {
+            case .admin? :
+                
+                switch indexPath.section {
+                case 0:
+                    
+                    if let desc = room?.groupRoom?.roomDescription , desc != "" {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
+                    return cell
+                    
+                case 1:
+                    
+                    cell.initLabels(nameLblString: groupLink)
+                    
+                    return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
                     default:
                         return cell
                         
@@ -921,87 +959,207 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
-                        
-                    case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
                     return cell
                 }
-            }
-        case .publicRoom?:
-            
-            switch indexPath.section {
+            case .owner? :
+                
+                switch indexPath.section {
                 case 0:
-                
-                if let desc = room?.groupRoom?.roomDescription {
-                    cell.initLabels(nameLblString: desc)
-                } else {
-                    cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
-                }
-                
-                
-                
-                return cell
-                
+                    
+                    if let desc = room?.groupRoom?.roomDescription , desc != "" {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
+                    return cell
+                    
                 case 1:
-                
-                cell.initLabels(nameLblString: groupLink)
-                
-                return cell
+                    
+                    cell.initLabels(nameLblString: groupLink)
+                    
+                    return cell
                 case 2:
-                switch indexPath.row {
-                case 0:
-                    cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
-                    return cellTwo
-                    
-                case 1:
-                    cell.initLabels(nameLblString: "NOTIFICATION_SOUNDS".localizedNew)
-                    return cell
-                    
-                default:
-                    return cell
-                    
-                }
-                case 3:
-                cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
-                return cell
-                
-                case 4:
-                switch indexPath.row {
-                case 0 :
-                    cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
-                    return cell
-                    
-                case 1 :
-                    cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
-                    return cell
-                    
-                default:
-                    return cell
-                    
-                }
-                
-                case 5:
                     switch indexPath.row {
-                    case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
-                        
-                    case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
                     default:
                         return cell
                         
-                }
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                    
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
+                    default:
+                        return cellTypeRed
+                        
+                    }
                 default:
+                    return cell
+                }
+            case .member? :
+                
+                switch indexPath.section {
+                case 0:
+                    
+                    if let desc = room?.groupRoom?.roomDescription , desc != "" {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
+                    return cell
+                    
+                case 1:
+                    
+                    cell.initLabels(nameLblString: groupLink)
+                    
+                    return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
+                    default:
+                        return cell
+                        
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                    
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
+
+                    case 1 :
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
+
+                    default:
+                        return cellTypeRed
+                        
+                    }
+                default:
+                    return cell
+                }
+            case .moderator? :
+                
+                switch indexPath.section {
+                case 0:
+                    
+                    if let desc = room?.groupRoom?.roomDescription , desc != "" {
+                        cell.initLabels(nameLblString: desc)
+                    } else {
+                        cell.initLabels(nameLblString: "PRODUCTS_NO_DETAILS".localizedNew)
+                    }
+                    
+                    
+                    
+                    return cell
+                    
+                case 1:
+                    
+                    cell.initLabels(nameLblString: groupLink)
+                    
+                    return cell
+                case 2:
+                    switch indexPath.row {
+                    case 0:
+                        cellTwo.initLabels(nameLblString: "MUTE_NOTIFICATION_IN_PROFILE".localizedNew)
+                        return cellTwo
+                    default:
+                        return cell
+                        
+                    }
+                case 3:
+                    cell.initLabels(nameLblString: "SHAREDMEDIA".localizedNew)
+                    return cell
+                    
+                case 4:
+                    switch indexPath.row {
+                    case 0 :
+                        cell.initLabels(nameLblString: "ADD_MEMBER".localizedNew)
+                        return cell
+                        
+                    case 1 :
+                        cell.initLabels(nameLblString: "ALLMEMBER".localizedNew)
+                        return cell
+                        
+                    default:
+                        return cell
+                        
+                    }
+                    
+                case 5:
+                    switch indexPath.row {
+                    case 0 :
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
+
+                    case 1 :
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
+
+                    default:
+                        return cellTypeRed
+                        
+                    }
+                default:
+                    return cell
+                }
+                
+            default :
                 return cell
             }
         case .none:
@@ -1081,120 +1239,171 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         }
     }
     
-         func numberOfSections(in tableView: UITableView) -> Int {
-            // #warning Incomplete implementation, return the number of sections
-            if let groupType = room?.groupRoom?.type {
-                switch groupType {
-                case .privateRoom:
-                    switch myRole! {
-                    case .admin:
-                        return 6
-                    
-
-                    case .member:
-                        return 5
-
-                    case .moderator:
-                        return 5
-
-                    case .owner:
-                        return 6
-
-                    }
-                case .publicRoom:
-                    return 6
-                }
-            } else {
-                return 5
-            }
-            
-        }
-        
-         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let groupType = room?.groupRoom?.type
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        if let groupType = room?.groupRoom?.type {
             switch groupType {
-            case .privateRoom?:
-
+            case .privateRoom:
                 switch myRole! {
                 case .admin:
-
-                    switch section {
-                    case 0:
-                        return 1
-                    case 1:
-                        return 1
-                    case 2:
-                        return 2
-                    case 3 :
-                        return 1
-                    case 4 :
-                        return 2
-                    case 5 :
-                        return 2
-                    default:
-                        return 0
-                    }
-                case .owner:
-
-                    switch section {
-                    case 0:
-                        return 1
-                    case 1:
-                        return 1
-                    case 2:
-                        return 2
-                    case 3 :
-                        return 1
-                    case 4 :
-                        return 2
-                    case 5 :
-                        return 2
-                    default:
-                        return 0
-                    }
-                case .member:
+                    return 5
                     
-                    switch section {
-                    case 0:
-                        return 1
-                    case 1:
-                        return 2
-                    case 2:
-                        return 1
-                    case 3 :
-                        return 2
-                    case 4 :
-                        return 2
-                    default:
-                        return 0
-                    }
+                    
+                case .member:
+                    return 5
+                    
                 case .moderator:
-
-                    switch section {
-                    case 0:
-                        return 1
-                    case 1:
-                        return 2
-                    case 2:
-                        return 1
-                    case 3 :
-                        return 2
-                    case 4 :
-                        return 2
-                    default:
-                        return 0
-                    }
+                    return 5
+                    
+                case .owner:
+                    return 6
                     
                 }
-            case .publicRoom?:
-
+            case .publicRoom:
+                switch myRole! {
+                case .admin:
+                    return 6
+                    
+                    
+                case .member:
+                    return 6
+                    
+                case .moderator:
+                    return 6
+                    
+                case .owner:
+                    return 6
+                    
+                }
+            }
+        } else {
+            return 5
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let groupType = room?.groupRoom?.type
+        switch groupType {
+        case .privateRoom?:
+            
+            switch myRole! {
+            case .admin:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2 :
+                    return 1
+                case 3 :
+                    return 2
+                case 4 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .owner:
+                
                 switch section {
                 case 0:
                     return 1
                 case 1:
                     return 1
                 case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
                     return 2
+                case 5 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .member:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2 :
+                    return 1
+                case 3 :
+                    return 2
+                case 4 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .moderator:
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2 :
+                    return 1
+                case 3 :
+                    return 2
+                case 4 :
+                    return 1
+                default:
+                    return 0
+                }
+                
+            }
+        case .publicRoom?:
+            
+            switch myRole {
+            case .admin? :
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 2
+                case 5 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .owner? :
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 2
+                case 5 :
+                    return 1
+                default:
+                    return 0
+                }
+            case .member? :
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 1
                 case 3 :
                     return 1
                 case 4 :
@@ -1204,11 +1413,48 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return 0
                 }
-            case .none:
-                return 0
+            case .moderator? :
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 2
+                case 5 :
+                    return 2
+                default:
+                    return 0
+                }
+            default :
+                
+                switch section {
+                case 0:
+                    return 1
+                case 1:
+                    return 1
+                case 2:
+                    return 1
+                case 3 :
+                    return 1
+                case 4 :
+                    return 2
+                case 5 :
+                    return 1
+                default:
+                    return 0
+                }
             }
+        case .none:
+            return 0
         }
-        
+    }
+    
     //MARK: -Header and Footer
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let containerFooterView = view as! UITableViewHeaderFooterView
@@ -1225,8 +1471,8 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         switch groupType {
         case .privateRoom?:
             
-            switch myRole! {
-            case .admin:
+            switch myRole {
+            case .admin?:
                 
                 switch section {
                 case 0:
@@ -1240,7 +1486,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return ""
                 }
-            case .owner:
+            case .owner?:
                 
                 switch section {
                 case 0:
@@ -1254,7 +1500,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return ""
                 }
-            case .member:
+            case .member?:
                 
                 switch section {
                 case 0:
@@ -1266,7 +1512,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return ""
                 }
-            case .moderator:
+            case .moderator?:
                 
                 switch section {
                 case 0:
@@ -1278,21 +1524,92 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 default:
                     return ""
                 }
+            default :
                 
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 2:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
             }
         case .publicRoom?:
             
-            switch section {
-            case 0:
-                return "PRODUCTS_DETAILS".localizedNew
-            case 1:
-                return "GROUP_LINK".localizedNew
-            case 2:
-                return "NOTIFICATION_SOUNDS".localizedNew
-            case 3:
-                return "SHAREDMEDIA".localizedNew
-            default:
-                return ""
+            switch myRole {
+            case .admin?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "GROUP_LINK".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
+            case .owner?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "GROUP_LINK".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
+            case .member?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "GROUP_LINK".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
+            case .moderator?:
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "GROUP_LINK".localizedNew
+                case 2:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 3:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
+            default :
+                
+                
+                switch section {
+                case 0:
+                    return "PRODUCTS_DETAILS".localizedNew
+                case 1:
+                    return "NOTIFICATION_SOUNDS".localizedNew
+                case 2:
+                    return "SHAREDMEDIA".localizedNew
+                default:
+                    return ""
+                }
             }
         case .none:
             switch section {
@@ -1307,7 +1624,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             default:
                 return ""
             }        }
-      
+        
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let groupType = room?.groupRoom?.type
@@ -1430,7 +1747,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 3:
                     //goToSharedMedia
                     self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-
+                    
                     break
                     
                 case 4:
@@ -1441,7 +1758,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //gotToMemberListPage
                         self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-
+                        
                         break
                     default:
                         break
@@ -1456,7 +1773,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //ShowLeaveAlert
                         showDeleteChannelActionSheet()
-
+                        
                         break
                     default:
                         break
@@ -1485,7 +1802,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 3:
                     //goToSharedMedia
                     self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-
+                    
                     break
                     
                 case 4:
@@ -1496,7 +1813,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //gotToMemberListPage
                         self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-
+                        
                         break
                     default:
                         break
@@ -1511,7 +1828,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //ShowLeaveAlert
                         showDeleteChannelActionSheet()
-
+                        
                         break
                     default:
                         break
@@ -1538,7 +1855,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 2:
                     //goToSharedMedia
                     self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-
+                    
                     break
                     
                 case 3:
@@ -1549,7 +1866,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //gotToMemberListPage
                         self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-
+                        
                         break
                     default:
                         break
@@ -1564,7 +1881,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //ShowLeaveAlert
                         showDeleteChannelActionSheet()
-
+                        
                         break
                     default:
                         break
@@ -1592,7 +1909,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 2:
                     //goToSharedMedia
                     self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-
+                    
                     break
                     
                 case 3:
@@ -1603,7 +1920,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //gotToMemberListPage
                         self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-
+                        
                         break
                     default:
                         break
@@ -1618,7 +1935,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                     case 1 :
                         //ShowLeaveAlert
                         showDeleteChannelActionSheet()
-
+                        
                         break
                     default:
                         break
@@ -1649,9 +1966,9 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
             case 3:
                 //goToSharedMedia
                 self.performSegue(withIdentifier: "showGroupSharedMediaSetting", sender: self)
-
+                
                 break
-
+                
             case 4:
                 switch indexPath.row {
                 case 0 :
@@ -1660,14 +1977,14 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 1 :
                     //gotToMemberListPage
                     self.performSegue(withIdentifier: "showGroupMemberSetting", sender: self)
-
+                    
                     break
                 default:
                     break
-
+                    
                 }
             case 5:
-
+                
                 switch indexPath.row {
                 case 0 :
                     //ShowReportAlert
@@ -1675,7 +1992,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 case 1 :
                     //ShowLeaveAlert
                     showDeleteChannelActionSheet()
-
+                    
                     break
                 default:
                     break
@@ -1685,7 +2002,7 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
                 break
             }
         case .none:
-
+            
             break
             
         }

@@ -20,6 +20,7 @@ import NVActivityIndicatorView
 class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorViewable,UITableViewDelegate,UITableViewDataSource ,cellTypeTwoDelegate{
 
     //MARK: -Variables
+    var roleToShow : String = "Members"
     var adminsCount : String = "0"
     var moderatprsCount : String = "0"
     var adminsMembersCount : Results<IGChannelMember>!
@@ -51,6 +52,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     var room : IGRoom?
     var hud = MBProgressHUD()
     var allMember = [IGChannelMember]()
+    var adminMember = [IGChannelMember]()
+    var moderatorMember = [IGChannelMember]()
+
     var myRole : IGChannelMember.IGRole!
     var signMessageIndexPath : IndexPath?
     var channelLinkIndexPath : IndexPath?
@@ -115,7 +119,9 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        adminMember.removeAll()
+        moderatorMember.removeAll()
+
         requestToGetRoom()
     }
     
@@ -639,6 +645,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             switch changes {
             case .initial:
                 self.adminsCount = "\(Set(self.adminsMembersCount).count)"
+                
                 break
             case .update(_, _, _, _):
                 self.adminsCount = "\(Set(self.adminsMembersCount).count)"
@@ -683,10 +690,10 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
             }).send()
         }
     }
-    var adminMember = [IGChannelMember]()
-    var moderatorMember = [IGChannelMember]()
 
     func requestToFetchAdminChannelMemberFromServer() {
+        adminMember.removeAll()
+        moderatorMember.removeAll()
         IGChannelGetMemberListRequest.Generator.generate(roomId: (self.room?.id)!, offset: 0, limit: 100, filterRole: .all).success({ (protoResponse) in
             DispatchQueue.main.async {
                 switch protoResponse {
@@ -701,8 +708,8 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                            self.moderatorMember.append(igmember)
                         }
                     }
-                    self.adminsCount = "\(self.adminMember.count)"
-                    self.moderatprsCount = "\(self.moderatorMember.count)"
+//                    self.adminsCount = "\(self.adminMember.count)"
+//                    self.moderatprsCount = "\(self.moderatorMember.count)"
                     self.tableView.reloadData()
                     
                 default:
@@ -894,6 +901,7 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
         }
         if segue.identifier == "showChannelInfoSetMembers" {
             let destination = segue.destination as! IGChannelInfoMemberListTableViewController
+            destination.mode = roleToShow
             destination.room = room
         }
         if segue.identifier == "showGroupSharedMediaSetting" {
@@ -1024,8 +1032,10 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCell", for: indexPath as IndexPath) as! IGProfileUserCell
         let cellTwo = tableView.dequeueReusableCell(withIdentifier: "IGProfileUSerCellTypeTwo", for: indexPath as IndexPath) as! IGProfileUSerCellTypeTwo
-        let channelType = room?.channelRoom?.type
+        let cellTypeRed = tableView.dequeueReusableCell(withIdentifier: "IGProfileUserCellTypeRed", for: indexPath as IndexPath) as! IGProfileUserCellTypeRed
 
+        let channelType = room?.channelRoom?.type
+        
         switch channelType {
         case .privateRoom?:
             
@@ -1078,14 +1088,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -1144,14 +1154,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 3:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -1210,14 +1220,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                                 case 3:
                                     switch indexPath.row {
                                     case 0 :
-                                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                                        return cell
+                                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                                        return cellTypeRed
                                         
                                     case 1 :
-                                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                                        return cell
+                                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                                        return cellTypeRed
                                     default:
-                                        return cell
+                                        return cellTypeRed
                                         
                                     }
                                 default:
@@ -1273,14 +1283,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "DELETE_CHANNEL".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "DELETE_CHANNEL".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -1351,14 +1361,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
 
@@ -1407,14 +1417,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -1453,14 +1463,14 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 4:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "REPORT".localizedNew,changeColor: true)
+                        return cellTypeRed
                         
                     case 1 :
-                        cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
@@ -1530,18 +1540,18 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 5:
                     switch indexPath.row {
                     case 0 :
-                        cell.initLabels(nameLblString: "DELETE_CHANNEL".localizedNew,changeColor: true)
-                        return cell
+                        cellTypeRed.initLabels(nameLblString: "DELETE_CHANNEL".localizedNew,changeColor: true)
+                        return cellTypeRed
                     default:
-                        return cell
+                        return cellTypeRed
                         
                     }
                 default:
                     return cell
                 }
             case .none:
-                cell.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
-                return cell
+                cellTypeRed.initLabels(nameLblString: "LEAVE".localizedNew,changeColor: true)
+                return cellTypeRed
             }
         case .none:
             
@@ -2217,14 +2227,18 @@ class IGProfileChannelViewController: BaseViewController , NVActivityIndicatorVi
                 case 2:
                     switch indexPath.row {
                     case 0 :
+                        roleToShow = "Members"
                         self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
-
-                        break
                     case 1 :
-                        //gotToNotificationSettings
-                        break
+                        roleToShow = "Admins"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                    case 2 :
+                        roleToShow = "Moderators"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
+                        
                     default:
-                        break
+                        roleToShow = "Members"
+                        self.performSegue(withIdentifier: "showChannelInfoSetMembers", sender: self)
                     }
                 case 3:
                     //goToSharedMedia

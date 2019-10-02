@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IGProfileUserCell: UITableViewCell {
+class IGProfileUserCellTypeRed: UITableViewCell {
 
     @IBOutlet weak var lblActionName : UILabel!
     @IBOutlet weak var lblActionDetail : UILabel!
@@ -60,8 +60,6 @@ class IGProfileUserCell: UITableViewCell {
     override func prepareForReuse() {
         lblActionName.text = nil
         lblActionDetail.text = nil
-        lblActionDetail.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblActionName.textColor = UIColor(named: themeColor.labelColor.rawValue)
         
     }
 
