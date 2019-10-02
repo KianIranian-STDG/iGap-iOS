@@ -3281,7 +3281,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             
             if self.sendAsFile {
                 self.sendAsFile = false
-                let filename = imageUrl!.lastPathComponent
+                filename = imageUrl?.lastPathComponent ?? filename
                 manageFile(fileData: imageData, filename: filename)
                 return
             }

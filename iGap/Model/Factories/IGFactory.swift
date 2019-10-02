@@ -451,6 +451,7 @@ class IGFactory: NSObject {
     
     func updateMessageStatusToFail(message: IGRoomMessage) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
+            // TODO - Realm accessed from incorrect thread.
             let predicate = NSPredicate(format: "primaryKeyId = %@", message.primaryKeyId!)
             if let messageUpdate = IGDatabaseManager.shared.realm.objects(IGRoomMessage.self).filter(predicate).first {
                 try! IGDatabaseManager.shared.realm.write {

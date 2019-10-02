@@ -156,7 +156,12 @@ class IGUploadManager {
     //Step 2: Initilize Upload
     private func initializeUplaod(for task: IGUploadTask) {
         let fileData = NSData(data: task.file.data!)
-        let initialBytes = fileData.subdata(with: NSMakeRange(0, Int(task.finalBytesLimit!)))
+        var initialBytes = fileData.subdata(with: NSMakeRange(0, Int(task.finalBytesLimit!)))
+        //Hint: do this for avoid from error (major:702, minor:2)
+        if initialBytes.count == 0 {
+            initialBytes = fileData as Data
+        }
+        
         let size = Int(task.file.data!.count)
         let finalBytes = fileData.subdata(with: NSMakeRange(size - Int(task.finalBytesLimit!), Int(task.finalBytesLimit!)))
         let request = IGFileUploadInitRequest.Generator.generate(initialBytes: initialBytes,
