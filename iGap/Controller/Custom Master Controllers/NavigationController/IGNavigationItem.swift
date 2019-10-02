@@ -526,13 +526,22 @@ class IGNavigationItem: UINavigationItem {
             rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
         }
 
+        deactivateTappbleArea()
     }
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
+        activeTappleArea()
         addiGapLogo()
         addSettingButton()
         addComopseButton()
-        
+    }
+    private func activeTappleArea() {
+        rightViewContainer?.isUserInteractionEnabled = true
+        leftViewContainer?.isUserInteractionEnabled = true
+    }
+    private func deactivateTappbleArea() {
+        rightViewContainer?.isUserInteractionEnabled = false
+        leftViewContainer?.isUserInteractionEnabled = false
     }
     private func addSettingButton() {
         if leftViewContainer?.subviews.count != nil {
@@ -580,6 +589,7 @@ class IGNavigationItem: UINavigationItem {
     
     //MARK: - Call List
     func setCallListNavigationItems() {
+        activeTappleArea()
         addiGapLogo()
         addComopseButton()
         addMoreSettingsButton()
@@ -682,6 +692,7 @@ class IGNavigationItem: UINavigationItem {
     }
     //MARK: - Chat List
     func setChatListsNavigationItems() {
+        activeTappleArea()
         addSettingButton()
         addComopseButton()
         addiGapLogo()

@@ -12,6 +12,7 @@
 		4FFCE2A01EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */; };
 		8E01BC812293F00E0001C757 /* IGCustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */; };
 		8E01BC832293F06F0001C757 /* IGCustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01BC822293F06F0001C757 /* IGCustomModal.swift */; };
+		8E06F0592344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */; };
 		8E0BAEC022EC047200479682 /* IGRoomListtCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */; };
 		8E0BAEC222EC11C500479682 /* roomItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BAEC122EC11C500479682 /* roomItem.swift */; };
 		8E1865392323A10400D8BCA9 /* ChannelAndSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */; };
@@ -786,6 +787,7 @@
 		4FFCE29F1EEAF21400F7D0AE /* IGRegistrationStepPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IGRegistrationStepPasswordViewController.swift; sourceTree = "<group>"; };
 		8E01BC802293F00E0001C757 /* IGCustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomAlertView.swift; sourceTree = "<group>"; };
 		8E01BC822293F06F0001C757 /* IGCustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGCustomModal.swift; sourceTree = "<group>"; };
+		8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGProfileUsercellTypeRed.swift; sourceTree = "<group>"; };
 		8E0BAEBF22EC047200479682 /* IGRoomListtCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGRoomListtCell.swift; sourceTree = "<group>"; };
 		8E0BAEC122EC11C500479682 /* roomItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomItem.swift; sourceTree = "<group>"; };
 		8E1865382323A10400D8BCA9 /* ChannelAndSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChannelAndSettings.storyboard; sourceTree = "<group>"; };
@@ -2564,6 +2566,7 @@
 				FA77C2A61E2B85E4001B2152 /* IGRegistredUserInfoTableViewController.swift */,
 				8E4472A32331FE5100900244 /* IGProfileUserViewController.swift */,
 				8E4472A523320D6000900244 /* IGProfileUserCell.swift */,
+				8E06F0582344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift */,
 				8E4472A72332102600900244 /* IGProfileUSerCellTypeTwo.swift */,
 				FA60ADD3200BA39B004EE151 /* IGReport.swift */,
 			);
@@ -3704,6 +3707,7 @@
 				FA76598922902ACE006322A3 /* INSPhotosViewController.swift in Sources */,
 				FA77E0FF2261EBCB008D6D25 /* DiscoveryObserver.swift in Sources */,
 				FA09538A1E1B97E20043ED3F /* IGCreateNewGroupTableViewController.swift in Sources */,
+				8E06F0592344A6CF00CE0536 /* IGProfileUsercellTypeRed.swift in Sources */,
 				FA63BAA01DD70D60000B60AD /* IGRequestWrapper.swift in Sources */,
 				FA844D8821F88FCF000E6750 /* Compression.swift in Sources */,
 				8E5FBC0B23154D090069D4F2 /* IGRegisttrationStepSecurityQuestions.swift in Sources */,
