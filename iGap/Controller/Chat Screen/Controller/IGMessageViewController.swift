@@ -737,6 +737,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         initiconFonts()
     }
     private func initiconFonts() {
+        txtSticker.font = UIFont.iGapFonticon(ofSize: 25)
         btnAttachment.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         inputBarDeleteButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         inputBarForwardButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
@@ -745,6 +746,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         inputBarSendButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         inputBarShareButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
 
+        txtSticker.text = ""
         inputBarShareButton.setTitle("", for: .normal)
         inputBarSendButton.setTitle("", for: .normal)
         inputBarRecordButton.setTitle("", for: .normal)
