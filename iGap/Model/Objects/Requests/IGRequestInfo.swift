@@ -88,10 +88,11 @@ class IGInfoPageRequest : IGRequest {
 
 class IGInfoWallpaperRequest : IGRequest {
     class Generator : IGRequest.Generator{
-        class func generate(fit: IGPInfoWallpaper.IGPFit) -> IGRequestWrapper {
+        class func generate(fit: IGPInfoWallpaper.IGPFit, type: IGPInfoWallpaper.IGPType = .chatBackground) -> IGRequestWrapper {
             var wallpaper = IGPInfoWallpaper()
             wallpaper.igpFit = fit
-            return IGRequestWrapper(message: wallpaper, actionID: 504)
+            wallpaper.igpType = type
+            return IGRequestWrapper(message: wallpaper, actionID: 504, identity: wallpaper)
         }
     }
     

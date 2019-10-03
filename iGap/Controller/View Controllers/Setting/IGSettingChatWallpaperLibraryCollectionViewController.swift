@@ -78,7 +78,16 @@ class IGSettingChatWallpaperLibraryCollectionViewController: UICollectionViewCon
                 fit = IGPInfoWallpaper.IGPFit.tablet
             }
             
-            IGInfoWallpaperRequest.Generator.generate(fit: fit).success({ (protoResponse) in
+            IGInfoWallpaperRequest.Generator.generate(fit: fit).successPowerful({ (protoResponse, requestWrapper) in
+                
+                if let wallpaperRequest = requestWrapper.identity as? IGPInfoWallpaper {
+                    if wallpaperRequest.igpType == .chatBackground {
+                        
+                    } else if wallpaperRequest.igpType == .profileWallpaper {
+                        
+                    }
+                }
+                
                 if let wallpaperResponse = protoResponse as? IGPInfoWallpaperResponse {
                     IGInfoWallpaperRequest.Handler.interpret(response: wallpaperResponse)
                     
