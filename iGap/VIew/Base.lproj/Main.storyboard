@@ -413,7 +413,7 @@
                     <view key="view" contentMode="scaleToFill" id="PIy-aE-Fl9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="VkN-mO-htE"/>
                 </viewController>
@@ -2832,7 +2832,7 @@
                         <segue destination="g6w-HL-WeX" kind="show" identifier="showSettings" id="cY3-sJ-crS"/>
                         <segue destination="Eii-V9-G3m" kind="show" id="Btb-8e-Jj7"/>
                         <segue destination="R4Q-it-JyU" kind="show" identifier="ShowQRScanner" id="IhQ-Gl-QUp"/>
-                        <segue destination="2wz-nK-2sB" kind="show" identifier="showCountryCell" id="li1-M1-D0O"/>
+                        <segue destination="Kpa-cB-TTl" kind="show" identifier="showCountryCell" id="duE-Fv-e5e"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qW2-kK-2eA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3187,11 +3187,10 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pYT-CR-ujX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="WN9-pc-EA2">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddContactCell" id="y34-5h-CfL" customClass="IGAddNewContactTableViewCell" customModule="iGap" customModuleProvider="target">
@@ -3211,7 +3210,6 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="4SZ-dM-UNa" firstAttribute="top" secondItem="Il9-Vg-OUN" secondAttribute="topMargin" constant="4" id="2E5-fb-ses"/>
                                         <constraint firstItem="4SZ-dM-UNa" firstAttribute="leading" secondItem="Il9-Vg-OUN" secondAttribute="leading" constant="53" id="2Qr-vD-vrf"/>
@@ -3222,6 +3220,7 @@
                                         <constraint firstAttribute="bottom" secondItem="qFB-8d-RXJ" secondAttribute="bottom" constant="6" id="riW-Vi-SfR"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="IGTableViewCellColor"/>
                                 <connections>
                                     <outlet property="addContactImageView" destination="qFB-8d-RXJ" id="lPT-HL-4Hg"/>
                                     <outlet property="addContactLabel" destination="4SZ-dM-UNa" id="QrQ-IO-VRE"/>
@@ -3240,26 +3239,25 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJ7-Cq-MzK" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="20.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-c7-0WX" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="20.333333333333336" width="41.666666666666664" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ev-JY-NNc" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
                                             <rect key="frame" x="15" y="15" width="50" height="50"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="rw7-Zh-cfh"/>
                                                 <constraint firstAttribute="width" constant="50" id="xnQ-cj-ERo"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygY-wt-IbE">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygY-wt-IbE">
                                             <rect key="frame" x="354" y="20" width="50" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="0aJ-TU-8eb"/>
@@ -3267,7 +3265,7 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
                                             <state key="normal" title="">
-                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                             </state>
                                             <connections>
                                                 <action selector="btnCall:" destination="esR-cG-WXc" eventType="touchUpInside" id="T2G-PN-v8w"/>
@@ -3281,14 +3279,13 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
                                             <state key="normal" title="">
-                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                             </state>
                                             <connections>
                                                 <action selector="btnVideoCall:" destination="esR-cG-WXc" eventType="touchUpInside" id="crm-Ud-uDg"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="4Oy-J7-syH" firstAttribute="leading" secondItem="0Ev-JY-NNc" secondAttribute="trailing" constant="10" id="1M1-fe-5Ta"/>
                                         <constraint firstItem="0Ev-JY-NNc" firstAttribute="centerY" secondItem="2HW-R7-pzk" secondAttribute="centerY" id="3lW-2F-3es"/>
@@ -3301,6 +3298,7 @@
                                         <constraint firstAttribute="trailing" secondItem="ygY-wt-IbE" secondAttribute="trailing" constant="10" id="tes-Qb-UCm"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="IGTableViewCellColor"/>
                                 <connections>
                                     <outlet property="btnCall" destination="ygY-wt-IbE" id="Sa4-uv-Gcw"/>
                                     <outlet property="btnVideoCall" destination="G3U-wx-GLL" id="g8r-Vt-HXc"/>
@@ -3339,7 +3337,7 @@
                     <view key="view" contentMode="scaleToFill" id="pnH-yg-Phn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="QR Reader" id="KyD-1d-Z0D" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
                     <connections>
@@ -3400,7 +3398,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb7-Is-uP4">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="MuQ-aL-Qcz">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -3420,7 +3418,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="8Wv-SN-xb0"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G62-7u-yMi">
@@ -3429,7 +3427,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="RQa-2C-tDp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -3452,7 +3450,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eb7-Is-uP4" secondAttribute="trailing" id="08n-34-Cws"/>
                             <constraint firstItem="eb7-Is-uP4" firstAttribute="top" secondItem="T4x-GH-Qw7" secondAttribute="top" id="Fw9-wN-po0"/>
@@ -3470,23 +3468,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qfk-za-6w7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3654" y="-717"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mrE-ap-mUk">
-            <objects>
-                <navigationController id="2wz-nK-2sB" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="y5j-Jd-n1K"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jtY-Qo-Vk2" customClass="IGNavigationBar" customModule="iGap" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Kpa-cB-TTl" kind="relationship" relationship="rootViewController" id="auQ-HM-PMB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="723-W6-faU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4490" y="-717"/>
         </scene>
     </scenes>
     <resources>
@@ -3531,6 +3512,10 @@
         </namedColor>
         <namedColor name="IGTableViewCellColor">
             <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+
+        </namedColor>
+        <namedColor name="IGTextFieldBackGround">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
