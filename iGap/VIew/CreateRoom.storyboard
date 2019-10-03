@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -249,7 +250,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="18" id="AaE-aS-vje">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -264,7 +265,6 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="UlP-3f-jm3" firstAttribute="top" secondItem="9qV-eZ-bj8" secondAttribute="top" id="0eE-LY-Hnu"/>
                                 <constraint firstAttribute="trailing" secondItem="UlP-3f-jm3" secondAttribute="trailing" constant="15" id="MJW-cG-QNl"/>
@@ -295,13 +295,13 @@
                                                         <constraint firstAttribute="height" constant="21" id="Eif-Fu-s2E"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lnn-eQ-Q1x">
                                                     <rect key="frame" x="59" y="42" width="292" height="48"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -338,13 +338,13 @@
                                                         <constraint firstAttribute="height" constant="21" id="KlC-lu-AG2"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgk-hV-yOP">
                                                     <rect key="frame" x="59" y="42" width="292" height="48"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" name="IGLabelGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -375,7 +375,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFK-ns-tVh">
                                                     <rect key="frame" x="16" y="11" width="343" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="IGLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -622,10 +622,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hUL-3P-aqi">
-                                <rect key="frame" x="56" y="564" width="263" height="47"/>
+                                <rect key="frame" x="56" y="569" width="263" height="42"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvQ-Vg-Ssn" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="121.5" height="47"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="121.5" height="42"/>
                                         <color key="backgroundColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                                         <state key="normal" title="">
@@ -641,7 +641,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ja5-kC-dO6" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                        <rect key="frame" x="141.5" y="0.0" width="121.5" height="47"/>
+                                        <rect key="frame" x="141.5" y="0.0" width="121.5" height="42"/>
                                         <color key="backgroundColor" red="0.76862745099999996" green="0.035294117649999998" blue="0.72941176470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                                         <state key="normal" title="">
@@ -656,7 +656,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sgp-ZV-X0f">
-                                <rect key="frame" x="56" y="224" width="263" height="320"/>
+                                <rect key="frame" x="56" y="229" width="263" height="320"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kQt-UF-3q8">
                                         <rect key="frame" x="0.0" y="0.0" width="263" height="65"/>
@@ -1013,7 +1013,7 @@
                                 </subviews>
                             </stackView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wbl-ux-Bd4">
-                                <rect key="frame" x="56" y="164" width="263" height="40"/>
+                                <rect key="frame" x="56" y="169" width="263" height="40"/>
                                 <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="25"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
                             </textField>
@@ -1345,13 +1345,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ge7-83-Qbp">
-                                <rect key="frame" x="100" y="560" width="175" height="102"/>
+                                <rect key="frame" x="100" y="565" width="175" height="97"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="v6U-qq-xG5">
-                                        <rect key="frame" x="0.0" y="0.0" width="175" height="47"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="175" height="42"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nId-6x-4sB" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="47"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="77.5" height="42"/>
                                                 <color key="backgroundColor" red="0.90588235289999997" green="0.047058823530000002" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="30"/>
                                                 <state key="normal" title="">
@@ -1364,7 +1364,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjW-0B-Cfw" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                                                <rect key="frame" x="97.5" y="0.0" width="77.5" height="47"/>
+                                                <rect key="frame" x="97.5" y="0.0" width="77.5" height="42"/>
                                                 <color key="backgroundColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="27"/>
                                                 <state key="normal" title="">
@@ -1379,7 +1379,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="o8g-ha-d2O">
-                                        <rect key="frame" x="0.0" y="57" width="175" height="45"/>
+                                        <rect key="frame" x="0.0" y="52" width="175" height="45"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C5Q-wP-fWB">
                                                 <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
@@ -1426,19 +1426,19 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dialing . . ." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgu-pf-Saf">
-                                <rect key="frame" x="100" y="523" width="175" height="27"/>
+                                <rect key="frame" x="100" y="528" width="175" height="27"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adolf Benji" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2Z-af-30K">
-                                <rect key="frame" x="100" y="486" width="175" height="27"/>
+                                <rect key="frame" x="100" y="491" width="175" height="27"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ij5-TT-g6j">
-                                <rect key="frame" x="285" y="561" width="45" height="45"/>
+                                <rect key="frame" x="285" y="563.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ij5-TT-g6j" secondAttribute="height" multiplier="1:1" id="Aeg-m5-jsX"/>
                                     <constraint firstAttribute="width" constant="45" id="MQi-7k-CgX"/>
@@ -1450,7 +1450,7 @@
                                 </state>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11h-vD-kYd">
-                                <rect key="frame" x="45" y="561" width="45" height="45"/>
+                                <rect key="frame" x="45" y="563.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="LeU-vO-mwq"/>
                                     <constraint firstAttribute="height" constant="45" id="c45-nh-JaH"/>
@@ -1510,5 +1510,14 @@
     <resources>
         <image name="IG_Camera_Image" width="32.666667938232422" height="32.333332061767578"/>
         <image name="IG_New_Channel_Generic_Avatar" width="90" height="90"/>
+        <namedColor name="IGLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="IGTableViewBackgroundColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

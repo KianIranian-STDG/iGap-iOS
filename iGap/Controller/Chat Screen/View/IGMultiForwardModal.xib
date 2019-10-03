@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,17 +24,17 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="نوع عملیات را انتخاب نمایید" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry5-8L-AFt">
-                    <rect key="frame" x="15" y="23" width="345" height="75"/>
+                    <rect key="frame" x="15" y="19" width="345" height="75"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="75" id="Ya4-D0-VVf"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="13"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" name="IGLabelColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-ps-j9j">
-                    <rect key="frame" x="137.5" y="15" width="100" height="3"/>
-                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="137.5" y="6" width="100" height="3"/>
+                    <color key="backgroundColor" name="IGLabelGrayColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="3" id="4bO-mY-8cX"/>
                         <constraint firstAttribute="width" constant="100" id="ALM-qP-Lm7"/>
@@ -47,7 +46,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hzQ-NN-yUc">
-                    <rect key="frame" x="10" y="106" width="355" height="322"/>
+                    <rect key="frame" x="10" y="102" width="355" height="326"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G3T-jQ-1UW">
                         <size key="itemSize" width="50" height="80"/>
@@ -69,8 +68,7 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDO-Wd-BeP" customClass="UIButtonX" customModule="iGap" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="57" width="375" height="39"/>
-                            <color key="backgroundColor" red="0.94890445470809937" green="0.94900590181350708" blue="0.95298844575881958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="0.0" y="64" width="375" height="32"/>
                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                             <state key="normal" title="ارسال">
                                 <color key="titleColor" red="0.25882352939999997" green="0.69411764710000001" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -87,7 +85,7 @@
                     </constraints>
                 </stackView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmD-81-LyP">
-                    <rect key="frame" x="214" y="507.5" width="20.5" height="20.5"/>
+                    <rect key="frame" x="214" y="511" width="20.5" height="20.5"/>
                     <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20.5" id="184-7u-ot1"/>
@@ -105,21 +103,21 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Nf-77-YpK">
-                    <rect key="frame" x="10" y="38" width="32" height="44"/>
+                    <rect key="frame" x="10" y="29" width="32" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="aI9-3f-NiV"/>
                         <constraint firstAttribute="width" constant="32" id="zgO-6L-kQE"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                     <state key="normal" title="">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" name="IGLabelColor"/>
                     </state>
                     <connections>
                         <action selector="btnSearchTap:" destination="v7B-Af-fTF" eventType="touchUpInside" id="kDa-bO-4rQ"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="ZPf-Zg-Fda" firstAttribute="leading" secondItem="v7B-Af-fTF" secondAttribute="leading" id="4ku-o8-dNK"/>
                 <constraint firstItem="dwk-IO-ils" firstAttribute="leading" secondItem="v7B-Af-fTF" secondAttribute="leading" id="LYa-sW-jZe"/>
@@ -130,13 +128,13 @@
                 <constraint firstItem="2Nf-77-YpK" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="20" id="TC2-fB-MSH"/>
                 <constraint firstItem="ZPf-Zg-Fda" firstAttribute="top" secondItem="hzQ-NN-yUc" secondAttribute="bottom" constant="10" id="U0d-EX-wJT"/>
                 <constraint firstAttribute="trailing" secondItem="Ry5-8L-AFt" secondAttribute="trailing" constant="15" id="UDr-zS-1Jk"/>
-                <constraint firstItem="Ry5-8L-AFt" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="5" id="Z87-jk-ebJ"/>
+                <constraint firstItem="Ry5-8L-AFt" firstAttribute="top" secondItem="4i3-ps-j9j" secondAttribute="bottom" constant="10" id="Z87-jk-ebJ"/>
                 <constraint firstItem="NmD-81-LyP" firstAttribute="centerX" secondItem="ZDO-Wd-BeP" secondAttribute="centerX" constant="36.75" id="k7L-Tu-Mgc"/>
                 <constraint firstItem="dwk-IO-ils" firstAttribute="top" secondItem="ZPf-Zg-Fda" secondAttribute="bottom" constant="2" id="luE-Is-r8Y"/>
                 <constraint firstAttribute="bottom" secondItem="dwk-IO-ils" secondAttribute="bottom" id="q1z-OR-md7"/>
                 <constraint firstItem="rhb-MW-1Co" firstAttribute="trailing" secondItem="hzQ-NN-yUc" secondAttribute="trailing" constant="10" id="rIS-wj-sfZ"/>
                 <constraint firstAttribute="trailing" secondItem="ZPf-Zg-Fda" secondAttribute="trailing" id="rUm-cf-nr1"/>
-                <constraint firstItem="4i3-ps-j9j" firstAttribute="top" secondItem="v7B-Af-fTF" secondAttribute="top" constant="15" id="sUh-E2-4UZ"/>
+                <constraint firstItem="4i3-ps-j9j" firstAttribute="top" secondItem="v7B-Af-fTF" secondAttribute="top" constant="6" id="sUh-E2-4UZ"/>
                 <constraint firstItem="Ry5-8L-AFt" firstAttribute="leading" secondItem="v7B-Af-fTF" secondAttribute="leading" constant="15" id="tbY-VQ-2zm"/>
                 <constraint firstItem="hzQ-NN-yUc" firstAttribute="top" secondItem="Ry5-8L-AFt" secondAttribute="bottom" constant="8" id="v21-KK-bea"/>
                 <constraint firstItem="2Nf-77-YpK" firstAttribute="leading" secondItem="rhb-MW-1Co" secondAttribute="leading" constant="10" id="xWA-d3-OpE"/>
@@ -156,4 +154,15 @@
             <point key="canvasLocation" x="23.913043478260871" y="23.102678571428569"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="IGLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="IGModalViewBackgroundColor">
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

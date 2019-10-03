@@ -202,7 +202,7 @@ class IGSettingPrivacyAndSecurityTwoStepVerificationSetTwoStepVerificationTableV
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch section {
         case 0 :
-            return 60
+            return 90
         case 1 :
             return 50
         default :

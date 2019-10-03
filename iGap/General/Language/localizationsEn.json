@@ -836,6 +836,8 @@
         "MESSAGE" : "Message",
         "EDITE_MESSAGE" : "Edite Message",
         
+        "SETTING_PS_TV_FOOTER HINT" : "Please Make sure to enter a valid email address, because incase of forgetting the password, this would be the only way to retrieve your account",
+        
         "NO_MESSAGE" : "No messages to show",
         
         "MESSAGE_INPUT" : "Write your message...",

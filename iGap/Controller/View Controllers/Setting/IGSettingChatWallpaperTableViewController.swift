@@ -21,10 +21,11 @@ class IGSettingChatWallpaperTableViewController: BaseTableViewController, UINavi
     @IBOutlet weak var lblSolidColors : UILabel!
     @IBOutlet weak var lblPhotos : UILabel!
     @IBOutlet weak var lblReset : UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initNavigationBar()
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {

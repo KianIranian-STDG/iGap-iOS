@@ -22,7 +22,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_ACTIVE_SESSIONS".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController
@@ -181,6 +181,7 @@ class IGSettingPrivacyAndSecurityActiveSessionsTableViewController: UITableViewC
             }
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
+            containerView.textLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
         }
         else {
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)

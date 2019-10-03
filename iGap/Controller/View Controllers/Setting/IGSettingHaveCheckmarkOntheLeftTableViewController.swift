@@ -32,7 +32,7 @@ class IGSettingHaveCheckmarkOntheLeftTableViewController: BaseTableViewControlle
         currentUser = realm.objects(IGRegisteredUser.self).filter(predicate).first!
         
         self.navigationItem.title = navBarTitle
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: "GLOBAL_CLOSE".localizedNew, title: modeT)
         navigationItem.navigationController = self.navigationController as? IGNavigationController

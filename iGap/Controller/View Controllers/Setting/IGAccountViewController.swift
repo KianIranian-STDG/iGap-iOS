@@ -260,7 +260,6 @@ class IGAccountViewController: BaseTableViewController , UINavigationControllerD
             selfDestructionVC.items = [1, 3, 6, 12]
             selfDestructionVC.mode = "Self-Destruction"
             selfDestructionVC.modeT = "SETTING_PAGE_ACCOUNT_S_DESTRUCT".localizedNew
-            
         }
     }
     

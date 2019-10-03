@@ -64,7 +64,7 @@ class IGSettingPrivacy_SecurityTableViewController: BaseTableViewController {
         
         showAccountDetail()
         
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.addNavigationViewItems(rightItemText: nil, title: "SETTING_PS_TTL_PRIVACY".localizedNew)
         navigationItem.navigationController = self.navigationController as? IGNavigationController

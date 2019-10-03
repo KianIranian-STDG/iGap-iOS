@@ -24,7 +24,7 @@ class IGSettingContactBlockListTableViewController: BaseTableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         
         setNavigationItem()
         fetchBlockedContactsFromServer()

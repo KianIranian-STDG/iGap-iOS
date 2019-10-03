@@ -686,8 +686,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                         for element in responseAvatars {
                             sizesArray.append(element.file?.size)
                         }
-                        //                    print(respo)
-                        
                         
                     default:
                         break
@@ -779,9 +777,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }
     //Hint: - Go To Setting Action Handler
     @IBAction func didTapOnPickCountryCode(_ sender: Any) {
-
         performSegue(withIdentifier: "showCountryCell", sender: self) //presentConutries
     }
+    
     @IBAction func didTapOnGoToSettings(_ sender: Any) {
 //        goToSettings = true
 //        self.performSegue(withIdentifier: "showSettings", sender: self)

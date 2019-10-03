@@ -31,12 +31,12 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
     var cell : UITableViewCell!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
+//        self.tableView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1.0)
         let navigationItem = self.navigationItem as! IGNavigationItem
         navigationItem.navigationController = self.navigationController as? IGNavigationController
         let navigationController = self.navigationController as! IGNavigationController
         navigationController.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.addNavigationViewItems(rightItemText: "", title: mode,iGapFont: true)
+        navigationItem.addNavigationViewItems(rightItemText: "", title: mode, iGapFont: true)
         navigationItem.rightViewContainer?.addAction {
             self.requestToSetPrivacyRule()
         }
@@ -140,6 +140,7 @@ class IGPrivacyAndSecurityWhoCanSeeTableViewController: BaseTableViewController 
             let containerView = view as! UITableViewHeaderFooterView
             containerView.textLabel!.text = headerText
             containerView.textLabel?.font = UIFont.igFont(ofSize: 15)
+            containerView.textLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
             containerView.textLabel?.textAlignment = (containerView.textLabel?.localizedNewDirection)!
         }
     }

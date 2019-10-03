@@ -55,8 +55,7 @@ class SMMoneyTransactionOptions: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        
-        //        self.transform = SMDirection.PageAffineTransform()
+//        self.transform = SMDirection.PageAffineTransform()
     }
     
 }
