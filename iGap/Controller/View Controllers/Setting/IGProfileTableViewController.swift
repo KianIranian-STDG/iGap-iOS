@@ -25,6 +25,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     }()
     @IBOutlet weak  var btnCountryCodeWidthConstraints: NSLayoutConstraint!
     @IBOutlet weak  var tfRefferalWidthConstraints: NSLayoutConstraint!
+    var libraryBanner : [IGFile] = []
+    var wallpapersList : Results<IGRealmWallpaper>!
 
     var canCallNextRequest : Bool! = false
     var currentGender : IGPGender.RawValue = 0
@@ -220,6 +222,66 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         getUserEmail()
         self.finishDefault(isPaygear: true, isCard: false)
         getScore()
+
+        let predicateWallpaper = NSPredicate(format: "type = %d", IGPInfoWallpaper.IGPType.profileWallpaper.rawValue)
+
+        wallpapersList = try! Realm().objects(IGRealmWallpaper.self).filter(predicateWallpaper)
+            
+        if wallpapersList.count > 0 {
+                
+                for wallpaper in wallpapersList {
+                    self.libraryBanner.append(wallpaper.file.first!)
+
+                    self.imgBackgroundImage.setThumbnail(for: libraryBanner[0])
+                    
+                    
+            }
+
+            } else {
+                getProfileWallpaper()
+            }
+            
+        
+    }
+    private func getProfileWallpaper() { // if not exist wallpapers in local get from server
+        
+        IGGlobal.prgShow(self.view)
+        
+        var fit = IGPInfoWallpaper.IGPFit.phone
+        if IGGlobal.hasBigScreen() {
+            fit = IGPInfoWallpaper.IGPFit.tablet
+        }
+        
+        IGInfoWallpaperRequest.Generator.generate(fit: fit , type: .profileWallpaper).successPowerful({ (protoResponse, requestWrapper) in
+            
+            if let wallpaperRequest = requestWrapper.identity as? IGPInfoWallpaper {
+                if wallpaperRequest.igpType == .chatBackground {
+                    
+                } else if wallpaperRequest.igpType == .profileWallpaper {
+
+                    if let wallpaperResponse = protoResponse as? IGPInfoWallpaperResponse {
+                        IGInfoWallpaperRequest.Handler.interpret(response: wallpaperResponse ,type: .profileWallpaper)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            IGGlobal.prgHide()
+                            if let wallpapers = try! Realm().objects(IGRealmWallpaper.self).first {
+                            
+
+                            for wallpaper in wallpapers.file {
+                                self.libraryBanner.append(wallpaper)
+                            }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            
+        }).error({ (error, waitTime) in
+            IGGlobal.prgHide()
+        }).send()
     }
     
     func finishDefault(isPaygear: Bool? ,isCard : Bool?) {

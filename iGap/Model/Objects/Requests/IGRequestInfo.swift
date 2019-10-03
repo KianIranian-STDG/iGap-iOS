@@ -97,8 +97,8 @@ class IGInfoWallpaperRequest : IGRequest {
     }
     
     class Handler : IGRequest.Handler{
-        class func interpret(response responseProtoMessage:IGPInfoWallpaperResponse) {
-            IGFactory.shared.saveWallpaper(wallpapers: responseProtoMessage.igpWallpaper)
+        class func interpret(response responseProtoMessage:IGPInfoWallpaperResponse , type: IGPInfoWallpaper.IGPType = .chatBackground) {
+            IGFactory.shared.saveWallpaper(wallpapers: responseProtoMessage.igpWallpaper ,type: type)
         }
         
         override class func handlePush(responseProtoMessage: Message) {}

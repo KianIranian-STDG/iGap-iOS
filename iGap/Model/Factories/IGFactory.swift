@@ -1822,10 +1822,10 @@ class IGFactory: NSObject {
         }
     }
 
-    func saveWallpaper(wallpapers: [IGPWallpaper]) {
+    func saveWallpaper(wallpapers: [IGPWallpaper],type : IGPInfoWallpaper.IGPType = .chatBackground) {
         IGDatabaseManager.shared.perfrmOnDatabaseThread {
             try! IGDatabaseManager.shared.realm.write {
-                IGDatabaseManager.shared.realm.add(IGRealmWallpaper(wallpapers: wallpapers))
+                IGDatabaseManager.shared.realm.add(IGRealmWallpaper(wallpapers: wallpapers,typeOfWallpaper: type))
             }
         }
     }

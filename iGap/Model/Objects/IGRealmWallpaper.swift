@@ -16,10 +16,11 @@ class IGRealmWallpaper: Object {
     
     var file                        : List<IGFile>           = List<IGFile>()
     var color                       : List<IGRealmString>    = List<IGRealmString>()
+    @objc dynamic var type                        : IGPInfoWallpaper.IGPType.RawValue = IGPInfoWallpaper.IGPType.chatBackground.rawValue
     @objc dynamic var selectedFile  : NSData!
     @objc dynamic var selectedColor : String!
     
-    convenience init(wallpapers: [IGPWallpaper]) {
+    convenience init(wallpapers: [IGPWallpaper] , typeOfWallpaper: IGPInfoWallpaper.IGPType! = .chatBackground) {
         self.init()
         
         for wallpaper in wallpapers {
@@ -37,5 +38,6 @@ class IGRealmWallpaper: Object {
                 self.color.append(IGRealmString(string: wallpaper.igpColor))
             }
         }
+        self.type = typeOfWallpaper!.rawValue
     }
 }
