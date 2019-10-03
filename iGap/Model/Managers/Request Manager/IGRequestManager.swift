@@ -520,24 +520,27 @@ class IGRequestManager {
                     shouldSendRequest = true
                 }
                 
+                if let request = self.generateIGRequestObject() {
+                    self.pendingRequests[request.igpID] = requestWrapper
+                    requestWrapper.id = request.igpID
+                    requestWrapper.message.igpRequest = request
+                }
+                
                 if shouldSendRequest {
                     self.syncroniseQueue.async(flags: .barrier) {
-                        if let request = self.generateIGRequestObject() {
-                            self.pendingRequests[request.igpID] = requestWrapper
-                            requestWrapper.id = request.igpID
-                            _ = requestWrapper.message.igpRequest = request
-                            IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + self.timeoutSeconds , execute: {
-                                self.internalTimeOut(for: requestWrapper)
-                            })
-                        }
+                        IGWebSocketManager.sharedManager.send(requestW: requestWrapper)
                     }
                 } else {
+                    /*
                     self.syncroniseQueue.async(flags: .barrier) {
                         let randomID = self.generateRandomRequestID()
                         self.queuedRequests[randomID] = requestWrapper
                     }
+                    */
                 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.timeoutSeconds , execute: {
+                    self.internalTimeOut(for: requestWrapper)
+                })
             }
         }
     }
@@ -647,6 +650,8 @@ class IGRequestManager {
                 self.pendingRequests[requestWrapper.id]  = nil
                 if let error = requestWrapper.error {
                     error(.timeout, nil)
+                } else if let errorPowerful = requestWrapper.errorPowerful {
+                    errorPowerful(.timeout, nil, requestWrapper)
                 }
             }
         }

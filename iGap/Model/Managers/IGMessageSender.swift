@@ -99,8 +99,10 @@ class IGMessageSender {
         }
     }
     
-    func faileMessage(message: IGRoomMessage) {
-        IGFactory.shared.updateMessageStatusToFail(message: message)
+    func faileMessage(identity: Any?) {
+        if let structMessageIdentity = identity as? IGStructMessageIdentity {
+            IGFactory.shared.updateMessageStatusToFail(message: structMessageIdentity.roomMessage, primaryKey: structMessageIdentity.primaryKeyId)
+        }
     }
     
     func faileFileMessage(uploadTask: IGUploadTask) {
@@ -179,9 +181,7 @@ class IGMessageSender {
                     }
                 }
             }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
-                if let message = requestWrapper.message as? IGRoomMessage {
-                    self.faileMessage(message: message)
-                }
+                self.faileMessage(identity: requestWrapper.identity)
             }).send()
             break
             
@@ -194,9 +194,7 @@ class IGMessageSender {
                     }
                 }
             }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
-                if let message = requestWrapper.message as? IGRoomMessage {
-                    self.faileMessage(message: message)
-                }
+                self.faileMessage(identity: requestWrapper.identity)
             }).send()
             break
             
@@ -209,9 +207,7 @@ class IGMessageSender {
                     }
                 }
             }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
-                if let message = requestWrapper.message as? IGRoomMessage {
-                    self.faileMessage(message: message)
-                }
+                self.faileMessage(identity: requestWrapper.identity)
             }).send()
             break
         }
@@ -255,9 +251,7 @@ class IGMessageSender {
                 }
             }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
                 error()
-                if let message = requestWrapper.message as? IGRoomMessage {
-                    self.faileMessage(message: message)
-                }
+                self.faileMessage(identity: requestWrapper.identity)
             }).send()
             break
             
@@ -272,9 +266,7 @@ class IGMessageSender {
                 }
             }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
                 error()
-                if let message = requestWrapper.message as? IGRoomMessage {
-                    self.faileMessage(message: message)
-                }
+                self.faileMessage(identity: requestWrapper.identity)
             }).send()
             break
             
@@ -289,9 +281,7 @@ class IGMessageSender {
                 }
             }).errorPowerful({ (errorCode, waitTime, requestWrapper) in
                 error()
-                if let message = requestWrapper.message as? IGRoomMessage {
-                    self.faileMessage(message: message)
-                }
+                self.faileMessage(identity: requestWrapper.identity)
             }).send()
             break
         }
