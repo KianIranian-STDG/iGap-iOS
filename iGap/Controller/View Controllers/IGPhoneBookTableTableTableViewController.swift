@@ -74,18 +74,19 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
     }
     
     private func makeHeaderView() -> UIView {
-        let headerView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 80.0))
+        let headerView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 70.0))
         let bottomBorder = UIView()
         let lblIcon = UILabel()
         let lblText = UILabel()
         let btn = UIButton()
         lblIcon.text = ""
         lblText.text = "SETTING_PAGE_INVITE_FRIENDS".localizedNew
-        lblIcon.font = UIFont.iGapFonticon(ofSize: 20)
+        lblIcon.font = UIFont.iGapFonticon(ofSize: 24)
         lblIcon.textColor = UIColor(named: themeColor.labelColor.rawValue)
         lblText.textColor = UIColor(named: themeColor.labelColor.rawValue)
-        lblText.font = UIFont.igFont(ofSize: 15)
+        lblText.font = UIFont.igFont(ofSize: 18)
         lblText.textAlignment = lblText.localizedNewDirection
+        lblIcon.textAlignment = .center
         bottomBorder.backgroundColor = UIColor.darkGray.withAlphaComponent(0.6)
         headerView.addSubview(bottomBorder)
         headerView.addSubview(lblIcon)
@@ -94,6 +95,8 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.didTapOnBtn))
         btn.isUserInteractionEnabled = true
         btn.addGestureRecognizer(tap)
+        
+        headerView.semanticContentAttribute = self.semantic
         
         bottomBorder.snp.makeConstraints { (make) in
             make.bottom.equalTo(headerView.snp.bottom)
@@ -105,13 +108,13 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
             make.centerY.equalTo(headerView.snp.centerY)
             make.height.equalTo(45)
             make.width.equalTo(45)
-            make.leading.equalTo(headerView.snp.leading).offset(10)
+            make.leading.equalTo(headerView.snp.leading).offset(12)
         }
         lblText.snp.makeConstraints { (make) in
             make.centerY.equalTo(headerView.snp.centerY)
             make.height.equalTo(45)
-            make.right.equalTo(headerView.snp.right).offset(-55)
-            make.left.equalTo(headerView.snp.left).offset(55)
+            make.leading.equalTo(lblIcon.snp.trailing).offset(12)
+            make.trailing.equalTo(headerView.snp.trailing)
         }
         btn.snp.makeConstraints { (make) in
             make.top.equalTo(headerView.snp.top)

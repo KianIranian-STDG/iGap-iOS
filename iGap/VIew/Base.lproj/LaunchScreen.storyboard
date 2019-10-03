@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,7 +27,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="IGSplashBackgroundColor"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.94117647058823528" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tKy-bH-zoW" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="3u3-ag-ny2"/>
                             <constraint firstItem="tKy-bH-zoW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bc2-tg-glX"/>
@@ -41,9 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IG_Start_App_Logo" width="300" height="504"/>
-        <namedColor name="IGSplashBackgroundColor">
-            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="IG_Start_App_Logo" width="150" height="252"/>
     </resources>
 </document>

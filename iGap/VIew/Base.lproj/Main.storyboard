@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QWV-7y-MRV">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -1264,7 +1264,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEG-Ic-xrU">
-                                                                <rect key="frame" x="0.0" y="1" width="30" height="36"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="30" height="38"/>
                                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="24"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" name="IGButtonTextColor"/>
@@ -1274,7 +1274,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXn-uZ-OLO">
-                                                                <rect key="frame" x="0.0" y="2" width="0.0" height="34"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="38"/>
                                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" name="IGButtonTextColor"/>
@@ -1284,7 +1284,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DA-hv-jGN">
-                                                                <rect key="frame" x="0.0" y="2" width="0.0" height="34"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="38"/>
                                                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
                                                                 <state key="normal">
                                                                     <color key="titleColor" name="IGButtonTextColor"/>
@@ -1482,6 +1482,13 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gI9-RR-rF9">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yER-m2-UDw">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="0.33333333333333331"/>
+                                        <color key="backgroundColor" name="IGLabelGrayColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.20000000000000001" id="Kxw-Kp-fjB"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ODy-Ce-ZEZ">
                                         <rect key="frame" x="8" y="5" width="3" height="40"/>
                                         <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1496,9 +1503,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pinned message test text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfO-SB-YDv">
-                                        <rect key="frame" x="19" y="28" width="335" height="22"/>
+                                        <rect key="frame" x="19" y="30.666666666666671" width="345" height="16.333333333333329"/>
                                         <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
-                                        <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" name="IGLabelGrayColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grH-pt-p4x">
@@ -1515,35 +1522,38 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhL-qv-mDu">
-                                        <rect key="frame" x="11" y="0.0" width="343" height="50"/>
+                                        <rect key="frame" x="11" y="0.0" width="353" height="50"/>
                                         <connections>
                                             <action selector="didTapOnPinView:" destination="KJT-Hl-jm5" eventType="touchUpInside" id="AAp-EF-OaA"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="IGModalViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="grH-pt-p4x" secondAttribute="bottom" id="2Up-fY-Lv4"/>
-                                    <constraint firstAttribute="bottom" secondItem="OfO-SB-YDv" secondAttribute="bottom" id="6j9-JX-jqd"/>
+                                    <constraint firstAttribute="bottom" secondItem="OfO-SB-YDv" secondAttribute="bottom" constant="3" id="6j9-JX-jqd"/>
+                                    <constraint firstAttribute="trailing" secondItem="yER-m2-UDw" secondAttribute="trailing" id="Cwy-rE-Cf2"/>
                                     <constraint firstAttribute="bottom" secondItem="lhL-qv-mDu" secondAttribute="bottom" id="EQ4-tX-zTU"/>
-                                    <constraint firstItem="grH-pt-p4x" firstAttribute="leading" secondItem="lhL-qv-mDu" secondAttribute="trailing" constant="10" id="GE9-pr-MfC"/>
+                                    <constraint firstItem="grH-pt-p4x" firstAttribute="leading" secondItem="lhL-qv-mDu" secondAttribute="trailing" id="GE9-pr-MfC"/>
                                     <constraint firstItem="grH-pt-p4x" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" id="I3V-Xb-GhH"/>
                                     <constraint firstItem="lhL-qv-mDu" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" id="LMU-6S-aSY"/>
                                     <constraint firstItem="OfO-SB-YDv" firstAttribute="leading" secondItem="ODy-Ce-ZEZ" secondAttribute="trailing" constant="8" id="NKt-AG-7HC"/>
                                     <constraint firstItem="fMi-wX-rBo" firstAttribute="leading" secondItem="ODy-Ce-ZEZ" secondAttribute="trailing" constant="8" id="NfN-8l-bbw"/>
+                                    <constraint firstItem="yER-m2-UDw" firstAttribute="leading" secondItem="gI9-RR-rF9" secondAttribute="leading" id="YEL-OY-l7S"/>
                                     <constraint firstItem="ODy-Ce-ZEZ" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" constant="5" id="Z2S-v0-nhY"/>
-                                    <constraint firstItem="OfO-SB-YDv" firstAttribute="trailing" secondItem="grH-pt-p4x" secondAttribute="trailing" constant="-60" id="bfD-hh-122"/>
                                     <constraint firstAttribute="bottom" secondItem="ODy-Ce-ZEZ" secondAttribute="bottom" constant="5" id="cYo-rB-zNK"/>
                                     <constraint firstAttribute="trailing" secondItem="grH-pt-p4x" secondAttribute="trailing" id="ciJ-iT-wMI"/>
                                     <constraint firstItem="fMi-wX-rBo" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" constant="3" id="dSm-q8-yt7"/>
                                     <constraint firstAttribute="height" constant="50" id="dyY-Fm-Tab"/>
+                                    <constraint firstItem="grH-pt-p4x" firstAttribute="leading" secondItem="OfO-SB-YDv" secondAttribute="trailing" id="fZZ-nP-cMk"/>
                                     <constraint firstItem="lhL-qv-mDu" firstAttribute="leading" secondItem="ODy-Ce-ZEZ" secondAttribute="trailing" id="hzc-4V-WtR"/>
                                     <constraint firstItem="ODy-Ce-ZEZ" firstAttribute="leading" secondItem="gI9-RR-rF9" secondAttribute="leading" constant="8" id="ns3-rT-r14"/>
+                                    <constraint firstItem="yER-m2-UDw" firstAttribute="top" secondItem="gI9-RR-rF9" secondAttribute="top" id="sjL-BJ-3Jk"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-H7-OPt">
                                 <rect key="frame" x="159.33333333333334" y="10" width="95.333333333333343" height="24"/>
-                                <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="IGBackGroundGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="bhY-h4-UcM"/>
                                 </constraints>
@@ -2693,7 +2703,7 @@
                                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
                                                             <color key="tintColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal" title="">
-                                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="btnMaleGendedidTapOnMaleGender:" destination="z3s-7I-oQt" eventType="touchUpInside" id="bnI-Fk-bhI"/>
@@ -2706,7 +2716,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="10Z-rH-bXe" firstAttribute="leading" secondItem="yAX-Ph-kQl" secondAttribute="trailing" constant="5" id="0WJ-ci-g3s"/>
                                                         <constraint firstItem="yAX-Ph-kQl" firstAttribute="leading" secondItem="u5V-1S-WaU" secondAttribute="leading" id="MYh-Bf-YZy"/>
@@ -2728,7 +2738,7 @@
                                                             <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
                                                             <color key="tintColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal" title="">
-                                                                <color key="titleColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="titleColor" name="IGLabelGrayColor"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="didTapOnFemaleGender:" destination="z3s-7I-oQt" eventType="touchUpInside" id="aHe-4S-XZv"/>
@@ -2741,7 +2751,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="5Wj-xn-TgL"/>
                                                         <constraint firstItem="Fmm-yA-W91" firstAttribute="leading" secondItem="1zt-3f-zE5" secondAttribute="trailing" constant="5" id="8ak-CM-kdz"/>
@@ -3491,6 +3501,9 @@
         <image name="ig_world-bg" width="366" height="156"/>
         <namedColor name="IGBackGroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGBackGroundGrayColor">
+            <color white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGButtonTextColor">
             <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

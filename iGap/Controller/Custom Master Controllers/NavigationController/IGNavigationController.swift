@@ -93,26 +93,6 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
 //        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
-//    func gradientImage(withColours colours: [UIColor], location: [Double], view: UIView) -> UIImage {
-//        let gradient = CAGradientLayer()
-//        gradient.frame = view.bounds
-//        gradient.colors = colours.map { $0.cgColor }
-//        gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-//        gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-//        gradient.locations = location as [NSNumber]
-//        let shadowLayer = CAShapeLayer()
-//        shadowLayer.shadowColor = UIColor.darkGray.cgColor
-//        shadowLayer.shadowPath = shadowLayer.path
-//        shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-//        shadowLayer.shadowOpacity = 0.8
-//        shadowLayer.shadowRadius = 2
-//
-////        shadowView.layer.insertSublayer(shadowLayer, at: 0)
-//
-//        gradient.cornerRadius = view.layer.cornerRadius
-//        return UIImage.image(from: gradient) ?? UIImage()
-//    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

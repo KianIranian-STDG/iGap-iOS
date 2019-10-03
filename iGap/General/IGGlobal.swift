@@ -414,7 +414,6 @@ extension UITableView {
 //MARK: -
 extension UIColor {
     
-    
     public class func hexStringToUIColor(hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
@@ -447,7 +446,7 @@ extension UIColor {
     }
     
     class func iGapBars() -> UIColor { // navigation bar color
-        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:1.0)
+        return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 1)
     }
     
     class func iGapBarsInfo() -> UIColor { // text & icons color on navigation bar
@@ -463,20 +462,20 @@ extension UIColor {
     }
     
     class func forwardBoxIncomming() -> UIColor {
-        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
+        return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 0.3)
     }
     class func tabbarBGColor() -> UIColor {
         return UIColor(named: themeColor.tabBarColor.rawValue) ?? #colorLiteral(red: 0.9176470588, green: 0.9176470588, blue: 0.9294117647, alpha: 0.9)
     }
     
     class func forwardBoxOutgoign() -> UIColor {
-        return UIColor(red:157/255.0, green:199/255.0, blue:86/255.0, alpha:0.3)
+        return #colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 0.3)
     }
     class func iGapDarkGreenColor() -> UIColor { // navigation bar color
-        return UIColor(red:65/255.0, green:177/255.0, blue:32/255.0, alpha:1.0)
+        return #colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1)
     }
     class func iGapLightGreenColor() -> UIColor { // navigation bar color
-        return UIColor(red:185/255.0, green:226/255.0, blue:68/255.0, alpha:1.0)
+        return #colorLiteral(red: 0.7254901961, green: 0.8862745098, blue: 0.2666666667, alpha: 1)
     }
     class func iGapDarkYellow() -> UIColor {
         return UIColor(red: 209/255.0, green: 179/255.0, blue: 31/255.0, alpha: 0.9)
@@ -529,11 +528,11 @@ extension UIColor {
     }
     
     class func logBackground() -> UIColor { // filename, contact, ...
-        return UIColor(red:168/255.0, green:168/255.0, blue:168/255.0, alpha:1)
+        return UIColor(named: themeColor.messageLogCellBGColor.rawValue) ?? #colorLiteral(red: 0.6588235294, green: 0.6588235294, blue: 0.6588235294, alpha: 1)
     }
     
     class func unreadBackground() -> UIColor { // filename, contact, ...
-        return UIColor.iGapMainColor()
+        return UIColor(named: themeColor.messageUnreadCellBGColor.rawValue) ?? UIColor.iGapMainColor()
     }
     
     class func pinnedChats() -> UIColor {
@@ -705,7 +704,7 @@ extension UIColor {
     
     //MARK: MessageCVCell Time
     class func chatTimeTextColor() -> UIColor {
-        return UIColor(red: 105.0/255.0, green: 123.0/255.0, blue: 135.0/255.0, alpha: 1.0)
+        return UIColor(named: themeColor.messageTimeLabelColor.rawValue) ?? #colorLiteral(red: 0.4117647059, green: 0.4823529412, blue: 0.5294117647, alpha: 1)
     }
     
     //MARK: MessageCVCell Forward

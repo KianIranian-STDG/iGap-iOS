@@ -66,7 +66,7 @@ class IGCallsTableViewController: BaseTableViewController {
                                                    object: nil)
         }
         callTypes = IGPSignalingGetLog.IGPFilter.allCases
-        addCollectionFilterView()
+//        addCollectionFilterView()
     }
     
     private func initNavigationBar(){
@@ -90,7 +90,7 @@ class IGCallsTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        selectedIndex = 0
+        
         initNavigationBar()
 
         self.tableView.isUserInteractionEnabled = true
@@ -119,12 +119,15 @@ class IGCallsTableViewController: BaseTableViewController {
         
         self.transactionTypesCollectionView?.snp.makeConstraints { (make) in
             make.centerY.equalTo(headerView.snp.centerY)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
             make.leading.equalTo(headerView.snp.leading).offset(0)
             make.trailing.equalTo(headerView.snp.trailing).offset(0)
         }
-        self.self.transactionTypesCollectionView.backgroundColor = .clear
+        self.transactionTypesCollectionView.backgroundColor = .clear
+        
+        self.transactionTypesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
 
+        self.transactionTypesCollectionView.semanticContentAttribute = self.semantic
         self.transactionTypesCollectionView.transform = self.transform
         
         self.transactionTypesCollectionView.dataSource = self
@@ -198,7 +201,6 @@ class IGCallsTableViewController: BaseTableViewController {
     
     
     private func showClearHistoryActionSheet() {
-        var title : String!
         var actionTitle: String!
         title = ""
         actionTitle = "CLEAR_HISTORY".localizedNew
@@ -262,9 +264,6 @@ class IGCallsTableViewController: BaseTableViewController {
         let contactList : IGContactListTableViewController? = (storyboard.instantiateViewController(withIdentifier: "IGContactListTableViewController") as! IGContactListTableViewController)
         contactList!.forceCall = true
         self.navigationController!.pushViewController(contactList!, animated: true)
-        
-        
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -386,16 +385,16 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
             break
         }
         
-        cell.layer.cornerRadius = 12
+        cell.layer.cornerRadius = 10
         cell.transform = self.transform
         
-//        if indexPath.item == selectedIndex {
-//            cell.backgroundColor = UIColor.iGapGreen()
-//            cell.lbl.textColor = UIColor.white
-//        } else {
-//            cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
-//            cell.lbl.textColor = UIColor.iGapDarkGray()
-//        }
+        if indexPath.item == selectedIndex {
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
+            cell.lbl.textColor = UIColor.white
+        } else {
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
+            cell.lbl.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
+        }
         
         return cell
     }
@@ -425,80 +424,65 @@ extension IGCallsTableViewController: UICollectionViewDataSource, UICollectionVi
         }
         
         let size: CGSize = typeStr.size(withAttributes: [NSAttributedString.Key.font: UIFont.igFont(ofSize: 13)])
-        return CGSize(width: size.width + 32.0, height: collectionView.bounds.size.height)
+        return CGSize(width: size.width + 32.0, height: collectionView.bounds.size.height - 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let LastIndexPath = IndexPath(row: selectedIndex, section: 0)
 
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        guard let LastCell = collectionView.cellForItem(at: LastIndexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = UIColor.iGapGreen()
-        label.textColor = UIColor.iGapDarkGray()
-        LastCell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
+        cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
+        label.textColor = UIColor.white
 
         selectedIndex = indexPath.item
 
         switch callTypes[indexPath.item] {
         case .all:
             print("|||||TAPPED btnAll|||||")
-            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .all
-            
-            updateObserver(mode: currentMode)
-            self.tableView.reloadWithAnimation()
             break
         case .canceled:
             print("|||||TAPPED btnCanceled|||||")
-            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .canceled
-            updateObserver(mode: currentMode)
-            self.tableView.reloadWithAnimation()
             break
         case .incoming:
             print("|||||TAPPED btnIncomming|||||")
-            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .incoming
-            updateObserver(mode: currentMode)
-            self.tableView.reloadWithAnimation()
             break
         case .missed:
             print("|||||TAPPED btnMissed|||||")
-            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .missed
-            updateObserver(mode: currentMode)
-            self.tableView.reloadWithAnimation()
             break
         case .outgoing:
             print("|||||TAPPED btnOutgoing|||||")
-            cell.backgroundColor = UIColor.iGapGreen()
             currentMode = .outgoing
-            updateObserver(mode: currentMode)
-            self.tableView.reloadWithAnimation()
+            
             break
         default:
             break
         }
-
+        
+        updateObserver(mode: currentMode)
+        self.tableView.reloadData()
     }
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        IGRequestManager.sharedManager.cancelRequest(identity: "\(callTypes[indexPath.item])")
+//        IGRequestManager.sharedManager.cancelRequest(identity: "\(callTypes[indexPath.item])")
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
-        label.textColor = UIColor.iGapDarkGray()
+        cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
+        label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = UIColor.iGapGreen()
-            label.textColor = UIColor.iGapDarkGray()
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
+            label.textColor = UIColor.white
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
-            label.textColor = UIColor.iGapDarkGray()
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
+            label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
         }
     }
 

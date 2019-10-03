@@ -140,11 +140,11 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         cell.transform = self.transform
         
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
             label.textColor = UIColor.white
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
-            label.textColor = UIColor.iGapDarkGray()
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
+            label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
         }
         
         return cell
@@ -182,7 +182,7 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = UIColor.iGapGreen()
+        cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
         label.textColor = UIColor.white
         
         selectedIndex = indexPath.item
@@ -202,18 +202,18 @@ extension IGFinancialHistoryViewController: UICollectionViewDataSource, UICollec
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         let label = cell.viewWithTag(110) as! UILabel
-        cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
-        label.textColor = UIColor.iGapDarkGray()
+        cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
+        label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let label = cell.viewWithTag(110) as! UILabel
         if indexPath.item == selectedIndex {
-            cell.backgroundColor = UIColor.iGapGreen()
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVSelectedColor.rawValue)
             label.textColor = UIColor.white
         } else {
-            cell.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
-            label.textColor = UIColor.iGapDarkGray()
+            cell.backgroundColor = UIColor(named: themeColor.transactionsCVColor.rawValue)
+            label.textColor = UIColor(named: themeColor.transactionLabelColor.rawValue)
         }
     }
 }

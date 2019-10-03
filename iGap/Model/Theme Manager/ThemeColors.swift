@@ -23,8 +23,18 @@ enum themeColor: String {
     case modalViewBackgroundColor = "IGModalViewBackgroundColor"
     case textFieldBackGround = "IGTextFieldBackGround"
     case textFieldPlaceHolderColor = "IGTextFieldPlaceHolderColor"
+    case splashBackgroundColor = "IGSplashBackgroundColor"
+    
+    // transactions colloctionView colors
+    case transactionsCVColor = "IGTransactionsCVColor"
+    case transactionsCVSelectedColor = "IGTransactionsCVSelectedColor"
+    case transactionLabelColor = "IGTransactionLabelColor"
+    
+    // message collection view cells colors
+    case messageTextColor = "IGMessageTextColor"
     case sendMessageBubleBGColor = "IGSendMessageBubleBGColor"
     case receiveMessageBubleBGColor = "IGReceiveMessageBubleBGColor"
-    case messageTextColor = "IGMessageTextColor"
-    case splashBackgroundColor = "IGSplashBackgroundColor"
+    case messageLogCellBGColor = "IGMessageLogCellBGColor"
+    case messageUnreadCellBGColor = "IGMessageUnreadCellBGColor"
+    case messageTimeLabelColor = "IGMessageTimeLabelColor"
 }

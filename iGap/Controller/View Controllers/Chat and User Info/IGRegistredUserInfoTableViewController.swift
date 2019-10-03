@@ -139,7 +139,6 @@ class IGRegistredUserInfoTableViewController: BaseTableViewController , NVActivi
 
         let navigationControllerr = self.navigationController as! IGNavigationController
         navigationControllerr.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.shadowImage = UIImage()
         navigationControllerr.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationControllerr.navigationBar.isTranslucent = true
         //Hint:- Only hides the gradient background View

@@ -44,12 +44,6 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
             self.logLabel.text = IGRoomMessage.detectPinMessage(message: message)
         } else {
             self.logLabel.text = IGRoomMessageLog.textForLogMessage(message)
-            let current : String = SMLangUtil.loadLanguage()
-            if current == "fa" {
-                self.logLabel.textAlignment = .right
-            } else {
-                self.logLabel.textAlignment = .left
-            }
         }
         self.logBackgroundView.layer.cornerRadius = 12.0
         self.logBackgroundView.backgroundColor = UIColor.logBackground()
@@ -60,7 +54,7 @@ class IGMessageLogCollectionViewCell: IGMessageGeneralCollectionViewCell {
         self.logLabel.textColor = UIColor.white
         self.logLabel.text = message.message
         self.logBackgroundView.layer.cornerRadius = 0.0
-        self.logBackgroundView.backgroundColor = UIColor.iGapMainColor()
+        self.logBackgroundView.backgroundColor = UIColor.unreadBackground()
         logLableWidthConstraint.constant = (message.message!.width(withConstrainedHeight: 25, font: UIFont.igFont(ofSize: 14, weight: .medium)))
         logBackgroundWidthConstraint.constant = IGGlobal.fetchUIScreen().width + 10
     }

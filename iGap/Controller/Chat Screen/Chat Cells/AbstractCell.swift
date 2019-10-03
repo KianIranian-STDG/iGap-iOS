@@ -1504,7 +1504,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
     
     
     
-    private func makeStatus(){
+    private func makeStatus() {
         if txtStatusAbs == nil {
             txtStatusAbs = UILabel()
             txtStatusAbs.font = UIFont.iGapFonticon(ofSize: 20)
@@ -1548,7 +1548,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
         }
     }
     
-    private func removeTime(){
+    private func removeTime() {
         txtTimeAbs?.removeFromSuperview()
         txtTimeAbs = nil
     }

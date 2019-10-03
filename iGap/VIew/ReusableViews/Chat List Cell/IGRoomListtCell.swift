@@ -19,7 +19,7 @@ class IGRoomListtCell: UITableViewCell {
     
     var showStateImage : Bool!
     
-    var width : Int = 0
+    var width: Int = 0
     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.igFont(ofSize: 13,weight: .bold)
@@ -93,9 +93,17 @@ class IGRoomListtCell: UITableViewCell {
         
         return img
     }()
+    var muteLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.iGapFonticon(ofSize: 16)
+        label.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
+        label.text = ""
+        label.clipsToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     var typeImage = UILabel()
     var checkImage = UIImageView()
-    var muteImage = UIImageView()
     var stateImage = UIImageView()
     var lastMessageStateImage :UIImageView = {
         let img = UIImageView()
@@ -215,11 +223,11 @@ class IGRoomListtCell: UITableViewCell {
             switch item.mute {
                 
             case .unmute:
-                self.muteImage.isHidden = true
+                self.muteLabel.isHidden = true
                 unreadCountLabel.backgroundColor = UIColor.unreadLable()
                 
             case .mute:
-                self.muteImage.isHidden = false
+                self.muteLabel.isHidden = false
                 unreadCountLabel.backgroundColor = UIColor.darkGray
                 
             }
@@ -304,7 +312,6 @@ class IGRoomListtCell: UITableViewCell {
         timeLabel.text = "..."
         nameLabel.text = "..."
         checkImage.image = UIImage(named:"IG_Verify")
-        muteImage.image = UIImage(named: "IG_Chat_List_Mute")
         
         self.contentView.addSubview(bgImage)
         self.contentView.addSubview(nameLabel)
@@ -317,7 +324,7 @@ class IGRoomListtCell: UITableViewCell {
         self.contentView.addSubview(stateImage)
         self.contentView.addSubview(lastMessageStateImage)
         self.contentView.addSubview(checkImage)
-        self.contentView.addSubview(muteImage)
+        self.contentView.addSubview(muteLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -334,7 +341,7 @@ class IGRoomListtCell: UITableViewCell {
         makeTypeImage()
         makeTimeLabel()
         makeCheckImage()
-        makeMuteImage()
+        makeMuteLabel()
         makeNameLabel()
         makeUnreadCountLabel()
         makeLastMessageLabel()
@@ -611,15 +618,15 @@ class IGRoomListtCell: UITableViewCell {
     }
     private func makeCheckImage() {
         checkImage.snp.makeConstraints { (make) in
-            make.trailing.equalTo(self.muteImage.snp.leading).offset(-5)
+            make.trailing.equalTo(self.muteLabel.snp.leading).offset(-5)
             make.width.equalTo(15)
             make.height.equalTo(15)
             make.top.equalTo(self.avatarImage.snp.top).offset(10)
         }
         
     }
-    private func makeMuteImage() {
-        muteImage.snp.makeConstraints { (make) in
+    private func makeMuteLabel() {
+        muteLabel.snp.makeConstraints { (make) in
             make.trailing.equalTo(self.timeLabel.snp.leading).offset(-5)
             make.width.equalTo(15)
             make.height.equalTo(15)
