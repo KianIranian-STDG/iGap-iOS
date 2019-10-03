@@ -14,7 +14,7 @@ import IGProtoBuff
 import SnapKit
 
 
-    class IGScoreViewController: BaseViewController {
+class IGScoreViewController: BaseViewController {
 
     @IBOutlet weak var imgAvatar: IGAvatarView!
     @IBOutlet weak var txtDisplayName: UILabel!
@@ -49,17 +49,18 @@ import SnapKit
         btnSeeRecords.setTitle("SETTING_PAGE_ACCOUNT_GIFT_PAGE".localizedNew, for: .normal)
         initCircularProgressBar()
     }
-        private func addTotalPlaceLabel(text: Int32!) {
-            lblMaxRank.font = UIFont.igFont(ofSize: 10,weight: .bold)
-            lblMaxRank.textAlignment = .center
-            if lastLang == "fa" {
-                lblMaxRank.text = "OF".localizedNew + String(text).inRialFormat()
+    
+    private func addTotalPlaceLabel(text: Int32!) {
+        lblMaxRank.font = UIFont.igFont(ofSize: 10,weight: .bold)
+        lblMaxRank.textAlignment = .center
+        if lastLang == "fa" {
+            lblMaxRank.text = "OF".localizedNew + " " + String(text).inRialFormat()
 
-            } else {
-                lblMaxRank.text = "OF".localizedNew + String(text).inRialFormat()
+        } else {
+            lblMaxRank.text = "OF".localizedNew + " " + String(text).inRialFormat()
 
-            }
         }
+    }
     
     func initCircularProgressBar(ranMax : CGFloat? = 0.0,scoreMax : CGFloat? = 0.0) {
         progreccCIrcular.maxValue = scoreMax!
@@ -68,6 +69,7 @@ import SnapKit
         progreccCIrcular.innerRingWidth = 7.0
         progreccCIrcular.outerRingColor = UIColor.iGapDarkYellow()
         progreccCIrcular.outerRingWidth = 1.0
+        progreccCIrcular.fontColor = UIColor(named: themeColor.labelColor.rawValue)!
         
         progreccCIrcularRank.maxValue = ranMax!
         progreccCIrcularRank.style = .bordered(width: 2.0, color: UIColor.clear)
@@ -75,7 +77,9 @@ import SnapKit
         progreccCIrcularRank.innerRingWidth = 7.0
         progreccCIrcularRank.outerRingColor = UIColor.iGapPurple()
         progreccCIrcularRank.outerRingWidth = 1.0
+        progreccCIrcularRank.fontColor = UIColor(named: themeColor.labelColor.rawValue)!
     }
+    
     func addScoreListItems(array : [IGProtoBuff.IGPUserIVandGetScoreResponse.IGPIVandScore]? = nil) {
         
         var space : CGFloat! = 0
@@ -211,7 +215,7 @@ import SnapKit
         btnSeeRecords.layer.shadowOpacity = 0.4
     }
     
-    private func getScore(){
+    private func getScore() {
         SMLoading.showLoadingPage(viewcontroller: self)
 
         IGUserIVandGetScoreRequest.Generator.generate().success({ (protoResponse) in

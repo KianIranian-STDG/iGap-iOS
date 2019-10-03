@@ -18,6 +18,8 @@ class IGUserContactsTableViewCell: UITableViewCell {
         // Initialization code
         nameLbl.textAlignment = nameLbl.localizedNewDirection
         phoneNumberLbl.textAlignment = phoneNumberLbl.localizedNewDirection
+        avatarView.setImage(UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")!)
+        avatarView.avatarImageView?.tintColor = UIColor(named: themeColor.labelGrayColor.rawValue)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
