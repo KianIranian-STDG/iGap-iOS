@@ -157,7 +157,8 @@ class IGUploadManager {
     private func initializeUplaod(for task: IGUploadTask) {
         let fileData = NSData(data: task.file.data!)
         var initialBytes = fileData.subdata(with: NSMakeRange(0, Int(task.finalBytesLimit!)))
-        //Hint: do this for avoid from error (major:702, minor:2)
+        
+        //Hint: do this for avoid from error (major:702, minor:2), because of invalid first byte of file
         if initialBytes.count == 0 {
             initialBytes = fileData as Data
         }

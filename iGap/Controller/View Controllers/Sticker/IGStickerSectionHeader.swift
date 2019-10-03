@@ -138,8 +138,8 @@ class IGStickerSectionHeader: UICollectionReusableView {
                     make.height.equalTo(30)
                 }
             } else {
-                txtStickerTitle.font = UIFont.igFont(ofSize: 11, weight: .medium)
-                txtStickerTitle.textColor = UIColor.replyBoxIncomming()
+                txtStickerTitle.font = UIFont.igFont(ofSize: 13, weight: .medium)
+                txtStickerTitle.textColor = UIColor.iGapGreen()
                 
                 txtStickerTitle.snp.makeConstraints { (make) in
                     make.left.equalTo(mainView.snp.left).offset(10)
@@ -154,8 +154,8 @@ class IGStickerSectionHeader: UICollectionReusableView {
     private func makeStickerCount(){
         if txtStickerCount == nil {
             txtStickerCount = UILabel()
-            txtStickerCount.font = UIFont.igFont(ofSize: 11, weight: .medium)
-            txtStickerCount.textColor = UIColor.replyBoxIncomming()
+            txtStickerCount.font = UIFont.igFont(ofSize: 12, weight: .medium)
+            txtStickerCount.textColor = UIColor.iGapGreen()
 
             mainView.addSubview(txtStickerCount)
             
