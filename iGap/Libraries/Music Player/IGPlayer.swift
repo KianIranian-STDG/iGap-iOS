@@ -126,7 +126,8 @@ class IGPlayer {
                 }
             }
             
-            if currentValue >= slider.maximumValue {
+            //Hint: sometimes value of 'currentValue' is nan after reach to end of media
+            if currentValue >= slider.maximumValue || currentValue.isNaN {
                 self.slider.value = 0.0
                 latestSliderValue = 0.0
                 self.didTapOnbtnPlayPause(btnPlayPause)
