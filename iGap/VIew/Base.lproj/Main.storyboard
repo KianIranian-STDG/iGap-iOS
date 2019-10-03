@@ -21,9 +21,6 @@
         <array key="SFUIText.ttf">
             <string>.SFUIText</string>
         </array>
-        <array key="iGap-Fontico.ttf">
-            <string>iGap-Fontico</string>
-        </array>
         <array key="iGap_fontico.ttf">
             <string>iGap_fontico</string>
         </array>
@@ -117,8 +114,8 @@
                                     <constraint firstAttribute="width" constant="50" id="9n6-pg-Vme"/>
                                     <constraint firstAttribute="height" constant="50" id="lAa-fE-8gH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="25"/>
-                                <state key="normal" title="">
+                                <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="25"/>
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>

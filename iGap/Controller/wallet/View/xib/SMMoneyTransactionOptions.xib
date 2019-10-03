@@ -12,8 +12,8 @@
         <array key="IRANSans.ttf">
             <string>IRANSans</string>
         </array>
-        <array key="iGap-Fontico.ttf">
-            <string>iGap-Fontico</string>
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
         </array>
     </customFonts>
     <objects>
@@ -43,14 +43,14 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kG2-cT-pUx">
                                             <rect key="frame" x="0.0" y="0.0" width="152.5" height="40"/>
-                                            <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="28"/>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="28"/>
                                             <state key="normal" title="">
                                                 <color key="titleColor" name="IGTransactionLabelColor"/>
                                             </state>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asi-CF-PwV">
-                                            <rect key="frame" x="152.5" y="0.0" width="152.5" height="40"/>
-                                            <fontDescription key="fontDescription" name="iGap-Fontico" family="iGap-Fontico" pointSize="26"/>
+                                            <rect key="frame" x="152.5" y="1" width="152.5" height="38"/>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="26"/>
                                             <state key="normal">
                                                 <color key="titleColor" name="IGTransactionLabelColor"/>
                                             </state>

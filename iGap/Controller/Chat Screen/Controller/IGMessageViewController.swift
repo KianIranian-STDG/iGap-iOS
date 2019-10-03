@@ -436,7 +436,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
-        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+//        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         lblSelectedMessages.font = UIFont.igFont(ofSize: 17,weight: .bold)
         if !(IGAppManager.sharedManager.mplActive()) && !(IGAppManager.sharedManager.walletActive()) {
@@ -1631,7 +1631,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+//        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         
         if self.room!.isInvalidated {
@@ -1667,7 +1667,6 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         setMessagesRead()
         manageStickerPosition()
         IGHelperGetMessageState.shared.clearMessageViews()
-        initiconFonts()
     }
     
     
@@ -2019,7 +2018,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     private func stickerViewState(enable: Bool) {
         
         isStickerKeyboard = enable
-        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
+//        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         UIView.transition(with: self.txtSticker, duration: ANIMATE_TIME, options: .transitionFlipFromBottom, animations: {
             self.txtSticker.isHidden = true
             

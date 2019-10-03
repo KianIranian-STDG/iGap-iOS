@@ -31,6 +31,7 @@ extension CALayer {
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = color
         layer.lineWidth = width
+        
         if isDashed {
             layer.lineDashPattern = [4, 4]
         }
@@ -56,6 +57,7 @@ extension CALayer {
         textLayer.font = CTFontCreateWithName("IRANSans" as CFString, 0, nil)
         textLayer.fontSize = 10.0
         textLayer.string = text
+        
         self.addSublayer(textLayer)
         
         if animated, let oldFrame = oldFrame {

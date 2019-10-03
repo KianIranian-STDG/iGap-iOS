@@ -32,7 +32,7 @@ class SMMoneyTransactionOptions: UIView {
         super.awakeFromNib()
         self.roundCorners(corners: [.layerMinXMinYCorner,.layerMaxXMinYCorner], radius: 20)
 
-        
+        initiconFonts()
     }
     
     private func initiconFonts() {

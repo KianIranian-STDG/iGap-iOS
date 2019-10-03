@@ -65,6 +65,7 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
         }
         
         IGHelperTracker.shared.sendTracker(trackerTag: IGHelperTracker.shared.TRACKER_DISCOVERY_PAGE)
+        initFont()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +83,12 @@ class IGDashboardViewController: BaseViewController, UICollectionViewDelegateFlo
 
         }
         collectionView.reloadData()
+        initFont()
+    }
+    private func initFont() {
+        btnRefresh.titleLabel!.font = UIFont.iGapFonticon(ofSize: 25)
+        
+        btnRefresh.setTitle("", for: .normal)
     }
     
 //    override func viewDidAppear(_ animated: Bool) {

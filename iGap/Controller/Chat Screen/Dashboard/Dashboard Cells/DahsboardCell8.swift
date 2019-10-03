@@ -56,24 +56,7 @@ class DashboardCell8: AbstractDashboardCell {
             if let id = notification.userInfo?["id"] as? Int32 {
                 
                 getPollRequest(pageId: id)
-                //                // do something with your image
-//
-//                for (index, element) in result.enumerated() {
-//                    print(index, ":", element)
-//                    if element.title == id  {
-//                        print(index)
-//                        var tmpResult = result[index]
-//
-//                        let tt = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(((tmpResult.textValue) as NSString).longLongValue + 1) / 100), textValue: String(((tmpResult.textValue) as NSString).longLongValue + 1).inLocalizedLanguage(), title: tmpResult.title)
-//                        result.remove(at: index)
-//                        result.insert(tt, at: index)
-//                        self.basicBarChart.updateDataEntries(dataEntries: result, animated: true)
-//
-//
-//                    }
-//                }
-//
-        }
+            }
         }
 
     private func getPollRequest(pageId : Int32){
@@ -154,7 +137,7 @@ class DashboardCell8: AbstractDashboardCell {
                     t.removeLast((t.count) - 19)
                     t  = t + "..."
                 }
-                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(1 * (elemnt.igpSum) / tmpMax.max()!)), textValue: String(elemnt.igpSum).inRialFormat().inLocalizedLanguage(), title: t)
+                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(1 * (elemnt.igpSum) / tmpMax.max()!)), textValue: String(elemnt.igpSum).inRialFormat(), title: t)
                 
                 result.append(tmpDataEntry)
             }

@@ -223,7 +223,7 @@ class AbstractDashboardCell: UICollectionViewCell {
     //
     func showCheckMark(imageView: IGImageView?) {
         btnCheckMark = UIButton()
-        btnCheckMark.setTitle("", for: .normal)
+        btnCheckMark.setTitle("", for: .normal)
         btnCheckMark.titleLabel?.font = UIFont.iGapFonticon(ofSize: 25)
         btnCheckMark.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         
