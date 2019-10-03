@@ -965,9 +965,9 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
             let body = repliedMessage.message
             
             if repliedMessage.type == .contact {
-                txtReplyMessageAbs.text = "contact message"
+                txtReplyMessageAbs.text = "CONTACT_MESSAGE".MessageViewlocalizedNew
             } else if repliedMessage.type == .location {
-                txtReplyMessageAbs.text = "location message"
+                txtReplyMessageAbs.text = "LOCATION_MESSAGE".MessageViewlocalizedNew
             } else if body != nil && !(body?.isEmpty)! {
                 
                 if repliedMessage.type == .sticker {
@@ -981,7 +981,7 @@ class AbstractCell: IGMessageGeneralCollectionViewCell,UIGestureRecognizerDelega
                 }
                 
             } else if let media = repliedMessage.attachment {
-                txtReplyMessageAbs.text = "\(IGFile.convertFileTypeToString(fileType: media.type)) message"
+                txtReplyMessageAbs.text = "\(IGFile.convertFileTypeToString(fileType: media.type))" + "MESSAGE".MessageViewlocalizedNew
             } else {
                 txtReplyMessageAbs.text = ""
             }

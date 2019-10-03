@@ -1363,12 +1363,12 @@
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="agE-XC-sCP" customClass="GrowingTextView" customModule="GrowingTextView">
                                                 <rect key="frame" x="40" y="100" width="294" height="20"/>
-                                                <color key="backgroundColor" name="IGTextFieldBackGround"/>
+                                                <color key="backgroundColor" name="IGTableViewCellColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="i0G-sC-VLl"/>
                                                 </constraints>
                                                 <color key="textColor" name="IGLabelColor"/>
-                                                <fontDescription key="fontDescription" name="IRANSans-Medium" family="IRANSans" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="IRANSans-Medium" family="IRANSans" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-Dt-CKY">
@@ -3529,8 +3529,8 @@
         <namedColor name="IGTableViewBackgroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="IGTextFieldBackGround">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="IGTableViewCellColor">
+            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
