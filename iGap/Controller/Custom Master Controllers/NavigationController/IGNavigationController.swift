@@ -29,7 +29,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
                 // Update your user interface based on the appearance
                 if let navBar = self.navigationBar as? IGNavigationBar {
                     if navBar.isTransparent {
-                        navBar.setTransparentNavigationBar()
+//                        navBar.setTransparentNavigationBar()
                     } else {
                         self.setNavigationGradient()
                     }
@@ -53,9 +53,9 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
         let numberOfPages = super.viewControllers.count
         if numberOfPages == 2  {
             if currentTabIndex == TabBarTab.Profile.rawValue {
-                if let navigationBar = self.navigationBar as? IGNavigationBar {
-                    navigationBar.setTransparentNavigationBar()
-                }
+//                if let navigationBar = self.navigationBar as? IGNavigationBar {
+//                    navigationBar.setTransparentNavigationBar()
+//                }
                 return super.popViewController(animated: animated)
             }
             else {

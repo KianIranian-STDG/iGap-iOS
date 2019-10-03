@@ -134,11 +134,12 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         super.viewWillAppear(animated)
         
 //        self.navigationController?.navigationBar.isHidden = true
-        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
-            navigationBar.setTransparentNavigationBar()
-            navigationBar.isHidden = true
-            navigationBar.backgroundColor = .clear
-        }
+//        if let navigationBar = self.navigationController?.navigationBar as? IGNavigationBar {
+//            navigationBar.setTransparentNavigationBar()
+//            self.view.layoutSubviews()
+//            navigationBar.isHidden = true
+//            navigationBar.backgroundColor = .clear
+//        }
         
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
@@ -679,7 +680,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             let alert = UIAlertController(title: "LOCATION_SERVICE_DISABLE".localizedNew, message: "LOCATION_SERVICE_ENABLE_IT".localizedNew, preferredStyle: UIAlertController.Style.alert)
             self.present(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "GLOBAL_OK".localizedNew, style: .default, handler: { action in
-                switch action.style{
+                switch action.style {
                 case .default: UIApplication.shared.open(NSURL(string: UIApplication.openSettingsURLString)! as URL, options: [:], completionHandler: nil)
                     
                     

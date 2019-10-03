@@ -53,7 +53,7 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         super.viewDidLoad()
         
         initDetails()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
         self.tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
         
@@ -107,40 +107,38 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: animated)
         }
-        //self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
+//        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action:#selector(self.handlePopGesture))
 
     }
     //Hint : -Uncomment these lines if u want to handle swipe back manually
     //becoz in the root view we should not have the nav bar
-    /*
-    @objc func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
-
-        switch gesture.state {
-            
-        case .possible:
-break
-        case .began:
-                        print("BEGAN")
-
-        case .changed:
-                                    print("changed")
-
-        case .ended:
-                                    print("ended")
-
-        case .cancelled:
-                                    print("canceled")
-
-        case .failed:
-                                    print("failed")
-
-         default:
-            break
-        }
-        
-
-    }
-    */
+//    @objc func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
+//
+//        let position = gesture.location(in: self.view)
+//
+//        switch gesture.state {
+//
+//        case .possible:
+//            break
+//        case .began:
+//            print("BEGAN")
+//
+//        case .changed:
+//            print("changed")
+//
+//        case .ended:
+//            print("ended")
+//
+//        case .cancelled:
+//            print("canceled")
+//
+//        case .failed:
+//            print("failed")
+//
+//         default:
+//            break
+//        }
+//    }
     
     var insDelete : INSPhotosOverlayView!
     var avatarPhotos : [INSPhotoViewable]?
