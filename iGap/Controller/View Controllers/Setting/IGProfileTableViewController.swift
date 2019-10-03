@@ -123,6 +123,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.hideKeyboardWhenTappedAround()
 //        self.tableView.alwaysBounceVertical = false
         initView()
@@ -623,7 +624,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         present(galleryPreview, animated: true, completion: nil)
     }
     
-    func deleteAvatar(index: Int!) {
+    func deleteAvatar(index: Int! = 0) {
         let avatar = self.avatars[index]
         IGUserAvatarDeleteRequest.Generator.generate(avatarID: avatar.id).success({ (protoResponse) in
             DispatchQueue.main.async {
@@ -1442,7 +1443,71 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             
         }
     }
-}
+        @IBAction func cameraButtonClick(_ sender: UIButton) {
+            choosePhotoActionSheet(sender: btnCamera)
+        }
+        func choosePhotoActionSheet(sender : UIButton){
+            let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: IGGlobal.detectAlertStyle())
+            let cameraOption = UIAlertAction(title: "Take a Photo", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                if UIImagePickerController.availableCaptureModes(for: .rear) != nil{
+                    self.imagePicker.delegate = self
+                    self.imagePicker.allowsEditing = true
+                    self.imagePicker.sourceType = .camera
+                    self.imagePicker.cameraCaptureMode = .photo
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        self.present(self.imagePicker, animated: true, completion: nil)
+                    }
+                    else {
+                        self.present(self.imagePicker, animated: true, completion: nil)//4
+                        self.imagePicker.popoverPresentationController?.sourceView = (sender )
+                        self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+                        self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+                    }
+                }
+            })
+            
+            let deleteAction = UIAlertAction(title: "Delete Main Avatar", style: .destructive, handler: {
+                (alert: UIAlertAction!) -> Void in
+                self.deleteAvatar()
+            })
+            
+            let ChoosePhoto = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                self.imagePicker.delegate = self
+                self.imagePicker.allowsEditing = true
+                self.imagePicker.sourceType = .photoLibrary
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                }
+                else {
+                    self.present(self.imagePicker, animated: true, completion: nil)//4
+                    self.imagePicker.popoverPresentationController?.sourceView = (sender)
+                    self.imagePicker.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+                    self.imagePicker.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
+                }
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+                (alert: UIAlertAction!) -> Void in
+            })
+            
+            if self.avatars.count > 0 {
+                optionMenu.addAction(deleteAction)
+            }
+            optionMenu.addAction(ChoosePhoto)
+            optionMenu.addAction(cancelAction)
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
+                optionMenu.addAction(cameraOption)} else {
+                print ("I don't have a camera.")
+            }
+            if let popoverController = optionMenu.popoverPresentationController {
+//                popoverController.sourceView = cameraButton
+            }
+            self.present(optionMenu, animated: true, completion: nil)
+        }
+    }
+
+
 
 //MARK: SEARCH BAR DELEGATE
 extension IGProfileTableViewController: UISearchBarDelegate {
@@ -1500,4 +1565,69 @@ extension IGProfileTableViewController : IGRegistrationStepSelectCountryTableVie
     func didSelectCountry(country: IGCountryInfo) {
         self.setSelectedCountry(country)
     }
+}
+extension IGProfileTableViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        
+        
+        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
+            self.userAvatarView.setImage(UIImage(named:"2")!)
+            
+            let avatar = IGFile()
+            avatar.attachedImage = pickedImage
+            let randString = IGGlobal.randomString(length: 32)
+            avatar.cacheID = randString
+            avatar.name = randString
+            
+            IGUploadManager.sharedManager.upload(file: avatar, start: {
+                
+            }, progress: { (progress) in
+                
+            }, completion: { (uploadTask) in
+                if let token = uploadTask.token {
+                    IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let avatarAddResponse as IGPUserAvatarAddResponse:
+                                IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
+                            default:
+                                break
+                            }
+                        }
+                    }).error({ (error, waitTime) in
+                        
+                    }).send()
+                }
+            }, failure: {
+print("ERROR")
+            })
+        }
+        imagePicker.dismiss(animated: true, completion: {
+        })
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+extension IGProfileTableViewController: IGProgressDelegate {
+    func downloadUploadIndicatorDidTap(_ indicator: IGProgress) {
+        if let attachment = self.userAvatar?.file {
+            IGDownloadManager.sharedManager.download(file: attachment, previewType: .originalFile, completion: { (attachment) -> Void in }, failure: {})
+        }
+    }
+}
+
+extension IGProfileTableViewController: UINavigationControllerDelegate {}
+
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+    return input.rawValue
 }

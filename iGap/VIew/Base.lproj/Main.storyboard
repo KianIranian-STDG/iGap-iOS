@@ -1966,10 +1966,10 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXc-X5-txr">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="130"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="155"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ig_world-bg" translatesAutoresizingMaskIntoConstraints="NO" id="x0z-Lg-qnh">
-                                            <rect key="frame" x="-5" y="-5" width="424" height="140"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="x0z-Lg-qnh">
+                                            <rect key="frame" x="-5" y="-5" width="424" height="165"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-8q-m1X">
                                             <rect key="frame" x="347" y="30" width="57" height="50"/>
@@ -1990,7 +1990,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="7sd-8q-m1X" firstAttribute="top" secondItem="xXc-X5-txr" secondAttribute="top" constant="30" id="O2j-7Y-aBI"/>
-                                        <constraint firstAttribute="height" constant="130" id="PRs-qC-MtH"/>
+                                        <constraint firstAttribute="height" constant="155" id="PRs-qC-MtH"/>
                                         <constraint firstAttribute="bottom" secondItem="x0z-Lg-qnh" secondAttribute="bottom" constant="-5" id="TFf-DN-hqw"/>
                                         <constraint firstAttribute="trailing" secondItem="7sd-8q-m1X" secondAttribute="trailing" constant="10" id="kJh-g0-xTt"/>
                                         <constraint firstItem="x0z-Lg-qnh" firstAttribute="leading" secondItem="xXc-X5-txr" secondAttribute="leading" constant="-5" id="mkb-Bq-x6C"/>
@@ -1999,13 +1999,13 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=".........." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="Hdc-qw-9Il" customClass="IGLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="143" y="152.33333333333334" width="36.333333333333343" height="15.666666666666657"/>
+                                    <rect key="frame" x="143" y="160" width="36.333333333333343" height="15.333333333333343"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                     <color key="textColor" name="IGLabelGrayColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ido-Ud-F2t">
-                                    <rect key="frame" x="143" y="80" width="149" height="25"/>
+                                    <rect key="frame" x="143" y="105" width="149" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="149" id="Nh6-wd-STE"/>
                                         <constraint firstAttribute="height" constant="25" id="x0v-5u-LJ6"/>
@@ -2017,7 +2017,7 @@
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afm-P4-CN8">
-                                    <rect key="frame" x="143" y="105" width="149" height="25"/>
+                                    <rect key="frame" x="143" y="130" width="149" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="149" id="FY0-eS-7kN"/>
                                         <constraint firstAttribute="height" constant="25" id="vQ7-Oj-5Zr"/>
@@ -2029,7 +2029,7 @@
                                     </state>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZo-xK-ego" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="20" y="69" width="100" height="100"/>
+                                    <rect key="frame" x="20" y="94" width="100" height="100"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="0f2-La-dVO"/>
@@ -2038,17 +2038,17 @@
                                     </constraints>
                                 </view>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bhw-T0-vqW">
-                                    <rect key="frame" x="96" y="143" width="24" height="26"/>
+                                    <rect key="frame" x="96" y="168" width="24" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="CyK-Ew-k3Y"/>
                                         <constraint firstAttribute="width" constant="24" id="dgh-ur-zh6"/>
                                     </constraints>
                                     <connections>
-                                        <action selector="btnCameraPickTapped:" destination="z3s-7I-oQt" eventType="touchUpInside" id="54i-B2-eig"/>
+                                        <action selector="cameraButtonClick:" destination="z3s-7I-oQt" eventType="touchUpInside" id="xYQ-nl-8i4"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nor-xf-XXk" customClass="EFAutoScrollLabel" customModule="iGap" customModuleProvider="target">
-                                    <rect key="frame" x="143" y="173" width="251" height="15"/>
+                                    <rect key="frame" x="143" y="180.33333333333334" width="251" height="15"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="DLX-1J-EtW"/>
@@ -2057,6 +2057,7 @@
                             </subviews>
                             <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="Hdc-qw-9Il" firstAttribute="top" secondItem="x0z-Lg-qnh" secondAttribute="bottom" id="19h-AB-shS"/>
                                 <constraint firstItem="afm-P4-CN8" firstAttribute="bottom" secondItem="xXc-X5-txr" secondAttribute="bottom" id="1P4-x0-TNH"/>
                                 <constraint firstItem="Hdc-qw-9Il" firstAttribute="leading" secondItem="afm-P4-CN8" secondAttribute="leading" id="3H1-CH-T5R"/>
                                 <constraint firstItem="afm-P4-CN8" firstAttribute="leading" secondItem="bZo-xK-ego" secondAttribute="trailing" constant="23" id="6Ew-HB-4cQ"/>
@@ -2066,7 +2067,6 @@
                                 <constraint firstItem="ido-Ud-F2t" firstAttribute="leading" secondItem="afm-P4-CN8" secondAttribute="leading" id="Odu-q3-OXk"/>
                                 <constraint firstItem="nor-xf-XXk" firstAttribute="leading" secondItem="Hdc-qw-9Il" secondAttribute="leading" id="Qd4-UQ-AG9"/>
                                 <constraint firstItem="xXc-X5-txr" firstAttribute="top" secondItem="SgF-KW-kA9" secondAttribute="top" id="Ulx-73-Ubi"/>
-                                <constraint firstAttribute="bottom" secondItem="nor-xf-XXk" secondAttribute="bottom" constant="12" id="XvA-3p-Bj9"/>
                                 <constraint firstItem="bZo-xK-ego" firstAttribute="top" secondItem="x0z-Lg-qnh" secondAttribute="bottom" constant="-66" id="dA1-nK-eUG"/>
                                 <constraint firstItem="afm-P4-CN8" firstAttribute="top" secondItem="ido-Ud-F2t" secondAttribute="bottom" id="dmA-1B-fkN"/>
                                 <constraint firstAttribute="trailing" secondItem="xXc-X5-txr" secondAttribute="trailing" id="rLG-cm-T9l"/>
@@ -3490,6 +3490,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1" width="1280" height="720"/>
         <image name="IG_Blur_Call" width="640" height="1136"/>
         <image name="IG_Chat_Screen_Scroll_To_Bottom" width="40" height="40"/>
         <image name="IG_Splash_Cute_2" width="300" height="300"/>
@@ -3498,7 +3499,6 @@
         <image name="IG_Tabbar_Discovery" width="37" height="37"/>
         <image name="Location_Marker" width="40" height="40"/>
         <image name="iGap-Chat-BG-V" width="1080" height="1920"/>
-        <image name="ig_world-bg" width="366" height="156"/>
         <namedColor name="IGBackGroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
