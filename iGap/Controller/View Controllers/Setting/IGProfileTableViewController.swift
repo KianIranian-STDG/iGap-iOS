@@ -27,6 +27,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak  var tfRefferalWidthConstraints: NSLayoutConstraint!
     var libraryBanner : [IGFile] = []
     var wallpapersList : Results<IGRealmWallpaper>!
+    var userAvatarAttachment: IGFile!
 
     var canCallNextRequest : Bool! = false
     var currentGender : IGPGender.RawValue = 0
@@ -635,7 +636,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                     self.avatars.remove(at: index)
                     sizesArray.remove(at: index)
                     self.getUserInfo() // TODO - now for update show avatars in room list and chat cloud i use from getUserInfo. HINT: remove this state and change avatar list for this user
-                    self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
+                    if self.avatars.count > 0 {
+                        self.userAvatarView.avatarImageView?.setImage(avatar: self.avatars[0], showMain: true)
+                    }
                 default:
                     break
                 }
@@ -1505,6 +1508,65 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             }
             self.present(optionMenu, animated: true, completion: nil)
         }
+    
+    private func manageImage(imageInfo: [String : Any]){
+        let originalImage = imageInfo["UIImagePickerControllerOriginalImage"] as! UIImage
+        let filename = "IMAGE_" + IGGlobal.randomString(length: 16)
+        let randomString = IGGlobal.randomString(length: 16) + "_"
+        var scaledImage = originalImage
+        let imgData = scaledImage.jpegData(compressionQuality: 0.7)
+        let fileNameOnDisk = randomString + filename
+        
+        if (originalImage.size.width) > CGFloat(2000.0) || (originalImage.size.height) >= CGFloat(2000) {
+            scaledImage = IGUploadManager.compress(image: originalImage)
+        }
+        
+        self.userAvatarAttachment = IGFile(name: filename)
+        self.userAvatarAttachment.attachedImage = scaledImage
+        self.userAvatarAttachment.fileNameOnDisk = fileNameOnDisk
+        self.userAvatarAttachment.height = Double((scaledImage.size.height))
+        self.userAvatarAttachment.width = Double((scaledImage.size.width))
+        self.userAvatarAttachment.size = (imgData?.count)!
+        self.userAvatarAttachment.data = imgData
+        self.userAvatarAttachment.type = .image
+        
+        let path = IGFile.path(fileNameOnDisk: fileNameOnDisk)
+        FileManager.default.createFile(atPath: path.path, contents: imgData!, attributes: nil)
+        
+        DispatchQueue.main.async {
+            self.userAvatarView.avatarImageView?.image = originalImage
+            self.uploadImage()
+        }
+    }
+    private func uploadImage() {
+        SMLoading.showLoadingPage(viewcontroller: self)
+        
+        IGUploadManager.sharedManager.upload(file: self.userAvatarAttachment, start: {
+        }, progress: { (progress) in
+        }, completion: { (uploadTask) in
+            if let token = uploadTask.token {
+                SMLoading.hideLoadingPage()
+
+                IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
+                      
+                        DispatchQueue.main.async {
+                            switch protoResponse {
+                            case let avatarAddResponse as IGPUserAvatarAddResponse:
+                                IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
+                            default:
+                                break
+                            }
+                        }
+                    
+                    }).error({ (error, waitTime) in
+                        SMLoading.hideLoadingPage()
+                    }).send()
+                    
+            }
+        }, failure: {
+            SMLoading.hideLoadingPage()
+        })
+    }
     }
 
 
@@ -1557,6 +1619,7 @@ extension IGProfileTableViewController: UISearchBarDelegate {
         //Filter function
 //        self.filterFunction(searchText: searchBar.text)
     }
+    
 }
 
 
@@ -1568,45 +1631,11 @@ extension IGProfileTableViewController : IGRegistrationStepSelectCountryTableVie
 }
 extension IGProfileTableViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // Local variable inserted by Swift 4.2 migrator.
-        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-        
-        
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
-            self.userAvatarView.setImage(UIImage(named:"2")!)
-            
-            let avatar = IGFile()
-            avatar.attachedImage = pickedImage
-            let randString = IGGlobal.randomString(length: 32)
-            avatar.cacheID = randString
-            avatar.name = randString
-            
-            IGUploadManager.sharedManager.upload(file: avatar, start: {
-                
-            }, progress: { (progress) in
-                
-            }, completion: { (uploadTask) in
-                if let token = uploadTask.token {
-                    IGUserAvatarAddRequest.Generator.generate(token: token).success({ (protoResponse) in
-                        DispatchQueue.main.async {
-                            switch protoResponse {
-                            case let avatarAddResponse as IGPUserAvatarAddResponse:
-                                IGUserAvatarAddRequest.Handler.interpret(response: avatarAddResponse)
-                            default:
-                                break
-                            }
-                        }
-                    }).error({ (error, waitTime) in
-                        
-                    }).send()
-                }
-            }, failure: {
-print("ERROR")
-            })
-        }
         imagePicker.dismiss(animated: true, completion: {
+            self.manageImage(imageInfo: convertFromUIImagePickerControllerInfoKeyDictionary(info))
         })
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
