@@ -234,7 +234,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
                 for wallpaper in wallpapersList {
                     self.libraryBanner.append(wallpaper.file.first!)
 
-                    self.imgBackgroundImage.setThumbnail(for: libraryBanner[0])
+                    self.imgBackgroundImage.setThumbnail(for: libraryBanner[0], showMain: true)
                     
                     
             }

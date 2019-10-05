@@ -1010,7 +1010,7 @@ extension UIView {
     
 }
 extension UIImageView {
-    func setThumbnail(for attachment:IGFile) {
+    func setThumbnail(for attachment:IGFile, showMain: Bool = false) {
         if !(attachment.isInvalidated) {
             if attachment.type == .voice {
                 self.image = UIImage(named:"IG_Message_Cell_Voice")
@@ -1064,8 +1064,12 @@ extension UIImageView {
                     self.sd_setImage(with: attachment.path(), completed: nil)
                 } else if attachment.smallThumbnail != nil || attachment.largeThumbnail != nil {
                     
-                    let previewType: IGFile.PreviewType = .smallThumbnail
-                    let thumbnail: IGFile = attachment.smallThumbnail!
+                    var fileType: IGFile.PreviewType = .smallThumbnail
+                    var finalFile: IGFile = attachment.smallThumbnail!
+                    if showMain {
+                        fileType = .originalFile
+                        finalFile = attachment
+                    }
                     /*
                      if fileSizeKB > 1024 {
                      previewType = .largeThumbnail
@@ -1079,7 +1083,7 @@ extension UIImageView {
                             self.image = attachment.attachedImage
                         } else {
                             var image: UIImage?
-                            path = thumbnail.path()
+                            path = finalFile.path()
                             if IGGlobal.isFileExist(path: path) {
                                 image = UIImage(contentsOfFile: path!.path)
                             }
@@ -1092,7 +1096,7 @@ extension UIImageView {
                         }
                     } catch {
                         imagesMap[attachment.token!] = self
-                        IGDownloadManager.sharedManager.download(file: thumbnail, previewType: previewType, completion: { (attachment) -> Void in
+                        IGDownloadManager.sharedManager.download(file: finalFile, previewType: fileType, completion: { (attachment) -> Void in
                             DispatchQueue.main.async {
                                 if let image = imagesMap[attachment.token!] {
                                     imagesMap.removeValue(forKey: attachment.token!)
