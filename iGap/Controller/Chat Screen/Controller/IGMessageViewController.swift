@@ -5224,10 +5224,14 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         self.highlightMessageId = messageId
         if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
             let indexPath = IndexPath(row: indexOfMessge, section: 0)
-            // if cell is not visible go to message position
-            //if !self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+            var previousIndexPath = indexPath
+            previousIndexPath.row = indexPath.row + 1
+            /* when 'previousIndexPath' is visible and user clicked on reply view 'indexPath' completely
+             * is showing so JUST notify Position and DON'T call scroll to item
+             */
+            if !self.collectionView.indexPathsForVisibleItems.contains(previousIndexPath) {
                 self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-            //}
+            }
             notifyPosition(messageId: self.highlightMessageId)
         } else {
             //TODO - load message from local or server if currently is not exist at view
