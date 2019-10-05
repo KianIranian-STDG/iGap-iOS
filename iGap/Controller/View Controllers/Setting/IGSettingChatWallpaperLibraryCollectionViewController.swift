@@ -51,9 +51,10 @@ class IGSettingChatWallpaperLibraryCollectionViewController: UICollectionViewCon
         super.viewDidLoad()
         
         initNavigationBar()
-        
-        let wallpapers = try! Realm().objects(IGRealmWallpaper.self).first
-        
+        let predicateWallpaper = NSPredicate(format: "type = %d", IGPInfoWallpaper.IGPType.chatBackground.rawValue)
+
+        let wallpapers = try! Realm().objects(IGRealmWallpaper.self).filter(predicateWallpaper).first
+
         if wallpapers != nil && ((wallpapers?.file.count)! > 0 || (wallpapers?.color.count)! > 0) {
             
             if isColorPage {
@@ -78,22 +79,19 @@ class IGSettingChatWallpaperLibraryCollectionViewController: UICollectionViewCon
                 fit = IGPInfoWallpaper.IGPFit.tablet
             }
             
-            IGInfoWallpaperRequest.Generator.generate(fit: fit).successPowerful({ (protoResponse, requestWrapper) in
+            IGInfoWallpaperRequest.Generator.generate(fit: fit,type: .chatBackground).successPowerful({ (protoResponse, requestWrapper) in
                 
-                if let wallpaperRequest = requestWrapper.identity as? IGPInfoWallpaper {
-                    if wallpaperRequest.igpType == .chatBackground {
-                        
-                    } else if wallpaperRequest.igpType == .profileWallpaper {
-                        
-                    }
-                }
+        
                 
                 if let wallpaperResponse = protoResponse as? IGPInfoWallpaperResponse {
                     IGInfoWallpaperRequest.Handler.interpret(response: wallpaperResponse)
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         IGGlobal.prgHide()
-                        if let wallpapers = try! Realm().objects(IGRealmWallpaper.self).first {
+                        let predicateWallpaper = NSPredicate(format: "type = %d", IGPInfoWallpaper.IGPType.chatBackground.rawValue)
+
+
+                        if let wallpapers = try! Realm().objects(IGRealmWallpaper.self).filter(predicateWallpaper).first {
                             
                             if self.isColorPage {
                                 self.librarySolidColor.append("#ffffff")
