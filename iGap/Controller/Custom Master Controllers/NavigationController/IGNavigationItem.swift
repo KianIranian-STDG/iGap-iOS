@@ -620,8 +620,31 @@ class IGNavigationItem: UINavigationItem {
         btnAdd.isUserInteractionEnabled = false
         rightViewContainer!.addSubview(btnAdd)
     }
+    //MARK: - Search Page
+    func setSearchPageNavigationItems() {
+        deactivateTappbleArea()
+        activeTappleArea()
+        addiGapLogo()
+        addDismissButton()
+    }
     
-    
+    private func addDismissButton() {
+        if leftViewContainer?.subviews.count != nil {
+            
+            if leftViewContainer!.subviews.count > 0 {
+                
+                leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+            }
+        }
+        let callListViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
+        let btnDissmissButton = UIButton(frame: callListViewFrame)
+
+        btnDissmissButton.setTitle("", for: .normal)
+        btnDissmissButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnDissmissButton.isUserInteractionEnabled = false
+
+        leftViewContainer!.addSubview(btnDissmissButton)
+    }
     //MARK: - Call List
     func setCallListNavigationItems() {
         deactivateTappbleArea()

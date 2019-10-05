@@ -56,22 +56,22 @@ class IGLookAndFindCell: UITableViewCell {
         if message != nil {
             txtResultUsername.text = message
             if room.type == .chat {
-                txtIcon.text = ""
+                txtIcon.text = ""
             } else if room.type == .group {
-                txtIcon.text = ""
+                txtIcon.text = ""
             } else if room.type == .channel {
-                txtIcon.text = ""
+                txtIcon.text = ""
             }
         } else {
             if room.type == IGRoom.IGType.chat {
                 txtResultUsername.text = room.chatRoom?.peer?.username
-                txtIcon.text = ""
+                txtIcon.text = ""
             } else if room.type == IGRoom.IGType.group {
                 txtResultUsername.text = room.groupRoom?.publicExtra?.username
-                txtIcon.text = ""
+                txtIcon.text = ""
             } else if room.type == IGRoom.IGType.channel {
                 txtResultUsername.text = room.channelRoom?.publicExtra?.username
-                txtIcon.text = ""
+                txtIcon.text = ""
             }
         }
         
@@ -85,7 +85,7 @@ class IGLookAndFindCell: UITableViewCell {
         } else {
             txtResultUsername.text = user.username
         }
-        txtIcon.text = ""
+        txtIcon.text = ""
         
         avatarView.setUser(user)
     }

@@ -14,16 +14,36 @@ import SwiftProtobuf
 import RealmSwift
 import Hero
 
-class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate , UIGestureRecognizerDelegate {
+class IGLookAndFind: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UINavigationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar! {
-        didSet {
-            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
-//            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+       var searchController : UISearchController = {
             
-        }
-    }
+            let searchController = UISearchController(searchResultsController: nil)
+            searchController.searchBar.placeholder = ""
+            searchController.searchBar.setValue("CANCEL_BTN".localizedNew, forKey: "cancelButtonText")
+            
+            let gradient = CAGradientLayer()
+            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (UIScreen.main.bounds.width), height: 64)
+
+            gradient.frame = defaultNavigationBarFrame
+            gradient.colors = [UIColor(named: themeColor.navigationFirstColor.rawValue)!.cgColor, UIColor(named: themeColor.navigationSecondColor.rawValue)!.cgColor]
+            gradient.startPoint = CGPoint(x: 0.0,y: 0.5)
+            gradient.endPoint = CGPoint(x: 1.0,y: 0.5)
+
+            searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
+            
+            return searchController
+
+        }()
+//    @IBOutlet weak var searchBar: UISearchBar! {
+//        didSet {
+//            searchBar.change(textFont: UIFont.igFont(ofSize: 15))
+////            (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+//
+//        }
+//    }
 
     static var enableForward = false //open forward page or main tab due to the this value
     var findResult: [IGLookAndFindStruct] = []
@@ -32,16 +52,11 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let searchBarCancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
-            searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
-            searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
-            searchBarCancelButton.tintColor = UIColor.black
-        }
+
 
         
-        searchBar.delegate = self
-        searchBar.hero.id = "searchBar"
-        setNavigationItem()
+        searchController.searchBar.delegate = self
+//        searchController.searchBar.hero.id = "searchBar"
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -49,25 +64,79 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         
-        IGHelperView.makeSearchView(searchBar: searchBar)
+//        IGHelperView.makeSearchView(searchBar: searchController.searchBar)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.searchBar.becomeFirstResponder()
+//            self.searchController.searchBar.becomeFirstResponder()
         }
 //        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+        self.tableView.tableHeaderView = searchController.searchBar
 
     }
+    override func viewDidLayoutSubviews() {
+         super.viewDidLayoutSubviews()
+         initialiseSearchBar()
+
+     }
     
+    private func initialiseSearchBar() {
+        
+        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = .clear
+
+            let imageV = textField.leftView as! UIImageView
+            imageV.image = nil
+            if let backgroundview = textField.subviews.first {
+                backgroundview.backgroundColor = UIColor(named: themeColor.searchBarBackGroundColor.rawValue)
+                for view in backgroundview.subviews {
+                    if view is UIView {
+                        view.backgroundColor = .clear
+                    }
+                }
+                backgroundview.layer.cornerRadius = 10;
+                backgroundview.clipsToBounds = true;
+                
+            }
+
+            if let searchBarCancelButton = searchController.searchBar.value(forKey: "cancelButton") as? UIButton {
+                searchBarCancelButton.setTitle("CANCEL_BTN".localizedNew, for: .normal)
+                searchBarCancelButton.titleLabel!.font = UIFont.igFont(ofSize: 14,weight: .bold)
+                searchBarCancelButton.tintColor = UIColor.white
+            }
+
+            if let placeHolderInsideSearchField = textField.value(forKey: "placeholderLabel") as? UILabel {
+                placeHolderInsideSearchField.textColor = UIColor.white
+                placeHolderInsideSearchField.textAlignment = .center
+                placeHolderInsideSearchField.text = "SEARCH_PLACEHOLDER".localizedNew
+                if let backgroundview = textField.subviews.first {
+                    placeHolderInsideSearchField.center = backgroundview.center
+                }
+                placeHolderInsideSearchField.font = UIFont.igFont(ofSize: 15,weight: .bold)
+                
+            }
+            
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.initNavigationBar(title: "SEARCH_PLACEHOLDER".localizedNew, rightItemText: "", iGapFont: true, rightAction: {
+            IGRecentsTableViewController.needGetInfo = false
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
+//            self.searchController.searchBar.hero.id = "searchBar"
+            self.hero.replaceViewController(with: mainView)
+
+        })
+
         self.navigationController?.hero.navigationAnimationType = .fade
-        let attributes:[NSAttributedString.Key:Any] = [
-            NSAttributedString.Key.foregroundColor : UIColor.black,
-            NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
-        ]
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+//        let attributes:[NSAttributedString.Key:Any] = [
+//            NSAttributedString.Key.foregroundColor : UIColor.black,
+//            NSAttributedString.Key.font : UIFont.igFont(ofSize: 15)
+//        ]
+//        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
 //        (searchBar.value(forKey: "cancelButton") as? UIButton)?.setTitle("CANCEL_BTN".localizedNew, for: .normal)
 
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -81,13 +150,6 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    private func setNavigationItem(){
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.addNavigationViewItems(rightItemText: nil, title: "PLACE_HOLDER_SEARCH".localizedNew)
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-    }
     
     private func search(query: String){
         // search username in server is enable for 5 character or more than this
@@ -125,7 +187,7 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
     private func checkSearchState(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.searching = false
-            if self.latestSearchText != self.searchBar.text {
+            if self.latestSearchText != self.searchController.searchBar.text {
                 self.search(query: self.latestSearchText)
             }
         }
@@ -246,45 +308,35 @@ class IGLookAndFind: UIViewController, UITableViewDataSource, UITableViewDelegat
         let distanceFromBottom = scrollView.contentSize.height - contentYoffset
         if distanceFromBottom < height {
             self.view.endEditing(true)
-            (searchBar.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
+            (searchController.searchBar.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
         }
     }
     
     //****************** SearchBar ******************
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {}
+
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {}
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        self.view.endEditing(true)
+//        (searchBar.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
+//        if let text = searchBar.text, !text.isEmpty {
+//            self.search(query: text)
+//        }
+//    }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        IGRecentsTableViewController.needGetInfo = false
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainTabBar")
-        self.searchBar.hero.id = "searchBar"
-        self.hero.replaceViewController(with: mainView)
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.view.endEditing(true)
-        (searchBar.value(forKey: "cancelButton") as? UIButton)?.isEnabled = true
-        if let text = searchBar.text, !text.isEmpty {
-            self.search(query: text)
-        }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if(searchText.count >= 1){
-            if let text = searchBar.text {
-                self.search(query: text)
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.findResult = []
-                self.tableView.reloadData()
-            }
-        }
-    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//
+//        if(searchText.count >= 1){
+//            if let text = searchBar.text {
+//                self.search(query: text)
+//            }
+//        } else {
+//            DispatchQueue.main.async {
+//                self.findResult = []
+//                self.tableView.reloadData()
+//            }
+//        }
+//    }
     
     //****************** tableView ******************
     

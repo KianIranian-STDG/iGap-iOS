@@ -281,15 +281,17 @@ class IGSettingTableViewController: BaseTableViewController, NVActivityIndicator
         })
     }
     private func logoutProcess() {
-//        UIApplication.shared.unregisterForRemoteNotifications()
-//        IGAppManager.sharedManager.clearDataOnLogout()
-
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.logoutAndShowRegisterViewController()
-//        let registerVC = IGSplashScreenViewController.instantiateFromAppStroryboard(appStoryboard: .Register)
-//        self.navigationController!.pushViewController(registerVC, animated:true)
-//        IGWebSocketManager.sharedManager.closeConnection()
-
+        self.navigationController?.popToRootViewController(animated: false, completion: {
+            guard let tabBarController = UIApplication.topTabBarController() as? IGTabBarController else {
+                return
+            }
+            tabBarController.selectedIndex = TabBarTab.Recent.rawValue
+            tabBarController.tabBarController(tabBarController, didSelect: tabBarController.selectedViewController!)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.logoutAndShowRegisterViewController()
+            IGWebSocketManager.sharedManager.closeConnection()
+        })
     }
 }
 

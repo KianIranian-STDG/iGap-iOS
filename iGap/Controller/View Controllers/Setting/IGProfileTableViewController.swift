@@ -225,17 +225,10 @@ class IGProfileTableViewController: UITableViewController, CLLocationManagerDele
     
     private func initNavBar() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-//        self.editProfileNavBtn = navigationItem.setProfilePageNavigationItem()
         navigationItem.setProfilePageNavigationItem()
         navigationItem.rightViewContainer?.addAction {
-            print("IN PROFILE PAGE")
             self.editProfileTapped()
-
         }
-
-//        navigationItem.rightViewContainer?.addAction {
-//            self.editProfileTapped()
-//        }
     }
     
     private func initServices() {

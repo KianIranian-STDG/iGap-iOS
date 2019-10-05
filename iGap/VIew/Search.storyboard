@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="PHi-JH-scU">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="iGap_fontico.ttf">
+            <string>iGap_fontico</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="H9t-pv-mrd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PHi-JH-scU" customClass="IGNavigationController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JgT-Cn-PE4">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZOS-wV-iSo" kind="relationship" relationship="rootViewController" id="hwJ-O1-8Pc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YEr-LD-hZW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="-165"/>
+        </scene>
+        <!--Search Table View Controller-->
+        <scene sceneID="e4u-Dt-K9y">
+            <objects>
+                <tableViewController storyboardIdentifier="IGSearchTableViewController" id="ZOS-wV-iSo" customClass="IGSearchTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="1Fb-8p-wb4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LookUpSearch" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LookUpSearch" rowHeight="70" id="sww-BN-Gaw" customClass="IGLookAndFindCell" customModule="iGap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sww-BN-Gaw" id="woV-Gd-b3A">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNI-kS-IKe" customClass="IGAvatarView" customModule="iGap" customModuleProvider="target">
+                                            <rect key="frame" x="10" y="8" width="54" height="54"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="54" id="5IZ-c8-PWb"/>
+                                                <constraint firstAttribute="width" constant="54" id="OS7-45-miu"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HDR-8o-iMK">
+                                            <rect key="frame" x="74" y="11" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="Zc9-bF-A3L"/>
+                                                <constraint firstAttribute="height" constant="25" id="aGJ-Dc-N6Z"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1QA-Uh-1js">
+                                            <rect key="frame" x="74" y="38" width="78.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Result (user/room)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXW-v8-Dl3">
+                                            <rect key="frame" x="109" y="13" width="200" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="HDR-8o-iMK" firstAttribute="leading" secondItem="SNI-kS-IKe" secondAttribute="trailing" constant="10" id="2yz-gE-dUm"/>
+                                        <constraint firstItem="SNI-kS-IKe" firstAttribute="leading" secondItem="woV-Gd-b3A" secondAttribute="leading" constant="10" id="8OU-oZ-1O5"/>
+                                        <constraint firstItem="SNI-kS-IKe" firstAttribute="centerY" secondItem="woV-Gd-b3A" secondAttribute="centerY" id="9gY-g1-qAI"/>
+                                        <constraint firstItem="1QA-Uh-1js" firstAttribute="bottom" secondItem="SNI-kS-IKe" secondAttribute="bottom" constant="-3" id="Ilx-WL-T4j"/>
+                                        <constraint firstItem="1QA-Uh-1js" firstAttribute="leading" secondItem="SNI-kS-IKe" secondAttribute="trailing" constant="10" id="SvE-Sd-ArY"/>
+                                        <constraint firstItem="rXW-v8-Dl3" firstAttribute="centerY" secondItem="HDR-8o-iMK" secondAttribute="centerY" id="YcF-Hv-4h8"/>
+                                        <constraint firstItem="HDR-8o-iMK" firstAttribute="top" secondItem="SNI-kS-IKe" secondAttribute="top" constant="3" id="rG2-OB-B87"/>
+                                        <constraint firstItem="rXW-v8-Dl3" firstAttribute="leading" secondItem="HDR-8o-iMK" secondAttribute="trailing" constant="10" id="wMt-La-R1T"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarView" destination="SNI-kS-IKe" id="YxJ-13-07d"/>
+                                    <outlet property="txtIcon" destination="HDR-8o-iMK" id="QPc-pA-61y"/>
+                                    <outlet property="txtResultName" destination="rXW-v8-Dl3" id="XP8-7H-inT"/>
+                                    <outlet property="txtResultUsername" destination="1QA-Uh-1js" id="FXL-n2-qcS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZOS-wV-iSo" id="kCs-sx-Pbq"/>
+                            <outlet property="delegate" destination="ZOS-wV-iSo" id="yn9-2M-vak"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="OU7-j8-OBZ" customClass="IGNavigationItem" customModule="iGap" customModuleProvider="target"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C0T-te-HTb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1412" y="-165"/>
+        </scene>
+    </scenes>
+</document>
