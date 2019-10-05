@@ -750,7 +750,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         txtSticker.text = ""
         inputBarShareButton.setTitle("", for: .normal)
         inputBarSendButton.setTitle("", for: .normal)
-        inputBarRecordButton.setTitle("", for: .normal)
+        inputBarRecordButton.setTitle("", for: .normal)
         inputBarMoneyTransferButton.setTitle("", for: .normal)
         btnAttachment.setTitle("", for: .normal)
         inputBarDeleteButton.setTitle("", for: .normal)

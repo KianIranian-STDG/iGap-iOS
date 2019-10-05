@@ -46,8 +46,18 @@ class IGTabBarController: UITabBarController {
         self.selectedIndex = 2
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
 
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) ?? true {
+                // appearance has changed
+                // Update your user interface based on the appearance
+                setTabBarItems()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

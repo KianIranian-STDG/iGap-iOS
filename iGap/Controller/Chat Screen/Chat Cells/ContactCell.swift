@@ -23,8 +23,8 @@ class ContactCell: AbstractCell {
     var phonesLabel: UILabel?
     var emailsLabel: UILabel?
     var avatarImageView: UIImageView?
-    var phoneImageView: UIImageView?
-    var emailImageView: UIImageView?
+    var phoneIconLbl: UILabel?
+    var emailIconLbl: UILabel?
     var btnAddContact: UIButton!
     var btnCall: UIButton!
     
@@ -70,25 +70,28 @@ class ContactCell: AbstractCell {
         if isIncommingMessage {
             if hasEmail() {
                 addEmailView()
-                emailImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Email_Incomming")
+                emailIconLbl?.text = "🖂"
+                emailIconLbl?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
                 emailsLabel?.textColor = UIColor.dialogueBoxInfo()
             } else {
                 removeEmailView()
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Incomming")
-            phoneImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Phone_Incomming")
+            phoneIconLbl?.text = ""
             nameLabel?.textColor = UIColor.dialogueBoxInfo()
             phonesLabel?.textColor = UIColor.dialogueBoxInfo()
         } else {
             if hasEmail() {
                 addEmailView()
-                emailImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Email_Outgoing")
-                emailsLabel?.textColor = UIColor(red: 106.0/255.0, green: 106.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+                emailIconLbl?.text = "🖂"
+                emailIconLbl?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
+                emailsLabel?.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
             } else {
                 removeEmailView()
             }
             avatarImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Generic_Avatar_Outgoing")
-            phoneImageView?.image = UIImage(named: "IG_Message_Cell_Contact_Phone_Outgoing")
+            phoneIconLbl?.text = ""
+            phoneIconLbl?.textColor = UIColor(named: themeColor.messageTextColor.rawValue)
             nameLabel?.textColor = UIColor.dialogueBoxInfo()
             phonesLabel?.textColor = UIColor.dialogueBoxInfo()
         }
@@ -129,10 +132,11 @@ class ContactCell: AbstractCell {
             mainBubbleViewAbs.addSubview(phonesLabel!)
         }
         
-        if phoneImageView == nil {
-            phoneImageView = UIImageView()
-            phoneImageView!.contentMode = .scaleAspectFit
-            mainBubbleViewAbs.addSubview(phoneImageView!)
+        if phoneIconLbl == nil {
+            phoneIconLbl = UILabel()
+            phoneIconLbl!.textAlignment = .center
+            phoneIconLbl!.font = UIFont.iGapFonticon(ofSize: 9)
+            mainBubbleViewAbs.addSubview(phoneIconLbl!)
         }
         
         if btnAddContact == nil {
@@ -145,7 +149,7 @@ class ContactCell: AbstractCell {
         if btnCall == nil {
             btnCall = UIButton()
             btnCall.setTitle("CALL".MessageViewlocalizedNew, for: UIControl.State.normal)
-            manageContactButtonView(btn: btnCall, color: UIColor.gray)
+            manageContactButtonView(btn: btnCall, color: UIColor(named: themeColor.labelGrayColor.rawValue)!)
             mainBubbleViewAbs.addSubview(btnCall)
         }
         
@@ -179,11 +183,11 @@ class ContactCell: AbstractCell {
             make.right.equalTo(mainBubbleViewAbs.snp.right).offset(10)
         }
         
-        phoneImageView!.snp.makeConstraints { (make) in
+        phoneIconLbl!.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView!.snp.right).offset(10)
             make.top.equalTo(phonesLabel!.snp.top).offset(4.0)
-            make.width.equalTo(8.0)
-            make.height.equalTo(8.0)
+            make.width.equalTo(9.0)
+            make.height.equalTo(9.0)
         }
         
         btnAddContact.snp.makeConstraints { (make) in
@@ -202,10 +206,11 @@ class ContactCell: AbstractCell {
     }
     
     private func addEmailView() {
-        if emailImageView == nil {
-            emailImageView = UIImageView()
-            emailImageView!.contentMode = .scaleAspectFit
-            mainBubbleViewAbs.addSubview(emailImageView!)
+        if emailIconLbl == nil {
+            emailIconLbl = UILabel()
+            emailIconLbl!.textAlignment = .center
+            emailIconLbl?.font = UIFont.iGapFonticon(ofSize: 9)
+            mainBubbleViewAbs.addSubview(emailIconLbl!)
         }
         
         if emailsLabel == nil {
@@ -215,16 +220,16 @@ class ContactCell: AbstractCell {
             mainBubbleViewAbs.addSubview(emailsLabel!)
         }
         
-        emailImageView!.snp.makeConstraints { (make) in
+        emailIconLbl!.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView!.snp.right).offset(10)
             make.top.equalTo(phonesLabel!.snp.bottom).offset(-10)
-            make.width.equalTo(8.0)
-            make.height.equalTo(8.0)
+            make.width.equalTo(9.0)
+            make.height.equalTo(9.0)
         }
         
         emailsLabel!.snp.makeConstraints { (make) in
             make.left.equalTo(avatarImageView!.snp.right).offset(22)
-            make.top.equalTo(emailImageView!.snp.top).offset(-4.0)
+            make.top.equalTo(emailIconLbl!.snp.top).offset(-4.0)
             make.right.equalTo(mainBubbleViewAbs.snp.right).offset(10)
         }
     }
@@ -235,9 +240,9 @@ class ContactCell: AbstractCell {
             emailsLabel = nil
         }
         
-        if emailImageView != nil {
-            emailImageView?.removeFromSuperview()
-            emailImageView = nil
+        if emailIconLbl != nil {
+            emailIconLbl?.removeFromSuperview()
+            emailIconLbl = nil
         }
     }
     

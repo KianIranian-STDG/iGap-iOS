@@ -722,18 +722,16 @@ class IGNavigationItem: UINavigationItem {
         if IGAppManager.connectionStatusStatic != IGAppManager.ConnectionStatus.iGap {
             return
         }
-        
 
         if IGTabBarController.currentTabStatic == .Recent || AppDelegate.isFirstEnterToApp || IGTabBarController.currentTabStatic == .Contact  {
             AppDelegate.isFirstEnterToApp = false
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
             if lastLang == "fa" {
-                btnLogo.setTitle("", for: .normal)
+                btnLogo.setTitle("", for: .normal)
 
             } else if lastLang == "en" {
-                btnLogo.setTitle("", for: .normal)
-
+                btnLogo.setTitle("", for: .normal)
             }
             btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
@@ -746,11 +744,10 @@ class IGNavigationItem: UINavigationItem {
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
             if lastLang == "fa" {
-                btnLogo.setTitle("", for: .normal)
+                btnLogo.setTitle("", for: .normal)
 
             } else if lastLang == "en" {
-                btnLogo.setTitle("", for: .normal)
-                
+                btnLogo.setTitle("", for: .normal)
             }
             btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
@@ -763,11 +760,10 @@ class IGNavigationItem: UINavigationItem {
             let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 40))
             let btnLogo = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
             if lastLang == "fa" {
-                btnLogo.setTitle("", for: .normal)
+                btnLogo.setTitle("", for: .normal)
 
             } else if lastLang == "en" {
-                btnLogo.setTitle("", for: .normal)
-                
+                btnLogo.setTitle("", for: .normal)
             }
             btnLogo.titleLabel?.font = UIFont.iGapFonticon(ofSize: 60)
 
