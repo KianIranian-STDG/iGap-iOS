@@ -3941,11 +3941,11 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             }
             
         } else if finalMessage.contact != nil {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) contact message"
+            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix)" + "CONTACT_MESSAGE".MessageViewlocalizedNew
         } else if finalMessage.location != nil {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) location message"
+            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix)" + "LOCATION_MESSAGE".MessageViewlocalizedNew
         } else if let file = finalMessage.attachment {
-            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))' message"
+            self.inputBarOriginalMessageViewBodyTextLabel.text = "\(prefix) '\(IGFile.convertFileTypeToString(fileType: file.type))'" + "MESSAGE".MessageViewlocalizedNew
         }
         
         self.setInputBarHeight()
@@ -5201,9 +5201,9 @@ extension IGMessageViewController: IGMessageGeneralCollectionViewCellDelegate {
         if let indexOfMessge = IGMessageViewController.messageIdsStatic[(self.room?.id)!]?.firstIndex(of: messageId) {
             let indexPath = IndexPath(row: indexOfMessge, section: 0)
             // if cell is not visible go to message position
-            if !self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+            //if !self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
                 self.collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.bottom, animated: false)
-            }
+            //}
             notifyPosition(messageId: self.highlightMessageId)
         } else {
             //TODO - load message from local or server if currently is not exist at view
