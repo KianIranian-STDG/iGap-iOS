@@ -11,7 +11,7 @@
 import UIKit
 import maincore
 
-class BaseTableViewController: UITableViewController,UIGestureRecognizerDelegate {
+class BaseTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
     var isAppEnglish: Bool {
         get {
@@ -36,7 +36,6 @@ class BaseTableViewController: UITableViewController,UIGestureRecognizerDelegate
         
         self.hideKeyboardWhenTappedAround()
     }
-
 
     
     public func setDirectionManually(direction: UISemanticContentAttribute)  {

@@ -58,6 +58,7 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         sections = fillContacts()
         creatHeader()
         
+        self.initNavigationBar(title: "NEW".localizedNew) { }
     }
 
     func creatHeader() {
@@ -135,11 +136,8 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         let tapII = UITapGestureRecognizer(target: self, action: #selector(didTapOnNewChannel))
         viewChannel.addGestureRecognizer(tapII)
         viewChannel.isUserInteractionEnabled = true
-
-
-
-
     }
+    
     @objc func didTapOnNewGroup() {
         let createGroup = IGChooseMemberFromContactsToCreateGroupViewController.instantiateFromAppStroryboard(appStoryboard: .Profile)
         createGroup.mode = "CreateGroup"
@@ -154,46 +152,26 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationControllerr = self.navigationController as! IGNavigationController
+//        let navigationControllerr = self.navigationController as! IGNavigationController
 
-        if DeepLinkManager.shared.hasDeepLink() {
-            navigationControllerr.navigationBar.isHidden = false
-        } else {
-            navigationControllerr.navigationBar.isHidden = true
-        }
-        let navigationItem = self.navigationItem as! IGNavigationItem
-        navigationItem.searchController = nil
+//        if DeepLinkManager.shared.hasDeepLink() {
+//            navigationControllerr.navigationBar.isHidden = false
+//        } else {
+//            navigationControllerr.navigationBar.isHidden = true
+//        }
+//        let navigationItem = self.navigationItem as! IGNavigationItem
+//        navigationItem.searchController = nil
     }
     
     private func setNavigationItem(){
         let navigationItem = self.navigationItem as! IGNavigationItem
         
         if navigationItem.searchController == nil {
-//            let gradient = CAGradientLayer()
-//            let defaultNavigationBarFrame = CGRect(x: 0, y: 0, width: (self.navigationController?.navigationBar.frame.width)!, height: 64)
-//
-//            gradient.frame = defaultNavigationBarFrame
-//            gradient.colors = [UIColor(rgb: 0xB9E244).cgColor, UIColor(rgb: 0x41B120).cgColor]
-//            gradient.startPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).0
-//            gradient.endPoint = (CGPoint(x: 0.0,y: 0.5), CGPoint(x: 1.0,y: 0.5)).1
-//            gradient.locations = orangeGradientLocation as [NSNumber]
-            
-            
             
             if #available(iOS 11.0, *) {
-                
-//                if let navigationBar = self.navigationController?.navigationBar {
-//                    navigationBar.barTintColor = UIColor(patternImage: self.image(fromLayer: gradient))
-//                }
-                
-                
-                //                IGGlobal.setLanguage()
                 self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
                 
-                
                 if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-                    //                    IGGlobal.setLanguage()
-                    
                     if textField.responds(to: #selector(getter: UITextField.attributedPlaceholder)) {
                         let centeredParagraphStyle = NSMutableParagraphStyle()
                         centeredParagraphStyle.alignment = .center
@@ -225,12 +203,6 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
         }
         
         
-        
-        
-        
-        
-        
-        
         var title = "NEW_CONVERSATION".localizedNew
         if forceCall {
             title = "NEW_CALL".localizedNew
@@ -245,12 +217,8 @@ class IGCreateNewChatTableViewController: BaseTableViewController, UISearchResul
 //
 //            self.navigationController?.popToRootViewController(animated: true)
 //        }
-//
-        navigationItem.navigationController = self.navigationController as? IGNavigationController
-        let navigationController = self.navigationController as! IGNavigationController
-        navigationController.interactivePopGestureRecognizer?.delegate = self
-        
     }
+    
     func image(fromLayer layer: CALayer) -> UIImage {
         UIGraphicsBeginImageContext(layer.frame.size)
         

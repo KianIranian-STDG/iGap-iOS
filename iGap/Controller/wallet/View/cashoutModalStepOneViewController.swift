@@ -162,7 +162,7 @@ class cashoutModalStepOneViewController: BaseViewController {
 
             if currentRole == "admin" {
                 
-                SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbers().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
+                SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbersNew().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
                     SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localizedNew, message: "SUCCESS_OPERATION".localizedNew, yesPressed: { pin in
                         self.view.endEditing(true)
                         self.navigationController?.popViewController(animated: true)
@@ -175,7 +175,7 @@ class cashoutModalStepOneViewController: BaseViewController {
             }
             else {
                 
-                SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbers().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
+                SMCard.chashout(amount: Int((rightLBLone.text!).inEnglishNumbersNew().onlyDigitChars()) , cardNumber: (rightLBLfour.text)?.onlyDigitChars(), cardToken: "", sourceCardToken:cardToken,  pin: (tfPin.text?.onlyDigitChars()) ,isFast : true, accountId: merchantID ,onSuccess: {resp in
                     SMLoading.shared.showNormalDialog(viewController: self, height: 180,isleftButtonEnabled: false, title: "CASHOUT_REQUEST".localizedNew, message: "SUCCESS_OPERATION".localizedNew, yesPressed: { pin in
                         self.view.endEditing(true)
                         self.navigationController?.popViewController(animated: true)

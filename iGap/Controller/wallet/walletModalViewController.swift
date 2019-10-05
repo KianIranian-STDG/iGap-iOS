@@ -427,7 +427,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     self.lblVALUE0.text  = self.tfAmountToPy.text
                     
                 }
-                let tmpAmountToPayy = (self.lblVALUE0.text)?.inEnglishNumbers()
+                let tmpAmountToPayy = (self.lblVALUE0.text)?.inEnglishNumbersNew()
                 let tmpAmountToPay = self.lblVALUE0.text
                 let tmppP = tmpAmountToPay?.onlyDigitChars()
                 if self.shouldUsePercent {
@@ -588,7 +588,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             
             tfAmountToPy.resignFirstResponder()
             if (self.tfAmountToPy.text == "" && (self.tfAmountToPy!.placeholder == "" || self.tfAmountToPy!.placeholder == nil)) ||
-                self.tfAmountToPy.text?.inEnglishNumbers() == "0" {
+                self.tfAmountToPy.text?.inEnglishNumbersNew() == "0" {
                 SMLoading.shared.showNormalDialog(viewController: self, height: 200, isleftButtonEnabled: false, title: "GLOBAL_WARNING".localizedNew, message: "FILL_AMOUNT".localizedNew, leftButtonTitle: "", rightButtonTitle: "GLOBAL_OK".localizedNew,yesPressed: { yes in return;})
             }
             else {
@@ -794,8 +794,8 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
 
             }
             let t = self.currentAmount
-            let tmp1 = Int(self.payableAmount.inEnglishNumbers().onlyDigitChars())!
-            let tmp2 = Int(self.currentAmount.inEnglishNumbers().onlyDigitChars())!
+            let tmp1 = Int(self.payableAmount.inEnglishNumbersNew().onlyDigitChars())!
+            let tmp2 = Int(self.currentAmount.inEnglishNumbersNew().onlyDigitChars())!
             if Int(tmp1) > Int(tmp2) {
                 SMLoading.hideLoadingPage()
 
@@ -817,9 +817,9 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
                     if self.selectedCardTpPay.balance == 0 {
                         self.payFromSingleCard(card: self.paygearCard)
                     } else {
-                        let tmpI = Int(self.lblVALUE0.text!.onlyDigitChars().inEnglishNumbers())
+                        let tmpI = Int(self.lblVALUE0.text!.onlyDigitChars().inEnglishNumbersNew())
 
-                        if Int64(self.payableAmount.onlyDigitChars().inEnglishNumbers())! >= Int64(tmpI!) {
+                        if Int64(self.payableAmount.onlyDigitChars().inEnglishNumbersNew())! >= Int64(tmpI!) {
                             self.payFromSplitCards(card1: self.paygearCard, card2: self.selectedCardTpPay ,amount: Int64(tmpI!) )
 
                         }
@@ -848,7 +848,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             }
             else {
                 
-                SMCard.initPayment(amount: Int(self.tfAmountToPy.text!.onlyDigitChars().inEnglishNumbers()), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : self.discount_price, isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
+                SMCard.initPayment(amount: Int(self.tfAmountToPy.text!.onlyDigitChars().inEnglishNumbersNew()), accountId: self.targetAccountId, transportId : self.transportId, qrCode: self.qrCode, discount_price : self.discount_price, isCredit: true, transaction_type: 1, hyperme_invoice_number: nil, onSuccess: { response in
                     SMLoading.hideLoadingPage()
 
                     let json = response as? Dictionary<String, AnyObject>
@@ -877,7 +877,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         else {
             //pay by card
             SMLoading.showLoadingPage(viewcontroller: self)
-            SMCard.initPayment(amount: Int((self.lblVALUE3.text?.inEnglishNumbers().onlyDigitChars())!), accountId: self.targetAccountId,from : merchantID, transportId: self.transportId, qrCode: "", discount_price: self.discount_price, onSuccess: { response in
+            SMCard.initPayment(amount: Int((self.lblVALUE3.text?.inEnglishNumbersNew().onlyDigitChars())!), accountId: self.targetAccountId,from : merchantID, transportId: self.transportId, qrCode: "", discount_price: self.discount_price, onSuccess: { response in
                 
 //                self.dismiss(animated: true, completion: nil)
 
@@ -907,7 +907,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         if self.MutualClubCard.value(forKey: "merchant_max") as! Int != 0{
             MaxMerchant = (self.MutualClubCard.value(forKey: "merchant_max") as! Int)
             if self.MutualClubCard.value(forKey: "merchant_is_percentage") as? Int == 1 { // Calculate as Percent
-                let tmpI = Int(self.lblVALUE3.text!.onlyDigitChars().inEnglishNumbers())
+                let tmpI = Int(self.lblVALUE3.text!.onlyDigitChars().inEnglishNumbersNew())
                 let tmpII = MaxMerchant
 
                 MerchantDiscount = tmpI! * tmpII! / 100
@@ -918,7 +918,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
 
             if let ClubsMax = (self.MutualClubCard.value(forKey: "max") as? Int) {
                 if self.MutualClubCard.value(forKey: "is_percentage") as? Int == 1 { // Calculate as Percent
-                    let tmpI = Int(self.lblVALUE3.text!.onlyDigitChars().inEnglishNumbers())
+                    let tmpI = Int(self.lblVALUE3.text!.onlyDigitChars().inEnglishNumbersNew())
                     let tmpII = ClubsMax
                     ClubsDiscount = tmpI! * tmpII / 100
                 }else {
@@ -984,7 +984,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
         para1.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
         para1.setValue(card1.bankCode, forKey: "bc")
         let tmpII = Int64(amount)
-        let tmpIII = Int64(lblVALUE1.text!.onlyDigitChars().inEnglishNumbers())!
+        let tmpIII = Int64(lblVALUE1.text!.onlyDigitChars().inEnglishNumbersNew())!
         para1.setValue(tmpII - tmpIII , forKey: "a")
 //        para1.setValue(Int64(95 - 7) , forKey: "a")
 
@@ -1031,7 +1031,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
     
     func GetMutualClubList(MerchantCode: String, UserCode: String, completed: @escaping ([Any])->()) {
         
-        self.qrCode = MerchantCode.inEnglishNumbers()
+        self.qrCode = MerchantCode.inEnglishNumbersNew()
         SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         let request = WS_methods(delegate: self, failedDialog: true)
         request.addSuccessHandler { (response : Any) in
@@ -1060,7 +1060,7 @@ class walletModalViewController: UIViewController , UITextFieldDelegate ,HandleR
             }
         }
         
-        request.pc_availablelistcard(MerchantCode.inEnglishNumbers(), userID: UserCode.inEnglishNumbers())
+        request.pc_availablelistcard(MerchantCode.inEnglishNumbersNew(), userID: UserCode.inEnglishNumbersNew())
     }
     func handleUIChange() {
         let notificationCenter = NotificationCenter.default

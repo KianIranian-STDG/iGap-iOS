@@ -196,9 +196,9 @@ class SMCard : SMEntity{
     static func addNewCardToServer(_ card: SMCard, onSuccess: SimpleCallBack? = nil,  onFailed: FailedCallBack? = nil){
 
         let cardItem = PC_obj_card()
-        cardItem.card_number = card.pan?.inEnglishNumbers()
-        cardItem.exp_m = card.exp_m?.inEnglishNumbers()
-        cardItem.exp_y = card.exp_y?.inEnglishNumbers()
+        cardItem.card_number = card.pan?.inEnglishNumbersNew()
+        cardItem.exp_m = card.exp_m?.inEnglishNumbersNew()
+        cardItem.exp_y = card.exp_y?.inEnglishNumbersNew()
         cardItem.isDefault = card.isDefault! as NSNumber
         let cardRequest = WS_methods(delegate: self, failedDialog: false)
         cardRequest.addSuccessHandler { (response : Any) in
@@ -326,7 +326,7 @@ class SMCard : SMEntity{
             }
 
         }
-        cashoutObj.pin = pin?.onlyDigitChars().inEnglishNumbers()
+        cashoutObj.pin = pin?.onlyDigitChars().inEnglishNumbersNew()
         cashoutObj.is_instant = isFast as NSObject
         if cardToken != "" {
         cashoutObj.card_token = cardToken

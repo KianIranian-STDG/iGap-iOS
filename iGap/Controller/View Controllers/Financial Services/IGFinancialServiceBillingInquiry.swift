@@ -55,7 +55,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
         
         initNavigationBar()
         manageEditTextsView(editTexts: [edtPhoneNumber, edtProvisionCode])
-        manageViews(views: [viewOne,viewTwo], enable: false)
+        manageViews(views: [viewOne, viewTwo], enable: false)
         manageButtonsView(buttons: [btnInquiry])
         manageButtonsView(buttons: [btnPayment,btnPaymentMid], enable: false)
         manageTextsView(labels: [txtLastTerm,txtMidTerm], grayLine: true)
@@ -100,16 +100,16 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
             for btn in buttons {
                 //btn.removeUnderline()
                 btn.layer.cornerRadius = 5
-                btn.layer.borderWidth = 1
-                btn.layer.borderColor = UIColor.iGapColor().cgColor
-                btn.layer.backgroundColor = UIColor.organizationalColor().cgColor
+                btn.layer.borderWidth = 0.4
+                btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+                btn.layer.backgroundColor = UIColor(named: themeColor.buttonBGColor.rawValue)?.cgColor
                 btn.isEnabled = true
             }
         } else {
             for btn in buttons {
                 //btn.removeUnderline()
                 btn.layer.cornerRadius = 5
-                btn.layer.borderWidth = 1
+                btn.layer.borderWidth = 0.4
                 btn.layer.borderColor = UIColor.gray.cgColor
                 btn.layer.backgroundColor = UIColor.lightGray.cgColor
                 btn.isEnabled = false
@@ -120,19 +120,19 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
     private func manageEditTextsView(editTexts: [UITextField]){
         for edt in editTexts {
             edt.layer.cornerRadius = 5
-            edt.layer.borderWidth = 1
-            edt.layer.borderColor = UIColor.iGapColor().cgColor
+            edt.layer.borderWidth = 0.5
+            edt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
         }
     }
     
     private func manageTextsView(labels: [UILabel], grayLine: Bool = false){
         for txt in labels {
             txt.layer.cornerRadius = 5
-            txt.layer.borderWidth = 1
+            txt.layer.borderWidth = 0.5
             if grayLine {
                 txt.layer.borderColor = UIColor.gray.cgColor
             } else {
-                txt.layer.borderColor = UIColor.iGapColor().cgColor
+                txt.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
             }
         }
     }
@@ -141,13 +141,15 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
         
         for view in views {
             view.layer.cornerRadius = 5
-            view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor.gray.cgColor
+            view.layer.borderWidth = 0.3
+            view.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
             
             if enable {
-                view.layer.backgroundColor = UIColor.white.cgColor
+                view.isHidden = false
+                view.layer.backgroundColor = UIColor(named: themeColor.selectedChannelsCellBGColor.rawValue)?.cgColor
             } else {
-                view.layer.backgroundColor = UIColor(red: 220.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1.0).cgColor
+                view.isHidden = true
+//                view.layer.backgroundColor = #colorLiteral(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).cgColor
             }
         }
     }
@@ -165,7 +167,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
     
     private func fetchPaymentToken(billId: String, payId: String){
         IGGlobal.prgShow(self.view)
-        IGMplGetBillToken.Generator.generate(billId: Int64(billId.inEnglishNumbers())!, payId: Int64(payId.inEnglishNumbers())!).success({ (protoResponse) in
+        IGMplGetBillToken.Generator.generate(billId: Int64(billId.inEnglishNumbersNew())!, payId: Int64(payId.inEnglishNumbersNew())!).success({ (protoResponse) in
             IGGlobal.prgHide()
             if let mplGetBillTokenResponse = protoResponse as? IGPMplGetBillTokenResponse {
                 if mplGetBillTokenResponse.igpStatus == 0 { //success
@@ -280,7 +282,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
         
         if IGFinancialServiceBillingInquiry.isMobile {
             
-            guard let phoneNumber: String = edtPhoneNumber.text?.inEnglishNumbers() else {
+            guard let phoneNumber: String = edtPhoneNumber.text?.inEnglishNumbersNew() else {
                 return
             }
             
@@ -312,7 +314,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
             }).send()
         } else {
             
-            guard let phoneNumber: String = edtPhoneNumber.text?.inEnglishNumbers() else {
+            guard let phoneNumber: String = edtPhoneNumber.text?.inEnglishNumbersNew() else {
                 return
             }
             
@@ -322,7 +324,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
             }
             
             
-            guard let provisionCode: String = edtProvisionCode.text?.inEnglishNumbers() else {
+            guard let provisionCode: String = edtProvisionCode.text?.inEnglishNumbersNew() else {
                 return
             }
             
@@ -332,7 +334,7 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
             }
             
             IGGlobal.prgShow(self.view)
-            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode.inEnglishNumbers())!, telephoneNumber: Int64(phoneNumber.inEnglishNumbers())!).success({ (protoResponse) in
+            IGBillInquiryTelecom.Generator.generate(provinceCode: Int32(provisionCode.inEnglishNumbersNew())!, telephoneNumber: Int64(phoneNumber.inEnglishNumbersNew())!).success({ (protoResponse) in
                 IGGlobal.prgHide()
                 if let billInquiryMciResponse = protoResponse as? IGPBillInquiryTelecomResponse {
                     self.manageInquiryTelecom(lastTerm: billInquiryMciResponse.igpLastTerm, midTerm: billInquiryMciResponse.igpMidTerm)
@@ -356,11 +358,11 @@ class IGFinancialServiceBillingInquiry: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func btnPayment(_ sender: UIButton) {
-        fetchPaymentToken(billId: billingId.inEnglishNumbers(), payId: paymentCode.inEnglishNumbers())
+        fetchPaymentToken(billId: billingId.inEnglishNumbersNew(), payId: paymentCode.inEnglishNumbersNew())
     }
     
     @IBAction func btnPaymentMid(_ sender: UIButton) {
-        fetchPaymentToken(billId: billingIdMid.inEnglishNumbers(), payId: paymentCodeMid.inEnglishNumbers())
+        fetchPaymentToken(billId: billingIdMid.inEnglishNumbersNew(), payId: paymentCodeMid.inEnglishNumbersNew())
     }
     
     /*********************************************************/

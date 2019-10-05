@@ -92,7 +92,7 @@ class IGRegistrationStepVerificationCodeViewController: BaseViewController {
     
     func didTapOnNext() {
         
-        if let code = codeTextField.text?.inEnglishNumbers() {
+        if let code = codeTextField.text?.inEnglishNumbersNew() {
             if IGGlobal.matches(for: self.codeRegex!, in: code) {
                 verifyUser()
             } else {

@@ -31,7 +31,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="IGFavouriteChannelsDashboardTableViewController" id="EB0-dn-qNc" customClass="IGFavouriteChannelsDashboardTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="97A-nG-VEs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -55,7 +55,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="IGFavouriteChannelsDashboardInnerTableViewController" id="2Jd-b2-By7" customClass="IGFavouriteChannelsDashboardInnerTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GUh-0G-FbA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -80,11 +80,11 @@
                         <viewControllerLayoutGuide type="bottom" id="YXy-vM-dcs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XQx-sQ-Oa1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-GU-ejX">
-                                <rect key="frame" x="4" y="0.0" width="406" height="725"/>
+                                <rect key="frame" x="4" y="0.0" width="406" height="703"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jVs-8m-lwG">
                                     <size key="itemSize" width="50" height="50"/>
@@ -108,7 +108,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdk-oB-E9O">
-                                <rect key="frame" x="182" y="337.66666666666669" width="50" height="50"/>
+                                <rect key="frame" x="182" y="326.66666666666669" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.65820388379999994" green="0.65820388379999994" blue="0.65820388379999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="9n6-pg-Vme"/>
@@ -159,14 +159,14 @@
                         <viewControllerLayoutGuide type="bottom" id="AbL-Ho-MDk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lAm-2Z-Uih">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4W-xY-YF8">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="692"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjF-99-u5b" customClass="IGTappableView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="714" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="748" width="414" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locating..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOW-He-PNQ">
                                         <rect key="frame" x="175.66666666666666" y="41.666666666666629" width="63" height="14.333333333333336"/>
@@ -203,14 +203,14 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location_Marker" translatesAutoresizingMaskIntoConstraints="NO" id="dzT-ao-hN1">
-                                <rect key="frame" x="182" y="307" width="50" height="50"/>
+                                <rect key="frame" x="182" y="352" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="afQ-eQ-1Eb"/>
                                     <constraint firstAttribute="height" constant="50" id="lGm-3q-Vk7"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0t-it-I0J">
-                                <rect key="frame" x="337" y="639" width="55" height="55"/>
+                                <rect key="frame" x="337" y="673" width="55" height="55"/>
                                 <color key="backgroundColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="bY9-Ge-Gv1"/>
@@ -225,7 +225,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9Zi-OB-nXt">
-                                <rect key="frame" x="132" y="20" width="150" height="28"/>
+                                <rect key="frame" x="132" y="76" width="150" height="28"/>
                                 <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="Iqr-8q-T6O"/>
@@ -278,7 +278,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="IGStickerViewController" id="Wmx-fA-ZCJ" customClass="IGStickerViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="4tV-l8-eh0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ycf-ve-rVC">
@@ -328,7 +328,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="scS-wq-Mph"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" name="IGLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -360,7 +360,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nmj-UQ-Voe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6581" y="-866"/>
+            <point key="canvasLocation" x="6667" y="-1292"/>
         </scene>
         <!--Title-->
         <scene sceneID="ZzW-v0-TKu">
@@ -416,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z91-oZ-rTS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1106" y="-1070"/>
+            <point key="canvasLocation" x="-787" y="-766"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MjA-oA-qgy">
@@ -587,7 +587,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="IGRecent" id="o0F-fe-2yc" customClass="IGRecentsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="2RK-Z3-msT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -733,7 +733,7 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="3Ts-7H-7ep" secondAttribute="trailing" id="7G6-bD-ylp"/>
                             <constraint firstItem="3Ts-7H-7ep" firstAttribute="top" secondItem="bYM-59-EEU" secondAttribute="bottom" constant="30" id="9LD-7y-Zed"/>
@@ -1072,15 +1072,15 @@
                         <viewControllerLayoutGuide type="bottom" id="7LG-Y0-Ncx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ziz-lj-PYe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iGap-Chat-BG-V" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-MM-IK9">
-                                <rect key="frame" x="4" y="0.0" width="406" height="774"/>
+                                <rect key="frame" x="4" y="56" width="406" height="752"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9G6-WI-YVj" customClass="IGMessageCollectionView" customModule="iGap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TTu-g1-jEU">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1099,7 +1099,7 @@
                                 </cells>
                             </collectionView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLc-FX-WjP">
-                                <rect key="frame" x="5" y="729" width="404" height="40"/>
+                                <rect key="frame" x="5" y="763" width="404" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="aud-T9-6SW"/>
@@ -1110,7 +1110,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5mR-SM-BTR">
-                                <rect key="frame" x="362" y="596" width="40" height="40"/>
+                                <rect key="frame" x="362" y="630" width="40" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Em7-Bg-41q">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -1131,7 +1131,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4eQ-gi-PNj">
-                                <rect key="frame" x="0.0" y="636" width="414" height="138"/>
+                                <rect key="frame" x="0.0" y="670" width="414" height="138"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gfk-FX-lPd">
                                         <rect key="frame" x="0.0" y="12" width="414" height="126"/>
@@ -1477,7 +1477,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gI9-RR-rF9">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yER-m2-UDw">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="0.33333333333333331"/>
@@ -1549,14 +1549,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyh-H7-OPt">
-                                <rect key="frame" x="159.33333333333334" y="10" width="95.333333333333343" height="24"/>
+                                <rect key="frame" x="159.33333333333334" y="66" width="95.333333333333343" height="24"/>
                                 <color key="backgroundColor" name="IGBackGroundGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="bhY-h4-UcM"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="floating date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfs-sg-eWx">
-                                <rect key="frame" x="166.33333333333334" y="13.666666666666671" width="81.333333333333343" height="17"/>
+                                <rect key="frame" x="166.33333333333334" y="69.666666666666671" width="81.333333333333343" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="tfU-iL-Llh"/>
                                 </constraints>
@@ -1731,7 +1731,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hN-bq-gbN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3761" y="-2396"/>
+            <point key="canvasLocation" x="3893" y="-2053"/>
         </scene>
         <!--Title-->
         <scene sceneID="eA2-Iy-kax">
@@ -1740,7 +1740,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="zcW-TZ-q21">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="EF0-Op-cbi">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
@@ -1749,6 +1749,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="IGTableViewCellColor"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1904,7 +1905,7 @@
             <objects>
                 <tableViewController id="u0S-Sh-Wik" customClass="IGReport" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Bys-n6-siz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -1954,7 +1955,7 @@
             <objects>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="z3s-7I-oQt" customClass="IGProfileTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gfL-Rt-3yh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -2823,7 +2824,7 @@
             <objects>
                 <tableViewController id="3cr-3h-seV" customClass="IGCallsTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="v3d-K6-SS0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2859,7 +2860,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="IGPhoneBookTableViewController" id="853-O6-bd1" customClass="IGPhoneBookTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="DHg-zg-eMB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -3164,7 +3165,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="IGCreateNewChatTableViewController" id="Eii-V9-G3m" customClass="IGCreateNewChatTableViewController" customModule="iGap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="pYT-CR-ujX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="IGBackGroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="WN9-pc-EA2">
@@ -3314,7 +3315,7 @@
                         <viewControllerLayoutGuide type="bottom" id="TqD-ju-NjX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pnH-yg-Phn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="IGBackGroundColor"/>
                     </view>
@@ -3372,11 +3373,11 @@
                         <viewControllerLayoutGuide type="bottom" id="B37-Wf-XTy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="T4x-GH-Qw7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eb7-Is-uP4">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="759"/>
                                 <color key="backgroundColor" name="IGTableViewBackgroundColor"/>
                                 <searchBar key="tableHeaderView" contentMode="redraw" id="MuQ-aL-Qcz">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -3494,7 +3495,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jRj-hY-oEr"/>
-        <segue reference="R4P-x7-LEg"/>
+        <segue reference="cmM-gF-ANr"/>
         <segue reference="ONr-pK-81u"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -39,30 +39,31 @@
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K8x-3C-vuJ">
                                 <rect key="frame" x="36" y="108" width="342" height="40"/>
+                                <color key="backgroundColor" name="IGTextFieldBackGround"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="NZn-cP-2Kj"/>
                                 </constraints>
-                                <color key="textColor" name="IGTextFieldBackGround"/>
+                                <color key="textColor" name="IGLabelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sjQ-vH-qf2">
                                 <rect key="frame" x="36" y="160" width="342" height="40"/>
+                                <color key="backgroundColor" name="IGTextFieldBackGround"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jCw-wr-sz1"/>
                                 </constraints>
-                                <color key="textColor" name="IGTextFieldBackGround"/>
+                                <color key="textColor" name="IGLabelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q5q-v6-ERB">
                                 <rect key="frame" x="36" y="212" width="342" height="40"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="upM-GG-0sI"/>
                                 </constraints>
                                 <state key="normal" title="Choose Country">
-                                    <color key="titleColor" red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="btnChooseCountry:" destination="2fd-yX-hCr" eventType="touchUpInside" id="fLb-q8-ZUG"/>
@@ -80,15 +81,16 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7d-MR-4hA" customClass="AKMaskField" customModule="AKMaskField">
                                 <rect key="frame" x="106" y="264" width="272" height="40"/>
+                                <color key="backgroundColor" name="IGTextFieldBackGround"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="ERM-ju-mQn"/>
                                 </constraints>
-                                <color key="textColor" name="IGTextFieldBackGround"/>
+                                <color key="textColor" name="IGLabelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" name="IGBackGroundGrayColor"/>
+                        <color key="backgroundColor" name="IGBackGroundColor"/>
                         <constraints>
                             <constraint firstItem="A7d-MR-4hA" firstAttribute="leading" secondItem="qkJ-ib-lGd" secondAttribute="trailing" constant="10" id="4BP-J1-1PA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sjQ-vH-qf2" secondAttribute="trailing" constant="16" id="4gE-zw-Yud"/>
@@ -256,9 +258,6 @@
     <resources>
         <namedColor name="IGBackGroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="IGBackGroundGrayColor">
-            <color white="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGLabelColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

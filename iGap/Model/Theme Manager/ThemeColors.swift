@@ -37,4 +37,10 @@ enum themeColor: String {
     case messageLogCellBGColor = "IGMessageLogCellBGColor"
     case messageUnreadCellBGColor = "IGMessageUnreadCellBGColor"
     case messageTimeLabelColor = "IGMessageTimeLabelColor"
+    
+    // button
+    case buttonBGColor = "IGButtonBGColor"
+    
+    // favourite Channel
+    case selectedChannelsCellBGColor = "IGSelectedChannelsCellBGColor"
 }

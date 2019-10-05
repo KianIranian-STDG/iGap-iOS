@@ -49,7 +49,6 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstItem="Ry5-8L-AFt" firstAttribute="centerY" secondItem="GUt-At-Kr8" secondAttribute="centerY" id="F7p-qI-ZGi"/>
                                 <constraint firstItem="2Nf-77-YpK" firstAttribute="leading" secondItem="GUt-At-Kr8" secondAttribute="leading" constant="10" id="HWx-Ps-ocE"/>
@@ -83,8 +82,8 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hzQ-NN-yUc">
-                    <rect key="frame" x="10" y="137" width="355" height="339"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="10" y="137" width="355" height="339.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G3T-jQ-1UW">
                         <size key="itemSize" width="50" height="80"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -128,10 +127,10 @@
                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZPf-Zg-Fda">
-                    <rect key="frame" x="0.0" y="486" width="375" height="1"/>
-                    <color key="backgroundColor" red="0.94890445470809937" green="0.94900590181350708" blue="0.95298844575881958" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="0.0" y="486.5" width="375" height="0.5"/>
+                    <color key="backgroundColor" name="IGLabelGrayColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="IUP-Tn-5Rg"/>
+                        <constraint firstAttribute="height" constant="0.29999999999999999" id="IUP-Tn-5Rg"/>
                     </constraints>
                 </view>
             </subviews>

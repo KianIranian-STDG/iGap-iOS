@@ -264,7 +264,7 @@ class ContactCell: AbstractCell {
     }
     
     private func startCall(number: String){
-        let tel: String! = "tel://\(number.inEnglishNumbers().digits)"
+        let tel: String! = "tel://\(number.inEnglishNumbersNew().digits)"
         if let url = URL(string: tel!) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }

@@ -21,7 +21,7 @@ class SMValidation: NSObject {
     class func mobileValidation (_ mobileString : String) -> Bool {
         
         //+989xxxxxxxxx
-        let str = mobileString.inEnglishNumbers().components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        let str = mobileString.inEnglishNumbersNew().components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         return (str.length == 12 && str.hasPrefix("989"))
     }
 

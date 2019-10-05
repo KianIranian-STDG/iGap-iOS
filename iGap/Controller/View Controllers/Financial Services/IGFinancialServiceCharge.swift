@@ -88,7 +88,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate{//, Merc
         
         initNavigationBar(title: "SETTING_FS_TOP_UP".localizedNew) {}
         manageButtonsView(buttons: [btnOperator,btnChargeType,btnPrice,btnBuy])
-        ButtonViewActivate(button: btnOperator ,isEnable: false)
+        ButtonViewActivate(button: btnOperator, isEnable: false)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -110,19 +110,19 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate{//, Merc
         for btn in buttons {
             //btn.removeUnderline()
             btn.layer.cornerRadius = 5
-            btn.layer.borderWidth = 1
-            btn.layer.borderColor = UIColor.iGapColor().cgColor
+            btn.layer.borderWidth = 0.2
+            btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
         }
     }
     
     private func ButtonViewActivate(button: UIButton, isEnable: Bool){
         
         if isEnable {
-            button.layer.borderColor = UIColor.iGapColor().cgColor
-            button.layer.backgroundColor = UIColor.white.cgColor
+            button.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
+            button.layer.backgroundColor = UIColor(named: themeColor.backgroundColor.rawValue)?.cgColor
         } else {
             button.layer.borderColor = UIColor.gray.cgColor
-            button.layer.backgroundColor = UIColor.lightGray.cgColor
+            button.layer.backgroundColor = UIColor.gray.cgColor
         }
     }
     
@@ -196,7 +196,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate{//, Merc
         if sender.isOn {
             operatorTransport = true
             txtOperatorTransport.text = "PORTED_SUBSCRIBER_ENABLE".localizedNew
-            txtOperatorTransport.textColor = UIColor.iGapColor()
+            txtOperatorTransport.textColor = UIColor.iGapDarkGreenColor()
         } else {
             operatorTransport = false
             txtOperatorTransport.text = "PORTED_SUBSCRIBER_DESABLE".localizedNew
@@ -308,7 +308,7 @@ class IGFinancialServiceCharge: BaseViewController, UITextFieldDelegate{//, Merc
     
     @IBAction func btnBuy(_ sender: UIButton) {
         
-        guard let phoneNumber: String = edtPhoneNubmer.text?.inEnglishNumbers() else {
+        guard let phoneNumber: String = edtPhoneNubmer.text?.inEnglishNumbersNew() else {
             return
         }
         

@@ -310,7 +310,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             if !hasShownQrCode {
 //                hasShownQrCode = true
                 isUser = false
-                getQRCodeInformation(barcodeValue: (manualInputView.inputTF.text!).inEnglishNumbers().onlyDigitChars())
+                getQRCodeInformation(barcodeValue: (manualInputView.inputTF.text!).inEnglishNumbersNew().onlyDigitChars())
 
             }
             
@@ -476,7 +476,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
                 hasShownQrCode = true
                 isHyperMe = false
                 isUser = true
-                UserDefaults.standard.setValue(String(value).inEnglishNumbers(), forKey: "modalQRCode")
+                UserDefaults.standard.setValue(String(value).inEnglishNumbersNew(), forKey: "modalQRCode")
 
             self.getUserInformation(accountId: json["H"] as! String, qrType: Int(json["T"] as! String)!)
             }
@@ -663,8 +663,8 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
     /// - Parameter barcodeValue: qr code
     func getQRCodeInformation(barcodeValue: String) {
 
-        self.qrCode = barcodeValue.inEnglishNumbers()
-        UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbers(), forKey: "modalQRCode")
+        self.qrCode = barcodeValue.inEnglishNumbersNew()
+        UserDefaults.standard.setValue(String(self.qrCode!).onlyDigitChars().inEnglishNumbersNew(), forKey: "modalQRCode")
 
         SMLoading.showLoadingPage(viewcontroller: self, text: "Loading ...".localizedNew)
         let request = WS_methods(delegate: self, failedDialog: true)
@@ -702,7 +702,7 @@ class SMBarcodeMainViewController: UIViewController ,HandleReciept,HandleGiftVie
             }
             SMMessage.showWithMessage(SMCard.testConvert(response))
         }
-        request.mc_getqrcodewithid(barcodeValue.inEnglishNumbers())
+        request.mc_getqrcodewithid(barcodeValue.inEnglishNumbersNew())
     }
     //HINT : QR GIFT Data
     private func GetGift(Response: NSDictionary) {

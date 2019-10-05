@@ -828,7 +828,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     
     @objc @available(iOS 10.0, *)
     private func openStickerView() {
-        let viewController:UIViewController
+        let viewController: UIViewController
         viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: IGStickerViewController.self)) as! IGStickerViewController
         
         for child in children {
@@ -2751,7 +2751,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         
         let para  = NSMutableDictionary()
         para.setValue(card.token, forKey: "c")
-        para.setValue((pin).onlyDigitChars().inEnglishNumbers(), forKey: "p2")
+        para.setValue((pin).onlyDigitChars().inEnglishNumbersNew(), forKey: "p2")
         para.setValue(card.type, forKey: "type")
         para.setValue(Int64(NSDate().timeIntervalSince1970 * 1000), forKey: "t")
         para.setValue(card.bankCode, forKey: "bc")
@@ -2877,7 +2877,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
                 
                 let tmpJWT : String! =  KeychainSwift().get("accesstoken")!
                 SMLoading.showLoadingPage(viewcontroller: self)
-                IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbers().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
+                IGRequestWalletPaymentInit.Generator.generate(jwt: tmpJWT, amount: (Int64((MoneyInputModal.inputTF.text!).inEnglishNumbersNew().onlyDigitChars())!), userID: tmpUserID, description: "", language: IGPLanguage(rawValue: IGPLanguage.faIr.rawValue)!).success ({ (protoResponse) in
                     SMLoading.hideLoadingPage()
                     if let response = protoResponse as? IGPWalletPaymentInitResponse {
                         SMUserManager.publicKey = response.igpPublicKey
@@ -2903,7 +2903,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
             } else {
                 
                 let messageText = CardToCardModal.inputTFOne.text!.substring(offset: MAX_TEXT_LENGHT)
-                let message = IGRoomMessage.makeCardToCardRequestWithAmount(messageText: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbers().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbers().onlyDigitChars()))
+                let message = IGRoomMessage.makeCardToCardRequestWithAmount(messageText: messageText, amount: ((CardToCardModal.inputTFTwo.text!).inEnglishNumbersNew().onlyDigitChars()), cardNumber: ((CardToCardModal.inputTFThree.text!).inEnglishNumbersNew().onlyDigitChars()))
                 let detachedMessage = message.detach()
                 IGFactory.shared.saveNewlyWriitenMessageToDatabase(detachedMessage)
                 IGMessageSender.defaultSender.send(message: message, to: self.room!)
@@ -4143,6 +4143,7 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
         if segue.identifier == "showSticker" {
             if #available(iOS 10.0, *) {
                 let stickerViewController = segue.destination as! IGStickerViewController
+//                stickerViewController.backGroundColor = UIColor(named: themeColor.tableViewCell.rawValue)
                 stickerViewController.stickerPageType = self.stickerPageType
                 stickerViewController.stickerGroupId = self.stickerGroupId
             }

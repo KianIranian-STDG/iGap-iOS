@@ -96,7 +96,7 @@ class IGContactManager: NSObject {
             if self.results.count > 0 {
                 for contact in self.results {
                     for phone in contact.phoneNumbers {
-                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbers())
+                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew())
                     }
                 }
             }
@@ -118,7 +118,7 @@ class IGContactManager: NSObject {
                         structContact.firstName = contact.givenName
                         structContact.lastName = contact.familyName
                         contactsStruct.append(structContact)
-                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbers())
+                        contactsPhoneStruct.append(phone.value.stringValue.trimmingCharacters(in: .whitespaces).inEnglishNumbersNew())
                         
                         
                     }

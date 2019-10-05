@@ -21,7 +21,7 @@ class SMIBAN: SMEntity {
 	/// Number of iban - it is english characters
 	var ibanNumber : String! {
 		didSet {
-			ibanNumber = ibanNumber.inEnglishNumbers()
+			ibanNumber = ibanNumber.inEnglishNumbersNew()
 		}
 	}
 	/// It is true when iban is default

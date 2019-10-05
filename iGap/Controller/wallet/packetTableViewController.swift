@@ -503,7 +503,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
     }
     @IBAction func btnQRcodeScan(_ sender: Any) {
         let qrVC: QRMainTabbarController? = (storyboard?.instantiateViewController(withIdentifier: "qrMainTabbar") as! QRMainTabbarController)
-        merchantBalance = (lblCurrency.text!).inEnglishNumbers()
+        merchantBalance = (lblCurrency.text!).inEnglishNumbersNew()
         
         
         self.navigationController!.pushViewController(qrVC!, animated: true)
@@ -704,9 +704,9 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
                 if card.type == 1 && card.pan!.contains("پیگیر"){
                     
                     lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
-                    merchantBalance = (lblCurrency.text!).inEnglishNumbers()
+                    merchantBalance = (lblCurrency.text!).inEnglishNumbersNew()
 
-                    if (lblCurrency.text)?.inEnglishNumbers() == "0" {
+                    if (lblCurrency.text)?.inEnglishNumbersNew() == "0" {
                         btnCashout.isEnabled = false
                         btnCashout.backgroundColor = .iGapGray()
                         btnCharge.backgroundColor = .iGapGreen()
@@ -959,7 +959,7 @@ class packetTableViewController: BaseTableViewController , HandleDefaultCard,UIC
 //                amountLbl.isHidden = false
                 lblCurrency.text = String.init(describing: card.balance ?? 0).inRialFormat()
                 let tmp = lblCurrency.text
-                if tmp?.inEnglishNumbers() == "0" {
+                if tmp?.inEnglishNumbersNew() == "0" {
                     btnCashout.isEnabled = false
                     btnCashout.backgroundColor = .iGapGray()
                     btnCharge.backgroundColor = .iGapGreen()

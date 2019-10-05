@@ -215,15 +215,15 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         
         if isFirstTime {
             oldPassword = ""
-            newCPassword = self.tfThird.text!.inEnglishNumbers().onlyDigitChars()
-            newPassword = self.tfSecond.text!.inEnglishNumbers().onlyDigitChars()
+            newCPassword = self.tfThird.text!.inEnglishNumbersNew().onlyDigitChars()
+            newPassword = self.tfSecond.text!.inEnglishNumbersNew().onlyDigitChars()
 
         }
         else {
             
-            oldPassword = self.tfFirst.text!.inEnglishNumbers().onlyDigitChars()
-            newCPassword = self.tfThird.text!.inEnglishNumbers().onlyDigitChars()
-            newPassword = self.tfSecond.text!.inEnglishNumbers().onlyDigitChars()
+            oldPassword = self.tfFirst.text!.inEnglishNumbersNew().onlyDigitChars()
+            newCPassword = self.tfThird.text!.inEnglishNumbersNew().onlyDigitChars()
+            newPassword = self.tfSecond.text!.inEnglishNumbersNew().onlyDigitChars()
             
         }
         
@@ -356,16 +356,16 @@ class IGWalletSettingInnerTableViewController: BaseTableViewController , UITextF
         var newPassword = ""
         var newCPassword = ""
         if isOTP {
-            otp = self.tfFirst.text!.inEnglishNumbers()
-            newPassword = self.tfSecond.text!.inEnglishNumbers().onlyDigitChars()
-            newCPassword = self.tfThird.text!.inEnglishNumbers().onlyDigitChars()
+            otp = self.tfFirst.text!.inEnglishNumbersNew()
+            newPassword = self.tfSecond.text!.inEnglishNumbersNew().onlyDigitChars()
+            newCPassword = self.tfThird.text!.inEnglishNumbersNew().onlyDigitChars()
             
-            if SMValidation.walletPassCodeValidation(otp.onlyDigitChars().inEnglishNumbers()), SMValidation.walletPassCodeValidation(newPassword.onlyDigitChars().inEnglishNumbers()) {
+            if SMValidation.walletPassCodeValidation(otp.onlyDigitChars().inEnglishNumbersNew()), SMValidation.walletPassCodeValidation(newPassword.onlyDigitChars().inEnglishNumbersNew()) {
                 
                 if newPassword == newCPassword {
                     
                     //request to server
-                    callResetAPI(otp: otp.onlyDigitChars().inEnglishNumbers(), newPass: newPassword.onlyDigitChars().inEnglishNumbers())
+                    callResetAPI(otp: otp.onlyDigitChars().inEnglishNumbersNew(), newPass: newPassword.onlyDigitChars().inEnglishNumbersNew())
                 }
                 else {
                     

@@ -552,11 +552,11 @@ extension UIColor {
     }
     
     class func sticker() -> UIColor {
-        return UIColor(red: 242/255.0, green: 242/255.0, blue: 255/255.0, alpha: 1.0)
+        return UIColor(named: themeColor.tableViewBackground.rawValue) ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
     }
     
     class func stickerToolbar() -> UIColor {
-        return UIColor(red: 249/255.0, green: 249/255.0, blue: 255/255.0, alpha: 1.0)
+        return UIColor(named: themeColor.modalViewBackgroundColor.rawValue) ?? #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 1, alpha: 1)
     }
     
     class func stickerToolbarSelected() -> UIColor {

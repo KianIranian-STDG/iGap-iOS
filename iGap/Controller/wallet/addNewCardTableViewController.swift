@@ -60,9 +60,9 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
         if (yearTextField.text != nil) && (yearTextField.text != "") && (mounthTextField.text != nil) && (mounthTextField.text != "") && (cardTextField.text != nil) && (cardTextField.text != "") {
             
             let card = SMCard()
-            card.pan = cardTextField.text?.onlyDigitChars().inEnglishNumbers()
-            card.exp_y = yearTextField.text?.inEnglishNumbers()
-            card.exp_m = mounthTextField.text?.inEnglishNumbers()
+            card.pan = cardTextField.text?.onlyDigitChars().inEnglishNumbersNew()
+            card.exp_y = yearTextField.text?.inEnglishNumbersNew()
+            card.exp_m = mounthTextField.text?.inEnglishNumbersNew()
             //        card.isDefault = switchIsDefault.isOn
             SMLoading.showLoadingPage(viewcontroller: self)
             
@@ -112,7 +112,7 @@ class addNewCardTableViewController: BaseTableViewController , UITextFieldDelega
         if textField.tag == 0 {
             
             if textField.text?.onlyDigitChars().length == 6 {
-                imgBankLogo.image = UIImage.init(named: BankModel.getBankLogo(bankCodeNumber: textField.text?.onlyDigitChars().inEnglishNumbers()))
+                imgBankLogo.image = UIImage.init(named: BankModel.getBankLogo(bankCodeNumber: textField.text?.onlyDigitChars().inEnglishNumbersNew()))
             }
             else if textField.text?.onlyDigitChars().length == 5 {
                 imgBankLogo.image = UIImage.init(named:  "bank" )

@@ -161,7 +161,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         
         if let presentedViewController = self.storyboard?.instantiateViewController(withIdentifier: "cashoutModalStepOne") as! cashoutModalStepOneViewController? {
             presentedViewController.dialogT = "CASHOUT_REQUEST".localizedNew
-            presentedViewController.amount = amount!.inEnglishNumbers()
+            presentedViewController.amount = amount!.inEnglishNumbersNew()
             presentedViewController.message = resp
             presentedViewController.providesPresentationContextTransitionStyle = true
             presentedViewController.definesPresentationContext = true
@@ -233,7 +233,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 return
             }
             SMCard.confirmChashout(amount: amount,
-                                   cardNumber: (self.tfCardNumber.text?.removeSepratorCardNum().inEnglishNumbers()),
+                                   cardNumber: (self.tfCardNumber.text?.removeSepratorCardNum().inEnglishNumbersNew()),
                                    cardToken:  cardToken,
                                    accountId: accountId , onSuccess: {resp in
                                     DispatchQueue.main.async(execute: { () -> Void in
@@ -257,7 +257,7 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
         else if cashoutTypeSeg.selectedSegmentIndex == 1 {
             var sourceCardToken  = ""
             if self.sourceCard != nil { sourceCardToken = self.sourceCard.token! } else { sourceCardToken = SMUserManager.payGearToken! }
-            guard let cardNu = cardNumber?.inEnglishNumbers() else {
+            guard let cardNu = cardNumber?.inEnglishNumbersNew() else {
                 return
             }
 
@@ -408,13 +408,13 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 
             }
             else {
-                let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbers())
+                let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew())
                 if amount <= Int(SMUserManager.userBalance) {
                     if currentRole == "admin" {
                         self.tmpCardToken = ""
                     }
-                    if isReadyToPay(isImmediate: isImmediate, cardNum: (tfCardNumber.text!).inEnglishNumbers(), amount: (tfAmount.text!).inEnglishNumbers().onlyDigitChars()) {
-                        payNormal(amountStr: (tfAmount.text!).inEnglishNumbers().onlyDigitChars(), cardNumber: (tfCardNumber.text!).inEnglishNumbers(),cardToken: self.tmpCardToken)
+                    if isReadyToPay(isImmediate: isImmediate, cardNum: (tfCardNumber.text!).inEnglishNumbersNew(), amount: (tfAmount.text!).inEnglishNumbersNew().onlyDigitChars()) {
+                        payNormal(amountStr: (tfAmount.text!).inEnglishNumbersNew().onlyDigitChars(), cardNumber: (tfCardNumber.text!).inEnglishNumbersNew(),cardToken: self.tmpCardToken)
                     }
                     else {
                         SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localizedNew)
@@ -434,15 +434,15 @@ class chashoutCardTableViewController: BaseTableViewController,UITextFieldDelega
                 
             }
             else {
-                let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbers())
+                let amount : Int! =  Int((tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew())
                 if amount <= Int(SMUserManager.userBalance) {
                     if currentRole == "admin" {
-                        payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers(), cardNumber: self.tfCardNumber.text?.inEnglishNumbers() ,cardToken: self.tmpCardToken)
+                        payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew(), cardNumber: self.tfCardNumber.text?.inEnglishNumbersNew() ,cardToken: self.tmpCardToken)
 
                     }
                     else {
-                        if isReadyToPay(isImmediate: isImmediate, cardNum: (tfCardNumber.text!).inEnglishNumbers(), amount: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers()) {
-                            payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbers(), cardNumber: (tfCardNumber.text!).inEnglishNumbers(),cardToken: self.tmpCardToken)
+                        if isReadyToPay(isImmediate: isImmediate, cardNum: (tfCardNumber.text!).inEnglishNumbersNew(), amount: (tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew()) {
+                            payNormal(amountStr: (tfAmount.text!.onlyDigitChars()).inEnglishNumbersNew(), cardNumber: (tfCardNumber.text!).inEnglishNumbersNew(),cardToken: self.tmpCardToken)
                         }
                         else {
                             SMLoading.showToast(viewcontroller: self, text: "CHECK_ALL_FIELDS".localizedNew)

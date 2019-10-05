@@ -129,7 +129,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
             
             if isAddStickerPage {
                 txtStickerTitle.font = UIFont.igFont(ofSize: 15, weight: .bold)
-                txtStickerTitle.textColor = UIColor.darkGray
+                txtStickerTitle.textColor = UIColor(named: themeColor.labelGrayColor.rawValue)
                 
                 txtStickerTitle.snp.makeConstraints { (make) in
                     make.left.equalTo(mainView.snp.left).offset(10)
@@ -139,7 +139,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
                 }
             } else {
                 txtStickerTitle.font = UIFont.igFont(ofSize: 13, weight: .medium)
-                txtStickerTitle.textColor = UIColor.iGapGreen()
+                txtStickerTitle.textColor = UIColor.iGapDarkGreenColor()
                 
                 txtStickerTitle.snp.makeConstraints { (make) in
                     make.left.equalTo(mainView.snp.left).offset(10)
@@ -155,7 +155,7 @@ class IGStickerSectionHeader: UICollectionReusableView {
         if txtStickerCount == nil {
             txtStickerCount = UILabel()
             txtStickerCount.font = UIFont.igFont(ofSize: 12, weight: .medium)
-            txtStickerCount.textColor = UIColor.iGapGreen()
+            txtStickerCount.textColor = UIColor.iGapDarkGreenColor()
 
             mainView.addSubview(txtStickerCount)
             
@@ -184,8 +184,8 @@ class IGStickerSectionHeader: UICollectionReusableView {
             }
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.stickerAddRemove.layer.borderColor = UIColor.blue.cgColor
-                self.stickerAddRemove.textColor = UIColor.blue
+                self.stickerAddRemove.layer.borderColor = UIColor.systemBlue.cgColor
+                self.stickerAddRemove.textColor = UIColor.systemBlue
                 self.stickerAddRemove.text = "ADD_BTN".localizedNew
                 self.stickerAddRemove.font = UIFont.igFont(ofSize: 17)
             }

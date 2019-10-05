@@ -61,11 +61,6 @@ class IGPhoneBookTableViewController: BaseTableViewController, IGCallFromContact
         navigationItem.rightViewContainer?.addAction {
             self.goToAddContactsPage()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            navigationItem.leftViewContainer?.addAction {
-                
-            }
-        }
     }
     
     private func goToAddContactsPage() {

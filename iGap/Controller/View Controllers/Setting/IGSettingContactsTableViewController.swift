@@ -321,7 +321,7 @@ class IGSettingContactsTableViewController: UITableViewController, UISearchResul
             }
             else if SMLangUtil.loadLanguage() == "en" {
 
-                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inEnglishNumbers()+" " + "CONTACTS".localizedNew
+                blockListCell.numberOfBlockedContacts.text = "\(blockedUsers.count)".inEnglishNumbersNew()+" " + "CONTACTS".localizedNew
                 cell = blockListCell
             }
             else {

@@ -4206,48 +4206,48 @@ Please wait 0:59</string>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Cjt-SQ-dcY">
-                                <rect key="frame" x="36" y="112" width="51" height="31"/>
+                                <rect key="frame" x="36" y="116" width="51" height="31"/>
                                 <connections>
                                     <action selector="switchToggle:" destination="88X-eq-4dU" eventType="valueChanged" id="B8r-pu-4Fy"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ported Subscriber Disable" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-ks-WND">
-                                <rect key="frame" x="92.999999999999986" y="114.33333333333333" width="197.66666666666663" height="26.666666666666671"/>
+                                <rect key="frame" x="101.00000000000001" y="121.66666666666669" width="199.33333333333337" height="20"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLf-5I-Wdd">
-                                <rect key="frame" x="36" y="216" width="342" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="36" y="223" width="342" height="40"/>
+                                <color key="backgroundColor" name="IGBackGroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="0vQ-qY-vfW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Credit Type">
-                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelGrayColor"/>
                                 </state>
                                 <connections>
                                     <action selector="btnChooseChargeType:" destination="88X-eq-4dU" eventType="touchUpInside" id="bVt-QJ-wG9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEG-gT-375">
-                                <rect key="frame" x="36" y="264" width="342" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="36" y="271" width="342" height="40"/>
+                                <color key="backgroundColor" name="IGBackGroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Xv6-go-MfP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Price">
-                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelGrayColor"/>
                                 </state>
                                 <connections>
                                     <action selector="btnChoosePrice:" destination="88X-eq-4dU" eventType="touchUpInside" id="mxt-8I-Dhb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8f-uP-VWO">
-                                <rect key="frame" x="36" y="334" width="342" height="40"/>
-                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="36" y="341" width="342" height="40"/>
+                                <color key="backgroundColor" name="IGButtonBGColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fXX-to-yOx"/>
                                 </constraints>
@@ -4260,14 +4260,14 @@ Please wait 0:59</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8z3-8X-uqw">
-                                <rect key="frame" x="36" y="168" width="342" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="36" y="175" width="342" height="40"/>
+                                <color key="backgroundColor" name="IGBackGroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="OrI-dV-YZG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Operator">
-                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelGrayColor"/>
                                 </state>
                                 <connections>
                                     <action selector="btnChooseOperator:" destination="88X-eq-4dU" eventType="touchUpInside" id="Ec4-7R-7OJ"/>
@@ -4284,16 +4284,16 @@ Please wait 0:59</string>
                             <constraint firstAttribute="trailingMargin" secondItem="y8f-uP-VWO" secondAttribute="trailing" constant="16" id="Ird-le-rbm"/>
                             <constraint firstItem="1a9-l7-Wz1" firstAttribute="top" secondItem="PaT-9s-FLZ" secondAttribute="bottom" constant="20" id="Pha-LA-chn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1a9-l7-Wz1" secondAttribute="trailing" constant="16" id="RmI-Qf-xSI"/>
-                            <constraint firstItem="8z3-8X-uqw" firstAttribute="top" secondItem="Cjt-SQ-dcY" secondAttribute="bottom" constant="25" id="VlV-Gy-4yr"/>
+                            <constraint firstItem="8z3-8X-uqw" firstAttribute="top" secondItem="Cjt-SQ-dcY" secondAttribute="bottom" constant="28" id="VlV-Gy-4yr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZEG-gT-375" secondAttribute="trailing" constant="16" id="XSA-34-7GS"/>
                             <constraint firstItem="y8f-uP-VWO" firstAttribute="leading" secondItem="4o9-9J-WzD" secondAttribute="leadingMargin" constant="16" id="Ywd-95-oSF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hLf-5I-Wdd" secondAttribute="trailing" constant="16" id="cIH-TF-xgL"/>
                             <constraint firstItem="ZEG-gT-375" firstAttribute="top" secondItem="hLf-5I-Wdd" secondAttribute="bottom" constant="8" id="iz1-Qb-Fy2"/>
                             <constraint firstItem="8z3-8X-uqw" firstAttribute="leading" secondItem="Cjt-SQ-dcY" secondAttribute="leading" id="nZL-mf-cm3"/>
                             <constraint firstItem="Cjt-SQ-dcY" firstAttribute="leading" secondItem="1a9-l7-Wz1" secondAttribute="leading" id="os3-N8-z2X"/>
-                            <constraint firstItem="RWZ-ks-WND" firstAttribute="leading" secondItem="Cjt-SQ-dcY" secondAttribute="trailing" constant="8" id="qdB-sf-E4H"/>
+                            <constraint firstItem="RWZ-ks-WND" firstAttribute="leading" secondItem="Cjt-SQ-dcY" secondAttribute="trailing" constant="16" id="qdB-sf-E4H"/>
                             <constraint firstItem="ZEG-gT-375" firstAttribute="leading" secondItem="hLf-5I-Wdd" secondAttribute="leading" id="tt6-32-xiA"/>
-                            <constraint firstItem="Cjt-SQ-dcY" firstAttribute="top" secondItem="1a9-l7-Wz1" secondAttribute="bottom" constant="8" id="xIp-us-eIr"/>
+                            <constraint firstItem="Cjt-SQ-dcY" firstAttribute="top" secondItem="1a9-l7-Wz1" secondAttribute="bottom" constant="12" id="xIp-us-eIr"/>
                             <constraint firstItem="hLf-5I-Wdd" firstAttribute="leading" secondItem="8z3-8X-uqw" secondAttribute="leading" id="z1X-0L-7OV"/>
                         </constraints>
                     </view>
@@ -4327,7 +4327,7 @@ Please wait 0:59</string>
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuU-cs-ZRs">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="752"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="772"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kaZ-J7-sJY">
                                                 <rect key="frame" x="16" y="20" width="70" height="40"/>
@@ -4348,7 +4348,7 @@ Please wait 0:59</string>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL5-5T-Co6">
                                                 <rect key="frame" x="16" y="68" width="382" height="40"/>
-                                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="IGButtonBGColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="kwu-yS-vbL"/>
                                                 </constraints>
@@ -4360,173 +4360,175 @@ Please wait 0:59</string>
                                                     <action selector="btnInquiry:" destination="1JG-1a-Nfs" eventType="touchUpInside" id="9iY-fd-Z1V"/>
                                                 </connections>
                                             </button>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLd-8U-Yky">
-                                                <rect key="frame" x="16" y="460" width="382" height="272"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="19u-Kr-F8h">
+                                                <rect key="frame" x="16" y="148" width="382" height="584"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End-Term Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gh-To-Sig">
-                                                        <rect key="frame" x="8" y="8" width="366" height="40"/>
-                                                        <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3s3-SX-H4A">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="272"/>
+                                                        <subviews>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mid-Term Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klv-8c-TgD">
+                                                                <rect key="frame" x="8" y="8" width="366" height="40"/>
+                                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="02z-mC-teL"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
+                                                                <color key="textColor" name="IGLabelColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billing ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7x-GE-h4V">
+                                                                <rect key="frame" x="8" y="68" width="366" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="OXn-6d-42z"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mr-ps-R7o">
+                                                                <rect key="frame" x="8" y="116" width="366" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="kxX-pG-7vT"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount (Rials)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFJ-tk-Nqw">
+                                                                <rect key="frame" x="8" y="164" width="366" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="7S8-EE-n6j"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f0-jS-qox">
+                                                                <rect key="frame" x="8" y="224" width="366" height="40"/>
+                                                                <color key="backgroundColor" name="IGButtonBGColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="Oqz-El-r00"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
+                                                                <state key="normal" title="Pay">
+                                                                    <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="btnPaymentMid:" destination="1JG-1a-Nfs" eventType="touchUpInside" id="I8q-xN-gNL"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="IGSelectedChannelsCellBGColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="szr-hd-wPt"/>
+                                                            <constraint firstItem="o7x-GE-h4V" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="4FE-Kb-Z6b"/>
+                                                            <constraint firstItem="qFJ-tk-Nqw" firstAttribute="top" secondItem="6Mr-ps-R7o" secondAttribute="bottom" constant="8" id="7Ga-MH-Rri"/>
+                                                            <constraint firstItem="o7x-GE-h4V" firstAttribute="top" secondItem="Klv-8c-TgD" secondAttribute="bottom" constant="20" id="87Q-rS-sKP"/>
+                                                            <constraint firstItem="6Mr-ps-R7o" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="B8C-Uq-5VJ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="6Mr-ps-R7o" secondAttribute="trailing" constant="8" id="GSI-ge-4Fy"/>
+                                                            <constraint firstAttribute="trailing" secondItem="o7x-GE-h4V" secondAttribute="trailing" constant="8" id="KTe-83-Max"/>
+                                                            <constraint firstAttribute="trailing" secondItem="qFJ-tk-Nqw" secondAttribute="trailing" constant="8" id="Lvw-iN-htE"/>
+                                                            <constraint firstItem="Klv-8c-TgD" firstAttribute="top" secondItem="3s3-SX-H4A" secondAttribute="top" constant="8" id="MTv-3v-c9m"/>
+                                                            <constraint firstAttribute="height" constant="272" id="VeZ-x0-qdM"/>
+                                                            <constraint firstAttribute="trailing" secondItem="1f0-jS-qox" secondAttribute="trailing" constant="8" id="i81-d2-hee"/>
+                                                            <constraint firstItem="6Mr-ps-R7o" firstAttribute="top" secondItem="o7x-GE-h4V" secondAttribute="bottom" constant="8" id="ihy-mz-l2B"/>
+                                                            <constraint firstItem="1f0-jS-qox" firstAttribute="top" secondItem="qFJ-tk-Nqw" secondAttribute="bottom" constant="20" id="n0P-wf-D2j"/>
+                                                            <constraint firstItem="qFJ-tk-Nqw" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="o4V-tF-bRY"/>
+                                                            <constraint firstItem="Klv-8c-TgD" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="uKF-6K-4wm"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Klv-8c-TgD" secondAttribute="trailing" constant="8" id="vk8-dZ-rg5"/>
+                                                            <constraint firstItem="1f0-jS-qox" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="xb4-h5-5uW"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billing ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mns-wl-wa6">
-                                                        <rect key="frame" x="8" y="68" width="366" height="40"/>
+                                                    </view>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLd-8U-Yky">
+                                                        <rect key="frame" x="0.0" y="312" width="382" height="272"/>
+                                                        <subviews>
+                                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End-Term Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gh-To-Sig">
+                                                                <rect key="frame" x="8" y="8" width="366" height="40"/>
+                                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="szr-hd-wPt"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billing ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mns-wl-wa6">
+                                                                <rect key="frame" x="8" y="68" width="366" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="TaH-Ai-phS"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUl-SZ-EGy">
+                                                                <rect key="frame" x="8" y="116" width="366" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="NyM-UA-8C2"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount (Rials)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-kw-vdm">
+                                                                <rect key="frame" x="8" y="164" width="366" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="1Fy-A6-wZ2"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-oF-w4T">
+                                                                <rect key="frame" x="8" y="224" width="366" height="40"/>
+                                                                <color key="backgroundColor" name="IGButtonBGColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="Lfw-fL-q3n"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
+                                                                <state key="normal" title="Pay">
+                                                                    <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="btnPayment:" destination="1JG-1a-Nfs" eventType="touchUpInside" id="20J-3z-fa1"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="IGSelectedChannelsCellBGColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="TaH-Ai-phS"/>
+                                                            <constraint firstAttribute="trailing" secondItem="7BU-kw-vdm" secondAttribute="trailing" constant="8" id="2nX-Mo-V6R"/>
+                                                            <constraint firstAttribute="height" constant="272" id="7So-kW-dJ2"/>
+                                                            <constraint firstItem="ER4-oF-w4T" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="9yQ-4R-fg7"/>
+                                                            <constraint firstItem="XUl-SZ-EGy" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="MrR-VM-SZd"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2gh-To-Sig" secondAttribute="trailing" constant="8" id="NJw-dH-7OB"/>
+                                                            <constraint firstItem="2gh-To-Sig" firstAttribute="top" secondItem="xLd-8U-Yky" secondAttribute="top" constant="8" id="USs-ZQ-bqS"/>
+                                                            <constraint firstItem="7BU-kw-vdm" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="VJg-En-I7I"/>
+                                                            <constraint firstItem="ER4-oF-w4T" firstAttribute="top" secondItem="7BU-kw-vdm" secondAttribute="bottom" constant="20" id="Xhq-f4-wim"/>
+                                                            <constraint firstItem="XUl-SZ-EGy" firstAttribute="top" secondItem="mns-wl-wa6" secondAttribute="bottom" constant="8" id="bM1-lC-Pu2"/>
+                                                            <constraint firstItem="mns-wl-wa6" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="bSa-Ee-Qwh"/>
+                                                            <constraint firstItem="mns-wl-wa6" firstAttribute="top" secondItem="2gh-To-Sig" secondAttribute="bottom" constant="20" id="cLF-d5-Ubw"/>
+                                                            <constraint firstAttribute="trailing" secondItem="XUl-SZ-EGy" secondAttribute="trailing" constant="8" id="efa-aa-dex"/>
+                                                            <constraint firstItem="2gh-To-Sig" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="g2c-yl-GMY"/>
+                                                            <constraint firstAttribute="trailing" secondItem="mns-wl-wa6" secondAttribute="trailing" constant="8" id="gnV-St-NF7"/>
+                                                            <constraint firstItem="7BU-kw-vdm" firstAttribute="top" secondItem="XUl-SZ-EGy" secondAttribute="bottom" constant="8" id="j05-nm-2kq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ER4-oF-w4T" secondAttribute="trailing" constant="8" id="ksa-kV-syn"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUl-SZ-EGy">
-                                                        <rect key="frame" x="8" y="116" width="366" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="NyM-UA-8C2"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount (Rials)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7BU-kw-vdm">
-                                                        <rect key="frame" x="8" y="164" width="366" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="1Fy-A6-wZ2"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ER4-oF-w4T">
-                                                        <rect key="frame" x="8" y="224" width="366" height="40"/>
-                                                        <color key="backgroundColor" red="0.2058030589" green="0.74759840899999996" blue="0.79368454219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="Lfw-fL-q3n"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
-                                                        <state key="normal" title="Pay">
-                                                            <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnPayment:" destination="1JG-1a-Nfs" eventType="touchUpInside" id="20J-3z-fa1"/>
-                                                        </connections>
-                                                    </button>
+                                                    </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="7BU-kw-vdm" secondAttribute="trailing" constant="8" id="2nX-Mo-V6R"/>
-                                                    <constraint firstAttribute="height" constant="272" id="7So-kW-dJ2"/>
-                                                    <constraint firstItem="ER4-oF-w4T" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="9yQ-4R-fg7"/>
-                                                    <constraint firstItem="XUl-SZ-EGy" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="MrR-VM-SZd"/>
-                                                    <constraint firstAttribute="trailing" secondItem="2gh-To-Sig" secondAttribute="trailing" constant="8" id="NJw-dH-7OB"/>
-                                                    <constraint firstItem="2gh-To-Sig" firstAttribute="top" secondItem="xLd-8U-Yky" secondAttribute="top" constant="8" id="USs-ZQ-bqS"/>
-                                                    <constraint firstItem="7BU-kw-vdm" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="VJg-En-I7I"/>
-                                                    <constraint firstItem="ER4-oF-w4T" firstAttribute="top" secondItem="7BU-kw-vdm" secondAttribute="bottom" constant="20" id="Xhq-f4-wim"/>
-                                                    <constraint firstItem="XUl-SZ-EGy" firstAttribute="top" secondItem="mns-wl-wa6" secondAttribute="bottom" constant="8" id="bM1-lC-Pu2"/>
-                                                    <constraint firstItem="mns-wl-wa6" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="bSa-Ee-Qwh"/>
-                                                    <constraint firstItem="mns-wl-wa6" firstAttribute="top" secondItem="2gh-To-Sig" secondAttribute="bottom" constant="20" id="cLF-d5-Ubw"/>
-                                                    <constraint firstAttribute="trailing" secondItem="XUl-SZ-EGy" secondAttribute="trailing" constant="8" id="efa-aa-dex"/>
-                                                    <constraint firstItem="2gh-To-Sig" firstAttribute="leading" secondItem="xLd-8U-Yky" secondAttribute="leading" constant="8" id="g2c-yl-GMY"/>
-                                                    <constraint firstAttribute="trailing" secondItem="mns-wl-wa6" secondAttribute="trailing" constant="8" id="gnV-St-NF7"/>
-                                                    <constraint firstItem="7BU-kw-vdm" firstAttribute="top" secondItem="XUl-SZ-EGy" secondAttribute="bottom" constant="8" id="j05-nm-2kq"/>
-                                                    <constraint firstAttribute="trailing" secondItem="ER4-oF-w4T" secondAttribute="trailing" constant="8" id="ksa-kV-syn"/>
-                                                </constraints>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3s3-SX-H4A">
-                                                <rect key="frame" x="16" y="148" width="382" height="272"/>
-                                                <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mid-Term Bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klv-8c-TgD">
-                                                        <rect key="frame" x="8" y="8" width="366" height="40"/>
-                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="02z-mC-teL"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Billing ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7x-GE-h4V">
-                                                        <rect key="frame" x="8" y="68" width="366" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="OXn-6d-42z"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mr-ps-R7o">
-                                                        <rect key="frame" x="8" y="116" width="366" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="kxX-pG-7vT"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount (Rials)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFJ-tk-Nqw">
-                                                        <rect key="frame" x="8" y="164" width="366" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="7S8-EE-n6j"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f0-jS-qox">
-                                                        <rect key="frame" x="8" y="224" width="366" height="40"/>
-                                                        <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="Oqz-El-r00"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="IRANSans-Bold" family="IRANSans" pointSize="17"/>
-                                                        <state key="normal" title="Pay">
-                                                            <color key="titleColor" red="0.98179232750000001" green="0.98184645459999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnPaymentMid:" destination="1JG-1a-Nfs" eventType="touchUpInside" id="I8q-xN-gNL"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="o7x-GE-h4V" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="4FE-Kb-Z6b"/>
-                                                    <constraint firstItem="qFJ-tk-Nqw" firstAttribute="top" secondItem="6Mr-ps-R7o" secondAttribute="bottom" constant="8" id="7Ga-MH-Rri"/>
-                                                    <constraint firstItem="o7x-GE-h4V" firstAttribute="top" secondItem="Klv-8c-TgD" secondAttribute="bottom" constant="20" id="87Q-rS-sKP"/>
-                                                    <constraint firstItem="6Mr-ps-R7o" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="B8C-Uq-5VJ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="6Mr-ps-R7o" secondAttribute="trailing" constant="8" id="GSI-ge-4Fy"/>
-                                                    <constraint firstAttribute="trailing" secondItem="o7x-GE-h4V" secondAttribute="trailing" constant="8" id="KTe-83-Max"/>
-                                                    <constraint firstAttribute="trailing" secondItem="qFJ-tk-Nqw" secondAttribute="trailing" constant="8" id="Lvw-iN-htE"/>
-                                                    <constraint firstItem="Klv-8c-TgD" firstAttribute="top" secondItem="3s3-SX-H4A" secondAttribute="top" constant="8" id="MTv-3v-c9m"/>
-                                                    <constraint firstAttribute="height" constant="272" id="VeZ-x0-qdM"/>
-                                                    <constraint firstAttribute="trailing" secondItem="1f0-jS-qox" secondAttribute="trailing" constant="8" id="i81-d2-hee"/>
-                                                    <constraint firstItem="6Mr-ps-R7o" firstAttribute="top" secondItem="o7x-GE-h4V" secondAttribute="bottom" constant="8" id="ihy-mz-l2B"/>
-                                                    <constraint firstItem="1f0-jS-qox" firstAttribute="top" secondItem="qFJ-tk-Nqw" secondAttribute="bottom" constant="20" id="n0P-wf-D2j"/>
-                                                    <constraint firstItem="qFJ-tk-Nqw" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="o4V-tF-bRY"/>
-                                                    <constraint firstItem="Klv-8c-TgD" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="uKF-6K-4wm"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Klv-8c-TgD" secondAttribute="trailing" constant="8" id="vk8-dZ-rg5"/>
-                                                    <constraint firstItem="1f0-jS-qox" firstAttribute="leading" secondItem="3s3-SX-H4A" secondAttribute="leading" constant="8" id="xb4-h5-5uW"/>
-                                                </constraints>
-                                            </view>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="3s3-SX-H4A" firstAttribute="leading" secondItem="kaZ-J7-sJY" secondAttribute="leading" id="58z-Mj-1zt"/>
-                                            <constraint firstItem="xLd-8U-Yky" firstAttribute="trailing" secondItem="VqS-Fa-bsk" secondAttribute="trailing" id="5bS-CE-lmd"/>
+                                            <constraint firstItem="19u-Kr-F8h" firstAttribute="leading" secondItem="xuU-cs-ZRs" secondAttribute="leading" constant="16" id="AWS-Jc-CL5"/>
                                             <constraint firstItem="VqS-Fa-bsk" firstAttribute="leading" secondItem="kaZ-J7-sJY" secondAttribute="trailing" constant="8" id="F9h-ZZ-4cC"/>
+                                            <constraint firstItem="19u-Kr-F8h" firstAttribute="top" secondItem="cL5-5T-Co6" secondAttribute="bottom" constant="40" id="I7k-q1-9yD"/>
+                                            <constraint firstAttribute="bottom" secondItem="19u-Kr-F8h" secondAttribute="bottom" constant="40" id="LsH-fd-Q2v"/>
                                             <constraint firstAttribute="trailing" secondItem="VqS-Fa-bsk" secondAttribute="trailing" constant="16" id="NMv-ZT-Trp"/>
                                             <constraint firstItem="VqS-Fa-bsk" firstAttribute="top" secondItem="xuU-cs-ZRs" secondAttribute="top" constant="20" id="Tq5-Bh-bvc"/>
                                             <constraint firstItem="kaZ-J7-sJY" firstAttribute="leading" secondItem="xuU-cs-ZRs" secondAttribute="leading" constant="16" id="WFj-0e-bBZ"/>
-                                            <constraint firstAttribute="bottom" secondItem="xLd-8U-Yky" secondAttribute="bottom" constant="20" id="ahm-1V-0xn"/>
-                                            <constraint firstItem="3s3-SX-H4A" firstAttribute="trailing" secondItem="VqS-Fa-bsk" secondAttribute="trailing" id="frx-9R-XYY"/>
                                             <constraint firstItem="cL5-5T-Co6" firstAttribute="trailing" secondItem="VqS-Fa-bsk" secondAttribute="trailing" id="g6E-Iz-xc6"/>
-                                            <constraint firstItem="xLd-8U-Yky" firstAttribute="top" secondItem="3s3-SX-H4A" secondAttribute="bottom" constant="40" id="kI1-Se-Bu3"/>
-                                            <constraint firstItem="xLd-8U-Yky" firstAttribute="leading" secondItem="kaZ-J7-sJY" secondAttribute="leading" id="mck-DU-SKY"/>
                                             <constraint firstItem="cL5-5T-Co6" firstAttribute="leading" secondItem="kaZ-J7-sJY" secondAttribute="leading" id="nPN-o7-djk"/>
                                             <constraint firstItem="kaZ-J7-sJY" firstAttribute="top" secondItem="xuU-cs-ZRs" secondAttribute="top" constant="20" id="tH0-qc-ThO"/>
-                                            <constraint firstItem="3s3-SX-H4A" firstAttribute="top" secondItem="cL5-5T-Co6" secondAttribute="bottom" constant="40" id="tVP-2P-Wse"/>
+                                            <constraint firstAttribute="trailing" secondItem="19u-Kr-F8h" secondAttribute="trailing" constant="16" id="uDt-bM-NSv"/>
                                             <constraint firstItem="cL5-5T-Co6" firstAttribute="top" secondItem="VqS-Fa-bsk" secondAttribute="bottom" constant="8" id="vJq-jI-VfF"/>
                                         </constraints>
                                     </view>
@@ -4543,7 +4545,7 @@ Please wait 0:59</string>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="UCU-S3-N30" firstAttribute="top" secondItem="fAi-NK-8jM" secondAttribute="bottom" id="Js3-Vr-77p"/>
+                            <constraint firstAttribute="bottom" secondItem="fAi-NK-8jM" secondAttribute="bottom" id="Js3-Vr-77p"/>
                             <constraint firstItem="fAi-NK-8jM" firstAttribute="leading" secondItem="CRt-ld-hje" secondAttribute="leadingMargin" constant="-20" id="KhL-2f-1fc"/>
                             <constraint firstItem="xuU-cs-ZRs" firstAttribute="height" secondItem="CRt-ld-hje" secondAttribute="height" priority="250" id="fTw-Ck-SMR"/>
                             <constraint firstItem="fAi-NK-8jM" firstAttribute="top" secondItem="CRt-ld-hje" secondAttribute="topMargin" id="fpM-tY-Qie"/>
@@ -4606,6 +4608,7 @@ Please wait 0:59</string>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="zhY-1X-BST">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" name="IGNavigationSecondColor"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
@@ -7204,7 +7207,7 @@ kay*****@gm**.com</string>
                                                     <rect key="frame" x="80" y="27.666666666666671" width="304" height="66"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="21:50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Py-y5-PED">
-                                                            <rect key="frame" x="236.33333333333331" y="38.666666666666657" width="27.666666666666686" height="17.333333333333329"/>
+                                                            <rect key="frame" x="236.33333333333331" y="43" width="27.666666666666686" height="13"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="11"/>
                                                             <color key="textColor" name="IGMessageTimeLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -7220,7 +7223,7 @@ kay*****@gm**.com</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="it's morning in Tehran " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-vU-V2r">
-                                                            <rect key="frame" x="15" y="4.9999999999999947" width="274" height="28.666666666666671"/>
+                                                            <rect key="frame" x="15" y="4.9999999999999964" width="274" height="33"/>
                                                             <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="12"/>
                                                             <color key="textColor" name="IGMessageTextColor"/>
                                                             <nil key="highlightedColor"/>
@@ -20455,11 +20458,26 @@ Afg
         <namedColor name="IGBackGroundColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="IGButtonBGColor">
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelGrayColor">
+            <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <namedColor name="IGMessageTextColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="IGMessageTimeLabelColor">
             <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="IGNavigationSecondColor">
+            <color red="0.10999999940395355" green="0.10999999940395355" blue="0.11800000071525574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGSelectedChannelsCellBGColor">
+            <color white="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="IGSendMessageBubleBGColor">
             <color red="0.29411764705882354" green="0.29411764705882354" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

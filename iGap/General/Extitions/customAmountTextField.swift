@@ -29,7 +29,7 @@ class customAmountTextField: UITextField, UITextFieldDelegate {
         
         if let amountString = (textField.text)?.inLocalizedLanguage() {
             if amountString.count <= 9 {
-                let tmpTXT = (amountString.inEnglishNumbers().trimmingCharacters(in: .whitespaces)).currencyFormat()
+                let tmpTXT = (amountString.inEnglishNumbersNew().trimmingCharacters(in: .whitespaces)).currencyFormat()
                 textField.text = tmpTXT.inLocalizedLanguage()
             }
             else {

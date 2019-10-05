@@ -15,7 +15,7 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
+    self.navigationBar.topItem?.backBarButtonItem?.setTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: 50), for: UIBarMetrics.default)
         setNavigationGradient()
         configNavigationBar()
     }
@@ -38,6 +38,13 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
             }
         } else {
             // Fallback on earlier versions
+            if let navBar = self.navigationBar as? IGNavigationBar {
+                                if navBar.isTransparent {
+            //                        navBar.setTransparentNavigationBar()
+                                } else {
+                                    self.setNavigationGradient()
+                                }
+                            }
         }
     }
     
@@ -46,7 +53,6 @@ class IGNavigationController: UINavigationController, UINavigationBarDelegate {
             navigationBar.setGradientBackground(colors: [UIColor(named: themeColor.navigationFirstColor.rawValue)!, UIColor(named: themeColor.navigationSecondColor.rawValue)!], startPoint: .centerLeft, endPoint: .centerRight)
         }
     }
-    
     
     
     override func popViewController(animated: Bool) -> UIViewController? {

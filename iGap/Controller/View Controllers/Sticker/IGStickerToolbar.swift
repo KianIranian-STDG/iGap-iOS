@@ -32,7 +32,7 @@ class IGStickerToolbar: UIGestureRecognizer {
         return doctorBotView()
     }
     
-    private func fetchStickerInfo(){
+    private func fetchStickerInfo() {
         stickerTabs = try! Realm().objects(IGRealmSticker.self)
     }
     

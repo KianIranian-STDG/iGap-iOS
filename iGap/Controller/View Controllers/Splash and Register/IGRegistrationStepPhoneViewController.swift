@@ -263,7 +263,7 @@ class IGRegistrationStepPhoneViewController: UIViewController {
         } else {
             
             var phoneSpaceLess: String?
-            let phone = phoneNumberField.text?.inEnglishNumbers()
+            let phone = phoneNumberField.text?.inEnglishNumbersNew()
             if phone != nil && phone != "" {
                 phoneSpaceLess = phone?.replacingOccurrences(of: " ", with: "")
                 phoneSpaceLess = phoneSpaceLess?.replacingOccurrences(of: "_", with: "")

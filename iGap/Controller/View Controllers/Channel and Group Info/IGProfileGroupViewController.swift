@@ -77,13 +77,17 @@ class IGProfileGroupViewController: BaseViewController,NVActivityIndicatorViewab
         
         navigaitonItem.navigationController = self.navigationController as? IGNavigationController
         
-        initView()
-        
         displayNameLabel.textAlignment = displayNameLabel.localizedNewDirection
         displayNameLabel.textColor = .white
         displayNameLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         memberCountLabel.font = UIFont.igFont(ofSize: 15,weight: .bold)
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        initView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

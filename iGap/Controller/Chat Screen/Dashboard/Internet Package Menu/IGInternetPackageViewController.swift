@@ -78,7 +78,6 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         
         self.view.semanticContentAttribute = self.semantic
         
-//        ButtonViewActivate(button: btnOperator, isEnable: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,18 +144,8 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
         for btn in buttons {
             //btn.removeUnderline()
             btn.layer.cornerRadius = 5
-            btn.layer.borderWidth = 1
-            btn.layer.borderColor = UIColor.iGapColor().cgColor
-        }
-    }
-    
-    private func ButtonViewActivate(button: UIButton, isEnable: Bool) {
-        if isEnable {
-            button.layer.borderColor = UIColor.iGapColor().cgColor
-            button.layer.backgroundColor = UIColor.white.cgColor
-        } else {
-            button.layer.borderColor = UIColor.gray.cgColor
-            button.layer.backgroundColor = UIColor.lightGray.cgColor
+            btn.layer.borderWidth = 0.2
+            btn.layer.borderColor = UIColor(named: themeColor.labelGrayColor.rawValue)?.cgColor
         }
     }
     
@@ -221,14 +210,14 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     @IBAction func timeCheckmarkClicked(_ sender: UIButton) {
         if !isTimeChecked {
             // is not checked so check time checkmark
-            timeCheckMarkBtn.setTitle("", for: .normal)
-            timeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 1), for: .normal)
+            timeCheckMarkBtn.setTitle("", for: .normal)
+            timeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
             self.selectTimeOrVolumeBtn.setTitle("CHOOSE_TIME".InternetPackageLocalization, for: .normal)
             self.selectedCategory = nil
             self.selectPackageBtn.isHidden = true
             
             // uncheck volume checkmark
-            volumeCheckMarkBtn.setTitle("", for: .normal)
+            volumeCheckMarkBtn.setTitle("", for: .normal)
             volumeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1), for: .normal)
         }
         isTimeChecked = true
@@ -237,14 +226,14 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     @IBAction func volumeCheckmarkClicked(_ sender: UIButton) {
         if isTimeChecked {
             // if is not checked -> check it
-            volumeCheckMarkBtn.setTitle("", for: .normal)
-            volumeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.6156862745, green: 0.7803921569, blue: 0.337254902, alpha: 1), for: .normal)
+            volumeCheckMarkBtn.setTitle("", for: .normal)
+            volumeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.6941176471, blue: 0.1254901961, alpha: 1), for: .normal)
             self.selectTimeOrVolumeBtn.setTitle("CHOOSE_VOLUME".InternetPackageLocalization, for: .normal)
             self.selectedCategory = nil
             self.selectPackageBtn.isHidden = true
             
             // uncheck time checkmark
-            timeCheckMarkBtn.setTitle("", for: .normal)
+            timeCheckMarkBtn.setTitle("", for: .normal)
             timeCheckMarkBtn.setTitleColor(#colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1), for: .normal)
         }
         isTimeChecked = false
@@ -284,7 +273,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     }
     
     @IBAction func payBtnTappd(_ sender: UIButton) {
-        guard let phoneNumber = edtPhoneNubmer.text?.inEnglishNumbers() else {
+        guard let phoneNumber = edtPhoneNubmer.text?.inEnglishNumbersNew() else {
             return
         }
         
@@ -340,7 +329,7 @@ class IGInternetPackageViewController: BaseViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if let text = edtPhoneNubmer.text {
+        if let text = edtPhoneNubmer.text?.inEnglishNumbersNew() {
             let newLength = text.count + string.count - range.length
             if (newLength == PHONE_LENGTH) {
                 operatorType = operatorDictionary[text.substring(offset: 4)]

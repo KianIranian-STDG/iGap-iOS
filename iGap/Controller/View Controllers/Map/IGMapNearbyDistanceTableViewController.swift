@@ -43,9 +43,8 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
         
         self.tableView.register(IGMapNearbyDistanceCell.nib(), forCellReuseIdentifier: IGMapNearbyDistanceCell.cellReuseIdentifier())
         self.tableView.tableFooterView = UIView()
-        self.tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.view.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        self.tableView.tableHeaderView?.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        self.tableView.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
+        self.tableView.tableHeaderView?.backgroundColor = UIColor(named: themeColor.tableViewBackground.rawValue)
         
         self.notificationToken = nearbyDistanceList!.observe { (changes: RealmCollectionChange) in
             switch changes {
@@ -71,9 +70,9 @@ class IGMapNearbyDistanceTableViewController: BaseTableViewController {
             self.fetchNearbyUsersDistanceList()
         } else {
             NotificationCenter.default.addObserver(self,
-                                                   selector: #selector(self.fetchNearbyUsersDistanceList),
-                                                   name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
-                                                   object: nil)
+                                       selector: #selector(self.fetchNearbyUsersDistanceList),
+                                       name: NSNotification.Name(rawValue: kIGUserLoggedInNotificationName),
+                                       object: nil)
         }
     }
     

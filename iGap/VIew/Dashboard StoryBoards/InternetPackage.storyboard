@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -33,32 +33,32 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="YLg-2u-0Ln"/>
                                 </constraints>
+                                <color key="textColor" name="IGLabelColor"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Package type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeu-Ek-xBu">
-                                <rect key="frame" x="32" y="80" width="97" height="25.5"/>
+                                <rect key="frame" x="32" y="80" width="98" height="19"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="16"/>
                                 <color key="textColor" name="IGLabelGrayColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sy-sW-ZsC">
-                                <rect key="frame" x="32" y="173.5" width="256" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="32" y="167" width="256" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="OZv-fu-8CE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Package">
-                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelGrayColor"/>
                                 </state>
                                 <connections>
                                     <action selector="choosePackageTappd:" destination="KWN-e1-KUy" eventType="touchUpInside" id="Gun-E8-Vf7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRi-Ga-fxX">
-                                <rect key="frame" x="32" y="291.5" width="256" height="40"/>
-                                <color key="backgroundColor" red="0.67843137249999996" green="0.80392156859999997" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="32" y="285" width="256" height="40"/>
+                                <color key="backgroundColor" name="IGButtonBGColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="eyq-1Z-Ls0"/>
                                 </constraints>
@@ -71,47 +71,46 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSR-Iu-LZa">
-                                <rect key="frame" x="32" y="125.5" width="256" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="32" y="119" width="256" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="eVh-V7-hAv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="17"/>
                                 <state key="normal" title="Choose Time">
-                                    <color key="titleColor" red="0.25962049190000003" green="0.2621909918" blue="0.2621909918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" name="IGLabelGrayColor"/>
                                 </state>
                                 <connections>
                                     <action selector="chooseTimeOrVolumeTappd:" destination="KWN-e1-KUy" eventType="touchUpInside" id="NQi-eN-jZp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYw-5Y-kQ5">
-                                <rect key="frame" x="141" y="75" width="36" height="36"/>
+                                <rect key="frame" x="142" y="71.5" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="36" id="auP-VO-qEP"/>
                                     <constraint firstAttribute="width" secondItem="dYw-5Y-kQ5" secondAttribute="height" multiplier="1:1" id="bYT-dx-9eD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
-                                <state key="normal" title="">
-                                    <color key="titleColor" red="0.61568627450000002" green="0.78039215689999997" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" red="0.25490196078431371" green="0.69411764705882351" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="timeCheckmarkClicked:" destination="KWN-e1-KUy" eventType="touchUpInside" id="5id-DN-8w1"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ei-9p-DJJ">
-                                <rect key="frame" x="177" y="82" width="31" height="22"/>
+                                <rect key="frame" x="178" y="81.5" width="31" height="16.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                 <color key="textColor" white="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p9z-SC-k4r">
-                                <rect key="frame" x="220" y="75" width="36" height="36"/>
+                                <rect key="frame" x="221" y="71.5" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="p9z-SC-k4r" secondAttribute="height" multiplier="1:1" id="D0t-ES-nwc"/>
                                     <constraint firstAttribute="width" constant="36" id="Qjc-zD-W3U"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="22"/>
-                                <state key="normal" title="">
+                                <state key="normal" title="">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -119,7 +118,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYY-Mp-ssV">
-                                <rect key="frame" x="256" y="82" width="48" height="22"/>
+                                <rect key="frame" x="257" y="81.5" width="46.5" height="16.5"/>
                                 <fontDescription key="fontDescription" name="IRANSans" family="IRANSans" pointSize="14"/>
                                 <color key="textColor" white="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -171,6 +170,12 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="IGButtonBGColor">
+            <color red="0.10980392156862745" green="0.10980392156862745" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="IGLabelColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="IGLabelGrayColor">
             <color white="0.66699999570846558" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>

@@ -43,6 +43,8 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
     static var stickerAddListener: StickerAddListener!
     static var stickerCurrentGroupIdObserver: StickerCurrentGroupIdObserver!
     
+    var backGroundColor = UIColor.sticker()
+    
     override func viewDidAppear(_ animated: Bool) {
         IGStickerViewController.stickerToolbarObserver = self
         IGStickerViewController.stickerAddListener = self
@@ -61,7 +63,7 @@ class IGStickerViewController: BaseCollectionViewController, UIGestureRecognizer
         initNavigationBar()
         
         self.collectionView!.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        self.view.backgroundColor = UIColor.sticker()
+        self.view.backgroundColor = backGroundColor
         
         if stickerPageType == StickerPageType.MAIN {
             fetchMySticker()
