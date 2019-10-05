@@ -80,7 +80,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         searchController.searchBar.barTintColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         searchController.searchBar.backgroundColor = UIColor(patternImage: IGGlobal.image(fromLayer: gradient))
         
-        
     }
     
     var nameLabel :UILabel = {
@@ -123,17 +122,19 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 connectionStatus = .waitingForNetwork
                 IGAppManager.connectionStatusStatic = .waitingForNetwork
                 break
+                
             case .connecting:
                 navigationItem.setNavigationItemForConnecting()
                 connectionStatus = .connecting
                 IGAppManager.connectionStatusStatic = .connecting
                 break
+                
             case .connected:
                 connectionStatus = .connected
                 IGAppManager.connectionStatusStatic = .connected
                 break
-            case .iGap:
                 
+            case .iGap:
                 connectionStatus = .iGap
                 IGAppManager.connectionStatusStatic = .iGap
                 switch  currentTabIndex {
@@ -142,11 +143,11 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
                 default:
                     self.setLastNavigationItem()
                 }
-
                 break
             }
         }
     }
+    
     private func setLastNavigationItem() {
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         self.hideKeyboardWhenTappedAround()
@@ -157,8 +158,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
                 navigationItem.setDiscoveriesNavigationItems()
-            } else {
-                
             }
             
         } else if currentTabIndex == TabBarTab.Contact.rawValue { // Phone Book Tab
@@ -167,8 +166,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
                 navigationItem.setPhoneBookNavigationItems()
-            } else {
-                
             }
             
         } else if currentTabIndex == TabBarTab.Call.rawValue { // Call List Tab
@@ -177,8 +174,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
                 navigationItem.addiGapLogo()
-            } else {
-                
             }
 
         } else if currentTabIndex == TabBarTab.Profile.rawValue { // Profile Tab
@@ -187,10 +182,6 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
                 navigationItem.addiGapLogo()
-//                navigationControllerr.navigationBar.isHidden = true
-
-            } else {
-                
             }
 
         } else if currentTabIndex == TabBarTab.Recent.rawValue { // Recent Tab
@@ -199,11 +190,9 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             //Hint: - check if we are at the root of navigation or we are in Inner pages
             if numberOfPages == 1 {
                 navigationItem.setChatListsNavigationItems()
-            } else {
-                
             }
             
-        }else {
+        } else {
             navigationItem.addiGapLogo()
         }
 
@@ -465,20 +454,18 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
         super.viewWillAppear(animated)
 
         let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-       navigationItem.setChatListsNavigationItems()
-        navItemInit()
-
+        navigationItem.setChatListsNavigationItems()
+        
                 
-                
-                if #available(iOS 11.0, *) {
-                    self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
+        if #available(iOS 11.0, *) {
+            self.searchController.searchBar.searchBarStyle = UISearchBar.Style.minimal
 
-                    if navigationItem.searchController == nil {
-                        tableView.tableHeaderView = searchController.searchBar
-                    }
-                } else {
-                    tableView.tableHeaderView = searchController.searchBar
-                }
+            if navigationItem.searchController == nil {
+                tableView.tableHeaderView = searchController.searchBar
+            }
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
 
         
         isfromPacket = false

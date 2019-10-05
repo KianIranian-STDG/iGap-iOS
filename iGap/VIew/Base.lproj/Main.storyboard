@@ -1968,28 +1968,11 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x0z-Lg-qnh">
                                             <rect key="frame" x="-5" y="-5" width="424" height="165"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-8q-m1X">
-                                            <rect key="frame" x="347" y="30" width="57" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="57" id="gwc-6B-Wkh"/>
-                                                <constraint firstAttribute="width" secondItem="7sd-8q-m1X" secondAttribute="height" multiplier="57:50" id="jBB-8E-UN7"/>
-                                                <constraint firstAttribute="height" constant="50" id="uLH-Ma-48e"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="iGap_fontico" family="iGap_fontico" pointSize="20"/>
-                                            <state key="normal" title="">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="btnEditProfileTapped:" destination="z3s-7I-oQt" eventType="touchUpInside" id="Ihf-Ye-Pvl"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="7sd-8q-m1X" firstAttribute="top" secondItem="xXc-X5-txr" secondAttribute="top" constant="30" id="O2j-7Y-aBI"/>
                                         <constraint firstAttribute="height" constant="155" id="PRs-qC-MtH"/>
                                         <constraint firstAttribute="bottom" secondItem="x0z-Lg-qnh" secondAttribute="bottom" constant="-5" id="TFf-DN-hqw"/>
-                                        <constraint firstAttribute="trailing" secondItem="7sd-8q-m1X" secondAttribute="trailing" constant="10" id="kJh-g0-xTt"/>
                                         <constraint firstItem="x0z-Lg-qnh" firstAttribute="leading" secondItem="xXc-X5-txr" secondAttribute="leading" constant="-5" id="mkb-Bq-x6C"/>
                                         <constraint firstAttribute="trailing" secondItem="x0z-Lg-qnh" secondAttribute="trailing" constant="-5" id="tiJ-v7-xuX"/>
                                         <constraint firstItem="x0z-Lg-qnh" firstAttribute="top" secondItem="xXc-X5-txr" secondAttribute="top" constant="-5" id="u6Y-eG-jso"/>
@@ -2787,7 +2770,6 @@
                         <outlet property="btnCamera" destination="Bhw-T0-vqW" id="Crh-pS-5X4"/>
                         <outlet property="btnCountryCode" destination="DMQ-x6-ofX" id="rr8-On-S05"/>
                         <outlet property="btnCountryCodeWidthConstraints" destination="eWb-xs-U2O" id="ToI-Se-xgX"/>
-                        <outlet property="btnEditProfile" destination="7sd-8q-m1X" id="pqy-aY-aOb"/>
                         <outlet property="btnMenGender" destination="10Z-rH-bXe" id="7e0-4U-waT"/>
                         <outlet property="btnName" destination="afm-P4-CN8" id="Ipl-Ib-gWy"/>
                         <outlet property="btnUsername" destination="ido-Ud-F2t" id="ZDC-dN-Pgz"/>

@@ -17,7 +17,7 @@ import MapKit
 import MBProgressHUD
 
 
-class IGProfileTableViewController: UITableViewController,CLLocationManagerDelegate,UITextFieldDelegate{
+class IGProfileTableViewController: UITableViewController, CLLocationManagerDelegate, UITextFieldDelegate {
     lazy var colorView = { () -> UIView in
         let view = UIView()
         view.isUserInteractionEnabled = false
@@ -76,7 +76,7 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     @IBOutlet weak var lblVersion: UILabel!
     @IBOutlet weak var lblMoneyAmount: UILabel!
     @IBOutlet weak var lblScoreAmount: UILabel!
-    @IBOutlet weak var btnEditProfile : UIButton!
+//    @IBOutlet weak var btnEditProfile : UIButton!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblBioInner: UILabel!
@@ -117,6 +117,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     var isPoped = false
     let disposeBag = DisposeBag()
     var userCards: [SMCard]?
+    
+    var editProfileNavBtn: UIButton!
 
     @IBOutlet weak var userAvatarView: IGAvatarView!
     
@@ -126,11 +128,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
-//        self.tableView.alwaysBounceVertical = false
         initView()
         initServices()
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
-        navigationItem.removeNavButtons()
+        
+//        self.initNavBar()
+        
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
@@ -144,6 +146,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
 //            navigationBar.isHidden = true
 //            navigationBar.backgroundColor = .clear
 //        }
+        
+        self.initNavBar()
         
         IGRequestWalletGetAccessToken.sendRequest()
         //Hint:- Check if request was not successfull call services again
@@ -166,9 +170,9 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         textManagment()
         self.tableView.alwaysBounceVertical = false
         
-        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+//        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
         
-        navigationItem.removeNavButtons()
+//        navigationItem.removeNavButtons()
         
         //  Converted to Swift 5 by Swiftify v5.0.30657 - https://objectivec2swift.com/
         if #available(iOS 11.0, *) {
@@ -179,7 +183,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         if(IGProfileTableViewController.allowGetCountry){
             getUserCurrentLocation()
         }
-        
     }
     
     func getUserCurrentLocation() {
@@ -220,7 +223,16 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         }
     }
     
-    func initServices() {
+    private func initNavBar() {
+        let navigationItem = self.tabBarController?.navigationItem as! IGNavigationItem
+        self.editProfileNavBtn = navigationItem.setProfilePageNavigationItem()
+        
+        navigationItem.rightViewContainer?.addAction {
+            self.editProfileTapped()
+        }
+    }
+    
+    private func initServices() {
         getUserEmail()
         self.finishDefault(isPaygear: true, isCard: false)
         getScore()
@@ -230,20 +242,16 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         wallpapersList = try! Realm().objects(IGRealmWallpaper.self).filter(predicateWallpaper)
             
         if wallpapersList.count > 0 {
-                
                 for wallpaper in wallpapersList {
                     self.libraryBanner.append(wallpaper.file.first!)
 
                     self.imgBackgroundImage.setThumbnail(for: libraryBanner[0], showMain: true)
                     
-                    
             }
 
-            } else {
-                getProfileWallpaper()
-            }
-            
-        
+        } else {
+            getProfileWallpaper()
+        }
     }
     private func getProfileWallpaper() { // if not exist wallpapers in local get from server
         
@@ -589,8 +597,6 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
     open private(set) var deleteToolbar: UIToolbar!
     
     
-    
-    
     func showAvatar(avatar : IGAvatar) {
         
         var photos: [INSPhotoViewable] = self.avatars.map { (avatar) -> IGMediaUserAvatar in
@@ -823,13 +829,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
         goToSettings = false
         let createChat = IGCreateNewChatTableViewController.instantiateFromAppStroryboard(appStoryboard: .Main)
         self.navigationController!.pushViewController(createChat, animated: true)
-
     }
     
-    @IBAction func btnEditProfileTapped(_ sender: Any) {
+    private func editProfileTapped() {
         print(tapCount)
         tapCount += 1
-
 
         //end editMode
         if tapCount % 2 == 0 {
@@ -840,12 +844,11 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             } else {
                 shouldSave = false
             }
-            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.btnEditProfile.setTitle("", for: .normal)
-
+            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.editProfileNavBtn.setTitle("", for: .normal)
             })
             
-            btnEditProfile.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+            editProfileNavBtn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
             
             self.tableView.beginUpdates()
             self.btnCamera.isHidden = true
@@ -858,26 +861,25 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             textManagment()
             isEditMode = true
             shouldSave = false
-            btnEditProfile.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
-            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.btnEditProfile.setTitle("", for: .normal)
+            editProfileNavBtn.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.editProfileNavBtn.setTitle("", for: .normal)
             })
             self.tableView.beginUpdates()
             self.btnCamera.isHidden = false
             self.tableView.endUpdates()
-
         }
-        
     }
+    
     private func updateBtnEditStateView(hasChnagedValue: Bool! = false) {
         if hasChnagedValue {
-            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.btnEditProfile.setTitle("", for: .normal)
+            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.editProfileNavBtn.setTitle("", for: .normal)
             })
             shouldSave = true
         } else {
-            UIView.transition(with: btnEditProfile, duration: 0.5, options: .transitionCrossDissolve, animations: {
-                self.btnEditProfile.setTitle("", for: .normal)
+            UIView.transition(with: editProfileNavBtn, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.editProfileNavBtn.setTitle("", for: .normal)
             })
             shouldSave = false
 
@@ -1115,11 +1117,10 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             default:
                 break
             }
-            
         }
-        
-        
     }
+    
+    
     //MARK : - ACTIONS
 
     @IBAction func btnMaleGendedidTapOnMaleGender(_ sender: Any) {
@@ -1139,8 +1140,8 @@ class IGProfileTableViewController: UITableViewController,CLLocationManagerDeleg
             hasGenderChanged = false
             updateBtnEditStateView(hasChnagedValue: false)
         }
-
     }
+    
     @IBAction func didTapOnFemaleGender(_ sender: Any) {
         if isFMaleChecked {
         } else {

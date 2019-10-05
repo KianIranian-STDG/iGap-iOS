@@ -505,10 +505,20 @@ class IGNavigationItem: UINavigationItem {
         label.textColor = UIColor.iGapBarsInfo()
         leftViewContainer!.addSubview(label)
     }
+    
+    
     //MARK: - ProfilePage
+    func setProfilePageNavigationItem() -> UIButton {
+        activeTappleArea()
+        addiGapLogo()
+        let editButton = addProfileEditButton()
+        return editButton
+    }
+    
+    
     func removeNavButtons() {
         addiGapLogo()
-        
+
         if leftViewContainer!.subviews.count > 0 {
             leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
         }
@@ -518,6 +528,7 @@ class IGNavigationItem: UINavigationItem {
 
         deactivateTappbleArea()
     }
+    
     //MARK: - Phone Book
     func setPhoneBookNavigationItems() {
         activeTappleArea()
@@ -525,22 +536,23 @@ class IGNavigationItem: UINavigationItem {
         addSettingButton()
         addComopseButton()
     }
+    
     private func activeTappleArea() {
         rightViewContainer?.isUserInteractionEnabled = true
         leftViewContainer?.isUserInteractionEnabled = true
     }
+    
     private func deactivateTappbleArea() {
         rightViewContainer?.isUserInteractionEnabled = false
         leftViewContainer?.isUserInteractionEnabled = false
     }
+    
     private func addSettingButton() {
         if leftViewContainer?.subviews.count != nil {
             if leftViewContainer!.subviews.count > 0 {
                 
                 leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                
             }
-            
         }
         let leftViewFrame = CGRect(x:0, y:0, width: 50, height:40)
         leftViewContainer = IGTappableView(frame: leftViewFrame)
@@ -550,7 +562,6 @@ class IGNavigationItem: UINavigationItem {
         let _ : String = SMLangUtil.loadLanguage()
         
         
-        
         let settingViewFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnEdit = UIButton(frame: settingViewFrame)
         btnEdit.setTitle("", for: .normal)
@@ -558,14 +569,28 @@ class IGNavigationItem: UINavigationItem {
 //        leftViewContainer!.addSubview(btnEdit)
     }
     
-    private func addComopseButton() {
-        
+    private func addProfileEditButton() -> UIButton {
         if rightViewContainer?.subviews.count != nil {
-            
             if rightViewContainer!.subviews.count > 0 {
                 rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
             }
-            
+        }
+        let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        
+        let btnAdd = UIButton(frame: composeButtonFrame)
+        btnAdd.setTitle("", for: .normal)
+        btnAdd.titleLabel?.font = UIFont.iGapFonticon(ofSize: 20)
+        btnAdd.isUserInteractionEnabled = true
+        rightViewContainer!.addSubview(btnAdd)
+        return btnAdd
+    }
+    
+    private func addComopseButton() {
+        
+        if rightViewContainer?.subviews.count != nil {
+            if rightViewContainer!.subviews.count > 0 {
+                rightViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+            }
         }
         let composeButtonFrame = CGRect(x: 0, y: 0, width: 40, height: 40)
         
@@ -590,9 +615,7 @@ class IGNavigationItem: UINavigationItem {
             if leftViewContainer!.subviews.count > 0 {
                 
                 leftViewContainer!.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
-                
             }
-            
         }
         let callListViewFrame =  CGRect(x: 0, y: 0, width: 40, height: 40)
         let btnMoreSettings = UIButton(frame: callListViewFrame)
@@ -602,8 +625,6 @@ class IGNavigationItem: UINavigationItem {
         btnMoreSettings.isUserInteractionEnabled = false
 
         leftViewContainer!.addSubview(btnMoreSettings)
-        
-        
     }
     
     private func addPlusButton() {
@@ -659,9 +680,7 @@ class IGNavigationItem: UINavigationItem {
         
     }
     
-    
     private func addScoreButton() {
-        
         
         if rightViewContainer?.subviews.count != nil {
             if rightViewContainer!.subviews.count > 0 {
@@ -680,6 +699,7 @@ class IGNavigationItem: UINavigationItem {
         rightViewContainer!.addSubview(composeButtonImageView)
         
     }
+    
     //MARK: - Chat List
     func setChatListsNavigationItems() {
         activeTappleArea()
@@ -690,8 +710,6 @@ class IGNavigationItem: UINavigationItem {
     private func removeSettingButton() {
         
     }
-    
-    
     
     
     func addiGapLogo() {
