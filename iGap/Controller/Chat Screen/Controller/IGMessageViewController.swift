@@ -437,6 +437,13 @@ class IGMessageViewController: UIViewController, DidSelectLocationDelegate, UIGe
     //MARK: - Initilizers
     override func viewDidLoad() {
         super.viewDidLoad()
+//        inputTextView.backgroundColor = .red
+//        let attributes = [
+//            NSAttributedString.Key.font : UIFont.igFont(ofSize: 13) // Note the !
+//        ]
+//
+//        inputTextView.attributedPlaceholder = NSAttributedString(string: "MESSAGE".MessageViewlocalizedNew, attributes:attributes)
+
 //        txtSticker.font = UIFont.iGapFonticon(ofSize: 19)
         inputBarMoneyTransferButton.titleLabel?.font = UIFont.iGapFonticon(ofSize: 19)
         lblSelectedMessages.font = UIFont.igFont(ofSize: 17,weight: .bold)

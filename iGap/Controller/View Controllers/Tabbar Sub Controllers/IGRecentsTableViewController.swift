@@ -478,6 +478,8 @@ class IGRecentsTableViewController: BaseTableViewController, MessageReceiveObser
             }
         }
         self.tableView.isUserInteractionEnabled = true
+        setDefaultNavigationItem()
+
         //self.addRoomChangeNotificationBlock()
     }
     

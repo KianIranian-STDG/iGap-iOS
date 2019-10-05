@@ -751,6 +751,8 @@ class IGNavigationItem: UINavigationItem {
         addSettingButton()
         addComopseButton()
         addiGapLogo()
+        activeTappleArea()
+
     }
     private func removeSettingButton() {
         
