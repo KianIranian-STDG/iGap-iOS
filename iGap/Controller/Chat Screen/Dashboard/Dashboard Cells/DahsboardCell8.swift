@@ -130,6 +130,8 @@ class DashboardCell8: AbstractDashboardCell {
             for elemnt in dashboardAbsPollInner {
                 tmpMax.append(elemnt.igpSum)
             }
+            let sum = tmpMax.reduce(0, +)
+
             for elemnt in dashboardAbsPollInner {
                 
                 var t = elemnt.igpLabel
@@ -137,8 +139,9 @@ class DashboardCell8: AbstractDashboardCell {
                     t.removeLast((t.count) - 19)
                     t  = t + "..."
                 }
-                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(1 * (elemnt.igpSum) / tmpMax.max()!)), textValue: String(elemnt.igpSum).inRialFormat(), title: t)
-                
+
+                let tmpDataEntry = DataEntry(color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), height: (Float(1 * Double(elemnt.igpSum) / Double(tmpMax.max()!))), textValue: String(format: "%.2f", (((Double(elemnt.igpSum) / Double(sum)) * 100))).inLocalizedLanguage() + " " + "%", title: t)
+            
                 result.append(tmpDataEntry)
             }
         }
